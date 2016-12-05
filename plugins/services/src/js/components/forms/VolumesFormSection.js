@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Objektiv from 'objektiv';
 
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -9,37 +10,48 @@ import Icon from '../../../../../../src/js/components/Icon';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 
-class VolumesFormSection extends Component {
+const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
+class VolumesFormSection extends Component {
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== 'PERSISTENT') {
       return null;
     }
-    const {errors} = this.props;
+
+    const sizeError = errorsLens
+      .at(key, {})
+      .attr('persistent', {})
+      .get(this.props.errors)
+      .size;
+
+    const containerPathError = errorsLens
+      .at(key, {})
+      .get(this.props.errors)
+      .containerPath;
 
     return (
       <div className="flex row">
         <FormGroup
           className="column-3"
           required={false}
-          showError={Boolean(errors.localVolumes[key])}>
+          showError={Boolean(sizeError)}>
           <FieldLabel>Size (MiB)</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.size`}
             type="number"
             value={volume.size} />
-          <FieldError>{errors.localVolumes[key]}</FieldError>
+          <FieldError>{sizeError}</FieldError>
         </FormGroup>
         <FormGroup
           className="column-6"
           required={false}
-          showError={Boolean(errors.localVolumes[key])}>
+          showError={Boolean(containerPathError)}>
           <FieldLabel>Container Path</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}/>
-          <FieldError>{errors.localVolumes[key]}</FieldError>
+          <FieldError>{containerPathError}</FieldError>
         </FormGroup>
       </div>
     );
@@ -49,35 +61,39 @@ class VolumesFormSection extends Component {
     if (volume.type !== 'HOST') {
       return null;
     }
-    const {errors} = this.props;
+
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
+    const hostPathError = errors.hostPath;
+    const containerPathError = errors.containerPath;
+    const modeError = errors.mode;
 
     return (
       <div className="flex row">
         <FormGroup
           className="column-4"
           required={false}
-          showError={Boolean(errors.localVolumes[key])}>
+          showError={Boolean(hostPathError)}>
           <FieldLabel>HostPath</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.hostPath`}
             value={volume.hostPath} />
-          <FieldError>{errors.localVolumes[key]}</FieldError>
+          <FieldError>{hostPathError}</FieldError>
         </FormGroup>
         <FormGroup
           className="column-4"
           required={false}
-          showError={Boolean(errors.localVolumes[key])}>
+          showError={Boolean(containerPathError)}>
           <FieldLabel>Container Path</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}/>
-          <FieldError>{errors.localVolumes[key]}</FieldError>
+          <FieldError>{containerPathError}</FieldError>
         </FormGroup>
         <FormGroup
           className="column-4"
           required={false}
-          showError={Boolean(errors.localVolumes[key])}>
+          showError={Boolean(modeError)}>
           <FieldLabel>Mode</FieldLabel>
           <FieldSelect name={`localVolumes.${key}.mode`} value={volume.mode}>
             <option value="RW">READ and Write</option>
@@ -96,8 +112,6 @@ class VolumesFormSection extends Component {
   }
 
   getLocalVolumesLines(data) {
-    const {errors} = this.props;
-
     const dockerImage = this.props.data.container &&
       this.props.data.container.docker &&
       this.props.data.container.docker.image;
@@ -108,6 +122,11 @@ class VolumesFormSection extends Component {
         return null;
       }
 
+      const typeError = errorsLens
+        .at(key, {})
+        .get(this.props.errors)
+        .type;
+
       return (
         <div key={key} className="panel pod-short">
           <div className="pod-narrow pod-short">
@@ -115,7 +134,7 @@ class VolumesFormSection extends Component {
               <FormGroup
                 className="column-6"
                 required={false}
-                showError={Boolean(errors.localVolumes[key])}>
+                showError={Boolean(typeError)}>
                 <FieldLabel>Volume Type</FieldLabel>
                 <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
                   <option>Select...</option>
@@ -139,10 +158,26 @@ class VolumesFormSection extends Component {
     });
   }
 
-  getExternalVolumesLines(data) {
-    const {errors} = this.props;
-
+  /**
+   * getExternalVolumesLines
+   *
+   * @param  {Object} data
+   * @param  {Number} offset as we have two independent sections that are 0 based we need to add an offset to the second one
+   * @return {Array} elements
+   */
+  getExternalVolumesLines(data, offset) {
     return data.map((volumes, key) => {
+      const nameError = errorsLens
+        .at(key + offset, {})
+        .attr('external', {})
+        .get(this.props.errors)
+        .name;
+
+      const containerPathError = errorsLens
+        .at(key + offset, {})
+        .get(this.props.errors)
+        .containerPath;
+
       return (
         <div key={key} className="panel pod-short">
           <div className="pod-narrow pod-short">
@@ -150,24 +185,24 @@ class VolumesFormSection extends Component {
               <FormGroup
                 className="column-6"
                 required={false}
-                showError={Boolean(errors.externalVolumes[key])}>
+                showError={Boolean(nameError)}>
                 <FieldLabel>Name</FieldLabel>
                 <FieldInput
                   name={`externalVolumes.${key}.name`}
                   type="text"
                   value={volumes.name}/>
-                <FieldError>{errors.externalVolumes[key]}</FieldError>
+                <FieldError>{nameError}</FieldError>
               </FormGroup>
               <FormGroup
                 className="column-9"
                 required={false}
-                showError={Boolean(errors.externalVolumes[key])}>
+                showError={Boolean(containerPathError)}>
                 <FieldLabel>Container Mount Path</FieldLabel>
                 <FieldInput
                   name={`externalVolumes.${key}.containerPath`}
                   type="text"
                   value={volumes.containerPath}/>
-                <FieldError>{errors.externalVolumes[key]}</FieldError>
+                <FieldError>{containerPathError}</FieldError>
               </FormGroup>
               <div className="form-remove">
                 <a className="button button-primary-link"
@@ -208,7 +243,7 @@ class VolumesFormSection extends Component {
         <p>
           Set up volumes variables for each task your service launches.
         </p>
-        {this.getExternalVolumesLines(data.externalVolumes)}
+        {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
         <div>
           <a
             className="button button-primary-link button-flush"
@@ -223,10 +258,7 @@ class VolumesFormSection extends Component {
 
 VolumesFormSection.defaultProps = {
   data: {},
-  errors: {
-    localVolumes: [],
-    externalVolumes: []
-  },
+  errors: {},
   onAddItem() {},
   onRemoveItem() {}
 };
@@ -239,8 +271,8 @@ VolumesFormSection.propTypes = {
 };
 
 VolumesFormSection.configReducers = {
-  localVolumes,
-  externalVolumes
+  externalVolumes,
+  localVolumes
 };
 
 VolumesFormSection.validationReducers = {

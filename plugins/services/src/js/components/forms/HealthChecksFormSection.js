@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Objektiv from 'objektiv';
 
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
@@ -13,89 +14,95 @@ import FormGroupContainer from '../../../../../../src/js/components/form/FormGro
 
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
+const errorsLens = Objektiv.attr('healthChecks', []);
+
 class HealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, key) {
-    const {healthChecks} = this.props.errors;
     if (healthCheck.protocol !== 'COMMAND' && healthCheck.protocol !== 'HTTP' &&
       healthCheck.protocol !== 'HTTPS') {
       return null;
     }
 
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
+
     return (
-        <AdvancedSection>
-          <AdvancedSectionLabel>
-            Advanced Health Check Settings
-          </AdvancedSectionLabel>
-          <AdvancedSectionContent>
-            <div className="flex row">
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Grace Period (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.gracePeriodSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.gracePeriodSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Interval (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.intervalSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.intervalSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Timeout (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.timeoutSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.timeoutSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Max Failures</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.maxConsecutiveFailures`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.maxConsecutiveFailures}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-            </div>
-          </AdvancedSectionContent>
-        </AdvancedSection>
+      <AdvancedSection>
+        <AdvancedSectionLabel>
+          Advanced Health Check Settings
+        </AdvancedSectionLabel>
+        <AdvancedSectionContent>
+          <div className="flex row">
+            <FormGroup
+                className="column-3"
+                showError={Boolean(errors.gracePeriodSeconds)}>
+              <FieldLabel>Grace Period (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.gracePeriodSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.gracePeriodSeconds}/>
+              <FieldError>{errors.gracePeriodSeconds}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(errors.intervalSeconds)}>
+              <FieldLabel>Interval (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.intervalSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.intervalSeconds}/>
+              <FieldError>{errors.intervalSeconds}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(errors.timeoutSeconds)}>
+              <FieldLabel>Timeout (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.timeoutSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.timeoutSeconds}/>
+              <FieldError>{errors.timeoutSeconds}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(errors.maxConsecutiveFailures)}>
+              <FieldLabel>Max Failures</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.maxConsecutiveFailures`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.maxConsecutiveFailures}/>
+              <FieldError>{errors.maxConsecutiveFailures}</FieldError>
+            </FormGroup>
+          </div>
+        </AdvancedSectionContent>
+      </AdvancedSection>
     );
   }
 
   getCommandFields(healthCheck, key) {
-    const {healthChecks} = this.props.errors;
-
     if (healthCheck.protocol !== 'COMMAND') {
       return null;
     }
+
+    const errors = errorsLens
+      .at(key, {})
+      .attr('command', {})
+      .get(this.props.errors);
 
     return (
       <div className="flex row">
         <FormGroup
           className="column-12"
-          showError={Boolean(healthChecks[key])}>
+          showError={Boolean(errors.command)}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
             name={`healthChecks.${key}.command`}
             type="text"
             value={healthCheck.command}/>
-          <FieldError>{healthChecks[key]}</FieldError>
+          <FieldError>{errors.command}</FieldError>
         </FormGroup>
       </div>
     );
@@ -110,11 +117,11 @@ class HealthChecksFormSection extends Component {
   }
 
   getHTTPFields(healthCheck, key) {
-    const {healthChecks} = this.props.errors;
-
     if (healthCheck.protocol !== 'HTTP' && healthCheck.protocol !== 'HTTPS') {
       return null;
     }
+
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     return [(
       <div className="flex row" key="path">
@@ -131,13 +138,13 @@ class HealthChecksFormSection extends Component {
         </FormGroup>
         <FormGroup
           className="column-6"
-          showError={Boolean(healthChecks[key])}>
+          showError={Boolean(errors.path)}>
           <FieldLabel>Path</FieldLabel>
           <FieldInput
             name={`healthChecks.${key}.path`}
             type="text"
             value={healthCheck.path}/>
-          <FieldError>{healthChecks[key]}</FieldError>
+          <FieldError>{errors.path}</FieldError>
         </FormGroup>
       </div>
     ),
@@ -152,16 +159,16 @@ class HealthChecksFormSection extends Component {
               value="HTTPS"/>
             Make HTTPS
           </FieldLabel>
-          <FieldError>{healthChecks[key]}</FieldError>
+          <FieldError>{errors.protocol}</FieldError>
         </FormGroup>
       </div>
     )];
   }
 
   getHealthChecksLines(data) {
-    const {healthChecks} = this.props.errors;
-
     return data.map((healthCheck, key) => {
+      const errors = errorsLens.at(key, {}).get(this.props.errors);
+
       return (
         <FormGroupContainer key={key}
           onRemove={this.props.onRemoveItem.bind(this,
@@ -169,7 +176,7 @@ class HealthChecksFormSection extends Component {
           <div className="flex row">
             <FormGroup
               className="column-6"
-              showError={Boolean(healthChecks[key])}>
+              showError={Boolean(errors.protocol)}>
               <FieldLabel>Protocol</FieldLabel>
               <FieldSelect name={`healthChecks.${key}.protocol`}
                 value={healthCheck.protocol &&
@@ -178,7 +185,7 @@ class HealthChecksFormSection extends Component {
                 <option value="COMMAND">Command</option>
                 <option value="HTTP">HTTP</option>
               </FieldSelect>
-              <FieldError>{healthChecks[key]}</FieldError>
+              <FieldError>{errors.protocol}</FieldError>
             </FormGroup>
           </div>
           {this.getCommandFields(healthCheck, key)}
@@ -191,7 +198,6 @@ class HealthChecksFormSection extends Component {
 
   render() {
     let {data} = this.props;
-
     return (
       <div className="form flush-bottom">
         <div className="form-row-element">
@@ -217,13 +223,9 @@ class HealthChecksFormSection extends Component {
 
 HealthChecksFormSection.defaultProps = {
   data: {},
-  errors: {
-    healthChecks: []
-  },
-  onAddItem() {
-  },
-  onRemoveItem() {
-  }
+  errors: {},
+  onAddItem() {},
+  onRemoveItem() {}
 };
 
 HealthChecksFormSection.propTypes = {

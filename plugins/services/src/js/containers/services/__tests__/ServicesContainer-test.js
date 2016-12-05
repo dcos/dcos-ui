@@ -1,3 +1,4 @@
+jest.dontMock('objektiv');
 jest.dontMock('../ServicesContainer');
 
 /* eslint-disable no-unused-vars */
