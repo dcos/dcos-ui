@@ -1,19 +1,36 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
-import DetailViewHeader from '../../components/DetailViewHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
 import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
 import UnitHealthStore from '../../stores/UnitHealthStore';
+
+const UnitHealthDetailBreadcrumbs = ({unit}) => {
+  let healthStatus = unit.getHealth();
+  let unitTitle = unit.getTitle();
+
+  const crumbs = [
+    <Link to="components" key={-1}>Universe</Link>,
+    <Link to={`components/${unit.get('id')}`} key={0}>
+      {`${unitTitle} `}
+      <span className={healthStatus.classNames}>
+        ({healthStatus.title})
+      </span>
+    </Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',
@@ -97,20 +114,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     );
   }
 
-  getSubTitle(unit) {
-    let healthStatus = unit.getHealth();
-
-    return (
-      <ul className="list-inline flush-bottom">
-        <li>
-          <span className={healthStatus.classNames}>
-            {healthStatus.title}
-          </span>
-        </li>
-      </ul>
-    );
-  }
-
   getUnit() {
     return UnitHealthStore.getUnit(this.props.params.unitID);
   }
@@ -152,35 +155,34 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
 
     return (
-      <div className="flex-container-col">
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <DetailViewHeader
-          subTitle={this.getSubTitle(unit)}
-          title={unit.getTitle()} />
-        <FilterHeadline
-          currentLength={visibleData.length}
-          isFiltering={healthFilter !== 'all' || searchString !== ''}
-          name="Health Check"
-          onReset={this.resetFilter}
-          totalLength={nodes.getItems().length} />
-        <FilterBar>
-          <div className="form-group flush-bottom">
-            <FilterInputText
-              className="flush-bottom"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange} />
+      <Page>
+        <Page.Header breadcrumbs={<UnitHealthDetailBreadcrumbs unit={unit} />} />
+        <div className="flex-container-col">
+          <FilterHeadline
+            currentLength={visibleData.length}
+            isFiltering={healthFilter !== 'all' || searchString !== ''}
+            name="Health Check"
+            onReset={this.resetFilter}
+            totalLength={nodes.getItems().length} />
+          <FilterBar>
+            <div className="form-group flush-bottom">
+              <FilterInputText
+                className="flush-bottom"
+                searchString={searchString}
+                handleFilterChange={this.handleSearchStringChange} />
+            </div>
+            <UnitHealthDropdown
+              className="button dropdown-toggle text-align-left"
+              dropdownMenuClassName="dropdown-menu"
+              initialID="all"
+              onHealthSelection={this.handleHealthSelection}
+              ref={(ref) => this.healthFilter = ref} />
+          </FilterBar>
+          <div className="flex-container-col flex-grow no-overflow">
+            {this.getNodesTable(unit, visibleData)}
           </div>
-          <UnitHealthDropdown
-            className="button dropdown-toggle text-align-left"
-            dropdownMenuClassName="dropdown-menu"
-            initialID="all"
-            onHealthSelection={this.handleHealthSelection}
-            ref={(ref) => this.healthFilter = ref} />
-        </FilterBar>
-        <div className="flex-container-col flex-grow no-overflow">
-          {this.getNodesTable(unit, visibleData)}
         </div>
-      </div>
+      </Page>
     );
   }
 };
