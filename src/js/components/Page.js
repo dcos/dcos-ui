@@ -8,8 +8,14 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import NewPageHeader from '../components/NewPageHeader';
 import SidebarToggle from '../components/SidebarToggle';
 
-const PageHeader = ({breadcrumbs, tabs = []}) => {
-  return <NewPageHeader breadcrumbs={breadcrumbs} tabs={tabs} />;
+const PageHeader = ({breadcrumbs, tabs = [], actions = [], addButton}) => {
+  return (
+    <NewPageHeader
+      actions={actions}
+      addButton={addButton}
+      breadcrumbs={breadcrumbs}
+      tabs={tabs} />
+  );
 };
 
 PageHeader.Breadcrumbs = NewPageHeader.Breadcrumbs;
