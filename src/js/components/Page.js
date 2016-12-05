@@ -8,7 +8,7 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import NewPageHeader from '../components/NewPageHeader';
 import SidebarToggle from '../components/SidebarToggle';
 
-const PageHeader = ({breadcrumbs, tabs = [], actions = [], addButton}) => {
+const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
   return (
     <NewPageHeader
       actions={actions}
@@ -22,7 +22,14 @@ PageHeader.Breadcrumbs = NewPageHeader.Breadcrumbs;
 PageHeader.Actions = NewPageHeader.Actions;
 PageHeader.Tabs = NewPageHeader.Tabs;
 
+PageHeader.defaultProps = {
+  actions: [],
+  tabs: []
+};
+
 PageHeader.propTypes = {
+  actions: React.PropTypes.array,
+  addButton: React.PropTypes.object,
   breadcrumbs: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
