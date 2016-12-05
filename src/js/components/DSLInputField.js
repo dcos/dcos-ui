@@ -17,9 +17,9 @@ const METHODS_TO_BIND = [
  * WARNING: This component is stateless, meaning that the hosting component is
  *          responsible for updating the `value` property on a change event!
  *
- * @example <caption>Using the SearchDSLInputField</caption>
+ * @example <caption>Using the DSLInputField</caption>
  *
- * <SearchDSLInputField
+ * <DSLInputField
  *
  *   dropdownVisible={this.state.dropdownVisible}
  *   onDropdownClick={this.handleDropdownToggle}
@@ -29,7 +29,7 @@ const METHODS_TO_BIND = [
  *
  *   />
  */
-class SearchDSLInputField extends React.Component {
+class DSLInputField extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -248,7 +248,7 @@ class SearchDSLInputField extends React.Component {
   }
 }
 
-SearchDSLInputField.defaultProps = {
+DSLInputField.defaultProps = {
   className: {},
   dropdownVisible: false,
   hasDropdown: true,
@@ -261,7 +261,7 @@ SearchDSLInputField.defaultProps = {
   placeholder: 'Filter'
 };
 
-SearchDSLInputField.propTypes = {
+DSLInputField.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -278,4 +278,4 @@ SearchDSLInputField.propTypes = {
   value: PropTypes.string.isRequired
 };
 
-module.exports = SearchDSLInputField;
+module.exports = DSLInputField;
