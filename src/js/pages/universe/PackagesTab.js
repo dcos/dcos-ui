@@ -1,8 +1,8 @@
 import mixin from 'reactjs-mixin';
+import {Link, routerShape} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
@@ -13,8 +13,17 @@ import FilterInputText from '../../components/FilterInputText';
 import Image from '../../components/Image';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import Panel from '../../components/Panel';
 import StringUtil from '../../utils/StringUtil';
+
+const UniverseBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="universe/packages" key={-1}>Universe</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleInstallModalClose',
@@ -215,7 +224,8 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<UniverseBreadcrumbs />} />
         <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
           <FilterInputText
             className="flex-grow"
@@ -230,7 +240,7 @@ class PackagesTab extends mixin(StoreMixin) {
           packageName={packageName}
           packageVersion={packageVersion}
           onClose={this.handleInstallModalClose}/>
-      </div>
+      </Page>
     );
   }
 }

@@ -1,4 +1,5 @@
 jest.dontMock('../PackageDetailTab');
+jest.dontMock('../../../components/Page');
 jest.dontMock('../../../components/Panel');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('../../../components/modals/InstallPackageModal');

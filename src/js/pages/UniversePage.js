@@ -5,7 +5,6 @@ import React from 'react';
 import {routerShape} from 'react-router';
 
 import Icon from '../components/Icon';
-import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
 import TabsMixin from '../mixins/TabsMixin';
@@ -52,13 +51,7 @@ class UniversePage extends mixin(TabsMixin) {
   }
 
   render() {
-    return (
-      <Page
-        title="Universe"
-        navigation={this.getNavigation()}>
-        {this.props.children}
-      </Page>
-    );
+    return this.props.children;
   }
 }
 
