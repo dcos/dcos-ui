@@ -57,7 +57,11 @@ class ServiceTreeView extends React.Component {
     if (serviceTree.getItems().length) {
       return (
         <Page>
-          <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
+          <Page.Header
+            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+            actions={[{onItemSelect: modalHandlers.createGroup, label: 'Create Group'}]}
+            addButton={{onItemSelect: modalHandlers.createService, label: 'Run a Service'}}
+            />
           <div className="flex">
             <ServiceSidebarFilters
               countByValue={services.countByFilter}
