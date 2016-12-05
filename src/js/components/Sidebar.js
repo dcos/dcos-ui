@@ -112,6 +112,10 @@ var Sidebar = React.createClass({
     }
   },
 
+  handleSubmenuItemClick() {
+    SidebarActions.close();
+  },
+
   handleVersionClick() {
     SidebarActions.close();
     SidebarActions.showVersions();
@@ -209,31 +213,36 @@ var Sidebar = React.createClass({
     const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
-    let menuItems = filteredChildRoutes.reduce(function (children, currentChild, index) {
-      let isActive = pathname.startsWith(currentChild.path);
+    let menuItems = filteredChildRoutes.reduce(
+      (children, currentChild, index) => {
+        let isActive = pathname.startsWith(currentChild.path);
 
-      let menuItemClasses = classNames({selected: isActive});
+        let menuItemClasses = classNames({selected: isActive});
 
-      // First matched active child wins,
-      // ie in /path/child and /path/child-path without this conditional /path/child-path
-      // will always overrule /path/child
-      if (!isChildActive && isActive) {
-        isChildActive = true;
-      }
+        // First matched active child wins,
+        // ie in /path/child and /path/child-path without this conditional /path/child-path
+        // will always overrule /path/child
+        if (!isChildActive && isActive) {
+          isChildActive = true;
+        }
 
-      let linkElement = currentChild.link;
-      if (typeof linkElement === 'string') {
-        linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
-      }
+        let linkElement = currentChild.link;
+        if (typeof linkElement === 'string') {
+          linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+        }
 
-      children.push(
-        <li className={menuItemClasses} key={index}>
-          {linkElement}
-        </li>
-      );
+        children.push(
+          <li className={menuItemClasses}
+            key={index}
+            onClick={this.handleSubmenuItemClick}>
+            {linkElement}
+          </li>
+        );
 
-      return children;
-    }, []);
+        return children;
+      },
+      []
+    );
 
     return [<ul>{menuItems}</ul>, isChildActive];
   },
@@ -282,14 +291,14 @@ var Sidebar = React.createClass({
     );
   },
 
-  handlePrimarySidebarLinkClick(element) {
+  handlePrimarySidebarLinkClick(element, isChildActive) {
     let {expandedItems} = this.state;
     let {path} = element;
     let expandedItemIndex = expandedItems.indexOf(path);
 
     if (expandedItemIndex === -1) {
       expandedItems.push(path);
-    } else {
+    } else if (!isChildActive) {
       expandedItems.splice(expandedItemIndex, 1);
     }
 
