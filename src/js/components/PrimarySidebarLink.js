@@ -10,6 +10,7 @@ const PrimarySidebarLink = ({
     children,
     hasChildren,
     icon,
+    isChildActive,
     isExpanded,
     onClick
   }) => {
@@ -33,8 +34,13 @@ const PrimarySidebarLink = ({
   }
 
   if (hasChildren) {
+    let classes = classNames({
+      'clickable': !isChildActive,
+      'is-expanded': isExpanded
+    });
+
     return (
-      <a className={classNames({'is-expanded': isExpanded})} onClick={onClick}>
+      <a className={classes} onClick={onClick}>
         {icon}{sidebarText}
         <Icon className="sidebar-menu-item-expand-icon"
           family="tiny"
