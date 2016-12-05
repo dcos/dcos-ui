@@ -334,12 +334,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />}>
-          <Link to="services">Services</Link> &gt; <Link to="services/deployments">Deployments</Link>
-          <h4 className="flush-top">
-            {deploymentsCount} Active {deploymentsLabel}
-          </h4>
-        </Page.Header>
+        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />} />
+        <h4 className="flush-top">
+          {deploymentsCount} Active {deploymentsLabel}
+        </h4>
         <Table
           className="table table-borderless-outer table-borderless-inner-columns
             flush-bottom deployments-table"
