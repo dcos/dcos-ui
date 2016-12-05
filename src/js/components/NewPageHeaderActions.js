@@ -16,9 +16,12 @@ class PageHeaderActions extends React.Component {
           return action;
         }
 
+        const {className, label, onItemSelect} = action;
+        const itemClasses = classNames(className);
+
         return (
-          <span onItemSelect={action.onItemSelect} key={index}>
-            {action.label}
+          <span className={itemClasses} onItemSelect={onItemSelect} key={index}>
+            {label}
           </span>
         );
       });
