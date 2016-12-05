@@ -77,20 +77,54 @@ class PodDetail extends mixin(TabsMixin) {
     return (<PodInstancesContainer pod={pod} />);
   }
 
+  getActions() {
+    const {pod} = this.props;
+    const instanceCount = pod.getInstancesCount();
+
+    const actions = [];
+
+    actions.push({
+      label: 'Edit',
+      onItemSelect:  this.handleActionEdit
+    });
+
+    actions.push({
+      label: 'Scale',
+      onItemSelect: this.handleActionScale
+    });
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Suspend',
+        onItemSelect: this.handleActionSuspend
+      });
+    }
+
+    actions.push({
+      className: 'text-danger',
+      label: 'Destroy',
+      onItemSelect: this.handleActionDestroy
+    });
+
+    return actions;
+  }
+
+  getTabs() {
+    return [
+      {label: 'Instances', callback: () => { this.setState({currentTab: 'instances'}); }},
+      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
+      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
+    ];
+  }
+
   render() {
     const {modals, pod} = this.props;
 
     const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
 
-    const tabs = [
-      {label: 'Instances', callback: () => { this.setState({currentTab: 'instances'}); }},
-      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
-      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
-    ];
-
     return (
       <Page>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs}>
+        <Page.Header actions={this.getActions()} breadcrumbs={breadcrumbs} tabs={this.getTabs()}>
           <PodHeader
             onDestroy={this.handleActionDestroy}
             onEdit={this.handleActionEdit}
