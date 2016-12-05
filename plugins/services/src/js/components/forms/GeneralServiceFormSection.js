@@ -7,6 +7,7 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
+import DeleteRowButton from '../DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -83,12 +84,9 @@ class GeneralServiceFormSection extends Component {
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
 
-          <FormGroup className="flex flex-item-align-end column-2">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'constraints'})}>
-              Delete
-            </a>
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+            <DeleteRowButton
+              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'constraints'})}/>
           </FormGroup>
         </div>
       );

@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer} from '../../reducers/serviceForm/Container';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerConstants from '../../constants/ContainerConstants';
+import DeleteRowButton from '../DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
 const {DOCKER, NONE, MESOS} = ContainerConstants.type;
 
@@ -70,12 +71,9 @@ class ContainerServiceFormSection extends Component {
               value={item.uri}/>
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})}>
-              Delete
-            </a>
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+            <DeleteRowButton
+              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})} />
           </FormGroup>
         </div>
       );
