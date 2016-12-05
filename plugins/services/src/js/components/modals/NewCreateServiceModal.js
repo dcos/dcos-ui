@@ -277,6 +277,7 @@ class NewServiceFormModal extends Component {
           <div className="container">
             <ServiceConfigDisplay
               appConfig={this.state.serviceConfig}
+              clearError={this.props.clearError}
               errors={errorsMap} />
           </div>
         </div>
@@ -458,6 +459,7 @@ class NewServiceFormModal extends Component {
 }
 
 NewServiceFormModal.propTypes = {
+  clearError: PropTypes.func.isRequired,
   errors: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string
