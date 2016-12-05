@@ -70,18 +70,10 @@ class ServiceTreeView extends React.Component {
               services={services.all} />
             <div className="flex-grow">
               {this.getHeadline()}
-              <FilterBar rightAlignLastNChildren={2}>
+              <FilterBar>
                 <ServiceSearchFilter
                   handleFilterChange={this.props.handleFilterChange}
                   filters={services.filters || {}} />
-                <button className="button button-stroke"
-                  onClick={modalHandlers.createGroup}>
-                  Create Group
-                </button>
-                <button className="button button-success"
-                  onClick={modalHandlers.createService}>
-                  Run a Service
-                </button>
               </FilterBar>
               <ServicesTable services={services.filtered}
                 isFiltered={!!Object.keys(services.filters).length}
