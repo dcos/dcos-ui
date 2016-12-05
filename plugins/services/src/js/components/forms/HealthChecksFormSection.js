@@ -17,17 +17,13 @@ import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChec
 const errorsLens = Objektiv.attr('healthChecks', []);
 
 class HealthChecksFormSection extends Component {
-  getErrors(key) {
-    return errorsLens.at(key, {}).get(this.props.errors);
-  }
-
   getAdvancedSettings(healthCheck, key) {
     if (healthCheck.protocol !== 'COMMAND' && healthCheck.protocol !== 'HTTP' &&
       healthCheck.protocol !== 'HTTPS') {
       return null;
     }
 
-    const errors = this.getErrors(key);
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     return (
       <AdvancedSection>
@@ -125,7 +121,7 @@ class HealthChecksFormSection extends Component {
       return null;
     }
 
-    const errors = this.getErrors(key);
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     return [(
       <div className="flex row" key="path">
@@ -171,7 +167,7 @@ class HealthChecksFormSection extends Component {
 
   getHealthChecksLines(data) {
     return data.map((healthCheck, key) => {
-      const errors = this.getErrors(key);
+      const errors = errorsLens.at(key, {}).get(this.props.errors);
 
       return (
         <FormGroupContainer key={key}
