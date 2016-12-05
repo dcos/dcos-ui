@@ -113,18 +113,72 @@ class ServiceDetail extends mixin(TabsMixin) {
     );
   }
 
-  render() {
-    const {modals, service} = this.props;
-    let {id} = service;
+  getActions() {
+    const {service} = this.props;
+    const {modalHandlers} = this.context;
+    const instanceCount = service.getInstancesCount();
 
-    const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
+    const actions = [];
 
+    actions.push({
+      label: 'Edit',
+      onItemSelect: modalHandlers.editService
+    });
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Restart',
+        onItemSelect: modalHandlers.restartService
+      });
+    }
+
+    actions.push({
+      label: 'Scale',
+      onItemSelect: modalHandlers.scaleService
+    });
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Suspend',
+        onItemSelect: modalHandlers.suspendService
+      });
+    }
+
+    actions.push({
+      className: 'text-danger',
+      label: 'Destroy',
+      onItemSelect: modalHandlers.deleteService
+    });
+
+    return actions;
+  }
+
+  getTabs() {
+    const {service:{id}} = this.props;
     const routePrefix = `/services/overview/${encodeURIComponent(id)}`;
-    const tabs = [
-      {label: 'Instances', callback: () => { this.setState({currentTab: 'tasks'}); }},
-      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
-      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
-    ];
+
+    const tabs = [];
+
+    tabs.push({
+      label: 'Instances',
+      callback: () => {
+        this.setState({currentTab: 'tasks'});
+      }
+    });
+
+    tabs.push({
+      label: 'Configuration',
+      callback: () => {
+        this.setState({currentTab: 'configuration'});
+      }
+    });
+
+    tabs.push({
+      label: 'Debug',
+      callback: () => {
+        this.setState({currentTab: 'debug'});
+      }
+    });
 
     if (this.hasVolumes()) {
       tabs.push({
@@ -133,9 +187,19 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
+    return tabs;
+  }
+
+  render() {
+    const {modals, service:{id}} = this.props;
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
+
     return (
       <Page>
-        <Page.Header tabs={tabs} breadcrumbs={breadcrumbs} iconID="services" />
+        <Page.Header actions={this.getActions()}
+            tabs={this.getTabs()}
+            breadcrumbs={breadcrumbs}
+            iconID="services" />
         {this.tabs_getTabView()}
         {modals}
       </Page>
@@ -145,6 +209,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
 ServiceDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
+    editService: PropTypes.func,
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     suspendService: PropTypes.func,
