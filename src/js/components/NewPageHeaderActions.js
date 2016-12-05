@@ -1,27 +1,68 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
+
+import Icon from './Icon';
+import PageHeaderActionsMenu from './PageHeaderActionsMenu';
 
 class PageHeaderActions extends React.Component {
-  render() {
-    let {props: {actions}} = this;
 
-    let actionElements = actions.map(function (action, index) {
-      if (action.node) {
-        return action.node;
-      }
+  renderActionsMenu() {
+    const {actions} = this.props;
 
-      let classes = classNames('button button-rounded', action.className);
+    if (actions.length > 0) {
+      const dropdownElements = actions.map(function (action, index) {
+        if (React.isValidElement(action)) {
+          return action;
+        }
+
+        return (
+          <span onItemSelect={action.onItemSelect} key={index}>
+            {action.label}
+          </span>
+        );
+      });
 
       return (
-        <button className={classes} key={index} onClick={action.clickHandler}>
-          {action.label}
+        <PageHeaderActionsMenu>
+          {dropdownElements}
+        </PageHeaderActionsMenu>
+      );
+    }
+  }
+
+  renderAddButton() {
+    const {addButton} = this.props;
+    if (addButton != null) {
+      const {label, onItemSelect, className} = addButton;
+      const buttonClasses = classNames(
+          'button button-link flush-left flush-right',
+          className
+      );
+
+      const button = (
+        <button className={buttonClasses} onClick={onItemSelect}>
+          <Icon id="plus" size="mini" />
         </button>
       );
-    });
 
+      if (label != null) {
+        return (
+          <Tooltip content={label}>{button}</Tooltip>
+        );
+      }
+
+      return button;
+    }
+  }
+
+  render() {
     return (
-      <div className="page-header-actions button-collection flush-bottom">
-        {actionElements}
+      <div className="page-header-actions">
+        <div className="button-collection-flush-bottom">
+          {this.renderAddButton()}
+          {this.renderActionsMenu()}
+        </div>
       </div>
     );
   }
@@ -38,12 +79,20 @@ const classProps = React.PropTypes.oneOfType([
 ]);
 
 PageHeaderActions.propTypes = {
+  addButton: React.PropTypes.shape({
+    className: classProps,
+    clickHandler: React.PropTypes.func,
+    label: React.PropTypes.node
+  }),
   actions: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      className: classProps,
-      clickHandler: React.PropTypes.func,
-      label: React.PropTypes.node
-    })
+    React.PropTypes.oneOf(
+      React.PropTypes.node,
+      React.PropTypes.shape({
+        className: classProps,
+        clickHandler: React.PropTypes.func.isRequired,
+        label: React.PropTypes.node.isRequired
+      })
+    )
   )
 };
 
