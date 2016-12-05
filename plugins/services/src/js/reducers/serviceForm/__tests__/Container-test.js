@@ -208,6 +208,8 @@ describe('Container', function () {
         // This is default
         // batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], false));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
@@ -215,6 +217,27 @@ describe('Container', function () {
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: null, labels: null, name: null, protocol: null, servicePort: null}
+              ]
+            }
+          });
+      });
+
+      it('should include hostPort or protocol when not enabled for BRIDGE', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(['container', 'docker', 'network'], BRIDGE, SET));
+        // This is default
+        // batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], false));
+        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              network: BRIDGE,
+              portMappings: [
+                {containerPort: 0, hostPort: 100, labels: null, name: null, protocol: 'udp', servicePort: null}
               ]
             }
           });

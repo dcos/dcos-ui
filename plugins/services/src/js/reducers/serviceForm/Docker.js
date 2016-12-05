@@ -55,7 +55,7 @@ module.exports = combineReducers({
       let labels = portDefinition.labels;
 
       // Do not expose hostPort or protocol, when portMapping is turned off
-      if (!portDefinition.portMapping) {
+      if (this.appState.networkType === USER && !portDefinition.portMapping) {
         hostPort = null;
         protocol = null;
       }
