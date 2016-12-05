@@ -22,59 +22,59 @@ class HealthChecksFormSection extends Component {
     }
 
     return (
-        <AdvancedSection>
-          <AdvancedSectionLabel>
-            Advanced Health Check Settings
-          </AdvancedSectionLabel>
-          <AdvancedSectionContent>
-            <div className="flex row">
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Grace Period (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.gracePeriodSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.gracePeriodSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Interval (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.intervalSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.intervalSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Timeout (s)</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.timeoutSeconds`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.timeoutSeconds}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                  className="column-3"
-                  showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Max Failures</FieldLabel>
-                <FieldInput
-                    name={`healthChecks.${key}.maxConsecutiveFailures`}
-                    type="number"
-                    min="0"
-                    value={healthCheck.maxConsecutiveFailures}/>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-            </div>
-          </AdvancedSectionContent>
-        </AdvancedSection>
+      <AdvancedSection>
+        <AdvancedSectionLabel>
+          Advanced Health Check Settings
+        </AdvancedSectionLabel>
+        <AdvancedSectionContent>
+          <div className="flex row">
+            <FormGroup
+                className="column-3"
+                showError={Boolean(healthChecks[key])}>
+              <FieldLabel>Grace Period (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.gracePeriodSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.gracePeriodSeconds}/>
+              <FieldError>{healthChecks[key]}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(healthChecks[key])}>
+              <FieldLabel>Interval (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.intervalSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.intervalSeconds}/>
+              <FieldError>{healthChecks[key]}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(healthChecks[key])}>
+              <FieldLabel>Timeout (s)</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.timeoutSeconds`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.timeoutSeconds}/>
+              <FieldError>{healthChecks[key]}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(healthChecks[key])}>
+              <FieldLabel>Max Failures</FieldLabel>
+              <FieldInput
+                  name={`healthChecks.${key}.maxConsecutiveFailures`}
+                  type="number"
+                  min="0"
+                  value={healthCheck.maxConsecutiveFailures}/>
+              <FieldError>{healthChecks[key]}</FieldError>
+            </FormGroup>
+          </div>
+        </AdvancedSectionContent>
+      </AdvancedSection>
     );
   }
 
