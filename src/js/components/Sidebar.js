@@ -172,19 +172,19 @@ var Sidebar = React.createClass({
         linkElement = (
           <PrimarySidebarLink
             hasChildren={hasChildren}
+            isChildActive={isChildActive}
             isExpanded={isExpanded}
             to={element.path}
             icon={element.options.icon}
-            onClick={this.handlePrimarySidebarLinkClick.bind(this, element)}>
+            onClick={this.handlePrimarySidebarLinkClick.bind(this, element, isChildActive)}>
             {linkElement}
           </PrimarySidebarLink>
         );
       }
 
-      let itemClassSet = classNames({
-        'sidebar-menu-item': true,
+      let itemClassSet = classNames('sidebar-menu-item', {
         selected: isParentActive && !isChildActive,
-        open: isParentActive && hasChildren
+        open: isExpanded
       });
 
       return (
