@@ -47,6 +47,10 @@ var Sidebar = React.createClass({
     router: routerShape
   },
 
+  getInitialState() {
+    return {expandedItems: []};
+  },
+
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
@@ -108,6 +112,10 @@ var Sidebar = React.createClass({
     }
   },
 
+  handleSubmenuItemClick() {
+    SidebarActions.close();
+  },
+
   handleVersionClick() {
     SidebarActions.close();
     SidebarActions.showVersions();
@@ -128,7 +136,7 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
+        <div className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
           key={index}>
           {heading}
           {this.getNavigationGroup(group)}
@@ -149,11 +157,12 @@ var Sidebar = React.createClass({
       let {pathname} = this.props.location;
 
       let hasChildren = element.children && element.children.length !== 0;
+      let isExpanded = this.state.expandedItems.includes(element.path);
       let isParentActive = pathname.startsWith(element.path);
 
       let submenu;
       let isChildActive = false;
-      if (isParentActive && hasChildren) {
+      if (isExpanded && hasChildren) {
         [submenu, isChildActive] = this.getGroupSubmenu(
           group.path, element.children);
       }
@@ -162,17 +171,20 @@ var Sidebar = React.createClass({
       if (typeof linkElement === 'string') {
         linkElement = (
           <PrimarySidebarLink
+            hasChildren={hasChildren}
+            isChildActive={isChildActive}
+            isExpanded={isExpanded}
             to={element.path}
-            icon={element.options.icon}>
+            icon={element.options.icon}
+            onClick={this.handlePrimarySidebarLinkClick.bind(this, element, isChildActive)}>
             {linkElement}
           </PrimarySidebarLink>
         );
       }
 
-      let itemClassSet = classNames({
-        'sidebar-menu-item': true,
+      let itemClassSet = classNames('sidebar-menu-item', {
         selected: isParentActive && !isChildActive,
-        open: isParentActive && hasChildren
+        open: isExpanded
       });
 
       return (
@@ -201,31 +213,36 @@ var Sidebar = React.createClass({
     const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
-    let menuItems = filteredChildRoutes.reduce(function (children, currentChild, index) {
-      let isActive = pathname.startsWith(currentChild.path);
+    let menuItems = filteredChildRoutes.reduce(
+      (children, currentChild, index) => {
+        let isActive = pathname.startsWith(currentChild.path);
 
-      let menuItemClasses = classNames({selected: isActive});
+        let menuItemClasses = classNames({selected: isActive});
 
-      // First matched active child wins,
-      // ie in /path/child and /path/child-path without this conditional /path/child-path
-      // will always overrule /path/child
-      if (!isChildActive && isActive) {
-        isChildActive = true;
-      }
+        // First matched active child wins,
+        // ie in /path/child and /path/child-path without this conditional /path/child-path
+        // will always overrule /path/child
+        if (!isChildActive && isActive) {
+          isChildActive = true;
+        }
 
-      let linkElement = currentChild.link;
-      if (typeof linkElement === 'string') {
-        linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
-      }
+        let linkElement = currentChild.link;
+        if (typeof linkElement === 'string') {
+          linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+        }
 
-      children.push(
-        <li className={menuItemClasses} key={index}>
-          {linkElement}
-        </li>
-      );
+        children.push(
+          <li className={menuItemClasses}
+            key={index}
+            onClick={this.handleSubmenuItemClick}>
+            {linkElement}
+          </li>
+        );
 
-      return children;
-    }, []);
+        return children;
+      },
+      []
+    );
 
     return [<ul>{menuItems}</ul>, isChildActive];
   },
@@ -272,6 +289,20 @@ var Sidebar = React.createClass({
       <UserAccountDropdown
         menuItems={Hooks.applyFilter('userDropdownItems', defaultItems)} />
     );
+  },
+
+  handlePrimarySidebarLinkClick(element, isChildActive) {
+    let {expandedItems} = this.state;
+    let {path} = element;
+    let expandedItemIndex = expandedItems.indexOf(path);
+
+    if (expandedItemIndex === -1) {
+      expandedItems.push(path);
+    } else if (!isChildActive) {
+      expandedItems.splice(expandedItemIndex, 1);
+    }
+
+    this.setState({expandedItems});
   },
 
   handleSidebarTransitionEnd(event) {
@@ -321,7 +352,7 @@ var Sidebar = React.createClass({
           <GeminiScrollbar autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view">
             <div className="sidebar-content-wrapper">
-              <div className="sidebar-sections pod pod-short pod-narrow">
+              <div className="sidebar-sections pod pod-narrow">
                 {this.getNavigationSections()}
               </div>
               <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">

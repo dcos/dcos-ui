@@ -137,7 +137,6 @@
 
       .icon {
         flex: 0 0 auto;
-        margin-right: 12px;
       }
 
       // TODO: Apply a class to these elements. DCOS-11785
@@ -154,7 +153,6 @@
       & > a,
       & > span {
         align-items: center;
-        background: @sidebar-menu-item-link-background-color;
         color: @sidebar-menu-item-link-color;
         display: flex;
         flex: 1 1 auto;
@@ -164,7 +162,7 @@
         padding-left: @sidebar-menu-item-link-padding-left;
         padding-right: @sidebar-menu-item-link-padding-right;
         text-decoration: none !important;
-        transition: background 0.15s, color 0.15s;
+        transition: background 0.1s, color 0.1s;
 
         & > * {
           margin-right: @sidebar-menu-item-content-padding-horizontal;
@@ -179,13 +177,10 @@
 
         &:hover {
           background: @sidebar-menu-item-link-hover-background-color;
-          color: @sidebar-menu-item-link-hover-color;
-          cursor: pointer;
         }
 
         &:active {
           background: @sidebar-menu-item-link-active-background-color;
-          color: @sidebar-menu-item-link-active-color;
         }
       }
 
@@ -210,14 +205,8 @@
       }
 
       &.open {
-        background: @sidebar-submenu-background-color;
+        background: @sidebar-menu-item-open-background-color;
         color: @sidebar-menu-item-open-color;
-
-        & > span,
-        & > a {
-          background: @sidebar-menu-item-open-background-color;
-          color: @sidebar-menu-item-open-color;
-        }
       }
 
       & > ul {
@@ -253,7 +242,7 @@
           & > span,
           & > a {
             align-items: center;
-            background: @sidebar-submenu-item-link-background-color;
+            background-color: @sidebar-submenu-item-link-background-color;
             color: @sidebar-submenu-item-link-color;
             display: flex;
             height: @sidebar-submenu-item-height;
@@ -268,13 +257,11 @@
 
             &:hover {
               background: @sidebar-submenu-item-link-hover-background-color;
-              color: @sidebar-submenu-item-link-hover-color;
               cursor: pointer;
             }
 
             &:active {
               background: @sidebar-submenu-item-link-active-background-color;
-              color: @sidebar-submenu-item-link-active-color;
             }
           }
         }
@@ -283,6 +270,17 @@
 
     .sidebar-menu-item-label {
       width: 100%;
+    }
+  }
+
+  .sidebar-menu-item-expand-icon {
+    opacity: 0.2;
+    transform: rotate(-90deg);
+    transition: transform 0.1s;
+
+    .is-expanded & {
+      opacity: 1;
+      transform: rotate(0);
     }
   }
 
@@ -465,6 +463,8 @@
           }
 
           & > ul {
+            padding-bottom: @sidebar-submenu-padding-bottom-screen-medium;
+            padding-top: @sidebar-submenu-padding-top-screen-medium;
 
             li {
               margin-left: @sidebar-submenu-item-margin-left-screen-medium;

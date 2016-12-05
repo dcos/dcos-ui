@@ -1,8 +1,19 @@
+import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
+
+import Icon from './Icon';
 import NotificationStore from '../stores/NotificationStore';
 
-const PrimarySidebarLink = ({to, children, icon}) => {
+const PrimarySidebarLink = ({
+    to,
+    children,
+    hasChildren,
+    icon,
+    isChildActive,
+    isExpanded,
+    onClick
+  }) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
   let sidebarText = (
@@ -19,6 +30,23 @@ const PrimarySidebarLink = ({to, children, icon}) => {
         </span>
         <span className="badge badge-rounded">{notificationCount}</span>
       </span>
+    );
+  }
+
+  if (hasChildren) {
+    let classes = classNames({
+      'clickable': !isChildActive,
+      'is-expanded': isExpanded
+    });
+
+    return (
+      <a className={classes} onClick={onClick}>
+        {icon}{sidebarText}
+        <Icon className="sidebar-menu-item-expand-icon"
+          family="tiny"
+          id="triangle-down"
+          size="tiny" />
+      </a>
     );
   }
 
