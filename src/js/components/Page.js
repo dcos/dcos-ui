@@ -7,6 +7,7 @@ import GeminiUtil from '../utils/GeminiUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import NewPageHeader from '../components/NewPageHeader';
 import SidebarToggle from '../components/SidebarToggle';
+import TemplateUtil from '../utils/TemplateUtil';
 
 const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
   return (
@@ -18,9 +19,11 @@ const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
   );
 };
 
-PageHeader.Breadcrumbs = NewPageHeader.Breadcrumbs;
-PageHeader.Actions = NewPageHeader.Actions;
-PageHeader.Tabs = NewPageHeader.Tabs;
+TemplateUtil.defineChildren(PageHeader, {
+  Breadcrumbs: NewPageHeader.Breadcrumbs,
+  Actions: NewPageHeader.Actions,
+  Tabs: NewPageHeader.Actions
+});
 
 PageHeader.defaultProps = {
   actions: [],
@@ -33,10 +36,6 @@ PageHeader.propTypes = {
   breadcrumbs: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
-
-const PAGE_TEMPLATE_COMPONENTS = [
-  PageHeader
-];
 
 var Page = React.createClass({
 
@@ -85,11 +84,9 @@ var Page = React.createClass({
     var data = this.internalStorage_get();
     if (data.rendered === true) {
       // Avoid rendering template children twice
-      // TODO move to a template utility library
-      return React.Children.toArray(this.props.children)
-        .filter(function (child) {
-          return !PAGE_TEMPLATE_COMPONENTS.includes(child.type);
-        });
+      return TemplateUtil.filterTemplateChildren(
+        this.constructor, this.props.children
+      );
     }
     return null;
   },
@@ -106,21 +103,10 @@ var Page = React.createClass({
     );
   },
 
-  // TODO move this to a template utility library
   getPageHeader() {
-    // Allow components to be updated by subclasses
-    const {Header} = this.constructor;
-    // Allow components to be disabled by subclasses
-    if (Header == null) {
-      return null;
-    }
-
-    // Find the first child of the defined type
-    // or null, if no such component exists
-    return React.Children.toArray(this.props.children)
-      .find((child) => {
-        return child.type === Header;
-      });
+    return TemplateUtil.getChildOfType(
+      this.props.children, this.constructor.Header
+    );
   },
 
   getTitle(title) {
@@ -189,6 +175,6 @@ var Page = React.createClass({
   }
 });
 
-Page.Header = PageHeader;
+TemplateUtil.defineChildren(Page, {Header: PageHeader});
 
 module.exports = Page;
