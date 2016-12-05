@@ -16,11 +16,12 @@ import './utils/ReactSVG';
 import {
   CONFIG_ERROR
 } from './constants/EventTypes';
+import ApplicationUtil from './utils/ApplicationUtil';
 import appRoutes from './routes/index';
 import ConfigStore from './stores/ConfigStore';
+import NavigationServiceUtil from './utils/NavigationServiceUtil';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
-import ApplicationUtil from './utils/ApplicationUtil';
 
 let domElement = document.getElementById('application');
 
@@ -64,6 +65,7 @@ RequestUtil.json = function (options = {}) {
 
       function renderApplicationToDOM() {
         let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+        NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
