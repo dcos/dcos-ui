@@ -42,6 +42,21 @@ module.exports = {
 
     const joinedPath = path.join('.');
 
+    if (type === REMOVE_ITEM && joinedPath === 'portDefinitions') {
+      this.healthChecks = this.healthChecks.map((item) => {
+        if (item.portIndex === value) {
+          return null;
+        }
+
+        if (item.portIndex > value) {
+          item.portIndex--;
+        }
+        return item;
+      }).filter((item) => {
+        return item != null;
+      });
+    }
+
     if (joinedPath.search('healthChecks') !== -1) {
       if (joinedPath === 'healthChecks') {
         switch (type) {
@@ -65,6 +80,9 @@ module.exports = {
           if (value === 'HTTP' && this.healthChecks[index].https) {
             this.healthChecks[index].protocol = 'HTTPS';
           }
+        }
+        if (`healthChecks.${index}.portIndex` === joinedPath) {
+          this.healthChecks[index].portIndex = parseInt(value, 10);
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           this.healthChecks[index].command = value;
@@ -134,6 +152,11 @@ module.exports = {
           index,
           'path'
         ], item.path, SET));
+        memo.push(new Transaction([
+          'healthChecks',
+          index,
+          'portIndex'
+        ], item.portIndex, SET));
       }
       [
         'gracePeriodSeconds',
@@ -163,6 +186,21 @@ module.exports = {
 
     let joinedPath = path.join('.');
 
+    if (type === REMOVE_ITEM && joinedPath === 'portDefinitions') {
+      state = state.map((item) => {
+        if (item.portIndex === value) {
+          return null;
+        }
+
+        if (item.portIndex > value) {
+          item.portIndex--;
+        }
+        return item;
+      }).filter((item) => {
+        return item != null;
+      });
+    }
+
     if (joinedPath.search('healthChecks') !== -1) {
       if (joinedPath === 'healthChecks') {
         switch (type) {
@@ -185,6 +223,9 @@ module.exports = {
           if (value === 'HTTP' && this.cache[index]) {
             state[index].protocol = 'HTTPS';
           }
+        }
+        if (`healthChecks.${index}.portIndex` === joinedPath) {
+          state[index].portIndex = parseInt(value, 10);
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           state[index].command = value;

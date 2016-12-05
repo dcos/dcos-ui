@@ -4,6 +4,9 @@ import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/Artifacts';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
+import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
+import {JSONReducer as volumes} from './serviceForm/Volumes';
+import {JSONReducer as ipAddress} from './serviceForm/IpAddress';
 import {
   simpleFloatReducer,
   simpleIntReducer,
@@ -31,5 +34,8 @@ module.exports = {
   labels,
   healthChecks,
   constraints,
-  fetch
+  fetch,
+  portDefinitions,
+  volumes,
+  ipAddress
 };

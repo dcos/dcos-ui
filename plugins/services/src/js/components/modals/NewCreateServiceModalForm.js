@@ -6,11 +6,12 @@ import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
+import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import VolumesFormSection from '../forms/VolumesFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -19,7 +20,7 @@ import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
-import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import VolumesFormSection from '../forms/VolumesFormSection';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -73,7 +74,6 @@ class NewCreateServiceModalForm extends Component {
     //       as the contents of the last rendered appConfig in the state.
     if (!deepEqual(prevJSON, nextJSON) &&
         !deepEqual(this.state.appConfig, nextJSON)) {
-      console.log('Updating because service changed');
       this.setState(this.getNewStateForJSON(nextJSON));
     }
   }
@@ -105,7 +105,6 @@ class NewCreateServiceModalForm extends Component {
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (!deepEqual(prevJSON, nextJSON) &&
         !deepEqual(this.state.appConfig, nextJSON)) {
-      console.log('Will update because service changed');
       return true;
     };
 
@@ -212,6 +211,7 @@ class NewCreateServiceModalForm extends Component {
       delete baseConfig[field];
     });
     let patch = batch.reduce(this.props.jsonConfigReducers, {});
+
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
@@ -256,6 +256,7 @@ class NewCreateServiceModalForm extends Component {
             <Tabs vertical={true}>
               <TabButtonList>
                 <TabButton id="services" label="Services" />
+                <TabButton id="networking" label="Networking" />
                 <TabButton id="environment" label="Environment" />
                 <TabButton id="healthChecks" label="Health Checks" />
                 <TabButton id="volumes" label="Volumes" />
@@ -264,6 +265,13 @@ class NewCreateServiceModalForm extends Component {
                 <TabView id="services">
                   {rootErrorComponent}
                   <GeneralServiceFormSection
+                    data={data}
+                    errors={errorMap}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
+                </TabView>
+                <TabView id="networking">
+                  <NetworkingFormSection
                     data={data}
                     errors={errorMap}
                     onRemoveItem={this.handleRemoveItem}

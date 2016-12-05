@@ -28,6 +28,7 @@ FieldInput.defaultProps = {
 FieldInput.propTypes = {
   type: React.PropTypes.string,
   onChange: React.PropTypes.func,
+  checked: React.PropTypes.bool,
   value: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
