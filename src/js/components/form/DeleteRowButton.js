@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import Icon from '../../../../../src/js/components/Icon';
+import Icon from '../Icon';
 
 const DeleteRowButton = ({onClick}) => {
   return (

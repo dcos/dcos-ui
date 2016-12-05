@@ -1,6 +1,7 @@
 import AdvancedSection from './AdvancedSection';
 import AdvancedSectionContainer from './AdvancedSectionContent';
 import AdvancedSectionLabel from './AdvancedSectionLabel';
+import DeleteRowButton from './DeleteRowButton';
 import FieldError from './FieldError';
 import FieldHelp from './FieldHelp';
 import FieldInput from './FieldInput';
@@ -14,6 +15,7 @@ module.exports = {
   AdvancedSection,
   AdvancedSectionContainer,
   AdvancedSectionLabel,
+  DeleteRowButton,
   FieldError,
   FieldHelp,
   FieldInput,

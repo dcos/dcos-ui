@@ -7,7 +7,7 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
-import DeleteRowButton from '../DeleteRowButton';
+import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';

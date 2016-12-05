@@ -3,7 +3,7 @@ import {MountService} from 'foundation-ui';
 
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
-import DeleteRowButton from '../DeleteRowButton';
+import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
