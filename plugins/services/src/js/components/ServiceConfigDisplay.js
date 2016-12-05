@@ -1,6 +1,7 @@
 import React from 'react';
 import {MountService} from 'foundation-ui';
 
+import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
 import PodContainersConfigSection from '../service-configuration/PodContainersConfigSection';
 import PodEnvironmentVariablesConfigSection from '../service-configuration/PodEnvironmentVariablesConfigSection';
@@ -63,6 +64,10 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({MOUNT_TYPE, COMPONENTS}) => {
 });
 
 class ServiceConfigDisplay extends React.Component {
+  componentWillUnmount() {
+    this.props.clearError();
+  }
+
   getMountType() {
     if (this.props.appConfig instanceof PodSpec) {
       return 'CreateService:ServiceConfigDisplay:Pod';
@@ -71,19 +76,38 @@ class ServiceConfigDisplay extends React.Component {
     return 'CreateService:ServiceConfigDisplay:App';
   }
 
+  getRootErrors() {
+    if (this.props.errors.size !== 0 && this.props.errors.has('/')) {
+      const messages = this.props.errors.get('/').map((message, index) => {
+        return <div key={index}>{message}</div>;
+      });
+
+      return <Alert>{messages}</Alert>;
+    }
+  }
+
   render() {
     return (
       <ConfigurationMap>
+        {this.getRootErrors()}
         <MountService.Mount
           type={this.getMountType()}
+          errors={this.props.errors}
           appConfig={this.props.appConfig} />
       </ConfigurationMap>
     );
   };
 }
 
+ServiceConfigDisplay.defaultProps = {
+  clearError() {},
+  errors: new Map()
+};
+
 ServiceConfigDisplay.propTypes = {
-  appConfig: React.PropTypes.object.isRequired
+  appConfig: React.PropTypes.object.isRequired,
+  clearError: React.PropTypes.func,
+  errors: React.PropTypes.object
 };
 
 module.exports = ServiceConfigDisplay;

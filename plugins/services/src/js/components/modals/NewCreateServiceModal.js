@@ -19,7 +19,6 @@ import ServiceConfigDisplay from '../ServiceConfigDisplay';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
-
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
@@ -252,12 +251,34 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+    let errorsMap = new Map();
+    if (this.props.errors) {
+      errorsMap.set('/', [this.props.errors.message]);
+
+      if (this.props.errors.details) {
+        this.props.errors.details.forEach(function ({errors, path}) {
+          const existingMessages = errorsMap.get(path);
+
+          let messages = errors;
+
+          if (existingMessages) {
+            messages = messages.concat(existingMessages);
+          }
+
+          errorsMap.set(path, messages);
+        });
+      }
+    }
+
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
       return (
         <div className="flex-item-grow-1">
           <div className="container">
-            <ServiceConfigDisplay appConfig={this.state.serviceConfig} />
+            <ServiceConfigDisplay
+              appConfig={this.state.serviceConfig}
+              clearError={this.props.clearError}
+              errors={errorsMap} />
           </div>
         </div>
       );
@@ -425,17 +446,20 @@ class NewServiceFormModal extends Component {
     let {props} = this;
 
     return (
-      <FullScreenModal
-        header={this.getHeader()}
-        onClose={this.handleClose}
-        {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
-        {this.getModalContent()}
-      </FullScreenModal>
+      <div>
+        <FullScreenModal
+          header={this.getHeader()}
+          onClose={this.handleClose}
+          {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
+          {this.getModalContent()}
+        </FullScreenModal>
+      </div>
     );
   }
 }
 
 NewServiceFormModal.propTypes = {
+  clearError: PropTypes.func.isRequired,
   errors: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string
