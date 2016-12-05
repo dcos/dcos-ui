@@ -287,6 +287,7 @@ class NewCreateServiceModalForm extends Component {
                 <TabView id="volumes">
                   <VolumesFormSection
                     data={data}
+                    errors={errorMap}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />
                 </TabView>

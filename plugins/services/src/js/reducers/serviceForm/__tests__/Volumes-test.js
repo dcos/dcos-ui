@@ -60,19 +60,19 @@ describe('Volumes', function () {
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
           containerPath: null,
+          persistent: {
+            size: null
+          },
+          mode: 'RW'
+        },
+        {
+          containerPath: null,
           external: {
             name: null,
             provider: 'dvdi',
             options: {
               'dvdi/driver': 'rexray'
             }
-          },
-          mode: 'RW'
-        },
-        {
-          containerPath: null,
-          persistent: {
-            size: null
           },
           mode: 'RW'
         }
@@ -206,6 +206,20 @@ describe('Volumes', function () {
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
           containerPath: '/dev/null',
+          persistent: {
+            size: 1024
+          },
+          mode: 'READ'
+        },
+        {
+          containerPath: '/dev/one',
+          persistent: {
+            size: 512
+          },
+          mode: 'RW'
+        },
+        {
+          containerPath: '/dev/null',
           external: {
             name: 'null',
             provider: 'provider',
@@ -223,20 +237,6 @@ describe('Volumes', function () {
             options: {
               'dvdi/driver': 'rexray'
             }
-          },
-          mode: 'RW'
-        },
-        {
-          containerPath: '/dev/null',
-          persistent: {
-            size: 1024
-          },
-          mode: 'READ'
-        },
-        {
-          containerPath: '/dev/one',
-          persistent: {
-            size: 512
           },
           mode: 'RW'
         }

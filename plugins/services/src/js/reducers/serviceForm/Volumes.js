@@ -75,8 +75,11 @@ module.exports = {
             break;
         }
 
-        return [].concat(this.externalVolumes,
-          this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
+        return [].concat(
+          this.localVolumes
+            .filter(filterHostVolumes.bind(this))
+            .map(mapLocalVolumes),
+          this.externalVolumes);
       }
 
       const index = path[1];
@@ -114,8 +117,11 @@ module.exports = {
             break;
         }
 
-        return [].concat(this.externalVolumes,
-          this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
+        return [].concat(
+          this.localVolumes
+            .filter(filterHostVolumes.bind(this))
+            .map(mapLocalVolumes),
+          this.externalVolumes);
       }
 
       const index = path[1];
@@ -142,7 +148,10 @@ module.exports = {
       }
     }
 
-    return [].concat(this.externalVolumes,
-      this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
+    return [].concat(
+      this.localVolumes
+        .filter(filterHostVolumes.bind(this))
+        .map(mapLocalVolumes),
+      this.externalVolumes);
   }
 };
