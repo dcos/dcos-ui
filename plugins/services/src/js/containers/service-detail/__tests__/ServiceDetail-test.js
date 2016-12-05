@@ -1,6 +1,8 @@
 jest.dontMock('../../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../../../../../../../src/js/components/DetailViewHeader');
 jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
+jest.dontMock('../../../../../../../src/js/components/Page');
+jest.dontMock('../../../../../../../src/js/mixins/InternalStorageMixin');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../../service-debug/ServiceDebugContainer');
 jest.dontMock('../../service-configuration/ServiceConfigurationContainer');
