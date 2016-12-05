@@ -53,7 +53,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       {name: 'summary', events: ['success'], listenAlways: false},
       {
         name: 'taskDirectory',
-        events: ['error', 'success'],
+        events: ['error', 'success', 'nodeStateError', 'nodeStateSuccess'],
         suppressUpdate: true
       }
     ];
@@ -61,6 +61,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.onTaskDirectoryStoreNodeStateError = this.onTaskDirectoryStoreError;
+    this.onTaskDirectoryStoreNodeStateSuccess = this.onTaskDirectoryStoreSuccess;
   }
 
   componentWillMount() {
