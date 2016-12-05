@@ -75,6 +75,17 @@ module.exports = {
             break;
         }
 
+        /**
+         * localVolumes and externalVolumes share the same reducer and
+         * the section in the form but representing quite different things.
+         *
+         * Reducer should use the same format therefore we need to pick either
+         * localVolumes format or externalVolumes format.
+         * We picked externalVolumes format. External Volumes are just external volumes.
+         *
+         * The following code converts localVolumes by filtering HOST volumes and
+         * mapping them to the common structure
+         */
         return [].concat(
           this.localVolumes
             .filter(filterHostVolumes.bind(this))
