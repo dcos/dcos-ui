@@ -11,7 +11,7 @@ import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
 class EnvironmentFormSection extends Component {
 
   getEnvironmentLines(data) {
-    const {errors} = this.props;
+    const errors = this.props.errors.env || {};
 
     return data.map((env, key) => {
       let keyLabel = null;
@@ -25,26 +25,24 @@ class EnvironmentFormSection extends Component {
         <div key={key} className="flex row">
           <FormGroup
             className="column-3"
-            required={false}
-            showError={Boolean(errors.env[key])}>
+            required={false}>
             {keyLabel}
             <FieldInput
               name={`env.${key}.key`}
               type="text"
               value={env.key}/>
-            <FieldError>{errors.env[key]}</FieldError>
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.env[key])}>
+            showError={Boolean(errors[env.key])}>
             {valueLabel}
             <FieldInput
               name={`env.${key}.value`}
               type="text"
               value={env.value}/>
-            <FieldError>{errors.env[key]}</FieldError>
+            <FieldError>{errors[env.key]}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
             <a
@@ -59,7 +57,7 @@ class EnvironmentFormSection extends Component {
   }
 
   getLabelsLines(data) {
-    const {errors} = this.props;
+    const errors = this.props.errors.labels || {};
 
     return data.map((label, key) => {
       let keyLabel = null;
@@ -72,27 +70,24 @@ class EnvironmentFormSection extends Component {
       return (
         <div key={key} className="flex row">
           <FormGroup
-            className="column-3"
-            required={false}
-            showError={Boolean(errors.labels[key])}>
+            className="column-3">
             {keyLabel}
             <FieldInput
               name={`labels.${key}.key`}
               type="text"
               value={label.key}/>
             <span className="emphasis form-colon">:</span>
-            <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.labels[key])}>
+            showError={Boolean(errors[label.key])}>
             {valueLabel}
             <FieldInput
               name={`labels.${key}.value`}
               type="text"
               value={label.value}/>
-            <FieldError>{errors.labels[key]}</FieldError>
+            <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
             <a
@@ -152,10 +147,7 @@ class EnvironmentFormSection extends Component {
 
 EnvironmentFormSection.defaultProps = {
   data: {},
-  errors: {
-    env: [],
-    labels: []
-  },
+  errors: {},
   onAddItem() {},
   onRemoveItem() {}
 };

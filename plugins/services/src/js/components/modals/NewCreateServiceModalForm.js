@@ -281,6 +281,7 @@ class NewCreateServiceModalForm extends Component {
                   {rootErrorComponent}
                   <EnvironmentFormSection
                     data={data}
+                    errors={errorMap}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />
                 </TabView>
