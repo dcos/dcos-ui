@@ -1,18 +1,32 @@
 import mixin from 'reactjs-mixin';
+import {Link, routerShape} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../../components/Breadcrumbs';
-import DetailViewHeader from '../../../components/DetailViewHeader';
 import Loader from '../../../components/Loader';
+import Page from '../../../components/Page';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import RouterUtil from '../../../utils/RouterUtil';
 import TabsMixin from '../../../mixins/TabsMixin';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
-import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
+
+const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
+  const crumbs = [
+    <Link to="networking" key={-1}>Networking</Link>,
+    <Link to="networking/networks" key={0}>Networks</Link>
+  ];
+
+  if (overlay) {
+    let name = overlay.getName();
+    crumbs.push(<Link to={`networking/networks/${name}`} key={1}>{name}</Link>);
+  } else {
+    crumbs.push(<span>{overlayID}</span>);
+  }
+
+  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'onVirtualNetworksStoreError',
@@ -73,53 +87,61 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     this.setState({receivedVirtualNetworks: true, errorCount: 0});
   }
 
-  getBasicInfo(overlay) {
-    if (!overlay) {
-      return VirtualNetworkUtil.getEmptyNetworkScreen();
-    }
-
-    let tabs = (
-      <ul className="menu-tabbed">
-        {this.tabs_getRoutedTabs({params: this.props.params})}
-      </ul>
-    );
-
-    return (
-      <DetailViewHeader
-        subTitle={overlay.getSubnet()}
-        navigationTabs={tabs}
-        title={overlay.getName()} />
-    );
-  }
-
   getErrorScreen() {
-    return <RequestErrorMsg />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
+        <RequestErrorMsg />
+      </Page>
+    );
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
+        <Loader />
+      </Page>
+    );
   }
 
   render() {
     let {errorCount, receivedVirtualNetworks} = this.state;
     if (errorCount >= 3) {
-      return this.getErrorScreen();
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
+          {this.getErrorScreen()}
+        </Page>
+      );
     }
 
     if (!receivedVirtualNetworks) {
       return this.getLoadingScreen();
     }
 
+    const tabs = [
+      {label: 'Tasks', callback: () => {
+        this.setState({currentTab: '/networking/networks/:overlayName'});
+        this.context.router.push(`/networking/networks/${this.props.params.overlayName}`);
+      }},
+      {label: 'Details', callback: () => {
+        this.setState({currentTab: '/networking/networks/:overlayName/details'});
+        this.context.router.push(`/networking/networks/${this.props.params.overlayName}/details`);
+      }}
+    ];
+
     let overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
       return overlay.getName() === this.props.params.overlayName;
     });
 
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        {this.getBasicInfo(overlay)}
+      <Page>
+        <Page.Header
+          breadcrumbs={<NetworksDetailBreadcrumbs overlay={overlay} />}
+          tabs={tabs} />
         {React.cloneElement(this.props.children, { overlay })}
-      </div>
+      </Page>
     );
   }
 }

@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,8 +10,18 @@ import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RepositoriesTable from '../../components/RepositoriesTable';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+
+const RepositoriesBreadcrumbs = (addButton) => {
+  const crumbs = [
+    <Link to="settings" key={-1}>Settings</Link>,
+    <Link to="settings/repositories" key={0}>Respositories</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="gear" breadcrumbs={crumbs} addButton={addButton} />;
+};
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -95,25 +106,23 @@ class RepositoriesTab extends mixin(StoreMixin) {
       .filterItemsByText(searchString);
 
     return (
-      <div>
+      <Page>
+        <Page.Header
+          addButton={{onItemSelect: this.handleOpenAddRepository, label: 'Add Repository'}}
+          breadcrumbs={<RepositoriesBreadcrumbs />} />
         <FilterBar rightAlignLastNChildren={1}>
           <FilterInputText
             className="flush-bottom"
             placeholder="Search"
             searchString={searchString}
             handleFilterChange={this.handleSearchStringChange} />
-          <button
-            className="button button-success"
-            onClick={this.handleOpenAddRepository}>
-            Add Repository
-          </button>
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
         <AddRepositoryFormModal
           numberOfRepositories={repositories.getItems().length}
           open={addRepositoryModalOpen}
           onClose={this.handleCloseAddRepository} />
-      </div>
+      </Page>
     );
   }
 }

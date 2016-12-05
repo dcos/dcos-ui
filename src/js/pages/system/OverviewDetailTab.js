@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,6 +10,15 @@ import ConfigStore from '../../stores/ConfigStore';
 import DescriptionList from '../../components/DescriptionList';
 import Loader from '../../components/Loader';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
+import Page from '../../components/Page';
+
+const ClusterDetailsBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="cluster" key={-1}>Cluster Details</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+};
 
 class OverviewDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -50,9 +60,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     }
 
     return {
-      'Cluster Details': {
-        'Cryptographic Cluster ID': ccid
-      }
+      'Cryptographic Cluster ID': ccid
     };
   }
 
@@ -97,10 +105,11 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<ClusterDetailsBreadcrumbs />} />
         {this.buildDescriptionList(this.getClusterDetailsHash())}
         {marathonDetails}
-      </div>
+      </Page>
     );
   }
 };

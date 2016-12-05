@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,9 +10,19 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import VirtualNetworksStore from '../../stores/VirtualNetworksStore';
 import VirtualNetworksTable from './VirtualNetworksTable';
+
+const NetworksBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="networking" key={-1}>Networking</Link>,
+    <Link to="networking/networks" key={0}>Networks</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -76,7 +87,9 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getErrorScreen() {
-    return <RequestErrorMsg />;
+    return (
+      <RequestErrorMsg />
+    );
   }
 
   getFilteredOverlayList(overlayList, searchString = '') {
@@ -91,7 +104,9 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Loader />
+    );
   }
 
   getContent() {
@@ -129,10 +144,11 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   render() {
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<NetworksBreadcrumbs />} />
         {this.getContent()}
         {this.props.children}
-      </div>
+      </Page>
     );
   }
 }
