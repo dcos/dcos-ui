@@ -10,6 +10,7 @@ class PageHeader extends React.Component {
     let {
       props: {
         actions,
+        addButton,
         breadcrumbs,
         className,
         innerClassName,
@@ -48,7 +49,9 @@ class PageHeader extends React.Component {
         <div className={innerClasses}>
           <div className={primaryContentClasses}>
             {breadcrumbs}
-            <NewPageHeaderActions actions={actions} />
+            <NewPageHeaderActions
+              actions={actions}
+              addButton={addButton} />
           </div>
           <div className={secondaryContentClasses}>
             <NewPageHeaderTabs tabs={tabs} />
@@ -72,6 +75,7 @@ PageHeader.defaultProps = {
 };
 
 PageHeader.propTypes = {
+  addButton: React.PropTypes.object,
   actions: React.PropTypes.array,
   breadcrumbs: React.PropTypes.node.isRequired,
   className: classProps,
