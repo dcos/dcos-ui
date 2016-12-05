@@ -13,18 +13,21 @@ import {FormReducer as externalVolumes} from '../../reducers/serviceForm/Externa
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
 class VolumesFormSection extends Component {
-  getErrors(key) {
-    return errorsLens.at(key, {}).get(this.props.errors);
-  }
-
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== 'PERSISTENT') {
       return null;
     }
 
-    const errors = this.getErrors(key);
-    const sizeError = errors.size;
-    const containerPathError = errors.containerPath;
+    const sizeError = errorsLens
+      .at(key, {})
+      .attr('persistent', {})
+      .get(this.props.errors)
+      .size;
+
+    const containerPathError = errorsLens
+      .at(key, {})
+      .get(this.props.errors)
+      .containerPath;
 
     return (
       <div className="flex row">
@@ -59,7 +62,7 @@ class VolumesFormSection extends Component {
       return null;
     }
 
-    const errors = this.getErrors(key);
+    const errors = errorsLens.at(key, {}).get(this.props.errors);
     const hostPathError = errors.hostPath;
     const containerPathError = errors.containerPath;
     const modeError = errors.mode;
@@ -119,7 +122,10 @@ class VolumesFormSection extends Component {
         return null;
       }
 
-      const typeError = this.getErrors(key).type;
+      const typeError = errorsLens
+        .at(key, {})
+        .get(this.props.errors)
+        .type;
 
       return (
         <div key={key} className="panel pod-short">
@@ -161,9 +167,16 @@ class VolumesFormSection extends Component {
    */
   getExternalVolumesLines(data, offset) {
     return data.map((volumes, key) => {
-      const errors = this.getErrors(key + offset);
-      const nameError = errors.name;
-      const containerPathError = errors.containerPath;
+      const nameError = errorsLens
+        .at(key + offset, {})
+        .attr('external', {})
+        .get(this.props.errors)
+        .name;
+
+      const containerPathError = errorsLens
+        .at(key + offset, {})
+        .get(this.props.errors)
+        .containerPath;
 
       return (
         <div key={key} className="panel pod-short">
