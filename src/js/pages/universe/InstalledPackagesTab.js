@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -8,7 +9,16 @@ import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
 import PackagesTable from '../../components/PackagesTable';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+
+const InstalledPackagesBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="universe/installed-packages" key={-1}>Installed</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange'
@@ -77,7 +87,8 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
       .filterItemsByText(searchString);
 
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<InstalledPackagesBreadcrumbs />} />
         <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
           <FilterInputText
             className="flex-grow"
@@ -86,7 +97,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
             handleFilterChange={this.handleSearchStringChange} />
         </div>
         <PackagesTable packages={packages} filter={searchString} />
-      </div>
+      </Page>
     );
   }
 }
