@@ -9,14 +9,14 @@ import {routerShape} from 'react-router';
 
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
-import DetailViewHeader from '../../components/DetailViewHeader';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
+import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
 import Loader from '../../components/Loader';
 import MetronomeStore from '../../stores/MetronomeStore';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -262,7 +262,12 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+        <Loader />
+      </Page>
+    );
   }
 
   getNavigationTabs() {
@@ -365,28 +370,30 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return this.getLoadingScreen();
     }
 
+    // TaskDetailView
     if (this.props.params.taskID) {
       return this.props.children;
     }
 
     let job = MetronomeStore.getJob(this.props.params.id);
 
+    let tabs = [
+      {label: 'Run History', callback: () => { this.setState({currentTab: 'runHistory'}); } },
+      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); } }
+    ];
+
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <DetailViewHeader
-          actionButtons={this.getActionButtons()}
-          navigationTabs={this.getNavigationTabs()}
-          subTitle={this.getSubTitle(job)}
-          subTitleClassName={{emphasize: false}}
-          title={job.getDescription() || job.getId()} />
+      <Page>
+        <Page.Header
+          breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
+          tabs={tabs} />
         {this.tabs_getTabView(job)}
         <JobFormModal isEdit={true}
           job={job}
           open={this.state.jobActionDialog === JobActionItem.EDIT}
           onClose={this.closeDialog} />
         {this.getDestroyConfirmDialog()}
-      </div>
+      </Page>
     );
   }
 }
