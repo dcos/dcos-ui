@@ -14,7 +14,7 @@ import Page from '../../components/Page';
 
 const ClusterDetailsBreadcrumbs = () => {
   const crumbs = [
-    <Link to="cluster" key={-1}>Cluster Details</Link>
+    <Link to="cluster" key={-1}>Cluster</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;

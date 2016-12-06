@@ -16,8 +16,7 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 
 const RepositoriesBreadcrumbs = (addButton) => {
   const crumbs = [
-    <Link to="settings" key={-1}>Settings</Link>,
-    <Link to="settings/repositories" key={0}>Respositories</Link>
+    <Link to="settings/repositories" key={-1}>Respositories</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="gear" breadcrumbs={crumbs} addButton={addButton} />;
