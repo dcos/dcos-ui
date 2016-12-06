@@ -56,6 +56,29 @@ describe('SearchDSL', function () {
         expect(expr.ast.children[1].filterParams.label).toEqual('attrib');
       });
 
+      fit('should properly handle OR shorthand + OR with other operands', function () {
+        // NOTE: attrib:value1,value2 becomes -> attrib:value1, attrib:value2
+        let expr = SearchDSL.parse('attrib:value1,value2, foo');
+        expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
+
+        expect(expr.ast.children[0].combinerType).toEqual(DSLCombinerTypes.OR);
+        expect(expr.ast.children[0].children[0].filterType)
+          .toEqual(DSLFilterTypes.ATTRIB);
+        expect(expr.ast.children[0].children[0].filterParams.text)
+          .toEqual('value1');
+        expect(expr.ast.children[0].children[0].filterParams.label)
+          .toEqual('attrib');
+        expect(expr.ast.children[0].children[1].filterType)
+          .toEqual(DSLFilterTypes.ATTRIB);
+        expect(expr.ast.children[0].children[1].filterParams.text)
+          .toEqual('value2');
+        expect(expr.ast.children[0].children[1].filterParams.label)
+          .toEqual('attrib');
+
+        expect(expr.ast.children[1].filterType).toEqual(DSLFilterTypes.FUZZY);
+        expect(expr.ast.children[1].filterParams.text).toEqual('foo');
+      });
+
       it('should correctly populate children', function () {
         let expr = SearchDSL.parse('text1 text2');
         expect(expr.ast.children[0].filterType).toEqual(DSLFilterTypes.FUZZY);
