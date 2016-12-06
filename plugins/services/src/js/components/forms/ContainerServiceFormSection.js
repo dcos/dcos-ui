@@ -144,7 +144,7 @@ class ContainerServiceFormSection extends Component {
 
       if (container && container.type !== DOCKER) {
         return (
-          <FieldLabel>
+          <FieldLabel key={index}>
             <FieldInput
               checked={false}
               name={`container.docker.${settingName}`}
@@ -158,7 +158,7 @@ class ContainerServiceFormSection extends Component {
               scrollContainer=".gm-scroll-view"
               wrapText={true}>
                 {label}
-                <Icon color="grey" id="lock" size="mini" family="mini"/>
+                <Icon color="grey" id="lock" size="mini" />
             </Tooltip>
             <FieldHelp>{helpText}</FieldHelp>
           </FieldLabel>
@@ -251,7 +251,7 @@ class ContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
+      <FieldLabel key="image-label">
         {'Container Image '}
         <Tooltip
           content={tooltipContent}
@@ -295,9 +295,10 @@ class ContainerServiceFormSection extends Component {
     return [
       this.getImageLabel(),
       <FieldInput
+        key="image-field"
         name="container.docker.image"
         value={image} />,
-      <FieldHelp>
+      <FieldHelp key="image-help">
         Enter a Docker image you want to run, e.g. nginx.
       </FieldHelp>
     ];
@@ -320,7 +321,7 @@ class ContainerServiceFormSection extends Component {
         <div className="flex row">
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             {this.getImageInput(data)}
-            <FieldError>{imageErrors}</FieldError>
+            <FieldError key="image-errors">{imageErrors}</FieldError>
           </FormGroup>
 
           <FormGroup
