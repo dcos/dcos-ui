@@ -9,21 +9,27 @@ source ${SCRIPT_PATH}/utils/message
 # Make sure that we have the RAML files for the specified marathon version
 function install_marathon_raml() {
   local TARGET_DIR="${PROJECT_ROOT}/src/resources/raml/marathon/v2"
-  local TAG=$1
-  [ -z "$TAG" ] && TAG="master"
+  local VERSION=$1
 
-  title "Ensuring we have the RAML specs for marathon v${TAG}"
+  if [ -z "$VERSION" ]
+  then
+   warning "You need to specify a version to install the Marathon RAML specs."\
+            "Example: install_marathon_raml \"1.4.0-RC1\""
+   return
+  fi
+
+  title "Install RAML Marathon v${VERSION} specs..."
 
   # Check if the installer version matches the requested
   local INSTALLED_VERSION=$(cat ${TARGET_DIR}/.marathon-version 2>/dev/null)
-  if [ "$INSTALLED_VERSION" == "$TAG" ]; then
+  if [ "$INSTALLED_VERSION" == "$VERSION" ]; then
     info "Local files are up to date"
     return
   fi
 
   # Download and expand on-the-fly the marathon tarball into a temporary folder
-  header "Downloading marathon v${TAG} archive"
-  local URL="https://github.com/mesosphere/marathon/archive/v${TAG}.tar.gz"
+  header "Downloading marathon v${VERSION} archive"
+  local URL="https://github.com/mesosphere/marathon/archive/v${VERSION}.tar.gz"
   local TMP_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`
   curl -L ${URL} | tar -zx -C $TMP_DIR
 
@@ -33,8 +39,8 @@ function install_marathon_raml() {
 
   # Copy only relevant parts in the RAML directory
   header "Installing raml files"
-  cp -r $TMP_DIR/marathon-${TAG}/docs/docs/rest-api/public/api/v2/{schema,types,*.raml} $TARGET_DIR \
-    && echo $TAG > "${TARGET_DIR}/.marathon-version"
+  cp -r $TMP_DIR/marathon-${VERSION}/docs/docs/rest-api/public/api/v2/{schema,types,*.raml} $TARGET_DIR \
+    && echo $VERSION > "${TARGET_DIR}/.marathon-version"
 
   # Cleanup
   rm -rf $TMP_DIR
