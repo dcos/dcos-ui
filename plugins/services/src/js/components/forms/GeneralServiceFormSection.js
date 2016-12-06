@@ -14,6 +14,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Icon from '../../../../../../src/js/components/Icon';
 import General from '../../reducers/serviceForm/General';
@@ -363,7 +364,7 @@ class GeneralServiceFormSection extends Component {
 
           <Confirm
               closeByBackdropClick={true}
-              header="Switching to a pod service"
+              header={<ModalHeading>Switching to a pod service</ModalHeading>}
               open={this.state.convertToPodModalOpen}
               onClose={this.handleCloseConvertToPodModal}
               leftButtonText="Close"
