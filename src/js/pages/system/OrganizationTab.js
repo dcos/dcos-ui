@@ -1,19 +1,30 @@
 import classNames from 'classnames';
 import {Dropdown, Form, Table} from 'reactjs-components';
+import {Hooks} from 'PluginSDK';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {ResourceTableUtil} from 'foundation-ui';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import BulkOptions from '../../constants/BulkOptions';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import Page from '../../components/Page';
 import StringUtil from '../../utils/StringUtil';
 import TableUtil from '../../utils/TableUtil';
 import UsersActionsModal from '../../components/modals/UsersActionsModal';
+import UserFormModal from '../../components/modals/UserFormModal';
+import UsersStore from '../../stores/UsersStore';
+
+const USERS_CHANGE_EVENTS = [
+  'onUserStoreCreateSuccess',
+  'onUserStoreDeleteSuccess'
+];
 
 const METHODS_TO_BIND = [
   'getTableRowOptions',
@@ -21,6 +32,8 @@ const METHODS_TO_BIND = [
   'handleActionSelectionClose',
   'handleCheckboxChange',
   'handleHeadingCheckboxChange',
+  'handleNewUserClick',
+  'handleNewUserClose',
   'handleSearchStringChange',
   'renderCheckbox',
   'renderFullName',
@@ -29,21 +42,43 @@ const METHODS_TO_BIND = [
   'resetFilter'
 ];
 
-class OrganizationTab extends mixin(InternalStorageMixin) {
+const UsersBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="organization/users" key={-1}>Users</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+};
+
+class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   constructor() {
     super(arguments);
+
+    this.store_listeners = [{
+      name: 'user',
+      events: ['createSuccess', 'deleteSuccess'],
+      suppressUpdate: true
+    }];
 
     this.state = {
       checkableCount: 0,
       checkedCount: 0,
+      openNewUserModal: false,
       showActionDropdown: false,
       searchString: '',
-      selectedAction: null
+      selectedAction: null,
+      usersStoreError: false,
+      usersStoreSuccess: false
     };
 
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
     }, this);
+
+    Hooks.applyFilter('organizationTabChangeEvents', USERS_CHANGE_EVENTS)
+      .forEach((event) => {
+        this[event] = this.onUsersChange;
+      });
 
     this.internalStorage_update({selectedIDSet: {}});
   }
@@ -68,6 +103,10 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
         prevProps.items.length !== this.props.items.length) {
       this.resetTablewideCheckboxTabulations();
     }
+  }
+
+  onUsersChange() {
+    UsersStore.fetchUsers();
   }
 
   handleActionSelection(dropdownItem) {
@@ -105,6 +144,14 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
   handleSearchStringChange(searchString = '') {
     this.setState({searchString});
     this.bulkCheck(false);
+  }
+
+  handleNewUserClick() {
+    this.setState({openNewUserModal: true});
+  }
+
+  handleNewUserClose() {
+    this.setState({openNewUserModal: false});
   }
 
   renderFullName(prop, subject) {
@@ -388,7 +435,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
   }
 
   render() {
-    let {items, itemID, itemName, handleNewItemClick} = this.props;
+    let {items, itemID, itemName} = this.props;
     let state = this.state;
     let action = state.selectedAction;
     let capitalizedItemName = StringUtil.capitalize(itemName);
@@ -398,40 +445,43 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     let sortProp = itemID;
 
     return (
-      <div className="flex-container-col">
-        <div className={`${itemName}s-table-header`}>
-          <FilterHeadline
-            onReset={this.resetFilter}
-            name={capitalizedItemName}
-            currentLength={visibleItems.length}
-            totalLength={items.length} />
-          <FilterBar rightAlignLastNChildren={1}>
-            <FilterInputText
-              className="flush-bottom"
-              searchString={this.state.searchString}
-              handleFilterChange={this.handleSearchStringChange} />
-            {actionDropdown}
-            {actionsModal}
-            <a
-              className="button button-success"
-              onClick={handleNewItemClick}>
-              {`New ${capitalizedItemName}`}
-            </a>
-          </FilterBar>
+      <Page>
+        <Page.Header
+          breadcrumbs={<UsersBreadcrumbs />}
+          addButton={{onItemSelect: this.handleNewUserClick, label: `New ${capitalizedItemName}`}} />
+        <div className="flex-container-col">
+          <div className={`${itemName}s-table-header`}>
+            <FilterHeadline
+              onReset={this.resetFilter}
+              name={capitalizedItemName}
+              currentLength={visibleItems.length}
+              totalLength={items.length} />
+            <FilterBar>
+              <FilterInputText
+                className="flush-bottom"
+                searchString={this.state.searchString}
+                handleFilterChange={this.handleSearchStringChange} />
+              {actionDropdown}
+              {actionsModal}
+            </FilterBar>
+          </div>
+          <div className="page-body-content-fill flex-grow flex-container-col">
+            <Table
+              buildRowOptions={this.getTableRowOptions}
+              className="table table-borderless-outer
+                table-borderless-inner-columns flush-bottom"
+              columns={this.getColumns()}
+              colGroup={this.getColGroup()}
+              containerSelector=".gm-scroll-view"
+              data={visibleItems}
+              itemHeight={TableUtil.getRowHeight()}
+              sortBy={{prop: sortProp, order: 'asc'}} />
+          </div>
         </div>
-        <div className="page-body-content-fill flex-grow flex-container-col">
-          <Table
-            buildRowOptions={this.getTableRowOptions}
-            className="table table-borderless-outer
-              table-borderless-inner-columns flush-bottom"
-            columns={this.getColumns()}
-            colGroup={this.getColGroup()}
-            containerSelector=".gm-scroll-view"
-            data={visibleItems}
-            itemHeight={TableUtil.getRowHeight()}
-            sortBy={{prop: sortProp, order: 'asc'}} />
-        </div>
-      </div>
+        <UserFormModal
+          open={this.state.openNewUserModal}
+          onClose={this.handleNewUserClose}/>
+      </Page>
     );
   }
 }
@@ -439,8 +489,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
 OrganizationTab.propTypes = {
   items: React.PropTypes.array.isRequired,
   itemID: React.PropTypes.string.isRequired,
-  itemName: React.PropTypes.string.isRequired,
-  handleNewItemClick: React.PropTypes.func.isRequired
+  itemName: React.PropTypes.string.isRequired
 };
 
 module.exports = OrganizationTab;
