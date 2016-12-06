@@ -74,29 +74,34 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
 
   render() {
     let {hasError, isLoading, searchString} = this.state;
+    let content = null;
 
     if (hasError) {
-      return this.getErrorScreen();
-    }
+      content = this.getErrorScreen();
+    } else if (isLoading) {
+      content = this.getLoadingScreen();
+    } else {
+      let packages = CosmosPackagesStore.getInstalledPackages()
+        .filterItemsByText(searchString);
 
-    if (isLoading) {
-      return this.getLoadingScreen();
+      content = (
+        <div>
+          <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+            <FilterInputText
+              className="flex-grow"
+              placeholder="Search"
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange} />
+          </div>
+          <PackagesTable packages={packages} filter={searchString} />
+        </div>
+      );
     }
-
-    let packages = CosmosPackagesStore.getInstalledPackages()
-      .filterItemsByText(searchString);
 
     return (
       <Page>
         <Page.Header breadcrumbs={<InstalledPackagesBreadcrumbs />} />
-        <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
-          <FilterInputText
-            className="flex-grow"
-            placeholder="Search"
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
-        </div>
-        <PackagesTable packages={packages} filter={searchString} />
+        {content}
       </Page>
     );
   }
