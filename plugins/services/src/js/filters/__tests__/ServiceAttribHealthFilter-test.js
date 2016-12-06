@@ -25,8 +25,8 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:healthy');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceAttribHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -37,8 +37,8 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:unhealthy');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceAttribHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -49,8 +49,8 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:idle');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceAttribHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -61,8 +61,8 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:na');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceAttribHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -73,8 +73,8 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:foo');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceAttribHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);

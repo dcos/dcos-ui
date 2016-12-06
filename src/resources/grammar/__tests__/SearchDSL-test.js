@@ -201,10 +201,10 @@ describe('SearchDSL', function () {
     fdescribe('Filtering', function () {
 
       beforeEach(function () {
-        this.filters = new DSLFilters();
-        this.filters.plug(new AttribFilter());
-        this.filters.plug(new FuzzyTextFilter());
-        this.filters.plug(new ExactTextFilter());
+        this.filters = new DSLFilters()
+          .add(new AttribFilter())
+          .add(new FuzzyTextFilter())
+          .add(new ExactTextFilter());
 
         this.mockResultset = new List({items: [
           {text: 'some test string', attrib: ['a', 'b']},

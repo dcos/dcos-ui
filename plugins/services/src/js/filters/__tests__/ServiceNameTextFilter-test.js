@@ -22,8 +22,8 @@ describe('ServiceNameTextFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('foo');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceNameTextFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceNameTextFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0],
@@ -35,8 +35,8 @@ describe('ServiceNameTextFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('"foo bar"');
 
-    let filters = new DSLFilters();
-    filters.plug(new ServiceNameTextFilter());
+    let filters = new DSLFilters()
+      .add(new ServiceNameTextFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
