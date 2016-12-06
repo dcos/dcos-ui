@@ -6,6 +6,7 @@ import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Conta
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
+import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -42,10 +43,9 @@ class PodContainerServiceFormSection extends Component {
               <FieldError>{artifactError}</FieldError>
             </FormGroup>
             <FormGroup className="flex flex-item-align-end column-2">
-              <a className="button button-primary-link button-flush"
-                  onClick={this.props.onRemoveItem.bind(this, {value: index, path: `${path}.artifacts`})}>
-                Delete
-              </a>
+              <DeleteRowButton
+                onClick={this.props.onRemoveItem.bind(this,
+                  {value: index, path: `${path}.artifacts`})}/>
             </FormGroup>
           </div>
       );
