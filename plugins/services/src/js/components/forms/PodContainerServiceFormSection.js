@@ -241,7 +241,7 @@ PodContainerServiceFormSection.propTypes = {
   onRemoveItem: React.PropTypes.func
 };
 
-PodContainerServiceFormSection.reducers = {
+PodContainerServiceFormSection.configReducers = {
   container: ContainerReducer,
   containers: ContainersReducer
 };
