@@ -5,26 +5,28 @@ import {Tooltip} from 'reactjs-components';
 import Icon from './Icon';
 import PageHeaderActionsMenu from './PageHeaderActionsMenu';
 
+const getDropdownActions = (action, index) => {
+  if (React.isValidElement(action)) {
+    return action;
+  }
+
+  const {className, label, onItemSelect} = action;
+  const itemClasses = classNames(className);
+
+  return (
+    <span className={itemClasses} onItemSelect={onItemSelect} key={index}>
+      {label}
+    </span>
+  );
+};
+
 class PageHeaderActions extends React.Component {
 
   renderActionsMenu() {
     const {actions} = this.props;
 
     if (actions.length > 0) {
-      const dropdownElements = actions.map(function (action, index) {
-        if (React.isValidElement(action)) {
-          return action;
-        }
-
-        const {className, label, onItemSelect} = action;
-        const itemClasses = classNames(className);
-
-        return (
-          <span className={itemClasses} onItemSelect={onItemSelect} key={index}>
-            {label}
-          </span>
-        );
-      });
+      const dropdownElements = actions.map(getDropdownActions);
 
       return (
         <PageHeaderActionsMenu>
@@ -36,6 +38,17 @@ class PageHeaderActions extends React.Component {
 
   renderAddButton() {
     const {addButton} = this.props;
+
+    if (Array.isArray(addButton) && addButton.length > 0) {
+      const dropdownElements = addButton.map(getDropdownActions);
+
+      return (
+        <PageHeaderActionsMenu iconID="plus">
+          {dropdownElements}
+        </PageHeaderActionsMenu>
+      );
+    }
+
     if (addButton != null) {
       const {label, onItemSelect, className} = addButton;
       const buttonClasses = classNames(
@@ -81,20 +94,21 @@ const classProps = React.PropTypes.oneOfType([
   React.PropTypes.string
 ]);
 
+const menuActionsProps = React.PropTypes.shape({
+  className: classProps,
+  onItemSelect: React.PropTypes.func.isRequired,
+  label: React.PropTypes.node.isRequired
+});
+
 PageHeaderActions.propTypes = {
-  addButton: React.PropTypes.shape({
-    className: classProps,
-    onItemSelect: React.PropTypes.func,
-    label: React.PropTypes.node
-  }),
+  addButton: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(menuActionsProps),
+    menuActionsProps
+  ]),
   actions: React.PropTypes.arrayOf(
     React.PropTypes.oneOfType([
       React.PropTypes.node,
-      React.PropTypes.shape({
-        className: classProps,
-        onItemSelect: React.PropTypes.func.isRequired,
-        label: React.PropTypes.node.isRequired
-      })
+      menuActionsProps
     ])
   )
 };
