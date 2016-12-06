@@ -23,7 +23,7 @@ const UnitHealthBreadcrumbs = () => {
     <Link to="components" key={-1}>Components</Link>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
 };
 
 const METHODS_TO_BIND = [
