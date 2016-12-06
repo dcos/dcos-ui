@@ -96,13 +96,13 @@ class HealthChecksFormSection extends Component {
       <div className="flex row">
         <FormGroup
           className="column-12"
-          showError={Boolean(errors.command)}>
+          showError={Boolean(errors.value)}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
             name={`healthChecks.${key}.command`}
             type="text"
             value={healthCheck.command}/>
-          <FieldError>{errors.command}</FieldError>
+          <FieldError>{errors.value}</FieldError>
         </FormGroup>
       </div>
     );

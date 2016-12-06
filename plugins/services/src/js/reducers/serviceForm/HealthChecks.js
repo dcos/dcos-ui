@@ -13,7 +13,7 @@ function mapHealthChecks(item) {
     newItem.protocol = item.protocol;
     if (item.protocol.toUpperCase() === 'COMMAND' && item.command != null) {
       newItem.command = {
-        command: item.command
+        value: item.command
       };
     }
 
@@ -131,12 +131,12 @@ module.exports = {
         'protocol'
       ], item.protocol.toUpperCase(), SET));
       if (item.protocol.toUpperCase() === 'COMMAND') {
-        if (item.command != null && item.command.command != null) {
+        if (item.command != null && item.command.value != null) {
           memo.push(new Transaction([
             'healthChecks',
             index,
             'command'
-          ], item.command.command, SET));
+          ], item.command.value, SET));
         }
       }
       if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
