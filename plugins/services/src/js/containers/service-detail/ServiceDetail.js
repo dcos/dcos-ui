@@ -69,7 +69,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   hasVolumes() {
     return !!this.props.service &&
-        this.props.service.getVolumes().getItems().length > 0;
+      this.props.service.getVolumes().getItems().length > 0;
   }
 
   checkForVolumes() {
@@ -197,9 +197,9 @@ class ServiceDetail extends mixin(TabsMixin) {
     return (
       <Page>
         <Page.Header actions={this.getActions()}
-            tabs={this.getTabs()}
-            breadcrumbs={breadcrumbs}
-            iconID="services" />
+          tabs={this.getTabs()}
+          breadcrumbs={breadcrumbs}
+          iconID="services" />
         {this.tabs_getTabView()}
         {modals}
       </Page>
