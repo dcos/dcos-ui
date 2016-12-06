@@ -239,7 +239,7 @@ class NewCreateServiceModalForm extends Component {
     });
     let patch = batch.reduce(this.props.jsonConfigReducers, {});
 
-    return new CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   getRootErrorMessage() {
