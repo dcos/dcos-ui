@@ -34,7 +34,12 @@ function getApplicationRoutes() {
     universe,
     cluster,
     components,
-    settings
+    settings,
+    {
+      type: Route,
+      path: '*',
+      component: NotFoundPage
+    }
   );
 
   routeFactories.forEach(function (routeFactory) {
@@ -52,11 +57,6 @@ function getApplicationRoutes() {
           children: routes
         }
       ]
-    },
-    {
-      type: Route,
-      path: '*',
-      component: NotFoundPage
     }
   ];
 

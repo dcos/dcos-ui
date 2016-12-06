@@ -10,7 +10,6 @@ import EventTypes from '../constants/EventTypes';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MetadataStore from '../stores/MetadataStore';
 import Modals from '../components/Modals';
-import NavigationServiceUtil from '../utils/NavigationServiceUtil';
 import RequestErrorMsg from '../components/RequestErrorMsg';
 import ServerErrorModal from '../components/ServerErrorModal';
 import Sidebar from '../components/Sidebar';
@@ -42,8 +41,6 @@ var Index = React.createClass({
   componentWillMount() {
     MetadataStore.init();
     SidebarStore.init();
-
-    NavigationServiceUtil.registerRoutesInNavigation(this.props.routes);
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
