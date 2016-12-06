@@ -14,20 +14,31 @@ import UnitsHealthNodeDetailPanel from
 import UnitSummaries from '../../constants/UnitSummaries';
 
 const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
-  let unitTitle = unit.getTitle();
-  let nodeIP = node.get('host_ip');
-  let healthStatus = node.getHealth();
-
   const crumbs = [
-    <Link to="components" key={-1}>Universe</Link>,
-    <Link to={`components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>,
-    <Link to={`components/${unit.get('id')}/${nodeIP}`} key={1}>
-      {`${nodeIP} `}
-      <span className={healthStatus.classNames}>
-        ({healthStatus.title})
-      </span>
-    </Link>
+    <Link to="components" key={-1}>Components</Link>
   ];
+
+  if (unit != null) {
+    let unitTitle = unit.getTitle();
+
+    crumbs.push(
+      <Link to={`components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
+    );
+  }
+
+  if (node != null && unit != null) {
+    let nodeIP = node.get('host_ip');
+    let healthStatus = node.getHealth();
+
+    crumbs.push(
+      <Link to={`components/${unit.get('id')}/${nodeIP}`} key={1}>
+        {`${nodeIP} `}
+        <span className={healthStatus.classNames}>
+          ({healthStatus.title})
+        </span>
+      </Link>
+    );
+  }
 
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
 };
@@ -89,26 +100,25 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
   render() {
     let {hasError, isLoadingNode, isLoadingUnit} = this.state;
+    let content = null;
+    let node = null;
+    let unit = null;
 
     if (hasError) {
-      return this.getErrorNotice();
-    }
+      content = this.getErrorNotice();
+    } else if (isLoadingNode || isLoadingUnit) {
+      content = this.getLoadingScreen();
+    } else {
+      let {unitID, unitNodeID} = this.props.params;
 
-    if (isLoadingNode || isLoadingUnit) {
-      return this.getLoadingScreen();
-    }
+      node = UnitHealthStore.getNode(unitNodeID);
+      unit = UnitHealthStore.getUnit(unitID);
 
-    let {unitID, unitNodeID} = this.props.params;
-    let node = UnitHealthStore.getNode(unitNodeID);
-    let unit = UnitHealthStore.getUnit(unitID);
+      let unitSummary = UnitSummaries[unit.get('id')] || {};
+      let unitDocsURL = unitSummary.getDocumentationURI &&
+          unitSummary.getDocumentationURI();
 
-    let unitSummary = UnitSummaries[unit.get('id')] || {};
-    let unitDocsURL = unitSummary.getDocumentationURI &&
-        unitSummary.getDocumentationURI();
-
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<UnitHealthNodeDetailBreadcrumbs node={node} unit={unit} />} />
+      content = (
         <UnitsHealthNodeDetailPanel
           routes={this.props.routes}
           params={this.props.params}
@@ -116,6 +126,13 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
           hostIP={node.get('host_ip')}
           output={node.getOutput()}
           summary={unitSummary.summary} />
+      );
+    }
+
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<UnitHealthNodeDetailBreadcrumbs node={node} unit={unit} />} />
+        {content}
       </Page>
     );
   }

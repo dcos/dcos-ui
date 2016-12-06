@@ -16,18 +16,23 @@ import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 
 const UnitHealthDetailBreadcrumbs = ({unit}) => {
-  let healthStatus = unit.getHealth();
-  let unitTitle = unit.getTitle();
-
   const crumbs = [
-    <Link to="components" key={-1}>Universe</Link>,
-    <Link to={`components/${unit.get('id')}`} key={0}>
-      {`${unitTitle} `}
-      <span className={healthStatus.classNames}>
-        ({healthStatus.title})
-      </span>
-    </Link>
+    <Link to="components" key={-1}>Components</Link>
   ];
+
+  if (unit != null) {
+    const healthStatus = unit.getHealth();
+    const unitTitle = unit.getTitle();
+
+    crumbs.push(
+      <Link to={`components/${unit.get('id')}`} key={0}>
+        {`${unitTitle} `}
+        <span className={healthStatus.classNames}>
+          ({healthStatus.title})
+        </span>
+      </Link>
+    );
+  }
 
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
 };
@@ -141,22 +146,19 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       isLoadingUnit,
       isLoadingNodes
     } = this.state;
+    let content = null;
+    let unit = null;
 
     if (hasError) {
-      return this.getErrorNotice();
-    }
+      content = this.getErrorNotice();
+    } else if (isLoadingUnit || isLoadingNodes) {
+      content = this.getLoadingScreen();
+    } else {
+      let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
+      let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
 
-    if (isLoadingUnit || isLoadingNodes) {
-      return this.getLoadingScreen();
-    }
-
-    let unit = this.getUnit();
-    let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
-    let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
-
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<UnitHealthDetailBreadcrumbs unit={unit} />} />
+      unit = this.getUnit();
+      content = (
         <div className="flex-container-col">
           <FilterHeadline
             currentLength={visibleData.length}
@@ -182,6 +184,13 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             {this.getNodesTable(unit, visibleData)}
           </div>
         </div>
+      );
+    }
+
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<UnitHealthDetailBreadcrumbs unit={unit} />} />
+        {content}
       </Page>
     );
   }
