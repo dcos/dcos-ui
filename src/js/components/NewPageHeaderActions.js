@@ -16,9 +16,12 @@ class PageHeaderActions extends React.Component {
           return action;
         }
 
+        const {className, label, onItemSelect} = action;
+        const itemClasses = classNames(className);
+
         return (
-          <span onItemSelect={action.onItemSelect} key={index}>
-            {action.label}
+          <span className={itemClasses} onItemSelect={onItemSelect} key={index}>
+            {label}
           </span>
         );
       });
@@ -81,18 +84,18 @@ const classProps = React.PropTypes.oneOfType([
 PageHeaderActions.propTypes = {
   addButton: React.PropTypes.shape({
     className: classProps,
-    clickHandler: React.PropTypes.func,
+    onItemSelect: React.PropTypes.func,
     label: React.PropTypes.node
   }),
   actions: React.PropTypes.arrayOf(
-    React.PropTypes.oneOf(
+    React.PropTypes.oneOfType([
       React.PropTypes.node,
       React.PropTypes.shape({
         className: classProps,
-        clickHandler: React.PropTypes.func.isRequired,
+        onItemSelect: React.PropTypes.func.isRequired,
         label: React.PropTypes.node.isRequired
       })
-    )
+    ])
   )
 };
 
