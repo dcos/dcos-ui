@@ -13,7 +13,7 @@ import TabsMixin from '../mixins/TabsMixin';
 
 const NetworkingBreadcrumbs = () => {
   const crumbs = [
-    <Link to="networking" key={-1}>Networking</Link>
+    <Link to="networking" key={-1}>Networks</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
