@@ -28,7 +28,7 @@ function containers(state, {type, path = [], value}) {
   if (joinedPath === 'containers') {
     switch (type) {
       case ADD_ITEM:
-        newState.push({});
+        newState.push({name: `container${newState.length + 1}`});
         this.cache.push({});
         break;
       case REMOVE_ITEM:
