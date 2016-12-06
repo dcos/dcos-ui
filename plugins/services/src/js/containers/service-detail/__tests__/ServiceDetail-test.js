@@ -45,10 +45,26 @@ describe('ServiceDetail', function () {
     }
   });
 
+  const contextTypes = {
+    modalHandlers: React.PropTypes.object
+  };
+
+  const context = {
+    modalHandlers: {
+      editService() {},
+      scaleService() {},
+      restartService() {},
+      suspendService() {},
+      deleteService() {}
+    }
+  };
+
   beforeEach(function () {
     this.container = document.createElement('div');
     this.wrapper = ReactDOM.render(
-      JestUtil.stubRouterContext(ServiceDetail, {service}),
+      JestUtil.stubRouterContext(
+        ServiceDetail, {service}, {}, contextTypes, context
+      ),
       this.container
     );
     this.instance =
