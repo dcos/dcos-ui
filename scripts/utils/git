@@ -22,35 +22,41 @@ install_hooks() {
   for hook in $1
   do
     # Check if hook is executable
-    if [ -x scripts/${hook} ]
+    if [ ! -x scripts/${hook} ]
     then
-      header "Create symlink for ${hook} hook"
-
-      # Don't replace the same file
-      if cmp --silent scripts/${hook} .git/hooks/${hook}; then
-        info "Hook already exists"
-        continue
-      fi
-
-      # Create a symlink or show  a promptif the target file exists.
-      # If the response from the standard input begins with the character `y',
-      # then unlink the target file so that the link may occur.
-      # Otherwise, do not attempt the link.
-      ln -si ../../scripts/${hook} .git/hooks/${hook}
-
-      # Write an message based on the link result
-      if [ $? -eq 0 ]
-      then
-        info "Linked ${hook} hook"
-      else
-        warning "Couldn't link ${hook} hook to"\
-                  "${NC}.git/hooks/${hook}${RED} as there is already a"\
-                  "file/symlink with the same name."
-      fi
-    else
-      warning "Couldn't install ${hook} hook as the hook is not"\
+       warning "Couldn't install ${hook} hook as the hook is not"\
                 "executable."
+       continue
     fi
+
+    header "Create symlink for ${hook} hook"
+
+    # The hook path needs to be relative to the link path
+    hookPath=../../scripts/${hook};
+    linkPath=.git/hooks/${hook};
+
+    if [ "$(readlink ${linkPath})" = "$hookPath" ]
+    then
+       info "Hook is already linked"
+       continue
+    fi
+
+    # Create a symlink or show a prompt if the target file already exists.
+    # If the response from the standard input begins with the character `y',
+    # then unlink the target file so that the link may occur.
+    # Otherwise, do not attempt the link.
+    ln -si ../../scripts/${hook} .git/hooks/${hook}
+
+    # Write an message based on the link result
+    if [ $? -eq 0 ]
+    then
+      info "Linked ${hook} hook"
+    else
+      warning "Couldn't link ${hook} hook to"\
+                "${NC}.git/hooks/${hook}${RED} as there is already a"\
+                "file/symlink with the same name."
+    fi
+
 
     # Write empty line to separate messages
     echo
