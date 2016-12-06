@@ -1,10 +1,10 @@
 /**
  * This class maintains a dictionary with all the currently available
  */
-class DSLFilters {
+class DSLFilterList {
 
   /**
-   * DSLFilters constructor with optional initial filters array
+   * DSLFilterList constructor with optional initial filters array
    *
    * @param {Array} [filters] - An array with the initial filters
    */
@@ -16,7 +16,7 @@ class DSLFilters {
    * Plug a filter to the list of filters
    *
    * @param {DSLFilter} filter - The filter to plug
-   * @returns {DSLFilters} Returns a DSLFilters object for chaining the calls
+   * @returns {DSLFilterList} Returns a DSLFilterList object for chaining the calls
    */
   plug(...args) {
     this.filters.push(...args);
@@ -40,4 +40,4 @@ class DSLFilters {
 
 };
 
-module.exports = DSLFilters;
+module.exports = DSLFilterList;

@@ -2,7 +2,7 @@ import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
 
-import DSLFilters from '../structs/DSLFilters';
+import DSLFilterList from '../structs/DSLFilterList';
 
 /**
  * Factory for filter-combining functions (operators)
@@ -95,8 +95,8 @@ function filterFunctionFactory(ast) {
    * @returns {List} resultset - A new instance of a List, containing the results
    */
   return function (filters, resultset) {
-    if (!(filters instanceof DSLFilters)) {
-      throw TypeError('Expecting first argument to be an instance of DSLFilters');
+    if (!(filters instanceof DSLFilterList)) {
+      throw TypeError('Expecting first argument to be an instance of DSLFilterList');
     }
 
     // Apply matching filters from the filters database to the current
