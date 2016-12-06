@@ -5,19 +5,16 @@ import Icon from '../Icon';
 
 const DeleteRowButton = ({onClick}) => {
   return (
-    <a
-      className="button button-primary-link button-flush"
-      onClick={onClick}>
-      <Tooltip
-        content="Delete"
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon id="close" family="tiny" color="grey" size="tiny" />
-      </Tooltip>
-    </a>
-
+    <Tooltip content="Delete"
+      interactive={true}
+      maxWidth={300}
+      scrollContainer=".gm-scroll-view"
+      wrapText={true}>
+      <a className="button button-link button-flush"
+        onClick={onClick}>
+        <Icon id="close" family="tiny" size="tiny" />
+      </a>
+    </Tooltip>
   );
 };
 
