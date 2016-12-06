@@ -1,17 +1,11 @@
 & when (@modal-enabled) {
 
   .modal {
-    z-index: @z-index-modal-container;
-
     // We need the extra specificity here, so we have to nest.
     .modal-header,
     .modal-footer {
       flex: 0 0 auto;
     }
-  }
-
-  .modal-backdrop {
-    z-index: @z-index-modal-backdrop;
   }
 
   .modal-body-wrapper {
