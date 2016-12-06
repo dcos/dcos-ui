@@ -82,7 +82,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: false}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
     });
 
     it('doesn\'t set privileged if path doesn\'t match type', function () {
@@ -130,7 +130,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: false}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
     });
 
     it('doesn\'t set forcePullImage if path doesn\'t match type', function () {
