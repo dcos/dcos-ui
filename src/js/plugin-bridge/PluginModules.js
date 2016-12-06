@@ -79,13 +79,14 @@ module.exports = {
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton',
     Typeahead: 'Typeahead',
+    UserFormModal: 'modals/UserFormModal',
     'form-elements': 'form/index'
   },
   config: {
     Config: 'Config'
   },
   systemPages: {
-    UsersTab: 'UsersTab'
+    UsersPage: 'UsersPage'
   },
   routing: {
     routing: 'index'

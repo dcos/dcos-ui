@@ -5,7 +5,7 @@ import {Route, Redirect} from 'react-router';
 
 import {Hooks} from 'PluginSDK';
 import OrganizationPage from '../../pages/OrganizationPage';
-import UsersTab from '../../pages/system/UsersTab';
+import UsersPage from '../../pages/system/UsersPage';
 
 let RouteFactory = {
   getOrganizationRoutes() {
@@ -14,7 +14,7 @@ let RouteFactory = {
       routes: [{
         type: Route,
         path: 'users',
-        component: UsersTab,
+        component: UsersPage,
         isInSidebar: true,
         buildBreadCrumb() {
           return {
