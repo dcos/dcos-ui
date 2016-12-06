@@ -9,6 +9,9 @@
       border-radius: @tooltip-border-radius;
       color: @white;
       font-size: @tooltip-font-size;
+      // Autoprefixer doesn't transform these font-smoothing properties because
+      // the property has not yet been accepted in the CSS spec. If it becomes
+      // part of the CSS spec, Stylelint will complain about these prefixes.
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
