@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {MountService} from 'foundation-ui';
 
+import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
+import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
+import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
-import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
 
 class EnvironmentFormSection extends Component {
 
@@ -44,12 +45,9 @@ class EnvironmentFormSection extends Component {
               value={env.value}/>
             <FieldError>{errors[env.key]}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'env'})}>
-              Delete
-            </a>
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+            <DeleteRowButton
+              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'env'})}/>
           </FormGroup>
         </div>
       );
@@ -89,12 +87,9 @@ class EnvironmentFormSection extends Component {
               value={label.value}/>
             <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'labels'})}>
-              Delete
-            </a>
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+            <DeleteRowButton
+              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'labels'})}/>
           </FormGroup>
         </div>
       );
