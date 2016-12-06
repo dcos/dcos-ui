@@ -1,6 +1,7 @@
 & when (@tooltip-enabled) {
 
   .tooltip {
+    will-change: opacity, transform, visibility;
     z-index: @z-index-tooltip;
 
     .tooltip-content {
@@ -8,7 +9,10 @@
       border-radius: @tooltip-border-radius;
       color: @white;
       font-size: @tooltip-font-size;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
       padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
+      transition: translateZ(0);
 
       &:after {
         border-color: @tooltip-background-color;
