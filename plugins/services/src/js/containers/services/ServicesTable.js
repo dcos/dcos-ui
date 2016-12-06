@@ -317,11 +317,11 @@ class ServicesTable extends React.Component {
         prop: 'status',
         helpText: (
             <span>
-              {'At-a-glance overview of the global application or group state '}
+              {'At-a-glance overview of the global application or group state. '}
               <a
                 href={Links.statusHelpLink} target="_blank">
-                Read Me
-              </a>
+                Read more
+              </a>.
             </span>
         ),
         render: this.renderStatus,
