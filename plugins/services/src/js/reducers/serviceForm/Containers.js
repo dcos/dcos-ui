@@ -28,7 +28,7 @@ function containers(state, {type, path = [], value}) {
   if (joinedPath === 'containers') {
     switch (type) {
       case ADD_ITEM:
-        newState.push({name: `container${newState.length + 1}`});
+        newState.push({name: `container ${newState.length + 1}`});
         this.cache.push({});
         break;
       case REMOVE_ITEM:
@@ -90,63 +90,60 @@ function containers(state, {type, path = [], value}) {
 };
 
 function containersParser(state) {
-  if (state != null && state.containers != null) {
-    return state.containers.reduce((memo, item, index) => {
-      memo.push(new Transaction(['containers'], index, ADD_ITEM));
-      if (item.name) {
-        memo.push(new Transaction(['containers', index, 'name'], item.name));
-      }
-      if (item.image) {
-        memo.push(new Transaction(['containers', index, 'image'], item.image));
-      }
-      if (item.resources != null) {
-        const {resources} = item;
-        if (resources.cpus != null) {
-          memo.push(new Transaction(['containers', index, 'resources', 'cpus'], resources.cpus));
-        }
-        if (resources.mem != null) {
-          memo.push(new Transaction(['containers', index, 'resources', 'mem'], resources.mem));
-        }
-        if (resources.disk != null) {
-          memo.push(new Transaction(['containers', index, 'resources', 'disk'], resources.disk));
-        }
-      }
-
-      //  "privileged": true,
-      // "forcePullImage": true
-
-      if (item.privileged != null) {
-        memo.push(new Transaction(['containers', index, 'privileged'], item.privileged));
-      }
-
-      if (item.artifacts != null && item.artifacts.length !== 0) {
-        item.artifacts.forEach((artifact, artifactIndex) => {
-          memo.push(
-              new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
-          );
-          memo.push(
-              new Transaction(['containers', index, 'artifacts', artifactIndex], artifact)
-          );
-        });
-      }
-
-      if (item.forcePullImage != null) {
-        memo.push(new Transaction(['containers', index, 'forcePullImage'], item.forcePullImage));
-      }
-
-      if (item.exec != null && item.exec.command != null && item.exec.command.shell != null) {
-        memo.push(new Transaction([
-          'containers',
-          index,
-          'exec',
-          'command',
-          'shell'
-        ], item.exec.command.shell));
-      }
-      return memo;
-    }, []);
+  if (state == null || state.containers == null) {
+    return [];
   }
-  return [];
+  return state.containers.reduce((memo, item, index) => {
+    memo.push(new Transaction(['containers'], index, ADD_ITEM));
+    if (item.name) {
+      memo.push(new Transaction(['containers', index, 'name'], item.name));
+    }
+    if (item.image) {
+      memo.push(new Transaction(['containers', index, 'image'], item.image));
+    }
+    if (item.resources != null) {
+      const {resources} = item;
+      if (resources.cpus != null) {
+        memo.push(new Transaction(['containers', index, 'resources', 'cpus'], resources.cpus));
+      }
+      if (resources.mem != null) {
+        memo.push(new Transaction(['containers', index, 'resources', 'mem'], resources.mem));
+      }
+      if (resources.disk != null) {
+        memo.push(new Transaction(['containers', index, 'resources', 'disk'], resources.disk));
+      }
+    }
+
+    if (item.privileged != null) {
+      memo.push(new Transaction(['containers', index, 'privileged'], item.privileged));
+    }
+
+    if (item.artifacts != null && item.artifacts.length !== 0) {
+      item.artifacts.forEach((artifact, artifactIndex) => {
+        memo.push(
+            new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
+        );
+        memo.push(
+            new Transaction(['containers', index, 'artifacts', artifactIndex], artifact)
+        );
+      });
+    }
+
+    if (item.forcePullImage != null) {
+      memo.push(new Transaction(['containers', index, 'forcePullImage'], item.forcePullImage));
+    }
+
+    if (item.exec != null && item.exec.command != null && item.exec.command.shell != null) {
+      memo.push(new Transaction([
+        'containers',
+        index,
+        'exec',
+        'command',
+        'shell'
+      ], item.exec.command.shell));
+    }
+    return memo;
+  }, []);
 };
 
 module.exports = {

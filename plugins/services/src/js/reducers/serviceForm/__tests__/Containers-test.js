@@ -19,7 +19,7 @@ describe('Containers', function () {
       batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
       expect(batch.reduce(Containers.JSONReducer.bind({})))
-        .toEqual([{name: 'container1'}]);
+        .toEqual([{name: 'container 1'}]);
     });
 
   });

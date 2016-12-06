@@ -13,6 +13,7 @@ import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import Pod from '../../structs/Pod';
 import Icon from '../../../../../../src/js/components/Icon';
 import General from '../../reducers/serviceForm/General';
@@ -82,13 +83,10 @@ class GeneralServiceFormSection extends Component {
     let {containers = []} = data;
     return containers.map((item, index) => {
       return (
-        <div key={index}>
+        <FormGroupContainer key={index}
+          onRemove={this.props.onRemoveItem.bind(this, {value: index, path: 'containers'})}>
           {item.name || `container ${index + 1}`}
-          <a className="button button-primary-link"
-            onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'containers'})}>
-            Delete
-          </a>
-        </div>
+        </FormGroupContainer>
       );
     });
   }
@@ -102,7 +100,7 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <p>
-        Need to run a service with multiple containers?
+        {'Need to run a service with multiple containers? '}
         <a onClick={this.handleOpenConvertToPodModal}>
           Add another container
         </a>.
@@ -191,33 +189,35 @@ class GeneralServiceFormSection extends Component {
 
     let typeErrors = findNestedPropertyInObject(errors, 'container.type');
     let runtimeTooltipContent = (
-        <span>
+      <span>
         {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
-          <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">
+        <a href={MetadataStore.buildDocsURI('/usage/containerizers/')}
+          target="_blank">
           More information
         </a>.
       </span>
     );
 
     return (
-        <div>
-      <h3 className="short-top short-bottom">
-        {'Container Runtime '}
-        <Tooltip
+      <div>
+        <h3 className="short-top short-bottom">
+          {'Container Runtime '}
+          <Tooltip
             content={runtimeTooltipContent}
             interactive={true}
             maxWidth={300}
             scrollContainer=".gm-scroll-view"
             wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
-      </h3>
-      <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
-      <FormGroup showError={Boolean(typeErrors)}>
+            <Icon color="grey" id="circle-question" size="mini"/>
+          </Tooltip>
+        </h3>
+        <p>The container runtime is responsible for running your service. We
+          support the Mesos and Docker containerizers.</p>
+        <FormGroup showError={Boolean(typeErrors)}>
           {this.getRuntimeSelections(data)}
-      <FieldError>{typeErrors}</FieldError>
-      </FormGroup>
-    </div>
+          <FieldError>{typeErrors}</FieldError>
+        </FormGroup>
+      </div>
     );
   }
 
