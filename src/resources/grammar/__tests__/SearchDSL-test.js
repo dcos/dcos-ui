@@ -1,13 +1,13 @@
 jest.dontMock('../SearchDSL.jison');
 jest.dontMock('../../../js/utils/DSLParserUtil');
 jest.dontMock('../../../js/structs/DSLFilter');
-jest.dontMock('../../../js/structs/DSLFilters');
+jest.dontMock('../../../js/structs/DSLFilterList');
 jest.dontMock('../../../js/structs/List');
 
 const DSLFilterTypes = require('../../../js/constants/DSLFilterTypes');
 const DSLCombinerTypes = require('../../../js/constants/DSLCombinerTypes');
 const DSLFilter = require('../../../js/structs/DSLFilter');
-const DSLFilters = require('../../../js/structs/DSLFilters');
+const DSLFilterList = require('../../../js/structs/DSLFilterList');
 const List = require('../../../js/structs/List');
 const SearchDSL = require('../SearchDSL.jison');
 
@@ -224,7 +224,7 @@ describe('SearchDSL', function () {
     describe('Filtering', function () {
 
       beforeEach(function () {
-        this.filters = new DSLFilters();
+        this.filters = new DSLFilterList();
         this.filters.plug(new AttribFilter());
         this.filters.plug(new FuzzyTextFilter());
         this.filters.plug(new ExactTextFilter());

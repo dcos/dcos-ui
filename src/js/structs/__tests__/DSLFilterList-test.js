@@ -1,13 +1,13 @@
 jest.dontMock('../DSLFilter');
-jest.dontMock('../DSLFilters');
+jest.dontMock('../DSLFilterList');
 const DSLFilter = require('../DSLFilter');
-const DSLFilters = require('../DSLFilters');
+const DSLFilterList = require('../DSLFilterList');
 
-describe('DSLFilters', function () {
+describe('DSLFilterList', function () {
 
   it('should add filters with plug()', function () {
     const SAMPLE_FILTER = {};
-    let filters = new DSLFilters();
+    let filters = new DSLFilterList();
     filters.plug(SAMPLE_FILTER);
 
     expect(filters.filters).toEqual([
@@ -30,7 +30,7 @@ describe('DSLFilters', function () {
 
     let matchInst = new MatchFilter();
     let unmatchInst = new UnmatchFilter();
-    let filters = new DSLFilters();
+    let filters = new DSLFilterList();
 
     filters.plug(matchInst, unmatchInst);
 
