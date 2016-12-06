@@ -5,7 +5,7 @@ import {Tooltip} from 'reactjs-components';
 import Icon from './Icon';
 import PageHeaderActionsMenu from './PageHeaderActionsMenu';
 
-const getDropdownActions = (action, index) => {
+const getDropdownAction = (action, index) => {
   if (React.isValidElement(action)) {
     return action;
   }
@@ -26,7 +26,7 @@ class PageHeaderActions extends React.Component {
     const {actions} = this.props;
 
     if (actions.length > 0) {
-      const dropdownElements = actions.map(getDropdownActions);
+      const dropdownElements = actions.map(getDropdownAction);
 
       return (
         <PageHeaderActionsMenu>
@@ -40,7 +40,7 @@ class PageHeaderActions extends React.Component {
     const {addButton} = this.props;
 
     if (Array.isArray(addButton) && addButton.length > 0) {
-      const dropdownElements = addButton.map(getDropdownActions);
+      const dropdownElements = addButton.map(getDropdownAction);
 
       return (
         <PageHeaderActionsMenu iconID="plus">
