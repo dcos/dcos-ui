@@ -9,6 +9,7 @@ const TestUtils = require('react-addons-test-utils');
 const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
 
 const ServicesContainer = require('../ServicesContainer');
+const DSLExpression = require('../../../../../../../src/js/structs/DSLExpression');
 
 describe('ServicesContainer', function () {
 
@@ -43,47 +44,15 @@ describe('ServicesContainer', function () {
   describe('#setQueryParams', function () {
 
     it('updates window location with correct query params', function () {
-      this.instance.handleFilterChange('filterOther', [1, 3]);
+      this.instance.handleFilterExpressionChange(new DSLExpression('foo'));
 
       expect(this.routerStubs.push.calls.mostRecent().args)
-        .toEqual([{pathname: '/test', query: {filterOther: [1, 3]}}]);
+        .toEqual([{pathname: '/test', query: {q: 'foo'}}]);
 
-      this.instance.handleFilterChange('filterLabels', [
-        {key: 'a', value: 'b'},
-        {key: 'b', value: 'c'}
-      ]);
+      this.instance.handleFilterExpressionChange(new DSLExpression('bar'));
 
       expect(this.routerStubs.push.calls.mostRecent().args)
-        .toEqual([{pathname: '/test', query: {
-          filterLabels: ['a;b', 'b;c'],
-          filterOther: [1, 3]
-        }}]);
-    });
-
-  });
-
-  describe('#getFiltersFromQuery', function () {
-
-    it('decodes filters from Query correctly', function () {
-      const filters = this.instance.getFiltersFromQuery({
-        filterHealth: ['1', '3'],
-        filterStatus: ['10', '11'],
-        filterOther: ['20', '21'],
-        searchString: 'test',
-        filterLabels: ['a;b', 'b;c']
-      });
-
-      expect(filters).toEqual({
-        filterHealth: [1, 3],
-        filterStatus: [10, 11],
-        filterOther: [20, 21],
-        searchString: 'test',
-        filterLabels: [
-          {key: 'a', value: 'b'},
-          {key: 'b', value: 'c'}
-        ]
-      });
-
+        .toEqual([{pathname: '/test', query: {q: 'bar'}}]);
     });
 
   });
