@@ -76,7 +76,7 @@ PageHeader.defaultProps = {
 
 PageHeader.propTypes = {
   addButton: React.PropTypes.oneOfType([
-    React.PropTypes.array,
+    React.PropTypes.arrayOf(React.PropTypes.object),
     React.PropTypes.object
   ]),
   actions: React.PropTypes.array,
