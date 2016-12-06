@@ -32,7 +32,10 @@ PageHeader.defaultProps = {
 
 PageHeader.propTypes = {
   actions: React.PropTypes.array,
-  addButton: React.PropTypes.object,
+  addButton: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object
+  ]),
   breadcrumbs: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
