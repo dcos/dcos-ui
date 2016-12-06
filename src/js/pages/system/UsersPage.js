@@ -15,11 +15,11 @@ const METHODS_TO_BIND = [
   'onUsersStoreError'
 ];
 
-class UsersTab extends mixin(StoreMixin) {
+class UsersPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = Hooks.applyFilter('usersTabStoreListeners', [
+    this.store_listeners = Hooks.applyFilter('usersPageStoreListeners', [
       {name: 'users', events: ['success', 'error'], suppressUpdate: true}
     ]);
 
@@ -79,7 +79,7 @@ class UsersTab extends mixin(StoreMixin) {
 
     let items = UsersStore.getUsers().getItems();
 
-    return Hooks.applyFilter('usersTabContent',
+    return Hooks.applyFilter('usersPageContent',
       <OrganizationTab
         key="organization-tab"
         items={items}
@@ -94,13 +94,13 @@ class UsersTab extends mixin(StoreMixin) {
   }
 }
 
-UsersTab.propTypes = {
+UsersPage.propTypes = {
   params: React.PropTypes.object
 };
 
-UsersTab.routeConfig = {
+UsersPage.routeConfig = {
   label: 'Users',
   matches: /^\/organization\/users/
 };
 
-module.exports = UsersTab;
+module.exports = UsersPage;

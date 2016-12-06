@@ -16,7 +16,7 @@ let {
   ConfigStore,
   CookieUtils,
   RouterUtil,
-  UsersTab
+  UsersPage
 } = SDK.get([
   'AccessDeniedPage',
   'ApplicationUtil',
@@ -25,7 +25,7 @@ let {
   'ConfigStore',
   'CookieUtils',
   'RouterUtil',
-  'UsersTab'
+  'UsersPage'
 ]);
 
 let configResponseCallback = null;
@@ -174,7 +174,7 @@ module.exports = Object.assign({}, StoreMixin, {
     let userRoute = {
       type: Route,
       path: 'users',
-      component: UsersTab,
+      component: UsersPage,
       buildBreadCrumb() {
         return {
           parentCrumb: '/organization',
