@@ -56,7 +56,7 @@ describe('SearchDSL', function () {
         expect(expr.ast.children[1].filterParams.label).toEqual('attrib');
       });
 
-      fit('should properly handle OR shorthand + OR with other operands', function () {
+      it('should properly handle OR shorthand + OR with other operands', function () {
         // NOTE: attrib:value1,value2 becomes -> attrib:value1, attrib:value2
         let expr = SearchDSL.parse('attrib:value1,value2, foo');
         expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
