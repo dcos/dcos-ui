@@ -21,7 +21,7 @@ const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
   let version = cosmosPackage.getCurrentVersion();
 
   const crumbs = [
-    <Link to="universe/packages" key={-1}>Universe</Link>,
+    <Link to="universe/packages" key={-1}>Packages</Link>,
     <Link to={`universe/packages/${name}`} query={{version}} key={0}>{name}</Link>
   ];
 

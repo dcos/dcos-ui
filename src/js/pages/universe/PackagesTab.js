@@ -17,9 +17,9 @@ import Page from '../../components/Page';
 import Panel from '../../components/Panel';
 import StringUtil from '../../utils/StringUtil';
 
-const UniverseBreadcrumbs = () => {
+const PackagesBreadcrumbs = () => {
   const crumbs = [
-    <Link to="universe/packages" key={-1}>Universe</Link>
+    <Link to="universe/packages" key={-1}>Packages</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
@@ -225,7 +225,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<UniverseBreadcrumbs />} />
+        <Page.Header breadcrumbs={<PackagesBreadcrumbs />} />
         <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
           <FilterInputText
             className="flex-grow"
