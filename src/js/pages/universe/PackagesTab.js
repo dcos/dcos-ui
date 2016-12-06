@@ -198,48 +198,52 @@ class PackagesTab extends mixin(StoreMixin) {
 
   render() {
     let {state} = this;
-    let packageName, packageVersion;
+    let content, packageName, packageVersion;
 
     if (state.errorMessage) {
-      return this.getErrorScreen();
-    }
+      content = this.getErrorScreen();
+    } else if (state.isLoading) {
+      content = this.getLoadingScreen();
+    } else {
+      if (state.installModalPackage) {
+        packageName = state.installModalPackage.getName();
+        packageVersion = state.installModalPackage.getCurrentVersion();
+      }
 
-    if (state.isLoading) {
-      return this.getLoadingScreen();
-    }
+      let packages = CosmosPackagesStore.getAvailablePackages();
+      let splitPackages = packages.getSelectedAndNonSelectedPackages();
 
-    if (state.installModalPackage) {
-      packageName = state.installModalPackage.getName();
-      packageVersion = state.installModalPackage.getCurrentVersion();
-    }
+      let tablePackages = splitPackages.nonSelectedPackages;
+      let gridPackages = splitPackages.selectedPackages;
 
-    let packages = CosmosPackagesStore.getAvailablePackages();
-    let splitPackages = packages.getSelectedAndNonSelectedPackages();
+      if (state.searchString) {
+        tablePackages = packages.filterItemsByText(state.searchString);
+      }
 
-    let tablePackages = splitPackages.nonSelectedPackages;
-    let gridPackages = splitPackages.selectedPackages;
-
-    if (state.searchString) {
-      tablePackages = packages.filterItemsByText(state.searchString);
+      content = (
+        <div>
+          <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+            <FilterInputText
+              className="flex-grow"
+              placeholder="Search"
+              searchString={state.searchString}
+              handleFilterChange={this.handleSearchStringChange} />
+          </div>
+          {this.getSelectedPackagesGrid(gridPackages)}
+          {this.getPackagesTable(tablePackages)}
+          <InstallPackageModal
+            open={!!state.installModalPackage}
+            packageName={packageName}
+            packageVersion={packageVersion}
+            onClose={this.handleInstallModalClose}/>
+        </div>
+      );
     }
 
     return (
       <Page>
         <Page.Header breadcrumbs={<PackagesBreadcrumbs />} />
-        <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
-          <FilterInputText
-            className="flex-grow"
-            placeholder="Search"
-            searchString={state.searchString}
-            handleFilterChange={this.handleSearchStringChange} />
-        </div>
-        {this.getSelectedPackagesGrid(gridPackages)}
-        {this.getPackagesTable(tablePackages)}
-        <InstallPackageModal
-          open={!!state.installModalPackage}
-          packageName={packageName}
-          packageVersion={packageVersion}
-          onClose={this.handleInstallModalClose}/>
+        {content}
       </Page>
     );
   }
