@@ -201,6 +201,7 @@ class HealthChecksFormSection extends Component {
 
   render() {
     const {data} = this.props;
+
     return (
       <div>
         <h2 className="form-header flush-top short-bottom">

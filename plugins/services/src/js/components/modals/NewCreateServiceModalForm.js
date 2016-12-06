@@ -339,8 +339,10 @@ class NewCreateServiceModalForm extends Component {
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="volumes" key="multivolumes">
-          <VolumeMountFormSection
+        <TabView id="environment" key="multienvironment">
+          {rootErrorComponent}
+          <EnvironmentFormSection
+              mountType="CreateService:MultiContainerEnvironmentFormSection"
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
@@ -353,10 +355,8 @@ class NewCreateServiceModalForm extends Component {
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="environment" key="multienvironment">
-          {rootErrorComponent}
-          <EnvironmentFormSection
-              mountType="CreateService:MultiContainerEnvironmentFormSection"
+        <TabView id="volumes" key="multivolumes">
+          <VolumeMountFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
@@ -373,20 +373,6 @@ class NewCreateServiceModalForm extends Component {
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem} />
       </TabView>,
-      <TabView id="volumes" key="volumes">
-        <VolumesFormSection
-          data={data}
-          errors={errorMap}
-          onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
-      </TabView>,
-      <TabView id="healthChecks" key="healthChecks">
-        <HealthChecksFormSection
-          data={data}
-          errors={errorMap}
-          onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
-      </TabView>,
       <TabView id="environment" key="environment">
         {rootErrorComponent}
         <EnvironmentFormSection
@@ -395,6 +381,20 @@ class NewCreateServiceModalForm extends Component {
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
+      </TabView>,
+      <TabView id="healthChecks" key="healthChecks">
+        <HealthChecksFormSection
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
+      </TabView>,
+      <TabView id="volumes" key="volumes">
+        <VolumesFormSection
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
       </TabView>
     ];
   }
