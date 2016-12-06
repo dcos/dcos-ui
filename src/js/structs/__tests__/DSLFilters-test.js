@@ -32,8 +32,7 @@ describe('DSLFilters', function () {
     let unmatchInst = new UnmatchFilter();
     let filters = new DSLFilters();
 
-    filters.plug(matchInst);
-    filters.plug(unmatchInst);
+    filters.plug(matchInst, unmatchInst);
 
     expect(filters.getMatchingFilters(0, {})).toEqual([
       matchInst

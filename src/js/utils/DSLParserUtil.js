@@ -43,6 +43,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
       return function (filters, resultset) {
         // We are interested in the intersection of the results of the two filters
         let intermediateResultset = leftFilterFn(filters, resultset);
+
         return rightFilterFn(filters, intermediateResultset);
       };
 
@@ -63,6 +64,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
       return function (filters, resultset) {
         // We are interested in the union of the results of the two filters
         let intermediateResultset = leftFilterFn(filters, resultset);
+
         return intermediateResultset.combine(rightFilterFn(filters, resultset));
       };
   };
