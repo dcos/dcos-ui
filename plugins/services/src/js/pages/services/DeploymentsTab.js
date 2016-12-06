@@ -15,6 +15,7 @@ import Loader from '../../../../../../src/js/components/Loader';
 import MarathonActions from '../../events/MarathonActions';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
+import Page from '../../../../../../src/js/components/Page';
 import StatusBar from '../../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
@@ -50,6 +51,15 @@ function columnClassNameGetter(prop, sortBy, row) {
   }
   return classSet;
 }
+
+const DeploymentsBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="services" key={-1}>Services</Link>,
+    <Link to="services/deployments" key={0}>Deployments</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="services" breadcrumbs={crumbs} />;
+};
 
 class DeploymentsTab extends mixin(StoreMixin) {
 
@@ -304,10 +314,13 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderEmpty() {
     return (
-      <AlertPanel
-        title="No active deployments">
-        <p className="flush">Active deployments will be shown here.</p>
-      </AlertPanel>
+      <Page>
+        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs/>} />
+        <AlertPanel
+          title="No active deployments">
+          <p className="flush">Active deployments will be shown here.</p>
+        </AlertPanel>
+      </Page>
     );
   }
 
@@ -320,7 +333,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
     let deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
 
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />} />
         <h4 className="flush-top">
           {deploymentsCount} Active {deploymentsLabel}
         </h4>
@@ -331,7 +345,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
           colGroup={this.getColGroup()}
           data={deploymentsItems.slice()} />
         {this.renderRollbackModal()}
-      </div>
+      </Page>
     );
   }
 

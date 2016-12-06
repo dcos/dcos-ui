@@ -8,6 +8,7 @@ import Pod from '../../structs/Pod';
 import PodDetail from '../pod-detail/PodDetail';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import ServiceDetail from '../service-detail/ServiceDetail';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import ServiceModals from '../../components/modals/ServiceModals';
@@ -19,6 +20,7 @@ import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
 import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
+import Page from '../../../../../../src/js/components/Page';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 
 import {
@@ -558,7 +560,12 @@ class ServicesContainer extends React.Component {
 
     // Still Loading
     if (isLoading) {
-      return <Loader />;
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+          <Loader />
+        </Page>
+      );
     }
 
     // API Failures
@@ -568,25 +575,21 @@ class ServicesContainer extends React.Component {
 
     if (item instanceof Pod) {
       return (
-        <div>
-          <PodDetail
-            actions={this.getActions()}
-            pod={item} />
-          {this.getModals(item)}
-        </div>
+        <PodDetail
+          actions={this.getActions()}
+          pod={item}
+          modals={this.getModals(item)} />
       );
     }
 
     if (item instanceof Service) {
       return (
-        <div>
-          <ServiceDetail
-            actions={this.getActions()}
-            params={this.props.params}
-            routes={this.props.routes}
-            service={item} />
-          {this.getModals(item)}
-        </div>
+        <ServiceDetail
+          actions={this.getActions()}
+          params={this.props.params}
+          routes={this.props.routes}
+          service={item}
+          modals={this.getModals(item)} />
       );
     }
 
@@ -605,23 +608,25 @@ class ServicesContainer extends React.Component {
         filters
       };
 
+      // TODO move modals to Page
       return (
-        <div>
-          <ServiceTreeView
-            clearFilters={this.clearFilters}
-            handleFilterChange={this.handleFilterChange}
-            params={this.props.params}
-            routes={this.props.routes}
-            services={services}
-            serviceTree={item} />
-          {this.getModals(item)}
-        </div>
+        <ServiceTreeView
+          clearFilters={this.clearFilters}
+          handleFilterChange={this.handleFilterChange}
+          params={this.props.params}
+          routes={this.props.routes}
+          services={services}
+          serviceTree={item}
+          modals={this.getModals(item)} />
       );
     }
     // Not found
     return (
-      <ServiceItemNotFound
-        message={`The service with the ID of "${itemId}" could not be found.`} />
+      <Page>
+        <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+        <ServiceItemNotFound
+          message={`The service with the ID of "${itemId}" could not be found.`} />
+      </Page>
     );
   }
 }

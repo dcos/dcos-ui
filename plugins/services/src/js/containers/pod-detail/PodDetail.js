@@ -2,7 +2,8 @@ import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
+import Page from '../../../../../../src/js/components/Page';
 import Pod from '../../structs/Pod';
 import PodConfigurationContainer from '../pod-configuration/PodConfigurationContainer';
 import PodDebugContainer from '../pod-debug/PodDebugContainer';
@@ -76,21 +77,65 @@ class PodDetail extends mixin(TabsMixin) {
     return (<PodInstancesContainer pod={pod} />);
   }
 
-  render() {
+  getActions() {
     const {pod} = this.props;
+    const instanceCount = pod.getInstancesCount();
+
+    const actions = [];
+
+    actions.push({
+      label: 'Edit',
+      onItemSelect:  this.handleActionEdit
+    });
+
+    actions.push({
+      label: 'Scale',
+      onItemSelect: this.handleActionScale
+    });
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Suspend',
+        onItemSelect: this.handleActionSuspend
+      });
+    }
+
+    actions.push({
+      className: 'text-danger',
+      label: 'Destroy',
+      onItemSelect: this.handleActionDestroy
+    });
+
+    return actions;
+  }
+
+  getTabs() {
+    return [
+      {label: 'Instances', callback: () => { this.setState({currentTab: 'instances'}); }},
+      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
+      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
+    ];
+  }
+
+  render() {
+    const {modals, pod} = this.props;
+
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
 
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <PodHeader
-          onDestroy={this.handleActionDestroy}
-          onEdit={this.handleActionEdit}
-          onScale={this.handleActionScale}
-          onSuspend={this.handleActionSuspend}
-          pod={pod}
-          tabs={this.tabs_getUnroutedTabs()} />
+      <Page>
+        <Page.Header actions={this.getActions()} breadcrumbs={breadcrumbs} tabs={this.getTabs()}>
+          <PodHeader
+            onDestroy={this.handleActionDestroy}
+            onEdit={this.handleActionEdit}
+            onScale={this.handleActionScale}
+            onSuspend={this.handleActionSuspend}
+            pod={pod}
+            tabs={this.tabs_getUnroutedTabs()} />
+        </Page.Header>
         {this.tabs_getTabView()}
-      </div>
+        {modals}
+      </Page>
     );
   }
 }
@@ -105,6 +150,7 @@ PodDetail.contextTypes = {
 };
 
 PodDetail.propTypes = {
+  modals: PropTypes.node,
   pod: React.PropTypes.instanceOf(Pod)
 };
 

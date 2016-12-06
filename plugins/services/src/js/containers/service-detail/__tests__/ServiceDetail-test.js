@@ -1,6 +1,8 @@
 jest.dontMock('../../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../../../../../../../src/js/components/DetailViewHeader');
 jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
+jest.dontMock('../../../../../../../src/js/components/Page');
+jest.dontMock('../../../../../../../src/js/mixins/InternalStorageMixin');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../../service-debug/ServiceDebugContainer');
 jest.dontMock('../../service-configuration/ServiceConfigurationContainer');
@@ -43,10 +45,26 @@ describe('ServiceDetail', function () {
     }
   });
 
+  const contextTypes = {
+    modalHandlers: React.PropTypes.object
+  };
+
+  const context = {
+    modalHandlers: {
+      editService() {},
+      scaleService() {},
+      restartService() {},
+      suspendService() {},
+      deleteService() {}
+    }
+  };
+
   beforeEach(function () {
     this.container = document.createElement('div');
     this.wrapper = ReactDOM.render(
-      JestUtil.stubRouterContext(ServiceDetail, {service}),
+      JestUtil.stubRouterContext(
+        ServiceDetail, {service}, {}, contextTypes, context
+      ),
       this.container
     );
     this.instance =
@@ -56,14 +74,6 @@ describe('ServiceDetail', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
-  });
-
-  describe('#render', function () {
-
-    it('renders service info name', function () {
-      expect(this.node.querySelector('.h1 .collapsing-string-full-string').textContent).toEqual('test');
-    });
-
   });
 
   describe('#renderConfigurationTabView', function () {

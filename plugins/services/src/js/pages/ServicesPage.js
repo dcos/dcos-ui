@@ -3,7 +3,6 @@ import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Icon from '../../../../../src/js/components/Icon';
-import Page from '../../../../../src/js/components/Page';
 import RouterUtil from '../../../../../src/js/utils/RouterUtil';
 import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
 
@@ -71,17 +70,7 @@ var ServicesPage = React.createClass({
   },
 
   render() {
-    // Make sure to grow when logs are displayed
-    let routes = this.props.routes;
-
-    return (
-      <Page
-        navigation={this.getNavigation()}
-        dontScroll={routes[routes.length - 1].dontScroll}
-        title="Services">
-        {this.props.children}
-      </Page>
-    );
+    return this.props.children;
   }
 
 });
