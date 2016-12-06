@@ -355,9 +355,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     const breadcrumbs = (
       <ServiceBreadcrumbs
-          serviceID={this.props.params.id}
-          taskID={task.getId()}
-          taskName={task.getName()} />
+        serviceID={this.props.params.id}
+        taskID={task.getId()}
+        taskName={task.getName()} />
     );
 
     let {id, taskID} = this.props.params;
