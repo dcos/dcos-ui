@@ -8,7 +8,7 @@ class DSLFilters {
    *
    * @param {Array} [filters] - An array with the initial filters
    */
-  constructor(filters=[]) {
+  constructor(filters = []) {
     this.filters = filters;
   }
 
@@ -18,8 +18,9 @@ class DSLFilters {
    * @param {DSLFilter} filter - The filter to plug
    * @returns {DSLFilters} Returns a DSLFilters object for chaining the calls
    */
-  plug(filter) {
-    this.filters.push(filter);
+  plug(...args) {
+    this.filters.push(...args);
+
     return this;
   }
 
