@@ -102,7 +102,7 @@ class GeneralServiceFormSection extends Component {
     return (
       <p>
         {'Need to run a service with multiple containers? '}
-        <a onClick={this.handleOpenConvertToPodModal}>
+        <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
           Add another container
         </a>.
       </p>
