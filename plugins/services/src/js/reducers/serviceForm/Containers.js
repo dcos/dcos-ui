@@ -1,6 +1,7 @@
 import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {JSONReducer as healthChecks} from './MultiContainerHealthChecks';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
@@ -76,6 +77,10 @@ module.exports = {
       this.cache = [];
     }
 
+    if (this.healthChecks == null) {
+      this.healthChecks = [];
+    }
+
     if (!state) {
       state = [];
     }
@@ -101,6 +106,21 @@ module.exports = {
       }
 
       return newState;
+    }
+
+    if (path[2] === 'healthChecks') {
+      if (newState[path[1]].healthChecks == null) {
+        newState[path[1]].healthChecks = [];
+      }
+
+      if (this.healthChecks[path[1]] == null) {
+        this.healthChecks[path[1]] = {};
+      }
+
+      newState[path[1]].healthChecks =
+          healthChecks.call(this.healthChecks[path[1]],
+              newState[path[1]].healthChecks,
+              {type, path: path.slice(2), value});
     }
 
     if (path[2] === 'artifacts') {
@@ -156,6 +176,10 @@ module.exports = {
       this.cache = [];
     }
 
+    if (this.healthChecks == null) {
+      this.healthChecks = [];
+    }
+
     if (!state) {
       state = [];
     }
@@ -181,6 +205,21 @@ module.exports = {
       }
 
       return newState;
+    }
+
+    if (path[2] === 'healthChecks') {
+      if (newState[path[1]].healthChecks == null) {
+        newState[path[1]].healthChecks = [];
+      }
+
+      if (this.healthChecks[path[1]] == null) {
+        this.healthChecks[path[1]] = {};
+      }
+
+      newState[path[1]].healthChecks =
+          healthChecks.call(this.healthChecks[path[1]],
+              newState[path[1]].healthChecks,
+              {type, path: path.slice(2), value});
     }
 
     if (path[2] === 'artifacts') {
