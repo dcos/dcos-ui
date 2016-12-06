@@ -11,6 +11,7 @@ import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSect
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
+import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -295,7 +296,7 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabButton id="networking" label="Networking" key="networking" />,
         <TabButton id="environment" label="Environment" key="environment"/>,
-        <TabButton id="healthChecks" label="Health Checks" key="healthChecks"/>
+        <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>
       ];
     }
     return [
@@ -319,8 +320,8 @@ class NewCreateServiceModalForm extends Component {
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="healthChecks" key="healthChecks">
-          <HealthChecksFormSection
+        <TabView id="healthChecks" key="multihealthChecks">
+          <MultiContainerHealthChecksFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}

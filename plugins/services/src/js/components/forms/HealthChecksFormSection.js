@@ -198,6 +198,7 @@ class HealthChecksFormSection extends Component {
 
   render() {
     let {data} = this.props;
+
     return (
       <div className="form flush-bottom">
         <div className="form-row-element">
