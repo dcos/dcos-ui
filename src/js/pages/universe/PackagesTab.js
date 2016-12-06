@@ -1,8 +1,8 @@
 import mixin from 'reactjs-mixin';
+import {Link, routerShape} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
@@ -13,8 +13,17 @@ import FilterInputText from '../../components/FilterInputText';
 import Image from '../../components/Image';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import Panel from '../../components/Panel';
 import StringUtil from '../../utils/StringUtil';
+
+const PackagesBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="universe/packages" key={-1}>Packages</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleInstallModalClose',
@@ -189,48 +198,53 @@ class PackagesTab extends mixin(StoreMixin) {
 
   render() {
     let {state} = this;
-    let packageName, packageVersion;
+    let content, packageName, packageVersion;
 
     if (state.errorMessage) {
-      return this.getErrorScreen();
-    }
+      content = this.getErrorScreen();
+    } else if (state.isLoading) {
+      content = this.getLoadingScreen();
+    } else {
+      if (state.installModalPackage) {
+        packageName = state.installModalPackage.getName();
+        packageVersion = state.installModalPackage.getCurrentVersion();
+      }
 
-    if (state.isLoading) {
-      return this.getLoadingScreen();
-    }
+      let packages = CosmosPackagesStore.getAvailablePackages();
+      let splitPackages = packages.getSelectedAndNonSelectedPackages();
 
-    if (state.installModalPackage) {
-      packageName = state.installModalPackage.getName();
-      packageVersion = state.installModalPackage.getCurrentVersion();
-    }
+      let tablePackages = splitPackages.nonSelectedPackages;
+      let gridPackages = splitPackages.selectedPackages;
 
-    let packages = CosmosPackagesStore.getAvailablePackages();
-    let splitPackages = packages.getSelectedAndNonSelectedPackages();
+      if (state.searchString) {
+        tablePackages = packages.filterItemsByText(state.searchString);
+      }
 
-    let tablePackages = splitPackages.nonSelectedPackages;
-    let gridPackages = splitPackages.selectedPackages;
-
-    if (state.searchString) {
-      tablePackages = packages.filterItemsByText(state.searchString);
+      content = (
+        <div>
+          <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+            <FilterInputText
+              className="flex-grow"
+              placeholder="Search"
+              searchString={state.searchString}
+              handleFilterChange={this.handleSearchStringChange} />
+          </div>
+          {this.getSelectedPackagesGrid(gridPackages)}
+          {this.getPackagesTable(tablePackages)}
+          <InstallPackageModal
+            open={!!state.installModalPackage}
+            packageName={packageName}
+            packageVersion={packageVersion}
+            onClose={this.handleInstallModalClose}/>
+        </div>
+      );
     }
 
     return (
-      <div>
-        <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
-          <FilterInputText
-            className="flex-grow"
-            placeholder="Search"
-            searchString={state.searchString}
-            handleFilterChange={this.handleSearchStringChange} />
-        </div>
-        {this.getSelectedPackagesGrid(gridPackages)}
-        {this.getPackagesTable(tablePackages)}
-        <InstallPackageModal
-          open={!!state.installModalPackage}
-          packageName={packageName}
-          packageVersion={packageVersion}
-          onClose={this.handleInstallModalClose}/>
-      </div>
+      <Page>
+        <Page.Header breadcrumbs={<PackagesBreadcrumbs />} />
+        {content}
+      </Page>
     );
   }
 }

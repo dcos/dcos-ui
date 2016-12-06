@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -11,8 +12,21 @@ import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import Loader from '../../components/Loader';
 import MetadataStore from '../../stores/MetadataStore';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
+
+const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
+  let name = cosmosPackage.getName();
+  let version = cosmosPackage.getCurrentVersion();
+
+  const crumbs = [
+    <Link to="universe/packages" key={-1}>Packages</Link>,
+    <Link to={`universe/packages/${name}`} query={{version}} key={0}>{name}</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleInstallModalClose',
@@ -229,7 +243,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     ];
 
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<PackageDetailBreadcrumbs cosmosPackage={cosmosPackage} />} />
         <div className="media-object-spacing-wrapper">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
@@ -257,7 +272,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           packageName={name}
           packageVersion={version}
           onClose={this.handleInstallModalClose}/>
-      </div>
+      </Page>
     );
   }
 }
