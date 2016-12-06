@@ -625,7 +625,7 @@ class ServicesContainer extends React.Component {
       <Page>
         <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
         <ServiceItemNotFound
-            message={`The service with the ID of "${itemId}" could not be found.`} />
+          message={`The service with the ID of "${itemId}" could not be found.`} />
       </Page>
     );
   }
