@@ -6,9 +6,9 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import Icon from '../../../../../../src/js/components/Icon';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
+import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -108,6 +108,7 @@ class VolumesFormSection extends Component {
     if (dockerImage == null || dockerImage === '') {
       return null;
     }
+
     return <option value="HOST">Host Volume</option>;
   }
 
@@ -128,32 +129,28 @@ class VolumesFormSection extends Component {
         .type;
 
       return (
-        <div key={key} className="panel pod-short">
-          <div className="pod-narrow pod-short">
-            <div className="flex row">
-              <FormGroup
-                className="column-6"
-                required={false}
-                showError={Boolean(typeError)}>
-                <FieldLabel>Volume Type</FieldLabel>
-                <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
-                  <option>Select...</option>
-                  <option value="PERSISTENT">Persistent Volume</option>
-                  {this.getHostOption(dockerImage)}
-                </FieldSelect>
-              </FormGroup>
-              <div className="form-remove">
-                <a className="button button-primary-link"
-                  onClick={this.props.onRemoveItem.bind(this,
-                    {value: key, path: 'localVolumes'})}>
-                  <Icon id="close" color="grey" size="tiny" family="tiny"/>
-                </a>
-              </div>
-            </div>
-            {this.getPersistentVolumeConfig(volume, key)}
-            {this.getHostVolumeConfig(volume, key)}
+        <FormGroupContainer
+          key={key}
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: key, path: 'localVolumes'}
+          )}>
+          <div className="flex row">
+            <FormGroup
+              className="column-6"
+              required={false}
+              showError={Boolean(typeError)}>
+              <FieldLabel>Volume Type</FieldLabel>
+              <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
+                <option>Select...</option>
+                <option value="PERSISTENT">Persistent Volume</option>
+                {this.getHostOption(dockerImage)}
+              </FieldSelect>
+            </FormGroup>
           </div>
-        </div>
+          {this.getPersistentVolumeConfig(volume, key)}
+          {this.getHostVolumeConfig(volume, key)}
+        </FormGroupContainer>
       );
     });
   }
@@ -179,41 +176,37 @@ class VolumesFormSection extends Component {
         .containerPath;
 
       return (
-        <div key={key} className="panel pod-short">
-          <div className="pod-narrow pod-short">
-            <div className="flex row">
-              <FormGroup
-                className="column-6"
-                required={false}
-                showError={Boolean(nameError)}>
-                <FieldLabel>Name</FieldLabel>
-                <FieldInput
-                  name={`externalVolumes.${key}.name`}
-                  type="text"
-                  value={volumes.name}/>
-                <FieldError>{nameError}</FieldError>
-              </FormGroup>
-              <FormGroup
-                className="column-9"
-                required={false}
-                showError={Boolean(containerPathError)}>
-                <FieldLabel>Container Mount Path</FieldLabel>
-                <FieldInput
-                  name={`externalVolumes.${key}.containerPath`}
-                  type="text"
-                  value={volumes.containerPath}/>
-                <FieldError>{containerPathError}</FieldError>
-              </FormGroup>
-              <div className="form-remove">
-                <a className="button button-primary-link"
-                  onClick={this.props.onRemoveItem.bind(this,
-                    {value: key, path: 'externalVolumes'})}>
-                  <Icon id="close" color="grey" size="tiny" family="tiny"/>
-                </a>
-              </div>
-            </div>
+        <FormGroupContainer
+          key={key}
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: key, path: 'externalVolumes'}
+          )}>
+          <div className="flex row">
+            <FormGroup
+              className="column-6"
+              required={false}
+              showError={Boolean(nameError)}>
+              <FieldLabel>Name</FieldLabel>
+              <FieldInput
+                name={`externalVolumes.${key}.name`}
+                type="text"
+                value={volumes.name}/>
+              <FieldError>{nameError}</FieldError>
+            </FormGroup>
+            <FormGroup
+              className="column-9"
+              required={false}
+              showError={Boolean(containerPathError)}>
+              <FieldLabel>Container Mount Path</FieldLabel>
+              <FieldInput
+                name={`externalVolumes.${key}.containerPath`}
+                type="text"
+                value={volumes.containerPath}/>
+              <FieldError>{containerPathError}</FieldError>
+            </FormGroup>
           </div>
-        </div>
+        </FormGroupContainer>
       );
     });
   }
