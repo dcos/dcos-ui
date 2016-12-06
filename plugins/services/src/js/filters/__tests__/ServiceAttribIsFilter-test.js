@@ -27,8 +27,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:delayed');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -39,8 +38,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:deploying');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -51,8 +49,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:running');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -63,8 +60,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:suspended');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -75,8 +71,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:waiting');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[4]
@@ -87,8 +82,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:na');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[5]
@@ -99,8 +93,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:foo');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
