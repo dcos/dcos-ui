@@ -221,7 +221,7 @@ describe('SearchDSL', function () {
 
     });
 
-    fdescribe('Filtering', function () {
+    describe('Filtering', function () {
 
       beforeEach(function () {
         this.filters = new DSLFilters();
