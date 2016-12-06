@@ -10,7 +10,8 @@ const {Merge, Operator} = require('../../js/utils/DSLParserUtil');
 
 %%
 \s+                                                 return 'WS';
-\s*[,]\s*                                           return 'COMMA';
+[,](?=\S)                                           return 'TIGHT_COMMA'
+\s*[,]\s                                            return 'COMMA';
 [a-z0-9_-]+\:          yytext=yytext.slice(0,-1);   return 'LABEL';
 \"(?:[^\"\\]|\\.)*?\"  yytext=yytext.slice(1,-1);   return 'STRING';
 \'(?:[^\'\\]|\\.)*?\'  yytext=yytext.slice(1,-1);   return 'STRING';
@@ -21,7 +22,7 @@ const {Merge, Operator} = require('../../js/utils/DSLParserUtil');
 
 /lex /* operator associations and precedence */
 
-%left 'COMMA' 'WS'
+%left 'TIGHT_COMMA' 'COMMA' 'WS'
 %start expressions
 
 %% /* language grammar */
@@ -36,7 +37,7 @@ lv  /* Label value(s) as an array */
         {$$ = [{text:yytext, start:@1.first_column, end:@1.last_column}];}
     | STRING
         {$$ = [{text:yytext, start:@1.first_column, end:@1.last_column}];}
-    | lv COMMA lv
+    | lv TIGHT_COMMA lv
         {$$ = [].concat($1, $3);}
     ;
 
