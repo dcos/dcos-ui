@@ -8,87 +8,6 @@ const containerReducer = combineReducers({
   disk: simpleFloatReducer('resources.disk')
 });
 
-function containers(state, {type, path = [], value}) {
-  if (!path.includes('containers')) {
-    return state;
-  }
-
-  if (this.cache == null) {
-    this.cache = [];
-  }
-
-  if (!state) {
-    state = [];
-  }
-
-  let newState = state.slice();
-  const index = path[1];
-  const joinedPath = path.join('.');
-
-  if (joinedPath === 'containers') {
-    switch (type) {
-      case ADD_ITEM:
-        newState.push({name: `container ${newState.length + 1}`});
-        this.cache.push({});
-        break;
-      case REMOVE_ITEM:
-        newState = newState.filter((item, index) => {
-          return index !== value;
-        });
-        this.cache = this.cache.filter((item, index) => {
-          return index !== value;
-        });
-        break;
-    }
-
-    return newState;
-  }
-
-  if (path[2] === 'artifacts') {
-    if (newState[path[1]].artifacts == null) {
-      newState[path[1]].artifacts = [];
-    }
-
-    switch (type) {
-      case ADD_ITEM:
-        newState[path[1]].artifacts.push('');
-        break;
-      case REMOVE_ITEM:
-        newState[path[1]].artifacts = newState[path[1]].artifacts.filter((item, index) => {
-          return index !== value;
-        });
-        break;
-      case SET:
-        newState[path[1]].artifacts[path[3]] = value;
-        break;
-    }
-
-    return newState;
-  }
-
-  if (type === SET && joinedPath === `containers.${index}.name`) {
-    newState[index].name = value;
-  }
-
-  if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
-    newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
-  }
-
-  if (type === SET && path[2] === 'resources') {
-    newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
-      type,
-      value,
-      path: path.slice(2)
-    });
-  }
-
-  if (type === SET && joinedPath === `containers.${index}.image`) {
-    newState[index] = Object.assign({}, newState[index], {image: value});
-  }
-
-  return newState;
-};
-
 function containersParser(state) {
   if (state == null || state.containers == null) {
     return [];
@@ -123,9 +42,10 @@ function containersParser(state) {
         memo.push(
             new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
         );
-        memo.push(
-            new Transaction(['containers', index, 'artifacts', artifactIndex], artifact)
-        );
+        memo.push(...Object.keys(artifact).map((key) => {
+          return new Transaction(['containers', index, 'artifacts', artifactIndex, key], artifact[key]);
+        }));
+
       });
     }
 
@@ -147,7 +67,167 @@ function containersParser(state) {
 };
 
 module.exports = {
-  JSONReducer: containers,
-  FormReducer: containers,
+  JSONReducer(state, {type, path = [], value}) {
+    if (!path.includes('containers')) {
+      return state;
+    }
+
+    if (this.cache == null) {
+      this.cache = [];
+    }
+
+    if (!state) {
+      state = [];
+    }
+
+    let newState = state.slice();
+    const index = path[1];
+    const joinedPath = path.join('.');
+
+    if (joinedPath === 'containers') {
+      switch (type) {
+        case ADD_ITEM:
+          newState.push({name: `container ${newState.length + 1}`});
+          this.cache.push({});
+          break;
+        case REMOVE_ITEM:
+          newState = newState.filter((item, index) => {
+            return index !== value;
+          });
+          this.cache = this.cache.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+      }
+
+      return newState;
+    }
+
+    if (path[2] === 'artifacts') {
+      if (newState[path[1]].artifacts == null) {
+        newState[path[1]].artifacts = [];
+      }
+
+      switch (type) {
+        case ADD_ITEM:
+          newState[path[1]].artifacts.push({uri: ''});
+          break;
+        case REMOVE_ITEM:
+          newState[path[1]].artifacts = newState[path[1]].artifacts.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+        case SET:
+          newState[path[1]].artifacts[path[3]][path[4]] = value;
+          break;
+      }
+
+      return newState;
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.name`) {
+      newState[index].name = value;
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
+      newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
+    }
+
+    if (type === SET && path[2] === 'resources') {
+      newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
+        type,
+        value,
+        path: path.slice(2)
+      });
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.image`) {
+      newState[index] = Object.assign({}, newState[index], {image: value});
+    }
+
+    return newState;
+  },
+  FormReducer(state, {type, path = [], value}) {
+    if (!path.includes('containers')) {
+      return state;
+    }
+
+    if (this.cache == null) {
+      this.cache = [];
+    }
+
+    if (!state) {
+      state = [];
+    }
+
+    let newState = state.slice();
+    const index = path[1];
+    const joinedPath = path.join('.');
+
+    if (joinedPath === 'containers') {
+      switch (type) {
+        case ADD_ITEM:
+          newState.push({name: `container ${newState.length + 1}`});
+          this.cache.push({});
+          break;
+        case REMOVE_ITEM:
+          newState = newState.filter((item, index) => {
+            return index !== value;
+          });
+          this.cache = this.cache.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+      }
+
+      return newState;
+    }
+
+    if (path[2] === 'artifacts') {
+      if (newState[path[1]].artifacts == null) {
+        newState[path[1]].artifacts = [];
+      }
+
+      switch (type) {
+        case ADD_ITEM:
+          newState[path[1]].artifacts.push('');
+          break;
+        case REMOVE_ITEM:
+          newState[path[1]].artifacts = newState[path[1]].artifacts.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+        case SET:
+          if (path[4] === 'uri') {
+            newState[path[1]].artifacts[path[3]] = value;
+          }
+          break;
+      }
+
+      return newState;
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.name`) {
+      newState[index].name = value;
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
+      newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
+    }
+
+    if (type === SET && path[2] === 'resources') {
+      newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
+        type,
+        value,
+        path: path.slice(2)
+      });
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.image`) {
+      newState[index] = Object.assign({}, newState[index], {image: value});
+    }
+
+    return newState;
+  },
   JSONParser: containersParser
 };
