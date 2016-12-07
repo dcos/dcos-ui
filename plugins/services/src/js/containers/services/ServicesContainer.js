@@ -320,15 +320,12 @@ class ServicesContainer extends React.Component {
     this.setState({modal: {}});
   }
 
-  handleFilterExpressionChange(expression) {
-    this.setState({
-      filterExpression: expression
-    });
-
-    // Also add the updated query on the URL
+  handleFilterExpressionChange(filterExpression) {
     const {router} = this.context;
     const {location: {pathname}} = this.props;
-    router.push({pathname, query: {q: expression.value}});
+    router.push({pathname, query: {q: filterExpression.value}});
+
+    this.setState({filterExpression});
   }
 
   fetchData() {

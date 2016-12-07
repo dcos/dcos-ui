@@ -7,9 +7,11 @@ import ServicesTable from './ServicesTable';
 
 import Page from '../../../../../../src/js/components/Page';
 import Service from '../../structs/Service';
+import ServiceTree from '../../structs/ServiceTree';
 
 import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
 import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
+import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 
 class ServiceTreeView extends React.Component {
   getButtonBar() {
@@ -104,9 +106,10 @@ class ServiceTreeView extends React.Component {
         <div>
           {this.getFilterBar()}
           {this.getSearchHeader()}
-          <ServicesTable services={services}
+          <ServicesTable
             isFiltered={filterExpression.defined}
-            modalHandlers={modalHandlers} />
+            modalHandlers={modalHandlers}
+            services={services} />
         </div>
         {modals}
       </Page>
@@ -128,11 +131,12 @@ ServiceTreeView.defaultProps = {
 
 ServiceTreeView.propTypes = {
   filters: PropTypes.instanceOf(DSLFilterList).isRequired,
-  filterExpression: PropTypes.string.isRequired,
+  filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
   isEmpty: PropTypes.bool,
   modals: PropTypes.node,
   onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(PropTypes.instanceOf(Service)).isRequired
+  services: PropTypes.arrayOf(PropTypes.instanceOf(Service)).isRequired,
+  serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
 module.exports = ServiceTreeView;
