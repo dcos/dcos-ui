@@ -94,8 +94,7 @@ describe('JobsTab', function () {
       ).toBeDefined();
     });
 
-    xit('renders correct empty panel', function () {
-      DCOSStore.jobTree = new JobTree({id: '/'});
+    it('renders correct empty panel', function () {
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
         this.container
