@@ -86,9 +86,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getErrorScreen() {
-    return (
-      <RequestErrorMsg />
-    );
+    return <RequestErrorMsg />;
   }
 
   getFilteredOverlayList(overlayList, searchString = '') {
@@ -103,9 +101,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   getContent() {
