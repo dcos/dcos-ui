@@ -104,7 +104,6 @@ class MultiContainerHealthChecksFormSection extends Component {
 
   getHealthChecksLines(data, pathPrefix, errorsLens) {
     return data.map((healthCheck, key) => {
-
       return (
         <FormGroupContainer key={key}
           onRemove={this.props.onRemoveItem.bind(this,
@@ -121,6 +120,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       const errorsLens = Objektiv.attr('containers', [])
         .at(index, {})
         .attr('healthChecks', []);
+
       return (
         <div key={container.name}>
           <div className="form-row-element">
