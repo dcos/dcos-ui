@@ -79,8 +79,9 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:hEaLThY');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList([
+      new ServiceAttribHealthFilter()
+    ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
