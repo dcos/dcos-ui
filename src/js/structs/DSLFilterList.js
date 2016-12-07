@@ -10,19 +10,18 @@ class DSLFilterList {
    * @param {Array} [filters] - An array with the initial filters
    */
   constructor(filters = []) {
-    this.filters = filters;
+    this.add = this.add.bind(filters);
+    this.getMatchingFilters = this.getMatchingFilters.bind(filters);
   }
 
   /**
-   * Plug a filter to the list of filters
+   * Add a filter to the list of filters
    *
-   * @param {DSLFilter} filter - The filter to plug
-   * @returns {DSLFilterList} Returns a DSLFilterList object for chaining the calls
+   * @param {...DSLFilter} filter - The filter to plug
+   * @returns {DSLFilterList} Returns a new DSLFilterList object
    */
-  plug(...args) {
-    this.filters.push(...args);
-
-    return this;
+  add(...filters) {
+    return new DSLFilterList(this.concat(filters));
   }
 
   /**
@@ -34,7 +33,7 @@ class DSLFilterList {
    * @returns {Array} Returns an array of DSLFilter objects that can handle the given token
    */
   getMatchingFilters(filterType, filterArguments) {
-    return this.filters.filter(function (filter) {
+    return this.filter(function (filter) {
       return filter.filterCanHandle(filterType, filterArguments);
     });
   }
