@@ -36,7 +36,7 @@ const METHODS_TO_BIND = [
   'onMetronomeStoreJobDetailChange'
 ];
 
-const JobActionItem = {
+const DIALOGS = {
   EDIT: 'edit',
   DESTROY: 'destroy'
 };
@@ -96,7 +96,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     this.setState({
-      jobActionDialog: JobActionItem.DESTROY,
+      jobActionDialog: DIALOGS.DESTROY,
       disabledDialog: null,
       errorMsg
     });
@@ -116,7 +116,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleEditButtonClick() {
-    this.setState({jobActionDialog: JobActionItem.EDIT});
+    this.setState({jobActionDialog: DIALOGS.EDIT});
   }
 
   handleRunNowButtonClick() {
@@ -134,22 +134,22 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   };
 
   handleDestroyButtonClick() {
-    this.setState({jobActionDialog: JobActionItem.DESTROY});
+    this.setState({jobActionDialog: DIALOGS.DESTROY});
   };
 
   handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
-    this.setState({disabledDialog: JobActionItem.DESTROY}, () => {
+    this.setState({disabledDialog: DIALOGS.DESTROY}, () => {
       MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
     });
   }
 
   handleMoreDropdownSelection(selection) {
-    if (selection.id === JobActionItem.SCHEDULE_DISABLE) {
+    if (selection.id === DIALOGS.SCHEDULE_DISABLE) {
       MetronomeStore.toggleSchedule(this.props.params.id, false);
       return;
     }
 
-    if (selection.id === JobActionItem.SCHEDULE_ENABLE) {
+    if (selection.id === DIALOGS.SCHEDULE_ENABLE) {
       MetronomeStore.toggleSchedule(this.props.params.id, true);
       return;
     }
@@ -191,8 +191,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     return (
       <Confirm children={content}
-        disabled={disabledDialog === JobActionItem.DESTROY}
-        open={jobActionDialog === JobActionItem.DESTROY}
+        disabled={disabledDialog === DIALOGS.DESTROY}
+        open={jobActionDialog === DIALOGS.DESTROY}
         onClose={this.closeDialog}
         leftButtonText="Cancel"
         leftButtonCallback={this.closeDialog}
@@ -390,7 +390,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           {this.tabs_getTabView(job)}
           <JobFormModal isEdit={true}
               job={job}
-              open={this.state.jobActionDialog === JobActionItem.EDIT}
+              open={this.state.jobActionDialog === DIALOGS.EDIT}
               onClose={this.closeDialog} />
           {this.getDestroyConfirmDialog()}
         </Page>
