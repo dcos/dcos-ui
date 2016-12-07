@@ -11,7 +11,6 @@ import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDetail from '../service-detail/ServiceDetail';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import ServiceModals from '../../components/modals/ServiceModals';
-import ServicesUtil from '../../utils/ServicesUtil';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceTreeView from './ServiceTreeView';
 
@@ -419,24 +418,6 @@ class ServicesContainer extends React.Component {
     };
   }
 
-  getServices(serviceTree) {
-    let {filterFunction} = this.state;
-    const all = serviceTree.flattenItems().getItems();
-    const countByFilter = ServicesUtil.getCountByType(all);
-    let filtered = serviceTree.getItems();
-
-    // Apply filter function to the current list of items
-    if (filterFunction) {
-      filtered = filterFunction(serviceTree.flattenItems()).getItems();
-    }
-
-    return {
-      all,
-      countByFilter,
-      filtered
-    };
-  }
-
   getModals(service) {
     let modalProps = Object.assign({}, this.state.modal);
 
@@ -522,7 +503,7 @@ class ServicesContainer extends React.Component {
 
       if (filterExpression.defined) {
         filteredServices = filterExpression.filter(
-          SERVICE_FILTERS, filteredServices
+          SERVICE_FILTERS, filteredServices.flattenItems()
         );
       }
 
