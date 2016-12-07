@@ -5,6 +5,7 @@ jest.dontMock('../../../../../../src/js/stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
 jest.dontMock('../../../../../../src/js/components/RequestErrorMsg');
 jest.dontMock('../../../../../../src/js/structs/CompositeState');
+jest.dontMock('../../../../../../src/js/components/Page');
 
 const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 
@@ -137,6 +138,7 @@ describe('NodeDetailPage', function () {
         JestUtil.stubRouterContext(
           NodeDetailPage,
           {
+            children: <div />,
             params: {nodeID: 'existingNode'},
             routes: [{path: '/nodes/:nodeID', children: []}]
           },
@@ -150,6 +152,7 @@ describe('NodeDetailPage', function () {
       );
 
       var result = instance.getDetailViewHeader(new Node());
+
       expect(TestUtils.isElement(result)).toEqual(true);
     });
   });
