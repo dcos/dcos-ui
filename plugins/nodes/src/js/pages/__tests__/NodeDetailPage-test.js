@@ -138,6 +138,7 @@ describe('NodeDetailPage', function () {
         JestUtil.stubRouterContext(
           NodeDetailPage,
           {
+            children: <div />,
             params: {nodeID: 'existingNode'},
             routes: [{path: '/nodes/:nodeID', children: []}]
           },
@@ -151,6 +152,7 @@ describe('NodeDetailPage', function () {
       );
 
       var result = instance.getDetailViewHeader(new Node());
+
       expect(TestUtils.isElement(result)).toEqual(true);
     });
   });

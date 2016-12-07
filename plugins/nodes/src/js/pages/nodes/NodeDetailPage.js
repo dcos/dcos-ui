@@ -208,11 +208,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    return (
-      <div className="page">
-        {this.props.children}
-      </div>
-    );
+    return this.props.children;
   }
 }
 
