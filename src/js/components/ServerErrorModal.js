@@ -109,7 +109,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
     return (
       <Modal
-        modalWrapperClass="modal-generic-error"
+        modalWrapperClass="server-error-modal"
         modalClass="modal"
         onClose={this.handleModalClose}
         open={this.state.isOpen}
