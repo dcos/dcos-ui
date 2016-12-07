@@ -4,7 +4,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import PluginSDK from 'PluginSDK';
+
 import MesosSummaryStore from '../stores/MesosSummaryStore';
+
+let {Hooks} = PluginSDK;
 
 class ClusterName extends mixin(StoreMixin) {
   constructor() {
@@ -29,12 +33,13 @@ class ClusterName extends mixin(StoreMixin) {
       }
     }
 
+    clusterName = Hooks.applyFilter('clusterName', clusterName);
+
     return (
-      <span
-        className="header-title h5 inverse text-overflow flush"
+      <h5 className="header-title inverse text-overflow flush"
         title={clusterName}>
         {clusterName}
-      </span>
+      </h5>
     );
   }
 }
