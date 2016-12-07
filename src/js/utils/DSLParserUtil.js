@@ -2,6 +2,8 @@ import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
 
+import DSLFilterList from '../structs/DSLFilterList';
+
 /**
  * Factory for filter-combining functions (operators)
  *
@@ -41,6 +43,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
       return function (filters, resultset) {
         // We are interested in the intersection of the results of the two filters
         let intermediateResultset = leftFilterFn(filters, resultset);
+
         return rightFilterFn(filters, intermediateResultset);
       };
 
@@ -60,14 +63,9 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        */
       return function (filters, resultset) {
         // We are interested in the union of the results of the two filters
+        let intermediateResultset = leftFilterFn(filters, resultset);
 
-        // TODO: Merge the results of `leftFilterFn(filters, resultset)` and
-        //       `rightFilterFn(filters, resultset)`.
-
-        // TODO: Implement a `List.merge` function that merges two lists,
-        //       discarding duplicate values.
-
-        return resultset;
+        return intermediateResultset.combine(rightFilterFn(filters, resultset));
       };
   };
 }
@@ -82,7 +80,6 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
  * @param {FilterNode} ast - The AST node for the filter operation
  * @returns {function} - Returns the fabricated filter function
  */
-/* eslint-disable no-unused-vars */
 function filterFunctionFactory(ast) {
 
   /**
@@ -98,16 +95,33 @@ function filterFunctionFactory(ast) {
    * @returns {List} resultset - A new instance of a List, containing the results
    */
   return function (filters, resultset) {
+    if (!(filters instanceof DSLFilterList)) {
+      throw TypeError('Expecting first argument to be an instance of DSLFilterList');
+    }
 
-    // TODO: Lookup in `filters` object one or more valid filters that can be
-    //       applied on the bound token. We can use the `this.filterType` and
-    //       `this.filterParams` for this purpose. Then apply them on the
-    //       resultset, keeping only the matched results.
-
-    return resultset;
+    // Apply matching filters from the filters database to the current
+    // result set, and produce the new resultset.
+    //
+    // If more than one filters exists for the same type, the results are combined
+    // using an OR operator.
+    //
+    // For example, if you want to test for `is:running` in a resultset that
+    // contains both Nodes and Services, you could plug two different filters,
+    // one that knows how to handle Nodes and one that knows how to handle
+    // Services. However, since both are operating on the same `is:XXX` token
+    // the will be both fetched from the `getMatchingFilters` function.
+    //
+    return filters.getMatchingFilters(ast.filterType, ast.filterParams).reduce(
+      function (currentResultset, filter) {
+        return currentResultset.combine(
+          filter.filterApply(resultset, ast.filterType, ast.filterParams)
+        );
+      },
+      new resultset.constructor()
+    );
   };
+
 };
-/* eslint-enable no-unused-vars */
 
 /**
  * The following functions are used by the JISON parser in order to parse
