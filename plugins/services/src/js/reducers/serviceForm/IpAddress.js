@@ -2,6 +2,10 @@ import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 
 module.exports = {
   JSONReducer(state = null, {type, path, value}) {
+    if (path == null) {
+      return state;
+    }
+
     const joinedPath = path.join('.');
     if (this.internalState == null) {
       this.internalState = {};
