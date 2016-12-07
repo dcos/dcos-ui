@@ -38,6 +38,53 @@ function containersParser(state) {
       memo.push(new Transaction(['containers', index, 'privileged'], item.privileged));
     }
 
+    if (item.healthChecks != null && item.healthChecks.length !== 0) {
+      memo = item.healthChecks.reduce(function (memo, item, HealthCheckIndex) {
+        if (item.protocol == null) {
+          return memo;
+        }
+        memo.push(new Transaction(['containers', index, 'healthChecks'], HealthCheckIndex, ADD_ITEM));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'healthChecks',
+          HealthCheckIndex,
+          'protocol'
+        ], item.protocol.toUpperCase(), SET));
+
+        if (item.protocol.toUpperCase() === 'COMMAND') {
+          if (item.command != null && item.command.command != null) {
+            memo.push(new Transaction([
+              'containers',
+              index,
+              'healthChecks',
+              HealthCheckIndex,
+              'command'
+            ], item.command.command, SET));
+          }
+        }
+
+        [
+          'gracePeriodSeconds',
+          'intervalSeconds',
+          'timeoutSeconds',
+          'maxConsecutiveFailures'
+        ].forEach((key) => {
+          if (item[key] != null) {
+            memo.push(new Transaction([
+              'containers',
+              index,
+              'healthChecks',
+              HealthCheckIndex,
+              key
+            ], item[key], SET));
+          }
+        });
+
+        return memo;
+      }, memo);
+    }
+
     if (item.artifacts != null && item.artifacts.length !== 0) {
       item.artifacts.forEach((artifact, artifactIndex) => {
         memo.push(
@@ -63,6 +110,7 @@ function containersParser(state) {
         'shell'
       ], item.exec.command.shell));
     }
+
     return memo;
   }, []);
 };
