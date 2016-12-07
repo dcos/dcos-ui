@@ -2,6 +2,9 @@ import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/Tra
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
 import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
+import {JSONReducer as healthChecks} from './MultiContainerHealthChecks';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import Networking from '../../../../../../src/js/constants/Networking';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
@@ -15,6 +18,51 @@ const advancedContainerSettings = [
   'timeoutSeconds',
   'maxConsecutiveFailures'
 ];
+
+const defaultEndpointsFieldValues = {
+  automaticPort: true,
+  containerPort: null,
+  hostPort: null,
+  labels: null,
+  loadBalanced: false,
+  name: null,
+  portMapping: false,
+  protocol: 'tcp',
+  servicePort: null,
+  vip: null
+};
+
+function mapEndpoints(endpoints = [], networkType, appState) {
+  return endpoints.map((endpoint, index) => {
+    let {name, hostPort, containerPort, automaticPort, protocol, vip, labels, loadBalanced} = endpoint;
+    if (automaticPort) {
+      hostPort = 0;
+    }
+    if (networkType === Networking.type.CONTAINER) {
+      if (loadBalanced) {
+        if (vip == null) {
+          vip = `${appState.id}:${containerPort}`;
+        }
+
+        labels = Object.assign({}, labels, {
+          [`VIP_${index}`]: vip
+        });
+      }
+
+      return {
+        name,
+        containerPort,
+        hostPort,
+        protocol: [protocol],
+        labels
+      };
+    }
+    return {
+      hostPort,
+      protocol: [protocol]
+    };
+  });
+}
 
 function containersParser(state) {
   if (state == null || state.containers == null) {
@@ -101,6 +149,47 @@ function containersParser(state) {
       });
     }
 
+    if (item.endpoints != null && item.endpoints.length !== 0) {
+      item.endpoints.forEach((endpoint, endpointIndex) => {
+        memo.push(
+            new Transaction(['containers', index, 'endpoints'], endpointIndex, ADD_ITEM)
+        );
+
+        if (state.network.mode === Networking.type.CONTAINER.toLowerCase()) {
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'containerPort'], endpoint.containerPort));
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
+          let vip = findNestedPropertyInObject(endpoint, `labels.VIP_${endpointIndex}`);
+          if (vip != null) {
+            memo.push(new Transaction([
+              'containers', index, 'endpoints', endpointIndex,
+              'loadBalanced'
+            ], true));
+
+            if (!vip.startsWith(state.id)) {
+              memo.push(new Transaction([
+                'containers', index, 'endpoints', endpointIndex,
+                'vip'
+              ], vip));
+            }
+          }
+
+          if (item.labels != null) {
+            memo.push(new Transaction([
+              'containers', index, 'endpoints', endpointIndex,
+              'labels'
+            ], item.labels));
+          }
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
+        }
+
+        if (state.network.mode === Networking.type.HOST.toLowerCase()) {
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
+        }
+      });
+    }
+
     if (item.forcePullImage != null) {
       memo.push(new Transaction(['containers', index, 'forcePullImage'], item.forcePullImage));
     }
@@ -120,9 +209,30 @@ function containersParser(state) {
 };
 
 module.exports = {
-  JSONReducer(state, {type, path = [], value}) {
+  JSONReducer(state = [], {type, path = [], value}) {
+    if (this.networkType == null) {
+      this.networkType = Networking.type.HOST;
+    }
+
+    if (this.appState == null) {
+      this.appState = {};
+    }
+
+    if (path[0] === 'id' && type === SET) {
+      this.appState.id = value;
+    }
+
+    if (path[0] === 'network' && type === SET) {
+      const valueSplit = value.split('.');
+
+      this.networkType = valueSplit[0];
+    }
+
     if (!path.includes('containers')) {
-      return state;
+      return state.map((container, index) => {
+        container.endpoints = mapEndpoints(this.endpoints[index].endpoints, this.networkType, this.appState);
+        return container;
+      });
     }
 
     if (this.cache == null) {
@@ -133,11 +243,12 @@ module.exports = {
       this.healthChecks = [];
     }
 
-    if (!state) {
-      state = [];
+    if (this.endpoints == null) {
+      this.endpoints = [];
     }
 
     let newState = state.slice();
+
     const index = path[1];
     const joinedPath = path.join('.');
 
@@ -146,6 +257,7 @@ module.exports = {
         case ADD_ITEM:
           newState.push({name: `container ${newState.length + 1}`});
           this.cache.push({});
+          this.endpoints.push({});
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
@@ -154,11 +266,69 @@ module.exports = {
           this.cache = this.cache.filter((item, index) => {
             return index !== value;
           });
+          this.endpoints = this.endpoints.filter((item, index) => {
+            return index !== value;
+          });
           break;
       }
 
       return newState;
     }
+
+    if (path[2] === 'endpoints') {
+      if (this.endpoints[path[1]].endpoints == null) {
+        this.endpoints[path[1]].endpoints = [];
+      }
+
+      switch (type) {
+        case ADD_ITEM:
+          this.endpoints[path[1]].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          break;
+        case REMOVE_ITEM:
+          this.endpoints[path[1]].endpoints = this.endpoints[path[1]].endpoints.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+      }
+
+      if (type === SET) {
+        if (path[4] === 'name') {
+          this.endpoints[path[1]].endpoints[path[3]].name = value;
+        }
+
+        if (path[4] === 'hostPort') {
+          this.endpoints[path[1]].endpoints[path[3]].hostPort = value;
+        }
+
+        if (path[4] === 'containerPort') {
+          this.endpoints[path[1]].endpoints[path[3]].containerPort = value;
+        }
+
+        if (path[4] === 'protocol') {
+          this.endpoints[path[1]].endpoints[path[3]].protocol = value;
+        }
+
+        if (path[4] === 'automaticPort') {
+          this.endpoints[path[1]].endpoints[path[3]].automaticPort = value;
+        }
+
+        if (path[4] === 'portMapping') {
+          this.endpoints[path[1]].endpoints[path[3]].portMapping = value;
+        }
+
+        if (path[4] === 'loadBalanced') {
+          this.endpoints[path[1]].endpoints[path[3]].loadBalanced = value;
+        }
+
+        if (path[4] === 'vip') {
+          this.endpoints[path[1]].endpoints[path[3]].vip = value;
+        }
+      }
+    }
+    newState = newState.map((container, index) => {
+      container.endpoints = mapEndpoints(this.endpoints[index].endpoints, this.networkType, this.appState);
+      return container;
+    });
 
     let field = path[2];
     if (field === 'healthChecks') {
@@ -259,6 +429,53 @@ module.exports = {
       }
 
       return newState;
+    }
+
+    if (path[2] === 'endpoints') {
+      if (newState[path[1]].endpoints == null) {
+        newState[path[1]].endpoints = [];
+      }
+
+      switch (type) {
+        case ADD_ITEM:
+          newState[path[1]].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          break;
+        case REMOVE_ITEM:
+          newState[path[1]].endpoints = newState[path[1]].endpoints.filter((item, index) => {
+            return index !== value;
+          });
+          break;
+      }
+
+      if (type === SET) {
+        if (path[4] === 'name') {
+          newState[path[1]].endpoints[path[3]].name = value;
+        }
+
+        if (path[4] === 'hostPort') {
+          newState[path[1]].endpoints[path[3]].hostPort = value;
+        }
+
+        if (path[4] === 'containerPort') {
+          newState[path[1]].endpoints[path[3]].containerPort = value;
+        }
+
+        if (path[4] === 'protocol') {
+          newState[path[1]].endpoints[path[3]].protocol = value;
+        }
+
+        if (path[4] === 'automaticPort') {
+          newState[path[1]].endpoints[path[3]].automaticPort = value;
+        }
+
+        if (path[4] === 'portMapping') {
+          newState[path[1]].endpoints[path[3]].portMapping = value;
+        }
+
+        if (path[4] === 'loadBalanced') {
+          newState[path[1]].endpoints[path[3]].loadBalanced = value;
+        }
+      }
     }
 
     let field = path[2];

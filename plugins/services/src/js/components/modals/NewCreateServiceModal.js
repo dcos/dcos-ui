@@ -25,6 +25,7 @@ import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
+import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
@@ -331,6 +332,7 @@ class NewServiceFormModal extends Component {
         GeneralServiceFormSection,
         HealthChecksFormSection,
         NetworkingFormSection,
+        MultiContainerNetworkingFormSection,
         VolumesFormSection
       ];
 
@@ -344,7 +346,8 @@ class NewServiceFormModal extends Component {
         {
           cmd: !isPod,
           container: !isPod,
-          containers: isPod
+          containers: isPod,
+          network: isPod
         }
       );
       const inputConfigReducers = combineReducers(
