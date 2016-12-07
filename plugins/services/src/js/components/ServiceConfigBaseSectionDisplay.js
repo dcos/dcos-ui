@@ -16,7 +16,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
   getDisplayValue(type, value) {
     // If the row's type is pre, we wrap it in a pre tag.
-    if (type === 'pre') {
+    if (type === 'pre' && value) {
       return <pre className="flush transparent wrap">{value}</pre>;
     }
 

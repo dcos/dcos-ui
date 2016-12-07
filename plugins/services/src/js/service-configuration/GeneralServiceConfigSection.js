@@ -1,9 +1,12 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import ContainerConstants from '../constants/ContainerConstants';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import Units from '../../../../../src/js/utils/Units';
 import Util from '../../../../../src/js/utils/Util';
+
+const {type: {NONE}, labelMap} = ContainerConstants;
 
 module.exports = {
   values: [
@@ -34,8 +37,11 @@ module.exports = {
       }
     },
     {
-      key: 'container-runtime', // TODO: Figure out how to find this
-      label: 'Container Runtime'
+      key: 'container.type',
+      label: 'Container Runtime',
+      transformValue: (runtime) => {
+        return labelMap[runtime] || labelMap[NONE];
+      }
     },
     {
       key: 'cpus',
@@ -92,15 +98,11 @@ module.exports = {
       label: 'Container Image'
     },
     {
-      key: 'container.docker.image', // TODO: Figure out how to find this
-      label: 'Container ID'
-    },
-    {
       key: 'container.docker.privileged',
       label: 'Extended Runtime Priv.',
       transformValue: (value) => {
         // Cast boolean as a string.
-        return String(value);
+        return String(Boolean(value));
       }
     },
     {
@@ -108,7 +110,7 @@ module.exports = {
       label: 'Force Pull on Launch',
       transformValue: (value) => {
         // Cast boolean as a string.
-        return String(value);
+        return String(Boolean(value));
       }
     },
     {
@@ -180,7 +182,8 @@ module.exports = {
         ];
 
         return (
-          <Table key="artifacts-table"
+          <Table
+            key="artifacts-table"
             className="table table-simple table-break-word flush-bottom"
             columns={columns}
             data={data} />
