@@ -1,7 +1,6 @@
 import React from 'react';
 
 import TaskDetail from '../../../../../services/src/js/pages/task-details/TaskDetail';
-
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
 import Page from '../../../../../../src/js/components/Page';
@@ -28,15 +27,15 @@ class NodesTaskDetailPage extends React.Component {
           taskName={task.getName()}/>
       );
     } else {
-      breadcrumbs = <NodeBreadcrumbs serviceID={nodeID} />;
+      breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} />;
     }
 
     return (
       <Page>
         <Page.Header
-            breadcrumbs={breadcrumbs}
-            tabs={tabs}
-            iconID="servers" />
+          breadcrumbs={breadcrumbs}
+          tabs={tabs}
+          iconID="servers" />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

@@ -154,8 +154,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return null;
     }
 
-    return <div/>;
-
     return (
       <div>
         <DetailViewHeader
