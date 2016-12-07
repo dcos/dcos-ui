@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Confirm, Dropdown} from 'reactjs-components';
+import {Confirm} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import prettycron from 'prettycron';
 /* eslint-disable no-unused-vars */
@@ -26,8 +26,10 @@ import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates
 const METHODS_TO_BIND = [
   'closeDialog',
   'handleEditButtonClick',
-  'handleMoreDropdownSelection',
   'handleRunNowButtonClick',
+  'handleDisableScheduleButtonClick',
+  'handleEnableScheduleButtonClick',
+  'handleDestroyButtonClick',
   'onMetronomeStoreJobDeleteError',
   'onMetronomeStoreJobDeleteSuccess',
   'onMetronomeStoreJobDetailError',
@@ -36,10 +38,7 @@ const METHODS_TO_BIND = [
 
 const JobActionItem = {
   EDIT: 'edit',
-  DESTROY: 'destroy',
-  SCHEDULE_DISABLE: 'schedule_disable',
-  SCHEDULE_ENABLE: 'schedule_enable',
-  MORE: 'more'
+  DESTROY: 'destroy'
 };
 
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
@@ -126,6 +125,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.runJob(job.getId());
   }
 
+  handleDisableScheduleButtonClick() {
+    MetronomeStore.toggleSchedule(this.props.params.id, false);
+  };
+
+  handleEnableScheduleButtonClick() {
+    MetronomeStore.toggleSchedule(this.props.params.id, true);
+  };
+
+  handleDestroyButtonClick() {
+    this.setState({jobActionDialog: JobActionItem.DESTROY});
+  };
+
   handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
     this.setState({disabledDialog: JobActionItem.DESTROY}, () => {
       MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
@@ -152,67 +163,6 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       errorMsg: null,
       jobActionDialog: null
     });
-  }
-
-  getActionButtons() {
-    let job = MetronomeStore.getJob(this.props.params.id);
-    let dropdownItems = [];
-    let [schedule] = job.getSchedules();
-
-    dropdownItems.push({
-      className: 'hidden',
-      html: 'More',
-      id: JobActionItem.MORE
-    });
-
-    if (schedule != null && schedule.enabled) {
-      dropdownItems.push({
-        html: 'Disable Schedule',
-        id: JobActionItem.SCHEDULE_DISABLE
-      });
-    }
-
-    if (schedule != null && !schedule.enabled) {
-      dropdownItems.push({
-        html: 'Enable Schedule',
-        id: JobActionItem.SCHEDULE_ENABLE
-      });
-    }
-
-    dropdownItems.push({
-      html: <span className="text-danger">Destroy</span>,
-      id: JobActionItem.DESTROY
-    });
-
-    return [
-      <button
-        className="button button-stroke"
-        key="edit"
-        onClick={this.handleEditButtonClick}>
-        Edit
-      </button>,
-      <button
-        className="button button-stroke"
-        key="run-now"
-        onClick={this.handleRunNowButtonClick}>
-        Run Now
-      </button>,
-      <Dropdown
-        anchorRight={true}
-        buttonClassName="dropdown-toggle button button-stroke"
-        dropdownMenuClassName="dropdown-menu"
-        dropdownMenuListClassName="dropdown-menu-list"
-        dropdownMenuListItemClassName="clickable"
-        initialID="more"
-        items={dropdownItems}
-        key="more"
-        onItemSelection={this.handleMoreDropdownSelection}
-        persistentID="more"
-        scrollContainer=".gm-scroll-view"
-        scrollContainerParentSelector=".gm-prevented"
-        transition={true}
-        wrapperClassName="dropdown" />
-    ];
   }
 
   getDestroyConfirmDialog() {
@@ -361,6 +311,60 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return <JobRunHistoryTable job={job} />;
   }
 
+  getActions() {
+    let job = MetronomeStore.getJob(this.props.params.id);
+    let [schedule] = job.getSchedules();
+
+    const actions = [];
+
+    actions.push({
+      label: 'Edit',
+      onItemSelect: this.handleEditButtonClick
+    });
+
+    actions.push({
+      label: 'Run Now',
+      onItemSelect: this.handleRunNowButtonClick
+    });
+
+    if (schedule != null && schedule.enabled) {
+      actions.push({
+        label: 'Disable Schedule',
+        onItemSelect: this.handleDisableScheduleButtonClick
+      });
+    }
+
+    if (schedule != null && !schedule.enabled) {
+      actions.push({
+        label: 'Enable Schedule',
+        onItemSelect: this.handleEnableScheduleButtonClick
+      });
+    }
+
+    actions.push({
+      className: 'text-danger',
+      label: 'Destroy',
+      onItemSelect: this.handleDestroyButtonClick
+    });
+
+    return actions;
+  }
+
+  getTabs() {
+    return [
+      {
+        label: 'Run History', callback: () => {
+          this.setState({currentTab: 'runHistory'});
+        }
+      },
+      {
+        label: 'Configuration', callback: () => {
+          this.setState({currentTab: 'configuration'});
+        }
+      }
+    ];
+  }
+
   render() {
     if (this.state.errorCount > 3) {
       return this.getErrorScreen();
@@ -377,23 +381,19 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     let job = MetronomeStore.getJob(this.props.params.id);
 
-    let tabs = [
-      {label: 'Run History', callback: () => { this.setState({currentTab: 'runHistory'}); } },
-      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); } }
-    ];
-
     return (
-      <Page>
-        <Page.Header
-          breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
-          tabs={tabs} />
-        {this.tabs_getTabView(job)}
-        <JobFormModal isEdit={true}
-          job={job}
-          open={this.state.jobActionDialog === JobActionItem.EDIT}
-          onClose={this.closeDialog} />
-        {this.getDestroyConfirmDialog()}
-      </Page>
+        <Page>
+          <Page.Header
+              actions={this.getActions()}
+              breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
+              tabs={this.getTabs()} />
+          {this.tabs_getTabView(job)}
+          <JobFormModal isEdit={true}
+              job={job}
+              open={this.state.jobActionDialog === JobActionItem.EDIT}
+              onClose={this.closeDialog} />
+          {this.getDestroyConfirmDialog()}
+        </Page>
     );
   }
 }
