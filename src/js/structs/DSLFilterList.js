@@ -1,5 +1,6 @@
 /**
- * This class maintains a dictionary with all the currently available
+ * This class maintains a list with available filters that can be used
+ * with a DSL expression.
  */
 class DSLFilterList {
 
