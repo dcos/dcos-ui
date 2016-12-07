@@ -131,11 +131,12 @@ class ServiceDetail extends mixin(TabsMixin) {
         onItemSelect: modalHandlers.restartService
       });
     }
-
-    actions.push({
-      label: 'Scale',
-      onItemSelect: modalHandlers.scaleService
-    });
+    if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
+      actions.push({
+        label: 'Scale',
+        onItemSelect: modalHandlers.scaleService
+      });
+    }
 
     if (instanceCount > 0) {
       actions.push({
