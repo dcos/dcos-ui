@@ -1,4 +1,3 @@
-import React from 'react';
 import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
@@ -16,18 +15,9 @@ import services from '../../../plugins/services/src/js/routes/services';
 import settings from './settings';
 import styles from './styles'; // eslint-disable-line
 import universe from './universe';
-import Util from '../utils/Util';
 
 // Modules that produce routes
 let routeFactories = [Organization, Network];
-
-// Pass through component, passes all the props to its children
-// needed because react-router can't handle more than 1 level of children
-// without a component
-const PassThroughComponent = (props) => {
-  const childProps = Util.omit(props, 'children');
-  return React.cloneElement(props.children, childProps);
-};
 
 function getApplicationRoutes() {
   // Statically defined routes
@@ -55,21 +45,29 @@ function getApplicationRoutes() {
   routes = [
     {
       type: Route,
-      component: Index,
       children: [
         {
           type: Route,
           id: 'index',
           children: routes,
-          component: PassThroughComponent
+          component: Index
         },
         {
-          // Please make sure this is THE LAST route and is not inside of id: 'index'
-          // as this is a glob route and matching stops here
-          // making all the routes going after this point unreachable
+          // This is a bit tricky
+          // NotFoundPage should not be among children of id: index
+          // yet it expects Index to be its parent
           type: Route,
-          path: '*',
-          component: NotFoundPage
+          component: Index,
+          children: [
+            // Please make sure this is THE LAST route and is not inside of id: 'index'
+            // as this is a glob route and matching stops here
+            // making all the routes going after this point unreachable (plugins)
+            {
+              type: Route,
+              path: '*',
+              component: NotFoundPage
+            }
+          ]
         }
       ]
     }
