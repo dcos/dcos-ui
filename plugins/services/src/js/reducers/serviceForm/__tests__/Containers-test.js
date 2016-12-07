@@ -10,8 +10,8 @@ describe('Containers', function () {
     it('should pass through state as default', function () {
       let batch = new Batch();
 
-      expect(batch.reduce(Containers.JSONReducer.bind({}), {}))
-        .toEqual({});
+      expect(batch.reduce(Containers.JSONReducer.bind({}), []))
+        .toEqual([]);
     });
 
     it('returns an array as default with a container path Transaction', function () {
