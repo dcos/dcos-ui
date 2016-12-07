@@ -1,19 +1,29 @@
-import mixin from 'reactjs-mixin';
 import {Hooks} from 'PluginSDK';
+import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import UsersStore from '../../stores/UsersStore';
 import Loader from '../../components/Loader';
 import OrganizationTab from './OrganizationTab';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import UsersStore from '../../stores/UsersStore';
 
 const METHODS_TO_BIND = [
   'onUsersStoreSuccess',
   'onUsersStoreError'
 ];
+
+const UsersBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="organization/users" key={-1}>Users</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+};
 
 class UsersPage extends mixin(StoreMixin) {
   constructor() {
@@ -61,7 +71,12 @@ class UsersPage extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<UsersBreadcrumbs />} />
+        <Loader />
+      </Page>
+    );
   }
 
   getContents() {
