@@ -12,10 +12,19 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterButtons from '../../components/FilterButtons';
 import FilterInputText from '../../components/FilterInputText';
+import Page from '../../components/Page';
 import StringUtil from '../../utils/StringUtil';
 import TableUtil from '../../utils/TableUtil';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitHealthUtil from '../../utils/UnitHealthUtil';
+
+const UnitHealthBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="components" key={-1}>Components</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleHealthFilterChange',
@@ -156,45 +165,48 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="flex-container-col">
-        <div className="units-health-table-header">
-          <FilterHeadline
-            currentLength={visibleData.length}
-            isFiltering={healthFilter !== 'all' || searchString !== ''}
-            name="Component"
-            onReset={this.resetFilter}
-            totalLength={dataItems.length} />
-          <FilterBar rightAlignLastNChildren={1}>
-            <FilterInputText
-              className="flush-bottom"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange} />
-            <FilterButtons
-              renderButtonContent={this.getButtonContent}
-              filters={['all', 'healthy', 'unhealthy']}
-              filterByKey="title"
-              onFilterChange={this.handleHealthFilterChange}
-              itemList={dataHealth}
-              selectedFilter={healthFilter} />
-            <a href={UnitHealthStore.getDownloadURL()}
-              className="button button-primary" target="_blank">
-              Download Snapshot
-            </a>
-          </FilterBar>
+      <Page>
+        <Page.Header breadcrumbs={<UnitHealthBreadcrumbs />} />
+        <div className="flex-container-col">
+          <div className="units-health-table-header">
+            <FilterHeadline
+              currentLength={visibleData.length}
+              isFiltering={healthFilter !== 'all' || searchString !== ''}
+              name="Component"
+              onReset={this.resetFilter}
+              totalLength={dataItems.length} />
+            <FilterBar rightAlignLastNChildren={1}>
+              <FilterInputText
+                className="flush-bottom"
+                searchString={searchString}
+                handleFilterChange={this.handleSearchStringChange} />
+              <FilterButtons
+                renderButtonContent={this.getButtonContent}
+                filters={['all', 'healthy', 'unhealthy']}
+                filterByKey="title"
+                onFilterChange={this.handleHealthFilterChange}
+                itemList={dataHealth}
+                selectedFilter={healthFilter} />
+              <a href={UnitHealthStore.getDownloadURL()}
+                className="button button-primary" target="_blank">
+                Download Snapshot
+              </a>
+            </FilterBar>
+          </div>
+          <div className="page-body-content-fill flex-grow flex-container-col">
+            <Table
+              className="table table-borderless-outer
+                table-borderless-inner-columns flush-bottom"
+              columns={this.getColumns()}
+              colGroup={this.getColGroup()}
+              containerSelector=".gm-scroll-view"
+              data={visibleData}
+              itemHeight={TableUtil.getRowHeight()}
+              sortBy={{prop: 'health', order: 'asc'}}
+              />
+          </div>
         </div>
-        <div className="page-body-content-fill flex-grow flex-container-col">
-          <Table
-            className="table table-borderless-outer
-              table-borderless-inner-columns flush-bottom"
-            columns={this.getColumns()}
-            colGroup={this.getColGroup()}
-            containerSelector=".gm-scroll-view"
-            data={visibleData}
-            itemHeight={TableUtil.getRowHeight()}
-            sortBy={{prop: 'health', order: 'asc'}}
-            />
-        </div>
-      </div>
+      </Page>
     );
   }
 }

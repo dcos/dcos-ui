@@ -1,19 +1,41 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
-import DetailViewHeader from '../../components/DetailViewHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
 import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
 import UnitHealthStore from '../../stores/UnitHealthStore';
+
+const UnitHealthDetailBreadcrumbs = ({unit}) => {
+  const crumbs = [
+    <Link to="components" key={-1}>Components</Link>
+  ];
+
+  if (unit != null) {
+    const healthStatus = unit.getHealth();
+    const unitTitle = unit.getTitle();
+
+    crumbs.push(
+      <Link to={`components/${unit.get('id')}`} key={0}>
+        {`${unitTitle} `}
+        <span className={healthStatus.classNames}>
+          ({healthStatus.title})
+        </span>
+      </Link>
+    );
+  }
+
+  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',
@@ -77,6 +99,17 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     this.setState({searchString});
   }
 
+  resetFilter() {
+    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
+      this.healthFilter.setDropdownValue('all');
+    }
+
+    this.setState({
+      searchString: '',
+      healthFilter: 'all'
+    });
+  }
+
   getErrorNotice() {
     return (
       <div className="pod">
@@ -97,21 +130,21 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     );
   }
 
-  getSubTitle(unit) {
-    let healthStatus = unit.getHealth();
-
-    return (
-      <ul className="list-inline flush-bottom">
-        <li>
-          <span className={healthStatus.classNames}>
-            {healthStatus.title}
-          </span>
-        </li>
-      </ul>
-    );
-  }
-
   getUnit() {
+    let {
+      hasError,
+      isLoadingUnit,
+      isLoadingNodes
+    } = this.state;
+
+    if (hasError) {
+      return null;
+    }
+
+    if (isLoadingUnit || isLoadingNodes) {
+      return null;
+    }
+
     return UnitHealthStore.getUnit(this.props.params.unitID);
   }
 
@@ -119,18 +152,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return data.filter({ip: searchString, health: healthFilter}).getItems();
   }
 
-  resetFilter() {
-    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
-      this.healthFilter.setDropdownValue('all');
-    }
-
-    this.setState({
-      searchString: '',
-      healthFilter: 'all'
-    });
-  }
-
-  render() {
+  getContent() {
     let {
       healthFilter,
       searchString,
@@ -147,16 +169,11 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let unit = this.getUnit();
     let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
     let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
 
     return (
       <div className="flex-container-col">
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <DetailViewHeader
-          subTitle={this.getSubTitle(unit)}
-          title={unit.getTitle()} />
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== 'all' || searchString !== ''}
@@ -178,9 +195,20 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
         <div className="flex-container-col flex-grow no-overflow">
-          {this.getNodesTable(unit, visibleData)}
+          {this.getNodesTable(this.getUnit(), visibleData)}
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <Page>
+        <Page.Header breadcrumbs={
+          <UnitHealthDetailBreadcrumbs unit={this.getUnit()} />
+        } />
+        {this.getContent()}
+      </Page>
     );
   }
 };
