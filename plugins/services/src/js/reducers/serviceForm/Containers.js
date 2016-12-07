@@ -41,7 +41,7 @@ function containersParser(state) {
     if (item.artifacts != null && item.artifacts.length !== 0) {
       item.artifacts.forEach((artifact, artifactIndex) => {
         memo.push(
-            new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
+          new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
         );
         memo.push(...Object.keys(artifact).map((key) => {
           return new Transaction(['containers', index, 'artifacts', artifactIndex, key], artifact[key]);
@@ -117,10 +117,11 @@ module.exports = {
         this.healthChecks[path[1]] = {};
       }
 
-      newState[path[1]].healthChecks =
-          healthChecks.call(this.healthChecks[path[1]],
-              newState[path[1]].healthChecks,
-              {type, path: path.slice(2), value});
+      newState[path[1]].healthChecks = healthChecks.call(
+        this.healthChecks[path[1]],
+        newState[path[1]].healthChecks,
+        {type, path: path.slice(2), value}
+      );
     }
 
     if (path[2] === 'artifacts') {
@@ -216,10 +217,11 @@ module.exports = {
         this.healthChecks[path[1]] = {};
       }
 
-      newState[path[1]].healthChecks =
-          healthChecks.call(this.healthChecks[path[1]],
-              newState[path[1]].healthChecks,
-              {type, path: path.slice(2), value});
+      newState[path[1]].healthChecks = healthChecks.call(
+        this.healthChecks[path[1]],
+        newState[path[1]].healthChecks,
+        {type, path: path.slice(2), value}
+      );
     }
 
     if (path[2] === 'artifacts') {
