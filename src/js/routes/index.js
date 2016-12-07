@@ -53,15 +53,21 @@ function getApplicationRoutes() {
           component: Index
         },
         {
-          // This is a bit tricky
-          // NotFoundPage should not be among children of id: index
-          // yet it expects Index to be its parent
+          // This is a bit tricky.
+          //
+          // `NotFoundPage` should not be among children of `id: index` route
+          // because `path: '*'` is a glob and matches everything
+          // so it will prevent all the routes that go after from being resolved
+          // in our case these will be plugins routes
+          //
+          // Yet it expects Index to be its parent,
+          // this is why we have `component: Index` twice
+          // I decided not to add component Index inside NotFoundPage
+          // to make it explicit
+          // TODO: make it less tricky
           type: Route,
           component: Index,
           children: [
-            // Please make sure this is THE LAST route and is not inside of id: 'index'
-            // as this is a glob route and matching stops here
-            // making all the routes going after this point unreachable (plugins)
             {
               type: Route,
               path: '*',
