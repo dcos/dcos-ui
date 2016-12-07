@@ -23,8 +23,8 @@ class SearviceAttribHealthFilter extends DSLFilter {
    */
   filterCanHandle(filterType, filterArguments) {
     return filterType === DSLFilterTypes.ATTRIB &&
-           filterArguments.label === LABEL &&
-           LABEL_TO_HEALTH[filterArguments.text.toLowerCase()] != null;
+      filterArguments.label === LABEL &&
+      LABEL_TO_HEALTH[filterArguments.text.toLowerCase()] != null;
   }
 
   /**
