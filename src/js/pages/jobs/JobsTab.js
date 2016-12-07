@@ -200,7 +200,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render empty panel
     return (
       <Page>
-        <Page.Header breadcrumb={<JobsBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
         <AlertPanel
           title="No active jobs">
           <p className="tall">
