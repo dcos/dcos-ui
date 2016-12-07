@@ -337,7 +337,12 @@ var Sidebar = React.createClass({
   },
 
   render() {
+    let dockIconID = 'sidebar-expand';
     let overlay = null;
+
+    if (SidebarStore.get('isDocked')) {
+      dockIconID = 'sidebar-collapse';
+    }
 
     if (SidebarStore.get('isVisible')) {
       overlay = (
@@ -367,7 +372,7 @@ var Sidebar = React.createClass({
               <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">
                 <Icon className="sidebar-dock-trigger"
                   size="mini"
-                  id="sidebar-collapse"
+                  id={dockIconID}
                   onClick={this.toggleSidebarDocking} />
               </div>
             </div>
