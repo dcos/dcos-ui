@@ -103,8 +103,9 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:dElAyED');
 
-    let filters = new DSLFilterList();
-    filters.plug(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList([
+      new ServiceAttribIsFilter()
+    ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
