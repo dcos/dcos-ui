@@ -24,7 +24,7 @@ const DSLUpdateUtil = {
     switch (filterType) {
       case DSLFilterTypes.ATTRIB:
         // Attribute nodes require a special care since their value might be
-        // located in a different location than it's label (ex. multi-value)
+        // located in a different location than its label (ex. multi-value)
         //
         // position[0] contains the `label:` part
         // position[1] contains the `value` part
@@ -121,7 +121,7 @@ const DSLUpdateUtil = {
     let offset = 0;
 
     // First update nodes
-    for (let i=0; i<updateCount; ++i) {
+    for (let i = 0; i < updateCount; ++i) {
       const updateNode = nodes[i];
       const withNode = newNodes[i];
 
@@ -141,7 +141,7 @@ const DSLUpdateUtil = {
     if (newNodes.length < nodes.length) {
       // We are deleting from the last to the first in order to keep
       // the offsets intact so we don't have to recalculate
-      for (let i=nodes.length-1; i>=updateCount; --i) {
+      for (let i = nodes.length - 1; i >= updateCount; --i) {
         const deleteNode = nodes[i];
         expressionValue = DSLUpdateUtil.deleteNodeString(
           expressionValue, deleteNode, offset
@@ -175,21 +175,20 @@ const DSLUpdateUtil = {
    * @returns {DSLExpression} expression - The updated expression
    */
   applyDelete(expression, nodes) {
-    var offset = 0;
-    let expressionValue = nodes.reduce((value, deleteNode) => {
+    let newExpression = nodes.reduce(({value, offset}, node) => {
       // Delte value
       const newValue = DSLUpdateUtil.deleteNodeString(
-        value, deleteNode, offset
+        value, node, offset
       );
 
       // This action shifted the location of the tokens in the original
       // expression. Update offset.
       offset += newValue.length - value.length;
 
-      return newValue;
-    }, expression.value);
+      return {value: newValue, offset};
+    }, {value: expression.value, offset: 0});
 
-    return new DSLExpression(expressionValue);
+    return new DSLExpression(newExpression.value);
   }
 
 };
