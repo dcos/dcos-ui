@@ -19,19 +19,20 @@ class ServiceTaskDetailPage extends React.Component {
     ];
 
     let task = MesosStateStore.getTaskFromTaskID(taskID);
-    if (task == null) {
-      return this.getNotFound('task', taskID);
+    let breadcrumbs;
+    if (task != null) {
+      breadcrumbs = (
+        <ServiceBreadcrumbs
+          serviceID={id}
+          taskID={task.getId()}
+          taskName={task.getName()}/>
+      );
+    } else {
+      breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
     }
 
-    const breadcrumbs = (
-      <ServiceBreadcrumbs
-        serviceID={id}
-        taskID={task.getId()}
-        taskName={task.getName()} />
-    );
-
     return (
-      <Page>
+      <Page dontScroll={true}>
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}
