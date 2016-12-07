@@ -7,6 +7,8 @@ import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
 import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONReducer as residency} from './serviceForm/Residency';
+import {JSONReducer as volumes} from './serviceForm/Volumes';
+import {JSONReducer as network} from './serviceForm/MultiContainerNetwork';
 import {JSONReducer as ipAddress} from './serviceForm/IpAddress';
 import {JSONReducer as requirePorts} from './serviceForm/RequirePorts';
 import {
@@ -41,5 +43,7 @@ module.exports = {
   portDefinitions,
   requirePorts,
   residency,
+  volumes,
+  network,
   ipAddress
 };
