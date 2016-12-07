@@ -1,4 +1,5 @@
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
 const MarathonAppValidators = {
 
@@ -47,15 +48,13 @@ const MarathonAppValidators = {
         // the hash algorithm used and 'value' is the hex-encoded digest.
         // Currently the only permitted hash algorithm is sha512.
         // (Validation in Container.scala#L158)
-        if (app.container.appc.id) {
-          if (!/^sha512-./.exec(app.container.appc.id)) {
-            return [
-              {
-                path: ['container', 'appc', 'id'],
-                message: 'AppContainer id should start with \'sha512-\''
-              }
-            ];
-          }
+        if (app.container.appc.id &&!/^sha512-./.exec(app.container.appc.id)) {
+          return [
+            {
+              path: ['container', 'appc', 'id'],
+              message: 'AppContainer id should start with \'sha512-\''
+            }
+          ];
         }
 
         return [];
@@ -66,6 +65,7 @@ const MarathonAppValidators = {
     // Create one error for every field, instead of showing the error
     // to the root.
     const message = 'You must specify a command, an argument or a container';
+
     return [
       {path: ['cmd'], message},
       {path: ['args'], message},
@@ -83,7 +83,8 @@ const MarathonAppValidators = {
 
     if (hasAppResidency !== hasPersistentVolumes) {
       const message = 'AppDefinition must contain persistent volumes and ' +
-                      'define residency';
+        'define residency';
+
       return [
         {path: ['residency'], message},
         {path: ['persistentVolumes'], message}
@@ -110,20 +111,16 @@ const MarathonAppValidators = {
     }
 
     // (AppDefinition.scala#L539)
-    if (ValidatorUtil.isEmpty(app.container)) {
-      return [];
-    }
-    if (ValidatorUtil.isEmpty(app.container.docker)) {
-      return [];
-    }
-    if (ValidatorUtil.isEmpty(app.container.docker.network)) {
+    let network = findNestedPropertyInObject(app, 'container.docker.network');
+    if (ValidatorUtil.isEmpty(network)) {
       return [];
     }
 
     // (AppDefinition.scala#L539)
     if (/^(BRIDGE|USER)$/.exec(app.container.docker.network)) {
       const message = 'ipAddress/discovery is not allowed for Docker ' +
-                      'containers using BRIDGE or USER networks';
+        'containers using BRIDGE or USER networks';
+
       return [
         {path: ['ipAddress'], message},
         {path: ['discoveryInfo'], message},
