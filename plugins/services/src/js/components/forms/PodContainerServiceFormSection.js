@@ -47,11 +47,11 @@ class PodContainerServiceFormSection extends Component {
         label = getArtifactsLabel();
       }
       return (
-          <div className="flex row">
+          <div className="flex row" key={`${path}.artifacts.${index}`}>
             <FormGroup className="column-10" showError={Boolean(artifactError)}>
               {label}
               <FieldInput
-                  name={`${path}.artifacts.${index}`}
+                  name={`${path}.artifacts.${index}.uri`}
                   placeholder="http://"
                   value={item} />
               <FieldError>{artifactError}</FieldError>
