@@ -6,7 +6,7 @@ class PageHeaderBreadcrumbs extends React.Component {
 
   getCaret(index) {
     return (
-      <li className="page-header-breadcrumb-caret flush-top flush-left"
+      <li className="page-header-breadcrumb page-header-breadcrumb-caret"
         key={`caret-${index}`}>
         <Icon color="light-grey" id="caret-right" size="mini" />
       </li>
@@ -17,14 +17,14 @@ class PageHeaderBreadcrumbs extends React.Component {
     let {props: {iconID, breadcrumbs}} = this;
 
     const containerIcon = (
-      <li className="page-header-breadcrumb-secondary h3 flush-top flush-left" key="-1">
+      <li className="page-header-breadcrumb page-header-breadcrumb-icon" key="-1">
         <Icon family="product" id={iconID} size="small" />
       </li>
     );
 
     let breadcrumbElements = breadcrumbs.reduce((memo, breadcrumb, index) => {
       memo.push(
-        <li className="page-header-breadcrumb-secondary h3 flush-top flush-left" key={index}>
+        <li className="page-header-breadcrumb h3" key={index}>
           {breadcrumb}
         </li>
       );
@@ -37,7 +37,7 @@ class PageHeaderBreadcrumbs extends React.Component {
     }, [containerIcon]);
 
     return (
-      <ul className="page-header-breadcrumbs list list-unstyled list-inline flush">
+      <ul className="page-header-breadcrumbs">
         {breadcrumbElements}
       </ul>
     );
