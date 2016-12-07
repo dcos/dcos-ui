@@ -1,16 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import CompositeState from '../../../../../src/js/structs/CompositeState';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
 
 const NodeBreadcrumbs = ({nodeID, taskID, taskName}) => {
   const trimmednodeID = decodeURIComponent(nodeID).replace(/^\//, '');
   const encodedNodeID = encodeURIComponent(trimmednodeID);
   const crumbs = [<Link to="nodes" key={-1}>Nodes</Link>];
+  let node;
 
   if (nodeID != null && trimmednodeID.length > 0) {
+    node = CompositeState.getNodesList().filter(
+        {ids: [nodeID]}
+    ).last();
     crumbs.push(
-      <Link to={`/nodes/${encodedNodeID}`}>{nodeID}</Link>
+      <Link to={`/nodes/${encodedNodeID}`}>{node.hostname}</Link>
     );
   }
 
