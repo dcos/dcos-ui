@@ -5,6 +5,7 @@ import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import Framework from '../../structs/Framework';
 import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -146,6 +147,7 @@ class ServicesTable extends React.Component {
     let isGroup = service instanceof ServiceTree;
     let isPod = service instanceof Pod;
     let isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
+    let isFramework = service instanceof Framework;
     let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
     if (isGroup) {
@@ -186,6 +188,9 @@ class ServicesTable extends React.Component {
         html: 'Suspend'
       },
       {
+        className: classNames({
+          hidden: isFramework
+        }),
         id: ServiceActionItem.DESTROY,
         html: <span className="text-danger">Destroy</span>
       }
