@@ -10,6 +10,7 @@ import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import MultiContainerEnvironmentFormSection from '../forms/MultiContainerEnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
@@ -306,7 +307,7 @@ class NewCreateServiceModalForm extends Component {
     if (this.state.isPod) {
       return [
         <TabButton id="networking" label="Networking" key="networking" />,
-        <TabButton id="environment" label="Environment" key="environment"/>,
+        <TabButton id="environment" label="Environment" key="multienvironment"/>,
         <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>
       ];
     }
@@ -323,9 +324,9 @@ class NewCreateServiceModalForm extends Component {
 
     if (this.state.isPod) {
       return [
-        <TabView id="environment" key="environment">
+        <TabView id="environment" key="multienvironment">
           {rootErrorComponent}
-          <EnvironmentFormSection
+          <MultiContainerEnvironmentFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
