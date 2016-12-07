@@ -107,12 +107,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   render() {
     let {errorCount, receivedVirtualNetworks} = this.state;
     if (errorCount >= 3) {
-      return (
-        <Page>
-          <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
-          {this.getErrorScreen()}
-        </Page>
-      );
+      return this.getErrorScreen();
     }
 
     if (!receivedVirtualNetworks) {
