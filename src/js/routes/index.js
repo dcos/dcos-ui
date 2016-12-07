@@ -64,7 +64,7 @@ function getApplicationRoutes() {
           // this is why we have `component: Index` twice
           // I decided not to add component Index inside NotFoundPage
           // to make it explicit
-          // TODO: make it less tricky
+          // TODO: DCOS-11913 make it less tricky
           type: Route,
           component: Index,
           children: [
