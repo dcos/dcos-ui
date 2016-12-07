@@ -43,7 +43,6 @@ module.exports = Object.assign({}, StoreMixin, {
 
   filters: [
     'applicationRoutes',
-    'clusterName',
     'delayApplicationLoad',
     'organizationRoutes',
     'userDropdownItems',
@@ -65,20 +64,6 @@ module.exports = Object.assign({}, StoreMixin, {
 
   redirectToLogin(nextState, replace) {
     replace('/login');
-  },
-
-  getUserLabel() {
-    const user = AuthStore.getUser();
-
-    let userLabel = null;
-
-    if (user && !user.is_remote) {
-      userLabel = user.description;
-    } else if (user && user.is_remote) {
-      userLabel = user.uid;
-    }
-
-    return userLabel;
   },
 
   AJAXRequestError(xhr) {
@@ -111,17 +96,17 @@ module.exports = Object.assign({}, StoreMixin, {
     return listeners;
   },
 
-  clusterName(clusterName) {
-    if (clusterName == null) {
-      return this.getUserLabel();
-    }
-
-    return clusterName;
-  },
-
   userDropdownItems(defaultMenuItems) {
     const menuItems = defaultMenuItems.slice();
-    const userLabel = this.getUserLabel();
+    const user = AuthStore.getUser();
+
+    let userLabel = null;
+
+    if (user && !user.is_remote) {
+      userLabel = user.description;
+    } else if (user && user.is_remote) {
+      userLabel = user.uid;
+    }
 
     menuItems.push(
       {
