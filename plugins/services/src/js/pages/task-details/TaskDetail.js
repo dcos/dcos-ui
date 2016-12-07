@@ -11,10 +11,8 @@ import InternalStorageMixin from '../../../../../../src/js/mixins/InternalStorag
 import Loader from '../../../../../../src/js/components/Loader';
 import ManualBreadcrumbs from '../../../../../../src/js/components/ManualBreadcrumbs';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import Page from '../../../../../../src/js/components/Page';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
-import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
@@ -328,9 +326,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-        <div className="flex flex-item-shrink-0 control-group">
-          {this.getBreadcrumbs()}
-        </div>
         {this.props.children && React.cloneElement(this.props.children, {
           directory,
           selectedLogFile,
@@ -347,37 +342,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-
-    if (task == null) {
-      return this.getNotFound('task', this.props.params.taskID);
-    }
-
-    const breadcrumbs = (
-      <ServiceBreadcrumbs
-        serviceID={this.props.params.id}
-        taskID={task.getId()}
-        taskName={task.getName()} />
-    );
-
-    let {id, taskID} = this.props.params;
-    let routePrefix = `/services/overview/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
-
-    const tabs = [
-      {label: 'Details', routePath: routePrefix + '/details'},
-      {label: 'Files', routePath: routePrefix + '/files'},
-      {label: 'Logs', routePath: routePrefix + '/logs'}
-    ];
-
-    // TODO move basic info to actions
-    /* {this.getBasicInfo()} */
     return (
-      <Page>
-        <Page.Header breadcrumbs={breadcrumbs} iconID="services" tabs={tabs} />
-        <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-          {this.getSubView()}
-        </div>
-      </Page>
+      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+        {this.getSubView()}
+      </div>
     );
   }
 }
