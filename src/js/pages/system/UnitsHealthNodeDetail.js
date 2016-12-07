@@ -9,8 +9,7 @@ import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthStore from '../../stores/UnitHealthStore';
-import UnitsHealthNodeDetailPanel from
-  './units-health-node-detail/UnitsHealthNodeDetailPanel';
+import UnitsHealthNodeDetailPanel from './units-health-node-detail/UnitsHealthNodeDetailPanel';
 import UnitSummaries from '../../constants/UnitSummaries';
 
 const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
@@ -98,41 +97,49 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     return <Loader />;
   }
 
-  render() {
+  getContent() {
     let {hasError, isLoadingNode, isLoadingUnit} = this.state;
-    let content = null;
-    let node = null;
-    let unit = null;
 
     if (hasError) {
-      content = this.getErrorNotice();
-    } else if (isLoadingNode || isLoadingUnit) {
-      content = this.getLoadingScreen();
-    } else {
-      let {unitID, unitNodeID} = this.props.params;
-
-      node = UnitHealthStore.getNode(unitNodeID);
-      unit = UnitHealthStore.getUnit(unitID);
-
-      let unitSummary = UnitSummaries[unit.get('id')] || {};
-      let unitDocsURL = unitSummary.getDocumentationURI &&
-          unitSummary.getDocumentationURI();
-
-      content = (
-        <UnitsHealthNodeDetailPanel
-          routes={this.props.routes}
-          params={this.props.params}
-          docsURL={unitDocsURL}
-          hostIP={node.get('host_ip')}
-          output={node.getOutput()}
-          summary={unitSummary.summary} />
-      );
+      return this.getErrorNotice();
     }
+
+    if (isLoadingNode || isLoadingUnit) {
+      return this.getLoadingScreen();
+    }
+
+    let {unitID, unitNodeID} = this.props.params;
+
+    let node = UnitHealthStore.getNode(unitNodeID);
+    let unit = UnitHealthStore.getUnit(unitID);
+
+    let unitSummary = UnitSummaries[unit.get('id')] || {};
+    let unitDocsURL = unitSummary.getDocumentationURI &&
+      unitSummary.getDocumentationURI();
+
+    return (
+      <UnitsHealthNodeDetailPanel
+        routes={this.props.routes}
+        params={this.props.params}
+        docsURL={unitDocsURL}
+        hostIP={node.get('host_ip')}
+        output={node.getOutput()}
+        summary={unitSummary.summary} />
+    );
+  }
+
+  render() {
+    let {unitID, unitNodeID} = this.props.params;
+
+    let node = UnitHealthStore.getNode(unitNodeID);
+    let unit = UnitHealthStore.getUnit(unitID);
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<UnitHealthNodeDetailBreadcrumbs node={node} unit={unit} />} />
-        {content}
+        <Page.Header breadcrumbs={
+          <UnitHealthNodeDetailBreadcrumbs node={node} unit={unit} />
+        } />
+        {this.getContent()}
       </Page>
     );
   }

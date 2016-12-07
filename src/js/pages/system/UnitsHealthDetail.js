@@ -99,6 +99,17 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     this.setState({searchString});
   }
 
+  resetFilter() {
+    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
+      this.healthFilter.setDropdownValue('all');
+    }
+
+    this.setState({
+      searchString: '',
+      healthFilter: 'all'
+    });
+  }
+
   getErrorNotice() {
     return (
       <div className="pod">
@@ -120,6 +131,20 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   getUnit() {
+    let {
+      hasError,
+      isLoadingUnit,
+      isLoadingNodes
+    } = this.state;
+
+    if (hasError) {
+      return null;
+    }
+
+    if (isLoadingUnit || isLoadingNodes) {
+      return null;
+    }
+
     return UnitHealthStore.getUnit(this.props.params.unitID);
   }
 
@@ -127,18 +152,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return data.filter({ip: searchString, health: healthFilter}).getItems();
   }
 
-  resetFilter() {
-    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
-      this.healthFilter.setDropdownValue('all');
-    }
-
-    this.setState({
-      searchString: '',
-      healthFilter: 'all'
-    });
-  }
-
-  render() {
+  getContent() {
     let {
       healthFilter,
       searchString,
@@ -146,51 +160,54 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       isLoadingUnit,
       isLoadingNodes
     } = this.state;
-    let content = null;
-    let unit = null;
 
     if (hasError) {
-      content = this.getErrorNotice();
-    } else if (isLoadingUnit || isLoadingNodes) {
-      content = this.getLoadingScreen();
-    } else {
-      let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
-      let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
-
-      unit = this.getUnit();
-      content = (
-        <div className="flex-container-col">
-          <FilterHeadline
-            currentLength={visibleData.length}
-            isFiltering={healthFilter !== 'all' || searchString !== ''}
-            name="Health Check"
-            onReset={this.resetFilter}
-            totalLength={nodes.getItems().length} />
-          <FilterBar>
-            <div className="form-group flush-bottom">
-              <FilterInputText
-                className="flush-bottom"
-                searchString={searchString}
-                handleFilterChange={this.handleSearchStringChange} />
-            </div>
-            <UnitHealthDropdown
-              className="button dropdown-toggle text-align-left"
-              dropdownMenuClassName="dropdown-menu"
-              initialID="all"
-              onHealthSelection={this.handleHealthSelection}
-              ref={(ref) => this.healthFilter = ref} />
-          </FilterBar>
-          <div className="flex-container-col flex-grow no-overflow">
-            {this.getNodesTable(unit, visibleData)}
-          </div>
-        </div>
-      );
+      return this.getErrorNotice();
     }
 
+    if (isLoadingUnit || isLoadingNodes) {
+      return this.getLoadingScreen();
+    }
+
+    let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
+    let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
+
+    return (
+      <div className="flex-container-col">
+        <FilterHeadline
+          currentLength={visibleData.length}
+          isFiltering={healthFilter !== 'all' || searchString !== ''}
+          name="Health Check"
+          onReset={this.resetFilter}
+          totalLength={nodes.getItems().length} />
+        <FilterBar>
+          <div className="form-group flush-bottom">
+            <FilterInputText
+              className="flush-bottom"
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange} />
+          </div>
+          <UnitHealthDropdown
+            className="button dropdown-toggle text-align-left"
+            dropdownMenuClassName="dropdown-menu"
+            initialID="all"
+            onHealthSelection={this.handleHealthSelection}
+            ref={(ref) => this.healthFilter = ref} />
+        </FilterBar>
+        <div className="flex-container-col flex-grow no-overflow">
+          {this.getNodesTable(this.getUnit(), visibleData)}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<UnitHealthDetailBreadcrumbs unit={unit} />} />
-        {content}
+        <Page.Header breadcrumbs={
+          <UnitHealthDetailBreadcrumbs unit={this.getUnit()} />
+        } />
+        {this.getContent()}
       </Page>
     );
   }
