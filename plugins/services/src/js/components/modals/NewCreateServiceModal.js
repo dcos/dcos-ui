@@ -180,7 +180,7 @@ class NewServiceFormModal extends Component {
       case 'pod':
         this.setState({
           servicePickerActive: false,
-          serviceJsonActive: true,
+          serviceFormActive: true,
           serviceConfig: new Pod(
             Object.assign(
               {id: this.props.service.getId()},
