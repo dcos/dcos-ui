@@ -21,11 +21,11 @@
 @page-header-sidebar-toggle-padding-screen-large: @base-spacing-unit-screen-large * 1/2;
 @page-header-sidebar-toggle-padding-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/2;
 
-@page-header-sidebar-toggle-margin-right: @base-spacing-unit * 1/8;
-@page-header-sidebar-toggle-margin-right-screen-small: @base-spacing-unit-screen-small * 1/8;
-@page-header-sidebar-toggle-margin-right-screen-medium: @base-spacing-unit-screen-medium * 1/8;
-@page-header-sidebar-toggle-margin-right-screen-large: @base-spacing-unit-screen-large * 1/8;
-@page-header-sidebar-toggle-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/8;
+@page-header-sidebar-toggle-margin-right: @base-spacing-unit * 1/4;
+@page-header-sidebar-toggle-margin-right-screen-small: @base-spacing-unit-screen-small * 1/4;
+@page-header-sidebar-toggle-margin-right-screen-medium: @base-spacing-unit-screen-medium * 1/4;
+@page-header-sidebar-toggle-margin-right-screen-large: @base-spacing-unit-screen-large * 1/4;
+@page-header-sidebar-toggle-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/4;
 
 @page-header-sidebar-toggle-left: @page-header-sidebar-toggle-padding * -1;
 @page-header-sidebar-toggle-left-screen-small: @page-header-sidebar-toggle-padding-screen-small * -1;
@@ -34,71 +34,90 @@
 @page-header-sidebar-toggle-left-screen-jumbo: @page-header-sidebar-toggle-padding-screen-jumbo * -1;
 
 /*
- * Page Header Title
+ * Page Header Breadcrumbs
  */
 
 // Layout
 
-@page-header-title-padding-left: @icon-mini-width + @page-header-sidebar-toggle-padding + @page-header-sidebar-toggle-margin-right;
-@page-header-title-padding-left-screen-small: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-small + @page-header-sidebar-toggle-margin-right-screen-small;
-@page-header-title-padding-left-screen-medium: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-medium + @page-header-sidebar-toggle-margin-right-screen-medium;
-@page-header-title-padding-left-screen-large: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-large + @page-header-sidebar-toggle-margin-right-screen-large;
-@page-header-title-padding-left-screen-jumbo: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-jumbo + @page-header-sidebar-toggle-margin-right-screen-jumbo;
+@page-header-breadcrumbs-margin-right: @base-spacing-unit * 1/2;
+@page-header-breadcrumbs-margin-right-screen-small: @base-spacing-unit-screen-small * 1/2;
+@page-header-breadcrumbs-margin-right-screen-medium: @base-spacing-unit-screen-medium * 1/2;
+@page-header-breadcrumbs-margin-right-screen-large: @base-spacing-unit-screen-large * 1/2;
+@page-header-breadcrumbs-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/2;
+
+/*
+ * Page Header Content Sections
+ */
+
+// Layout
+
+@page-header-content-section-primary-padding-left: @icon-mini-width + @page-header-sidebar-toggle-padding + @page-header-sidebar-toggle-margin-right;
+@page-header-content-section-primary-padding-left-screen-small: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-small + @page-header-sidebar-toggle-margin-right-screen-small;
+@page-header-content-section-primary-padding-left-screen-medium: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-medium + @page-header-sidebar-toggle-margin-right-screen-medium;
+@page-header-content-section-primary-padding-left-screen-large: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-large + @page-header-sidebar-toggle-margin-right-screen-large;
+@page-header-content-section-primary-padding-left-screen-jumbo: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-jumbo + @page-header-sidebar-toggle-margin-right-screen-jumbo;
+
+/*
+ * Page Header Breadcrumb
+ */
 
 // Text Styling
 
 /* Normal */
 
-@page-header-title-color: color-lighten(@neutral, 0);
-@page-header-title-font-weight: 500;
+@page-header-breadcrumbs-color: color-lighten(@neutral, 0);
+@page-header-breadcrumbs-font-weight: 500;
 
 /* Emphasis (.emphasis) */
 
-@page-header-title-emphasis-color: color-lighten(@neutral, -20);
-@page-header-title-emphasis-font-weight: 800;
+@page-header-breadcrumbs-emphasis-color: color-lighten(@neutral, -20);
+@page-header-breadcrumbs-emphasis-font-weight: 800;
 
 /* Muted (.muted) */
 
-@page-header-title-muted-color: color-lighten(@neutral, 60);
+@page-header-breadcrumbs-muted-color: color-lighten(@neutral, 60);
 
 /* Inverse (.inverse) */
 
-@page-header-title-inverse-color: color-lighten(@neutral, 100);
+@page-header-breadcrumbs-inverse-color: color-lighten(@neutral, 100);
 
 /* Inverse Emphasis (.inverse.emphasis) */
 
-@page-header-title-inverse-emphasis-color: color-lighten(@neutral, 100);
+@page-header-breadcrumbs-inverse-emphasis-color: color-lighten(@neutral, 100);
 
 /* Inverse Muted (.inverse.muted) */
 
-@page-header-title-inverse-muted-color: color-lighten(@neutral, 40);
+@page-header-breadcrumbs-inverse-muted-color: color-lighten(@neutral, 40);
 
 // Text Size
 
 /* Font Size */
 
-@page-header-title-font-size: 1.45rem;
+@page-header-breadcrumbs-font-size: 1.45rem;
 
 /* Line Height */
 
-@page-header-title-line-height: @page-header-title-font-size * 1.1;
+@page-header-breadcrumbs-line-height: @page-header-breadcrumbs-font-size * 1.1;
 
 // Layout
 
 /* Margin */
 
-@page-header-title-margin-top: 1.7rem;
-@page-header-title-margin-top-screen-medium: 1.1 * 1.7rem;
-@page-header-title-margin-top-screen-large: 1.2 * 1.7rem;
+@page-header-breadcrumbs-margin-top: 1.7rem;
+@page-header-breadcrumbs-margin-top-screen-medium: 1.1 * 1.7rem;
+@page-header-breadcrumbs-margin-top-screen-large: 1.2 * 1.7rem;
 
-@page-header-title-margin-bottom: 1.3rem;
-@page-header-title-margin-bottom-screen-medium: 1.1 * 1.3rem;
-@page-header-title-margin-bottom-screen-large: 1.2 * 1.3rem;
+@page-header-breadcrumbs-margin-bottom: 1.3rem;
+@page-header-breadcrumbs-margin-bottom-screen-medium: 1.1 * 1.3rem;
+@page-header-breadcrumbs-margin-bottom-screen-large: 1.2 * 1.3rem;
 
 /* Layout Variants */
 
-@page-header-title-short-margin-top-scale: 0.5;
-@page-header-title-short-margin-bottom-scale: 0.5;
+@page-header-breadcrumbs-short-margin-top-scale: 0.5;
+@page-header-breadcrumbs-short-margin-bottom-scale: 0.5;
 
-@page-header-title-tall-margin-top-scale: 2;
-@page-header-title-tall-margin-bottom-scale: 2;
+@page-header-breadcrumbs-tall-margin-top-scale: 2;
+@page-header-breadcrumbs-tall-margin-bottom-scale: 2;
+
+@page-header-breadcrumbs-link-color: color-lighten(@neutral, 20);
+@page-header-breadcrumbs-link-hover-color: @neutral;

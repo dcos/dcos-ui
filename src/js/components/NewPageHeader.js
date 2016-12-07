@@ -4,6 +4,7 @@ import React from 'react';
 import NewPageHeaderActions from './NewPageHeaderActions';
 import NewPageHeaderBreadcrumbs from './NewPageHeaderBreadcrumbs';
 import NewPageHeaderTabs from './NewPageHeaderTabs';
+import SidebarToggle from './SidebarToggle';
 
 class PageHeader extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class PageHeader extends React.Component {
       innerClassName
     );
     let primaryContentClasses = classNames(
-      'page-header-content-section',
+      'page-header-content-section page-header-content-section-primary',
       primaryContentClassName
     );
     let secondaryContentClasses = classNames(
@@ -48,6 +49,7 @@ class PageHeader extends React.Component {
       <div className={classes}>
         <div className={innerClasses}>
           <div className={primaryContentClasses}>
+            <SidebarToggle />
             {breadcrumbs}
             <NewPageHeaderActions
               actions={actions}
