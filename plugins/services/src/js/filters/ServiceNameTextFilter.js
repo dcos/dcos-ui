@@ -13,7 +13,7 @@ class ServiceNameTextFilter extends DSLFilter {
    */
   filterCanHandle(filterType) {
     return filterType === DSLFilterTypes.EXACT ||
-           filterType === DSLFilterTypes.FUZZY;
+      filterType === DSLFilterTypes.FUZZY;
   }
 
   /**
