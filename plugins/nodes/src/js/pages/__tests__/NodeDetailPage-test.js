@@ -5,6 +5,7 @@ jest.dontMock('../../../../../../src/js/stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
 jest.dontMock('../../../../../../src/js/components/RequestErrorMsg');
 jest.dontMock('../../../../../../src/js/structs/CompositeState');
+jest.dontMock('../../../../../../src/js/components/Page');
 
 const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 
