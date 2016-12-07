@@ -2,11 +2,13 @@ import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
 import DSLFilter from '../../../../../src/js/structs/DSLFilter';
 import HealthStatus from '../constants/HealthStatus';
 
+const LABEL = 'health';
+
 const LABEL_TO_HEALTH = {
-  healthy: HealthStatus.HEALTHY,
-  idle: HealthStatus.IDLE,
-  na: HealthStatus.NA,
-  unhealthy: HealthStatus.UNHEALTHY
+  healthy   : HealthStatus.HEALTHY,
+  idle      : HealthStatus.IDLE,
+  na        : HealthStatus.NA,
+  unhealthy : HealthStatus.UNHEALTHY
 };
 
 /**
@@ -21,12 +23,13 @@ class SearviceAttribHealthFilter extends DSLFilter {
    */
   filterCanHandle(filterType, filterArguments) {
     return filterType === DSLFilterTypes.ATTRIB &&
-           filterArguments.label === 'health' &&
+           filterArguments.label === LABEL &&
            LABEL_TO_HEALTH[filterArguments.text] != null;
   }
 
   /**
-   * Keep only services whose status
+   * Keep only services whose health status matches the value of
+   * the `health` label
    *
    * @override
    */
