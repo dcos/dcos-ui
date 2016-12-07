@@ -7,6 +7,7 @@ import SidebarActions from '../events/SidebarActions';
 class JobsPage extends React.Component {
   render() {
     let {children} = this.props;
+
     return children;
   }
 }
