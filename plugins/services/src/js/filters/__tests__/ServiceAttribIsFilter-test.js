@@ -106,4 +106,16 @@ describe('ServiceAttribIsFilter', function () {
     ]);
   });
 
+  it('Should be case-insensitive', function () {
+    let services = new List({items: this.mockItems});
+    let expr = SearchDSL.parse('is:dElAyED');
+
+    let filters = new DSLFilterList();
+    filters.plug(new ServiceAttribIsFilter());
+
+    expect(expr.filter(filters, services).getItems()).toEqual([
+      this.mockItems[0]
+    ]);
+  });
+
 });

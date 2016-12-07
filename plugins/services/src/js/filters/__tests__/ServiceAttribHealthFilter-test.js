@@ -80,4 +80,15 @@ describe('ServiceAttribHealthFilter', function () {
     ]);
   });
 
+  it('Should be case-insensitive', function () {
+    let services = new List({items: this.mockItems});
+    let expr = SearchDSL.parse('health:hEaLThY');
+
+    let filters = new DSLFilterList();
+    filters.plug(new ServiceAttribHealthFilter());
+
+    expect(expr.filter(filters, services).getItems()).toEqual([
+      this.mockItems[0]
+    ]);
+  });
 });
