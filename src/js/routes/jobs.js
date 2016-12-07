@@ -6,8 +6,8 @@ import React from 'react';
 import JobDetailPage from '../pages/jobs/JobDetailPage';
 import JobsPage from '../pages/JobsPage';
 import JobsTab from '../pages/jobs/JobsTab';
+import JobsTaskDetailPage from '../pages/jobs/JobTaskDetailPage';
 
-import TaskDetail from '../../../plugins/services/src/js/pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../../../plugins/services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
@@ -76,7 +76,7 @@ let jobsRoutes = {
             {
               type: Route,
               path: 'tasks/:taskID',
-              component: TaskDetail,
+              component: JobsTaskDetailPage,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
