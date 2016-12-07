@@ -1,6 +1,7 @@
 let Networking = {
   type: {
     BRIDGE: 'BRIDGE',
+    CONTAINER: 'CONTAINER',
     HOST: 'HOST',
     USER: 'USER'
   },
