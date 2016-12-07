@@ -2,13 +2,15 @@ import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
 import DSLFilter from '../../../../../src/js/structs/DSLFilter';
 import ServiceStatus from '../constants/ServiceStatus';
 
-const TEXT_TO_INSTANCE = {
-  delayed: ServiceStatus.DELAYED,
-  deploying: ServiceStatus.DEPLOYING,
-  na: ServiceStatus.NA,
-  running: ServiceStatus.RUNNING,
-  suspended: ServiceStatus.SUSPENDED,
-  waiting: ServiceStatus.WAITING
+const LABEL = 'is';
+
+const LABEL_TO_INSTANCE = {
+  delayed    : ServiceStatus.DELAYED,
+  deploying  : ServiceStatus.DEPLOYING,
+  na         : ServiceStatus.NA,
+  running    : ServiceStatus.RUNNING,
+  suspended  : ServiceStatus.SUSPENDED,
+  waiting    : ServiceStatus.WAITING
 };
 
 /**
@@ -23,17 +25,18 @@ class ServiceAttribIsFilter extends DSLFilter {
    */
   filterCanHandle(filterType, filterArguments) {
     return filterType === DSLFilterTypes.ATTRIB &&
-           filterArguments.label === 'is' &&
-           TEXT_TO_INSTANCE[filterArguments.text] != null;
+           filterArguments.label === LABEL &&
+           LABEL_TO_INSTANCE[filterArguments.text] != null;
   }
 
   /**
-   * Keep only services whose status
+   * Keep only services whose health service matches the value of
+   * the `is` label
    *
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    let testStatus = TEXT_TO_INSTANCE[filterArguments.text];
+    let testStatus = LABEL_TO_INSTANCE[filterArguments.text];
 
     return resultset.filterItems((service) => {
       return service.getServiceStatus() === testStatus;
