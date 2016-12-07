@@ -126,6 +126,11 @@ var Sidebar = React.createClass({
 
     return definition.map((group, index) => {
       let heading = null;
+      let menuItems = this.getNavigationGroup(group);
+
+      if (menuItems == null) {
+        return null;
+      }
 
       if (group.category !== 'root') {
         heading = (
@@ -139,7 +144,7 @@ var Sidebar = React.createClass({
         <div className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
           key={index}>
           {heading}
-          {this.getNavigationGroup(group)}
+          {menuItems}
         </div>
       );
     });
@@ -195,7 +200,11 @@ var Sidebar = React.createClass({
       );
     });
 
-    return <ul className="sidebar-menu">{groupMenuItems}</ul>;
+    if (groupMenuItems.length) {
+      return <ul className="sidebar-menu">{groupMenuItems}</ul>;
+    }
+
+    return null;
   },
 
   getGroupSubmenu(path, children) {
