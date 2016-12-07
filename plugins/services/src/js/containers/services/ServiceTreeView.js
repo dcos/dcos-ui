@@ -12,6 +12,29 @@ import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
 import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
 
 class ServiceTreeView extends React.Component {
+  getButtonBar() {
+    const {modalHandlers} = this.context;
+    const {filterExpression} = this.props;
+
+    if (filterExpression.defined) {
+      return null;
+    }
+
+    return (
+      <div className="column-medium-7 text-align-right">
+        <button className="button button-stroke"
+          onClick={modalHandlers.createGroup}>
+          Create Group
+        </button>
+        {' '}
+        <button className="button button-success"
+          onClick={modalHandlers.createService}>
+          Run a Service
+        </button>
+      </div>
+    );
+  }
+
   getFilterBar() {
     const {
       filters,
@@ -20,7 +43,7 @@ class ServiceTreeView extends React.Component {
     } = this.props;
 
     let hostClasses = classNames({
-      'column-medium-4': !filterExpression.value,
+      'column-medium-5': !filterExpression.value,
       'column-medium-12': filterExpression.value
     });
 
@@ -32,6 +55,7 @@ class ServiceTreeView extends React.Component {
             expression={filterExpression}
             onChange={onFilterExpressionChange} />
         </div>
+        {this.getButtonBar()}
       </div>
     );
   }
