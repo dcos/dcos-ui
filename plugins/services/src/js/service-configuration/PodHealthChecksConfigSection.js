@@ -4,7 +4,7 @@ import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import DurationValue from '../components/ConfigurationMapDurationValue';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
 import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const COMMON_COLUMNS = [
@@ -91,7 +91,7 @@ class PodHealthChecksConfigSection extends React.Component {
   }
 
   render() {
-    let {containers=[]} = this.props.appConfig;
+    let {containers = []} = this.props.appConfig;
     let healthChecks = containers.reduce((memo, container) => {
       let {healthCheck} = container;
 
@@ -104,7 +104,7 @@ class PodHealthChecksConfigSection extends React.Component {
         gracePeriod: healthCheck.gracePeriodSeconds,
         maxFailures: healthCheck.maxConsecutiveFailures,
         timeout: healthCheck.timeoutSeconds,
-        container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
+        container: getContainerNameWithIcon(container)
       };
 
       if (healthCheck.exec != null) {

@@ -26,11 +26,7 @@ class PodStorageConfigSection extends React.Component {
         heading: 'Read Only',
         prop: 'readOnly',
         render(prop, row) {
-          return (
-            <BooleanValue
-              options={BOOLEAN_OPTIONS}
-              value={row[prop]} />
-          );
+          return <BooleanValue options={BOOLEAN_OPTIONS} value={row[prop]} />;
         }
       },
       {
@@ -45,7 +41,7 @@ class PodStorageConfigSection extends React.Component {
   }
 
   render() {
-    let {volumes=[], containers=[]} = this.props.appConfig;
+    let {volumes = [], containers = []} = this.props.appConfig;
     let volumeSummary = volumes.reduce((memo, volume) => {
       let volumeInfo = {
         volume: volume.name,
@@ -55,13 +51,15 @@ class PodStorageConfigSection extends React.Component {
       // Fetch all mounts for this volume in the containers
       let containerMounts = containers.reduce(
         (cmMemo, container) => {
-          let {volumeMounts=[]} = container;
+          let {volumeMounts = []} = container;
           return cmMemo.concat(
             volumeMounts
               .filter((volumeMount) => volumeMount.name === volume.name)
               .map((volumeMount) => {
                 return {
-                  container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container),
+                  container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
+                    container
+                  ),
                   mountPath: volumeMount.mountPath,
                   readOnly: volumeMount.readOnly || false
                 };
@@ -73,6 +71,7 @@ class PodStorageConfigSection extends React.Component {
       // If threre are no mounts, add only one line without containers
       if (containerMounts.length === 0) {
         memo.push(volumeInfo);
+
         return memo;
       }
 
@@ -92,15 +91,11 @@ class PodStorageConfigSection extends React.Component {
       <div>
         <Heading level={1}>Storage</Heading>
         <Section key="pod-general-section">
-
           <ConfigurationMapTable
             className="table table-simple table-break-word flush-bottom"
-            columnDefaults={{
-              hideIfEmpty: true
-            }}
+            columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={volumeSummary} />
-
         </Section>
       </div>
     );

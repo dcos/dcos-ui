@@ -2,7 +2,11 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import Networking from '../../../../../src/js/constants/Networking';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import {
+  getColumnClassNameFn,
+  getColumnHeadingFn,
+  getDisplayValue
+} from '../utils/ServiceConfigDisplayUtil';
 import HostUtil from '../utils/HostUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
@@ -52,39 +56,38 @@ module.exports = {
 
         const columns = [
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Name'),
+            heading: getColumnHeadingFn('Name'),
             prop: keys.name,
             render: (prop, row) => {
-              return ServiceConfigDisplayUtil.getDisplayValue(row[prop]);
+              return getDisplayValue(row[prop]);
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Protocol'),
+            heading: getColumnHeadingFn('Protocol'),
             prop: keys.protocol,
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             render: (prop, row) => {
-              return ServiceConfigDisplayUtil.getDisplayValue(row[prop])
+              return getDisplayValue(row[prop])
                 .split(',').join(', ');
             },
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Port'),
+            heading: getColumnHeadingFn('Port'),
             prop: keys.port,
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             render: (prop, row) => {
               // TODO: Figure out how to determine static or dynamic port.
-              return ServiceConfigDisplayUtil.getDisplayValue(row[prop]);
+              return getDisplayValue(row[prop]);
             },
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Load Balanced Address'),
+            heading: getColumnHeadingFn('Load Balanced Address'),
             prop: '',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             render: (prop, row) => {
               // TODO: Only render this when necessary, figure out when
               // necessary.
@@ -98,7 +101,8 @@ module.exports = {
         ];
 
         return (
-          <Table key="service-endpoints"
+          <Table
+            key="service-endpoints"
             className="table table-simple table-break-word flush-bottom"
             columns={columns}
             data={portDefinitions} />

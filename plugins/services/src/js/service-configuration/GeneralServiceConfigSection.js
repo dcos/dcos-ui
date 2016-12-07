@@ -1,10 +1,14 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {formatResource} from '../../../../../src/js/utils/Units';
+import {
+  getColumnClassNameFn,
+  getColumnHeadingFn,
+  getDisplayValue
+} from '../utils/ServiceConfigDisplayUtil';
 import ContainerConstants from '../constants/ContainerConstants';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import Units from '../../../../../src/js/utils/Units';
-import Util from '../../../../../src/js/utils/Util';
 
 const {type: {NONE}, labelMap} = ContainerConstants;
 
@@ -29,7 +33,8 @@ module.exports = {
       key: 'location',
       label: 'Location',
       transformValue: (value, appDefinition) => {
-        let idSegments = Util.findNestedPropertyInObject(appDefinition, 'id').split('/');
+        let idSegments = findNestedPropertyInObject(appDefinition, 'id')
+          .split('/');
 
         idSegments.pop();
 
@@ -52,10 +57,10 @@ module.exports = {
       label: 'Memory',
       transformValue: (value) => {
         if (value == null) {
-          return ServiceConfigDisplayUtil.getDisplayValue(value);
+          return getDisplayValue(value);
         }
 
-        return Units.formatResource('mem', value);
+        return formatResource('mem', value);
       }
     },
     {
@@ -63,10 +68,10 @@ module.exports = {
       label: 'Disk',
       transformValue: (value) => {
         if (value == null) {
-          return ServiceConfigDisplayUtil.getDisplayValue(value);
+          return getDisplayValue(value);
         }
 
-        return Units.formatResource('disk', value);
+        return formatResource('disk', value);
       }
     },
     {
@@ -167,14 +172,14 @@ module.exports = {
       render: (data) => {
         const columns = [
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Artifact Uri'),
+            heading: getColumnHeadingFn('Artifact Uri'),
             prop: 'uri',
             render: (prop, row) => {
               let value = row[prop];
 
-              return ServiceConfigDisplayUtil.getDisplayValue(value);
+              return getDisplayValue(value);
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(
+            className: getColumnClassNameFn(
               'configuration-map-table-label'
             ),
             sortable: true

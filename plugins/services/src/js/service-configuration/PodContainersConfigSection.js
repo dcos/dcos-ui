@@ -5,14 +5,15 @@ import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
 
 function renderContainers(appConfig) {
-  let {containers=[]} = appConfig;
+  let {containers = []} = appConfig;
 
   return containers.map((container) => {
-    return (<PodContainerConfigSection
-      appConfig={appConfig}
-      containerConfig={container}
-      key={`pod-container-${container.name}`}
-      />);
+    return (
+      <PodContainerConfigSection
+        appConfig={appConfig}
+        containerConfig={container}
+        key={`pod-container-${container.name}`} />
+    );
   });
 }
 

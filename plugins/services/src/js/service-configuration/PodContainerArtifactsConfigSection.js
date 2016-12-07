@@ -20,33 +20,21 @@ class PodContainerArtifactsConfigSection extends React.Component {
         heading: 'Executable',
         prop: 'executable',
         render(prop, row) {
-          return (
-            <BooleanValue
-              options={BOOLEAN_OPTIONS}
-              value={row[prop]} />
-          );
+          return <BooleanValue options={BOOLEAN_OPTIONS} value={row[prop]} />;
         }
       },
       {
         heading: 'Extract',
         prop: 'extract',
         render(prop, row) {
-          return (
-            <BooleanValue
-              options={BOOLEAN_OPTIONS}
-              value={row[prop]} />
-          );
+          return <BooleanValue options={BOOLEAN_OPTIONS} value={row[prop]} />;
         }
       },
       {
         heading: 'Cache',
         prop: 'cache',
         render(prop, row) {
-          return (
-            <BooleanValue
-              options={BOOLEAN_OPTIONS}
-              value={row[prop]} />
-          );
+          return <BooleanValue options={BOOLEAN_OPTIONS} value={row[prop]} />;
         }
       },
       {
@@ -68,9 +56,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
         <Heading level={3}>Container Artifacts</Heading>
         <ConfigurationMapTable
           className="table table-simple table-break-word flush-bottom"
-          columnDefaults={{
-            hideIfEmpty: true
-          }}
+          columnDefaults={{hideIfEmpty: true}}
           columns={this.getColumns()}
           data={artifacts} />
       </div>

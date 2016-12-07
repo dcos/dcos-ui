@@ -1,7 +1,12 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import {
+  getColumnClassNameFn,
+  getColumnHeadingFn,
+  getDisplayValue,
+  renderMillisecondsFromSeconds
+} from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = {
   values: [
@@ -20,58 +25,54 @@ module.exports = {
       render: (healthChecks) => {
         let serviceEndpointHealthChecks = healthChecks.filter(
           (healthCheck) => {
-            return healthCheck.protocol === 'HTTP'
-              || healthCheck.protocol === 'HTTPS'
-              || healthCheck.protocol === 'TCP';
+            return ['HTTP', 'HTTPS', 'TCP'].includes(healthCheck.protocol);
           }
         );
 
         const columns = [
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Protocol'),
+            heading: getColumnHeadingFn('Protocol'),
             prop: 'protocol',
             render: (prop, row) => {
-              return ServiceConfigDisplayUtil.getDisplayValue(row[prop]);
+              return getDisplayValue(row[prop]);
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Path'),
+            heading: getColumnHeadingFn('Path'),
             prop: 'path',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             render: (prop, row) => {
-              return ServiceConfigDisplayUtil.getDisplayValue(row[prop]);
+              return getDisplayValue(row[prop]);
             },
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Grace Period'),
+            heading: getColumnHeadingFn('Grace Period'),
             prop: 'gracePeriodSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Interval'),
+            heading: getColumnHeadingFn('Interval'),
             prop: 'intervalSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Timeout'),
+            heading: getColumnHeadingFn('Timeout'),
             prop: 'timeoutSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Max Failures'),
+            heading: getColumnHeadingFn('Max Failures'),
             prop: 'maxConsecutiveFailures',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           }
         ];
@@ -97,53 +98,52 @@ module.exports = {
 
         const columns = [
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Command'),
+            heading: getColumnHeadingFn('Command'),
             prop: 'command',
             render: (prop, row) => {
               let command = row[prop] || {};
 
               return (
                 <pre className="flush transparent wrap">
-                  {ServiceConfigDisplayUtil.getDisplayValue(command.command)}
+                  {getDisplayValue(command.command)}
                 </pre>
               );
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Grace Period'),
+            heading: getColumnHeadingFn('Grace Period'),
             prop: 'gracePeriodSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Interval'),
+            heading: getColumnHeadingFn('Interval'),
             prop: 'intervalSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Timeout'),
+            heading: getColumnHeadingFn('Timeout'),
             prop: 'timeoutSeconds',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
-            render: ServiceConfigDisplayUtil.renderMillisecondsFromSeconds,
+            className: getColumnClassNameFn(),
+            render: renderMillisecondsFromSeconds,
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Max Failures'),
+            heading: getColumnHeadingFn('Max Failures'),
             prop: 'maxConsecutiveFailures',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           }
         ];
 
         return (
-          <Table key="command-health-checks"
+          <Table
+            key="command-health-checks"
             className="table table-simple table-break-word flush-bottom"
             columns={columns}
             data={commandHealthChecks} />

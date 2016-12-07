@@ -1,6 +1,6 @@
 import React from 'react';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
@@ -25,8 +25,10 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   }
 
   render() {
-    let constraints = findNestedPropertyInObject(this.props.appConfig,
-        'scheduling.placement.constraints');
+    let constraints = findNestedPropertyInObject(
+      this.props.appConfig,
+      'scheduling.placement.constraints'
+    );
 
     // Since we are stateless component we will need to return something for react
     // so we are using the `<noscript>` tag as placeholder.

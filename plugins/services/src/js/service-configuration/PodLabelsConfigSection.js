@@ -1,9 +1,12 @@
 import React from 'react';
 
+import {
+  getSharedIconWithLabel,
+  getContainerNameWithIcon
+} from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 class PodLabelsConfigSection extends React.Component {
   getColumns() {
@@ -24,7 +27,7 @@ class PodLabelsConfigSection extends React.Component {
   }
 
   render() {
-    let {labels={}, containers=[]} = this.props.appConfig;
+    let {labels = {}, containers = []} = this.props.appConfig;
 
     let combinedLabels = [];
 
@@ -33,7 +36,7 @@ class PodLabelsConfigSection extends React.Component {
         memo.push({
           key: <code>{key}</code>,
           value: labels[key],
-          container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
+          container: getSharedIconWithLabel()
         });
 
         return memo;
@@ -41,14 +44,14 @@ class PodLabelsConfigSection extends React.Component {
     }
 
     combinedLabels = containers.reduce((memo, container) => {
-      let {labels={}} = container;
+      let {labels = {}} = container;
 
       if (labels != null) {
         return Object.keys(labels).reduce((cvMemo, key) => {
           cvMemo.push({
             key: <code>{key}</code>,
             value: labels[key],
-            container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
+            container: getContainerNameWithIcon(container)
           });
 
           return cvMemo;
@@ -66,15 +69,11 @@ class PodLabelsConfigSection extends React.Component {
       <div>
         <Heading level={1}>Labels</Heading>
         <Section key="pod-general-section">
-
           <ConfigurationMapTable
             className="table table-simple table-break-word flush-bottom"
-            columnDefaults={{
-              hideIfEmpty: true
-            }}
+            columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={combinedLabels} />
-
         </Section>
       </div>
     );

@@ -1,8 +1,12 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import Units from '../../../../../src/js/utils/Units';
+import {formatResource} from '../../../../../src/js/utils/Units';
+import {
+  getColumnClassNameFn,
+  getColumnHeadingFn,
+  getDisplayValue
+} from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = {
   values: [
@@ -20,7 +24,7 @@ module.exports = {
 
         const columns = [
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Volume'),
+            heading: getColumnHeadingFn('Volume'),
             prop: 'volume',
             render: (prop, row) => {
               let name = '';
@@ -31,35 +35,34 @@ module.exports = {
 
               return `${row.type.join(' ')}${name}`;
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Size'),
+            heading: getColumnHeadingFn('Size'),
             prop: 'size',
             render: (prop, row) => {
               let value = row[prop];
 
               if (value == null) {
-                return ServiceConfigDisplayUtil.getDisplayValue(value);
+                return getDisplayValue(value);
               }
 
-              return Units.formatResource('disk', value);
+              return formatResource('disk', value);
             },
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Mode'),
+            heading: getColumnHeadingFn('Mode'),
             prop: 'mode',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           },
           {
-            heading: ServiceConfigDisplayUtil
-              .getColumnHeadingFn('Container Mount Path'),
+            heading: getColumnHeadingFn('Container Mount Path'),
             prop: 'containerPath',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           }
         ];
@@ -96,22 +99,23 @@ module.exports = {
           }
 
           volume.hostPath =
-            ServiceConfigDisplayUtil.getDisplayValue(appVolume.hostPath);
+            getDisplayValue(appVolume.hostPath);
 
           return volume;
         });
 
         if (shouldDisplayHostPath) {
           columns.push({
-            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Host Path'),
+            heading: getColumnHeadingFn('Host Path'),
             prop: 'hostPath',
-            className: ServiceConfigDisplayUtil.getColumnClassNameFn(),
+            className: getColumnClassNameFn(),
             sortable: true
           });
         }
 
         return (
-          <Table key="service-volumes"
+          <Table
+            key="service-volumes"
             className="table table-simple table-break-word flush-bottom"
             columns={columns}
             data={volumesData} />

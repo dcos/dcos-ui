@@ -18,19 +18,7 @@ function getNetworkTypes(networks) {
     return null;
   }
 
-  return networks
-    .map(({mode}) => NETWORK_MODE_NAME[mode])
-    .join(', ');
-}
-
-function getLoadBalancerType() {
-  // TODO: How is this determined?
-  return null;
-}
-
-function getExtLoadBalancerType() {
-  // TODO: How is this determined?
-  return null;
+  return networks.map(({mode}) => NETWORK_MODE_NAME[mode]).join(', ');
 }
 
 class PodNetworkConfigSection extends React.Component {
@@ -61,15 +49,18 @@ class PodNetworkConfigSection extends React.Component {
 
   render() {
     const appConfig = this.props.appConfig;
-    const {containers=[]} = appConfig;
+    const {containers = []} = appConfig;
     let endpoints = containers.reduce((memo, container) => {
+      const {endpoints = []} = container;
+
       return memo.concat(
-        (container.endpoints || []).map(({containerPort, labels={}, name, protocol}) => {
+        endpoints.map(({containerPort, labels={}, name, protocol}) => {
           let lbAddress = Object.keys(labels).reduce((memo, label) => {
             if (label.startsWith('VIP_')) {
               let [prefix, port] = labels[label].split(':');
               memo.push(`${prefix}.marathon.lb4lb.thisdcos.directory:${port}`);
             }
+
             return memo;
           }, []);
 
@@ -82,6 +73,7 @@ class PodNetworkConfigSection extends React.Component {
           };
         })
       );
+
       return memo;
     }, []);
 
@@ -101,16 +93,6 @@ class PodNetworkConfigSection extends React.Component {
               defaultValue={<em>Unknown</em>}
               value={getNetworkTypes(appConfig.networks)} />
           </Row>
-          <Row>
-            <Label>Load Balancer Type</Label>
-            <ValueWithDefault
-              value={getLoadBalancerType(appConfig)} />
-          </Row>
-          <Row>
-            <Label>Network Type</Label>
-            <ValueWithDefault
-              value={getExtLoadBalancerType(appConfig)} />
-          </Row>
 
           {/* Service endpoints */}
           <Heading level={3}>
@@ -118,9 +100,7 @@ class PodNetworkConfigSection extends React.Component {
           </Heading>
           <ConfigurationMapTable
             className="table table-simple table-break-word flush-bottom"
-            columnDefaults={{
-              hideIfEmpty: true
-            }}
+            columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={endpoints} />
 

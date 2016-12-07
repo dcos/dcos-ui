@@ -1,12 +1,12 @@
 import React from 'react';
 
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {getDisplayValue} from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
 import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import Util from '../../../../../src/js/utils/Util';
 
 class ServiceConfigBaseSectionDisplay extends React.Component {
 
@@ -20,7 +20,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
       return <pre className="flush transparent wrap">{value}</pre>;
     }
 
-    return ServiceConfigDisplayUtil.getDisplayValue(value);
+    return getDisplayValue(value);
   }
 
   getDefinition() {
@@ -35,7 +35,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
       return !this.shouldExcludeItem(row);
     }).map((row, rowIndex) => {
       let reactKey = `${rowIndex}`;
-      let value = Util.findNestedPropertyInObject(appConfig, row.key);
+      let value = findNestedPropertyInObject(appConfig, row.key);
 
       // If a transformValue was specified on the row, we use it.
       if (row.transformValue != null) {

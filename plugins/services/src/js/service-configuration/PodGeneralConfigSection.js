@@ -1,6 +1,6 @@
 import React from 'react';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import DurationValue from '../components/ConfigurationMapDurationValue';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Label from '../../../../../src/js/components/ConfigurationMapLabel';
@@ -28,6 +28,7 @@ function getContainerResourceSummary(resource, {containers=[]}) {
       );
     }
     memo.value += resources[resource] || 0;
+
     return memo;
   }, {value: 0, parts: []});
 
@@ -36,7 +37,7 @@ function getContainerResourceSummary(resource, {containers=[]}) {
   }
 
   return `${Units.formatResource(resource, summary.value)} `+
-         `(${summary.parts.join(', ')})`;
+   `(${summary.parts.join(', ')})`;
 }
 
 /**

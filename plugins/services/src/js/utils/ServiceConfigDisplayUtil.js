@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import DateUtil from '../../../../../src/js/utils/DateUtil';
+import {getDuration} from '../../../../../src/js/utils/DateUtil';
+import {isObject} from '../../../../../src/js/utils/Util';
 import defaultServiceImage from '../../img/icon-service-default-small.png';
 import Image from '../../../../../src/js/components/Image';
-import Util from '../../../../../src/js/utils/Util';
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {
@@ -49,7 +49,7 @@ const ServiceConfigDisplayUtil = {
     }
 
     // Display nested objects nicely if the render didn't already cover it.
-    if (Util.isObject(value)) {
+    if (isObject(value)) {
       return (
         <pre className="flush transparent wrap">
           {JSON.stringify(value)}
@@ -75,7 +75,7 @@ const ServiceConfigDisplayUtil = {
     let value = row[prop];
 
     if (value != null) {
-      value = DateUtil.getDuration(value);
+      value = getDuration(value);
     }
 
     return ServiceConfigDisplayUtil.getDisplayValue(value);
