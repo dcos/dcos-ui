@@ -7,7 +7,7 @@ import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesContainer from '../containers/services/ServicesContainer';
 import ServiceVolumeContainer from '../containers/volume-detail/ServiceVolumeContainer';
-import TaskDetail from '../pages/task-details/TaskDetail';
+import ServiceTaskDetailPage from '../pages/task-details/ServiceTaskDetailPage';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFileBrowser from '../pages/task-details/TaskFileBrowser';
@@ -110,7 +110,7 @@ let serviceRoutes = [
                   {
                     type: Route,
                     path: ':taskID',
-                    component: TaskDetail,
+                    component: ServiceTaskDetailPage,
                     hideHeaderNavigation: true,
                     buildBreadCrumb() {
                       return {
