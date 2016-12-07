@@ -26,7 +26,7 @@ class ServiceAttribIsFilter extends DSLFilter {
   filterCanHandle(filterType, filterArguments) {
     return filterType === DSLFilterTypes.ATTRIB &&
            filterArguments.label === LABEL &&
-           LABEL_TO_INSTANCE[filterArguments.text] != null;
+           LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()] != null;
   }
 
   /**
@@ -36,7 +36,7 @@ class ServiceAttribIsFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    let testStatus = LABEL_TO_INSTANCE[filterArguments.text];
+    let testStatus = LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()];
 
     return resultset.filterItems((service) => {
       return service.getServiceStatus() === testStatus;
