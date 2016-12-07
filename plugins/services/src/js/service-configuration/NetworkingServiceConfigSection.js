@@ -4,35 +4,25 @@ import {Table} from 'reactjs-components';
 import Networking from '../../../../../src/js/constants/Networking';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import HostUtil from '../utils/HostUtil';
-import Util from '../../../../../src/js/utils/Util';
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
 module.exports = {
   values: [
-    // {
-    //   heading: 'Network',
-    //   headingLevel: 1
-    // },
-    // {
-    //   label: 'Network Type',
-    //   transformValue: () => {
-    //     // TODO: Figure out how to determine this value.
-    //     return 'network type';
-    //   }
-    // },
-    // {
-    //   label: 'Load Balancer Type',
-    //   transformValue: () => {
-    //     // TODO: Figure out how to determine this value.
-    //     return 'load balancer type';
-    //   }
-    // },
-    // {
-    //   label: 'Ext. Load Balancer',
-    //   transformValue: () => {
-    //     // TODO: Figure out how to determine this value.
-    //     return 'ext. load balancer';
-    //   }
-    // },
+    {
+      heading: 'Network',
+      headingLevel: 1
+    },
+    {
+      key: 'container.docker.network',
+      label: 'Network Type',
+      transformValue: (network) => {
+        return network || Networking.type.HOST;
+      }
+    },
+    {
+      key: 'ipAddress.networkName',
+      label: 'Network Name'
+    },
     {
       heading: 'Service Endpoints',
       headingLevel: 2
@@ -46,7 +36,7 @@ module.exports = {
           protocol: 'protocol'
         };
 
-        let containerPortMappings = Util.findNestedPropertyInObject(
+        let containerPortMappings = findNestedPropertyInObject(
           appDefinition, 'container.docker.portMappings'
         );
         if ((portDefinitions == null || portDefinitions.length === 0) &&
