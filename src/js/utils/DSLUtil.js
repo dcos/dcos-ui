@@ -66,19 +66,11 @@ const DSLUtil = {
 
         // Attrib nodes can only handle 1 match
         case DSLFilterTypes.ATTRIB:
-          if (matchingNodes.length > 1) {
-            return false;
-          }
-
-          return true;
+          return matchingNodes.length <= 1;
 
         // Exact nodes can only handle 1 match
         case DSLFilterTypes.EXACT:
-          if (matchingNodes.length > 1) {
-            return false;
-          }
-
-          return true;
+          return matchingNodes.length <= 1;
 
         // We are concatenating all fuzzy-matching nodes into a string
         // so we have no problem if we have more than one.
