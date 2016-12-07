@@ -25,8 +25,8 @@ class ServiceAttribIsFilter extends DSLFilter {
    */
   filterCanHandle(filterType, filterArguments) {
     return filterType === DSLFilterTypes.ATTRIB &&
-           filterArguments.label === LABEL &&
-           LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()] != null;
+      filterArguments.label === LABEL &&
+      LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()] != null;
   }
 
   /**
