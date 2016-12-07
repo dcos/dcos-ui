@@ -7,7 +7,7 @@ const getMenuItems = (children, iconID) => {
   return [
     {
       className: 'hidden',
-      html: <Icon id={iconID} size="mini" />,
+      html: <Icon id={iconID} color="light-grey" size="mini" />,
       id: 'trigger'
     },
     ...React.Children.map(children, getDropdownItemFromComponent)
@@ -32,7 +32,7 @@ const PageHeaderActionsMenu = ({anchorRight, children, iconID}) => {
   return (
     <Dropdown
       anchorRight={anchorRight}
-      buttonClassName="button button-link"
+      buttonClassName="button button-link button-narrow"
       items={getMenuItems(children, iconID)}
       onItemSelection={handleItemSelection}
       persistentID="trigger"
