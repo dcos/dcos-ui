@@ -85,7 +85,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
     return <Loader />;
   }
 
-  render() {
+  getContent() {
     let {
       addRepositoryModalOpen,
       hasError,
@@ -93,40 +93,45 @@ class RepositoriesTab extends mixin(StoreMixin) {
       searchString
     } = this.state;
 
-    let content = null;
-
     if (hasError) {
-      content = this.getErrorScreen();
-    } else if (isLoading) {
-      content = this.getLoadingScreen();
-    } else {
-      let repositories = CosmosPackagesStore.getRepositories()
-        .filterItemsByText(searchString);
-
-      content = (
-        <div>
-          <FilterBar rightAlignLastNChildren={1}>
-            <FilterInputText
-              className="flush-bottom"
-              placeholder="Search"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange} />
-          </FilterBar>
-          <RepositoriesTable repositories={repositories} filter={searchString} />
-          <AddRepositoryFormModal
-            numberOfRepositories={repositories.getItems().length}
-            open={addRepositoryModalOpen}
-            onClose={this.handleCloseAddRepository} />
-        </div>
-      );
+      return this.getErrorScreen();
     }
 
+    if (isLoading) {
+      return this.getLoadingScreen();
+    }
+
+    let repositories = CosmosPackagesStore.getRepositories()
+      .filterItemsByText(searchString);
+
+    return (
+      <div>
+        <FilterBar rightAlignLastNChildren={1}>
+          <FilterInputText
+            className="flush-bottom"
+            placeholder="Search"
+            searchString={searchString}
+            handleFilterChange={this.handleSearchStringChange} />
+        </FilterBar>
+        <RepositoriesTable repositories={repositories} filter={searchString} />
+        <AddRepositoryFormModal
+          numberOfRepositories={repositories.getItems().length}
+          open={addRepositoryModalOpen}
+          onClose={this.handleCloseAddRepository} />
+      </div>
+    );
+  }
+
+  render() {
     return (
       <Page>
         <Page.Header
-          addButton={{onItemSelect: this.handleOpenAddRepository, label: 'Add Repository'}}
+          addButton={{
+            onItemSelect: this.handleOpenAddRepository,
+            label: 'Add Repository'
+          }}
           breadcrumbs={<RepositoriesBreadcrumbs />} />
-        {content}
+        {this.getContent()}
       </Page>
     );
   }
