@@ -57,7 +57,8 @@ class NewCreateServiceModalForm extends Component {
       this.getNewStateForJSON(
         CreateServiceModalFormUtil.stripEmptyProperties(
           ServiceUtil.getServiceJSON(this.props.service)
-        )
+        ),
+        false
       )
     );
 
@@ -74,10 +75,10 @@ class NewCreateServiceModalForm extends Component {
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
 
     // Note: We ignore changes that might derrive from the `onChange` event
-    //       handler. In that case the contents of nextJSON would be the same
-    //       as the contents of the last rendered appConfig in the state.
+    // handler. In that case the contents of nextJSON would be the same
+    // as the contents of the last rendered appConfig in the state.
     if (!deepEqual(prevJSON, nextJSON) &&
-        !deepEqual(this.state.appConfig, nextJSON)) {
+      !deepEqual(this.state.appConfig, nextJSON)) {
       this.setState(this.getNewStateForJSON(nextJSON));
     }
   }
@@ -102,33 +103,39 @@ class NewCreateServiceModalForm extends Component {
     // Update if service property has changed
     //
     // Note: We ignore changes that might derrive from the `onChange` event
-    //       handler. In that case the contents of nextJSON would be the same
-    //       as the contents of the last rendered appConfig in the state.
+    // handler. In that case the contents of nextJSON would be the same
+    // as the contents of the last rendered appConfig in the state.
     //
     let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (!deepEqual(prevJSON, nextJSON) &&
-        !deepEqual(this.state.appConfig, nextJSON)) {
+      !deepEqual(this.state.appConfig, nextJSON)) {
       return true;
     };
 
     // Otherwise update if the state has changed
     return (this.state.errorList !== nextState.errorList) ||
-           (this.state.baseConfig !== nextState.baseConfig) ||
-           (this.state.batch !== nextState.batch);
+      (this.state.baseConfig !== nextState.baseConfig) ||
+      (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(baseConfig={}) {
+  getNewStateForJSON(baseConfig = {}, shouldValidate = true) {
     let newState = {
       baseConfig
     };
 
     // Regenerate batch
-    newState.batch = this.props.jsonParserReducers(baseConfig).reduce((batch, item) => {
-      return batch.add(item);
-    }, new Batch());
+    newState.batch = this.props.jsonParserReducers(baseConfig).reduce(
+      (batch, item) => { return batch.add(item); },
+      new Batch()
+    );
 
-    newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
+    if (shouldValidate) {
+      newState.errorList = DataValidatorUtil.validate(
+        baseConfig,
+        ERROR_VALIDATORS
+      );
+    }
 
     // Update appConfig
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
@@ -146,14 +153,8 @@ class NewCreateServiceModalForm extends Component {
       return;
     }
 
-    let appConfig = this.getAppConfig();
-    let errorList = DataValidatorUtil.validate(
-      appConfig,
-      ERROR_VALIDATORS
-    );
-
     // Run data validation on the raw data
-    this.setState({errorList, appConfig});
+    this.validateCurrentState();
   }
 
   handleFormChange(event) {
@@ -169,17 +170,17 @@ class NewCreateServiceModalForm extends Component {
     }
     let path = fieldName.split('.');
     batch = batch.add(new Transaction(path, value));
-    let newState = {batch};
 
-    // [Case F1] Reset errors only on the current field
-    newState.errorList = DataValidatorUtil.stripErrorsOnPath(
-      this.state.errorList,
-      path
-    );
-
-    // Render the new appconfig
-    newState.appConfig = this.getAppConfig(batch);
-    this.setState(newState);
+    this.setState({
+      // Render the new appconfig
+      appConfig: this.getAppConfig(batch),
+      batch,
+      // [Case F1] Reset errors only on the current field
+      errorList: DataValidatorUtil.stripErrorsOnPath(
+        this.state.errorList,
+        path
+      )
+    });
   }
 
   handleAddItem({value, path}) {
@@ -189,10 +190,7 @@ class NewCreateServiceModalForm extends Component {
       new Transaction(path.split('.'), value, TransactionTypes.ADD_ITEM)
     );
 
-    this.setState({
-      batch,
-      appConfig: this.getAppConfig(batch)
-    });
+    this.setState({batch, appConfig: this.getAppConfig(batch)});
   }
 
   handleRemoveItem({value, path}) {
@@ -202,10 +200,15 @@ class NewCreateServiceModalForm extends Component {
       new Transaction(path.split('.'), value, TransactionTypes.REMOVE_ITEM)
     );
 
-    this.setState({
-      batch,
-      appConfig: this.getAppConfig(batch)
-    });
+    this.setState({batch, appConfig: this.getAppConfig(batch)});
+  }
+
+  validateCurrentState() {
+    let {errorList} = this.getNewStateForJSON(this.getAppConfig());
+
+    this.setState({errorList});
+
+    return Boolean(errorList.length);
   }
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {

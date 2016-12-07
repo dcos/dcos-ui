@@ -138,15 +138,11 @@ class NewServiceFormModal extends Component {
   }
 
   handleServiceChange(newService) {
-    this.setState({
-      serviceConfig: newService
-    });
+    this.setState({serviceConfig: newService});
   }
 
   handleServiceErrorChange(hasErrors) {
-    this.setState({
-      serviceFormHasErrors: hasErrors
-    });
+    this.setState({serviceFormHasErrors: hasErrors});
   }
 
   handleServiceSelection({type}) {
@@ -190,9 +186,11 @@ class NewServiceFormModal extends Component {
   }
 
   handleServiceReview() {
-    this.setState({
-      serviceReviewActive: true
-    });
+    if (this.createComponent && this.createComponent.validateCurrentState()) {
+      this.handleServiceErrorChange(true);
+    } else {
+      this.setState({serviceReviewActive: true});
+    }
   }
 
   handleServiceRun() {
@@ -319,6 +317,7 @@ class NewServiceFormModal extends Component {
           jsonConfigReducers={jsonConfigReducers}
           inputConfigReducers={inputConfigReducers}
           isJSONModeActive={this.state.isJSONModeActive}
+          ref={(ref) => { return this.createComponent = ref; }}
           service={this.state.serviceConfig}
           onChange={this.handleServiceChange}
           onErrorStateChange={this.handleServiceErrorChange} />
@@ -328,6 +327,7 @@ class NewServiceFormModal extends Component {
     if (this.state.serviceJsonActive) {
       return (
         <CreateServiceJsonOnly
+          ref={(ref) => { return this.createComponent = ref; }}
           service={this.state.serviceConfig}
           onChange={this.handleServiceChange}
           onErrorStateChange={this.handleServiceErrorChange} />
