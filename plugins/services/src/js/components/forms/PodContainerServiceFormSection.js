@@ -17,20 +17,34 @@ import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 
-class PodContainerServiceFormSection extends Component {
-  getAdvancedSettings(data = {}, errors = {}) {
-    let {path} = this.props;
+const getArtifactsLabel = () => {
+  return (
+      <FieldLabel>
+        {'Artifact URI '}
+        <Tooltip
+            content="Provided URIs are passed to Mesos fetcher module and resolved at runtime."
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </FieldLabel>
+  );
+};
 
-    let diskErrors = findNestedPropertyInObject(errors, `${path}.resources.disk`);
+class PodContainerServiceFormSection extends Component {
+  getArtifacts(data, errors) {
+    let {path} = this.props;
 
     let artifacts = findNestedPropertyInObject(data, `${path}.artifacts`) || [];
 
     artifacts = artifacts.map((item, index) => {
       let artifactError =
-        findNestedPropertyInObject(errors, `${path}.artifacts.${index}`);
+          findNestedPropertyInObject(errors, `${path}.artifacts.${index}`);
       let label = null;
       if (index === 0) {
-        label = <FieldLabel>Artifact URI</FieldLabel>;
+        label = getArtifactsLabel();
       }
       return (
           <div className="flex row">
@@ -44,12 +58,36 @@ class PodContainerServiceFormSection extends Component {
             </FormGroup>
             <FormGroup className="flex flex-item-align-end column-2">
               <DeleteRowButton
-                onClick={this.props.onRemoveItem.bind(this,
-                  {value: index, path: `${path}.artifacts`})}/>
+                  onClick={this.props.onRemoveItem.bind(this,
+                      {value: index, path: `${path}.artifacts`})}/>
             </FormGroup>
           </div>
       );
     });
+
+    if (artifacts.length === 0) {
+      artifacts = (
+          <div className="flex row">
+            <FormGroup className="column-10">
+              {getArtifactsLabel()}
+            </FormGroup>
+          </div>
+      );
+    }
+
+    return (
+        <div className="artifacts-section">
+          {artifacts}
+        </div>
+    );
+  }
+
+  getAdvancedSettings(data = {}, errors = {}) {
+    let {path} = this.props;
+
+    let diskErrors = findNestedPropertyInObject(errors, `${path}.resources.disk`);
+
+    let artifacts = this.getArtifacts(data, errors);
 
     return (
       <AdvancedSectionContent>
@@ -68,7 +106,7 @@ class PodContainerServiceFormSection extends Component {
         <div>
           <a className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this, {value: 0, path: `${path}.artifacts`})}>
-            Add Artifact
+            + Add Artifact
           </a>
         </div>
       </AdvancedSectionContent>
