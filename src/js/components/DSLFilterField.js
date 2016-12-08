@@ -6,7 +6,6 @@ import DSLExpression from '../structs/DSLExpression';
 import DSLFormDropdownPanel from './DSLFormDropdownPanel';
 
 const METHODS_TO_BIND = [
-  'handleChange',
   'handleDismissClick',
   'handleDropdownClick',
   'handleIgnoreClick',
@@ -58,19 +57,7 @@ class DSLFilterField extends React.Component {
   }
 
   /**
-   * Update the internal representation of the DSL expression
-   *
-   * @param {DSLExpression} expression - The new DSL expression to process
-   */
-  handleChange(expression) {
-    console.log('>', expression.value);
-    this.props.onChange(expression);
-  }
-
-  /**
    * Clicks on the body are dismissing the panel
-   *
-   * @param {SyntheticEvent} e - The click event
    */
   handleDismissClick() {
     if (!this.state.dropdownVisible) {
@@ -109,11 +96,9 @@ class DSLFilterField extends React.Component {
   }
 
   render() {
-    const {expression, formSections} = this.props;
+    const {expression, formSections, onChange} = this.props;
     const {dropdownVisible} = this.state;
     const hasForm = (formSections.length > 0);
-
-    console.log(dropdownVisible);
 
     return (
       <div className="form-group dropdown-panel-group"
@@ -123,14 +108,14 @@ class DSLFilterField extends React.Component {
           hasErrors={expression.hasErrors}
           hasDropdown={hasForm}
           dropdownVisible={dropdownVisible}
-          onChange={this.handleChange}
+          onChange={onChange}
           onDropdownClick={this.handleDropdownClick}
           expression={expression} />
 
         <DSLFormDropdownPanel
           expression={expression}
           isVisible={dropdownVisible}
-          onChange={this.handleChange}
+          onChange={onChange}
           onClose={this.handleDropdownClose}
           sections={formSections} />
       </div>
