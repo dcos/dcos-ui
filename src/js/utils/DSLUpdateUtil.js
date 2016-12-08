@@ -3,6 +3,7 @@ import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import DSLExpression from '../structs/DSLExpression';
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUtil from './DSLUtil';
+import {FilterNode} from '../structs/DSLASTNodes';
 
 const DSLUpdateUtil = {
 
@@ -197,11 +198,29 @@ const DSLUpdateUtil = {
    *
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to append
-   * @param {DSLCombinerTypes} combiner - The combiner operation to use
+   * @param {DSLCombinerTypes} [newCombiner] - The combiner for first node
+   * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyAdd(expression, nodes, combiner=DSLCombinerTypes.AND) {
-    let expressionUpdate = nodes.reduce(({value, offset}, node) => {
+  applyAdd(expression, nodes, newCombiner=DSLCombinerTypes.AND,
+    itemCombiner=DSLCombinerTypes.AND) {
+
+    let expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
+      let combiner = itemCombiner;
+
+      // If this is the first element, check if we don't have an existing
+      // element in the AST and if not, use the `newCombiner` instead of the
+      // `itemCombiner`
+      if (index === 0) {
+        const filter = DSLUpdateUtil.getFilterForNode(node);
+        const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, filter);
+
+        if (matchingNodes.length === 0) {
+          combiner = newCombiner;
+        }
+      }
+
+      // Apply addition of new item
       let newValue = DSLUpdateUtil.addNodeString(
         value, node, expression.ast, offset, combiner
       );
@@ -211,7 +230,7 @@ const DSLUpdateUtil = {
       offset += newValue.length - value.length;
 
       return {offset, value: newValue};
-    }, {offset:0, value:expression.value});
+    }, {offset: 0, value: expression.value});
 
     return new DSLExpression(expressionUpdate.value);
   },
@@ -247,10 +266,13 @@ const DSLUpdateUtil = {
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to update
    * @param {Array} newNodes - The node(s) to update with
-   * @param {DSLCombinerTypes} [combiner] - The combiner operation to use on add
+   * @param {DSLCombinerTypes} [newCombiner] - The combiner for first node
+   * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyReplace(expression, nodes, newNodes, combiner=DSLCombinerTypes.AND) {
+  applyReplace(expression, nodes, newNodes, newCombiner=DSLCombinerTypes.AND,
+    itemCombiner=DSLCombinerTypes.AND) {
+
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
     let offset = 0;
@@ -302,12 +324,33 @@ const DSLUpdateUtil = {
     // Add nodes using applyAdd
     if (newNodes.length > nodes.length) {
       return DSLUpdateUtil.applyAdd(
-        newExpression, newNodes.slice(updateCount), combiner
+        newExpression, newNodes.slice(updateCount), newCombiner, itemCombiner
       );
     }
 
     // Otherwise just return the expression
     return newExpression;
+  },
+
+  /**
+   * This function gets an AST node and converts it into a virtual node, useful
+   * for searching similar nodes in the AST using `DSLUtil.findNodesByFilter`
+   *
+   * @param {FilterNode} node - The AST node to abstract
+   * @returns {FilterNode} Returns the virtual node for this node
+   */
+  getFilterForNode(node) {
+    let keepParams = Object.assign({}, node.filterParams);
+
+    // Delete label if exists
+    if (keepParams.label != null) {
+      delete keepParams.label;
+    }
+
+    // Return a virtual node
+    return new FilterNode(
+      0, 0, node.filterType, keepParams
+    );
   }
 
 };
