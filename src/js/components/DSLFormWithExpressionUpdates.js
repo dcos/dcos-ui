@@ -129,7 +129,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
    */
   render() {
     return (
-      <form onChange={this.handleFormChange}>
+      <form className="form-group tall" onChange={this.handleFormChange}>
         {this.props.children}
       </form>
     );
