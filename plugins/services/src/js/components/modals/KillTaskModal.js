@@ -7,8 +7,8 @@ import ModalHeading from '../../../../../../src/js/components/modals/ModalHeadin
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
-  kill: 'Kill',
-  killAndScale: 'Kill and Scale'
+  restart: 'Restart',
+  stop: 'Stop'
 };
 
 class KillTaskModal extends React.Component {
@@ -118,7 +118,7 @@ class KillTaskModal extends React.Component {
 
     const killTasksAction = () => killTasks(
       selectedItems,
-      action === 'killAndScale',
+      action === 'stop',
       this.shouldForceUpdate()
     );
 
@@ -148,7 +148,7 @@ class KillTaskModal extends React.Component {
 }
 
 KillTaskModal.defaultProps = {
-  action: 'kill',
+  action: 'restart',
   killTasks: () => {},
   selectedItems: []
 };
