@@ -120,7 +120,10 @@ ServiceTreeView.propTypes = {
   isEmpty: PropTypes.bool,
   modals: PropTypes.node,
   onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(PropTypes.instanceOf(Service)).isRequired,
+  services: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.instanceOf(Service),
+    PropTypes.instanceOf(ServiceTree)
+  ])).isRequired,
   serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
