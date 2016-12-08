@@ -34,7 +34,6 @@ class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
       events: ['success'],
       suppressUpdate: true
     }];
-
   }
 
   onVirtualNetworksStoreSuccess() {
@@ -43,6 +42,7 @@ class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(endpoint, index, containerIndex) {
     let placeholder;
+    let value = endpoint.hostPort;
     let {errors} = this.props;
     let hostPortError = findNestedPropertyInObject(
       errors,
@@ -51,6 +51,7 @@ class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
 
     if (endpoint.automaticPort) {
       placeholder = `$PORT${index}`;
+      value = null;
     }
 
     let tooltipContent = (
@@ -84,7 +85,7 @@ class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
           min="0"
           name={`containers.${containerIndex}.endpoints.${index}.hostPort`}
           type="number"
-          value={endpoint.hostPort} />
+          value={value} />
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
       <FormGroup
