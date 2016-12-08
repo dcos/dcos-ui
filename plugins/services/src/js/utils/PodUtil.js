@@ -51,7 +51,8 @@ var PodUtil = {
    *       that can be used to construct a PodInstance!
    *
    * @param {PodInstanceList} podInstances - An array of PodInstance objects
-   * @param {Array} historicalInstances - The output of getPodHistoricalInstances
+   * @param {Array} historicalInstances - The output of
+   *  getPodHistoricalInstances
    * @returns {PodInstanceList} The new array of PodInstance objects
    */
   mergeHistoricalInstanceList(podInstances, historicalInstances) {
@@ -61,29 +62,46 @@ var PodUtil = {
 
     // De-compose PodInstances into plain objects, so we always operate
     // with plain objects
-    let podInstancesMap = podInstances.reduceItems(function (memo, instance) {
-      memo[instance.getId()] = instance.get();
-      return memo;
-    }, {});
+    let podInstancesMap =
+        podInstances.reduceItems(function (memo, podInstance) {
+          memo[podInstance.getId()] = podInstance.get();
+          return memo;
+        }, {});
 
     // Then merge historical instance information in the pod instance map
-    podInstancesMap = historicalInstances.reduce(function (memo, instance) {
-      let podInstance = memo[instance.id];
-      if (podInstance === undefined) {
-        memo[instance.id] = instance;
-        return memo;
-      }
+    let combinedInstanceMap =
+        historicalInstances.reduce(function (memo, historicalInstance) {
+          let podInstance = memo[historicalInstance.id];
+          if (podInstance === undefined) {
+            memo[historicalInstance.id] = historicalInstance;
+            return memo;
+          }
 
-      podInstance.containers = [].concat(
-          podInstance.containers,
-          instance.containers
-        );
+          let combinedContainers = [].concat(
+              podInstance.containers,
+              historicalInstance.containers
+          );
 
-      return memo;
-    }, podInstancesMap);
+          // Filter combined container list to remove potential duplicates
+          let containerIds = new Map();
+          combinedContainers =
+              combinedContainers.filter(function ({containerId}) {
+                if (!containerIds.has(containerId)) {
+                  containerIds.set(containerId);
+
+                  return true;
+                }
+
+                return false;
+              });
+
+          podInstance.containers = combinedContainers;
+
+          return memo;
+        }, podInstancesMap);
 
     // Re-compose PodInstances from plain objects
-    let instances = Object.values(podInstancesMap).map(function (instance) {
+    let instances = Object.values(combinedInstanceMap).map(function (instance) {
       return new PodInstance(instance);
     });
     return new PodInstanceList({items: instances});
