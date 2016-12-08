@@ -162,32 +162,37 @@ class ServiceDetail extends mixin(TabsMixin) {
     const routePrefix = `/services/overview/${encodeURIComponent(id)}`;
 
     const tabs = [];
+    const activeTab = this.state.currentTab;
 
     tabs.push({
       label: 'Instances',
       callback: () => {
         this.setState({currentTab: 'tasks'});
-      }
+      },
+      isActive: activeTab === 'tasks'
     });
 
     tabs.push({
       label: 'Configuration',
       callback: () => {
         this.setState({currentTab: 'configuration'});
-      }
+      },
+      isActive: activeTab === 'configuration'
     });
 
     tabs.push({
       label: 'Debug',
       callback: () => {
         this.setState({currentTab: 'debug'});
-      }
+      },
+      isActive: activeTab === 'debug'
     });
 
     if (this.hasVolumes()) {
       tabs.push({
         label: 'Volumes', routePath: routePrefix + '/volumes',
-        callback: this.tabs_handleTabClick.bind('volumes')
+        callback: this.tabs_handleTabClick.bind('volumes'),
+        isActive: activeTab === 'volumes'
       });
     }
 

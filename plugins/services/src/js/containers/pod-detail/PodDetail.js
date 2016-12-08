@@ -110,10 +110,24 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
+    const activeTab = this.state.currentTab;
+
     return [
-      {label: 'Instances', callback: () => { this.setState({currentTab: 'instances'}); }},
-      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
-      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
+      {
+        label: 'Instances',
+        callback: () => { this.setState({currentTab: 'instances'}); },
+        isActive: activeTab === 'instances'
+      },
+      {
+        label: 'Configuration',
+        callback: () => { this.setState({currentTab: 'configuration'}); },
+        isActive: activeTab === 'configuration'
+      },
+      {
+        label: 'Debug',
+        callback: () => { this.setState({currentTab: 'debug'}); },
+        isActive: activeTab === 'debug'
+      }
     ];
   }
 
@@ -124,7 +138,10 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <Page>
-        <Page.Header actions={this.getActions()} breadcrumbs={breadcrumbs} tabs={this.getTabs()}>
+        <Page.Header
+          actions={this.getActions()}
+          breadcrumbs={breadcrumbs}
+          tabs={this.getTabs()}>
           <PodHeader
             onDestroy={this.handleActionDestroy}
             onEdit={this.handleActionEdit}
