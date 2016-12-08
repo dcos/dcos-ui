@@ -1,12 +1,30 @@
 import React from 'react';
 
+import {
+  getSharedIconWithLabel,
+  getContainerNameWithIcon
+} from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+
+const columns = [
+  {
+    heading: 'Key',
+    prop: 'key'
+  },
+  {
+    heading: 'Value',
+    prop: 'value'
+  },
+  {
+    heading: 'Container',
+    prop: 'container'
+  }
+];
 
 module.exports = ({appConfig}) => {
-  let {environment={}, containers=[]} = appConfig;
+  let {environment = {}, containers = []} = appConfig;
 
   if (!environment || !containers) {
     return <noscript />;
@@ -16,19 +34,20 @@ module.exports = ({appConfig}) => {
     memo.push({
       key: <code>{key}</code>,
       value: environment[key],
-      container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
+      container: getSharedIconWithLabel()
     });
 
     return memo;
   }, []);
 
   combinedEnv = containers.reduce((memo, container) => {
-    let {environment={}} = container;
+    let {environment = {}} = container;
+
     return Object.keys(environment).reduce((cvMemo, key) => {
       cvMemo.push({
         key: <code>{key}</code>,
         value: environment[key],
-        container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
+        container: getContainerNameWithIcon(container)
       });
 
       return cvMemo;
@@ -43,28 +62,11 @@ module.exports = ({appConfig}) => {
     <div>
       <Heading level={1}>Environment Variables</Heading>
       <Section key="pod-general-section">
-
         <ConfigurationMapTable
           className="table table-simple table-break-word flush-bottom"
-          columnDefaults={{
-            hideIfEmpty: true
-          }}
-          columns={[
-            {
-              heading: 'Key',
-              prop: 'key'
-            },
-            {
-              heading: 'Value',
-              prop: 'value'
-            },
-            {
-              heading: 'Container',
-              prop: 'container'
-            }
-          ]}
+          columnDefaults={{hideIfEmpty: true}}
+          columns={columns}
           data={combinedEnv} />
-
       </Section>
     </div>
   );

@@ -1,20 +1,17 @@
 import React from 'react';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
-
-import Label from '../../../../../src/js/components/ConfigurationMapLabel';
-import Row from '../../../../../src/js/components/ConfigurationMapRow';
-import Value from '../../../../../src/js/components/ConfigurationMapValue';
 
 import BooleanValue from '../components/ConfigurationMapBooleanValue';
+import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
+import Label from '../../../../../src/js/components/ConfigurationMapLabel';
 import MultilineValue from '../components/ConfigurationMapMultilineValue';
-import SizeValue from '../components/ConfigurationMapSizeValue';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
-
 import PodContainerArtifactsConfigSection from './PodContainerArtifactsConfigSection';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import Row from '../../../../../src/js/components/ConfigurationMapRow';
+import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import SizeValue from '../components/ConfigurationMapSizeValue';
+import Value from '../../../../../src/js/components/ConfigurationMapValue';
+import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
 
 function getCommand(containerConfig) {
   if (containerConfig.exec && containerConfig.exec.command) {
@@ -40,7 +37,7 @@ module.exports = ({containerConfig, appConfig}) => {
 
       {/* Heading with Icon */}
       <Heading level={3}>
-        {ServiceConfigDisplayUtil.getContainerNameWithIcon(containerConfig)}
+        {getContainerNameWithIcon(containerConfig)}
       </Heading>
 
       {/* Container image goes to top */}

@@ -3,7 +3,6 @@ import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import ContainerConstants from '../../constants/ContainerConstants';
 import {JSONReducer as volumes} from './Volumes';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
-
 import docker from './Docker';
 
 const {DOCKER, MESOS, NONE} = ContainerConstants.type;

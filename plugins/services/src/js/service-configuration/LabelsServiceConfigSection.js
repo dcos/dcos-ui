@@ -36,8 +36,9 @@ module.exports = {
         ];
 
         const data = Object.keys(labelsDataMap).reduce((memo, labelKey) => {
-          let value = ServiceConfigDisplayUtil
-            .getDisplayValue(labelsDataMap[labelKey]);
+          let value = ServiceConfigDisplayUtil.getDisplayValue(
+            labelsDataMap[labelKey]
+          );
 
           memo.push({key: labelKey, value});
 
@@ -45,13 +46,13 @@ module.exports = {
         }, []);
 
         return (
-          <Table key="labels-table"
+          <Table
+            key="labels-table"
             className="table table-simple table-break-word flush-bottom"
             columns={columns}
             data={data} />
         );
       }
-
     }
   ]
 };

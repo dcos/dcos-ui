@@ -18,19 +18,19 @@ import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
-const {MESOS, DOCKER, NONE} = ContainerConstants.type;
+const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
 const containerRuntimes = {
   [NONE]: {
-    label: <span>Mesos Runtime</span>,
+    label: <span>{labelMap[NONE]}</span>,
     helpText: 'Normal behaviour'
   },
   [MESOS]: {
-    label: <span>Universal Container Runtime</span>,
+    label: <span>{labelMap[MESOS]}</span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   },
   [DOCKER]: {
-    label: <span>Docker Engine <em>(recommended)</em></span>,
+    label: <span>{labelMap[DOCKER]} <em>(recommended)</em></span>,
     helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   }
 };
