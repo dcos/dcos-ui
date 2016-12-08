@@ -9,7 +9,6 @@ const DSLExpression = require('../../structs/DSLExpression');
 const DSLFilterTypes = require('../../constants/DSLFilterTypes');
 const DSLUpdateUtil = require('../DSLUpdateUtil');
 const DSLUtil = require('../DSLUtil');
-const SearchDSL = require('../../../resources/grammar/SearchDSL.jison');
 
 describe('DSLUpdateUtil', function () {
 
@@ -18,7 +17,7 @@ describe('DSLUpdateUtil', function () {
     it('should correctly update attribute nodes', function () {
       let value = 'label:foo';
 
-      let node = SearchDSL.parse(value).ast;
+      let node = new DSLExpression(value).ast;
       let replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'bar'
       });
@@ -27,10 +26,22 @@ describe('DSLUpdateUtil', function () {
         .toEqual('label:bar');
     });
 
+    it('should correctly update multi-value attribute nodes', function () {
+      let value = 'label:foo,baz';
+
+      let node = new DSLExpression(value).ast.children[0];
+      let replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+        label: 'label', text: 'bar'
+      });
+
+      expect(DSLUpdateUtil.updateNodeString(value, node, replace))
+        .toEqual('label:bar,baz');
+    });
+
     it('should correctly update fuzzy nodes', function () {
       let value = 'foo';
 
-      let node = SearchDSL.parse(value).ast;
+      let node = new DSLExpression(value).ast;
       let replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: 'bar'
       });
@@ -42,7 +53,7 @@ describe('DSLUpdateUtil', function () {
     it('should correctly update exact nodes', function () {
       let value = '"foo"';
 
-      let node = SearchDSL.parse(value).ast;
+      let node = new DSLExpression(value).ast;
       let replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
         text: 'bar'
       });
@@ -55,7 +66,7 @@ describe('DSLUpdateUtil', function () {
       let value = 'some junk label:foo';
       let parseValue = 'label:foo';
 
-      let node = SearchDSL.parse(parseValue).ast;
+      let node = new DSLExpression(parseValue).ast;
       let replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'bar'
       });
@@ -71,16 +82,25 @@ describe('DSLUpdateUtil', function () {
     it('should correctly delete attribute nodes', function () {
       let value = 'some fuzz label:foo';
 
-      let node = SearchDSL.parse(value).ast.children[1];
+      let node = new DSLExpression(value).ast.children[1];
 
       expect(DSLUpdateUtil.deleteNodeString(value, node))
         .toEqual('some fuzz');
     });
 
+    it('should correctly delete multi-value attribute nodes', function () {
+      let value = 'some fuzz label:foo,bar';
+
+      let node = new DSLExpression(value).ast.children[1].children[1];
+
+      expect(DSLUpdateUtil.deleteNodeString(value, node))
+        .toEqual('some fuzz label:foo');
+    });
+
     it('should correctly delete fuzzy nodes', function () {
       let value = 'some fuzz foo';
 
-      let node = SearchDSL.parse(value).ast.children[1];
+      let node = new DSLExpression(value).ast.children[1];
 
       expect(DSLUpdateUtil.deleteNodeString(value, node))
         .toEqual('some fuzz');
@@ -89,7 +109,7 @@ describe('DSLUpdateUtil', function () {
     it('should correctly delete exact nodes', function () {
       let value = 'some fuzz "foo"';
 
-      let node = SearchDSL.parse(value).ast.children[1];
+      let node = new DSLExpression(value).ast.children[1];
 
       expect(DSLUpdateUtil.deleteNodeString(value, node))
         .toEqual('some fuzz');
@@ -98,7 +118,7 @@ describe('DSLUpdateUtil', function () {
     it('should correctly trim whitespaces on intermediate nodes', function () {
       let value = 'some fuzz foo';
 
-      let node = SearchDSL.parse(value).ast.children[0].children[1];
+      let node = new DSLExpression(value).ast.children[0].children[1];
 
       expect(DSLUpdateUtil.deleteNodeString(value, node))
         .toEqual('some foo');
@@ -108,7 +128,7 @@ describe('DSLUpdateUtil', function () {
       let value = 'some fuzz foo';
       let parseValue = 'foo';
 
-      let node = SearchDSL.parse(parseValue).ast;
+      let node = new DSLExpression(parseValue).ast;
 
       expect(DSLUpdateUtil.deleteNodeString(value, node, 10))
         .toEqual('some fuzz');
@@ -160,9 +180,9 @@ describe('DSLUpdateUtil', function () {
 
   });
 
-  describe('#applyUpdate', function () {
+  describe('#applyReplace', function () {
 
-    it('should correctly update one node', function () {
+    it('should correctly replace one node', function () {
       let expression = new DSLExpression('foo bar is:working');
       let attribNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -173,24 +193,24 @@ describe('DSLUpdateUtil', function () {
         label: 'is', text: 'idle'
       });
 
-      expect(DSLUpdateUtil.applyUpdate(expression, attribNodes, [node]).value)
+      expect(DSLUpdateUtil.applyReplace(expression, attribNodes, [node]).value)
         .toEqual('foo bar is:idle');
     });
 
-    it('should correctly update more than one nodes', function () {
+    it('should correctly replace more than one nodes', function () {
       let expression = new DSLExpression('some fuzzy nodes');
       let fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
       );
 
-      let replaceNodes = [
+      let replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'here'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'can'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      expect(DSLUpdateUtil.applyUpdate(expression, fuzzyNodes, replaceNodes).value)
+      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace).value)
         .toEqual('here can be');
     });
 
@@ -201,13 +221,13 @@ describe('DSLUpdateUtil', function () {
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
       );
 
-      let replaceNodes = [
+      let replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'here'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'can'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      expect(DSLUpdateUtil.applyUpdate(expression, fuzzyNodes, replaceNodes).value)
+      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace).value)
         .toEqual('here can be');
     });
 
@@ -218,13 +238,13 @@ describe('DSLUpdateUtil', function () {
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
       );
 
-      let replaceNodes = [
+      let replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'here'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'can'}),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      expect(DSLUpdateUtil.applyUpdate(expression, fuzzyNodes, replaceNodes).value)
+      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace).value)
         .toEqual('here can be');
     });
 
