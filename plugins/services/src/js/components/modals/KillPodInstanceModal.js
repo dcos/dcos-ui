@@ -8,8 +8,8 @@ import Pod from '../../structs/Pod';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
-  kill: 'Kill',
-  killAndScale: 'Kill and Scale'
+  restart: 'Restart',
+  stop: 'Stop'
 };
 
 class KillPodInstanceModal extends React.Component {
@@ -152,7 +152,7 @@ class KillPodInstanceModal extends React.Component {
 }
 
 KillPodInstanceModal.defaultProps = {
-  action: 'kill',
+  action: 'restart',
   killPodInstances: () => {},
   pod: new Pod(),
   selectedItems: []

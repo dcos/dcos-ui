@@ -7,6 +7,7 @@ import FilterButtons from '../../../../../../src/js/components/FilterButtons';
 import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
 import FilterInputText from '../../../../../../src/js/components/FilterInputText';
 import GraphQLTaskUtil from '../../utils/GraphQLTaskUtil';
+import Icon from '../../../../../../src/js/components/Icon';
 import SaveStateMixin from '../../../../../../src/js/mixins/SaveStateMixin';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TaskStates from '../../constants/TaskStates';
@@ -148,14 +149,16 @@ class TasksView extends mixin(SaveStateMixin) {
     return (
       <div className="button-collection flush-bottom">
         <div
-          className="button button-stroke button-danger"
-          onClick={this.handleKillClick.bind(this, 'killAndScale')}>
-          Kill and Scale
+          className="button button-link"
+          onClick={this.handleKillClick.bind(this, 'restart')}>
+          <Icon id="repeat" size="mini" />
+          <span>Restart</span>
         </div>
         <div
-          className="button button-stroke button-danger"
-          onClick={this.handleKillClick.bind(this, 'kill')}>
-          Kill
+          className="button button-link"
+          onClick={this.handleKillClick.bind(this, 'stop')}>
+          <Icon id="circle-close" size="mini" />
+          <span>Stop</span>
         </div>
       </div>
     );

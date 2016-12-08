@@ -2,6 +2,7 @@ import React from 'react';
 import {routerShape} from 'react-router';
 
 import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
+import Icon from '../../../../../../src/js/components/Icon';
 import Pod from '../../structs/Pod';
 import PodInstanceList from '../../structs/PodInstanceList';
 import PodInstancesTable from './PodInstancesTable';
@@ -61,9 +62,10 @@ class PodInstancesView extends React.Component {
     return (
       <div className="button-collection flush-bottom">
         <div
-          className="button button-stroke button-danger"
+          className="button button-link"
           onClick={this.handleKillClick}>
-          Kill
+            <Icon id="repeat" size="mini" />
+            <span>Restart</span>
         </div>
       </div>
     );
@@ -90,7 +92,7 @@ class PodInstancesView extends React.Component {
     }
 
     this.context.modalHandlers.killPodInstances({
-      action: 'kill',
+      action: 'restart',
       selectedItems
     });
   }
@@ -103,7 +105,7 @@ class PodInstancesView extends React.Component {
     }
 
     this.context.modalHandlers.killPodInstances({
-      action: 'killAndScale',
+      action: 'stop',
       selectedItems
     });
   }
