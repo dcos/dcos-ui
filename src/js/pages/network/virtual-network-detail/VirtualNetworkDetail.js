@@ -24,7 +24,7 @@ const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
     crumbs.push(<span>{overlayID}</span>);
   }
 
-  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
 };
 
 const METHODS_TO_BIND = [

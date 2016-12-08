@@ -26,7 +26,7 @@ const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
     crumbs.push(<span>{taskID}</span>);
   }
 
-  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
 };
 
 class VirtualNetworkTaskPage extends React.Component {
