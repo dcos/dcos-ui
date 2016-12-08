@@ -159,16 +159,13 @@ const DSLUpdateUtil = {
 
     // On attributes with OR operator we first check if we already have an
     // attribute with such label and we prefer creating multi-value expression
-    const attribNodes = DSLUtil.reduceAstFilters(fullAst,
-      (memo, filter) => {
-        if (filter.filterParams.label === node.filterParams.label) {
-          memo.push(filter);
-        }
+    const attribNodes = DSLUtil.reduceAstFilters(fullAst, (memo, filter) => {
+      if (filter.filterParams.label === node.filterParams.label) {
+        memo.push(filter);
+      }
 
-        return memo;
-      },
-      []
-    );
+      return memo;
+    }, []);
 
     // If there is no other attribute with this label, fallback
     // in the regular appending approach
