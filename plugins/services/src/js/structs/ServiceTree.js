@@ -136,7 +136,7 @@ module.exports = class ServiceTree extends Tree {
         services = this.flattenItems().filterItemsByText(filter.id, filterProperties).getItems();
       }
 
-      if (filter.health != null && filter.health.length !== 0) {
+      if (Array.isArray(filter.health) && filter.health.length !== 0) {
         services = services.reduce(function (memo, service) {
           filter.health.forEach(function (healthValue) {
             if (service instanceof ServiceTree) {
@@ -155,7 +155,7 @@ module.exports = class ServiceTree extends Tree {
         }, []);
       }
 
-      if (filter.labels != null && filter.labels.length > 0) {
+      if (Array.isArray(filter.labels) && filter.labels.length > 0) {
         services = services.reduce(function (memo, service) {
           filter.labels.forEach(function (label) {
             if (service instanceof ServiceTree) {
@@ -187,7 +187,7 @@ module.exports = class ServiceTree extends Tree {
         }, []);
       }
 
-      if (filter.other != null && filter.other.length !== 0) {
+      if (Array.isArray(filter.other) && filter.other.length !== 0) {
         services = services.reduce(function (memo, service) {
           filter.other.forEach(function (otherKey) {
             if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
@@ -227,7 +227,7 @@ module.exports = class ServiceTree extends Tree {
         }, []);
       }
 
-      if (filter.status != null && filter.status.length !== 0) {
+      if (Array.isArray(filter.status) && filter.status.length !== 0) {
         services = services.reduce(function (memo, service) {
           filter.status.some(function (statusValue) {
             if (service instanceof ServiceTree) {
