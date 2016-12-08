@@ -52,6 +52,31 @@ const TaskStates = {
   TASK_ERROR: {
     stateTypes: ['completed', 'failure'],
     displayName: 'Error'
+  },
+
+  TASK_GONE: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Gone'
+  },
+
+  TASK_GONE_BY_OPERATOR: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Gone by operator'
+  },
+
+  TASK_DROPPED: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Dropped'
+  },
+
+  TASK_UNREACHABLE: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Unreachable'
+  },
+
+  TASK_UNKNOWN: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Unknown'
   }
 };
 
