@@ -16,9 +16,13 @@ const DSLUpdateUtil = {
   updateNodeString(src, node, newNode, offset=0) {
     const {position, filterType} = node;
     let {filterParams: {text, label}} = newNode;
-    if ((Config.environment === 'development') &&
-        (filterType !== newNode.filterType)) {
-      throw new Error('Trying to update a node with a mismatching node!');
+
+    if (filterType !== newNode.filterType) {
+      if (Config.environment === 'development') {
+        throw new Error('Trying to update a node with a mismatching node!');
+      }
+
+      return src;
     }
 
     switch (filterType) {
