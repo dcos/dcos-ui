@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+
 import DSLCombinerTypes from '../../../../../../src/js/constants/DSLCombinerTypes';
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
@@ -28,7 +29,7 @@ class ServiceStatusDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        parts={PARTS} >
+        parts={PARTS}>
 
         <label>Status</label>
         <div className="row">
