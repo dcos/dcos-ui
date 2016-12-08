@@ -81,6 +81,7 @@ class DSLFormDropdownPanel extends React.Component {
         <div className="panel-cell panel-cell-borderless">
           <DSLForm expression={expression}
             onChange={this.handleChange}
+            onApply={this.handleApply}
             sections={sections} />
         </div>
         <div className="panel-cell panel-cell-short flush-top text-align-right">

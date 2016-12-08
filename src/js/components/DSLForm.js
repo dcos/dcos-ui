@@ -11,7 +11,7 @@ class DSLForm extends React.Component {
    * @override
    */
   render() {
-    const {expression, onChange, sections} = this.props;
+    const {expression, onApply, onChange, sections} = this.props;
 
     // Render each group component wrapped with a dedicated form that receives
     // the updates targeting each dedicated component.
@@ -22,6 +22,7 @@ class DSLForm extends React.Component {
             <SectionComponent
               expression={expression}
               key={key}
+              onApply={onApply}
               onChange={onChange} />
           );
         })}
@@ -31,10 +32,12 @@ class DSLForm extends React.Component {
 }
 
 DSLForm.defaultProps = {
+  onApply() {},
   onChange() {}
 };
 
 DSLForm.propTypes = {
+  onApply: PropTypes.func,
   onChange: PropTypes.func,
   sections: PropTypes.array.isRequired,
   expression: PropTypes.instanceOf(DSLExpression).isRequired

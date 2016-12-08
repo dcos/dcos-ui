@@ -128,6 +128,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
+    this.props.onSubmit();
   }
 
   /**
@@ -148,6 +149,7 @@ DSLFormWithExpressionUpdates.defaultProps = {
   groupCombiner: DSLCombinerTypes.AND,
   itemCombiner: DSLCombinerTypes.AND,
   onChange() {},
+  onSubmit() {},
   updatePolicy: DSLUpdatePolicy.Checkbox
 };
 
@@ -160,6 +162,7 @@ DSLFormWithExpressionUpdates.propTypes = {
     Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
   ),
   onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
   parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
   updatePolicy: PropTypes.oneOf(
     Object.keys(DSLUpdatePolicy).map((key) => DSLUpdatePolicy[key])
