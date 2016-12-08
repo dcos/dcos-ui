@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 
+import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUpdatePolicy from '../constants/DSLUpdatePolicy';
 import DSLExpression from '../structs/DSLExpression';
@@ -28,7 +29,14 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * Handle a change to the form
    */
   handleFormChange({target}) {
-    let {expression, onChange, parts, updatePolicy} = this.props;
+    let {
+      expression,
+      groupCombiner,
+      itemCombiner,
+      onChange,
+      parts,
+      updatePolicy
+    } = this.props;
     let value = target.value;
 
     const name = target.getAttribute('name');
@@ -61,14 +69,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
         // On 'Radio' update policy the new value is replacing any occurence
         // of all of the specified nodes.
         if (updatePolicy === DSLUpdatePolicy.Radio) {
-
-          // // Collect all relevant properties from all attributes
-          // const allPropMatchingNodes = Object.keys(dslProps)
-          //   .map((prop) => )
-
           if (value) {
             expression = DSLUpdateUtil.applyReplace(
-              expression, [partNode], matchingNodes
+              expression, [partNode], matchingNodes, groupCombiner, itemCombiner
             );
           } else {
             expression = DSLUpdateUtil.applyDelete(
@@ -81,10 +84,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
         // On 'Checkbox' policy, we just add/remove the matching AST node
         if (value) {
           expression = DSLUpdateUtil.applyAdd(
-            expression, [partNode]
+            expression, [partNode], groupCombiner, itemCombiner
           );
         } else {
-          console.log('>', matchingNodes);
           expression = DSLUpdateUtil.applyDelete(
             expression, matchingNodes
           );
@@ -100,7 +102,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         });
 
         expression = DSLUpdateUtil.applyReplace(
-          expression, [newExactNode], matchingNodes
+          expression, [newExactNode], matchingNodes, groupCombiner
         );
         break;
 
@@ -113,7 +115,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         });
 
         expression = DSLUpdateUtil.applyReplace(
-          expression, newFuzzyNodes, matchingNodes
+          expression, newFuzzyNodes, matchingNodes, groupCombiner
         );
         break;
     }
@@ -135,12 +137,20 @@ class DSLFormWithExpressionUpdates extends React.Component {
 }
 
 DSLFormWithExpressionUpdates.defaultProps = {
+  groupCombiner: DSLCombinerTypes.AND,
+  itemCombiner: DSLCombinerTypes.AND,
   onChange() {},
   updatePolicy: DSLUpdatePolicy.Checkbox
 };
 
 DSLFormWithExpressionUpdates.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired,
+  groupCombiner: PropTypes.oneOf(
+    Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
+  ),
+  itemCombiner: PropTypes.oneOf(
+    Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
+  ),
   onChange: PropTypes.func,
   parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
   updatePolicy: PropTypes.oneOf(
