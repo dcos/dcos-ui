@@ -1,10 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-import TaskDetail from '../../../../../plugins/services/src/js/pages/task-details/TaskDetail';
-
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Page from '../../../components/Page';
+import TaskDetail from '../../../../../plugins/services/src/js/pages/task-details/TaskDetail';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 
 const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
