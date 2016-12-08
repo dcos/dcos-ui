@@ -111,7 +111,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
       // The fuzzy attribute replaces as many attributes as in the new text
       //
       case DSLFilterTypes.FUZZY:
-        const newFuzzyNodes = value.split(' ').map((text) => {
+        const newFuzzyNodes = value.replace(':', ' ').split(' ').map((text) => {
           return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {text});
         });
 
