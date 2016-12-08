@@ -92,36 +92,33 @@ const DSLUtil = {
    * @returns {Array} Returns an array of FilterNodes tha match filter
    */
   findNodesByFilter(ast, filter) {
-    return DSLUtil.reduceAstFilters(ast,
-      (memo, astFilter) => {
-        const {
-          filterParams,
-          filterType
-        } = astFilter;
-        const {
-          filterParams: compareFilterParams,
-          filterType: compareFilterType
-        } = filter;
+    return DSLUtil.reduceAstFilters(ast, (memo, astFilter) => {
+      const {
+        filterParams,
+        filterType
+      } = astFilter;
+      const {
+        filterParams: compareFilterParams,
+        filterType: compareFilterType
+      } = filter;
 
-        // Require types to match
-        if (filterType !== compareFilterType) {
-          return memo;
-        }
-
-        // Require only testing properties to match
-        const compareParamNames = Object.keys(compareFilterParams);
-        const comparePropMatches = compareParamNames.every((prop) => {
-          return filterParams[prop] === compareFilterParams[prop];
-        });
-
-        if ((compareParamNames.length === 0) || comparePropMatches) {
-          return memo.concat(astFilter);
-        }
-
+      // Require types to match
+      if (filterType !== compareFilterType) {
         return memo;
-      },
-      []
-    );
+      }
+
+      // Require only testing properties to match
+      const compareParamNames = Object.keys(compareFilterParams);
+      const comparePropMatches = compareParamNames.every((prop) => {
+        return filterParams[prop] === compareFilterParams[prop];
+      });
+
+      if ((compareParamNames.length === 0) || comparePropMatches) {
+        return memo.concat(astFilter);
+      }
+
+      return memo;
+    }, []);
   },
 
   /**
