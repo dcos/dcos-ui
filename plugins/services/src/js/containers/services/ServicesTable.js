@@ -145,6 +145,7 @@ class ServicesTable extends React.Component {
   renderServiceActions(service) {
     let isGroup = service instanceof ServiceTree;
     let isPod = service instanceof Pod;
+    let isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
     let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
     if (isGroup) {
@@ -165,7 +166,7 @@ class ServicesTable extends React.Component {
       },
       {
         className: classNames({
-          hidden: isGroup && instancesCount === 0
+          hidden: (isGroup && instancesCount === 0) || isSingleInstanceApp
         }),
         id: ServiceActionItem.SCALE,
         html: scaleText
