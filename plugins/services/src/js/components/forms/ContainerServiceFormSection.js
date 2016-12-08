@@ -131,17 +131,17 @@ class ContainerServiceFormSection extends Component {
   }
 
   getAdvancedSettings(data = {}, errors = {}) {
-    let {container = {}} = data;
+    const containerType = findNestedPropertyInObject(data.container, 'type');
     let typeErrors = errors.container && errors.container.type;
-    let gpuDisabled = container.type !== MESOS;
+    let gpuDisabled = containerType !== MESOS;
     let selections = Object.keys(containerSettings).map((settingName, index) => {
       let {helpText, label, dockerOnly} = containerSettings[settingName];
       let checked = findNestedPropertyInObject(
-        container,
+        data.container,
         `docker.${settingName}`
       );
 
-      if (container && container.type !== DOCKER) {
+      if (containerType !== DOCKER) {
         return (
           <FieldLabel key={index}>
             <FieldInput
