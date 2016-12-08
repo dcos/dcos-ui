@@ -312,7 +312,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('some fuzzy is:one,of,many nodes');
     });
 
-    it('should correctly add missing nodes using OR policy', function () {
+    it('should correctly add missing nodes using newCombiner=OR', function () {
       let expression = new DSLExpression('few');
       let fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -326,7 +326,25 @@ describe('DSLUpdateUtil', function () {
       ];
 
       expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
-        DSLCombinerTypes.OR).value).toEqual('here, can, be');
+        DSLCombinerTypes.OR).value).toEqual('here, can be');
+    });
+
+    it('should correctly add missing nodes using both OR combiners', function () {
+      let expression = new DSLExpression('few');
+      let fuzzyNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
+      );
+
+      let replace = [
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'here'}),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'can'}),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
+      ];
+
+      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
+        DSLCombinerTypes.OR, DSLCombinerTypes.OR).value)
+        .toEqual('here, can, be');
     });
 
   });
@@ -481,6 +499,27 @@ describe('DSLUpdateUtil', function () {
 
       expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
         .toEqual('some');
+    });
+
+  });
+
+  describe('#getFilterForNode', function () {
+
+    it('should correctly return a node without position info', function () {
+      let node = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
+        text: 'text'
+      });
+
+      expect(DSLUpdateUtil.getFilterForNode(node).position).toEqual([[0, 0]]);
+    });
+
+    it('should correctly return a node wihout attribute label', function () {
+      let node = new DSLASTNodes.FilterNode(4, 9, DSLFilterTypes.ATTRIB, {
+        text: 'text', label: 'foo'
+      });
+
+      expect(DSLUpdateUtil.getFilterForNode(node).filterParams)
+        .toEqual({text: 'text'});
     });
 
   });
