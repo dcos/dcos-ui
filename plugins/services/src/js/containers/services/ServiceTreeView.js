@@ -18,29 +18,6 @@ import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSectio
 import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
 
 class ServiceTreeView extends React.Component {
-  getButtonBar() {
-    const {modalHandlers} = this.context;
-    const {filterExpression} = this.props;
-
-    if (filterExpression.defined) {
-      return null;
-    }
-
-    return (
-      <div className="column-medium-7 text-align-right">
-        <button className="button button-stroke"
-          onClick={modalHandlers.createGroup}>
-          Create Group
-        </button>
-        {' '}
-        <button className="button button-success"
-          onClick={modalHandlers.createService}>
-          Run a Service
-        </button>
-      </div>
-    );
-  }
-
   getFilterBar() {
     const {
       filters,
@@ -66,7 +43,6 @@ class ServiceTreeView extends React.Component {
             expression={filterExpression}
             onChange={onFilterExpressionChange} />
         </div>
-        {this.getButtonBar()}
       </div>
     );
   }
