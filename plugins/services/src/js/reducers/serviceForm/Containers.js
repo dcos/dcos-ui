@@ -1,9 +1,17 @@
-import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
+import {
+  SET,
+  ADD_ITEM,
+  REMOVE_ITEM
+} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
-import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {
+  combineReducers,
+  simpleFloatReducer
+} from '../../../../../../src/js/utils/ReducerUtil';
 import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
+import {FormReducer as volumeMountsReducer} from './VolumeMounts';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
@@ -78,18 +86,37 @@ function containersParser(state) {
     if (item.resources != null) {
       const {resources} = item;
       if (resources.cpus != null) {
-        memo.push(new Transaction(['containers', index, 'resources', 'cpus'], resources.cpus));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'resources',
+          'cpus'
+        ], resources.cpus));
       }
       if (resources.mem != null) {
-        memo.push(new Transaction(['containers', index, 'resources', 'mem'], resources.mem));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'resources',
+          'mem'
+        ], resources.mem));
       }
       if (resources.disk != null) {
-        memo.push(new Transaction(['containers', index, 'resources', 'disk'], resources.disk));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'resources',
+          'disk'
+        ], resources.disk));
       }
     }
 
     if (item.privileged != null) {
-      memo.push(new Transaction(['containers', index, 'privileged'], item.privileged));
+      memo.push(new Transaction([
+        'containers',
+        index,
+        'privileged'
+      ], item.privileged));
     }
 
     if (item.healthChecks != null && item.healthChecks.length !== 0) {
@@ -97,7 +124,11 @@ function containersParser(state) {
         if (item.protocol == null) {
           return memo;
         }
-        memo.push(new Transaction(['containers', index, 'healthChecks'], HealthCheckIndex, ADD_ITEM));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'healthChecks'
+        ], HealthCheckIndex, ADD_ITEM));
         memo.push(new Transaction([
           'containers',
           index,
@@ -139,10 +170,20 @@ function containersParser(state) {
     if (item.artifacts != null && item.artifacts.length !== 0) {
       item.artifacts.forEach((artifact, artifactIndex) => {
         memo.push(
-          new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
+          new Transaction([
+            'containers',
+            index,
+            'artifacts'
+          ], artifactIndex, ADD_ITEM)
         );
         memo.push(...Object.keys(artifact).map((key) => {
-          return new Transaction(['containers', index, 'artifacts', artifactIndex, key], artifact[key]);
+          return new Transaction([
+            'containers',
+            index,
+            'artifacts',
+            artifactIndex,
+            key
+          ], artifact[key]);
         }));
 
       });
@@ -190,10 +231,15 @@ function containersParser(state) {
     }
 
     if (item.forcePullImage != null) {
-      memo.push(new Transaction(['containers', index, 'forcePullImage'], item.forcePullImage));
+      memo.push(new Transaction([
+        'containers',
+        index,
+        'forcePullImage'
+      ], item.forcePullImage));
     }
 
-    if (item.exec != null && item.exec.command != null && item.exec.command.shell != null) {
+    if (item.exec != null && item.exec.command != null &&
+      item.exec.command.shell != null) {
       memo.push(new Transaction([
         'containers',
         index,
@@ -229,7 +275,7 @@ module.exports = {
       this.networkType = valueSplit[0];
     }
 
-    if (!path.includes('containers')) {
+    if (!path.includes('containers') && !path.includes('volumeMounts')) {
       return state.map((container, index) => {
         container.endpoints = mapEndpoints(this.endpoints[index].endpoints, this.networkType, this.appState);
         return container;
@@ -248,6 +294,9 @@ module.exports = {
       this.endpoints = [];
     }
 
+    if (this.volumeMounts == null) {
+      this.volumeMounts = [];
+    }
     let newState = state.slice();
     const joinedPath = path.join('.');
 
@@ -273,6 +322,24 @@ module.exports = {
 
       return newState;
     }
+
+    this.volumeMounts =
+        volumeMountsReducer(this.volumeMounts, {type, path, value});
+
+    newState = state.map((container, index) => {
+      if (this.volumeMounts.length !== 0) {
+        container.volumeMounts = this.volumeMounts.filter((volumeMount) => {
+          return volumeMount.name != null && volumeMount.mountPath[index];
+        }).map((volumeMount) => {
+          return {
+            name: volumeMount.name,
+            mountPath: volumeMount.mountPath[index]
+          };
+        });
+      }
+
+      return container;
+    });
 
     if (field === 'endpoints') {
       if (this.endpoints[index].endpoints == null) {
@@ -349,8 +416,10 @@ module.exports = {
       newState[index].name = value;
     }
 
-    if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
-      newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
+    if (type === SET &&
+      joinedPath === `containers.${index}.exec.command.shell`) {
+      newState[index].exec =
+        Object.assign({}, newState[index].exec, {command: {shell: value}});
     }
 
     if (type === SET && field === 'resources') {
@@ -482,8 +551,10 @@ module.exports = {
       newState[index].name = value;
     }
 
-    if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
-      newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
+    if (type === SET &&
+      joinedPath === `containers.${index}.exec.command.shell`) {
+      newState[index].exec =
+        Object.assign({}, newState[index].exec, {command: {shell: value}});
     }
 
     if (type === SET && field === 'resources') {
