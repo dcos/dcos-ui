@@ -1,13 +1,20 @@
 import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
-import {JSONReducer as healthChecks} from './MultiContainerHealthChecks';
+import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
   mem: simpleFloatReducer('resources.mem'),
   disk: simpleFloatReducer('resources.disk')
 });
+
+const advancedContainerSettings = [
+  'gracePeriodSeconds',
+  'intervalSeconds',
+  'timeoutSeconds',
+  'maxConsecutiveFailures'
+];
 
 function containersParser(state) {
   if (state == null || state.containers == null) {
@@ -64,12 +71,9 @@ function containersParser(state) {
           }
         }
 
-        [
-          'gracePeriodSeconds',
-          'intervalSeconds',
-          'timeoutSeconds',
-          'maxConsecutiveFailures'
-        ].forEach((key) => {
+        advancedContainerSettings.filter((key) => {
+          return item[key] != null;
+        }).forEach((key) => {
           if (item[key] != null) {
             memo.push(new Transaction([
               'containers',
@@ -156,7 +160,8 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'healthChecks') {
+    let field = path[2];
+    if (field === 'healthChecks') {
       if (newState[path[1]].healthChecks == null) {
         newState[path[1]].healthChecks = [];
       }
@@ -165,14 +170,14 @@ module.exports = {
         this.healthChecks[path[1]] = {};
       }
 
-      newState[path[1]].healthChecks = healthChecks.call(
+      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
         this.healthChecks[path[1]],
         newState[path[1]].healthChecks,
         {type, path: path.slice(2), value}
       );
     }
 
-    if (path[2] === 'artifacts') {
+    if (field === 'artifacts') {
       if (newState[path[1]].artifacts == null) {
         newState[path[1]].artifacts = [];
       }
@@ -256,7 +261,9 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'healthChecks') {
+    let field = path[2];
+
+    if (field === 'healthChecks') {
       if (newState[path[1]].healthChecks == null) {
         newState[path[1]].healthChecks = [];
       }
@@ -265,14 +272,14 @@ module.exports = {
         this.healthChecks[path[1]] = {};
       }
 
-      newState[path[1]].healthChecks = healthChecks.call(
+      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
         this.healthChecks[path[1]],
         newState[path[1]].healthChecks,
         {type, path: path.slice(2), value}
       );
     }
 
-    if (path[2] === 'artifacts') {
+    if (field === 'artifacts') {
       if (newState[path[1]].artifacts == null) {
         newState[path[1]].artifacts = [];
       }
