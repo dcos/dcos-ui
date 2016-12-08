@@ -472,6 +472,17 @@ describe('DSLUpdateUtil', function () {
         .toEqual('some (fuzzy expression) text');
     });
 
+    it('should correctly delete lingering comma operators', function () {
+      let expression = new DSLExpression('some, fuzz');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'fuzz'})
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('some');
+    });
+
   });
 
 });
