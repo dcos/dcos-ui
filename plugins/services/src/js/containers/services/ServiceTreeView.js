@@ -14,6 +14,7 @@ import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 
 import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
+import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
 
 class ServiceTreeView extends React.Component {
   getButtonBar() {
@@ -57,7 +58,8 @@ class ServiceTreeView extends React.Component {
           <DSLFilterField
             filters={filters}
             formSections={[
-              ServiceStatusDSLSection
+              ServiceStatusDSLSection,
+              ServiceHealthDSLSection
             ]}
             expression={filterExpression}
             onChange={onFilterExpressionChange} />
