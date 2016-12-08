@@ -25,6 +25,19 @@
     }
   }
 
+  .form-control-inline {
+
+    // This is necessary to override CNVS specificity.
+    &,
+    label& {
+      display: inline-block;
+    }
+
+    & + .form-control-inline {
+      margin-left: @base-spacing-unit * 1/2;
+    }
+  }
+
   // TODO: Remove this when the full screen Create Service is implemented.
   .form-control-force-narrow {
 
@@ -49,12 +62,58 @@
   }
 }
 
+& when (@grid-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .form-control-inline {
+
+      & + .form-control-inline {
+        margin-left: @base-spacing-unit-screen-small * 1/2;
+      }
+    }
+  }
+}
+
+& when (@grid-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .form-control-inline {
+
+      & + .form-control-inline {
+        margin-left: @base-spacing-unit-screen-medium * 1/2;
+      }
+    }
+  }
+}
+
 & when (@grid-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
     .form-control-input-height {
       height: @form-control-height-screen-large;
+    }
+
+    .form-control-inline {
+
+      & + .form-control-inline {
+        margin-left: @base-spacing-unit-screen-large * 1/2;
+      }
+    }
+  }
+}
+
+& when (@grid-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .form-control-inline {
+
+      & + .form-control-inline {
+        margin-left: @base-spacing-unit-screen-jumbo * 1/2;
+      }
     }
   }
 }
