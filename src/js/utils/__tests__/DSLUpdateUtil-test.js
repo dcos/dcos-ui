@@ -525,6 +525,18 @@ describe('DSLUpdateUtil', function () {
         .toEqual('some');
     });
 
+    it('should correctly delete is:c in "is:a,b,c is:d,c"', function () {
+      let expression = new DSLExpression('is:a,b,c is:d,e');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'c'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a,b is:d,e');
+    });
   });
 
   describe('#getFilterForNode', function () {
