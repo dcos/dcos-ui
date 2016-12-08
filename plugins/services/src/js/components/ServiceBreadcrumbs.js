@@ -5,30 +5,35 @@ import {DCOSStore} from 'foundation-ui';
 import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
 
-const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
-  let healthStatus = null;
-
-  if (serviceID != null) {
-    const service = DCOSStore.serviceTree.findItemById(serviceID);
-
-    if (service != null) {
-      const serviceStatus = service.getStatus();
-      const tasksSummary = service.getTasksSummary();
-      const runningTasksCount = tasksSummary.tasksRunning;
-      const instancesCount = service.getInstancesCount();
-      const isDeploying = serviceStatus === 'Deploying';
-
-      healthStatus = (
-        <div className="service-page-header-status muted">
-          &nbsp;
-          {`| ${serviceStatus} (${runningTasksCount}/${instancesCount})`}
-          <HealthBar isDeploying={isDeploying}
-            tasksSummary={tasksSummary}
-            instancesCount={instancesCount}/>
-        </div>
-      );
-    }
+function getHealthStatus(serviceID) {
+  if (serviceID == null) {
+    return null;
   }
+
+  const service = DCOSStore.serviceTree.findItemById(serviceID);
+
+  if (service == null) {
+    return null;
+  }
+
+  const serviceStatus = service.getStatus();
+  const tasksSummary = service.getTasksSummary();
+  const runningTasksCount = tasksSummary.tasksRunning;
+  const instancesCount = service.getInstancesCount();
+  const isDeploying = serviceStatus === 'Deploying';
+
+  return (
+    <div className="service-page-header-status muted">
+      &nbsp;
+      {`| ${serviceStatus} (${runningTasksCount}/${instancesCount})`}
+      <HealthBar isDeploying={isDeploying}
+        tasksSummary={tasksSummary}
+        instancesCount={instancesCount}/>
+    </div>
+  );
+}
+
+const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
 
   const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
   const ids = trimmedServiceID.split('/');
@@ -41,7 +46,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       let breadcrumbHealth = null;
 
       if (index === ids.length - 1) {
-        breadcrumbHealth = healthStatus;
+        breadcrumbHealth = getHealthStatus(serviceID);
       }
 
       aggregateIDs += encodeURIComponent(`/${id}`);
