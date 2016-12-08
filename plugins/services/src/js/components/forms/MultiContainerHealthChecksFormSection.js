@@ -98,7 +98,7 @@ class MultiContainerHealthChecksFormSection extends Component {
     const {data} = this.props;
 
     return data.portDefinitions.map((port, index) => {
-      return (<option value={index}>{port.name || index}</option>);
+      return <option value={index}>{port.name || index}</option>;
     });
   }
 
