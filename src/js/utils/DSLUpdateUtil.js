@@ -1,4 +1,5 @@
 import Config from '../config/Config';
+import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import DSLExpression from '../structs/DSLExpression';
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUtil from './DSLUtil';
@@ -112,23 +113,90 @@ const DSLUpdateUtil = {
    *
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to append
+   * @param {DSLCombinerTypes} combiner - The combiner operation to use
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyAdd(expression, nodes) {
-    let expressionValue = expression.value;
-    const appendNodes = nodes.map((node) => {
-      return DSLUtil.getNodeString(node);
-    });
+  applyAdd(expression, nodes, combiner=DSLCombinerTypes.AND) {
+    let expressionUpdate = nodes.reduce(({value, offset}, node) => {
+      let nodeValue = DSLUtil.getNodeString(node);
+      let newValue = value;
 
-    // Add space only if we have an expression already
-    if (expressionValue) {
-      expressionValue += ' ';
-    }
+      // If we are using AND operation we always append whole nodes with
+      // whitespace (AND) separator.
+      if (combiner === DSLCombinerTypes.AND) {
+        if (newValue) {
+          newValue += ' ';
+        }
 
-    // Return new expression
-    return new DSLExpression(
-      expressionValue + appendNodes.join(' ')
-    );
+        newValue += nodeValue;
+
+        // Also update offset in order for the token positions in the expression
+        // AST to be processable even after the updates
+        offset += newValue.length - value.length;
+
+        return {offset, value: newValue};
+      }
+
+      // If we are using OR operator things are tricky only with attributes
+      if (node.filterType !== DSLFilterTypes.ATTRIB) {
+        if (newValue) {
+          newValue += ', ';
+        }
+
+        newValue += nodeValue;
+
+        // Also update offset in order for the token positions in the expression
+        // AST to be processable even after the updates
+        offset += newValue.length - value.length;
+
+        return {offset, value: newValue};
+      }
+
+      // First, lookup an attribute with the same label in order to compact
+      // it in a multi-value attribute
+      const attribNodes = DSLUtil.reduceAstFilters(expression.ast,
+        (memo, filter) => {
+          if (filter.filterParams.label === node.filterParams.label) {
+            memo.push(filter);
+          }
+
+          return memo;
+        },
+        []
+      );
+
+      // If there is no other attribute with this label, fallback
+      // in the regular appending approach
+      if (attribNodes.length === 0) {
+        if (newValue) {
+          newValue += ', ';
+        }
+
+        newValue += nodeValue;
+
+        // Also update offset in order for the token positions in the expression
+        // AST to be processable even after the updates
+        offset += newValue.length - value.length;
+
+        return {offset, value: newValue};
+      }
+
+      // Append an attribute to the last label
+      const appendToNode = attribNodes[0];
+
+      // Inject only the text into the given label
+      newValue = value.substr(0, appendToNode.position[1][1] + offset) + ',' +
+        node.filterParams.text +
+        value.substr(appendToNode.position[1][1] + offset);
+
+      // Also update offset in order for the token positions in the expression
+      // AST to be processable even after the updates
+      offset += newValue.length - value.length;
+
+      return {offset, value: newValue};
+    }, {offset:0, value:expression.value});
+
+    return new DSLExpression(expressionUpdate.value);
   },
 
   /**
