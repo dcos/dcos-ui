@@ -176,7 +176,8 @@ class PodInstancesContainer extends React.Component {
   }
 
   getModals() {
-    let modalProps = Object.assign({}, this.state.modal);
+    const {pod} = this.props;
+    const modalProps = Object.assign({pod}, this.state.modal);
 
     return (
       <TaskModals
