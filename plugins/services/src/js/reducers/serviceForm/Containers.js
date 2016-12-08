@@ -1,12 +1,20 @@
 import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
   mem: simpleFloatReducer('resources.mem'),
   disk: simpleFloatReducer('resources.disk')
 });
+
+const advancedContainerSettings = [
+  'gracePeriodSeconds',
+  'intervalSeconds',
+  'timeoutSeconds',
+  'maxConsecutiveFailures'
+];
 
 function containersParser(state) {
   if (state == null || state.containers == null) {
@@ -37,10 +45,54 @@ function containersParser(state) {
       memo.push(new Transaction(['containers', index, 'privileged'], item.privileged));
     }
 
+    if (item.healthChecks != null && item.healthChecks.length !== 0) {
+      memo = item.healthChecks.reduce(function (memo, item, HealthCheckIndex) {
+        if (item.protocol == null) {
+          return memo;
+        }
+        memo.push(new Transaction(['containers', index, 'healthChecks'], HealthCheckIndex, ADD_ITEM));
+        memo.push(new Transaction([
+          'containers',
+          index,
+          'healthChecks',
+          HealthCheckIndex,
+          'protocol'
+        ], item.protocol.toUpperCase(), SET));
+
+        if (item.protocol.toUpperCase() === 'COMMAND') {
+          if (item.command != null && item.command.command != null) {
+            memo.push(new Transaction([
+              'containers',
+              index,
+              'healthChecks',
+              HealthCheckIndex,
+              'command'
+            ], item.command.command, SET));
+          }
+        }
+
+        advancedContainerSettings.filter((key) => {
+          return item[key] != null;
+        }).forEach((key) => {
+          if (item[key] != null) {
+            memo.push(new Transaction([
+              'containers',
+              index,
+              'healthChecks',
+              HealthCheckIndex,
+              key
+            ], item[key], SET));
+          }
+        });
+
+        return memo;
+      }, memo);
+    }
+
     if (item.artifacts != null && item.artifacts.length !== 0) {
       item.artifacts.forEach((artifact, artifactIndex) => {
         memo.push(
-            new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
+          new Transaction(['containers', index, 'artifacts'], artifactIndex, ADD_ITEM)
         );
         memo.push(...Object.keys(artifact).map((key) => {
           return new Transaction(['containers', index, 'artifacts', artifactIndex, key], artifact[key]);
@@ -62,6 +114,7 @@ function containersParser(state) {
         'shell'
       ], item.exec.command.shell));
     }
+
     return memo;
   }, []);
 };
@@ -74,6 +127,10 @@ module.exports = {
 
     if (this.cache == null) {
       this.cache = [];
+    }
+
+    if (this.healthChecks == null) {
+      this.healthChecks = [];
     }
 
     if (!state) {
@@ -103,7 +160,24 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'artifacts') {
+    let field = path[2];
+    if (field === 'healthChecks') {
+      if (newState[path[1]].healthChecks == null) {
+        newState[path[1]].healthChecks = [];
+      }
+
+      if (this.healthChecks[path[1]] == null) {
+        this.healthChecks[path[1]] = {};
+      }
+
+      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
+        this.healthChecks[path[1]],
+        newState[path[1]].healthChecks,
+        {type, path: path.slice(2), value}
+      );
+    }
+
+    if (field === 'artifacts') {
       if (newState[path[1]].artifacts == null) {
         newState[path[1]].artifacts = [];
       }
@@ -156,6 +230,10 @@ module.exports = {
       this.cache = [];
     }
 
+    if (this.healthChecks == null) {
+      this.healthChecks = [];
+    }
+
     if (!state) {
       state = [];
     }
@@ -183,7 +261,25 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'artifacts') {
+    let field = path[2];
+
+    if (field === 'healthChecks') {
+      if (newState[path[1]].healthChecks == null) {
+        newState[path[1]].healthChecks = [];
+      }
+
+      if (this.healthChecks[path[1]] == null) {
+        this.healthChecks[path[1]] = {};
+      }
+
+      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
+        this.healthChecks[path[1]],
+        newState[path[1]].healthChecks,
+        {type, path: path.slice(2), value}
+      );
+    }
+
+    if (field === 'artifacts') {
       if (newState[path[1]].artifacts == null) {
         newState[path[1]].artifacts = [];
       }

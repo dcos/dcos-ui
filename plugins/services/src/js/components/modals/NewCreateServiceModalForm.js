@@ -4,6 +4,7 @@ import deepEqual from 'deep-equal';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
+import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
@@ -11,6 +12,7 @@ import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSect
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
+import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -40,11 +42,15 @@ const KEY_VALUE_FIELDS = [
   'labels'
 ];
 
-const ERROR_VALIDATORS = [
+const APP_ERROR_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules
+];
+
+const POD_ERROR_VALIDATORS = [
+  PodValidators.Pod
 ];
 
 class NewCreateServiceModalForm extends Component {
@@ -148,6 +154,12 @@ class NewCreateServiceModalForm extends Component {
       (batch, item) => { return batch.add(item); },
       new Batch()
     );
+
+    let ERROR_VALIDATORS = APP_ERROR_VALIDATORS;
+
+    if (isPod) {
+      ERROR_VALIDATORS = POD_ERROR_VALIDATORS;
+    }
 
     if (shouldValidate) {
       newState.errorList = DataValidatorUtil.validate(
@@ -295,7 +307,7 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabButton id="networking" label="Networking" key="networking" />,
         <TabButton id="environment" label="Environment" key="environment"/>,
-        <TabButton id="healthChecks" label="Health Checks" key="healthChecks"/>
+        <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>
       ];
     }
     return [
@@ -319,8 +331,8 @@ class NewCreateServiceModalForm extends Component {
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="healthChecks" key="healthChecks">
-          <HealthChecksFormSection
+        <TabView id="healthChecks" key="multihealthChecks">
+          <MultiContainerHealthChecksFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
