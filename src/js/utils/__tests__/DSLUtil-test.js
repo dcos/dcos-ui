@@ -1,13 +1,13 @@
 jest.dontMock('../DSLParserUtil');
 jest.dontMock('../DSLUtil');
 jest.dontMock('../../structs/DSLExpression');
-jest.dontMock('../../structs/DSLPropTypes');
+jest.dontMock('../../structs/DSLExpressionPart');
 jest.dontMock('../../../resources/grammar/SearchDSL.jison');
 
 const DSLExpression = require('../../structs/DSLExpression');
 const DSLASTNodes = require('../../structs/DSLASTNodes');
 const DSLFilterTypes = require('../../constants/DSLFilterTypes');
-const DSLPropTypes = require('../../structs/DSLPropTypes');
+const DSLExpressionPart = require('../../structs/DSLExpressionPart');
 const DSLUtil = require('../DSLUtil');
 const SearchDSL = require('../../../resources/grammar/SearchDSL.jison');
 
@@ -81,9 +81,9 @@ describe('DSLUtil', function () {
 
     beforeEach(function () {
       this.propTypes = {
-        attr: DSLPropTypes.attrib('is', 'foo'),
-        exact: DSLPropTypes.exact,
-        fuzzy: DSLPropTypes.fuzzy
+        attr: DSLExpressionPart.attrib('is', 'foo'),
+        exact: DSLExpressionPart.exact,
+        fuzzy: DSLExpressionPart.fuzzy
       };
     });
 
@@ -176,7 +176,7 @@ describe('DSLUtil', function () {
     });
 
     it('should return all occurrences of attrib match', function () {
-      let filter = DSLPropTypes.attrib('is', 'foo');
+      let filter = DSLExpressionPart.attrib('is', 'foo');
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual([
         this.attribs[0], this.attribs[2]
@@ -184,13 +184,13 @@ describe('DSLUtil', function () {
     });
 
     it('should return all occurrences of fuzzy match', function () {
-      let filter = DSLPropTypes.fuzzy;
+      let filter = DSLExpressionPart.fuzzy;
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.fuzzy);
     });
 
     it('should return all occurrences of exact match', function () {
-      let filter = DSLPropTypes.exact;
+      let filter = DSLExpressionPart.exact;
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.exact);
     });
@@ -201,9 +201,9 @@ describe('DSLUtil', function () {
 
     beforeEach(function () {
       this.propTypes = {
-        attr: DSLPropTypes.attrib('is', 'foo'),
-        exact: DSLPropTypes.exact,
-        fuzzy: DSLPropTypes.fuzzy
+        attr: DSLExpressionPart.attrib('is', 'foo'),
+        exact: DSLExpressionPart.exact,
+        fuzzy: DSLExpressionPart.fuzzy
       };
     });
 
