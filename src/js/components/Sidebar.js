@@ -63,8 +63,8 @@ var Sidebar = React.createClass({
       this.onDCOSMetadataChange
     );
 
-    if (this.sidebarRef) {
-      this.sidebarRef.addEventListener(
+    if (this.sidebarWrapperRef) {
+      this.sidebarWrapperRef.addEventListener(
         'transitionend',
         this.handleSidebarTransitionEnd
       );
@@ -83,6 +83,13 @@ var Sidebar = React.createClass({
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
     );
+
+    if (this.sidebarWrapperRef) {
+      this.sidebarWrapperRef.removeEventListener(
+        'transitionend',
+        this.handleSidebarTransitionEnd
+      );
+    }
 
     global.window.removeEventListener('keydown', this.handleKeyPress, true);
   },
@@ -317,7 +324,7 @@ var Sidebar = React.createClass({
   handleSidebarTransitionEnd(event) {
     // Some elements (graphs and Gemini) need to update when the main content
     // width canges, so we emit an event.
-    if (event.target === this.sidebarRef) {
+    if (event.target === this.sidebarWrapperRef) {
       SidebarActions.sidebarWidthChange();
     }
   },
@@ -346,15 +353,15 @@ var Sidebar = React.createClass({
     }
 
     return (
-      <div className="sidebar-wrapper">
+      <div className="sidebar-wrapper"
+        ref={(ref) => { this.sidebarWrapperRef = ref; }}>
         <CSSTransitionGroup
           transitionName="sidebar-backdrop"
           transitionEnterTimeout={250}
           transitionLeaveTimeout={250}>
           {overlay}
         </CSSTransitionGroup>
-        <div className="sidebar flex flex-direction-top-to-bottom"
-          ref={(ref) => { this.sidebarRef = ref; }}>
+        <div className="sidebar flex flex-direction-top-to-bottom">
           <header className="header flex-item-shrink-0">
             {this.getSidebarHeader()}
           </header>
