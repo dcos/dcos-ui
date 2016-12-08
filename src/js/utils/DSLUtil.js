@@ -194,6 +194,19 @@ const DSLUtil = {
           memo[prop] = matchingNodes
             .map((ast) => ast.filterParams.text)
             .join(' ');
+
+          // Also append whatever whitespace remains at the end of the raw value
+          //
+          // NOTE: This is a trick to allow dynamic updates of a React component
+          //       since white spaces at the end of the expression are not part
+          //       of a regular DSL expression and are trimmed.
+          //
+          const whitespaceRegex = /\s+$/;
+          const tailingWaitspace = whitespaceRegex.exec(expression.value);
+          if (tailingWaitspace) {
+            memo[prop] += tailingWaitspace[0];
+          }
+
           return memo;
 
       }

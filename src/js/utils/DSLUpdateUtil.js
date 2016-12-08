@@ -146,6 +146,11 @@ const DSLUpdateUtil = {
    * @returns {String} Returns the updated string
    */
   addNodeString(src, node, fullAst, offset=0, combiner=DSLCombinerTypes.AND) {
+    const whitespaceRegex = /\s+$/;
+
+    // Trim tailing whitespace
+    src = src.replace(whitespaceRegex, '');
+
     // If we are using AND operation just append node string with whitespace
     if (combiner === DSLCombinerTypes.AND) {
       if (src) {
