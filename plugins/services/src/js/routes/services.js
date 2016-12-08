@@ -4,16 +4,16 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
-import ServicesPage from '../pages/ServicesPage';
 import ServicesContainer from '../containers/services/ServicesContainer';
-import ServiceVolumeContainer from '../containers/volume-detail/ServiceVolumeContainer';
+import ServicesPage from '../pages/ServicesPage';
 import ServiceTaskDetailPage from '../pages/task-details/ServiceTaskDetailPage';
+import ServiceVolumeContainer from '../containers/volume-detail/ServiceVolumeContainer';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFileBrowser from '../pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
+import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 import TaskVolumeContainer from '../containers/volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
 
@@ -164,7 +164,6 @@ let serviceRoutes = [
                           {
                             component: TaskFileViewer,
                             hideHeaderNavigation: true,
-                            dontScroll: true,
                             path: 'view(/:filePath(/:innerPath))',
                             type: Route,
                             buildBreadCrumb() {
@@ -179,7 +178,6 @@ let serviceRoutes = [
                       {
                         component: TaskLogsTab,
                         hideHeaderNavigation: true,
-                        dontScroll: true,
                         isTab: true,
                         path: 'logs(/:fileName)',
                         title: 'Logs',

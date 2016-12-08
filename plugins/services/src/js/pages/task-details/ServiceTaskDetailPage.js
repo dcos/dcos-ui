@@ -1,14 +1,18 @@
 import React from 'react';
 
 import TaskDetail from './TaskDetail';
-
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Page from '../../../../../../src/js/components/Page';
 
+const dontScrollRoutes = [
+  /\/files\/view.*$/,
+  /\/logs.*$/
+];
+
 class ServiceTaskDetailPage extends React.Component {
   render() {
-    const {params, routes} = this.props;
+    const {location, params, routes} = this.props;
     const {id, taskID} = params;
 
     let routePrefix = `/services/overview/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
@@ -31,8 +35,12 @@ class ServiceTaskDetailPage extends React.Component {
       breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
     }
 
+    const dontScroll = dontScrollRoutes.some((regex) => {
+      return regex.test(location.pathname);
+    });
+
     return (
-      <Page dontScroll={true}>
+      <Page dontScroll={dontScroll}>
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}
@@ -45,7 +53,7 @@ class ServiceTaskDetailPage extends React.Component {
   }
 }
 
-TaskDetail.propTypes = {
+ServiceTaskDetailPage.propTypes = {
   params: React.PropTypes.object,
   routes: React.PropTypes.array
 };

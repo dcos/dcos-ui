@@ -318,7 +318,7 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <button
         onClick={this.handleGoToBottom}
-        className="button button-inverse go-to-bottom-button">
+        className="button go-to-bottom-button">
         Go to bottom
       </button>
     );
@@ -355,7 +355,7 @@ class MesosLogView extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="log-view flex flex-item-grow-1 flex-item-shrink-1">
+      <div className="log-view flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
         <ReactCSSTransitionGroup
           transitionAppear={true}

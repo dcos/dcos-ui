@@ -11,13 +11,14 @@ import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridContainer from '../pages/nodes/nodes-grid/NodesGridContainer';
 import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
-import NodesTaskDetailPage from '../pages/nodes/NodesTaskDetailPage';
-
 import NodesTableContainer from '../pages/nodes/nodes-table/NodesTableContainer';
+import NodesTaskDetailPage from '../pages/nodes/NodesTaskDetailPage';
 import TaskDetailBreadcrumb from '../../../../services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskDetailsTab';
-import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
+import TaskFileBrowser from '../../../../services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
+import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
+import TaskLogsTab from '../../../../services/src/js/pages/task-details/TaskLogsTab';
 import TaskVolumeContainer from '../../../../services/src/js/containers/volume-detail/TaskVolumeContainer';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
@@ -128,28 +129,46 @@ let nodesRoutes = {
               }
             },
             {
-              type: Route,
-              path: 'files',
-              isTab: true,
-              component: TaskFilesTab,
-              title: 'Files',
               hideHeaderNavigation: true,
-              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view(/:filePath(/:innerPath))',
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
+              component: TaskFilesTab,
+              isTab: true,
+              path: 'files',
+              title: 'Files',
+              type: Route,
+              children: [
+                {
+                  component: TaskFileBrowser,
+                  fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+                  hideHeaderNavigation: true,
+                  type: IndexRoute,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  component: TaskFileViewer,
+                  hideHeaderNavigation: true,
+                  path: 'view(/:filePath(/:innerPath))',
+                  type: Route,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                }
+              ]
             },
             {
-              type: Route,
-              component: TaskFileViewer,
-              dontScroll: true,
-              title: 'Logs',
-              isTab: true,
-              path: 'view(/:filePath(/:innerPath))',
+              component: TaskLogsTab,
               hideHeaderNavigation: true,
+              isTab: true,
+              path: 'logs(/:fileName)',
+              title: 'Logs',
+              type: Route,
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/nodes/:nodeID/tasks/:taskID',

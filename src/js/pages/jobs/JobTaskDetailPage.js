@@ -1,21 +1,25 @@
 import React from 'react';
 
 import TaskDetail from '../../../../plugins/services/src/js/pages/task-details/TaskDetail';
-
 import MesosStateStore from '../../stores/MesosStateStore';
 import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
 import Page from '../../components/Page';
 
+const dontScrollRoutes = [
+  /\/files\/view.*$/,
+  /\/logs.*$/
+];
+
 class JobTaskDetailPage extends React.Component {
   render() {
-    const {params, routes} = this.props;
+    const {location, params, routes} = this.props;
     const {id, taskID} = params;
 
     let routePrefix = `/jobs/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
-      {label: 'Logs', routePath: routePrefix + '/view'}
+      {label: 'Logs', routePath: routePrefix + '/logs'}
     ];
 
     let task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -32,8 +36,12 @@ class JobTaskDetailPage extends React.Component {
       breadcrumbs = <JobsBreadcrumbs />;
     }
 
+    const dontScroll = dontScrollRoutes.some((regex) => {
+      return regex.test(location.pathname);
+    });
+
     return (
-      <Page dontScroll={true}>
+      <Page dontScroll={dontScroll}>
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}
@@ -46,7 +54,7 @@ class JobTaskDetailPage extends React.Component {
   }
 }
 
-TaskDetail.propTypes = {
+JobTaskDetailPage.propTypes = {
   params: React.PropTypes.object,
   routes: React.PropTypes.array
 };

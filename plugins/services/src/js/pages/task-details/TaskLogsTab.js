@@ -57,11 +57,19 @@ class TaskLogsTab extends mixin(StoreMixin) {
     });
   }
 
-  componentWillMount() {
+  /**
+   * @override
+   */
+  componentDidMount() {
+    super.componentDidMount();
     SystemLogStore.fetchStreamTypes(this.props.task.slave_id);
   }
 
+  /**
+   * @override
+   */
   componentWillUnmount() {
+    super.componentWillUnmount();
     SystemLogStore.stopTailing(this.state.subscriptionID);
   }
 
