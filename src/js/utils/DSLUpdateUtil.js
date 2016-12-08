@@ -107,9 +107,11 @@ const DSLUpdateUtil = {
       if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end)))) {
         start = position[0][0] + offset;
         end = position[1][1] + offset;
+
       // Otherwise, bleed left to remove the comma if we are part of multi-value
       } else if (src[start - 1] === ',') {
         start -= 1;
+
       // Or bleed right if we were the first item
       } else if (src[end] === ',') {
         end += 1;
@@ -121,6 +123,11 @@ const DSLUpdateUtil = {
       start -= 1;
     } else if (src[end] === ' ') {
       end += 1;
+    }
+
+    // Bleed left one more time if we have a lingering tailing ','
+    if ((src[start - 1] === ',') && (end >= src.length)) {
+      start -= 1;
     }
 
     // Return the striped result
