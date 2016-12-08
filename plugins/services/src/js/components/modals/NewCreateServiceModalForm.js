@@ -27,6 +27,7 @@ import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
+import VolumeMountFormSection from '../forms/VolumeMountFormSection';
 
 const METHODS_TO_BIND = [
   'handleConvertToPod',
@@ -308,7 +309,8 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabButton id="networking" label="Networking" key="multinetworking" />,
         <TabButton id="environment" label="Environment" key="multienvironment"/>,
-        <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>
+        <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>,
+        <TabButton id="volumes" label="Volumes" key="multivolumes"/>
       ];
     }
     return [
@@ -335,6 +337,13 @@ class NewCreateServiceModalForm extends Component {
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
           <MultiContainerHealthChecksFormSection
+              data={data}
+              errors={errorMap}
+              onRemoveItem={this.handleRemoveItem}
+              onAddItem={this.handleAddItem} />
+        </TabView>,
+        <TabView id="volumes" key="multivolumes">
+          <VolumeMountFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}

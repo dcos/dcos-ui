@@ -26,6 +26,7 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
+import VolumeMountFormSection from '../forms/VolumeMountFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import JSONConfigReducers from '../../reducers/JSONReducers';
@@ -313,8 +314,9 @@ class NewServiceFormModal extends Component {
         GeneralServiceFormSection,
         HealthChecksFormSection,
         NetworkingFormSection,
-        MultiContainerNetworkingFormSection,
-        VolumesFormSection
+        VolumesFormSection,
+        VolumeMountFormSection,
+        MultiContainerNetworkingFormSection
       ];
 
       const jsonParserReducers = combineParsers(
@@ -328,6 +330,9 @@ class NewServiceFormModal extends Component {
           cmd: !isPod,
           container: !isPod,
           containers: isPod,
+          localVolumes: !isPod,
+          externalVolumes: !isPod,
+          volumes: isPod,
           network: isPod
         }
       );
