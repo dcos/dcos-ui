@@ -2,7 +2,6 @@ import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/Tra
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {combineReducers, simpleFloatReducer} from '../../../../../../src/js/utils/ReducerUtil';
 import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
-import {JSONReducer as healthChecks} from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
 
