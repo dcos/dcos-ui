@@ -98,13 +98,16 @@ module.exports = function Hooks() {
         return value;
       }
 
+      // Clone listeners, this will guarantee they all get called
+      listeners = Object.assign({}, listeners);
+
       // Sort the listeners by priority
       let priorities = Object.keys(listeners);
       priorities.sort();
 
       priorities.forEach(function (priority) {
-        // Call all listeners
-        listeners[priority].forEach(function (listener) {
+        // Clone and call all listeners
+        listeners[priority].slice(0).forEach(function (listener) {
           // Creates new arguments array to call the listener with
           let groupedArgs = args.slice();
           groupedArgs.unshift(value);
@@ -152,13 +155,16 @@ module.exports = function Hooks() {
         return;
       }
 
+      // Clone listeners, this will guarantee they all get called
+      listeners = Object.assign({}, listeners);
+
       // Sort the listeners by priority
       let priorities = Object.keys(listeners);
       priorities.sort();
 
       priorities.forEach(function (priority) {
-        // Call all listeners
-        listeners[priority].forEach(function (listener) {
+        // Clone and call all listeners
+        listeners[priority].slice(0).forEach(function (listener) {
           listener.apply(null, args);
         });
       });

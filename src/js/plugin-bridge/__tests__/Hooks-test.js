@@ -126,6 +126,17 @@ describe('HooksAPI', function () {
       expect(fakeAction2.calls.count()).toEqual(1);
     });
 
+    it('doesn\'t skip other listeners when removing current listener', function () {
+      let fakeAction2 = () => {
+        this.hooks.removeAction('foo', fakeAction2);
+      };
+      this.hooks.addAction('foo', fakeAction2);
+      let fakeAction3 = jasmine.createSpy('fakeAction3');
+      this.hooks.addAction('foo', fakeAction3);
+      this.hooks.doAction('foo', 'bar');
+      expect(fakeAction3.calls.count()).toEqual(1);
+    });
+
   });
 
   describe('#removeFilter', function () {
@@ -166,6 +177,17 @@ describe('HooksAPI', function () {
       this.hooks.applyFilter('foo', 'bar');
       expect(this.fakeFilter.calls.count()).toEqual(0);
       expect(fakeFilter2.calls.count()).toEqual(1);
+    });
+
+    it('doesn\'t skip other listeners when removing current listener', function () {
+      let fakeAction2 = () => {
+        this.hooks.removeFilter('foo', fakeAction2);
+      };
+      this.hooks.addFilter('foo', fakeAction2);
+      let fakeAction3 = jasmine.createSpy('fakeAction3');
+      this.hooks.addFilter('foo', fakeAction3);
+      this.hooks.applyFilter('foo', 'bar');
+      expect(fakeAction3.calls.count()).toEqual(1);
     });
 
   });
