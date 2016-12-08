@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {Hooks} from 'PluginSDK';
 
 import Application from '../../structs/Application';
-import Pod from '../../structs/Pod';
+import PodSpec from '../../structs/PodSpec';
 
 import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
 import {NEW_POD_DEFAULTS} from '../../constants/NewPodDefaults';
@@ -80,7 +80,7 @@ class NewServiceFormModal extends Component {
         newState.serviceJsonActive = false;
         newState.serviceFormActive = true;
 
-        if (nextProps.service instanceof Pod) {
+        if (nextProps.service instanceof PodSpec) {
           newState.serviceJsonActive = true;
           newState.serviceFormActive = false;
         }
@@ -184,7 +184,7 @@ class NewServiceFormModal extends Component {
         this.setState({
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceConfig: new Pod(
+          serviceConfig: new PodSpec(
             Object.assign(
               {id: this.props.service.getId()},
               NEW_POD_DEFAULTS
@@ -344,7 +344,7 @@ class NewServiceFormModal extends Component {
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParserReducers)
       );
 
-      let isPod = serviceConfig instanceof Pod;
+      let isPod = serviceConfig instanceof PodSpec;
       const jsonConfigReducers = combineReducers(
         Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers),
         {
@@ -475,7 +475,7 @@ class NewServiceFormModal extends Component {
     if (nextProps.isEdit) {
       newState.servicePickerActive = false;
 
-      if (nextProps.service instanceof Pod) {
+      if (nextProps.service instanceof PodSpec) {
         newState.serviceJsonActive = true;
       } else {
         newState.serviceFormActive = true;
