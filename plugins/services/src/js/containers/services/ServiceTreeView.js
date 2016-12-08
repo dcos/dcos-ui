@@ -15,6 +15,7 @@ import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 
 import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
 import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
+import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
 
 class ServiceTreeView extends React.Component {
   getButtonBar() {
@@ -59,7 +60,8 @@ class ServiceTreeView extends React.Component {
             filters={filters}
             formSections={[
               ServiceStatusDSLSection,
-              ServiceHealthDSLSection
+              ServiceHealthDSLSection,
+              FuzzyTextDSLSection
             ]}
             expression={filterExpression}
             onChange={onFilterExpressionChange} />
