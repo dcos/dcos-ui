@@ -104,7 +104,7 @@ const DSLUpdateUtil = {
       // value in the attrib. To test for this, we are checking if the character
       // right before is the label ':' and the character after is a whitespace
       // or a comma with whitespace
-      if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end + 1)))) {
+      if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end)))) {
         start = position[0][0] + offset;
         end = position[1][1] + offset;
       // Otherwise, bleed left to remove the comma if we are part of multi-value
@@ -116,7 +116,7 @@ const DSLUpdateUtil = {
     // Bleed left or right whitespace (but not both)
     if (src[start - 1] === ' ') {
       start -= 1;
-    } else if (src[end + 1] === ' ') {
+    } else if (src[end] === ' ') {
       end += 1;
     }
 

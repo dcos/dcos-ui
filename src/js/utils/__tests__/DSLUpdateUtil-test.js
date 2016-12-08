@@ -341,6 +341,71 @@ describe('DSLUpdateUtil', function () {
         .toEqual('');
     });
 
+    it('should correctly delete first in multiple attrib nodes', function () {
+      let expression = new DSLExpression('is:a is:b is:c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'a'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:b is:c');
+    });
+
+    it('should correctly delete last in multiple attrib nodes', function () {
+      let expression = new DSLExpression('is:a is:b is:c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'c'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a is:b');
+    });
+
+    it('should correctly delete internal in multiple attrib nodes', function () {
+      let expression = new DSLExpression('is:a is:b is:c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'b'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a is:c');
+    });
+
+    it('should correctly delete one in multiple attrib nodes', function () {
+      let expression = new DSLExpression('is:a is:b, is:c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'b'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a, is:c');
+    });
+
+    it('should correctly delete one in multi-value attrib node', function () {
+      let expression = new DSLExpression('is:a,b,c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'b'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a,c');
+    });
+
     it('should correctly delete one fuzzy node', function () {
       let expression = new DSLExpression('fuzz');
       let deleteNodes = [expression.ast];
