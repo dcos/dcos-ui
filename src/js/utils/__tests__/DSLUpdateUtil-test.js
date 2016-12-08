@@ -5,6 +5,7 @@ jest.dontMock('../../structs/DSLExpression');
 jest.dontMock('../../../resources/grammar/SearchDSL.jison');
 
 const DSLASTNodes = require('../../structs/DSLASTNodes');
+const DSLCombinerTypes = require('../../constants/DSLCombinerTypes');
 const DSLExpression = require('../../structs/DSLExpression');
 const DSLFilterTypes = require('../../constants/DSLFilterTypes');
 const DSLUpdateUtil = require('../DSLUpdateUtil');
@@ -176,6 +177,46 @@ describe('DSLUpdateUtil', function () {
 
       expect(DSLUpdateUtil.applyAdd(expression, [node, node]).value)
         .toEqual('foo bar label:text label:text');
+    });
+
+    it('should correctly add one attrib node to an expression with OR', function () {
+      let expression = new DSLExpression('foo bar');
+      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+        label: 'label', text: 'text'
+      });
+
+      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
+        .toEqual('foo bar, label:text');
+    });
+
+    it('should correctly add fuzzy node to an expression with OR', function () {
+      let expression = new DSLExpression('foo bar');
+      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
+        text: 'text'
+      });
+
+      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
+        .toEqual('foo bar, text');
+    });
+
+    it('should correctly add exact node to an expression with OR', function () {
+      let expression = new DSLExpression('foo bar');
+      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
+        text: 'text'
+      });
+
+      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
+        .toEqual('foo bar, "text"');
+    });
+
+    it('should correctly create multi-value attrib when adding with OR', function () {
+      let expression = new DSLExpression('foo bar label:some');
+      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+        label: 'label', text: 'text'
+      });
+
+      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
+        .toEqual('foo bar label:some,text');
     });
 
   });
