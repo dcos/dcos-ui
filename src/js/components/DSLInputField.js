@@ -116,14 +116,13 @@ class DSLInputField extends React.Component {
 
     return (
       <span className="form-control-group-add-on">
-        <a onClick={this.handleInputClear}>
-          <Icon
-            family="system"
-            id="close"
-            size="mini"
-            className="clickable"
-            color={color} />
-        </a>
+        <Icon
+          family="system"
+          id="close"
+          size="mini"
+          className="clickable"
+          color={color}
+          onClick={this.handleInputClear} />
       </span>
     );
   }
@@ -156,14 +155,13 @@ class DSLInputField extends React.Component {
 
     return (
       <span className="form-control-group-add-on">
-        <a onClick={onDropdownClick}>
-          <Icon
-            family="system"
-            id="caret-down"
-            size="mini"
-            className="clickable"
-            color={color} />
-        </a>
+        <Icon
+          family="system"
+          id="caret-down"
+          size="mini"
+          className="clickable"
+          color={color}
+          onClick={onDropdownClick} />
       </span>
     );
   }

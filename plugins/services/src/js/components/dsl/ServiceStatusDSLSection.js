@@ -4,6 +4,9 @@ import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
 import DSLFormWithExpressionUpdates from '../../../../../../src/js/components/DSLFormWithExpressionUpdates';
 import DSLUtil from '../../../../../../src/js/utils/DSLUtil';
+import FieldInput from '../../../../../../src/js/components/form/FieldInput';
+import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
 const PARTS = {
   is_running   : DSLExpressionPart.attrib('is', 'running'),
@@ -27,55 +30,55 @@ class ServiceStatusDSLSection extends React.Component {
         onChange={onChange}
         parts={PARTS} >
 
-        <h5>STATUS</h5>
+        <label>Status</label>
         <div className="row">
           <div className="column-6">
-            <div className="form-group">
-              <label className="form-control-toggle">
-                <input
+            <FormGroup>
+              <FieldLabel>
+                <FieldInput
                   checked={data.is_running}
                   disabled={!enabled}
                   name="is_running"
                   type="checkbox" />
                 Running
-              </label>
-              <label className="form-control-toggle">
-                <input
+              </FieldLabel>
+              <FieldLabel>
+                <FieldInput
                   checked={data.is_deploying}
                   disabled={!enabled}
                   name="is_deploying"
                   type="checkbox" />
                 Deploying
-              </label>
-              <label className="form-control-toggle">
-                <input
+              </FieldLabel>
+              <FieldLabel>
+                <FieldInput
                   checked={data.is_suspended}
                   disabled={!enabled}
                   name="is_suspended"
                   type="checkbox" />
                 Suspended
-              </label>
-            </div>
+              </FieldLabel>
+            </FormGroup>
           </div>
           <div className="column-6">
-            <div className="form-group">
-              <label className="form-control-toggle">
-                <input
+            <FormGroup>
+              <FieldLabel>
+                <FieldInput
                   checked={data.is_delayed}
                   disabled={!enabled}
                   name="is_delayed"
                   type="checkbox" />
                 Delayed
-              </label>
-              <label className="form-control-toggle">
-                <input
+              </FieldLabel>
+              <FieldLabel>
+                <FieldInput
                   checked={data.is_waiting}
                   disabled={!enabled}
                   name="is_waiting"
                   type="checkbox" />
                 Waiting
-              </label>
-            </div>
+              </FieldLabel>
+            </FormGroup>
           </div>
         </div>
       </DSLFormWithExpressionUpdates>
