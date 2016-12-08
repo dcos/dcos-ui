@@ -19,7 +19,7 @@ import StringUtil from '../../utils/StringUtil';
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
-    <Link to="universe/packages" key={-1}>Packages</Link>
+    <Link to="/universe/packages" key={-1}>Packages</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;

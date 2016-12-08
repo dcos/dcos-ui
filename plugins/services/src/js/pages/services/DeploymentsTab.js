@@ -54,7 +54,7 @@ function columnClassNameGetter(prop, sortBy, row) {
 
 const DeploymentsBreadcrumbs = () => {
   const crumbs = [
-    <Link to="services/deployments" key={0}>Deployments</Link>
+    <Link to="/services/deployments" key={0}>Deployments</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="services" breadcrumbs={crumbs} />;

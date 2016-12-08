@@ -14,14 +14,14 @@ import UnitSummaries from '../../constants/UnitSummaries';
 
 const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   const crumbs = [
-    <Link to="components" key={-1}>Components</Link>
+    <Link to="/components" key={-1}>Components</Link>
   ];
 
   if (unit != null) {
     let unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Link to={`components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
+      <Link to={`/components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
     );
   }
 
@@ -30,7 +30,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
     let healthStatus = node.getHealth();
 
     crumbs.push(
-      <Link to={`components/${unit.get('id')}/${nodeIP}`} key={1}>
+      <Link to={`/components/${unit.get('id')}/${nodeIP}`} key={1}>
         {`${nodeIP} `}
         <span className={healthStatus.classNames}>
           ({healthStatus.title})

@@ -14,12 +14,12 @@ import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 
 const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
   const crumbs = [
-    <Link to="networking/networks" key={-1}>Networks</Link>
+    <Link to="/networking/networks" key={-1}>Networks</Link>
   ];
 
   if (overlay) {
     let name = overlay.getName();
-    crumbs.push(<Link to={`networking/networks/${name}`} key={0}>{name}</Link>);
+    crumbs.push(<Link to={`/networking/networks/${name}`} key={0}>{name}</Link>);
   } else {
     crumbs.push(<span>{overlayID}</span>);
   }

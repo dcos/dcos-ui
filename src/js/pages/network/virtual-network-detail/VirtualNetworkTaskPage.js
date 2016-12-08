@@ -8,20 +8,20 @@ import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 
 const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
   const crumbs = [
-    <Link to="networking/networks" key={-1}>Networks</Link>
+    <Link to="/networking/networks" key={-1}>Networks</Link>
   ];
 
   let overlayName = overlayID;
   if (overlay) {
     overlayName = overlay.getName();
-    crumbs.push(<Link to={`networking/networks/${overlayName}`} key={0}>{overlayName}</Link>);
+    crumbs.push(<Link to={`/networking/networks/${overlayName}`} key={0}>{overlayName}</Link>);
   } else {
     crumbs.push(<span>{overlayID}</span>);
   }
 
   if (task) {
     let taskName = task.getName();
-    crumbs.push(<Link to={`networking/networks/${overlayName}/tasks/${taskName}`}>{taskName}</Link>);
+    crumbs.push(<Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>{taskName}</Link>);
   } else {
     crumbs.push(<span>{taskID}</span>);
   }

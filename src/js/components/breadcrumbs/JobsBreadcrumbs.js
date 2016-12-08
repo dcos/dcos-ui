@@ -5,7 +5,9 @@ import PageHeaderBreadcrumbs from '../../components/NewPageHeaderBreadcrumbs';
 
 const JobsBreadcrumbs = ({jobID, taskID, taskName}) => {
   let aggregateIDs = '';
-  const crumbs = [<Link to="jobs">Jobs</Link>];
+  const crumbs = [
+    <Link to="/jobs">Jobs</Link>
+  ];
 
   if (jobID != null && jobID.length > 0) {
     let ids = jobID.split('.');

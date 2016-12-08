@@ -17,7 +17,7 @@ import VirtualNetworksTable from './VirtualNetworksTable';
 
 const NetworksBreadcrumbs = () => {
   const crumbs = [
-    <Link to="networking/networks" key={-1}>Networks</Link>
+    <Link to="/networking/networks" key={-1}>Networks</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;

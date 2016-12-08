@@ -14,7 +14,7 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 
 const InstalledPackagesBreadcrumbs = () => {
   const crumbs = [
-    <Link to="universe/installed-packages" key={-1}>Installed</Link>
+    <Link to="/universe/installed-packages" key={-1}>Installed</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
