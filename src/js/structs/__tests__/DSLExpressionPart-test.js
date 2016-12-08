@@ -1,32 +1,32 @@
-jest.dontMock('../DSLPropTypes');
+jest.dontMock('../DSLExpressionPart');
 const DSLFilterTypes = require('../../constants/DSLFilterTypes');
-const DSLPropTypes = require('../DSLPropTypes');
+const DSLExpressionPart = require('../DSLExpressionPart');
 
-describe('DSLPropTypes', function () {
+describe('DSLExpressionPart', function () {
 
   it('should correct create an .attrib(\'label\') filter', function () {
-    let ret = DSLPropTypes.attrib('label');
+    let ret = DSLExpressionPart.attrib('label');
 
     expect(ret.filterType).toEqual(DSLFilterTypes.ATTRIB);
     expect(ret.filterParams).toEqual({label: 'label'});
   });
 
   it('should correct create an .attrib(\'label\', \'text\') filter', function () {
-    let ret = DSLPropTypes.attrib('label', 'text');
+    let ret = DSLExpressionPart.attrib('label', 'text');
 
     expect(ret.filterType).toEqual(DSLFilterTypes.ATTRIB);
     expect(ret.filterParams).toEqual({label: 'label', text: 'text'});
   });
 
   it('should correct create an .exact filter', function () {
-    let ret = DSLPropTypes.exact;
+    let ret = DSLExpressionPart.exact;
 
     expect(ret.filterType).toEqual(DSLFilterTypes.EXACT);
     expect(ret.filterParams).toEqual({});
   });
 
   it('should correct create an .fuzzy filter', function () {
-    let ret = DSLPropTypes.fuzzy;
+    let ret = DSLExpressionPart.fuzzy;
 
     expect(ret.filterType).toEqual(DSLFilterTypes.FUZZY);
     expect(ret.filterParams).toEqual({});
