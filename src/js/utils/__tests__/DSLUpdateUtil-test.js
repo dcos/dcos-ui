@@ -380,6 +380,45 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a is:c');
     });
 
+    it('should correctly delete first in multi-value attrib nodes', function () {
+      let expression = new DSLExpression('is:a,b,c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'a'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:b,c');
+    });
+
+    it('should correctly delete internal in multi-value attrib nodes', function () {
+      let expression = new DSLExpression('is:a,b,c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'b'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a,c');
+    });
+
+    it('should correctly delete last in multi-value attrib nodes', function () {
+      let expression = new DSLExpression('is:a,b,c');
+      let deleteNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'c'
+        })
+      );
+
+      expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
+        .toEqual('is:a,b');
+    });
+
     it('should correctly delete one in multiple attrib nodes', function () {
       let expression = new DSLExpression('is:a is:b, is:c');
       let deleteNodes = DSLUtil.findNodesByFilter(

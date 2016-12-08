@@ -110,6 +110,9 @@ const DSLUpdateUtil = {
       // Otherwise, bleed left to remove the comma if we are part of multi-value
       } else if (src[start - 1] === ',') {
         start -= 1;
+      // Or bleed right if we were the first item
+      } else if (src[end] === ',') {
+        end += 1;
       }
     }
 
