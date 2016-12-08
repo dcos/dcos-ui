@@ -12,6 +12,7 @@ import HostsPageContent from './nodes-overview/HostsPageContent';
 import Icon from '../../../../../src/js/components/Icon';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
+import NodeBreadcrumbs from '../components/NodeBreadcrumbs';
 import Page from '../../../../../src/js/components/Page';
 import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import SidebarActions from '../../../../../src/js/events/SidebarActions';
@@ -248,6 +249,7 @@ var NodesOverview = React.createClass({
 
     return (
       <Page>
+        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
           filterButtonContent={this.getButtonContent}
