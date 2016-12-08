@@ -384,18 +384,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     let job = MetronomeStore.getJob(this.props.params.id);
 
     return (
-        <Page>
-          <Page.Header
-              actions={this.getActions()}
-              breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
-              tabs={this.getTabs()} />
-          {this.tabs_getTabView(job)}
-          <JobFormModal isEdit={true}
-              job={job}
-              open={this.state.jobActionDialog === DIALOGS.EDIT}
-              onClose={this.closeDialog} />
-          {this.getDestroyConfirmDialog()}
-        </Page>
+      <Page>
+        <Page.Header
+          actions={this.getActions()}
+          breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
+          tabs={this.getTabs()} />
+        {this.tabs_getTabView(job)}
+        <JobFormModal isEdit={true}
+          job={job}
+          open={this.state.jobActionDialog === DIALOGS.EDIT}
+          onClose={this.closeDialog} />
+        {this.getDestroyConfirmDialog()}
+      </Page>
     );
   }
 }

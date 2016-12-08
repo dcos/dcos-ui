@@ -138,7 +138,10 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <Page>
-        <Page.Header actions={this.getActions()} breadcrumbs={breadcrumbs} tabs={this.getTabs()}>
+        <Page.Header
+          actions={this.getActions()}
+          breadcrumbs={breadcrumbs}
+          tabs={this.getTabs()}>
           <PodHeader
             onDestroy={this.handleActionDestroy}
             onEdit={this.handleActionEdit}
