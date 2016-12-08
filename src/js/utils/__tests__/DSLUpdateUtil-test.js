@@ -13,7 +13,7 @@ const DSLUtil = require('../DSLUtil');
 
 describe('DSLUpdateUtil', function () {
 
-  describe('#updateNodeString', function () {
+  describe('#updateNodeTextString', function () {
 
     it('should correctly update attribute nodes', function () {
       let value = 'label:foo';
@@ -23,7 +23,7 @@ describe('DSLUpdateUtil', function () {
         label: 'label', text: 'bar'
       });
 
-      expect(DSLUpdateUtil.updateNodeString(value, node, replace))
+      expect(DSLUpdateUtil.updateNodeTextString(value, node, replace))
         .toEqual('label:bar');
     });
 
@@ -35,7 +35,7 @@ describe('DSLUpdateUtil', function () {
         label: 'label', text: 'bar'
       });
 
-      expect(DSLUpdateUtil.updateNodeString(value, node, replace))
+      expect(DSLUpdateUtil.updateNodeTextString(value, node, replace))
         .toEqual('label:bar,baz');
     });
 
@@ -47,7 +47,7 @@ describe('DSLUpdateUtil', function () {
         text: 'bar'
       });
 
-      expect(DSLUpdateUtil.updateNodeString(value, node, replace))
+      expect(DSLUpdateUtil.updateNodeTextString(value, node, replace))
         .toEqual('bar');
     });
 
@@ -59,7 +59,7 @@ describe('DSLUpdateUtil', function () {
         text: 'bar'
       });
 
-      expect(DSLUpdateUtil.updateNodeString(value, node, replace))
+      expect(DSLUpdateUtil.updateNodeTextString(value, node, replace))
         .toEqual('"bar"');
     });
 
@@ -72,7 +72,7 @@ describe('DSLUpdateUtil', function () {
         label: 'label', text: 'bar'
       });
 
-      expect(DSLUpdateUtil.updateNodeString(value, node, replace, 10))
+      expect(DSLUpdateUtil.updateNodeTextString(value, node, replace, 10))
         .toEqual('some junk label:bar');
     });
 
@@ -287,6 +287,46 @@ describe('DSLUpdateUtil', function () {
 
       expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace).value)
         .toEqual('here can be');
+    });
+
+    it('should correctly replace multi-value attribute nodes', function () {
+      let expression = new DSLExpression('some fuzzy is:a,b,c nodes');
+      let attribNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {label: 'is'})
+      );
+
+      let replace = [
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'one'
+        }),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'of'
+        }),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+          label: 'is', text: 'many'
+        })
+      ];
+
+      expect(DSLUpdateUtil.applyReplace(expression, attribNodes, replace).value)
+        .toEqual('some fuzzy is:one,of,many nodes');
+    });
+
+    it('should correctly add missing nodes using OR policy', function () {
+      let expression = new DSLExpression('few');
+      let fuzzyNodes = DSLUtil.findNodesByFilter(
+        expression.ast,
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
+      );
+
+      let replace = [
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'here'}),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'can'}),
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
+      ];
+
+      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
+        DSLCombinerTypes.OR).value).toEqual('here, can, be');
     });
 
   });

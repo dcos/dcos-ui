@@ -5,8 +5,9 @@ import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUtil from './DSLUtil';
 
 const DSLUpdateUtil = {
+
   /**
-   * Update the string representation of a node in order to match the new node
+   * Update the text representation of a node in order to match the new node.
    *
    * @param {String} src - The source expression string
    * @param {ASTNode} node - The ast node to replace
@@ -14,9 +15,11 @@ const DSLUpdateUtil = {
    * @param {number} offset - The offset to apply on position indices
    * @returns {String} Returns the updated string
    */
-  updateNodeString(src, node, newNode, offset=0) {
+  updateNodeTextString(src, node, newNode, offset=0) {
     const {position, filterType} = node;
-    let {filterParams: {text, label}} = newNode;
+    let textStart = position[0][0] + offset;
+    let textEnd = position[0][1] + offset;
+    let {filterParams: {text}} = newNode;
 
     if (filterType !== newNode.filterType) {
       if (Config.environment === 'development') {
@@ -26,45 +29,58 @@ const DSLUpdateUtil = {
       return src;
     }
 
-    switch (filterType) {
-      case DSLFilterTypes.ATTRIB:
-        // Attribute nodes require a special care since their value might be
-        // located in a different location than its label (ex. multi-value)
-        //
-        // position[0] contains the `label:` part
-        // position[1] contains the `value` part
-        //
-        const labelStart = position[0][0] + offset;
-        const labelEnd = position[0][1] + offset;
-        const valueStart = position[1][0] + offset;
-        const valueEnd = position[1][1] + offset;
-
-        return src.substr(0, labelStart) + `${label}:` +
-          src.substr(labelEnd, valueStart - labelEnd) + text +
-          src.substr(valueEnd);
-
-      case DSLFilterTypes.EXACT:
-        // Exact matches are not quoted, so quote them now
-        text = `"${text}"`;
-
-      /* eslint-disable no-fallthrough */
-      case DSLFilterTypes.FUZZY:
-      /* eslint-enable no-fallthrough */
-
-        // Exact or fuzzy matches should replace the entire text with the new
-        // version of the string
-        //
-        // position[0] contains the `text` part
-        //
-        const textStart = position[0][0] + offset;
-        const textEnd = position[0][1] + offset;
-
-        return src.substr(0, textStart) + text + src.substr(textEnd);
+    // Attributes have their value on position[1]
+    if (filterType === DSLFilterTypes.ATTRIB) {
+      textStart = position[1][0] + offset;
+      textEnd = position[1][1] + offset;
     }
+
+    // Exact matches are not quoted, so quote them now
+    if (filterType === DSLFilterTypes.EXACT) {
+      text = `"${text}"`;
+    }
+
+    // Replace the entire string
+    return src.substr(0, textStart) + text + src.substr(textEnd);
   },
 
   /**
-   * Delete the string representation of the given AST node
+   * Update the label of an attribute node with the new label from `newNode`.
+   *
+   * @param {String} src - The source expression string
+   * @param {ASTNode} node - The ast node to replace
+   * @param {ASTNode} newNode - The ast node to replace with
+   * @param {number} offset - The offset to apply on position indices
+   * @returns {String} Returns the updated string
+   */
+  updateNodeValueString(src, node, newNode, offset=0) {
+    const {position, filterType} = node;
+    const labelStart = position[0][0] + offset;
+    const labelEnd = position[0][1] + offset;
+    let {filterParams: {label}} = newNode;
+
+    if (filterType !== newNode.filterType) {
+      if (Config.environment === 'development') {
+        throw new Error('Trying to update a node with a mismatching node!');
+      }
+
+      return src;
+    }
+
+    if (filterType !== DSLFilterTypes.ATTRIB) {
+      if (Config.environment === 'development') {
+        throw new Error('Trying to update a non-label node as label!');
+      }
+
+      return src;
+    }
+
+    // Replace only label
+    return src.substr(0, labelStart) + `${label}:` + src.substr(labelEnd);
+  },
+
+  /**
+   * Delete the string representation of the given expression string
    *
    * @param {String} src - The source expression string
    * @param {ASTNode} node - The node node to replace
@@ -109,6 +125,67 @@ const DSLUpdateUtil = {
   },
 
   /**
+   * Append the given node at the end of the expression
+   *
+   * @param {String} src - The source expression string
+   * @param {ASTNode} node - The node node to replace
+   * @param {ASTNode} fullAst - The representation of the current full AST
+   * @param {number} offset - The offset to apply on position indices
+   * @param {DSLCombinerTypes} [combiner] - The combiner operation to use
+   * @returns {String} Returns the updated string
+   */
+  addNodeString(src, node, fullAst, offset=0, combiner=DSLCombinerTypes.AND) {
+    // If we are using AND operation just append node string with whitespace
+    if (combiner === DSLCombinerTypes.AND) {
+      if (src) {
+        src += ' ';
+      }
+
+      return src + DSLUtil.getNodeString(node);
+    }
+
+    // If we are using OR operator things are tricky only with attributes
+    // The rest are just appended at the end, but with comma separator.
+    if (node.filterType !== DSLFilterTypes.ATTRIB) {
+      if (src) {
+        src += ', ';
+      }
+
+      return src + DSLUtil.getNodeString(node);
+    }
+
+    // On attributes with OR operator we first check if we already have an
+    // attribute with such label and we prefer creating multi-value expression
+    const attribNodes = DSLUtil.reduceAstFilters(fullAst,
+      (memo, filter) => {
+        if (filter.filterParams.label === node.filterParams.label) {
+          memo.push(filter);
+        }
+
+        return memo;
+      },
+      []
+    );
+
+    // If there is no other attribute with this label, fallback
+    // in the regular appending approach
+    if (attribNodes.length === 0) {
+      if (src) {
+        src += ', ';
+      }
+
+      return src + DSLUtil.getNodeString(node);
+    }
+
+    // Append an attribute to the last label
+    const appendToNode = attribNodes[0];
+
+    // Inject only the text into the given label
+    return src.substr(0, appendToNode.position[1][1] + offset) + ',' +
+      node.filterParams.text + src.substr(appendToNode.position[1][1] + offset);
+  },
+
+  /**
    * Append the given nodes at the end of the expression
    *
    * @param {DSLExpression} expression - The expression to update
@@ -118,78 +195,11 @@ const DSLUpdateUtil = {
    */
   applyAdd(expression, nodes, combiner=DSLCombinerTypes.AND) {
     let expressionUpdate = nodes.reduce(({value, offset}, node) => {
-      let nodeValue = DSLUtil.getNodeString(node);
-      let newValue = value;
-
-      // If we are using AND operation we always append whole nodes with
-      // whitespace (AND) separator.
-      if (combiner === DSLCombinerTypes.AND) {
-        if (newValue) {
-          newValue += ' ';
-        }
-
-        newValue += nodeValue;
-
-        // Also update offset in order for the token positions in the expression
-        // AST to be processable even after the updates
-        offset += newValue.length - value.length;
-
-        return {offset, value: newValue};
-      }
-
-      // If we are using OR operator things are tricky only with attributes
-      if (node.filterType !== DSLFilterTypes.ATTRIB) {
-        if (newValue) {
-          newValue += ', ';
-        }
-
-        newValue += nodeValue;
-
-        // Also update offset in order for the token positions in the expression
-        // AST to be processable even after the updates
-        offset += newValue.length - value.length;
-
-        return {offset, value: newValue};
-      }
-
-      // First, lookup an attribute with the same label in order to compact
-      // it in a multi-value attribute
-      const attribNodes = DSLUtil.reduceAstFilters(expression.ast,
-        (memo, filter) => {
-          if (filter.filterParams.label === node.filterParams.label) {
-            memo.push(filter);
-          }
-
-          return memo;
-        },
-        []
+      let newValue = DSLUpdateUtil.addNodeString(
+        value, node, expression.ast, offset, combiner
       );
 
-      // If there is no other attribute with this label, fallback
-      // in the regular appending approach
-      if (attribNodes.length === 0) {
-        if (newValue) {
-          newValue += ', ';
-        }
-
-        newValue += nodeValue;
-
-        // Also update offset in order for the token positions in the expression
-        // AST to be processable even after the updates
-        offset += newValue.length - value.length;
-
-        return {offset, value: newValue};
-      }
-
-      // Append an attribute to the last label
-      const appendToNode = attribNodes[0];
-
-      // Inject only the text into the given label
-      newValue = value.substr(0, appendToNode.position[1][1] + offset) + ',' +
-        node.filterParams.text +
-        value.substr(appendToNode.position[1][1] + offset);
-
-      // Also update offset in order for the token positions in the expression
+      // Update offset in order for the token positions in the expression
       // AST to be processable even after the updates
       offset += newValue.length - value.length;
 
@@ -230,9 +240,10 @@ const DSLUpdateUtil = {
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to update
    * @param {Array} newNodes - The node(s) to update with
+   * @param {DSLCombinerTypes} [combiner] - The combiner operation to use on add
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyReplace(expression, nodes, newNodes) {
+  applyReplace(expression, nodes, newNodes, combiner=DSLCombinerTypes.AND) {
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
     let offset = 0;
@@ -243,7 +254,7 @@ const DSLUpdateUtil = {
       const withNode = newNodes[i];
 
       // Update expression value
-      const newValue = DSLUpdateUtil.updateNodeString(
+      const newValue = DSLUpdateUtil.updateNodeTextString(
         expressionValue, updateNode, withNode, offset
       );
 
@@ -254,34 +265,42 @@ const DSLUpdateUtil = {
       expressionValue = newValue;
     }
 
-    // Then delete nodes
+    // Comile the status of the expression so far
+    const newExpression = new DSLExpression(expressionValue);
+
+    // Delete nodes using applyDelete
     if (newNodes.length < nodes.length) {
-      // We are deleting from the last to the first in order to keep
-      // the offsets intact so we don't have to recalculate
-      for (let i = nodes.length - 1; i >= updateCount; --i) {
-        const deleteNode = nodes[i];
-        expressionValue = DSLUpdateUtil.deleteNodeString(
-          expressionValue, deleteNode, offset
-        );
-      }
+
+      // Note that the offsets in the `nodes` array point to the old expression
+      // so they have to be updated in order to match the new expression
+      const deleteNodes = nodes.slice(updateCount)
+        .map((node) => {
+          node.position = node.position.map(([start, end]) => {
+            return [
+              start + offset,
+              end + offset
+            ];
+          });
+
+          return node;
+        });
+
+      // We avoid expanding the logic of `applyDelete` and instead we use the
+      // 'hack' of the offset update above in order to isolate the logic.
+      return DSLUpdateUtil.applyDelete(
+        newExpression, deleteNodes
+      );
     }
 
-    // And finally insert new nodes
+    // Add nodes using applyAdd
     if (newNodes.length > nodes.length) {
-      const appendNodes = newNodes.slice(updateCount).map((node) => {
-        return DSLUtil.getNodeString(node);
-      });
-
-      // Add space only if we have an expression already
-      if (expressionValue) {
-        expressionValue += ' ';
-      }
-
-      expressionValue += appendNodes.join(' ');
+      return DSLUpdateUtil.applyAdd(
+        newExpression, newNodes.slice(updateCount), combiner
+      );
     }
 
-    // Compile and return the new expression
-    return new DSLExpression(expressionValue);
+    // Otherwise just return the expression
+    return newExpression;
   }
 
 };
