@@ -42,19 +42,20 @@ const DSLUtil = {
   },
 
   /**
-   * This function checks if the given propTypes can create clean results
+   * This function checks if the given partFilters can create clean results
    * with the given AST sturcutre as input.
    *
-   * @param {ASTNode} ast - The parsed AST
-   * @param {Array} propTypes - An array of `FilterNode` to use for match ref.
+   * @param {DSLExpression} expression - The parsed expression
+   * @param {Array} partFilters - An array of `FilterNode` to use for match ref.
    * @returns {Boolean} Returns true if the expression can be handled by the UI
    */
-  canProcessPropTypes(ast, propTypes) {
-    const propNames = Object.keys(propTypes);
+  canProcessParts(expression, partFilters) {
+    const propNames = Object.keys(partFilters);
 
     return propNames.every((prop) => {
-      const matchAgainst = propTypes[prop];
-      const matchingNodes = DSLUtil.findNodesByFilter(ast, matchAgainst);
+      const matchAgainst = partFilters[prop];
+      const matchingNodes = DSLUtil.findNodesByFilter(
+        expression.ast, matchAgainst);
 
       // NOTE: Be aware that the entire form should be disabled if the
       //       expression is difficult for the UI to process. This means
@@ -144,23 +145,24 @@ const DSLUtil = {
   },
 
   /**
-   * This function returns an object with the values for all the given propTypes
-   * by analyzing the ast given as input.
+   * This function returns an object with the values for all the given
+   * partFilters by analyzing the ast given as input.
    *
-   * @param {ASTNode} ast - The parsed AST
-   * @param {Array} propTypes - An array of `FilterNode` to use for match ref.
+   * @param {DSLExpression} expression - The parsed expression
+   * @param {Array} partFilters - An array of `FilterNode` to use for match ref.
    * @returns {Object} Returns an object with the propType keys and their values
    */
-  getPropTypeValues(ast, propTypes) {
-    const propNames = Object.keys(propTypes);
+  getPartValues(expression, partFilters) {
+    const propNames = Object.keys(partFilters);
 
-    // NOTE: We assume that `canProcessPropTypes` is called before and this
+    // NOTE: We assume that `canProcessParts` is called before and this
     //       function is called only after a positive answer. Therefore we are
     //       safe to do some unsafe assumptions for this.
 
     return propNames.reduce((memo, prop) => {
-      const matchAgainst = propTypes[prop];
-      const matchingNodes = DSLUtil.findNodesByFilter(ast, matchAgainst);
+      const matchAgainst = partFilters[prop];
+      const matchingNodes = DSLUtil.findNodesByFilter(
+        expression.ast, matchAgainst);
 
       switch (matchAgainst.filterType) {
         //
