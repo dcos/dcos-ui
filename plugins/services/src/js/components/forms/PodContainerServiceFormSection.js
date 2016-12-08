@@ -132,7 +132,7 @@ class PodContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            <Icon color="grey" id="ring-question" size="mini" />
         </Tooltip>
       </FieldLabel>
     );
@@ -161,7 +161,7 @@ class PodContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            <Icon color="grey" id="ring-question" size="mini" />
         </Tooltip>
       </FieldLabel>
     );
