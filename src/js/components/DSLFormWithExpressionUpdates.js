@@ -9,7 +9,8 @@ import DSLUtil from '../utils/DSLUtil';
 import {FilterNode} from '../structs/DSLASTNodes';
 
 const METHODS_TO_BIND = [
-  'handleFormChange'
+  'handleFormChange',
+  'handleFormSubmit'
 ];
 
 /**
@@ -71,7 +72,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         if (updatePolicy === DSLUpdatePolicy.Radio) {
           if (value) {
             expression = DSLUpdateUtil.applyReplace(
-              expression, [partNode], matchingNodes, groupCombiner, itemCombiner
+              expression, matchingNodes, [partNode], groupCombiner, itemCombiner
             );
           } else {
             expression = DSLUpdateUtil.applyDelete(
@@ -102,7 +103,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         });
 
         expression = DSLUpdateUtil.applyReplace(
-          expression, [newExactNode], matchingNodes, groupCombiner
+          expression, matchingNodes, [newExactNode], groupCombiner
         );
         break;
 
@@ -114,8 +115,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
           return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {text});
         });
 
+        // And replace the existing fuzzy nodes
         expression = DSLUpdateUtil.applyReplace(
-          expression, newFuzzyNodes, matchingNodes, groupCombiner
+          expression, matchingNodes, newFuzzyNodes, groupCombiner
         );
         break;
     }
@@ -124,12 +126,18 @@ class DSLFormWithExpressionUpdates extends React.Component {
     onChange(expression);
   }
 
+  handleFormSubmit(event) {
+    event.preventDefault();
+  }
+
   /**
    * @override
    */
   render() {
     return (
-      <form className="form-group tall" onChange={this.handleFormChange}>
+      <form className="form-group tall"
+        onChange={this.handleFormChange}
+        onSubmit={this.handleFormSubmit}>
         {this.props.children}
       </form>
     );
