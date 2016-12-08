@@ -15,7 +15,7 @@ const PARTS = {
 
 class FuzzyTextDSLSection extends React.Component {
   render() {
-    const {expression, onChange} = this.props;
+    const {expression, onApply, onChange} = this.props;
     const enabled = DSLUtil.canProcessParts(expression, PARTS);
     const data = DSLUtil.getPartValues(expression, PARTS);
 
@@ -25,6 +25,7 @@ class FuzzyTextDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
+        onSubmit={onApply}
         parts={PARTS}>
 
         <FormGroup>
@@ -42,6 +43,7 @@ class FuzzyTextDSLSection extends React.Component {
 };
 
 FuzzyTextDSLSection.propTypes = {
+  onApply: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
