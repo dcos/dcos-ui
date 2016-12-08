@@ -72,8 +72,8 @@ function containersParser(state) {
     if (item.name) {
       memo.push(new Transaction(['containers', index, 'name'], item.name));
     }
-    if (item.image) {
-      memo.push(new Transaction(['containers', index, 'image'], item.image));
+    if (item.image && item.image.id) {
+      memo.push(new Transaction(['containers', index, 'image'], item.image.id));
     }
     if (item.resources != null) {
       const {resources} = item;
@@ -385,7 +385,10 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === `containers.${index}.image`) {
-      newState[index] = Object.assign({}, newState[index], {image: value});
+      newState[index] =
+        Object.assign({},
+            newState[index],
+            {image: {id: value, kind: 'DOCKER'}});
     }
 
     return newState;
