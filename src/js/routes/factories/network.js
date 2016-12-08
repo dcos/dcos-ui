@@ -5,15 +5,16 @@ import {IndexRoute, Route, Redirect} from 'react-router';
 
 import {Hooks} from 'PluginSDK';
 import NetworkPage from '../../pages/NetworkPage';
-import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
-import VirtualNetworkDetail from '../../pages/network/virtual-network-detail/VirtualNetworkDetail';
-import VirtualNetworkTaskTab from '../../pages/network/virtual-network-detail/VirtualNetworkTaskTab';
-import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab';
-import VirtualNetworkTaskPage from '../../pages/network/virtual-network-detail/VirtualNetworkTaskPage';
-
 import TaskDetailsTab from '../../../../plugins/services/src/js/pages/task-details/TaskDetailsTab';
+import TaskFileBrowser from '../../../../plugins/services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
+import TaskLogsTab from '../../../../plugins/services/src/js/pages/task-details/TaskLogsTab';
+import VirtualNetworkDetail from '../../pages/network/virtual-network-detail/VirtualNetworkDetail';
+import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab';
+import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
+import VirtualNetworkTaskPage from '../../pages/network/virtual-network-detail/VirtualNetworkTaskPage';
+import VirtualNetworkTaskTab from '../../pages/network/virtual-network-detail/VirtualNetworkTaskTab';
 
 let RouteFactory = {
   getNetworkRoutes() {
@@ -118,26 +119,44 @@ let RouteFactory = {
             }
           },
           {
-            component: TaskFilesTab,
-            fileViewerRoutePath: '/networking/networks/:overlayName/tasks/:taskID/view(/:filePath(/:innerPath))',
             hideHeaderNavigation: true,
+            component: TaskFilesTab,
             isTab: true,
             path: 'files',
             title: 'Files',
             type: Route,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: '/networking/networks/:overlayName/tasks/:taskID',
-                getCrumbs() { return []; }
-              };
-            }
+            children: [
+              {
+                component: TaskFileBrowser,
+                fileViewerRoutePath: '/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+                hideHeaderNavigation: true,
+                type: IndexRoute,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: '/networking/networks/:overlayName/tasks/:taskID',
+                    getCrumbs() { return []; }
+                  };
+                }
+              },
+              {
+                component: TaskFileViewer,
+                hideHeaderNavigation: true,
+                path: 'view(/:filePath(/:innerPath))',
+                type: Route,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: '/networking/networks/:overlayName/tasks/:taskID',
+                    getCrumbs() { return []; }
+                  };
+                }
+              }
+            ]
           },
           {
-            component: TaskFileViewer,
+            component: TaskLogsTab,
             hideHeaderNavigation: true,
-            dontScroll: true,
             isTab: true,
-            path: 'view(/:filePath(/:innerPath))',
+            path: 'logs(/:fileName)',
             title: 'Logs',
             type: Route,
             buildBreadCrumb() {

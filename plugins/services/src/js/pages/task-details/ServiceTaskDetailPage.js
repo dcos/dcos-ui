@@ -45,7 +45,7 @@ class ServiceTaskDetailPage extends React.Component {
   }
 }
 
-TaskDetail.propTypes = {
+ServiceTaskDetailPage.propTypes = {
   params: React.PropTypes.object,
   routes: React.PropTypes.array
 };
