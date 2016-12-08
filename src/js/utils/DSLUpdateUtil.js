@@ -342,9 +342,9 @@ const DSLUpdateUtil = {
   getFilterForNode(node) {
     let keepParams = Object.assign({}, node.filterParams);
 
-    // Delete label if exists
-    if (keepParams.label != null) {
-      delete keepParams.label;
+    // Delete label text from attribute nodes to make them generic
+    if (node.filterType === DSLFilterTypes.ATTRIB) {
+      delete keepParams.text;
     }
 
     // Return a virtual node
