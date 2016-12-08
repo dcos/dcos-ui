@@ -164,9 +164,9 @@ var Page = React.createClass({
     let {className, navigation, dontScroll, title} = this.props;
 
     let classSet = classNames(
-      'page flex flex-direction-top-to-bottom flex-item-grow-1',
-      {'flex-grow flex-shrink': dontScroll},
-      className
+      'page flex flex-direction-top-to-bottom flex-item-grow-1', {
+        'flex-item-shrink-1': dontScroll
+      }, className
     );
 
     return (

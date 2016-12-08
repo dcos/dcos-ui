@@ -5,9 +5,14 @@ import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
 import Page from '../../../../../../src/js/components/Page';
 
+const dontScrollRoutes = [
+  /\/files\/view.*$/,
+  /\/logs.*$/
+];
+
 class NodesTaskDetailPage extends React.Component {
   render() {
-    const {params, routes} = this.props;
+    const {location, params, routes} = this.props;
     const {nodeID, taskID} = params;
 
     let routePrefix = `/nodes/${encodeURIComponent(nodeID)}/tasks/${encodeURIComponent(taskID)}`;
@@ -30,8 +35,12 @@ class NodesTaskDetailPage extends React.Component {
       breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} />;
     }
 
+    const dontScroll = dontScrollRoutes.some((regex) => {
+      return regex.test(location.pathname);
+    });
+
     return (
-      <Page>
+      <Page dontScroll={dontScroll}>
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}

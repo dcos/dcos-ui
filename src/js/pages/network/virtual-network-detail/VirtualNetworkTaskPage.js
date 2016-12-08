@@ -6,6 +6,11 @@ import Page from '../../../components/Page';
 import TaskDetail from '../../../../../plugins/services/src/js/pages/task-details/TaskDetail';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 
+const dontScrollRoutes = [
+  /\/files\/view.*$/,
+  /\/logs.*$/
+];
+
 const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
   const crumbs = [
     <Link to="/networking/networks" key={-1}>Networks</Link>
@@ -31,7 +36,7 @@ const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
 
 class VirtualNetworkTaskPage extends React.Component {
   render() {
-    const {params, routes} = this.props;
+    const {location, params, routes} = this.props;
     const {overlayName, taskID} = params;
 
     let routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
@@ -60,8 +65,12 @@ class VirtualNetworkTaskPage extends React.Component {
       breadcrumbs = <NetworksDetailTaskBreadcrumbs />;
     }
 
+    const dontScroll = dontScrollRoutes.some((regex) => {
+      return regex.test(location.pathname);
+    });
+
     return (
-      <Page>
+      <Page dontScroll={dontScroll}>
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}
