@@ -119,10 +119,11 @@ const DSLUpdateUtil = {
       }
     }
 
-    // Bleed left or right whitespace (but not both)
+    // Bleed left whitespace, if exists, or right whitespace
+    // if we are the first token
     if (src[start - 1] === ' ') {
       start -= 1;
-    } else if (src[end] === ' ') {
+    } else if ((start === 0) && (src[end] === ' ')) {
       end += 1;
     }
 
