@@ -15,10 +15,6 @@ function mapHealthChecks(item) {
         command: item.command
       };
     }
-
-    if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
-      newItem.path = item.path;
-    }
   }
 
   return newItem;
