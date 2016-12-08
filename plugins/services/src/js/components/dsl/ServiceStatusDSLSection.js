@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
+import DSLCombinerTypes from '../../../../../../src/js/constants/DSLCombinerTypes';
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
 import DSLFormWithExpressionUpdates from '../../../../../../src/js/components/DSLFormWithExpressionUpdates';
-import DSLUpdatePolicy from '../../../../../../src/js/constants/DSLUpdatePolicy';
 import DSLUtil from '../../../../../../src/js/utils/DSLUtil';
 
 const PARTS = {
@@ -22,9 +22,10 @@ class ServiceStatusDSLSection extends React.Component {
     return (
       <DSLFormWithExpressionUpdates
         expression={expression}
-        parts={PARTS}
+        groupCombiner={DSLCombinerTypes.AND}
+        itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        updatePolicy={DSLUpdatePolicy.Checkbox}>
+        parts={PARTS} >
 
         <h5>STATUS</h5>
         <div className="row">
