@@ -1,9 +1,35 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import {DCOSStore} from 'foundation-ui';
+import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
 
 const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
+  let healthStatus = null;
+
+  if (serviceID != null) {
+    const service = DCOSStore.serviceTree.findItemById(serviceID);
+
+    if (service != null) {
+      const serviceStatus = service.getStatus();
+      const tasksSummary = service.getTasksSummary();
+      const runningTasksCount = tasksSummary.tasksRunning;
+      const instancesCount = service.getInstancesCount();
+      const isDeploying = serviceStatus === 'Deploying';
+
+      healthStatus = (
+        <div className="service-page-header-status muted">
+          &nbsp;
+          {`| ${serviceStatus} (${runningTasksCount}/${instancesCount})`}
+          <HealthBar isDeploying={isDeploying}
+            tasksSummary={tasksSummary}
+            instancesCount={instancesCount}/>
+        </div>
+      );
+    }
+  }
+
   const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
   const ids = trimmedServiceID.split('/');
   let aggregateIDs = '';
@@ -12,10 +38,21 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
 
   if (serviceID != null && trimmedServiceID.length > 0) {
     let serviceCrumbs = ids.map(function (id, index) {
+      let breadcrumbHealth = null;
+
+      if (index === ids.length - 1) {
+        breadcrumbHealth = healthStatus;
+      }
+
       aggregateIDs += encodeURIComponent(`/${id}`);
 
       return (
-        <Link to={`/services/overview/${aggregateIDs}`} key={index}>{id}</Link>
+        <div>
+          <Link to={`/services/overview/${aggregateIDs}`} key={index}>
+            {id}
+          </Link>
+          {breadcrumbHealth}
+        </div>
       );
     });
 
