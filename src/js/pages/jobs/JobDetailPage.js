@@ -351,16 +351,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getTabs() {
+    const activeTab = this.state.currentTab;
+
     return [
       {
-        label: 'Run History', callback: () => {
-          this.setState({currentTab: 'runHistory'});
-        }
+        label: 'Run History',
+        callback: () => { this.setState({currentTab: 'runHistory'}); },
+        isActive: activeTab === 'runHistory'
       },
       {
-        label: 'Configuration', callback: () => {
-          this.setState({currentTab: 'configuration'});
-        }
+        label: 'Configuration',
+        callback: () => { this.setState({currentTab: 'configuration'}); },
+        isActive: activeTab === 'configuration'
       }
     ];
   }

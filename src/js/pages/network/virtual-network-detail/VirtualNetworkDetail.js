@@ -105,7 +105,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    let {errorCount, receivedVirtualNetworks} = this.state;
+    let {currentTab, errorCount, receivedVirtualNetworks} = this.state;
+
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
@@ -115,14 +116,22 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     }
 
     const tabs = [
-      {label: 'Tasks', callback: () => {
-        this.setState({currentTab: '/networking/networks/:overlayName'});
-        this.context.router.push(`/networking/networks/${this.props.params.overlayName}`);
-      }},
-      {label: 'Details', callback: () => {
-        this.setState({currentTab: '/networking/networks/:overlayName/details'});
-        this.context.router.push(`/networking/networks/${this.props.params.overlayName}/details`);
-      }}
+      {
+        label: 'Tasks',
+        callback: () => {
+          this.setState({currentTab: '/networking/networks/:overlayName'});
+          this.context.router.push(`/networking/networks/${this.props.params.overlayName}`);
+        },
+        isActive: currentTab === '/networking/networks/:overlayName'
+      },
+      {
+        label: 'Details',
+        callback: () => {
+          this.setState({currentTab: '/networking/networks/:overlayName/details'});
+          this.context.router.push(`/networking/networks/${this.props.params.overlayName}/details`);
+        },
+        isActive: currentTab === '/networking/networks/:overlayName/details'
+      }
     ];
 
     let overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
