@@ -72,25 +72,25 @@ class DSLFormDropdownPanel extends React.Component {
     let {sections, isVisible} = this.props;
 
     let dropdownPanelClasses = classNames({
-      'dropdown-panel dropdown-panel-animated panel': true,
+      'dsl-dropdown-panel dropdown-panel dropdown-panel-animated panel': true,
       'is-visible': isVisible
     });
 
     return (
       <div className={dropdownPanelClasses}>
-        <div className="panel-cell">
+        <div className="panel-cell panel-cell-borderless">
           <DSLForm expression={expression}
             onChange={this.handleChange}
             sections={sections} />
         </div>
-        <div className="panel-cell text-align-right">
+        <div className="panel-cell panel-cell-short flush-top text-align-right">
           <a className="button button-small button-link"
             onClick={this.handleReset}>
-            RESET
+            Reset
           </a>
           <a className="button button-small button-primary-link"
             onClick={this.handleApply}>
-            APPLY
+            Apply
           </a>
         </div>
       </div>
