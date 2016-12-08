@@ -4,6 +4,7 @@ import deepEqual from 'deep-equal';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
+import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
@@ -42,11 +43,15 @@ const KEY_VALUE_FIELDS = [
   'labels'
 ];
 
-const ERROR_VALIDATORS = [
+const APP_ERROR_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules
+];
+
+const POD_ERROR_VALIDATORS = [
+  PodValidators.Pod
 ];
 
 class NewCreateServiceModalForm extends Component {
@@ -150,6 +155,12 @@ class NewCreateServiceModalForm extends Component {
       (batch, item) => { return batch.add(item); },
       new Batch()
     );
+
+    let ERROR_VALIDATORS = APP_ERROR_VALIDATORS;
+
+    if (isPod) {
+      ERROR_VALIDATORS = POD_ERROR_VALIDATORS;
+    }
 
     if (shouldValidate) {
       newState.errorList = DataValidatorUtil.validate(
