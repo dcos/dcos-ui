@@ -6,7 +6,6 @@ import {routerShape, formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import InternalStorageMixin from '../../../../../../src/js/mixins/InternalStorageMixin';
 import Loader from '../../../../../../src/js/components/Loader';
@@ -26,6 +25,7 @@ const METHODS_TO_BIND = [
   'onTaskDirectoryStoreSuccess'
 ];
 
+// TODO remove
 const HIDE_BREADCRUMBS = [
   '/jobs/:id/tasks/:taskID/details',
   '/networking/networks/:overlayName/tasks/:taskID/details',
@@ -326,9 +326,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-        <div className="flex flex-item-shrink-0 control-group">
-          {this.getBreadcrumbs()}
-        </div>
         {this.props.children && React.cloneElement(this.props.children, {
           directory,
           selectedLogFile,
@@ -345,16 +342,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-
-    if (task == null) {
-      return this.getNotFound('task', this.props.params.taskID);
-    }
-
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        {this.getBasicInfo()}
         {this.getSubView()}
       </div>
     );

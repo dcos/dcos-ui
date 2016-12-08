@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,9 +10,18 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import VirtualNetworksStore from '../../stores/VirtualNetworksStore';
 import VirtualNetworksTable from './VirtualNetworksTable';
+
+const NetworksBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="networking/networks" key={-1}>Networks</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
+};
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -129,10 +139,11 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   render() {
     return (
-      <div>
+      <Page>
+        <Page.Header breadcrumbs={<NetworksBreadcrumbs />} />
         {this.getContent()}
         {this.props.children}
-      </div>
+      </Page>
     );
   }
 }

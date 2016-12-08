@@ -59,7 +59,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getLabels() {
-    return this.getSpec().getLabels();
+    return this.getSpec().getLabels() || {};
   }
 
   getLastConfigChange() {

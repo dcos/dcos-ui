@@ -1,6 +1,7 @@
 jest.dontMock('../jobs/JobsTab');
 jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../mixins/SaveStateMixin');
+jest.dontMock('../../components/Page');
 jest.mock('../../stores/UserSettingsStore');
 jest.mock('../../mixins/QueryParamsMixin');
 
@@ -94,7 +95,6 @@ describe('JobsTab', function () {
     });
 
     it('renders correct empty panel', function () {
-      DCOSStore.jobTree = new JobTree({id: '/'});
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
         this.container

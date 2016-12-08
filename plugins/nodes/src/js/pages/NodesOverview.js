@@ -12,6 +12,8 @@ import HostsPageContent from './nodes-overview/HostsPageContent';
 import Icon from '../../../../../src/js/components/Icon';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
+import NodeBreadcrumbs from '../components/NodeBreadcrumbs';
+import Page from '../../../../../src/js/components/Page';
 import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import SidebarActions from '../../../../../src/js/events/SidebarActions';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
@@ -246,40 +248,45 @@ var NodesOverview = React.createClass({
       searchString !== '';
 
     return (
-      <HostsPageContent
-        byServiceFilter={byServiceFilter}
-        filterButtonContent={this.getButtonContent}
-        filterInputText={this.getFilterInputText()}
-        filterItemList={nodesHealth}
-        filteredNodeCount={nodesList.length}
-        handleFilterChange={this.handleByServiceFilterChange}
-        hosts={nodesList}
-        isFiltering={isFiltering}
-        nodeCount={data.nodes.length}
-        onFilterChange={this.handleHealthFilterChange}
-        onResetFilter={this.resetFilter}
-        onResourceSelectionChange={this.onResourceSelectionChange}
-        refreshRate={data.refreshRate}
-        selectedFilter={healthFilter}
-        selectedResource={selectedResource}
-        services={data.services}
-        totalHostsResources={data.totalHostsResources}
-        totalNodeCount={data.totalNodes}
-        totalResources={data.totalResources}
-        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}>
-        {this.props.children}
-      </HostsPageContent>
+      <Page>
+        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <HostsPageContent
+          byServiceFilter={byServiceFilter}
+          filterButtonContent={this.getButtonContent}
+          filterInputText={this.getFilterInputText()}
+          filterItemList={nodesHealth}
+          filteredNodeCount={nodesList.length}
+          handleFilterChange={this.handleByServiceFilterChange}
+          hosts={nodesList}
+          isFiltering={isFiltering}
+          nodeCount={data.nodes.length}
+          onFilterChange={this.handleHealthFilterChange}
+          onResetFilter={this.resetFilter}
+          onResourceSelectionChange={this.onResourceSelectionChange}
+          refreshRate={data.refreshRate}
+          selectedFilter={healthFilter}
+          selectedResource={selectedResource}
+          services={data.services}
+          totalHostsResources={data.totalHostsResources}
+          totalNodeCount={data.totalNodes}
+          totalResources={data.totalResources}
+          viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}>
+          {this.props.children}
+        </HostsPageContent>
+      </Page>
     );
   },
 
   getEmptyHostsPageContent() {
     return (
-      <AlertPanel
-        title="No nodes detected">
-        <p className="flush-bottom">
-          There a currently no other nodes in your datacenter other than your DC/OS master node.
-        </p>
-      </AlertPanel>
+      <Page>
+        <AlertPanel
+          title="No nodes detected">
+          <p className="flush-bottom">
+            There a currently no other nodes in your datacenter other than your DC/OS master node.
+          </p>
+        </AlertPanel>
+      </Page>
     );
   },
 

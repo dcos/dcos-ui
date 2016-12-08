@@ -5,7 +5,40 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import GeminiUtil from '../utils/GeminiUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import NewPageHeader from '../components/NewPageHeader';
 import SidebarToggle from '../components/SidebarToggle';
+import TemplateUtil from '../utils/TemplateUtil';
+
+const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
+  return (
+    <NewPageHeader
+      actions={actions}
+      addButton={addButton}
+      breadcrumbs={breadcrumbs}
+      tabs={tabs} />
+  );
+};
+
+TemplateUtil.defineChildren(PageHeader, {
+  Breadcrumbs: NewPageHeader.Breadcrumbs,
+  Actions: NewPageHeader.Actions,
+  Tabs: NewPageHeader.Actions
+});
+
+PageHeader.defaultProps = {
+  actions: [],
+  tabs: []
+};
+
+PageHeader.propTypes = {
+  actions: React.PropTypes.array,
+  addButton: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.object),
+    React.PropTypes.object
+  ]),
+  breadcrumbs: React.PropTypes.node,
+  tabs: React.PropTypes.array
+};
 
 var Page = React.createClass({
 
@@ -53,7 +86,10 @@ var Page = React.createClass({
   getChildren() {
     var data = this.internalStorage_get();
     if (data.rendered === true) {
-      return this.props.children;
+      // Avoid rendering template children twice
+      return TemplateUtil.filterTemplateChildren(
+        this.constructor, this.props.children
+      );
     }
     return null;
   },
@@ -70,14 +106,9 @@ var Page = React.createClass({
     );
   },
 
-  getPageHeader(title, navigation) {
-    return (
-      <div className="page-header flex-item-shrink-0">
-        <div className="page-header-inner pod">
-          {this.getTitle(title)}
-          {this.getNavigation(navigation, title)}
-        </div>
-      </div>
+  getPageHeader() {
+    return TemplateUtil.getChildOfType(
+      this.props.children, this.constructor.Header
     );
   },
 
@@ -146,5 +177,7 @@ var Page = React.createClass({
     );
   }
 });
+
+TemplateUtil.defineChildren(Page, {Header: PageHeader});
 
 module.exports = Page;

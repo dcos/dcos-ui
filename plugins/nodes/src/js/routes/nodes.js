@@ -11,9 +11,9 @@ import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridContainer from '../pages/nodes/nodes-grid/NodesGridContainer';
 import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
+import NodesTaskDetailPage from '../pages/nodes/NodesTaskDetailPage';
 
 import NodesTableContainer from '../pages/nodes/nodes-table/NodesTableContainer';
-import TaskDetail from '../../../../services/src/js/pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../../../../services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskDetailsTab';
 import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
@@ -95,7 +95,7 @@ let nodesRoutes = {
         {
           type: Route,
           path: 'tasks/:taskID',
-          component: TaskDetail,
+          component: NodesTaskDetailPage,
           hideHeaderNavigation: true,
           buildBreadCrumb() {
             return {

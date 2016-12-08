@@ -5,12 +5,14 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
+
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
+import Page from '../../../../../../src/js/components/Page';
 import ResourceChart from '../../../../../../src/js/components/charts/ResourceChart';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
@@ -98,19 +100,27 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <Loader />
+      </Page>
+    );
   }
 
   getNotFound(nodeID) {
     return (
-      <div className="pod text-align-center">
-        <h3 className="flush-top text-align-center">
-          Error finding node
-        </h3>
-        <p className="flush">
-          {`Did not find a node by the id "${nodeID}"`}
-        </p>
-      </div>
+      <Page>
+        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <div className="pod text-align-center">
+          <h3 className="flush-top text-align-center">
+            Error finding node
+          </h3>
+          <p className="flush">
+            {`Did not find a node by the id "${nodeID}"`}
+          </p>
+        </div>
+      </Page>
     );
   }
 
@@ -146,11 +156,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     return (
       <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           navigationTabs={this.getNavigation()}
-          subTitle={this.getSubHeader(node)}
-          title={node.hostname}>
+          subTitle={this.getSubHeader(node)}>
           <div className="pod pod-short flush-right flush-bottom flush-left">
             {this.getCharts('Node', node)}
           </div>
@@ -198,12 +206,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    return (
-      <div>
-        {this.getDetailViewHeader(node)}
-        {this.props.children && React.cloneElement(this.props.children, { node })}
-      </div>
-    );
+    return this.props.children;
   }
 }
 

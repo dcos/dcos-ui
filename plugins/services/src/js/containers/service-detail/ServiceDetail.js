@@ -1,12 +1,13 @@
 import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import Framework from '../../structs/Framework';
+import Page from '../../../../../../src/js/components/Page';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
 import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
-import ServiceInfo from './ServiceInfo';
 import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import VolumeTable from '../../components/VolumeTable';
@@ -67,11 +68,15 @@ class ServiceDetail extends mixin(TabsMixin) {
     };
   }
 
+  hasVolumes() {
+    return !!this.props.service &&
+      this.props.service.getVolumes().getItems().length > 0;
+  }
+
   checkForVolumes() {
     // Add the Volumes tab if it isn't already there and the service has
     // at least one volume.
-    if (this.tabs_tabs.volumes == null && !!this.props.service
-      && this.props.service.getVolumes().getItems().length > 0) {
+    if (this.tabs_tabs.volumes == null && this.hasVolumes()) {
       this.tabs_tabs.volumes = 'Volumes';
       this.forceUpdate();
     }
@@ -109,22 +114,106 @@ class ServiceDetail extends mixin(TabsMixin) {
     );
   }
 
-  render() {
+  getActions() {
     const {service} = this.props;
+    const {modalHandlers} = this.context;
+    const instanceCount = service.getInstancesCount();
+
+    const actions = [];
+
+    actions.push({
+      label: 'Edit',
+      onItemSelect: modalHandlers.editService
+    });
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Restart',
+        onItemSelect: modalHandlers.restartService
+      });
+    }
+    if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
+      actions.push({
+        label: 'Scale',
+        onItemSelect: modalHandlers.scaleService
+      });
+    }
+
+    if (instanceCount > 0) {
+      actions.push({
+        label: 'Suspend',
+        onItemSelect: modalHandlers.suspendService
+      });
+    }
+
+    if (!(service instanceof Framework)) {
+      actions.push({
+        className: 'text-danger',
+        label: 'Destroy',
+        onItemSelect: modalHandlers.deleteService
+      });
+    }
+
+    return actions;
+  }
+
+  getTabs() {
+    const {service:{id}} = this.props;
+    const routePrefix = `/services/overview/${encodeURIComponent(id)}`;
+
+    const tabs = [];
+
+    tabs.push({
+      label: 'Instances',
+      callback: () => {
+        this.setState({currentTab: 'tasks'});
+      }
+    });
+
+    tabs.push({
+      label: 'Configuration',
+      callback: () => {
+        this.setState({currentTab: 'configuration'});
+      }
+    });
+
+    tabs.push({
+      label: 'Debug',
+      callback: () => {
+        this.setState({currentTab: 'debug'});
+      }
+    });
+
+    if (this.hasVolumes()) {
+      tabs.push({
+        label: 'Volumes', routePath: routePrefix + '/volumes',
+        callback: this.tabs_handleTabClick.bind('volumes')
+      });
+    }
+
+    return tabs;
+  }
+
+  render() {
+    const {modals, service:{id}} = this.props;
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
 
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
-          service={service} tabs={this.tabs_getUnroutedTabs()} />
+      <Page>
+        <Page.Header actions={this.getActions()}
+          tabs={this.getTabs()}
+          breadcrumbs={breadcrumbs}
+          iconID="services" />
         {this.tabs_getTabView()}
-      </div>
+        {modals}
+      </Page>
     );
   }
 }
 
 ServiceDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
+    editService: PropTypes.func,
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     suspendService: PropTypes.func,
@@ -135,7 +224,8 @@ ServiceDetail.contextTypes = {
 ServiceDetail.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  service: PropTypes.instanceOf(Service)
+  service: PropTypes.instanceOf(Service),
+  modals: PropTypes.node
 };
 
 module.exports = ServiceDetail;

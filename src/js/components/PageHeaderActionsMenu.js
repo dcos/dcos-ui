@@ -3,11 +3,11 @@ import React from 'react';
 
 import Icon from './Icon';
 
-const getMenuItems = (children) => {
+const getMenuItems = (children, iconID) => {
   return [
     {
       className: 'hidden',
-      html: <Icon id="ellipsis-vertical" size="mini" />,
+      html: <Icon id={iconID} color="light-grey" size="mini" />,
       id: 'trigger'
     },
     ...React.Children.map(children, getDropdownItemFromComponent)
@@ -28,12 +28,12 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = ({anchorRight, children}) => {
+const PageHeaderActionsMenu = ({anchorRight, children, iconID}) => {
   return (
     <Dropdown
       anchorRight={anchorRight}
-      buttonClassName="button button-link"
-      items={getMenuItems(children)}
+      buttonClassName="button button-link button-narrow"
+      items={getMenuItems(children, iconID)}
       onItemSelection={handleItemSelection}
       persistentID="trigger"
       transition={true}
@@ -44,7 +44,8 @@ const PageHeaderActionsMenu = ({anchorRight, children}) => {
 };
 
 PageHeaderActionsMenu.defaultProps = {
-  anchorRight: true
+  anchorRight: true,
+  iconID: 'ellipsis-vertical'
 };
 
 PageHeaderActionsMenu.propTypes = {
@@ -56,7 +57,8 @@ PageHeaderActionsMenu.propTypes = {
         onItemSelect: React.PropTypes.func
       })
     })
-  )
+  ),
+  iconID: React.PropTypes.string
 };
 
 module.exports = PageHeaderActionsMenu;

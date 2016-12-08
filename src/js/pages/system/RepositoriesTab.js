@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,8 +10,17 @@ import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import RepositoriesTable from '../../components/RepositoriesTable';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+
+const RepositoriesBreadcrumbs = (addButton) => {
+  const crumbs = [
+    <Link to="settings/repositories" key={-1}>Respositories</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="gear" breadcrumbs={crumbs} addButton={addButton} />;
+};
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -75,7 +85,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
     return <Loader />;
   }
 
-  render() {
+  getContent() {
     let {
       addRepositoryModalOpen,
       hasError,
@@ -102,11 +112,6 @@ class RepositoriesTab extends mixin(StoreMixin) {
             placeholder="Search"
             searchString={searchString}
             handleFilterChange={this.handleSearchStringChange} />
-          <button
-            className="button button-success"
-            onClick={this.handleOpenAddRepository}>
-            Add Repository
-          </button>
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
         <AddRepositoryFormModal
@@ -114,6 +119,20 @@ class RepositoriesTab extends mixin(StoreMixin) {
           open={addRepositoryModalOpen}
           onClose={this.handleCloseAddRepository} />
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <Page>
+        <Page.Header
+          addButton={{
+            onItemSelect: this.handleOpenAddRepository,
+            label: 'Add Repository'
+          }}
+          breadcrumbs={<RepositoriesBreadcrumbs />} />
+        {this.getContent()}
+      </Page>
     );
   }
 }

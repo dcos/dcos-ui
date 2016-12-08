@@ -1,52 +1,42 @@
-import mixin from 'reactjs-mixin';
 import {Hooks} from 'PluginSDK';
+import mixin from 'reactjs-mixin';
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import UsersStore from '../../stores/UsersStore';
 import Loader from '../../components/Loader';
 import OrganizationTab from './OrganizationTab';
+import Page from '../../components/Page';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
-import UserFormModal from '../../components/modals/UserFormModal';
-
-const USERS_CHANGE_EVENTS = [
-  'onUserStoreCreateSuccess',
-  'onUserStoreDeleteSuccess'
-];
+import UsersStore from '../../stores/UsersStore';
 
 const METHODS_TO_BIND = [
-  'handleNewUserClick',
-  'handleNewUserClose',
   'onUsersStoreSuccess',
   'onUsersStoreError'
 ];
 
-class UsersTab extends mixin(StoreMixin) {
+const UsersBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="organization/users" key={-1}>Users</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+};
+
+class UsersPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = Hooks.applyFilter('usersTabStoreListeners', [
-      {
-        name: 'user',
-        events: ['createSuccess', 'deleteSuccess'],
-        suppressUpdate: true
-      },
+    this.store_listeners = Hooks.applyFilter('usersPageStoreListeners', [
       {name: 'users', events: ['success', 'error'], suppressUpdate: true}
     ]);
 
     this.state = {
-      openNewUserModal: false,
       usersStoreError: false,
       usersStoreSuccess: false
     };
-
-    Hooks.applyFilter('usersTabChangeEvents', USERS_CHANGE_EVENTS).forEach(
-      (event) => {
-        this[event] = this.onUsersChange;
-      }
-    );
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -76,20 +66,17 @@ class UsersTab extends mixin(StoreMixin) {
     });
   }
 
-  handleNewUserClick() {
-    this.setState({openNewUserModal: true});
-  }
-
-  handleNewUserClose() {
-    this.setState({openNewUserModal: false});
-  }
-
   handleSearchStringChange(searchString) {
     this.setState({searchString});
   }
 
   getLoadingScreen() {
-    return <Loader />;
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<UsersBreadcrumbs />} />
+        <Loader />
+      </Page>
+    );
   }
 
   getContents() {
@@ -107,36 +94,28 @@ class UsersTab extends mixin(StoreMixin) {
 
     let items = UsersStore.getUsers().getItems();
 
-    return Hooks.applyFilter('usersTabContent',
+    return Hooks.applyFilter('usersPageContent',
       <OrganizationTab
         key="organization-tab"
         items={items}
         itemID="uid"
-        itemName="user"
-        handleNewItemClick={this.handleNewUserClick} />,
+        itemName="user" />,
         this
     );
   }
 
   render() {
-    return (
-      <div>
-        {this.getContents()}
-        <UserFormModal
-          open={this.state.openNewUserModal}
-          onClose={this.handleNewUserClose}/>
-      </div>
-    );
+    return this.getContents();
   }
 }
 
-UsersTab.propTypes = {
+UsersPage.propTypes = {
   params: React.PropTypes.object
 };
 
-UsersTab.routeConfig = {
+UsersPage.routeConfig = {
   label: 'Users',
   matches: /^\/organization\/users/
 };
 
-module.exports = UsersTab;
+module.exports = UsersPage;

@@ -4,12 +4,14 @@ import React from 'react';
 import NewPageHeaderActions from './NewPageHeaderActions';
 import NewPageHeaderBreadcrumbs from './NewPageHeaderBreadcrumbs';
 import NewPageHeaderTabs from './NewPageHeaderTabs';
+import SidebarToggle from './SidebarToggle';
 
 class PageHeader extends React.Component {
   render() {
     let {
       props: {
         actions,
+        addButton,
         breadcrumbs,
         className,
         innerClassName,
@@ -26,7 +28,7 @@ class PageHeader extends React.Component {
       innerClassName
     );
     let primaryContentClasses = classNames(
-      'page-header-content-section',
+      'page-header-content-section page-header-content-section-primary',
       primaryContentClassName
     );
     let secondaryContentClasses = classNames(
@@ -47,8 +49,11 @@ class PageHeader extends React.Component {
       <div className={classes}>
         <div className={innerClasses}>
           <div className={primaryContentClasses}>
-            <NewPageHeaderBreadcrumbs breadcrumbs={breadcrumbs} />
-            <NewPageHeaderActions actions={actions} />
+            <SidebarToggle />
+            {breadcrumbs}
+            <NewPageHeaderActions
+              actions={actions}
+              addButton={addButton} />
           </div>
           <div className={secondaryContentClasses}>
             <NewPageHeaderTabs tabs={tabs} />
@@ -72,8 +77,12 @@ PageHeader.defaultProps = {
 };
 
 PageHeader.propTypes = {
+  addButton: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.object),
+    React.PropTypes.object
+  ]),
   actions: React.PropTypes.array,
-  breadcrumbs: React.PropTypes.array.isRequired,
+  breadcrumbs: React.PropTypes.node.isRequired,
   className: classProps,
   innerClassName: classProps,
   primaryContentClassName: classProps,
@@ -81,5 +90,9 @@ PageHeader.propTypes = {
   secondaryContentDetail: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
+
+PageHeader.Breadcrumbs = NewPageHeaderBreadcrumbs;
+PageHeader.Actions = NewPageHeaderActions;
+PageHeader.Tabs = NewPageHeaderTabs;
 
 module.exports = PageHeader;

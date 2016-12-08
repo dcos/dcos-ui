@@ -3,6 +3,8 @@ jest.dontMock('../TaskDetail');
 jest.dontMock('../../../stores/MarathonStore');
 jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
 jest.dontMock('../../../../../../../src/js/stores/MesosSummaryStore');
+jest.dontMock('../../../../../../../src/js/components/Page');
+jest.dontMock('../../../../../../../src/js/mixins/InternalStorageMixin');
 
 const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
 

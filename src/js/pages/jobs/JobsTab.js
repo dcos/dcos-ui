@@ -6,14 +6,15 @@ import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
-import Breadcrumbs from '../../components/Breadcrumbs';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
+import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
 import JobsTable from './JobsTable';
 import JobSearchFilter from '../../components/JobSearchFilter';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobTree from '../../structs/JobTree';
 import Loader from '../../components/Loader';
+import Page from '../../components/Page';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import ServiceFilterTypes from '../../../../plugins/services/src/js/constants/ServiceFilterTypes';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -121,11 +122,6 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
           totalLength={jobs.length} />
       );
     }
-
-    // Breadcrumbs here
-    return (
-      <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-    );
   }
 
   getFilteredJobs(item) {
@@ -144,23 +140,25 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     return jobs;
   }
 
-  getJobTreeView(item) {
+  getJobTreeView(item, modal) {
     let filteredJobs = this.getFilteredJobs(item);
 
     return (
-      <div className="flex-grow">
-        {this.getHeadline(item, filteredJobs)}
-        <FilterBar rightAlignLastNChildren={1}>
-          <JobSearchFilter
-            handleFilterChange={this.handleFilterChange}
-            location={this.props.location} />
-          <button className="button button-success"
-            onClick={this.handleOpenJobFormModal}>
-            New Job
-          </button>
-        </FilterBar>
-        <JobsTable jobs={filteredJobs} />
-      </div>
+      <Page>
+        <Page.Header
+          addButton={{label: 'Create a job', onItemSelect: this.handleOpenJobFormModal}}
+          breadcrumbs={<JobsBreadcrumbs jobID={item.id} />} />
+        <div className="flex-grow">
+          {this.getHeadline(item, filteredJobs)}
+          <FilterBar>
+            <JobSearchFilter
+              handleFilterChange={this.handleFilterChange}
+              location={this.props.location} />
+          </FilterBar>
+          <JobsTable jobs={filteredJobs} />
+        </div>
+        {modal}
+      </Page>
     );
   }
 
@@ -175,29 +173,39 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     );
   }
 
-  getContents(item) {
+  getContents(item, modal) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
-      return <Loader />;
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+          <Loader />
+        </Page>
+      );
     }
 
     if (item instanceof JobTree && item.getItems().length > 0) {
-      return this.getJobTreeView(item);
+      return this.getJobTreeView(item, modal);
     }
 
+    // JobDetailPage
     if (this.props.params.id) {
       return this.props.children;
     }
 
     // Render empty panel
     return (
-      <AlertPanel
-        title="No active jobs">
-        <p className="tall">
-          Create both one-off or scheduled jobs to perform tasks at a predefined interval.
-        </p>
-        {this.getAlertPanelFooter()}
-      </AlertPanel>
+      <Page>
+        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+        <AlertPanel
+          title="No active jobs">
+          <p className="tall">
+            Create both one-off or scheduled jobs to perform tasks at a predefined interval.
+          </p>
+          {this.getAlertPanelFooter()}
+        </AlertPanel>
+        {modal}
+      </Page>
     );
   }
 
@@ -208,13 +216,13 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
 
-    return (
-      <div className="flex-container-col flex-grow flex-shrink">
-        {this.getContents(item)}
-        <JobFormModal open={this.state.isJobFormModalOpen}
-          onClose={this.handleCloseJobFormModal}/>
-      </div>
+    const modal = (
+      <JobFormModal
+        open={this.state.isJobFormModalOpen}
+        onClose={this.handleCloseJobFormModal}/>
     );
+
+    return this.getContents(item, modal);
   }
 }
 
