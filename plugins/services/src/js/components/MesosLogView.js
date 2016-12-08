@@ -318,7 +318,7 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <button
         onClick={this.handleGoToBottom}
-        className="button button-inverse go-to-bottom-button">
+        className="button go-to-bottom-button">
         Go to bottom
       </button>
     );

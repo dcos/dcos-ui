@@ -301,7 +301,7 @@ class LogView extends React.Component {
 
   render() {
     return (
-      <div className="log-view inverse flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+      <div className="log-view flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
         <ReactCSSTransitionGroup
           transitionAppear={true}
