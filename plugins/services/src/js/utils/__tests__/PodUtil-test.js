@@ -9,10 +9,12 @@ describe('PodUtil', function () {
           'id': 'pod-a1',
           'containers': [
             {
-              'name': 'container-c1'
+              'name': 'container-c1',
+              'containerId': 'container-c1-id'
             },
             {
-              'name': 'container-c2'
+              'name': 'container-c2',
+              'containerId': 'container-c2-id'
             }
           ]
         }
@@ -69,7 +71,8 @@ describe('PodUtil', function () {
           'id': 'pod-a2',
           'containers': [
             {
-              'name': 'container-c1'
+              'name': 'container-c1',
+              'containerId': 'container-c1'
             }
           ]
         }
@@ -89,7 +92,8 @@ describe('PodUtil', function () {
           'id': 'pod-a1',
           'containers': [
             {
-              'name': 'container-c3'
+              'name': 'container-c3',
+              'containerId': 'container-c3-id'
             }
           ]
         }
@@ -102,6 +106,29 @@ describe('PodUtil', function () {
       expect(instances.getItems()[0].getContainers().length).toEqual(3);
       expect(instances.getItems()[0].getContainers()[2].get())
         .toEqual(historicalInstances[0].containers[0]);
+    });
+
+    it('should not duplicate containers', function () {
+      let instances = this.pod.getInstanceList();
+      let historicalInstances = [
+        {
+          'id': 'pod-a1',
+          'containers': [
+            {
+              'name': 'container-c2',
+              'containerId': 'container-c2-id'
+            }
+          ]
+        }
+      ];
+
+      instances = PodUtil.mergeHistoricalInstanceList(instances,
+          historicalInstances);
+
+      expect(instances.getItems().length).toEqual(1);
+      expect(instances.getItems()[0].getContainers().length).toEqual(2);
+      expect(instances.getItems()[0].getContainers()[1].get())
+          .toEqual(historicalInstances[0].containers[0]);
     });
   });
 

@@ -77,10 +77,25 @@ var PodUtil = {
             return memo;
           }
 
-          podInstance.containers = [].concat(
+          let combinedContainers = [].concat(
               podInstance.containers,
               historicalInstance.containers
           );
+
+          // Filter combined container list to remove potential duplicates
+          let containerIds = new Map();
+          combinedContainers =
+              combinedContainers.filter(function ({containerId}) {
+                if (!containerIds.has(containerId)) {
+                  containerIds.set(containerId);
+
+                  return true;
+                }
+
+                return false;
+              });
+
+          podInstance.containers = combinedContainers;
 
           return memo;
         }, podInstancesMap);
