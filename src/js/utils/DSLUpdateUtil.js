@@ -68,12 +68,33 @@ const DSLUpdateUtil = {
    * @param {String} src - The source expression string
    * @param {ASTNode} node - The node node to replace
    * @param {number} offset - The offset to apply on position indices
+   * @param {Boolean} [bleed] - Set to true if you want to trim bleeding spaces
    * @returns {String} Returns the updated string
    */
   deleteNodeString(src, node, offset=0) {
     const {position} = node;
+    let endingRegex = /^(\s|,\s|$)/;
     let start = position[0][0] + offset;
-    let end = position[position.length - 1][1] + offset;
+    let end = position[0][1] + offset;
+
+    // Attributes have a special handling, in case they are multi-valued
+    if (node.filterType === DSLFilterTypes.ATTRIB) {
+      // Change scope to value
+      start = position[1][0] + offset;
+      end = position[1][1] + offset;
+
+      // Increase the scope to the entire value only if the node is the only
+      // value in the attrib. To test for this, we are checking if the character
+      // right before is the label ':' and the character after is a whitespace
+      // or a comma with whitespace
+      if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end + 1)))) {
+        start = position[0][0] + offset;
+        end = position[1][1] + offset;
+      // Otherwise, bleed left to remove the comma if we are part of multi-value
+      } else if (src[start - 1] === ',') {
+        start -= 1;
+      }
+    }
 
     // Bleed left or right whitespace (but not both)
     if (src[start - 1] === ' ') {
@@ -111,7 +132,31 @@ const DSLUpdateUtil = {
   },
 
   /**
-   * Update the given nodes in the expression with the new array of nodes
+   * Delete the given list of nodes from the expression
+   *
+   * @param {DSLExpression} expression - The expression to update
+   * @param {Array} nodes - The node(s) to delete
+   * @returns {DSLExpression} expression - The updated expression
+   */
+  applyDelete(expression, nodes) {
+    let newExpression = nodes.reduce(({value, offset}, node) => {
+      // Delte value
+      const newValue = DSLUpdateUtil.deleteNodeString(
+        value, node, offset
+      );
+
+      // This action shifted the location of the tokens in the original
+      // expression. Update offset.
+      offset += newValue.length - value.length;
+
+      return {value: newValue, offset};
+    }, {value: expression.value, offset: 0});
+
+    return new DSLExpression(newExpression.value);
+  },
+
+  /**
+   * Replace the given nodes in the expression with the new array of nodes
    * taking correcting actions if the lengths do not match.
    *
    * @param {DSLExpression} expression - The expression to update
@@ -119,7 +164,7 @@ const DSLUpdateUtil = {
    * @param {Array} newNodes - The node(s) to update with
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyUpdate(expression, nodes, newNodes) {
+  applyReplace(expression, nodes, newNodes) {
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
     let offset = 0;
@@ -169,30 +214,6 @@ const DSLUpdateUtil = {
 
     // Compile and return the new expression
     return new DSLExpression(expressionValue);
-  },
-
-  /**
-   * Delete the given list of nodes from the expression
-   *
-   * @param {DSLExpression} expression - The expression to update
-   * @param {Array} nodes - The node(s) to delete
-   * @returns {DSLExpression} expression - The updated expression
-   */
-  applyDelete(expression, nodes) {
-    let newExpression = nodes.reduce(({value, offset}, node) => {
-      // Delte value
-      const newValue = DSLUpdateUtil.deleteNodeString(
-        value, node, offset
-      );
-
-      // This action shifted the location of the tokens in the original
-      // expression. Update offset.
-      offset += newValue.length - value.length;
-
-      return {value: newValue, offset};
-    }, {value: expression.value, offset: 0});
-
-    return new DSLExpression(newExpression.value);
   }
 
 };
