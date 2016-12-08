@@ -150,14 +150,10 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
           breadcrumbs={<JobsBreadcrumbs jobID={item.id} />} />
         <div className="flex-grow">
           {this.getHeadline(item, filteredJobs)}
-          <FilterBar rightAlignLastNChildren={1}>
+          <FilterBar>
             <JobSearchFilter
               handleFilterChange={this.handleFilterChange}
               location={this.props.location} />
-            <button className="button button-success"
-              onClick={this.handleOpenJobFormModal}>
-              New Job
-            </button>
           </FilterBar>
           <JobsTable jobs={filteredJobs} />
         </div>
