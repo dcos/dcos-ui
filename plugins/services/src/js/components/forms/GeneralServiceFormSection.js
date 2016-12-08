@@ -15,7 +15,7 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
-import Pod from '../../structs/Pod';
+import PodSpec from '../../structs/PodSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import General from '../../reducers/serviceForm/General';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -71,7 +71,7 @@ class GeneralServiceFormSection extends Component {
   getContainerSection() {
     let {data = {}, errors} = this.props;
 
-    if (!(this.props.service instanceof Pod)) {
+    if (!(this.props.service instanceof PodSpec)) {
       return (
         <ContainerServiceFormSection
           data={data}
@@ -95,7 +95,7 @@ class GeneralServiceFormSection extends Component {
   getConvertToPodAction() {
     let {service, isEdit} = this.props;
 
-    if (isEdit || service instanceof Pod) {
+    if (isEdit || service instanceof PodSpec) {
       return null;
     }
 
@@ -110,7 +110,7 @@ class GeneralServiceFormSection extends Component {
   }
   getMultiContainerSection() {
     let {service} = this.props;
-    if (!(service instanceof Pod)) {
+    if (!(service instanceof PodSpec)) {
       return null;
     }
 
@@ -184,7 +184,7 @@ class GeneralServiceFormSection extends Component {
 
   getRuntimeSection() {
     let {errors, service, data} = this.props;
-    if (service instanceof Pod) {
+    if (service instanceof PodSpec) {
       return null;
     }
 
