@@ -23,6 +23,10 @@ module.exports = {
    */
   JSONReducer(state = [], action) {
     let {path, value} = action;
+    if (path == null) {
+      return state;
+    }
+
     if (!this.appState) {
       this.appState = {
         id: '',

@@ -1,14 +1,15 @@
 import React, {PropTypes} from 'react';
+import deepEqual from 'deep-equal';
 
 import Application from '../../structs/Application';
-import PodSpec from '../../structs/PodSpec';
-import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import MarathonAppValidators from '../../validators/MarathonAppValidators';
+import PodSpec from '../../structs/PodSpec';
 import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
-import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 import ServiceUtil from '../../utils/ServiceUtil';
+import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 const METHODS_TO_BIND = [
   'handleJSONChange',
@@ -16,7 +17,10 @@ const METHODS_TO_BIND = [
 ];
 
 const APP_ERROR_VALIDATORS = [
-  AppValidators.App
+  AppValidators.App,
+  MarathonAppValidators.containsCmdArgsOrContainer,
+  MarathonAppValidators.complyWithResidencyRules,
+  MarathonAppValidators.complyWithIpAddressRules
 ];
 
 const POD_ERROR_VALIDATORS = [
@@ -24,20 +28,14 @@ const POD_ERROR_VALIDATORS = [
 ];
 
 class CreateServiceJsonOnly extends React.Component {
-
   constructor() {
     super(...arguments);
 
-    this.state = Object.assign(
-      {
-        appConfig: {},
-        errorList: [],
-        jsonHasErrors: false
-      },
-      this.getNewStateForJSON(
-        ServiceUtil.getServiceJSON(this.props.service)
-      )
-    );
+    this.state = {
+      appConfig: ServiceUtil.getServiceJSON(this.props.service),
+      errorList: [],
+      jsonHasErrors: false
+    };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -60,12 +58,15 @@ class CreateServiceJsonOnly extends React.Component {
   /**
    * @override
    */
-  componentWillReceiveProps(nextProps) {
-    this.setState(
-      this.getNewStateForJSON(
-        ServiceUtil.getServiceJSON(nextProps.service)
-      )
-    );
+  componentWillReceiveProps({service}) {
+    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    let nextJSON = ServiceUtil.getServiceJSON(service);
+    // Make sure to not set state unless the service has actually changed
+    if (deepEqual(prevJSON, nextJSON)) {
+      return;
+    }
+
+    this.setState(this.getNewStateForJSON(ServiceUtil.getServiceJSON(service)));
   }
 
   handleJSONChange(jsonObject) {
@@ -80,9 +81,16 @@ class CreateServiceJsonOnly extends React.Component {
   }
 
   handleJSONErrorStateChange(errorState) {
-    this.setState({
-      jsonHasErrors: !!errorState
-    });
+    this.setState({jsonHasErrors: !!errorState});
+  }
+
+  validateCurrentState() {
+    let {appConfig} = this.state;
+    let {errorList} = this.getNewStateForJSON(appConfig);
+
+    this.setState({errorList});
+
+    return Boolean(errorList.length);
   }
 
   getNewStateForJSON(appConfig) {
@@ -105,7 +113,7 @@ class CreateServiceJsonOnly extends React.Component {
     let {appConfig, errorList} = this.state;
 
     // Note: The `transform` parameter is just a hack to properly align the
-    //       error message.
+    // error message.
     let editorStyles = {
       position: 'absolute',
       'transform': 'translateX(0)'
