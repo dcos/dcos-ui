@@ -20,7 +20,7 @@ import UnitHealthUtil from '../../utils/UnitHealthUtil';
 
 const UnitHealthBreadcrumbs = () => {
   const crumbs = [
-    <Link to="components" key={-1}>Components</Link>
+    <Link to="/components" key={-1}>Components</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;

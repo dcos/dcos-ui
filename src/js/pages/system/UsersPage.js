@@ -19,7 +19,7 @@ const METHODS_TO_BIND = [
 
 const UsersBreadcrumbs = () => {
   const crumbs = [
-    <Link to="organization/users" key={-1}>Users</Link>
+    <Link to="/organization/users" key={-1}>Users</Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;

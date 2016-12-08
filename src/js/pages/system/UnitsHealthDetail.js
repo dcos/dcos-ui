@@ -17,7 +17,7 @@ import UnitHealthStore from '../../stores/UnitHealthStore';
 
 const UnitHealthDetailBreadcrumbs = ({unit}) => {
   const crumbs = [
-    <Link to="components" key={-1}>Components</Link>
+    <Link to="/components" key={-1}>Components</Link>
   ];
 
   if (unit != null) {
@@ -25,7 +25,7 @@ const UnitHealthDetailBreadcrumbs = ({unit}) => {
     const unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Link to={`components/${unit.get('id')}`} key={0}>
+      <Link to={`/components/${unit.get('id')}`} key={0}>
         {`${unitTitle} `}
         <span className={healthStatus.classNames}>
           ({healthStatus.title})

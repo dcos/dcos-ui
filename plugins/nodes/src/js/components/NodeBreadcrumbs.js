@@ -7,7 +7,9 @@ import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeade
 const NodeBreadcrumbs = ({nodeID, taskID, taskName}) => {
   const trimmedNodeID = decodeURIComponent(nodeID).replace(/^\//, '');
   const encodedNodeID = encodeURIComponent(trimmedNodeID);
-  const crumbs = [<Link to="nodes" key={-1}>Nodes</Link>];
+  const crumbs = [
+    <Link to="/nodes" key={-1}>Nodes</Link>
+  ];
   let node;
 
   if (nodeID != null && trimmedNodeID.length > 0) {
@@ -22,7 +24,7 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName}) => {
   if (taskID != null && taskName != null) {
     let encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
-      <Link to={`nodes/${encodedNodeID}/tasks/${encodedTaskID}`}>
+      <Link to={`/nodes/${encodedNodeID}/tasks/${encodedTaskID}`}>
         {taskName}
       </Link>
     );
