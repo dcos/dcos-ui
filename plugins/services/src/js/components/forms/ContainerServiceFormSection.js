@@ -133,6 +133,7 @@ class ContainerServiceFormSection extends Component {
   getAdvancedSettings(data = {}, errors = {}) {
     let {container = {}} = data;
     let typeErrors = errors.container && errors.container.type;
+    let gpuDisabled = container.type !== MESOS;
     let selections = Object.keys(containerSettings).map((settingName, index) => {
       let {helpText, label, dockerOnly} = containerSettings[settingName];
       let checked = findNestedPropertyInObject(
@@ -184,7 +185,7 @@ class ContainerServiceFormSection extends Component {
         </FormGroup>
 
         <div className="flex row">
-          <FormGroup className="column-4" showError={Boolean(errors.gpus)}>
+          <FormGroup className="column-4" showError={Boolean(!gpuDisabled && errors.gpus)}>
             {this.getGPUSInput(data)}
             <FieldError>{errors.gpus}</FieldError>
           </FormGroup>
@@ -310,6 +311,11 @@ class ContainerServiceFormSection extends Component {
       'container.docker.image'
     );
 
+    let containerType = findNestedPropertyInObject(
+      data,
+      'container.type'
+    );
+
     return (
       <div>
         <h2 className="short-top short-bottom">
@@ -317,7 +323,9 @@ class ContainerServiceFormSection extends Component {
         </h2>
         <p>Configure your container below. Enter a container image or command you want to run.</p>
         <div className="flex row">
-          <FormGroup className="column-6" showError={Boolean(imageErrors)}>
+          <FormGroup
+            className="column-6"
+            showError={Boolean(containerType != null && containerType !== NONE && imageErrors)}>
             {this.getImageInput(data)}
             <FieldError key="image-errors">{imageErrors}</FieldError>
           </FormGroup>
