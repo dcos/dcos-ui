@@ -6,7 +6,7 @@ module.exports = function (PluginSDK) {
   let PluginHooks = require('./hooks');
   let TrackingActions = require('./actions/Actions');
   // Set plugin's hooks
-  PluginHooks.initialize();
+  PluginHooks.initialize(PluginSDK.config);
 
   // Register Actions
   PluginSDK.registerActions(TrackingActions);
