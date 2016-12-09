@@ -10,12 +10,12 @@ import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
-import MultiContainerEnvironmentFormSection from '../forms/MultiContainerEnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
+import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
 import Pod from '../../structs/Pod';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
@@ -306,7 +306,7 @@ class NewCreateServiceModalForm extends Component {
   getSectionList() {
     if (this.state.isPod) {
       return [
-        <TabButton id="networking" label="Networking" key="networking" />,
+        <TabButton id="networking" label="Networking" key="multinetworking" />,
         <TabButton id="environment" label="Environment" key="multienvironment"/>,
         <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>
       ];
@@ -326,7 +326,8 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabView id="environment" key="multienvironment">
           {rootErrorComponent}
-          <MultiContainerEnvironmentFormSection
+          <EnvironmentFormSection
+              mountType="CreateService:MultiContainerEnvironmentFormSection"
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
@@ -339,8 +340,8 @@ class NewCreateServiceModalForm extends Component {
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="networking" key="networking">
-          <NetworkingFormSection
+        <TabView id="networking" key="multinetworking">
+          <MultiContainerNetworkingFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
@@ -353,6 +354,7 @@ class NewCreateServiceModalForm extends Component {
       <TabView id="environment" key="environment">
         {rootErrorComponent}
         <EnvironmentFormSection
+            mountType="CreateService:EnvironmentFormSection"
             data={data}
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}

@@ -9,6 +9,7 @@ import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
 import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {JSONParser as network} from './serviceForm/Network';
+import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 import {JSONParser as containers} from './serviceForm/Containers';
 
@@ -22,6 +23,7 @@ module.exports = [
   simpleParser(['container', DOCKER.toLowerCase(), 'forcePullImage']),
   simpleParser(['container', DOCKER.toLowerCase(), 'privileged']),
   network,
+  multiContainerNetwork,
   simpleParser(['cpus']),
   simpleParser(['mem']),
   simpleParser(['disk']),
