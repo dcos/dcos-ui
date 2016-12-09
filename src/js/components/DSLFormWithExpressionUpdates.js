@@ -30,10 +30,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * Handle a change to the form
    */
   handleFormChange({target}) {
-    let {
-      onChange,
-      parts
-    } = this.props;
+    let {onChange, parts} = this.props;
     let {value} = target;
 
     const name = target.getAttribute('name');
