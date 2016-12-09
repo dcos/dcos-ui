@@ -8,6 +8,7 @@ import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
@@ -258,57 +259,61 @@ class NewCreateServiceModalForm extends Component {
 
     return (
       <div className="flex flex-item-grow-1">
-        <div className="container flex flex-direction-top-to-bottom">
-          <form onChange={this.handleFormChange} onBlur={this.handleFormBlur}>
-            <Tabs vertical={true}>
-              <TabButtonList>
-                <TabButton id="services" label="Services" />
-                <TabButton id="networking" label="Networking" />
-                <TabButton id="environment" label="Environment" />
-                <TabButton id="healthChecks" label="Health Checks" />
-                <TabButton id="volumes" label="Volumes" />
-              </TabButtonList>
-              <TabViewList>
-                <TabView id="services">
-                  {rootErrorComponent}
-                  <GeneralServiceFormSection
-                    data={data}
-                    errors={errorMap}
-                    onRemoveItem={this.handleRemoveItem}
-                    onAddItem={this.handleAddItem} />
-                </TabView>
-                <TabView id="networking">
-                  <NetworkingFormSection
-                    data={data}
-                    errors={errorMap}
-                    onRemoveItem={this.handleRemoveItem}
-                    onAddItem={this.handleAddItem} />
-                </TabView>
-                <TabView id="environment">
-                  {rootErrorComponent}
-                  <EnvironmentFormSection
-                    data={data}
-                    errors={errorMap}
-                    onRemoveItem={this.handleRemoveItem}
-                    onAddItem={this.handleAddItem} />
-                </TabView>
-                <TabView id="volumes">
-                  <VolumesFormSection
-                    data={data}
-                    errors={errorMap}
-                    onRemoveItem={this.handleRemoveItem}
-                    onAddItem={this.handleAddItem} />
-                </TabView>
-                <TabView id="healthChecks">
-                  <HealthChecksFormSection
-                    data={data}
-                    errors={errorMap}
-                    onRemoveItem={this.handleRemoveItem}
-                    onAddItem={this.handleAddItem} />
-                </TabView>
-              </TabViewList>
-            </Tabs>
-          </form>
+        <div className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
+          <FluidGeminiScrollbar>
+            <div className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
+              <form onChange={this.handleFormChange} onBlur={this.handleFormBlur}>
+                <Tabs vertical={true}>
+                  <TabButtonList>
+                    <TabButton id="services" label="Services" />
+                    <TabButton id="networking" label="Networking" />
+                    <TabButton id="environment" label="Environment" />
+                    <TabButton id="healthChecks" label="Health Checks" />
+                    <TabButton id="volumes" label="Volumes" />
+                  </TabButtonList>
+                  <TabViewList>
+                    <TabView id="services">
+                      {rootErrorComponent}
+                      <GeneralServiceFormSection
+                        data={data}
+                        errors={errorMap}
+                        onRemoveItem={this.handleRemoveItem}
+                        onAddItem={this.handleAddItem} />
+                    </TabView>
+                    <TabView id="networking">
+                      <NetworkingFormSection
+                        data={data}
+                        errors={errorMap}
+                        onRemoveItem={this.handleRemoveItem}
+                        onAddItem={this.handleAddItem} />
+                    </TabView>
+                    <TabView id="environment">
+                      {rootErrorComponent}
+                      <EnvironmentFormSection
+                        data={data}
+                        errors={errorMap}
+                        onRemoveItem={this.handleRemoveItem}
+                        onAddItem={this.handleAddItem} />
+                    </TabView>
+                    <TabView id="volumes">
+                      <VolumesFormSection
+                        data={data}
+                        errors={errorMap}
+                        onRemoveItem={this.handleRemoveItem}
+                        onAddItem={this.handleAddItem} />
+                    </TabView>
+                    <TabView id="healthChecks">
+                      <HealthChecksFormSection
+                        data={data}
+                        errors={errorMap}
+                        onRemoveItem={this.handleRemoveItem}
+                        onAddItem={this.handleAddItem} />
+                    </TabView>
+                  </TabViewList>
+                </Tabs>
+              </form>
+            </div>
+          </FluidGeminiScrollbar>
         </div>
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
