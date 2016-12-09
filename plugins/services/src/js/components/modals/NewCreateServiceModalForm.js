@@ -10,7 +10,6 @@ import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
-import MultiContainerEnvironmentFormSection from '../forms/MultiContainerEnvironmentFormSection';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
@@ -328,7 +327,8 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabView id="environment" key="multienvironment">
           {rootErrorComponent}
-          <MultiContainerEnvironmentFormSection
+          <EnvironmentFormSection
+              mountType="CreateService:MultiContainerEnvironmentFormSection"
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
@@ -355,6 +355,7 @@ class NewCreateServiceModalForm extends Component {
       <TabView id="environment" key="environment">
         {rootErrorComponent}
         <EnvironmentFormSection
+            mountType="CreateService:EnvironmentFormSection"
             data={data}
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}

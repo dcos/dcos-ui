@@ -136,7 +136,7 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
         </FormRow>
         <MountService.Mount
-          type="CreateService:EnvironmentFormSection"
+          type={this.props.mountType}
           data={data}
           errors={errors}
           onAddItem={this.props.onAddItem.bind(this)}
@@ -150,14 +150,16 @@ EnvironmentFormSection.defaultProps = {
   data: {},
   errors: {},
   onAddItem() {},
-  onRemoveItem() {}
+  onRemoveItem() {},
+  mountType: 'CreateService:EnvironmentFormSection'
 };
 
 EnvironmentFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  onRemoveItem: React.PropTypes.func,
+  mountType: React.PropTypes.string
 };
 
 EnvironmentFormSection.configReducers = {
