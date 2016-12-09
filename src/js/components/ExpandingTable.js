@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -90,24 +91,35 @@ class ExpandingTable extends React.Component {
 
   render() {
     let {props} = this;
+    let classes = classNames(props.className, {
+      [`table-align-${props.alignCells}`]: props.alignCells != null
+    });
     let TableComponent = props.tableComponent;
 
     return (
       <TableComponent
-        {...Util.omit(props, ['childRowClassName'])}
+        className={classes}
+        {...Util.omit(props, ['alignCells', 'className', 'childRowClassName'])}
         columns={this.getColumns(props.columns)} />
     );
   }
 }
 
 ExpandingTable.defaultProps = {
+  alignCells: 'top',
   childRowClassName: 'text-overflow',
   expandAll: false,
   tableComponent: Table
 };
 
 ExpandingTable.propTypes = {
+  alignCells: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
   childRowClassName: React.PropTypes.string,
+  className: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
+  ]),
   expandAll: React.PropTypes.bool,
   tableComponent: React.PropTypes.func
 };
