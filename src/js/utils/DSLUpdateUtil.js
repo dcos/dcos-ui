@@ -102,9 +102,9 @@ const DSLUpdateUtil = {
       end = position[1][1] + offset;
 
       // Increase the scope to the entire value only if the node is the only
-      // value in the attrib. To test for this, we are checking if the character
-      // right before is the label ':' and the character after is a whitespace
-      // or a comma with whitespace
+      // value in the attribute. To test for this, we are checking if the
+      // character right before is the label ':' and the character after is a
+      // whitespace or a comma with whitespace
       if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end)))) {
         start = position[0][0] + offset;
         end = position[1][1] + offset;

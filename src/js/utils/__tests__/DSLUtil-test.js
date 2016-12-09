@@ -15,7 +15,7 @@ describe('DSLUtil', function () {
   describe('#reduceAstFilters', function () {
 
     it('should be called for every filter in the tree', function () {
-      let ast = new DSLExpression('foo bar (is:attrib "exact")').ast;
+      let ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
       let handler = jest.fn();
 
       DSLUtil.reduceAstFilters(ast, handler);
@@ -27,13 +27,13 @@ describe('DSLUtil', function () {
       expect(texts).toEqual([
         'foo',
         'bar',
-        'attrib',
+        'attribute',
         'exact'
       ]);
     });
 
     it('should correctly return and process memo', function () {
-      let ast = new DSLExpression('foo bar (is:attrib "exact")').ast;
+      let ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
       let texts = DSLUtil.reduceAstFilters(ast, (memo, filter) => {
         return memo.concat(filter.filterParams.text);
       }, []);
@@ -41,7 +41,7 @@ describe('DSLUtil', function () {
       expect(texts).toEqual([
         'foo',
         'bar',
-        'attrib',
+        'attribute',
         'exact'
       ]);
     });
@@ -80,7 +80,7 @@ describe('DSLUtil', function () {
 
     beforeEach(function () {
       this.parts = {
-        attr: DSLExpressionPart.attrib('is', 'foo'),
+        attr: DSLExpressionPart.attribute('is', 'foo'),
         exact: DSLExpressionPart.exact,
         fuzzy: DSLExpressionPart.fuzzy
       };
@@ -92,13 +92,13 @@ describe('DSLUtil', function () {
       expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
     });
 
-    it('should return true when expression has a single attrib node', function () {
+    it('should return true when expression has a single attribute node', function () {
       const expression = new DSLExpression('is:foo');
 
       expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
     });
 
-    it('should return false when expression has a repeating attrib node', function () {
+    it('should return false when expression has a repeating attribute node', function () {
       const expression = new DSLExpression('is:foo is:foo');
 
       expect(DSLUtil.canProcessParts(expression, this.parts)).toBeFalsy();
@@ -174,8 +174,8 @@ describe('DSLUtil', function () {
       ];
     });
 
-    it('should return all occurrences of attrib match', function () {
-      let filter = DSLExpressionPart.attrib('is', 'foo');
+    it('should return all occurrences of attribute match', function () {
+      let filter = DSLExpressionPart.attribute('is', 'foo');
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual([
         this.attribs[0], this.attribs[2]
@@ -200,7 +200,7 @@ describe('DSLUtil', function () {
 
     beforeEach(function () {
       this.parts = {
-        attr: DSLExpressionPart.attrib('is', 'foo'),
+        attr: DSLExpressionPart.attribute('is', 'foo'),
         exact: DSLExpressionPart.exact,
         fuzzy: DSLExpressionPart.fuzzy
       };
@@ -250,7 +250,7 @@ describe('DSLUtil', function () {
 
   describe('#getNodeString', function () {
 
-    it('should correctly return the string of attrib nodes', function () {
+    it('should correctly return the string of attribute nodes', function () {
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
       });
