@@ -58,14 +58,14 @@ module.exports = {
       let updateTrackJSConfiguration = () => {
         global.trackJs.configure({version: MetadataStore.version});
         global.trackJs.addMetadata('version', MetadataStore.version);
-
-        if (this.configuration && this.configuration.metadata) {
-          let config = this.configuration.metadata;
-          Object.keys(config).forEach((metaKey) => {
-            global.trackJs.addMetadata(metaKey, config[metaKey]);
-          });
-        }
       };
+
+      if (this.configuration && this.configuration.metadata) {
+        let config = this.configuration.metadata;
+        Object.keys(config).forEach((metaKey) => {
+          global.trackJs.addMetadata(metaKey, config[metaKey]);
+        });
+      }
 
       if (!MetadataStore.version) {
         MetadataStore.addChangeListener(
