@@ -39,11 +39,6 @@ function createNodeComparisionFunction(parts) {
         return true;
       }
 
-      // We only process reference nodes relevant to the node being added
-      if (nodeAdded.filterParams.label !== referenceNode.filterParams.label) {
-        return false;
-      }
-
       // But attribute nodes are strict
       return (referenceNode.filterParams.label === astNode.filterParams.label)
           && (referenceNode.filterParams.text === astNode.filterParams.text);

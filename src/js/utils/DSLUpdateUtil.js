@@ -244,10 +244,11 @@ const DSLUpdateUtil = {
       }
 
       // In case of an OR operator + attribute node we take special care for
-      // creating multi-value attributes
+      // creating multi-value attributes when possible
       if ((combiner === DSLCombinerTypes.OR) &&
           (node.filterType === DSLFilterTypes.ATTRIB) &&
-          (relevantNodes.length !== 0)) {
+          (relevantNodes.length !== 0) &&
+          (node.filterParams.label === relevantNodes[0].filterParams.label)) {
 
         newValue = DSLUpdateUtil.appendAttribNodeString(
           value, node, relevantNodes[0], offset
