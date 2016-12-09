@@ -8,6 +8,7 @@ import PluginSDK from 'PluginSDK';
 import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
+import GeminiUtil from '../utils/GeminiUtil';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
@@ -278,7 +279,11 @@ var Sidebar = React.createClass({
     const defaultItems = [
       {
         className: 'hidden',
-        html: <ClusterHeader showCaret={true} useClipboard={false} />,
+        html: (
+          <ClusterHeader showCaret={true}
+            useClipboard={false}
+            onUpdate={this.handleClusterHeaderUpdate} />
+        ),
         id: 'dropdown-trigger'
       },
       {
@@ -305,6 +310,10 @@ var Sidebar = React.createClass({
       <UserAccountDropdown
         menuItems={Hooks.applyFilter('userDropdownItems', defaultItems)} />
     );
+  },
+
+  handleClusterHeaderUpdate() {
+    GeminiUtil.updateWithRef(this.geminiRef);
   },
 
   handlePrimarySidebarLinkClick(element, isChildActive) {
@@ -371,7 +380,8 @@ var Sidebar = React.createClass({
             {this.getSidebarHeader()}
           </header>
           <GeminiScrollbar autoshow={true}
-            className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view">
+            className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view"
+            ref={(ref) => this.geminiRef = ref}>
             <div className="sidebar-content-wrapper">
               <div className="sidebar-sections pod pod-narrow">
                 {this.getNavigationSections()}

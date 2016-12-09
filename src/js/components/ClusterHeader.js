@@ -20,6 +20,12 @@ class ClusterHeader extends mixin(StoreMixin) {
     ];
   }
 
+  componentDidUpdate() {
+    if (this.props.onUpdate) {
+      this.props.onUpdate();
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.useClipboard !== this.props.useClipboard) {
       return true;
@@ -91,6 +97,7 @@ ClusterHeader.defaultProps = {
 };
 
 ClusterHeader.propTypes = {
+  onUpdate: React.PropTypes.func,
   showCaret: React.PropTypes.bool,
   useClipboard: React.PropTypes.bool
 };
