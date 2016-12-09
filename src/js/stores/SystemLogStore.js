@@ -147,7 +147,11 @@ class SystemLogStore extends BaseStore {
     return SystemLogActions.subscribe(nodeID, options);
   }
 
-  stopTailing(subscriptionID) {
+  stopTailing(subscriptionID, shouldClearData = false) {
+    if (shouldClearData) {
+      delete this.logs[subscriptionID];
+    }
+
     SystemLogActions.unsubscribe(subscriptionID);
   }
 
@@ -160,6 +164,7 @@ class SystemLogStore extends BaseStore {
     if (!cursor || this.hasLoadedTop(subscriptionID)) {
       return false;
     }
+
     SystemLogActions.fetchLogRange(
       nodeID,
       Object.assign({cursor}, options)

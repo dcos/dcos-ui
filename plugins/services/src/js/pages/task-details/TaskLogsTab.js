@@ -20,7 +20,7 @@ const METHODS_TO_BIND = [
   'handleItemSelection'
 ];
 
-const PAGE_ENTRY_COUNT = 50;
+const PAGE_ENTRY_COUNT = 100;
 
 function getLogParameters(task, options) {
   let {framework_id:frameworkID, executor_id:executorID, id} = task;
@@ -70,7 +70,8 @@ class TaskLogsTab extends mixin(StoreMixin) {
    */
   componentWillUnmount() {
     super.componentWillUnmount();
-    SystemLogStore.stopTailing(this.state.subscriptionID);
+    // Unusubscribe and clean up stored log lines
+    SystemLogStore.stopTailing(this.state.subscriptionID, true);
   }
 
   onSystemLogStoreError(subscriptionID) {
@@ -124,7 +125,6 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: {STREAM: this.state.selectedStream},
       limit: PAGE_ENTRY_COUNT,
-      skip_prev: PAGE_ENTRY_COUNT,
       subscriptionID
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);
@@ -155,6 +155,9 @@ class TaskLogsTab extends mixin(StoreMixin) {
       limit: 0,
       skip_prev: PAGE_ENTRY_COUNT
     });
+
+    // Unusubscribe and clean up stored log lines
+    SystemLogStore.stopTailing(this.state.subscriptionID, true);
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
     this.setState({isLoading: true, selectedStream, subscriptionID});
   }

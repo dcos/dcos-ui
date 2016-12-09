@@ -92,7 +92,7 @@ class LogView extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let {logContainer, logNode} = this;
+    const {logContainer, logNode} = this;
     if (logContainer == null) {
       return;
     }
@@ -112,6 +112,13 @@ class LogView extends React.Component {
     if (DOMUtils.getComputedHeight(logContainer) <
       DOMUtils.getComputedHeight(logNode) && this.state.isAtBottom) {
       this.handleGoToBottom();
+    }
+
+    // If the amount of logs is less than the size of the container, let's
+    // request backwards to see if we have reached the top
+    if (DOMUtils.getComputedHeight(logContainer) >=
+      DOMUtils.getComputedHeight(logNode)) {
+      this.checkIfCloseToTop(logContainer);
     }
   }
 
@@ -133,14 +140,15 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    const {logContainer, props: {highlightText}} = this;
-    // Do not scroll to bottom if we want to highlight a word in the log
-    if (logContainer == null || highlightText) {
+    const {logContainer, props: {highlightText}, state: {userScroll}} = this;
+    // Do not scroll to bottom if we want to highlight a word in the log,
+    // or we are already scrolling
+    if (logContainer == null || highlightText || !userScroll) {
       return;
     }
 
     // Cap animation time between 500 and 3000
-    let animationTime = Math.max(
+    const animationTime = Math.max(
       Math.min(
         logContainer.scrollHeight - DOMUtils.getDistanceFromTop(logContainer),
         3000
@@ -162,15 +170,16 @@ class LogView extends React.Component {
   }
 
   handleWindowResize() {
+    this.checkIfCloseToTop(this.logContainer);
     this.checkIfAwayFromBottom(this.logContainer);
   }
 
   checkIfCloseToTop(container) {
-    let {hasLoadedTop, fetchPreviousLogs} = this.props;
-    let {closeToTop} = this.state;
-    let distanceFromTop = DOMUtils.getDistanceFromTop(container);
+    const {closeToTop} = this.state;
+    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     if (distanceFromTop < 100 && !closeToTop) {
       this.setState({closeToTop: true}, () => {
+        const {hasLoadedTop, fetchPreviousLogs} = this.props;
         if (!hasLoadedTop) {
           fetchPreviousLogs();
         }
@@ -277,10 +286,6 @@ class LogView extends React.Component {
   }
 
   getLogPrepend() {
-    if (this.state.isAtBottom) {
-      return null;
-    }
-
     if (this.props.hasLoadedTop) {
       return (
         <div className="text-align-center vertical-center">
