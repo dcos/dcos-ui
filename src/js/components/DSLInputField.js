@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
+import DSLExpression from '../structs/DSLExpression';
 
 const METHODS_TO_BIND = [
   'handleBlur',
@@ -15,7 +16,7 @@ const METHODS_TO_BIND = [
  * embedded clear and dropdown buttons.
  *
  * WARNING: This component is stateless, meaning that the hosting component is
- *          responsible for updating the `value` property on a change event!
+ *          responsible for updating the `expression` property on a change event
  *
  * @example <caption>Using the DSLInputField</caption>
  *
@@ -24,7 +25,7 @@ const METHODS_TO_BIND = [
  *   dropdownVisible={this.state.dropdownVisible}
  *   onDropdownClick={this.handleDropdownToggle}
  *
- *   value={this.state.value}
+ *   expression={this.state.expression}
  *   onChange={this.handleChange}
  *
  *   />
@@ -71,8 +72,7 @@ class DSLInputField extends React.Component {
    * @param {SyntheticEvent} event - The change event
    */
   handleChange({target}) {
-    let value = target.value || '';
-    this.props.onChange(value);
+    this.props.onChange(new DSLExpression(target.value));
   }
 
   /**
@@ -90,7 +90,7 @@ class DSLInputField extends React.Component {
    * Callback whith empty text  when user clears the input
    */
   handleInputClear() {
-    this.props.onChange('');
+    this.props.onChange(new DSLExpression());
   }
 
   /**
@@ -99,31 +99,30 @@ class DSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getClearButton() {
-    if (!this.props.value) {
+    if (!this.props.expression.defined) {
       return null;
     }
 
-    let {hasErrors, inverseStyle} = this.props;
+    let {expression, inverseStyle} = this.props;
     let color = 'purple';
 
     if (inverseStyle) {
       color = 'white';
     }
 
-    if (hasErrors) {
+    if (expression.hasErrors) {
       color = 'red';
     }
 
     return (
       <span className="form-control-group-add-on">
-        <a onClick={this.handleInputClear}>
-          <Icon
-            family="system"
-            id="close"
-            size="mini"
-            className="clickable"
-            color={color} />
-        </a>
+        <Icon
+          family="system"
+          id="close"
+          size="mini"
+          className="clickable"
+          color={color}
+          onClick={this.handleInputClear} />
       </span>
     );
   }
@@ -156,14 +155,13 @@ class DSLInputField extends React.Component {
 
     return (
       <span className="form-control-group-add-on">
-        <a onClick={onDropdownClick}>
-          <Icon
-            family="system"
-            id="caret-down"
-            size="mini"
-            className="clickable"
-            color={color} />
-        </a>
+        <Icon
+          family="system"
+          id="caret-down"
+          size="mini"
+          className="clickable"
+          color={color}
+          onClick={onDropdownClick} />
       </span>
     );
   }
@@ -174,7 +172,7 @@ class DSLInputField extends React.Component {
    * @returns {Node} The input field
    */
   getInputField() {
-    let {inverseStyle, placeholder, value} = this.props;
+    let {expression, inverseStyle, placeholder} = this.props;
 
     let inputClasses = classNames({
       'form-control filter-input-text': true,
@@ -188,17 +186,16 @@ class DSLInputField extends React.Component {
         onChange={this.handleChange}
         ref={(ref) => this.inputField = ref}
         type="text"
-        value={value} />
+        value={expression.value} />
     );
   }
 
   render() {
     let {
       className,
-      hasErrors,
+      expression,
       inputContainerClass,
-      inverseStyle,
-      value
+      inverseStyle
     } = this.props;
     let {focus} = this.state;
 
@@ -207,11 +204,11 @@ class DSLInputField extends React.Component {
       'active': focus
     });
 
-    if (!inverseStyle && (focus || value)) {
+    if (!inverseStyle && (focus || expression.defined)) {
       iconColor = 'purple';
     }
 
-    if (hasErrors) {
+    if (expression.hasErrors) {
       iconColor = 'red';
     }
 
@@ -223,7 +220,7 @@ class DSLInputField extends React.Component {
 
     let formGroupClasses = classNames({
       'form-group': true,
-      'form-group-error': hasErrors
+      'form-group-error': expression.hasErrors
     }, className);
 
     return (
@@ -252,7 +249,6 @@ DSLInputField.defaultProps = {
   className: {},
   dropdownVisible: false,
   hasDropdown: true,
-  hasErrors: false,
   inverseStyle: false,
   onChange() {},
   onBlur() {},
@@ -268,14 +264,13 @@ DSLInputField.propTypes = {
   ]),
   dropdownVisible: PropTypes.bool,
   hasDropdown: PropTypes.bool,
-  hasErrors: PropTypes.bool,
   inverseStyle: PropTypes.bool,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   onDropdownClick: PropTypes.func,
   onFocus: PropTypes.func,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
 module.exports = DSLInputField;

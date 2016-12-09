@@ -1,6 +1,8 @@
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import {CombinerNode, FilterNode} from '../structs/DSLASTNodes';
 
+const ENDING_WHITESPACE = /\s+$/;
+
 const DSLUtil = {
 
   /**
@@ -194,6 +196,18 @@ const DSLUtil = {
           memo[prop] = matchingNodes
             .map((ast) => ast.filterParams.text)
             .join(' ');
+
+          // Also append whatever whitespace remains at the end of the raw value
+          //
+          // NOTE: This is a trick to allow dynamic updates of a React component
+          //       since white spaces at the end of the expression are not part
+          //       of a regular DSL expression and are trimmed.
+          //
+          const tailingWaitspace = ENDING_WHITESPACE.exec(expression.value);
+          if (tailingWaitspace) {
+            memo[prop] += tailingWaitspace[0];
+          }
+
           return memo;
 
       }

@@ -13,30 +13,11 @@ import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
 import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 
+import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
+import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
+import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
+
 class ServiceTreeView extends React.Component {
-  getButtonBar() {
-    const {modalHandlers} = this.context;
-    const {filterExpression} = this.props;
-
-    if (filterExpression.defined) {
-      return null;
-    }
-
-    return (
-      <div className="column-medium-7 text-align-right">
-        <button className="button button-stroke"
-          onClick={modalHandlers.createGroup}>
-          Create Group
-        </button>
-        {' '}
-        <button className="button button-success"
-          onClick={modalHandlers.createService}>
-          Run a Service
-        </button>
-      </div>
-    );
-  }
-
   getFilterBar() {
     const {
       filters,
@@ -54,10 +35,14 @@ class ServiceTreeView extends React.Component {
         <div className={hostClasses}>
           <DSLFilterField
             filters={filters}
+            formSections={[
+              ServiceStatusDSLSection,
+              ServiceHealthDSLSection,
+              FuzzyTextDSLSection
+            ]}
             expression={filterExpression}
             onChange={onFilterExpressionChange} />
         </div>
-        {this.getButtonBar()}
       </div>
     );
   }
@@ -135,7 +120,10 @@ ServiceTreeView.propTypes = {
   isEmpty: PropTypes.bool,
   modals: PropTypes.node,
   onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(PropTypes.instanceOf(Service)).isRequired,
+  services: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.instanceOf(Service),
+    PropTypes.instanceOf(ServiceTree)
+  ])).isRequired,
   serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
