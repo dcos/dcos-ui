@@ -40,31 +40,33 @@ class FluidGeminiScrollbar extends React.Component {
   }
 
   componentDidMount() {
-    const scrollbarWidth = ScrollbarUtil.getScrollbarWidth();
-
     // If the browser's scrollbar width is larger than zero and this is the
     // first instance of the component, then add the stylesheet to the
     // document's head.
-    if (scrollbarWidth > 0 && fluidContainerCount === 0) {
-      const head = global.document.head
-        || global.document.getElementsByTagName('head')[0];
+    if (fluidContainerCount === 0) {
+      const scrollbarWidth = ScrollbarUtil.getScrollbarWidth();
 
-      const cssString = `
-        .gm-scrollbar-container-fluid-view-width > .gm-scroll-view {
-          width: calc(100% + ${scrollbarWidth}px) !important;
+      if (scrollbarWidth > 0) {
+        const head = global.document.head
+          || global.document.getElementsByTagName('head')[0];
+
+        const cssString = `
+          .gm-scrollbar-container-fluid-view-width > .gm-scroll-view {
+            width: calc(100% + ${scrollbarWidth}px) !important;
+          }
+        `;
+
+        stylesheetRef = global.document.createElement('style');
+        stylesheetRef.type = 'text/css';
+
+        if (stylesheetRef.styleSheet) {
+          stylesheetRef.cssText = cssString;
+        } else {
+          stylesheetRef.appendChild(global.document.createTextNode(cssString));
         }
-      `;
 
-      stylesheetRef = global.document.createElement('style');
-      stylesheetRef.type = 'text/css';
-
-      if (stylesheetRef.styleSheet) {
-        stylesheetRef.cssText = cssString;
-      } else {
-        stylesheetRef.appendChild(global.document.createTextNode(cssString));
+        head.appendChild(stylesheetRef);
       }
-
-      head.appendChild(stylesheetRef);
     }
 
     // Keep track of the number of mounted instances.
@@ -93,4 +95,12 @@ class FluidGeminiScrollbar extends React.Component {
     );
   }
 }
+
+FluidGeminiScrollbar.propTypes = {
+  className: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object
+  ])
+};
+
 module.exports = FluidGeminiScrollbar;

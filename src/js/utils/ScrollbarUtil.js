@@ -3,6 +3,12 @@ import FluidGeminiScrollbar from '../components/FluidGeminiScrollbar';
 let scrollbarWidth = null;
 
 const ScrollbarUtil = {
+  /**
+   * Taken from Gemini's source code with some edits
+   * https://github.com/noeldelgado/gemini-scrollbar/blob/master/index.js#L22
+   * @param  {Object} options
+   * @return {Number} The width of the native scrollbar
+   */
   getScrollbarWidth(options = {}) {
     if (scrollbarWidth == null || options.forceUpdate) {
       let element = global.document.createElement('div');
@@ -24,7 +30,6 @@ const ScrollbarUtil = {
 
   updateWithRef(containerRef) {
     if (containerRef) {
-
       if (containerRef instanceof FluidGeminiScrollbar.constructor
         && containerRef.geminiRef != null) {
         containerRef.geminiRef.scrollbar.update();
