@@ -156,7 +156,7 @@ describe('SystemLogActions', function () {
     beforeEach(function () {
       SystemLogActions.fetchLogRange(
         'foo',
-        {cursor: 'bar', skip_prev: 10, subscriptionID: 'subscriptionID'}
+        {cursor: 'bar', limit: 3, subscriptionID: 'subscriptionID'}
       );
     });
 
@@ -170,7 +170,7 @@ describe('SystemLogActions', function () {
     it('fetches data from the correct URL', function () {
       let mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0])
-        .toEqual('/system/v1/agent/foo/logs/v1/range/?cursor=bar&skip_prev=10');
+        .toEqual('/system/v1/agent/foo/logs/v1/range/?cursor=bar&limit=3&read_reverse=true');
       expect(mostRecent.args[1]).toEqual({withCredentials: true});
     });
 
@@ -244,11 +244,8 @@ describe('SystemLogActions', function () {
       };
       this.eventSource.dispatchEvent('message', messageEvent);
       this.eventSource.dispatchEvent('message', messageEvent);
-      // Send same cursor
-      this.eventSource.dispatchEvent(
-        'message',
-        Object.assign({}, messageEvent, {data: '{"cursor": "bar"}'})
-      );
+      // Close before we the 3 events we have requested to show
+      // that we have reached the top
       let closeEvent = {
         data: {},
         eventPhase: global.EventSource.CLOSED,

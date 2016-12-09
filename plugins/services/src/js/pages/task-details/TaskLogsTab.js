@@ -124,7 +124,6 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: {STREAM: this.state.selectedStream},
       limit: PAGE_ENTRY_COUNT,
-      skip_prev: PAGE_ENTRY_COUNT,
       subscriptionID
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);

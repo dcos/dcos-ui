@@ -35,6 +35,7 @@ const SystemLogActions = {
    * @param {String} [options.frameworkID] ID for framework to retrieve logs from
    * @param {String} [options.executorID] ID for executor to retrieve logs from
    * @param {String} [options.containerID] ID for container to retrieve logs from
+   * @param {String} [options.read_reverse] will read events in reverse order if set to true
    * @return {Symbol} subscriptionID to ubsubscribe or resubscribe with
    */
   subscribe(nodeID, options = {}) {
@@ -126,19 +127,22 @@ const SystemLogActions = {
    * @param {String} [options.containerID] ID for container to retrieve logs from
    */
   fetchLogRange(nodeID, options = {}) {
-    let {cursor, skip_prev, subscriptionID} = options;
-
-    let url = SystemLogUtil.getUrl(nodeID, options, false);
+    let {limit, subscriptionID} = options;
+    let url = SystemLogUtil.getUrl(
+      nodeID,
+      // Avioding duplicate events by using read reverse (stream backwards).
+      // Connection will close all events are received or have reached the top
+      Object.assign(options, {read_reverse: true}),
+      false
+    );
     subscriptionID = subscriptionID || Symbol(url + Date.now());
     let source = new EventSource(url, {
       withCredentials: Boolean(CookieUtils.getUserMetadata())
     });
 
     let items = [];
-    let firstEntry = false;
-
     function messageListener({data, origin} = {}) {
-      if (firstEntry || origin !== global.location.origin) {
+      if (origin !== global.location.origin) {
         // Ignore events that are not from this origin
         return false;
       }
@@ -153,13 +157,6 @@ const SystemLogActions = {
           subscriptionID
         });
       }
-      // If we want previous logs and see the cursor we requested data with,
-      // we have reached the top
-      if (!firstEntry && skip_prev > 0 && parsedData.cursor === cursor) {
-        firstEntry = true;
-
-        return false;
-      }
 
       items.push(parsedData);
     }
@@ -171,8 +168,8 @@ const SystemLogActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
           data: items,
-          subscriptionID,
-          firstEntry
+          firstEntry: items.length < limit,
+          subscriptionID
         });
       } else {
         AppDispatcher.handleServerAction({

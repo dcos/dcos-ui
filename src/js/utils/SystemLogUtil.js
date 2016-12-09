@@ -1,5 +1,13 @@
 import Config from '../config/Config';
 
+const paramOptions = [
+  'cursor',
+  'limit',
+  'skip_prev',
+  'skip_next',
+  'read_reverse'
+];
+
 const SystemLogUtil = {
   /**
    * Creates a URL to use with the events stream for logs
@@ -16,13 +24,14 @@ const SystemLogUtil = {
    * @param {String} [options.frameworkID] ID for framework to retrieve logs from
    * @param {String} [options.executorID] ID for executor to retrieve logs from
    * @param {String} [options.containerID] ID for container to retrieve logs from
+   * @param {String} [options.read_reverse] will read events in reverse order if set to true
    * @param {Boolean} [isStream = true] whether to use stream or range endpoint
    * @returns {String} URL for system logs request
    */
   getUrl(nodeID, options, isStream = true) {
     let {filter = {}} = options;
 
-    let range = ['cursor', 'limit', 'skip_prev', 'skip_next'].reduce(function (memo, key) {
+    let range = paramOptions.reduce((memo, key) => {
       if (options[key] !== '' && options[key] != null) {
         memo.push(`${key}=${encodeURIComponent(options[key])}`);
       }
