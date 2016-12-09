@@ -119,8 +119,8 @@ const DSLUpdateUtil = {
       }
     }
 
-    // Bleed left whitespace, if exists, or right whitespace
-    // if we are the first token
+    // Bleed to the left, eating-up the left-side whitespace by default,
+    // and only if we are the first token, do the same on the right-side.
     if (src[start - 1] === ' ') {
       start -= 1;
     } else if ((start === 0) && (src[end] === ' ')) {
