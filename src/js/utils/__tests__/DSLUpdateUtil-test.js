@@ -244,7 +244,6 @@ describe('DSLUpdateUtil', function () {
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
           nodeCompareFunction: customComparisionFunction,
-          itemCombiner: DSLCombinerTypes.OR,
           newCombiner: DSLCombinerTypes.OR
         }).value
       ).toEqual('label:not_here, label:text');
@@ -253,8 +252,7 @@ describe('DSLUpdateUtil', function () {
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
           nodeCompareFunction: customComparisionFunction,
-          itemCombiner: DSLCombinerTypes.OR,
-          newCombiner: DSLCombinerTypes.OR
+          itemCombiner: DSLCombinerTypes.OR
         }).value
       ).toEqual('label:here,text');
     });
