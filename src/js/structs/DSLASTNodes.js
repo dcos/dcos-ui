@@ -15,8 +15,8 @@ class ASTNode {
      * position of each relevant text portions that composes this token.
      *
      * In 99.9% of the cases, this is an array with only 1 tuple. However, when
-     * the `attrib:value1,value2` shorthand is used, this array will contain
-     * 2 tuples, pointing to the `attrib:` and `valueX` parts separately.
+     * the `attribute:value1,value2` shorthand is used, this array will contain
+     * 2 tuples, pointing to the `attribute:` and `valueX` parts separately.
      *
      * @var {Array}
      */

@@ -10,11 +10,11 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
 const EXPRESSION_PARTS = {
-  is_running: DSLExpressionPart.attrib('is', 'running'),
-  is_deploying: DSLExpressionPart.attrib('is', 'deploying'),
-  is_suspended: DSLExpressionPart.attrib('is', 'suspended'),
-  is_delayed: DSLExpressionPart.attrib('is', 'delayed'),
-  is_waiting: DSLExpressionPart.attrib('is', 'waiting')
+  is_running: DSLExpressionPart.attribute('is', 'running'),
+  is_deploying: DSLExpressionPart.attribute('is', 'deploying'),
+  is_suspended: DSLExpressionPart.attribute('is', 'suspended'),
+  is_delayed: DSLExpressionPart.attribute('is', 'delayed'),
+  is_waiting: DSLExpressionPart.attribute('is', 'waiting')
 };
 
 class ServiceStatusDSLSection extends React.Component {

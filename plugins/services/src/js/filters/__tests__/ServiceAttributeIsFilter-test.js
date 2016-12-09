@@ -1,16 +1,16 @@
 jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
 jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
 jest.dontMock('../../constants/ServiceStatus');
-jest.dontMock('../ServiceAttribIsFilter');
+jest.dontMock('../ServiceAttributeIsFilter');
 jest.dontMock('../../../../../../src/js/structs/List');
 
 var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
 var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
 var ServiceStatus = require('../../constants/ServiceStatus');
-var ServiceAttribIsFilter = require('../ServiceAttribIsFilter');
+var ServiceAttributeIsFilter = require('../ServiceAttributeIsFilter');
 var List = require('../../../../../../src/js/structs/List');
 
-describe('ServiceAttribIsFilter', function () {
+describe('ServiceAttributeIsFilter', function () {
 
   beforeEach(function () {
     this.mockItems = [
@@ -27,7 +27,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:delayed');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -38,7 +38,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:deploying');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -49,7 +49,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:running');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -60,7 +60,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:suspended');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -71,7 +71,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:waiting');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[4]
@@ -82,7 +82,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:na');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[5]
@@ -93,7 +93,7 @@ describe('ServiceAttribIsFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('is:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttribIsFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
@@ -104,7 +104,7 @@ describe('ServiceAttribIsFilter', function () {
     let expr = SearchDSL.parse('is:dElAyED');
 
     let filters = new DSLFilterList([
-      new ServiceAttribIsFilter()
+      new ServiceAttributeIsFilter()
     ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([

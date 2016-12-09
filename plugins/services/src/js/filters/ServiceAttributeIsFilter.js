@@ -19,7 +19,7 @@ const LABEL_TO_INSTANCE = {
 class ServiceAttribIsFilter extends DSLFilter {
 
   /**
-   * Handle all `is:XXXX` attrib filters that we can handle.
+   * Handle all `is:XXXX` attribute filters that we can handle.
    *
    * @override
    */

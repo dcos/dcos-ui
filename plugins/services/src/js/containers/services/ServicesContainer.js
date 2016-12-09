@@ -24,8 +24,9 @@ import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg
 
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
-import ServiceAttribIsFilter from '../../filters/ServiceAttribIsFilter';
-import ServiceAttribHealthFilter from '../../filters/ServiceAttribHealthFilter';
+import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
+import ServiceAttributeHealthFilter
+  from '../../filters/ServiceAttributeHealthFilter';
 import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
 
 import {
@@ -74,8 +75,8 @@ import {
 
 const SERVICE_FILTERS = new DSLFilterList([
   new ServiceNameTextFilter(),
-  new ServiceAttribHealthFilter(),
-  new ServiceAttribIsFilter()
+  new ServiceAttributeHealthFilter(),
+  new ServiceAttributeIsFilter()
 ]);
 
 /**

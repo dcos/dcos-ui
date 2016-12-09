@@ -165,7 +165,7 @@ const DSLUtil = {
 
       switch (matchAgainst.filterType) {
         //
-        // Properties created through .attrib() filter will get a boolean value
+        // Properties created through attribute filter will get a boolean value
         //
         case DSLFilterTypes.ATTRIB:
           memo[prop] = (matchingNodes.length === 1);
