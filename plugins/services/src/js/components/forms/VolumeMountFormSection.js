@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
+import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
@@ -16,12 +17,23 @@ class VolumesFormSection extends Component {
     const {volumeMounts} = this.props.data;
 
     return containers.map((container, containerIndex) => {
+      let containersLabel = null;
+      let pathLabel = null;
+      if (containerIndex === 0) {
+        containersLabel = <FieldLabel>Containers</FieldLabel>;
+        pathLabel = <FieldLabel>Container Mount Path</FieldLabel>;
+      }
+
       return (
         <div className="flex row" key={containerIndex}>
+          <div className="column-3">
+            {containersLabel}
+            {getContainerNameWithIcon(container)}
+          </div>
           <FormGroup
             className="column-9"
             required={false}>
-            <FieldLabel>{container.name}</FieldLabel>
+            {pathLabel}
             <FieldInput
               name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
               type="text"
