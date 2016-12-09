@@ -323,11 +323,13 @@ module.exports = {
       return newState;
     }
 
-    this.volumeMounts =
-        volumeMountsReducer(this.volumeMounts, {type, path, value});
+    this.volumeMounts = volumeMountsReducer(
+      this.volumeMounts,
+      {type, path, value}
+    );
 
     newState = state.map((container, index) => {
-      if (this.volumeMounts.length !== 0) {
+      if (this.volumeMounts.length === 0) {
         container.volumeMounts = this.volumeMounts.filter((volumeMount) => {
           return volumeMount.name != null && volumeMount.mountPath[index];
         }).map((volumeMount) => {
@@ -418,8 +420,11 @@ module.exports = {
 
     if (type === SET &&
       joinedPath === `containers.${index}.exec.command.shell`) {
-      newState[index].exec =
-        Object.assign({}, newState[index].exec, {command: {shell: value}});
+      newState[index].exec = Object.assign(
+        {},
+        newState[index].exec,
+        {command: {shell: value}}
+      );
     }
 
     if (type === SET && field === 'resources') {
@@ -438,7 +443,8 @@ module.exports = {
   },
 
   FormReducer(state, {type, path = [], value}) {
-    const [base, index, field, secondIndex, name] = path; // eslint-disable-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars
+    const [_, index, field, secondIndex, name] = path;
 
     if (!path.includes('containers')) {
       return state;
@@ -553,8 +559,11 @@ module.exports = {
 
     if (type === SET &&
       joinedPath === `containers.${index}.exec.command.shell`) {
-      newState[index].exec =
-        Object.assign({}, newState[index].exec, {command: {shell: value}});
+      newState[index].exec = Object.assign(
+        {},
+        newState[index].exec,
+        {command: {shell: value}}
+      );
     }
 
     if (type === SET && field === 'resources') {
