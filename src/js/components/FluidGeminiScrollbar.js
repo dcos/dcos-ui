@@ -60,7 +60,7 @@ class FluidGeminiScrollbar extends React.Component {
         stylesheetRef.type = 'text/css';
 
         if (stylesheetRef.styleSheet) {
-          stylesheetRef.cssText = cssString;
+          stylesheetRef.styleSheet.cssText = cssString;
         } else {
           stylesheetRef.appendChild(global.document.createTextNode(cssString));
         }
