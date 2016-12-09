@@ -64,18 +64,14 @@ class DSLFilterField extends React.Component {
       return;
     }
 
-    this.setState({
-      dropdownVisible: false
-    });
+    this.setState({dropdownVisible: false});
   }
 
   /**
    * Handle click on the dropdown button of the input field
    */
   handleDropdownClick() {
-    this.setState({
-      dropdownVisible: !this.state.dropdownVisible
-    });
+    this.setState({dropdownVisible: !this.state.dropdownVisible});
   }
 
   /**
@@ -89,10 +85,10 @@ class DSLFilterField extends React.Component {
    * Clicks on the panel region are stopped in order for them not to reach
    * the body handler (that dismisses the dropdown)
    *
-   * @param {SyntheticEvent} e - The click event
+   * @param {SyntheticEvent} event - The click event
    */
-  handleIgnoreClick(e) {
-    e.stopPropagation();
+  handleIgnoreClick(event) {
+    event.stopPropagation();
   }
 
   render() {
