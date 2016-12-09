@@ -1,6 +1,21 @@
 import {ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
+/*
+ * transformContainers
+ * converts nested container - volumeMounts structure into flat array of tuples
+ */
+function transformContainers(memo, container, containerIndex) {
+  if (container.volumeMounts == null) {
+    return memo;
+  }
+
+  const tuples =
+    container.volumeMounts.map((mount) => ([containerIndex, mount]));
+
+  return memo.concat(tuples);
+}
+
 module.exports = {
   JSONReducer(state = [], {type, path, value}) {
     const [base, index, name] = path;
@@ -57,35 +72,30 @@ module.exports = {
     }
 
     const containerVolumesTransactions =
-      state.containers.reduce((memo, container, containerIndex) => {
-        if (container.volumeMounts == null) {
-          return memo;
-        }
+      state.containers
+        .reduce(transformContainers, [])
+        .reduce((memo, [containerIndex, volumeMount]) => {
+          const {name, mountPath} = volumeMount;
 
-        const mountTransactions =
-          container.volumeMounts.reduce((memo, mount) => {
-            if (mountMap[mount.name] == null) {
-              mountMap[mount.name] = volumes.push(mount.name) - 1;
-              memo.push(new Transaction(['volumeMounts'], mountMap[mount.name], ADD_ITEM));
-              memo.push(new Transaction([
-                'volumeMounts',
-                mountMap[mount.name],
-                'name'
-              ], mount.name));
-            }
-
+          if (mountMap[name] == null) {
+            mountMap[name] = volumes.push(name) - 1;
+            memo.push(new Transaction(['volumeMounts'], mountMap[name], ADD_ITEM));
             memo.push(new Transaction([
               'volumeMounts',
-              mountMap[mount.name],
-              'mountPath',
-              containerIndex
-            ], mount.mountPath));
+              mountMap[name],
+              'name'
+            ], name));
+          }
 
-            return memo;
-          }, []);
+          memo.push(new Transaction([
+            'volumeMounts',
+            mountMap[name],
+            'mountPath',
+            containerIndex
+          ], mountPath));
 
-        return memo.concat(mountTransactions);
-      }, []);
+          return memo;
+        }, []);
 
     return transactions.concat(containerVolumesTransactions);
   },
