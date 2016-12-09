@@ -33,6 +33,14 @@ function getMesosState() {
   };
 }
 
+const DashboardBreadcrumbs = () => {
+  const crumbs = [
+    <Link to="/dashboard" key={-1}>Dashboard</Link>
+  ];
+
+  return <Page.Header.Breadcrumbs iconID="graph" breadcrumbs={crumbs} />;
+};
+
 var DashboardPage = React.createClass({
 
   displayName: 'DashboardPage',
@@ -155,6 +163,7 @@ var DashboardPage = React.createClass({
 
     return (
       <Page title="Dashboard">
+        <Page.Header breadcrumbs={<DashboardBreadcrumbs />} />
         <div className="panel-grid row">
           <div className={columnClasses}>
             <Panel
