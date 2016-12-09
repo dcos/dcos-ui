@@ -303,7 +303,7 @@ module.exports = {
     if (joinedPath === 'containers') {
       switch (type) {
         case ADD_ITEM:
-          newState.push({name: `container ${newState.length + 1}`});
+          newState.push({name: `container-${newState.length + 1}`});
           this.cache.push({});
           this.endpoints.push({});
           break;
@@ -471,7 +471,7 @@ module.exports = {
     if (joinedPath === 'containers') {
       switch (type) {
         case ADD_ITEM:
-          newState.push({name: `container ${newState.length + 1}`});
+          newState.push({name: `container-${newState.length + 1}`});
           this.cache.push({});
           break;
         case REMOVE_ITEM:
