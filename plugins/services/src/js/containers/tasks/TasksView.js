@@ -141,27 +141,39 @@ class TasksView extends mixin(SaveStateMixin) {
     );
   }
 
-  getKillButtons(hasCheckedTasks) {
-    if (!hasCheckedTasks) {
+  getKillButtons() {
+    const {tasks} = this.props;
+    const {checkedItems} = this.state;
+
+    if (!Object.keys(checkedItems).length) {
       return null;
     }
 
-    return (
-      <div className="button-collection flush-bottom">
-        <div
-          className="button button-link"
-          onClick={this.handleKillClick.bind(this, 'restart')}>
-          <Icon id="repeat" size="mini" />
-          <span>Restart</span>
-        </div>
+    let killButtons = [(
+      <div
+        className="button button-link"
+        onClick={this.handleKillClick.bind(this, 'restart')}>
+        <Icon id="repeat" size="mini" />
+        <span>Restart</span>
+      </div>
+    )];
+
+    // Only show Stop if a scheduler task isn't selected
+    const hasSchedulerTask = tasks
+      .some((task) => task.id in checkedItems && task.schedulerTask);
+
+    if (!hasSchedulerTask) {
+      killButtons.push(
         <div
           className="button button-link"
           onClick={this.handleKillClick.bind(this, 'stop')}>
           <Icon id="circle-close" size="mini" />
           <span>Stop</span>
         </div>
-      </div>
-    );
+      );
+    }
+
+    return <div className="button-collection flush-bottom">{killButtons}</div>;
   }
 
   render() {
@@ -209,7 +221,7 @@ class TasksView extends mixin(SaveStateMixin) {
             inverseStyle={inverseStyle}
             itemList={taskStates}
             selectedFilter={filterByStatus} />
-          {this.getKillButtons(hasCheckedTasks)}
+          {this.getKillButtons()}
         </FilterBar>
         {this.getTaskTable(filteredTasks, checkedItems)}
       </div>
