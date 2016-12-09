@@ -34,7 +34,9 @@ module.exports = {
     'routes'
   ],
 
-  initialize() {
+  initialize(configuration) {
+    this.configuration = configuration;
+
     this.filters.forEach((filter) => {
       SDK.Hooks.addFilter(filter, this[filter].bind(this));
     });
@@ -52,9 +54,17 @@ module.exports = {
   pluginsConfigured() {
     DOMUtils.appendScript(document.head, segmentScript);
 
-    window.analytics.ready(function () {
-      function updateTrackJSConfiguration() {
+    window.analytics.ready(() => {
+      let updateTrackJSConfiguration = () => {
         global.trackJs.configure({version: MetadataStore.version});
+        global.trackJs.addMetadata('version', MetadataStore.version);
+      };
+
+      if (this.configuration && this.configuration.metadata) {
+        let config = this.configuration.metadata;
+        Object.keys(config).forEach((metaKey) => {
+          global.trackJs.addMetadata(metaKey, config[metaKey]);
+        });
       }
 
       if (!MetadataStore.version) {
