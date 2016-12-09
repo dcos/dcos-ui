@@ -6,12 +6,12 @@ import {Tooltip} from 'reactjs-components';
 
 import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import FormUtil from '../utils/FormUtil';
-import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
 import Image from './Image';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
+import ScrollbarUtil from '../utils/ScrollbarUtil';
 import TabForm from './TabForm';
 import Util from '../utils/Util';
 
@@ -72,7 +72,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
-      GeminiUtil.updateWithRef(this.refs.geminiForms);
+      ScrollbarUtil.updateWithRef(this.refs.geminiForms);
     });
   }
 

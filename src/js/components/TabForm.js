@@ -4,9 +4,9 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
-import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import ScrollbarUtil from '../utils/ScrollbarUtil';
 import SideTabs from './SideTabs';
 
 const METHODS_TO_BIND = [
@@ -49,7 +49,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   componentDidUpdate() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
-      GeminiUtil.updateWithRef(this.refs.geminiForms);
+      ScrollbarUtil.updateWithRef(this.refs.geminiForms);
     });
   }
 

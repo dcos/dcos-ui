@@ -4,15 +4,15 @@ import React from 'react';
 
 import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import DescriptionList from './DescriptionList';
-import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
 import Image from './Image';
+import ScrollbarUtil from '../utils/ScrollbarUtil';
 
 class ReviewConfig extends React.Component {
   componentDidMount() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
-      GeminiUtil.updateWithRef(this.refs.gemini);
+      ScrollbarUtil.updateWithRef(this.refs.gemini);
     });
   }
 

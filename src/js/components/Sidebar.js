@@ -8,12 +8,12 @@ import PluginSDK from 'PluginSDK';
 import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
-import GeminiUtil from '../utils/GeminiUtil';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
+import ScrollbarUtil from '../utils/ScrollbarUtil';
 import SidebarActions from '../events/SidebarActions';
 import SidebarStore from '../stores/SidebarStore';
 import UserAccountDropdown from './UserAccountDropdown';
@@ -313,7 +313,7 @@ var Sidebar = React.createClass({
   },
 
   handleClusterHeaderUpdate() {
-    GeminiUtil.updateWithRef(this.geminiRef);
+    ScrollbarUtil.updateWithRef(this.geminiRef);
   },
 
   handlePrimarySidebarLinkClick(element, isChildActive) {
