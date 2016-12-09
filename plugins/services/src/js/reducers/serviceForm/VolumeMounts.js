@@ -49,7 +49,7 @@ module.exports = {
     }
 
     let volumes = [];
-    let mountMap = {};
+    let volumeIndexMap = {};
 
     let transactions = [];
 
@@ -58,11 +58,11 @@ module.exports = {
         if (volume.name == null) {
           return memo;
         }
-        mountMap[volume.name] = volumes.push(volume.name) - 1;
+        volumeIndexMap[volume.name] = volumes.push(volume.name) - 1;
         return memo.concat(
-          new Transaction(['volumeMounts'], mountMap[volume.name], ADD_ITEM),
+          new Transaction(['volumeMounts'], volumeIndexMap[volume.name], ADD_ITEM),
           new Transaction(
-            ['volumeMounts', mountMap[volume.name], 'name'],
+            ['volumeMounts', volumeIndexMap[volume.name], 'name'],
             volume.name
           )
         );
@@ -77,16 +77,16 @@ module.exports = {
       .reduce((memo, [containerIndex, volumeMount]) => {
         const {name, mountPath} = volumeMount;
 
-        if (mountMap[name] == null) {
-          mountMap[name] = volumes.push(name) - 1;
+        if (volumeIndexMap[name] == null) {
+          volumeIndexMap[name] = volumes.push(name) - 1;
           memo = memo.concat(
-            new Transaction(['volumeMounts'], mountMap[name], ADD_ITEM),
-            new Transaction(['volumeMounts', mountMap[name], 'name'], name)
+            new Transaction(['volumeMounts'], volumeIndexMap[name], ADD_ITEM),
+            new Transaction(['volumeMounts', volumeIndexMap[name], 'name'], name)
           );
         }
 
         memo.push(new Transaction(
-          ['volumeMounts', mountMap[name], 'mountPath', containerIndex],
+          ['volumeMounts', volumeIndexMap[name], 'mountPath', containerIndex],
           mountPath
         ));
 
