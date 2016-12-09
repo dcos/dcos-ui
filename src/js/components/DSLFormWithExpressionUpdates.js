@@ -31,14 +31,10 @@ class DSLFormWithExpressionUpdates extends React.Component {
    */
   handleFormChange({target}) {
     let {
-      expression,
-      groupCombiner,
-      itemCombiner,
       onChange,
-      parts,
-      updatePolicy
+      parts
     } = this.props;
-    let value = target.value;
+    let {value} = target;
 
     const name = target.getAttribute('name');
     if (!name) {
@@ -50,15 +46,40 @@ class DSLFormWithExpressionUpdates extends React.Component {
     }
 
     // Locate the respective DSL part node
-    const partNode = parts[name];
-    if (partNode == null) {
+    const updateNode = parts[name];
+    if (updateNode == null) {
       return;
     }
 
-    // Locate all the current tokens of the expression that the filter match
-    const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, partNode);
+    // Callback with the new expression
+    onChange(this.getUpdatedExpression(updateNode, value));
+  }
 
-    switch (partNode.filterType) {
+  handleFormSubmit(event) {
+    event.preventDefault();
+    this.props.onSubmit();
+  }
+
+  /**
+   * Update the current expression (from props) by updating the given FilterNode
+   * to the given value according to the current update policies.
+   *
+   * @param {FilterNode} updateNode - The node filter to update
+   * @param {String|Boolean} value - The value to update to
+   * @returns {Expression} Returns the updated expression
+   */
+  getUpdatedExpression(updateNode, value) {
+    let {
+      expression,
+      groupCombiner,
+      itemCombiner,
+      updatePolicy
+    } = this.props;
+
+    // Locate all the current tokens of the expression that the filter match
+    const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, updateNode);
+
+    switch (updateNode.filterType) {
       //
       // The way an attribute updates depends on the `dslUpdatePolicy`.
       //
@@ -72,7 +93,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         if (updatePolicy === DSLUpdatePolicy.Radio) {
           if (value) {
             expression = DSLUpdateUtil.applyReplace(
-              expression, matchingNodes, [partNode], groupCombiner, itemCombiner
+              expression, matchingNodes, [updateNode], groupCombiner, itemCombiner
             );
           } else {
             expression = DSLUpdateUtil.applyDelete(
@@ -85,7 +106,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         // On 'Checkbox' policy, we just add/remove the matching AST node
         if (value) {
           expression = DSLUpdateUtil.applyAdd(
-            expression, [partNode], groupCombiner, itemCombiner
+            expression, [updateNode], groupCombiner, itemCombiner
           );
         } else {
           expression = DSLUpdateUtil.applyDelete(
@@ -122,13 +143,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         break;
     }
 
-    // Callback with the new expression
-    onChange(expression);
-  }
-
-  handleFormSubmit(event) {
-    event.preventDefault();
-    this.props.onSubmit();
+    return expression;
   }
 
   /**

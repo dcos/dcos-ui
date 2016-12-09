@@ -10,10 +10,10 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
 const PARTS = {
-  is_healthy   : DSLExpressionPart.attrib('health', 'healthy'),
-  is_unhealthy : DSLExpressionPart.attrib('health', 'unhealthy'),
-  is_idle      : DSLExpressionPart.attrib('health', 'idle'),
-  is_na        : DSLExpressionPart.attrib('health', 'na')
+  is_healthy: DSLExpressionPart.attrib('health', 'healthy'),
+  is_unhealthy: DSLExpressionPart.attrib('health', 'unhealthy'),
+  is_idle: DSLExpressionPart.attrib('health', 'idle'),
+  is_na: DSLExpressionPart.attrib('health', 'na')
 };
 
 class ServiceHealthDSLSection extends React.Component {

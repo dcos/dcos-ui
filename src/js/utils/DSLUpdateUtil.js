@@ -208,8 +208,9 @@ const DSLUpdateUtil = {
    * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyAdd(expression, nodes, newCombiner=DSLCombinerTypes.AND,
-    itemCombiner=DSLCombinerTypes.AND) {
+  applyAdd(expression, nodes, newCombiner, itemCombiner) {
+    newCombiner = newCombiner || DSLCombinerTypes.AND;
+    itemCombiner = itemCombiner || DSLCombinerTypes.AND;
 
     let expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
       let combiner = itemCombiner;
@@ -276,8 +277,9 @@ const DSLUpdateUtil = {
    * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyReplace(expression, nodes, newNodes, newCombiner=DSLCombinerTypes.AND,
-    itemCombiner=DSLCombinerTypes.AND) {
+  applyReplace(expression, nodes, newNodes, newCombiner, itemCombiner) {
+    newCombiner = newCombiner || DSLCombinerTypes.AND;
+    itemCombiner = itemCombiner || DSLCombinerTypes.AND;
 
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
