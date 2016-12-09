@@ -209,6 +209,8 @@ function containersParser(state) {
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
+    const [base, index, field, secondIndex, name] = path;
+
     if (this.networkType == null) {
       this.networkType = Networking.type.HOST;
     }
@@ -217,11 +219,11 @@ module.exports = {
       this.appState = {};
     }
 
-    if (path[0] === 'id' && type === SET) {
+    if (base === 'id' && type === SET) {
       this.appState.id = value;
     }
 
-    if (path[0] === 'network' && type === SET) {
+    if (base === 'network' && type === SET) {
       const valueSplit = value.split('.');
 
       this.networkType = valueSplit[0];
@@ -247,8 +249,6 @@ module.exports = {
     }
 
     let newState = state.slice();
-
-    const index = path[1];
     const joinedPath = path.join('.');
 
     if (joinedPath === 'containers') {
@@ -274,54 +274,32 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'endpoints') {
-      if (this.endpoints[path[1]].endpoints == null) {
-        this.endpoints[path[1]].endpoints = [];
+    if (field === 'endpoints') {
+      if (this.endpoints[index].endpoints == null) {
+        this.endpoints[index].endpoints = [];
       }
 
       switch (type) {
         case ADD_ITEM:
-          this.endpoints[path[1]].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          this.endpoints[index].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
           break;
         case REMOVE_ITEM:
-          this.endpoints[path[1]].endpoints = this.endpoints[path[1]].endpoints.filter((item, index) => {
+          this.endpoints[index].endpoints = this.endpoints[index].endpoints.filter((item, index) => {
             return index !== value;
           });
           break;
       }
 
-      if (type === SET) {
-        if (path[4] === 'name') {
-          this.endpoints[path[1]].endpoints[path[3]].name = value;
-        }
+      const fieldNames = [
+        'name', 'protocol', 'automaticPort', 'portMapping',
+        'loadBalanced', 'vip'];
+      const numericalFiledNames = ['containerPort', 'hostPort'];
 
-        if (path[4] === 'hostPort') {
-          this.endpoints[path[1]].endpoints[path[3]].hostPort = value;
-        }
-
-        if (path[4] === 'containerPort') {
-          this.endpoints[path[1]].endpoints[path[3]].containerPort = value;
-        }
-
-        if (path[4] === 'protocol') {
-          this.endpoints[path[1]].endpoints[path[3]].protocol = value;
-        }
-
-        if (path[4] === 'automaticPort') {
-          this.endpoints[path[1]].endpoints[path[3]].automaticPort = value;
-        }
-
-        if (path[4] === 'portMapping') {
-          this.endpoints[path[1]].endpoints[path[3]].portMapping = value;
-        }
-
-        if (path[4] === 'loadBalanced') {
-          this.endpoints[path[1]].endpoints[path[3]].loadBalanced = value;
-        }
-
-        if (path[4] === 'vip') {
-          this.endpoints[path[1]].endpoints[path[3]].vip = value;
-        }
+      if (type === SET && fieldNames.includes(name)) {
+        this.endpoints[index].endpoints[secondIndex][name] = value;
+      }
+      if (type === SET && numericalFiledNames.includes(name)) {
+        this.endpoints[index].endpoints[secondIndex][name] = parseInt(value, 10);
       }
     }
     newState = newState.map((container, index) => {
@@ -329,39 +307,38 @@ module.exports = {
       return container;
     });
 
-    let field = path[2];
     if (field === 'healthChecks') {
-      if (newState[path[1]].healthChecks == null) {
-        newState[path[1]].healthChecks = [];
+      if (newState[index].healthChecks == null) {
+        newState[index].healthChecks = [];
       }
 
-      if (this.healthChecks[path[1]] == null) {
-        this.healthChecks[path[1]] = {};
+      if (this.healthChecks[index] == null) {
+        this.healthChecks[index] = {};
       }
 
-      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
-        this.healthChecks[path[1]],
-        newState[path[1]].healthChecks,
+      newState[index].healthChecks = MultiContainerHealthChecks.call(
+        this.healthChecks[index],
+        newState[index].healthChecks,
         {type, path: path.slice(2), value}
       );
     }
 
     if (field === 'artifacts') {
-      if (newState[path[1]].artifacts == null) {
-        newState[path[1]].artifacts = [];
+      if (newState[index].artifacts == null) {
+        newState[index].artifacts = [];
       }
 
       switch (type) {
         case ADD_ITEM:
-          newState[path[1]].artifacts.push({uri: ''});
+          newState[index].artifacts.push({uri: ''});
           break;
         case REMOVE_ITEM:
-          newState[path[1]].artifacts = newState[path[1]].artifacts.filter((item, index) => {
+          newState[index].artifacts = newState[index].artifacts.filter((item, index) => {
             return index !== value;
           });
           break;
         case SET:
-          newState[path[1]].artifacts[path[3]][path[4]] = value;
+          newState[index].artifacts[secondIndex][name] = value;
           break;
       }
 
@@ -376,7 +353,7 @@ module.exports = {
       newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
     }
 
-    if (type === SET && path[2] === 'resources') {
+    if (type === SET && field === 'resources') {
       newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
         type,
         value,
@@ -393,7 +370,10 @@ module.exports = {
 
     return newState;
   },
+
   FormReducer(state, {type, path = [], value}) {
+    const [base, index, field, secondIndex, name] = path; // eslint-disable-line no-unused-vars
+
     if (!path.includes('containers')) {
       return state;
     }
@@ -411,7 +391,6 @@ module.exports = {
     }
 
     let newState = state.slice();
-    const index = path[1];
     const joinedPath = path.join('.');
 
     if (joinedPath === 'containers') {
@@ -433,88 +412,68 @@ module.exports = {
       return newState;
     }
 
-    if (path[2] === 'endpoints') {
-      if (newState[path[1]].endpoints == null) {
-        newState[path[1]].endpoints = [];
+    if (field === 'endpoints') {
+      if (newState[index].endpoints == null) {
+        newState[index].endpoints = [];
       }
 
       switch (type) {
         case ADD_ITEM:
-          newState[path[1]].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          newState[index].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
           break;
         case REMOVE_ITEM:
-          newState[path[1]].endpoints = newState[path[1]].endpoints.filter((item, index) => {
+          newState[index].endpoints = newState[index].endpoints.filter((item, index) => {
             return index !== value;
           });
           break;
       }
 
-      if (type === SET) {
-        if (path[4] === 'name') {
-          newState[path[1]].endpoints[path[3]].name = value;
-        }
+      const fieldNames = [
+        'name', 'protocol', 'automaticPort', 'portMapping',
+        'loadBalanced'];
+      const numericalFiledNames = ['containerPort', 'hostPort'];
 
-        if (path[4] === 'hostPort') {
-          newState[path[1]].endpoints[path[3]].hostPort = value;
-        }
-
-        if (path[4] === 'containerPort') {
-          newState[path[1]].endpoints[path[3]].containerPort = value;
-        }
-
-        if (path[4] === 'protocol') {
-          newState[path[1]].endpoints[path[3]].protocol = value;
-        }
-
-        if (path[4] === 'automaticPort') {
-          newState[path[1]].endpoints[path[3]].automaticPort = value;
-        }
-
-        if (path[4] === 'portMapping') {
-          newState[path[1]].endpoints[path[3]].portMapping = value;
-        }
-
-        if (path[4] === 'loadBalanced') {
-          newState[path[1]].endpoints[path[3]].loadBalanced = value;
-        }
+      if (type === SET && fieldNames.includes(name)) {
+        newState[index].endpoints[secondIndex][name] = value;
+      }
+      if (type === SET && numericalFiledNames.includes(name)) {
+        newState[index].endpoints[secondIndex][name] = parseInt(value, 10);
       }
     }
 
-    let field = path[2];
-
     if (field === 'healthChecks') {
-      if (newState[path[1]].healthChecks == null) {
-        newState[path[1]].healthChecks = [];
+      if (newState[index].healthChecks == null) {
+        newState[index].healthChecks = [];
       }
 
-      if (this.healthChecks[path[1]] == null) {
-        this.healthChecks[path[1]] = {};
+      if (this.healthChecks[index] == null) {
+        this.healthChecks[index] = {};
       }
 
-      newState[path[1]].healthChecks = MultiContainerHealthChecks.call(
-        this.healthChecks[path[1]],
-        newState[path[1]].healthChecks,
+      newState[index].healthChecks = MultiContainerHealthChecks.call(
+        this.healthChecks[index],
+        newState[index].healthChecks,
         {type, path: path.slice(2), value}
       );
     }
 
     if (field === 'artifacts') {
-      if (newState[path[1]].artifacts == null) {
-        newState[path[1]].artifacts = [];
+      if (newState[index].artifacts == null) {
+        newState[index].artifacts = [];
       }
 
       switch (type) {
         case ADD_ITEM:
-          newState[path[1]].artifacts.push('');
+          newState[index].artifacts.push('');
           break;
         case REMOVE_ITEM:
-          newState[path[1]].artifacts = newState[path[1]].artifacts.filter((item, index) => {
+          newState[index].artifacts = newState[index].artifacts.filter((item, index) => {
             return index !== value;
           });
           break;
         case SET:
-          if (path[4] === 'uri') {
-            newState[path[1]].artifacts[path[3]] = value;
+          if (name === 'uri') {
+            newState[index].artifacts[secondIndex] = value;
           }
           break;
       }
@@ -530,7 +489,7 @@ module.exports = {
       newState[index].exec = Object.assign({}, newState[index].exec, {command: {shell: value}});
     }
 
-    if (type === SET && path[2] === 'resources') {
+    if (type === SET && field === 'resources') {
       newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
         type,
         value,
