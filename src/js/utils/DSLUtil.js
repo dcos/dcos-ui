@@ -1,6 +1,8 @@
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import {CombinerNode, FilterNode} from '../structs/DSLASTNodes';
 
+const ENDING_WHITESPACE = /\s+$/;
+
 const DSLUtil = {
 
   /**
@@ -201,8 +203,7 @@ const DSLUtil = {
           //       since white spaces at the end of the expression are not part
           //       of a regular DSL expression and are trimmed.
           //
-          const whitespaceRegex = /\s+$/;
-          const tailingWaitspace = whitespaceRegex.exec(expression.value);
+          const tailingWaitspace = ENDING_WHITESPACE.exec(expression.value);
           if (tailingWaitspace) {
             memo[prop] += tailingWaitspace[0];
           }
