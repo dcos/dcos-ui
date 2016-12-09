@@ -14,9 +14,10 @@ import DSLFilterList from '../structs/DSLFilterList';
  * in order to actually apply the filter chain on a resultset. Note that this
  * factory function will be created by the AST parser.
  *
- * For example, when the expression: `string AND attrib:value` is encountered,
- * two run-time filter functions will be produced by the `filterFunctionFactory`
- * function (see below), and combined into one, using this function.
+ * For example, when the expression: `string AND attribute:value`
+ * is encountered, two run-time filter functions will be produced by the
+ * `filterFunctionFactory` function (see below), and combined into one,
+ * using this function.
  *
  * @private
  * @param {CombineNode} ast - The AST node for the combine operator

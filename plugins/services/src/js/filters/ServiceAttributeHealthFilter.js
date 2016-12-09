@@ -17,7 +17,7 @@ const LABEL_TO_HEALTH = {
 class SearviceAttribHealthFilter extends DSLFilter {
 
   /**
-   * Handle all `health:XXXX` attrib filters that we can handle.
+   * Handle all `health:XXXX` attribute filters that we can handle.
    *
    * @override
    */
