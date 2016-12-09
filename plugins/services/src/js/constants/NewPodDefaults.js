@@ -1,7 +1,7 @@
 const NEW_POD_DEFAULTS = {
   containers: [
     {
-      name: 'container1',
+      name: 'container-1',
       resources: {
         cpus: 0.001
       }
