@@ -203,8 +203,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 
-  getHostServiceEndpoints(endpoint = [], containerIndex) {
-    return endpoint.map((portDefinition, index) => {
+  getHostServiceEndpoints(endpoints = [], containerIndex) {
+    return endpoints.map((endpoint, index) => {
       return (
         <FormGroupContainer
           key={index}
@@ -213,8 +213,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             {value: index, path: `containers.${containerIndex}.endpoints`}
           )}>
           <div className="flex row">
-            {this.getHostPortFields(portDefinition, index, containerIndex)}
-            {this.getProtocolField(portDefinition, index, containerIndex)}
+            {this.getHostPortFields(endpoint, index, containerIndex)}
+            {this.getProtocolField(endpoint, index, containerIndex)}
           </div>
         </FormGroupContainer>
       );
