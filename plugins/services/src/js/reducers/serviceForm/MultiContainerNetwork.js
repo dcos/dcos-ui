@@ -8,22 +8,23 @@ module.exports = {
     const joinedPath = path.join('.');
 
     if (joinedPath === 'network' && type === SET) {
-      const valueSplit = value.split('.');
+      const [mode, name] = value.split('.');
 
-      if (valueSplit[0] === Networking.type.CONTAINER) {
-
+      if (mode === Networking.type.CONTAINER) {
         return {
-          mode: valueSplit[0].toLowerCase(),
-          name: valueSplit[1]
+          name,
+          mode: mode.toLowerCase()
         };
       }
 
       return {
-        mode: valueSplit[0].toLowerCase()
+        mode: mode.toLowerCase()
       };
     }
+
     return state;
   },
+
   JSONParser(state) {
     if (state == null || state.network == null || state.network.mode == null) {
       return [];
@@ -37,24 +38,20 @@ module.exports = {
 
     return new Transaction(['network'], state.network.mode.toUpperCase());
   },
+
   FormReducer(state = {mode: Networking.type.HOST}, {type, path, value}) {
     const joinedPath = path.join('.');
 
     if (joinedPath === 'network' && type === SET) {
-      const valueSplit = value.split('.');
+      const [mode, name] = value.split('.');
 
-      if (valueSplit[0] === Networking.type.CONTAINER) {
-
-        return {
-          mode: valueSplit[0],
-          name: valueSplit[1]
-        };
+      if (mode === Networking.type.CONTAINER) {
+        return {mode, name};
       }
 
-      return {
-        mode: valueSplit[0]
-      };
+      return {mode};
     }
+
     return state;
   }
 };
