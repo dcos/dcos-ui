@@ -67,6 +67,7 @@ module.exports = {
     FilterButtons: 'FilterButtons',
     FilterHeadline: 'FilterHeadline',
     FilterInputText: 'FilterInputText',
+    FluidGeminiScrollbar: 'FluidGeminiScrollbar',
     FormModal: 'FormModal',
     Icon: 'Icon',
     Loader: 'Loader',

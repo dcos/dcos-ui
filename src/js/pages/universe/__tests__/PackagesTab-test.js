@@ -1,4 +1,7 @@
+jest.mock('../../../utils/ScrollbarUtil');
 jest.dontMock('../PackagesTab');
+jest.dontMock('../../../utils/Util');
+jest.dontMock('../../../components/FluidGeminiScrollbar');
 jest.dontMock('../../../components/SchemaForm');
 jest.dontMock('../../../components/Page');
 jest.dontMock('../../../components/Panel');
