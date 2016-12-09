@@ -9,7 +9,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
-const PARTS = {
+const EXPRESSION_PARTS = {
   is_running: DSLExpressionPart.attrib('is', 'running'),
   is_deploying: DSLExpressionPart.attrib('is', 'deploying'),
   is_suspended: DSLExpressionPart.attrib('is', 'suspended'),
@@ -20,8 +20,8 @@ const PARTS = {
 class ServiceStatusDSLSection extends React.Component {
   render() {
     const {expression, onChange} = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, PARTS);
-    const data = DSLUtil.getPartValues(expression, PARTS);
+    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
     return (
       <DSLFormWithExpressionUpdates
@@ -29,7 +29,7 @@ class ServiceStatusDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        parts={PARTS}>
+        parts={EXPRESSION_PARTS}>
 
         <label>Status</label>
         <div className="row">
