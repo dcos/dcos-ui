@@ -9,6 +9,7 @@ import DSLUtil from '../utils/DSLUtil';
 import {FilterNode} from '../structs/DSLASTNodes';
 
 const METHODS_TO_BIND = [
+  'handleFormBlur',
   'handleFormChange',
   'handleFormSubmit'
 ];
@@ -24,6 +25,34 @@ class DSLFormWithExpressionUpdates extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  handleFormBlur({target}) {
+    let {onChange, parts} = this.props;
+    let {value} = target;
+
+    const name = target.getAttribute('name');
+    if (!name) {
+      return;
+    }
+
+    if (target.type === 'checkbox') {
+      value = target.checked;
+    }
+
+    // Locate the respective DSL part node
+    const updateNode = parts[name];
+    if (updateNode == null) {
+      return;
+    }
+
+    // Update with blur only text & fuzzy
+    if (updateNode.filterType === DSLFilterTypes.ATTRIB) {
+      return;
+    }
+
+    // Callback with the new expression
+    onChange(this.getUpdatedExpression(updateNode, value));
   }
 
   /**
@@ -45,6 +74,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
     // Locate the respective DSL part node
     const updateNode = parts[name];
     if (updateNode == null) {
+      return;
+    }
+
+    // Update directly only attributes. Free text is updated on blur
+    if (updateNode.filterType !== DSLFilterTypes.ATTRIB) {
       return;
     }
 
@@ -150,6 +184,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
     return (
       <form className="form-group tall"
         onChange={this.handleFormChange}
+        onBlur={this.handleFormBlur}
         onSubmit={this.handleFormSubmit}>
         {this.props.children}
       </form>

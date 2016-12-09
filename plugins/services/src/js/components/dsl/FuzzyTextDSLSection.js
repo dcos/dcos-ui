@@ -13,11 +13,46 @@ const PARTS = {
   text: DSLExpressionPart.fuzzy
 };
 
+const METHODS_TO_BIND = [
+  'handleTextChange'
+];
+
 class FuzzyTextDSLSection extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    this.state = {
+      data: {
+        text: ''
+      }
+    };
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentWillReceiveProps({expression}) {
+    const data = DSLUtil.getPartValues(expression, PARTS);
+    this.setState({data});
+  }
+
+  handleTextChange(event) {
+    let {target} = event;
+    event.stopPropagation();
+    this.setState({
+      data: Object.assign(
+        {}, this.state.data, {
+          text: target.value
+        }
+      )
+    });
+  }
+
   render() {
+    const {data} = this.state;
     const {expression, onApply, onChange} = this.props;
     const enabled = DSLUtil.canProcessParts(expression, PARTS);
-    const data = DSLUtil.getPartValues(expression, PARTS);
 
     return (
       <DSLFormWithExpressionUpdates
@@ -31,10 +66,11 @@ class FuzzyTextDSLSection extends React.Component {
         <FormGroup>
           <FieldLabel>Has the words</FieldLabel>
           <FieldInput
-            value={data.text}
             disabled={!enabled}
             name="text"
-            placeholder="Enter words found in name" />
+            onChange={this.handleTextChange}
+            placeholder="Enter words found in name"
+            value={data.text} />
         </FormGroup>
 
       </DSLFormWithExpressionUpdates>
