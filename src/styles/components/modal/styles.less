@@ -45,4 +45,69 @@
   .modal-content-loading-indicator {
     height: 165px;
   }
+
+  .modal-body-offset {
+    margin: -@modal-body-padding-top -@modal-body-padding-right -@modal-body-padding-bottom -@modal-body-padding-left;
+    overflow-x: hidden;
+  }
+
+  .modal-body-padding-surrogate {
+    padding: @modal-body-padding-top @modal-body-padding-right @modal-body-padding-bottom @modal-body-padding-left;
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .modal-body-offset {
+      margin: -@modal-body-padding-top-screen-small -@modal-body-padding-right-screen-small -@modal-body-padding-bottom-screen-small -@modal-body-padding-left-screen-small;
+    }
+
+    .modal-body-padding-surrogate {
+      padding: @modal-body-padding-top-screen-small @modal-body-padding-right-screen-small @modal-body-padding-bottom-screen-small @modal-body-padding-left-screen-small;
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .modal-body-offset {
+      margin: -@modal-body-padding-top-screen-medium -@modal-body-padding-right-screen-medium -@modal-body-padding-bottom-screen-medium -@modal-body-padding-left-screen-medium;
+    }
+
+    .modal-body-padding-surrogate {
+      padding: @modal-body-padding-top-screen-medium @modal-body-padding-right-screen-medium @modal-body-padding-bottom-screen-medium @modal-body-padding-left-screen-medium;
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .modal-body-offset {
+      margin: -@modal-body-padding-top-screen-large -@modal-body-padding-right-screen-large -@modal-body-padding-bottom-screen-large -@modal-body-padding-left-screen-large;
+    }
+
+    .modal-body-padding-surrogate {
+      padding: @modal-body-padding-top-screen-large @modal-body-padding-right-screen-large @modal-body-padding-bottom-screen-large @modal-body-padding-left-screen-large;
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .modal-body-offset {
+      margin: -@modal-body-padding-top-screen-jumbo -@modal-body-padding-right-screen-jumbo -@modal-body-padding-bottom-screen-jumbo -@modal-body-padding-left-screen-jumbo;
+    }
+
+    .modal-body-padding-surrogate {
+      padding: @modal-body-padding-top-screen-jumbo @modal-body-padding-right-screen-jumbo @modal-body-padding-bottom-screen-jumbo @modal-body-padding-left-screen-jumbo;
+    }
+  }
 }
