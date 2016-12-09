@@ -3,9 +3,28 @@ import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import DSLExpression from '../structs/DSLExpression';
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUtil from './DSLUtil';
-import {FilterNode} from '../structs/DSLASTNodes';
 
 const DSLUpdateUtil = {
+
+  /**
+   * Default function used by the `applyAdd` function to detect is similar node
+   * already exists in the expression.
+   *
+   * @param {FilterNode} referenceNode - The node to compare against
+   * @param {FilterNode} compareNode - The node to compare
+   * @returns {Boolean} Returns `true` if there is no similar node in the AST
+   */
+  defaultNodeCompareFunction(referenceNode, compareNode) {
+    if (referenceNode.filterType !== compareNode.filterType) {
+      return false;
+    }
+
+    if (referenceNode.filterType !== DSLFilterTypes.ATTRIB) {
+      return true;
+    }
+
+    return referenceNode.filterParams.label === compareNode.filterParams.label;
+  },
 
   /**
    * Update the text representation of a node in order to match the new node.
@@ -140,7 +159,7 @@ const DSLUpdateUtil = {
    * Append the given node at the end of the expression
    *
    * @param {String} src - The source expression string
-   * @param {ASTNode} node - The node node to replace
+   * @param {ASTNode} node - The node node to add
    * @param {ASTNode} fullAst - The representation of the current full AST
    * @param {number} offset - The offset to apply on position indices
    * @param {DSLCombinerTypes} [combiner] - The combiner operation to use
@@ -161,42 +180,28 @@ const DSLUpdateUtil = {
       return src + DSLUtil.getNodeString(node);
     }
 
-    // If we are using OR operator things are tricky only with attributes
-    // The rest are just appended at the end, but with comma separator.
-    if (node.filterType !== DSLFilterTypes.ATTRIB) {
-      if (src) {
-        src += ', ';
-      }
-
-      return src + DSLUtil.getNodeString(node);
+    // If we are using OR operator, just appned
+    if (src) {
+      src += ', ';
     }
 
-    // On attributes with OR operator we first check if we already have an
-    // attribute with such label and we prefer creating multi-value expression
-    const attribNodes = DSLUtil.reduceAstFilters(fullAst, (memo, filter) => {
-      if (filter.filterParams.label === node.filterParams.label) {
-        memo.push(filter);
-      }
+    return src + DSLUtil.getNodeString(node);
+  },
 
-      return memo;
-    }, []);
-
-    // If there is no other attribute with this label, fallback
-    // in the regular appending approach
-    if (attribNodes.length === 0) {
-      if (src) {
-        src += ', ';
-      }
-
-      return src + DSLUtil.getNodeString(node);
-    }
-
-    // Append an attribute to the last label
-    const appendToNode = attribNodes[0];
-
+  /**
+   * Append the given node at the end of the given attribute node, creating
+   * or updating a multi-value node
+   *
+   * @param {String} src - The source expression string
+   * @param {ASTNode} node - The node node to append
+   * @param {ASTNode} toNode - The attribute node to add onto
+   * @param {number} offset - The offset to apply on position indices
+   * @returns {String} Returns the updated string
+   */
+  appendAttribNodeString(src, node, toNode, offset=0) {
     // Inject only the text into the given label
-    return src.substr(0, appendToNode.position[1][1] + offset) + ',' +
-      node.filterParams.text + src.substr(appendToNode.position[1][1] + offset);
+    return src.substr(0, toNode.position[1][1] + offset) + ',' +
+      node.filterParams.text + src.substr(toNode.position[1][1] + offset);
   },
 
   /**
@@ -204,33 +209,56 @@ const DSLUpdateUtil = {
    *
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to append
-   * @param {DSLCombinerTypes} [newCombiner] - The combiner for first node
-   * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
+   * @param {Object} [options] - Combine options
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyAdd(expression, nodes, newCombiner, itemCombiner) {
-    newCombiner = newCombiner || DSLCombinerTypes.AND;
-    itemCombiner = itemCombiner || DSLCombinerTypes.AND;
+  applyAdd(expression, nodes, options={}) {
+    const {
+      nodeCompareFunction=DSLUpdateUtil.defaultNodeCompareFunction,
+      itemCombiner=DSLCombinerTypes.AND,
+      newCombiner=DSLCombinerTypes.AND
+    } = options;
 
     let expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
       let combiner = itemCombiner;
+      let newValue = value;
 
-      // If this is the first element, check if we don't have an existing
-      // element in the AST and if not, use the `newCombiner` instead of the
-      // `itemCombiner`
+      // Find all the existing nodes, related to the node being added
+      let relevantNodes = DSLUtil.reduceAstFilters(expression.ast,
+        (memo, filterNode) => {
+          if (nodeCompareFunction(node, filterNode)) {
+            memo.push(filterNode);
+          }
+
+          return memo;
+        },
+        []
+      );
+
+      // If this is the first element, check if we have previous relevant
+      // occurences in the expresison, and if yes, use the `newCombiner`
       if (index === 0) {
-        const filter = DSLUpdateUtil.getFilterForNode(node);
-        const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, filter);
-
-        if (matchingNodes.length === 0) {
+        if (relevantNodes.length === 0) {
           combiner = newCombiner;
         }
       }
 
-      // Apply addition of new item
-      let newValue = DSLUpdateUtil.addNodeString(
-        value, node, expression.ast, offset, combiner
-      );
+      // In case of an OR operator + attribute node we take special care for
+      // creating multi-value attributes
+      if ((combiner === DSLCombinerTypes.OR) &&
+          (node.filterType === DSLFilterTypes.ATTRIB) &&
+          (relevantNodes.length !== 0)) {
+
+        newValue = DSLUpdateUtil.appendAttribNodeString(
+          value, node, relevantNodes[0], offset
+        );
+
+      // Otherwise we use regular node concatenation
+      } else {
+        newValue = DSLUpdateUtil.addNodeString(
+          value, node, expression.ast, offset, combiner
+        );
+      }
 
       // Update offset in order for the token positions in the expression
       // AST to be processable even after the updates
@@ -273,14 +301,10 @@ const DSLUpdateUtil = {
    * @param {DSLExpression} expression - The expression to update
    * @param {Array} nodes - The node(s) to update
    * @param {Array} newNodes - The node(s) to update with
-   * @param {DSLCombinerTypes} [newCombiner] - The combiner for first node
-   * @param {DSLCombinerTypes} [itemCombiner] - The combiner beteen nodes
+   * @param {Object} [addOptions] - Options for adding nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyReplace(expression, nodes, newNodes, newCombiner, itemCombiner) {
-    newCombiner = newCombiner || DSLCombinerTypes.AND;
-    itemCombiner = itemCombiner || DSLCombinerTypes.AND;
-
+  applyReplace(expression, nodes, newNodes, addOptions={}) {
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
     let offset = 0;
@@ -332,33 +356,12 @@ const DSLUpdateUtil = {
     // Add nodes using applyAdd
     if (newNodes.length > nodes.length) {
       return DSLUpdateUtil.applyAdd(
-        newExpression, newNodes.slice(updateCount), newCombiner, itemCombiner
+        newExpression, newNodes.slice(updateCount), addOptions
       );
     }
 
     // Otherwise just return the expression
     return newExpression;
-  },
-
-  /**
-   * This function gets an AST node and converts it into a virtual node, useful
-   * for searching similar nodes in the AST using `DSLUtil.findNodesByFilter`
-   *
-   * @param {FilterNode} node - The AST node to abstract
-   * @returns {FilterNode} Returns the virtual node for this node
-   */
-  getFilterForNode(node) {
-    let keepParams = Object.assign({}, node.filterParams);
-
-    // Delete label text from attribute nodes to make them generic
-    if (node.filterType === DSLFilterTypes.ATTRIB) {
-      delete keepParams.text;
-    }
-
-    // Return a virtual node
-    return new FilterNode(
-      0, 0, node.filterType, keepParams
-    );
   }
 
 };
