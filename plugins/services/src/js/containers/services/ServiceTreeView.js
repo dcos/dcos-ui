@@ -13,8 +13,9 @@ import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
 import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 
-import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
 import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
+import ServiceOtherDSLSection from '../../components/dsl/ServiceOtherDSLSection';
+import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
 import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
 
 class ServiceTreeView extends React.Component {
@@ -38,6 +39,7 @@ class ServiceTreeView extends React.Component {
             formSections={[
               ServiceStatusDSLSection,
               ServiceHealthDSLSection,
+              ServiceOtherDSLSection,
               FuzzyTextDSLSection
             ]}
             expression={filterExpression}
