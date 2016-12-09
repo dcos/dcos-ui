@@ -185,18 +185,24 @@ describe('DSLUpdateUtil', function () {
         label: 'label', text: 'text'
       });
 
-      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
-        .toEqual('foo bar, label:text');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('foo bar, label:text');
     });
 
     it('should correctly add fuzzy node to an expression with OR', function () {
-      let expression = new DSLExpression('foo bar');
+      let expression = new DSLExpression('"not fuzzy"');
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: 'text'
       });
 
-      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
-        .toEqual('foo bar, text');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('"not fuzzy", text');
     });
 
     it('should correctly add exact node to an expression with OR', function () {
@@ -205,8 +211,11 @@ describe('DSLUpdateUtil', function () {
         text: 'text'
       });
 
-      expect(DSLUpdateUtil.applyAdd(expression, [node], DSLCombinerTypes.OR).value)
-        .toEqual('foo bar, "text"');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('foo bar, "text"');
     });
 
     it('should correctly create multi-value attribute when adding with OR', function () {
@@ -215,9 +224,39 @@ describe('DSLUpdateUtil', function () {
         label: 'label', text: 'text'
       });
 
-      expect(DSLUpdateUtil.applyAdd(expression, [node], undefined,
-        DSLCombinerTypes.OR).value)
-        .toEqual('foo bar label:some,text');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          itemCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('foo bar label:some,text');
+    });
+
+    it('should correctly use custom nodeCompareFunction on newCombiner', function () {
+      const customComparisionFunction = function (addingNode, astNode) {
+        return astNode.filterParams.text === 'here';
+      };
+
+      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+        label: 'label', text: 'text'
+      });
+
+      let expression = new DSLExpression('label:not_here');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          nodeCompareFunction: customComparisionFunction,
+          itemCombiner: DSLCombinerTypes.OR,
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('label:not_here, label:text');
+
+      expression = new DSLExpression('label:here');
+      expect(
+        DSLUpdateUtil.applyAdd(expression, [node], {
+          nodeCompareFunction: customComparisionFunction,
+          itemCombiner: DSLCombinerTypes.OR,
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('label:here,text');
     });
 
   });
@@ -314,7 +353,7 @@ describe('DSLUpdateUtil', function () {
     });
 
     it('should correctly add missing nodes using newCombiner=OR', function () {
-      let expression = new DSLExpression('few');
+      let expression = new DSLExpression('previous');
       let fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {})
@@ -326,11 +365,16 @@ describe('DSLUpdateUtil', function () {
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
-        DSLCombinerTypes.OR).value).toEqual('here, can be');
+      // NOTE: We already have a fuzzy node, so `newCombiner` shoud not be
+      //       applied to the expression.
+      expect(
+        DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
+          newCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('here can be');
     });
 
-    it('should correctly add missing nodes using both OR combiners', function () {
+    it('should correctly add missing nodes using itemCombiner=OR', function () {
       let expression = new DSLExpression('few');
       let fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -343,9 +387,11 @@ describe('DSLUpdateUtil', function () {
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
-        DSLCombinerTypes.OR, DSLCombinerTypes.OR).value)
-        .toEqual('here, can, be');
+      expect(
+        DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
+          itemCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('here, can, be');
     });
 
     it('should correctly continue with OR operator if itemCombiner=OR', function () {
@@ -366,9 +412,12 @@ describe('DSLUpdateUtil', function () {
         })
       ];
 
-      expect(DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace,
-        DSLCombinerTypes.OR, DSLCombinerTypes.OR).value)
-        .toEqual('some label:foo,bar');
+      expect(
+        DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
+          newCombiner: DSLCombinerTypes.OR,
+          itemCombiner: DSLCombinerTypes.OR
+        }).value
+      ).toEqual('some label:foo,bar');
     });
 
   });
@@ -539,23 +588,66 @@ describe('DSLUpdateUtil', function () {
     });
   });
 
-  describe('#getFilterForNode', function () {
+  describe('#defaultNodeCompareFunction', function () {
 
-    it('should correctly return a node without position info', function () {
-      let node = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
+    it('should return false when comparing nodes of diferent type', function () {
+      let nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
+        text: 'text'
+      });
+      let nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
         text: 'text'
       });
 
-      expect(DSLUpdateUtil.getFilterForNode(node).position).toEqual([[0, 0]]);
+      expect(DSLUpdateUtil.defaultNodeCompareFunction(nodeA, nodeB))
+        .toBeFalsy();
     });
 
-    it('should correctly return a node wihout label text', function () {
-      let node = new DSLASTNodes.FilterNode(4, 9, DSLFilterTypes.ATTRIB, {
-        text: 'text', label: 'foo'
+    it('should return true when both fuzzy regardless of text', function () {
+      let nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
+        text: 'text1'
+      });
+      let nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
+        text: 'text2'
       });
 
-      expect(DSLUpdateUtil.getFilterForNode(node).filterParams)
-        .toEqual({label: 'foo'});
+      expect(DSLUpdateUtil.defaultNodeCompareFunction(nodeA, nodeB))
+        .toBeTruthy();
+    });
+
+    it('should return true when both exact regardless of text', function () {
+      let nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
+        text: 'text1'
+      });
+      let nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
+        text: 'text2'
+      });
+
+      expect(DSLUpdateUtil.defaultNodeCompareFunction(nodeA, nodeB))
+        .toBeTruthy();
+    });
+
+    it('should return false when both attrib but different label', function () {
+      let nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
+        text: 'text1', label: 'label1'
+      });
+      let nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
+        text: 'text2', label: 'label2'
+      });
+
+      expect(DSLUpdateUtil.defaultNodeCompareFunction(nodeA, nodeB))
+        .toBeFalsy();
+    });
+
+    it('should return false when both attrib and same label', function () {
+      let nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
+        text: 'text1', label: 'label'
+      });
+      let nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
+        text: 'text2', label: 'label'
+      });
+
+      expect(DSLUpdateUtil.defaultNodeCompareFunction(nodeA, nodeB))
+        .toBeTruthy();
     });
 
   });

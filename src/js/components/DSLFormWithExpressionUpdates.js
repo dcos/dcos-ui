@@ -15,6 +15,43 @@ const METHODS_TO_BIND = [
 ];
 
 /**
+ * This function creates a `nodeCompareFunction` function, used by the
+ * expression update utilities to detect relevant nodes.
+ *
+ * This is used internally by DSLUpdateUtil in order to update existing nodes
+ * or detect if the node being added is the first one and therefore needs
+ * to have a different combine operator.
+ *
+ * @param {Object} parts - An object with the part configuration
+ * @returns {function} Returns a compatible function for use by applyadd
+ */
+function createNodeComparisionFunction(parts) {
+  const referenceNodes = Object.keys(parts).map((key) => parts[key]);
+
+  return function (nodeAdded, astNode) {
+    return referenceNodes.some((referenceNode) => {
+      if (referenceNode.filterType !== astNode.filterType) {
+        return false;
+      }
+
+      // Free-text nodes are not strict
+      if (referenceNode.filterType !== DSLFilterTypes.ATTRIB) {
+        return true;
+      }
+
+      // We only process reference nodes relevant to the node being added
+      if (nodeAdded.filterParams.label !== referenceNode.filterParams.label) {
+        return false;
+      }
+
+      // But attribute nodes are strict
+      return (referenceNode.filterParams.label === astNode.filterParams.label)
+          && (referenceNode.filterParams.text === astNode.filterParams.text);
+    });
+  };
+}
+
+/**
  * This <form /> component wraps a set of <input /> elements and automates
  * the update of the DSL expression based on the part definition given.
  */
@@ -95,7 +132,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * Update the current expression (from props) by updating the given FilterNode
    * to the given value according to the current update policies.
    *
-   * @param {FilterNode} updateNode - The node filter to update
+   * @param {FilterNode} updateNode - The node to update
    * @param {String|Boolean} value - The value to update to
    * @returns {Expression} Returns the updated expression
    */
@@ -104,11 +141,19 @@ class DSLFormWithExpressionUpdates extends React.Component {
       expression,
       groupCombiner,
       itemCombiner,
+      parts,
       updatePolicy
     } = this.props;
 
-    // Locate all the current tokens of the expression that the filter match
+    // The node(s) relevant to the proeprty we are updating
     const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, updateNode);
+
+    // All the existing nodes for all properties
+    const allMatchingNodes = Object.keys(parts).reduce((memo, part) => {
+      return memo.concat(
+        DSLUtil.findNodesByFilter(expression.ast, parts[part])
+      );
+    }, []);
 
     switch (updateNode.filterType) {
       //
@@ -124,7 +169,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
         if (updatePolicy === DSLUpdatePolicy.Radio) {
           if (value) {
             expression = DSLUpdateUtil.applyReplace(
-              expression, matchingNodes, [updateNode], groupCombiner, itemCombiner
+              expression, allMatchingNodes, [updateNode], {
+                nodeCompareFunction: createNodeComparisionFunction(parts),
+                itemCombiner,
+                newCombiner: groupCombiner
+              }
             );
           } else {
             expression = DSLUpdateUtil.applyDelete(
@@ -137,7 +186,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
         // On 'Checkbox' policy, we just add/remove the matching AST node
         if (value) {
           expression = DSLUpdateUtil.applyAdd(
-            expression, [updateNode], groupCombiner, itemCombiner
+            expression, [updateNode], {
+              nodeCompareFunction: createNodeComparisionFunction(parts),
+              itemCombiner,
+              newCombiner: groupCombiner
+            }
           );
         } else {
           expression = DSLUpdateUtil.applyDelete(
@@ -155,7 +208,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
         });
 
         expression = DSLUpdateUtil.applyReplace(
-          expression, matchingNodes, [newExactNode], groupCombiner
+          expression, matchingNodes, [newExactNode], {
+            newCombiner: groupCombiner
+          }
         );
         break;
 
@@ -169,7 +224,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
 
         // And replace the existing fuzzy nodes
         expression = DSLUpdateUtil.applyReplace(
-          expression, matchingNodes, newFuzzyNodes, groupCombiner
+          expression, matchingNodes, newFuzzyNodes, {
+            newCombiner: groupCombiner
+          }
         );
         break;
     }
