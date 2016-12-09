@@ -9,7 +9,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
-const PARTS = {
+const EXPRESSION_PARTS = {
   text: DSLExpressionPart.fuzzy
 };
 
@@ -33,7 +33,7 @@ class FuzzyTextDSLSection extends React.Component {
   }
 
   componentWillReceiveProps({expression}) {
-    const data = DSLUtil.getPartValues(expression, PARTS);
+    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
     this.setState({data});
   }
 
@@ -52,7 +52,7 @@ class FuzzyTextDSLSection extends React.Component {
   render() {
     const {data} = this.state;
     const {expression, onApply, onChange} = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, PARTS);
+    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
 
     return (
       <DSLFormWithExpressionUpdates
@@ -61,7 +61,7 @@ class FuzzyTextDSLSection extends React.Component {
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
         onSubmit={onApply}
-        parts={PARTS}>
+        parts={EXPRESSION_PARTS}>
 
         <FormGroup>
           <FieldLabel>Has the words</FieldLabel>
