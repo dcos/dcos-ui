@@ -23,9 +23,8 @@ function getHealthStatus(serviceID) {
   const isDeploying = serviceStatus === 'Deploying';
 
   return (
-    <div className="service-page-header-status muted">
-      &nbsp;
-      {`| ${serviceStatus} (${runningTasksCount}/${instancesCount})`}
+    <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
+      {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
       <HealthBar isDeploying={isDeploying}
         tasksSummary={tasksSummary}
         instancesCount={instancesCount}/>
