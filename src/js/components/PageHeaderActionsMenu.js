@@ -7,7 +7,7 @@ const getMenuItems = (children, iconID) => {
   return [
     {
       className: 'hidden',
-      html: <Icon id={iconID} color="light-grey" size="mini" />,
+      html: <Icon id={iconID} size="mini" />,
       id: 'trigger'
     },
     ...React.Children.map(children, getDropdownItemFromComponent)
