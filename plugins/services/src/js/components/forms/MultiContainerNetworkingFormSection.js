@@ -21,7 +21,7 @@ const METHODS_TO_BIND = [
   'onVirtualNetworksStoreSuccess'
 ];
 
-class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
+class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -431,22 +431,22 @@ class MultiContainerHealthChecksFormSection extends mixin(StoreMixin) {
   }
 }
 
-MultiContainerHealthChecksFormSection.defaultProps = {
+MultiContainerNetworkingFormSection.defaultProps = {
   data: {},
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
 };
 
-MultiContainerHealthChecksFormSection.propTypes = {
+MultiContainerNetworkingFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
   onRemoveItem: React.PropTypes.func
 };
 
-MultiContainerHealthChecksFormSection.configReducers = {
+MultiContainerNetworkingFormSection.configReducers = {
   network
 };
 
-module.exports = MultiContainerHealthChecksFormSection;
+module.exports = MultiContainerNetworkingFormSection;
