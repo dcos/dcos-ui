@@ -3,7 +3,9 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
   JSONReducer(state = [], {type, path, value}) {
-    if (path[0] !== 'volumeMounts') {
+    const [base, index, name] = path;
+
+    if (base !== 'volumeMounts') {
       return state;
     }
 
@@ -14,14 +16,12 @@ module.exports = {
         newState.push({});
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => {
-          return index !== value;
-        });
+        newState = newState.filter((item, index) => index !== value);
         break;
     }
 
-    if (path[2] === 'name') {
-      newState[path[1]].name = value;
+    if (name === 'name') {
+      newState[index].name = value;
     }
 
     return newState;
@@ -83,30 +83,31 @@ module.exports = {
 
     return memo;
   },
+
   FormReducer(state = [], {type, path, value}) {
+    const [base, index, name, secondIndex] = path;
+
     let newState = state.slice();
 
-    if (path[0] === 'containers') {
+    if (base === 'containers') {
       switch (type) {
         case ADD_ITEM:
           newState = newState.map((volumeMount) => {
-
             volumeMount.mountPath.push('');
             return volumeMount;
           });
           break;
         case REMOVE_ITEM:
           newState = newState.map((volumeMount) => {
-            volumeMount.mountPath = volumeMount.mountPath.filter((item, index) => {
-              return index !== value;
-            });
+            volumeMount.mountPath =
+              volumeMount.mountPath.filter((item, index) => index !== value);
             return volumeMount;
           });
           break;
       }
     }
 
-    if (path[0] !== 'volumeMounts') {
+    if (base !== 'volumeMounts') {
       return newState;
     }
 
@@ -115,17 +116,15 @@ module.exports = {
         newState.push({mountPath: []});
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => {
-          return index !== value;
-        });
+        newState = newState.filter((item, index) => index !== value);
         break;
     }
 
-    if (path[2] === 'name') {
-      newState[path[1]].name = value;
+    if (name === 'name') {
+      newState[index].name = value;
     }
-    if (path[2] === 'mountPath') {
-      newState[path[1]].mountPath[path[3]] = value;
+    if (name === 'mountPath') {
+      newState[index].mountPath[secondIndex] = value;
     }
 
     return newState;
