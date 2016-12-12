@@ -6,8 +6,7 @@ import DSLExpression from '../structs/DSLExpression';
 
 const METHODS_TO_BIND = [
   'handleApply',
-  'handleChange',
-  'handleReset'
+  'handleChange'
 ];
 
 /**
@@ -30,12 +29,14 @@ class DSLFormDropdownPanel extends React.Component {
   }
 
   /**
-   * Import expression property updates
+   * Import expression property updates and reset expression when the dropdown
+   * is first shown.
    *
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.expression !== nextProps.expression) {
+    if ((this.props.expression !== nextProps.expression) ||
+       (!this.props.isVisible && nextProps.isVisible)) {
       this.setState({expression: nextProps.expression});
     }
   }
@@ -55,13 +56,6 @@ class DSLFormDropdownPanel extends React.Component {
    */
   handleChange(expression) {
     this.setState({expression});
-  }
-
-  /**
-   * Restore the expression from parent
-   */
-  handleReset() {
-    this.setState({expression: this.props.expression});
   }
 
   /**
@@ -85,10 +79,6 @@ class DSLFormDropdownPanel extends React.Component {
             sections={sections} />
         </div>
         <div className="panel-cell panel-cell-short flush-top text-align-right">
-          <a className="button button-small button-link"
-            onClick={this.handleReset}>
-            Reset
-          </a>
           <a className="button button-small button-primary-link"
             onClick={this.handleApply}>
             Apply
