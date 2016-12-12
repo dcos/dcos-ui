@@ -24,6 +24,7 @@ class ServiceHealthDSLSection extends React.Component {
 
     return (
       <DSLFormWithExpressionUpdates
+        enabled={enabled}
         expression={expression}
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}

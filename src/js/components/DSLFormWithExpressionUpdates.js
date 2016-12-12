@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import DSLCombinerTypes from '../constants/DSLCombinerTypes';
@@ -233,8 +234,14 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * @override
    */
   render() {
+    const {enabled} = this.props;
+    const formClasses = classNames({
+      'dsl-form-group form-group tall': true,
+      'disabled': !enabled
+    });
+
     return (
-      <form className="form-group tall"
+      <form className={formClasses}
         onChange={this.handleFormChange}
         onBlur={this.handleFormBlur}
         onSubmit={this.handleFormSubmit}>
@@ -245,6 +252,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
 }
 
 DSLFormWithExpressionUpdates.defaultProps = {
+  enabled: true,
   groupCombiner: DSLCombinerTypes.AND,
   itemCombiner: DSLCombinerTypes.AND,
   onChange() {},
@@ -253,6 +261,7 @@ DSLFormWithExpressionUpdates.defaultProps = {
 };
 
 DSLFormWithExpressionUpdates.propTypes = {
+  enabled: PropTypes.bool,
   expression: PropTypes.instanceOf(DSLExpression).isRequired,
   groupCombiner: PropTypes.oneOf(
     Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
