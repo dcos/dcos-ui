@@ -9,7 +9,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
-const PARTS = {
+const EXPRESSION_PARTS = {
   is_pod: DSLExpressionPart.attribute('is', 'pod'),
   is_universe: DSLExpressionPart.attribute('is', 'universe'),
   has_volumes: DSLExpressionPart.attribute('has', 'volumes')
@@ -18,8 +18,8 @@ const PARTS = {
 class ServiceOtherDSLSection extends React.Component {
   render() {
     const {expression, onChange} = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, PARTS);
-    const data = DSLUtil.getPartValues(expression, PARTS);
+    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
     return (
       <DSLFormWithExpressionUpdates
@@ -28,7 +28,7 @@ class ServiceOtherDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        parts={PARTS}>
+        parts={EXPRESSION_PARTS}>
 
         <label>Other</label>
         <div className="row">
