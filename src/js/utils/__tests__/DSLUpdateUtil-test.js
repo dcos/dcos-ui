@@ -139,7 +139,7 @@ describe('DSLUpdateUtil', function () {
 
   describe('#applyAdd', function () {
 
-    it('should correctly add one attrib node to an expression', function () {
+    it('should correctly add one attribute node to an expression', function () {
       let expression = new DSLExpression('foo bar');
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
@@ -169,7 +169,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('foo bar "text"');
     });
 
-    it('should correctly add two attrib nodes to an expression', function () {
+    it('should correctly add two attribute nodes to an expression', function () {
       let expression = new DSLExpression('foo bar');
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
@@ -179,7 +179,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('foo bar label:text label:text');
     });
 
-    it('should correctly add one attrib node to an expression with OR', function () {
+    it('should correctly add one attribute node to an expression with OR', function () {
       let expression = new DSLExpression('foo bar');
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
@@ -209,7 +209,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('foo bar, "text"');
     });
 
-    it('should correctly create multi-value attrib when adding with OR', function () {
+    it('should correctly create multi-value attribute when adding with OR', function () {
       let expression = new DSLExpression('foo bar label:some');
       let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
@@ -375,15 +375,15 @@ describe('DSLUpdateUtil', function () {
 
   describe('#applyDelete', function () {
 
-    it('should correctly delete one attrib node', function () {
-      let expression = new DSLExpression('is:attrib');
+    it('should correctly delete one attribute node', function () {
+      let expression = new DSLExpression('is:attribute');
       let deleteNodes = [expression.ast];
 
       expect(DSLUpdateUtil.applyDelete(expression, deleteNodes).value)
         .toEqual('');
     });
 
-    it('should correctly delete first in multiple attrib nodes', function () {
+    it('should correctly delete first in multiple attribute nodes', function () {
       let expression = new DSLExpression('is:a is:b is:c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -396,7 +396,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:b is:c');
     });
 
-    it('should correctly delete last in multiple attrib nodes', function () {
+    it('should correctly delete last in multiple attribute nodes', function () {
       let expression = new DSLExpression('is:a is:b is:c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -409,7 +409,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a is:b');
     });
 
-    it('should correctly delete internal in multiple attrib nodes', function () {
+    it('should correctly delete internal in multiple attribute nodes', function () {
       let expression = new DSLExpression('is:a is:b is:c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -422,7 +422,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a is:c');
     });
 
-    it('should correctly delete first in multi-value attrib nodes', function () {
+    it('should correctly delete first in multi-value attribute nodes', function () {
       let expression = new DSLExpression('is:a,b,c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -435,7 +435,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:b,c');
     });
 
-    it('should correctly delete internal in multi-value attrib nodes', function () {
+    it('should correctly delete internal in multi-value attribute nodes', function () {
       let expression = new DSLExpression('is:a,b,c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -448,7 +448,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a,c');
     });
 
-    it('should correctly delete last in multi-value attrib nodes', function () {
+    it('should correctly delete last in multi-value attribute nodes', function () {
       let expression = new DSLExpression('is:a,b,c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -461,7 +461,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a,b');
     });
 
-    it('should correctly delete one in multiple attrib nodes', function () {
+    it('should correctly delete one in multiple attribute nodes', function () {
       let expression = new DSLExpression('is:a is:b, is:c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -474,7 +474,7 @@ describe('DSLUpdateUtil', function () {
         .toEqual('is:a, is:c');
     });
 
-    it('should correctly delete one in multi-value attrib node', function () {
+    it('should correctly delete one in multi-value attribute node', function () {
       let expression = new DSLExpression('is:a,b,c');
       let deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,

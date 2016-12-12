@@ -14,7 +14,7 @@ class AttribFilter extends DSLFilter {
   }
   filterApply(resultset) {
     return resultset.filterItems((item) => {
-      return item.text.indexOf('attrib') !== -1;
+      return item.text.indexOf('attribute') !== -1;
     });
   }
 }
@@ -45,10 +45,10 @@ describe('DSLParserUtil', function () {
 
   beforeEach(function () {
     this.mockData = new List({items: [
-      {text: 'attrib'},
+      {text: 'attribute'},
       {text: 'fuzzy'},
       {text: 'exact'},
-      {text: 'attrib fuzzy'}
+      {text: 'attribute fuzzy'}
     ]});
   });
 
@@ -86,8 +86,8 @@ describe('DSLParserUtil', function () {
       ]);
 
       expect(filter(filters, this.mockData).getItems()).toEqual([
-        {text: 'attrib'},
-        {text: 'attrib fuzzy'}
+        {text: 'attribute'},
+        {text: 'attribute fuzzy'}
       ]);
     });
 
@@ -166,7 +166,7 @@ describe('DSLParserUtil', function () {
 
       expect(filter(filters, this.mockData).getItems()).toEqual([
         {text: 'fuzzy'},
-        {text: 'attrib fuzzy'}
+        {text: 'attribute fuzzy'}
       ]);
     });
 
@@ -207,7 +207,7 @@ describe('DSLParserUtil', function () {
       ]);
 
       expect(filter(filters, this.mockData).getItems()).toEqual([
-        {text: 'attrib fuzzy'}
+        {text: 'attribute fuzzy'}
       ]);
     });
 
@@ -248,8 +248,8 @@ describe('DSLParserUtil', function () {
       ]);
 
       expect(filter(filters, this.mockData).getItems()).toEqual([
-        {text: 'attrib'},
-        {text: 'attrib fuzzy'},
+        {text: 'attribute'},
+        {text: 'attribute fuzzy'},
         {text: 'fuzzy'}
       ]);
     });

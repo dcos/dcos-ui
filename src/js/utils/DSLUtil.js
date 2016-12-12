@@ -165,14 +165,14 @@ const DSLUtil = {
 
       switch (matchAgainst.filterType) {
         //
-        // Properties created through .attrib() filter will get a boolean value
+        // Properties created through attribute filter will get a boolean value
         //
         case DSLFilterTypes.ATTRIB:
           memo[prop] = (matchingNodes.length === 1);
           return memo;
 
         //
-        // Properties created through .exact filter will get a string value
+        // Properties created through exact filter will get a string value
         //
         case DSLFilterTypes.EXACT:
           if (matchingNodes.length === 0) {
@@ -184,7 +184,7 @@ const DSLUtil = {
           return memo;
 
         //
-        // Properties created through .fuzzy filter will get a string value,
+        // Properties created through fuzzy filter will get a string value,
         // composed by joining together any individual item in the string
         //
         case DSLFilterTypes.FUZZY:

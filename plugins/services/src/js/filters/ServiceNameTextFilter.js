@@ -7,7 +7,7 @@ import DSLFilter from '../../../../../src/js/structs/DSLFilter';
 class ServiceNameTextFilter extends DSLFilter {
 
   /**
-   * Handle all `name` attrib filters that we can handle.
+   * Handle all `name` attribute filters that we can handle.
    *
    * @override
    */

@@ -15,7 +15,7 @@ import {FilterNode} from './DSLASTNodes';
  *
  *   // Create a boolean property that is defined when the attribute is:healthy
  *   // exists in the parsed DSL
- *   is_healthy: DSLExpressionPart.attrib('is', 'healthy'),
+ *   is_healthy: DSLExpressionPart.attribute('is', 'healthy'),
  *
  *   // Create a string property that contains the first exact-match node
  *   text: DSLExpressionPart.exact,
@@ -44,7 +44,7 @@ import {FilterNode} from './DSLASTNodes';
  */
 class DSLExpressionPart {
 
-  static attrib(label, text=undefined) {
+  static attribute(label, text=undefined) {
     return new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {label, text});
   }
 

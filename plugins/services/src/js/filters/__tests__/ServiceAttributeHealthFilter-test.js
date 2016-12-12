@@ -1,16 +1,16 @@
 jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
 jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
 jest.dontMock('../../constants/HealthStatus');
-jest.dontMock('../ServiceAttribHealthFilter');
+jest.dontMock('../ServiceAttributeHealthFilter');
 jest.dontMock('../../../../../../src/js/structs/List');
 
 var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
 var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
 var HealthStatus = require('../../constants/HealthStatus');
-var ServiceAttribHealthFilter = require('../ServiceAttribHealthFilter');
+var ServiceAttributeHealthFilter = require('../ServiceAttributeHealthFilter');
 var List = require('../../../../../../src/js/structs/List');
 
-describe('ServiceAttribHealthFilter', function () {
+describe('ServiceAttributeHealthFilter', function () {
 
   beforeEach(function () {
     this.mockItems = [
@@ -25,7 +25,7 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:healthy');
 
-    let filters = new DSLFilterList().add(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -36,7 +36,7 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:unhealthy');
 
-    let filters = new DSLFilterList().add(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -47,7 +47,7 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:idle');
 
-    let filters = new DSLFilterList().add(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -58,7 +58,7 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:na');
 
-    let filters = new DSLFilterList().add(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -69,7 +69,7 @@ describe('ServiceAttribHealthFilter', function () {
     let services = new List({items: this.mockItems});
     let expr = SearchDSL.parse('health:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttribHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
@@ -80,7 +80,7 @@ describe('ServiceAttribHealthFilter', function () {
     let expr = SearchDSL.parse('health:hEaLThY');
 
     let filters = new DSLFilterList([
-      new ServiceAttribHealthFilter()
+      new ServiceAttributeHealthFilter()
     ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
