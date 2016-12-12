@@ -133,7 +133,7 @@ var Page = React.createClass({
 
   getContent() {
     let {dontScroll} = this.props;
-    let contentClassSet = classNames('page-body-content pod flex',
+    let contentClassSet = classNames('page-body-content pod pod-tall flex',
       'flex-direction-top-to-bottom flex-item-grow-1', {
         'flex-item-shrink-1': dontScroll
       });

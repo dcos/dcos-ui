@@ -55,7 +55,7 @@ class ServicesTable extends React.Component {
         title="Open in a new window">
         <Icon
           color="neutral"
-          className="icon-margin-left icon-margin-left-wide"
+          className="icon-margin-left"
           id="open-external"
           size="mini" />
       </a>
@@ -160,7 +160,7 @@ class ServicesTable extends React.Component {
         id: ServiceActionItem.MORE,
         html: '',
         selectedHtml: (
-          <Icon className="icon-alert icon-margin-right"
+          <Icon className="icon-alert"
             color="neutral"
             id="gear"
             size="mini" />
