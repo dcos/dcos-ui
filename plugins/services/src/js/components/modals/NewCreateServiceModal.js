@@ -5,8 +5,8 @@ import {Hooks} from 'PluginSDK';
 import Application from '../../structs/Application';
 import PodSpec from '../../structs/PodSpec';
 
-import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
-import {NEW_POD_DEFAULTS} from '../../constants/NewPodDefaults';
+import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
+import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
 
 import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
 import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
@@ -173,7 +173,7 @@ class NewServiceFormModal extends Component {
           serviceConfig: new Application(
             Object.assign(
               {id: this.props.service.getId()},
-              NEW_APP_DEFAULTS
+              DEFAULT_APP_SPEC
             )
           )
         });
@@ -186,7 +186,7 @@ class NewServiceFormModal extends Component {
           serviceConfig: new PodSpec(
             Object.assign(
               {id: this.props.service.getId()},
-              NEW_POD_DEFAULTS
+              DEFAULT_POD_SPEC
             )
           )
         });
