@@ -168,8 +168,7 @@ module.exports = {
       'foundation-ui': absPath('foundation-ui')
     },
     extensions: ['', '.js', '.less', '.css'],
-    root: absPath(),
-    moduleDirectories: 'node_modules'
+    root: [absPath(), absPath('node_modules')]
   },
 
   resolveLoader: {

@@ -1,9 +1,9 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
-import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import webpack from 'webpack';
+import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 
 import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
@@ -34,10 +34,13 @@ let REPLACEMENT_VARS = {
 let dependencies = Object.assign({}, packageInfo.dependencies);
 delete dependencies['canvas-ui'];
 delete dependencies['cnvs'];
+dependencies = Object.keys(dependencies).map(function (dependency) {
+  return 'node_modules/' + dependency;
+});
 
 let entry = {
   index: ['./src/js/index.js'],
-  vendor: Object.keys(dependencies)
+  vendor: dependencies
 };
 
 if (environment === 'development') {
@@ -122,11 +125,11 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.gif$/,
-        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif',
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif'
       },
       {
         test: /\.jpg$/,
-        loader: 'file?name=./[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]'
       },
       // Replace @@variables
       {
@@ -136,7 +139,7 @@ module.exports = Object.assign({}, webpackConfig, {
           replacements: [
             {
               pattern: /@@(\w+)/ig,
-              replacement: function (match, key) {
+              replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }
             }
