@@ -65,6 +65,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       };
     }
     return {
+      name,
       hostPort,
       protocol: [protocol]
     };
@@ -224,6 +225,7 @@ function containersParser(state) {
         }
 
         if (state.network.mode === Networking.type.HOST.toLowerCase()) {
+          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
           memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
           memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
         }
