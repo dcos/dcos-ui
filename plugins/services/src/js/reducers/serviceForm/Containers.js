@@ -329,7 +329,7 @@ module.exports = {
     );
 
     newState = state.map((container, index) => {
-      if (this.volumeMounts.length === 0) {
+      if (this.volumeMounts.length !== 0) {
         container.volumeMounts = this.volumeMounts.filter((volumeMount) => {
           return volumeMount.name != null && volumeMount.mountPath[index];
         }).map((volumeMount) => {
