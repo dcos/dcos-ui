@@ -27,6 +27,7 @@ import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
 import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
 import ServiceAttributeHealthFilter
   from '../../filters/ServiceAttributeHealthFilter';
+import ServiceAttributeNoHealthchecksFilter from '../../filters/ServiceAttributeNoHealthchecksFilter';
 import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
 import ServiceAttributeIsPodFilter from '../../filters/ServiceAttributeIsPodFilter';
 import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUniverseFilter';
@@ -82,6 +83,7 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeIsFilter(),
   new ServiceAttributeIsPodFilter(),
   new ServiceAttributeIsUniverseFilter(),
+  new ServiceAttributeNoHealthchecksFilter(),
   new ServiceNameTextFilter()
 ]);
 
