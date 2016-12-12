@@ -36,13 +36,12 @@ class CosmosErrorMessage extends React.Component {
     // Append reference to repository page, since repository related errors
     // can occur at any request to Cosmos
     let {type, message} = error;
+
     if (REPOSITORY_ERRORS.includes(type)) {
-      message = this.appendRepositoryLink(message);
+      return this.appendRepositoryLink(message);
     }
 
-    // Append reference to repository page, since repository related errors
-    // can occur at any request to Cosmos
-    return this.appendRepositoryLink(message);
+    return message;
   }
 
   getDetails() {
