@@ -6,12 +6,12 @@ const LABEL = 'is';
 const LABEL_TEXT = 'pod';
 
 /**
- * This filter handles the `is:status` for services using `getServiceStatus`
+ * This filter handles the `is:pod` for filtering pod instances
  */
-class ServiceIsPodAttribFilter extends DSLFilter {
+class ServiceIsPodAttributeFilter extends DSLFilter {
 
   /**
-   * Handle all `is:pod` attrib filters that we can handle.
+   * Handle all `is:pod` attribute filters that we can handle.
    *
    * @override
    */
@@ -34,4 +34,4 @@ class ServiceIsPodAttribFilter extends DSLFilter {
 
 }
 
-module.exports = ServiceIsPodAttribFilter;
+module.exports = ServiceIsPodAttributeFilter;

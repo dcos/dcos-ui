@@ -10,9 +10,9 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
 const PARTS = {
-  is_pod: DSLExpressionPart.attrib('is', 'pod'),
-  is_universe: DSLExpressionPart.attrib('is', 'universe'),
-  has_volumes: DSLExpressionPart.attrib('has', 'volumes')
+  is_pod: DSLExpressionPart.attribute('is', 'pod'),
+  is_universe: DSLExpressionPart.attribute('is', 'universe'),
+  has_volumes: DSLExpressionPart.attribute('has', 'volumes')
 };
 
 class ServiceOtherDSLSection extends React.Component {

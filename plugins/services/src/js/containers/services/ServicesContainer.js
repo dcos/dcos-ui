@@ -28,9 +28,9 @@ import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
 import ServiceAttributeHealthFilter
   from '../../filters/ServiceAttributeHealthFilter';
 import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
-import ServiceIsPodAttribFilter from '../../filters/ServiceIsPodAttribFilter';
-import ServiceIsUniverseAttribFilter from '../../filters/ServiceIsUniverseAttribFilter';
-import ServiceHasVolumesAttribFilter from '../../filters/ServiceHasVolumesAttribFilter';
+import ServiceIsPodAttributeFilter from '../../filters/ServiceIsPodAttributeFilter';
+import ServiceIsUniverseAttributeFilter from '../../filters/ServiceIsUniverseAttributeFilter';
+import ServiceHasVolumesAttributeFilter from '../../filters/ServiceHasVolumesAttributeFilter';
 
 import {
   DCOS_CHANGE
@@ -80,9 +80,9 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceNameTextFilter(),
   new ServiceAttributeHealthFilter(),
   new ServiceAttributeIsFilter(),
-  new ServiceIsPodAttribFilter(),
-  new ServiceIsUniverseAttribFilter(),
-  new ServiceHasVolumesAttribFilter()
+  new ServiceIsPodAttributeFilter(),
+  new ServiceIsUniverseAttributeFilter(),
+  new ServiceHasVolumesAttributeFilter()
 ]);
 
 /**
