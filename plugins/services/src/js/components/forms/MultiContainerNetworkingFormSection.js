@@ -204,7 +204,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getHostServiceEndpoints(endpoints = [], containerIndex) {
+    let {errors} = this.props;
+
     return endpoints.map((endpoint, index) => {
+      let nameError = findNestedPropertyInObject(
+          errors,
+          `containers.${containerIndex}.endpoints.${index}.name`
+      );
+
       return (
         <FormGroupContainer
           key={index}
@@ -212,6 +219,18 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: `containers.${containerIndex}.endpoints`}
           )}>
+          <div className="flex row">
+            <FormGroup className="column-6" showError={Boolean(nameError)}>
+              <FieldLabel>
+                Service Endpoint Name
+              </FieldLabel>
+              <FieldInput
+                  name={`containers.${containerIndex}.endpoints.${index}.name`}
+                  type="text"
+                  value={endpoint.name} />
+              <FieldError>{nameError}</FieldError>
+            </FormGroup>
+          </div>
           <div className="flex row">
             {this.getHostPortFields(endpoint, index, containerIndex)}
             {this.getProtocolField(endpoint, index, containerIndex)}
