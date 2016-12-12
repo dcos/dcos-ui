@@ -13,6 +13,64 @@ const DSLUtil = require('../DSLUtil');
 
 describe('DSLUpdateUtil', function () {
 
+  describe('#cleanupExpressionString', function () {
+
+    it('should remove extraneous whitespaces', function () {
+      let expr = 'foo  bar   baz ';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo bar baz');
+    });
+
+    it('should remove repeating commas', function () {
+      let expr = 'foo,,  bar,  , baz';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo, bar, baz');
+    });
+
+    it('should remove orphan commas (beginning)', function () {
+      let expr = ' ,foo bar';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo bar');
+    });
+
+    it('should remove orphan commas (ending)', function () {
+      let expr = 'foo bar ,';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo bar');
+    });
+
+    it('should remove orphan commas (parenthesis-left)', function () {
+      let expr = 'foo (, bar baz)';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo (bar baz)');
+    });
+
+    it('should remove orphan commas (parenthesis-right)', function () {
+      let expr = 'foo (bar baz , )';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo (bar baz)');
+    });
+
+    it('should remove orphan commas (multi-value beginning)', function () {
+      let expr = 'foo:,bar';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo:bar');
+    });
+
+    it('should remove orphan commas (multi-value middle)', function () {
+      let expr = 'foo:bar,,baz';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo:bar,baz');
+    });
+
+    it('should expand single parenthesis', function () {
+      let expr = 'foo (bar) baz';
+      expect(DSLUpdateUtil.cleanupExpressionString(expr))
+        .toBe('foo bar baz');
+    });
+
+  });
+
   describe('#updateNodeTextString', function () {
 
     it('should correctly update attribute nodes', function () {
