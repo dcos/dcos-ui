@@ -87,7 +87,7 @@ class Batch {
   reduce(callback, data) {
     // Run at least once even if there are no actions in the batch
     if (this.length === 0) {
-      return callback(data, {value: 'INIT'}, 0);
+      return callback(data, {path: [], value: 'INIT'}, 0);
     }
 
     return this.reduce(callback, data);

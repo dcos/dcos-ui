@@ -61,7 +61,7 @@ describe('Batch', function () {
         return [sum, action, index];
       }, 'initial');
 
-      expect(args).toEqual(['initial', {value: 'INIT'}, 0]);
+      expect(args).toEqual(['initial', {path: [], value: 'INIT'}, 0]);
     });
 
     it('should not run reducers more than number than values', function () {
