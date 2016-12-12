@@ -7,10 +7,10 @@ const LABEL_TEXT = 'volumes';
 /**
  * This filter handles the `has:volumes` for filtering services with volumes
  */
-class ServiceIsUniverseAttributeFilter extends DSLFilter {
+class ServiceAttributeHasVolumesFilter extends DSLFilter {
 
   /**
-   * Handle all `has:volumes` attrib filters that we can handle.
+   * Handle all `has:volumes` attrib filters.
    *
    * @override
    */
@@ -34,4 +34,4 @@ class ServiceIsUniverseAttributeFilter extends DSLFilter {
 
 }
 
-module.exports = ServiceIsUniverseAttributeFilter;
+module.exports = ServiceAttributeHasVolumesFilter;
