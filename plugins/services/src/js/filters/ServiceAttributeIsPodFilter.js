@@ -1,17 +1,17 @@
 import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
 import DSLFilter from '../../../../../src/js/structs/DSLFilter';
-import Framework from '../structs/Framework';
+import Pod from '../structs/Pod';
 
 const LABEL = 'is';
-const LABEL_TEXT = 'universe';
+const LABEL_TEXT = 'pod';
 
 /**
- * This filter handles the `is:univese` for filtering universe frameworks
+ * This filter handles the `is:pod` for filtering pod instances
  */
-class ServiceIsUniverseAttributeFilter extends DSLFilter {
+class ServiceAttributeIsPodFilter extends DSLFilter {
 
   /**
-   * Handle all `is:universe` attrib filters that we can handle.
+   * Handle all `is:pod` attribute filters.
    *
    * @override
    */
@@ -22,16 +22,16 @@ class ServiceIsUniverseAttributeFilter extends DSLFilter {
   }
 
   /**
-   * Keep only services whose instance is of type `Framework`
+   * Keep only services whose instance is of type `Pod`
    *
    * @override
    */
   filterApply(resultset) {
     return resultset.filterItems((service) => {
-      return service instanceof Framework;
+      return service instanceof Pod;
     });
   }
 
 }
 
-module.exports = ServiceIsUniverseAttributeFilter;
+module.exports = ServiceAttributeIsPodFilter;
