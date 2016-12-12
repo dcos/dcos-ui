@@ -18,7 +18,7 @@ import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
-import Pod from '../../structs/Pod';
+import PodSpec from '../../structs/PodSpec';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -75,7 +75,7 @@ class NewCreateServiceModalForm extends Component {
           ServiceUtil.getServiceJSON(this.props.service)
         ),
         false,
-        this.props.service instanceof Pod
+        this.props.service instanceof PodSpec
       )
     );
 
@@ -90,7 +90,7 @@ class NewCreateServiceModalForm extends Component {
   componentWillReceiveProps(nextProps) {
     let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
-    let isPod = nextProps.service instanceof Pod;
+    let isPod = nextProps.service instanceof PodSpec;
 
     // Note: We ignore changes that might derrive from the `onChange` event
     //       handler. In that case the contents of nextJSON would be the same
@@ -123,7 +123,7 @@ class NewCreateServiceModalForm extends Component {
     }
 
     // Update if pod type changed
-    if (this.state.isPod !== (nextProps.service instanceof Pod)) {
+    if (this.state.isPod !== (nextProps.service instanceof PodSpec)) {
       return true;
     }
 
