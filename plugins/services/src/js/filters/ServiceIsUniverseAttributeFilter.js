@@ -1,16 +1,17 @@
 import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
 import DSLFilter from '../../../../../src/js/structs/DSLFilter';
+import Framework from '../structs/Framework';
 
-const LABEL = 'has';
-const LABEL_TEXT = 'volumes';
+const LABEL = 'is';
+const LABEL_TEXT = 'universe';
 
 /**
- * This filter handles the `is:status` for services using `getServiceStatus`
+ * This filter handles the `is:univese` for filtering universe frameworks
  */
-class ServiceIsUniverseAttribFilter extends DSLFilter {
+class ServiceIsUniverseAttributeFilter extends DSLFilter {
 
   /**
-   * Handle all `has:volumes` attrib filters that we can handle.
+   * Handle all `is:universe` attrib filters that we can handle.
    *
    * @override
    */
@@ -21,17 +22,16 @@ class ServiceIsUniverseAttribFilter extends DSLFilter {
   }
 
   /**
-   * Keep only services that contain more than 1 volume
+   * Keep only services whose instance is of type `Framework`
    *
    * @override
    */
   filterApply(resultset) {
     return resultset.filterItems((service) => {
-      let volumes = service.getVolumes();
-      return (volumes.list && volumes.list.length > 0);
+      return service instanceof Framework;
     });
   }
 
 }
 
-module.exports = ServiceIsUniverseAttribFilter;
+module.exports = ServiceIsUniverseAttributeFilter;
