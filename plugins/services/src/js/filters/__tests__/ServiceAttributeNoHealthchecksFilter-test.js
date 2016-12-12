@@ -1,16 +1,16 @@
 jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
 jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
 jest.dontMock('../../constants/HealthStatus');
-jest.dontMock('../ServiceAttributeHealthFilter');
+jest.dontMock('../ServiceAttributeNoHealthchecksFilter');
 jest.dontMock('../../../../../../src/js/structs/List');
 
 var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
 var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
 var HealthStatus = require('../../constants/HealthStatus');
-var ServiceAttributeHealthFilter = require('../ServiceAttributeHealthFilter');
+var ServiceAttributeNoHealthchecksFilter = require('../ServiceAttributeNoHealthchecksFilter');
 var List = require('../../../../../../src/js/structs/List');
 
-describe('ServiceAttributeHealthFilter', function () {
+describe('ServiceAttributeNoHealthchecksFilter', function () {
 
   beforeEach(function () {
     this.mockItems = [
@@ -21,33 +21,22 @@ describe('ServiceAttributeHealthFilter', function () {
     ];
   });
 
-  it('Should correctly keep services in healthy state', function () {
+  it('Should correctly keep services without health checks', function () {
     let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:healthy');
+    let expr = SearchDSL.parse('no:healthchecks');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
-    ]);
-  });
-
-  it('Should correctly keep services in unhealthy state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:unhealthy');
-
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
-
-    expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[1]
+      this.mockItems[3]
     ]);
   });
 
   it('Should correctly keep nothing on unknown states', function () {
     let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:foo');
+    let expr = SearchDSL.parse('no:boo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
+    let filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
@@ -55,14 +44,14 @@ describe('ServiceAttributeHealthFilter', function () {
 
   it('Should be case-insensitive', function () {
     let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:hEaLThY');
+    let expr = SearchDSL.parse('no:HeaLThchEckS');
 
     let filters = new DSLFilterList([
-      new ServiceAttributeHealthFilter()
+      new ServiceAttributeNoHealthchecksFilter()
     ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      this.mockItems[3]
     ]);
   });
 });
