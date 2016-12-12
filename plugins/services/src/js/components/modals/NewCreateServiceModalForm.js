@@ -278,7 +278,7 @@ class NewCreateServiceModalForm extends Component {
   getContainerList(data) {
     if (data.containers && data.containers.length !== 0) {
       return data.containers.map((item, index) => {
-        let fakeContainer = {name: item.name || `container ${index + 1}`};
+        let fakeContainer = {name: item.name || `container-${index + 1}`};
 
         return (
           <TabButton
