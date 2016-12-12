@@ -86,7 +86,7 @@ class GeneralServiceFormSection extends Component {
       return (
         <FormGroupContainer key={index}
           onRemove={this.props.onRemoveItem.bind(this, {value: index, path: 'containers'})}>
-          {item.name || `container ${index + 1}`}
+          {item.name || `container-${index + 1}`}
         </FormGroupContainer>
       );
     });
