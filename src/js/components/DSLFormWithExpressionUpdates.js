@@ -8,44 +8,13 @@ import DSLExpression from '../structs/DSLExpression';
 import DSLUpdateUtil from '../utils/DSLUpdateUtil';
 import DSLUtil from '../utils/DSLUtil';
 import {FilterNode} from '../structs/DSLASTNodes';
+import {createNodeComparisionFunction} from '../utils/DSLFormUtil';
 
 const METHODS_TO_BIND = [
   'handleFormBlur',
   'handleFormChange',
   'handleFormSubmit'
 ];
-
-/**
- * This function creates a `nodeCompareFunction` function, used by the
- * expression update utilities to detect relevant nodes.
- *
- * This is used internally by DSLUpdateUtil in order to update existing nodes
- * or detect if the node being added is the first one and therefore needs
- * to have a different combine operator.
- *
- * @param {Object} parts - An object with the part configuration
- * @returns {function} Returns a compatible function for use by applyadd
- */
-function createNodeComparisionFunction(parts) {
-  const referenceNodes = Object.keys(parts).map((key) => parts[key]);
-
-  return function (nodeAdded, astNode) {
-    return referenceNodes.some((referenceNode) => {
-      if (referenceNode.filterType !== astNode.filterType) {
-        return false;
-      }
-
-      // Free-text nodes are not strict
-      if (referenceNode.filterType !== DSLFilterTypes.ATTRIB) {
-        return true;
-      }
-
-      // But attribute nodes are strict
-      return (referenceNode.filterParams.label === astNode.filterParams.label)
-          && (referenceNode.filterParams.text === astNode.filterParams.text);
-    });
-  };
-}
 
 /**
  * This <form /> component wraps a set of <input /> elements and automates
