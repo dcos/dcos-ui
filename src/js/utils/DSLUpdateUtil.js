@@ -4,6 +4,8 @@ import DSLExpression from '../structs/DSLExpression';
 import DSLFilterTypes from '../constants/DSLFilterTypes';
 import DSLUtil from './DSLUtil';
 
+const STRING_EXPR = /(['"])[^\1]+?(?=\1)\1/;
+
 const DSLUpdateUtil = {
 
   /**
@@ -24,6 +26,48 @@ const DSLUpdateUtil = {
     }
 
     return referenceNode.filterParams.label === compareNode.filterParams.label;
+  },
+
+  /**
+   * Clean-up a DSL expression without damaging it's semantic meaning.
+   * This function does the following:
+   *
+   * - Expands single parenthesis (ex. "foo (bar) baz")
+   * - Trims consecutive whitespaces (ex "foo  bar ")
+   * - Trims consecutive or empty commas (ex. "foo,, bar, , baz")
+   * - Removes orphan comas (ex. ", foo (, bar) label:,baz")
+   *
+   * @param {String} src - The source expression string
+   * @returns {String} The cleaned-up expression string
+   */
+  cleanupExpressionString(src) {
+    let strings = [];
+
+    // Extract string expressions so we have a simpler expression to work with
+    src = src.replace(STRING_EXPR, (match) => {
+      strings.push(match);
+      return '\x01';
+    });
+
+    // Perform clean-ups
+    src = src.replace(/\(([^ ,]+)\)/g, '$1'); // Single parenthesis
+    src = src.replace(/\s+/g, ' '); // Consecutive spaces
+    src = src.replace(/,(\s*,)+/g, ','); // Consecutive commas
+    src = src.replace(/^\s*,/g, ''); // Orphan commas (left-side)
+    src = src.replace(/,\s*$/g, ''); // Orphan commas (right-side)
+    src = src.replace(/\(\s*,\s*/g, '('); // Orphan commas (left-paren)
+    src = src.replace(/\s*,\s*\)/g, ')'); // Orphan commas (right-paren)
+    src = src.replace(/:,+/g, ':'); // Orphan commas (multi-value)
+    src = src.replace(/\s+,\s+/g, ', '); // Commas with surrounding whitespace
+
+    // Put strings back
+    /* eslint-disable no-control-regex */
+    src = src.replace(/\x01/g, () => {
+      return strings.pop(0);
+    });
+    /* eslint-enable no-control-regex */
+
+    return src.trim();
   },
 
   /**
@@ -138,21 +182,10 @@ const DSLUpdateUtil = {
       }
     }
 
-    // Bleed to the left, eating-up the left-side whitespace by default,
-    // and only if we are the first token, do the same on the right-side.
-    if (src[start - 1] === ' ') {
-      start -= 1;
-    } else if ((start === 0) && (src[end] === ' ')) {
-      end += 1;
-    }
-
-    // Bleed left one more time if we have a lingering tailing ','
-    if ((src[start - 1] === ',') && (end >= src.length)) {
-      start -= 1;
-    }
-
-    // Return the striped result
-    return src.substr(0, start) + src.substr(end);
+    // Strip and cleanup any damage caused by it
+    return DSLUpdateUtil.cleanupExpressionString(
+        src.substr(0, start) + src.substr(end)
+      );
   },
 
   /**
