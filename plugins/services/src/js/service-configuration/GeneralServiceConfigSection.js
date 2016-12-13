@@ -98,7 +98,7 @@ module.exports = {
       transformValue(value, appConfig) {
         const runtime = findNestedPropertyInObject(appConfig, 'container.type');
         // Disabled for DOCKER
-        if (runtime !== DOCKER) {
+        if (runtime !== DOCKER && value == null) {
           return getDisplayValue(null, true);
         }
 
@@ -112,7 +112,7 @@ module.exports = {
       transformValue(value, appConfig) {
         const runtime = findNestedPropertyInObject(appConfig, 'container.type');
         // Disabled for DOCKER
-        if (runtime !== DOCKER) {
+        if (runtime !== DOCKER && value == null) {
           return getDisplayValue(null, true);
         }
 
@@ -152,7 +152,7 @@ module.exports = {
       label: 'Args',
       transformValue(value = []) {
         if (!value.length) {
-          return String.fromCharCode(8212);
+          return getDisplayValue(null);
         }
 
         return value.map((arg, index) => (
