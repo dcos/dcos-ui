@@ -5,7 +5,7 @@ import {Route, IndexRoute} from 'react-router';
 
 import ComponentsPage from '../pages/ComponentsPage';
 import UnitsHealthDetail from '../pages/system/UnitsHealthDetail';
-import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
+import ComponentsUnitsHealthNodeDetailPage from '../pages/system/ComponentsUnitsHealthNodeDetailPage';
 import UnitsHealthDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import UnitsHealthNodeDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthNodeDetailBreadcrumb';
 import UnitsHealthTab from '../pages/system/UnitsHealthTab';
@@ -56,7 +56,7 @@ let componentsRoutes = {
     {
       type: Route,
       path: ':unitID/nodes/:unitNodeID',
-      component: UnitsHealthNodeDetail,
+      component: ComponentsUnitsHealthNodeDetailPage,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {

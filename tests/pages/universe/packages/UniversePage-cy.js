@@ -8,26 +8,22 @@ describe('Universe Page', function () {
   });
 
   it('goes to Universe page when tab is clicked', function () {
-    cy
-      .visitUrl({url: '/'})
-      .get('.sidebar-menu-item')
-      .contains('Universe')
-      .click();
+    cy.visitUrl({url: '/dashboard', logIn: true});
+
+    // Opens up collapsible menu
+    cy.get('.sidebar').contains('Packages').click();
+    cy.get('.sidebar a[href]').contains('Packages').click();
     cy.hash().should('match', /universe\/packages/);
   });
 
   it('goes to Packages tab when tab is clicked', function () {
-    cy
-      .visitUrl({url: '/universe'})
-      .get('.menu-tabbed-item-label')
-      .contains('Packages')
-      .click();
+    cy.visitUrl({url: '/universe/packages', logIn: true});
     cy.hash().should('match', /universe\/packages/);
   });
 
   it('goes to the Packages Details tab when panel is clicked', function () {
     cy
-      .visitUrl({url: '/universe'})
+      .visitUrl({url: '/universe/packages'})
       .get('.h2')
       .contains('arangodb')
       .click();

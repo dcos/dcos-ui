@@ -21,7 +21,7 @@ import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskF
 import TaskLogsTab from '../../../../services/src/js/pages/task-details/TaskLogsTab';
 import TaskVolumeContainer from '../../../../services/src/js/containers/volume-detail/TaskVolumeContainer';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
-import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
+import NodesUnitsHealthDetailPage from '../pages/nodes/NodesUnitsHealthDetailPage';
 import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 
 let nodesRoutes = {
@@ -95,131 +95,6 @@ let nodesRoutes = {
         },
         {
           type: Route,
-          path: 'tasks/:taskID',
-          component: NodesTaskDetailPage,
-          hideHeaderNavigation: true,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: '/nodes/:nodeID',
-              getCrumbs(params, routes) {
-                return [
-                  <TaskDetailBreadcrumb
-                    params={params}
-                    routes={routes}
-                    to="/nodes/:nodeID/tasks/:taskID"
-                    routePath="tasks/:taskID" />
-                ];
-              }
-            };
-          },
-          children: [
-            {
-              type: Route,
-              component: TaskDetailsTab,
-              hideHeaderNavigation: true,
-              title: 'Details',
-              path: 'details',
-              isTab: true,
-              hideHeaderNavigation: true,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
-            },
-            {
-              hideHeaderNavigation: true,
-              component: TaskFilesTab,
-              isTab: true,
-              path: 'files',
-              title: 'Files',
-              type: Route,
-              children: [
-                {
-                  component: TaskFileBrowser,
-                  fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))',
-                  hideHeaderNavigation: true,
-                  type: IndexRoute,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                      getCrumbs() { return []; }
-                    };
-                  }
-                },
-                {
-                  component: TaskFileViewer,
-                  hideHeaderNavigation: true,
-                  path: 'view(/:filePath(/:innerPath))',
-                  type: Route,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                      getCrumbs() { return []; }
-                    };
-                  }
-                }
-              ]
-            },
-            {
-              component: TaskLogsTab,
-              hideHeaderNavigation: true,
-              isTab: true,
-              path: 'logs(/:fileName)',
-              title: 'Logs',
-              type: Route,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
-            },
-            {
-              component: VolumeTable,
-              hideHeaderNavigation: true,
-              isTab: true,
-              path: 'volumes',
-              title: 'Volumes',
-              type: Route,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
-            }
-          ]
-        },
-        // This route needs to be rendered outside of the tabs that are rendered
-        // in the nodes-task-details route.
-        {
-          type: Route,
-          path: 'tasks/:taskID/volumes/:volumeID',
-          component: TaskVolumeContainer,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: '/nodes/:nodeID/tasks/:taskID',
-              getCrumbs(params) {
-                return [
-                  {
-                    label: 'Volumes',
-                    route: {
-                      params,
-                      to: '/nodes/:nodeID/tasks/:taskID/volumes/:volumeID'
-                    }
-                  },
-                  {
-                    label: params.volumeID
-                  }
-                ];
-              }
-            };
-          }
-        },
-        {
-          type: Route,
           path: 'health',
           title: 'Health',
           component: NodeDetailHealthTab,
@@ -233,25 +108,6 @@ let nodesRoutes = {
                     routes={routes}
                     to="/nodes/:nodeID"
                     routePath="health" />
-                ];
-              }
-            };
-          }
-        },
-        {
-          type: Route,
-          path: 'health/:unitNodeID/:unitID',
-          component: UnitsHealthNodeDetail,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: '/nodes/:nodeID/health',
-              getCrumbs(params, routes) {
-                return [
-                  <UnitsHealthDetailBreadcrumb
-                    params={params}
-                    routes={routes}
-                    to="/nodes/:nodeID/health/:unitNodeID/:unitID"
-                    routePath="health/:unitNodeID/:unitID" />
                 ];
               }
             };
@@ -278,6 +134,152 @@ let nodesRoutes = {
           }
         }
       ]
+    },
+    {
+      type: Route,
+      path: ':nodeID/tasks/:taskID',
+      component: NodesTaskDetailPage,
+      hideHeaderNavigation: true,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: '/nodes/:nodeID',
+          getCrumbs(params, routes) {
+            return [
+              <TaskDetailBreadcrumb
+                params={params}
+                routes={routes}
+                to="/nodes/:nodeID/tasks/:taskID"
+                routePath="tasks/:taskID" />
+            ];
+          }
+        };
+      },
+      children: [
+        {
+          type: Route,
+          component: TaskDetailsTab,
+          hideHeaderNavigation: true,
+          title: 'Details',
+          path: 'details',
+          isTab: true,
+          hideHeaderNavigation: true,
+          buildBreadCrumb() {
+            return {
+              parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+              getCrumbs() { return []; }
+            };
+          }
+        },
+        {
+          hideHeaderNavigation: true,
+          component: TaskFilesTab,
+          isTab: true,
+          path: 'files',
+          title: 'Files',
+          type: Route,
+          children: [
+            {
+              component: TaskFileBrowser,
+              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+              hideHeaderNavigation: true,
+              type: IndexRoute,
+              buildBreadCrumb() {
+                return {
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                  getCrumbs() { return []; }
+                };
+              }
+            },
+            {
+              component: TaskFileViewer,
+              hideHeaderNavigation: true,
+              path: 'view(/:filePath(/:innerPath))',
+              type: Route,
+              buildBreadCrumb() {
+                return {
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                  getCrumbs() { return []; }
+                };
+              }
+            }
+          ]
+        },
+        {
+          component: TaskLogsTab,
+          hideHeaderNavigation: true,
+          isTab: true,
+          path: 'logs(/:fileName)',
+          title: 'Logs',
+          type: Route,
+          buildBreadCrumb() {
+            return {
+              parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+              getCrumbs() { return []; }
+            };
+          }
+        },
+        {
+          component: VolumeTable,
+          hideHeaderNavigation: true,
+          isTab: true,
+          path: 'volumes',
+          title: 'Volumes',
+          type: Route,
+          buildBreadCrumb() {
+            return {
+              parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+              getCrumbs() { return []; }
+            };
+          }
+        }
+      ]
+    },
+    // This route needs to be rendered outside of the tabs that are rendered
+    // in the nodes-task-details route.
+    {
+      type: Route,
+      path: ':nodeID/tasks/:taskID/volumes/:volumeID',
+      component: TaskVolumeContainer,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+          getCrumbs(params) {
+            return [
+              {
+                label: 'Volumes',
+                route: {
+                  params,
+                  to: '/nodes/:nodeID/tasks/:taskID/volumes/:volumeID'
+                }
+              },
+              {
+                label: params.volumeID
+              }
+            ];
+          }
+        };
+      }
+    },
+    // This needs to be outside of the children array of node routes
+    // so that it can be responsible for rendering its own header.
+    {
+      type: Route,
+      path: ':nodeID/health/:unitNodeID/:unitID',
+      component: NodesUnitsHealthDetailPage,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: '/nodes/:nodeID/health',
+          getCrumbs(params, routes) {
+            return [
+              <UnitsHealthDetailBreadcrumb
+                params={params}
+                routes={routes}
+                to="/nodes/:nodeID/health/:unitNodeID/:unitID"
+                routePath="health/:unitNodeID/:unitID" />
+            ];
+          }
+        };
+      }
     }
   ]
 };

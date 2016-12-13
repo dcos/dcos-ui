@@ -1,7 +1,6 @@
 import autoprefixer from 'autoprefixer';
 import colorLighten from 'less-color-lighten';
 import fs from 'fs';
-import glob from 'glob';
 import less from 'less';
 import path from 'path';
 import postcss from 'postcss';
@@ -9,8 +8,6 @@ import purifycss from 'purify-css';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
-import SVGSprite from 'svg-sprite';
-import vinyl from 'vinyl';
 
 import IconDCOSLogoMark from '../src/js/components/icons/IconDCOSLogoMark.js';
 
@@ -60,17 +57,6 @@ let bootstrap = {
   )
 };
 
-let svgSpriter = new SVGSprite({
-  mode: {
-    symbol: true
-  },
-  shape: {
-    id: {
-      separator: '--'
-    }
-  }
-});
-
 module.exports = {
   lessLoader: {
     lessPlugins: [
@@ -87,41 +73,12 @@ module.exports = {
         loader: StringReplacePlugin.replace({
           replacements: [
             {
-              pattern: /<!--\sBOOTSTRAP-HTML\s-->/g,
+              pattern: /<!--\[if\sBOOTSTRAP-HTML\]><!\[endif\]-->/g,
               replacement() {
                 return (
-                  '<div id="canvas">' +
-                    '<div class="application-loading-indicator pod ' +
-                      'vertical-center">' +
-                      bootstrap.HTML +
-                    '</div>' +
-                  '</div>'
-                );
-              }
-            },
-            {
-              pattern: /<!--\sICON-SVG-SPRITESHEET\s-->/g,
-              replacement() {
-                let content = null;
-                let baseDir = path.resolve('src/img/components/icons');
-                let files = glob.sync('**/*.svg', {cwd: baseDir});
-
-                files.forEach(function (file) {
-                  svgSpriter.add(new vinyl({
-                    path: path.join(baseDir, file),
-                    base: baseDir,
-                    contents: fs.readFileSync(path.join(baseDir, file))
-                  }));
-                });
-
-                svgSpriter.compile(function (error, result) {
-                  content = result.symbol.sprite.contents.toString();
-                });
-
-                return (
-                  '<div style="height: 0; overflow: hidden; width: 0;' +
-                    ' visibility: hidden;">' +
-                    content +
+                  '<div class="application-loading-indicator ' +
+                    'vertical-center">' +
+                    bootstrap.HTML +
                   '</div>'
                 );
               }
@@ -168,7 +125,7 @@ module.exports = {
         loader: StringReplacePlugin.replace({
           replacements: [
             {
-              pattern: /<!--\sBOOTSTRAP-CSS\s-->/g,
+              pattern: /<!--\[if\sBOOTSTRAP-CSS\]><!\[endif\]-->/g,
               replacement(match, id, htmlContents) {
                 // Remove requires() that were injected by webpack
                 htmlContents = htmlContents

@@ -20,8 +20,8 @@
   ],
   "run": {
     "cpus": 1,
-    "mem": 1,
-    "disk": 1,
+    "mem": 32,
+    "disk": 0,
     "artifacts": [
       {
         "uri": "https://foo.com/archive.zip",

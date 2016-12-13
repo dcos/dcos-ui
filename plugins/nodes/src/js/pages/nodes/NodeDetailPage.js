@@ -5,16 +5,13 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
-
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
-import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
+import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../../../../../src/js/components/Page';
 import ResourceChart from '../../../../../../src/js/components/charts/ResourceChart';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
@@ -147,53 +144,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
-  getDetailViewHeader(node) {
-    // Hide when viewing task, volume or unit details
-    let {taskID, volumeID, unitID} = this.props.params;
-    if (taskID || volumeID || unitID) {
-      return null;
-    }
-
-    return (
-      <div>
-        <DetailViewHeader
-          navigationTabs={this.getNavigation()}
-          subTitle={this.getSubHeader(node)}>
-          <div className="pod pod-short flush-right flush-bottom flush-left">
-            {this.getCharts('Node', node)}
-          </div>
-        </DetailViewHeader>
-      </div>
-    );
-  }
-
-  getSubHeader(node) {
-    let activeTasksCount = node.sumTaskTypesByState('active');
-    let activeTasksSubHeader = StringUtil.pluralize('Task', activeTasksCount);
-    let healthStatus = node.getHealth();
-
-    return (
-      <ul className="list-inline flush-bottom">
-        <li>
-          <span className={healthStatus.classNames}>
-            {healthStatus.title}
-          </span>
-        </li>
-        <li>
-          {`${activeTasksCount} Active ${activeTasksSubHeader}`}
-        </li>
-      </ul>
-    );
-  }
-
-  getNavigation() {
-    return (
-      <ul className="menu-tabbed">
-        {this.tabs_getRoutedTabs(this.props)}
-      </ul>
-    );
-  }
-
   render() {
     if (!MesosSummaryStore.get('statesProcessed')) {
       return this.getLoadingScreen();
@@ -206,7 +156,39 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    return this.props.children;
+    const {currentTab} = this.state;
+    const tabs = [
+      {
+        label: 'Tasks',
+        callback: () => {
+          this.context.router.push(`/nodes/${nodeID}/tasks`);
+        },
+        isActive: currentTab === '/nodes/:nodeID/tasks'
+      },
+      {
+        label: 'Health',
+        callback: () => {
+          this.context.router.push(`/nodes/${nodeID}/health`);
+        },
+        isActive: currentTab === '/nodes/:nodeID/health'
+      },
+      {
+        label: 'Details',
+        callback: () => {
+          this.context.router.push(`/nodes/${nodeID}/details`);
+        },
+        isActive: currentTab === '/nodes/:nodeID/details'
+      }
+    ];
+
+    return (
+      <Page>
+        <Page.Header
+          breadcrumbs={<NodeBreadcrumbs nodeID={nodeID} />}
+          tabs={tabs} />
+        {React.cloneElement(this.props.children, {node})}
+      </Page>
+    );
   }
 }
 

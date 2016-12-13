@@ -9,20 +9,19 @@ describe('Tasks Table', function () {
     });
 
     it('displays task detail page on task click', function () {
-      cy.visitUrl({url: '/services/%2Fcassandra/'});
-      cy.get('a[title="server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737"]')
+      cy.visitUrl({url: '/services/overview/%2Fcassandra'});
+      cy.get('a[title="server-0_10a"]')
         .click();
-      cy.get('.page-body-content .h1 .collapsing-string-full-string')
-        .should('to.have.text', 'server-0');
+      cy.get('.page-header').should('contain', 'server-0');
     });
 
     context('Files tab', function () {
 
       beforeEach(function () {
         cy.visitUrl({
-          url: '/services/%2Fcassandra/tasks/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737/'
+          url: '/services/overview/%2Fcassandra/tasks/server-0_10a'
         });
-        cy.get('.page-body-content .menu-tabbed-item-label').contains('Files').click();
+        cy.get('.page-header-navigation .menu-tabbed-item').contains('Files').click();
       });
 
       it('shows the contents of the Mesos sandbox', function () {

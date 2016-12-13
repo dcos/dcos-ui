@@ -63,7 +63,7 @@
         "activeDeadlineSeconds": 120
       }
     },
-    "history": {
+    "historySummary": {
       "successCount": 1,
       "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
@@ -138,7 +138,7 @@
         "activeDeadlineSeconds": 120
       }
     },
-    "history": {
+    "historySummary": {
       "successCount": 1,
       "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
@@ -230,7 +230,7 @@
         "activeDeadlineSeconds": 120
       }
     },
-    "history": {
+    "historySummary": {
       "successCount": 1,
       "failureCount": 0,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
@@ -317,7 +317,7 @@
         "activeDeadlineSeconds": 120
       }
     },
-    "history": {
+    "historySummary": {
       "successCount": 1,
       "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",

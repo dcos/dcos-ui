@@ -7,6 +7,14 @@ describe('DC/OS UI [00j]', function () {
     .visitUrl({url: '/', identify: true, fakeAnalytics: true});
   });
 
+  context('Loader', function () {
+
+    it('shows the pulsing pineapple', function () {
+      cy.get('#application .application-loading-indicator .icon.icon-logo-mark');
+    });
+
+  });
+
   context('Dashboard [00k]', function () {
 
     beforeEach(function () {
@@ -23,7 +31,7 @@ describe('DC/OS UI [00j]', function () {
 
   });
 
-  context('Services [00n]', function () {
+  xcontext('Services [00n]', function () {
 
     beforeEach(function () {
       cy.get('.sidebar-menu-item').contains('Services').click();
@@ -60,6 +68,7 @@ describe('DC/OS UI [00j]', function () {
     });
 
     it('should list one node [00u]', function () {
+      cy.wait(1000);
       cy.get('@tableRows').contains('dcos-01');
     });
 

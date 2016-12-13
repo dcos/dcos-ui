@@ -25,6 +25,25 @@ import RouterUtil from './utils/RouterUtil';
 
 let domElement = document.getElementById('application');
 
+// TODO: Implement loader that can concat many sprites into a single one
+// We opt to load the sprite after the Javscript files are parsed because it
+// is quite expensive for the browser to parse a sprite file. This way we
+// don't block the JS execution.
+setTimeout(function () {
+  var ajax = new XMLHttpRequest();
+  ajax.open('GET', 'sprite.svg', true);
+  ajax.send();
+  ajax.onload = function () {
+    var div = document.createElement('div');
+    div.innerHTML = ajax.responseText;
+    div.style.height = 0;
+    div.style.overflow = 'hidden';
+    div.style.width = 0;
+    div.style.visibility = 'hidden';
+    document.body.insertBefore(div, document.body.childNodes[0]);
+  };
+});
+
 // Patch json
 let oldJSON = RequestUtil.json;
 RequestUtil.json = function (options = {}) {

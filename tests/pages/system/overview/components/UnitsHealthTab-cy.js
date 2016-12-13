@@ -9,7 +9,7 @@ describe('Units Tab [0e2]', function () {
         plugins: 'organization-enabled',
         componentHealth: true
       })
-      .visitUrl({url: '/system/overview/components', identify: true});
+      .visitUrl({url: '/components', identify: true});
 
       cy.get('.units-health-table-header').within(function () {
         cy.get('.form-control input[type=\'text\']').as('filterTextbox');
@@ -70,19 +70,16 @@ describe('Units Tab [0e2]', function () {
         componentHealth: true
       })
       .visitUrl(
-          {url: '/system/overview/components/dcos-mesos-dns.service/', identify: true}
+          {url: '/components/dcos-mesos-dns.service', identify: true}
         );
     });
 
     it('renders unit title [0ea]', function () {
-      cy.get('.page-body-content .h1').contains('Mesos DNS').should(function ($title) {
-        expect($title).to.exist;
-      });
+      cy.get('.page-header').contains('Mesos DNS').should('exist');
     });
 
     it('renders unit health [0eb]', function () {
-      cy.wait(2000);
-      cy.get('.page-body-content .page-header-sub-heading')
+      cy.get('.page-header')
         .find('.text-danger')
         .should(function ($health) {
           expect($health).to.contain('Unhealthy');
@@ -91,7 +88,7 @@ describe('Units Tab [0e2]', function () {
 
     it('filters by node health [0ec]', function () {
       cy.get('.page-body-content button').contains('All Health Checks').click();
-      cy.get('.dropdown').find('li').contains('Healthy').click();
+      cy.get('.dropdown-menu').find('li').contains('Healthy').click();
       cy.get('tr').contains('Healthy').should(function ($row) {
         expect($row.length).to.equal(1);
       });
@@ -112,19 +109,16 @@ describe('Units Tab [0e2]', function () {
         componentHealth: true
       })
       .visitUrl(
-        {url: '/system/overview/components/dcos-mesos-dns.service/nodes/10.10.0.236', identify: true}
+        {url: '/components/dcos-mesos-dns.service/nodes/10.10.0.236', identify: true}
       );
     });
 
     it('renders health check title [0ei]', function () {
-      cy.get('.page-body-content .h1').contains('Mesos DNS Health Check').should(function ($title) {
-        expect($title).to.exist;
-      });
+      cy.get('.page-header').contains('Mesos DNS').should('exist');
     });
 
     it('renders node health [0ej]', function () {
-      cy.wait(2000);
-      cy.get('.page-body-content .page-header-sub-heading')
+      cy.get('.page-header')
         .find('.text-success')
         .should(function ($health) {
           expect($health).to.contain('Healthy');

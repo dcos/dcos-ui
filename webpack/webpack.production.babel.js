@@ -3,6 +3,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
 import webpack from 'webpack';
+import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 
 import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
@@ -19,20 +20,27 @@ let REPLACEMENT_VARS = {
   ENV: process.env.NODE_ENV
 };
 
+let dependencies = Object.assign({}, packageInfo.dependencies);
+delete dependencies['canvas-ui'];
+delete dependencies['cnvs'];
+
 module.exports = Object.assign({}, webpackConfig, {
-  entry: './src/js/index.js',
+  entry: {
+    index: './src/js/index.js',
+    vendor: Object.keys(dependencies)
+  },
   devtool: '#source-map',
   production: true,
   output: {
     path: './dist',
-    filename: './index.[hash].js'
+    filename: './[name].[hash].js'
   },
   plugins: [
     // Important to keep React file size down
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-      },
+        'NODE_ENV': JSON.stringify('production')
+      }
     }),
 
     new webpack.optimize.DedupePlugin(),
@@ -41,21 +49,26 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false,
-      },
+        warnings: false
+      }
     }),
 
     new ExtractTextPlugin('./[name].[hash].css'),
 
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js', Infinity),
+
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       template: './src/index.html',
-      production: true,
+      production: true
     }),
 
     // Don't include images in /icons/_exports
     new webpack.IgnorePlugin(/icons\/_exports\//),
 
     new webpack.IgnorePlugin(/tests\/_fixtures\//),
+
+    new SVGCompilerPlugin({baseDir: 'src/img/components/icons'}),
 
     new CompressionPlugin({
       asset: '[path].gz[query]',
@@ -77,7 +90,7 @@ module.exports = Object.assign({}, webpackConfig, {
           presets: [
             'babel-preset-es2015',
             'babel-preset-react'
-          ].map(require.resolve),
+          ].map(require.resolve)
         })
       },
       {
@@ -94,15 +107,15 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.svg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml')
       },
       {
         test: /\.gif$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif')
       },
       {
         test: /\.jpg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]')
       },
       // Replace @@variables
       {
@@ -112,7 +125,7 @@ module.exports = Object.assign({}, webpackConfig, {
           replacements: [
             {
               pattern: /@@(\w+)/ig,
-              replacement: function (match, key) {
+              replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }
             }

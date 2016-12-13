@@ -1,4 +1,4 @@
-describe('Tracking Plugin Enabled [02w]', function () {
+xdescribe('Tracking Plugin Enabled [02w]', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -10,10 +10,6 @@ describe('Tracking Plugin Enabled [02w]', function () {
   });
 
   context('Sidebar [02x]', function () {
-
-    it('should have three sidebar icons [02y]', function () {
-      cy.get('.sidebar-footer').find('.button').should('to.have.length', 2);
-    })
 
     it('should not disable cli in instructions [0df]', function () {
       cy.get('.sidebar-footer').find('.button').last().click();

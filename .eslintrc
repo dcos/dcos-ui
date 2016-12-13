@@ -25,6 +25,12 @@
   ],
 
   "globals": {
+    "cy": true,
+    "context": true,
+    "xcontext": true,
+    "xit": true,
+    "it": true,
+    "expect": true,
     "jest": true,
     "ActiveXObject": true,
     "Dygraph": true,

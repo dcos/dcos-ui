@@ -6,9 +6,8 @@ describe('Add Repository Form Modal', function () {
         mesos: '1-task-healthy',
         universePackages: true
       })
-      .visitUrl({url: '/system/overview/repositories'})
-      .get('.page-body-content .button.button-success')
-      .contains('Add Repository')
+      .visitUrl({url: '/settings/repositories'})
+      .get('.page-header-actions button')
       .click();
   });
 
@@ -61,9 +60,7 @@ describe('Add Repository Form Modal', function () {
       .contains('Add')
       .click();
 
-    cy.get('.modal').should(function ($modal) {
-      expect($modal).to.not.exist;
-    });
+    cy.get('.modal').should('exist');
 
     // Clean up
     cy.clusterCleanup(function () {

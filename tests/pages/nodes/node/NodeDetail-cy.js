@@ -4,7 +4,7 @@ describe('Nodes Detail Page', function () {
     cy.configureCluster({
       mesos: '1-task-healthy',
       nodeHealth: true
-    })
+    });
   });
 
   context('Navigate to node detail page', function () {
@@ -17,7 +17,7 @@ describe('Nodes Detail Page', function () {
       }).click();
 
       cy.hash().should('match', /nodes\/[a-zA-Z0-9-]+/);
-      cy.get('.page-body-content .h1').should(function ($title) {
+      cy.get('.page-header').should(function ($title) {
         expect($title).to.contain(nodeName);
       });
     });

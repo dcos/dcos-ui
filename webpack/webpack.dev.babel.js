@@ -2,6 +2,8 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
+import webpack from 'webpack';
+import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 
 import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
@@ -29,13 +31,23 @@ let REPLACEMENT_VARS = {
   ENV: environment
 };
 
-let entry = [
-  `webpack-dev-server/client?http://localhost:${PORT}`,
-  './src/js/index.js'
-];
+let dependencies = Object.assign({}, packageInfo.dependencies);
+delete dependencies['canvas-ui'];
+delete dependencies['cnvs'];
+dependencies = Object.keys(dependencies).map(function (dependency) {
+  return 'node_modules/' + dependency;
+});
+
+let entry = {
+  index: ['./src/js/index.js'],
+  vendor: dependencies
+};
 
 if (environment === 'development') {
-  entry.push('webpack/hot/only-dev-server');
+  entry.index.unshift(
+    `webpack-dev-server/client?http://localhost:${PORT}`,
+    'webpack/hot/only-dev-server'
+  );
   devtool = '#inline-eval-cheap-source-map';
 } else if (environment === 'testing') {
   // Cypress constantly saves fixture files, which causes webpack to detect
@@ -61,7 +73,7 @@ module.exports = Object.assign({}, webpackConfig, {
   devtool,
   output: {
     path: './build',
-    filename: 'index.js'
+    filename: '[name].js'
   },
   devServer,
   plugins: [
@@ -73,7 +85,11 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new ExtractTextPlugin('./[name].css'),
 
-    new WebpackNotifierPlugin({alwaysNotify: true})
+    new WebpackNotifierPlugin({alwaysNotify: true}),
+
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
+
+    new SVGCompilerPlugin({baseDir: 'src/img/components/icons'})
   ],
   module: {
     preLoaders: webpackConfig.module.preLoaders,
@@ -109,11 +125,11 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.gif$/,
-        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif',
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif'
       },
       {
         test: /\.jpg$/,
-        loader: 'file?name=./[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]'
       },
       // Replace @@variables
       {
@@ -123,7 +139,7 @@ module.exports = Object.assign({}, webpackConfig, {
           replacements: [
             {
               pattern: /@@(\w+)/ig,
-              replacement: function (match, key) {
+              replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }
             }
