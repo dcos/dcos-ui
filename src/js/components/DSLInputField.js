@@ -39,7 +39,7 @@ class DSLInputField extends React.Component {
     super(...arguments);
 
     this.state = {
-      expression: new DSLExpression(),
+      expression: this.props.expression,
       focus: false
     };
 
@@ -256,7 +256,7 @@ class DSLInputField extends React.Component {
 
     let formGroupClasses = classNames({
       'form-group': true,
-      'form-group-error': expression.hasErrors
+      'form-group-danger': expression.hasErrors
     }, className);
 
     return (
