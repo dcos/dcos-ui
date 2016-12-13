@@ -12,6 +12,7 @@ import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthC
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
 import {FormReducer as volumeMountsReducer} from './VolumeMounts';
+import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
 
 const containerReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
@@ -303,7 +304,9 @@ module.exports = {
     if (joinedPath === 'containers') {
       switch (type) {
         case ADD_ITEM:
-          newState.push({name: `container-${newState.length + 1}`});
+          const name = `container-${newState.length + 1}`;
+
+          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, {name}));
           this.cache.push({});
           this.endpoints.push({});
           break;
@@ -471,7 +474,9 @@ module.exports = {
     if (joinedPath === 'containers') {
       switch (type) {
         case ADD_ITEM:
-          newState.push({name: `container-${newState.length + 1}`});
+          const name = `container-${newState.length + 1}`;
+
+          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, {name}));
           this.cache.push({});
           break;
         case REMOVE_ITEM:
