@@ -104,7 +104,7 @@ module.exports = ({appConfig}) => {
           <Label>GPU</Label>
           <Value>{getContainerResourceSummary('gpu', appConfig)}</Value>
         </Row>
-        {fields.backoff && (
+        {!!fields.backoff && (
           <Row>
             <Label>Backoff</Label>
             <DurationValue
@@ -112,13 +112,13 @@ module.exports = ({appConfig}) => {
               value={fields.backoff} />
           </Row>
         )}
-        {fields.backoffFactor && (
+        {!!fields.backoffFactor && (
           <Row>
             <Label>Backoff Factor</Label>
             <Value value={fields.backoffFactor} />
           </Row>
         )}
-        {fields.maxLaunchDelay && (
+        {!!fields.maxLaunchDelay && (
           <Row>
             <Label>Backoff Max Launch Delay</Label>
             <DurationValue
@@ -126,13 +126,13 @@ module.exports = ({appConfig}) => {
               value={fields.maxLaunchDelay} />
           </Row>
         )}
-        {fields.minimumHealthCapacity && (
+        {!!fields.minimumHealthCapacity && (
           <Row>
             <Label>Upgrade Min Health Capacity</Label>
             <Value value={fields.minimumHealthCapacity} />
           </Row>
         )}
-        {fields.maximumOverCapacity && (
+        {!!fields.maximumOverCapacity && (
           <Row>
             <Label>Upgrade Max Overcapacity</Label>
             <Value value={fields.maximumOverCapacity} />
