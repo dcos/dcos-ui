@@ -341,12 +341,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         );
       }
 
-      let portMappingLabel = 'Disabled';
-
-      if (portDefinition.portMapping) {
-        portMappingLabel = 'Enabled';
-      }
-
       return (
         <FormGroupContainer
           key={index}
@@ -387,7 +381,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   checked={portDefinition.portMapping}
                   name={`portDefinitions.${index}.portMapping`}
                   type="checkbox" />
-                  {portMappingLabel}
+                  Enabled
               </FieldLabel>
             </FormGroup>
           </div>
