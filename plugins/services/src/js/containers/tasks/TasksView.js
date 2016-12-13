@@ -153,6 +153,20 @@ class TasksView extends mixin(SaveStateMixin) {
     const hasSchedulerTask = tasks
       .some((task) => task.id in checkedItems && task.schedulerTask);
 
+    // Using Button's native "disabled" prop prevents onMouseLeave from
+    // being correctly called, preventing correct dismissal of the Tooltip.
+    //
+    // So we manually disable the button.
+    let onStopClick = () => {};
+
+    if (!hasSchedulerTask) {
+      onStopClick = this.handleKillClick.bind(this, 'stop');
+    }
+
+    let stopButtonClasses = classNames('button button-link', {
+      disabled: hasSchedulerTask
+    });
+
     return (
       <div className="button-collection flush-bottom">
         <button
@@ -161,17 +175,17 @@ class TasksView extends mixin(SaveStateMixin) {
           <Icon id="repeat" size="mini" />
           <span>Restart</span>
         </button>
-        <button
-          className="button button-link"
-          disabled={hasSchedulerTask}
-          onClick={this.handleKillClick.bind(this, 'stop')}>
-          <Tooltip
-            content="Stopping a scheduler task is not supported."
-            suppress={!hasSchedulerTask}>
-            <Icon id="circle-close" size="mini" />
-            <span>Stop</span>
-          </Tooltip>
-        </button>
+        <Tooltip
+          wrapperClassName="button-group"
+          content="Stopping a scheduler task is not supported."
+          suppress={!hasSchedulerTask}>
+          <button
+            className={stopButtonClasses}
+            onClick={onStopClick}>
+              <Icon id="circle-close" size="mini" />
+              <span>Stop</span>
+          </button>
+        </Tooltip>
       </div>
     );
   }
