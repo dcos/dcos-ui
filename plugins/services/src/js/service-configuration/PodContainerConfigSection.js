@@ -29,7 +29,7 @@ function getCommand(containerConfig) {
 const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) => {
   const fields = {
     command: getCommand(containerConfig),
-    resources: appConfig.resources || {},
+    resources: containerConfig.resources || {},
     user: containerConfig.user || appConfig.user
   };
 
