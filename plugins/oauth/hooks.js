@@ -65,14 +65,15 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   dcosInstallCommand(instructions) {
-    let steps = instructions.split('&&');
-    steps.splice(-1, 0, ' \n dcos auth login ');
+    let steps = [...instructions];
 
-    return steps.join('&&');
+    steps.splice(-1, 0, 'dcos auth login');
+
+    return steps;
   },
 
   dcosInstallSteps(steps) {
-    let newSteps = steps.map((step) => step);
+    let newSteps = [...steps];
 
     newSteps.splice(-1, 0, 'dcos auth login');
 

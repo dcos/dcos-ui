@@ -77,7 +77,13 @@ class CliInstallModal extends React.Component {
 
     const instructions = Hooks.applyFilter(
       'dcosInstallCommand',
-      `curl ${downloadUrl} -o dcos && \n sudo mv dcos /usr/local/bin && \n sudo chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`
+      [
+        `curl ${downloadUrl} -o dcos`,
+        'sudo mv dcos /usr/local/bin',
+        'sudo chmod +x /usr/local/bin/dcos',
+        `dcos config set core.dcos_url ${clusterUrl}`,
+        'dcos'
+      ]
     );
 
     return (
@@ -86,7 +92,7 @@ class CliInstallModal extends React.Component {
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
-              {instructions}
+              {instructions.join(' && \n')}
             </pre>
           </ClickToSelect>
         </div>
