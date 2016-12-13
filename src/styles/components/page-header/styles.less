@@ -72,10 +72,6 @@
       a {
         color: @page-header-breadcrumbs-link-color;
         text-decoration: none;
-
-        &:hover {
-          color: @page-header-breadcrumbs-link-hover-color;
-        }
       }
     }
 
@@ -119,6 +115,7 @@
 
       .muted {
         color: @page-header-breadcrumbs-muted-color;
+        font-weight: @page-header-breadcrumbs-muted-font-weight;
       }
 
       &.inverse {
@@ -131,6 +128,10 @@
         .muted {
           color: @page-header-breadcrumbs-inverse-muted-color;
         }
+      }
+
+      &-content-secondary {
+        margin-left: @page-header-breadcrumbs-margin-right;
       }
     }
 
@@ -179,6 +180,10 @@
 
         &-breadcrumb {
           margin-right: @page-header-breadcrumbs-margin-right-screen-small;
+
+          &-content-secondary {
+            margin-left: @page-header-breadcrumbs-margin-right-screen-small;
+          }
         }
 
         &-navigation {
@@ -226,6 +231,10 @@
 
         &-breadcrumb {
           margin-right: @page-header-breadcrumbs-margin-right-screen-medium;
+
+          &-content-secondary {
+            margin-left: @page-header-breadcrumbs-margin-right-screen-medium;
+          }
         }
 
         &-navigation {
@@ -266,6 +275,10 @@
 
         &-breadcrumb {
           margin-right: @page-header-breadcrumbs-margin-right-screen-large;
+
+          &-content-secondary {
+            margin-left: @page-header-breadcrumbs-margin-right-screen-large;
+          }
         }
 
         &-navigation {
@@ -304,16 +317,20 @@
         }
 
         &-breadcrumb {
-          margin-right: @page-header-breadcrumbs-margin-right-screen-large;
+          margin-right: @page-header-breadcrumbs-margin-right-screen-jumbo;
+
+          &-content-secondary {
+            margin-left: @page-header-breadcrumbs-margin-right-screen-jumbo;
+          }
         }
 
         &-navigation {
 
-          & when not (@pod-margin-top-screen-large = null) {
+          & when not (@pod-margin-top-screen-jumbo = null) {
             padding-top: @pod-margin-top-screen-jumbo;
           }
 
-          & when not (@pod-margin-bottom-screen-large = null) {
+          & when not (@pod-margin-bottom-screen-jumbo = null) {
             margin-bottom: -@pod-margin-bottom-screen-jumbo;
           }
         }
