@@ -196,10 +196,13 @@ function containersParser(state) {
             new Transaction(['containers', index, 'endpoints'], endpointIndex, ADD_ITEM)
         );
 
+        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
+        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'automaticPort'], endpoint.hostPort === 0));
+        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'servicePort'], endpoint.servicePort === 0));
+        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
+
         if (state.network.mode === Networking.type.CONTAINER.toLowerCase()) {
           memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'containerPort'], endpoint.containerPort));
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
           let vip = findNestedPropertyInObject(endpoint, `labels.VIP_${endpointIndex}`);
           if (vip != null) {
             memo.push(new Transaction([
@@ -225,8 +228,6 @@ function containersParser(state) {
         }
 
         if (state.network.mode === Networking.type.HOST.toLowerCase()) {
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
           memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
         }
       });
