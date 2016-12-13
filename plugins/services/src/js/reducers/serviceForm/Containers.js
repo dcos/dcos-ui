@@ -34,7 +34,6 @@ const defaultEndpointsFieldValues = {
   labels: null,
   loadBalanced: false,
   name: null,
-  portMapping: false,
   protocol: 'tcp',
   servicePort: null,
   vip: null
@@ -413,7 +412,6 @@ module.exports = {
         'name',
         'protocol',
         'automaticPort',
-        'portMapping',
         'loadBalanced',
         'vip'
       ];
@@ -572,13 +570,7 @@ module.exports = {
           break;
       }
 
-      const fieldNames = [
-        'name',
-        'protocol',
-        'automaticPort',
-        'portMapping',
-        'loadBalanced'
-      ];
+      const fieldNames = ['name', 'protocol', 'automaticPort', 'loadBalanced'];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
       if (type === SET && fieldNames.includes(name)) {
