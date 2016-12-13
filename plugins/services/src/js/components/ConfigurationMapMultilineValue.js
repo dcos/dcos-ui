@@ -18,7 +18,7 @@ class ConfigurationMapMultilineValue extends React.Component {
 
     return (
       <ConfigurationMapValue>
-        <pre>{value}</pre>
+        <pre className="flush transparent wrap">{value}</pre>
       </ConfigurationMapValue>
     );
   }
