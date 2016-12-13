@@ -44,10 +44,10 @@ const ServiceConfigDisplayUtil = {
 
   getDisplayValue(value, isDisabled = false) {
     if (!isDisabled && (value == null || value === '')) {
-      return <i>Not Configured</i>;
+      return <em>Not Configured</em>;
     }
     if (isDisabled && (value == null || value === '')) {
-      return <i>Not Supported</i>;
+      return <em>Not Supported</em>;
     }
 
     // Display nested objects nicely if the render didn't already cover it.
