@@ -570,7 +570,7 @@ module.exports = {
           break;
       }
 
-      const fieldNames = ['name', 'protocol', 'automaticPort', 'loadBalanced'];
+      const fieldNames = ['name', 'protocol', 'automaticPort', 'loadBalanced', 'vip'];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
       if (type === SET && fieldNames.includes(name)) {
