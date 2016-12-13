@@ -1,4 +1,4 @@
-import FluidGeminiScrollbar from '../components/FluidGeminiScrollbar';
+import GeminiScrollbar from 'react-gemini-scrollbar';
 
 let scrollbarWidth = null;
 
@@ -29,13 +29,15 @@ const ScrollbarUtil = {
   },
 
   updateWithRef(containerRef) {
-    if (containerRef) {
-      if (containerRef instanceof FluidGeminiScrollbar.constructor
-        && containerRef.geminiRef != null) {
-        containerRef.geminiRef.scrollbar.update();
-      } else {
-        containerRef.scrollbar.update();
-      }
+    // Use the containers  gemini ref if present
+    if (containerRef.geminiRef != null) {
+      this.updateWithRef(containerRef.geminiRef);
+
+      return;
+    }
+
+    if (containerRef instanceof GeminiScrollbar) {
+      containerRef.scrollbar.update();
     }
   }
 };
