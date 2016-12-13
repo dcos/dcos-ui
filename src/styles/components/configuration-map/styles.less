@@ -23,7 +23,7 @@
 
       &-primary {
         border-bottom: 1px solid @configuration-map-border-color;
-        padding-bottom: @base-spacing-unit * 1/4;
+        padding-bottom: @configuration-map-heading-primary-padding-bottom;
       }
     }
 
@@ -40,13 +40,15 @@
 
     &-label,
     &-value {
-      padding: @base-spacing-unit * 1/4 0;
+      padding: @configuration-map-item-padding-vertical 0;
+      word-break: break-all;
     }
 
     &-label {
       color: @neutral;
       flex: 0 0 @configuration-map-label-width;
       font-weight: 700;
+      padding-right: @configuration-map-label-padding-right;
       text-transform: uppercase;
     }
 
@@ -92,12 +94,18 @@
       &-heading {
 
         &-primary {
-          padding-bottom: @base-spacing-unit-screen-small * 1/4;
+          padding-bottom: @configuration-map-heading-primary-padding-bottom-screen-small;
         }
+      }
+
+      &-label,
+      &-value {
+        padding: @configuration-map-item-padding-vertical-screen-small 0;
       }
 
       &-label {
         flex-basis: @configuration-map-label-width-screen-small;
+        padding-right: @configuration-map-label-padding-right-screen-small;
       }
 
       &-table {
@@ -123,12 +131,18 @@
       &-heading {
 
         &-primary {
-          padding-bottom: @base-spacing-unit-screen-medium * 1/4;
+          padding-bottom: @configuration-map-heading-primary-padding-bottom-screen-medium;
         }
+      }
+
+      &-label,
+      &-value {
+        padding: @configuration-map-item-padding-vertical-screen-medium 0;
       }
 
       &-label {
         flex-basis: @configuration-map-label-width-screen-medium;
+        padding-right: @configuration-map-label-padding-right-screen-medium;
       }
 
       &-table {
@@ -154,12 +168,18 @@
       &-heading {
 
         &-primary {
-          padding-bottom: @base-spacing-unit-screen-large * 1/4;
+          padding-bottom: @configuration-map-heading-primary-padding-bottom-screen-large;
         }
+      }
+
+      &-label,
+      &-value {
+        padding: @configuration-map-item-padding-vertical-screen-large 0;
       }
 
       &-label {
         flex-basis: @configuration-map-label-width-screen-large;
+        padding-right: @configuration-map-label-padding-right-screen-large;
       }
 
       &-table {
@@ -185,12 +205,18 @@
       &-heading {
 
         &-primary {
-          padding-bottom: @base-spacing-unit-screen-jumbo * 1/4;
+          padding-bottom: @configuration-map-heading-primary-padding-bottom-screen-jumbo;
         }
+      }
+
+      &-label,
+      &-value {
+        padding: @configuration-map-item-padding-vertical-screen-jumbo 0;
       }
 
       &-label {
         flex-basis: @configuration-map-label-width-screen-jumbo;
+        padding-right: @configuration-map-label-padding-right-screen-jumbo;
       }
 
       &-table {
