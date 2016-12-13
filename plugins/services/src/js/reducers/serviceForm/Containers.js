@@ -192,14 +192,29 @@ function containersParser(state) {
 
     if (item.endpoints != null && item.endpoints.length !== 0) {
       item.endpoints.forEach((endpoint, endpointIndex) => {
-        memo.push(
-            new Transaction(['containers', index, 'endpoints'], endpointIndex, ADD_ITEM)
-        );
-
-        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'hostPort'], endpoint.hostPort));
-        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'automaticPort'], endpoint.hostPort === 0));
-        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'servicePort'], endpoint.servicePort === 0));
-        memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'name'], endpoint.name));
+        memo = memo.concat([
+          new Transaction(
+            ['containers', index, 'endpoints'],
+            endpointIndex,
+            ADD_ITEM
+          ),
+          new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'hostPort'],
+            endpoint.hostPort
+          ),
+          new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'automaticPort'],
+            endpoint.hostPort === 0
+          ),
+          new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'servicePort'],
+            endpoint.servicePort === 0
+          ),
+          new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'name'],
+            endpoint.name
+          )
+        ]);
 
         if (state.network.mode === Networking.type.CONTAINER.toLowerCase()) {
           memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'containerPort'], endpoint.containerPort));
