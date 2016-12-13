@@ -428,15 +428,15 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           packageVersion={version}
           configuration={this.getPackageConfiguration()} />
         <div className="modal-footer">
-          <div className="button-collection flush">
+          <div className="button-collection flush-bottom">
             <button
-              className="button button-large flush"
+              className="button button-large"
               onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
               Back
             </button>
             <button
               disabled={!cosmosPackage || pendingRequest}
-              className="button button-success button-large flush"
+              className="button button-success button-large"
               onClick={this.handleInstallPackage}>
               {buttonText}
             </button>
@@ -616,7 +616,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         modalWrapperClass={modalWrapperClasses}
         onClose={this.handleModalClose}
         open={props.open}
-        scrollContainerClass="modal-install-package-scroll-container"
+        scrollContainerClass="multiple-form-modal-body"
         showFooter={false}
         useGemini={false}>
         {this.getModalContents()}

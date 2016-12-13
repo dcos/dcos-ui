@@ -13,11 +13,8 @@
         flex-basis: 677px;
         max-height: none;
 
-        .modal-install-package-scroll-container {
-          flex: 1 1 auto;
-          max-width: 100%;
-          min-height: 0;
-          position: relative;
+        .multiple-form-modal-body {
+          display: block;
         }
       }
 
@@ -31,15 +28,13 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        height: 100%;
         min-height: 0;
         position: relative;
 
         .tab-form-wrapper {
           display: flex;
-          flex: 1;
+          flex: 1 1 auto;
           flex-direction: column;
-          height: 100%;
         }
 
         .modal-header {
@@ -49,12 +44,22 @@
         .multiple-form {
           display: flex;
           flex: 1 1 auto;
+          height: auto;
           min-height: 0;
         }
 
+        .multiple-form-left-column,
         .multiple-form-right-column {
-          flex: 1 1 auto;
+          height: auto;
           min-height: 0;
+        }
+
+        .multiple-form-left-column {
+          flex: 1 1 33%;
+        }
+
+        .multiple-form-right-column {
+          flex: 1 1 67%;
         }
       }
 
