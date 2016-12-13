@@ -443,13 +443,19 @@ class NewServiceFormModal extends Component {
   }
 
   render() {
-    let {props} = this;
+    let {props, state: {servicePickerActive, serviceReviewActive}} = this;
+    let useGemini = false;
+
+    if (servicePickerActive || serviceReviewActive) {
+      useGemini = true;
+    }
 
     return (
       <div>
         <FullScreenModal
           header={this.getHeader()}
           onClose={this.handleClose}
+          useGemini={useGemini}
           {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
           {this.getModalContent()}
         </FullScreenModal>
