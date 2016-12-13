@@ -153,8 +153,8 @@ module.exports = {
           return String.fromCharCode(8212);
         }
 
-        return value.map((arg) => (
-          <pre className="flush transparent wrap">{arg}</pre>
+        return value.map((arg, index) => (
+          <pre key={index} className="flush transparent wrap">{arg}</pre>
         ));
       }
     },

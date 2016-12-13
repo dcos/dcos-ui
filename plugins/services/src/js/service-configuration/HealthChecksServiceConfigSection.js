@@ -78,8 +78,9 @@ module.exports = {
         ];
 
         return (
-          <Table key="service-endpoint-health-checks"
-            className="table table-simple table-break-word flush-bottom"
+          <Table
+            key="service-endpoint-health-checks"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={serviceEndpointHealthChecks} />
         );
