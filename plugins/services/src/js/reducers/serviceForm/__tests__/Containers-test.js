@@ -41,7 +41,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -79,7 +83,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: 'foo',
@@ -137,7 +145,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: 'foo',
@@ -177,7 +189,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -217,7 +233,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -252,7 +272,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -294,7 +318,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: 'foo',
@@ -354,7 +382,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: 'foo',
@@ -396,7 +428,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -438,7 +474,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -480,7 +520,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -532,7 +576,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -595,7 +643,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -651,7 +703,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -716,7 +772,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   name: null,
@@ -757,7 +817,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -799,7 +863,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -859,7 +927,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: false,
@@ -903,7 +975,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -947,7 +1023,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -986,7 +1066,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1030,7 +1114,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1092,7 +1180,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: false,
@@ -1137,7 +1229,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1181,7 +1277,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1225,7 +1325,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1279,7 +1383,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1342,7 +1450,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1398,7 +1510,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
@@ -1463,7 +1579,11 @@ describe('Containers', function () {
           expect(batch.reduce(Containers.FormReducer.bind({})))
           .toEqual([
             {
-              name: 'container 1',
+              name: 'container-1',
+              resources: {
+                cpus: 0.001,
+                mem: 32
+              },
               endpoints: [
                 {
                   automaticPort: true,
