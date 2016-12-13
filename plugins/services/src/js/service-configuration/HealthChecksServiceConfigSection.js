@@ -103,8 +103,8 @@ module.exports = {
             prop: 'command',
             render: (prop, row) => {
               let command = row[prop] || {};
-              let value = getDisplayValue(command.command);
-              if (!command.command) {
+              let value = getDisplayValue(command.value);
+              if (!command.value) {
                 return value;
               }
 
