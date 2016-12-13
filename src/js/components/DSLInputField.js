@@ -4,9 +4,12 @@ import React, {PropTypes} from 'react';
 import Icon from './Icon';
 import DSLExpression from '../structs/DSLExpression';
 
+const DEBOUNCE_TIMEOUT = 500;
+
 const METHODS_TO_BIND = [
   'handleBlur',
   'handleChange',
+  'handleDebounceUpdate',
   'handleFocus',
   'handleInputClear'
 ];
@@ -35,12 +38,28 @@ class DSLInputField extends React.Component {
     super(...arguments);
 
     this.state = {
+      expression: new DSLExpression(),
       focus: false
     };
+
+    this.debounceTimer = null;
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  /**
+   * Import component property updates.
+   *
+   * @override
+   */
+  componentWillReceiveProps(nextProps) {
+    let {expression} = nextProps;
+
+    if (expression !== this.state.expression) {
+      this.setState({expression});
+    }
   }
 
   /**
@@ -72,7 +91,21 @@ class DSLInputField extends React.Component {
    * @param {SyntheticEvent} event - The change event
    */
   handleChange({target}) {
-    this.props.onChange(new DSLExpression(target.value));
+    this.setState({
+      expression: new DSLExpression(target.value)
+    });
+
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(
+      this.handleDebounceUpdate, DEBOUNCE_TIMEOUT
+    );
+  }
+
+  /**
+   * Forward property change update after the debounce timer expired
+   */
+  handleDebounceUpdate() {
+    this.props.onChange(this.state.expression);
   }
 
   /**
@@ -172,7 +205,8 @@ class DSLInputField extends React.Component {
    * @returns {Node} The input field
    */
   getInputField() {
-    let {expression, inverseStyle, placeholder} = this.props;
+    let {expression} = this.state;
+    let {inverseStyle, placeholder} = this.props;
 
     let inputClasses = classNames({
       'form-control filter-input-text': true,
@@ -193,11 +227,10 @@ class DSLInputField extends React.Component {
   render() {
     let {
       className,
-      expression,
       inputContainerClass,
       inverseStyle
     } = this.props;
-    let {focus} = this.state;
+    let {expression, focus} = this.state;
 
     let iconColor = 'grey';
     let iconSearchClasses = classNames({
