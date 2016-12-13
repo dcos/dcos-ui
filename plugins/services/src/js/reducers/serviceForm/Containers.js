@@ -41,7 +41,16 @@ const defaultEndpointsFieldValues = {
 
 function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
-    let {name, hostPort, containerPort, automaticPort, protocol, vip, labels, loadBalanced} = endpoint;
+    let {
+      name,
+      hostPort,
+      containerPort,
+      automaticPort,
+      protocol,
+      vip,
+      labels,
+      loadBalanced
+    } = endpoint;
     if (automaticPort) {
       hostPort = 0;
     }
@@ -217,8 +226,14 @@ function containersParser(state) {
         ]);
 
         if (state.network.mode === Networking.type.CONTAINER.toLowerCase()) {
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'containerPort'], endpoint.containerPort));
-          let vip = findNestedPropertyInObject(endpoint, `labels.VIP_${endpointIndex}`);
+          memo.push(new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
+            endpoint.containerPort
+          ));
+          let vip = findNestedPropertyInObject(
+            endpoint,
+            `labels.VIP_${endpointIndex}`
+          );
           if (vip != null) {
             memo.push(new Transaction([
               'containers', index, 'endpoints', endpointIndex,
@@ -239,11 +254,17 @@ function containersParser(state) {
               'labels'
             ], item.labels));
           }
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
+          memo.push(new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'protocol'],
+            endpoint.protocol.join()
+          ));
         }
 
         if (state.network.mode === Networking.type.HOST.toLowerCase()) {
-          memo.push(new Transaction(['containers', index, 'endpoints', endpointIndex, 'protocol'], endpoint.protocol.join()));
+          memo.push(new Transaction(
+            ['containers', index, 'endpoints', endpointIndex, 'protocol'],
+            endpoint.protocol.join()
+          ));
         }
       });
     }
@@ -295,7 +316,11 @@ module.exports = {
 
     if (!path.includes('containers') && !path.includes('volumeMounts')) {
       return state.map((container, index) => {
-        container.endpoints = mapEndpoints(this.endpoints[index].endpoints, this.networkType, this.appState);
+        container.endpoints = mapEndpoints(
+          this.endpoints[index].endpoints,
+          this.networkType,
+          this.appState
+        );
         return container;
       });
     }
@@ -368,29 +393,45 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          this.endpoints[index].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          this.endpoints[index].endpoints.push(Object.assign(
+            {},
+            defaultEndpointsFieldValues
+          ));
           break;
         case REMOVE_ITEM:
-          this.endpoints[index].endpoints = this.endpoints[index].endpoints.filter((item, index) => {
-            return index !== value;
-          });
+          this.endpoints[index].endpoints =
+            this.endpoints[index].endpoints.filter((item, index) => {
+              return index !== value;
+            });
           break;
       }
 
       const fieldNames = [
-        'name', 'protocol', 'automaticPort', 'portMapping',
-        'loadBalanced', 'vip'];
+        'name',
+        'protocol',
+        'automaticPort',
+        'portMapping',
+        'loadBalanced',
+        'vip'
+      ];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
       if (type === SET && fieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = value;
       }
       if (type === SET && numericalFiledNames.includes(name)) {
-        this.endpoints[index].endpoints[secondIndex][name] = parseInt(value, 10);
+        this.endpoints[index].endpoints[secondIndex][name] = parseInt(
+          value,
+          10
+        );
       }
     }
     newState = newState.map((container, index) => {
-      container.endpoints = mapEndpoints(this.endpoints[index].endpoints, this.networkType, this.appState);
+      container.endpoints = mapEndpoints(
+        this.endpoints[index].endpoints,
+        this.networkType,
+        this.appState
+      );
       return container;
     });
 
@@ -420,9 +461,10 @@ module.exports = {
           newState[index].artifacts.push({uri: ''});
           break;
         case REMOVE_ITEM:
-          newState[index].artifacts = newState[index].artifacts.filter((item, index) => {
-            return index !== value;
-          });
+          newState[index].artifacts =
+            newState[index].artifacts.filter((item, index) => {
+              return index !== value;
+            });
           break;
         case SET:
           newState[index].artifacts[secondIndex][name] = value;
@@ -446,11 +488,11 @@ module.exports = {
     }
 
     if (type === SET && field === 'resources') {
-      newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
-        type,
-        value,
-        path: path.slice(2)
-      });
+      newState[index].resources = containerReducer.call(
+        this.cache[index],
+        newState[index].resources,
+        {type, value, path: path.slice(2)}
+      );
     }
 
     if (type === SET && joinedPath === `containers.${index}.image`) {
@@ -512,18 +554,26 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          newState[index].endpoints.push(Object.assign({}, defaultEndpointsFieldValues));
+          newState[index].endpoints.push(Object.assign(
+            {},
+            defaultEndpointsFieldValues
+          ));
           break;
         case REMOVE_ITEM:
-          newState[index].endpoints = newState[index].endpoints.filter((item, index) => {
-            return index !== value;
-          });
+          newState[index].endpoints =
+            newState[index].endpoints.filter((item, index) => {
+              return index !== value;
+            });
           break;
       }
 
       const fieldNames = [
-        'name', 'protocol', 'automaticPort', 'portMapping',
-        'loadBalanced'];
+        'name',
+        'protocol',
+        'automaticPort',
+        'portMapping',
+        'loadBalanced'
+      ];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
       if (type === SET && fieldNames.includes(name)) {
@@ -560,9 +610,10 @@ module.exports = {
           newState[index].artifacts.push('');
           break;
         case REMOVE_ITEM:
-          newState[index].artifacts = newState[index].artifacts.filter((item, index) => {
-            return index !== value;
-          });
+          newState[index].artifacts =
+            newState[index].artifacts.filter((item, index) => {
+              return index !== value;
+            });
           break;
         case SET:
           if (name === 'uri') {
@@ -588,11 +639,11 @@ module.exports = {
     }
 
     if (type === SET && field === 'resources') {
-      newState[index].resources = containerReducer.call(this.cache[index], newState[index].resources, {
-        type,
-        value,
-        path: path.slice(2)
-      });
+      newState[index].resources = containerReducer.call(
+        this.cache[index],
+        newState[index].resources,
+        {type, value, path: path.slice(2)}
+      );
     }
 
     if (type === SET && joinedPath === `containers.${index}.image`) {
