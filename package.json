@@ -55,7 +55,8 @@
     "reactjs-mixin": "0.0.2",
     "redux": "3.3.1",
     "tv4": "1.2.7",
-    "underscore": "1.7.0"
+    "underscore": "1.7.0",
+    "xterm": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "6.3.6",
