@@ -1,4 +1,8 @@
+import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React from 'react';
+/* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import TaskDetail from '../../../../../services/src/js/pages/task-details/TaskDetail';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
@@ -10,7 +14,20 @@ const dontScrollRoutes = [
   /\/logs.*$/
 ];
 
-class NodesTaskDetailPage extends React.Component {
+class NodesTaskDetailPage extends mixin(StoreMixin) {
+
+  constructor() {
+    super(...arguments);
+
+    this.store_listeners = [
+      {
+        name: 'summary',
+        events: ['success'],
+        listenAlways: false
+      }
+    ];
+  }
+
   render() {
     const {location, params, routes} = this.props;
     const {nodeID, taskID} = params;

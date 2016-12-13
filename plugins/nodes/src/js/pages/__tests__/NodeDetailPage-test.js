@@ -126,35 +126,4 @@ describe('NodeDetailPage', function () {
 
   });
 
-  describe('#getDetailViewHeader', function () {
-
-    it('should return null if node does not exist', function () {
-      var result = this.instance.getDetailViewHeader(new Node());
-      expect(result).toEqual(null);
-    });
-
-    it('should return a node if node exists', function () {
-      var wrapper = ReactDOM.render(
-        JestUtil.stubRouterContext(
-          NodeDetailPage,
-          {
-            children: <div />,
-            params: {nodeID: 'existingNode'},
-            routes: [{path: '/nodes/:nodeID', children: []}]
-          },
-          {}
-        ),
-        this.container
-      );
-      var instance = TestUtils.findRenderedComponentWithType(
-        wrapper,
-        NodeDetailPage
-      );
-
-      var result = instance.getDetailViewHeader(new Node());
-
-      expect(TestUtils.isElement(result)).toEqual(true);
-    });
-  });
-
 });
