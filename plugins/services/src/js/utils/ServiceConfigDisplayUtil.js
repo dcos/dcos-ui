@@ -42,14 +42,16 @@ const ServiceConfigDisplayUtil = {
     );
   },
 
-  getDisplayValue(value) {
-    // Return the emdash character.
-    if (value == null || value === '') {
-      return String.fromCharCode(8212);
+  getDisplayValue(value, isDisabled = false) {
+    if (!isDisabled && (value == null || value === '')) {
+      return <i>Not Configured</i>;
+    }
+    if (isDisabled && (value == null || value === '')) {
+      return <i>Not Supported</i>;
     }
 
     // Display nested objects nicely if the render didn't already cover it.
-    if (isObject(value)) {
+    if (isObject(value) && !React.isValidElement(value)) {
       return (
         <pre className="flush transparent wrap">
           {JSON.stringify(value)}

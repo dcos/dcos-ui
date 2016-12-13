@@ -103,10 +103,14 @@ module.exports = {
             prop: 'command',
             render: (prop, row) => {
               let command = row[prop] || {};
+              let value = getDisplayValue(command.command);
+              if (!command.command) {
+                return value;
+              }
 
               return (
                 <pre className="flush transparent wrap">
-                  {getDisplayValue(command.command)}
+                  {value}
                 </pre>
               );
             },
