@@ -48,7 +48,7 @@ module.exports = {
         return (
           <Table
             key="labels-table"
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={data} />
         );

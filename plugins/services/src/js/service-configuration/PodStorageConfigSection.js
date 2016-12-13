@@ -92,7 +92,7 @@ class PodStorageConfigSection extends React.Component {
         <Heading level={1}>Storage</Heading>
         <Section key="pod-general-section">
           <ConfigurationMapTable
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={volumeSummary} />
