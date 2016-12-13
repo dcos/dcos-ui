@@ -3,9 +3,9 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import GeminiUtil from '../utils/GeminiUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import NewPageHeader from '../components/NewPageHeader';
+import ScrollbarUtil from '../utils/ScrollbarUtil';
 import SidebarToggle from '../components/SidebarToggle';
 import TemplateUtil from '../utils/TemplateUtil';
 
@@ -80,7 +80,7 @@ var Page = React.createClass({
   },
 
   onSidebarStoreWidthChange() {
-    GeminiUtil.updateWithRef(this.refs.gemini);
+    ScrollbarUtil.updateWithRef(this.refs.gemini);
   },
 
   getChildren() {
