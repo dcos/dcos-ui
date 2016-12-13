@@ -20,26 +20,11 @@ module.exports = {
     },
     {
       key: 'id',
-      label: 'Service ID',
-      transformValue: (value) => {
-        return value.split('/').pop();
-      }
+      label: 'Service ID'
     },
     {
       key: 'instances',
       label: 'Instances'
-    },
-    {
-      key: 'location',
-      label: 'Location',
-      transformValue: (value, appDefinition) => {
-        let idSegments = findNestedPropertyInObject(appDefinition, 'id')
-          .split('/');
-
-        idSegments.pop();
-
-        return `${idSegments.join('/')}/`;
-      }
     },
     {
       key: 'container.type',
