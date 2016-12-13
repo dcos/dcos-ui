@@ -134,11 +134,12 @@ class DSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getClearButton() {
-    if (!this.props.expression.defined) {
+    if (!this.state.expression.defined) {
       return null;
     }
 
-    let {expression, inverseStyle} = this.props;
+    let {expression} = this.state;
+    let {inverseStyle} = this.props;
     let color = 'purple';
 
     if (inverseStyle) {
