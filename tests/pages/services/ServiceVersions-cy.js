@@ -8,17 +8,14 @@ describe('Service Versions', function () {
       });
 
       cy.visitUrl({url: '/services/overview/%2Fsleep'});
-      cy.get('.page-body-content').within(function () {
-        cy.get('.menu-tabbed-item .menu-tabbed-item-label-text')
-          .contains('Configuration').click();
-      });
+      cy.get('.page-header-navigation .menu-tabbed-item')
+        .contains('Configuration').click();
 
-      cy.get('.page-body-content .tab .dropdown').as('dropdown');
+      cy.get('.services-version-select button').as('dropdown');
     });
 
     it('opens the current service version on default', function () {
-      cy.get('.page-body-content h4').contains('Current Version')
-        .should('to.have.length', 1);
+      cy.get('@dropdown').contains('Active');
     });
 
     it('renders the version dropdown with the current locale version as default',
@@ -38,10 +35,8 @@ describe('Service Versions', function () {
       cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
 
-      cy.get('.page-body-content h4')
-        .contains('Previous Version (' +
-          new Date('2015-02-28T05:12:12.221Z').toLocaleString() + ')')
-        .should('to.have.length', 1);
+      cy.get('@dropdown')
+        .contains(new Date('2015-02-28T05:12:12.221Z').toLocaleString());
     });
 
     it('applies the selected service version', function () {
@@ -64,12 +59,10 @@ describe('Service Versions', function () {
       cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
 
-      cy.get('.page-body-content h4')
-        .contains('Previous Version (' +
-          new Date('2015-02-28T05:12:12.221Z').toLocaleString() + ')')
-        .should('to.have.length', 1);
+      cy.get('@dropdown')
+        .contains(new Date('2015-02-28T05:12:12.221Z').toLocaleString());
 
-      cy.get('.page-body-content .tab button.button')
+      cy.get('.page-body-content .button')
         .contains('Apply').click();
     });
 

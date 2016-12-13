@@ -2,8 +2,8 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
-import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 import webpack from 'webpack';
+import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 
 import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
@@ -39,8 +39,8 @@ module.exports = Object.assign({}, webpackConfig, {
     // Important to keep React file size down
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-      },
+        'NODE_ENV': JSON.stringify('production')
+      }
     }),
 
     new webpack.optimize.DedupePlugin(),
@@ -49,8 +49,8 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false,
-      },
+        warnings: false
+      }
     }),
 
     new ExtractTextPlugin('./[name].[hash].css'),
@@ -60,7 +60,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      production: true,
+      production: true
     }),
 
     // Don't include images in /icons/_exports
@@ -90,7 +90,7 @@ module.exports = Object.assign({}, webpackConfig, {
           presets: [
             'babel-preset-es2015',
             'babel-preset-react'
-          ].map(require.resolve),
+          ].map(require.resolve)
         })
       },
       {
@@ -107,15 +107,15 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.svg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml')
       },
       {
         test: /\.gif$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif')
       },
       {
         test: /\.jpg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]'),
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]')
       },
       // Replace @@variables
       {
@@ -125,7 +125,7 @@ module.exports = Object.assign({}, webpackConfig, {
           replacements: [
             {
               pattern: /@@(\w+)/ig,
-              replacement: function (match, key) {
+              replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }
             }

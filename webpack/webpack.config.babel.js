@@ -76,11 +76,9 @@ module.exports = {
               pattern: /<!--\[if\sBOOTSTRAP-HTML\]><!\[endif\]-->/g,
               replacement() {
                 return (
-                  '<div id="canvas">' +
-                    '<div class="application-loading-indicator ' +
-                      'vertical-center">' +
-                      bootstrap.HTML +
-                    '</div>' +
+                  '<div class="application-loading-indicator ' +
+                    'vertical-center">' +
+                    bootstrap.HTML +
                   '</div>'
                 );
               }

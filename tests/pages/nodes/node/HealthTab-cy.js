@@ -57,7 +57,7 @@ describe('Node Health Tab [0fa]', function () {
         cy.get('.page-body-content td a').should(function ($rows) {
           expect($rows.length).to.equal(logrotateRows.length);
         });
-      })
+      });
     });
 
   });

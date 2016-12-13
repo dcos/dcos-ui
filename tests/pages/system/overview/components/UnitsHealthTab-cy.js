@@ -75,14 +75,11 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('renders unit title [0ea]', function () {
-      cy.get('.page-body-content .h1').contains('Mesos DNS')
-        .should(function ($title) {
-          expect($title).to.exist;
-        });
+      cy.get('.page-header').contains('Mesos DNS').should('exist');
     });
 
     it('renders unit health [0eb]', function () {
-      cy.get('.page-body-content .detail-view-header-sub-heading')
+      cy.get('.page-header')
         .find('.text-danger')
         .should(function ($health) {
           expect($health).to.contain('Unhealthy');
@@ -117,13 +114,11 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('renders health check title [0ei]', function () {
-      cy.get('.page-body-content .h1').contains('Mesos DNS Health Check').should(function ($title) {
-        expect($title).to.exist;
-      });
+      cy.get('.page-header').contains('Mesos DNS').should('exist');
     });
 
     it('renders node health [0ej]', function () {
-      cy.get('.page-body-content .detail-view-header-sub-heading')
+      cy.get('.page-header')
         .find('.text-success')
         .should(function ($health) {
           expect($health).to.contain('Healthy');

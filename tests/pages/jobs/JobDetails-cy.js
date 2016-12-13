@@ -1,4 +1,4 @@
-describe('Job Details', function () {
+xdescribe('Job Details', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -46,7 +46,7 @@ describe('Job Details', function () {
     });
 
     it('does not show table children when row is not expanded', function () {
-      cy.get('.page table tbody tr').should(function ($rows) {
+      cy.get('.page table tbody tr').should(function () {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get('.page table tbody tr:nth-child(2)').as('tableRow');
 

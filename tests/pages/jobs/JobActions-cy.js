@@ -1,4 +1,4 @@
-describe('Job Actions', function () {
+xdescribe('Job Actions', function () {
 
   context('Edit Action', function () {
     beforeEach(function () {
@@ -8,7 +8,7 @@ describe('Job Actions', function () {
         nodeHealth: true
       });
       cy.visitUrl({url: '/jobs/foo'});
-      cy.get('.button-collection .button').contains('Edit').click();
+      cy.get('.page-header-actions .button').click();
     });
 
     it('opens the correct jobs edit modal', function () {

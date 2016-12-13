@@ -12,8 +12,7 @@ describe('Tasks Table', function () {
       cy.visitUrl({url: '/services/overview/%2Fcassandra'});
       cy.get('a[title="server-0_10a"]')
         .click();
-      cy.get('.page-body-content .h1 .collapsing-string-full-string')
-        .should('to.have.text', 'server-0');
+      cy.get('.page-header').should('contain', 'server-0');
     });
 
     context('Files tab', function () {
@@ -22,7 +21,7 @@ describe('Tasks Table', function () {
         cy.visitUrl({
           url: '/services/overview/%2Fcassandra/tasks/server-0_10a'
         });
-        cy.get('.page-body-content .menu-tabbed-item-label').contains('Files').click();
+        cy.get('.page-header-navigation .menu-tabbed-item').contains('Files').click();
       });
 
       it('shows the contents of the Mesos sandbox', function () {

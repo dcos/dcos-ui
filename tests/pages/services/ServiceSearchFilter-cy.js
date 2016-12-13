@@ -1,4 +1,4 @@
-describe('Service Search Filters', function () {
+xdescribe('Service Search Filters', function () {
   context('Filters services table', function () {
     beforeEach(function () {
       cy.configureCluster({

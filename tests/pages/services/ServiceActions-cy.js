@@ -1,6 +1,6 @@
 describe('Service Actions', function () {
 
-  context('Edit Action', function () {
+  xcontext('Edit Action', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
@@ -11,12 +11,12 @@ describe('Service Actions', function () {
       cy.get('.button-collection .button').contains('Edit').click();
     });
 
-    xit('opens the correct service edit modal', function () {
+    it('opens the correct service edit modal', function () {
       cy.get('.modal .form-panel input[name="id"]')
         .should('to.have.value', '/cassandra-healthy');
     });
 
-    xit('closes modal on successful API request', function () {
+    it('closes modal on successful API request', function () {
       cy
         .route({
           method: 'PUT',
@@ -37,7 +37,7 @@ describe('Service Actions', function () {
     });
   });
 
-  context('Destroy Action', function () {
+  xcontext('Destroy Action', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
@@ -105,7 +105,7 @@ describe('Service Actions', function () {
         .should('to.have.text', 'Not Authorized to perform this action!');
     });
 
-    xit('reenables button after faulty request', function () {
+    it('reenables button after faulty request', function () {
       cy
         .route({
           method: 'DELETE',
@@ -129,7 +129,7 @@ describe('Service Actions', function () {
     });
   });
 
-  context('Scale Action', function () {
+  xcontext('Scale Action', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
@@ -146,7 +146,7 @@ describe('Service Actions', function () {
       cy.get('.button-collection .button').contains('Scale').click();
     });
 
-    xit('opens the correct service scale dialog', function () {
+    it('opens the correct service scale dialog', function () {
       cy.get('.modal-body h2').contains('Scale Service')
         .should('to.have.length', 1);
     });
@@ -227,7 +227,7 @@ describe('Service Actions', function () {
     });
   });
 
-  context('Suspend Action', function () {
+  xcontext('Suspend Action', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',

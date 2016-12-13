@@ -10,8 +10,7 @@ describe('ServicesTab', function () {
     });
 
     it('should show the \'Not Found\' alert panel', function () {
-      cy.get('.panel-content').contains('Not Found')
-        .should('to.have.length', 1);
+      cy.get('.page-body-content').contains('Page not found');
     });
   });
 
