@@ -139,7 +139,7 @@ class NestedServiceLinks extends React.Component {
       minorLinkWrapperClassName
     } = this.props;
 
-    let classes = classNames(className);
+    let classes = classNames('nested-service-links', className);
 
     let majorLinkClasses = classNames(
       'text-overflow',
@@ -147,8 +147,8 @@ class NestedServiceLinks extends React.Component {
     );
 
     let minorLinkWrapperClasses = classNames(
-      'table-cell-details-secondary flex-box',
-      'flex-box-align-vertical-center table-cell-flex-box',
+      'table-cell-details-secondary flex',
+      'flex-align-items-center table-cell-flex-box',
       minorLinkWrapperClassName
     );
 
