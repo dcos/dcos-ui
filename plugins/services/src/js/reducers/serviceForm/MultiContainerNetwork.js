@@ -4,7 +4,7 @@ import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
-  JSONReducer(state = {mode: Networking.type.HOST}, {type, path, value}) {
+  JSONReducer(state = {mode: Networking.type.HOST.toLowerCase()}, {type, path, value}) {
     const joinedPath = path.join('.');
 
     if (joinedPath === 'network' && type === SET) {
