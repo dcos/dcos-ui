@@ -8000,11 +8000,6 @@
       "from": "uid-safe@2.1.0",
       "resolved": "https://registry.npmjs.org/uid-safe/-/uid-safe-2.1.0.tgz"
     },
-    "underscore": {
-      "version": "1.7.0",
-      "from": "underscore@1.7.0",
-      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
-    },
     "uniq": {
       "version": "1.0.1",
       "from": "uniq@>=1.0.1 <2.0.0",
