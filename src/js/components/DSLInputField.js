@@ -3,8 +3,9 @@ import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
 import DSLExpression from '../structs/DSLExpression';
+import Util from '../utils/Util';
 
-const DEBOUNCE_TIMEOUT = 500;
+const DEBOUNCE_TIMEOUT = 250;
 
 const METHODS_TO_BIND = [
   'handleBlur',
@@ -47,6 +48,10 @@ class DSLInputField extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.handleDebounceUpdate = Util.debounce(
+      this.handleDebounceUpdate, DEBOUNCE_TIMEOUT
+    );
   }
 
   /**
@@ -95,10 +100,7 @@ class DSLInputField extends React.Component {
       expression: new DSLExpression(target.value)
     });
 
-    clearTimeout(this.debounceTimer);
-    this.debounceTimer = setTimeout(
-      this.handleDebounceUpdate, DEBOUNCE_TIMEOUT
-    );
+    this.handleDebounceUpdate();
   }
 
   /**
