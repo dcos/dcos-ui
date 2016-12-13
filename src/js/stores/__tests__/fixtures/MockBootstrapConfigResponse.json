@@ -1,0 +1,21 @@
+{
+  "security": "permissive",
+  "ssl_enabled": true,
+  "ssl_support_downgrade": true,
+  "adminrouter_master_enforce_https": "only_root_path",
+  "adminrouter_agent_enforce_https": "none",
+  "adminrouter_master_default_scheme": "http://",
+  "exhibitor_admin_password_enabled": false,
+  "exhibitor_admin_password": "",
+  "firewall_enabled": false,
+  "mesos_authenticate_http": true,
+  "mesos_authz_enforced": false,
+  "framework_authentication_required": false,
+  "agent_authentication_required": false,
+  "framework_authentication_enabled": true,
+  "agent_authn_enabled": true,
+  "marathon_authn_enabled": true,
+  "marathon_https_enabled": true,
+  "marathon_extra_args": "",
+  "zk_acls_enabled": true
+}

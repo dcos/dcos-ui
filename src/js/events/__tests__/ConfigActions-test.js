@@ -57,4 +57,46 @@ describe('ConfigActions', function () {
 
   });
 
+  describe('#fetchBootstrapConfig', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      ConfigActions.fetchBootstrapConfig();
+      this.call = RequestUtil.json.calls.mostRecent();
+    });
+
+    it('fetches data from the metadata bootstrap config endpoint', function () {
+      expect(RequestUtil.json).toHaveBeenCalledWith({
+        url: `${Config.rootUrl}/dcos-metadata/bootstrap-config.json`,
+        success: jasmine.any(Function),
+        error: jasmine.any(Function)
+      });
+    });
+
+    it('dispatches the appropriate action when successful', function () {
+      const {success} = this.call.args[0];
+      const id = AppDispatcher.register(function (payload) {
+        AppDispatcher.unregister(id);
+        expect(payload.action).toEqual({
+          type: ActionTypes.REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
+          data: {foo: 'bar'}
+        });
+      });
+
+      success({foo: 'bar'});
+    });
+
+    it('dispatches the appropriate action when unsuccessful', function () {
+      const {error} = this.call.args[0];
+      const id = AppDispatcher.register(function (payload) {
+        AppDispatcher.unregister(id);
+        expect(payload.action.type)
+          .toEqual(ActionTypes.REQUEST_BOOTSTRAP_CONFIG_ERROR);
+      });
+
+      error();
+    });
+
+  });
+
 });

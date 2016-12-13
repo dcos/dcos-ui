@@ -5,6 +5,23 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 
 const ConfigActions = {
+  fetchBootstrapConfig() {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/dcos-metadata/bootstrap-config.json`,
+      success(response) {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
+          data: response
+        });
+      },
+      error() {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_BOOTSTRAP_CONFIG_ERROR
+        });
+      }
+    });
+  },
+
   fetchConfig() {
     RequestUtil.json({
       url: `${Config.rootUrl}/dcos-metadata/ui-config.json`,
