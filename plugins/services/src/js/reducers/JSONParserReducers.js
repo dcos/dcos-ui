@@ -11,13 +11,23 @@ import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {JSONParser as residency} from './serviceForm/Residency';
 import {JSONParser as network} from './serviceForm/Network';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import Transaction from '../../../../../src/js/structs/Transaction';
 
 const {MESOS, DOCKER} = ContainerConstants.type;
 
 module.exports = [
   simpleParser(['id']),
   simpleParser(['instances']),
-  simpleParser(['container', 'type']),
+  function (state) {
+    let value = findNestedPropertyInObject(state, 'container.type');
+
+    if (value == null) {
+      value = 'NONE';
+    }
+
+    return new Transaction(['container', 'type'], value);
+  },
   simpleParser(['container', DOCKER.toLowerCase(), 'image']),
   simpleParser(['container', MESOS.toLowerCase(), 'image']),
   simpleParser(['container', DOCKER.toLowerCase(), 'forcePullImage']),
