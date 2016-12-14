@@ -13,7 +13,16 @@
   }
 
   .dropdown-toggle {
+    display: inline-block;
     white-space: nowrap;
+
+    &,
+    &.button {
+
+      &:after {
+        margin-top: @button-dropdown-caret-margin-top / -2;
+      }
+    }
 
     &.button-split-content {
 
