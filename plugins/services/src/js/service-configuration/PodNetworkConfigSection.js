@@ -90,7 +90,6 @@ class PodNetworkConfigSection extends React.Component {
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
             <ConfigurationMapValueWithDefault
-              defaultValue={<em>Unknown</em>}
               value={getNetworkTypes(appConfig.networks)} />
           </ConfigurationMapRow>
 
