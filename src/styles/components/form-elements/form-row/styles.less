@@ -5,6 +5,14 @@
   .form-row {
     display: flex;
     margin-bottom: @form-row-margin-bottom;
+
+    & + .form-row {
+      margin-top: @form-row-margin-top;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -14,6 +22,10 @@
 
     .form-row {
       margin-bottom: @form-row-margin-bottom-screen-small;
+
+      & + .form-row {
+        margin-top: @form-row-margin-top-screen-small;
+      }
     }
   }
 }
@@ -24,6 +36,10 @@
 
     .form-row {
       margin-bottom: @form-row-margin-bottom-screen-medium;
+
+      & + .form-row {
+        margin-top: @form-row-margin-top-screen-medium;
+      }
     }
   }
 }
@@ -34,6 +50,10 @@
 
     .form-row {
       margin-bottom: @form-row-margin-bottom-screen-large;
+
+      & + .form-row {
+        margin-top: @form-row-margin-top-screen-large;
+      }
     }
   }
 }
@@ -44,6 +64,10 @@
 
     .form-row {
       margin-bottom: @form-row-margin-bottom-screen-jumbo;
+
+      & + .form-row {
+        margin-top: @form-row-margin-top-screen-jumbo;
+      }
     }
   }
 }

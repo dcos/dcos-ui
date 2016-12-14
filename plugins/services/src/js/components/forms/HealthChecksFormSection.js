@@ -12,6 +12,7 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
@@ -209,12 +210,14 @@ class HealthChecksFormSection extends Component {
           the application{'\''}s tasks.
         </p>
         {this.getHealthChecksLines(data.healthChecks)}
-        <div>
-          <a className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
-            + Add Health Check
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Health Check
+            </a>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }

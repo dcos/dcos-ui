@@ -10,6 +10,7 @@ import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolum
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -228,7 +229,7 @@ class VolumesFormSection extends Component {
           <a
             className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'localVolumes'})}>
-            + Add Local Volumes
+            <Icon color="purple" id="plus" size="tiny" /> Add Local Volumes
           </a>
         </div>
         <h2 className="short-bottom">
@@ -238,13 +239,15 @@ class VolumesFormSection extends Component {
           Set up volumes variables for each task your service launches.
         </p>
         {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
-            + Add External Volumes
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add External Volumes
+            </a>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }

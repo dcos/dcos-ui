@@ -547,19 +547,23 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
         {this.getServiceEndpoints()}
-        <button
-          type="button"
-          onBlur={(event) => { event.stopPropagation(); }}
-          className="button button-primary-link button-flush"
-          onClick={this.props.onAddItem.bind(
-            this,
-            {
-              value: portDefinitions.length,
-              path: 'portDefinitions'
-            }
-          )}>
-          <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-        </button>
+        <FormRow>
+          <FormGroup className="column-12">
+            <button
+              type="button"
+              onBlur={(event) => { event.stopPropagation(); }}
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(
+                this,
+                {
+                  value: portDefinitions.length,
+                  path: 'portDefinitions'
+                }
+              )}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
+            </button>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }

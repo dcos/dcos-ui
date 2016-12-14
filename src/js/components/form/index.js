@@ -10,6 +10,7 @@ import FieldSelect from './FieldSelect';
 import FieldTextarea from './FieldTextarea';
 import FormGroup from './FormGroup';
 import FormGroupContainer from './FormGroupContainer';
+import FormRow from './FormRow';
 
 module.exports = {
   AdvancedSection,
@@ -23,5 +24,6 @@ module.exports = {
   FieldSelect,
   FieldTextarea,
   FormGroup,
-  FormGroupContainer
+  FormGroupContainer,
+  FormRow
 };

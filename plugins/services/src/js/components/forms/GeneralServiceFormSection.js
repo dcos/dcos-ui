@@ -239,13 +239,15 @@ class GeneralServiceFormSection extends Component {
             </h3>
             <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
             {this.getPlacementConstraints(data.constraints)}
-            <div>
-              <a
-                className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                + Add Placement Constraint
-              </a>
-            </div>
+            <FormRow>
+              <FormGroup className="column-12">
+                <a
+                  className="button button-primary-link button-flush"
+                  onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
+                </a>
+              </FormGroup>
+            </FormRow>
           </AdvancedSectionContent>
         </AdvancedSection>
 

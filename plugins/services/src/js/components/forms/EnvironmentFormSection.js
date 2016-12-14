@@ -9,6 +9,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 
 class EnvironmentFormSection extends Component {
 
@@ -109,13 +110,15 @@ class EnvironmentFormSection extends Component {
           Set up environment variables for each task your service launches.
         </p>
         {this.getEnvironmentLines(data.env)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.env.length, path: 'env'})}>
-            + Add Environment Variable
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.env.length, path: 'env'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Environment Variable
+            </a>
+          </FormGroup>
+        </FormRow>
         <h2 className="short-bottom">
           Labels
         </h2>
@@ -123,13 +126,15 @@ class EnvironmentFormSection extends Component {
           Attach metadata to expose additional information to other services.
         </p>
         {this.getLabelsLines(data.labels)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.labels.length, path: 'labels'})}>
-            + Add Label
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.labels.length, path: 'labels'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Label
+            </a>
+          </FormGroup>
+        </FormRow>
         <MountService.Mount
           type="CreateService:EnvironmentFormSection"
           data={data}

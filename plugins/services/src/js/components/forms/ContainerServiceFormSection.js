@@ -89,11 +89,7 @@ class ContainerServiceFormSection extends Component {
       );
     }
 
-    return (
-      <div className="artifacts-section">
-        {content}
-      </div>
-    );
+    return content;
   }
 
   getGPUSInput(data) {
@@ -199,13 +195,15 @@ class ContainerServiceFormSection extends Component {
           </FormGroup>
         </FormRow>
         {this.getArtifactsInputs(data.fetch)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
-            + Add Artifact
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Artifact
+            </a>
+          </FormGroup>
+        </FormRow>
       </AdvancedSectionContent>
     );
   }
@@ -361,14 +359,16 @@ class ContainerServiceFormSection extends Component {
           </FormGroup>
         </FormRow>
 
-        <FormGroup showError={Boolean(errors.cmd)}>
-          {this.getCMDLabel()}
-          <FieldTextarea name="cmd" value={data.cmd} />
-          <FieldHelp>
-            A shell command for your container to execute.
-          </FieldHelp>
-          <FieldError>{errors.cmd}</FieldError>
-        </FormGroup>
+        <FormRow>
+          <FormGroup className="column-12" showError={Boolean(errors.cmd)}>
+            {this.getCMDLabel()}
+            <FieldTextarea name="cmd" value={data.cmd} />
+            <FieldHelp>
+              A shell command for your container to execute.
+            </FieldHelp>
+            <FieldError>{errors.cmd}</FieldError>
+          </FormGroup>
+        </FormRow>
 
         <AdvancedSection>
           <AdvancedSectionLabel>
