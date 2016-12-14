@@ -29,15 +29,15 @@ module.exports = {
         'network'
       ], `${networkType}.${networkName}`));
 
-      let group = findNestedPropertyInObject(state, 'ipAddress.group');
+      let groups = findNestedPropertyInObject(state, 'ipAddress.groups');
       let discovery = findNestedPropertyInObject(state, 'ipAddress.discovery');
       let labels = findNestedPropertyInObject(state, 'ipAddress.labels');
 
-      if (group != null) {
+      if (groups != null) {
         transactions.push(new Transaction([
           'ipAddress',
-          'group'
-        ], group));
+          'groups'
+        ], groups));
       }
 
       if (labels != null) {
