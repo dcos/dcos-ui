@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {Component, PropTypes} from 'react';
 import {Hooks} from 'PluginSDK';
 
@@ -363,13 +364,20 @@ class NewServiceFormModal extends Component {
       serviceReviewActive
     } = this.state;
 
+    const force = this.shouldForceSubmit();
+    const runButtonLabel = force ? 'Force Run Service' : 'Run Service';
+    const runButtonClassNames = classNames('flush-vertical', {
+      'button-primary': !force,
+      'button-danger': force
+    });
+
     // NOTE: Always prioritize review screen check
     if (serviceReviewActive) {
       return [
         {
-          className: 'button-primary flush-vertical',
+          className: runButtonClassNames,
           clickHandler: this.handleServiceRun,
-          label: 'Run Service'
+          label: runButtonLabel
         }
       ];
     }
