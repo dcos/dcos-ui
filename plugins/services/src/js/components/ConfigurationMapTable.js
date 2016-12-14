@@ -1,8 +1,8 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
 /**
  * Optimised method to check if all row props are empty for a given column
  *

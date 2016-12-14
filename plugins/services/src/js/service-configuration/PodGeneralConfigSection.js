@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
+import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import DurationValue from '../components/ConfigurationMapDurationValue';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Label from '../../../../../src/js/components/ConfigurationMapLabel';
-import Row from '../../../../../src/js/components/ConfigurationMapRow';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import Units from '../../../../../src/js/utils/Units';
-import Value from '../../../../../src/js/components/ConfigurationMapValue';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
 /**
  * Summarize the resources of every container, including the containers and
@@ -18,8 +18,8 @@ import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
  * @param {Object} appConfig - The application configuration
  * @returns {Node|String} Returns the contents to be rendererd
  */
-function getContainerResourceSummary(resource, {containers=[]}) {
-  let summary = containers.reduce((memo, {name, resources={}}) => {
+function getContainerResourceSummary(resource, {containers = []}) {
+  let summary = containers.reduce((memo, {name, resources = {}}) => {
     let value = resources[resource];
     if (value) {
       memo.value += value;
@@ -78,67 +78,81 @@ module.exports = ({appConfig}) => {
 
   return (
     <div>
-      <Heading level={1}>General</Heading>
-      <Section key="pod-general-section">
-        <Row>
-          <Label>Service ID</Label>
-          <Value value={appConfig.id} />
-        </Row>
-        <Row>
-          <Label>Instances</Label>
-          <ValueWithDefault value={fields.instances} />
-        </Row>
-        <Row>
-          <Label>CPU</Label>
-          <Value>{getContainerResourceSummary('cpus', appConfig)}</Value>
-        </Row>
-        <Row>
-          <Label>Memory</Label>
-          <Value>{getContainerResourceSummary('mem', appConfig)}</Value>
-        </Row>
-        <Row>
-          <Label>Disk</Label>
-          <Value>{getContainerResourceSummary('disk', appConfig)}</Value>
-        </Row>
-        <Row>
-          <Label>GPU</Label>
-          <Value>{getContainerResourceSummary('gpu', appConfig)}</Value>
-        </Row>
+      <ConfigurationMapHeading level={1}>General</ConfigurationMapHeading>
+      <ConfigurationMapSection key="pod-general-section">
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Service ID</ConfigurationMapLabel>
+          <ConfigurationMapValue value={appConfig.id} />
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
+          <ConfigurationMapValueWithDefault value={fields.instances} />
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {getContainerResourceSummary('cpus', appConfig)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {getContainerResourceSummary('mem', appConfig)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {getContainerResourceSummary('disk', appConfig)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {getContainerResourceSummary('gpu', appConfig)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
         {fields.backoff && (
-          <Row>
-            <Label>Backoff</Label>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
             <DurationValue
               units="sec"
               value={fields.backoff} />
-          </Row>
+          </ConfigurationMapRow>
         )}
         {fields.backoffFactor && (
-          <Row>
-            <Label>Backoff Factor</Label>
-            <Value value={fields.backoffFactor} />
-          </Row>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
+            <ConfigurationMapValue value={fields.backoffFactor} />
+          </ConfigurationMapRow>
         )}
         {fields.maxLaunchDelay && (
-          <Row>
-            <Label>Backoff Max Launch Delay</Label>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Backoff Max Launch Delay
+            </ConfigurationMapLabel>
             <DurationValue
               units="sec"
               value={fields.maxLaunchDelay} />
-          </Row>
+          </ConfigurationMapRow>
         )}
         {fields.minimumHealthCapacity && (
-          <Row>
-            <Label>Upgrade Min Health Capacity</Label>
-            <Value value={fields.minimumHealthCapacity} />
-          </Row>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Upgrade Min Health Capacity
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue value={fields.minimumHealthCapacity} />
+          </ConfigurationMapRow>
         )}
         {fields.maximumOverCapacity && (
-          <Row>
-            <Label>Upgrade Max Overcapacity</Label>
-            <Value value={fields.maximumOverCapacity} />
-          </Row>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Upgrade Max Overcapacity
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue value={fields.maximumOverCapacity} />
+          </ConfigurationMapRow>
         )}
-      </Section>
+      </ConfigurationMapSection>
     </div>
   );
 };

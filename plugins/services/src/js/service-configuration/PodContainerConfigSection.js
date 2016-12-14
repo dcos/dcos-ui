@@ -1,15 +1,15 @@
 import React from 'react';
 
-import BooleanValue from '../components/ConfigurationMapBooleanValue';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Label from '../../../../../src/js/components/ConfigurationMapLabel';
-import MultilineValue from '../components/ConfigurationMapMultilineValue';
+import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapMultilineValue from '../components/ConfigurationMapMultilineValue';
+import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapSizeValue from '../components/ConfigurationMapSizeValue';
+import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
+import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import PodContainerArtifactsConfigSection from './PodContainerArtifactsConfigSection';
-import Row from '../../../../../src/js/components/ConfigurationMapRow';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import SizeValue from '../components/ConfigurationMapSizeValue';
-import Value from '../../../../../src/js/components/ConfigurationMapValue';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
 
@@ -33,70 +33,70 @@ module.exports = ({containerConfig, appConfig}) => {
   };
 
   return (
-    <Section key="pod-general-section">
+    <ConfigurationMapSection key="pod-general-section">
 
       {/* Heading with Icon */}
-      <Heading level={3}>
+      <ConfigurationMapHeading level={3}>
         {getContainerNameWithIcon(containerConfig)}
-      </Heading>
+      </ConfigurationMapHeading>
 
       {/* Container image goes to top */}
-      <Row>
-        <Label>Container Image</Label>
-        <ValueWithDefault
+      <ConfigurationMapRow>
+        <ConfigurationMapLabel>Container Image</ConfigurationMapLabel>
+        <ConfigurationMapValueWithDefault
           defaultValue={<span>&mdash;</span>}
           value={findNestedPropertyInObject(appConfig, 'image.id')} />
-      </Row>
-      <Row>
-        <Label>Force pull on launch</Label>
-        <BooleanValue
+      </ConfigurationMapRow>
+      <ConfigurationMapRow>
+        <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
+        <ConfigurationMapBooleanValue
           value={findNestedPropertyInObject(appConfig, 'image.forcePull')} />
-      </Row>
+      </ConfigurationMapRow>
 
       {/* Resources */}
       {fields.resources.cpus && (
-        <Row>
-          <Label>CPUs</Label>
-          <Value value={fields.resources.cpus} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
+          <ConfigurationMapValue value={fields.resources.cpus} />
+        </ConfigurationMapRow>
       )}
       {fields.resources.mem && (
-        <Row>
-          <Label>Memory</Label>
-          <SizeValue value={fields.resources.mem} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
+          <ConfigurationMapSizeValue value={fields.resources.mem} />
+        </ConfigurationMapRow>
       )}
       {fields.resources.disk && (
-        <Row>
-          <Label>Disk</Label>
-          <SizeValue value={fields.resources.disk} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
+          <ConfigurationMapSizeValue value={fields.resources.disk} />
+        </ConfigurationMapRow>
       )}
       {fields.resources.gpus && (
-        <Row>
-          <Label>GPUs</Label>
-          <Value value={fields.resources.gpus} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
+          <ConfigurationMapValue value={fields.resources.gpus} />
+        </ConfigurationMapRow>
       )}
 
       {/* Global Properties */}
       {fields.user && (
-        <Row>
-          <Label>Run as User</Label>
-          <Value value={fields.user} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
+          <ConfigurationMapValue value={fields.user} />
+        </ConfigurationMapRow>
       )}
       {fields.command && (
-        <Row>
-          <Label>Command</Label>
-          <MultilineValue value={fields.command} />
-        </Row>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>Command</ConfigurationMapLabel>
+          <ConfigurationMapMultilineValue value={fields.command} />
+        </ConfigurationMapRow>
       )}
 
       {/* Container artifacts */}
       <PodContainerArtifactsConfigSection
         artifacts={containerConfig.artifacts} />
 
-    </Section>
+    </ConfigurationMapSection>
   );
 };

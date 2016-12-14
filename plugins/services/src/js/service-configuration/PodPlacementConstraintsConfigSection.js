@@ -2,8 +2,8 @@ import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
@@ -38,17 +38,19 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
     return (
       <div>
-        <Heading level={3}>Placement Constraints</Heading>
-        <Section>
+        <ConfigurationMapHeading level={3}>
+          Placement Constraints
+        </ConfigurationMapHeading>
+        <ConfigurationMapSection>
           <ConfigurationMapTable
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={this.getColumns()}
             columnDefaults={{
               hideIfempty: true,
               placeholder: <span>&mdash;</span>
             }}
             data={constraints} />
-        </Section>
+        </ConfigurationMapSection>
       </div>
     );
   }

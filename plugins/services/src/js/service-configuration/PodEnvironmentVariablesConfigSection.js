@@ -5,8 +5,8 @@ import {
   getContainerNameWithIcon
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 
 const columns = [
   {
@@ -60,14 +60,16 @@ module.exports = ({appConfig}) => {
 
   return (
     <div>
-      <Heading level={1}>Environment Variables</Heading>
-      <Section key="pod-general-section">
+      <ConfigurationMapHeading level={1}>
+        Environment Variables
+      </ConfigurationMapHeading>
+      <ConfigurationMapSection key="pod-general-section">
         <ConfigurationMapTable
-          className="table table-simple table-break-word flush-bottom"
+          className="table table-simple table-align-top table-break-word flush-bottom"
           columnDefaults={{hideIfEmpty: true}}
           columns={columns}
           data={combinedEnv} />
-      </Section>
+      </ConfigurationMapSection>
     </div>
   );
 };

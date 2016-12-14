@@ -1,12 +1,12 @@
 import React from 'react';
 
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Label from '../../../../../src/js/components/ConfigurationMapLabel';
-import Row from '../../../../../src/js/components/ConfigurationMapRow';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const NETWORK_MODE_NAME = {
   'container': 'Contaienr',
@@ -83,28 +83,28 @@ class PodNetworkConfigSection extends React.Component {
 
     return (
       <div>
-        <Heading level={1}>Network</Heading>
-        <Section key="pod-general-section">
+        <ConfigurationMapHeading level={1}>Network</ConfigurationMapHeading>
+        <ConfigurationMapSection key="pod-general-section">
 
           {/* General section */}
-          <Row>
-            <Label>Network Type</Label>
-            <ValueWithDefault
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
+            <ConfigurationMapValueWithDefault
               defaultValue={<em>Unknown</em>}
               value={getNetworkTypes(appConfig.networks)} />
-          </Row>
+          </ConfigurationMapRow>
 
           {/* Service endpoints */}
-          <Heading level={3}>
+          <ConfigurationMapHeading level={3}>
             Service Endpoints
-          </Heading>
+          </ConfigurationMapHeading>
           <ConfigurationMapTable
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={endpoints} />
 
-        </Section>
+        </ConfigurationMapSection>
       </div>
     );
   }
