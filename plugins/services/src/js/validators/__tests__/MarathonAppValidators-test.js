@@ -22,7 +22,7 @@ const COMPLYWITHRESIDENCY_ERRORS = [
     message: 'AppDefinition must contain persistent volumes and define residency'
   },
   {
-    path: ['persistentVolumes'],
+    path: ['container', 'volumes'],
     message: 'AppDefinition must contain persistent volumes and define residency'
   }
 ];
@@ -141,24 +141,64 @@ describe('MarathonAppValidators', function () {
   });
 
   describe('#complyWithResidencyRules', function () {
-    it('should return no errors if neither of `residency` or `persistentVolumes` defined', function () {
-      let spec = {};
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
+    it('should return no errors if residency and container is undefined',
+      function () {
+        let spec = {};
 
-    it('should return no errors if both of `residency` or `persistentVolumes` defined', function () {
-      let spec = {residency: 'foo', persistentVolumes: 'bar' };
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
+        expect(MarathonAppValidators.complyWithResidencyRules(spec))
+          .toEqual([]);
+      }
+    );
+
+    it('should return no errors if residency and volumes is undefined',
+      function () {
+        let spec = {container: {}};
+
+        expect(MarathonAppValidators.complyWithResidencyRules(spec))
+          .toEqual([]);
+      }
+    );
+
+    it('should return no errors if residency is undefined and volumes empty',
+      function () {
+        let spec = {container:{volumes:[]}};
+
+        expect(MarathonAppValidators.complyWithResidencyRules(spec))
+          .toEqual([]);
+      }
+    );
+
+    it('should return no errors if residency and persistent is undefined',
+      function () {
+        let spec = {container:{volumes:[{}]}};
+
+        expect(MarathonAppValidators.complyWithResidencyRules(spec))
+          .toEqual([]);
+      }
+    );
+
+    it('should return no errors if both of residency and persistent is defined',
+      function () {
+        let spec = {
+          residency: 'foo',
+          container: {volumes: [{persistent: {size: '524288'}}]}
+        };
+
+        expect(MarathonAppValidators.complyWithResidencyRules(spec))
+          .toEqual([]);
+      }
+    );
 
     it('should return errors if only `residency` defined', function () {
       let spec = {residency: 'foo' };
+
       expect(MarathonAppValidators.complyWithResidencyRules(spec))
         .toEqual(COMPLYWITHRESIDENCY_ERRORS);
     });
 
     it('should return errors if only `persistentVolumes` defined', function () {
-      let spec = {persistentVolumes: 'bar' };
+      let spec = {container: {volumes: [{persistent: {size: '524288'}}]}};
+
       expect(MarathonAppValidators.complyWithResidencyRules(spec))
         .toEqual(COMPLYWITHRESIDENCY_ERRORS);
     });
