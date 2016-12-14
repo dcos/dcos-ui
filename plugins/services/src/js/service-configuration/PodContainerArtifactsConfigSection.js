@@ -57,7 +57,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
   }
 
   render() {
-    const {artifacts} = this.props;
+    const {artifacts, onEditClick} = this.props;
 
     if (!artifacts || !artifacts.length) {
       return <noscript />;
@@ -69,10 +69,11 @@ class PodContainerArtifactsConfigSection extends React.Component {
           Container Artifacts
         </ConfigurationMapHeading>
         <ConfigurationMapTable
-          className="table table-simple table-align-top table-break-word flush-bottom"
           columnDefaults={{hideIfEmpty: true}}
           columns={this.getColumns()}
-          data={artifacts} />
+          data={artifacts}
+          onEditClick={onEditClick}
+          tabViewID="services" />
       </div>
     );
   }

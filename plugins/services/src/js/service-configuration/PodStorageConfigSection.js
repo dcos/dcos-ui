@@ -45,6 +45,7 @@ class PodStorageConfigSection extends React.Component {
   }
 
   render() {
+    const {onEditClick} = this.props;
     let {volumes = [], containers = []} = this.props.appConfig;
     let volumeSummary = volumes.reduce((memo, volume) => {
       let volumeInfo = {
@@ -96,10 +97,11 @@ class PodStorageConfigSection extends React.Component {
         <ConfigurationMapHeading level={1}>Storage</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
-            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
-            data={volumeSummary} />
+            data={volumeSummary}
+            onEditClick={onEditClick}
+            tabViewID="volumes" />
         </ConfigurationMapSection>
       </div>
     );

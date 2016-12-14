@@ -4,7 +4,7 @@ import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
 
-function renderContainers(appConfig) {
+function renderContainers(appConfig, handleEditClick, tabViewID) {
   let {containers = []} = appConfig;
 
   return containers.map((container) => {
@@ -12,12 +12,14 @@ function renderContainers(appConfig) {
       <PodContainerConfigSection
         appConfig={appConfig}
         containerConfig={container}
-        key={`pod-container-${container.name}`} />
+        key={`pod-container-${container.name}`}
+        onEditClick={handleEditClick}
+        tabViewID={tabViewID} />
     );
   });
 }
 
-module.exports = ({appConfig}) => {
+module.exports = ({appConfig, onEditClick, tabViewID}) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
@@ -33,7 +35,7 @@ module.exports = ({appConfig}) => {
   return (
     <div>
       <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
-      {renderContainers(appConfig)}
+      {renderContainers(appConfig, onEditClick, tabViewID)}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import ConfigurationMapEditAction from './ConfigurationMapEditAction';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
 /**
@@ -81,7 +82,13 @@ function defaultRenderFunction(prop, row) {
  */
 class ConfigurationMapTable extends React.Component {
   render() {
-    let {columns = [], columnDefaults = {}, data = []} = this.props;
+    let {
+      columns = [],
+      columnDefaults = {},
+      data = [],
+      onEditClick,
+      tabViewID
+    } = this.props;
 
     columns = columns.map((column) => {
       column = Object.assign({}, columnDefaults, column);
@@ -120,7 +127,26 @@ class ConfigurationMapTable extends React.Component {
       return column !== null;
     });
 
-    return <Table {...Object.assign({}, this.props, {columns})} />;
+    if (onEditClick) {
+      columns.push({
+        heading() { return null; },
+        className: 'configuration-map-action',
+        prop: 'edit',
+        render() {
+          return (
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID={tabViewID} />
+          );
+        }
+      });
+    }
+
+    return (
+      <Table
+        className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
+        {...Object.assign({}, this.props, {columns})} />
+    );
   }
 };
 

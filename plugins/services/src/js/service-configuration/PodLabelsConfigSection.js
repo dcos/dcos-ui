@@ -27,6 +27,7 @@ class PodLabelsConfigSection extends React.Component {
   }
 
   render() {
+    const {onEditClick} = this.props;
     let {labels = {}, containers = []} = this.props.appConfig;
 
     let combinedLabels = [];
@@ -70,10 +71,11 @@ class PodLabelsConfigSection extends React.Component {
         <ConfigurationMapHeading level={1}>Labels</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
-            className="table table-simple table-break-word flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
-            data={combinedLabels} />
+            data={combinedLabels}
+            onEditClick={onEditClick}
+            tabViewID="environment" />
         </ConfigurationMapSection>
       </div>
     );

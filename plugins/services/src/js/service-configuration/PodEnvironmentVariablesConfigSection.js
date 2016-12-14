@@ -23,7 +23,7 @@ const columns = [
   }
 ];
 
-module.exports = ({appConfig}) => {
+module.exports = ({appConfig, onEditClick}) => {
   let {environment = {}, containers = []} = appConfig;
 
   if (!environment || !containers) {
@@ -65,10 +65,11 @@ module.exports = ({appConfig}) => {
       </ConfigurationMapHeading>
       <ConfigurationMapSection key="pod-general-section">
         <ConfigurationMapTable
-          className="table table-simple table-align-top table-break-word flush-bottom"
           columnDefaults={{hideIfEmpty: true}}
           columns={columns}
-          data={combinedEnv} />
+          data={combinedEnv}
+          onEditClick={onEditClick}
+          tabViewID="environment" />
       </ConfigurationMapSection>
     </div>
   );

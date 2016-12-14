@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
@@ -25,7 +26,7 @@ function getCommand(containerConfig) {
   return null;
 }
 
-module.exports = ({containerConfig, appConfig}) => {
+module.exports = ({containerConfig, appConfig, onEditClick}) => {
   let fields = {
     command: getCommand(containerConfig),
     resources: appConfig.resources || {},
@@ -45,11 +46,17 @@ module.exports = ({containerConfig, appConfig}) => {
         <ConfigurationMapLabel>Container Image</ConfigurationMapLabel>
         <ConfigurationMapValueWithDefault
           value={findNestedPropertyInObject(appConfig, 'image.id')} />
+        <ConfigurationMapEditAction
+          onEditClick={onEditClick}
+          tabViewID="services" />
       </ConfigurationMapRow>
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
         <ConfigurationMapBooleanValue
           value={findNestedPropertyInObject(appConfig, 'image.forcePull')} />
+        <ConfigurationMapEditAction
+          onEditClick={onEditClick}
+          tabViewID="services" />
       </ConfigurationMapRow>
 
       {/* Resources */}
@@ -57,24 +64,36 @@ module.exports = ({containerConfig, appConfig}) => {
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.cpus} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
       {fields.resources.mem && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.mem} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
       {fields.resources.disk && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.disk} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
       {fields.resources.gpus && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.gpus} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
 
@@ -83,18 +102,26 @@ module.exports = ({containerConfig, appConfig}) => {
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.user} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
       {fields.command && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Command</ConfigurationMapLabel>
           <ConfigurationMapMultilineValue value={fields.command} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
       )}
 
       {/* Container artifacts */}
       <PodContainerArtifactsConfigSection
-        artifacts={containerConfig.artifacts} />
+        artifacts={containerConfig.artifacts}
+        onEditClick={onEditClick}
+        tabViewID="services" />
 
     </ConfigurationMapSection>
   );
