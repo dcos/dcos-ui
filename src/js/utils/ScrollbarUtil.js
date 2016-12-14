@@ -29,8 +29,8 @@ const ScrollbarUtil = {
   },
 
   updateWithRef(containerRef) {
-    // Use the containers  gemini ref if present
-    if (containerRef.geminiRef != null) {
+    // Use the containers gemini ref if present
+    if (containerRef != null && containerRef.geminiRef != null) {
       this.updateWithRef(containerRef.geminiRef);
 
       return;
