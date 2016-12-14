@@ -1,0 +1,57 @@
+& when (@form-row-enabled) {
+
+  // When .form-row is used, we remove the margins from .form-group and apply
+  // them to the row itself.
+  .form-row {
+    display: flex;
+    margin-bottom: @form-row-margin-bottom;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}
+
+& when (@form-row-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .form-row {
+      margin-bottom: @form-row-margin-bottom-screen-small;
+    }
+  }
+}
+
+& when (@form-row-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .form-row {
+      margin-bottom: @form-row-margin-bottom-screen-medium;
+    }
+  }
+}
+
+& when (@form-row-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .form-row {
+      margin-bottom: @form-row-margin-bottom-screen-large;
+    }
+  }
+}
+
+& when (@form-row-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .form-row {
+      margin-bottom: @form-row-margin-bottom-screen-jumbo;
+    }
+  }
+}

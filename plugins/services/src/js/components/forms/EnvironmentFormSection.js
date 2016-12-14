@@ -8,6 +8,7 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 
 class EnvironmentFormSection extends Component {
 
@@ -23,7 +24,7 @@ class EnvironmentFormSection extends Component {
       }
 
       return (
-        <div key={key} className="flex row">
+        <FormRow key={key}>
           <FormGroup
             className="column-3"
             required={false}>
@@ -49,7 +50,7 @@ class EnvironmentFormSection extends Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'env'})}/>
           </FormGroup>
-        </div>
+        </FormRow>
       );
     });
   }
@@ -66,7 +67,7 @@ class EnvironmentFormSection extends Component {
       }
 
       return (
-        <div key={key} className="flex row">
+        <FormRow key={key}>
           <FormGroup
             className="column-3">
             {keyLabel}
@@ -91,7 +92,7 @@ class EnvironmentFormSection extends Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'labels'})}/>
           </FormGroup>
-        </div>
+        </FormRow>
       );
     });
   }
@@ -100,7 +101,7 @@ class EnvironmentFormSection extends Component {
     let {data, errors} = this.props;
 
     return (
-      <div className="form flush-bottom">
+      <div>
         <h2 className="flush-top short-bottom">
           Environment Variables
         </h2>
