@@ -165,12 +165,18 @@ class VolumesFormSection extends Component {
    * @return {Array} elements
    */
   getExternalVolumesLines(data, offset) {
-    return data.map((volumes, key) => {
+    return data.map((volume, key) => {
       const nameError = errorsLens
         .at(key + offset, {})
         .attr('external', {})
         .get(this.props.errors)
         .name;
+
+      const sizeError = errorsLens
+      .at(key, {})
+      .attr('external', {})
+      .get(this.props.errors)
+        .size;
 
       const containerPathError = errorsLens
         .at(key + offset, {})
@@ -193,8 +199,21 @@ class VolumesFormSection extends Component {
               <FieldInput
                 name={`externalVolumes.${key}.name`}
                 type="text"
-                value={volumes.name}/>
+                value={volume.name}/>
               <FieldError>{nameError}</FieldError>
+            </FormGroup>
+          </FormRow>
+          <FormRow>
+            <FormGroup
+              className="column-3"
+              required={false}
+              showError={Boolean(sizeError)}>
+              <FieldLabel>Size (MiB)</FieldLabel>
+              <FieldInput
+                name={`externalVolumes.${key}.size`}
+                type="number"
+                value={volume.size} />
+              <FieldError>{sizeError}</FieldError>
             </FormGroup>
             <FormGroup
               className="column-9"
@@ -204,7 +223,7 @@ class VolumesFormSection extends Component {
               <FieldInput
                 name={`externalVolumes.${key}.containerPath`}
                 type="text"
-                value={volumes.containerPath}/>
+                value={volume.containerPath}/>
               <FieldError>{containerPathError}</FieldError>
             </FormGroup>
           </FormRow>
