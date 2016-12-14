@@ -28,6 +28,7 @@
     }
 
     &-row {
+      align-items: enter;
       display: flex;
 
       & + .configuration-map {
@@ -48,6 +49,10 @@
     &-action {
       text-align: right;
       width: @base-spacing-unit * 3;
+
+      .button {
+        height: auto;
+      }
     }
 
     &-label {

@@ -35,11 +35,11 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
     return (
       <ConfigurationMapAction>
-        <button
-          className="button button-link table-display-on-row-hover"
+        <a
+          className="button button-link button-small flush table-display-on-row-hover"
           onClick={handleEditClick.bind(null, {tabViewID})}>
           Edit
-        </button>
+        </a>
       </ConfigurationMapAction>
     );
   }
