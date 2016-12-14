@@ -15,7 +15,7 @@ const displayedResourceValues = {
   ports: 'Ports'
 };
 
-const maxBarHeight = 200;
+const MAX_BAR_HEIGHT = 200;
 
 const getGraphBar = (resource, data, index) => {
   const resourceOfferSummary = data[resource];
@@ -45,7 +45,7 @@ const getGraphBar = (resource, data, index) => {
     }
   );
 
-  const offeredHeight = Math.ceil(maxBarHeight * percentageOffered);
+  const offeredHeight = Math.ceil(MAX_BAR_HEIGHT * percentageOffered);
   const matchedHeight = Math.ceil(offeredHeight * percentageMatched);
 
   return (
