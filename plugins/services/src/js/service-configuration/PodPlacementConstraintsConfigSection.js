@@ -41,7 +41,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
         <Heading level={3}>Placement Constraints</Heading>
         <Section>
           <ConfigurationMapTable
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={this.getColumns()}
             columnDefaults={{
               hideIfempty: true,

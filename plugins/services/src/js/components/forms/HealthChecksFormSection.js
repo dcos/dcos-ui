@@ -112,7 +112,7 @@ class HealthChecksFormSection extends Component {
     const {data} = this.props;
 
     return data.portDefinitions.map((port, index) => {
-      return (<option value={index}>{port.name || index}</option>);
+      return (<option key={index} value={index}>{port.name || index}</option>);
     });
   }
 
@@ -170,7 +170,8 @@ class HealthChecksFormSection extends Component {
       const errors = errorsLens.at(key, {}).get(this.props.errors);
 
       return (
-        <FormGroupContainer key={key}
+        <FormGroupContainer
+          key={key}
           onRemove={this.props.onRemoveItem.bind(this,
             {value: key, path: 'healthChecks'})}>
           <div className="flex row">

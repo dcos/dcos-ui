@@ -78,8 +78,9 @@ module.exports = {
         ];
 
         return (
-          <Table key="service-endpoint-health-checks"
-            className="table table-simple table-break-word flush-bottom"
+          <Table
+            key="service-endpoint-health-checks"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={serviceEndpointHealthChecks} />
         );
@@ -102,10 +103,14 @@ module.exports = {
             prop: 'command',
             render: (prop, row) => {
               let command = row[prop] || {};
+              let value = getDisplayValue(command.value);
+              if (!command.value) {
+                return value;
+              }
 
               return (
                 <pre className="flush transparent wrap">
-                  {getDisplayValue(command.command)}
+                  {value}
                 </pre>
               );
             },
@@ -144,7 +149,7 @@ module.exports = {
         return (
           <Table
             key="command-health-checks"
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={commandHealthChecks} />
         );

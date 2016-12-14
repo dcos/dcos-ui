@@ -97,7 +97,17 @@ class ContainerServiceFormSection extends Component {
   }
 
   getGPUSInput(data) {
-    if (data.container && data.container.type !== MESOS) {
+    const disabled = data.container && data.container.type !== MESOS;
+    const inputFiled = (
+      <FieldInput
+        key="gpus-input"
+        name="gpus"
+        type="number"
+        disabled={disabled}
+        value={data.gpus} />
+    );
+
+    if (disabled) {
       return [
         <Tooltip
           key="gpus-input-tooltip"
@@ -111,22 +121,13 @@ class ContainerServiceFormSection extends Component {
             <Icon color="grey" id="lock" size="mini" />
           </FieldLabel>
         </Tooltip>,
-        <FieldInput
-          key="gpus-input"
-          name="gpus"
-          type="number"
-          disabled={true}
-          value={data.gpus} />
+        inputFiled
       ];
     }
 
     return [
       <FieldLabel key="gpus-label">GPUs</FieldLabel>,
-      <FieldInput
-        key="gpus-input"
-        name="gpus"
-        type="number"
-        value={data.gpus} />
+      inputFiled
     ];
   }
 
@@ -141,23 +142,27 @@ class ContainerServiceFormSection extends Component {
         `docker.${settingName}`
       );
 
+      let inputField = (
+        <FieldInput
+          checked={containerType !== DOCKER && Boolean(checked)}
+          name={`container.docker.${settingName}`}
+          type="checkbox"
+          disabled={containerType !== DOCKER}
+          value={settingName} />
+      );
+
       if (containerType !== DOCKER) {
         return (
           <FieldLabel key={index}>
-            <FieldInput
-              checked={false}
-              name={`container.docker.${settingName}`}
-              type="checkbox"
-              disabled={true}
-              value={settingName}/>
+            {inputField}
             <Tooltip
               content={dockerOnly}
               interactive={true}
               maxWidth={300}
               scrollContainer=".gm-scroll-view"
               wrapText={true}>
-                {label}
-                <Icon color="grey" id="lock" size="mini" />
+              {label}
+              <Icon color="grey" id="lock" size="mini" />
             </Tooltip>
             <FieldHelp>{helpText}</FieldHelp>
           </FieldLabel>
@@ -166,11 +171,7 @@ class ContainerServiceFormSection extends Component {
 
       return (
         <FieldLabel key={index}>
-          <FieldInput
-            checked={Boolean(checked)}
-            name={`container.docker.${settingName}`}
-            type="checkbox"
-            value={settingName} />
+          {inputField}
           {label}
           <FieldHelp>{helpText}</FieldHelp>
         </FieldLabel>

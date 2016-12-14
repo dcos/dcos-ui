@@ -10,7 +10,7 @@ import {
 } from '../utils/ServiceConfigDisplayUtil';
 import ContainerConstants from '../constants/ContainerConstants';
 
-const {type: {NONE}, labelMap} = ContainerConstants;
+const {type: {DOCKER, NONE}, labelMap} = ContainerConstants;
 
 module.exports = {
   values: [
@@ -20,31 +20,16 @@ module.exports = {
     },
     {
       key: 'id',
-      label: 'Service ID',
-      transformValue: (value) => {
-        return value.split('/').pop();
-      }
+      label: 'Service ID'
     },
     {
       key: 'instances',
       label: 'Instances'
     },
     {
-      key: 'location',
-      label: 'Location',
-      transformValue: (value, appDefinition) => {
-        let idSegments = findNestedPropertyInObject(appDefinition, 'id')
-          .split('/');
-
-        idSegments.pop();
-
-        return `${idSegments.join('/')}/`;
-      }
-    },
-    {
       key: 'container.type',
       label: 'Container Runtime',
-      transformValue: (runtime) => {
+      transformValue(runtime) {
         return labelMap[runtime] || labelMap[NONE];
       }
     },
@@ -55,9 +40,9 @@ module.exports = {
     {
       key: 'mem',
       label: 'Memory',
-      transformValue: (value) => {
+      transformValue(value) {
         if (value == null) {
-          return getDisplayValue(value);
+          return value;
         }
 
         return formatResource('mem', value);
@@ -66,9 +51,9 @@ module.exports = {
     {
       key: 'disk',
       label: 'Disk',
-      transformValue: (value) => {
+      transformValue(value) {
         if (value == null) {
-          return getDisplayValue(value);
+          return value;
         }
 
         return formatResource('disk', value);
@@ -100,12 +85,23 @@ module.exports = {
     },
     {
       key: 'container.docker.image',
-      label: 'Container Image'
+      label: 'Container Image',
+      transformValue(value, appConfig) {
+        const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+        // Disabled for NONE
+        return getDisplayValue(value, runtime == null || runtime === NONE);
+      }
     },
     {
       key: 'container.docker.privileged',
       label: 'Extended Runtime Priv.',
-      transformValue: (value) => {
+      transformValue(value, appConfig) {
+        const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+        // Disabled for DOCKER
+        if (runtime !== DOCKER && value == null) {
+          return getDisplayValue(null, true);
+        }
+
         // Cast boolean as a string.
         return String(Boolean(value));
       }
@@ -113,7 +109,13 @@ module.exports = {
     {
       key: 'container.docker.forcePullImage',
       label: 'Force Pull on Launch',
-      transformValue: (value) => {
+      transformValue(value, appConfig) {
+        const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+        // Disabled for DOCKER
+        if (runtime !== DOCKER && value == null) {
+          return getDisplayValue(null, true);
+        }
+
         // Cast boolean as a string.
         return String(Boolean(value));
       }
@@ -126,14 +128,14 @@ module.exports = {
     {
       key: 'acceptedResourceRoles',
       label: 'Resource Roles',
-      transformValue: (value = []) => {
+      transformValue(value = []) {
         return value.join(', ');
       }
     },
     {
       key: 'dependencies',
       label: 'Dependencies',
-      transformValue: (value = []) => {
+      transformValue(value = []) {
         return value.join(', ');
       }
     },
@@ -148,13 +150,13 @@ module.exports = {
     {
       key: 'args',
       label: 'Args',
-      transformValue: (value = []) => {
+      transformValue(value = []) {
         if (!value.length) {
-          return String.fromCharCode(8212);
+          return getDisplayValue(null);
         }
 
-        return value.map((arg) => (
-          <pre className="flush transparent wrap">{arg}</pre>
+        return value.map((arg, index) => (
+          <pre key={index} className="flush transparent wrap">{arg}</pre>
         ));
       }
     },
@@ -189,7 +191,7 @@ module.exports = {
         return (
           <Table
             key="artifacts-table"
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={data} />
         );

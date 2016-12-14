@@ -66,7 +66,8 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
             });
 
             return (
-              <Table key="secrets-table"
+              <Table
+                key="secrets-table"
                 className="table table-simple table-break-word flush-bottom"
                 columns={columns}
                 data={data} />

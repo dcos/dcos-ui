@@ -99,7 +99,7 @@ class PodNetworkConfigSection extends React.Component {
             Service Endpoints
           </Heading>
           <ConfigurationMapTable
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={endpoints} />

@@ -103,7 +103,7 @@ module.exports = {
         return (
           <Table
             key="service-endpoints"
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={portDefinitions} />
         );

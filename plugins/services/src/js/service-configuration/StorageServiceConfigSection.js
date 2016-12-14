@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       key: 'container.volumes',
-      render: (volumes) => {
+      render(volumes) {
         if (volumes == null) {
           return null;
         }
@@ -26,7 +26,7 @@ module.exports = {
           {
             heading: getColumnHeadingFn('Volume'),
             prop: 'volume',
-            render: (prop, row) => {
+            render(prop, row) {
               let name = '';
 
               if (row.name != null) {
@@ -41,7 +41,7 @@ module.exports = {
           {
             heading: getColumnHeadingFn('Size'),
             prop: 'size',
-            render: (prop, row) => {
+            render(prop, row) {
               let value = row[prop];
 
               if (value == null) {
@@ -116,7 +116,7 @@ module.exports = {
         return (
           <Table
             key="service-volumes"
-            className="table table-simple table-break-word flush-bottom"
+            className="table table-simple table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={volumesData} />
         );
