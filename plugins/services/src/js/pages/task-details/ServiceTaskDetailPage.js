@@ -1,4 +1,5 @@
 import React from 'react';
+import {Hooks} from 'PluginSDK';
 
 import TaskDetail from './TaskDetail';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
@@ -16,11 +17,11 @@ class ServiceTaskDetailPage extends React.Component {
     const {id, taskID} = params;
 
     let routePrefix = `/services/overview/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
-    const tabs = [
+    const tabs = Hooks.applyFilter('serviceTaskDetailPageTabs', [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
       {label: 'Logs', routePath: routePrefix + '/logs'}
-    ];
+    ], routePrefix);
 
     let task = MesosStateStore.getTaskFromTaskID(taskID);
     let breadcrumbs;
