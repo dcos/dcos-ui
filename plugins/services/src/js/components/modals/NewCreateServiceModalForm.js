@@ -243,7 +243,7 @@ class NewCreateServiceModalForm extends Component {
 
   render() {
     let {appConfig, batch, errorList} = this.state;
-    let {isJSONModeActive} = this.props;
+    let {activeTab, isJSONModeActive} = this.props;
     let data = batch.reduce(this.props.inputConfigReducers, {});
 
     let jsonEditorPlaceholderClasses = classNames(
@@ -263,7 +263,7 @@ class NewCreateServiceModalForm extends Component {
           <FluidGeminiScrollbar>
             <div className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
               <form onChange={this.handleFormChange} onBlur={this.handleFormBlur}>
-                <Tabs vertical={true}>
+                <Tabs vertical={true} activeTab={activeTab}>
                   <TabButtonList>
                     <TabButton id="services" label="Services" />
                     <TabButton id="networking" label="Networking" />
@@ -339,6 +339,7 @@ NewCreateServiceModalForm.defaultProps = {
 };
 
 NewCreateServiceModalForm.propTypes = {
+  activeTab: PropTypes.string,
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
   onErrorStateChange: PropTypes.func,

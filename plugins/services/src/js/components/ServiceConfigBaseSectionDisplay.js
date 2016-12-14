@@ -2,6 +2,7 @@ import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {getDisplayValue} from '../utils/ServiceConfigDisplayUtil';
+import ConfigurationMapAction from '../../../../../src/js/components/ConfigurationMapAction';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
@@ -27,10 +28,28 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
     return {values: []};
   }
 
-  render() {
-    const {appConfig} = this.props;
+  getEditLink(tabViewID, handleEditClick) {
+    if (!handleEditClick) {
+      return null;
+    }
 
-    const configurationMapRows = this.getDefinition().values.filter((row) => {
+    return (
+      <ConfigurationMapAction>
+        <button
+          className="button button-link table-display-on-row-hover"
+          onClick={handleEditClick.bind(null, {tabViewID})}>
+          Edit
+        </button>
+      </ConfigurationMapAction>
+    );
+  }
+
+  render() {
+    const {appConfig, handleEditClick} = this.props;
+    const {values, tabViewID} = this.getDefinition();
+
+    const editLink = this.getEditLink(tabViewID, handleEditClick);
+    const configurationMapRows = values.filter((row) => {
       // Some rows must be excluded if relevant data is missing.
       return !this.shouldExcludeItem(row);
     }).map((row, rowIndex) => {
@@ -44,7 +63,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
       if (row.render != null) {
         // If a custom render method was specified on the row, we use that.
-        return row.render(value, appConfig);
+        return row.render(value, appConfig, editLink);
       } else if (row.heading != null) {
         // If the row is a heading, we render the heading.
         return (
@@ -63,6 +82,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
           <ConfigurationMapValue>
             {this.getDisplayValue(row.type, value)}
           </ConfigurationMapValue>
+          {editLink}
         </ConfigurationMapRow>
       );
     });

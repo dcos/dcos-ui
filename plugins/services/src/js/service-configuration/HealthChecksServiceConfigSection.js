@@ -9,6 +9,7 @@ import {
 } from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = {
+  tabViewID: 'healthChecks',
   values: [
     {
       key: 'healthChecks',
@@ -22,7 +23,7 @@ module.exports = {
     },
     {
       key: 'healthChecks',
-      render: (healthChecks) => {
+      render: (healthChecks, appConfig, editLink) => {
         let serviceEndpointHealthChecks = healthChecks.filter(
           (healthCheck) => {
             return ['HTTP', 'HTTPS', 'TCP'].includes(healthCheck.protocol);
@@ -77,10 +78,19 @@ module.exports = {
           }
         ];
 
+        if (editLink) {
+          columns.push({
+            heading() { return null; },
+            className: 'configuration-map-action',
+            prop: 'edit',
+            render() { return editLink; }
+          });
+        }
+
         return (
           <Table
             key="service-endpoint-health-checks"
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={serviceEndpointHealthChecks} />
         );
@@ -92,7 +102,7 @@ module.exports = {
     },
     {
       key: 'healthChecks',
-      render: (healthChecks) => {
+      render: (healthChecks, appConfig, editLink) => {
         let commandHealthChecks = healthChecks.filter((healthCheck) => {
           return healthCheck.protocol === 'COMMAND';
         });
@@ -146,10 +156,19 @@ module.exports = {
           }
         ];
 
+        if (editLink) {
+          columns.push({
+            heading() { return null; },
+            className: 'configuration-map-action',
+            prop: 'edit',
+            render() { return editLink; }
+          });
+        }
+
         return (
           <Table
             key="command-health-checks"
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={commandHealthChecks} />
         );

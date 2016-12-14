@@ -23,6 +23,7 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
    */
   getDefinition() {
     return {
+      tabViewID: 'environment',
       values: [
         {
           key: 'env',
@@ -31,7 +32,7 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
         },
         {
           key: 'env',
-          render: (envData) => {
+          render: (envData, appConfig, editLink) => {
             const columns = [
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Key'),
@@ -59,6 +60,15 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
               }
             ];
 
+            if (editLink) {
+              columns.push({
+                heading() { return null; },
+                className: 'configuration-map-action',
+                prop: 'edit',
+                render() { return editLink; }
+              });
+            }
+
             const data = Object.keys(envData).map((envKey) => {
               return {key: envKey, value: envData[envKey]};
             }).filter(function ({value}) {
@@ -68,7 +78,7 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
             return (
               <Table
                 key="secrets-table"
-                className="table table-simple table-break-word flush-bottom"
+                className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={data} />
             );

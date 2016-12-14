@@ -18,6 +18,7 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
    */
   getDefinition() {
     return {
+      tabViewID: 'services',
       values: [
         {
           key: 'constraints',
@@ -26,7 +27,7 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
         },
         {
           key: 'constraints',
-          render: (data) => {
+          render: (data, appConfig, editLink) => {
             const columns = [
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Field Name'),
@@ -69,13 +70,23 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
               }
             ];
 
+            if (editLink) {
+              columns.push({
+                heading() { return null; },
+                className: 'configuration-map-action',
+                prop: 'edit',
+                render() { return editLink; }
+              });
+            }
+
             const mappedData = data.map((item) => {
               return {field: item[0], operator: item[1], value: item[2]};
             });
 
             return (
-              <Table key="constraints-table"
-                className="table table-simple table-break-word table-fixed-layout flush-bottom"
+              <Table
+                key="constraints-table"
+                className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={mappedData} />
             );

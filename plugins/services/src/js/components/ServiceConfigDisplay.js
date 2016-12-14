@@ -87,13 +87,16 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   render() {
+    const {appConfig, errors, handleEditClick} = this.props;
+
     return (
       <ConfigurationMap>
         {this.getRootErrors()}
         <MountService.Mount
-          type={this.getMountType()}
-          errors={this.props.errors}
-          appConfig={this.props.appConfig} />
+          appConfig={appConfig}
+          errors={errors}
+          handleEditClick={handleEditClick}
+          type={this.getMountType()} />
       </ConfigurationMap>
     );
   };
@@ -107,7 +110,8 @@ ServiceConfigDisplay.defaultProps = {
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
   clearError: React.PropTypes.func,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  handleEditClick: React.PropTypes.func
 };
 
 module.exports = ServiceConfigDisplay;

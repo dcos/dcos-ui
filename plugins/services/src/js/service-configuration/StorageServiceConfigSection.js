@@ -9,6 +9,7 @@ import {
 } from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = {
+  tabViewID: 'volumes',
   values: [
     {
       key: 'container.volumes',
@@ -17,7 +18,7 @@ module.exports = {
     },
     {
       key: 'container.volumes',
-      render(volumes) {
+      render(volumes, appConfig, editLink) {
         if (volumes == null) {
           return null;
         }
@@ -98,8 +99,7 @@ module.exports = {
             shouldDisplayHostPath = true;
           }
 
-          volume.hostPath =
-            getDisplayValue(appVolume.hostPath);
+          volume.hostPath = getDisplayValue(appVolume.hostPath);
 
           return volume;
         });
@@ -113,10 +113,19 @@ module.exports = {
           });
         }
 
+        if (editLink) {
+          columns.push({
+            heading() { return null; },
+            className: 'text-align-right configuration-map-action',
+            prop: 'edit',
+            render() { return editLink; }
+          });
+        }
+
         return (
           <Table
             key="service-volumes"
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={volumesData} />
         );

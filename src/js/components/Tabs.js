@@ -9,13 +9,27 @@ class Tabs extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      activeTab: null
-    };
+    this.state = {activeTab: null};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentWillMount() {
+    const {activeTab} = this.props;
+    if (activeTab && activeTab !== this.state.activeTab) {
+      this.setState({activeTab});
+    }
+  }
+
+  componentWillReceiveProps({activeTab}) {
+    // Only change if defined, props change and if different than state
+    if (activeTab &&
+      this.props.activeTab !== activeTab &&
+      this.state.activeTab !== activeTab) {
+      this.setState({activeTab});
+    }
   }
 
   getChildren() {
@@ -51,6 +65,8 @@ class Tabs extends React.Component {
 }
 
 Tabs.propTypes = {
+  // Optional variable to set active tab from owner component
+  activeTab: React.PropTypes.string,
   children: React.PropTypes.node.isRequired,
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,

@@ -11,6 +11,7 @@ import HostUtil from '../utils/HostUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
 module.exports = {
+  tabViewID: 'networking',
   values: [
     {
       heading: 'Network',
@@ -33,7 +34,7 @@ module.exports = {
     },
     {
       key: 'portDefinitions',
-      render: (portDefinitions, appDefinition) => {
+      render: (portDefinitions, appDefinition, editLink) => {
         const keys = {
           name: 'name',
           port: 'port',
@@ -100,10 +101,19 @@ module.exports = {
           }
         ];
 
+        if (editLink) {
+          columns.push({
+            heading() { return null; },
+            className: 'configuration-map-action',
+            prop: 'edit',
+            render() { return editLink; }
+          });
+        }
+
         return (
           <Table
             key="service-endpoints"
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={portDefinitions} />
         );

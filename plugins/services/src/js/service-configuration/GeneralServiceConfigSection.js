@@ -13,6 +13,7 @@ import ContainerConstants from '../constants/ContainerConstants';
 const {type: {DOCKER, NONE}, labelMap} = ContainerConstants;
 
 module.exports = {
+  tabViewID: 'services',
   values: [
     {
       heading: 'General',
@@ -171,7 +172,7 @@ module.exports = {
     },
     {
       key: 'fetch',
-      render: (data) => {
+      render: (data, appConfig, editLink) => {
         const columns = [
           {
             heading: getColumnHeadingFn('Artifact Uri'),
@@ -188,10 +189,19 @@ module.exports = {
           }
         ];
 
+        if (editLink) {
+          columns.push({
+            heading() { return null; },
+            className: 'configuration-map-action',
+            prop: 'edit',
+            render() { return editLink; }
+          });
+        }
+
         return (
           <Table
             key="artifacts-table"
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={columns}
             data={data} />
         );

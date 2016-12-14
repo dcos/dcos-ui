@@ -55,6 +55,71 @@ describe('Tabs', function () {
     expect(this.instance.state.activeTab).toEqual('bar');
   });
 
+  it('should update state if receiving different active tab', function () {
+    let instance = TestUtils.renderIntoDocument(
+      <Tabs vertical={true} activeTab="qux">
+        <TabButtonList>
+          <TabButton id="foo" label="Foo">
+            <TabButton id="bar" label="Bar" />
+            <TabButton id="baz" label="Baz">
+              <TabButton id="qux" label="Qux" />
+            </TabButton>
+          </TabButton>
+        </TabButtonList>
+        <TabViewList>
+          <TabView id="foo">
+            Foo
+          </TabView>
+          <TabView id="bar">
+            Bar
+          </TabView>
+          <TabView id="baz">
+            Baz
+          </TabView>
+          <TabView id="qux">
+            Qux
+          </TabView>
+        </TabViewList>
+      </Tabs>
+    );
+
+    let tabButtons = ReactDOM.findDOMNode(instance).querySelectorAll('.menu-tabbed-item');
+
+    expect(instance.state.activeTab).toEqual('qux');
+    TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
+    expect(instance.state.activeTab).toEqual('foo');
+
+    TestUtils.Simulate.click(tabButtons[1].querySelector('.menu-tabbed-item-label'));
+    instance = TestUtils.renderIntoDocument(
+      <Tabs vertical={true} activeTab="baz">
+        <TabButtonList>
+          <TabButton id="foo" label="Foo">
+            <TabButton id="bar" label="Bar" />
+            <TabButton id="baz" label="Baz">
+              <TabButton id="qux" label="Qux" />
+            </TabButton>
+          </TabButton>
+        </TabButtonList>
+        <TabViewList>
+          <TabView id="foo">
+            Foo
+          </TabView>
+          <TabView id="bar">
+            Bar
+          </TabView>
+          <TabView id="baz">
+            Baz
+          </TabView>
+          <TabView id="qux">
+            Qux
+          </TabView>
+        </TabViewList>
+      </Tabs>
+    );
+
+    expect(instance.state.activeTab).toEqual('baz');
+  });
+
   it('should pass the activeTab prop to its children', function () {
     let tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
 
