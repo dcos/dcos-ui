@@ -16,7 +16,7 @@ SVGCompilerPlugin.prototype.apply = function(compiler) {
     let files = glob.sync('**/*.svg', {cwd: baseDir});
     let svgSpriter = new SVGSprite({
       mode: {
-        symbol: true
+        defs: true
       },
       shape: {
         id: {
@@ -34,7 +34,7 @@ SVGCompilerPlugin.prototype.apply = function(compiler) {
     });
 
     svgSpriter.compile(function (error, result, data) {
-      content = result.symbol.sprite.contents.toString();
+      content = result.defs.sprite.contents.toString();
     });
 
     // Insert this list into the Webpack build as a new file asset:
