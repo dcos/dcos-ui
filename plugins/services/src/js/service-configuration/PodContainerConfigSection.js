@@ -44,7 +44,6 @@ module.exports = ({containerConfig, appConfig}) => {
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Container Image</ConfigurationMapLabel>
         <ConfigurationMapValueWithDefault
-          defaultValue={<span>&mdash;</span>}
           value={findNestedPropertyInObject(appConfig, 'image.id')} />
       </ConfigurationMapRow>
       <ConfigurationMapRow>

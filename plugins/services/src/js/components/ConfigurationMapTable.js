@@ -89,7 +89,7 @@ class ConfigurationMapTable extends React.Component {
         className = '',
         heading,
         hideIfEmpty = false,
-        placeholder = (<span>&mdash;</span>),
+        placeholder = (<em>Not Configured</em>),
         prop,
         render = defaultRenderFunction
       } = column;
