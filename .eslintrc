@@ -65,6 +65,10 @@
     "no-unused-vars": ["error", {"args": "after-used", "argsIgnorePattern": "PluginSDK"}],
     "no-use-before-define": "off",
     "no-multiple-empty-lines": ["error", {"max": 1}],
+    // Ternary
+    "no-nested-ternary": ["error"],
+    "no-unneeded-ternary": ["error"],
+    "multiline-ternary": "off", // allow both multiline and single line
     "react/jsx-filename-extension": "off",
     "keyword-spacing": ["error"],
     "semi": ["error"],
