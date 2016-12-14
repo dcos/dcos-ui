@@ -2,7 +2,7 @@ import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {getDisplayValue} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapAction from '../../../../../src/js/components/ConfigurationMapAction';
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
@@ -28,27 +28,10 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
     return {values: []};
   }
 
-  getEditLink(tabViewID, handleEditClick) {
-    if (!handleEditClick) {
-      return null;
-    }
-
-    return (
-      <ConfigurationMapAction>
-        <a
-          className="button button-link button-small flush table-display-on-row-hover"
-          onClick={handleEditClick.bind(null, {tabViewID})}>
-          Edit
-        </a>
-      </ConfigurationMapAction>
-    );
-  }
-
   render() {
     const {appConfig, onEditClick} = this.props;
     const {values, tabViewID} = this.getDefinition();
 
-    const editLink = this.getEditLink(tabViewID, onEditClick);
     const configurationMapRows = values.filter((row) => {
       // Some rows must be excluded if relevant data is missing.
       return !this.shouldExcludeItem(row);
@@ -63,7 +46,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
       if (row.render != null) {
         // If a custom render method was specified on the row, we use that.
-        return row.render(value, appConfig, editLink);
+        return row.render(value, appConfig);
       } else if (row.heading != null) {
         // If the row is a heading, we render the heading.
         return (
@@ -82,7 +65,9 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
           <ConfigurationMapValue>
             {this.getDisplayValue(row.type, value)}
           </ConfigurationMapValue>
-          {editLink}
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       );
     });

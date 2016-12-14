@@ -16,7 +16,7 @@ import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePi
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
-import ServiceConfigDisplay from '../ServiceConfigDisplay';
+import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
@@ -142,7 +142,7 @@ class NewServiceFormModal extends Component {
 
   handleClose() {
     this.props.onClose();
-    this.replaceState(this.getResetState());
+    this.setState(this.getResetState());
   }
 
   handleJSONToggle() {
@@ -428,6 +428,7 @@ class NewServiceFormModal extends Component {
 
   getResetState(nextProps = this.props) {
     let newState = {
+      activeTab: null,
       isJSONModeActive: false,
       serviceConfig: nextProps.service.getSpec(),
       serviceFormActive: false,

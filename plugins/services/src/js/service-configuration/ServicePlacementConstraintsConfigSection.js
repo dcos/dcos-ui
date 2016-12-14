@@ -1,10 +1,11 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
-class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseSectionDisplay {
+class ServicePlacementConstraintsConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
   * @override
   */
@@ -17,6 +18,8 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
    * @override
    */
   getDefinition() {
+    const {onEditClick} = this.props;
+
     return {
       tabViewID: 'services',
       values: [
@@ -27,12 +30,12 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
         },
         {
           key: 'constraints',
-          render: (data, appConfig, editLink) => {
+          render(data) {
             const columns = [
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Field Name'),
                 prop: 'field',
-                render: (prop, row) => {
+                render(prop, row) {
                   let value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
@@ -45,7 +48,7 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Operator'),
                 prop: 'operator',
-                render: (prop, row) => {
+                render(prop, row) {
                   let value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
@@ -58,7 +61,7 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Value'),
                 prop: 'value',
-                render: (prop, row) => {
+                render(prop, row) {
                   let value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
@@ -70,12 +73,18 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
               }
             ];
 
-            if (editLink) {
+            if (onEditClick) {
               columns.push({
                 heading() { return null; },
                 className: 'configuration-map-action',
                 prop: 'edit',
-                render() { return editLink; }
+                render() {
+                  return (
+                    <ConfigurationMapEditAction
+                      onEditClick={onEditClick}
+                      tabViewID="services" />
+                  );
+                }
               });
             }
 
@@ -97,4 +106,4 @@ class ServiceConfigPlacementConstraintsSectionDisplay extends ServiceConfigBaseS
   }
 }
 
-module.exports = ServiceConfigPlacementConstraintsSectionDisplay;
+module.exports = ServicePlacementConstraintsConfigSection;

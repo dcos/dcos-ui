@@ -1,10 +1,11 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
-class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseSectionDisplay {
+class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
   * @override
   */
@@ -12,16 +13,16 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
     const {appConfig: {env}} = this.props;
 
     return env == null ||
-        Object.keys(env).length === 0 ||
-        Object.keys(env).every(function (key) {
-          return typeof env[key] !== 'string';
-        });
+      Object.keys(env).length === 0 ||
+      Object.keys(env).every((key) => typeof env[key] !== 'string');
   }
 
   /**
    * @override
    */
   getDefinition() {
+    const {onEditClick} = this.props;
+
     return {
       tabViewID: 'environment',
       values: [
@@ -32,7 +33,7 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
         },
         {
           key: 'env',
-          render: (envData, appConfig, editLink) => {
+          render(envData) {
             const columns = [
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Key'),
@@ -60,12 +61,18 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
               }
             ];
 
-            if (editLink) {
+            if (onEditClick) {
               columns.push({
                 heading() { return null; },
                 className: 'configuration-map-action',
                 prop: 'edit',
-                render() { return editLink; }
+                render() {
+                  return (
+                    <ConfigurationMapEditAction
+                      onEditClick={onEditClick}
+                      tabViewID="environment" />
+                  );
+                }
               });
             }
 
@@ -89,4 +96,4 @@ class ServiceConfigEnvironmentVariablesSectionDisplay extends ServiceConfigBaseS
   }
 }
 
-module.exports = ServiceConfigEnvironmentVariablesSectionDisplay;
+module.exports = ServiceEnvironmentVariablesConfigSection;
