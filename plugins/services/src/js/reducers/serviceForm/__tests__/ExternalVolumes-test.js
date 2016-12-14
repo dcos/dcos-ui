@@ -18,13 +18,14 @@ describe('Labels', function () {
       }]);
     });
 
-    it('should contain one full local Volumes item', function () {
+    it('should contain one full external Volumes item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 'null'));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], '/dev/null'));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'size'], 1024));
       expect(batch.reduce(ExternalVolumes.FormReducer, [])).toEqual([{
-        containerPath: '/dev/null', name: 'null', provider: 'dvdi',
+        containerPath: '/dev/null', name: 'null', provider: 'dvdi', size: 1024,
         options: {
           'dvdi/driver': 'rexray'
         },
@@ -32,7 +33,7 @@ describe('Labels', function () {
       }]);
     });
 
-    it('should contain two full local Volumes items', function () {
+    it('should contain two full external Volumes items', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes'], 1, ADD_ITEM));
@@ -122,7 +123,7 @@ describe('Labels', function () {
       expect(ExternalVolumes.JSONParser({})).toEqual([]);
     });
 
-    it('should return an empty array if only local volumes are present',
+    it('should return an empty array if only external volumes are present',
       function () {
         const state = {
           container: {
@@ -167,7 +168,7 @@ describe('Labels', function () {
       ]);
     });
 
-    it('should exclude the local volume', function () {
+    it('should exclude the external volume', function () {
       const state = {
         container: {
           volumes: [
