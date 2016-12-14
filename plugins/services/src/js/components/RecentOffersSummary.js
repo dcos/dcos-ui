@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {Table, Tooltip} from 'reactjs-components';
+import {Tooltip} from 'reactjs-components';
 
 import Config from '../../../../../src/js/config/Config';
 import Icon from '../../../../../src/js/components/Icon';
@@ -10,170 +10,166 @@ const displayedResourceValues = {
   roles: 'Role',
   constraints: 'Constraints',
   cpus: 'CPU',
-  mem: 'Mem',
+  mem: 'Memory',
   disk: 'Disk',
   ports: 'Ports'
 };
 
-const getColumnClassNameFn = (classes) => {
-  return (prop, sortBy) => {
-    return classNames(classes, {
-      'active': prop === sortBy.prop
-    });
-  };
-};
+const MAX_BAR_HEIGHT = 200;
 
-const getColumnHeadingFn = (defaultHeading) => {
-  return (prop, order, sortBy) => {
-    let caretClassNames = classNames('caret', {
-      [`caret--${order}`]: order != null,
-      'caret--visible': sortBy.prop === prop
-    });
+const getGraphBar = (resource, data, index) => {
+  const resourceOfferSummary = data[resource];
+  const matchedOffers = resourceOfferSummary.matched;
+  const offeredCount = resourceOfferSummary.offers;
+  let percentageMatched = null;
+  let percentageOffered = null;
 
-    return (
-      <span>
-        {defaultHeading || prop}
-        <span className={caretClassNames} />
-      </span>
-    );
-  };
-};
-
-const colGroup = (
-  <colgroup>
-    <col className="table-column-tooltip" />
-    <col />
-    <col />
-    <col />
-  </colgroup>
-);
-
-const columns = [
-  {
-    heading: '',
-    prop: 'resource',
-    render: (prop, row) => {
-      const {matched, offers} = row;
-      const resource = row[prop];
-      let docsURI = null;
-      let explanatoryText = null;
-
-      if (matched === 0) {
-        explanatoryText = 'did not match';
-      } else if (matched >= offers) {
-        explanatoryText = 'matched';
-      } else {
-        explanatoryText = 'partially matched';
-      }
-
-      if (resource === 'roles') {
-        docsURI = `${Config.mesosDocsURI}roles/`;
-        explanatoryText = `The resource offer ${explanatoryText} your service's role.`;
-      }
-
-      if (resource === 'constraints') {
-        docsURI = `${Config.marathonDocsURI}constraints.html`;
-        explanatoryText = `The resource offer ${explanatoryText} your service's constraints.`;
-      }
-
-      if (resource === 'cpus') {
-        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-        explanatoryText = `The CPUs offered ${explanatoryText} your service's constraints.`;
-      }
-
-      if (resource === 'mem') {
-        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-        explanatoryText = `The memory offered ${explanatoryText} your service's constraints.`;
-      }
-
-      if (resource === 'disk') {
-        explanatoryText = `The disk space offered ${explanatoryText} your service's constraints.`;
-        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-      }
-
-      if (resource === 'ports') {
-        explanatoryText = `The port offered ${explanatoryText} your service's constraints.`;
-        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-      }
-
-      const tooltipContent = (
-        <span>
-          {explanatoryText} <a href={docsURI} target="_blank">Learn more</a>.
-        </span>
-      );
-
-      return (
-        <Tooltip content={tooltipContent}
-          interactive={true}
-          maxWidth={200}
-          wrapText={true}>
-          <Icon id="circle-information" size="mini" color="grey" />
-        </Tooltip>
-      );
-    },
-    className: getColumnClassNameFn('table-column-tooltip'),
-    sortable: false
-  },
-  {
-    heading: getColumnHeadingFn('Resource'),
-    prop: 'resource',
-    render: (prop, row) => {
-      let resource = row[prop];
-
-      return displayedResourceValues[resource];
-    },
-    className: getColumnClassNameFn(),
-    sortable: true
-  },
-  {
-    heading: getColumnHeadingFn('Requested'),
-    prop: 'requested',
-    className: getColumnClassNameFn(),
-    sortable: true
-  },
-  {
-    heading: getColumnHeadingFn('Matched'),
-    prop: 'matched',
-    className: getColumnClassNameFn(),
-    render: (prop, row) => {
-      const matchedOffers = row[prop];
-      const offeredCount = row.offers;
-      let percentageMatched = null;
-
-      // Avoid NaN and inifinite values from division by zero.
-      if (offeredCount === 0) {
-        percentageMatched = 0;
-      } else {
-        percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
-      }
-
-      return (
-        <span>
-          {Units.contractNumber(matchedOffers)}/{Units.contractNumber(offeredCount)}
-          {` (${percentageMatched}%)`}
-        </span>
-      );
-    },
-    sortable: true
+  // Avoid NaN and inifinite values from division by zero.
+  if (offeredCount === 0) {
+    percentageMatched = 0;
+  } else {
+    percentageMatched = matchedOffers / offeredCount;
   }
-];
 
-const RecentOffersSummary = ({data}) => {
-  const tableRows = ['roles', 'constraints', 'cpus', 'mem', 'disk', 'ports'];
-  const summaryData = tableRows.map((resource) => {
-    return {
-      resource,
-      requested: data[resource].requested,
-      offers: data[resource].offers,
-      matched: data[resource].matched
-    };
-  });
+  if (data.roles.offers === 0 || offeredCount === 0) {
+    percentageOffered = 0;
+  } else {
+    percentageOffered = offeredCount / data.roles.offers;
+  }
+
+  const barGraphMatchedClasses = classNames(
+    'funnel-graph-item-bar-matched',
+    {
+      'funnel-graph-item-bar-matched-border-top': percentageMatched > 0
+        && percentageMatched < 1
+    }
+  );
+
+  const offeredHeight = Math.ceil(MAX_BAR_HEIGHT * percentageOffered);
+  const matchedHeight = Math.ceil(offeredHeight * percentageMatched);
 
   return (
-    <Table className="table table-simple table-break-word table-fixed-layout flush-bottom"
-      colGroup={colGroup}
-      columns={columns}
-      data={summaryData} />
+    <Tooltip content={getResourceTooltipContent(resource, data)}
+      interactive={true}
+      key={index}
+      width={200}
+      wrapText={true}
+      wrapperClassName="funnel-graph-item">
+      <div className="funnel-graph-item-bar">
+        <div className="funnel-graph-item-percentage">
+          {Math.ceil(percentageMatched * 100)}%
+        </div>
+        <div className="funnel-graph-item-bar-offered"
+          style={{flexBasis: `${offeredHeight}px`}}>
+          <div className={barGraphMatchedClasses}
+            style={{flexBasis: `${matchedHeight}px`}}>
+          </div>
+        </div>
+      </div>
+      <div className="funnel-graph-item-label">
+        <div className="funnel-graph-item-label-primary">
+          {displayedResourceValues[resource]}
+        </div>
+        <div className="funnel-graph-item-label-secondary small flush-bottom">
+          {Units.contractNumber(resourceOfferSummary.matched)}/
+          {Units.contractNumber(resourceOfferSummary.offers)}
+        </div>
+      </div>
+    </Tooltip>
+  );
+};
+
+const getGraphSpacer = ({key, showIcon = true}) => {
+  let icon = null;
+
+  if (showIcon) {
+    icon = <Icon id="caret-right" size="small" color="light-grey" />;
+  }
+
+  return (
+    <div className="funnel-graph-item-spacer" key={key}>
+      {icon}
+      <div className="funnel-graph-item-label" />
+    </div>
+  );
+};
+
+const getResourceTooltipContent = (resource, data) => {
+  let {matched, offers, requested: requestedValue} = data[resource];
+  let docsURI = null;
+  let explanatoryText = null;
+
+  if (matched === 0) {
+    explanatoryText = 'did not match';
+  } else if (matched >= offers) {
+    explanatoryText = 'matched';
+  } else {
+    explanatoryText = 'partially matched';
+  }
+
+  if (resource === 'roles') {
+    docsURI = `${Config.mesosDocsURI}roles/`;
+    explanatoryText = `The resource offer ${explanatoryText} your service's role (${requestedValue}).`;
+  }
+
+  if (resource === 'constraints') {
+    docsURI = `${Config.marathonDocsURI}constraints.html`;
+    explanatoryText = `The resource offer ${explanatoryText} your service's requirements (${requestedValue}).`;
+  }
+
+  if (resource === 'cpus') {
+    docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+    explanatoryText = `The CPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+  }
+
+  if (resource === 'mem') {
+    requestedValue = Units.formatResource(resource, requestedValue);
+    docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+    explanatoryText = `The memory offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+  }
+
+  if (resource === 'disk') {
+    requestedValue = Units.formatResource(resource, requestedValue);
+    explanatoryText = `The disk space offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+  }
+
+  if (resource === 'ports') {
+    explanatoryText = `The port offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+  }
+
+  return (
+    <span>
+      {explanatoryText} <a href={docsURI} target="_blank">Learn more</a>.
+    </span>
+  );
+};
+
+const RecentOffersSummary = ({data}) => {
+  const funnelItems = ['roles', 'constraints', 'cpus', 'mem', 'disk', 'ports'];
+  const funnelGraphItems = funnelItems.reduce((accumulator, item, index) => {
+    accumulator.push(getGraphBar(item, data, index));
+
+    if (index < funnelItems.length - 1) {
+      accumulator.push(getGraphSpacer({key: `spacer-${index}`}));
+    }
+
+    return accumulator;
+  }, []);
+
+  funnelGraphItems.unshift(
+    getGraphSpacer({key: 'graph-start', showIcon: false})
+  );
+
+  funnelGraphItems.push(
+    getGraphSpacer({key: 'graph-end', showIcon: false})
+  );
+
+  return (
+    <div className="funnel-graph pod ">
+      {funnelGraphItems}
+    </div>
   );
 };
 

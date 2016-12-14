@@ -1,0 +1,231 @@
+& when (@funnel-graph-enabled) {
+
+  .funnel-graph {
+    align-items: flex-end;
+    display: flex;
+    justify-content: center;
+
+    &-item {
+      align-items: center;
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      max-width: @funnel-graph-item-max-width;
+      text-align: center;
+
+      &-percentage {
+        font-weight: 600;
+        margin-bottom: @funnel-graph-item-percentage-margin-bottom;
+        text-align: center;
+        width: 100%;
+      }
+
+      &-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: @funnel-graph-item-bar-width;
+
+        &-offered,
+        &-matched {
+          flex: 0 0 auto;
+        }
+
+        &-offered {
+          background: @funnel-graph-item-bar-offered-background;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          position: relative;
+        }
+
+        &-matched {
+          background: @funnel-graph-item-bar-matched-background;
+          flex: 0 0 auto;
+          width: 100%;
+
+          &-border-top {
+            border-top: @funnel-graph-item-bar-matched-border-top;
+          }
+        }
+      }
+
+      &-label {
+        align-self: stretch;
+        border-top: 1px solid @funnel-graph-item-label-border-color;
+        box-sizing: content-box;
+        color: @funnel-graph-item-label-color;
+        height: @funnel-graph-item-label-height;
+        padding-top: @funnel-graph-item-label-padding-top;
+
+        &-primary {
+          font-weight: 600;
+        }
+      }
+
+      &-spacer {
+        align-items: center;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        justify-content: flex-end;
+        max-width: @funnel-graph-item-spacer-max-width;
+        min-width: @funnel-graph-item-spacer-min-width;
+
+        &:first-child,
+        &:last-child {
+          max-width: none;
+          min-width: 0;
+        }
+
+        .icon {
+          margin-bottom: @funnel-graph-item-arrow-icon-margin;
+        }
+      }
+    }
+
+    &-tooltip-placeholder {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-end;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
+
+& when (@funnel-graph-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .funnel-graph {
+
+      &-item {
+        max-width: @funnel-graph-item-max-width-screen-small;
+
+        &-percentage {
+          margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-small;
+        }
+
+        &-bar {
+          width: @funnel-graph-item-bar-width-screen-small;
+        }
+
+        &-label {
+          padding-top: @funnel-graph-item-label-padding-top-screen-small;
+        }
+
+        &-spacer {
+          max-width: @funnel-graph-item-spacer-max-width-screen-small;
+
+          .icon {
+            margin-bottom: @funnel-graph-item-arrow-icon-margin-screen-small;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@funnel-graph-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .funnel-graph {
+
+      &-item {
+        max-width: @funnel-graph-item-max-width-screen-medium;
+
+        &-percentage {
+          margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-medium;
+        }
+
+        &-bar {
+          width: @funnel-graph-item-bar-width-screen-medium;
+        }
+
+        &-label {
+          padding-top: @funnel-graph-item-label-padding-top-screen-medium;
+        }
+
+        &-spacer {
+          max-width: @funnel-graph-item-spacer-max-width-screen-medium;
+
+          .icon {
+            margin-bottom: @funnel-graph-item-arrow-icon-margin-screen-medium;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@funnel-graph-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .funnel-graph {
+
+      &-item {
+        max-width: @funnel-graph-item-max-width-screen-large;
+
+        &-percentage {
+          margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-large;
+        }
+
+        &-bar {
+          width: @funnel-graph-item-bar-width-screen-large;
+        }
+
+        &-label {
+          height: @funnel-graph-item-label-height-screen-large;
+          padding-top: @funnel-graph-item-label-padding-top-screen-large;
+        }
+
+        &-spacer {
+          max-width: @funnel-graph-item-spacer-max-width-screen-large;
+
+          .icon {
+            margin-bottom: @funnel-graph-item-arrow-icon-margin-screen-large;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@funnel-graph-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .funnel-graph {
+
+      &-item {
+        max-width: @funnel-graph-item-max-width-screen-jumbo;
+
+        &-percentage {
+          margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-jumbo;
+        }
+
+        &-bar {
+          width: @funnel-graph-item-bar-width-screen-jumbo;
+        }
+
+        &-label {
+          padding-top: @funnel-graph-item-label-padding-top-screen-jumbo;
+        }
+
+        &-spacer {
+          max-width: @funnel-graph-item-spacer-max-width-screen-jumbo;
+
+          .icon {
+            margin-bottom: @funnel-graph-item-arrow-icon-margin-screen-jumbo;
+          }
+        }
+      }
+    }
+  }
+}
