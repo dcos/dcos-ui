@@ -135,11 +135,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       address = `${hostname}${Networking.L4LB_ADDRESS}${port}`;
     }
 
-    let loadBalancedLabel = 'Disabled';
-    if (loadBalanced) {
-      loadBalancedLabel = 'Enabled';
-    }
-
     return [
       <div className="flex row" key="title">
         <FormGroup className="column-9">
@@ -160,7 +155,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               checked={loadBalanced}
               name={`portDefinitions.${index}.loadBalanced`}
               type="checkbox" />
-            {loadBalancedLabel}
+            Enabled
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
@@ -346,12 +341,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         );
       }
 
-      let portMappingLabel = 'Disabled';
-
-      if (portDefinition.portMapping) {
-        portMappingLabel = 'Enabled';
-      }
-
       return (
         <FormGroupContainer
           key={index}
@@ -392,7 +381,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   checked={portDefinition.portMapping}
                   name={`portDefinitions.${index}.portMapping`}
                   type="checkbox" />
-                  {portMappingLabel}
+                  Enabled
               </FieldLabel>
             </FormGroup>
           </div>
