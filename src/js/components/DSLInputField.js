@@ -3,10 +3,14 @@ import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
 import DSLExpression from '../structs/DSLExpression';
+import Util from '../utils/Util';
+
+const DEBOUNCE_TIMEOUT = 250;
 
 const METHODS_TO_BIND = [
   'handleBlur',
   'handleChange',
+  'handleDebounceUpdate',
   'handleFocus',
   'handleInputClear'
 ];
@@ -35,12 +39,32 @@ class DSLInputField extends React.Component {
     super(...arguments);
 
     this.state = {
+      expression: this.props.expression,
       focus: false
     };
+
+    this.debounceTimer = null;
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.handleDebounceUpdate = Util.debounce(
+      this.handleDebounceUpdate, DEBOUNCE_TIMEOUT
+    );
+  }
+
+  /**
+   * Import component property updates.
+   *
+   * @override
+   */
+  componentWillReceiveProps(nextProps) {
+    let {expression} = nextProps;
+
+    if (expression !== this.state.expression) {
+      this.setState({expression});
+    }
   }
 
   /**
@@ -72,7 +96,18 @@ class DSLInputField extends React.Component {
    * @param {SyntheticEvent} event - The change event
    */
   handleChange({target}) {
-    this.props.onChange(new DSLExpression(target.value));
+    this.setState({
+      expression: new DSLExpression(target.value)
+    });
+
+    this.handleDebounceUpdate();
+  }
+
+  /**
+   * Forward property change update after the debounce timer expired
+   */
+  handleDebounceUpdate() {
+    this.props.onChange(this.state.expression);
   }
 
   /**
@@ -99,11 +134,12 @@ class DSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getClearButton() {
-    if (!this.props.expression.defined) {
+    if (!this.state.expression.defined) {
       return null;
     }
 
-    let {expression, inverseStyle} = this.props;
+    let {expression} = this.state;
+    let {inverseStyle} = this.props;
     let color = 'purple';
 
     if (inverseStyle) {
@@ -172,7 +208,8 @@ class DSLInputField extends React.Component {
    * @returns {Node} The input field
    */
   getInputField() {
-    let {expression, inverseStyle, placeholder} = this.props;
+    let {expression} = this.state;
+    let {inverseStyle, placeholder} = this.props;
 
     let inputClasses = classNames({
       'form-control filter-input-text': true,
@@ -193,11 +230,10 @@ class DSLInputField extends React.Component {
   render() {
     let {
       className,
-      expression,
       inputContainerClass,
       inverseStyle
     } = this.props;
-    let {focus} = this.state;
+    let {expression, focus} = this.state;
 
     let iconColor = 'grey';
     let iconSearchClasses = classNames({
@@ -220,7 +256,7 @@ class DSLInputField extends React.Component {
 
     let formGroupClasses = classNames({
       'form-group': true,
-      'form-group-error': expression.hasErrors
+      'form-group-danger': expression.hasErrors
     }, className);
 
     return (
