@@ -1,17 +1,25 @@
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import Networking from '../../../../../../src/js/constants/Networking';
+
+const {USER} = Networking.type;
 
 module.exports = {
   JSONReducer: null,
 
   JSONParser(state) {
     let transactions = [];
-    let networkType = findNestedPropertyInObject(state,
-        'container.docker.network');
-    let networkName = findNestedPropertyInObject(state, 'ipAddress.networkName');
+    let networkType =
+      findNestedPropertyInObject(state, 'container.docker.network');
+    let networkName =
+      findNestedPropertyInObject(state, 'ipAddress.networkName');
 
-    if (networkType == null) {
-      return [];
+    if (networkType == null && networkName == null) {
+      return transactions;
+    }
+
+    if (networkName != null) {
+      networkType = USER;
     }
 
     if (networkName != null && networkType != null) {
