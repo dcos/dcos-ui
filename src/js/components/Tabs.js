@@ -9,18 +9,11 @@ class Tabs extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {activeTab: null};
+    this.state = {activeTab: this.props.activeTab};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  componentWillMount() {
-    const {activeTab} = this.props;
-    if (activeTab && activeTab !== this.state.activeTab) {
-      this.setState({activeTab});
-    }
   }
 
   componentWillReceiveProps({activeTab}) {

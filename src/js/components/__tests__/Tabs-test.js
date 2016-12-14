@@ -48,7 +48,7 @@ describe('Tabs', function () {
   it('should maintain state of the active tab', function () {
     let tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
 
-    expect(this.instance.state.activeTab).toEqual(null);
+    expect(this.instance.state.activeTab).toEqual(undefined);
     TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
     expect(this.instance.state.activeTab).toEqual('foo');
     TestUtils.Simulate.click(tabButtons[1].querySelector('.menu-tabbed-item-label'));
