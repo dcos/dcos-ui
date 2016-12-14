@@ -86,6 +86,16 @@ class NewServiceFormModal extends Component {
     }
   }
 
+  shouldForceSubmit() {
+    const {errors} = this.props;
+
+    if (errors && errors.message) {
+      return /force=true/.test(errors.message);
+    }
+
+    return false;
+  }
+
   handleGoBack() {
     let {
       serviceFormActive,
@@ -197,7 +207,8 @@ class NewServiceFormModal extends Component {
     let {marathonAction, service} = this.props;
     marathonAction(
       service,
-      this.state.serviceConfig
+      this.state.serviceConfig,
+      this.shouldForceSubmit()
     );
   }
 
@@ -251,7 +262,14 @@ class NewServiceFormModal extends Component {
   getModalContent() {
     let errorsMap = new Map();
     if (this.props.errors) {
-      errorsMap.set('/', [this.props.errors.message]);
+      let message = this.props.errors.message;
+
+      if (this.shouldForceSubmit()) {
+        message = `App is currently locked by one or more deployments.
+         Press the button again to forcefully change and deploy the
+         new configuration.`;
+      }
+      errorsMap.set('/', [message]);
 
       if (this.props.errors.details) {
         this.props.errors.details.forEach(function ({errors, path}) {
