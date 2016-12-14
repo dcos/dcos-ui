@@ -1,9 +1,10 @@
 jest.unmock('moment');
 jest.unmock('../../../../../../src/js/components/CollapsingString');
-jest.unmock('../services/DeploymentsTab');
-jest.unmock('../../../../../../src/js/components/TimeAgo');
+jest.unmock('../../../../../../src/js/components/FluidGeminiScrollbar');
 jest.unmock('../../../../../../src/js/components/Page');
+jest.unmock('../../../../../../src/js/components/TimeAgo');
 jest.unmock('../../../../../../src/js/mixins/InternalStorageMixin');
+jest.unmock('../services/DeploymentsTab');
 jest.unmock('../../structs/DeploymentsList');
 jest.unmock('../../structs/Deployment');
 

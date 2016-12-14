@@ -1,8 +1,8 @@
 import classNames from 'classnames/dedupe';
-import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import FluidGeminiScrollbar from './FluidGeminiScrollbar';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import NewPageHeader from '../components/NewPageHeader';
 import ScrollbarUtil from '../utils/ScrollbarUtil';
@@ -149,14 +149,14 @@ var Page = React.createClass({
     }
 
     return (
-      <GeminiScrollbar
+      <FluidGeminiScrollbar
         autoshow={true}
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
           flex-item-shrink-1 gm-scrollbar-container-flex"
         ref="gemini">
         {content}
-      </GeminiScrollbar>
+      </FluidGeminiScrollbar>
     );
   },
 
