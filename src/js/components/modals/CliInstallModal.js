@@ -75,16 +75,14 @@ class CliInstallModal extends React.Component {
       return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }
 
-    const instructions = Hooks.applyFilter(
-      'dcosInstallCommand',
-      [
-        `curl ${downloadUrl} -o dcos`,
-        'sudo mv dcos /usr/local/bin',
-        'sudo chmod +x /usr/local/bin/dcos',
-        `dcos config set core.dcos_url ${clusterUrl}`,
-        'dcos'
-      ]
-    );
+    const instructions = [
+      `curl ${downloadUrl} -o dcos`,
+      'sudo mv dcos /usr/local/bin',
+      'sudo chmod +x /usr/local/bin/dcos',
+      `dcos config set core.dcos_url ${clusterUrl}`,
+      Hooks.applyFilter('dcosInstallCommandExtraSteps', undefined),
+      'dcos'
+    ].filter((instruction) => instruction !== undefined);
 
     return (
       <div>
@@ -101,33 +99,33 @@ class CliInstallModal extends React.Component {
   }
 
   getWindowsInstallInstruction(clusterUrl, downloadUrl) {
-    let steps = [
+    const steps = [
       'cd path/to/download/directory',
       <span>dcos config set core.dcos_url <a href={clusterUrl}>{clusterUrl}</a></span>,
+      Hooks.applyFilter('dcosInstallCommandExtraSteps', undefined),
       'dcos'
-    ];
+    ]
+    .filter((instruction) => instruction !== undefined)
+    .map((instruction, index) => {
+      let helpText = 'Enter';
 
-    steps = Hooks.applyFilter('dcosInstallSteps', steps)
-      .map((instruction, index) => {
-        let helpText = 'Enter';
+      if (index === 0) {
+        helpText = 'In Terminal, enter';
+      }
 
-        if (index === 0) {
-          helpText = 'In Terminal, enter';
-        }
-
-        return (
-          <li key={index}>
-            <p className="short-bottom">{helpText}</p>
-            <div className="flush-top snippet-wrapper">
-              <ClickToSelect>
-                <pre className="prettyprint flush-bottom prettyprinted">
-                  {instruction}
-                </pre>
-              </ClickToSelect>
-            </div>
-          </li>
-        );
-      });
+      return (
+        <li key={index}>
+          <p className="short-bottom">{helpText}</p>
+          <div className="flush-top snippet-wrapper">
+            <ClickToSelect>
+              <pre className="prettyprint flush-bottom prettyprinted">
+                {instruction}
+              </pre>
+            </ClickToSelect>
+          </div>
+        </li>
+      );
+    });
 
     return (
       <ol>

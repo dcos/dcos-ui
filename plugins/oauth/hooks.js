@@ -44,8 +44,7 @@ module.exports = Object.assign({}, StoreMixin, {
   filters: [
     'applicationRoutes',
     'delayApplicationLoad',
-    'dcosInstallCommand',
-    'dcosInstallSteps',
+    'dcosInstallCommandExtraSteps',
     'organizationRoutes',
     'userDropdownItems',
     'serverErrorModalListeners'
@@ -64,20 +63,8 @@ module.exports = Object.assign({}, StoreMixin, {
     }]);
   },
 
-  dcosInstallCommand(instructions) {
-    let steps = [...instructions];
-
-    steps.splice(-1, 0, 'dcos auth login');
-
-    return steps;
-  },
-
-  dcosInstallSteps(steps) {
-    let newSteps = [...steps];
-
-    newSteps.splice(-1, 0, 'dcos auth login');
-
-    return newSteps;
+  dcosInstallCommandExtraSteps() {
+    return 'dcos auth login';
   },
 
   redirectToLogin(nextState, replace) {
