@@ -294,7 +294,7 @@ class NewServiceFormModal extends Component {
         <div className="flex-item-grow-1">
           <div className="container">
             <ServiceConfigDisplay
-              handleEditClick={this.handleGoBack}
+              onEditClick={this.handleGoBack}
               appConfig={this.state.serviceConfig}
               clearError={this.props.clearError}
               errors={errorsMap} />

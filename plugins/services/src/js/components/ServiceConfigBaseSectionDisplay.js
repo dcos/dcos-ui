@@ -45,10 +45,10 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
   }
 
   render() {
-    const {appConfig, handleEditClick} = this.props;
+    const {appConfig, onEditClick} = this.props;
     const {values, tabViewID} = this.getDefinition();
 
-    const editLink = this.getEditLink(tabViewID, handleEditClick);
+    const editLink = this.getEditLink(tabViewID, onEditClick);
     const configurationMapRows = values.filter((row) => {
       // Some rows must be excluded if relevant data is missing.
       return !this.shouldExcludeItem(row);
