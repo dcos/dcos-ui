@@ -67,7 +67,7 @@ class TasksView extends mixin(SaveStateMixin) {
     this.setState({checkedItems});
   }
 
-  handleKillClick(killAction) {
+  handleStopClick(killAction) {
     const {checkedItems} = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -142,7 +142,7 @@ class TasksView extends mixin(SaveStateMixin) {
     );
   }
 
-  getKillButtons() {
+  getStopButtons() {
     const {tasks} = this.props;
     const {checkedItems} = this.state;
 
@@ -157,10 +157,10 @@ class TasksView extends mixin(SaveStateMixin) {
     // being correctly called, preventing correct dismissal of the Tooltip.
     //
     // So we manually disable the button.
-    let onStopClick = () => {};
+    let handleStopClick = function () {};
 
     if (!hasSchedulerTask) {
-      onStopClick = this.handleKillClick.bind(this, 'stop');
+      handleStopClick = this.handleStopClick.bind(this, 'stop');
     }
 
     let stopButtonClasses = classNames('button button-link', {
@@ -171,7 +171,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <div className="button-collection flush-bottom">
         <button
           className="button button-link"
-          onClick={this.handleKillClick.bind(this, 'restart')}>
+          onClick={this.handleStopClick.bind(this, 'restart')}>
           <Icon id="repeat" size="mini" />
           <span>Restart</span>
         </button>
@@ -181,7 +181,7 @@ class TasksView extends mixin(SaveStateMixin) {
           suppress={!hasSchedulerTask}>
           <button
             className={stopButtonClasses}
-            onClick={onStopClick}>
+            onClick={handleStopClick}>
               <Icon id="circle-close" size="mini" />
               <span>Stop</span>
           </button>
@@ -235,7 +235,7 @@ class TasksView extends mixin(SaveStateMixin) {
             inverseStyle={inverseStyle}
             itemList={taskStates}
             selectedFilter={filterByStatus} />
-          {this.getKillButtons()}
+          {this.getStopButtons()}
         </FilterBar>
         {this.getTaskTable(filteredTasks, checkedItems)}
       </div>
