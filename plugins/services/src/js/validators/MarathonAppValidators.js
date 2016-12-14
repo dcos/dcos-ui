@@ -78,8 +78,14 @@ const MarathonAppValidators = {
    * @returns {Array} Returns an array with validation errors
    */
   complyWithResidencyRules(app) {
-    let hasAppResidency = ValidatorUtil.isEmpty(app.residency);
-    let hasPersistentVolumes = ValidatorUtil.isEmpty(app.persistentVolumes);
+    let hasAppResidency = !ValidatorUtil.isEmpty(app.residency);
+    let hasPersistentVolumes = false;
+
+    // Check if app has at leas one persistent volume
+    if (app.container && app.container.volumes) {
+      hasPersistentVolumes = app.container.volumes
+        .some((volume) => !ValidatorUtil.isEmpty(volume.persistent));
+    }
 
     if (hasAppResidency !== hasPersistentVolumes) {
       const message = 'AppDefinition must contain persistent volumes and ' +
@@ -87,7 +93,7 @@ const MarathonAppValidators = {
 
       return [
         {path: ['residency'], message},
-        {path: ['persistentVolumes'], message}
+        {path: ['container', 'volumes'], message}
       ];
     }
 
