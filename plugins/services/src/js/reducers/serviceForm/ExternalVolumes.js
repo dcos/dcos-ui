@@ -42,6 +42,14 @@ module.exports = {
         ], item.external.name, SET));
       }
 
+      if (item.external.size != null) {
+        memo.push(new Transaction([
+          'externalVolumes',
+          index,
+          'size'
+        ], item.external.size, SET));
+      }
+
       if (item.containerPath != null) {
         memo.push(new Transaction([
           'externalVolumes',

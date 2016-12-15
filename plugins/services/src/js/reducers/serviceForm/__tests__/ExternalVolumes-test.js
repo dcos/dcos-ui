@@ -263,5 +263,37 @@ describe('Labels', function () {
         {type: SET, value: 'RW', path: ['externalVolumes', 0, 'mode']}
       ]);
     });
+
+    it('should include a size value', function () {
+      const state = {
+        container: {
+          volumes: [
+            {
+              containerPath: '/dev/null',
+              external: {
+                size: 1024,
+                name: 'null',
+                provider: 'dvdi',
+                options: {
+                  'dvdi/driver': 'rexray'
+                }
+              },
+              mode: 'RW'
+            }
+          ]
+        }
+      };
+      expect(ExternalVolumes.JSONParser(state)).toEqual([
+        {type: ADD_ITEM, value: 0, path: ['externalVolumes']},
+        {type: SET, value: 'null', path: ['externalVolumes', 0, 'name']},
+        {type: SET, value: 1024, path: ['externalVolumes', 0, 'size']},
+        {type: SET, value: '/dev/null', path: ['externalVolumes', 0, 'containerPath']},
+        {type: SET, value: 'dvdi', path: ['externalVolumes', 0, 'provider']},
+        {type: SET, value: {
+          'dvdi/driver': 'rexray'
+        }, path: ['externalVolumes', 0, 'options']},
+        {type: SET, value: 'RW', path: ['externalVolumes', 0, 'mode']}
+      ]);
+    });
   });
 });
