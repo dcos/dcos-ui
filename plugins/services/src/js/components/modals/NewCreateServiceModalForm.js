@@ -437,9 +437,10 @@ class NewCreateServiceModalForm extends Component {
                 onBlur={this.handleFormBlur}>
                 <Tabs vertical={true}>
                   <TabButtonList>
-                    <TabButton id="services" label="Services">
+                    <TabButton id="services" label="Services" key="services">
                       {this.getContainerList(data)}
-                    </TabButton>{this.getSectionList()}
+                    </TabButton>
+                    {this.getSectionList()}
                   </TabButtonList>
                   <TabViewList>
                     <TabView id="services">
