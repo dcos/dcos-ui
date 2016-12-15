@@ -250,7 +250,7 @@ describe('SystemLogStore', function () {
         .toEqual('foo\nbar\nbaz');
     });
 
-    it('doesn\'t remove when there is no length added', function () {
+    it('doesn\'t add empty MESSAGEs', function () {
       resetLogData('subscriptionID', {
         entries: [
           {fields: {MESSAGE: 'one'}},
@@ -265,7 +265,7 @@ describe('SystemLogStore', function () {
       SystemLogStore.processLogEntry('subscriptionID', {fields: {MESSAGE: ''}});
 
       expect(SystemLogStore.getFullLog('subscriptionID'))
-        .toEqual('one\ntwo\n\n\n');
+        .toEqual('one\ntwo');
     });
 
   });
@@ -328,7 +328,7 @@ describe('SystemLogStore', function () {
       ]);
 
       expect(SystemLogStore.getFullLog('subscriptionID'))
-        .toEqual('\n\n\none\ntwo');
+        .toEqual('one\ntwo');
     });
 
   });
@@ -353,6 +353,46 @@ describe('SystemLogStore', function () {
       let result = SystemLogStore.getFullLog('subscriptionID');
 
       expect(result).toEqual('foo\nbar\nbaz');
+    });
+
+    it('returns correct format', function () {
+
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'foo', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+      );
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+      );
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+      );
+
+      let result = SystemLogStore.getFullLog('subscriptionID');
+
+      expect(result).toEqual('host systemID[pid]: foo\nhost systemID[pid]: bar\nhost systemID[pid]: baz');
+    });
+
+    it('excludes optional fields', function () {
+
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'foo', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+      );
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', _PID: 'pid'}}
+      );
+      SystemLogStore.processLogEntry(
+        'subscriptionID',
+        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID'}}
+      );
+
+      let result = SystemLogStore.getFullLog('subscriptionID');
+
+      expect(result).toEqual('systemID[pid]: foo\nhost [pid]: bar\nhost systemID: baz');
     });
 
     it('returns empty string for a log that doesn\'t exist', function () {
