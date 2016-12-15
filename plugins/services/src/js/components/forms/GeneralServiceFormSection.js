@@ -86,7 +86,8 @@ class GeneralServiceFormSection extends Component {
     return containers.map((item, index) => {
       return (
         <FormGroupContainer key={index}
-          onRemove={this.props.onRemoveItem.bind(this, {value: index, path: 'containers'})}>
+          onRemove={this.props.onRemoveItem.bind(this,
+            {value: index, path: 'containers'})}>
           {item.name || `container-${index + 1}`}
         </FormGroupContainer>
       );
@@ -109,6 +110,7 @@ class GeneralServiceFormSection extends Component {
       </p>
     );
   }
+
   getMultiContainerSection() {
     let {service} = this.props;
     if (!(service instanceof PodSpec)) {
@@ -116,13 +118,14 @@ class GeneralServiceFormSection extends Component {
     }
 
     return (
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: 0, path: 'containers'})}>
-            + Add Container
-          </a>
-        </div>
+      <div>
+        <a
+          className="button button-primary-link button-flush"
+          onClick={this.props.onAddItem.bind(this,
+            {value: 0, path: 'containers'})}>
+          + Add Container
+        </a>
+      </div>
     );
   }
 
@@ -149,7 +152,7 @@ class GeneralServiceFormSection extends Component {
             <FieldInput
               name={`constraints.${index}.field`}
               type="text"
-              value={constraint.field}/>
+              value={constraint.field} />
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
@@ -160,7 +163,7 @@ class GeneralServiceFormSection extends Component {
             <FieldInput
               name={`constraints.${index}.operator`}
               type="text"
-              value={constraint.operator}/>
+              value={constraint.operator} />
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
@@ -170,13 +173,14 @@ class GeneralServiceFormSection extends Component {
             <FieldInput
               name={`constraints.${index}.value`}
               type="text"
-              value={constraint.value}/>
+              value={constraint.value} />
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
 
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'constraints'})}/>
+              onClick={this.props.onRemoveItem.bind(this,
+                {value: index, path: 'constraints'})} />
           </FormGroup>
         </FormRow>
       );
@@ -210,7 +214,7 @@ class GeneralServiceFormSection extends Component {
             maxWidth={300}
             scrollContainer=".gm-scroll-view"
             wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini"/>
+            <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
         </h3>
         <p>The container runtime is responsible for running your service. We
@@ -236,7 +240,8 @@ class GeneralServiceFormSection extends Component {
 
     if (!ValidatorUtil.isEmpty(gpus) && gpus !== 0) {
       isDisabled[DOCKER] = true;
-      disabledTooltipContent = 'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
+      disabledTooltipContent =
+        'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
@@ -249,7 +254,7 @@ class GeneralServiceFormSection extends Component {
             name="container.type"
             type="radio"
             value={runtimeName} />
-            {label}
+          {label}
           <FieldHelp>{helpText}</FieldHelp>
         </FieldLabel>
       );
@@ -277,7 +282,9 @@ class GeneralServiceFormSection extends Component {
     return (
       <span>
         {'Include the path to your service, if applicable. E.g. /dev/tools/my-service. '}
-        <a href="https://mesosphere.github.io/marathon/docs/application-groups.html" target="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/application-groups.html"
+          target="_blank">
           More information
         </a>.
       </span>
@@ -329,58 +336,60 @@ class GeneralServiceFormSection extends Component {
 
         {this.getRuntimeSection()}
 
-        <AdvancedSection>
-          <AdvancedSectionLabel>
-            Advanced Service Settings
-          </AdvancedSectionLabel>
-          <AdvancedSectionContent>
-            <h3 className="short-top short-bottom">
-              {'Placement Constraints '}
-              <Tooltip
-                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
+          <AdvancedSection>
+            <AdvancedSectionLabel>
+              Advanced Service Settings
+            </AdvancedSectionLabel>
+            <AdvancedSectionContent>
+              <h3 className="short-top short-bottom">
+                {'Placement Constraints '}
+                <Tooltip
+                    content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+                    interactive={true}
+                    maxWidth={300}
+                    scrollContainer=".gm-scroll-view"
+                    wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
-            </h3>
-            <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
-            {this.getPlacementConstraints(data.constraints)}
-            <FormRow>
+                </Tooltip>
+              </h3>
+              <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
+              {this.getPlacementConstraints(data.constraints)}
+              <FormRow>
               <FormGroup className="column-12">
-              <a
-                className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
-              </a>
-            </FormGroup>
+                <a
+                    className="button button-primary-link button-flush"
+                    onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
+                </a>
+              </FormGroup>
             </FormRow>
-          </AdvancedSectionContent>
-        </AdvancedSection>
+            </AdvancedSectionContent>
+          </AdvancedSection>
 
-          {this.getContainerSection()}
-          {this.getMultiContainerSection()}
-          {this.getConvertToPodAction()}
+        {this.getContainerSection()}
+        {this.getMultiContainerSection()}
+        {this.getConvertToPodAction()}
 
-          <Confirm
-              closeByBackdropClick={true}
-              header={<ModalHeading>Switching to a pod service</ModalHeading>}
-              open={this.state.convertToPodModalOpen}
-              onClose={this.handleCloseConvertToPodModal}
-              leftButtonText="Close"
-              leftButtonCallback={this.handleCloseConvertToPodModal}
-              rightButtonText="Continue"
-              rightButtonClassName="button button-success"
-              rightButtonCallback={this.handleConvertToPod}
-              showHeader={true}>
-            <p>
-              {'Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. '}
-              <a href={MetadataStore.buildDocsURI('/usage/pods/')} target="_blank">More information</a>.
-            </p>
-            <p>Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost.</p>
-          </Confirm>
-        </div>
+        <Confirm
+          closeByBackdropClick={true}
+          header={<ModalHeading>Switching to a pod service</ModalHeading>}
+          open={this.state.convertToPodModalOpen}
+          onClose={this.handleCloseConvertToPodModal}
+          leftButtonText="Close"
+          leftButtonCallback={this.handleCloseConvertToPodModal}
+          rightButtonText="Continue"
+          rightButtonClassName="button button-success"
+          rightButtonCallback={this.handleConvertToPod}
+          showHeader={true}>
+          <p>
+            {'Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. '}
+            <a href={MetadataStore.buildDocsURI('/usage/pods/')}
+              target="_blank">More information</a>.
+          </p>
+          <p>Are you sure you would like to continue and create a Pod? Any data
+            you have already entered will be lost.</p>
+        </Confirm>
+      </div>
     );
   }
 }
