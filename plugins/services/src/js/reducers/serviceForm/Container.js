@@ -1,9 +1,12 @@
-import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
-import ContainerConstants from '../../constants/ContainerConstants';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {JSONReducer as volumes} from './Volumes';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
+import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
+import {simpleParser, combineParsers} from '../../../../../../src/js/utils/ParserUtil';
+import ContainerConstants from '../../constants/ContainerConstants';
 import docker from './Docker';
+import Transaction from '../../../../../../src/js/structs/Transaction';
+import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 const {DOCKER, MESOS, NONE} = ContainerConstants.type;
 
@@ -171,6 +174,7 @@ module.exports = {
 
     return newState;
   },
+
   FormReducer(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};
@@ -210,5 +214,23 @@ module.exports = {
     }
 
     return newState;
-  }
+  },
+
+  JSONParser: combineParsers([
+    function (state) {
+      let value = findNestedPropertyInObject(state, 'container.type');
+
+      if (value == null) {
+        value = 'NONE';
+      }
+
+      return new Transaction(['container', 'type'], value);
+    },
+    simpleParser(['container', DOCKER.toLowerCase(), 'image']),
+    simpleParser(['container', MESOS.toLowerCase(), 'image']),
+    simpleParser(['container', DOCKER.toLowerCase(), 'forcePullImage']),
+    simpleParser(['container', MESOS.toLowerCase(), 'forcePullImage']),
+    simpleParser(['container', DOCKER.toLowerCase(), 'privileged']),
+    simpleParser(['container', MESOS.toLowerCase(), 'privileged'])
+  ])
 };
