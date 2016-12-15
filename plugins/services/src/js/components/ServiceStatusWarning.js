@@ -18,7 +18,7 @@ const getTooltipContent = (timeWaiting, showDebugInstruction) => {
 };
 
 const ServiceStatusWarning = ({item, showDebugInstruction}) => {
-  queue = item.getQueue();
+  const queue = item.getQueue();
 
   if (queue != null) {
     const waitingSince = DateUtil.strToMs(queue.since);
