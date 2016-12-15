@@ -412,9 +412,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getServiceEndpointsSection() {
     const {container, portDefinitions} = this.props.data;
     const runtimeType = findNestedPropertyInObject(container, 'type');
-    const networkType = findNestedPropertyInObject(this.props.data, 'networkType');
+    const networkType =
+      findNestedPropertyInObject(this.props.data, 'networkType') || '';
 
-    // Port service endpoints unavailable for Mesos tasks
+    // Service Endpoints are unavailable for Mesos tasks
     if (runtimeType === NONE && networkType.startsWith(Networking.type.USER)) {
       return null;
     }
