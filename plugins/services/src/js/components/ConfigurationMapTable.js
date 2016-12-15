@@ -81,43 +81,44 @@ function defaultRenderFunction(prop, row) {
  */
 class ConfigurationMapTable extends React.Component {
   render() {
-    let {columns=[], columnDefaults={}, data=[]} = this.props;
+    let {columns = [], columnDefaults = {}, data = []} = this.props;
 
-    columns = columns
-      .map((column) => {
-        column = Object.assign({}, columnDefaults, column);
-        let {
-          className='',
-          heading,
-          hideIfEmpty=false,
-          placeholder=(<span>&mdash;</span>),
-          prop,
-          render=defaultRenderFunction
-        } = column;
+    columns = columns.map((column) => {
+      column = Object.assign({}, columnDefaults, column);
+      let {
+        className = '',
+        heading,
+        hideIfEmpty = false,
+        placeholder = (<span>&mdash;</span>),
+        prop,
+        render = defaultRenderFunction
+      } = column;
 
-        // Always use functions in order to display the sorting assets
-        if (typeof className !== 'function') {
-          column.className =
-            ServiceConfigDisplayUtil.getColumnClassNameFn(className);
-        }
-        if (typeof heading !== 'function') {
-          column.heading =
-            ServiceConfigDisplayUtil.getColumnHeadingFn(heading);
-        }
+      // Always use functions in order to display the sorting assets
+      if (typeof className !== 'function') {
+        column.className = ServiceConfigDisplayUtil.getColumnClassNameFn(
+          className
+        );
+      }
+      if (typeof heading !== 'function') {
+        column.heading = ServiceConfigDisplayUtil.getColumnHeadingFn(
+          heading
+        );
+      }
 
-        // Don't include columns that have an `hideIfEmpty` flag and are empty
-        if (hideIfEmpty && isColumnEmpty(data, prop)) {
-          return null;
-        }
+      // Don't include columns that have an `hideIfEmpty` flag and are empty
+      if (hideIfEmpty && isColumnEmpty(data, prop)) {
+        return null;
+      }
 
-        // Compile render function
-        column.render = columnRenderFunction.bind({placeholder, render});
+      // Compile render function
+      column.render = columnRenderFunction.bind({placeholder, render});
 
-        return column;
-      })
-      .filter((column) => {
-        return column !== null;
-      });
+      return column;
+    })
+    .filter((column) => {
+      return column !== null;
+    });
 
     return <Table {...Object.assign({}, this.props, {columns})} />;
   }

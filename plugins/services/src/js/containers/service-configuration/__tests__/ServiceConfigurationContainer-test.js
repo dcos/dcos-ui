@@ -1,5 +1,5 @@
 jest.dontMock('../ServiceConfigurationContainer');
-jest.dontMock('../../../components/ServiceConfigDisplay');
+jest.dontMock('../../../service-configuration/ServiceConfigDisplay');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
 
 /* eslint-disable no-unused-vars */
@@ -10,7 +10,7 @@ const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../../structs/Application');
 const ServiceConfigurationContainer = require('../ServiceConfigurationContainer');
-const ServiceConfigDisplay = require('../../../components/ServiceConfigDisplay');
+const ServiceConfigDisplay = require('../../../service-configuration/ServiceConfigDisplay');
 
 describe('ServiceConfigurationContainer', function () {
 

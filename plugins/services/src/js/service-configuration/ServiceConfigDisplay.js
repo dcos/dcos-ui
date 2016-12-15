@@ -3,35 +3,35 @@ import {MountService} from 'foundation-ui';
 
 import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
-import PodContainersConfigSection from '../service-configuration/PodContainersConfigSection';
-import PodEnvironmentVariablesConfigSection from '../service-configuration/PodEnvironmentVariablesConfigSection';
-import PodGeneralConfigSection from '../service-configuration/PodGeneralConfigSection';
-import PodHealthChecksConfigSection from '../service-configuration/PodHealthChecksConfigSection';
-import PodLabelsConfigSection from '../service-configuration/PodLabelsConfigSection';
-import PodNetworkConfigSection from '../service-configuration/PodNetworkConfigSection';
-import PodPlacementConstraintsConfigSection from '../service-configuration/PodPlacementConstraintsConfigSection';
+import PodContainersConfigSection from './PodContainersConfigSection';
+import PodEnvironmentVariablesConfigSection from './PodEnvironmentVariablesConfigSection';
+import PodGeneralConfigSection from './PodGeneralConfigSection';
+import PodHealthChecksConfigSection from './PodHealthChecksConfigSection';
+import PodLabelsConfigSection from './PodLabelsConfigSection';
+import PodNetworkConfigSection from './PodNetworkConfigSection';
+import PodPlacementConstraintsConfigSection from './PodPlacementConstraintsConfigSection';
 import PodSpec from '../structs/PodSpec';
-import PodStorageConfigSection from '../service-configuration/PodStorageConfigSection';
-import ServiceConfigEnvironmentVariablesSectionDisplay from './ServiceConfigEnvironmentVariablesSectionDisplay';
-import ServiceConfigGeneralSectionDisplay from './ServiceConfigGeneralSectionDisplay';
-import ServiceConfigHealthChecksSectionDisplay from './ServiceConfigHealthChecksSectionDisplay';
-import ServiceConfigLabelsSectionDisplay from './ServiceConfigLabelsSectionDisplay';
-import ServiceConfigNetworkingSectionDisplay from './ServiceConfigNetworkingSectionDisplay';
-import ServiceConfigPlacementConstraintsSectionDisplay from './ServiceConfigPlacementConstraintsSectionDisplay';
-import ServiceConfigStorageSectionDisplay from './ServiceConfigStorageSectionDisplay';
+import PodStorageConfigSection from './PodStorageConfigSection';
+import ServiceEnvironmentVariablesConfigSection from './ServiceEnvironmentVariablesConfigSection';
+import ServiceGeneralConfigSection from './ServiceGeneralConfigSection';
+import ServiceHealthChecksConfigSection from './ServiceHealthChecksConfigSection';
+import ServiceLabelsConfigSection from './ServiceLabelsConfigSection';
+import ServiceNetworkingConfigSection from './ServiceNetworkingConfigSection';
+import ServicePlacementConstraintsConfigSection from './ServicePlacementConstraintsConfigSection';
+import ServiceStorageConfigSection from './ServiceStorageConfigSection';
 
 const PRIORITIES_PAD_NUMBER = 100;
 const DEFAULT_DISPLAY_COMPONENTS = [
   {
     MOUNT_TYPE: 'CreateService:ServiceConfigDisplay:App',
     COMPONENTS: [
-      ServiceConfigGeneralSectionDisplay,
-      ServiceConfigPlacementConstraintsSectionDisplay,
-      ServiceConfigNetworkingSectionDisplay,
-      ServiceConfigStorageSectionDisplay,
-      ServiceConfigEnvironmentVariablesSectionDisplay,
-      ServiceConfigLabelsSectionDisplay,
-      ServiceConfigHealthChecksSectionDisplay
+      ServiceGeneralConfigSection,
+      ServicePlacementConstraintsConfigSection,
+      ServiceNetworkingConfigSection,
+      ServiceStorageConfigSection,
+      ServiceEnvironmentVariablesConfigSection,
+      ServiceLabelsConfigSection,
+      ServiceHealthChecksConfigSection
     ]
   },
   {
@@ -87,13 +87,16 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   render() {
+    const {appConfig, errors, onEditClick} = this.props;
+
     return (
       <ConfigurationMap>
         {this.getRootErrors()}
         <MountService.Mount
-          type={this.getMountType()}
-          errors={this.props.errors}
-          appConfig={this.props.appConfig} />
+          appConfig={appConfig}
+          errors={errors}
+          onEditClick={onEditClick}
+          type={this.getMountType()} />
       </ConfigurationMap>
     );
   };
@@ -107,7 +110,8 @@ ServiceConfigDisplay.defaultProps = {
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
   clearError: React.PropTypes.func,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = ServiceConfigDisplay;

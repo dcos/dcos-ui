@@ -7,7 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ApplicationSpec from '../../structs/ApplicationSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
-import ServiceConfigDisplay from '../../components/ServiceConfigDisplay';
+import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 

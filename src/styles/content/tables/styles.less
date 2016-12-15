@@ -1,113 +1,111 @@
 & when (@table-enabled) {
 
-  .table {
+  tr,
+  .table-row {
 
-    tr {
+    &:hover {
 
-      &:hover {
+      .table-display-on-row-hover {
+        visibility: visible;
+      }
+    }
+
+    &.inactive {
+
+      .expanding-table-primary-cell,
+      .icon-grey,
+      .status-text,
+      .table-cell-link-primary,
+      .table-cell-link-secondary,
+      .table-cell-value {
+        color: @table-cell-inactive-color;
+        text-decoration: none;
+      }
+
+      .expanding-table-primary-cell {
+
+        &.is-expandable {
+
+          &:before {
+            border-left-color: @table-cell-inactive-color;
+          }
+        }
+      }
+
+      .task-status-error,
+      .task-status-failed,
+      .text-error-state {
+        color: @danger-color;
+      }
+    }
+
+    .table-display-on-row-hover {
+      visibility: hidden;
+    }
+
+    // Because dropdown menus render at the root of the body tag, the :hover
+    // pseudoclass doesn't apply when the user's mouse enters the dropdown.
+    // This forces the button to stay visible whle the dropdown menu is open.
+    .dropdown {
+
+      &.open {
 
         .table-display-on-row-hover {
           visibility: visible;
         }
       }
-
-      &.inactive {
-
-        .expanding-table-primary-cell,
-        .icon-grey,
-        .status-text,
-        .table-cell-link-primary,
-        .table-cell-link-secondary,
-        .table-cell-value {
-          color: @table-cell-inactive-color;
-          text-decoration: none;
-        }
-
-        .expanding-table-primary-cell {
-
-          &.is-expandable {
-
-            &:before {
-              border-left-color: @table-cell-inactive-color;
-            }
-          }
-        }
-
-        .task-status-error,
-        .task-status-failed,
-        .text-error-state {
-          color: @danger-color;
-        }
-      }
-
-      .table-display-on-row-hover {
-        visibility: hidden;
-      }
-
-      // Because dropdown menus render at the root of the body tag, the :hover
-      // pseudoclass doesn't apply when the user's mouse enters the dropdown.
-      // This forces the button to stay visible whle the dropdown menu is open.
-      .dropdown {
-
-        &.open {
-
-          .table-display-on-row-hover {
-            visibility: visible;
-          }
-        }
-      }
     }
+  }
+
+  th {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  td {
+    // This property is necessary for table cells to respect the text-overflow
+    // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+    max-width: 0;
+    vertical-align: middle;
+  }
+
+  .table-header-title {
+    vertical-align: middle;
+  }
+
+  .table-header-help-icon {
+    margin-left: @base-spacing-unit * 0.25;
+  }
+
+  &.table-header-nowrap {
 
     th {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      vertical-align: middle;
+      white-space: nowrap;
     }
+  }
 
-    td {
-      // This property is necessary for table cells to respect the text-overflow
-      // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
-      max-width: 0;
-      vertical-align: middle;
+  .table-cell-emphasized {
+    color: @table-cell-highlight-color;
+    font-weight: 700;
+  }
+
+  .flush-left {
+    padding-left: 0;
+  }
+
+  .table-cell-link-primary,
+  .table-cell-link-secondary {
+    color: @table-cell-highlight-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
     }
+  }
 
-    .table-header-title {
-      vertical-align: middle;
-    }
-
-    .table-header-help-icon {
-      margin-left: @base-spacing-unit * 0.25;
-    }
-
-    &.table-header-nowrap {
-
-      th {
-        white-space: nowrap;
-      }
-    }
-
-    .table-cell-emphasized {
-      color: @table-cell-highlight-color;
-      font-weight: 700;
-    }
-
-    .flush-left {
-      padding-left: 0;
-    }
-
-    .table-cell-link-primary,
-    .table-cell-link-secondary {
-      color: @table-cell-highlight-color;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .table-cell-link-primary {
-      font-weight: 700;
-    }
+  .table-cell-link-primary {
+    font-weight: 700;
   }
 
   .table-hide-header {

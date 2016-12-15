@@ -38,10 +38,23 @@
       }
     }
 
+    &-action,
     &-label,
     &-value {
       padding: @configuration-map-item-padding-vertical 0;
+      vertical-align: middle;
       word-break: break-all;
+    }
+
+    // We need specificity here to override table styles
+    &-action,
+    td&-action {
+      text-align: right;
+      width: @base-spacing-unit * 3;
+
+      .button {
+        height: auto;
+      }
     }
 
     &-label {
@@ -98,9 +111,14 @@
         }
       }
 
+      &-action,
       &-label,
       &-value {
         padding: @configuration-map-item-padding-vertical-screen-small 0;
+      }
+
+      &-action {
+        width: @base-spacing-unit-screen-small * 3;
       }
 
       &-label {
@@ -135,9 +153,14 @@
         }
       }
 
+      &-action,
       &-label,
       &-value {
         padding: @configuration-map-item-padding-vertical-screen-medium 0;
+      }
+
+      &-action {
+        width: @base-spacing-unit-screen-medium * 3;
       }
 
       &-label {
@@ -172,9 +195,14 @@
         }
       }
 
+      &-action,
       &-label,
       &-value {
         padding: @configuration-map-item-padding-vertical-screen-large 0;
+      }
+
+      &-action {
+        width: @base-spacing-unit-screen-large * 3;
       }
 
       &-label {
@@ -209,9 +237,14 @@
         }
       }
 
+      &-action,
       &-label,
       &-value {
         padding: @configuration-map-item-padding-vertical-screen-jumbo 0;
+      }
+
+      &-action {
+        width: @base-spacing-unit-screen-jumbo * 3;
       }
 
       &-label {

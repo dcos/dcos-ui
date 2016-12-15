@@ -16,7 +16,7 @@ import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePi
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
-import ServiceConfigDisplay from '../ServiceConfigDisplay';
+import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
@@ -97,7 +97,7 @@ class NewServiceFormModal extends Component {
     return false;
   }
 
-  handleGoBack() {
+  handleGoBack({tabViewID}) {
     let {
       serviceFormActive,
       serviceJsonActive,
@@ -109,7 +109,8 @@ class NewServiceFormModal extends Component {
       // Just hide review screen. Form or JSON mode will be
       // activated automaticaly depending on their last state
       this.setState({
-        serviceReviewActive: false
+        serviceReviewActive: false,
+        activeTab: tabViewID
       });
       return;
     }
@@ -293,6 +294,7 @@ class NewServiceFormModal extends Component {
         <div className="flex-item-grow-1">
           <div className="container">
             <ServiceConfigDisplay
+              onEditClick={this.handleGoBack}
               appConfig={this.state.serviceConfig}
               clearError={this.props.clearError}
               errors={errorsMap} />
@@ -332,6 +334,7 @@ class NewServiceFormModal extends Component {
 
       return (
         <NewCreateServiceModalForm
+          activeTab={this.state.activeTab}
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
           inputConfigReducers={inputConfigReducers}
@@ -425,6 +428,7 @@ class NewServiceFormModal extends Component {
 
   getResetState(nextProps = this.props) {
     let newState = {
+      activeTab: null,
       isJSONModeActive: false,
       serviceConfig: nextProps.service.getSpec(),
       serviceFormActive: false,

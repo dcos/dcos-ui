@@ -2,6 +2,7 @@ import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {getDisplayValue} from '../utils/ServiceConfigDisplayUtil';
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
@@ -28,9 +29,10 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
   }
 
   render() {
-    const {appConfig} = this.props;
+    const {appConfig, onEditClick} = this.props;
+    const {values, tabViewID} = this.getDefinition();
 
-    const configurationMapRows = this.getDefinition().values.filter((row) => {
+    const configurationMapRows = values.filter((row) => {
       // Some rows must be excluded if relevant data is missing.
       return !this.shouldExcludeItem(row);
     }).map((row, rowIndex) => {
@@ -63,6 +65,9 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
           <ConfigurationMapValue>
             {this.getDisplayValue(row.type, value)}
           </ConfigurationMapValue>
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       );
     });
