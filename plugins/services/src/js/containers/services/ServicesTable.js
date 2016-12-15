@@ -232,12 +232,7 @@ class ServicesTable extends React.Component {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
-    let queue = null;
-
-    if (!!service.getQueue) {
-      queue = service.getQueue();
-    }
-
+    let queue = service.getQueue();
     if (queue != null) {
       const waitingSince = DateUtil.strToMs(queue.since);
       const timeWaiting = Date.now() - waitingSince;
