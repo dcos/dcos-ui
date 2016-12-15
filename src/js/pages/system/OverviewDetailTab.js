@@ -6,9 +6,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
 import DescriptionList from '../../components/DescriptionList';
 import Loader from '../../components/Loader';
+import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
 import Page from '../../components/Page';
 
@@ -36,6 +38,10 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       {
         name: 'marathon',
         events: ['instanceInfoSuccess']
+      },
+      {
+        name: 'metadata',
+        events: ['dcosSuccess']
       }
     ];
   }
@@ -52,6 +58,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
   getClusterDetailsHash() {
     let ccid = ConfigStore.get('ccid');
+    let productVersion = MetadataStore.version;
 
     if (Object.keys(ccid).length) {
       ccid = ccid.zbase32_public_key;
@@ -59,7 +66,12 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       ccid = this.getLoading();
     }
 
+    if (productVersion == null) {
+      productVersion = this.getLoading();
+    }
+
     return {
+      [`${Config.productName} Version`]: productVersion,
       'Cryptographic Cluster ID': ccid
     };
   }
