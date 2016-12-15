@@ -189,7 +189,7 @@ class SystemLogStore extends BaseStore {
     subscriptionID = SystemLogActions.subscribe(nodeID, options);
 
     // Start a timer to notify view if we have received nothing
-    // within recenable time
+    // within reasonable time
     setTimeout(() => {
       if (subscriptionID && !this.logs[subscriptionID]) {
         // Send event that we have not received anything. However,
