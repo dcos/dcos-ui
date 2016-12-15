@@ -254,6 +254,34 @@ describe('SystemLogActions', function () {
       this.eventSource.dispatchEvent('error', closeEvent);
     });
 
+    it('reverses received data', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data[0].foo).toEqual(1);
+        expect(action.data[1].foo).toEqual(0);
+      });
+
+      this.eventSource.dispatchEvent('message', {
+        data: '{"foo": 0}',
+        eventPhase: global.EventSource.OPEN,
+        origin: global.location.origin
+      });
+      this.eventSource.dispatchEvent('message', {
+        data: '{"foo": 1}',
+        eventPhase: global.EventSource.OPEN,
+        origin: global.location.origin
+      });
+      // Close before we the 3 events we have requested to show
+      // that we have reached the top
+      let closeEvent = {
+        data: {},
+        eventPhase: global.EventSource.CLOSED,
+        origin: global.location.origin
+      };
+      this.eventSource.dispatchEvent('error', closeEvent);
+    });
+
     it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
