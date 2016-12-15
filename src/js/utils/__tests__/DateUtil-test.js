@@ -59,44 +59,6 @@ describe('DateUtil', function () {
     });
   });
 
-  describe('#msToCTime', function () {
-    beforeEach(function () {
-      // Clean up application timers.
-      jasmine.clock().uninstall();
-      // Install our custom jasmine timers.
-      jasmine.clock().install();
-      jasmine.clock().mockDate(new Date(2016, 3, 19));
-    });
-
-    it('should return the correct string for AM', function () {
-      // December is 11 due to months being 0-based index.
-      var christmas = new Date(2015, 11, 25, 8, 13);
-      var christmasValue = christmas.valueOf();
-
-      var result = DateUtil.msToCTime(christmasValue);
-
-      expect(result).toEqual('Fri Dec 25 16:13:00 2015');
-    });
-
-    it('should return the correct string for PM', function () {
-      var halloween = new Date(2015, 9, 31, 20, 30);
-      var halloweenValue = halloween.valueOf();
-
-      var result = DateUtil.msToCTime(halloweenValue);
-
-      expect(result).toEqual('Sun Nov 01 03:30:00 2015');
-    });
-
-    it('can handle older dates', function () {
-      var specialDay = new Date(1993, 9, 19, 11, 29);
-      var specialDayValue = specialDay.valueOf();
-
-      var result = DateUtil.msToCTime(specialDayValue);
-
-      expect(result).toEqual('Tue Oct 19 18:29:00 1993');
-    });
-  });
-
   describe('#msToDateStr', function () {
     it('should return the correct string for AM', function () {
       // December is 11 due to months being 0-based index.

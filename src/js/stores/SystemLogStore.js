@@ -20,6 +20,7 @@ import BaseStore from './BaseStore';
 import SystemLogActions from '../events/SystemLogActions';
 import {APPEND, PREPEND} from '../constants/SystemLogTypes';
 import {findNestedPropertyInObject} from '../utils/Util';
+import {HOSTNAME, MESSAGE, PID, SYSLOG_IDENTIFIER} from '../constants/LogFields';
 import {msToCTime} from '../utils/DateUtil';
 
 // Max data storage, i.e. maximum 5MB per log stream
@@ -126,7 +127,7 @@ class SystemLogStore extends BaseStore {
     // Formatting logs as we do in the CLI:
     // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260
     return entries.filter((entry) => {
-      return Boolean(findNestedPropertyInObject(entry, 'fields.MESSAGE'));
+      return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
     }).map(function (entry) {
       const {fields = {}} = entry;
       let lineData = [];
@@ -137,21 +138,21 @@ class SystemLogStore extends BaseStore {
       }
 
       // Optional fields
-      ['_HOSTNAME', 'SYSLOG_IDENTIFIER'].forEach((optionalField) => {
+      [HOSTNAME, SYSLOG_IDENTIFIER].forEach((optionalField) => {
         if (fields[optionalField]) {
           lineData.push(fields[optionalField]);
         }
       });
 
       // Concat to SYSLOG_IDENTIFIER if available
-      if (fields['_PID'] && fields['SYSLOG_IDENTIFIER']) {
+      if (fields[PID] && fields[SYSLOG_IDENTIFIER]) {
         const lastElement = lineData[lineData.length - 1];
-        lineData[lineData.length - 1] = `${lastElement}[${fields['_PID']}]`;
+        lineData[lineData.length - 1] = `${lastElement}[${fields[PID]}]`;
       }
 
       // If SYSLOG_IDENTIFIER is not available just add as separate field
-      if (fields['_PID'] && !fields['SYSLOG_IDENTIFIER']) {
-        lineData.push(`[${fields['_PID']}]`);
+      if (fields[PID] && !fields[SYSLOG_IDENTIFIER]) {
+        lineData.push(`[${fields[PID]}]`);
       }
 
       // Concat `:` to last element if there is data
@@ -160,7 +161,7 @@ class SystemLogStore extends BaseStore {
         lineData[lineData.length - 1] = `${lastElement}:`;
       }
 
-      lineData.push(fields['MESSAGE']);
+      lineData.push(fields[MESSAGE]);
 
       // Format: `date _HOSTNAME SYSLOG_IDENTIFIER[_PID]: MESSAGE`
       return `${lineData.join(' ')}`;
