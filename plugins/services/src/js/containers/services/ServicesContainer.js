@@ -12,7 +12,6 @@ import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import ServiceDetail from '../service-detail/ServiceDetail';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import ServiceModals from '../../components/modals/ServiceModals';
-import ServicesUtil from '../../utils/ServicesUtil';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceTreeView from './ServiceTreeView';
 
@@ -22,6 +21,17 @@ import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import Page from '../../../../../../src/js/components/Page';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+
+import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
+import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
+import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
+import ServiceAttributeHealthFilter
+  from '../../filters/ServiceAttributeHealthFilter';
+import ServiceAttributeNoHealthchecksFilter from '../../filters/ServiceAttributeNoHealthchecksFilter';
+import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
+import ServiceAttributeIsPodFilter from '../../filters/ServiceAttributeIsPodFilter';
+import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUniverseFilter';
+import ServiceAttributeHasVolumesFilter from '../../filters/ServiceAttributeHasVolumesFilter';
 
 import {
   DCOS_CHANGE
@@ -67,6 +77,16 @@ import {
   MARATHON_SERVICE_VERSIONS_ERROR
 } from '../../constants/EventTypes';
 
+const SERVICE_FILTERS = new DSLFilterList([
+  new ServiceAttributeHealthFilter(),
+  new ServiceAttributeHasVolumesFilter(),
+  new ServiceAttributeIsFilter(),
+  new ServiceAttributeIsPodFilter(),
+  new ServiceAttributeIsUniverseFilter(),
+  new ServiceAttributeNoHealthchecksFilter(),
+  new ServiceNameTextFilter()
+]);
+
 /**
  * Increments error count for each fetch type when we have a request error and
  * resets to zero when fetch was successful for type
@@ -98,20 +118,11 @@ function countFetchErrors(fetchErrors, action) {
   }
 };
 
-// Query parameters that need to be converted from
-// Array[String] to Array[Int]
-const INTEGER_QUERY_ARRAYS = [
-  'filterStatus',
-  'filterHealth',
-  'filterOther'
-];
-
 const METHODS_TO_BIND = [
   'handleServerAction',
-  'handleFilterChange',
+  'handleFilterExpressionChange',
   'handleModalClose',
   'clearActionError',
-  'clearFilters',
   'createGroup',
   'revertDeployment',
   'deleteGroup',
@@ -120,8 +131,7 @@ const METHODS_TO_BIND = [
   'deleteService',
   'editService',
   'restartService',
-  'onStoreChange',
-  'setQueryParams'
+  'onStoreChange'
 ];
 
 class ServicesContainer extends React.Component {
@@ -131,7 +141,7 @@ class ServicesContainer extends React.Component {
     this.state = {
       actionErrors: {},
       fetchErrors: {},
-      filters: {},
+      filterExpression: new DSLExpression(),
       isLoading: true,
       lastUpdate: 0,
       pendingActions: {}
@@ -172,11 +182,11 @@ class ServicesContainer extends React.Component {
 
   propsToState(props) {
     const itemId = decodeURIComponent(props.params.id || '/');
-    const filters = this.getFiltersFromQuery(props.location.query);
+    const filterQuery = props.location.query['q'] || '';
 
     this.setState({
-      itemId,
-      filters
+      filterExpression: new DSLExpression(filterQuery),
+      itemId
     });
   }
 
@@ -319,55 +329,12 @@ class ServicesContainer extends React.Component {
     this.setState({modal: {}});
   }
 
-  handleFilterChange(filterType, filterValue) {
-    const filters = Object.assign(
-      {},
-      this.state.filters,
-      {[filterType]: filterValue}
-    );
+  handleFilterExpressionChange(filterExpression) {
+    const {router} = this.context;
+    const {location: {pathname}} = this.props;
+    router.push({pathname, query: {q: filterExpression.value}});
 
-    // Delete filter key if value is null
-    if (!filterValue || !filterValue.length) {
-      delete filters[filterType];
-    }
-
-    this.setState({filters}, this.setQueryParams);
-  }
-
-  getFiltersFromQuery(query) {
-    return Object.keys(query).reduce(function (memo, filterKey) {
-      const value = query[filterKey];
-
-      const mapToInts = INTEGER_QUERY_ARRAYS.includes(filterKey)
-        && Array.isArray(value);
-
-      if (value != null && value.length > 0) {
-        if (mapToInts) {
-          // Our ServiceTree filtering and SidebarFilter components
-          // expect Arrays of Int's
-          memo[filterKey] = value.map(function (val) {
-            return parseInt(val, 10);
-          });
-        } else {
-          memo[filterKey] = value;
-        }
-      }
-
-      if (filterKey === 'filterLabels') {
-        try {
-          memo[filterKey] = value.map(function (label) {
-            const [key, val] = label.split(';');
-
-            return {key, value: val};
-          });
-        } catch (e) {
-          // Delete so filters cannot be tempted to use in a broken state
-          delete memo[filterKey];
-        }
-      }
-
-      return memo;
-    }, {});
+    this.setState({filterExpression});
   }
 
   fetchData() {
@@ -426,24 +393,6 @@ class ServicesContainer extends React.Component {
     });
   }
 
-  clearFilters() {
-    this.setState({filters: {}}, this.setQueryParams);
-  }
-
-  setQueryParams() {
-    const {router} = this.context;
-    const {location: {pathname}} = this.props;
-    let filters = Object.assign({}, this.state.filters);
-    // Transform labels filter so it is easily decoded again
-    if (filters.filterLabels) {
-      filters.filterLabels = filters.filterLabels.map(function (label) {
-        return `${label.key};${label.value}`;
-      });
-    }
-
-    router.push({pathname, query: filters});
-  }
-
   getModalHandlers() {
     const set = (id, props) => {
       // Set props to be passed into modal
@@ -477,43 +426,6 @@ class ServicesContainer extends React.Component {
     };
   }
 
-  getServices(serviceTree) {
-    const {filters} = this.state;
-
-    if (filters.searchString) {
-      serviceTree = serviceTree.filterItemsByFilter({
-        id: filters.searchString
-      });
-    }
-
-    const all = serviceTree.flattenItems().getItems();
-    const countByFilter = ServicesUtil.getCountByType(all);
-
-    let filtered = serviceTree.getItems();
-
-    if (Object.keys(filters).length
-      && !(Object.keys(filters).length === 1 && filters.searchString)) {
-
-      filtered = serviceTree.filterItemsByFilter({
-        health: filters.filterHealth,
-        labels: filters.filterLabels,
-        other: filters.filterOther,
-        status: filters.filterStatus
-      });
-
-      if (!filters.searchString) {
-        filtered = filtered.flattenItems();
-      }
-      filtered = filtered.getItems();
-    }
-
-    return {
-      all,
-      countByFilter,
-      filtered
-    };
-  }
-
   getModals(service) {
     let modalProps = Object.assign({}, this.state.modal);
 
@@ -540,7 +452,7 @@ class ServicesContainer extends React.Component {
 
     const {
       fetchErrors,
-      filters,
+      filterExpression,
       isLoading,
       itemId
     } = this.state;
@@ -595,29 +507,27 @@ class ServicesContainer extends React.Component {
 
     // Show Tree
     if (item instanceof ServiceTree) {
-      const {
-        all,
-        countByFilter,
-        filtered
-      } = this.getServices(item);
+      let isEmpty = (item.getItems().length === 0);
+      let filteredServices = item;
 
-      const services = {
-        all,
-        countByFilter,
-        filtered,
-        filters
-      };
+      if (filterExpression.defined) {
+        filteredServices = filterExpression.filter(
+          SERVICE_FILTERS, filteredServices.flattenItems()
+        );
+      }
 
       // TODO move modals to Page
       return (
         <ServiceTreeView
-          clearFilters={this.clearFilters}
-          handleFilterChange={this.handleFilterChange}
+          filters={SERVICE_FILTERS}
+          filterExpression={filterExpression}
+          isEmpty={isEmpty}
+          modals={this.getModals(item)}
+          onFilterExpressionChange={this.handleFilterExpressionChange}
           params={this.props.params}
           routes={this.props.routes}
-          services={services}
-          serviceTree={item}
-          modals={this.getModals(item)} />
+          services={filteredServices.getItems()}
+          serviceTree={item} />
       );
     }
     // Not found

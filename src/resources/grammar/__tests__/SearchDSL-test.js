@@ -1,9 +1,52 @@
 jest.dontMock('../SearchDSL.jison');
 jest.dontMock('../../../js/utils/DSLParserUtil');
+jest.dontMock('../../../js/structs/DSLFilter');
+jest.dontMock('../../../js/structs/DSLFilterList');
+jest.dontMock('../../../js/structs/List');
 
-const SearchDSL = require('../SearchDSL.jison');
 const DSLFilterTypes = require('../../../js/constants/DSLFilterTypes');
 const DSLCombinerTypes = require('../../../js/constants/DSLCombinerTypes');
+const DSLFilter = require('../../../js/structs/DSLFilter');
+const DSLFilterList = require('../../../js/structs/DSLFilterList');
+const List = require('../../../js/structs/List');
+const SearchDSL = require('../SearchDSL.jison');
+
+// Handles 'attrib:?'
+class AttribFilter extends DSLFilter {
+  filterCanHandle(filterType, filterArguments) {
+    return filterType === DSLFilterTypes.ATTRIB &&
+           filterArguments.label === 'attrib';
+  }
+  filterApply(resultset, filterType, filterArguments) {
+    return resultset.filterItems((item) => {
+      return item.attrib.indexOf(filterArguments.text) !== -1;
+    });
+  }
+};
+
+// Handles 'text'
+class FuzzyTextFilter extends DSLFilter {
+  filterCanHandle(filterType) {
+    return filterType === DSLFilterTypes.FUZZY;
+  }
+  filterApply(resultset, filterType, filterArguments) {
+    return resultset.filterItems((item) => {
+      return item.text.indexOf(filterArguments.text) !== -1;
+    });
+  }
+};
+
+// Handles '"text"'
+class ExactTextFilter extends DSLFilter {
+  filterCanHandle(filterType) {
+    return filterType === DSLFilterTypes.EXACT;
+  }
+  filterApply(resultset, filterType, filterArguments) {
+    return resultset.filterItems((item) => {
+      return item.text === filterArguments.text;
+    });
+  }
+};
 
 describe('SearchDSL', function () {
 
@@ -54,6 +97,29 @@ describe('SearchDSL', function () {
         expect(expr.ast.children[1].filterType).toEqual(DSLFilterTypes.ATTRIB);
         expect(expr.ast.children[1].filterParams.text).toEqual('value2');
         expect(expr.ast.children[1].filterParams.label).toEqual('attrib');
+      });
+
+      it('should properly handle OR shorthand + OR with other operands', function () {
+        // NOTE: attrib:value1,value2 becomes -> attrib:value1, attrib:value2
+        let expr = SearchDSL.parse('attrib:value1,value2, foo');
+        expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
+
+        expect(expr.ast.children[0].combinerType).toEqual(DSLCombinerTypes.OR);
+        expect(expr.ast.children[0].children[0].filterType)
+          .toEqual(DSLFilterTypes.ATTRIB);
+        expect(expr.ast.children[0].children[0].filterParams.text)
+          .toEqual('value1');
+        expect(expr.ast.children[0].children[0].filterParams.label)
+          .toEqual('attrib');
+        expect(expr.ast.children[0].children[1].filterType)
+          .toEqual(DSLFilterTypes.ATTRIB);
+        expect(expr.ast.children[0].children[1].filterParams.text)
+          .toEqual('value2');
+        expect(expr.ast.children[0].children[1].filterParams.label)
+          .toEqual('attrib');
+
+        expect(expr.ast.children[1].filterType).toEqual(DSLFilterTypes.FUZZY);
+        expect(expr.ast.children[1].filterParams.text).toEqual('foo');
       });
 
       it('should correctly populate children', function () {
@@ -151,6 +217,84 @@ describe('SearchDSL', function () {
       it('should properly track location of attrib with multi values', function () {
         let expr = SearchDSL.parse('attrib:value1,value2');
         expect(expr.ast.children[1].position).toEqual([[0, 7], [14, 20]]);
+      });
+
+    });
+
+    describe('Filtering', function () {
+
+      beforeEach(function () {
+        this.filters = new DSLFilterList().add(
+          new AttribFilter(),
+          new FuzzyTextFilter(),
+          new ExactTextFilter()
+        );
+
+        this.mockResultset = new List({items: [
+          {text: 'some test string', attrib: ['a', 'b']},
+          {text: 'repeating test string', attrib: ['b', 'c']},
+          {text: 'some other string', attrib: ['c', 'd']}
+        ]});
+      });
+
+      it('should properly filter by fuzzy match', function () {
+        let expr = SearchDSL.parse('test');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']},
+          {text: 'repeating test string', attrib: ['b', 'c']}
+        ]);
+      });
+
+      it('should properly filter by exact match', function () {
+        let expr = SearchDSL.parse('"some other string"');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some other string', attrib: ['c', 'd']}
+        ]);
+      });
+
+      it('should properly filter by attribute', function () {
+        let expr = SearchDSL.parse('attrib:b');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']},
+          {text: 'repeating test string', attrib: ['b', 'c']}
+        ]);
+      });
+
+      it('should combine with OR operator with multi-value attr', function () {
+        let expr = SearchDSL.parse('attrib:a,b');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']},
+          {text: 'repeating test string', attrib: ['b', 'c']}
+        ]);
+      });
+
+      it('should combine with OR operator multiple attr', function () {
+        let expr = SearchDSL.parse('attrib:a, attrib:b');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']},
+          {text: 'repeating test string', attrib: ['b', 'c']}
+        ]);
+      });
+
+      it('should combine with AND operator multiple attr', function () {
+        let expr = SearchDSL.parse('attrib:a attrib:b');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']}
+        ]);
+      });
+
+      it('should combine with AND operator multiple attr', function () {
+        let expr = SearchDSL.parse('attrib:a attrib:b');
+
+        expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
+          {text: 'some test string', attrib: ['a', 'b']}
+        ]);
       });
 
     });

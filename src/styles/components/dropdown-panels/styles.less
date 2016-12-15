@@ -1,0 +1,35 @@
+& when (@dropdown-panels-enabled) {
+
+  .dropdown-panel-group {
+    position: relative;
+
+    & > .dropdown-panel {
+      box-shadow: @modal-shadow;
+      position: absolute;
+      right: 0;
+      z-index: @z-index-overlay;
+
+      &.dropdown-panel-full-width {
+        width: 100%;
+      }
+
+      &.dropdown-panel-left {
+        left: 0;
+        right: auto;
+      }
+
+      &.dropdown-panel-animated {
+        opacity: 0;
+        pointer-events: none;
+        transform: @dropdown-panels-animation-transform;
+        transition: transform @modal-animation-duration @modal-animation-easing, opacity @modal-animation-duration @modal-animation-easing;
+
+        &.is-visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: @dropdown-panels-rest-transform;
+        }
+      }
+    }
+  }
+}

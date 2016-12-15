@@ -1,44 +1,59 @@
+import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import EmptyServiceTree from './EmptyServiceTree';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import ServiceSearchFilter from './ServiceSearchFilter';
-import ServiceSidebarFilters from './ServiceSidebarFilters';
-import ServiceTree from '../../structs/ServiceTree';
 import ServicesTable from './ServicesTable';
 
-import FilterBar from '../../../../../../src/js/components/FilterBar';
-import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
 import Page from '../../../../../../src/js/components/Page';
+import Service from '../../structs/Service';
+import ServiceTree from '../../structs/ServiceTree';
+
+import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
+import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
+import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
+
+import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
+import ServiceOtherDSLSection from '../../components/dsl/ServiceOtherDSLSection';
+import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
+import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
 
 class ServiceTreeView extends React.Component {
+  getFilterBar() {
+    const {
+      filters,
+      filterExpression,
+      onFilterExpressionChange
+    } = this.props;
 
-  getHeadline() {
-    const {services} = this.props;
+    let hostClasses = classNames({
+      'column-medium-5': !filterExpression.value,
+      'column-medium-12': filterExpression.value
+    });
 
-    if (services.filters.searchString) {
+    return (
+      <div className="row">
+        <div className={hostClasses}>
+          <DSLFilterField
+            filters={filters}
+            formSections={[
+              ServiceStatusDSLSection,
+              ServiceHealthDSLSection,
+              ServiceOtherDSLSection,
+              FuzzyTextDSLSection
+            ]}
+            expression={filterExpression}
+            onChange={onFilterExpressionChange} />
+        </div>
+      </div>
+    );
+  }
+
+  getSearchHeader() {
+    let {filterExpression} = this.props;
+    if (filterExpression.defined) {
       return (
-        <ul className="breadcrumb-style-headline list-unstyled list-inline">
-          <li className="h4">
-            Showing results for "{services.filters.searchString}"
-          </li>
-          <li className="h4 clickable" onClick={this.props.clearFilters}>
-            <a className="small">
-              (Clear)
-            </a>
-          </li>
-        </ul>
-      );
-    }
-
-    if (Object.keys(services.filters).length) {
-      return (
-        <FilterHeadline
-          className="breadcrumb-style-headline"
-          onReset={this.props.clearFilters}
-          name="Service"
-          currentLength={services.filtered.length}
-          totalLength={services.all.length} />
+        <h5 className="muted">Search Results</h5>
       );
     }
 
@@ -48,38 +63,21 @@ class ServiceTreeView extends React.Component {
   render() {
     const {
       modals,
+      filterExpression,
+      isEmpty,
       serviceTree,
       services
     } = this.props;
 
     const {modalHandlers} = this.context;
 
-    if (serviceTree.getItems().length) {
+    if (isEmpty) {
       return (
         <Page>
-          <Page.Header
-            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-            actions={[{onItemSelect: modalHandlers.createGroup, label: 'Create Group'}]}
-            addButton={{onItemSelect: modalHandlers.createService, label: 'Run a Service'}}
-            />
-          <div className="flex">
-            <ServiceSidebarFilters
-              countByValue={services.countByFilter}
-              filters={services.filters}
-              handleFilterChange={this.props.handleFilterChange}
-              services={services.all} />
-            <div className="flex-grow">
-              {this.getHeadline()}
-              <FilterBar>
-                <ServiceSearchFilter
-                  handleFilterChange={this.props.handleFilterChange}
-                  filters={services.filters || {}} />
-              </FilterBar>
-              <ServicesTable services={services.filtered}
-                isFiltered={!!Object.keys(services.filters).length}
-                modalHandlers={modalHandlers} />
-            </div>
-          </div>
+          <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
+          <EmptyServiceTree
+            onCreateGroup={modalHandlers.createGroup}
+            onCreateService={modalHandlers.createService} />
           {modals}
         </Page>
       );
@@ -87,10 +85,19 @@ class ServiceTreeView extends React.Component {
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
-        <EmptyServiceTree
-          onCreateGroup={modalHandlers.createGroup}
-          onCreateService={modalHandlers.createService} />
+        <Page.Header
+          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          actions={[{onItemSelect: modalHandlers.createGroup, label: 'Create Group'}]}
+          addButton={{onItemSelect: modalHandlers.createService, label: 'Run a Service'}}
+          />
+        <div>
+          {this.getFilterBar()}
+          {this.getSearchHeader()}
+          <ServicesTable
+            isFiltered={filterExpression.defined}
+            modalHandlers={modalHandlers}
+            services={services} />
+        </div>
         {modals}
       </Page>
     );
@@ -104,19 +111,22 @@ ServiceTreeView.contextTypes = {
   }).isRequired
 };
 
-const servicesProps = PropTypes.shape({
-  all: PropTypes.array,
-  countByFilter: PropTypes.object,
-  filters: PropTypes.object,
-  filtered: PropTypes.array
-}).isRequired;
+ServiceTreeView.defaultProps = {
+  onFilterExpressionChange() {},
+  isEmpty: false
+};
 
 ServiceTreeView.propTypes = {
-  clearFilters: PropTypes.func.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
+  filters: PropTypes.instanceOf(DSLFilterList).isRequired,
+  filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
+  isEmpty: PropTypes.bool,
   modals: PropTypes.node,
-  serviceTree: PropTypes.instanceOf(ServiceTree),
-  services: servicesProps
+  onFilterExpressionChange: PropTypes.func,
+  services: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.instanceOf(Service),
+    PropTypes.instanceOf(ServiceTree)
+  ])).isRequired,
+  serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
 module.exports = ServiceTreeView;
