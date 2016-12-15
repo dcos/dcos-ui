@@ -7,7 +7,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as volumeMounts} from '../../reducers/serviceForm/VolumeMounts';
+import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
