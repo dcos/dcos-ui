@@ -40,6 +40,7 @@ const defaultEndpointsFieldValues = {
 };
 
 function mapEndpoints(endpoints = [], networkType, appState) {
+
   return endpoints.map((endpoint, index) => {
     let {
       name,
@@ -51,9 +52,11 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       labels,
       loadBalanced
     } = endpoint;
+
     if (automaticPort) {
       hostPort = 0;
     }
+
     if (networkType === Networking.type.CONTAINER) {
       if (loadBalanced) {
         if (vip == null) {
@@ -73,6 +76,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         labels
       };
     }
+
     return {
       name,
       hostPort,
@@ -83,8 +87,10 @@ function mapEndpoints(endpoints = [], networkType, appState) {
 
 function containersParser(state) {
   if (state == null || state.containers == null) {
+
     return [];
   }
+
   return state.containers.reduce((memo, item, index) => {
     memo.push(new Transaction(['containers'], index, ADD_ITEM));
     if (item.name) {
@@ -132,6 +138,7 @@ function containersParser(state) {
     if (item.healthChecks != null && item.healthChecks.length !== 0) {
       memo = item.healthChecks.reduce(function (memo, item, HealthCheckIndex) {
         if (item.protocol == null) {
+
           return memo;
         }
         memo.push(new Transaction([
@@ -160,6 +167,7 @@ function containersParser(state) {
         }
 
         advancedContainerSettings.filter((key) => {
+
           return item[key] != null;
         }).forEach((key) => {
           if (item[key] != null) {
@@ -187,6 +195,7 @@ function containersParser(state) {
           ], artifactIndex, ADD_ITEM)
         );
         memo.push(...Object.keys(artifact).map((key) => {
+
           return new Transaction([
             'containers',
             index,
@@ -315,17 +324,23 @@ module.exports = {
     }
 
     if (!path.includes('containers') && !path.includes('volumeMounts')) {
+
       return state.map((container, index) => {
         container.endpoints = mapEndpoints(
           this.endpoints[index].endpoints,
           this.networkType,
           this.appState
         );
+
         return container;
       });
     }
 
     if (this.cache == null) {
+      // This is needed to provide a context for nested reducers.
+      // Containers is an array so we will have multiple items and so that
+      // the reducers are not overwriting each others context we are
+      // providing one object per item in the array.
       this.cache = [];
     }
 
@@ -354,12 +369,15 @@ module.exports = {
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
+
             return index !== value;
           });
           this.cache = this.cache.filter((item, index) => {
+
             return index !== value;
           });
           this.endpoints = this.endpoints.filter((item, index) => {
+
             return index !== value;
           });
           break;
@@ -376,8 +394,10 @@ module.exports = {
     newState = state.map((container, index) => {
       if (this.volumeMounts.length !== 0) {
         container.volumeMounts = this.volumeMounts.filter((volumeMount) => {
+
           return volumeMount.name != null && volumeMount.mountPath[index];
         }).map((volumeMount) => {
+
           return {
             name: volumeMount.name,
             mountPath: volumeMount.mountPath[index]
@@ -403,6 +423,7 @@ module.exports = {
         case REMOVE_ITEM:
           this.endpoints[index].endpoints =
             this.endpoints[index].endpoints.filter((item, index) => {
+
               return index !== value;
             });
           break;
@@ -433,6 +454,7 @@ module.exports = {
         this.networkType,
         this.appState
       );
+
       return container;
     });
 
@@ -464,6 +486,7 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].artifacts =
             newState[index].artifacts.filter((item, index) => {
+
               return index !== value;
             });
           break;
@@ -499,8 +522,8 @@ module.exports = {
     if (type === SET && joinedPath === `containers.${index}.image`) {
       newState[index] =
         Object.assign({},
-            newState[index],
-            {image: {id: value, kind: 'DOCKER'}});
+          newState[index],
+          {image: {id: value, kind: 'DOCKER'}});
     }
 
     return newState;
@@ -511,6 +534,7 @@ module.exports = {
     const [_, index, field, secondIndex, name] = path;
 
     if (!path.includes('containers')) {
+
       return state;
     }
 
@@ -539,9 +563,11 @@ module.exports = {
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
+
             return index !== value;
           });
           this.cache = this.cache.filter((item, index) => {
+
             return index !== value;
           });
           break;
@@ -565,12 +591,19 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].endpoints =
             newState[index].endpoints.filter((item, index) => {
+
               return index !== value;
             });
           break;
       }
 
-      const fieldNames = ['name', 'protocol', 'automaticPort', 'loadBalanced', 'vip'];
+      const fieldNames = [
+        'name',
+        'protocol',
+        'automaticPort',
+        'loadBalanced',
+        'vip'
+      ];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
       if (type === SET && fieldNames.includes(name)) {
@@ -609,6 +642,7 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].artifacts =
             newState[index].artifacts.filter((item, index) => {
+
               return index !== value;
             });
           break;
