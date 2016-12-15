@@ -65,10 +65,10 @@ class ServiceModals extends React.Component {
     };
 
     const newApp = new Application(
-        Object.assign(
-            {id: baseId},
-            DEFAULT_APP_SPEC
-        )
+      Object.assign(
+        {id: baseId},
+        DEFAULT_APP_SPEC
+      )
     );
 
     return (
@@ -80,7 +80,7 @@ class ServiceModals extends React.Component {
         marathonAction={createService}
         open={modalProps.id === ServiceActionItem.CREATE}
         service={newApp}
-        onClose={() => onClose(key)}/>
+        onClose={() => onClose(key)} />
     );
   }
 
