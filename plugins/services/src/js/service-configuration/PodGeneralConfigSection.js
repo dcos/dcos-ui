@@ -118,7 +118,7 @@ module.exports = ({appConfig}) => {
             <Value value={fields.backoffFactor} />
           </Row>
         )}
-        (fields.maxLaunchDelay != null && fields.maxLaunchDelay > 0) && (
+        {(fields.maxLaunchDelay != null && fields.maxLaunchDelay > 0) && (
           <Row>
             <Label>Backoff Max Launch Delay</Label>
             <DurationValue
