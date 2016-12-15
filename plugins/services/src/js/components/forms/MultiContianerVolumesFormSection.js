@@ -7,11 +7,11 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as volumeMounts} from '../../reducers/serviceForm/VolumeMounts';
+import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
-class VolumesFormSection extends Component {
+class MultiContainerVolumesFormSection extends Component {
 
   getContainerMounts(containers, volumeMountIndex) {
     const {volumeMounts} = this.props.data;
@@ -115,22 +115,22 @@ class VolumesFormSection extends Component {
   }
 }
 
-VolumesFormSection.defaultProps = {
+MultiContainerVolumesFormSection.defaultProps = {
   data: {},
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
 };
 
-VolumesFormSection.propTypes = {
+MultiContainerVolumesFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
   onRemoveItem: React.PropTypes.func
 };
 
-VolumesFormSection.configReducers = {
+MultiContainerVolumesFormSection.configReducers = {
   volumeMounts
 };
 
-module.exports = VolumesFormSection;
+module.exports = MultiContainerVolumesFormSection;

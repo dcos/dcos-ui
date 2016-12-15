@@ -11,7 +11,7 @@ import {
 import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
-import {FormReducer as volumeMountsReducer} from './VolumeMounts';
+import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
 import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
 
 const containerReducer = combineReducers({
