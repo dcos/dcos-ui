@@ -1,4 +1,4 @@
-const VolumeMounts = require('../VolumeMounts');
+const VolumeMounts = require('../MultiContainerVolumes');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
