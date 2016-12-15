@@ -17,6 +17,7 @@ import {
   SYSTEM_LOG_STREAM_TYPES_ERROR
 } from '../constants/EventTypes';
 import BaseStore from './BaseStore';
+import Config from '../config/Config';
 import SystemLogActions from '../events/SystemLogActions';
 import {APPEND, PREPEND} from '../constants/SystemLogTypes';
 import {findNestedPropertyInObject} from '../utils/Util';
@@ -184,8 +185,22 @@ class SystemLogStore extends BaseStore {
       cursor = entries[entries.length - 1].cursor;
       options = Object.assign({}, options, {cursor});
     }
+
+    subscriptionID = SystemLogActions.subscribe(nodeID, options);
+
+    // Start a timer to unsubscribe if we have received nothing within 3 seconds.
+    setTimeout(() => {
+      if (subscriptionID && !this.logs[subscriptionID]) {
+        // Send event that we have not received anything. However,
+        // keep connection open, if we receive data later, we want to show it.
+        this.emit(SYSTEM_LOG_CHANGE, subscriptionID, APPEND);
+      }
+      // Let's wait 3 x stateRefresh ~ 3 errors,
+      // as we do in other views
+    }, Config.stateRefresh * 3);
+
     // Return received subscriptionID
-    return SystemLogActions.subscribe(nodeID, options);
+    return subscriptionID;
   }
 
   stopTailing(subscriptionID, shouldClearData = false) {
