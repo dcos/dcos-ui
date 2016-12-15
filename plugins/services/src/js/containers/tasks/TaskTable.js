@@ -250,7 +250,7 @@ class TaskTable extends React.Component {
 
     let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
     if (nodeID != null) {
-      linkTo = `/nodes/${nodeID}/tasks/${task.id}/view`;
+      linkTo = `/nodes/${nodeID}/tasks/${task.id}/logs`;
     }
 
     return (
