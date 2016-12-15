@@ -1,17 +1,1 @@
-#!/usr/bin/env bash
-
-SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
-
-# Import utils
-source ${SCRIPT_PATH}/utils/message
-
-title "Run pre-push hook..."
-
-header "Run lint..."
-npm run lint &&
-if [ "undefined" != `npm config get externalplugins` ]; then
-  npm run lint-plugins || exit $?
-fi
-
-header "Run test..."
-npm run test -- -b
+# This file intentionally left empty to keep the link
