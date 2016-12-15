@@ -1,5 +1,5 @@
-import {Hooks} from 'PluginSDK';
 import mixin from 'reactjs-mixin';
+import {MountService} from 'foundation-ui';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -20,7 +20,6 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
-      errorMessage: null,
       lastUpdate: 0,
       mesosStateErrorCount: 0
     };
@@ -40,33 +39,19 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       || this.state.mesosStateErrorCount !== 0) {
 
       this.setState({
-        errorMessage: null,
         lastUpdate: Date.now(),
         mesosStateErrorCount: 0
       });
     }
   }
 
-  onStateStoreError(xhr) {
-    const errorMessage = Hooks.applyFilter(
-      'mesosStateErrorMessage',
-      xhr.status
-    );
-
-    if (errorMessage !== xhr.status) {
-      this.setState({errorMessage});
-
-      return;
-    }
-
+  onStateStoreError() {
     this.setState({
       mesosStateErrorCount: this.state.mesosStateErrorCount + 1
     });
   }
 
-  render() {
-    const {errorMessage} = this.state;
-
+  getContents() {
     const isLoading = Object.keys(
       MesosStateStore.get('lastMesosState')
     ).length === 0;
@@ -82,17 +67,16 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       return <RequestErrorMsg />;
     }
 
-    // Specific Mesos Error
-    if (errorMessage) {
-      return errorMessage;
-    }
-
     let tasks = MesosStateStore.getTasksByService(this.props.service);
 
+    return <TasksContainer params={this.props.params} tasks={tasks} />;
+  }
+
+  render() {
     return (
-      <TasksContainer
-        params={this.props.params}
-        tasks={tasks} />
+      <MountService.Mount type="ServiceTasksContainer:TasksContainer">
+        {this.getContents()}
+      </MountService.Mount>
     );
   }
 }
