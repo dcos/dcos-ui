@@ -35,8 +35,8 @@ module.exports = {
 
     return function (state) {
       let value = findNestedPropertyInObject(
-          state,
-          searchPath
+        state,
+        searchPath
       );
 
       if (value == null) {
