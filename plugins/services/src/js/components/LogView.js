@@ -132,9 +132,9 @@ class LogView extends React.Component {
       return;
     }
 
+    this.checkIfCloseToTop(target);
     // Only update variables if user actually interacts with the view
     if (this.state.userScroll) {
-      this.checkIfCloseToTop(target);
       this.checkIfAwayFromBottom(target);
     }
   }
