@@ -145,6 +145,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <div className="flex flex-align-items-center row" key="toggle">
         <FormGroup
           className="column-auto"
+          key="loadbalanced"
           showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FieldInput
@@ -155,7 +156,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-auto flush-left">
+        <FormGroup className="column-auto flush-left" key="address">
           <span>
             {address}
           </span>
@@ -177,7 +178,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           Protocol
         </FieldLabel>
         <div className="flex row">
-          <FormGroup className="column-auto">
+          <FormGroup className="column-auto" key="protocol-tcp">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
                 checked={endpoint.protocol === 'tcp'}
@@ -187,7 +188,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               TCP
             </FieldLabel>
           </FormGroup>
-          <FormGroup className="column-auto">
+          <FormGroup className="column-auto" key="protocol-udp">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
                 checked={endpoint.protocol === 'udp'}
@@ -219,7 +220,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: `containers.${containerIndex}.endpoints`}
           )}>
-          <div className="flex row">
+          <div className="flex row" key="endpoint-name">
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
@@ -231,7 +232,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </div>
-          <div className="flex row">
+          <div className="flex row" key="endpoints-configuration">
             {this.getHostPortFields(endpoint, index, containerIndex)}
             {this.getProtocolField(endpoint, index, containerIndex)}
           </div>
@@ -260,9 +261,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: `containers.${containerIndex}.endpoints`}
           )}>
-          <div className="flex row">
+          <div className="flex row" key="vip-port-name-group">
             <FormGroup
               className="column-3"
+              key="container-port"
               showError={Boolean(containerPortError)}>
               <FieldLabel>
                 Container Port
@@ -274,7 +276,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 value={endpoint.containerPort} />
               <FieldError>{containerPortError}</FieldError>
             </FormGroup>
-            <FormGroup className="column-6" showError={Boolean(nameError)}>
+            <FormGroup className="column-6" key="endpoint-name" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
@@ -285,7 +287,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </div>
-          <div className="flex row">
+          <div className="flex row" key="vip-host-protocol">
             {this.getHostPortFields(endpoint, index, containerIndex)}
             {this.getProtocolField(endpoint, index, containerIndex)}
           </div>
@@ -304,7 +306,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
       if (network === Networking.type.CONTAINER) {
         return (
-          <div>
+          <div key={index}>
             <h3 className="flush-top short-bottom">{container.name}</h3>
             {this.getVirtualNetworkServiceEndpoints(endpoints, index)}
             <div>
@@ -331,10 +333,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
       // Default to network type host.
       return (
-        <div>
+        <div key={index}>
           <h3 className="flush-top short-bottom">{container.name}</h3>
           {this.getHostServiceEndpoints(endpoints, index)}
-          <div>
+          <div key="add-button">
             <button
                 type="button"
                 onBlur={(event) => {
