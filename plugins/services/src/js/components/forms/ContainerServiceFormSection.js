@@ -14,6 +14,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
@@ -24,7 +25,6 @@ const containerSettings = {
     label: <span>Grant Runtime Privileges</span>,
     helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.',
     dockerOnly: 'Grant runtime privileges is only supported in Docker Runtime.'
-
   },
   forcePullImage: {
     label: <span>Force Pull Image On Launch</span>,
@@ -60,7 +60,7 @@ class ContainerServiceFormSection extends Component {
       }
 
       return (
-        <div key={index} className="flex row">
+        <FormRow key={index}>
           <FormGroup
             className="column-10"
             showError={Boolean(errors[index])}>
@@ -75,25 +75,21 @@ class ContainerServiceFormSection extends Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})} />
           </FormGroup>
-        </div>
+        </FormRow>
       );
     });
 
     if (data.length === 0) {
       content = (
-        <div className="flex row">
+        <FormRow>
           <FormGroup className="column-10">
             {getArtifactsLabel()}
           </FormGroup>
-        </div>
+        </FormRow>
       );
     }
 
-    return (
-      <div className="artifacts-section">
-        {content}
-      </div>
-    );
+    return content;
   }
 
   getGPUSInput(data) {
@@ -185,7 +181,7 @@ class ContainerServiceFormSection extends Component {
           <FieldError>{typeErrors}</FieldError>
         </FormGroup>
 
-        <div className="flex row">
+        <FormRow>
           <FormGroup className="column-4" showError={Boolean(!gpuDisabled && errors.gpus)}>
             {this.getGPUSInput(data)}
             <FieldError>{errors.gpus}</FieldError>
@@ -198,15 +194,17 @@ class ContainerServiceFormSection extends Component {
               value={data.disk} />
             <FieldError>{errors.disk}</FieldError>
           </FormGroup>
-        </div>
+        </FormRow>
         {this.getArtifactsInputs(data.fetch)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
-            + Add Artifact
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Artifact
+            </a>
+          </FormGroup>
+        </FormRow>
       </AdvancedSectionContent>
     );
   }
@@ -319,11 +317,12 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-top short-bottom">
+        <h2 className="short-bottom">
           Container
         </h2>
         <p>Configure your container below. Enter a container image or command you want to run.</p>
-        <div className="flex row">
+
+        <FormRow>
           <FormGroup
             className="column-6"
             showError={Boolean(containerType != null && containerType !== NONE && imageErrors)}>
@@ -345,6 +344,7 @@ class ContainerServiceFormSection extends Component {
               value={data.cpus} />
             <FieldError>{errors.cpus}</FieldError>
           </FormGroup>
+
           <FormGroup
             className="column-3"
             required={true}
@@ -358,16 +358,18 @@ class ContainerServiceFormSection extends Component {
               value={data.mem} />
             <FieldError>{errors.mem}</FieldError>
           </FormGroup>
-        </div>
+        </FormRow>
 
-        <FormGroup showError={Boolean(errors.cmd)}>
-          {this.getCMDLabel()}
-          <FieldTextarea name="cmd" value={data.cmd} />
-          <FieldHelp>
-            A shell command for your container to execute.
-          </FieldHelp>
-          <FieldError>{errors.cmd}</FieldError>
-        </FormGroup>
+        <FormRow>
+          <FormGroup className="column-12" showError={Boolean(errors.cmd)}>
+            {this.getCMDLabel()}
+            <FieldTextarea name="cmd" value={data.cmd} />
+            <FieldHelp>
+              A shell command for your container to execute.
+            </FieldHelp>
+            <FieldError>{errors.cmd}</FieldError>
+          </FormGroup>
+        </FormRow>
 
         <AdvancedSection>
           <AdvancedSectionLabel>

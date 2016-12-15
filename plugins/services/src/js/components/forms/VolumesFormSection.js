@@ -9,6 +9,8 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -30,7 +32,7 @@ class VolumesFormSection extends Component {
       .containerPath;
 
     return (
-      <div className="flex row">
+      <FormRow>
         <FormGroup
           className="column-3"
           required={false}
@@ -53,7 +55,7 @@ class VolumesFormSection extends Component {
             value={volume.containerPath}/>
           <FieldError>{containerPathError}</FieldError>
         </FormGroup>
-      </div>
+      </FormRow>
     );
   }
 
@@ -68,7 +70,7 @@ class VolumesFormSection extends Component {
     const modeError = errors.mode;
 
     return (
-      <div className="flex row">
+      <FormRow>
         <FormGroup
           className="column-4"
           required={false}
@@ -100,7 +102,7 @@ class VolumesFormSection extends Component {
             <option value="RO">READ ONLY</option>
           </FieldSelect>
         </FormGroup>
-      </div>
+      </FormRow>
     );
   }
 
@@ -135,7 +137,7 @@ class VolumesFormSection extends Component {
             this,
             {value: key, path: 'localVolumes'}
           )}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-6"
               required={false}
@@ -147,7 +149,7 @@ class VolumesFormSection extends Component {
                 {this.getHostOption(dockerImage)}
               </FieldSelect>
             </FormGroup>
-          </div>
+          </FormRow>
           {this.getPersistentVolumeConfig(volume, key)}
           {this.getHostVolumeConfig(volume, key)}
         </FormGroupContainer>
@@ -182,7 +184,7 @@ class VolumesFormSection extends Component {
             this,
             {value: key, path: 'externalVolumes'}
           )}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-6"
               required={false}
@@ -205,7 +207,7 @@ class VolumesFormSection extends Component {
                 value={volumes.containerPath}/>
               <FieldError>{containerPathError}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
         </FormGroupContainer>
       );
     });
@@ -215,7 +217,7 @@ class VolumesFormSection extends Component {
     let {data} = this.props;
 
     return (
-      <div className="form flush-bottom">
+      <div>
         <h2 className="flush-top short-bottom">
           Local Volumes Variables
         </h2>
@@ -227,23 +229,25 @@ class VolumesFormSection extends Component {
           <a
             className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'localVolumes'})}>
-            + Add Local Volumes
+            <Icon color="purple" id="plus" size="tiny" /> Add Local Volumes
           </a>
         </div>
-        <h2 className="flush-top short-bottom">
+        <h2 className="short-bottom">
           External Volumes Variables
         </h2>
         <p>
           Set up volumes variables for each task your service launches.
         </p>
         {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
-        <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
-            + Add External Volumes
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add External Volumes
+            </a>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }

@@ -13,6 +13,7 @@ import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 import General from '../../reducers/serviceForm/General';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -50,7 +51,7 @@ class GeneralServiceFormSection extends Component {
       }
 
       return (
-        <div key={index} className="flex row">
+        <FormRow key={index}>
           <FormGroup
             className="column-3"
             required={true}
@@ -88,7 +89,7 @@ class GeneralServiceFormSection extends Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'constraints'})}/>
           </FormGroup>
-        </div>
+        </FormRow>
       );
     });
   }
@@ -165,17 +166,15 @@ class GeneralServiceFormSection extends Component {
     );
 
     return (
-      <div className="form flush-bottom">
-        <div className="form-row-element">
-          <h2 className="form-header flush-top short-bottom">
-            Services
-          </h2>
-          <p>
-            Configure your service below. Start by giving your service a name.
-          </p>
-        </div>
+      <div>
+        <h2 className="flush-top short-bottom">
+          Services
+        </h2>
+        <p>
+          Configure your service below. Start by giving your service a name.
+        </p>
 
-        <div className="flex row">
+        <FormRow>
           <FormGroup
             className="column-8"
             required={true}
@@ -204,9 +203,9 @@ class GeneralServiceFormSection extends Component {
               value={data.instances} />
             <FieldError>{errors.instances}</FieldError>
           </FormGroup>
-        </div>
+        </FormRow>
 
-        <h3 className="short-top short-bottom">
+        <h3 className="short-bottom">
           {'Container Runtime '}
           <Tooltip
             content={runtimeTooltipContent}
@@ -222,7 +221,6 @@ class GeneralServiceFormSection extends Component {
           {this.getRuntimeSelections(data)}
           <FieldError>{typeErrors}</FieldError>
         </FormGroup>
-
         <AdvancedSection>
           <AdvancedSectionLabel>
             Advanced Service Settings
@@ -241,13 +239,15 @@ class GeneralServiceFormSection extends Component {
             </h3>
             <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
             {this.getPlacementConstraints(data.constraints)}
-            <div>
-              <a
-                className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                + Add Placement Constraint
-              </a>
-            </div>
+            <FormRow>
+              <FormGroup className="column-12">
+                <a
+                  className="button button-primary-link button-flush"
+                  onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
+                </a>
+              </FormGroup>
+            </FormRow>
           </AdvancedSectionContent>
         </AdvancedSection>
 

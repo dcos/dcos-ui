@@ -11,6 +11,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
@@ -31,7 +33,7 @@ class HealthChecksFormSection extends Component {
           Advanced Health Check Settings
         </AdvancedSectionLabel>
         <AdvancedSectionContent>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
                 className="column-3"
                 showError={Boolean(errors.gracePeriodSeconds)}>
@@ -76,7 +78,7 @@ class HealthChecksFormSection extends Component {
                   value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
         </AdvancedSectionContent>
       </AdvancedSection>
     );
@@ -93,7 +95,7 @@ class HealthChecksFormSection extends Component {
       .get(this.props.errors);
 
     return (
-      <div className="flex row">
+      <FormRow>
         <FormGroup
           className="column-12"
           showError={Boolean(errors.value)}>
@@ -104,7 +106,7 @@ class HealthChecksFormSection extends Component {
             value={healthCheck.command}/>
           <FieldError>{errors.value}</FieldError>
         </FormGroup>
-      </div>
+      </FormRow>
     );
   }
 
@@ -124,7 +126,7 @@ class HealthChecksFormSection extends Component {
     const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     return [(
-      <div className="flex row" key="path">
+      <FormRow key="path">
         <FormGroup
           className="column-6"
           showError={false}>
@@ -146,10 +148,10 @@ class HealthChecksFormSection extends Component {
             value={healthCheck.path}/>
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
-      </div>
+      </FormRow>
     ),
     (
-      <div className="row flex" key="HTTPS">
+      <FormRow key="HTTPS">
         <FormGroup showError={false} className="column-12">
           <FieldLabel>
             <FieldInput
@@ -161,7 +163,7 @@ class HealthChecksFormSection extends Component {
           </FieldLabel>
           <FieldError>{errors.protocol}</FieldError>
         </FormGroup>
-      </div>
+      </FormRow>
     )];
   }
 
@@ -174,7 +176,7 @@ class HealthChecksFormSection extends Component {
           key={key}
           onRemove={this.props.onRemoveItem.bind(this,
             {value: key, path: 'healthChecks'})}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-6"
               showError={Boolean(errors.protocol)}>
@@ -188,7 +190,7 @@ class HealthChecksFormSection extends Component {
               </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
           {this.getCommandFields(healthCheck, key)}
           {this.getHTTPFields(healthCheck, key)}
           {this.getAdvancedSettings(healthCheck, key)}
@@ -200,23 +202,23 @@ class HealthChecksFormSection extends Component {
   render() {
     let {data} = this.props;
     return (
-      <div className="form flush-bottom">
-        <div className="form-row-element">
-          <h2 className="form-header flush-top short-bottom">
-            Health Checks
-          </h2>
-          <p>
-            Health checks may be specified per application to be run against
-            the application{'\''}s tasks.
-          </p>
-        </div>
+      <div>
+        <h2 className="form-header flush-top short-bottom">
+          Health Checks
+        </h2>
+        <p>
+          Health checks may be specified per application to be run against
+          the application{'\''}s tasks.
+        </p>
         {this.getHealthChecksLines(data.healthChecks)}
-        <div>
-          <a className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
-            + Add Health Check
-          </a>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <a className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Health Check
+            </a>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }

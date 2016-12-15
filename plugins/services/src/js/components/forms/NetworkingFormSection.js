@@ -8,6 +8,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
@@ -136,7 +137,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     return [
-      <div className="flex row" key="title">
+      <FormRow key="title">
         <FormGroup className="column-9">
           <FieldLabel>
             Load Balanced Service Address
@@ -145,8 +146,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             </FieldHelp>
           </FieldLabel>
         </FormGroup>
-      </div>,
-      <div className="flex flex-align-items-center row" key="toggle">
+      </FormRow>,
+      <FormRow key="toggle">
         <FormGroup
           className="column-auto"
           showError={Boolean(loadBalancedError)}>
@@ -164,7 +165,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             {address}
           </span>
         </FormGroup>
-      </div>
+      </FormRow>
     ];
   }
 
@@ -183,7 +184,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           Protocol
         </FieldLabel>
-        <div className="flex row">
+        <FormRow>
           <FormGroup className="column-auto">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
@@ -204,7 +205,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               UDP
             </FieldLabel>
           </FormGroup>
-        </div>
+        </FormRow>
         <FieldError>{protocolError}</FieldError>
       </FormGroup>
     );
@@ -226,10 +227,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         `container.docker.portMappings.${index}.name`
       );
       let portMappingFields = (
-        <div className="flex row">
+        <FormRow>
           {this.getHostPortFields(portDefinition, index)}
           {this.getProtocolField(portDefinition, index)}
-        </div>
+        </FormRow>
       );
 
       return (
@@ -239,7 +240,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: 'portDefinitions'}
           )}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-3"
               showError={Boolean(containerPortError)}>
@@ -263,7 +264,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 value={portDefinition.name} />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
           {portMappingFields}
           {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
@@ -290,7 +291,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: 'portDefinitions'}
           )}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
@@ -301,11 +302,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 value={portDefinition.name} />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-          </div>
-          <div className="flex row">
+          </FormRow>
+          <FormRow>
             {this.getHostPortFields(portDefinition, index)}
             {this.getProtocolField(portDefinition, index)}
-          </div>
+          </FormRow>
           {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
       );
@@ -334,10 +335,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
       if (portDefinition.portMapping) {
         portMappingFields = (
-          <div className="flex row">
+          <FormRow>
             {this.getHostPortFields(portDefinition, index)}
             {this.getProtocolField(portDefinition, index)}
-          </div>
+          </FormRow>
         );
       }
 
@@ -348,7 +349,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             this,
             {value: index, path: 'portDefinitions'}
           )}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-3"
               showError={Boolean(containerPortError)}>
@@ -384,7 +385,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   Enabled
               </FieldLabel>
             </FormGroup>
-          </div>
+          </FormRow>
           {portMappingFields}
           {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
@@ -504,14 +505,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     return (
-      <div className="form flush-bottom">
+      <div>
         <h2 className="flush-top short-bottom">
           Networking
         </h2>
         <p>
           Configure the networking for your service.
         </p>
-        <div className="flex row">
+        <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
               {'Network Type '}
@@ -527,29 +528,31 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             {this.getTypeSelections()}
             <FieldError>{networkError}</FieldError>
           </FormGroup>
-        </div>
-        <h3 className="flush-top short-bottom">
+        </FormRow>
+        <h3 className="short-bottom">
           Service Endpoints
         </h3>
         <p>
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
         {this.getServiceEndpoints()}
-        <div>
-          <button
-            type="button"
-            onBlur={(event) => { event.stopPropagation(); }}
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(
-              this,
-              {
-                value: portDefinitions.length,
-                path: 'portDefinitions'
-              }
-            )}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-          </button>
-        </div>
+        <FormRow>
+          <FormGroup className="column-12">
+            <button
+              type="button"
+              onBlur={(event) => { event.stopPropagation(); }}
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(
+                this,
+                {
+                  value: portDefinitions.length,
+                  path: 'portDefinitions'
+                }
+              )}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
+            </button>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }
@@ -583,3 +586,4 @@ NetworkingFormSection.configReducers = {
 };
 
 module.exports = NetworkingFormSection;
+
