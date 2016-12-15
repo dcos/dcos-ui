@@ -31,7 +31,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'config',
-        events: ['ccidSuccess']
+        events: ['ccidSuccess', 'bootstrapSuccess']
       },
       {
         name: 'marathon',
@@ -43,6 +43,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
     ConfigStore.fetchCCID();
+    ConfigStore.fetchBootstrapConfig();
     MarathonStore.fetchMarathonInstanceInfo();
   }
 
@@ -52,6 +53,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
   getClusterDetailsHash() {
     let ccid = ConfigStore.get('ccid');
+    let bootstrapConfig = ConfigStore.get('bootstrapConfig');
 
     if (Object.keys(ccid).length) {
       ccid = ccid.zbase32_public_key;
@@ -59,8 +61,15 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       ccid = this.getLoading();
     }
 
+    if (Object.keys(bootstrapConfig).length) {
+      bootstrapConfig = bootstrapConfig.security;
+    } else {
+      bootstrapConfig = this.getLoading();
+    }
+
     return {
-      'Cryptographic Cluster ID': ccid
+      'Cryptographic Cluster ID': ccid,
+      'Security Mode': bootstrapConfig
     };
   }
 

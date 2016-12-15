@@ -1,6 +1,8 @@
 import PluginSDK from 'PluginSDK';
 
 import {
+  REQUEST_BOOTSTRAP_CONFIG_ERROR,
+  REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
   REQUEST_CLUSTER_CCID_ERROR,
   REQUEST_CLUSTER_CCID_SUCCESS,
   REQUEST_CONFIG_ERROR,
@@ -10,6 +12,8 @@ import {
 import AppDispatcher from '../events/AppDispatcher';
 import ConfigActions from '../events/ConfigActions';
 import {
+  BOOTSTRAP_CONFIG_ERROR,
+  BOOTSTRAP_CONFIG_SUCCESS,
   CLUSTER_CCID_ERROR,
   CLUSTER_CCID_SUCCESS,
   CONFIG_ERROR,
@@ -22,6 +26,7 @@ class ConfigStore extends GetSetBaseStore {
     super(...arguments);
 
     this.getSet_data = {
+      bootstrapConfig: {},
       ccid: {},
       config: null
     };
@@ -33,7 +38,9 @@ class ConfigStore extends GetSetBaseStore {
         success: CONFIG_LOADED,
         error: CONFIG_ERROR,
         ccidSuccess: CLUSTER_CCID_SUCCESS,
-        ccidError: CLUSTER_CCID_ERROR
+        ccidError: CLUSTER_CCID_ERROR,
+        bootstrapSuccess: BOOTSTRAP_CONFIG_SUCCESS,
+        bootstrapError: BOOTSTRAP_CONFIG_ERROR
       },
       unmountWhen() {
         return true;
@@ -60,6 +67,12 @@ class ConfigStore extends GetSetBaseStore {
         case REQUEST_CLUSTER_CCID_ERROR:
           this.emit(CLUSTER_CCID_ERROR);
           break;
+        case REQUEST_BOOTSTRAP_CONFIG_SUCCESS:
+          this.processBootstrapConfigSuccess(action.data);
+          break;
+        case REQUEST_BOOTSTRAP_CONFIG_ERROR:
+          this.emit(BOOTSTRAP_CONFIG_ERROR);
+          break;
       }
 
       return true;
@@ -74,6 +87,11 @@ class ConfigStore extends GetSetBaseStore {
     this.removeListener(eventName, callback);
   }
 
+  processBootstrapConfigSuccess(bootstrapConfig) {
+    this.set({bootstrapConfig});
+    this.emit(BOOTSTRAP_CONFIG_SUCCESS);
+  }
+
   processConfigSuccess(config) {
     this.set({config});
     this.emit(CONFIG_LOADED);
@@ -82,6 +100,10 @@ class ConfigStore extends GetSetBaseStore {
   processCCIDSuccess(ccid) {
     this.set({ccid});
     this.emit(CLUSTER_CCID_SUCCESS);
+  }
+
+  fetchBootstrapConfig() {
+    return ConfigActions.fetchBootstrapConfig(...arguments);
   }
 
   fetchConfig() {
