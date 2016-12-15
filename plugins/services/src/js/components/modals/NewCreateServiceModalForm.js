@@ -14,10 +14,11 @@ import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
+import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
+import MultiContainerVolumesFormSection from '../forms/MultiContianerVolumesFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
 import PodSpec from '../../structs/PodSpec';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
@@ -29,7 +30,6 @@ import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
-import VolumeMountFormSection from '../forms/VolumeMountFormSection';
 
 const METHODS_TO_BIND = [
   'handleConvertToPod',
@@ -356,7 +356,7 @@ class NewCreateServiceModalForm extends Component {
               onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
-          <VolumeMountFormSection
+          <MultiContainerVolumesFormSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
