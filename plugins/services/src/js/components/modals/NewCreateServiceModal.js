@@ -149,7 +149,7 @@ class NewServiceFormModal extends Component {
   }
 
   handleConvertToPod() {
-    this.handleServiceSelection({type:'pod'});
+    this.handleServiceSelection({type: 'pod'});
   }
 
   handleJSONToggle() {
@@ -370,19 +370,23 @@ class NewServiceFormModal extends Component {
           jsonConfigReducers={jsonConfigReducers}
           inputConfigReducers={inputConfigReducers}
           isJSONModeActive={isJSONModeActive}
-          ref={(ref) => { return this.createComponent = ref; }}
+          ref={(ref) => {
+            return this.createComponent = ref;
+          }}
           service={serviceConfig}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorStateChange={this.handleServiceErrorChange}
-          isEdit={isEdit}/>
+          isEdit={isEdit} />
       );
     }
 
     if (serviceJsonActive) {
       return (
         <CreateServiceJsonOnly
-          ref={(ref) => { return this.createComponent = ref; }}
+          ref={(ref) => {
+            return this.createComponent = ref;
+          }}
           service={serviceConfig}
           onChange={this.handleServiceChange}
           onErrorStateChange={this.handleServiceErrorChange} />
