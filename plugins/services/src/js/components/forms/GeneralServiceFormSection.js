@@ -365,8 +365,8 @@ class GeneralServiceFormSection extends Component {
                 </a>
               </FormGroup>
             </FormRow>
-            </AdvancedSectionContent>
-          </AdvancedSection>
+          </AdvancedSectionContent>
+        </AdvancedSection>
 
         {this.getContainerSection()}
         {this.getMultiContainerSection()}
