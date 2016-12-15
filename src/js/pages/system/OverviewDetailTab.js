@@ -14,7 +14,14 @@ import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
 import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
+import MetadataStore from '../../stores/MetadataStore';
 import Page from '../../components/Page';
+import VersionsModal from '../../components/modals/VersionsModal';
+
+const METHODS_TO_BIND = [
+  'handleClusterConfigModalClose',
+  'handleClusterConfigModalOpen'
+];
 
 const ClusterDetailsBreadcrumbs = () => {
   const crumbs = [
@@ -29,7 +36,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
-      open: false
+      isClusterBuildInfoOpen: false
     };
 
     this.store_listeners = [
@@ -43,15 +50,29 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       },
       {
         name: 'metadata',
-        events: ['dcosSuccess']
+        events: ['dcosBuildInfoChange', 'dcosSuccess']
       }
     ];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
+
     ConfigStore.fetchCCID();
     MarathonStore.fetchMarathonInstanceInfo();
+    MetadataStore.fetchDCOSBuildInfo();
+  }
+
+  handleClusterConfigModalOpen() {
+    this.setState({isClusterBuildInfoOpen: true});
+  }
+
+  handleClusterConfigModalClose() {
+    this.setState({isClusterBuildInfoOpen: false});
   }
 
   getLoading() {
@@ -99,15 +120,31 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   render() {
     const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
+    let versionsModal = null;
 
     if (marathonHash) {
       marathonDetails = <HashMapDisplay hash={marathonHash} />;
+    }
+
+    if (buildInfo != null) {
+      versionsModal = (
+        <VersionsModal onClose={this.handleClusterConfigModalClose}
+          open={this.state.isClusterBuildInfoOpen}
+          versionDump={buildInfo} />
+      );
     }
 
     return (
       <Page>
         <Page.Header breadcrumbs={<ClusterDetailsBreadcrumbs />} />
         <div className="container">
+          <div className="text-align-right">
+            <button className="button button-link"
+              disabled={buildInfo == null}
+              onClick={this.handleClusterConfigModalOpen}>
+              View Cluster Configuration
+            </button>
+          </div>
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
               Cluster Details
