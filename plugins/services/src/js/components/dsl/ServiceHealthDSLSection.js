@@ -10,10 +10,9 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 
 const EXPRESSION_PARTS = {
-  is_healthy: DSLExpressionPart.attribute('health', 'healthy'),
-  is_unhealthy: DSLExpressionPart.attribute('health', 'unhealthy'),
-  is_idle: DSLExpressionPart.attribute('health', 'idle'),
-  is_na: DSLExpressionPart.attribute('health', 'na')
+  is_healthy: DSLExpressionPart.attribute('is', 'healthy'),
+  is_unhealthy: DSLExpressionPart.attribute('is', 'unhealthy'),
+  no_healthchecks: DSLExpressionPart.attribute('no', 'healthchecks')
 };
 
 class ServiceHealthDSLSection extends React.Component {
@@ -45,11 +44,11 @@ class ServiceHealthDSLSection extends React.Component {
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
-                  checked={data.is_idle}
+                  checked={data.no_healthchecks}
                   disabled={!enabled}
-                  name="is_idle"
+                  name="no_healthchecks"
                   type="checkbox" />
-                Idle
+                N/A
               </FieldLabel>
             </FormGroup>
           </div>
@@ -62,14 +61,6 @@ class ServiceHealthDSLSection extends React.Component {
                   name="is_unhealthy"
                   type="checkbox" />
                 Unhealthy
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_na}
-                  disabled={!enabled}
-                  name="is_na"
-                  type="checkbox" />
-                N/A
               </FieldLabel>
             </FormGroup>
           </div>

@@ -2,12 +2,10 @@ import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
 import DSLFilter from '../../../../../src/js/structs/DSLFilter';
 import HealthStatus from '../constants/HealthStatus';
 
-const LABEL = 'health';
+const LABEL = 'is';
 
 const LABEL_TO_HEALTH = {
   healthy   : HealthStatus.HEALTHY,
-  idle      : HealthStatus.IDLE,
-  na        : HealthStatus.NA,
   unhealthy : HealthStatus.UNHEALTHY
 };
 

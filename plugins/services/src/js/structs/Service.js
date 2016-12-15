@@ -53,6 +53,10 @@ module.exports = class Service extends Item {
     return ServiceImages.NA_IMAGES;
   }
 
+  getQueue() {
+    return null;
+  }
+
   getWebURL() {
     return null;
   }
