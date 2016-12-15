@@ -28,7 +28,7 @@ function getCommand(containerConfig) {
 module.exports = ({containerConfig, appConfig}) => {
   let fields = {
     command: getCommand(containerConfig),
-    resources: appConfig.resources || {},
+    resources: containerConfig.resources || {},
     user: containerConfig.user || appConfig.user
   };
 
@@ -54,25 +54,25 @@ module.exports = ({containerConfig, appConfig}) => {
       </Row>
 
       {/* Resources */}
-      {fields.resources.cpus && (
+      {(fields.resources.cpus != null && fields.resources.cpus > 0) && (
         <Row>
           <Label>CPUs</Label>
           <Value value={fields.resources.cpus} />
         </Row>
       )}
-      {fields.resources.mem && (
+      {(fields.resources.mem != null && fields.resources.mem > 0) && (
         <Row>
           <Label>Memory</Label>
           <SizeValue value={fields.resources.mem} />
         </Row>
       )}
-      {fields.resources.disk && (
+      {(fields.resources.disk != null && fields.resources.disk > 0) && (
         <Row>
           <Label>Disk</Label>
           <SizeValue value={fields.resources.disk} />
         </Row>
       )}
-      {fields.resources.gpus && (
+      {(fields.resources.gpus != null && fields.resources.gpus > 0) && (
         <Row>
           <Label>GPUs</Label>
           <Value value={fields.resources.gpus} />
@@ -80,13 +80,13 @@ module.exports = ({containerConfig, appConfig}) => {
       )}
 
       {/* Global Properties */}
-      {fields.user && (
+      {(fields.user != null && fields.user !== '') && (
         <Row>
           <Label>Run as User</Label>
           <Value value={fields.user} />
         </Row>
       )}
-      {fields.command && (
+      {(fields.user != null && fields.user !== '') && (
         <Row>
           <Label>Command</Label>
           <MultilineValue value={fields.command} />
