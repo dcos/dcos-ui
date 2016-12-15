@@ -34,7 +34,13 @@ function stopPolling() {
   }
 }
 
-function isSchedulerTask(task, schedulerTaskIds) {
+/**
+ * Assigns a property to task if it is a scheduler task.
+ * @param  {Object} task
+ * @param  {Array} schedulerTaskIds Array of scheduler task Ids
+ * @return {Object} task
+ */
+function assignSchedulerTaskField(task, schedulerTaskIds) {
   if (schedulerTaskIds.includes(task.id)) {
     return Object.assign({}, task, {schedulerTask: true});
   }
@@ -201,7 +207,7 @@ class MesosStateStore extends GetSetBaseStore {
     services.forEach((service) => {
       service.tasks.forEach(function (task) {
         if (task.slave_id === nodeID) {
-          memberTasks[task.id] = isSchedulerTask(task, schedulerTaskIds);
+          memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTaskIds);
         }
       });
       service.completed_tasks.forEach(function (task) {
@@ -303,7 +309,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (service instanceof Framework && name === serviceName) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map((task) => isSchedulerTask(task, schedulerTaskIds));
+          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
       }
 
       // Filter marathon tasks by service name
@@ -311,7 +317,7 @@ class MesosStateStore extends GetSetBaseStore {
         return tasks.concat(completed_tasks)
           .filter(({name}) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map((task) => isSchedulerTask(task, schedulerTaskIds));
+          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
       }
 
       return serviceTasks;
