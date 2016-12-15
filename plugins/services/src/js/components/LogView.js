@@ -20,7 +20,7 @@ class LogView extends React.Component {
     this.state = {
       isAtBottom: true,
       userScroll: true,
-      fullLog: null
+      fullLog: this.props.fullLog
     };
 
     METHODS_TO_BIND.forEach((method) => {
