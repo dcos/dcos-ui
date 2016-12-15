@@ -165,6 +165,8 @@ const SystemLogActions = {
       let {eventPhase} = event;
 
       if (eventPhase === EventSource.CLOSED) {
+        // Reverse the items, as the come in opporsite order
+        items.reverse();
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
           data: items,
