@@ -93,11 +93,11 @@ class NewCreateServiceModalForm extends Component {
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     let isPod = nextProps.service instanceof PodSpec;
 
-    // Note: We ignore changes that might derrive from the `onChange` event
-    //       handler. In that case the contents of nextJSON would be the same
-    //       as the contents of the last rendered appConfig in the state.
+    // Note: We ignore changes that might derive from the `onChange` event
+    // handler. In that case the contents of nextJSON would be the same
+    // as the contents of the last rendered appConfig in the state.
     if ((this.state.isPod !== isPod) || (!deepEqual(prevJSON, nextJSON) &&
-        !deepEqual(this.state.appConfig, nextJSON))) {
+      !deepEqual(this.state.appConfig, nextJSON))) {
       this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
     }
   }
@@ -147,7 +147,9 @@ class NewCreateServiceModalForm extends Component {
       (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(baseConfig = {}, shouldValidate = true, isPod = this.state.isPod) {
+  getNewStateForJSON(baseConfig = {},
+    shouldValidate = true,
+    isPod = this.state.isPod) {
     let newState = {
       baseConfig,
       isPod
@@ -155,7 +157,9 @@ class NewCreateServiceModalForm extends Component {
 
     // Regenerate batch
     newState.batch = this.props.jsonParserReducers(baseConfig).reduce(
-      (batch, item) => { return batch.add(item); },
+      (batch, item) => {
+        return batch.add(item);
+      },
       new Batch()
     );
 
@@ -276,7 +280,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getContainerList(data) {
-    if (data.containers && data.containers.length !== 0) {
+    if (Array.isArray(data.containers) && data.containers.length !== 0) {
       return data.containers.map((item, index) => {
         let fakeContainer = {name: item.name || `container-${index + 1}`};
 
@@ -293,19 +297,24 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getContainerContent(data, errors) {
-    let {containers = []} = data;
+    let {containers} = data;
+
+    if (containers == null) {
+      return [];
+    }
+
     return containers.map((item, index) => {
       let itemErrors = errors && errors.containers && errors.containers[item];
 
       return (
-          <TabView key={index} id={`container${index}`}>
-            <PodContainerServiceFormSection
-                path={`containers.${index}`}
-                data={data}
-                errors={itemErrors}
-                onRemoveItem={this.handleRemoveItem}
-                onAddItem={this.handleAddItem} />
-          </TabView>
+        <TabView key={index} id={`container${index}`}>
+          <PodContainerServiceFormSection
+            path={`containers.${index}`}
+            data={data}
+            errors={itemErrors}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
+        </TabView>
       );
     });
   }
@@ -314,16 +323,18 @@ class NewCreateServiceModalForm extends Component {
     if (this.state.isPod) {
       return [
         <TabButton id="networking" label="Networking" key="multinetworking" />,
-        <TabButton id="environment" label="Environment" key="multienvironment"/>,
-        <TabButton id="healthChecks" label="Health Checks" key="multihealthChecks"/>,
-        <TabButton id="volumes" label="Volumes" key="multivolumes"/>
+        <TabButton id="environment" label="Environment"
+          key="multienvironment" />,
+        <TabButton id="healthChecks" label="Health Checks"
+          key="multihealthChecks" />,
+        <TabButton id="volumes" label="Volumes" key="multivolumes" />
       ];
     }
     return [
       <TabButton id="networking" label="Networking" key="networking" />,
-      <TabButton id="environment" label="Environment" key="environment"/>,
-      <TabButton id="healthChecks" label="Health Checks" key="healthChecks"/>,
-      <TabButton id="volumes" label="Volumes" key="volumes"/>
+      <TabButton id="environment" label="Environment" key="environment" />,
+      <TabButton id="healthChecks" label="Health Checks" key="healthChecks" />,
+      <TabButton id="volumes" label="Volumes" key="volumes" />
     ];
   }
 
@@ -334,33 +345,33 @@ class NewCreateServiceModalForm extends Component {
       return [
         <TabView id="networking" key="multinetworking">
           <MultiContainerNetworkingFormSection
-              data={data}
-              errors={errorMap}
-              onRemoveItem={this.handleRemoveItem}
-              onAddItem={this.handleAddItem} />
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
           <MultiContainerVolumesFormSection
-              data={data}
-              errors={errorMap}
-              onRemoveItem={this.handleRemoveItem}
-              onAddItem={this.handleAddItem} />
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
           <MultiContainerHealthChecksFormSection
-              data={data}
-              errors={errorMap}
-              onRemoveItem={this.handleRemoveItem}
-              onAddItem={this.handleAddItem} />
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="environment" key="multienvironment">
           {rootErrorComponent}
           <EnvironmentFormSection
-              mountType="CreateService:MultiContainerEnvironmentFormSection"
-              data={data}
-              errors={errorMap}
-              onRemoveItem={this.handleRemoveItem}
-              onAddItem={this.handleAddItem} />
+            mountType="CreateService:MultiContainerEnvironmentFormSection"
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
         </TabView>
       ];
     }
@@ -390,11 +401,11 @@ class NewCreateServiceModalForm extends Component {
       <TabView id="environment" key="environment">
         {rootErrorComponent}
         <EnvironmentFormSection
-            mountType="CreateService:EnvironmentFormSection"
-            data={data}
-            errors={errorMap}
-            onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+          mountType="CreateService:EnvironmentFormSection"
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
       </TabView>
     ];
   }
@@ -412,14 +423,16 @@ class NewCreateServiceModalForm extends Component {
       'is-visible': isJSONModeActive
     });
 
-    let errorMap = DataValidatorUtil.errorArrayToMap( errorList );
+    let errorMap = DataValidatorUtil.errorArrayToMap(errorList);
     let rootErrorComponent = this.getRootErrorMessage();
 
     return (
       <div className="flex flex-item-grow-1">
-        <div className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
+        <div
+          className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
-            <div className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
+            <div
+              className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
               <form onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}>
                 <Tabs vertical={true}>
