@@ -54,6 +54,15 @@ const DateUtil = {
   },
 
   /**
+   * Creates a ANSI C time string from time provided
+   * @param  {Date|Number} ms number to convert to ANSI C time string
+   * @return {String} time string with the format 'ddd MMM DD HH:mm:ss YYYY'
+   */
+  msToCTime(ms) {
+    return moment(ms).utc().format('ddd MMM DD HH:mm:ss YYYY');
+  },
+
+  /**
   /**
    * Creates relative time based on now and the time provided
    * @param  {Date|Number} ms number to convert to relative time string

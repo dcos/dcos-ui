@@ -19,7 +19,8 @@ import {
 import BaseStore from './BaseStore';
 import SystemLogActions from '../events/SystemLogActions';
 import {APPEND, PREPEND} from '../constants/SystemLogTypes';
-import Util from '../utils/Util';
+import {findNestedPropertyInObject} from '../utils/Util';
+import {msToCTime} from '../utils/DateUtil';
 
 // Max data storage, i.e. maximum 5MB per log stream
 const MAX_FILE_SIZE = 500000;
@@ -88,7 +89,7 @@ class SystemLogStore extends BaseStore {
       newLogData.entries = entries.concat(logData.entries);
     }
     let length = entries.reduce((sum, entry) => {
-      return sum + Util.findNestedPropertyInObject(
+      return sum + findNestedPropertyInObject(
         entry,
         'fields.MESSAGE.length'
       ) || 0;
@@ -107,7 +108,7 @@ class SystemLogStore extends BaseStore {
       } else {
         removedEntry = newLogData.entries.pop();
       }
-      newLogData.totalSize -= Util.findNestedPropertyInObject(
+      newLogData.totalSize -= findNestedPropertyInObject(
         removedEntry,
         'fields.MESSAGE.length'
       ) || 0;
@@ -117,13 +118,52 @@ class SystemLogStore extends BaseStore {
   }
 
   getFullLog(subscriptionID) {
-    let entries = Util.findNestedPropertyInObject(
+    let entries = findNestedPropertyInObject(
       this.logs[subscriptionID],
       'entries'
     ) || [];
 
-    return entries.map(function (entry) {
-      return Util.findNestedPropertyInObject(entry, 'fields.MESSAGE') || '';
+    // Formatting logs as we do in the CLI:
+    // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260
+    return entries.filter((entry) => {
+      return Boolean(findNestedPropertyInObject(entry, 'fields.MESSAGE'));
+    }).map(function (entry) {
+      const {fields = {}} = entry;
+      let lineData = [];
+      // entry.realtime_timestamp returns a unix time in microseconds
+      // https://www.freedesktop.org/software/systemd/man/sd_journal_get_realtime_usec.html
+      if (typeof entry.realtime_timestamp === 'number') {
+        lineData.push(msToCTime(entry.realtime_timestamp/1000));
+      }
+
+      // Optional fields
+      ['_HOSTNAME', 'SYSLOG_IDENTIFIER'].forEach((optionalField) => {
+        if (fields[optionalField]) {
+          lineData.push(fields[optionalField]);
+        }
+      });
+
+      // Concat to SYSLOG_IDENTIFIER if available
+      if (fields['_PID'] && fields['SYSLOG_IDENTIFIER']) {
+        const lastElement = lineData[lineData.length - 1];
+        lineData[lineData.length - 1] = `${lastElement}[${fields['_PID']}]`;
+      }
+
+      // If SYSLOG_IDENTIFIER is not available just add as separate field
+      if (fields['_PID'] && !fields['SYSLOG_IDENTIFIER']) {
+        lineData.push(`[${fields['_PID']}]`);
+      }
+
+      // Concat `:` to last element if there is data
+      if (lineData.length) {
+        const lastElement = lineData[lineData.length - 1];
+        lineData[lineData.length - 1] = `${lastElement}:`;
+      }
+
+      lineData.push(fields['MESSAGE']);
+
+      // Format: `date _HOSTNAME SYSLOG_IDENTIFIER[_PID]: MESSAGE`
+      return `${lineData.join(' ')}`;
     }).join('\n');
   }
 
@@ -157,7 +197,7 @@ class SystemLogStore extends BaseStore {
 
   fetchLogRange(nodeID, options) {
     let {subscriptionID} = options;
-    let cursor = Util.findNestedPropertyInObject(
+    let cursor = findNestedPropertyInObject(
       this.logs[subscriptionID],
       'entries.0.cursor'
     );
