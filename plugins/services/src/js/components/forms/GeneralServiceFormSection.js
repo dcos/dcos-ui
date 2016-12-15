@@ -336,35 +336,40 @@ class GeneralServiceFormSection extends Component {
 
         {this.getRuntimeSection()}
 
-          <AdvancedSection>
-            <AdvancedSectionLabel>
-              Advanced Service Settings
-            </AdvancedSectionLabel>
-            <AdvancedSectionContent>
-              <h3 className="short-top short-bottom">
-                {'Placement Constraints '}
-                <Tooltip
-                    content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
-                    interactive={true}
-                    maxWidth={300}
-                    scrollContainer=".gm-scroll-view"
-                    wrapText={true}>
-                  <Icon color="grey" id="circle-question" size="mini" />
-                </Tooltip>
-              </h3>
-              <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
-              {this.getPlacementConstraints(data.constraints)}
-              <FormRow>
+        <AdvancedSection>
+          <AdvancedSectionLabel>
+            Advanced Service Settings
+          </AdvancedSectionLabel>
+          <AdvancedSectionContent>
+            <h3 className="short-top short-bottom">
+              {'Placement Constraints '}
+              <Tooltip
+                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </h3>
+            <p>Constraints control where apps run to allow optimization for
+              either fault tolerance or locality.</p>
+            {this.getPlacementConstraints(data.constraints)}
+            <FormRow>
               <FormGroup className="column-12">
                 <a
-                    className="button button-primary-link button-flush"
-                    onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
+                  className="button button-primary-link button-flush"
+                  onClick={this.props.onAddItem.bind(this, {
+                    value: data.constraints.length,
+                    path: 'constraints'
+                  })}>
+                  <Icon color="purple" id="plus" size="tiny" /> Add Placement
+                  Constraint
                 </a>
               </FormGroup>
             </FormRow>
-            </AdvancedSectionContent>
-          </AdvancedSection>
+          </AdvancedSectionContent>
+        </AdvancedSection>
 
         {this.getContainerSection()}
         {this.getMultiContainerSection()}
