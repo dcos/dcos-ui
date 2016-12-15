@@ -157,8 +157,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
           <NestedServiceLinks
             serviceID={service.getId()}
             className="deployment-breadcrumb"
-            majorLinkClassName="deployment-breadcrumb-service-id table-cell-link-secondary"
-            minorLinkWrapperClassName="deployment-breadcrumb-crumb table-cell-link-secondary" />
+            majorLinkClassName="deployment-breadcrumb-service-id"
+            minorLinkWrapperClassName="deployment-breadcrumb-crumb" />
         </li>
       );
     });
