@@ -188,16 +188,17 @@ class SystemLogStore extends BaseStore {
 
     subscriptionID = SystemLogActions.subscribe(nodeID, options);
 
-    // Start a timer to unsubscribe if we have received nothing within 3 seconds.
+    // Start a timer to notify view if we have received nothing
+    // within recenable time
     setTimeout(() => {
       if (subscriptionID && !this.logs[subscriptionID]) {
         // Send event that we have not received anything. However,
         // keep connection open, if we receive data later, we want to show it.
         this.emit(SYSTEM_LOG_CHANGE, subscriptionID, APPEND);
       }
-      // Let's wait 3 x stateRefresh ~ 3 errors,
+      // Let's wait 2 x stateRefresh ~ 2 errors,
       // as we do in other views
-    }, Config.stateRefresh * 3);
+    }, Config.stateRefresh * 2);
 
     // Return received subscriptionID
     return subscriptionID;
