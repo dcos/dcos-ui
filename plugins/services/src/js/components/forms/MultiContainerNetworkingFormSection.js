@@ -389,7 +389,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect
-        name="network"
+        name="network.0"
         value={network}>
         <option
           value={Networking.type.HOST}>
