@@ -317,7 +317,7 @@ module.exports = {
       this.appState.id = value;
     }
 
-    if (base === 'network' && type === SET) {
+    if (base === 'networks' && index === 0 && type === SET) {
       const valueSplit = value.split('.');
 
       this.networkType = valueSplit[0];
