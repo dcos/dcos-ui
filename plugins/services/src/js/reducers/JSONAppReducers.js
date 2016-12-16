@@ -1,14 +1,11 @@
 import {JSONReducer as constraints} from './serviceForm/Constraints';
 import {JSONReducer as container} from './serviceForm/Container';
-import {JSONReducer as containers} from './serviceForm/Containers';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/Artifacts';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
 import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONReducer as residency} from './serviceForm/Residency';
-import {JSONReducer as volumes} from './serviceForm/MultiContainerVolumes';
-import {JSONReducer as network} from './serviceForm/MultiContainerNetwork';
 import {JSONReducer as ipAddress} from './serviceForm/IpAddress';
 import {
   simpleFloatReducer,
@@ -16,19 +13,10 @@ import {
   simpleReducer
 } from '../../../../../src/js/utils/ReducerUtil';
 
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-
 module.exports = {
   id: simpleReducer('id'),
   instances: simpleIntReducer('instances'),
-  container() {
-    const newState = container.apply(this, arguments);
-    if (ValidatorUtil.isEmpty(newState)) {
-      return null;
-    }
-    return newState;
-  },
-  containers,
+  container,
   cpus: simpleFloatReducer('cpus'),
   mem: simpleIntReducer('mem'),
   disk: simpleIntReducer('disk'),
@@ -41,7 +29,5 @@ module.exports = {
   fetch,
   portDefinitions,
   residency,
-  volumes,
-  network,
   ipAddress
 };

@@ -30,8 +30,9 @@ import MultiContainerVolumesFormSection from '../forms/MultiContianerVolumesForm
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
-import JSONConfigReducers from '../../reducers/JSONReducers';
-import JSONParserReducers from '../../reducers/JSONParser';
+import JSONAppReducers from '../../reducers/JSONAppReducers';
+import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
+import JSONParser from '../../reducers/JSONParser';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
@@ -341,22 +342,21 @@ class NewServiceFormModal extends Component {
       ];
 
       const jsonParserReducers = combineParsers(
-        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParserReducers)
+        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
 
       let isPod = serviceConfig instanceof PodSpec;
-      const jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers),
-        {
-          cmd: !isPod,
-          container: !isPod,
-          containers: isPod,
-          localVolumes: !isPod,
-          externalVolumes: !isPod,
-          volumes: isPod,
-          network: isPod
-        }
+
+      let jsonConfigReducers = combineReducers(
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
       );
+
+      if (isPod) {
+        jsonConfigReducers = combineReducers(
+          Hooks.applyFilter('serviceJsonConfigReducers', JSONMultiContainerReducers)
+        );
+      }
+
       const inputConfigReducers = combineReducers(
         Hooks.applyFilter('serviceInputConfigReducers',
           Object.assign({}, ...SECTIONS.map((item) => item.configReducers))

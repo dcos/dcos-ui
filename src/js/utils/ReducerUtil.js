@@ -21,18 +21,13 @@ module.exports = {
    * @param {Object} reducers An object whose values correspond to different
    * reducer functions that need to be combined into one.
    *
-   * @param {Object} config An object to turn certain reducers on or off.
-   * `false` will turn them off, anything else will turn them on, even `null`.
-   *
    * @returns {Function} A reducer function that invokes every reducer inside
    *   the passed object, and builds a state object with the same shape.
    */
-  combineReducers(reducers = {}, config = {}) {
+  combineReducers(reducers = {}) {
     let reducerKeys = Object.keys(reducers).filter(
       function (reducerKey) {
-        // Includes anything that is not explicitly set to false in config
-        return typeof reducers[reducerKey] === 'function'
-          && config[reducerKey] !== false;
+        return typeof reducers[reducerKey] === 'function';
       }
     );
     // This is creating the context for this combined reducer.
