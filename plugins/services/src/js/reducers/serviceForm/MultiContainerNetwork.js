@@ -1,48 +1,68 @@
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import {SET, ADD_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
-  JSONReducer(state = {mode: Networking.type.HOST.toLowerCase()}, {type, path, value}) {
-    const joinedPath = path.join('.');
+  JSONReducer(state = [{mode: 'host'}], {type, path, value}) {
+    const index = path[1] || 0;
 
-    if (joinedPath === 'network' && type === SET) {
-      const [mode, name] = value.split('.');
+    let newState = state.slice();
+    if (path[0] === 'network') {
 
-      if (mode === Networking.type.CONTAINER) {
-        return {
-          name,
+      if (type === ADD_ITEM) {
+        newState.push({mode: Networking.type.HOST.toLowerCase()});
+        return newState;
+      }
+
+      if (type === SET) {
+        const [mode, name] = value.split('.');
+
+        if (mode === Networking.type.CONTAINER) {
+          newState[index] = {
+            name,
+            mode: mode.toLowerCase()
+          };
+          return newState;
+        }
+
+        newState[index] = {
           mode: mode.toLowerCase()
         };
       }
-
-      return {
-        mode: mode.toLowerCase()
-      };
     }
 
-    return state;
+    return newState;
   },
 
   JSONParser(state) {
-    if (state == null || state.networks == null || state.networks.mode == null) {
+    if (state == null || state.networks == null || !Array.isArray(state.networks)) {
       return [];
     }
-    if (state.networks.mode === Networking.type.CONTAINER.toLowerCase()) {
-      const mode = Networking.type.CONTAINER;
-      const name = findNestedPropertyInObject(state, 'network.name');
 
-      return new Transaction(['network'], `${mode}.${name}`);
-    }
+    return state.networks.reduce((memo, network, index) => {
+      memo.push(new Transaction(['network'], index, ADD_ITEM));
 
-    return new Transaction(['network'], state.networks.mode.toUpperCase());
+      if (network.mode == null) {
+        return memo;
+      }
+
+      if (network.mode === Networking.type.CONTAINER.toLowerCase()) {
+        const mode = Networking.type.CONTAINER;
+        const name = network.name;
+
+        memo.push(new Transaction(['network', index], `${mode}.${name}`));
+        return memo;
+      }
+
+      memo.push(new Transaction(['network', index], network.mode.toUpperCase()));
+      return memo;
+    }, []);
   },
 
   FormReducer(state = {mode: Networking.type.HOST}, {type, path, value}) {
     const joinedPath = path.join('.');
 
-    if (joinedPath === 'network' && type === SET) {
+    if (joinedPath === 'network.0' && type === SET) {
       const [mode, name] = value.split('.');
 
       if (mode === Networking.type.CONTAINER) {
