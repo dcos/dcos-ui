@@ -136,7 +136,7 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceJsonActive: false
       });
-      return;
+
     }
   }
 

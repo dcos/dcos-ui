@@ -73,9 +73,9 @@ let ResourceBarChart = React.createClass({
 
       return (
         <button
-            key={resource}
-            className={`${classSet} path-color-${resourceColors[resource]}`}
-            onClick={this.handleSelectedResourceChange.bind(this, resource)}>
+          key={resource}
+          className={`${classSet} path-color-${resourceColors[resource]}`}
+          onClick={this.handleSelectedResourceChange.bind(this, resource)}>
           {resourceLabels[resource]}
         </button>
       );

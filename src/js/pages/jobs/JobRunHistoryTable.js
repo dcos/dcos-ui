@@ -217,17 +217,17 @@ class JobRunHistoryTable extends React.Component {
     }
 
     let cellContent = (
-        <span className="table-cell-flex-box">
-          <Icon
-            className="icon-margin-right table-cell-icon"
-            color="grey"
-            id="page-document"
-            size="mini" />
-          <CollapsingString
-            endLength={15}
-            string={row[prop]}
-            wrapperClassName="collapsing-string table-cell-value" />
-        </span>
+      <span className="table-cell-flex-box">
+        <Icon
+          className="icon-margin-right table-cell-icon"
+          color="grey"
+          id="page-document"
+          size="mini" />
+        <CollapsingString
+          endLength={15}
+          string={row[prop]}
+          wrapperClassName="collapsing-string table-cell-value" />
+      </span>
       );
 
     if (row.children && row.children.length > 0) {

@@ -35,47 +35,47 @@ class HealthChecksFormSection extends Component {
         <AdvancedSectionContent>
           <FormRow>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.gracePeriodSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.gracePeriodSeconds)}>
               <FieldLabel>Grace Period (s)</FieldLabel>
               <FieldInput
-                  name={`healthChecks.${key}.gracePeriodSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.gracePeriodSeconds}/>
+                name={`healthChecks.${key}.gracePeriodSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.gracePeriodSeconds}/>
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.intervalSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.intervalSeconds)}>
               <FieldLabel>Interval (s)</FieldLabel>
               <FieldInput
-                  name={`healthChecks.${key}.intervalSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.intervalSeconds}/>
+                name={`healthChecks.${key}.intervalSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.intervalSeconds}/>
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.timeoutSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.timeoutSeconds)}>
               <FieldLabel>Timeout (s)</FieldLabel>
               <FieldInput
-                  name={`healthChecks.${key}.timeoutSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.timeoutSeconds}/>
+                name={`healthChecks.${key}.timeoutSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.timeoutSeconds}/>
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.maxConsecutiveFailures)}>
+              className="column-3"
+              showError={Boolean(errors.maxConsecutiveFailures)}>
               <FieldLabel>Max Failures</FieldLabel>
               <FieldInput
-                  name={`healthChecks.${key}.maxConsecutiveFailures`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.maxConsecutiveFailures}/>
+                name={`healthChecks.${key}.maxConsecutiveFailures`}
+                type="number"
+                min="0"
+                value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </FormRow>

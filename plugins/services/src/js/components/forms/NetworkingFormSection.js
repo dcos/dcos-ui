@@ -462,7 +462,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           key={index}
           disabled={Boolean(disabledMap[Networking.type.USER])}
           value={virtualNetwork.value}>
-        {virtualNetwork.text}
+          {virtualNetwork.text}
         </option>
       );
     });

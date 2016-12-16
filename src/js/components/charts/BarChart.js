@@ -342,9 +342,9 @@ var BarChart = React.createClass({
 
     return (
       <svg height={props.height + margin.bottom}
-          width={props.width}
-          className="barchart"
-          ref="barchart">
+        width={props.width}
+        className="barchart"
+        ref="barchart">
         <g transform={'translate(' + [margin.left, margin.bottom / 2] + ')'}>
           <g className="y axis" ref="yAxis" />
           <g className="x axis"

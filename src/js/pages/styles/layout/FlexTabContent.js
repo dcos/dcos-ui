@@ -1179,45 +1179,45 @@ class FlexTabContent extends React.Component {
 
               </tbody>
 
-                <tr>
+              <tr>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .flex-item-align-baseline
+                    .flex-item-align-baseline
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    Item is aligned with the baseline of the flex container.
+                  Item is aligned with the baseline of the flex container.
 
-                  </td>
+                </td>
 
-                </tr>
+              </tr>
 
-                <tr>
+              <tr>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .flex-item-align-stretch
+                    .flex-item-align-stretch
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    Item is stretched to fill the flex container.
+                  Item is stretched to fill the flex container.
 
-                  </td>
+                </td>
 
-                </tr>
+              </tr>
 
             </table>
 

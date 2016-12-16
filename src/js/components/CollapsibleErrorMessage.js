@@ -89,12 +89,12 @@ class CollapsibleErrorMessage extends React.Component {
 
     // Render
     return (
-        <span
-          className="collapsible-toggle-label clickable"
-          onClick={this.toggleExpanded} >
-          (Show {moreLess})
-        </span>
-      );
+      <span
+        className="collapsible-toggle-label clickable"
+        onClick={this.toggleExpanded} >
+        (Show {moreLess})
+      </span>
+    );
 
   }
 
@@ -160,7 +160,7 @@ class CollapsibleErrorMessage extends React.Component {
       <div className="collapsible-toggled">
         <div>
           <ul>
-          {this.getDetailsListItems()}
+            {this.getDetailsListItems()}
           </ul>
         </div>
       </div>

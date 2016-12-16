@@ -1170,33 +1170,33 @@ class TablesTabContent extends React.Component {
 
                   </tr>
 
-                    <tr>
+                  <tr>
 
-                      <td>
+                    <td>
 
-                        John
+                      John
 
-                      </td>
+                    </td>
 
-                      <td>
+                    <td>
 
-                        Ashenden
+                      Ashenden
 
-                      </td>
+                    </td>
 
-                      <td className="active">
+                    <td className="active">
 
-                        john.ashenden@domain.com
+                      john.ashenden@domain.com
 
-                      </td>
+                    </td>
 
-                      <td>
+                    <td>
 
-                        802
+                      802
 
-                      </td>
+                    </td>
 
-                    </tr>
+                  </tr>
 
                 </tbody>
 
@@ -1496,33 +1496,33 @@ class TablesTabContent extends React.Component {
 
                   </tr>
 
-                    <tr>
+                  <tr>
 
-                      <td>
+                    <td>
 
-                        John
+                      John
 
-                      </td>
+                    </td>
 
-                      <td>
+                    <td>
 
-                        Ashenden
+                      Ashenden
 
-                      </td>
+                    </td>
 
-                      <td className="active">
+                    <td className="active">
 
-                        john.ashenden@domain.com
+                      john.ashenden@domain.com
 
-                      </td>
+                    </td>
 
-                      <td>
+                    <td>
 
-                        802
+                      802
 
-                      </td>
+                    </td>
 
-                    </tr>
+                  </tr>
 
                 </tbody>
 

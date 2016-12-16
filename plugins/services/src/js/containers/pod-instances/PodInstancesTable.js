@@ -360,12 +360,12 @@ class PodInstancesTable extends React.Component {
       }
 
       return this.renderWithClickHandler(rowOptions, (
-          <Link
-            className="table-cell-link-secondary text-overflow"
-            to={`/nodes/${agent.id}`}
-            title={address}>
-            <CollapsingString string={address} />
-          </Link>
+        <Link
+          className="table-cell-link-secondary text-overflow"
+          to={`/nodes/${agent.id}`}
+          title={address}>
+          <CollapsingString string={address} />
+        </Link>
         ));
     }
 

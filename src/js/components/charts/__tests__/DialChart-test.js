@@ -12,7 +12,7 @@ const DialChart = require('../DialChart');
 
 var getInstanceWithProps = function (props, container) {
   return ReactDOM.render(
-      <DialChart {...props} />,
+    <DialChart {...props} />,
       container
     );
 };

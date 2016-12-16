@@ -320,21 +320,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-white
+                    .icon-white
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-white" />
+                  <Icon id="user" size="medium" className="icon-white" />
 
-                  </td>
+                </td>
 
               </tr>
 
@@ -356,21 +356,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-red
+                    .icon-red
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-red" />
+                  <Icon id="user" size="medium" className="icon-red" />
 
-                  </td>
+                </td>
 
               </tr>
 
@@ -392,21 +392,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-yellow
+                    .icon-yellow
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-yellow" />
+                  <Icon id="user" size="medium" className="icon-yellow" />
 
-                  </td>
+                </td>
 
               </tr>
 
@@ -428,21 +428,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-purple
+                    .icon-purple
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-purple" />
+                  <Icon id="user" size="medium" className="icon-purple" />
 
-                  </td>
+                </td>
 
               </tr>
 
@@ -464,21 +464,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-gold
+                    .icon-gold
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-gold" />
+                  <Icon id="user" size="medium" className="icon-gold" />
 
-                  </td>
+                </td>
 
               </tr>
 
@@ -500,21 +500,21 @@ class IconsTabContent extends React.Component {
 
                 </td>
 
-                  <td>
+                <td>
 
-                    <code>
+                  <code>
 
-                      .icon-orchid
+                    .icon-orchid
 
-                    </code>
+                  </code>
 
-                  </td>
+                </td>
 
-                  <td>
+                <td>
 
-                    <Icon id="user" size="medium" className="icon-orchid" />
+                  <Icon id="user" size="medium" className="icon-orchid" />
 
-                  </td>
+                </td>
 
               </tr>
 

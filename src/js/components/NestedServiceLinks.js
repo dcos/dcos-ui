@@ -13,7 +13,7 @@ class NestedServiceLinks extends React.Component {
           <Link
             className={minorLinkAnchorClasses}
             to={`/services/overview/${params.id}`}
-              title={label}>
+            title={label}>
             {label}
           </Link>
         </div>
@@ -116,7 +116,7 @@ class NestedServiceLinks extends React.Component {
     );
 
     return (
-       <div key={key} className="table-cell-value">
+      <div key={key} className="table-cell-value">
         <div className={minorLinkClasses}>
           <Link className={minorLinkAnchorClasses}
             to="/services"

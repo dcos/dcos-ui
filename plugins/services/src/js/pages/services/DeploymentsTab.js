@@ -237,7 +237,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       }
       return (
         <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
-            onClick={this.handleRollbackClick.bind(null, deployment)}>
+          onClick={this.handleRollbackClick.bind(null, deployment)}>
           {linkText}
         </a>
       );

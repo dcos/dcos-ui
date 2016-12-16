@@ -158,7 +158,7 @@ class TaskFileViewer extends React.Component {
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="dropdown form-group" />
-      );
+    );
   }
 
   getActions(selectedLogFile, filePath) {

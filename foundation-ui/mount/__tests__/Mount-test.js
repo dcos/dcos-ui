@@ -30,9 +30,9 @@ describe('Mount', function () {
 
   it('should render the children by default', function () {
     const result = TestUtils.renderIntoDocument(
-        <Mount type="children-test">
-          <span>foo</span>
-        </Mount>
+      <Mount type="children-test">
+        <span>foo</span>
+      </Mount>
     );
 
     expect(TestUtils.findRenderedDOMComponentWithTag(result, 'span'))
@@ -51,9 +51,9 @@ describe('Mount', function () {
   it('should not wrap a single child', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <Mount type="foo">
-          <span>foo</span>
-        </Mount>
+      <Mount type="foo">
+        <span>foo</span>
+      </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'span'))
@@ -63,9 +63,9 @@ describe('Mount', function () {
   it('should always wrap elements if configured', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <Mount type="foo" alwaysWrap={true}>
-          <span>foo</span>
-        </Mount>
+      <Mount type="foo" alwaysWrap={true}>
+        <span>foo</span>
+      </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'div'))
@@ -75,9 +75,9 @@ describe('Mount', function () {
   it('should wrap elements with provided wrapper', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <Mount type="foo" wrapper="p" alwaysWrap={true}>
-          <span>foo</span>
-        </Mount>
+      <Mount type="foo" wrapper="p" alwaysWrap={true}>
+        <span>foo</span>
+      </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'p'))
@@ -86,9 +86,9 @@ describe('Mount', function () {
 
   it('should render registered components', function () {
     const dom = TestUtils.renderIntoDocument(
-        <Mount type="mount-test">
-          <span>foo</span>
-        </Mount>
+      <Mount type="mount-test">
+        <span>foo</span>
+      </Mount>
     );
 
     const result =
@@ -99,43 +99,43 @@ describe('Mount', function () {
 
   it('should replace children with registered components', function () {
     const dom = TestUtils.renderIntoDocument(
-        <Mount type="mount-test">
-          <span className="child">foo</span>
-        </Mount>
+      <Mount type="mount-test">
+        <span className="child">foo</span>
+      </Mount>
     );
 
     const result =
-        TestUtils.scryRenderedDOMComponentsWithClass(dom, 'child');
+      TestUtils.scryRenderedDOMComponentsWithClass(dom, 'child');
 
     expect(result.length).toBe(0);
   });
 
   it('should update if new component was registered', function () {
     const dom = TestUtils.renderIntoDocument(
-        <Mount type="mount-test">
-          <span className="child">foo</span>
-        </Mount>
+      <Mount type="mount-test">
+        <span className="child">foo</span>
+      </Mount>
     );
 
     MountService.registerComponent(SecondTestComponent, 'mount-test');
 
     const result =
-        TestUtils.scryRenderedDOMComponentsWithClass(dom, 'component');
+      TestUtils.scryRenderedDOMComponentsWithClass(dom, 'component');
 
     expect(result.length).toBe(2);
   });
 
   it('should update if new component was unregistered', function () {
     const dom = TestUtils.renderIntoDocument(
-        <Mount type="mount-test">
-          <span className="child">foo</span>
-        </Mount>
+      <Mount type="mount-test">
+        <span className="child">foo</span>
+      </Mount>
     );
 
     MountService.unregisterComponent(FirstTestComponent, 'mount-test');
 
     const result =
-        TestUtils.scryRenderedDOMComponentsWithClass(dom, 'child');
+      TestUtils.scryRenderedDOMComponentsWithClass(dom, 'child');
 
     expect(result.length).toBe(1);
   });
@@ -143,9 +143,9 @@ describe('Mount', function () {
   it('should pass down properties', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <Mount type="mount-test" message="hello world">
-          <span>foo</span>
-        </Mount>
+      <Mount type="mount-test" message="hello world">
+        <span>foo</span>
+      </Mount>
     );
 
     expect(renderer.getRenderOutput().props.children[0].props)

@@ -301,15 +301,17 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       textTruncationToggleWord = 'expand';
     }
 
+    const text = (
+      <span
+        className="clickable"
+        onClick={this.handlePreinstallNotesToggle}>
+        <u>{textTruncationToggleWord}</u>
+      </span>
+    );
+
     return (
       <span>
-        {ellipses} (
-          <span
-            className="clickable"
-            onClick={this.handlePreinstallNotesToggle}>
-            <u>{textTruncationToggleWord}</u>
-          </span>
-        )
+        {ellipses} {text}
       </span>
     );
   }

@@ -103,7 +103,7 @@ var NodesGridView = React.createClass({
 
     return (
       <ul className="list list-unstyled nodes-grid-service-list">
-      {items}
+        {items}
       </ul>
     );
   },
