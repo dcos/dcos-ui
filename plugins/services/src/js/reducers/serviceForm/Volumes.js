@@ -50,7 +50,7 @@ module.exports = {
     const joinedPath = path.join('.');
 
     // Make sure to parse as integer when possible
-    let parsedValue = parseInt(value);
+    const parsedValue = parseInt(value);
     if (!isNaN(parsedValue)) {
       value = parsedValue;
     }

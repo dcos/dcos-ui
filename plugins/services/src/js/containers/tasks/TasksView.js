@@ -106,9 +106,9 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks, checkedItems) {
-    let {inverseStyle, params} = this.props;
+    const {inverseStyle, params} = this.props;
 
-    let classSet = classNames({
+    const classSet = classNames({
       'table table-borderless-outer table-borderless-inner-columns': true,
       'flush-bottom': true,
       'inverse': inverseStyle
@@ -191,12 +191,12 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   render() {
-    let {inverseStyle, tasks} = this.props;
-    let {checkedItems, filterByStatus, searchString} = this.state;
+    const {inverseStyle, tasks} = this.props;
+    const {checkedItems, filterByStatus, searchString} = this.state;
     let filteredTasks = this.getFilteredTasks();
 
     // Get task states based on TaskStates types
-    let taskStates = tasks.map(function (task) {
+    const taskStates = tasks.map(function (task) {
       const {stateTypes} = TaskStates[task.state];
 
       return stateTypes.find(function (state) {
