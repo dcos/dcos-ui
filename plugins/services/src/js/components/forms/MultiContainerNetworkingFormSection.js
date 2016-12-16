@@ -308,7 +308,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       if (network === Networking.type.CONTAINER) {
         return (
           <div key={index}>
-            <h3 className="flush-top short-bottom">{container.name}</h3>
+            <h3 className="flush-top short-bottom">
+              <Icon id="container" size="medium" color="purple" />
+              {` ${container.name}`}
+            </h3>
             {this.getVirtualNetworkServiceEndpoints(endpoints, index)}
             <div>
               <button
@@ -335,7 +338,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       // Default to network type host.
       return (
         <div key={index}>
-          <h3 className="flush-top short-bottom">{container.name}</h3>
+          <h3 className="flush-top short-bottom">
+            <Icon id="container" size="medium" color="purple" />
+            {` ${container.name}`}
+          </h3>
           {this.getHostServiceEndpoints(endpoints, index)}
           <div key="add-button">
             <button
