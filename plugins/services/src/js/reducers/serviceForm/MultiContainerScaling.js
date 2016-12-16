@@ -44,11 +44,13 @@ module.exports = {
     let transactions = [];
     if (state.scaling.instances) {
       transactions.push(
-        new Transaction(['instances'], state.scaling.instances));
+        new Transaction(['instances'], state.scaling.instances)
+      );
     }
     if (state.scaling.kind) {
       transactions.push(
-        new Transaction(['scaling', 'kind'], state.scaling.kind));
+        new Transaction(['scaling', 'kind'], state.scaling.kind)
+      );
     }
 
     return transactions;
