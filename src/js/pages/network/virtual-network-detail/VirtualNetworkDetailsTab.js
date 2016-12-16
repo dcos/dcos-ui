@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ConfigurationMap from '../../../components/ConfigurationMap';
-import DescriptionList from '../../../components/DescriptionList';
+import HashMapDisplay from '../../../components/HashMapDisplay';
 import Overlay from '../../../structs/Overlay';
 
 class VirtualNetworkDetailsTab extends React.Component {
@@ -16,7 +16,7 @@ class VirtualNetworkDetailsTab extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          <DescriptionList hash={details} />
+          <HashMapDisplay hash={details} />
         </ConfigurationMap>
       </div>
     );

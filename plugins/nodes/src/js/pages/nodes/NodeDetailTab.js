@@ -3,7 +3,7 @@ import React from 'react';
 
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import Node from '../../../../../../src/js/structs/Node';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
@@ -29,10 +29,10 @@ class NodeDetailTab extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          <DescriptionList
+          <HashMapDisplay
             className="pod pod-short flush-top flush-right flush-left"
             hash={headerValueMapping} />
-          <DescriptionList
+          <HashMapDisplay
             className="pod pod-short flush-top flush-right flush-left"
             hash={node.attributes}
             headline="Attributes" />

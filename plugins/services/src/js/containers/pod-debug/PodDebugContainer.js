@@ -8,7 +8,7 @@ import ConfigurationMapHeading from '../../../../../../src/js/components/Configu
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import PodContainerTerminationTable from './PodContainerTerminationTable';
@@ -98,7 +98,7 @@ class PodDebugTabView extends React.Component {
       accumulator.push(
         <ConfigurationMapSection key={`termination-${index}`}>
           {headline}
-          <DescriptionList hash={terminationValueMapping} />
+          <HashMapDisplay hash={terminationValueMapping} />
         </ConfigurationMapSection>,
         <ConfigurationMapSection key={`container-${index}`}>
           <ConfigurationMapHeading level={3}>
@@ -134,7 +134,7 @@ class PodDebugTabView extends React.Component {
         <ConfigurationMapHeading>
           Last Changes
         </ConfigurationMapHeading>
-        <DescriptionList hash={LastVersionChangeValueMapping} />
+        <HashMapDisplay hash={LastVersionChangeValueMapping} />
       </ConfigurationMapSection>
     );
   }

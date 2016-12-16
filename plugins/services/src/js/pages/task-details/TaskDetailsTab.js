@@ -5,7 +5,7 @@ import ConfigurationMap from '../../../../../../src/js/components/ConfigurationM
 import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import Loader from '../../../../../../src/js/components/Loader';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
@@ -34,7 +34,7 @@ class TaskDetailsTab extends React.Component {
     );
   }
 
-  getMesosTaskDetailsDescriptionList(mesosTask) {
+  getMesosTaskDetailsHashMapDisplay(mesosTask) {
     if (mesosTask == null) {
       return null;
     }
@@ -62,13 +62,13 @@ class TaskDetailsTab extends React.Component {
     );
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Configuration" />
     );
   }
 
-  getMesosTaskLabelDescriptionList(mesosTask) {
+  getMesosTaskLabelHashMapDisplay(mesosTask) {
     if (mesosTask == null) {
       return null;
     }
@@ -81,7 +81,7 @@ class TaskDetailsTab extends React.Component {
     }
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={labelMapping}
         headline="Labels" />
     );
@@ -140,8 +140,8 @@ class TaskDetailsTab extends React.Component {
       <div className="container">
         {this.getResources(task)}
         <ConfigurationMap>
-          {this.getMesosTaskDetailsDescriptionList(task)}
-          {this.getMesosTaskLabelDescriptionList(task)}
+          {this.getMesosTaskDetailsHashMapDisplay(task)}
+          {this.getMesosTaskLabelHashMapDisplay(task)}
           <MarathonTaskDetailsList taskID={task.id} />
           {this.getContainerInfo(task)}
         </ConfigurationMap>

@@ -9,7 +9,7 @@ import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
 import ConfigurationMap from '../../components/ConfigurationMap';
 import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
-import DescriptionList from '../../components/DescriptionList';
+import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
 import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
@@ -100,7 +100,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     let marathonDetails = null;
 
     if (marathonHash) {
-      marathonDetails = <DescriptionList hash={marathonHash} />;
+      marathonDetails = <HashMapDisplay hash={marathonHash} />;
     }
 
     return (
@@ -111,10 +111,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <ConfigurationMapHeading className="flush-top">
               Cluster Details
             </ConfigurationMapHeading>
-            <DescriptionList hash={this.getClusterDetailsHash()} />
+            <HashMapDisplay hash={this.getClusterDetailsHash()} />
             {marathonDetails}
           </ConfigurationMap>
-          {versionsModal}
         </div>
       </Page>
     );

@@ -8,7 +8,7 @@ import ConfigurationMapSection from '../../../../../../src/js/components/Configu
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
 import Service from '../../structs/Service';
@@ -68,7 +68,7 @@ class ServiceDebugContainer extends React.Component {
       'Version': <span>{version} (<TimeAgo time={new Date(version)} />)</span>
     };
 
-    return <DescriptionList hash={taskFailureValueMapping} />;
+    return <HashMapDisplay hash={taskFailureValueMapping} />;
   }
 
   getLastVersionChange() {
@@ -98,7 +98,7 @@ class ServiceDebugContainer extends React.Component {
       )
     };
 
-    return <DescriptionList hash={LastVersionChangeValueMapping} />;
+    return <HashMapDisplay hash={LastVersionChangeValueMapping} />;
   }
 
   getRecentOfferSummary() {

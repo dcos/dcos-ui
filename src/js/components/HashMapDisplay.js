@@ -7,7 +7,7 @@ import ConfigurationMapRow from './ConfigurationMapRow';
 import ConfigurationMapSection from './ConfigurationMapSection';
 import ConfigurationMapValue from './ConfigurationMapValue';
 
-class DescriptionList extends React.Component {
+class HashMapDisplay extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -44,7 +44,7 @@ class DescriptionList extends React.Component {
         let nextHeadingLevel = Math.min(headingLevel + 1, 6);
 
         return (
-          <DescriptionList
+          <HashMapDisplay
             {...this.props}
             hash={value}
             headingLevel={nextHeadingLevel}
@@ -86,13 +86,13 @@ class DescriptionList extends React.Component {
   }
 }
 
-DescriptionList.defaultProps = {
+HashMapDisplay.defaultProps = {
   headingLevel: 1,
   key: '',
   renderKeys: {}
 };
 
-DescriptionList.propTypes = {
+HashMapDisplay.propTypes = {
   headingLevel: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
   headlineClassName: React.PropTypes.string,
   headline: React.PropTypes.node,
@@ -103,4 +103,4 @@ DescriptionList.propTypes = {
   renderKeys: React.PropTypes.object
 };
 
-module.exports = DescriptionList;
+module.exports = HashMapDisplay;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ConfigurationMap from '../../components/ConfigurationMap';
-import DescriptionList from '../../components/DescriptionList';
+import HashMapDisplay from '../../components/HashMapDisplay';
 import Job from '../../structs/Job';
 
 class JobConfiguration extends React.Component {
@@ -27,7 +27,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="General" />
     );
@@ -48,7 +48,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Schedule" />
     );
@@ -65,7 +65,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Docker Container" />
     );
@@ -73,7 +73,7 @@ class JobConfiguration extends React.Component {
 
   getLabelSection(job) {
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={job.getLabels()}
         headline="Labels" />
     );

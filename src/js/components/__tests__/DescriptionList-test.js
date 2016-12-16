@@ -3,7 +3,7 @@ jest.dontMock('../ConfigurationMapRow');
 jest.dontMock('../ConfigurationMapHeading');
 jest.dontMock('../ConfigurationMapSection');
 jest.dontMock('../ConfigurationMapValue');
-jest.dontMock('../DescriptionList');
+jest.dontMock('../HashMapDisplay');
 jest.dontMock('../DetailViewSectionHeading');
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -11,9 +11,9 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const DescriptionList = require('../DescriptionList');
+const HashMapDisplay = require('../HashMapDisplay');
 
-describe('DescriptionList', function () {
+describe('HashMapDisplay', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
@@ -24,7 +24,7 @@ describe('DescriptionList', function () {
   });
 
   it('should return null if hash is not passed', function () {
-    var instance = ReactDOM.render(<DescriptionList />, this.container);
+    var instance = ReactDOM.render(<HashMapDisplay />, this.container);
 
     var result = ReactDOM.findDOMNode(instance);
     expect(TestUtils.isDOMComponent(result)).toEqual(false);
@@ -32,7 +32,7 @@ describe('DescriptionList', function () {
 
   it('should return null if hash is not passed with headline', function () {
     var instance = ReactDOM.render(
-      <DescriptionList headline="foo" />,
+      <HashMapDisplay headline="foo" />,
       this.container
     );
 
@@ -42,7 +42,7 @@ describe('DescriptionList', function () {
 
   it('should return null if undefined is passed to hash', function () {
     var instance = ReactDOM.render(
-      <DescriptionList hash={undefined} />,
+      <HashMapDisplay hash={undefined} />,
       this.container
     );
 
@@ -52,7 +52,7 @@ describe('DescriptionList', function () {
 
   it('should return null if empty object is passed to hash', function () {
     var instance = ReactDOM.render(
-      <DescriptionList hash={{}} />,
+      <HashMapDisplay hash={{}} />,
       this.container
     );
 
@@ -62,7 +62,7 @@ describe('DescriptionList', function () {
 
   it('should return a node of elements if node exists', function () {
     var instance = ReactDOM.render(
-      <DescriptionList hash={{foo: 'bar'}} />,
+      <HashMapDisplay hash={{foo: 'bar'}} />,
       this.container
     );
 
@@ -72,7 +72,7 @@ describe('DescriptionList', function () {
 
   it('should return a headline if headline string is given', function () {
     var instance = ReactDOM.render(
-      <DescriptionList hash={{foo: 'bar'}} headline="baz" />,
+      <HashMapDisplay hash={{foo: 'bar'}} headline="baz" />,
       this.container
     );
 
