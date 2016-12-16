@@ -25,7 +25,7 @@ class ConfigurationMapMultilineValue extends React.Component {
 };
 
 ConfigurationMapMultilineValue.defaultProps = {
-  defaultValue: <span>&mdash;</span>,
+  defaultValue: <em>Not Configured</em>,
   value: ''
 };
 

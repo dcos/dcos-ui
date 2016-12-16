@@ -25,7 +25,7 @@ class ConfigurationMapValueWithDefault extends React.Component {
 
 ConfigurationMapValueWithDefault.defaultProps = {
   value: undefined,
-  defaultValue: <span>&mdash;</span>
+  defaultValue: <em>Not Configured</em>
 };
 
 ConfigurationMapValueWithDefault.propTypes = {

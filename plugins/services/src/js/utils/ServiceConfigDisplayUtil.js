@@ -3,8 +3,7 @@ import React from 'react';
 
 import {getDuration} from '../../../../../src/js/utils/DateUtil';
 import {isObject} from '../../../../../src/js/utils/Util';
-import defaultServiceImage from '../../img/icon-service-default-small.png';
-import Image from '../../../../../src/js/components/Image';
+import Icon from '../../../../../src/js/components/Icon';
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {
@@ -34,9 +33,7 @@ const ServiceConfigDisplayUtil = {
   getContainerNameWithIcon(container) {
     return (
       <span>
-        <Image fallbackSrc={defaultServiceImage}
-          src={defaultServiceImage} width={24} height={24}
-          style={{verticalAlign: 'middle'}} />
+        <Icon id="container" size="mini" color="purple" />
         <span>&nbsp;{container.name}</span>
       </span>
     );
@@ -65,9 +62,7 @@ const ServiceConfigDisplayUtil = {
   getSharedIconWithLabel() {
     return (
       <span>
-        <Image fallbackSrc={defaultServiceImage}
-          src={defaultServiceImage} width={24} height={24}
-          style={{verticalAlign: 'middle'}} />
+        <Icon id="container" size="mini" color="purple" />
         <em>&nbsp;Shared</em>
       </span>
     );

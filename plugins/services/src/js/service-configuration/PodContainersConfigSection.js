@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Alert from '../../../../../src/js/components/Alert';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
 
 function renderContainers(appConfig) {
@@ -21,7 +21,7 @@ module.exports = ({appConfig}) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
-        <Heading level={2}>Containers</Heading>
+        <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
         <Alert>
           No containers specified! Please specify at least one container when
           creating a multi-container definition!
@@ -32,7 +32,7 @@ module.exports = ({appConfig}) => {
 
   return (
     <div>
-      <Heading level={2}>Containers</Heading>
+      <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
       {renderContainers(appConfig)}
     </div>
   );

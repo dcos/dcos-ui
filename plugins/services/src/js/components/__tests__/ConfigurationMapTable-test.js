@@ -141,7 +141,7 @@ describe('ConfigurationMapTable', function () {
       'A', 'B'
     ]);
     expect(cellText).toEqual([
-      '1', '—'
+      '1', 'Not Configured'
     ]);
   });
 

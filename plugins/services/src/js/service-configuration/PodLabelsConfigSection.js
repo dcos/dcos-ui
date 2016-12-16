@@ -5,8 +5,8 @@ import {
   getContainerNameWithIcon
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 
 class PodLabelsConfigSection extends React.Component {
   getColumns() {
@@ -67,14 +67,14 @@ class PodLabelsConfigSection extends React.Component {
 
     return (
       <div>
-        <Heading level={1}>Labels</Heading>
-        <Section key="pod-general-section">
+        <ConfigurationMapHeading level={1}>Labels</ConfigurationMapHeading>
+        <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
             className="table table-simple table-break-word flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={combinedLabels} />
-        </Section>
+        </ConfigurationMapSection>
       </div>
     );
   }

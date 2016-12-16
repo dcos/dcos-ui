@@ -1,44 +1,32 @@
 import React from 'react';
 
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import DurationValue from '../components/ConfigurationMapDurationValue';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const COMMON_COLUMNS = [
   {
     heading: 'Grace Period',
     prop: 'gracePeriod',
     render(prop, row) {
-      return (
-        <DurationValue
-          units="sec"
-          value={row[prop]} />
-      );
+      return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
     heading: 'Interval',
     prop: 'interval',
     render(prop, row) {
-      return (
-        <DurationValue
-          units="sec"
-          value={row[prop]} />
-      );
+      return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
     heading: 'Timeout',
     prop: 'timeout',
     render(prop, row) {
-      return (
-        <DurationValue
-          units="sec"
-          value={row[prop]} />
-      );
+      return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
@@ -68,7 +56,7 @@ class PodHealthChecksConfigSection extends React.Component {
         // We use a default <Value/> renderer in order to render
         // all elements as <Div/>s. Otherwise the booleans look
         // funny.
-        return <ValueWithDefault value={row[prop]} />;
+        return <ConfigurationMapValueWithDefault value={row[prop]} />;
       }
     };
   }
@@ -134,33 +122,37 @@ class PodHealthChecksConfigSection extends React.Component {
 
     return (
       <div>
-        <Heading level={1}>Health Checks</Heading>
+        <ConfigurationMapHeading level={1}>
+          Health Checks
+        </ConfigurationMapHeading>
 
         {(healthChecks.endpoints.length !== 0) && (
           <div>
-            <Heading level={2}>Service Endpoint Health Checks</Heading>
-            <Section key="pod-general-section">
+            <ConfigurationMapHeading level={2}>
+              Service Endpoint Health Checks
+            </ConfigurationMapHeading>
+            <ConfigurationMapSection key="pod-general-section">
               <ConfigurationMapTable
                 className="table table-simple table-break-word flush-bottom"
                 columnDefaults={this.getDefaultEndpointsColumns()}
                 columns={this.getEndpointsColumns()}
                 data={healthChecks.endpoints} />
-            </Section>
+            </ConfigurationMapSection>
           </div>
         )}
 
         {(healthChecks.command.length !== 0) && (
           <div>
-            <Heading level={2}>Command Health Checks</Heading>
-            <Section key="pod-general-section">
+            <ConfigurationMapHeading level={2}>
+              Command Health Checks
+            </ConfigurationMapHeading>
+            <ConfigurationMapSection key="pod-general-section">
               <ConfigurationMapTable
                 className="table table-simple table-break-word flush-bottom"
-                columnDefaults={{
-                  hideIfEmpty: true
-                }}
+                columnDefaults={{hideIfEmpty: true}}
                 columns={this.getCommandColumns()}
                 data={healthChecks.command} />
-            </Section>
+            </ConfigurationMapSection>
           </div>
         )}
 

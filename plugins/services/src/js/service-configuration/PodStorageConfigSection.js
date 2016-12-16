@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BooleanValue from '../components/ConfigurationMapBooleanValue';
+import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 const BOOLEAN_OPTIONS = {
@@ -26,7 +26,11 @@ class PodStorageConfigSection extends React.Component {
         heading: 'Read Only',
         prop: 'readOnly',
         render(prop, row) {
-          return <BooleanValue options={BOOLEAN_OPTIONS} value={row[prop]} />;
+          return (
+            <ConfigurationMapBooleanValue
+              options={BOOLEAN_OPTIONS}
+              value={row[prop]} />
+          );
         }
       },
       {
@@ -89,14 +93,14 @@ class PodStorageConfigSection extends React.Component {
 
     return (
       <div>
-        <Heading level={1}>Storage</Heading>
-        <Section key="pod-general-section">
+        <ConfigurationMapHeading level={1}>Storage</ConfigurationMapHeading>
+        <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
-            className="table table-simple table-break-word table-fixed-layout flush-bottom"
+            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
             data={volumeSummary} />
-        </Section>
+        </ConfigurationMapSection>
       </div>
     );
   }
