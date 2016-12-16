@@ -31,7 +31,7 @@ import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
-import JSONPodReducers from '../../reducers/JSONPodReducers';
+import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONParser from '../../reducers/JSONParser';
 
 const METHODS_TO_BIND = [
@@ -353,7 +353,7 @@ class NewServiceFormModal extends Component {
 
       if (isPod) {
         jsonConfigReducers = combineReducers(
-          Hooks.applyFilter('serviceJsonConfigReducers', JSONPodReducers)
+          Hooks.applyFilter('serviceJsonConfigReducers', JSONMultiContainerReducers)
         );
       }
 
