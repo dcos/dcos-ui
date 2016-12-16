@@ -77,13 +77,24 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   getRootErrors() {
-    if (this.props.errors.size !== 0 && this.props.errors.has('/')) {
-      const messages = this.props.errors.get('/').map((message, index) => {
-        return <div key={index}>{message}</div>;
-      });
-
-      return <Alert>{messages}</Alert>;
+    if (this.props.errors.size === 0) {
+      return null;
     }
+
+    const topLevelPaths = ['', '/'];
+    const messages = topLevelPaths
+      .filter((path) => this.props.errors.has(path))
+      .reduce((accumulator, path) => {
+        const errors = this.props.errors.get(path).map((message, index) => {
+          return <div key={`${path}${index}`}>{message}</div>;
+        });
+
+        return accumulator.concat(errors);
+      }, []);
+
+    return messages.length > 0
+      ? <Alert>{messages}</Alert>
+      : null;
   }
 
   render() {
