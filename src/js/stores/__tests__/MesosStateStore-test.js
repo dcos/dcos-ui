@@ -183,26 +183,6 @@ describe('MesosStateStore', function () {
   describe('#getSchedulerTasks', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
-      MesosStateStore.get = function () {
-        return {
-          frameworks: [{
-            name: 'marathon',
-            tasks: [
-              {
-                id: 1,
-                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
-              },
-              {
-                id: 2
-              },
-              {
-                id: 3,
-                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'bar'}]
-              }
-            ]
-          }]
-        };
-      };
     });
 
     afterEach(function () {
@@ -210,18 +190,56 @@ describe('MesosStateStore', function () {
     });
 
     it('should return scheduler tasks', function () {
-      const schedulerTasks = MesosStateStore.getSchedulerTasks();
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [{
+            name: 'marathon',
+            tasks: [
+              {
+                id: 'foo',
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+              },
+              {
+                id: 'bar'
+              },
+              {
+                id: 'baz',
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'baz'}]
+              }
+            ]
+          }]
+        };
+      };
 
+      const schedulerTasks = MesosStateStore.getSchedulerTasks();
       expect(schedulerTasks).toEqual([
         {
-          id: 1,
+          id: 'foo',
           labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
         },
         {
-          id: 3,
-          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'bar'}]
+          id: 'baz',
+          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'baz'}]
         }
       ]);
+    });
+
+    it('should not return plain tasks', function () {
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [{
+            name: 'marathon',
+            tasks: [
+              {
+                id: 'foo'
+              }
+            ]
+          }]
+        };
+      };
+
+      const schedulerTasks = MesosStateStore.getSchedulerTasks();
+      expect(schedulerTasks).toEqual([]);
     });
 
   });
