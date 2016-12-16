@@ -3,11 +3,11 @@ import {SET, ADD_ITEM} from '../../../../../../src/js/constants/TransactionTypes
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
-  JSONReducer(state = [{mode: 'host'}], {type, path, value}) {
+  JSONReducer(state = [{mode: Networking.type.HOST.toLowerCase()}], {type, path, value}) {
     const index = path[1] || 0;
 
     let newState = state.slice();
-    if (path[0] === 'network') {
+    if (path[0] === 'networks') {
 
       if (type === ADD_ITEM && index !== 0) {
         newState.push({mode: Networking.type.HOST.toLowerCase()});
@@ -40,7 +40,7 @@ module.exports = {
     }
 
     return state.networks.reduce((memo, network, index) => {
-      memo.push(new Transaction(['network'], index, ADD_ITEM));
+      memo.push(new Transaction(['networks'], index, ADD_ITEM));
 
       if (network.mode == null) {
         return memo;
@@ -50,28 +50,43 @@ module.exports = {
         const mode = Networking.type.CONTAINER;
         const name = network.name;
 
-        memo.push(new Transaction(['network', index], `${mode}.${name}`));
+        memo.push(new Transaction(['networks', index], `${mode}.${name}`));
         return memo;
       }
 
-      memo.push(new Transaction(['network', index], network.mode.toUpperCase()));
+      memo.push(new Transaction(['networks', index], network.mode.toUpperCase()));
       return memo;
     }, []);
   },
 
-  FormReducer(state = {mode: Networking.type.HOST}, {type, path, value}) {
-    const joinedPath = path.join('.');
+  FormReducer(state = [{mode: Networking.type.HOST}], {type, path, value}) {
+    const index = path[1] || 0;
 
-    if (joinedPath === 'network.0' && type === SET) {
-      const [mode, name] = value.split('.');
+    let newState = state.slice();
+    if (path[0] === 'networks') {
 
-      if (mode === Networking.type.CONTAINER) {
-        return {mode, name};
+      if (type === ADD_ITEM && index !== 0) {
+        newState.push({mode: Networking.type.HOST});
+        return newState;
       }
 
-      return {mode};
+      if (type === SET) {
+        const [mode, name] = value.split('.');
+
+        if (mode === Networking.type.CONTAINER) {
+          newState[index] = {
+            name,
+            mode
+          };
+          return newState;
+        }
+
+        newState[index] = {
+          mode
+        };
+      }
     }
 
-    return state;
+    return newState;
   }
 };

@@ -106,7 +106,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'HOST'));
+          batch = batch.add(new Transaction(['networks', 0], 'HOST'));
 
           batch =
               batch.add(new Transaction([
@@ -168,7 +168,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'HOST'));
+          batch = batch.add(new Transaction(['networks', 0], 'HOST'));
 
           batch =
               batch.add(new Transaction([
@@ -212,7 +212,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'HOST'));
+          batch = batch.add(new Transaction(['networks', 0], 'HOST'));
 
           batch =
               batch.add(new Transaction([
@@ -260,7 +260,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -297,7 +297,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -343,7 +343,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -407,7 +407,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -453,7 +453,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -499,7 +499,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -545,7 +545,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -603,7 +603,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -670,7 +670,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -730,7 +730,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -954,7 +954,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'HOST'));
+          batch = batch.add(new Transaction(['networks', 0], 'HOST'));
 
           batch =
               batch.add(new Transaction([
@@ -1002,7 +1002,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'HOST'));
+          batch = batch.add(new Transaction(['networks', 0], 'HOST'));
 
           batch =
               batch.add(new Transaction([
@@ -1054,7 +1054,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1093,7 +1093,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1141,7 +1141,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1208,7 +1208,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1256,7 +1256,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1304,7 +1304,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
 
           batch =
               batch.add(new Transaction([
@@ -1352,7 +1352,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -1410,7 +1410,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -1477,7 +1477,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
@@ -1537,7 +1537,7 @@ describe('Containers', function () {
 
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
-          batch = batch.add(new Transaction(['network'], 'CONTAINER.foo'));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
           batch = batch.add(new Transaction(['id'], '/foobar'));
 
           batch =
