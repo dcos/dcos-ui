@@ -180,6 +180,52 @@ describe('MesosStateStore', function () {
     });
   });
 
+  describe('#getSchedulerTasks', function () {
+    beforeEach(function () {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [{
+            name: 'marathon',
+            tasks: [
+              {
+                id: 1,
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+              },
+              {
+                id: 2
+              },
+              {
+                id: 3,
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'bar'}]
+              }
+            ]
+          }]
+        };
+      };
+    });
+
+    afterEach(function () {
+      MesosStateStore.get = this.get;
+    });
+
+    it('should return scheduler tasks', function () {
+      const schedulerTasks = MesosStateStore.getSchedulerTasks();
+
+      expect(schedulerTasks).toEqual([
+        {
+          id: 1,
+          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+        },
+        {
+          id: 3,
+          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'bar'}]
+        }
+      ]);
+    });
+
+  });
+
   describe('#getSchedulerTaskFromServiceName', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;

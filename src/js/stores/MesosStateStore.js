@@ -229,6 +229,21 @@ class MesosStateStore extends GetSetBaseStore {
     return new Task(foundTask);
   }
 
+  /**
+   * @return {Array} list of scheduler tasks
+   */
+  getSchedulerTasks() {
+    const tasks = this.getTasksFromServiceName('marathon');
+
+    return tasks.filter(function ({labels}) {
+      if (!labels) {
+        return false;
+      }
+
+      return labels.some(({key}) => key === 'DCOS_PACKAGE_FRAMEWORK_NAME');
+    });
+  }
+
   getSchedulerTaskFromServiceName(serviceName) {
     const tasks = this.getTasksFromServiceName('marathon');
     return tasks.find(function (task) {
