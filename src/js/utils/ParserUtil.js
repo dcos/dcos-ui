@@ -34,14 +34,7 @@ module.exports = {
     const searchPath = path.join('.');
 
     return function (state) {
-<<<<<<< HEAD
       const value = findNestedPropertyInObject(state, searchPath);
-=======
-      let value = findNestedPropertyInObject(
-        state,
-        searchPath
-      );
->>>>>>> This introduces the Multi container functionallity
 
       if (value == null) {
         return [];
