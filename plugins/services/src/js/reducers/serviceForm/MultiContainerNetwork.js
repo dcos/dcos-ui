@@ -26,17 +26,17 @@ module.exports = {
   },
 
   JSONParser(state) {
-    if (state == null || state.network == null || state.network.mode == null) {
+    if (state == null || state.networks == null || state.networks.mode == null) {
       return [];
     }
-    if (state.network.mode === Networking.type.CONTAINER.toLowerCase()) {
+    if (state.networks.mode === Networking.type.CONTAINER.toLowerCase()) {
       const mode = Networking.type.CONTAINER;
       const name = findNestedPropertyInObject(state, 'network.name');
 
       return new Transaction(['network'], `${mode}.${name}`);
     }
 
-    return new Transaction(['network'], state.network.mode.toUpperCase());
+    return new Transaction(['network'], state.networks.mode.toUpperCase());
   },
 
   FormReducer(state = {mode: Networking.type.HOST}, {type, path, value}) {
