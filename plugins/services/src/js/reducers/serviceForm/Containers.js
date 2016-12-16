@@ -234,7 +234,8 @@ function containersParser(state) {
           )
         ]);
 
-        if (state.networks[0].mode === Networking.type.CONTAINER.toLowerCase()) {
+        if (state.networks && state.networks[0] &&
+          state.networks[0].mode === Networking.type.CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
             endpoint.containerPort
@@ -269,7 +270,8 @@ function containersParser(state) {
           ));
         }
 
-        if (state.networks[0].mode === Networking.type.HOST.toLowerCase()) {
+        if (state.networks && state.networks[0] &&
+          state.networks[0].mode === Networking.type.HOST.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'protocol'],
             endpoint.protocol.join()
