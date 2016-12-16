@@ -43,7 +43,7 @@ const getArtifactsLabel = () => {
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
         wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
+        <Icon color="grey" id="circle-question" size="mini" />
       </Tooltip>
     </FieldLabel>
   );
@@ -228,7 +228,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="circle-question" size="mini" />
+          <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       </FieldLabel>
     );
@@ -257,7 +257,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="circle-question" size="mini" />
+          <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       </FieldLabel>
     );
@@ -277,10 +277,10 @@ class ContainerServiceFormSection extends Component {
           maxWidth={300}
           scrollContainer=".gm-scroll-view"
           wrapText={true}>
-            <FieldLabel>
-              {'Container Image'}
-              <Icon color="grey" id="lock" size="mini" />
-            </FieldLabel>
+          <FieldLabel>
+            {'Container Image'}
+            <Icon color="grey" id="lock" size="mini" />
+          </FieldLabel>
         </Tooltip>,
         <FieldInput
           key="container-image-input"

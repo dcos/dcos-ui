@@ -82,7 +82,7 @@ class ImageViewerModal extends React.Component {
         <img
           className="fill-image"
           onLoad={this.handleLoadingImageChange.bind(this, false)}
-           key={props.selectedImage}
+          key={props.selectedImage}
           src={props.images[props.selectedImage]} />
       </div>
     );

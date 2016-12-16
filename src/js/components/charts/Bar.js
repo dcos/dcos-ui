@@ -59,19 +59,19 @@ var Bar = React.createClass({
 
     return (
       <g className="bar"
-          transform={'translate(' + [props.posX, 0] + ')'}>
+        transform={'translate(' + [props.posX, 0] + ')'}>
         <line
-            className={props.lineClass}
-            x1={0}
-            y1={posY}
-            x2={rectWidth - props.margin}
-            y2={posY} />
+          className={props.lineClass}
+          x1={0}
+          y1={posY}
+          x2={rectWidth - props.margin}
+          y2={posY} />
         <rect
-            shape-rendering={props.shapeRendering}
-            className={props.colorClass}
-            y={posY}
-            height={rectHeight}
-            width={rectWidth - props.margin} />
+          shape-rendering={props.shapeRendering}
+          className={props.colorClass}
+          y={posY}
+          height={rectHeight}
+          width={rectWidth - props.margin} />
       </g>
     );
   }

@@ -175,7 +175,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="services-version-select dropdown" />
-     );
+    );
   }
 
   render() {

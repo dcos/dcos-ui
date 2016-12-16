@@ -64,8 +64,8 @@ class PodInstancesView extends React.Component {
         <div
           className="button button-link"
           onClick={this.handleKillClick}>
-            <Icon id="repeat" size="mini" />
-            <span>Restart</span>
+          <Icon id="repeat" size="mini" />
+          <span>Restart</span>
         </div>
       </div>
     );

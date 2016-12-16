@@ -228,7 +228,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="dropdown form-group" />
-      );
+    );
   }
 
   getDownloadButton() {

@@ -296,7 +296,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
             prefix={timePrefix}
             suppressSuffix={shouldSuppressRelativeTime}
             time={longestRunningActiveRun.getDateCreated()} />
-      </span>
+        </span>
       );
     }
 

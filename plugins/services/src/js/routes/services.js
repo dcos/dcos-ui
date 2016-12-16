@@ -118,10 +118,10 @@ let serviceRoutes = [
                         getCrumbs(params, routes) {
                           return [
                             <TaskDetailBreadcrumb
-                                params={params}
-                                routes={routes}
-                                to="/services/overview/:id/tasks/:taskID"
-                                routePath=":taskID" />
+                              params={params}
+                              routes={routes}
+                              to="/services/overview/:id/tasks/:taskID"
+                              routePath=":taskID" />
                           ];
                         }
                       };

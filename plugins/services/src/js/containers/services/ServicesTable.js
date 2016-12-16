@@ -317,13 +317,13 @@ class ServicesTable extends React.Component {
         headerClassName: className,
         prop: 'status',
         helpText: (
-            <span>
-              {'At-a-glance overview of the global application or group state. '}
-              <a
-                href={Links.statusHelpLink} target="_blank">
-                Read more
-              </a>.
-            </span>
+          <span>
+            {'At-a-glance overview of the global application or group state. '}
+            <a
+              href={Links.statusHelpLink} target="_blank">
+              Read more
+            </a>.
+          </span>
         ),
         render: this.renderStatus,
         sortable: true,
@@ -374,15 +374,15 @@ class ServicesTable extends React.Component {
 
   render() {
     return (
-        <Table
-          buildRowOptions={this.getRowAttributes}
-          className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={this.props.services.slice()}
-          itemHeight={TableUtil.getRowHeight()}
-          containerSelector=".gm-scroll-view"
-          sortBy={{prop: 'name', order: 'asc'}} />
+      <Table
+        buildRowOptions={this.getRowAttributes}
+        className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
+        columns={this.getColumns()}
+        colGroup={this.getColGroup()}
+        data={this.props.services.slice()}
+        itemHeight={TableUtil.getRowHeight()}
+        containerSelector=".gm-scroll-view"
+        sortBy={{prop: 'name', order: 'asc'}} />
     );
   }
 };
