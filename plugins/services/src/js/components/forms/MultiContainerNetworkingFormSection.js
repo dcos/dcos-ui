@@ -11,7 +11,7 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as network} from '../../reducers/serviceForm/MultiContainerNetwork';
+import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
 import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
@@ -299,7 +299,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getServiceEndpoints() {
     let {containers} = this.props.data;
-    let network = findNestedPropertyInObject(this.props.data, 'network.mode');
+    let network = findNestedPropertyInObject(this.props.data,
+      'networks.0.mode');
 
     return containers.map((container, index) => {
       let {endpoints = []} = container;
@@ -379,8 +380,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getTypeSelections() {
-    let networkType = findNestedPropertyInObject(this.props.data, 'network.mode');
-    let networkName = findNestedPropertyInObject(this.props.data, 'network.name');
+    let networkType = findNestedPropertyInObject(this.props.data,
+      'networks.0.mode');
+    let networkName = findNestedPropertyInObject(this.props.data,
+      'networks.0.name');
 
     let network = networkType;
     if (networkName) {
@@ -389,7 +392,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect
-        name="network.0"
+        name="networks.0"
         value={network}>
         <option
           value={Networking.type.HOST}>
@@ -467,7 +470,7 @@ MultiContainerNetworkingFormSection.propTypes = {
 };
 
 MultiContainerNetworkingFormSection.configReducers = {
-  network
+  networks
 };
 
 module.exports = MultiContainerNetworkingFormSection;

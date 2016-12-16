@@ -15,7 +15,7 @@ describe('MultiContainerNetwork', function () {
     it('should return a network with mode host by default', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['network', 0], Networking.type.HOST));
+      batch = batch.add(new Transaction(['networks', 0], Networking.type.HOST));
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({})))
         .toEqual([{mode: 'host'}]);
@@ -25,7 +25,7 @@ describe('MultiContainerNetwork', function () {
       let batch = new Batch();
 
       batch = batch.add(
-        new Transaction(['network', 0], `${Networking.type.CONTAINER}.foo`)
+        new Transaction(['networks', 0], `${Networking.type.CONTAINER}.foo`)
       );
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({})))
@@ -36,9 +36,9 @@ describe('MultiContainerNetwork', function () {
       let batch = new Batch();
 
       batch = batch.add(
-        new Transaction(['network', 0], `${Networking.type.CONTAINER}.foo`)
+        new Transaction(['networks', 0], `${Networking.type.CONTAINER}.foo`)
       );
-      batch = batch.add(new Transaction(['network', 0], Networking.type.HOST));
+      batch = batch.add(new Transaction(['networks', 0], Networking.type.HOST));
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({})))
       .toEqual([{mode: 'host'}]);
