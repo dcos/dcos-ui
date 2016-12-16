@@ -1,4 +1,4 @@
-const JSONReducers = require('../JSONReducers');
+const JSONReducers = require('../JSONAppReducers');
 const Batch = require('../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../src/js/structs/Transaction');
 const {SET} = require('../../../../../../src/js/constants/TransactionTypes');
