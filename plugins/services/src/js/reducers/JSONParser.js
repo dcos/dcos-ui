@@ -9,6 +9,7 @@ import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
 import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {JSONParser as residency} from './serviceForm/Residency';
+import {JSONParser as scaling} from './serviceForm/MultiContainerScaling';
 import {JSONParser as network} from './serviceForm/Network';
 import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
 import {JSONParser as volumeMounts} from './serviceForm/MultiContainerVolumes';
@@ -32,6 +33,7 @@ module.exports = [
   portMappings, // Note: must come after portDefinitions, as it uses its information!
   environmentVariables,
   labels,
+  scaling,
   healthChecks,
   localVolumes,
   externalVolumes,
