@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
+import {Tooltip} from 'reactjs-components';
 import React from 'react';
 
 import FilterBar from '../../../../../../src/js/components/FilterBar';
@@ -66,7 +67,7 @@ class TasksView extends mixin(SaveStateMixin) {
     this.setState({checkedItems});
   }
 
-  handleKillClick(killAction) {
+  handleStopClick(killAction) {
     const {checkedItems} = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -141,25 +142,50 @@ class TasksView extends mixin(SaveStateMixin) {
     );
   }
 
-  getKillButtons(hasCheckedTasks) {
-    if (!hasCheckedTasks) {
+  getStopButtons() {
+    const {tasks} = this.props;
+    const {checkedItems} = this.state;
+
+    if (!Object.keys(checkedItems).length) {
       return null;
     }
+    // Only show Stop if a scheduler task isn't selected
+    const hasSchedulerTask = tasks
+      .some((task) => task.id in checkedItems && task.schedulerTask);
+
+    // Using Button's native "disabled" prop prevents onMouseLeave from
+    // being correctly called, preventing correct dismissal of the Tooltip.
+    //
+    // So we manually disable the button.
+    let handleStopClick = function () {};
+
+    if (!hasSchedulerTask) {
+      handleStopClick = this.handleStopClick.bind(this, 'stop');
+    }
+
+    let stopButtonClasses = classNames('button button-link', {
+      disabled: hasSchedulerTask
+    });
 
     return (
       <div className="button-collection flush-bottom">
-        <div
+        <button
           className="button button-link"
-          onClick={this.handleKillClick.bind(this, 'restart')}>
+          onClick={this.handleStopClick.bind(this, 'restart')}>
           <Icon id="repeat" size="mini" />
           <span>Restart</span>
-        </div>
-        <div
-          className="button button-link"
-          onClick={this.handleKillClick.bind(this, 'stop')}>
-          <Icon id="circle-close" size="mini" />
-          <span>Stop</span>
-        </div>
+        </button>
+        <Tooltip
+          wrapperClassName="button-group"
+          content="Stopping a scheduler task is not supported."
+          suppress={!hasSchedulerTask}>
+          <button
+            className={stopButtonClasses}
+            onClick={handleStopClick}>
+              <Icon id="circle-close" size="mini" />
+              <span>Stop</span>
+          </button>
+        </Tooltip>
       </div>
     );
   }
@@ -209,7 +235,7 @@ class TasksView extends mixin(SaveStateMixin) {
             inverseStyle={inverseStyle}
             itemList={taskStates}
             selectedFilter={filterByStatus} />
-          {this.getKillButtons(hasCheckedTasks)}
+          {this.getStopButtons()}
         </FilterBar>
         {this.getTaskTable(filteredTasks, checkedItems)}
       </div>

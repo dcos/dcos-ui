@@ -169,7 +169,9 @@ class TasksContainer extends React.Component {
   render() {
     return (
       <div>
-        <TasksView params={this.props.params} tasks={this.props.tasks} />
+        <TasksView
+          params={this.props.params}
+          tasks={this.props.tasks} />
         {this.getModals()}
       </div>
     );

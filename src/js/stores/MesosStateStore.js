@@ -34,6 +34,20 @@ function stopPolling() {
   }
 }
 
+/**
+ * Assigns a property to task if it is a scheduler task.
+ * @param  {Object} task
+ * @param  {Array} schedulerTaskIds Array of scheduler task Ids
+ * @return {Object} task
+ */
+function assignSchedulerTaskField(task, schedulerTaskIds) {
+  if (schedulerTaskIds.includes(task.id)) {
+    return Object.assign({}, task, {schedulerTask: true});
+  }
+
+  return task;
+}
+
 class MesosStateStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
@@ -179,10 +193,21 @@ class MesosStateStore extends GetSetBaseStore {
     let services = this.get('lastMesosState').frameworks || [];
     let memberTasks = {};
 
-    services.forEach(function (service) {
+    const schedulerTaskIds = services.reduce((memo, service) => {
+      const serviceName = service.name.split('.').reverse().join('/');
+      const schedulerTask = this.getSchedulerTaskFromServiceName(serviceName);
+
+      if (schedulerTask) {
+        memo.push(schedulerTask.id);
+      }
+
+      return memo;
+    }, []);
+
+    services.forEach((service) => {
       service.tasks.forEach(function (task) {
         if (task.slave_id === nodeID) {
-          memberTasks[task.id] = task;
+          memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTaskIds);
         }
       });
       service.completed_tasks.forEach(function (task) {
@@ -268,6 +293,13 @@ class MesosStateStore extends GetSetBaseStore {
       return [];
     }
 
+    const schedulerTaskIds = [];
+
+    const schedulerTask = this.getSchedulerTaskFromServiceName(serviceName);
+    if (schedulerTask) {
+      schedulerTaskIds.push(schedulerTask.id);
+    }
+
     // Combine framework (if matching framework was found) and filtered
     // Marathon tasks. This will give you a list of framework tasks including
     // the scheduler tasks or a list of Marathon application tasks.
@@ -275,15 +307,17 @@ class MesosStateStore extends GetSetBaseStore {
       let {tasks = [], completed_tasks = {}, name} = framework;
       // Include tasks from framework match, if service is a Framework
       if (service instanceof Framework && name === serviceName) {
-        return serviceTasks.concat(tasks, completed_tasks);
+        return serviceTasks
+          .concat(tasks, completed_tasks)
+          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
       }
 
       // Filter marathon tasks by service name
       if (name === 'marathon') {
         return tasks.concat(completed_tasks)
-          .filter(function ({name}) {
-            return name === mesosTaskName;
-          }).concat(serviceTasks);
+          .filter(({name}) => name === mesosTaskName)
+          .concat(serviceTasks)
+          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
       }
 
       return serviceTasks;
