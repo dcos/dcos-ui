@@ -39,6 +39,13 @@ module.exports = {
       return [];
     }
 
+    if (state.networks.length === 0) {
+      return [
+        new Transaction(['networks'], 0, ADD_ITEM),
+        new Transaction(['networks', 0], Networking.type.HOST)
+      ];
+    }
+
     return state.networks.reduce((memo, network, index) => {
       memo.push(new Transaction(['networks'], index, ADD_ITEM));
 
