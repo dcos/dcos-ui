@@ -1,6 +1,12 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
+import ConfigurationMapHeading from './ConfigurationMapHeading';
+import ConfigurationMapLabel from './ConfigurationMapLabel';
+import ConfigurationMapRow from './ConfigurationMapRow';
+import ConfigurationMapSection from './ConfigurationMapSection';
+import ConfigurationMapValue from './ConfigurationMapValue';
+
 class DescriptionList extends React.Component {
   constructor() {
     super(...arguments);
@@ -8,21 +14,22 @@ class DescriptionList extends React.Component {
   }
 
   getHeadline() {
-    let {headline, headlineClassName} = this.props;
+    let {headline, headlineClassName, headingLevel} = this.props;
     if (!headline) {
       return null;
     }
 
     // Wrap in headline element and classes
     return (
-      <h5 className={headlineClassName}>
+      <ConfigurationMapHeading className={headlineClassName}
+        level={headingLevel}>
         {headline}
-      </h5>
+      </ConfigurationMapHeading>
     );
   }
 
   getItems() {
-    let {dtClassName, ddClassName, hash, renderKeys} = this.props;
+    let {hash, headingLevel, renderKeys} = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
@@ -32,10 +39,15 @@ class DescriptionList extends React.Component {
       if (typeof value === 'object' && !Array.isArray(value) &&
         value !== null && !React.isValidElement(value)) {
 
+        // Incrase the heading level for each nested description list, making
+        // ensuring we don't surpass heading level 6.
+        let nextHeadingLevel = Math.min(headingLevel + 1, 6);
+
         return (
           <DescriptionList
             {...this.props}
             hash={value}
+            headingLevel={nextHeadingLevel}
             key={index}
             headline={key} />
         );
@@ -51,42 +63,37 @@ class DescriptionList extends React.Component {
       }
 
       return (
-        <dl key={index} className="flex row">
-          <dt className={dtClassName}>{key}</dt>
-          <dd className={ddClassName}>{value}</dd>
-        </dl>
+        <ConfigurationMapRow key={index}>
+          <ConfigurationMapLabel>{key}</ConfigurationMapLabel>
+          <ConfigurationMapValue>{value}</ConfigurationMapValue>
+        </ConfigurationMapRow>
       );
     });
   }
 
   render() {
-    let {hash, className} = this.props;
+    let {hash} = this.props;
     if (!hash || Object.keys(hash).length === 0) {
       return null;
     }
 
     return (
-      <div className={className} key={this.props.key}>
+      <ConfigurationMapSection key={this.props.key}>
         {this.getHeadline()}
         {this.getItems()}
-      </div>
+      </ConfigurationMapSection>
     );
   }
 }
 
 DescriptionList.defaultProps = {
-  className: '',
-  ddClassName: 'column-9 text-overflow-break-word',
-  dtClassName: 'column-3 text-mute text-overflow-break-word',
-  headlineClassName: 'flush-top',
+  headingLevel: 1,
   key: '',
   renderKeys: {}
 };
 
 DescriptionList.propTypes = {
-  className: React.PropTypes.string,
-  ddClassName: React.PropTypes.string,
-  dtClassName: React.PropTypes.string,
+  headingLevel: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
   headlineClassName: React.PropTypes.string,
   headline: React.PropTypes.node,
   hash: React.PropTypes.object,

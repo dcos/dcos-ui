@@ -1,4 +1,10 @@
+jest.dontMock('../ConfigurationMapLabel');
+jest.dontMock('../ConfigurationMapRow');
+jest.dontMock('../ConfigurationMapHeading');
+jest.dontMock('../ConfigurationMapSection');
+jest.dontMock('../ConfigurationMapValue');
 jest.dontMock('../DescriptionList');
+jest.dontMock('../DetailViewSectionHeading');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
@@ -51,7 +57,7 @@ describe('DescriptionList', function () {
     );
 
     var result = ReactDOM.findDOMNode(instance);
-    expect(TestUtils.isDOMComponent(result)).toEqual(false);
+    expect(TestUtils.isCompositeComponent(result)).toEqual(false);
   });
 
   it('should return a node of elements if node exists', function () {
@@ -71,7 +77,7 @@ describe('DescriptionList', function () {
     );
 
     var node = ReactDOM.findDOMNode(instance);
-    var headline = node.querySelector('h5');
+    var headline = node.querySelector('.configuration-map-heading');
 
     expect(headline.textContent).toEqual('baz');
   });
