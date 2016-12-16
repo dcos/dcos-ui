@@ -182,8 +182,8 @@ class TasksView extends mixin(SaveStateMixin) {
           <button
             className={stopButtonClasses}
             onClick={handleStopClick}>
-              <Icon id="circle-close" size="mini" />
-              <span>Stop</span>
+            <Icon id="circle-close" size="mini" />
+            <span>Stop</span>
           </button>
         </Tooltip>
       </div>
