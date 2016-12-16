@@ -230,22 +230,9 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
-    const frameworks = this.get('lastMesosState').frameworks;
-
-    if (!frameworks) {
-      return null;
-    }
-
-    const framework = frameworks.find(function (framework) {
-      return framework.name.toLowerCase() === 'marathon';
-    });
-
-    if (!framework || !framework.tasks) {
-      return null;
-    }
-
-    const result = framework.tasks.find(function (task) {
-      const labels = task.labels;
+    const tasks = this.getTasksFromServiceName('marathon');
+    return tasks.find(function (task) {
+      let labels = task.labels;
 
       if (!labels) {
         return false;
@@ -257,8 +244,6 @@ class MesosStateStore extends GetSetBaseStore {
 
       return frameworkName && frameworkName.value === serviceName;
     });
-
-    return result;
   }
 
   getTasksFromServiceName(serviceName) {
