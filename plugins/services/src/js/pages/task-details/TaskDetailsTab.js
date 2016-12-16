@@ -1,6 +1,10 @@
 import React from 'react';
 
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
+import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import Loader from '../../../../../../src/js/components/Loader';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
@@ -17,14 +21,16 @@ class TaskDetailsTab extends React.Component {
     }
 
     return (
-      <div>
-        <h5 className="flush-top">
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
           Container Configuration
-        </h5>
-        <pre className="mute prettyprint flush-bottom">
-          {JSON.stringify(task.container, null, 4)}
-        </pre>
-      </div>
+        </ConfigurationMapHeading>
+        <ConfigurationMapRow>
+          <pre className="flex-item-grow-1 mute prettyprint flush-bottom">
+            {JSON.stringify(task.container, null, 4)}
+          </pre>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
     );
   }
 
@@ -89,7 +95,7 @@ class TaskDetailsTab extends React.Component {
     const resourceColors = ResourcesUtil.getResourceColors();
     const resourceLabels = ResourcesUtil.getResourceLabels();
 
-    return ResourcesUtil.getDefaultResources().map(function (resource) {
+    const resourceGraphs = ResourcesUtil.getDefaultResources().map(function (resource) {
       if (resource === 'ports') {
         return null;
       }
@@ -111,6 +117,16 @@ class TaskDetailsTab extends React.Component {
         </div>
       );
     });
+
+    return (
+      <div className="pod flush-top flush-right flush-left">
+        <div className="media-object-spacing-wrapper media-object-spacing-wide">
+          <div className="media-object">
+            {resourceGraphs}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -121,16 +137,14 @@ class TaskDetailsTab extends React.Component {
     }
 
     return (
-      <div>
-        <div className="media-object-spacing-wrapper media-object-spacing-wide">
-          <div className="media-object">
-            {this.getResources(task)}
-          </div>
-        </div>
-        {this.getMesosTaskDetailsDescriptionList(task)}
-        {this.getMesosTaskLabelDescriptionList(task)}
-        <MarathonTaskDetailsList taskID={task.id} />
-        {this.getContainerInfo(task)}
+      <div className="container">
+        {this.getResources(task)}
+        <ConfigurationMap>
+          {this.getMesosTaskDetailsDescriptionList(task)}
+          {this.getMesosTaskLabelDescriptionList(task)}
+          <MarathonTaskDetailsList taskID={task.id} />
+          {this.getContainerInfo(task)}
+        </ConfigurationMap>
       </div>
     );
   }

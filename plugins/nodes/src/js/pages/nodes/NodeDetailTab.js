@@ -1,6 +1,7 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
+import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
@@ -26,14 +27,16 @@ class NodeDetailTab extends React.Component {
     };
 
     return (
-      <div>
-        <DescriptionList
-          className="pod pod-short flush-top flush-right flush-left"
-          hash={headerValueMapping} />
-        <DescriptionList
-          className="pod pod-short flush-top flush-right flush-left"
-          hash={node.attributes}
-          headline="Attributes" />
+      <div className="container">
+        <ConfigurationMap>
+          <DescriptionList
+            className="pod pod-short flush-top flush-right flush-left"
+            hash={headerValueMapping} />
+          <DescriptionList
+            className="pod pod-short flush-top flush-right flush-left"
+            hash={node.attributes}
+            headline="Attributes" />
+        </ConfigurationMap>
       </div>
     );
   }

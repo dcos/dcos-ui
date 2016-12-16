@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ConfigurationMap from '../../components/ConfigurationMap';
 import DescriptionList from '../../components/DescriptionList';
 import Job from '../../structs/Job';
 
@@ -15,7 +16,7 @@ class JobConfiguration extends React.Component {
     return 'No schedule available.';
   }
 
-  getGenralSection(job) {
+  getGeneralSection(job) {
     let headerValueMapping = {
       'ID': job.getId(),
       'Description': job.getDescription(),
@@ -55,7 +56,7 @@ class JobConfiguration extends React.Component {
 
   getDockerContainerSection(job) {
     const docker = job.getDocker();
-    if (docker == null) {
+    if (docker == null || !docker.image) {
       return null;
     }
 
@@ -82,12 +83,13 @@ class JobConfiguration extends React.Component {
     const {job} = this.props;
 
     return (
-      <div>
-        <h4>Configuration</h4>
-        {this.getGenralSection(job)}
-        {this.getScheduleSection(job)}
-        {this.getDockerContainerSection(job)}
-        {this.getLabelSection(job)}
+      <div className="container">
+        <ConfigurationMap>
+          {this.getGeneralSection(job)}
+          {this.getScheduleSection(job)}
+          {this.getDockerContainerSection(job)}
+          {this.getLabelSection(job)}
+        </ConfigurationMap>
       </div>
     );
   }

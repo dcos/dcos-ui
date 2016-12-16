@@ -2,6 +2,9 @@ import React from 'react';
 import {routerShape} from 'react-router';
 
 import Alert from '../../../../../../src/js/components/Alert';
+import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
@@ -124,9 +127,9 @@ class ServiceDebugContainer extends React.Component {
 
       mainContent = (
         <div>
-          <h2 className="short-bottom">
+          <ConfigurationMapHeading level={2}>
             Summary
-          </h2>
+          </ConfigurationMapHeading>
           <RecentOffersSummary data={summary} />
         </div>
       );
@@ -136,7 +139,9 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div ref={(ref) => { this.offerSummaryRef = ref; }}>
-        <h1 className="short-bottom">Recent Resource Offers{offerCount}</h1>
+        <ConfigurationMapHeading>
+          Recent Resource Offers{offerCount}
+        </ConfigurationMapHeading>
         <p>{introText}</p>
         {mainContent}
       </div>
@@ -158,7 +163,9 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div>
-        <h2 className="short-bottom">Details</h2>
+        <ConfigurationMapHeading level={2}>
+          Details
+        </ConfigurationMapHeading>
         <DeclinedOffersTable offers={queue.declinedOffers.offers}
           service={service}
           summary={queue.declinedOffers.summary} />
@@ -222,22 +229,30 @@ class ServiceDebugContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.getWaitingForResourcesNotice()}
-        <h5 className="flush-top">
-          Last Changes
-        </h5>
-        {this.getLastVersionChange()}
-        <h5 className="flush-top">
-          Last Task Failure
-        </h5>
-        {this.getLastTaskFailureInfo()}
-        <h5 className="flush-top">
-          Task Statistics
-        </h5>
-        {this.getTaskStats()}
-        {this.getRecentOfferSummary()}
-        {this.getDeclinedOffersTable()}
+        <ConfigurationMap>
+          <ConfigurationMapSection>
+            <ConfigurationMapHeading>
+              Last Changes
+            </ConfigurationMapHeading>
+            {this.getLastVersionChange()}
+          </ConfigurationMapSection>
+          <ConfigurationMapSection>
+            <ConfigurationMapHeading>
+              Last Task Failure
+            </ConfigurationMapHeading>
+            {this.getLastTaskFailureInfo()}
+          </ConfigurationMapSection>
+          <ConfigurationMapSection>
+            <ConfigurationMapHeading>
+              Task Statistics
+            </ConfigurationMapHeading>
+            {this.getTaskStats()}
+          </ConfigurationMapSection>
+          {this.getRecentOfferSummary()}
+          {this.getDeclinedOffersTable()}
+        </ConfigurationMap>
       </div>
     );
   }
