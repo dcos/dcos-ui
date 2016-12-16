@@ -9,7 +9,7 @@ module.exports = {
     let newState = state.slice();
     if (path[0] === 'network') {
 
-      if (type === ADD_ITEM) {
+      if (type === ADD_ITEM && index !== 0) {
         newState.push({mode: Networking.type.HOST.toLowerCase()});
         return newState;
       }
