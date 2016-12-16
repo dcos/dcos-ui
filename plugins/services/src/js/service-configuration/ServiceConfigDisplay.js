@@ -81,16 +81,14 @@ class ServiceConfigDisplay extends React.Component {
       return null;
     }
 
-    const topLevelPaths = ['', '/'];
-    const messages = topLevelPaths
-      .filter((path) => this.props.errors.has(path))
-      .reduce((accumulator, path) => {
-        const errors = this.props.errors.get(path).map((message, index) => {
-          return <div key={`${path}${index}`}>{message}</div>;
-        });
-
-        return accumulator.concat(errors);
-      }, []);
+    let messages = [];
+    for (const [path, errors] of this.props.errors) {
+      messages = messages.concat(
+        errors.map((message, index) => {
+          return <div key={`${path}-${index}`}>{message}</div>;
+        })
+      );
+    }
 
     return messages.length > 0
       ? <Alert>{messages}</Alert>
