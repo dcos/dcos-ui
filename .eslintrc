@@ -43,7 +43,6 @@
     "arrow-parens": ["error", "always"],
     "eqeqeq": ["error", "smart"],
     "quotes": ["error", "single"],
-    "indent": ["error", 2, {"SwitchCase": 1}],
     "camelcase": ["off", {"properties": "never"}],
     // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
@@ -135,7 +134,6 @@
     "max-len": "off",
     "no-useless-constructor": "off",
     "no-return-assign": "off",
-    "react/jsx-indent": "off",
     "react/sort-comp": "off",
     "react/prefer-es6-class": "off",
     "react/jsx-boolean-value": "off",
@@ -146,7 +144,6 @@
     "react/prefer-stateless-function": "off",
     "no-new-wrappers": "off",
     "react/jsx-space-before-closing": "off",
-    "react/jsx-indent-props": "off",
     "jsx-a11y/img-has-alt": "off",
     "space-in-parens": "off",
     "new-cap": "off",
