@@ -8,7 +8,7 @@ describe('Constraints', function () {
   describe('#JSONReducer', function () {
 
     it('emits correct JSON', function () {
-      let batch = new Batch([
+      const batch = new Batch([
         new Transaction(['constraints'], 0, ADD_ITEM),
         new Transaction(['constraints', 0, 'field'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET),
@@ -20,7 +20,7 @@ describe('Constraints', function () {
     });
 
     it('skips optional value', function () {
-      let batch = new Batch([
+      const batch = new Batch([
         new Transaction(['constraints'], 0, ADD_ITEM),
         new Transaction(['constraints', 0, 'field'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET)

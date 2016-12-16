@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 import Icon from './Icon';
 import ServiceFilterTypes from '../../../plugins/services/src/js/constants/ServiceFilterTypes';
 
-let METHODS_TO_BIND = [
+const METHODS_TO_BIND = [
   'handleBlur',
   'handleFocus',
   'handleChange',
@@ -25,7 +25,7 @@ class FilterInputText extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let {focus} = this.state;
+    const {focus} = this.state;
 
     if (prevState.focus !== focus && focus && this.inputField) {
       this.inputField.focus();
@@ -33,10 +33,10 @@ class FilterInputText extends React.Component {
   }
 
   handleChange(event) {
-    let {target} = event;
+    const {target} = event;
 
     // Make sure to never emit falsy values
-    let value = target.value || '';
+    const value = target.value || '';
     this.props.handleFilterChange(value, ServiceFilterTypes.TEXT);
   }
 
@@ -106,8 +106,8 @@ class FilterInputText extends React.Component {
   }
 
   render() {
-    let {className, inputContainerClass, inverseStyle} = this.props;
-    let {focus} = this.state;
+    const {className, inputContainerClass, inverseStyle} = this.props;
+    const {focus} = this.state;
 
     let iconColor = 'grey';
     let iconSearchClasses = classNames({

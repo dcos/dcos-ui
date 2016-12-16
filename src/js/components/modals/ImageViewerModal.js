@@ -26,7 +26,7 @@ class ImageViewerModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {props} = this;
+    const {props} = this;
     if (props.open && !nextProps.open) {
       // Closes
       global.window.removeEventListener('keydown', this.handleKeyPress, true);
@@ -39,7 +39,7 @@ class ImageViewerModal extends React.Component {
   }
 
   handleKeyPress(event) {
-    let {images} = this.props;
+    const {images} = this.props;
     // Should do nothing if the key event was already consumed, or there is only
     // one or no images
     if (event.defaultPrevented || !images || images.length < 2) {
@@ -75,7 +75,7 @@ class ImageViewerModal extends React.Component {
   }
 
   getSelectedImage() {
-    let {props} = this;
+    const {props} = this;
 
     return (
       <div className="fill-image-contianer">
@@ -106,7 +106,7 @@ class ImageViewerModal extends React.Component {
   }
 
   render() {
-    let {props, state} = this;
+    const {props, state} = this;
     let closeIcon = <Icon id="close" size="mini" />;
     let modalClasses = classNames('modal modal-image-viewer', {
       hidden: state.isLoadingImage

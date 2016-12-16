@@ -14,7 +14,7 @@ describe('RouterUtil', function () {
     });
 
     it('creates a react component', function () {
-      let components = RouterUtil.createComponentsFromRoutes([
+      const components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
           path: 'foo',
@@ -26,7 +26,7 @@ describe('RouterUtil', function () {
     });
 
     it('creates a react component of correct type', function () {
-      let components = RouterUtil.createComponentsFromRoutes([
+      const components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
           path: 'foo',
@@ -39,21 +39,21 @@ describe('RouterUtil', function () {
     });
 
     it('sets props correctly', function () {
-      let components = RouterUtil.createComponentsFromRoutes([
+      const components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
           path: 'foo',
           component: this.component
         }
       ]);
-      let props = components[0].props;
+      const props = components[0].props;
 
       expect(props.component).toEqual(this.component);
       expect(props.path).toEqual('foo');
     });
 
     it('creates child route components', function () {
-      let components = RouterUtil.createComponentsFromRoutes([
+      const components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
           path: 'foo',
@@ -65,7 +65,7 @@ describe('RouterUtil', function () {
           }]
         }
       ]);
-      let component = components[0].props.children;
+      const component = components[0].props.children;
 
       expect(ReactTestUtils.isElementOfType(component, ReactRouter.Redirect))
           .toBeTruthy();
@@ -76,7 +76,7 @@ describe('RouterUtil', function () {
   describe('#buildRoutes', function () {
 
     it('builds routes correctly', function () {
-      let routeConfiguration = [
+      const routeConfiguration = [
         {
           type: ReactRouter.Route,
           path: 'foo',
@@ -96,23 +96,23 @@ describe('RouterUtil', function () {
         }
       ];
 
-      let routes = RouterUtil.buildRoutes(routeConfiguration);
+      const routes = RouterUtil.buildRoutes(routeConfiguration);
 
       // Check first route
-      let firstRoute = routes[0];
+      const firstRoute = routes[0];
       expect(firstRoute.path).toEqual('foo');
       expect(firstRoute.component).toEqual(routeConfiguration[0].component);
       expect(firstRoute.buildBreadCrumb)
           .toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
-      let secondRoute = routes[0].childRoutes[0];
-      let secondRouteConfig = routeConfiguration[0].children[0];
+      const secondRoute = routes[0].childRoutes[0];
+      const secondRouteConfig = routeConfiguration[0].children[0];
       expect(secondRoute.path).toEqual('bar');
       expect(secondRoute.component).toEqual(secondRouteConfig.component);
       expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
-      let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
-      let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
+      const thirdRoute = routes[0].childRoutes[0].childRoutes[0];
+      const thirdRouteConfig = routeConfiguration[0].children[0].children[0];
       expect(thirdRoute.path).toEqual('baz');
       expect(thirdRoute.component).toEqual(thirdRouteConfig.component);
       expect(thirdRoute.buildBreadCrumb)
@@ -123,12 +123,12 @@ describe('RouterUtil', function () {
 
   describe('#reconstructPathFromRoutes', function () {
     it('constructs path correctly', function () {
-      let routes = [
+      const routes = [
         {path: 'foo'},
         {path: ':id'},
         {path: ':bar/baz'}
       ];
-      let path = RouterUtil.reconstructPathFromRoutes(routes);
+      const path = RouterUtil.reconstructPathFromRoutes(routes);
       expect(path).toEqual('/foo/:id/:bar/baz');
     });
 

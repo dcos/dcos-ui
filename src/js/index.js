@@ -23,7 +23,7 @@ import NavigationServiceUtil from './utils/NavigationServiceUtil';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
 
-let domElement = document.getElementById('application');
+const domElement = document.getElementById('application');
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
@@ -45,10 +45,10 @@ setTimeout(function () {
 });
 
 // Patch json
-let oldJSON = RequestUtil.json;
+const oldJSON = RequestUtil.json;
 RequestUtil.json = function (options = {}) {
   // Proxy error function so that we can trigger a plugin event
-  let oldHandler = options.error;
+  const oldHandler = options.error;
   options.error = function () {
     if (typeof oldHandler === 'function') {
       oldHandler.apply(null, arguments);
@@ -68,7 +68,7 @@ RequestUtil.json = function (options = {}) {
     }
 
     // Allow overriding of application contents
-    let contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
+    const contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
     if (contents) {
       renderAppToDOM(contents);
     } else {
@@ -105,7 +105,7 @@ RequestUtil.json = function (options = {}) {
 
   function onConfigurationError() {
     // Try to find appropriate DOM element or fallback
-    let element = document.querySelector('#canvas div') || domElement;
+    const element = document.querySelector('#canvas div') || domElement;
     let columnClasses = {
       'column-small-8': false,
       'column-small-offset-2': false,

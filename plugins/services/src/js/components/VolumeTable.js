@@ -62,7 +62,7 @@ class VolumeTable extends React.Component {
       }
     );
 
-    let headingStrings = {
+    const headingStrings = {
       id: 'ID',
       host: 'HOST',
       type: 'TYPE',
@@ -131,10 +131,10 @@ class VolumeTable extends React.Component {
 
   renderIDColumn(prop, row) {
     let id = row[prop];
-    let {nodeID, taskID} = this.props.params;
-    let volumeID = encodeURIComponent(id);
-    let serviceID = encodeURIComponent(this.props.params.id);
-    let currentroutePath = reconstructPathFromRoutes(this.props.routes);
+    const {nodeID, taskID} = this.props.params;
+    const volumeID = encodeURIComponent(id);
+    const serviceID = encodeURIComponent(this.props.params.id);
+    const currentroutePath = reconstructPathFromRoutes(this.props.routes);
     let routePath = null;
 
     if (currentroutePath === '/services/overview/:id') {
@@ -149,7 +149,7 @@ class VolumeTable extends React.Component {
   }
 
   renderStatusColumn(prop, row) {
-    let value = row[prop];
+    const value = row[prop];
     let classes = classNames({
       'text-danger': value === VolumeStatus.DETACHED,
       'text-success': value === VolumeStatus.ATTACHED

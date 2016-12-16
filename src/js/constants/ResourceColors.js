@@ -1,4 +1,4 @@
-let RESOURCE_COLORS = {
+const RESOURCE_COLORS = {
   disk: 'blue',
   cpu: 'purple',
   memory: 'pink'

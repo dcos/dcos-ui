@@ -102,14 +102,14 @@ module.exports = function Hooks() {
       listeners = Object.assign({}, listeners);
 
       // Sort the listeners by priority
-      let priorities = Object.keys(listeners);
+      const priorities = Object.keys(listeners);
       priorities.sort();
 
       priorities.forEach(function (priority) {
         // Clone and call all listeners
         listeners[priority].slice(0).forEach(function (listener) {
           // Creates new arguments array to call the listener with
-          let groupedArgs = args.slice();
+          const groupedArgs = args.slice();
           groupedArgs.unshift(value);
           value = listener.apply(null, groupedArgs);
         });
@@ -159,7 +159,7 @@ module.exports = function Hooks() {
       listeners = Object.assign({}, listeners);
 
       // Sort the listeners by priority
-      let priorities = Object.keys(listeners);
+      const priorities = Object.keys(listeners);
       priorities.sort();
 
       priorities.forEach(function (priority) {

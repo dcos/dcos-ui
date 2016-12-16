@@ -18,7 +18,7 @@ import StringUtil from '../../utils/StringUtil';
 
 const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
   let name = cosmosPackage.getName();
-  let version = cosmosPackage.getCurrentVersion();
+  const version = cosmosPackage.getCurrentVersion();
 
   const crumbs = [
     <Link to="/universe/packages" key={-1}>Packages</Link>,
@@ -63,8 +63,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
 
-    let {packageName} = this.props.params;
-    let {version} = this.props.location.query;
+    const {packageName} = this.props.params;
+    const {version} = this.props.location.query;
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
@@ -90,9 +90,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getItems(definition, renderItem) {
-    let items = [];
+    const items = [];
     definition.forEach((item, index) => {
-      let {label, type, value} = item;
+      const {label, type, value} = item;
 
       // When there is no content to render, discard it all together
       if (!value || (Array.isArray(value) && !value.length)) {
@@ -153,7 +153,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   mapLicenses(licenses) {
     return licenses.map(function (license) {
-      let item = {
+      const item = {
         label: license.name,
         value: license.url
       };
@@ -202,7 +202,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {props, state} = this;
 
     if (state.hasError || !props.params.packageName) {
       return this.getErrorScreen();
@@ -215,10 +215,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     let name = cosmosPackage.getName();
     let version = cosmosPackage.getCurrentVersion();
-    let description = cosmosPackage.getDescription();
-    let preInstallNotes = cosmosPackage.getPreInstallNotes();
+    const description = cosmosPackage.getDescription();
+    const preInstallNotes = cosmosPackage.getPreInstallNotes();
 
-    let definition = [
+    const definition = [
       {
         label: 'Description',
         value: description && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)} />

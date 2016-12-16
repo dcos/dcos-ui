@@ -7,7 +7,7 @@ describe('JobTaskList', function () {
   describe('#getLongestRunningTask', function () {
 
     it('returns the longest running task', function () {
-      let activeRunList = new JobTaskList({
+      const activeRunList = new JobTaskList({
         items: [
           {'startedAt': '1990-01-03T00:00:00Z-1'},
           {'startedAt': '1985-01-03T00:00:00Z-1'},
@@ -20,7 +20,7 @@ describe('JobTaskList', function () {
     });
 
     it('handles tasks with undefined startedAt values', function () {
-      let activeRunList = new JobTaskList({
+      const activeRunList = new JobTaskList({
         items: [
           {'startedAt': '1990-03-03T00:00:00Z-1'},
           {foo: 'bar'},

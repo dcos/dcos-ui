@@ -28,7 +28,7 @@ describe('DeploymentsTab', function () {
     // Install our custom jasmine timers.
     jasmine.clock().install();
     jasmine.clock().mockDate(new Date(2016, 3, 19));
-    let deployments = new DeploymentsList({
+    const deployments = new DeploymentsList({
       items: [
         {
           id: 'deployment-id',
@@ -63,7 +63,7 @@ describe('DeploymentsTab', function () {
   describe('#getRollbackModalText', function () {
 
     it('should return a removal message when passed a starting deployment', function () {
-      let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
+      const text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
         id: 'deployment-id',
         affectedApps: ['app1'],
         affectedServices: [new Application({name: 'app1'})],
@@ -73,7 +73,7 @@ describe('DeploymentsTab', function () {
     });
 
     it('should return a revert message when passed a non-starting deployment', function () {
-      let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
+      const text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
         id: 'deployment-id',
         affectedApps: ['app1'],
         affectedServices: [new Application({name: 'app1'})],
@@ -87,7 +87,7 @@ describe('DeploymentsTab', function () {
   describe('#render', function () {
 
     it('should render the deployments count', function () {
-      let h4 = this.container.querySelector('h4');
+      const h4 = this.container.querySelector('h4');
       expect(h4.textContent).toEqual('1 Active Deployment');
     });
 
@@ -97,18 +97,18 @@ describe('DeploymentsTab', function () {
 
     describe('affected services column', function () {
       it('should render the deployment ID', function () {
-        let dt = this.tds[0].querySelector('dt .collapsing-string-full-string');
+        const dt = this.tds[0].querySelector('dt .collapsing-string-full-string');
         expect(dt.textContent).toEqual('deployment-id');
       });
       it('should render each affected application', function () {
-        let dds = this.tds[0].querySelectorAll('dd');
+        const dds = this.tds[0].querySelectorAll('dd');
         expect(dds.length).toEqual(2);
       });
     });
 
     describe('location column', function () {
       it('should render a location for each service', function () {
-        let lis = this.tds[1].querySelectorAll('li');
+        const lis = this.tds[1].querySelectorAll('li');
         expect(lis.length).toEqual(2);
       });
     });
@@ -118,25 +118,25 @@ describe('DeploymentsTab', function () {
         expect(this.tds[2].textContent).toEqual('15 years ago');
       });
       it('should render a `time` element', function () {
-        let time = this.tds[2].querySelector('time');
+        const time = this.tds[2].querySelector('time');
         expect(time.getAttribute('dateTime')).toEqual('2001-01-01T01:01:01.001Z');
       });
     });
 
     describe('status column', function () {
       it('should render the deployment progress', function () {
-        let deploymentStep = this.tds[3].querySelector('.deployment-step');
+        const deploymentStep = this.tds[3].querySelector('.deployment-step');
         expect(deploymentStep.textContent).toEqual('Step 2 of 3');
       });
       it('should render the status of each application', function () {
-        let lis = this.tds[3].querySelectorAll('li');
+        const lis = this.tds[3].querySelectorAll('li');
         expect(lis.length).toEqual(2);
       });
     });
 
     describe('action column', function () {
       it('should render a rollback button', function () {
-        let rollbackButton = this.tds[4].querySelector('.deployment-rollback');
+        const rollbackButton = this.tds[4].querySelector('.deployment-rollback');
         expect(rollbackButton).not.toBeNull();
       });
     });

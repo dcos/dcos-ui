@@ -24,7 +24,7 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);
     UnitHealthStore.fetchUnitNode(unitID, unitNodeID);

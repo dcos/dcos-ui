@@ -10,7 +10,7 @@ module.exports = class PodInstance extends Item {
   }
 
   getContainers() {
-    let containers = this.get('containers') || [];
+    const containers = this.get('containers') || [];
     return containers.map((container) => {
       return new PodContainer(container);
     });
@@ -70,7 +70,7 @@ module.exports = class PodInstance extends Item {
   }
 
   getResources() {
-    let resources = this.get('resources') || {};
+    const resources = this.get('resources') || {};
 
     return Object.assign({
       cpus: 0,
@@ -88,7 +88,7 @@ module.exports = class PodInstance extends Item {
     }
 
     // If we have no containers, return false
-    let containers = this.getContainers();
+    const containers = this.getContainers();
     if (!containers.length) {
       return false;
     }
@@ -110,13 +110,13 @@ module.exports = class PodInstance extends Item {
   }
 
   isRunning() {
-    let status = this.getStatus();
+    const status = this.getStatus();
     return (status === PodInstanceState.STABLE) ||
            (status === PodInstanceState.DEGRADED);
   }
 
   isStaging() {
-    let status = this.getStatus();
+    const status = this.getStatus();
     return (status === PodInstanceState.PENDING) ||
            (status === PodInstanceState.STAGING);
   }

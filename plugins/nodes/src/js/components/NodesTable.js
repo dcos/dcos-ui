@@ -51,7 +51,7 @@ var NodesTable = React.createClass({
       );
     }
 
-    let nodeID = node.get('id');
+    const nodeID = node.get('id');
 
     return (
       <Link
@@ -63,13 +63,13 @@ var NodesTable = React.createClass({
   },
 
   renderHealth(prop, node) {
-    let requestReceived = this.props.receivedNodeHealthResponse;
+    const requestReceived = this.props.receivedNodeHealthResponse;
 
     if (!requestReceived) {
       return <Loader size="small" type="ballBeat" />;
     }
 
-    let health = node.getHealth();
+    const health = node.getHealth();
 
     return (
       <span className={health.classNames}>
@@ -92,9 +92,9 @@ var NodesTable = React.createClass({
   },
 
   getColumns() {
-    let className = ResourceTableUtil.getClassName;
-    let heading = ResourceTableUtil.renderHeading(NodesTableHeaderLabels);
-    let sortFunction = TableUtil.getSortFunction('hostname',
+    const className = ResourceTableUtil.getClassName;
+    const heading = ResourceTableUtil.renderHeading(NodesTableHeaderLabels);
+    const sortFunction = TableUtil.getSortFunction('hostname',
       function (node, prop) {
         if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
           return node.getUsageStats(prop).percentage;

@@ -19,11 +19,11 @@ describe('DetailViewHeader', function () {
 
     it('allows classes to be added', function () {
       let className = 'foo';
-      let instance = ReactDOM.render(
+      const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
         this.container
       );
-      let node = ReactDOM.findDOMNode(instance);
+      const node = ReactDOM.findDOMNode(instance);
       // node.classList causes Jest to OOM ¯\_(ツ)_/¯
       expect(node.getAttribute('class')).toContain('foo');
     });
@@ -32,11 +32,11 @@ describe('DetailViewHeader', function () {
       var className = {
         'container': false
       };
-      let instance = ReactDOM.render(
+      const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
         this.container
       );
-      let node = ReactDOM.findDOMNode(instance);
+      const node = ReactDOM.findDOMNode(instance);
       expect(node.getAttribute('class')).not.toContain('container');
     });
 

@@ -26,7 +26,7 @@ const headerMapping = {
 
 class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy) {
-    let shouldAlignRight = taskStatus.includes(prop)
+    const shouldAlignRight = taskStatus.includes(prop)
       || prop === 'getMedianLifeTime';
 
     return classNames({
@@ -37,8 +37,8 @@ class TaskStatsTable extends React.Component {
   }
 
   getColumns() {
-    let getClassName = this.getClassName;
-    let heading = this.renderHeading;
+    const getClassName = this.getClassName;
+    const heading = this.renderHeading;
 
     return [
       {
@@ -119,7 +119,7 @@ class TaskStatsTable extends React.Component {
 
   renderTime(prop, taskStats) {
     let label = 'seconds';
-    let lifeTimeSeconds = taskStats[prop]();
+    const lifeTimeSeconds = taskStats[prop]();
     let timeValue = lifeTimeSeconds;
 
     if (lifeTimeSeconds > 3600) {
@@ -130,7 +130,7 @@ class TaskStatsTable extends React.Component {
     timeValue = new Number(parseFloat(timeValue).toFixed())
       .toLocaleString();
 
-    let humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds));
+    const humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds));
 
     return `${timeValue} ${label} (${humanReadable})`;
   }

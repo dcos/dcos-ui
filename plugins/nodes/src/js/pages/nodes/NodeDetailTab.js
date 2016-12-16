@@ -14,7 +14,7 @@ class NodeDetailTab extends React.Component {
   }
 
   render() {
-    let {node} = this.props;
+    const {node} = this.props;
 
     let headerValueMapping = {
       ID: node.id,

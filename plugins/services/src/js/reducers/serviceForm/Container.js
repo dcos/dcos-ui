@@ -81,7 +81,7 @@ const containerJSONReducer = combineReducers({
     }
 
     if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
-      let newState = Object.assign({}, this.internalState);
+      const newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
           delete newState[key];
@@ -121,7 +121,7 @@ const containerReducer = combineReducers({
     }
 
     if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
-      let newState = Object.assign({}, this.internalState);
+      const newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
           delete newState[key];
@@ -150,7 +150,7 @@ module.exports = {
       this.isMesosRuntime = value === NONE;
     }
 
-    let newState = Object.assign(
+    const newState = Object.assign(
       {}, containerJSONReducer.apply(this, [this.internalState, ...args])
     );
 
@@ -180,7 +180,7 @@ module.exports = {
       this.internalState = {};
     }
 
-    let newState = Object.assign(
+    const newState = Object.assign(
       {}, containerReducer.apply(this, [this.internalState, ...args])
     );
 

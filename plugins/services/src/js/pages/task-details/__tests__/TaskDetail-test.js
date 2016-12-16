@@ -105,7 +105,7 @@ describe('TaskDetail', function () {
     });
 
     it('should setState increment onTaskDirectoryStoreSuccess', function () {
-      let directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
+      const directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
       // Let directory return something
       TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
         .and.returnValue(directory);
@@ -155,7 +155,7 @@ describe('TaskDetail', function () {
     });
 
     it('should return null if there are no nodes', function () {
-      let node = ReactDOM.findDOMNode(this.instance);
+      const node = ReactDOM.findDOMNode(this.instance);
       expect(node).toEqual(null);
     });
 
@@ -166,7 +166,7 @@ describe('TaskDetail', function () {
         });
       };
 
-      let instance = JestUtil.renderWithStubbedRouter(
+      const instance = JestUtil.renderWithStubbedRouter(
         TaskDetail,
         {
           params: this.params,
@@ -176,7 +176,7 @@ describe('TaskDetail', function () {
         {}
       );
 
-      let node = ReactDOM.findDOMNode(instance);
+      const node = ReactDOM.findDOMNode(instance);
       expect(TestUtils.isDOMComponent(node)).toEqual(true);
     });
   });
@@ -185,12 +185,12 @@ describe('TaskDetail', function () {
 
     it('should return null if task is null', function () {
       MesosStateStore.getTaskFromTaskID = function () { return null; };
-      let result = this.instance.getBasicInfo();
+      const result = this.instance.getBasicInfo();
       expect(result).toEqual(null);
     });
 
     it('should return an element if task is not null', function () {
-      let result = this.instance.getBasicInfo();
+      const result = this.instance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);
     });

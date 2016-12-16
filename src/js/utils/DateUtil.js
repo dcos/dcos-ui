@@ -17,14 +17,14 @@ const DateUtil = {
    * 11002 = 11002 ms (11 sec, 2 ms)
    */
   msToMultiplicants(ms, multiplicants=DEFAULT_MULTIPLICANTS) {
-    let expressionComponents = [];
-    let multiplicantKeys = Object.keys(multiplicants);
+    const expressionComponents = [];
+    const multiplicantKeys = Object.keys(multiplicants);
 
     // Start applying biggest to smallest fit
     for (let i=multiplicantKeys.length-1; i>=0; --i) {
-      let unitName = multiplicantKeys[i];
-      let unitSize = multiplicants[unitName];
-      let fullFits = Math.floor(ms / unitSize);
+      const unitName = multiplicantKeys[i];
+      const unitSize = multiplicants[unitName];
+      const fullFits = Math.floor(ms / unitSize);
 
       if (fullFits > 0) {
         expressionComponents.push(`${fullFits} ${unitName}`);

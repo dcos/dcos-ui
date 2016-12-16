@@ -62,16 +62,16 @@ var PodUtil = {
 
     // De-compose PodInstances into plain objects, so we always operate
     // with plain objects
-    let podInstancesMap =
+    const podInstancesMap =
         podInstances.reduceItems(function (memo, podInstance) {
           memo[podInstance.getId()] = podInstance.get();
           return memo;
         }, {});
 
     // Then merge historical instance information in the pod instance map
-    let combinedInstanceMap =
+    const combinedInstanceMap =
         historicalInstances.reduce(function (memo, historicalInstance) {
-          let podInstance = memo[historicalInstance.id];
+          const podInstance = memo[historicalInstance.id];
           if (podInstance === undefined) {
             memo[historicalInstance.id] = historicalInstance;
             return memo;
@@ -83,7 +83,7 @@ var PodUtil = {
           );
 
           // Filter combined container list to remove potential duplicates
-          let containerIds = new Map();
+          const containerIds = new Map();
           combinedContainers =
               combinedContainers.filter(function ({containerId}) {
                 if (!containerIds.has(containerId)) {
@@ -101,7 +101,7 @@ var PodUtil = {
         }, podInstancesMap);
 
     // Re-compose PodInstances from plain objects
-    let instances = Object.values(combinedInstanceMap).map(function (instance) {
+    const instances = Object.values(combinedInstanceMap).map(function (instance) {
       return new PodInstance(instance);
     });
     return new PodInstanceList({items: instances});

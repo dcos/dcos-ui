@@ -217,7 +217,7 @@ describe('DOMUtils', function () {
         };
       };
 
-      let result = DOMUtils.isElementOnTop(this.element);
+      const result = DOMUtils.isElementOnTop(this.element);
       expect(result).toEqual(false);
     });
 
@@ -226,7 +226,7 @@ describe('DOMUtils', function () {
         return this.element;
       };
 
-      let result = DOMUtils.isElementOnTop(this.element);
+      const result = DOMUtils.isElementOnTop(this.element);
       expect(result).toEqual(true);
     });
   });
@@ -256,7 +256,7 @@ describe('DOMUtils', function () {
     });
 
     it('returns 0 if there is no parentNode', function () {
-      let prevParentNode = this.element.parentNode;
+      const prevParentNode = this.element.parentNode;
       this.element.parentNode = null;
 
       var result = DOMUtils.getDistanceFromTopOfParent(this.element);

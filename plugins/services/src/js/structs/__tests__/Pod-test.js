@@ -12,7 +12,7 @@ describe('Pod', function () {
   describe('#constructor', function () {
 
     it('should correctly create instances', function () {
-      let instance = new Pod(Object.assign({}, PodFixture));
+      const instance = new Pod(Object.assign({}, PodFixture));
       expect(instance.get()).toEqual(PodFixture);
     });
 
@@ -21,12 +21,12 @@ describe('Pod', function () {
   describe('#countRunningInstances', function () {
 
     it('should return the correct value', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.countRunningInstances()).toEqual(2);
     });
 
     it('should return the correct default value', function () {
-      let pod = new Pod();
+      const pod = new Pod();
       expect(pod.countRunningInstances()).toEqual(0);
     });
 
@@ -35,12 +35,12 @@ describe('Pod', function () {
   describe('#countNonTerminalInstances', function () {
 
     it('should return the correct value', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.countNonTerminalInstances()).toEqual(3);
     });
 
     it('should return the correct default value', function () {
-      let pod = new Pod();
+      const pod = new Pod();
       expect(pod.countNonTerminalInstances()).toEqual(0);
     });
 
@@ -49,12 +49,12 @@ describe('Pod', function () {
   describe('#countTotalInstances', function () {
 
     it('should return the correct value', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.countTotalInstances()).toEqual(3);
     });
 
     it('should return the correct default value', function () {
-      let pod = new Pod();
+      const pod = new Pod();
       expect(pod.countTotalInstances()).toEqual(0);
     });
 
@@ -63,17 +63,17 @@ describe('Pod', function () {
   describe('#getHealth', function () {
 
     it('should return the correct value when DEGRADED', function () {
-      let pod = new Pod({ status: 'degraded' });
+      const pod = new Pod({ status: 'degraded' });
       expect(pod.getHealth()).toEqual(HealthStatus.UNHEALTHY);
     });
 
     it('should return the correct value when STABLE', function () {
-      let pod = new Pod({ status: 'stable' });
+      const pod = new Pod({ status: 'stable' });
       expect(pod.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
     it('should return the correct default value', function () {
-      let pod = new Pod();
+      const pod = new Pod();
       expect(pod.getHealth()).toEqual(HealthStatus.NA);
     });
 
@@ -82,7 +82,7 @@ describe('Pod', function () {
   describe('#getImages', function () {
 
     it('should return the correct value', function () {
-      let pod = new Pod();
+      const pod = new Pod();
       expect(pod.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
 
@@ -91,7 +91,7 @@ describe('Pod', function () {
   describe('#getInstancesCount', function () {
 
     it('should pass-through from specs', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.getInstancesCount()).toEqual(pod.getSpec().getScalingInstances());
     });
 
@@ -100,7 +100,7 @@ describe('Pod', function () {
   describe('#getLabels', function () {
 
     it('should pass-through from specs', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.getLabels()).toEqual(pod.getSpec().getLabels());
     });
 
@@ -109,7 +109,7 @@ describe('Pod', function () {
   describe('#getMesosId', function () {
 
     it('returns correct id', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         id: '/test/cmd'
       });
 
@@ -121,7 +121,7 @@ describe('Pod', function () {
   describe('#getResources', function () {
 
     it('should pass-through from specs', function () {
-      let pod = new Pod(PodFixture);
+      const pod = new Pod(PodFixture);
       expect(pod.getResources()).toEqual(pod.getSpec().getResourcesSummary());
     });
 
@@ -130,7 +130,7 @@ describe('Pod', function () {
   describe('#getServiceStatus', function () {
 
     it('should properly detect SUSPENDED', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -145,7 +145,7 @@ describe('Pod', function () {
     });
 
     it('should properly detect DEPLOYING', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -160,7 +160,7 @@ describe('Pod', function () {
     });
 
     it('should properly detect RUNNING', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -175,7 +175,7 @@ describe('Pod', function () {
     });
 
     it('should properly detect NA', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -194,7 +194,7 @@ describe('Pod', function () {
   describe('#getTasksSummary', function () {
 
     it('should properly count healthy instances', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -230,7 +230,7 @@ describe('Pod', function () {
     });
 
     it('should properly count unhealthy instances', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -266,7 +266,7 @@ describe('Pod', function () {
     });
 
     it('should properly count unknown instances', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -302,7 +302,7 @@ describe('Pod', function () {
     });
 
     it('should properly count staged instances', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',
@@ -338,7 +338,7 @@ describe('Pod', function () {
     });
 
     it('should properly count over-capacity instances', function () {
-      let pod = new Pod({
+      const pod = new Pod({
         spec: {
           scaling: {
             kind: 'fixed',

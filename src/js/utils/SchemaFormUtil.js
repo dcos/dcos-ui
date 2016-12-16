@@ -10,12 +10,12 @@ function filteredPaths(combinedPath) {
 }
 
 function getErroredFieldPositions(definition) {
-  let fieldsWithError = [];
+  const fieldsWithError = [];
 
   definition.forEach(function (rowDefinition, indexInForm) {
     if (Array.isArray(rowDefinition)) {
       rowDefinition.forEach(function (columnDefinition, indexInRow) {
-        let hasError = !!columnDefinition.showError;
+        const hasError = !!columnDefinition.showError;
 
         if (hasError) {
           fieldsWithError.push({
@@ -32,11 +32,11 @@ function getErroredFieldPositions(definition) {
 }
 
 function setDefinitionValue(thingToSet, definition, renderRemove, model) {
-  let {path, value} = thingToSet;
-  let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
+  const {path, value} = thingToSet;
+  const definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
 
   if (Array.isArray(value) && value.length !== 0) {
-    let prop = path[path.length - 1];
+    const prop = path[path.length - 1];
 
     let firstIndex = 0;
     definitionToSet.definition.find(function (field, i) {
@@ -48,15 +48,15 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
       return false;
     });
 
-    let indexesToError = getErroredFieldPositions(definitionToSet.definition);
+    const indexesToError = getErroredFieldPositions(definitionToSet.definition);
 
     FormUtil.removePropID(definitionToSet.definition, prop);
 
     value.forEach(function (item, index) {
       // Use index for key, so we can re-use same key for same field,
       // to not make react think it is a completely new field
-      let propID = Util.uniqueID(prop);
-      let instanceDefinition = FormUtil.getMultipleFieldDefinition(
+      const propID = Util.uniqueID(prop);
+      const instanceDefinition = FormUtil.getMultipleFieldDefinition(
         prop,
         propID,
         definitionToSet.definition.itemShapes[prop].definition,
@@ -117,8 +117,8 @@ function getThingsToSet(model, path) {
   }
 
   Object.keys(model).forEach(function (key) {
-    let pathCopy = path.concat([key]);
-    let value = model[key];
+    const pathCopy = path.concat([key]);
+    const value = model[key];
 
     if (typeof value === 'object' && value !== null) {
       thingsToSet = thingsToSet.concat(getThingsToSet(value, pathCopy));
@@ -136,7 +136,7 @@ function getThingsToSet(model, path) {
 function processValue(value, valueType) {
   if (valueType === 'integer' || valueType === 'number') {
     if (value !== null && value !== '') {
-      let parsedNumber = Number(value);
+      const parsedNumber = Number(value);
       if (isNaN(parsedNumber)) {
         return value;
       }
@@ -177,7 +177,7 @@ function processValue(value, valueType) {
  * @returns {object} The flattened definition
  */
 function unnestGroupsInDefinition(definition) {
-  let defClone = Object.assign({}, definition);
+  const defClone = Object.assign({}, definition);
   if (defClone.properties == null) {
     return defClone;
   }
@@ -187,7 +187,7 @@ function unnestGroupsInDefinition(definition) {
 
   // Import group children
   Object.keys(defClone.properties).forEach(function (propName) {
-    let prop = unnestGroupsInDefinition(defClone.properties[propName]);
+    const prop = unnestGroupsInDefinition(defClone.properties[propName]);
 
     // If we encountered a group in our properties,
     // merge its properties in our properties
@@ -292,7 +292,7 @@ tv4.addLanguage('en-us', {
 // Set the new language we just defined
 tv4.language('en-us');
 
-let SchemaFormUtil = {
+const SchemaFormUtil = {
   /**
    * Finds a specific field definition when a path is passed in.
    *
@@ -314,7 +314,7 @@ let SchemaFormUtil = {
         return;
       }
 
-      let nextDefinition = Array.prototype
+      const nextDefinition = Array.prototype
         .concat.apply([], definition.definition).find(
           function (definitionField) {
             return definitionField.name === path
@@ -346,11 +346,11 @@ let SchemaFormUtil = {
    * @return {Object} model Model that is created from definition.
    */
   processFormModel(model, multipleDefinition, prevPath = []) {
-    let newModel = {};
+    const newModel = {};
 
     Object.keys(model).forEach(function (key) {
-      let value = model[key];
-      let path = prevPath.concat([key]);
+      const value = model[key];
+      const path = prevPath.concat([key]);
 
       // Nested model.
       if (typeof value === 'object' && value !== null) {
@@ -360,15 +360,15 @@ let SchemaFormUtil = {
         return;
       }
 
-      let definition = SchemaFormUtil.getDefinitionFromPath(
+      const definition = SchemaFormUtil.getDefinitionFromPath(
         multipleDefinition, path
       );
       if (definition == null) {
         return;
       }
 
-      let {isRequired, valueType} = definition;
-      let processedValue = processValue(value, valueType);
+      const {isRequired, valueType} = definition;
+      const processedValue = processValue(value, valueType);
       if (processedValue != null || isRequired) {
         newModel[key] = processedValue;
       }
@@ -388,7 +388,7 @@ let SchemaFormUtil = {
    * create more field definitions, we need to render a remove button after it.
    */
   mergeModelIntoDefinition(model, definition, renderRemove) {
-    let thingsToSet = getThingsToSet(model);
+    const thingsToSet = getThingsToSet(model);
 
     thingsToSet.forEach(function (thingToSet) {
       setDefinitionValue(
@@ -407,12 +407,12 @@ let SchemaFormUtil = {
    * 'path' is the path towards the value in the model.
    */
   parseTV4Error(tv4Error) {
-    let errorObj = {
+    const errorObj = {
       message: tv4Error.message,
       path: filteredPaths(tv4Error.dataPath)
     };
 
-    let schemaPath = tv4Error.schemaPath.split('/');
+    const schemaPath = tv4Error.schemaPath.split('/');
 
     if (tv4Error.code === 302) {
       errorObj.path.push(tv4Error.params.key);
@@ -437,7 +437,7 @@ let SchemaFormUtil = {
    * the properties 'message' and 'path'.
    */
   validateModelWithSchema(model, schema) {
-    let result = tv4.validateMultiple(model, unnestGroupsInDefinition(schema));
+    const result = tv4.validateMultiple(model, unnestGroupsInDefinition(schema));
 
     if (result == null || result.valid) {
       return [];

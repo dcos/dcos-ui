@@ -39,7 +39,7 @@ function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
 }
 
 function schemaToFieldDefinition(options) {
-  let {
+  const {
     fieldName,
     fieldProps,
     formParent,
@@ -47,7 +47,7 @@ function schemaToFieldDefinition(options) {
     renderLabel,
     renderRemove
   } = options;
-  let value = getValueFromSchemaProperty(fieldProps);
+  const value = getValueFromSchemaProperty(fieldProps);
 
   let definition = {
     fieldType: 'text',
@@ -113,14 +113,14 @@ function schemaToFieldDefinition(options) {
   }
 
   if (fieldProps.duplicable === true && fieldProps.itemShape) {
-    let itemShape = nestedSchemaToFieldDefinition({
+    const itemShape = nestedSchemaToFieldDefinition({
       fieldName,
       fieldProps: fieldProps.itemShape,
       renderSubheader: renderLabel,
       renderLabel,
       filterProperties: fieldProps.filterProperties
     });
-    let propID = Util.uniqueID(fieldName);
+    const propID = Util.uniqueID(fieldName);
 
     definition = FormUtil.getMultipleFieldDefinition(
       fieldName,
@@ -163,7 +163,7 @@ function schemaToFieldDefinition(options) {
 }
 
 function nestedSchemaToFieldDefinition(options) {
-  let {
+  const {
     fieldName,
     fieldProps,
     renderSubheader,
@@ -171,7 +171,7 @@ function nestedSchemaToFieldDefinition(options) {
     filterProperties,
     levelsDeep = 0
   } = options;
-  let nestedDefinition = {
+  const nestedDefinition = {
     name: fieldName,
     render: null,
     fieldType: 'object',
@@ -182,11 +182,11 @@ function nestedSchemaToFieldDefinition(options) {
     nestedDefinition.render = renderSubheader.bind(null, fieldName, fieldProps.description, levelsDeep);
   }
 
-  let properties = fieldProps.properties;
-  let requiredProps = fieldProps.required;
+  const properties = fieldProps.properties;
+  const requiredProps = fieldProps.required;
 
   Object.keys(properties).forEach(function (nestedFieldName) {
-    let nestedPropertyValue = properties[nestedFieldName];
+    const nestedPropertyValue = properties[nestedFieldName];
     if (nestedPropertyValue.properties) {
       nestedDefinition.definition.push(
         nestedSchemaToFieldDefinition({
@@ -218,7 +218,7 @@ function nestedSchemaToFieldDefinition(options) {
   return nestedDefinition;
 }
 
-let SchemaUtil = {
+const SchemaUtil = {
   /**
    * Turns a JSON Schema into a Form definition.
    *
@@ -233,33 +233,33 @@ let SchemaUtil = {
    * @return {Object} multipleDefinition The form definition.
    */
   schemaToMultipleDefinition(options) {
-    let {
+    const {
       schema,
       renderSubheader,
       renderLabel,
       renderRemove,
       renderAdd
     } = options;
-    let multipleDefinition = {};
-    let schemaProperties = schema.properties;
+    const multipleDefinition = {};
+    const schemaProperties = schema.properties;
 
     Object.keys(schemaProperties).forEach(function (topLevelProp) {
-      let topLevelPropertyObject = schemaProperties[topLevelProp];
-      let secondLevelProperties = topLevelPropertyObject.properties;
-      let requiredProps = topLevelPropertyObject.required;
-      let definitionForm = multipleDefinition[topLevelProp] = {};
+      const topLevelPropertyObject = schemaProperties[topLevelProp];
+      const secondLevelProperties = topLevelPropertyObject.properties;
+      const requiredProps = topLevelPropertyObject.required;
+      const definitionForm = multipleDefinition[topLevelProp] = {};
 
       definitionForm.title = topLevelPropertyObject.title || topLevelProp;
       definitionForm.selectValue = topLevelProp;
       definitionForm.description = topLevelPropertyObject.description;
       definitionForm.definition = [];
       Object.keys(secondLevelProperties).forEach(function (secondLevelProp) {
-        let secondLevelObject = secondLevelProperties[secondLevelProp];
+        const secondLevelObject = secondLevelProperties[secondLevelProp];
         let fieldDefinition;
 
         if (secondLevelObject.type === 'group' && secondLevelObject.properties != null) {
           fieldDefinition = Object.keys(secondLevelObject.properties).map(function (key) {
-            let field = secondLevelObject.properties[key];
+            const field = secondLevelObject.properties[key];
 
             return schemaToFieldDefinition({
               fieldName: key,
@@ -289,7 +289,7 @@ let SchemaUtil = {
         }
 
         if (secondLevelObject.duplicable === true) {
-          let itemShape = nestedSchemaToFieldDefinition({
+          const itemShape = nestedSchemaToFieldDefinition({
             fieldName: secondLevelProp,
             fieldProps: secondLevelObject.itemShape,
             renderLabel,
@@ -338,12 +338,12 @@ let SchemaUtil = {
    * @return {Object} multipleDefinition The form definition.
    */
   definitionToJSONDocument(definition) {
-    let jsonDocument = {};
+    const jsonDocument = {};
 
     Object.keys(definition).forEach(function (topLevelProp) {
-      let topLevelProperties = definition[topLevelProp];
-      let topLevelDefinition = jsonDocument[topLevelProp] = {};
-      let topLevelDefinitionValues = topLevelProperties.definition;
+      const topLevelProperties = definition[topLevelProp];
+      const topLevelDefinition = jsonDocument[topLevelProp] = {};
+      const topLevelDefinitionValues = topLevelProperties.definition;
 
       if (!topLevelDefinitionValues) {
         return;
@@ -351,15 +351,15 @@ let SchemaUtil = {
 
       topLevelDefinitionValues.forEach(function (formDefinition) {
         if (formDefinition.definition) {
-          let nested = topLevelDefinition[formDefinition.name] = {};
+          const nested = topLevelDefinition[formDefinition.name] = {};
           formDefinition.definition.forEach(function (nestedDefinition) {
-            let fieldName = nestedDefinition.name;
-            let fieldValue = nestedDefinition.value;
+            const fieldName = nestedDefinition.name;
+            const fieldValue = nestedDefinition.value;
             nested[fieldName] = fieldValue;
           });
         } else {
-          let fieldName = formDefinition.name;
-          let fieldValue = formDefinition.value;
+          const fieldName = formDefinition.name;
+          const fieldValue = formDefinition.value;
           topLevelDefinition[fieldName] = fieldValue;
         }
       });

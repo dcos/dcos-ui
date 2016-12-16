@@ -8,12 +8,12 @@ import FrameworkSpec from './FrameworkSpec';
 
 module.exports = class Framework extends Application {
   getInstancesCount() {
-    let tasksRunning = this.get('TASK_RUNNING') || 0;
+    const tasksRunning = this.get('TASK_RUNNING') || 0;
     return super.getInstancesCount() + tasksRunning;
   }
 
   getName() {
-    let labels = this.getLabels();
+    const labels = this.getLabels();
     if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
       return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
     }
@@ -25,7 +25,7 @@ module.exports = class Framework extends Application {
   }
 
   getResourceID() {
-    let regexp = new RegExp(`[^${FRAMEWORK_ID_VALID_CHARACTERS}]`, 'g');
+    const regexp = new RegExp(`[^${FRAMEWORK_ID_VALID_CHARACTERS}]`, 'g');
     // Strip non-alphanumeric chars from name for safety
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
@@ -35,9 +35,9 @@ module.exports = class Framework extends Application {
   }
 
   getTasksSummary() {
-    let tasksSummary = Object.assign({}, super.getTasksSummary());
+    const tasksSummary = Object.assign({}, super.getTasksSummary());
 
-    let tasksRunning = this.get('TASK_RUNNING') || 0;
+    const tasksRunning = this.get('TASK_RUNNING') || 0;
     tasksSummary.tasksRunning += tasksRunning;
     tasksSummary.tasksUnknown += tasksRunning;
 
@@ -45,7 +45,7 @@ module.exports = class Framework extends Application {
   }
 
   getUsageStats(resource) {
-    let value = this.get('used_resources')[resource];
+    const value = this.get('used_resources')[resource];
 
     return {value};
   }

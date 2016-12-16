@@ -19,7 +19,7 @@ import SystemLogUtil from '../utils/SystemLogUtil';
  */
 
 // Store of current open connections
-let sources = {};
+const sources = {};
 const SystemLogActions = {
   /**
    * Subscribes to the events stream for logs given the paramters provided
@@ -44,9 +44,9 @@ const SystemLogActions = {
     // Unsubscribe if any open connection exists with the same ID
     this.unsubscribe(subscriptionID);
 
-    let url = SystemLogUtil.getUrl(nodeID, options);
+    const url = SystemLogUtil.getUrl(nodeID, options);
     subscriptionID = subscriptionID || Symbol(url + Date.now());
-    let source = new EventSource(url, {
+    const source = new EventSource(url, {
       withCredentials: Boolean(CookieUtils.getUserMetadata())
     });
 
@@ -103,7 +103,7 @@ const SystemLogActions = {
   unsubscribe(subscriptionID) {
     if (sources[subscriptionID]) {
       // Clean up event listeners
-      let {errorListener, messageListener, source} = sources[subscriptionID];
+      const {errorListener, messageListener, source} = sources[subscriptionID];
       source.removeEventListener('message', messageListener);
       source.removeEventListener('error', errorListener);
       source.close();
@@ -128,7 +128,7 @@ const SystemLogActions = {
    */
   fetchLogRange(nodeID, options = {}) {
     let {limit, subscriptionID} = options;
-    let url = SystemLogUtil.getUrl(
+    const url = SystemLogUtil.getUrl(
       nodeID,
       // Avioding duplicate events by using read reverse (stream backwards).
       // Connection will close all events are received or have reached the top
@@ -136,11 +136,11 @@ const SystemLogActions = {
       false
     );
     subscriptionID = subscriptionID || Symbol(url + Date.now());
-    let source = new EventSource(url, {
+    const source = new EventSource(url, {
       withCredentials: Boolean(CookieUtils.getUserMetadata())
     });
 
-    let items = [];
+    const items = [];
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
         // Ignore events that are not from this origin
@@ -162,7 +162,7 @@ const SystemLogActions = {
     }
 
     function errorListener(event = {}) {
-      let {eventPhase} = event;
+      const {eventPhase} = event;
 
       if (eventPhase === EventSource.CLOSED) {
         // Reverse the items, as the come in opporsite order

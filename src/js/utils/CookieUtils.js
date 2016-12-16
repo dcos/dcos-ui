@@ -2,7 +2,7 @@ import cookie from 'cookie';
 
 import {userCookieKey} from '../constants/AuthConstants';
 
-let Utils = {
+const Utils = {
   getUserMetadata() {
     return cookie.parse(global.document.cookie)[userCookieKey];
   },

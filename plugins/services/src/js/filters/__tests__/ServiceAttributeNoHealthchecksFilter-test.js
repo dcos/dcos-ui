@@ -22,10 +22,10 @@ describe('ServiceAttributeNoHealthchecksFilter', function () {
   });
 
   it('Should correctly keep services without health checks', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('no:healthchecks');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('no:healthchecks');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -33,20 +33,20 @@ describe('ServiceAttributeNoHealthchecksFilter', function () {
   });
 
   it('Should correctly keep nothing on unknown states', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('no:boo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('no:boo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeNoHealthchecksFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
   });
 
   it('Should be case-insensitive', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('no:HeaLThchEckS');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('no:HeaLThchEckS');
 
-    let filters = new DSLFilterList([
+    const filters = new DSLFilterList([
       new ServiceAttributeNoHealthchecksFilter()
     ]);
 

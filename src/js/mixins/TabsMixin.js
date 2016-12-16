@@ -61,7 +61,7 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getUnroutedItem(props = {}, tab) {
-    let attributes = Util.omit(props, ['classNames']);
+    const attributes = Util.omit(props, ['classNames']);
     let tabLabelClass = classNames('menu-tabbed-item-label', props.classNames);
 
     return (
@@ -99,10 +99,10 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getRoutedItem(props = {}, tab) {
-    let attributes = Util.omit(props, ['classNames']);
+    const attributes = Util.omit(props, ['classNames']);
     let badge = null;
     let notificationCount = NotificationStore.getNotificationCount(tab);
-    let hasNotification = notificationCount > 0;
+    const hasNotification = notificationCount > 0;
     let tabLabelClasses = classNames(
       'menu-tabbed-item-label',
       {'badge-container': hasNotification},
@@ -158,8 +158,8 @@ const TabsMixin = {
   tabs_getTabView() {
     // Replace spaces in the currentTab string because we are calling the string
     // as a function on the component, and functions cannot have spaces.
-    let currentTab = this.tabs_tabs[this.state.currentTab].replace(' ', '');
-    let renderFunction = this[`render${currentTab}TabView`];
+    const currentTab = this.tabs_tabs[this.state.currentTab].replace(' ', '');
+    const renderFunction = this[`render${currentTab}TabView`];
 
     if (renderFunction == null) {
       return null;

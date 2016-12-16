@@ -71,14 +71,14 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   updateCurrentTab(nextProps) {
-    let {routes} = nextProps || this.props;
-    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    const {routes} = nextProps || this.props;
+    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
     this.setState({currentTab});
   }
 
   onVirtualNetworksStoreError() {
-    let errorCount = this.state.errorCount + 1;
+    const errorCount = this.state.errorCount + 1;
     this.setState({errorCount});
   }
 
@@ -105,7 +105,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    let {currentTab, errorCount, receivedVirtualNetworks} = this.state;
+    const {currentTab, errorCount, receivedVirtualNetworks} = this.state;
 
     if (errorCount >= 3) {
       return this.getErrorScreen();

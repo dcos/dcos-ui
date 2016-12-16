@@ -74,7 +74,7 @@ function mergeVersion(task) {
 }
 
 function mergeHostname(task) {
-  let node = CompositeState.getNodesList().filter({
+  const node = CompositeState.getNodesList().filter({
     ids: [task.slave_id]
   }).last();
 

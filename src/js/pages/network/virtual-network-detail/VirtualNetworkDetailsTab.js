@@ -5,7 +5,7 @@ import DescriptionList from '../../../components/DescriptionList';
 
 class VirtualNetworkDetailsTab extends React.Component {
   render() {
-    let {overlay} = this.props;
+    const {overlay} = this.props;
 
     let details = {
       Name: overlay.getName(),

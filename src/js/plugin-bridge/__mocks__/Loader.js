@@ -8,8 +8,8 @@ const Mocks = {};
 
 let pluginsList;
 let externalPluginsList;
-let pluginsDir = 'plugins';
-let externalPluginsDir = path.resolve(
+const pluginsDir = 'plugins';
+const externalPluginsDir = path.resolve(
   process.env.npm_config_externalplugins || 'plugins'
 );
 

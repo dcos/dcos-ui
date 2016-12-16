@@ -8,8 +8,8 @@ const DISPLAY_NAMES = {
 
 class DirectoryItem extends Item {
   getDisplayName() {
-    let name = this.getName();
-    let displayName = DISPLAY_NAMES[name];
+    const name = this.getName();
+    const displayName = DISPLAY_NAMES[name];
     if (displayName) {
       return displayName;
     }

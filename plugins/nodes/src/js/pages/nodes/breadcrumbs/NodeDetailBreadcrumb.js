@@ -11,7 +11,7 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
   }
 
   updateCrumbSatus() {
-    let hostname = this.getHostname();
+    const hostname = this.getHostname();
 
     if (hostname) {
       this.setState({isLoadingCrumb: false});
@@ -19,8 +19,8 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
   }
 
   getHostname() {
-    let {nodeID} = this.props.params;
-    let node = CompositeState.getNodesList().filter(
+    const {nodeID} = this.props.params;
+    const node = CompositeState.getNodesList().filter(
       {ids: [nodeID]}
     ).last();
 

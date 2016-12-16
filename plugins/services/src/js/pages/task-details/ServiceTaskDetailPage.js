@@ -15,14 +15,14 @@ class ServiceTaskDetailPage extends React.Component {
     const {location, params, routes} = this.props;
     const {id, taskID} = params;
 
-    let routePrefix = `/services/overview/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/services/overview/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
       {label: 'Logs', routePath: routePrefix + '/logs'}
     ];
 
-    let task = MesosStateStore.getTaskFromTaskID(taskID);
+    const task = MesosStateStore.getTaskFromTaskID(taskID);
     let breadcrumbs;
     if (task != null) {
       breadcrumbs = (

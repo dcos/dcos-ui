@@ -22,7 +22,7 @@ class FilterByTaskState extends React.Component {
   }
 
   getDropdownItems() {
-    let items = [{
+    const items = [{
       id: defaultID,
       name: 'All Tasks',
       value: 'all',
@@ -31,9 +31,9 @@ class FilterByTaskState extends React.Component {
 
     return items.map(function (status) {
       let selectedHtml = this.getItemHtml(status);
-      let dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = (<a>{selectedHtml}</a>);
 
-      let item = {
+      const item = {
         id: status.value,
         name: status.name,
         html: dropdownHtml,

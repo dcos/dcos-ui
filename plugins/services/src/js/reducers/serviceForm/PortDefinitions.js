@@ -22,7 +22,7 @@ module.exports = {
    * @return {Object[]} new portDefinitions with action performed on it
    */
   JSONReducer(state = [], action) {
-    let {path, value} = action;
+    const {path, value} = action;
     if (path == null) {
       return state;
     }
@@ -34,7 +34,7 @@ module.exports = {
       };
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
     if (joinedPath === 'container.docker.network' && Boolean(value)) {
       this.appState.networkType = value;
     }
@@ -54,8 +54,8 @@ module.exports = {
 
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
-      let hostPort = Number(portDefinition.hostPort) || 0;
-      let newPortDefinition = {
+      const hostPort = Number(portDefinition.hostPort) || 0;
+      const newPortDefinition = {
         name: portDefinition.name,
         port: hostPort,
         protocol: portDefinition.protocol
@@ -102,7 +102,7 @@ module.exports = {
         ], item.name, SET));
       }
 
-      let port = Number(item.port);
+      const port = Number(item.port);
       // If port is a number but not zero, we set automaticPort to false
       // so we can set the port
       if (!isNaN(port) && port !== 0) {
@@ -136,7 +136,7 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      let vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
+      const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
       if (vip != null) {
         memo.push(new Transaction([
           'portDefinitions',

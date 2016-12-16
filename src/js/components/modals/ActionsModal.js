@@ -42,7 +42,7 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    let {requestsRemaining, requestErrors} = nextState;
+    const {requestsRemaining, requestErrors} = nextState;
 
     if (requestsRemaining === 0 && !requestErrors.length) {
       this.handleButtonCancel();
@@ -50,7 +50,7 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   componentDidUpdate() {
-    let {requestsRemaining} = this.state;
+    const {requestsRemaining} = this.state;
 
     if (requestsRemaining === 0) {
       /* eslint-disable react/no-did-update-set-state */
@@ -97,8 +97,8 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContents() {
-    let {itemType} = this.props;
-    let {requestErrors, validationError} = this.state;
+    const {itemType} = this.props;
+    const {requestErrors, validationError} = this.state;
 
     return (
       <div className="text-align-center">
@@ -111,18 +111,18 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContentsText() {
-    let {actionText, itemID, selectedItems} = this.props;
+    const {actionText, itemID, selectedItems} = this.props;
 
     let selectedItemsString = '';
     if (selectedItems.length === 1) {
       selectedItemsString = selectedItems[0][itemID];
     } else {
       // Truncate list of selected user/groups for ease of reading
-      let selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED + 1);
+      const selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED + 1);
 
       // Create a string concatenating n-1 items
-      let selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      let itemIDs = selectedItemsShownMinusOne.map(function (item) {
+      const selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
+      const itemIDs = selectedItemsShownMinusOne.map(function (item) {
         return item[itemID];
       });
       itemIDs.forEach(function (_itemID) {
@@ -138,7 +138,7 @@ class ActionsModal extends mixin(StoreMixin) {
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
         selectedItemsString += 'and 1 other ';
       } else {
-        let overflow = selectedItems.length - ITEMS_DISPLAYED;
+        const overflow = selectedItems.length - ITEMS_DISPLAYED;
         selectedItemsString += `and ${overflow} others `;
       }
       if (actionText.phraseFirst) {
@@ -202,8 +202,8 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let action = this.props.action;
-    let props = this.props;
+    const action = this.props.action;
+    const props = this.props;
     if (action === null) {
       return null;
     }

@@ -10,7 +10,7 @@ import UnitsHealthDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealth
 import UnitsHealthNodeDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthNodeDetailBreadcrumb';
 import UnitsHealthTab from '../pages/system/UnitsHealthTab';
 
-let componentsRoutes = {
+const componentsRoutes = {
   type: Route,
   path: 'components',
   component: ComponentsPage,

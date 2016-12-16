@@ -32,7 +32,7 @@ var DEFAULT_FILTER_OPTIONS = {
   searchString: ''
 };
 
-let saveState_properties = Object.keys(DEFAULT_FILTER_OPTIONS);
+const saveState_properties = Object.keys(DEFAULT_FILTER_OPTIONS);
 
 class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
@@ -62,11 +62,11 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
   componentDidMount() {
     super.componentDidMount();
-    let {state} = this;
+    const {state} = this;
 
     Object.keys(DEFAULT_FILTER_OPTIONS).forEach((saveStateKey) => {
       const queryParams = this.getQueryParamObject();
-      let saveStateValue = state[saveStateKey];
+      const saveStateValue = state[saveStateKey];
       if (saveStateValue !== queryParams[saveStateKey]) {
         this.setQueryParam(saveStateKey, saveStateValue);
       }
@@ -89,8 +89,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   }
 
   resetFilterQueryParams() {
-    let {location: {pathname}} = this.props;
-    let query = Object.assign({}, location.query);
+    const {location: {pathname}} = this.props;
+    const query = Object.assign({}, location.query);
 
     Object.values(ServiceFilterTypes).forEach(function (filterKey) {
       delete query[filterKey];
@@ -105,8 +105,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   }
 
   getHeadline(item, filteredJobs) {
-    let {state} = this;
-    let jobs = item.getItems();
+    const {state} = this;
+    const jobs = item.getItems();
 
     const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
       .some((filterKey) => {
@@ -125,11 +125,11 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   }
 
   getFilteredJobs(item) {
-    let {searchString} = this.state;
+    const {searchString} = this.state;
     let jobs = item.getItems();
 
     if (searchString) {
-      let filterProperties = Object.assign({}, item.getFilterProperties(), {
+      const filterProperties = Object.assign({}, item.getFilterProperties(), {
         name(item) {
           return item.getId();
         }
@@ -214,7 +214,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     id = decodeURIComponent(id);
 
     // Find item in root tree and default to root tree if there is no match
-    let item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
+    const item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
 
     const modal = (
       <JobFormModal

@@ -3,7 +3,7 @@ import PodContainerTerminationHistory from './PodContainerTerminationHistory';
 
 module.exports = class PodTerminationHistory extends Item {
   getContainers() {
-    let containers = this.get('containers') || [];
+    const containers = this.get('containers') || [];
     return containers.map(function (container) {
       return new PodContainerTerminationHistory(container);
     });

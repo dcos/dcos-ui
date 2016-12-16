@@ -25,7 +25,7 @@ class NotificationStore extends GetSetBaseStore {
   }
 
   setLocationValue(notificationMap, location, notificationID, value) {
-    let locationMap = notificationMap[location];
+    const locationMap = notificationMap[location];
     if (locationMap == null) {
       notificationMap[location] = {};
     }
@@ -54,7 +54,7 @@ class NotificationStore extends GetSetBaseStore {
    @access public
    */
   addNotification(locations, notificationID, value) {
-    let notificationMap = this.get('notificationMap');
+    const notificationMap = this.get('notificationMap');
 
     if (Array.isArray(locations)) {
       locations.forEach((location) => {
@@ -76,7 +76,7 @@ class NotificationStore extends GetSetBaseStore {
    @access public
    */
   removeNotification(locations, notificationID) {
-    let notificationMap = this.get('notificationMap');
+    const notificationMap = this.get('notificationMap');
 
     if (Array.isArray(locations)) {
       locations.forEach((location) => {

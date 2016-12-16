@@ -10,7 +10,7 @@ describe('ServicesList', function () {
 
     it('creates instances of Framework', function () {
       let items = [{foo: 'bar'}];
-      let list = new ServicesList({items});
+      const list = new ServicesList({items});
       items = list.getItems();
       expect(items[0] instanceof Framework).toBeTruthy();
     });
@@ -20,46 +20,46 @@ describe('ServicesList', function () {
   describe('#filter', function () {
 
     it('returns unfiltered list', function () {
-      let items = [{a: 1}, {b: 2}];
-      let list = new ServicesList({items});
+      const items = [{a: 1}, {b: 2}];
+      const list = new ServicesList({items});
       expect(list.filter().getItems().length).toEqual(2);
     });
 
     it('filters by ids', function () {
-      let items = [
+      const items = [
         {id: 1, name: 'marathon'},
         {id: 2, name: 'metronome'},
         {id: '3', name: 'marathon-user'}
       ];
-      let list = new ServicesList({items});
-      let filteredList = list.filter({ids: [2, '3']}).getItems();
+      const list = new ServicesList({items});
+      const filteredList = list.filter({ids: [2, '3']}).getItems();
       expect(filteredList.length).toEqual(2);
       expect(filteredList[0].get('name')).toEqual('metronome');
       expect(filteredList[1].get('name')).toEqual('marathon-user');
     });
 
     it('filters by name', function () {
-      let items = [
+      const items = [
         {name: 'marathon'},
         {name: 'metronome'},
         {name: 'marathon-user'}
       ];
-      let list = new ServicesList({items});
-      let filteredList = list.filter({name: 'marath'}).getItems();
+      const list = new ServicesList({items});
+      const filteredList = list.filter({name: 'marath'}).getItems();
       expect(filteredList.length).toEqual(2);
       expect(filteredList[0].get('name')).toEqual('marathon');
       expect(filteredList[1].get('name')).toEqual('marathon-user');
     });
 
     it('filters by health', function () {
-      let items = [
+      const items = [
         {name: 'marathon', getHealth() { return {value: 1}; }},
         {name: 'metronome', getHealth() { return {value: 0}; }},
         {name: 'marathon-user', getHealth() { return {value: 2}; }}
       ];
 
-      let list = new ServicesList({items});
-      let filteredList = list.filter({health: [0]}).getItems();
+      const list = new ServicesList({items});
+      const filteredList = list.filter({health: [0]}).getItems();
       expect(filteredList.length).toEqual(1);
       expect(filteredList[0].get('name')).toEqual('metronome');
     });
@@ -69,19 +69,19 @@ describe('ServicesList', function () {
   describe('#sumUsedResources', function () {
 
     it('returns all resources as 0 when there\'s no services', function () {
-      let list = new ServicesList();
+      const list = new ServicesList();
       expect(list.sumUsedResources()).toEqual({cpus: 0, mem: 0, disk: 0});
     });
 
     it('returns used resources when there\'s one service', function () {
-      let list = new ServicesList({items: [
+      const list = new ServicesList({items: [
         {used_resources: {cpus: 1, mem: 3, disk: 1}}
       ]});
       expect(list.sumUsedResources()).toEqual({cpus: 1, mem: 3, disk: 1});
     });
 
     it('sums used resources for services', function () {
-      let list = new ServicesList({items: [
+      const list = new ServicesList({items: [
         {used_resources: {cpus: 1, mem: 3, disk: 1}},
         {used_resources: {cpus: 1, mem: 3, disk: 1}}
       ]});
@@ -93,8 +93,8 @@ describe('ServicesList', function () {
   describe('#sumTaskStates', function () {
 
     it('returns an empty hash when there\'s no services', function () {
-      let list = new ServicesList();
-      let expectedList = {
+      const list = new ServicesList();
+      const expectedList = {
         TASK_STAGING: 0,
         TASK_STARTING: 0,
         TASK_RUNNING: 0,
@@ -107,10 +107,10 @@ describe('ServicesList', function () {
     });
 
     it('sums tasks for one service', function () {
-      let list = new ServicesList({items: [
+      const list = new ServicesList({items: [
         {TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5}
       ]});
-      let expectedList = {
+      const expectedList = {
         TASK_STAGING: 2,
         TASK_STARTING: 10,
         TASK_RUNNING: 0,
@@ -123,11 +123,11 @@ describe('ServicesList', function () {
     });
 
     it('sums tasks for many services', function () {
-      let list = new ServicesList({items: [
+      const list = new ServicesList({items: [
         {TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5},
         {TASK_STAGING: 2, TASK_STARTING: 5, TASK_FAILED: 3}
       ]});
-      let expectedList = {
+      const expectedList = {
         TASK_STAGING: 4,
         TASK_STARTING: 15,
         TASK_RUNNING: 0,

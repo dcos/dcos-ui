@@ -6,7 +6,7 @@ describe('Task', function () {
   describe('#getId', function () {
 
     it('returns correct id', function () {
-      let task = new Task({
+      const task = new Task({
         id: 'test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76'
       });
 
@@ -18,7 +18,7 @@ describe('Task', function () {
   describe('#geName', function () {
 
     it('returns correct name', function () {
-      let task = new Task({
+      const task = new Task({
         id: 'test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76',
         name: 'foo.bar.baz'
       });
@@ -31,7 +31,7 @@ describe('Task', function () {
   describe('#getImages', function () {
 
     it('defaults to NA images', function () {
-      let task = new Task({});
+      const task = new Task({});
 
       expect(task.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });

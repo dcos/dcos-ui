@@ -16,8 +16,8 @@ var TableUtil = {
    * @return {Integer} Expected row height
    */
   getRowHeight() {
-    let defaultRowSize = 29;
-    let definitionList = {
+    const defaultRowSize = 29;
+    const definitionList = {
       mini: {screen: 480, rowHeight: 32},
       small: {screen: 768, rowHeight: 37},
       medium: {screen: 992, rowHeight: 45},
@@ -25,7 +25,7 @@ var TableUtil = {
     };
 
     let rowHeight = null;
-    let windowWidth = window.innerWidth;
+    const windowWidth = window.innerWidth;
     Object.keys(definitionList).forEach(function (size) {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;

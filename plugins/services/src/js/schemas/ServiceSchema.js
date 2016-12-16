@@ -11,7 +11,7 @@ import Networking from './service-schema/Networking';
 import Optional from './service-schema/Optional';
 import Volumes from './service-schema/Volumes';
 
-let ServiceSchema = {
+const ServiceSchema = {
   type: 'object',
   properties: {
     general: General,

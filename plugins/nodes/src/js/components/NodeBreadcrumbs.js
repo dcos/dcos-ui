@@ -23,7 +23,7 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
   }
 
   if (taskID != null && taskName != null) {
-    let encodedTaskID = encodeURIComponent(taskID);
+    const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
       <Link to={`/nodes/${encodedNodeID}/tasks/${encodedTaskID}`}>
         {taskName}
@@ -32,9 +32,9 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
   }
 
   if (unitID != null) {
-    let unit = UnitHealthStore.getUnit(unitID);
-    let healthStatus = UnitHealthStore.getNode(node.hostname).getHealth();
-    let unitTitle = unit.getTitle();
+    const unit = UnitHealthStore.getUnit(unitID);
+    const healthStatus = UnitHealthStore.getNode(node.hostname).getHealth();
+    const unitTitle = unit.getTitle();
 
     crumbs.push(
       <Link to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get('id')}`} key={-1}>

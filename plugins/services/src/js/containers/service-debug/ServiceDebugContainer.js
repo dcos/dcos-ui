@@ -44,7 +44,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getLastTaskFailureInfo() {
-    let lastTaskFailure = this.props.service.getLastTaskFailure();
+    const lastTaskFailure = this.props.service.getLastTaskFailure();
     if (lastTaskFailure == null) {
       return (
         <p>This app does not have failed tasks</p>
@@ -69,7 +69,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getLastVersionChange() {
-    let versionInfo = this.props.service.getVersionInfo();
+    const versionInfo = this.props.service.getVersionInfo();
     if (versionInfo == null) {
       return (
         <p>This app does not have version change information</p>
@@ -86,7 +86,7 @@ class ServiceDebugContainer extends React.Component {
       );
     }
 
-    let LastVersionChangeValueMapping = {
+    const LastVersionChangeValueMapping = {
       'Scale or Restart': lastScaling,
       'Configuration': (
         <span>
@@ -167,7 +167,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getTaskStats() {
-    let taskStats = this.props.service.getTaskStats();
+    const taskStats = this.props.service.getTaskStats();
 
     if (taskStats.getList().getItems().length === 0) {
       return (
@@ -214,7 +214,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   isFramework(service) {
-    let {labels = {}} = service;
+    const {labels = {}} = service;
 
     return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null
       || labels.DCOS_PACKAGE_IS_FRAMEWORK != null;

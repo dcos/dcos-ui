@@ -16,8 +16,8 @@ const MarathonAppValidators = {
    * @returns {Array} Returns an array with validation errors
    */
   containsCmdArgsOrContainer(app) {
-    let hasCmd = !ValidatorUtil.isEmpty(app.cmd);
-    let hasArgs = !ValidatorUtil.isEmpty(app.args);
+    const hasCmd = !ValidatorUtil.isEmpty(app.cmd);
+    const hasArgs = !ValidatorUtil.isEmpty(app.args);
 
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
@@ -78,7 +78,7 @@ const MarathonAppValidators = {
    * @returns {Array} Returns an array with validation errors
    */
   complyWithResidencyRules(app) {
-    let hasAppResidency = !ValidatorUtil.isEmpty(app.residency);
+    const hasAppResidency = !ValidatorUtil.isEmpty(app.residency);
     let hasPersistentVolumes = false;
 
     // Check if app has at leas one persistent volume
@@ -117,7 +117,7 @@ const MarathonAppValidators = {
     }
 
     // (AppDefinition.scala#L539)
-    let network = findNestedPropertyInObject(app, 'container.docker.network');
+    const network = findNestedPropertyInObject(app, 'container.docker.network');
     if (ValidatorUtil.isEmpty(network)) {
       return [];
     }

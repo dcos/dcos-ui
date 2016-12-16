@@ -9,9 +9,9 @@ class ComponentList extends React.Component {
 
   getComponentListContent(units) {
     return units.map(function (unit) {
-      let health = unit.getHealth();
+      const health = unit.getHealth();
       let healthClasses = classNames('text-align-right', health.classNames);
-      let unitID = unit.get('id');
+      const unitID = unit.get('id');
 
       return {
         content: [
@@ -42,13 +42,13 @@ class ComponentList extends React.Component {
   getVisibleComponents(units, displayCount) {
     // HealthTypes gives the sorting weight.
     units = units.sort(function (a, b) {
-      let aHealth = a.getHealth().title.toUpperCase();
-      let bHealth = b.getHealth().title.toUpperCase();
-      let comparison = HealthTypes[aHealth] - HealthTypes[bHealth];
+      const aHealth = a.getHealth().title.toUpperCase();
+      const bHealth = b.getHealth().title.toUpperCase();
+      const comparison = HealthTypes[aHealth] - HealthTypes[bHealth];
 
       if (comparison === 0) {
-        let aTitle = a.getTitle();
-        let bTitle = b.getTitle();
+        const aTitle = a.getTitle();
+        const bTitle = b.getTitle();
 
         if (aTitle > bTitle) {
           return 1;
@@ -81,13 +81,13 @@ class ComponentList extends React.Component {
   }
 
   render() {
-    let units = this.props.units.getItems();
+    const units = this.props.units.getItems();
     if (units.length === 0) {
       return this.getErrorMessage();
     }
 
-    let {displayCount} = this.props;
-    let visibleUnits = this.getVisibleComponents(units, displayCount);
+    const {displayCount} = this.props;
+    const visibleUnits = this.getVisibleComponents(units, displayCount);
 
     let content = this.getComponentListContent(visibleUnits);
 

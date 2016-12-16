@@ -35,8 +35,8 @@ class JobsTable extends React.Component {
   }
 
   getColumns() {
-    let className = ResourceTableUtil.getClassName;
-    let heading = ResourceTableUtil.renderHeading(JobTableHeaderLabels);
+    const className = ResourceTableUtil.getClassName;
+    const heading = ResourceTableUtil.renderHeading(JobTableHeaderLabels);
 
     return [
       {
@@ -67,13 +67,13 @@ class JobsTable extends React.Component {
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData() {
     return this.props.jobs.map(function (job) {
-      let isGroup = job instanceof Tree;
+      const isGroup = job instanceof Tree;
       let lastRun = {};
       let schedules = null;
       let status = null;
 
       if (!isGroup) {
-        let lastRunsSummary = job.getLastRunsSummary();
+        const lastRunsSummary = job.getLastRunsSummary();
 
         lastRun = {
           status: job.getLastRunStatus().status,
@@ -141,7 +141,7 @@ class JobsTable extends React.Component {
     }
 
     if (schedules && schedules.length !== 0) {
-      let schedule = schedules[0];
+      const schedule = schedules[0];
 
       if (schedule.enabled) {
         scheduleIcon = (
@@ -222,7 +222,7 @@ class JobsTable extends React.Component {
       return null;
     }
 
-    let jobState = JobStates[statusKey];
+    const jobState = JobStates[statusKey];
 
     let statusClasses = classNames({
       'text-success': jobState.stateTypes.includes('success'),

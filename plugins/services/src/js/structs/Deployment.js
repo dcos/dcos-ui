@@ -21,8 +21,8 @@ module.exports = class Deployment extends Item {
    * @return {Array.<string>} an array of app IDs affected by this deployment.
    */
   getAffectedServiceIds() {
-    let affectedApps = this.get('affectedApps') || [];
-    let affectedPods = this.get('affectedPods') || [];
+    const affectedApps = this.get('affectedApps') || [];
+    const affectedPods = this.get('affectedPods') || [];
 
     return affectedApps.concat(affectedPods);
   }
@@ -38,8 +38,8 @@ module.exports = class Deployment extends Item {
    * @return {ServiceList} list of services affected by this deployment.
    */
   getAffectedServices() {
-    let ids = this.getAffectedServiceIds();
-    let services = this.get('affectedServices');
+    const ids = this.getAffectedServiceIds();
+    const services = this.get('affectedServices');
     if (ids == null || ids.length === 0) {
       return [];
     }
@@ -76,7 +76,7 @@ module.exports = class Deployment extends Item {
    * @return {boolean} true if this deployment starts a new service.
    */
   isStarting() {
-    let steps = this.get('steps');
+    const steps = this.get('steps');
     if (steps != null) {
       return this.get('steps').some(function (step) {
         return step.actions.some(function (action) {

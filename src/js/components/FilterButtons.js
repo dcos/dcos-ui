@@ -4,7 +4,7 @@ import React from 'react';
 class FilterButtons extends React.Component {
 
   getCount(items) {
-    let counts = {};
+    const counts = {};
 
     items.forEach(function (value) {
       if (typeof value === 'string') {
@@ -33,7 +33,7 @@ class FilterButtons extends React.Component {
       });
     }
 
-    let filterCount = this.getCount(itemList);
+    const filterCount = this.getCount(itemList);
 
     return filters.map((filter) => {
       let classSet = classNames('button button-stroke', {

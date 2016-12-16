@@ -5,7 +5,7 @@ import FieldError from './FieldError';
 import {omit} from '../../utils/Util';
 
 const FormGroup = (props) => {
-  let {children, className, errorClassName, showError, required} = props;
+  const {children, className, errorClassName, showError, required} = props;
 
   let clonedChildren = React.Children.map(children, (child) => {
     if (child == null || (!showError && child.type === FieldError)) {
@@ -34,7 +34,7 @@ FormGroup.defaultProps = {
   errorClassName: 'form-group-danger'
 };
 
-let classPropType = React.PropTypes.oneOfType([
+const classPropType = React.PropTypes.oneOfType([
   React.PropTypes.array,
   React.PropTypes.object,
   React.PropTypes.string

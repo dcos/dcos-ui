@@ -46,8 +46,8 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let prevCheckedItems = this.state.checkedItems;
-    let checkedItems = {};
+    const prevCheckedItems = this.state.checkedItems;
+    const checkedItems = {};
 
     nextProps.tasks.forEach(function (task) {
       if (prevCheckedItems[task.id]) {
@@ -59,7 +59,7 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   handleItemCheck(idsChecked) {
-    let checkedItems = {};
+    const checkedItems = {};
     idsChecked.forEach(function (id) {
       checkedItems[id] = true;
     });
@@ -90,7 +90,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
   getFilteredTasks() {
     let {tasks} = this.props;
-    let {filterByStatus, searchString} = this.state;
+    const {filterByStatus, searchString} = this.state;
 
     if (searchString !== '') {
       tasks = StringUtil.filterByString(tasks, 'id', searchString);
@@ -197,7 +197,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
     // Get task states based on TaskStates types
     let taskStates = tasks.map(function (task) {
-      let {stateTypes} = TaskStates[task.state];
+      const {stateTypes} = TaskStates[task.state];
 
       return stateTypes.find(function (state) {
         return state === 'active' || state === 'completed';
@@ -205,7 +205,7 @@ class TasksView extends mixin(SaveStateMixin) {
     });
 
     let rightAlignLastNChildren = 0;
-    let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
+    const hasCheckedTasks = Object.keys(checkedItems).length !== 0;
 
     if (hasCheckedTasks) {
       rightAlignLastNChildren = 1;

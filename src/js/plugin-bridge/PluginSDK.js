@@ -17,7 +17,7 @@ const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
 const REGISTERED_ACTIONS = {};
-let existingFluxStores = {};
+const existingFluxStores = {};
 
 const constants = {
   APPLICATION,
@@ -47,7 +47,7 @@ if (Config.environment === 'development'
 }
 
 // Create Redux Store
-let Store = createStore(
+const Store = createStore(
   combineReducers(reducers),
   initialState,
   compose(
@@ -63,7 +63,7 @@ let Store = createStore(
  */
 const initialize = function (pluginsConfig) {
 
-  let {pluginsList, externalPluginsList} = Loader.getAvailablePlugins();
+  const {pluginsList, externalPluginsList} = Loader.getAvailablePlugins();
 
   Object.keys(pluginsConfig).forEach(function (pluginID) {
     // Make sure plugin is bundled
@@ -97,7 +97,7 @@ const initialize = function (pluginsConfig) {
   replaceStoreReducers();
 
   // Allows plugins to do things before the application ever renders
-  let promises = hooks.applyFilter('pluginsLoadedCheck', []);
+  const promises = hooks.applyFilter('pluginsLoadedCheck', []);
   Promise.all(promises).then(function () {
     hooks.doAction('pluginsConfigured');
   });
@@ -124,13 +124,13 @@ const createDispatcher = function (pluginID) {
  * @return {module}            - Required module
  */
 const getModule = function (moduleName) {
-  let foundDirs = Object.keys(PluginModules).filter(function (directory) {
+  const foundDirs = Object.keys(PluginModules).filter(function (directory) {
     return moduleName in PluginModules[directory];
   });
   if (!foundDirs.length) {
     throw new Error(`Module ${moduleName} does not exist.`);
   }
-  let dir = foundDirs[0];
+  const dir = foundDirs[0];
   return Loader.requireModule(dir, PluginModules[dir][moduleName]);
 };
 
@@ -262,7 +262,7 @@ const getSDK = function (pluginID, config) {
     };
   }
 
-  let SDK = new PluginSDKStruct({
+  const SDK = new PluginSDKStruct({
     addStoreConfig,
     constants,
     onDispatch,
@@ -292,13 +292,13 @@ const getSDK = function (pluginID, config) {
  */
 const bootstrapPlugin = function (pluginID, plugin, config, pluginType) {
   // Inject Application key constant and configOptions if specified
-  let SDK = getSDK(pluginID, config);
+  const SDK = getSDK(pluginID, config);
 
   if (typeof plugin === 'string') {
     plugin = Loader.requireModule(pluginType, plugin);
   }
 
-  let pluginReducer = plugin(SDK);
+  const pluginReducer = plugin(SDK);
 
   // If plugin exported a reducer, add it to the reducers object
   if (pluginReducer) {
@@ -354,8 +354,8 @@ const onDispatch = function (callback) {
 
 // Subscribe to Store config change and call initialize with
 // new plugin configuration
-let unSubscribe = Store.subscribe(function () {
-  let configStore = Store.getState()[APPLICATION].config;
+const unSubscribe = Store.subscribe(function () {
+  const configStore = Store.getState()[APPLICATION].config;
   if (configStore && configStore.config && configStore.config.uiConfiguration) {
     // unsubscribe once we have the config
     unSubscribe();
@@ -364,7 +364,7 @@ let unSubscribe = Store.subscribe(function () {
 });
 
 // Lets get an SDK for the Application
-let ApplicationSDK = getSDK(APPLICATION, Config);
+const ApplicationSDK = getSDK(APPLICATION, Config);
 // Register our Actions
 AppHooks.initialize(ApplicationSDK);
 

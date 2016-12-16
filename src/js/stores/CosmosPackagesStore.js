@@ -90,13 +90,13 @@ class CosmosPackagesStore extends GetSetBaseStore {
     });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      let source = payload.source;
+      const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
       }
 
-      let action = payload.action;
-      let data = action.data;
+      const action = payload.action;
+      const data = action.data;
 
       switch (action.type) {
         case REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS:
@@ -256,7 +256,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   getPackageDetails() {
-    let packageDetails = this.get('packageDetails');
+    const packageDetails = this.get('packageDetails');
     if (packageDetails) {
       return new UniversePackage(packageDetails);
     }

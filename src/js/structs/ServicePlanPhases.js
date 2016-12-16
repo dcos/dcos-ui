@@ -11,7 +11,7 @@ class ServicePlanPhases extends List {
 
     // Find first phase where status is not complete
     this.getItems().some((phase, phaseIndex) => {
-      let complete = phase.isComplete();
+      const complete = phase.isComplete();
 
       if (!complete) {
         this._activePhaseIndex = phaseIndex;

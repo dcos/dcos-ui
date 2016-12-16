@@ -8,7 +8,7 @@ import PluginSDK from 'PluginSDK';
 
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 
-let {Hooks} = PluginSDK;
+const {Hooks} = PluginSDK;
 
 class ClusterName extends mixin(StoreMixin) {
   constructor() {
@@ -22,11 +22,11 @@ class ClusterName extends mixin(StoreMixin) {
   }
 
   render() {
-    let states = MesosSummaryStore.get('states');
+    const states = MesosSummaryStore.get('states');
     let clusterName = '';
 
     if (states) {
-      let lastState = states.lastSuccessful();
+      const lastState = states.lastSuccessful();
 
       if (lastState) {
         clusterName = lastState.getClusterName();

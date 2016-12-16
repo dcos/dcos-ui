@@ -28,7 +28,7 @@ class NetworkPage extends mixin(TabsMixin) {
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    let networkPageReady = Hooks.applyFilter(
+    const networkPageReady = Hooks.applyFilter(
       'networkPageReady', Promise.resolve({isReady: true})
     );
 

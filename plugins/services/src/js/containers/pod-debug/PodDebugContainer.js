@@ -50,7 +50,7 @@ class PodDebugTabView extends React.Component {
   }
 
   getTerminationHistory() {
-    let history = this.props.pod.getTerminationHistoryList().getItems();
+    const history = this.props.pod.getTerminationHistoryList().getItems();
     if (!history.length) {
       return (
         <div>
@@ -104,7 +104,7 @@ class PodDebugTabView extends React.Component {
   }
 
   getLastVersionChange() {
-    let {pod} = this.props;
+    const {pod} = this.props;
     let lastUpdated = pod.getLastUpdated();
 
     // Note to reader: `getLastChanged` refers to the last changes that happend

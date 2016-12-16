@@ -4,7 +4,7 @@ const NodesList = require('../../structs/NodesList');
 const ResourcesUtil = require('../ResourcesUtil');
 
 function createFnWithResources(used_resources) {
-  let instance = new Node({used_resources});
+  const instance = new Node({used_resources});
   return function () { return new NodesList({items: [instance]}); };
 }
 
@@ -28,12 +28,12 @@ describe('ResourcesUtil', function () {
     });
 
     it('returns an array', function () {
-      let resources = ResourcesUtil.getAvailableResources();
+      const resources = ResourcesUtil.getAvailableResources();
       expect(Array.isArray(resources)).toBeTruthy();
     });
 
     it('returns a set of default resources', function () {
-      let resources = ResourcesUtil.getAvailableResources();
+      const resources = ResourcesUtil.getAvailableResources();
       // Should at least have cpu, mem, disk
       expect(resources.length).toBeGreaterThan(2);
     });
@@ -41,14 +41,14 @@ describe('ResourcesUtil', function () {
     it('gets available resources from a node', function () {
       CompositeState.getNodesList = createFnWithResources({foo: 0, bar: 0});
 
-      let resources = ResourcesUtil.getAvailableResources();
+      const resources = ResourcesUtil.getAvailableResources();
       expect(resources).toEqual(['foo', 'bar']);
     });
 
     it('gets available resources from a service', function () {
       CompositeState.getServiceList = createFnWithResources({baz: 0, qux: 0});
 
-      let resources = ResourcesUtil.getAvailableResources();
+      const resources = ResourcesUtil.getAvailableResources();
       expect(resources).toEqual(['baz', 'qux']);
     });
 
@@ -57,7 +57,7 @@ describe('ResourcesUtil', function () {
         foo: 0, bar: 0, baz: 0, qux: 0
       });
 
-      let resources = ResourcesUtil.getAvailableResources(['bar', 'qux']);
+      const resources = ResourcesUtil.getAvailableResources(['bar', 'qux']);
       expect(resources).toEqual(['foo', 'baz']);
     });
 
@@ -72,7 +72,7 @@ describe('ResourcesUtil', function () {
     });
 
     it('returns resources that are unkown to the application', function () {
-      let resources = ResourcesUtil.getAdditionalResources();
+      const resources = ResourcesUtil.getAdditionalResources();
       expect(resources).toEqual(['bananas', 'gpu']);
     });
 
@@ -81,7 +81,7 @@ describe('ResourcesUtil', function () {
         cpus: 0, mem: 0, disk: 0
       });
 
-      let resources = ResourcesUtil.getAdditionalResources();
+      const resources = ResourcesUtil.getAdditionalResources();
       expect(resources).toEqual([]);
     });
 
@@ -90,17 +90,17 @@ describe('ResourcesUtil', function () {
   describe('#getResourceLabel', function () {
 
     it('returns label for known resource', function () {
-      let label = ResourcesUtil.getResourceLabel('mem');
+      const label = ResourcesUtil.getResourceLabel('mem');
       expect(label).toEqual('Memory');
     });
 
     it('returns label for unknown resource', function () {
-      let label = ResourcesUtil.getResourceLabel('foo');
+      const label = ResourcesUtil.getResourceLabel('foo');
       expect(label).toEqual('FOO');
     });
 
     it('returns label for unknown resource', function () {
-      let label = ResourcesUtil.getResourceLabel('bananas');
+      const label = ResourcesUtil.getResourceLabel('bananas');
       expect(label).toEqual('Bananas');
     });
 
@@ -109,7 +109,7 @@ describe('ResourcesUtil', function () {
   describe('#getResourceLabels', function () {
 
     it('returns labels for all resources', function () {
-      let labels = ResourcesUtil.getResourceLabels();
+      const labels = ResourcesUtil.getResourceLabels();
       expect(labels).toEqual({
         bananas: 'Bananas',
         cpus: 'CPU',
@@ -124,24 +124,24 @@ describe('ResourcesUtil', function () {
   describe('#getResourceColor', function () {
 
     it('returns color for known resource', function () {
-      let color = ResourcesUtil.getResourceColor('disk');
+      const color = ResourcesUtil.getResourceColor('disk');
       expect(color).toEqual(3);
     });
 
     it('returns color for unknown resource', function () {
-      let color = ResourcesUtil.getResourceColor('bananas');
+      const color = ResourcesUtil.getResourceColor('bananas');
       expect(color).toEqual(1);
     });
 
     it('returns color from available colors', function () {
-      let color = ResourcesUtil.getResourceColor('bananas', {
+      const color = ResourcesUtil.getResourceColor('bananas', {
         availableColors: [9999, 1]
       });
       expect(color).toEqual(9999);
     });
 
     it('returns color for given index', function () {
-      let color = ResourcesUtil.getResourceColor('bananas', {
+      const color = ResourcesUtil.getResourceColor('bananas', {
         availableColors: [1, 1, 1, 1, 123456, 1],
         resourceList: [null, null, null, null, 'bananas']
       });
@@ -153,7 +153,7 @@ describe('ResourcesUtil', function () {
   describe('#getResourceColors', function () {
 
     it('returns map of resource:color pairs', function () {
-      let colors = ResourcesUtil.getResourceColors();
+      const colors = ResourcesUtil.getResourceColors();
       expect(colors).toEqual({
         cpus: 0,
         mem: 6,

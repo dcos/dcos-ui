@@ -37,8 +37,8 @@ const CosmosPackagesActions = {
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/search`,
       data: JSON.stringify({query}),
       success(response) {
-        let packages = response.packages || [];
-        let data = packages.map(function (cosmosPackage) {
+        const packages = response.packages || [];
+        const data = packages.map(function (cosmosPackage) {
           if (!cosmosPackage.resource) {
             cosmosPackage.resource = {};
           }
@@ -74,10 +74,10 @@ const CosmosPackagesActions = {
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list`,
       data: JSON.stringify({packageName, appId}),
       success(response) {
-        let packages = response.packages || [];
+        const packages = response.packages || [];
         // Map list data to match other endpoint structures
-        let data = packages.map(function (item) {
-          let cosmosPackage = Util.findNestedPropertyInObject(
+        const data = packages.map(function (item) {
+          const cosmosPackage = Util.findNestedPropertyInObject(
             item,
             'packageInformation.packageDefinition'
           ) || {};
@@ -280,13 +280,13 @@ const CosmosPackagesActions = {
 
 if (Config.useFixtures) {
 
-  let packageDescribeFixture =
+  const packageDescribeFixture =
     require('../../../tests/_fixtures/cosmos/package-describe.json');
-  let packagesListFixture =
+  const packagesListFixture =
     require('../../../tests/_fixtures/cosmos/packages-list.json');
-  let packagesSearchFixture =
+  const packagesSearchFixture =
     require('../../../tests/_fixtures/cosmos/packages-search.json');
-  let packagesRepositoriesFixture =
+  const packagesRepositoriesFixture =
     require('../../../tests/_fixtures/cosmos/packages-repositories.json');
 
   if (!global.actionTypes) {

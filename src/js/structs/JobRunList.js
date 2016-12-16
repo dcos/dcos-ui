@@ -3,7 +3,7 @@ import JobRun from './JobRun';
 
 class JobRunList extends List {
   getLongestRunningActiveRun() {
-    let sortedRuns = this.getItems().sort(function (a, b) {
+    const sortedRuns = this.getItems().sort(function (a, b) {
       if (a.getDateCreated() == null && b.getDateCreated() == null) {
         return 0;
       }

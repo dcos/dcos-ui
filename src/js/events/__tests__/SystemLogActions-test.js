@@ -48,7 +48,7 @@ describe('SystemLogActions', function () {
     });
 
     it('fetches data from the correct URL', function () {
-      let mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0])
         .toEqual('/system/v1/agent/foo/logs/v1/stream/?cursor=bar');
       expect(mostRecent.args[1]).toEqual({withCredentials: true});
@@ -62,7 +62,7 @@ describe('SystemLogActions', function () {
       };
 
       SystemLogActions.subscribe('foo', {cursor: 'bar'});
-      let mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
 
@@ -74,7 +74,7 @@ describe('SystemLogActions', function () {
           .toEqual(ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS);
       });
 
-      let event = {
+      const event = {
         data: '{}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -90,7 +90,7 @@ describe('SystemLogActions', function () {
         expect(action.subscriptionID).toEqual('subscriptionID');
       });
 
-      let event = {
+      const event = {
         data: '{}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -139,7 +139,7 @@ describe('SystemLogActions', function () {
       this.eventSource.addEventListener('message', this.messageSpy);
       SystemLogActions.unsubscribe('subscriptionID');
 
-      let event = {
+      const event = {
         data: '{}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -168,7 +168,7 @@ describe('SystemLogActions', function () {
     });
 
     it('fetches data from the correct URL', function () {
-      let mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0])
         .toEqual('/system/v1/agent/foo/logs/v1/range/?cursor=bar&limit=3&read_reverse=true');
       expect(mostRecent.args[1]).toEqual({withCredentials: true});
@@ -182,7 +182,7 @@ describe('SystemLogActions', function () {
       };
 
       SystemLogActions.fetchLogRange('foo', {cursor: 'bar'});
-      let mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
 
@@ -195,7 +195,7 @@ describe('SystemLogActions', function () {
         );
       });
 
-      let event = {
+      const event = {
         data: {},
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
@@ -212,7 +212,7 @@ describe('SystemLogActions', function () {
         expect(action.firstEntry).toEqual(false);
       });
 
-      let messageEvent = {
+      const messageEvent = {
         data: '{}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -220,7 +220,7 @@ describe('SystemLogActions', function () {
       this.eventSource.dispatchEvent('message', messageEvent);
       this.eventSource.dispatchEvent('message', messageEvent);
       this.eventSource.dispatchEvent('message', messageEvent);
-      let closeEvent = {
+      const closeEvent = {
         data: {},
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
@@ -237,7 +237,7 @@ describe('SystemLogActions', function () {
         expect(action.firstEntry).toEqual(true);
       });
 
-      let messageEvent = {
+      const messageEvent = {
         data: '{}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -246,7 +246,7 @@ describe('SystemLogActions', function () {
       this.eventSource.dispatchEvent('message', messageEvent);
       // Close before we the 3 events we have requested to show
       // that we have reached the top
-      let closeEvent = {
+      const closeEvent = {
         data: {},
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
@@ -274,7 +274,7 @@ describe('SystemLogActions', function () {
       });
       // Close before we the 3 events we have requested to show
       // that we have reached the top
-      let closeEvent = {
+      const closeEvent = {
         data: {},
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
@@ -291,7 +291,7 @@ describe('SystemLogActions', function () {
         );
       });
 
-      let event = {eventPhase: global.EventSource.CONNECTING};
+      const event = {eventPhase: global.EventSource.CONNECTING};
       this.eventSource.dispatchEvent('error', event);
     });
 
@@ -304,7 +304,7 @@ describe('SystemLogActions', function () {
         expect(action.subscriptionID).toEqual('subscriptionID');
       });
 
-      let event = {eventPhase: global.EventSource.CONNECTING};
+      const event = {eventPhase: global.EventSource.CONNECTING};
       this.eventSource.dispatchEvent('error', event);
     });
 

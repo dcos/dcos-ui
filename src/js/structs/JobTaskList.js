@@ -3,7 +3,7 @@ import JobTask from './JobTask';
 
 class JobTaskList extends List {
   getLongestRunningTask() {
-    let sortedTasks = this.getItems().sort(function (a, b) {
+    const sortedTasks = this.getItems().sort(function (a, b) {
       if (a.getDateStarted() == null && b.getDateStarted() == null) {
         return 0;
       }

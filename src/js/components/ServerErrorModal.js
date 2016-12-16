@@ -13,7 +13,7 @@ import ModalHeading from './modals/ModalHeading';
 const METHODS_TO_BIND = ['handleModalClose', 'handleServerError'];
 
 function getEventsFromStoreListeners(storeListeners) {
-  let events = [];
+  const events = [];
 
   storeListeners.forEach((store) => {
     store.events.forEach((storeEvent) => {
@@ -39,7 +39,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
 
-    let events = getEventsFromStoreListeners.call(this, this.store_listeners);
+    const events = getEventsFromStoreListeners.call(this, this.store_listeners);
     events.forEach((event) => {
       this[event] = this.handleServerError;
     });
@@ -59,7 +59,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
     const isLocked = errorMessage && /force=true/.test(errorMessage);
 
-    let errors = this.state.errors.concat([errorMessage]);
+    const errors = this.state.errors.concat([errorMessage]);
 
     this.setState({
       errors,
@@ -78,8 +78,8 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   getContent() {
-    let {errors} = this.state;
-    let lastErrorIndex = errors.length - 1;
+    const {errors} = this.state;
+    const lastErrorIndex = errors.length - 1;
     let errorMessages = errors.map(function (error, index) {
       let errorMessageClass = classNames('text-align-center', {
         // Last error message doesn't have margin bottom.

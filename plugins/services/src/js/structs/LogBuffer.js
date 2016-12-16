@@ -13,7 +13,7 @@ function truncateItemData(itemData, sizeDiff) {
   // Truncate to fit within maxFileSize
   itemData = itemData.substring(sizeDiff);
   // Truncate to first newline
-  let newLineIndex = itemData.indexOf('\n') + 1;
+  const newLineIndex = itemData.indexOf('\n') + 1;
   return itemData.substring(newLineIndex);
   // Update currentSize accordingly
 }
@@ -49,8 +49,8 @@ class LogBuffer extends List {
   }
 
   prepend(entry) {
-    let data = entry.get('data');
-    let offset = entry.get('offset');
+    const data = entry.get('data');
+    const offset = entry.get('offset');
 
     let start = this.getStart();
     let end = this.getEnd();
@@ -66,13 +66,13 @@ class LogBuffer extends List {
     this.configuration.start = start;
     this.configuration.end = end;
 
-    let fromBack = true;
+    const fromBack = true;
     this.truncate(fromBack);
   }
 
   add(entry) {
     let data = entry.get('data');
-    let end = this.getEnd();
+    const end = this.getEnd();
     // The point we are reading from in the log file
     let offset = entry.get('offset');
     let start = this.getStart();
@@ -81,7 +81,7 @@ class LogBuffer extends List {
     // if this is the first request and the data received is not from the
     // beginning of the log
     if (start === end && offset !== 0) {
-      let index = data.indexOf('\n') + 1;
+      const index = data.indexOf('\n') + 1;
       offset += index;
       data = data.substring(index);
       start = offset; // Adjust the actual start too!
@@ -127,14 +127,14 @@ class LogBuffer extends List {
    */
   truncate(fromBack) {
     let currentSize = this.getEnd() - this.getStart();
-    let maxFileSize = this.configuration.maxFileSize;
-    let sizeDiff = currentSize - maxFileSize;
+    const maxFileSize = this.configuration.maxFileSize;
+    const sizeDiff = currentSize - maxFileSize;
 
     if (sizeDiff <= 0) {
       return;
     }
 
-    let items = this.getItems();
+    const items = this.getItems();
 
     // This is the index of which item to truncate. If fromBack is not set,
     // truncate the first item. If fromBack is set, truncate the last item.
@@ -143,9 +143,9 @@ class LogBuffer extends List {
       index = items.length - 1;
     }
 
-    let item = items[index];
+    const item = items[index];
     let itemData = item.get('data');
-    let originalDatasize = itemData.length;
+    const originalDatasize = itemData.length;
 
     itemData = truncateItemData(itemData, sizeDiff);
     currentSize = currentSize - originalDatasize + itemData.length;

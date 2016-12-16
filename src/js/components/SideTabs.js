@@ -11,7 +11,7 @@ class SideTabs extends React.Component {
   }
 
   handleTabClick(title) {
-    let {state: {dropdownOpen}, props: {onTabClick, selectedTab}} = this;
+    const {state: {dropdownOpen}, props: {onTabClick, selectedTab}} = this;
 
     if (title === selectedTab) {
       this.setState({dropdownOpen: !dropdownOpen});
@@ -23,7 +23,7 @@ class SideTabs extends React.Component {
   }
 
   getSelectedTabTitle(selectedTab, tabs) {
-    let selectedTabDefinition = tabs.find(function (tab) {
+    const selectedTabDefinition = tabs.find(function (tab) {
       return tab.selectValue === selectedTab;
     });
 
@@ -33,13 +33,13 @@ class SideTabs extends React.Component {
   }
 
   getTabs() {
-    let {selectedTab, tabs} = this.props;
+    const {selectedTab, tabs} = this.props;
 
     return tabs.map((tab, index) => {
       let {title, selectValue, definition} = tab;
 
       // Check if at least one field has errors
-      let hasErrors = definition && definition.reduce(function (lastErrors, field) {
+      const hasErrors = definition && definition.reduce(function (lastErrors, field) {
         return lastErrors || !!field.showError;
       }, false);
 
@@ -61,7 +61,7 @@ class SideTabs extends React.Component {
   }
 
   render() {
-    let {props: {className, selectedTab, tabs}, state: {dropdownOpen}} = this;
+    const {props: {className, selectedTab, tabs}, state: {dropdownOpen}} = this;
 
     let classes = classNames('list-unstyled multiple-form-modal-sidebar-menu', {
       'is-hidden': !dropdownOpen

@@ -1,4 +1,4 @@
-let EventTypes = {};
+const EventTypes = {};
 [
   'MESOS_INITIALIZE_LOG_CHANGE',
   'MESOS_INITIALIZE_LOG_REQUEST_ERROR',

@@ -18,17 +18,17 @@ describe('List', function () {
   describe('#constructor', function () {
 
     it('defaults the list to an empty array', function () {
-      let list = new List();
+      const list = new List();
       expect(list.getItems()).toEqual([]);
     });
 
     it('accepts a list of items', function () {
-      let list = new List({items: [0, 1, 2]});
+      const list = new List({items: [0, 1, 2]});
       expect(list.getItems()).toEqual([0, 1, 2]);
     });
 
     it('throws when initialized with a non-array argument', function () {
-      let fn = function () {
+      const fn = function () {
         return new List({items: 'foo'});
       };
 
@@ -36,13 +36,13 @@ describe('List', function () {
     });
 
     it('enforces type, if specified', function () {
-      let {Thing, ThingList} = this;
-      let thingList = new ThingList({items: [{}]});
+      const {Thing, ThingList} = this;
+      const thingList = new ThingList({items: [{}]});
       expect(thingList.last()).toEqual(jasmine.any(Thing));
     });
 
     it('does not re-cast items of the correct type', function () {
-      let {Thing, ThingList} = this;
+      const {Thing, ThingList} = this;
       // If re-cast, an error will be thrown
       new ThingList({items: [new Thing({})]});
     });
@@ -53,20 +53,20 @@ describe('List', function () {
 
     it('discards duplicate items', function () {
       const [A, B, C, D, E] = [{}, {}, {}, {}, {}];
-      let list1 = new List({items: [A, B, C]});
-      let list2 = new List({items: [E, C, A, D]});
-      let list3 = list1.combine(list2);
+      const list1 = new List({items: [A, B, C]});
+      const list2 = new List({items: [E, C, A, D]});
+      const list3 = list1.combine(list2);
       expect(list3.getItems()).toEqual([A, B, C, E, D]);
     });
 
     it('can operate on the same objects more than one time', function () {
       const [A, B, C, D, E, F, G] = [{}, {}, {}, {}, {}, {}, {}];
-      let list1 = new List({items: [A, B, C]});
-      let list2 = new List({items: [E, C, A, D]});
-      let list3 = new List({items: [A, D, F, G]});
+      const list1 = new List({items: [A, B, C]});
+      const list2 = new List({items: [E, C, A, D]});
+      const list3 = new List({items: [A, D, F, G]});
 
-      let list4 = list1.combine(list2);
-      let list5 = list4.combine(list3);
+      const list4 = list1.combine(list2);
+      const list5 = list4.combine(list3);
 
       expect(list4.getItems()).toEqual([A, B, C, E, D]);
       expect(list5.getItems()).toEqual([A, B, C, E, D, F, G]);
@@ -77,35 +77,35 @@ describe('List', function () {
   describe('#add', function () {
 
     it('adds an item', function () {
-      let list = new List();
+      const list = new List();
       list.add(0);
       expect(list.getItems()).toEqual([0]);
     });
 
     it('adds two items', function () {
-      let list = new List();
+      const list = new List();
       list.add(0);
       list.add(1);
       expect(list.getItems()).toEqual([0, 1]);
     });
 
     it('adds items to current list', function () {
-      let list = new List({items: [0]});
+      const list = new List({items: [0]});
       list.add(1);
       list.add(2);
       expect(list.getItems()).toEqual([0, 1, 2]);
     });
 
     it('enforces type, if specified', function () {
-      let {Thing, ThingList} = this;
-      let thingList = new ThingList();
+      const {Thing, ThingList} = this;
+      const thingList = new ThingList();
       thingList.add({});
       expect(thingList.last()).toEqual(jasmine.any(Thing));
     });
 
     it('does not re-cast items of the correct type', function () {
-      let {Thing, ThingList} = this;
-      let thingList = new ThingList();
+      const {Thing, ThingList} = this;
+      const thingList = new ThingList();
       // If re-cast, an error will be thrown
       thingList.add(new Thing());
     });
@@ -115,12 +115,12 @@ describe('List', function () {
   describe('#getItems', function () {
 
     it('returns list', function () {
-      let list = new List();
+      const list = new List();
       expect(list.getItems()).toEqual([]);
     });
 
     it('returns added items in a list', function () {
-      let list = new List();
+      const list = new List();
       list.add(0);
       list.add(1);
       expect(list.getItems()).toEqual([0, 1]);
@@ -131,12 +131,12 @@ describe('List', function () {
   describe('#last', function () {
 
     it('returns nil when there\'s no last item', function () {
-      let list = new List();
+      const list = new List();
       expect(list.last()).toEqual(undefined);
     });
 
     it('returns the last item in the list', function () {
-      let list = new List({items: [0, 1, 2, 3]});
+      const list = new List({items: [0, 1, 2, 3]});
       expect(list.last()).toEqual(3);
     });
 

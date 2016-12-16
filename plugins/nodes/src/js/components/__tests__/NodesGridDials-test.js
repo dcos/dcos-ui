@@ -153,7 +153,7 @@ describe('NodesGridDials', function () {
     });
 
     it('render the correct number of charts', function () {
-      let host = Object.assign({}, this.hosts[0]);
+      const host = Object.assign({}, this.hosts[0]);
       host.id = 'bar';
       this.hosts.push(new Node(host));
       this.instance = ReactDOM.render(

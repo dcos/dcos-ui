@@ -22,7 +22,7 @@ const {
   NavigationService,
   EventTypes: {NAVIGATION_CHANGE}} = PluginSDK.get('navigation');
 
-let defaultMenuItems = [
+const defaultMenuItems = [
   '/dashboard',
   '/services',
   '/jobs',
@@ -36,7 +36,7 @@ let defaultMenuItems = [
   '/organization'
 ];
 
-let {Hooks} = PluginSDK;
+const {Hooks} = PluginSDK;
 
 var Sidebar = React.createClass({
 
@@ -109,7 +109,7 @@ var Sidebar = React.createClass({
   },
 
   handleKeyPress(event) {
-    let nodeName = event.target.nodeName;
+    const nodeName = event.target.nodeName;
 
     if (event.keyCode === keyCodes.leftBracket
       && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')
@@ -167,11 +167,11 @@ var Sidebar = React.createClass({
      .filter((route) => menuItems.has(route.path));
 
     let groupMenuItems = filteredItems.map((element, index) => {
-      let {pathname} = this.props.location;
+      const {pathname} = this.props.location;
 
       let hasChildren = element.children && element.children.length !== 0;
       let isExpanded = this.state.expandedItems.includes(element.path);
-      let isParentActive = pathname.startsWith(element.path);
+      const isParentActive = pathname.startsWith(element.path);
 
       let submenu;
       let isChildActive = false;
@@ -232,7 +232,7 @@ var Sidebar = React.createClass({
 
     let menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
-        let isActive = pathname.startsWith(currentChild.path);
+        const isActive = pathname.startsWith(currentChild.path);
 
         let menuItemClasses = classNames({selected: isActive});
 
@@ -265,7 +265,7 @@ var Sidebar = React.createClass({
   },
 
   getVersion() {
-    let data = MetadataStore.get('dcosMetadata');
+    const data = MetadataStore.get('dcosMetadata');
     if (data == null || data.version == null) {
       return null;
     }
@@ -317,9 +317,9 @@ var Sidebar = React.createClass({
   },
 
   handlePrimarySidebarLinkClick(element, isChildActive) {
-    let {expandedItems} = this.state;
-    let {path} = element;
-    let expandedItemIndex = expandedItems.indexOf(path);
+    const {expandedItems} = this.state;
+    const {path} = element;
+    const expandedItemIndex = expandedItems.indexOf(path);
 
     if (expandedItemIndex === -1) {
       expandedItems.push(path);

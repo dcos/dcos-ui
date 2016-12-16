@@ -23,8 +23,8 @@ module.exports = class Application extends Service {
    * @override
    */
   getHealth() {
-    let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
-    let healthChecks = this.getSpec().getHealthChecks();
+    const {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
+    const healthChecks = this.getSpec().getHealthChecks();
 
     if (tasksUnhealthy > 0) {
       return HealthStatus.UNHEALTHY;
@@ -114,11 +114,11 @@ module.exports = class Application extends Service {
    * @override
    */
   getServiceStatus() {
-    let {tasksRunning} = this.getTasksSummary();
-    let deployments = this.getDeployments();
-    let queue = this.getQueue();
+    const {tasksRunning} = this.getTasksSummary();
+    const deployments = this.getDeployments();
+    const queue = this.getQueue();
 
-    let instances = this.getInstancesCount();
+    const instances = this.getInstancesCount();
     if (instances === 0 &&
       tasksRunning === 0
     ) {
@@ -148,7 +148,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getTasksSummary() {
-    let healthData = {
+    const healthData = {
       tasksHealthy: this.get('tasksHealthy'),
       tasksStaged: this.get('tasksStaged'),
       tasksUnhealthy: this.get('tasksUnhealthy'),
@@ -156,7 +156,7 @@ module.exports = class Application extends Service {
         this.get('tasksHealthy') - this.get('tasksUnhealthy'))
     };
 
-    let tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {
+    const tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {
       return sum + healthData[healthItem];
     }, 0);
 
@@ -184,8 +184,8 @@ module.exports = class Application extends Service {
   }
 
   getVersionInfo() {
-    let currentVersionID = this.get('version');
-    let {lastConfigChangeAt, lastScalingAt} = this.get('versionInfo');
+    const currentVersionID = this.get('version');
+    const {lastConfigChangeAt, lastScalingAt} = this.get('versionInfo');
 
     return {lastConfigChangeAt, lastScalingAt, currentVersionID};
   }
@@ -201,13 +201,13 @@ module.exports = class Application extends Service {
    * @override
    */
   getWebURL() {
-    let {
+    const {
       DCOS_SERVICE_NAME,
       DCOS_SERVICE_PORT_INDEX,
       DCOS_SERVICE_SCHEME
     } = this.getLabels() || {};
 
-    let serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
+    const serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
 
     if (!serviceName || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
       return null;

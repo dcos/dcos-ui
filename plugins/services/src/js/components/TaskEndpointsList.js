@@ -33,10 +33,10 @@ class TaskEndpointsList extends React.Component {
   }
 
   getEndpointsList(hosts, ports = []) {
-    let totalPortCount = ports.length;
+    const totalPortCount = ports.length;
 
     return hosts.map((host, hostIndex) => {
-      let isExpanded = this.state.expandedHosts.includes(host);
+      const isExpanded = this.state.expandedHosts.includes(host);
       let {portLimit} = this.props;
       let portsEl = null;
       let showHideLink = null;
@@ -45,7 +45,7 @@ class TaskEndpointsList extends React.Component {
         portLimit = totalPortCount;
       }
 
-      let renderedPorts = ports.slice(0, portLimit);
+      const renderedPorts = ports.slice(0, portLimit);
 
       if (renderedPorts.length < totalPortCount || isExpanded) {
         showHideLink = this.getShowHideLink(
@@ -115,8 +115,8 @@ class TaskEndpointsList extends React.Component {
 
   handlePortsToggle(host) {
     // Prevent mutating state.
-    let expandedHosts = Object.assign([], this.state.expandedHosts);
-    let hostIndex = expandedHosts.indexOf(host);
+    const expandedHosts = Object.assign([], this.state.expandedHosts);
+    const hostIndex = expandedHosts.indexOf(host);
 
     if (hostIndex > -1) {
       expandedHosts.splice(hostIndex, 1);
@@ -128,13 +128,13 @@ class TaskEndpointsList extends React.Component {
   }
 
   render() {
-    let {node, task} = this.props;
+    const {node, task} = this.props;
     if (task == null) {
       return this.getNullList();
     }
 
-    let {hosts, ports} = TaskUtil.getHostAndPortList(task, node);
-    let totalPortCount = ports.length;
+    const {hosts, ports} = TaskUtil.getHostAndPortList(task, node);
+    const totalPortCount = ports.length;
 
     if (hosts.length === 0 && totalPortCount === 0) {
       return this.getNullList();

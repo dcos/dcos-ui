@@ -14,8 +14,8 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    let {unitID} = this.props.params;
-    let unit = UnitHealthStore.getUnit(unitID);
+    const {unitID} = this.props.params;
+    const unit = UnitHealthStore.getUnit(unitID);
 
     if (unit.get('id')) {
       /* eslint-disable react/no-did-mount-set-state */
@@ -31,8 +31,8 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getCrumbLabel() {
-    let {unitID} = this.props.params;
-    let unit = UnitHealthStore.getUnit(unitID);
+    const {unitID} = this.props.params;
+    const unit = UnitHealthStore.getUnit(unitID);
 
     return unit.getTitle();
   }

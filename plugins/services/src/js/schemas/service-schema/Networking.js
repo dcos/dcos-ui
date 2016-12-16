@@ -23,13 +23,13 @@ const Networking = {
         {html: 'Bridge', id: 'bridge'}
       ],
       getter(service) {
-        let ipAddress = service.getIpAddress();
+        const ipAddress = service.getIpAddress();
         if (ipAddress) {
 
           return ipAddress.networkName;
         }
 
-        let container = service.getContainerSettings();
+        const container = service.getContainerSettings();
         if (container && container.docker && container.docker.network) {
 
           return container.docker.network.toLowerCase();
@@ -61,7 +61,7 @@ const Networking = {
       duplicable: true,
       addLabel: 'Add an endpoint',
       getter(service) {
-        let container = service.getContainerSettings();
+        const container = service.getContainerSettings();
         let portMappings = null;
         if (container && container.docker && container.docker.portMappings) {
           portMappings = container.docker.portMappings;
@@ -89,7 +89,7 @@ const Networking = {
         });
       },
       filterProperties(service = {}, instanceDefinition, model) {
-        let {properties} = Networking.properties.ports.itemShape;
+        const {properties} = Networking.properties.ports.itemShape;
         const disabledLBPortFieldValue = service.lbPort ||
           DISABLED_LB_PORT_FIELD_VALUE;
 

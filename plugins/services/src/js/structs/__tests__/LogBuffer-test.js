@@ -18,8 +18,8 @@ describe('LogBuffer', function () {
   describe('#constructor', function () {
 
     it('creates instances of Item', function () {
-      let logBuffer = new LogBuffer({items: [{foo: 'bar'}]});
-      let items = logBuffer.getItems();
+      const logBuffer = new LogBuffer({items: [{foo: 'bar'}]});
+      const items = logBuffer.getItems();
       expect(items[0] instanceof Item).toBeTruthy();
     });
 
@@ -89,7 +89,7 @@ describe('LogBuffer', function () {
     });
 
     it('should start log at end - maxFileSize when beginning log', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 10});
+      const logBuffer = new LogBuffer({maxFileSize: 10});
       logBuffer.add(new Item({
         data: 'foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo',
         offset: 100
@@ -113,7 +113,7 @@ describe('LogBuffer', function () {
     });
 
     it('should start log at end - maxFileSize during logging', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 10});
+      const logBuffer = new LogBuffer({maxFileSize: 10});
       logBuffer.add(new Item({data: 'foo', offset: 100}));
       logBuffer.add(new Item({
         data: '\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo',
@@ -126,7 +126,7 @@ describe('LogBuffer', function () {
     });
 
     it('should cut the first item when not within maxFileSize', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 10});
+      const logBuffer = new LogBuffer({maxFileSize: 10});
       logBuffer.add(new Item({data: 'foo', offset: 100}));
       logBuffer.add(new Item({data: 'foo', offset: 103}));
       logBuffer.add(new Item({
@@ -138,7 +138,7 @@ describe('LogBuffer', function () {
     });
 
     it('should keep all items when within maxFileSize', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 200});
+      const logBuffer = new LogBuffer({maxFileSize: 200});
       logBuffer.add(new Item({data: 'foo', offset: 100}));
       logBuffer.add(new Item({data: 'foo', offset: 103}));
       logBuffer.add(new Item({
@@ -165,7 +165,7 @@ describe('LogBuffer', function () {
     });
 
     it('should handle truncate correctly', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 10});
+      const logBuffer = new LogBuffer({maxFileSize: 10});
       logBuffer.prepend(new Item({
         data: 'foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo',
         offset: 100
@@ -174,7 +174,7 @@ describe('LogBuffer', function () {
     });
 
     it('should handle truncate correctly after adding', function () {
-      let logBuffer = new LogBuffer({maxFileSize: 10});
+      const logBuffer = new LogBuffer({maxFileSize: 10});
       logBuffer.add(new Item({data: 'foo', offset: 100}));
       logBuffer.prepend(new Item({
         data: 'foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo',

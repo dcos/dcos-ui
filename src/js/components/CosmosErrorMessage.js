@@ -15,7 +15,7 @@ const REPOSITORY_ERRORS = [
 
 class CosmosErrorMessage extends React.Component {
   getHeader() {
-    let {header, headerClass} = this.props;
+    const {header, headerClass} = this.props;
     if (!header) {
       return null;
     }
@@ -28,14 +28,14 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getMessage() {
-    let {error} = this.props;
+    const {error} = this.props;
     if (!error) {
       return 'An unknown error occurred';
     }
 
     // Append reference to repository page, since repository related errors
     // can occur at any request to Cosmos
-    let {type, message} = error;
+    const {type, message} = error;
 
     if (REPOSITORY_ERRORS.includes(type)) {
       return this.appendRepositoryLink(message);
@@ -45,7 +45,7 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getDetails() {
-    let {error} = this.props;
+    const {error} = this.props;
     if (!error) {
       return null;
     }
@@ -68,7 +68,7 @@ class CosmosErrorMessage extends React.Component {
     }
 
     // Get an array of array of errors for every individual path
-    let errorsDetails = error.data.errors.map(function (errorDetail) {
+    const errorsDetails = error.data.errors.map(function (errorDetail) {
       // Return early on unexpected error object format
       if (!errorDetail) {
         return [];
@@ -78,7 +78,7 @@ class CosmosErrorMessage extends React.Component {
       }
 
       // Extract details
-      let {path = '/', errors = []} = errorDetail;
+      const {path = '/', errors = []} = errorDetail;
       if (!errors || !Array.isArray(errors)) {
         return [];
       }
@@ -105,7 +105,7 @@ class CosmosErrorMessage extends React.Component {
   }
 
   render() {
-    let {className, onResized, wrapperClass} = this.props;
+    const {className, onResized, wrapperClass} = this.props;
 
     return (
       <div className={wrapperClass}>

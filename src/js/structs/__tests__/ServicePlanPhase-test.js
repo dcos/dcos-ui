@@ -7,7 +7,7 @@ describe('ServicePlanPhase', function () {
   describe('#getBlocks', function () {
 
     it('should return an instance of List', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         blocks: []
       });
 
@@ -15,7 +15,7 @@ describe('ServicePlanPhase', function () {
     });
 
     it('should return 1 block', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         blocks: [{
           id: 'block-1'
         }]
@@ -29,7 +29,7 @@ describe('ServicePlanPhase', function () {
   describe('#getID', function () {
 
     it('should return id', function () {
-      let Phase = new ServicePlanPhase({id: 'phase-1'});
+      const Phase = new ServicePlanPhase({id: 'phase-1'});
 
       expect(Phase.getID()).toEqual('phase-1');
     });
@@ -39,7 +39,7 @@ describe('ServicePlanPhase', function () {
   describe('#getName', function () {
 
     it('should return name', function () {
-      let Phase = new ServicePlanPhase({name: 'phase-2'});
+      const Phase = new ServicePlanPhase({name: 'phase-2'});
 
       expect(Phase.getName()).toEqual('phase-2');
     });
@@ -49,7 +49,7 @@ describe('ServicePlanPhase', function () {
   describe('#isComplete', function () {
 
     it('should return false', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -57,7 +57,7 @@ describe('ServicePlanPhase', function () {
     });
 
     it('should return true', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -69,7 +69,7 @@ describe('ServicePlanPhase', function () {
   describe('#isInProgress', function () {
 
     it('should return false', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -77,7 +77,7 @@ describe('ServicePlanPhase', function () {
     });
 
     it('should return true', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -89,7 +89,7 @@ describe('ServicePlanPhase', function () {
   describe('#isPending', function () {
 
     it('should return false', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -97,7 +97,7 @@ describe('ServicePlanPhase', function () {
     });
 
     it('should return true', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.PENDING
       });
 
@@ -109,7 +109,7 @@ describe('ServicePlanPhase', function () {
   describe('#isWaiting', function () {
 
     it('should return false', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -117,7 +117,7 @@ describe('ServicePlanPhase', function () {
     });
 
     it('should return true', function () {
-      let Phase = new ServicePlanPhase({
+      const Phase = new ServicePlanPhase({
         status: ServicePlanStatusTypes.WAITING
       });
 

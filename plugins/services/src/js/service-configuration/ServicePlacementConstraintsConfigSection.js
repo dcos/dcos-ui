@@ -36,7 +36,7 @@ class ServicePlacementConstraintsConfigSection extends ServiceConfigBaseSectionD
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Field Name'),
                 prop: 'field',
                 render(prop, row) {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
                 },
@@ -49,7 +49,7 @@ class ServicePlacementConstraintsConfigSection extends ServiceConfigBaseSectionD
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Operator'),
                 prop: 'operator',
                 render(prop, row) {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
                 },
@@ -62,7 +62,7 @@ class ServicePlacementConstraintsConfigSection extends ServiceConfigBaseSectionD
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Value'),
                 prop: 'value',
                 render(prop, row) {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
                 },

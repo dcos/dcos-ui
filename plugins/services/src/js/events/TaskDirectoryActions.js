@@ -67,7 +67,7 @@ var TaskDirectoryActions = {
   ),
 
   fetchDirectory(task, innerPath, nodeState) {
-    let path = MesosStateUtil.getTaskPath(nodeState, task, innerPath);
+    const path = MesosStateUtil.getTaskPath(nodeState, task, innerPath);
     if (path == null) {
       AppDispatcher.handleServerAction({
         type: REQUEST_TASK_DIRECTORY_ERROR,

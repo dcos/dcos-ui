@@ -20,7 +20,7 @@ describe('FilterByService', function () {
       this.byServiceFilter = id;
     };
 
-    let services = new ServicesList({items: MockFrameworks.frameworks});
+    const services = new ServicesList({items: MockFrameworks.frameworks});
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <FilterByService
@@ -46,7 +46,7 @@ describe('FilterByService', function () {
   describe('#getItemHtml', function () {
 
     it('should display the badge correctly', function () {
-      let framework = new Framework(MockFrameworks.frameworks[4]);
+      const framework = new Framework(MockFrameworks.frameworks[4]);
       var item = ReactDOM.render(
         this.instance.getItemHtml(framework),
         this.container

@@ -5,7 +5,7 @@ describe('Framework', function () {
   describe('#getNodeIDs', function () {
 
     it('returns ids of nodes the service is running on', function () {
-      let framework = new Framework({slave_ids: [1, 2, 3]});
+      const framework = new Framework({slave_ids: [1, 2, 3]});
       expect(framework.getNodeIDs()).toEqual([1, 2, 3]);
     });
 
@@ -14,17 +14,17 @@ describe('Framework', function () {
   describe('#getResourceID', function () {
 
     it('returns the correct resource id when there is no name', function () {
-      let framework = new Framework();
+      const framework = new Framework();
       expect(framework.getResourceID()).toEqual('dcos:adminrouter:service:');
     });
 
     it('returns the correct resource id when there is a name', function () {
-      let framework = new Framework({name: 'foo'});
+      const framework = new Framework({name: 'foo'});
       expect(framework.getResourceID()).toEqual('dcos:adminrouter:service:foo');
     });
 
     it('returns the correct resource id when name is complex', function () {
-      let framework = new Framework({name: 'foo-adsf-2'});
+      const framework = new Framework({name: 'foo-adsf-2'});
       expect(framework.getResourceID())
         .toEqual('dcos:adminrouter:service:foo-adsf-2');
     });
@@ -34,7 +34,7 @@ describe('Framework', function () {
   describe('#getUsageStats', function () {
 
     it('returns an object containing the value for the resource', function () {
-      let framework = new Framework({used_resources: {cpus: 1, mem: 512}});
+      const framework = new Framework({used_resources: {cpus: 1, mem: 512}});
       expect(framework.getUsageStats('cpus').value).toEqual(1);
       expect(framework.getUsageStats('mem').value).toEqual(512);
     });
@@ -44,7 +44,7 @@ describe('Framework', function () {
   describe('#getName', function () {
 
     it('returns correct name', function () {
-      let service = new Framework({
+      const service = new Framework({
         id: '/test/framework',
         labels: {
           DCOS_PACKAGE_FRAMEWORK_NAME: 'Framework'
@@ -55,7 +55,7 @@ describe('Framework', function () {
     });
 
     it('returns basename if framework name is undefined', function () {
-      let service = new Framework({
+      const service = new Framework({
         id: '/test/framework'
       });
 
@@ -67,7 +67,7 @@ describe('Framework', function () {
   describe('#getTasksSummary', function () {
 
     it('returns correct task summary', function () {
-      let service = new Framework({
+      const service = new Framework({
         instances: 2,
         tasksStaged: 0,
         tasksRunning: 1,
@@ -86,7 +86,7 @@ describe('Framework', function () {
     });
 
     it('returns correct task summary for overcapcity', function () {
-      let service = new Framework({
+      const service = new Framework({
         instances: 2,
         tasksStaged: 0,
         tasksRunning: 4,
@@ -105,7 +105,7 @@ describe('Framework', function () {
     });
 
     it('returns correct task summary with framework data', function () {
-      let service = new Framework({
+      const service = new Framework({
         instances: 2,
         tasksStaged: 0,
         tasksRunning: 1,
@@ -129,7 +129,7 @@ describe('Framework', function () {
   describe('#getInstancesCount', function () {
 
     it('returns correct instances', function () {
-      let service = new Framework({
+      const service = new Framework({
         instances: 1
       });
 
@@ -137,7 +137,7 @@ describe('Framework', function () {
     });
 
     it('returns correct instances with Framework data', function () {
-      let service = new Framework({
+      const service = new Framework({
         instances: 1,
         TASK_RUNNING: 1
       });

@@ -81,7 +81,7 @@ module.exports = {
       return state;
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (joinedPath.search('localVolumes') !== -1) {
       if (joinedPath === 'localVolumes') {
@@ -99,7 +99,7 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
+      const index = joinedPath.match(/\d+/)[0];
       if (type === SET && `localVolumes.${index}.type` === joinedPath) {
         state[index].type = value;
       }

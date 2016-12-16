@@ -19,7 +19,7 @@ describe('TabViewList', function () {
       </TabViewList>
     );
 
-    let node = ReactDOM.findDOMNode(this.instance);
+    const node = ReactDOM.findDOMNode(this.instance);
     expect(node.textContent).toEqual('foo');
   });
 
@@ -32,7 +32,7 @@ describe('TabViewList', function () {
       </TabViewList>
     );
 
-    let node = ReactDOM.findDOMNode(this.instance);
+    const node = ReactDOM.findDOMNode(this.instance);
     expect(node.textContent).toEqual('bar');
   });
 

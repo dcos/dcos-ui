@@ -105,7 +105,7 @@ function stopPolling() {
 }
 
 function poll() {
-  let options = {};
+  const options = {};
 
   if (shouldEmbedLastUnusedOffers) {
     options.params = '?embed=lastUnusedOffers';
@@ -399,8 +399,8 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getServiceHealth(name) {
-    let appName = name.toLowerCase();
-    let marathonApps = this.get('apps');
+    const appName = name.toLowerCase();
+    const marathonApps = this.get('apps');
 
     if (!marathonApps[appName]) {
       return HealthStatus.NA;
@@ -410,9 +410,9 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getServiceImages(name) {
-    let appName = name.toLowerCase();
+    const appName = name.toLowerCase();
     let appImages = null;
-    let marathonApps = this.get('apps');
+    const marathonApps = this.get('apps');
 
     if (marathonApps[appName]) {
       appImages = marathonApps[appName].images;
@@ -422,9 +422,9 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getServiceInstalledTime(name) {
-    let appName = name.toLowerCase();
+    const appName = name.toLowerCase();
     let appInstalledTime = null;
-    let marathonApps = this.get('apps');
+    const marathonApps = this.get('apps');
 
     if (marathonApps[appName]) {
       appInstalledTime = marathonApps[appName].snapshot.version;
@@ -434,8 +434,8 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getServiceVersion(name) {
-    let appName = name.toLowerCase();
-    let marathonApps = this.get('apps');
+    const appName = name.toLowerCase();
+    const marathonApps = this.get('apps');
 
     if (marathonApps[appName]) {
       return this.getVersion(marathonApps[appName].snapshot);
@@ -464,9 +464,9 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonGroups(data) {
-    let groups = new ServiceTree(data);
+    const groups = new ServiceTree(data);
 
-    let apps = groups.reduceItems(function (map, item) {
+    const apps = groups.reduceItems(function (map, item) {
       if (item instanceof Service) {
         map[item.getName().toLowerCase()] = {
           health: item.getHealth(),
@@ -478,7 +478,7 @@ class MarathonStore extends GetSetBaseStore {
       return map;
     }, {});
 
-    let numberOfApps = Object.keys(apps).length;
+    const numberOfApps = Object.keys(apps).length;
     // Specific health check for Marathon
     // We are setting the 'marathon' key here, since we can safely assume,
     // it to be 'marathon' (we control it).
@@ -509,7 +509,7 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonDeployments(data) {
-    let deployments = new DeploymentsList({items: data});
+    const deployments = new DeploymentsList({items: data});
     this.set({deployments});
     this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
   }
@@ -519,9 +519,9 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonDeploymentRollback(data) {
-    let id = data.originalDeploymentID;
+    const id = data.originalDeploymentID;
     if (id != null) {
-      let deployments = this.get('deployments')
+      const deployments = this.get('deployments')
         .filterItems(function (deployment) {
           return deployment.getId() !== id;
         });

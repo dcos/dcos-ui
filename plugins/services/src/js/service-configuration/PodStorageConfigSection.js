@@ -46,17 +46,17 @@ class PodStorageConfigSection extends React.Component {
 
   render() {
     const {onEditClick} = this.props;
-    let {volumes = [], containers = []} = this.props.appConfig;
-    let volumeSummary = volumes.reduce((memo, volume) => {
-      let volumeInfo = {
+    const {volumes = [], containers = []} = this.props.appConfig;
+    const volumeSummary = volumes.reduce((memo, volume) => {
+      const volumeInfo = {
         volume: volume.name,
         host: volume.host
       };
 
       // Fetch all mounts for this volume in the containers
-      let containerMounts = containers.reduce(
+      const containerMounts = containers.reduce(
         (cmMemo, container) => {
-          let {volumeMounts = []} = container;
+          const {volumeMounts = []} = container;
           return cmMemo.concat(
             volumeMounts
               .filter((volumeMount) => volumeMount.name === volume.name)

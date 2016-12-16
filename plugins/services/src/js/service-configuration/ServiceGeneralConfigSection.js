@@ -231,7 +231,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Artifact Uri'),
                 prop: 'uri',
                 render: (prop, row) => {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   return getDisplayValue(value);
                 },

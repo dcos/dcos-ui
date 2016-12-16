@@ -102,17 +102,17 @@ module.exports = class Job extends Item {
   }
 
   getScheduleStatus() {
-    let activeRuns = this.getActiveRuns();
-    let activeRunsLength = activeRuns.getItems().length;
-    let scheduleLength = this.getSchedules().length;
+    const activeRuns = this.getActiveRuns();
+    const activeRunsLength = activeRuns.getItems().length;
+    const scheduleLength = this.getSchedules().length;
 
     if (activeRunsLength > 0) {
-      let longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
+      const longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
       return longestRunningActiveRun.getStatus();
     }
 
     if (scheduleLength > 0) {
-      let schedule = this.getSchedules()[0];
+      const schedule = this.getSchedules()[0];
 
       if (!!schedule && schedule.enabled) {
         return 'SCHEDULED';

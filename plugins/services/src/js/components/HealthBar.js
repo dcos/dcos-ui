@@ -22,7 +22,7 @@ class HealthBar extends React.Component {
     return Object.keys(tasksSummary).filter(function (task) {
       return tasksSummary[task] !== 0 && task !== 'tasksRunning';
     }).map(function (task, index) {
-      let percentage = parseInt(tasksSummary[task] / instancesCount * 100, 10);
+      const percentage = parseInt(tasksSummary[task] / instancesCount * 100, 10);
 
       let classSet = classNames(HealthBarStates[task].className, 'dot icon');
 

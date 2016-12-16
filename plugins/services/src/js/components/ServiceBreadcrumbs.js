@@ -43,7 +43,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   ];
 
   if (serviceID != null && trimmedServiceID.length > 0) {
-    let serviceCrumbs = ids.map(function (id, index) {
+    const serviceCrumbs = ids.map(function (id, index) {
       let breadcrumbHealth = null;
 
       if (index === ids.length - 1) {
@@ -66,7 +66,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   }
 
   if (taskID != null && taskName != null) {
-    let encodedTaskID = encodeURIComponent(taskID);
+    const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
       <Link to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`} index={taskID}>{taskName}</Link>
     );

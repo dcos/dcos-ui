@@ -13,8 +13,8 @@ function getCountByType(services) {
       return memo;
     }
 
-    let serviceStatus = service.getServiceStatus();
-    let serviceHealth = service.getHealth();
+    const serviceStatus = service.getServiceStatus();
+    const serviceHealth = service.getHealth();
 
     if (memo.filterStatus[serviceStatus.key] === undefined) {
       memo.filterStatus[serviceStatus.key] = 1;
@@ -44,7 +44,7 @@ function getCountByType(services) {
       }
     }
 
-    let volumes = service.getVolumes();
+    const volumes = service.getVolumes();
     if (volumes.list && volumes.list.length > 0 ) {
       if (memo.filterOther[volumesKey] === undefined) {
         memo.filterOther[volumesKey] = 1;

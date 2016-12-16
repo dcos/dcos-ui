@@ -36,8 +36,8 @@ class JobSearchFilter extends mixin(QueryParamsMixin) {
   }
 
   updateFilterStatus() {
-    let {state} = this;
-    let searchString =
+    const {state} = this;
+    const searchString =
       this.getQueryParamObject()[JobFilterTypes.TEXT] || '';
 
     if (searchString !== state.searchString) {

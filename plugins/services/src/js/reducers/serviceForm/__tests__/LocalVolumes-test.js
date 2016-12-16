@@ -7,14 +7,14 @@ const {ADD_ITEM, REMOVE_ITEM, SET} =
 describe('LocalVolumes', function () {
   describe('#FormReducer', function () {
     it('should return an Array with one item', function () {
-      let batch = new Batch()
+      const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'));
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: null, containerPath: null, mode: 'RW', type: 'PERSISTENT'}]);
     });
 
     it('should contain one full local Volumes item', function () {
-      let batch = new Batch()
+      const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))
@@ -23,7 +23,7 @@ describe('LocalVolumes', function () {
     });
 
     it('should contain two full local Volumes items', function () {
-      let batch = new Batch()
+      const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes'], 1, ADD_ITEM))
         .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
@@ -39,7 +39,7 @@ describe('LocalVolumes', function () {
     });
 
     it('should remove the right row.', function () {
-      let batch = new Batch()
+      const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes'], 1, ADD_ITEM))
         .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
@@ -56,7 +56,7 @@ describe('LocalVolumes', function () {
     });
 
     it('should set the right mode.', function () {
-      let batch = new Batch()
+      const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))

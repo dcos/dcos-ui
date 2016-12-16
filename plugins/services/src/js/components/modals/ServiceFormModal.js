@@ -141,7 +141,7 @@ class ServiceFormModal extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {state, props} = this;
+    const {state, props} = this;
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
       props.isPending !== nextProps.isPending ||
@@ -150,7 +150,7 @@ class ServiceFormModal extends React.Component {
   }
 
   resetState(props = this.props) {
-    let serviceSpec = props.service.getSpec();
+    const serviceSpec = props.service.getSpec();
 
     let jsonLockReason = null;
     let jsonMode = false;
@@ -189,11 +189,11 @@ class ServiceFormModal extends React.Component {
   }
 
   handleJSONToggle() {
-    let nextState = {};
+    const nextState = {};
     let {serviceSpec} = this.state;
 
     if (!this.state.jsonMode) {
-      let {model} = this.triggerSubmit();
+      const {model} = this.triggerSubmit();
       serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
@@ -222,12 +222,12 @@ class ServiceFormModal extends React.Component {
       return true;
     }
 
-    let containerSettings = serviceSpec.getContainerSettings();
+    const containerSettings = serviceSpec.getContainerSettings();
 
-    let portDefinitions = serviceSpec.getPortDefinitions();
+    const portDefinitions = serviceSpec.getPortDefinitions();
 
     if (portDefinitions) {
-      let invalidVIP = !portDefinitions.some(function (port) {
+      const invalidVIP = !portDefinitions.some(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
@@ -241,7 +241,7 @@ class ServiceFormModal extends React.Component {
     }
 
     if (containerSettings && containerSettings.docker && containerSettings.docker.portMappings) {
-      let invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
+      const invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
@@ -284,13 +284,13 @@ class ServiceFormModal extends React.Component {
     }
 
     if (this.triggerSubmit) {
-      let {model, isValidated} = this.triggerSubmit();
+      const {model, isValidated} = this.triggerSubmit();
 
       if (!isValidated) {
         return;
       }
 
-      let serviceSpec = ServiceUtil.createSpecFromFormModel(
+      const serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
         isEdit,
@@ -311,7 +311,7 @@ class ServiceFormModal extends React.Component {
 
   getErrorMessage() {
     // Assign to non-conflicting variable
-    let errorDetails = this.props.errors;
+    const errorDetails = this.props.errors;
 
     if (!errorDetails) {
       return null;
@@ -320,7 +320,7 @@ class ServiceFormModal extends React.Component {
     // Stringify error details
     let errorList = null;
     if (errorDetails.details != null) {
-      let responseMap = Hooks.applyFilter(
+      const responseMap = Hooks.applyFilter(
         'serviceFormErrorResponseMap',
         responseAttributePathToFieldIdMap
       );
@@ -329,7 +329,7 @@ class ServiceFormModal extends React.Component {
 
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '(0)', [1]: '0'
-        let matches = Hooks.applyFilter('serviceFormMatchErrorPath',
+        const matches = Hooks.applyFilter('serviceFormMatchErrorPath',
           path.match(/\(([0-9]+)\)/),
           path
         );

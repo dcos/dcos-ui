@@ -10,7 +10,7 @@ const VirtualNetworksStore = require('../VirtualNetworksStore');
 
 describe('VirtualNetworksStore', function () {
   beforeEach(function () {
-    let changeHandler = jasmine.createSpy('changeHandler');
+    const changeHandler = jasmine.createSpy('changeHandler');
     VirtualNetworksStore.addChangeListener(
       EventTypes.VIRTUAL_NETWORKS_CHANGE,
       changeHandler
@@ -25,7 +25,7 @@ describe('VirtualNetworksStore', function () {
   describe('#getOverlays', function () {
 
     it('returns the overlays', function () {
-      let data = {overlays: [
+      const data = {overlays: [
         {info: {name: 'foo', prefix: 0, subnet: 'bar'}},
         {info: {name: 'bar', prefix: 1, subnet: 'baz'}}
       ]};
@@ -51,7 +51,7 @@ describe('VirtualNetworksStore', function () {
     describe('fetch', function () {
 
       it('stores overlays when event is dispatched', function () {
-        let data = {overlays: [
+        const data = {overlays: [
           {info: {name: 'foo', prefix: 0, subnet: 'bar'}},
           {info: {name: 'bar', prefix: 1, subnet: 'baz'}}
         ]};
@@ -68,12 +68,12 @@ describe('VirtualNetworksStore', function () {
       });
 
       it('emits event after success event is dispatched', function () {
-        let mockFn = jasmine.createSpy('listener');
+        const mockFn = jasmine.createSpy('listener');
         VirtualNetworksStore.addChangeListener(
           EventTypes.VIRTUAL_NETWORKS_CHANGE,
           mockFn
         );
-        let data = {overlays: [
+        const data = {overlays: [
           {info: {name: 'foo', prefix: 0, subnet: 'bar'}},
           {info: {name: 'bar', prefix: 1, subnet: 'baz'}}
         ]};
@@ -86,7 +86,7 @@ describe('VirtualNetworksStore', function () {
       });
 
       it('emits event after error event is dispatched', function () {
-        let mockFn = jasmine.createSpy('listener');
+        const mockFn = jasmine.createSpy('listener');
         VirtualNetworksStore.addChangeListener(
           EventTypes.VIRTUAL_NETWORKS_REQUEST_ERROR,
           mockFn

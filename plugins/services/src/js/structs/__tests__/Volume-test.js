@@ -7,7 +7,7 @@ describe('Volume', function () {
   describe('#getContainerPath', function () {
 
     it('returns correct container path', function () {
-      let service = new Volume({
+      const service = new Volume({
         containerPath: '/data'
       });
 
@@ -19,7 +19,7 @@ describe('Volume', function () {
   describe('#getHost', function () {
 
     it('returns correct host', function () {
-      let service = new Volume({
+      const service = new Volume({
         host: '127.0.0.1'
       });
 
@@ -31,7 +31,7 @@ describe('Volume', function () {
   describe('#getId', function () {
 
     it('returns correct id', function () {
-      let service = new Volume({
+      const service = new Volume({
         id: 'volume.id'
       });
 
@@ -43,7 +43,7 @@ describe('Volume', function () {
   describe('#getMode', function () {
 
     it('returns correct mode', function () {
-      let service = new Volume({
+      const service = new Volume({
         mode: 'rw'
       });
 
@@ -55,13 +55,13 @@ describe('Volume', function () {
   describe('#getStatus', function () {
 
     it('should return unavailable if no  status is defined', function () {
-      let service = new Volume({});
+      const service = new Volume({});
 
       expect(service.getStatus()).toEqual(VolumeStatus.UNAVAILABLE);
     });
 
     it('returns correct status', function () {
-      let service = new Volume({
+      const service = new Volume({
         status: VolumeStatus.ATTACHED
       });
 
@@ -73,7 +73,7 @@ describe('Volume', function () {
   describe('#getSize', function () {
 
     it('returns correct size', function () {
-      let service = new Volume({
+      const service = new Volume({
         size: 256
       });
 
@@ -85,7 +85,7 @@ describe('Volume', function () {
   describe('#getType', function () {
 
     it('returns correct tyoe', function () {
-      let service = new Volume({
+      const service = new Volume({
         type: VolumeTypes.PERSISTENT
       });
 
@@ -97,7 +97,7 @@ describe('Volume', function () {
   describe('#getTaskID', function () {
 
     it('returns correct tyoe', function () {
-      let service = new Volume({
+      const service = new Volume({
         taskID: 'foo'
       });
 

@@ -26,7 +26,7 @@ const MesosStateUtil = {
    * @returns {{podID, instanceID}} Returns the ID components
    */
   decomposePodTaskId(taskID) {
-    let [, podID, instanceID, taskName] = POD_TASK_REGEX.exec(taskID);
+    const [, podID, instanceID, taskName] = POD_TASK_REGEX.exec(taskID);
     return {
       podID,
       instanceID,
@@ -35,10 +35,10 @@ const MesosStateUtil = {
   },
 
   flagMarathonTasks(state) {
-    let newState = Object.assign({}, state);
+    const newState = Object.assign({}, state);
 
     newState.frameworks = state.frameworks.map(function (framework) {
-      let {tasks = [], completed_tasks = [], name} = framework;
+      const {tasks = [], completed_tasks = [], name} = framework;
 
       return Object.assign({}, framework, {
         tasks: setIsStartedByMarathonFlag(name, tasks),
@@ -80,7 +80,7 @@ const MesosStateUtil = {
           frameworkKey = 'other';
         }
 
-        let resources = task.resources;
+        const resources = task.resources;
         if (memo[task.slave_id][frameworkKey] == null) {
           memo[task.slave_id][frameworkKey] = resources;
         } else {
@@ -96,13 +96,13 @@ const MesosStateUtil = {
   },
 
   getTasksFromVirtualNetworkName(state = {}, overlayName) {
-    let frameworks = state.frameworks || [];
+    const frameworks = state.frameworks || [];
     return frameworks.reduce(function (memo, framework) {
-      let tasks = framework.tasks || [];
+      const tasks = framework.tasks || [];
 
       return memo.concat(tasks.filter(function (task) {
-        let appPath = 'container.network_infos.0.name';
-        let podPath = 'statuses.0.container_status.network_infos.0.name';
+        const appPath = 'container.network_infos.0.name';
+        const podPath = 'statuses.0.container_status.network_infos.0.name';
 
         return Util.findNestedPropertyInObject(task, appPath) === overlayName
             || Util.findNestedPropertyInObject(task, podPath) === overlayName;
@@ -119,8 +119,8 @@ const MesosStateUtil = {
    * @returns {Array} The array of historical instances
    */
   getPodHistoricalInstances(state, pod) {
-    let frameworks = state.frameworks || [];
-    let marathonFramework = frameworks.find(function (framework) {
+    const frameworks = state.frameworks || [];
+    const marathonFramework = frameworks.find(function (framework) {
       return framework.name === 'marathon';
     });
 
@@ -128,12 +128,12 @@ const MesosStateUtil = {
       return [];
     }
 
-    let instancesMap = marathonFramework.completed_tasks.reduce(
+    const instancesMap = marathonFramework.completed_tasks.reduce(
       function (memo, task) {
         if (MesosStateUtil.isPodTaskId(task.id)) {
-          let {podID, instanceID} = MesosStateUtil.decomposePodTaskId(task.id);
+          const {podID, instanceID} = MesosStateUtil.decomposePodTaskId(task.id);
           if (podID === pod.getMesosId()) {
-            let fullInstanceID = `${podID}.instance-${instanceID}`;
+            const fullInstanceID = `${podID}.instance-${instanceID}`;
             let containerArray = memo[fullInstanceID];
             if (containerArray === undefined) {
               containerArray = memo[fullInstanceID] = [];
@@ -141,7 +141,7 @@ const MesosStateUtil = {
 
             // The last status can give us information about the time the
             // container was last updated, so we need the latest status item
-            let lastStatus = task.statuses.reduce(function (memo, status) {
+            const lastStatus = task.statuses.reduce(function (memo, status) {
               if (!memo || (status.timestamp > memo.timestamp)) {
                 return status;
               }
@@ -171,9 +171,9 @@ const MesosStateUtil = {
     // have so far. Obviously we don't have any details, but we can populate
     // most of the UI-interesting fields by summarising container details
     return Object.keys(instancesMap).map(function (instanceID) {
-      let containers = instancesMap[instanceID];
-      let summaryProperties = containers.reduce(function (memo, instance) {
-        let {resources={}, lastChanged=0} = instance;
+      const containers = instancesMap[instanceID];
+      const summaryProperties = containers.reduce(function (memo, instance) {
+        const {resources={}, lastChanged=0} = instance;
 
         memo.resources.cpus += resources.cpus || 0;
         memo.resources.mem += resources.mem || 0;
@@ -254,7 +254,7 @@ const MesosStateUtil = {
       return null;
     }
 
-    let containerIDs = [];
+    const containerIDs = [];
     while (container) {
       containerIDs.push(container.value);
       container = container.parent;

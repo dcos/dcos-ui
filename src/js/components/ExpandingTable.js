@@ -18,8 +18,8 @@ class ExpandingTable extends React.Component {
   }
 
   expandRow(row) {
-    let expandedRows = Object.assign({}, this.state.expandedRows);
-    let rowID = this.getRowID(row);
+    const expandedRows = Object.assign({}, this.state.expandedRows);
+    const rowID = this.getRowID(row);
 
     // If the selected row is already expanded, then we want to collapse it.
     if (!!expandedRows[rowID]) {
@@ -40,12 +40,12 @@ class ExpandingTable extends React.Component {
 
   getRenderer(column) {
     // Get the column's #render method if it exists. Otherwise use our default.
-    let renderFn = column.render || this.defaultRenderer;
-    let {expandAll} = this.props;
+    const renderFn = column.render || this.defaultRenderer;
+    const {expandAll} = this.props;
 
     return (prop, row) => {
-      let hasChildren = !!row.children;
-      let isExpanded = !!this.state.expandedRows[this.getRowID(row)]
+      const hasChildren = !!row.children;
+      const isExpanded = !!this.state.expandedRows[this.getRowID(row)]
                        || expandAll;
 
       // Render the column's top-level item.
@@ -90,7 +90,7 @@ class ExpandingTable extends React.Component {
   }
 
   render() {
-    let {props} = this;
+    const {props} = this;
     let classes = classNames(props.className, {
       [`table-align-${props.alignCells}`]: props.alignCells != null
     });

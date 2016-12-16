@@ -34,12 +34,12 @@ class NestedServiceLinks extends React.Component {
 
   getMinorLinks() {
     let componentKey = 0;
-    let {minorLinkClassName, minorLinkAnchorClassName, taskID} = this.props;
-    let minorLinkClasses = classNames(
+    const {minorLinkClassName, minorLinkAnchorClassName, taskID} = this.props;
+    const minorLinkClasses = classNames(
       'text-overflow service-link',
       minorLinkClassName
     );
-    let minorLinkAnchorClasses = classNames(
+    const minorLinkAnchorClasses = classNames(
       'table-cell-link-secondary',
       minorLinkAnchorClassName
     );
@@ -51,8 +51,8 @@ class NestedServiceLinks extends React.Component {
     }
     nestedGroups = nestedGroups.slice(0, nestedGroups.length - popCount);
 
-    let links = nestedGroups.reduce((components, part, index) => {
-      let id = encodeURIComponent(nestedGroups.slice(0, index + 1).join('/'));
+    const links = nestedGroups.reduce((components, part, index) => {
+      const id = encodeURIComponent(nestedGroups.slice(0, index + 1).join('/'));
 
       components.push(
         this.getMinorLink(
@@ -76,7 +76,7 @@ class NestedServiceLinks extends React.Component {
 
   getMajorLink() {
     let label;
-    let {majorLinkAnchorClassName, serviceID, taskID} = this.props;
+    const {majorLinkAnchorClassName, serviceID, taskID} = this.props;
     let routePath;
 
     let anchorClasses = classNames(
@@ -133,7 +133,7 @@ class NestedServiceLinks extends React.Component {
   }
 
   render() {
-    let {
+    const {
       className,
       majorLinkClassName,
       minorLinkWrapperClassName

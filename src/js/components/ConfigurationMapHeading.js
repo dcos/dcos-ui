@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 const ConfigurationMapHeading = (props) => {
-  let {children, className, level} = props;
+  const {children, className, level} = props;
 
   return React.createElement(
     `h${level}`,

@@ -3,7 +3,7 @@ import React from 'react';
 
 class Page extends React.Component {
   render() {
-    let {props} = this;
+    const {props} = this;
     let classes = classNames('page', props.className);
 
     return (

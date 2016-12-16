@@ -85,7 +85,7 @@ const DecinedOffersUtil = {
         );
 
         // Push ports to the ports array if defined.
-        let ports = Util.findNestedPropertyInObject(
+        const ports = Util.findNestedPropertyInObject(
           container, 'resources.ports'
         );
 

@@ -8,7 +8,7 @@ const Labels = {
       duplicable: true,
       addLabel: 'Add Label',
       getter(job) {
-        let labels = job.getLabels() || {};
+        const labels = job.getLabels() || {};
 
         return Object.keys(labels).map(function (key) {
           return {

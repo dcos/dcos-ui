@@ -41,7 +41,7 @@ const DSLUpdateUtil = {
    * @returns {String} The cleaned-up expression string
    */
   cleanupExpressionString(src) {
-    let strings = [];
+    const strings = [];
 
     // Extract string expressions so we have a simpler expression to work with
     src = src.replace(STRING_EXPR, (match) => {
@@ -121,7 +121,7 @@ const DSLUpdateUtil = {
     const {position, filterType} = node;
     const labelStart = position[0][0] + offset;
     const labelEnd = position[0][1] + offset;
-    let {filterParams: {label}} = newNode;
+    const {filterParams: {label}} = newNode;
 
     if (filterType !== newNode.filterType) {
       if (Config.environment === 'development') {
@@ -154,7 +154,7 @@ const DSLUpdateUtil = {
    */
   deleteNodeString(src, node, offset=0) {
     const {position} = node;
-    let endingRegex = /^(\s|,\s|$)/;
+    const endingRegex = /^(\s|,\s|$)/;
     let start = position[0][0] + offset;
     let end = position[0][1] + offset;
 
@@ -252,12 +252,12 @@ const DSLUpdateUtil = {
       newCombiner=DSLCombinerTypes.AND
     } = options;
 
-    let expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
+    const expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
       let combiner = itemCombiner;
       let newValue = value;
 
       // Find all the existing nodes, related to the node being added
-      let relevantNodes = DSLUtil.reduceAstFilters(expression.ast,
+      const relevantNodes = DSLUtil.reduceAstFilters(expression.ast,
         (memo, filterNode) => {
           if (nodeCompareFunction(node, filterNode)) {
             memo.push(filterNode);
@@ -312,7 +312,7 @@ const DSLUpdateUtil = {
    * @returns {DSLExpression} expression - The updated expression
    */
   applyDelete(expression, nodes) {
-    let newExpression = nodes.reduce(({value, offset}, node) => {
+    const newExpression = nodes.reduce(({value, offset}, node) => {
       // Delte value
       const newValue = DSLUpdateUtil.deleteNodeString(
         value, node, offset

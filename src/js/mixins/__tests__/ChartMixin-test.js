@@ -46,39 +46,39 @@ describe('ChartMixin', function () {
     });
 
     it('should parse strings to numbers', function () {
-      let result = ChartMixin.formatXAxis.call({props: this.props}, '0');
+      const result = ChartMixin.formatXAxis.call({props: this.props}, '0');
       expect(result).toEqual('0');
     });
 
     it('should parse numbers', function () {
-      let result = ChartMixin.formatXAxis.call({props: this.props}, 3);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, 3);
       expect(result).toEqual('3s');
     });
 
     it('should not format zeros', function () {
-      let result = ChartMixin.formatXAxis.call({props: this.props}, 0);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
       expect(result).toEqual(0);
     });
 
     it('should format positive numbers', function () {
-      let result = ChartMixin.formatXAxis.call({props: this.props}, 3);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, 3);
       expect(result).toEqual('3s');
     });
 
     it('should format negative numbers', function () {
-      let result = ChartMixin.formatXAxis.call({props: this.props}, -3);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, -3);
       expect(result).toEqual('-3s');
     });
 
     it('should return an empty string if it matches the value', function () {
       this.props.axisConfiguration.x.hideMatch = /^0$/;
-      let result = ChartMixin.formatXAxis.call({props: this.props}, 0);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
       expect(result).toEqual('');
     });
 
     it('should return value if there\'s no match', function () {
       this.props.axisConfiguration.x.hideMatch = /^10$/;
-      let result = ChartMixin.formatXAxis.call({props: this.props}, 0);
+      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
       expect(result).toEqual(0);
     });
   });

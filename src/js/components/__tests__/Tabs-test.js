@@ -46,7 +46,7 @@ describe('Tabs', function () {
   });
 
   it('should maintain state of the active tab', function () {
-    let tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
+    const tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
 
     expect(this.instance.state.activeTab).toEqual(undefined);
     TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
@@ -83,7 +83,7 @@ describe('Tabs', function () {
       </Tabs>
     );
 
-    let tabButtons = ReactDOM.findDOMNode(instance).querySelectorAll('.menu-tabbed-item');
+    const tabButtons = ReactDOM.findDOMNode(instance).querySelectorAll('.menu-tabbed-item');
 
     expect(instance.state.activeTab).toEqual('qux');
     TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
@@ -121,25 +121,25 @@ describe('Tabs', function () {
   });
 
   it('should pass the activeTab prop to its children', function () {
-    let tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
+    const tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
 
     // Click on the 'Foo' tab.
     TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
 
-    let tabViewsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabViewList)[0];
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
+    const tabViewsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabViewList)[0];
+    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
 
     expect(tabViewsInstance.props.activeTab).toEqual('foo');
     expect(tabButtonsInstance.props.activeTab).toEqual('foo');
   });
 
   it('should pass the change handler to TabButtonList', function () {
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
+    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
     expect(tabButtonsInstance.props.onChange).toEqual(this.instance.handleTabChange);
   });
 
   it('should pass the vertical prop to TabButtonList', function () {
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
+    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
     expect(tabButtonsInstance.props.vertical).toEqual(true);
   });
 

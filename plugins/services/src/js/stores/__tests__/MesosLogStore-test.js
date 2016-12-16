@@ -112,7 +112,7 @@ describe('MesosLogStore', function () {
     });
 
     it('should return all of the log items it was given', function () {
-      let items = this.logBuffer.getItems();
+      const items = this.logBuffer.getItems();
       jest.runAllTimers();
       expect(items.length).toEqual(2);
     });
@@ -148,7 +148,7 @@ describe('MesosLogStore', function () {
     });
 
     it('should return all of the log items it was given', function () {
-      let items = this.logBuffer.getItems();
+      const items = this.logBuffer.getItems();
       expect(items.length).toEqual(2);
     });
 

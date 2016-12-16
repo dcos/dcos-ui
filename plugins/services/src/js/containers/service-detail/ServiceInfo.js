@@ -39,7 +39,7 @@ class ServiceInfo extends React.Component {
       html: <span className="text-danger">Destroy</span>
     }];
 
-    let actionButtons = [
+    const actionButtons = [
       <button className="button flush-bottom button-primary"
         key="action-button-scale"
         onClick={() =>
@@ -86,13 +86,13 @@ class ServiceInfo extends React.Component {
   }
 
   getSubHeader(service) {
-    let serviceHealth = service.getHealth();
-    let serviceStatus = service.getStatus();
+    const serviceHealth = service.getHealth();
+    const serviceStatus = service.getStatus();
     let tasksSummary = service.getTasksSummary();
-    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
-    let runningTasksCount = tasksSummary.tasksRunning;
+    const serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    const runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = service.getInstancesCount();
-    let runningTasksSubHeader = StringUtil.pluralize('Instance', runningTasksCount);
+    const runningTasksSubHeader = StringUtil.pluralize('Instance', runningTasksCount);
     let overCapacity = '';
     let isDeploying = serviceStatus === 'Deploying';
 
@@ -143,9 +143,9 @@ class ServiceInfo extends React.Component {
   }
 
   render() {
-    let service = this.props.service;
+    const service = this.props.service;
     let serviceIcon = null;
-    let serviceImages = service.getImages();
+    const serviceImages = service.getImages();
     if (serviceImages && serviceImages['icon-large']) {
       serviceIcon = (
         <img src={serviceImages['icon-large']} />

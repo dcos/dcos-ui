@@ -17,23 +17,23 @@ var QueryParamsMixin = {
   },
 
   getCurrentPathname() {
-    let {pathname} = this.props.location;
+    const {pathname} = this.props.location;
     return pathname || {};
   },
 
   getQueryParamObject() {
-    let {query} = this.props.location;
+    const {query} = this.props.location;
     return query || {};
   },
 
   resetQueryParams(params) {
-    let {router} = this.context;
+    const {router} = this.context;
     if (!router) {
       return;
     }
 
-    let {location} = this.props;
-    let query = Object.assign({}, location.query);
+    const {location} = this.props;
+    const query = Object.assign({}, location.query);
 
     if (params == null) {
       params = Object.keys(query);
@@ -47,12 +47,12 @@ var QueryParamsMixin = {
   },
 
   setQueryParam(paramKey, paramValue) {
-    let {router} = this.context;
-    let {location} = this.props;
+    const {router} = this.context;
+    const {location} = this.props;
     let query = Object.assign({}, location.query);
 
     if (paramValue != null && paramValue.length !== 0) {
-      let encodedFilter = encodeValuesToURIComponents(paramValue);
+      const encodedFilter = encodeValuesToURIComponents(paramValue);
 
       query = Object.assign(query, {
         [paramKey]: encodedFilter

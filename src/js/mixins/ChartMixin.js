@@ -28,7 +28,7 @@ var ChartMixin = {
   },
 
   formatXAxis(d) {
-    let hideMatch = this.props.axisConfiguration.x.hideMatch;
+    const hideMatch = this.props.axisConfiguration.x.hideMatch;
     if (hideMatch && hideMatch.test(d.toString())) {
       return '';
     }

@@ -50,7 +50,7 @@ class ServiceTreeView extends React.Component {
   }
 
   getSearchHeader() {
-    let {filterExpression} = this.props;
+    const {filterExpression} = this.props;
     if (filterExpression.defined) {
       return (
         <h5 className="muted">Search Results</h5>

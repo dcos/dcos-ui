@@ -43,7 +43,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        */
       return function (filters, resultset) {
         // We are interested in the intersection of the results of the two filters
-        let intermediateResultset = leftFilterFn(filters, resultset);
+        const intermediateResultset = leftFilterFn(filters, resultset);
 
         return rightFilterFn(filters, intermediateResultset);
       };
@@ -64,7 +64,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        */
       return function (filters, resultset) {
         // We are interested in the union of the results of the two filters
-        let intermediateResultset = leftFilterFn(filters, resultset);
+        const intermediateResultset = leftFilterFn(filters, resultset);
 
         return intermediateResultset.combine(rightFilterFn(filters, resultset));
       };
@@ -148,7 +148,7 @@ module.exports = {
      * @returns {Function} Returns a combined filter function
      */
     and(f1, f2) {
-      let ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
+      const ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
 
       return {
         filter: combineFunctionFactory(ast, f1.filter, f2.filter),
@@ -165,7 +165,7 @@ module.exports = {
      * @returns {Function} Returns a combined filter function
      */
     or(f1, f2) {
-      let ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
+      const ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
 
       return {
         filter: combineFunctionFactory(ast, f1.filter, f2.filter),
@@ -195,7 +195,7 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     attribute(label, text, lstart, lend, vstart, vend) {
-      let ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
+      const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
       ast.position.push([vstart, vend]);
 
       return {
@@ -214,7 +214,7 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     exact(text, start, end) {
-      let ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
+      const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
 
       return {
         filter: filterFunctionFactory(ast),
@@ -232,7 +232,7 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     fuzzy(text, start, end) {
-      let ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
+      const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
 
       return {
         filter: filterFunctionFactory(ast),

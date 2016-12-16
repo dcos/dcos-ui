@@ -32,7 +32,7 @@ module.exports = class Tree extends List {
    * @return {List} flat List of all items
    */
   flattenItems() {
-    let items = this.getItems().reduce(function (current, item) {
+    const items = this.getItems().reduce(function (current, item) {
       current.push(item);
       if (item instanceof Tree) {
         return current.concat(item.flattenItems().getItems());
@@ -51,7 +51,7 @@ module.exports = class Tree extends List {
    * @return {Tree} List (or child class) containing mapped items
    */
   filterItems(callback) {
-    let items = this.getItems().map(function (item) {
+    const items = this.getItems().map(function (item) {
       // Filter subtrees
       if (item instanceof Tree) {
         return item.filterItems(callback);
@@ -80,8 +80,8 @@ module.exports = class Tree extends List {
    */
   filterItemsByText(filterText, filterProperties = this.getFilterProperties()) {
     if (filterText) {
-      let regex = StringUtil.escapeForRegExp(filterText);
-      let searchPattern = new RegExp(regex, 'i');
+      const regex = StringUtil.escapeForRegExp(filterText);
+      const searchPattern = new RegExp(regex, 'i');
 
       return this.filterItems(function (item) {
         // Filter items by property values
@@ -91,7 +91,7 @@ module.exports = class Tree extends List {
 
           // Use getter function if specified in filterProperties.
           // This is used if property is nested or type is different than string
-          let valueGetter = filterProperties[prop];
+          const valueGetter = filterProperties[prop];
           if (typeof valueGetter === 'function') {
             return searchPattern.test(valueGetter(item, prop) || '');
           }
@@ -131,7 +131,7 @@ module.exports = class Tree extends List {
    * @return {Tree} Tree (or child class) containing mapped items
    */
   mapItems(callback) {
-    let items = this.getItems().map((item, index) => {
+    const items = this.getItems().map((item, index) => {
       if (item instanceof Tree) {
         return callback(item.mapItems(callback), index, this);
       }

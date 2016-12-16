@@ -69,16 +69,16 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    let {routes} = this.props;
+    const {routes} = this.props;
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    let topRouteIndex = routes.findIndex(function ({component}) {
+    const topRouteIndex = routes.findIndex(function ({component}) {
       return component === TaskDetail;
     });
-    let topRoute = routes[topRouteIndex];
+    const topRoute = routes[topRouteIndex];
 
-    let parentRoutes = routes.slice(0, topRouteIndex + 1);
-    let parentPath = RouterUtil.reconstructPathFromRoutes(parentRoutes);
+    const parentRoutes = routes.slice(0, topRouteIndex + 1);
+    const parentPath = RouterUtil.reconstructPathFromRoutes(parentRoutes);
 
     if (topRoute != null) {
       this.tabs_tabs = topRoute.childRoutes.filter(function ({isTab}) {
@@ -100,7 +100,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    let {innerPath, taskID} = this.props.params;
+    const {innerPath, taskID} = this.props.params;
     if (nextProps.params.innerPath !== innerPath ||
       nextProps.params.taskID !== taskID) {
       this.setState({directory: null});
@@ -110,8 +110,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   updateCurrentTab(nextProps) {
-    let {routes} = nextProps || this.props;
-    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    const {routes} = nextProps || this.props;
+    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
       this.setState({currentTab});
     }
@@ -138,13 +138,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return;
     }
 
-    let directory = TaskDirectoryStore.get('directory');
+    const directory = TaskDirectoryStore.get('directory');
     this.setState({directory, taskDirectoryErrorCount: 0});
   }
 
   handleFetchDirectory() {
-    let {params} = this.props;
-    let task = MesosStateStore.getTaskFromTaskID(params.taskID);
+    const {params} = this.props;
+    const task = MesosStateStore.getTaskFromTaskID(params.taskID);
     // Declare undefined to not override default values in fetchDirectory
     let innerPath;
 
@@ -157,12 +157,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   handleBreadcrumbClick(path) {
-    let {router} = this.context;
-    let {params, routes} = this.props;
-    let task = MesosStateStore.getTaskFromTaskID(params.taskID);
+    const {router} = this.context;
+    const {params, routes} = this.props;
+    const task = MesosStateStore.getTaskFromTaskID(params.taskID);
     TaskDirectoryStore.setPath(task, path);
     // Transition to parent route, which uses a default route
-    let parentPath = RouterUtil.reconstructPathFromRoutes(routes);
+    const parentPath = RouterUtil.reconstructPathFromRoutes(routes);
     router.push(formatPattern(parentPath, params));
   }
 
@@ -197,9 +197,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   handleOpenLogClick(selectedLogFile) {
-    let {router} = this.context;
-    let routes = this.props.routes;
-    let params = Object.assign(
+    const {router} = this.context;
+    const routes = this.props.routes;
+    const params = Object.assign(
       {},
       this.props.params,
       {
@@ -207,24 +207,24 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         innerPath: encodeURIComponent(TaskDirectoryStore.get('innerPath'))
       }
     );
-    let {fileViewerRoutePath} = routes[routes.length - 1];
+    const {fileViewerRoutePath} = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
   }
 
   getBasicInfo() {
-    let {selectedLogFile} = this.state;
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    const {selectedLogFile} = this.state;
+    const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
     if (task == null) {
       return null;
     }
 
-    let service = this.getService();
+    const service = this.getService();
     let taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
-    let filePath = (selectedLogFile && selectedLogFile.get('path')) || null;
-    let params = Object.assign(
+    const filePath = (selectedLogFile && selectedLogFile.get('path')) || null;
+    const params = Object.assign(
       {filePath},
       this.props.params
     );
@@ -248,7 +248,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       </ul>
     );
 
-    let taskState = task.get('state');
+    const taskState = task.get('state');
     let serviceStatus = TaskStates[taskState].displayName;
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
 
@@ -284,12 +284,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getBreadcrumbs() {
-    let path = RouterUtil.reconstructPathFromRoutes(this.props.routes);
+    const path = RouterUtil.reconstructPathFromRoutes(this.props.routes);
     if (HIDE_BREADCRUMBS.includes(path)) {
       return null;
     }
 
-    let innerPath = TaskDirectoryStore.get('innerPath').split('/');
+    const innerPath = TaskDirectoryStore.get('innerPath').split('/');
     let onClickPath = '';
     let crumbs = innerPath.map((directoryItem, index) => {
       let textValue = directoryItem;
@@ -314,8 +314,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getSubView() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-    let {directory, selectedLogFile} = this.state;
+    const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    const {directory, selectedLogFile} = this.state;
     if (this.hasLoadingError()) {
       return this.getErrorScreen();
     }

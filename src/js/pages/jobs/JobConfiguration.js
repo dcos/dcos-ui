@@ -6,7 +6,7 @@ import Job from '../../structs/Job';
 class JobConfiguration extends React.Component {
 
   getSchedule(job) {
-    let lastSchedule = job.getSchedules()[0];
+    const lastSchedule = job.getSchedules()[0];
 
     if (!!lastSchedule && !!lastSchedule.cron) {
       return lastSchedule.cron;
@@ -33,7 +33,7 @@ class JobConfiguration extends React.Component {
   }
 
   getScheduleSection(job) {
-    let [schedule] = job.getSchedules();
+    const [schedule] = job.getSchedules();
     if (schedule == null) {
       return null;
     }
@@ -54,7 +54,7 @@ class JobConfiguration extends React.Component {
   }
 
   getDockerContainerSection(job) {
-    let docker = job.getDocker();
+    const docker = job.getDocker();
     if (docker == null) {
       return null;
     }
@@ -79,7 +79,7 @@ class JobConfiguration extends React.Component {
   }
 
   render() {
-    let {job} = this.props;
+    const {job} = this.props;
 
     return (
       <div>

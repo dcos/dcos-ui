@@ -6,7 +6,7 @@ describe('ServicePlanBlock', function () {
   describe('#getID', function () {
 
     it('should return id', function () {
-      let Block = new ServicePlanBlock({id: 'block-1'});
+      const Block = new ServicePlanBlock({id: 'block-1'});
 
       expect(Block.getID()).toEqual('block-1');
     });
@@ -16,7 +16,7 @@ describe('ServicePlanBlock', function () {
   describe('#getName', function () {
 
     it('should return name', function () {
-      let Block = new ServicePlanBlock({name: 'block-2'});
+      const Block = new ServicePlanBlock({name: 'block-2'});
 
       expect(Block.getName()).toEqual('block-2');
     });
@@ -26,7 +26,7 @@ describe('ServicePlanBlock', function () {
   describe('#isComplete', function () {
 
     it('should return false', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -34,7 +34,7 @@ describe('ServicePlanBlock', function () {
     });
 
     it('should return true', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -46,7 +46,7 @@ describe('ServicePlanBlock', function () {
   describe('#isInProgress', function () {
 
     it('should return false', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -54,7 +54,7 @@ describe('ServicePlanBlock', function () {
     });
 
     it('should return true', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -66,7 +66,7 @@ describe('ServicePlanBlock', function () {
   describe('#isPending', function () {
 
     it('should return false', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -74,7 +74,7 @@ describe('ServicePlanBlock', function () {
     });
 
     it('should return true', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.PENDING
       });
 
@@ -86,7 +86,7 @@ describe('ServicePlanBlock', function () {
   describe('#isWaiting', function () {
 
     it('should return false', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -94,7 +94,7 @@ describe('ServicePlanBlock', function () {
     });
 
     it('should return true', function () {
-      let Block = new ServicePlanBlock({
+      const Block = new ServicePlanBlock({
         status: ServicePlanStatusTypes.WAITING
       });
 

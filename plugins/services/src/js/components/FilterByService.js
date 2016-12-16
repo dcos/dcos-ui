@@ -45,13 +45,13 @@ var FilterByService = React.createClass({
   getDropdownItems() {
     // TODO (mlunoe, orlandohohmeier): Refactor after introducing new unified
     // service struct featuring frameworks and apps.
-    let defaultItem = new Framework({
+    const defaultItem = new Framework({
       id: defaultId,
       name: 'All Services',
       // This is literally the worst way of doing this.
       slave_ids: new Array(this.props.totalHostsCount)
     });
-    let items = [defaultItem].concat(this.props.services);
+    const items = [defaultItem].concat(this.props.services);
 
     return items.map((service) => {
       var selectedHtml = this.getItemHtml(service);

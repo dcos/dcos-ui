@@ -39,14 +39,14 @@ class VirtualNetworkTaskPage extends React.Component {
     const {location, params, routes} = this.props;
     const {overlayName, taskID} = params;
 
-    let routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
+    const routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
     const tabs = [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
       {label: 'Logs', routePath: routePrefix + '/logs'}
     ];
 
-    let task = MesosStateStore.getTaskFromTaskID(taskID);
+    const task = MesosStateStore.getTaskFromTaskID(taskID);
 
     let overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
       return overlay.getName() === overlayName;

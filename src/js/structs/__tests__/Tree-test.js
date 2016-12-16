@@ -7,22 +7,22 @@ describe('Tree', function () {
   describe('#constructor', function () {
 
     it('defaults to an empty array', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       expect(tree.getItems()).toEqual([]);
     });
 
     it('accepts a list of items', function () {
-      let tree = new Tree({items: [0, 1, 2]});
+      const tree = new Tree({items: [0, 1, 2]});
       expect(tree.getItems()).toEqual([0, 1, 2]);
     });
 
     it('accepts a nested items', function () {
-      let tree = new Tree({items: [0, {items: [1.1, 1.2, 1.2]}, 2]});
+      const tree = new Tree({items: [0, {items: [1.1, 1.2, 1.2]}, 2]});
       expect(tree.getItems()[1] instanceof Tree).toEqual(true);
     });
 
     it('throws when initialized with a non-array argument', function () {
-      let fn = function () {
+      const fn = function () {
         return new Tree({items: 'foo'});
       };
 
@@ -34,27 +34,27 @@ describe('Tree', function () {
   describe('#add', function () {
 
     it('adds an item', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       tree.add(0);
       expect(tree.getItems()).toEqual([0]);
     });
 
     it('adds two items', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       tree.add(0);
       tree.add(1);
       expect(tree.getItems()).toEqual([0, 1]);
     });
 
     it('adds items to current Tree', function () {
-      let tree = new Tree({items: [0]});
+      const tree = new Tree({items: [0]});
       tree.add(1);
       tree.add(2);
       expect(tree.getItems()).toEqual([0, 1, 2]);
     });
 
     it('adds a Tree', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       tree.add(new Tree());
       expect(tree.getItems()[0] instanceof Tree).toBeTruthy();
     });
@@ -64,12 +64,12 @@ describe('Tree', function () {
   describe('#getItems', function () {
 
     it('returns a list of items', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       expect(tree.getItems()).toEqual([]);
     });
 
     it('returns added items in a list', function () {
-      let tree = new Tree();
+      const tree = new Tree();
       tree.add(0);
       tree.add(1);
       expect(tree.getItems()).toEqual([0, 1]);
@@ -90,7 +90,7 @@ describe('Tree', function () {
     });
 
     it('returns correct list of items', function () {
-      let items = this.instance.flattenItems().getItems();
+      const items = this.instance.flattenItems().getItems();
 
       expect(items[0].name).toEqual('foo');
       expect(items[1].name).toEqual('bar');
@@ -195,12 +195,12 @@ describe('Tree', function () {
     });
 
     it('should return an instance of Tree', function () {
-      let filteredTree = this.instance.filterItemsByText('bar');
+      const filteredTree = this.instance.filterItemsByText('bar');
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
     it('should filter sub trees', function () {
-      let filteredSubtree = this.instance.filterItemsByText('alpha').getItems()[0];
+      const filteredSubtree = this.instance.filterItemsByText('alpha').getItems()[0];
       expect(filteredSubtree instanceof Tree).toEqual(true);
       expect(filteredSubtree.getItems()[0].name).toEqual('alpha');
     });

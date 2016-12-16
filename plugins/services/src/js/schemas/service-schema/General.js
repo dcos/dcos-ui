@@ -5,7 +5,7 @@ import MesosConstants from '../../constants/MesosConstants';
 import ResourceValidatorUtil from '../../utils/ResourceValidatorUtil';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
-let General = {
+const General = {
   title: 'General',
   description: (
     <span>
@@ -96,7 +96,7 @@ let General = {
           type: 'number',
           default: 1,
           getter(service) {
-            let taskRunning = service.get('TASK_RUNNING') || 0;
+            const taskRunning = service.get('TASK_RUNNING') || 0;
             let instances = service.getInstancesCount();
             instances -= taskRunning;
             if ((instances !== 0 && !instances) || instances < 0) {

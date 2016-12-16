@@ -1,7 +1,7 @@
 import List from '../structs/List';
 import Item from '../structs/Item';
 
-let StructUtil = {
+const StructUtil = {
   /**
    * Recursively peels open Structs to get raw data and returns a clone
    *

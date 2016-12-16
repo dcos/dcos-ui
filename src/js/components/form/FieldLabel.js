@@ -4,15 +4,15 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldLabel = (props) => {
-  let {children, className, matchInputHeight, required} = props;
+  const {children, className, matchInputHeight, required} = props;
   let isToggle = false;
   React.Children.forEach(children, (child) => {
-    let {props = {}} = child;
+    const {props = {}} = child;
     if (['radio', 'checkbox'].includes(props.type)) {
       isToggle = true;
     }
   });
-  let classes = classNames(
+  const classes = classNames(
     {'form-control-toggle form-control-toggle-custom': isToggle},
     className
   );
@@ -22,7 +22,7 @@ const FieldLabel = (props) => {
     requiredNode = <span className="text-danger"> *</span>;
   }
 
-  let label = (
+  const label = (
     <label className={classes}
       {...omit(props, Object.keys(FieldLabel.propTypes))}>
       {children}

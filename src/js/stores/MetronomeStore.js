@@ -49,7 +49,7 @@ import JobTree from '../structs/JobTree';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval;
-let jobDetailFetchTimers = {};
+const jobDetailFetchTimers = {};
 
 function pauseJobDetailMonitors() {
   Object.keys(jobDetailFetchTimers).forEach(function (jobID) {
@@ -204,7 +204,7 @@ class MetronomeStore extends EventEmitter {
   }
 
   stopJobRun(jobID, jobRunID) {
-    let job = this.getJob(jobID);
+    const job = this.getJob(jobID);
 
     if (job == null || jobRunID == null) {
       return;
@@ -214,13 +214,13 @@ class MetronomeStore extends EventEmitter {
   }
 
   toggleSchedule(jobID, isEnabled = true) {
-    let job = this.getJob(jobID);
+    const job = this.getJob(jobID);
 
     if (job == null) {
       return null;
     }
 
-    let [schedule] = job.getSchedules();
+    const [schedule] = job.getSchedules();
 
     if (schedule == null) {
       return null;

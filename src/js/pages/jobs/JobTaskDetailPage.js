@@ -15,14 +15,14 @@ class JobTaskDetailPage extends React.Component {
     const {location, params, routes} = this.props;
     const {id, taskID} = params;
 
-    let routePrefix = `/jobs/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/jobs/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
       {label: 'Logs', routePath: routePrefix + '/logs'}
     ];
 
-    let task = MesosStateStore.getTaskFromTaskID(taskID);
+    const task = MesosStateStore.getTaskFromTaskID(taskID);
 
     let breadcrumbs;
     if (task != null) {

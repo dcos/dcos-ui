@@ -5,7 +5,7 @@ describe('Service', function () {
   describe('#getId', function () {
 
     it('returns correct id', function () {
-      let service = new Service({
+      const service = new Service({
         id: '/test/cmd'
       });
 
@@ -17,7 +17,7 @@ describe('Service', function () {
   describe('#getMesosId', function () {
 
     it('returns correct id', function () {
-      let service = new Service({
+      const service = new Service({
         id: '/test/cmd'
       });
 
@@ -29,17 +29,17 @@ describe('Service', function () {
   describe('#toJSON', function () {
 
     it('returns a object with the values in _itemData', function () {
-      let item = new Service({foo: 'bar', baz: 'qux'});
+      const item = new Service({foo: 'bar', baz: 'qux'});
       expect(item.toJSON()).toEqual({foo:'bar', baz:'qux'});
     });
 
     it('returns a JSON string with the values in _itemData', function () {
-      let item = new Service({foo: 'bar', baz: 'qux'});
+      const item = new Service({foo: 'bar', baz: 'qux'});
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
     it('should drop blacklisted keys', function () {
-      let item = new Service({foo: 'bar', baz: 'qux', uris: []});
+      const item = new Service({foo: 'bar', baz: 'qux', uris: []});
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 

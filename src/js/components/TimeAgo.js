@@ -36,7 +36,7 @@ class TimeAgo extends React.Component {
   }
 
   getUpdateInterval() {
-    let timeAgo = Date.now() - new Date(this.props.time);
+    const timeAgo = Date.now() - new Date(this.props.time);
 
     if (timeAgo > DAY) {
       return DAY;

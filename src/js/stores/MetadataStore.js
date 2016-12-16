@@ -92,7 +92,7 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   get version() {
-    let metadata = this.get('dcosMetadata');
+    const metadata = this.get('dcosMetadata');
     return metadata && metadata.version;
   }
 

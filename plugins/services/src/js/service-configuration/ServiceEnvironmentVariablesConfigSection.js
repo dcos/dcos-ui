@@ -50,7 +50,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Value'),
                 prop: 'value',
                 render: (prop, row) => {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
                 },

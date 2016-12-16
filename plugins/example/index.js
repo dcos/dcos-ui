@@ -7,7 +7,7 @@ const initialPluginState = {
 };
 
 const performComplexMath = function (Store, prevState, action, factor) {
-  let newState = {};
+  const newState = {};
   // Can access entire state tree (e.g. services etc)
   // let globalState = Store.getState();
   //

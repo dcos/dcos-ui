@@ -15,9 +15,9 @@ module.exports = {
       const transactionLog = [];
 
       while (--index >= 0) {
-        let parser = parsers[index];
+        const parser = parsers[index];
 
-        let transaction = parser(state);
+        const transaction = parser(state);
 
         if (transaction instanceof Array) {
           transactionLog.push(...transaction);
@@ -31,10 +31,10 @@ module.exports = {
   },
 
   simpleParser(path) {
-    let searchPath = path.join('.');
+    const searchPath = path.join('.');
 
     return function (state) {
-      let value = findNestedPropertyInObject(state, searchPath);
+      const value = findNestedPropertyInObject(state, searchPath);
 
       if (value == null) {
         return [];

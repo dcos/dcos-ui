@@ -48,9 +48,9 @@ const DataValidatorUtil = {
    */
   errorArrayToMap(errors) {
     return errors.reduce(function (errorMap, error) {
-      let lens = path2lens(error.path);
+      const lens = path2lens(error.path);
       let message = error.message;
-      let prevMessage = lens.get(errorMap);
+      const prevMessage = lens.get(errorMap);
 
       if (prevMessage) {
         message = `${prevMessage}, ${message}`;
@@ -61,15 +61,15 @@ const DataValidatorUtil = {
   },
 
   updateOnlyOnPath(oldList, newList, path) {
-    let pathStr = path.join('.');
-    let newErrors = newList.filter(function (error) {
+    const pathStr = path.join('.');
+    const newErrors = newList.filter(function (error) {
       return error.path.join('.') === pathStr;
     });
 
     // Strip from the old error list:
     // - Errors that exist on the current path
     // - Errors that were removed with the new list
-    let cleanOldList = oldList.filter(function (error) {
+    const cleanOldList = oldList.filter(function (error) {
       if (error.path.join('.') === pathStr) {
         return false;
       }
@@ -84,7 +84,7 @@ const DataValidatorUtil = {
   },
 
   stripErrorsOnPath(errorList, path) {
-    let pathStr = path.join('.');
+    const pathStr = path.join('.');
     return errorList.filter(function (error) {
       return error.path.join('.') !== pathStr;
     });

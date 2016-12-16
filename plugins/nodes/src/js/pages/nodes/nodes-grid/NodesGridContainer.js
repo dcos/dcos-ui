@@ -50,11 +50,11 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   componentWillReceiveProps(props) {
     const {services, location: {query}} = props;
-    let ids = services.map(function (service) {
+    const ids = services.map(function (service) {
       return service.id;
     });
 
-    let {serviceColors} = this.state;
+    const {serviceColors} = this.state;
 
     if (!deepEqual(Object.keys(serviceColors), ids)) {
       this.computeServiceColors(services);

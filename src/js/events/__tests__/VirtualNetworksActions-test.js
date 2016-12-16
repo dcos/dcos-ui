@@ -18,8 +18,8 @@ describe('VirtualNetworksActions', function () {
     });
 
     it('dispatches the correct action when successful', function () {
-      let id = AppDispatcher.register(function (payload) {
-        let action = payload.action;
+      const id = AppDispatcher.register(function (payload) {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
           .toEqual(ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS);
@@ -36,8 +36,8 @@ describe('VirtualNetworksActions', function () {
     });
 
     it('dispatches the correct data when successful', function () {
-      let id = AppDispatcher.register(function (payload) {
-        let action = payload.action;
+      const id = AppDispatcher.register(function (payload) {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({overlays: []});
       });
@@ -46,8 +46,8 @@ describe('VirtualNetworksActions', function () {
     });
 
     it('dispatches the correct action when unsuccessful', function () {
-      let id = AppDispatcher.register(function (payload) {
-        let action = payload.action;
+      const id = AppDispatcher.register(function (payload) {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
           .toEqual(ActionTypes.REQUEST_VIRTUAL_NETWORKS_ERROR);
@@ -57,8 +57,8 @@ describe('VirtualNetworksActions', function () {
     });
 
     it('dispatches the correct data when unsuccessful', function () {
-      let id = AppDispatcher.register(function (payload) {
-        let action = payload.action;
+      const id = AppDispatcher.register(function (payload) {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual('bar');
       });

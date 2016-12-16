@@ -16,7 +16,7 @@ const TabsUtil = {
    * @return {Array} of tabs to render
    */
   getTabs(tabs, currentTab, getElement) {
-    let tabSet = Object.keys(tabs);
+    const tabSet = Object.keys(tabs);
 
     return tabSet.map(function (tab, index) {
       let tabClass = classNames({
@@ -38,7 +38,7 @@ const TabsUtil = {
    * @return {Object}      tabs Object with sorted insertion order
    */
   sortTabs(tabs) {
-    let comparator = (a, b) => b[1] - a[1];
+    const comparator = (a, b) => b[1] - a[1];
 
     return Object.keys(tabs)
       .map((key) => [key, tabs[key].priority || 0])

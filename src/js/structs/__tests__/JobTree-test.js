@@ -18,7 +18,7 @@ describe('JobTree', function () {
     });
 
     it('defaults id to slash (root group id)', function () {
-      let tree = new JobTree({items: []});
+      const tree = new JobTree({items: []});
       expect(tree.getId()).toEqual('');
     });
 

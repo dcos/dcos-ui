@@ -15,7 +15,7 @@ import TaskFileViewer from '../../../plugins/services/src/js/pages/task-details/
 import TaskLogsTab from '../../../plugins/services/src/js/pages/task-details/TaskLogsTab';
 
 function buildJobCrumbs({id}) {
-  let ids = id.split('.');
+  const ids = id.split('.');
   let aggregateIDs = '';
 
   return ids.map(function (id) {
@@ -31,7 +31,7 @@ function buildJobCrumbs({id}) {
   });
 }
 
-let jobsRoutes = {
+const jobsRoutes = {
   type: Route,
   component: JobsPage,
   path: 'jobs',

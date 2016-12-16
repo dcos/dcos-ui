@@ -18,7 +18,7 @@ describe('BreadcrumbSegment', function () {
   });
 
   it('renders the label', function () {
-    let instance = TestUtils.renderIntoDocument(
+    const instance = TestUtils.renderIntoDocument(
       <BreadcrumbSegment routePath="foo/:bar" routes={this.routes} params={this.params} />
     );
 
@@ -26,11 +26,11 @@ describe('BreadcrumbSegment', function () {
   });
 
   it('renders the link', function () {
-    let instance = TestUtils.renderIntoDocument(
+    const instance = TestUtils.renderIntoDocument(
       <BreadcrumbSegment routePath="foo" routes={this.routes} params={this.params} />
     );
 
-    let node = TestUtils.findRenderedComponentWithType(
+    const node = TestUtils.findRenderedComponentWithType(
       instance, BreadcrumbSegmentLink
     );
     expect(TestUtils.isCompositeComponentWithType(node, BreadcrumbSegmentLink))

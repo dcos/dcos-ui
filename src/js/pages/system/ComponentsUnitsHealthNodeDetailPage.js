@@ -26,8 +26,8 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   }
 
   if (node != null && unit != null) {
-    let nodeIP = node.get('host_ip');
-    let healthStatus = node.getHealth();
+    const nodeIP = node.get('host_ip');
+    const healthStatus = node.getHealth();
 
     crumbs.push(
       <Link to={`/components/${unit.get('id')}/${nodeIP}`} key={1}>
@@ -63,7 +63,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);
     UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
@@ -98,7 +98,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   getContent() {
-    let {hasError, isLoadingNode, isLoadingUnit} = this.state;
+    const {hasError, isLoadingNode, isLoadingUnit} = this.state;
 
     if (hasError) {
       return this.getErrorNotice();
@@ -108,12 +108,12 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
-    let node = UnitHealthStore.getNode(unitNodeID);
-    let unit = UnitHealthStore.getUnit(unitID);
+    const node = UnitHealthStore.getNode(unitNodeID);
+    const unit = UnitHealthStore.getUnit(unitID);
 
-    let unitSummary = UnitSummaries[unit.get('id')] || {};
+    const unitSummary = UnitSummaries[unit.get('id')] || {};
     let unitDocsURL = unitSummary.getDocumentationURI &&
       unitSummary.getDocumentationURI();
 
@@ -129,7 +129,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   render() {
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
     let node = UnitHealthStore.getNode(unitNodeID);
     let unit = UnitHealthStore.getUnit(unitID);

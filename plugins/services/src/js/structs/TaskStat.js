@@ -12,7 +12,7 @@ class TaskStat extends Item {
   }
 
   getHealthyTaskCount() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.counts) {
       return stats.counts.healthy || 0;
     }
@@ -21,7 +21,7 @@ class TaskStat extends Item {
   }
 
   getRunningTaskCount() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.counts) {
       return stats.counts.running || 0;
     }
@@ -30,7 +30,7 @@ class TaskStat extends Item {
   }
 
   getStagedTaskCount() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.counts) {
       return stats.counts.staged || 0;
     }
@@ -39,7 +39,7 @@ class TaskStat extends Item {
   }
 
   getUnhealthyTaskCount() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.counts) {
       return stats.counts.unhealthy || 0;
     }
@@ -48,7 +48,7 @@ class TaskStat extends Item {
   }
 
   getAverageLifeTime() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.lifeTime) {
       return stats.lifeTime.averageSeconds || 0;
     }
@@ -57,7 +57,7 @@ class TaskStat extends Item {
   }
 
   getMedianLifeTime() {
-    let stats = this.get('stats') || {};
+    const stats = this.get('stats') || {};
     if (stats.lifeTime) {
       return stats.lifeTime.medianSeconds || 0;
     }

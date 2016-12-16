@@ -29,7 +29,7 @@ class SidebarFilter extends React.Component {
   }
 
   handleFormChange(model, eventObj) {
-    let filterValue = this.props.filterValues[eventObj.fieldValue.name];
+    const filterValue = this.props.filterValues[eventObj.fieldValue.name];
 
     if (eventObj.fieldValue.checked) {
       this.setFilterNode(filterValue);
@@ -44,7 +44,7 @@ class SidebarFilter extends React.Component {
   }
 
   setFilterNode(filterValue) {
-    let selectedNodes = this.state.selectedNodes.slice(0);
+    const selectedNodes = this.state.selectedNodes.slice(0);
 
     selectedNodes.push(filterValue);
 
@@ -55,7 +55,7 @@ class SidebarFilter extends React.Component {
   }
 
   unsetFilterNode(filterValue) {
-    let selectedNodes = this.state.selectedNodes.filter(function (node) {
+    const selectedNodes = this.state.selectedNodes.filter(function (node) {
       return node !== filterValue;
     });
 
@@ -66,10 +66,10 @@ class SidebarFilter extends React.Component {
   }
 
   updateFilterStatus() {
-    let {props, state} = this;
-    let {filterType, filters} = props;
-    let selectedNodes = filters[filterType] || [];
-    let stringify = JSON.stringify;
+    const {props, state} = this;
+    const {filterType, filters} = props;
+    const selectedNodes = filters[filterType] || [];
+    const stringify = JSON.stringify;
 
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
       this.setState({selectedNodes});
@@ -77,8 +77,8 @@ class SidebarFilter extends React.Component {
   }
 
   getCountByValue(filterValue) {
-    let {props} = this;
-    let count = props.countByValue[props.filterValues[filterValue]];
+    const {props} = this;
+    const count = props.countByValue[props.filterValues[filterValue]];
 
     if (count == null) {
       return 0;
@@ -88,7 +88,7 @@ class SidebarFilter extends React.Component {
   }
 
   getClearLinkForFilter() {
-    let {filters, filterType} = this.props;
+    const {filters, filterType} = this.props;
 
     if (filters[filterType] == null ||
       filters[filterType].length === 0) {
@@ -130,12 +130,12 @@ class SidebarFilter extends React.Component {
   }
 
   getCheckboxes() {
-    let {filterLabels, filterType, filterValues} = this.props;
-    let {selectedNodes} = this.state;
+    const {filterLabels, filterType, filterValues} = this.props;
+    const {selectedNodes} = this.state;
 
     return Object.keys(filterLabels)
       .filter((filterLabel) => {
-        let filterValue = filterValues[filterLabel];
+        const filterValue = filterValues[filterLabel];
 
         return filterValue != null &&
           !(filterType === ServiceFilterTypes.STATUS &&
@@ -143,13 +143,13 @@ class SidebarFilter extends React.Component {
           this.getCountByValue(filterValue) === 0);
       })
       .map((filterLabel) => {
-        let value = filterValues[filterLabel];
-        let checked = selectedNodes.indexOf(value.toString()) > -1
+        const value = filterValues[filterLabel];
+        const checked = selectedNodes.indexOf(value.toString()) > -1
           || selectedNodes.indexOf(value) > -1;
 
-        let isActive = this.getCountByValue(filterLabel) > 0;
+        const isActive = this.getCountByValue(filterLabel) > 0;
 
-        let labelClassSet = classNames({
+        const labelClassSet = classNames({
           'filter-active': isActive,
           'filter-inactive': !isActive,
           'filter-checked': checked

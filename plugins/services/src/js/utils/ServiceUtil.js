@@ -48,7 +48,7 @@ const getFindPropertiesRecursive = function (service, item) {
 
 // Removes redundant attributes
 const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
-  let properties = healthCheckSchema
+  const properties = healthCheckSchema
     .properties
     .healthChecks
     .itemShape
@@ -112,7 +112,7 @@ const ServiceUtil = {
   createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
-      let {
+      const {
         general,
         optional,
         containerSettings,
@@ -204,7 +204,7 @@ const ServiceUtil = {
         }
 
         if (volumes.externalVolumes) {
-          let externalVolumes = volumes.externalVolumes
+          const externalVolumes = volumes.externalVolumes
             .map(function ({containerPath, externalName}) {
               return {
                 containerPath,
@@ -231,7 +231,7 @@ const ServiceUtil = {
         }
 
         if (volumes.localVolumes) {
-          let localVolumes = volumes.localVolumes
+          const localVolumes = volumes.localVolumes
             .map(function ({containerPath, size}) {
               return {
                 containerPath,
@@ -285,7 +285,7 @@ const ServiceUtil = {
           .reduce(function (memo, healthCheck) {
             // Only set defaults if user has changed a value in the form.
             // I.e. user has intent to create a healthCheck.
-            let hasSetValue = Object.values(healthCheck).some(function (value) {
+            const hasSetValue = Object.values(healthCheck).some(function (value) {
               return value != null && value !== false;
             });
 
@@ -336,9 +336,9 @@ const ServiceUtil = {
       }
 
       if (networking != null) {
-        let isContainerApp = containerSettings != null && containerSettings.image != null;
+        const isContainerApp = containerSettings != null && containerSettings.image != null;
 
-        let networkType = networking.networkType || 'host';
+        const networkType = networking.networkType || 'host';
 
         if (networking.ports != null) {
           networking.ports = networking.ports.filter(function (port) {
@@ -351,9 +351,9 @@ const ServiceUtil = {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length) {
               definition.portDefinitions = networking.ports.map(function (port, index) {
-                let portMapping = {protocol: 'tcp'};
+                const portMapping = {protocol: 'tcp'};
                 // Ensure that lbPort is an int
-                let lbPort = parseInt(port.lbPort || 0, 10);
+                const lbPort = parseInt(port.lbPort || 0, 10);
 
                 if (networkType === 'host') {
                   portMapping.port = 0;
@@ -382,7 +382,7 @@ const ServiceUtil = {
           } else {
             definition.container.docker.portMappings = [];
             networking.ports.forEach(function (port, index) {
-              let portMapping = {containerPort: 0, protocol: 'tcp'};
+              const portMapping = {containerPort: 0, protocol: 'tcp'};
 
               if (port.protocol != null) {
                 portMapping.protocol = port.protocol;
@@ -390,7 +390,7 @@ const ServiceUtil = {
               if (port.name != null) {
                 portMapping.name = port.name;
               }
-              let lbPort = parseInt(port.lbPort || 0, 10);
+              const lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
 
               if (ValidatorUtil.isDefined(port.hostPort)) {
@@ -472,7 +472,7 @@ const ServiceUtil = {
   },
 
   getDefinitionFromSpec(spec) {
-    let definition = spec.toJSON();
+    const definition = spec.toJSON();
 
     if (spec instanceof ApplicationSpec) {
       Hooks.applyFilter(
@@ -499,7 +499,7 @@ const ServiceUtil = {
   },
 
   getServiceNameFromTaskID(taskID) {
-    let serviceName = taskID.split('.')[0].split('_');
+    const serviceName = taskID.split('.')[0].split('_');
     return serviceName[serviceName.length - 1];
   },
 
@@ -508,7 +508,7 @@ const ServiceUtil = {
       return [];
     }
 
-    let labels = service.getLabels();
+    const labels = service.getLabels();
     if (labels == null) {
       return [];
     }

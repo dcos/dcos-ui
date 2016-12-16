@@ -29,9 +29,9 @@ const SystemLogUtil = {
    * @returns {String} URL for system logs request
    */
   getUrl(nodeID, options, isStream = true) {
-    let {filter = {}} = options;
+    const {filter = {}} = options;
 
-    let range = paramOptions.reduce((memo, key) => {
+    const range = paramOptions.reduce((memo, key) => {
       if (options[key] !== '' && options[key] != null) {
         memo.push(`${key}=${encodeURIComponent(options[key])}`);
       }
@@ -39,7 +39,7 @@ const SystemLogUtil = {
       return memo;
     }, []);
 
-    let paramsArray = Object.keys(filter).reduce(function (memo, key) {
+    const paramsArray = Object.keys(filter).reduce(function (memo, key) {
       if (filter[key] !== '' && filter[key] != null) {
         memo.push(
           `filter=${encodeURIComponent(key)}:${encodeURIComponent(filter[key])}`
@@ -54,8 +54,8 @@ const SystemLogUtil = {
       endpoint = 'stream';
     }
 
-    let idArray = ['framework', 'executor', 'container'].reduce(function (memo, key) {
-      let id = `${key}ID`;
+    const idArray = ['framework', 'executor', 'container'].reduce(function (memo, key) {
+      const id = `${key}ID`;
       if (options[id] !== '' && options[id] != null) {
         memo.push(key, options[id]);
       }

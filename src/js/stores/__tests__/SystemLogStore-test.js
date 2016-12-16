@@ -12,7 +12,7 @@ const SystemLogTypes = require('../../constants/SystemLogTypes');
 const SystemLogStore = require('../SystemLogStore');
 
 function resetLogData(subscriptionID, newLogData) {
-  let originalAddEntries = SystemLogStore.addEntries;
+  const originalAddEntries = SystemLogStore.addEntries;
   // Overload addEntries to clear out log data for 'subscriptionID'
   SystemLogStore.addEntries =
     jasmine.createSpy('#addEntries').and.returnValue(newLogData);
@@ -30,25 +30,25 @@ describe('SystemLogStore', function () {
   describe('#addEntries', function () {
 
     it('appends data to existing data', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
         ],
         totalSize: 6
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.APPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -57,12 +57,12 @@ describe('SystemLogStore', function () {
     });
 
     it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
@@ -70,13 +70,13 @@ describe('SystemLogStore', function () {
         // Allow room for one more entry, but not the two following
         totalSize: 500000 - 3
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.APPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -85,12 +85,12 @@ describe('SystemLogStore', function () {
     });
 
     it('doesn\'t remove when there is no length added', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
@@ -98,13 +98,13 @@ describe('SystemLogStore', function () {
         // Allow room for one more entry, but not the two following
         totalSize: 500000
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.APPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -113,25 +113,25 @@ describe('SystemLogStore', function () {
     });
 
     it('prepends data to existing data', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
         ],
         totalSize: 6
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.PREPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -140,12 +140,12 @@ describe('SystemLogStore', function () {
     });
 
     it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
@@ -153,13 +153,13 @@ describe('SystemLogStore', function () {
         // Allow room for two more entry, but not the last one
         totalSize: 500000 - 6
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.PREPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -168,12 +168,12 @@ describe('SystemLogStore', function () {
     });
 
     it('doesn\'t remove when there is no length added', function () {
-      let entires = [
+      const entires = [
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}}
       ];
-      let logData = {
+      const logData = {
         entries: [
           {fields: {MESSAGE: 'one'}},
           {fields: {MESSAGE: 'two'}}
@@ -181,13 +181,13 @@ describe('SystemLogStore', function () {
         // Allow room for one more entry, but not the two following
         totalSize: 500000
       };
-      let result = SystemLogStore.addEntries(
+      const result = SystemLogStore.addEntries(
         logData,
         entires,
         SystemLogTypes.PREPEND
       );
 
-      let entries = result.entries.map((entry) => {
+      const entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
@@ -350,7 +350,7 @@ describe('SystemLogStore', function () {
         {fields: {MESSAGE: 'baz'}}
       );
 
-      let result = SystemLogStore.getFullLog('subscriptionID');
+      const result = SystemLogStore.getFullLog('subscriptionID');
 
       expect(result).toEqual('foo\nbar\nbaz');
     });
@@ -370,7 +370,7 @@ describe('SystemLogStore', function () {
         {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
       );
 
-      let result = SystemLogStore.getFullLog('subscriptionID');
+      const result = SystemLogStore.getFullLog('subscriptionID');
 
       expect(result).toEqual('host systemID[pid]: foo\nhost systemID[pid]: bar\nhost systemID[pid]: baz');
     });
@@ -390,14 +390,14 @@ describe('SystemLogStore', function () {
         {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID'}}
       );
 
-      let result = SystemLogStore.getFullLog('subscriptionID');
+      const result = SystemLogStore.getFullLog('subscriptionID');
 
       expect(result).toEqual('systemID[pid]: foo\nhost [pid]: bar\nhost systemID: baz');
     });
 
     it('returns empty string for a log that doesn\'t exist', function () {
 
-      let result = SystemLogStore.getFullLog('subscriptionID');
+      const result = SystemLogStore.getFullLog('subscriptionID');
 
       expect(result).toEqual('');
     });
@@ -415,7 +415,7 @@ describe('SystemLogStore', function () {
   describe('dispatcher', function () {
 
     it('emits event after #processLogEntry event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_CHANGE,
         changeHandler
@@ -432,7 +432,7 @@ describe('SystemLogStore', function () {
     });
 
     it('emits event after #processLogError event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_REQUEST_ERROR,
         changeHandler
@@ -451,7 +451,7 @@ describe('SystemLogStore', function () {
     });
 
     it('emits event after #processLogPrepend event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_CHANGE,
         changeHandler
@@ -469,7 +469,7 @@ describe('SystemLogStore', function () {
     });
 
     it('emits event after #processLogPrependError event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_REQUEST_ERROR,
         changeHandler

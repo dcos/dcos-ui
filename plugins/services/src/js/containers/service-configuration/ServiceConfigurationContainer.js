@@ -8,13 +8,13 @@ import ServiceConfiguration from './ServiceConfiguration';
 class ServiceConfigurationContainer extends React.Component {
 
   componentWillMount() {
-    let {service} = this.props;
+    const {service} = this.props;
 
     DCOSStore.fetchServiceVersions(service.getId());
   }
 
   componentWillReceiveProps({service:nextService}) {
-    let {service} = this.props;
+    const {service} = this.props;
 
     if (service.getVersion() !== nextService.getVersion()) {
       DCOSStore.fetchServiceVersions(nextService.getId());

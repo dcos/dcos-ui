@@ -52,7 +52,7 @@ describe('TaskUtil', function () {
     });
 
     it('uses discovery ports if available', function () {
-      let result = TaskUtil.getPorts(
+      const result = TaskUtil.getPorts(
         {discovery: {ports : {ports: [{number: 3}]}}}
       );
 
@@ -60,7 +60,7 @@ describe('TaskUtil', function () {
     });
 
     it('prefers discovery ports if both are available', function () {
-      let result = TaskUtil.getPorts(
+      const result = TaskUtil.getPorts(
         {ports: [1, 2], discovery: {ports : {ports: [{number: 3}]}}}
       );
 

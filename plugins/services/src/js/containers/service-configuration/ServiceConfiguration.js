@@ -57,10 +57,10 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   handleApplyButtonClick() {
-    let {editService, service} = this.props;
-    let {selectedVersionID} = this.state;
+    const {editService, service} = this.props;
+    const {selectedVersionID} = this.state;
 
-    let serviceConfiguration = service.getVersions().get(selectedVersionID);
+    const serviceConfiguration = service.getVersions().get(selectedVersionID);
 
     editService(service,
       ServiceUtil.getDefinitionFromSpec(
@@ -70,7 +70,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   handleEditButtonClick() {
-    let serviceConfiguration =
+    const serviceConfiguration =
       this.props.service.getVersions().get(this.state.selectedVersionID);
 
     const service = ServiceUtil.createServiceFromResponse(serviceConfiguration);
@@ -85,7 +85,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   getVersionsActions() {
-    let versions = this.props.service.getVersions();
+    const versions = this.props.service.getVersions();
 
     if (versions.size < 2) {
       return null;
@@ -100,8 +100,8 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   getRollbackButtons() {
-    let {service} = this.props;
-    let {selectedVersionID} = this.state;
+    const {service} = this.props;
+    const {selectedVersionID} = this.state;
 
     if (service.getVersion() === selectedVersionID) {
       return null;
@@ -123,11 +123,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   getVersionsDropdown() {
-    let {service} = this.props;
-    let versions = service.getVersions();
+    const {service} = this.props;
+    const versions = service.getVersions();
 
     let versionItems = [];
-    for (let version of versions.keys()) {
+    for (const version of versions.keys()) {
       let localeVersion = new Date(version).toLocaleString();
       let itemCaption = localeVersion;
       if (version === service.getVersion()) {

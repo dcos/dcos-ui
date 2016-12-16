@@ -44,7 +44,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreUninstallSuccess() {
-    let {handleUninstallFinish} = this.props;
+    const {handleUninstallFinish} = this.props;
     this.setState(
       {
         uninstallSuccess: true,
@@ -65,7 +65,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   handleUninstallPackage() {
-    let {cosmosPackage} = this.props;
+    const {cosmosPackage} = this.props;
     let appId;
     let packageName;
     let packageVersion;
@@ -103,13 +103,13 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getPostUninstallNotes() {
-    let {cosmosPackage} = this.props;
+    const {cosmosPackage} = this.props;
 
     if (!cosmosPackage) {
       return this.getEmptyNode();
     }
 
-    let name = cosmosPackage.getAppIdName();
+    const name = cosmosPackage.getAppIdName();
     let notes = cosmosPackage.getPostUninstallNotes();
 
     return (
@@ -126,7 +126,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getUninstallModalContent() {
-    let {props: {cosmosPackage}, state: {uninstallSuccess}} = this;
+    const {props: {cosmosPackage}, state: {uninstallSuccess}} = this;
 
     if (uninstallSuccess) {
       return this.getPostUninstallNotes();

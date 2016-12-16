@@ -25,9 +25,9 @@ function loadPlugins(plugins) {
  * @param  {Object} plugins - Map of name to config
  */
 function loadPluginsByName(plugins) {
-  let pluginsToLoad = {};
+  const pluginsToLoad = {};
 
-  let {pluginsList, externalPluginsList} = Loader.__getAvailablePlugins();
+  const {pluginsList, externalPluginsList} = Loader.__getAvailablePlugins();
 
   Object.keys(plugins).forEach(function (pluginID) {
 
@@ -110,17 +110,17 @@ function dontMock(moduleNames) {
     return;
   }
   // Assuming modules have unique names
-  let foundType = Object.keys(PluginModules).filter((moduleType) => {
+  const foundType = Object.keys(PluginModules).filter((moduleType) => {
     return name in PluginModules[moduleType];
   });
   if (!foundType.length) {
     throw new Error(`Module ${name} does not exist.`);
   }
-  let modulePath = `../${foundType[0]}/${PluginModules[foundType[0]][name]}`;
+  const modulePath = `../${foundType[0]}/${PluginModules[foundType[0]][name]}`;
   jest.dontMock(modulePath);
 }
 
-let TestUtils = {
+const TestUtils = {
   addReducer,
   getSDK,
   dontMock,

@@ -10,7 +10,7 @@ import StatusMapping from '../../constants/StatusMapping';
 import PodActionItem from '../../constants/PodActionItem';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
-let METHODS_TO_BIND = [
+const METHODS_TO_BIND = [
   'handleDropdownAction'
 ];
 
@@ -47,7 +47,7 @@ class PodHeader extends React.Component {
       }
     ];
 
-    let actionButtons = [
+    const actionButtons = [
       <button className="button flush-bottom  button-primary"
         key="action-button-scale"
         onClick={this.props.onScale}>
@@ -89,13 +89,13 @@ class PodHeader extends React.Component {
   }
 
   getSubHeader(pod) {
-    let serviceHealth = pod.getHealth();
-    let serviceStatus = pod.getServiceStatus();
+    const serviceHealth = pod.getHealth();
+    const serviceStatus = pod.getServiceStatus();
     let tasksSummary = pod.getTasksSummary();
-    let serviceStatusClassSet = StatusMapping[serviceStatus.displayName] || '';
-    let runningTasksCount = tasksSummary.tasksRunning;
+    const serviceStatusClassSet = StatusMapping[serviceStatus.displayName] || '';
+    const runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = pod.getInstancesCount();
-    let runningTasksSubHeader = StringUtil.pluralize('Instance',
+    const runningTasksSubHeader = StringUtil.pluralize('Instance',
       runningTasksCount);
     let subHeaderItems = [
       {
@@ -137,9 +137,9 @@ class PodHeader extends React.Component {
   }
 
   render() {
-    let pod = this.props.pod;
+    const pod = this.props.pod;
     let podIcon = null;
-    let podImages = pod.getImages();
+    const podImages = pod.getImages();
     if (podImages && podImages['icon-large']) {
       podIcon = (
         <img src={podImages['icon-large']} />

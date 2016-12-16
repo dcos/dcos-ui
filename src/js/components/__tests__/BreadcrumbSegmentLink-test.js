@@ -10,11 +10,11 @@ const BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 describe('BreadcrumbSegmentLink', function () {
 
   it('renders the label', function () {
-    let instance = TestUtils.renderIntoDocument(
+    const instance = TestUtils.renderIntoDocument(
       <BreadcrumbSegmentLink label="foo" />
     );
 
-    let node = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
+    const node = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');
 
     expect(node.textContent).toEqual('foo');
   });

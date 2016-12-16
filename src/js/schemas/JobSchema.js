@@ -7,7 +7,7 @@ import General from './job-schema/General';
 import Labels from './job-schema/Labels';
 import Schedule from './job-schema/Schedule';
 
-let JobSchema = {
+const JobSchema = {
   type: 'object',
   properties: {
     general: General,

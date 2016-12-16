@@ -69,7 +69,7 @@ module.exports = class ServiceTree extends Tree {
   getHealth() {
     return this.reduceItems(function (aggregatedHealth, item) {
       if (item instanceof Service) {
-        let health = item.getHealth();
+        const health = item.getHealth();
         if (HealthSorting[aggregatedHealth.key] > HealthSorting[health.key]) {
           aggregatedHealth = health;
         }
@@ -88,7 +88,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getTaskFromTaskID(taskID) {
-    let service = this.getServiceFromTaskID(taskID);
+    const service = this.getServiceFromTaskID(taskID);
 
     if (service == null || service.tasks == null || !service.tasks.length) {
       return null;
@@ -131,7 +131,7 @@ module.exports = class ServiceTree extends Tree {
       }
 
       if (filter.id) {
-        let filterProperties = Object.assign({}, this.getFilterProperties(), {
+        const filterProperties = Object.assign({}, this.getFilterProperties(), {
           name(item) {
             return item.getName();
           }
@@ -177,7 +177,7 @@ module.exports = class ServiceTree extends Tree {
               );
             }
 
-            let hasLabel = serviceLabels.some(function (serviceLabel) {
+            const hasLabel = serviceLabels.some(function (serviceLabel) {
               return serviceLabel.key === label.key &&
                 serviceLabel.value === label.value;
             });
@@ -207,7 +207,7 @@ module.exports = class ServiceTree extends Tree {
             }
 
             if (parseInt(otherKey, 10) === ServiceOther.VOLUMES.key) {
-              let volumes = service.getVolumes();
+              const volumes = service.getVolumes();
 
               if (volumes.list && volumes.list.length > 0) {
                 memo.push(service);
@@ -280,7 +280,7 @@ module.exports = class ServiceTree extends Tree {
   getResources() {
     return this.reduceItems(function (resources, item) {
       if (item instanceof Service) {
-        let {cpus = 0, mem = 0, disk = 0} = item.getResources();
+        const {cpus = 0, mem = 0, disk = 0} = item.getResources();
 
         resources.cpus += cpus;
         resources.mem += mem;
@@ -292,7 +292,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
-    let status = this.getServiceStatus();
+    const status = this.getServiceStatus();
     if (status == null) {
       return null;
     }
@@ -303,7 +303,7 @@ module.exports = class ServiceTree extends Tree {
   getServiceStatus() {
     return this.reduceItems(function (serviceTreeStatus, item) {
       if (item instanceof Service) {
-        let status = item.getServiceStatus();
+        const status = item.getServiceStatus();
         if (status == null) {
           return serviceTreeStatus;
         }
@@ -317,7 +317,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServices() {
-    let items = this.reduceItems(function (services, item) {
+    const items = this.reduceItems(function (services, item) {
       if (item instanceof Service) {
         services.push(item);
       }
@@ -331,7 +331,7 @@ module.exports = class ServiceTree extends Tree {
   getTasksSummary() {
     return this.reduceItems(function (taskSummary, item) {
       if (item instanceof Service) {
-        let {
+        const {
           tasksHealthy = 0,
           tasksRunning = 0,
           tasksOverCapacity = 0,
@@ -365,9 +365,9 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getVolumes() {
-    let items = this.reduceItems(function (serviceTreeVolumes, item) {
+    const items = this.reduceItems(function (serviceTreeVolumes, item) {
       if (item instanceof Service) {
-        let itemVolumes = item.getVolumes().getItems();
+        const itemVolumes = item.getVolumes().getItems();
         if (itemVolumes && itemVolumes.length) {
           serviceTreeVolumes.push(itemVolumes);
         }

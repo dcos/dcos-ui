@@ -55,7 +55,7 @@ const RouterUtil = {
       }
 
       if (route.children) {
-        let children = RouterUtil.createComponentsFromRoutes(route.children);
+        const children = RouterUtil.createComponentsFromRoutes(route.children);
         args = args.concat(children);
       }
       return React.createElement(...args);
@@ -70,7 +70,7 @@ const RouterUtil = {
    * @return {Array} Routes ready to use by react router
    */
   buildRoutes(originalRoutes) {
-    let elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
+    const elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
     return createRoutes(elementRoutes);
   },
 
@@ -105,7 +105,7 @@ const RouterUtil = {
    * @returns {String} path - absolute path pattern
    */
   reconstructPathFromRoutes(routes) {
-    let path = routes.filter(function (route) {
+    const path = routes.filter(function (route) {
       return !!route.path;
     }).map(function (route) {
       return route.path;

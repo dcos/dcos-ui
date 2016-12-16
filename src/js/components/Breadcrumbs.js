@@ -4,13 +4,13 @@ import ManualBreadcrumbs from './ManualBreadcrumbs';
 
 class Breadcrumbs extends React.Component {
   buildCrumbs(route) {
-    let {params, routes} = this.props;
+    const {params, routes} = this.props;
 
-    let crumbConfiguration = route.buildBreadCrumb(params, routes);
+    const crumbConfiguration = route.buildBreadCrumb(params, routes);
     let crumbs = crumbConfiguration.getCrumbs(params, routes);
 
     if (crumbConfiguration.parentCrumb) {
-      let parentRoute = this.findParentRoute(crumbConfiguration.parentCrumb);
+      const parentRoute = this.findParentRoute(crumbConfiguration.parentCrumb);
 
       if (parentRoute && parentRoute.buildBreadCrumb) {
         crumbs = this.buildCrumbs(parentRoute).concat(crumbs);
@@ -21,7 +21,7 @@ class Breadcrumbs extends React.Component {
   }
 
   findParentRoute(parentCrumbPath) {
-    let segments = parentCrumbPath.split('/');
+    const segments = parentCrumbPath.split('/');
 
     // remove the split('/') artifact - an empty string
     segments.shift(0, 1);
@@ -88,7 +88,7 @@ class Breadcrumbs extends React.Component {
   }
 
   getCrumbsFromRoute() {
-    let {routes} = this.props;
+    const {routes} = this.props;
     // Find the first route with a name
     let currentRoute = null;
     loop:
@@ -103,13 +103,13 @@ class Breadcrumbs extends React.Component {
       return [];
     }
 
-    let crumbs = this.buildCrumbs(currentRoute);
+    const crumbs = this.buildCrumbs(currentRoute);
 
     return crumbs.slice(this.props.shift);
   }
 
   render() {
-    let crumbs = this.getCrumbsFromRoute();
+    const crumbs = this.getCrumbsFromRoute();
 
     return (
       <ManualBreadcrumbs crumbs={crumbs} />

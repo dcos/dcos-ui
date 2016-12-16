@@ -57,9 +57,9 @@ class PodInstancesTable extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {checkedItems} = this.state;
-    let prevInstances = this.props.instances.getItems();
-    let nextInstances = nextProps.instances.getItems();
+    const {checkedItems} = this.state;
+    const prevInstances = this.props.instances.getItems();
+    const nextInstances = nextProps.instances.getItems();
 
     // When the `instances` property is changed and we have selected
     // items, re-trigger selection change in order to remove checked
@@ -72,7 +72,7 @@ class PodInstancesTable extends React.Component {
   }
 
   triggerSelectionChange(checkedItems, instances) {
-    let checkedItemInstances = instances.getItems().filter(
+    const checkedItemInstances = instances.getItems().filter(
       function (item) {
         return checkedItems[item.getId()];
       }
@@ -81,7 +81,7 @@ class PodInstancesTable extends React.Component {
   }
 
   handleItemCheck(idsChecked) {
-    let checkedItems = {};
+    const checkedItems = {};
 
     idsChecked.forEach(function (id) {
       checkedItems[id] = true;
@@ -201,16 +201,16 @@ class PodInstancesTable extends React.Component {
   }
 
   getContainersWithResources(podSpec, containers, agentAddress) {
-    let children = containers.map(function (container) {
+    const children = containers.map(function (container) {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
-      let containerSpec = podSpec.getContainerSpec(container.name);
+      const containerSpec = podSpec.getContainerSpec(container.name);
       if (containerSpec) {
         containerResources = containerSpec.resources;
       }
 
-      let addressComponents = container.getEndpoints().map(function (endpoint, i) {
+      const addressComponents = container.getEndpoints().map(function (endpoint, i) {
         return (
           <a className="text-muted"
             href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
@@ -248,16 +248,16 @@ class PodInstancesTable extends React.Component {
   }
 
   getTableDataFor(instances, filterText) {
-    let podSpec = this.props.pod.getSpec();
+    const podSpec = this.props.pod.getSpec();
 
     return instances.getItems().map((instance) => {
-      let containers = instance.getContainers().filter(function (container) {
+      const containers = instance.getContainers().filter(function (container) {
         return PodUtil.isContainerMatchingText(container, filterText);
       });
-      let children = this.getContainersWithResources(
+      const children = this.getContainersWithResources(
         podSpec, containers, instance.getAgentAddress()
       );
-      let {cpus, mem} = instance.getResources();
+      const {cpus, mem} = instance.getResources();
 
       return {
         id: instance.getId(),
@@ -276,7 +276,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getInstanceFilterStatus(instance) {
-    let status = instance.getInstanceStatus();
+    const status = instance.getInstanceStatus();
     switch (status) {
       case PodInstanceStatus.STAGED:
         return 'staged';
@@ -304,7 +304,7 @@ class PodInstancesTable extends React.Component {
 
   renderColumnID(prop, {id: taskID, name: taskName}, rowOptions = {}) {
     if (!rowOptions.isParent) {
-      let id = encodeURIComponent(this.props.pod.getId());
+      const id = encodeURIComponent(this.props.pod.getId());
 
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
@@ -318,7 +318,7 @@ class PodInstancesTable extends React.Component {
       );
     }
 
-    let classes = classNames('expanding-table-primary-cell is-expandable', {
+    const classes = classNames('expanding-table-primary-cell is-expandable', {
       'is-expanded': rowOptions.isExpanded
     });
 
@@ -335,8 +335,8 @@ class PodInstancesTable extends React.Component {
       return <span>&nbsp;</span>;
     }
 
-    let id = encodeURIComponent(this.props.pod.getId());
-    let taskID = row.id;
+    const id = encodeURIComponent(this.props.pod.getId());
+    const taskID = row.id;
 
     return (
       <Link
@@ -351,7 +351,7 @@ class PodInstancesTable extends React.Component {
     let {address} = row;
 
     if (rowOptions.isParent) {
-      let {agent} = row;
+      const {agent} = row;
 
       if (!agent) {
         return this.renderWithClickHandler(rowOptions, (
@@ -373,7 +373,7 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
-    let {status} = row;
+    const {status} = row;
 
     return this.renderWithClickHandler(rowOptions, (
       <span className={`status-text ${status.textClassName}`}>
@@ -383,8 +383,8 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnHealth(prop, row, rowOptions = {}) {
-    let {status} = row;
-    let {healthStatus} = status;
+    const {status} = row;
+    const {healthStatus} = status;
     let tooltipContent = 'Healthy';
 
     if (healthStatus === 'UNHEALTHY') {

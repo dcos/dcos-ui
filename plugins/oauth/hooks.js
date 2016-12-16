@@ -6,9 +6,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
 
-let SDK = require('./SDK').getSDK();
+const SDK = require('./SDK').getSDK();
 
-let {
+const {
   AccessDeniedPage,
   ApplicationUtil,
   Authenticated,
@@ -29,7 +29,7 @@ let {
 ]);
 
 let configResponseCallback = null;
-let defaultOrganizationRoute = {
+const defaultOrganizationRoute = {
   routes: []
 };
 
@@ -71,9 +71,9 @@ module.exports = Object.assign({}, StoreMixin, {
       return;
     }
 
-    let location = global.location.hash;
-    let onAccessDeniedPage = /access-denied/.test(location);
-    let onLoginPage = /login/.test(location);
+    const location = global.location.hash;
+    const onAccessDeniedPage = /access-denied/.test(location);
+    const onLoginPage = /login/.test(location);
 
     // Unauthorized
     if (xhr.status === 401 && !onLoginPage && !onAccessDeniedPage) {
@@ -171,7 +171,7 @@ module.exports = Object.assign({}, StoreMixin, {
 
   // Ensure user route under organization
   organizationRoutes(routeDefinition = defaultOrganizationRoute) {
-    let userRoute = {
+    const userRoute = {
       type: Route,
       path: 'users',
       component: UsersPage,
@@ -189,7 +189,7 @@ module.exports = Object.assign({}, StoreMixin, {
         };
       }
     };
-    let usersRouteIndex = routeDefinition.routes.findIndex(function (route) {
+    const usersRouteIndex = routeDefinition.routes.findIndex(function (route) {
       return route.name === userRoute.name;
     });
     // Replace by new definition
@@ -212,13 +212,13 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   userLoginSuccess() {
-    let redirectTo = RouterUtil.getRedirectTo();
+    const redirectTo = RouterUtil.getRedirectTo();
 
     if (redirectTo) {
       window.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {
-        let loginRedirectRoute = AuthStore.get('loginRedirectRoute');
+        const loginRedirectRoute = AuthStore.get('loginRedirectRoute');
 
         if (loginRedirectRoute) {
           // Go to redirect route if it is present
@@ -239,7 +239,7 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   delayApplicationLoad(value) {
-    let user = AuthStore.getUser();
+    const user = AuthStore.getUser();
 
     // If user is logged in, then let's let the app do its thing
     if (user) {

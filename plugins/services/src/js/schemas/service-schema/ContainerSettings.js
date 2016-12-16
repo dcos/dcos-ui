@@ -20,7 +20,7 @@ const ContainerSettings = {
           title: 'Container Image',
           type: 'string',
           getter(service) {
-            let container = service.getContainerSettings();
+            const container = service.getContainerSettings();
             if (container && container.docker && container.docker.image) {
               return container.docker.image;
             }
@@ -52,7 +52,7 @@ const ContainerSettings = {
           showLabel: false,
           type: 'boolean',
           getter(service) {
-            let container = service.getContainerSettings();
+            const container = service.getContainerSettings();
             if (container && container.docker &&
               container.docker.privileged
             ) {
@@ -66,7 +66,7 @@ const ContainerSettings = {
           showLabel: false,
           type: 'boolean',
           getter(service) {
-            let container = service.getContainerSettings();
+            const container = service.getContainerSettings();
             if (container && container.docker &&
               container.docker.forcePullImage
             ) {
@@ -88,7 +88,7 @@ const ContainerSettings = {
       duplicable: true,
       addLabel: 'Add Parameter',
       getter(service) {
-        let container = service.getContainerSettings();
+        const container = service.getContainerSettings();
         if (container && container.docker &&
           container.docker.parameters
         ) {

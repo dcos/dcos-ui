@@ -24,11 +24,11 @@ class ReviewConfig extends React.Component {
       packageVersion
     } = this.props;
     let fileName = 'config.json';
-    let configString = JSON.stringify(configuration, null, 2);
+    const configString = JSON.stringify(configuration, null, 2);
     let ieDownloadConfig = function () {
       // Download if on IE
       if (global.navigator.msSaveOrOpenBlob) {
-        let blob = new Blob([configString], {type: 'application/json'});
+        const blob = new Blob([configString], {type: 'application/json'});
         global.navigator.msSaveOrOpenBlob(blob, fileName);
       }
     };
@@ -83,8 +83,8 @@ class ReviewConfig extends React.Component {
 
   getDefinitionReview() {
     var elementsToRender = [];
-    let {configuration} = this.props;
-    let fields = Object.keys(configuration);
+    const {configuration} = this.props;
+    const fields = Object.keys(configuration);
 
     fields.forEach((field, i) => {
       var fieldObj = configuration[field];
@@ -92,7 +92,7 @@ class ReviewConfig extends React.Component {
 
       Object.keys(fieldObj).forEach((fieldKey) => {
         let fieldValue = fieldObj[fieldKey];
-        let uniqueKey = `${i}${fieldKey}`;
+        const uniqueKey = `${i}${fieldKey}`;
 
         if (typeof fieldValue === 'object' && !Array.isArray(fieldValue)
           && fieldValue !== null) {

@@ -83,7 +83,7 @@ const StringUtil = {
       wrapValueFunction: false
     }, options);
 
-    let length = array.length;
+    const length = array.length;
     let conjunction = ' and ';
 
     if (length === 0) {
@@ -110,14 +110,14 @@ const StringUtil = {
       }
     }
 
-    let head = array.slice(0, -1);
-    let tail = array.slice(-1)[0];
+    const head = array.slice(0, -1);
+    const tail = array.slice(-1)[0];
     if (options.serialComma) {
       conjunction = ', and ';
     }
 
     if (options.wrapValueFunction) {
-      let jsx = head.reduce(function (memo, value, index) {
+      const jsx = head.reduce(function (memo, value, index) {
         memo.push(options.wrapValueFunction(value, index));
 
         if (index !== head.length - 1) {
@@ -141,7 +141,7 @@ const StringUtil = {
       return null;
     }
 
-    let __html = marked(
+    const __html = marked(
       // Remove any tabs, that will create code blocks
       text.replace('\t', ' '),
       {gfm: true, tables: false, sanitize: true}
@@ -176,8 +176,8 @@ const StringUtil = {
       }, '').trim();
     }
 
-    let splitID = id.reduce(function (accumulated, element) {
-      let splitWords = element.split(splitBy.shift());
+    const splitID = id.reduce(function (accumulated, element) {
+      const splitWords = element.split(splitBy.shift());
 
       splitWords.map(function (token) {
         accumulated.push(token);

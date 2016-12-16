@@ -5,7 +5,7 @@ import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
 
 class ServicePlanPhase extends Item {
   getBlocks() {
-    let items = this.get('blocks').map(function (block) {
+    const items = this.get('blocks').map(function (block) {
       return new ServicePlanBlock(block);
     });
 

@@ -25,7 +25,7 @@ class FilterByFormTab extends React.Component {
   getDropdownItems() {
     return this.props.tabs.map(function (tab) {
       let selectedHtml = this.getItemHtml(tab);
-      let dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = (<a>{selectedHtml}</a>);
 
       return {
         id: tab.title,

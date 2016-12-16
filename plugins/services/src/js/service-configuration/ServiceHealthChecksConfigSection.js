@@ -136,7 +136,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Command'),
                 prop: 'command',
                 render: (prop, row) => {
-                  let command = row[prop] || {};
+                  const command = row[prop] || {};
                   let value = getDisplayValue(command.value);
                   if (!command.value) {
                     return value;

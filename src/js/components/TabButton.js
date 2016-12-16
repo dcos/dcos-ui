@@ -13,7 +13,7 @@ class TabButton extends React.Component {
   }
 
   getChildren() {
-    let {activeTab, children, onClick} = this.props;
+    const {activeTab, children, onClick} = this.props;
 
     return React.Children.map(children, (tabChild) => {
       if (tabChild.type === TabButton) {

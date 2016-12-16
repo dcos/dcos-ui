@@ -36,7 +36,7 @@ class ServiceAttribIsFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    let testStatus = LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()];
+    const testStatus = LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()];
 
     return resultset.filterItems((service) => {
       return service.getServiceStatus() === testStatus;

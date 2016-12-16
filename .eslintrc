@@ -105,7 +105,10 @@
     "prefer-rest-params": "off",
     "prefer-arrow-callback": "off",
     "no-param-reassign": "off",
-    "prefer-const": "off",
+    "prefer-const": ["error", {
+      "destructuring": "all",
+      "ignoreReadBeforeAssign": false
+    }],
     "vars-on-top": "off",
     "prefer-template": "off",
     "no-else-return": "off",

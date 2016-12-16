@@ -5,7 +5,7 @@ describe('Node', function () {
   describe('#getServices', function () {
 
     it('returns ids of services running on node', function () {
-      let node = new Node({framework_ids: [1, 2, 3]});
+      const node = new Node({framework_ids: [1, 2, 3]});
       expect(node.getServiceIDs()).toEqual([1, 2, 3]);
     });
 
@@ -14,12 +14,12 @@ describe('Node', function () {
   describe('#getActive', function () {
 
     it('return false when node is innactive', function () {
-      let node = new Node({active: false});
+      const node = new Node({active: false});
       expect(node.isActive()).toBeFalsy();
     });
 
     it('return true when node is nactive', function () {
-      let node = new Node({active: true});
+      const node = new Node({active: true});
       expect(node.isActive()).toBeTruthy();
     });
 
@@ -28,12 +28,12 @@ describe('Node', function () {
   describe('#sumTaskTypesByState', function () {
 
     it('default to returning 0', function () {
-      let node = new Node({});
+      const node = new Node({});
       expect(node.sumTaskTypesByState('active')).toEqual(0);
     });
 
     it('sums tasks that match state', function () {
-      let node = new Node({
+      const node = new Node({
         TASK_STAGING: 1,
         TASK_STARTING: 3,
         TASK_FAILED: 4
@@ -42,7 +42,7 @@ describe('Node', function () {
     });
 
     it('returns 0 if there\'s tasks that match requested state', function () {
-      let node = new Node({TASK_FAILED: 4});
+      const node = new Node({TASK_FAILED: 4});
       expect(node.sumTaskTypesByState('active')).toEqual(0);
     });
 
@@ -51,11 +51,11 @@ describe('Node', function () {
   describe('#getUsageStats', function () {
 
     it('returns usage stats for given resource', function () {
-      let node = new Node({
+      const node = new Node({
         resources: {cpus: 10},
         used_resources: {cpus: 5}
       });
-      let stats = {
+      const stats = {
         percentage: 50,
         total: 10,
         value: 5

@@ -1,9 +1,9 @@
 const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'];
 const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
 
-let matchesFn = (function () {
-  let el = document.querySelector('body');
-  let names = [
+const matchesFn = (function () {
+  const el = document.querySelector('body');
+  const names = [
     'matches',
     'matchesSelector',
     'msMatchesSelector',
@@ -23,7 +23,7 @@ let matchesFn = (function () {
 
 var DOMUtils = {
   appendScript(el, code) {
-    let scriptNode = document.createElement('script');
+    const scriptNode = document.createElement('script');
     scriptNode.type = 'text/javascript';
 
     try {
@@ -119,18 +119,18 @@ var DOMUtils = {
   // Code was modified from this answer:
   // http://stackoverflow.com/questions/21474678/scrolltop-animation-without-jquery
   scrollTo(container, scrollDuration, targetY, callback) {
-    let scrollHeight = container.scrollHeight;
-    let scrollStep = Math.PI / (scrollDuration / 15);
-    let cosParameter = scrollHeight / 2;
+    const scrollHeight = container.scrollHeight;
+    const scrollStep = Math.PI / (scrollDuration / 15);
+    const cosParameter = scrollHeight / 2;
     let scrollCount = 0;
     let scrollMargin;
 
     requestAnimationFrame(step);
-    let endTime = Date.now() + scrollDuration;
+    const endTime = Date.now() + scrollDuration;
 
     function step() {
       setTimeout(function () {
-        let distanceFromTop = DOMUtils.getDistanceFromTop(container);
+        const distanceFromTop = DOMUtils.getDistanceFromTop(container);
         if (distanceFromTop !== targetY && endTime >= Date.now()) {
           requestAnimationFrame(step);
           scrollCount = scrollCount + 1;
@@ -160,8 +160,8 @@ var DOMUtils = {
   },
 
   isElementOnTop(el) {
-    let {left, top, height, width} = el.getBoundingClientRect();
-    let elAtPoint = global.document.elementFromPoint(
+    const {left, top, height, width} = el.getBoundingClientRect();
+    const elAtPoint = global.document.elementFromPoint(
       // The coords of the middle of the element.
       left + (width / 2),
       top + (height / 2)
@@ -180,14 +180,14 @@ var DOMUtils = {
   },
 
   getDistanceFromTopOfParent(el) {
-    let elTop = el.getBoundingClientRect().top;
+    const elTop = el.getBoundingClientRect().top;
 
-    let parentNode = el.parentNode;
+    const parentNode = el.parentNode;
     if (!parentNode) {
       return 0;
     }
 
-    let parentTop = parentNode.getBoundingClientRect().top;
+    const parentTop = parentNode.getBoundingClientRect().top;
     return elTop - parentTop;
   }
 };

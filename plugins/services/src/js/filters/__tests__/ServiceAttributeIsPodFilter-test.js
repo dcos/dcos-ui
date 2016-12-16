@@ -22,10 +22,10 @@ describe('ServiceAttributeIsPodFilter', function () {
   });
 
   it('Should match Pod instances', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:pod');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:pod');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -33,20 +33,20 @@ describe('ServiceAttributeIsPodFilter', function () {
   });
 
   it('Should correctly keep nothing on unknown values', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:foo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
   });
 
   it('Should be case-insensitive', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:pOd');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:pOd');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsPodFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]

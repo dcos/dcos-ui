@@ -129,16 +129,16 @@ class ContainerServiceFormSection extends Component {
 
   getAdvancedSettings(data = {}, errors = {}) {
     const containerType = findNestedPropertyInObject(data.container, 'type');
-    let typeErrors = errors.container && errors.container.type;
-    let gpuDisabled = containerType !== MESOS;
-    let selections = Object.keys(containerSettings).map((settingName, index) => {
-      let {helpText, label, dockerOnly} = containerSettings[settingName];
-      let checked = findNestedPropertyInObject(
+    const typeErrors = errors.container && errors.container.type;
+    const gpuDisabled = containerType !== MESOS;
+    const selections = Object.keys(containerSettings).map((settingName, index) => {
+      const {helpText, label, dockerOnly} = containerSettings[settingName];
+      const checked = findNestedPropertyInObject(
         data.container,
         `docker.${settingName}`
       );
 
-      let inputField = (
+      const inputField = (
         <FieldInput
           checked={containerType === DOCKER && Boolean(checked)}
           name={`container.docker.${settingName}`}
@@ -210,7 +210,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getCMDLabel() {
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
         <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
@@ -235,7 +235,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'Enter a Docker image or browse '}
         <a href="https://hub.docker.com/explore/" target="_blank">
@@ -264,8 +264,8 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageInput(data) {
-    let {container = {}} = data;
-    let image = findNestedPropertyInObject(container, 'docker.image');
+    const {container = {}} = data;
+    const image = findNestedPropertyInObject(container, 'docker.image');
 
     if (container == null || container.type == null ||
         container.type === NONE) {
@@ -303,14 +303,14 @@ class ContainerServiceFormSection extends Component {
   }
 
   render() {
-    let {data, errors} = this.props;
+    const {data, errors} = this.props;
 
-    let imageErrors = findNestedPropertyInObject(
+    const imageErrors = findNestedPropertyInObject(
       errors,
       'container.docker.image'
     );
 
-    let containerType = findNestedPropertyInObject(
+    const containerType = findNestedPropertyInObject(
       data,
       'container.type'
     );

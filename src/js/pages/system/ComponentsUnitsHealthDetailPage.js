@@ -19,8 +19,8 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   }
 
   if (node != null && unit != null) {
-    let nodeIP = node.get('host_ip');
-    let healthStatus = node.getHealth();
+    const nodeIP = node.get('host_ip');
+    const healthStatus = node.getHealth();
 
     crumbs.push(
       <Link to={`/components/${unit.get('id')}/${nodeIP}`} key={1}>
@@ -38,7 +38,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
 class ComponentsUnitHealthDetailPage extends React.Component {
 
   render() {
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
     let node = UnitHealthStore.getNode(unitNodeID);
     let unit = UnitHealthStore.getUnit(unitID);

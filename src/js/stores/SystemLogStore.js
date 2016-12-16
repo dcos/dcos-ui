@@ -50,12 +50,12 @@ class SystemLogStore extends BaseStore {
     });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      let source = payload.source;
+      const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
       }
 
-      let {data, firstEntry, subscriptionID, type} = payload.action;
+      const {data, firstEntry, subscriptionID, type} = payload.action;
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
@@ -83,14 +83,14 @@ class SystemLogStore extends BaseStore {
   }
 
   addEntries(logData, entries, eventType) {
-    let newLogData = Object.assign({}, logData);
+    const newLogData = Object.assign({}, logData);
     // Add new entries
     if (eventType === APPEND) {
       newLogData.entries = logData.entries.concat(entries);
     } else {
       newLogData.entries = entries.concat(logData.entries);
     }
-    let length = entries.reduce((sum, entry) => {
+    const length = entries.reduce((sum, entry) => {
       return sum + findNestedPropertyInObject(
         entry,
         'fields.MESSAGE.length'
@@ -120,7 +120,7 @@ class SystemLogStore extends BaseStore {
   }
 
   getFullLog(subscriptionID) {
-    let entries = findNestedPropertyInObject(
+    const entries = findNestedPropertyInObject(
       this.logs[subscriptionID],
       'entries'
     ) || [];
@@ -131,7 +131,7 @@ class SystemLogStore extends BaseStore {
       return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
     }).map(function (entry) {
       const {fields = {}} = entry;
-      let lineData = [];
+      const lineData = [];
       // entry.realtime_timestamp returns a unix time in microseconds
       // https://www.freedesktop.org/software/systemd/man/sd_journal_get_realtime_usec.html
       if (typeof entry.realtime_timestamp === 'number') {
@@ -170,7 +170,7 @@ class SystemLogStore extends BaseStore {
   }
 
   hasLoadedTop(subscriptionID) {
-    let logs = this.logs[subscriptionID];
+    const logs = this.logs[subscriptionID];
     if (!logs || !logs.hasLoadedTop) {
       return false;
     }
@@ -181,7 +181,7 @@ class SystemLogStore extends BaseStore {
   startTailing(nodeID, options) {
     let {subscriptionID, cursor} = options;
     if (!cursor && subscriptionID && this.logs[subscriptionID]) {
-      let {entries} = this.logs[subscriptionID];
+      const {entries} = this.logs[subscriptionID];
       cursor = entries[entries.length - 1].cursor;
       options = Object.assign({}, options, {cursor});
     }
@@ -213,8 +213,8 @@ class SystemLogStore extends BaseStore {
   }
 
   fetchLogRange(nodeID, options) {
-    let {subscriptionID} = options;
-    let cursor = findNestedPropertyInObject(
+    const {subscriptionID} = options;
+    const cursor = findNestedPropertyInObject(
       this.logs[subscriptionID],
       'entries.0.cursor'
     );

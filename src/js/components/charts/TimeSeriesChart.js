@@ -126,15 +126,15 @@ var TimeSeriesChart = React.createClass({
   },
 
   createUnsuccessfulBlocks(data, xTimeScale) {
-    let transitionTime = this.getTransitionTime(data);
-    let nextY = this.getNextXPosition(data, xTimeScale, transitionTime);
-    let props = this.props;
+    const transitionTime = this.getTransitionTime(data);
+    const nextY = this.getNextXPosition(data, xTimeScale, transitionTime);
+    const props = this.props;
     let width = props.width / data.length;
 
     return data.map(function (obj) {
       if (obj[props.y] == null) {
         let x = xTimeScale(obj.date - props.refreshRate);
-        let uniqueMaskID = Util.uniqueID('singleMask');
+        const uniqueMaskID = Util.uniqueID('singleMask');
 
         return (
           <Rect

@@ -11,7 +11,7 @@ const ScrollbarUtil = {
    */
   getScrollbarWidth(options = {}) {
     if (scrollbarWidth == null || options.forceUpdate) {
-      let element = global.document.createElement('div');
+      const element = global.document.createElement('div');
 
       element.style.position = 'absolute';
       element.style.top = '-9999px';

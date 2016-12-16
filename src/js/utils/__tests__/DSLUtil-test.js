@@ -15,12 +15,12 @@ describe('DSLUtil', function () {
   describe('#reduceAstFilters', function () {
 
     it('should be called for every filter in the tree', function () {
-      let ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
-      let handler = jest.fn();
+      const ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
+      const handler = jest.fn();
 
       DSLUtil.reduceAstFilters(ast, handler);
 
-      let texts = handler.mock.calls.map((call) => {
+      const texts = handler.mock.calls.map((call) => {
         return call[1].filterParams.text;
       });
 
@@ -33,8 +33,8 @@ describe('DSLUtil', function () {
     });
 
     it('should correctly return and process memo', function () {
-      let ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
-      let texts = DSLUtil.reduceAstFilters(ast, (memo, filter) => {
+      const ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
+      const texts = DSLUtil.reduceAstFilters(ast, (memo, filter) => {
         return memo.concat(filter.filterParams.text);
       }, []);
 
@@ -51,25 +51,25 @@ describe('DSLUtil', function () {
   describe('#canFormProcessExpression', function () {
 
     it('should return true if no repeating token and no groups', function () {
-      let expr = new DSLExpression('is:foo is:bar foo bar "expr"');
+      const expr = new DSLExpression('is:foo is:bar foo bar "expr"');
 
       expect(DSLUtil.canFormProcessExpression(expr)).toBeTruthy();
     });
 
     it('should return true if repeating token and no group', function () {
-      let expr = new DSLExpression('is:foo is:bar foo bar "expr" is:foo');
+      const expr = new DSLExpression('is:foo is:bar foo bar "expr" is:foo');
 
       expect(DSLUtil.canFormProcessExpression(expr)).toBeTruthy();
     });
 
     it('should return true if group and no repeating token', function () {
-      let expr = new DSLExpression('is:foo is:bar (foo bar "expr")');
+      const expr = new DSLExpression('is:foo is:bar (foo bar "expr")');
 
       expect(DSLUtil.canFormProcessExpression(expr)).toBeTruthy();
     });
 
     it('should return false if group and repeating token', function () {
-      let expr = new DSLExpression('is:foo is:bar (is:foo bar "expr")');
+      const expr = new DSLExpression('is:foo is:bar (is:foo bar "expr")');
 
       expect(DSLUtil.canFormProcessExpression(expr)).toBeFalsy();
     });
@@ -175,7 +175,7 @@ describe('DSLUtil', function () {
     });
 
     it('should return all occurrences of attribute match', function () {
-      let filter = DSLExpressionPart.attribute('is', 'foo');
+      const filter = DSLExpressionPart.attribute('is', 'foo');
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual([
         this.attribs[0], this.attribs[2]
@@ -183,13 +183,13 @@ describe('DSLUtil', function () {
     });
 
     it('should return all occurrences of fuzzy match', function () {
-      let filter = DSLExpressionPart.fuzzy;
+      const filter = DSLExpressionPart.fuzzy;
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.fuzzy);
     });
 
     it('should return all occurrences of exact match', function () {
-      let filter = DSLExpressionPart.exact;
+      const filter = DSLExpressionPart.exact;
 
       expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.exact);
     });
@@ -251,7 +251,7 @@ describe('DSLUtil', function () {
   describe('#getNodeString', function () {
 
     it('should correctly return the string of attribute nodes', function () {
-      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: 'label', text: 'text'
       });
 
@@ -259,7 +259,7 @@ describe('DSLUtil', function () {
     });
 
     it('should correctly return the string of fuzzy nodes', function () {
-      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
+      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: 'text'
       });
 
@@ -267,7 +267,7 @@ describe('DSLUtil', function () {
     });
 
     it('should correctly return the string of exact nodes', function () {
-      let node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
+      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
         text: 'text'
       });
 

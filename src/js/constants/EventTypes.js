@@ -1,4 +1,4 @@
-let EventTypes = {};
+const EventTypes = {};
 [
   'APP_STORE_CHANGE',
   'AUTH_LOGIN_REDIRECT',

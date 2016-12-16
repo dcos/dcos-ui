@@ -10,8 +10,8 @@ describe('PodInstance', function () {
   describe('#constructor', function () {
 
     it('should correctly create instances', function () {
-      let instanceSpec = PodFixture.instances[0];
-      let instance = new PodInstance(Object.assign({}, instanceSpec));
+      const instanceSpec = PodFixture.instances[0];
+      const instance = new PodInstance(Object.assign({}, instanceSpec));
 
       expect(instance.get()).toEqual(instanceSpec);
     });
@@ -21,13 +21,13 @@ describe('PodInstance', function () {
   describe('#getAgentAddress', function () {
 
     it('should return the correct value', function () {
-      let podInstance = new PodInstance({ agentHostname: 'agent-1234' });
+      const podInstance = new PodInstance({ agentHostname: 'agent-1234' });
 
       expect(podInstance.getAgentAddress()).toEqual('agent-1234');
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getAgentAddress()).toEqual('');
     });
 
@@ -36,13 +36,13 @@ describe('PodInstance', function () {
   describe('#getId', function () {
 
     it('should return the correct value', function () {
-      let podInstance = new PodInstance({ id: 'instance-id-1234' });
+      const podInstance = new PodInstance({ id: 'instance-id-1234' });
 
       expect(podInstance.getId()).toEqual('instance-id-1234');
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getId()).toEqual('');
     });
 
@@ -51,13 +51,13 @@ describe('PodInstance', function () {
   describe('#getName', function () {
 
     it('should return the correct value', function () {
-      let podInstance = new PodInstance({ id: 'instance-id-1234' });
+      const podInstance = new PodInstance({ id: 'instance-id-1234' });
 
       expect(podInstance.getName()).toEqual(podInstance.getId());
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getName()).toEqual(podInstance.getId());
     });
 
@@ -66,7 +66,7 @@ describe('PodInstance', function () {
   describe('#getInstanceStatus', function () {
 
     it('should correctly detect container in PENDING state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'pending'
       });
 
@@ -75,7 +75,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in STAGING state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'staging'
       });
 
@@ -84,7 +84,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in DEGRADED state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'degraded'
       });
 
@@ -93,7 +93,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in TERMINAL state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'terminal'
       });
 
@@ -102,7 +102,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in STABLE state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable'
       });
 
@@ -112,7 +112,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in UNHEALTHY state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -129,7 +129,7 @@ describe('PodInstance', function () {
     });
 
     it('should correctly detect container in HEALTHY state', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -150,14 +150,14 @@ describe('PodInstance', function () {
   describe('#getLastChanged', function () {
 
     it('should return the correct value', function () {
-      let dateString = '2016-08-31T01:01:01.001';
-      let podInstance = new PodInstance({ lastChanged: dateString });
+      const dateString = '2016-08-31T01:01:01.001';
+      const podInstance = new PodInstance({ lastChanged: dateString });
 
       expect(podInstance.getLastChanged()).toEqual(new Date(dateString));
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getLastChanged().getTime()).toBeNaN();
     });
 
@@ -166,14 +166,14 @@ describe('PodInstance', function () {
   describe('#getLastUpdated', function () {
 
     it('should return the correct value', function () {
-      let dateString = '2016-08-31T01:01:01.001';
-      let podInstance = new PodInstance({ lastUpdated: dateString });
+      const dateString = '2016-08-31T01:01:01.001';
+      const podInstance = new PodInstance({ lastUpdated: dateString });
 
       expect(podInstance.getLastUpdated()).toEqual(new Date(dateString));
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getLastUpdated().getTime()).toBeNaN();
     });
 
@@ -182,7 +182,7 @@ describe('PodInstance', function () {
   describe('#getResources', function () {
 
     it('should return the correct value', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         resources: { cpus: 0.5, mem: 64 }
       });
 
@@ -192,7 +192,7 @@ describe('PodInstance', function () {
     });
 
     it('should return the correct default value', function () {
-      let podInstance = new PodInstance();
+      const podInstance = new PodInstance();
       expect(podInstance.getResources()).toEqual({
         cpus: 0, mem: 0, disk: 0, gpus: 0
       });
@@ -203,7 +203,7 @@ describe('PodInstance', function () {
   describe('#hasHealthChecks', function () {
 
     it('should return true if all container have health checks', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -225,7 +225,7 @@ describe('PodInstance', function () {
     });
 
     it('should return false if even one container has no checks', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -247,7 +247,7 @@ describe('PodInstance', function () {
     });
 
     it('should return true if instance state is not STABLE', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'degraded',
         containers: [
           {
@@ -270,7 +270,7 @@ describe('PodInstance', function () {
     });
 
     it('should return true if even one container is failing', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -292,7 +292,7 @@ describe('PodInstance', function () {
     });
 
     it('should return false if there are no containers', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: []
       });
@@ -305,7 +305,7 @@ describe('PodInstance', function () {
   describe('#isHealthy', function () {
 
     it('should return true if all container are healthy', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -327,7 +327,7 @@ describe('PodInstance', function () {
     });
 
     it('should return true even if containers have no checks', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -349,7 +349,7 @@ describe('PodInstance', function () {
     });
 
     it('should return false if at least 1 container is unhealthy', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'degraded',
         containers: [
           {
@@ -371,7 +371,7 @@ describe('PodInstance', function () {
     });
 
     it('should return false on unhealthy container even on udnef', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: [
           {
@@ -393,7 +393,7 @@ describe('PodInstance', function () {
     });
 
     it('should return true if there are no containers', function () {
-      let podInstance = new PodInstance({
+      const podInstance = new PodInstance({
         status: 'stable',
         containers: []
       });
@@ -406,17 +406,17 @@ describe('PodInstance', function () {
   describe('#isRunning', function () {
 
     it('should return true when status is STABLE', function () {
-      let podInstance = new PodInstance({ status: 'stable' });
+      const podInstance = new PodInstance({ status: 'stable' });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
     it('should return true when status is DEGRADED', function () {
-      let podInstance = new PodInstance({ status: 'degraded' });
+      const podInstance = new PodInstance({ status: 'degraded' });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
     it('should return false if not DEGRADED or STABLE', function () {
-      let podInstance = new PodInstance({ status: 'terminal' });
+      const podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isRunning()).toBeFalsy();
     });
 
@@ -425,17 +425,17 @@ describe('PodInstance', function () {
   describe('#isStaging', function () {
 
     it('should return true when status is PENDING', function () {
-      let podInstance = new PodInstance({ status: 'pending' });
+      const podInstance = new PodInstance({ status: 'pending' });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
     it('should return true when status is STAGING', function () {
-      let podInstance = new PodInstance({ status: 'staging' });
+      const podInstance = new PodInstance({ status: 'staging' });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
     it('should return false if not STAGING or PENDING', function () {
-      let podInstance = new PodInstance({ status: 'terminal' });
+      const podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isStaging()).toBeFalsy();
     });
 
@@ -444,12 +444,12 @@ describe('PodInstance', function () {
   describe('#isTerminating', function () {
 
     it('should return true when status is TERMINAL', function () {
-      let podInstance = new PodInstance({ status: 'terminal' });
+      const podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isTerminating()).toBeTruthy();
     });
 
     it('should return false if not TERMINAL', function () {
-      let podInstance = new PodInstance({ status: 'running' });
+      const podInstance = new PodInstance({ status: 'running' });
       expect(podInstance.isTerminating()).toBeFalsy();
     });
 

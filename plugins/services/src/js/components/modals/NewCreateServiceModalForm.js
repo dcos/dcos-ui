@@ -72,8 +72,8 @@ class NewCreateServiceModalForm extends Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
-    let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
+    const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
 
     // Note: We ignore changes that might derrive from the `onChange` event
     // handler. In that case the contents of nextJSON would be the same
@@ -107,8 +107,8 @@ class NewCreateServiceModalForm extends Component {
     // handler. In that case the contents of nextJSON would be the same
     // as the contents of the last rendered appConfig in the state.
     //
-    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
-    let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
+    const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (!deepEqual(prevJSON, nextJSON) &&
       !deepEqual(this.state.appConfig, nextJSON)) {
       return true;
@@ -121,7 +121,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getNewStateForJSON(baseConfig = {}, shouldValidate = true) {
-    let newState = {
+    const newState = {
       baseConfig
     };
 
@@ -149,7 +149,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormBlur(event) {
-    let fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute('name');
     if (!fieldName) {
       return;
     }
@@ -159,7 +159,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormChange(event) {
-    let fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute('name');
     if (!fieldName) {
       return;
     }
@@ -169,7 +169,7 @@ class NewCreateServiceModalForm extends Component {
     if (event.target.type === 'checkbox') {
       value = event.target.checked;
     }
-    let path = fieldName.split('.');
+    const path = fieldName.split('.');
     batch = batch.add(new Transaction(path, value));
 
     this.setState({
@@ -205,7 +205,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   validateCurrentState() {
-    let {errorList} = this.getNewStateForJSON(this.getAppConfig());
+    const {errorList} = this.getNewStateForJSON(this.getAppConfig());
 
     this.setState({errorList});
 
@@ -218,13 +218,13 @@ class NewCreateServiceModalForm extends Component {
     KEY_VALUE_FIELDS.forEach(function (field) {
       delete baseConfig[field];
     });
-    let patch = batch.reduce(this.props.jsonConfigReducers, {});
+    const patch = batch.reduce(this.props.jsonConfigReducers, {});
 
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   getRootErrorMessage() {
-    let rootErrors = this.state.errorList.reduce(function (errors, error) {
+    const rootErrors = this.state.errorList.reduce(function (errors, error) {
       if (error.path.length !== 0) {
         return errors;
       }

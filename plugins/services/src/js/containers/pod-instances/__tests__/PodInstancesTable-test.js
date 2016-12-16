@@ -24,7 +24,7 @@ const PodFixture = require('../../../../../../../tests/_fixtures/pods/PodFixture
 describe('PodInstancesTable', function () {
 
   // Fix the dates in order to test the relative date field
-  let fixture = Util.deepCopy(PodFixture);
+  const fixture = Util.deepCopy(PodFixture);
   fixture.instances[0].lastUpdated = new Date(Date.now() - (86400000 * 1)).toString();
   fixture.instances[0].lastChanged = new Date(Date.now() - (86400000 * 2)).toString();
   fixture.instances[0].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 3)).toString();
@@ -159,12 +159,12 @@ describe('PodInstancesTable', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTable,
+        const component = JestUtil.stubRouterContext(PodInstancesTable,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
         // 1 click on the header (ascending)
-        let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
+        const columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'pod-instances-table-column-primary')[0];
         TestUtils.Simulate.click(columnHeader);
       });
@@ -187,12 +187,12 @@ describe('PodInstancesTable', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTable,
+        const component = JestUtil.stubRouterContext(PodInstancesTable,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
         // 2 clicks on the header (descending)
-        let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
+        const columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'pod-instances-table-column-primary')[0];
         TestUtils.Simulate.click(columnHeader);
         TestUtils.Simulate.click(columnHeader);
@@ -217,7 +217,7 @@ describe('PodInstancesTable', function () {
 
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTable,
+        const component = JestUtil.stubRouterContext(PodInstancesTable,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
@@ -225,7 +225,7 @@ describe('PodInstancesTable', function () {
         TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'pod-instances-table-column-primary'
         ).forEach(function (element) {
-          let target = element.querySelector('.is-expandable');
+          const target = element.querySelector('.is-expandable');
           if (target) {
             TestUtils.Simulate.click(target);
           }
@@ -254,9 +254,9 @@ describe('PodInstancesTable', function () {
       it('should properly render the address column', function () {
         var columns = TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'pod-instances-table-column-host-address');
-        let agents = columns.reduce(JestUtil.reduceTextContentOfSelector(
+        const agents = columns.reduce(JestUtil.reduceTextContentOfSelector(
             '.collapsing-string-full-string'), []);
-        let ports = columns.reduce(JestUtil.reduceTextContentOfSelector('a'), []);
+        const ports = columns.reduce(JestUtil.reduceTextContentOfSelector('a'), []);
 
         expect(agents).toEqual([
           'agent-1',

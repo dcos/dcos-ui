@@ -57,7 +57,7 @@ const Units = {
     options = Object.assign({decimalPlaces: 2}, options);
 
     if (amount > 1) {
-      let precision = Math.pow(10, options.decimalPlaces);
+      const precision = Math.pow(10, options.decimalPlaces);
       amount = Math.round(amount * precision) / precision;
     } else if (amount < 1 && options.forceFixedPrecision
       && typeof amount === 'number') {
@@ -75,7 +75,7 @@ const Units = {
       options.decimalPlaces = 0;
     }
 
-    let suffixes = ['K', 'M', 'B', 'T'];
+    const suffixes = ['K', 'M', 'B', 'T'];
 
     let suffix = '';
 

@@ -41,15 +41,15 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    let node = this.getNode(this.props);
+    const node = this.getNode(this.props);
     if (node) {
       this.setState({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    let routes = this.props.routes;
-    let currentRoute = routes.find(function (route) {
+    const routes = this.props.routes;
+    const currentRoute = routes.find(function (route) {
       return route.component === NodeDetailPage;
     });
     if (currentRoute != null) {
@@ -65,7 +65,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params.nodeID !== nextProps.params.nodeID) {
-      let node = this.getNode(nextProps);
+      const node = this.getNode(nextProps);
       this.setState({node});
     }
 
@@ -75,7 +75,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   componentWillUpdate() {
     super.componentWillUpdate(...arguments);
 
-    let node = this.getNode(this.props);
+    const node = this.getNode(this.props);
     if (node && !this.state.node) {
       this.setState({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
@@ -83,8 +83,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   updateCurrentTab(nextProps) {
-    let {routes} = nextProps || this.props;
-    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    const {routes} = nextProps || this.props;
+    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
       this.setState({currentTab});
     }
@@ -126,7 +126,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return null;
     }
 
-    let states = MesosSummaryStore.get('states');
+    const states = MesosSummaryStore.get('states');
     let resources = states[`getResourceStatesFor${itemType}IDs`]([item.id]);
 
     return (
@@ -149,7 +149,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let {node} = this.state;
+    const {node} = this.state;
     let {nodeID} = this.props.params;
 
     if (!node) {

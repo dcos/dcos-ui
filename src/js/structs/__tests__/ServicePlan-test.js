@@ -7,7 +7,7 @@ describe('ServicePlan', function () {
   describe('#getPhases', function () {
 
     it('should return an instance of ServicePlanPhases', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         phases: []
       });
 
@@ -15,7 +15,7 @@ describe('ServicePlan', function () {
     });
 
     it('should return 1 phase', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         phases: [{
           id: 'phase-1'
         }]
@@ -29,13 +29,13 @@ describe('ServicePlan', function () {
   describe('#getErrors', function () {
 
     it('should return []', function () {
-      let Plan = new ServicePlan({});
+      const Plan = new ServicePlan({});
 
       expect(Plan.getErrors().length).toEqual(0);
     });
 
     it('should return Array of errors', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         errors: ['error-1', 'error-2']
       });
 
@@ -47,13 +47,13 @@ describe('ServicePlan', function () {
   describe('#hasError', function () {
 
     it('should return false', function () {
-      let Plan = new ServicePlan({});
+      const Plan = new ServicePlan({});
 
       expect(Plan.hasError()).toEqual(false);
     });
 
     it('should return true', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.ERROR
       });
 
@@ -65,7 +65,7 @@ describe('ServicePlan', function () {
   describe('#isComplete', function () {
 
     it('should return false', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -73,7 +73,7 @@ describe('ServicePlan', function () {
     });
 
     it('should return true', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -85,7 +85,7 @@ describe('ServicePlan', function () {
   describe('#isInProgress', function () {
 
     it('should return false', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -93,7 +93,7 @@ describe('ServicePlan', function () {
     });
 
     it('should return true', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.IN_PROGRESS
       });
 
@@ -105,7 +105,7 @@ describe('ServicePlan', function () {
   describe('#isPending', function () {
 
     it('should return false', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -113,7 +113,7 @@ describe('ServicePlan', function () {
     });
 
     it('should return true', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.PENDING
       });
 
@@ -125,7 +125,7 @@ describe('ServicePlan', function () {
   describe('#isWaiting', function () {
 
     it('should return false', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.COMPLETE
       });
 
@@ -133,7 +133,7 @@ describe('ServicePlan', function () {
     });
 
     it('should return true', function () {
-      let Plan = new ServicePlan({
+      const Plan = new ServicePlan({
         status: ServicePlanStatusTypes.WAITING
       });
 

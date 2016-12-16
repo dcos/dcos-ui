@@ -36,7 +36,7 @@ class PodInstancesView extends React.Component {
   }
 
   getInstanceFilterStatus(instance) {
-    let status = instance.getInstanceStatus();
+    const status = instance.getInstanceStatus();
     switch (status) {
       case PodInstanceStatus.STAGED:
         return 'staged';

@@ -55,7 +55,7 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   handleResize() {
-    let availableWidth = this.getAvailableWidth();
+    const availableWidth = this.getAvailableWidth();
 
     this.setState({
       availableWidth,
@@ -64,8 +64,8 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   updateDimensions() {
-    let availableWidth = this.getAvailableWidth();
-    let expandedWidth = this.getExpandedWidth();
+    const availableWidth = this.getAvailableWidth();
+    const expandedWidth = this.getExpandedWidth();
 
     this.setState({
       availableWidth,
@@ -83,15 +83,15 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   getWidthFromCollapsedItem(item) {
-    let link = item.children[0];
-    let textWidth = link.scrollWidth - link.offsetWidth;
+    const link = item.children[0];
+    const textWidth = link.scrollWidth - link.offsetWidth;
 
     return textWidth + PADDED_ICON_WIDTH;
   }
 
   getExpandedWidth() {
     // array/splat casts NodeList to array
-    let listItems = [...ReactDOM.findDOMNode(this).children]
+    const listItems = [...ReactDOM.findDOMNode(this).children]
       .filter(function (_, index) {
         // Filter out even nodes containing '>'
         return index % 2 === 0;
@@ -99,8 +99,8 @@ class ManualBreadcrumbs extends React.Component {
 
     return listItems
       .map((item, index) => {
-        let isFirstItem = index === 0;
-        let isLastItem = index === listItems.length - 1;
+        const isFirstItem = index === 0;
+        const isLastItem = index === listItems.length - 1;
         if (isFirstItem || isLastItem) {
           return this.getWidthFromExpandedItem(item);
         }
@@ -114,13 +114,13 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   getLastItemWidth() {
-    let lastItem = ReactDOM.findDOMNode(this).lastChild;
+    const lastItem = ReactDOM.findDOMNode(this).lastChild;
 
     if (!lastItem || !lastItem.firstChild) {
       return LAST_ITEM_OFFSET;
     }
 
-    let lastItemLink = lastItem.firstChild;
+    const lastItemLink = lastItem.firstChild;
 
     return lastItemLink.scrollWidth + LAST_ITEM_OFFSET;
   }

@@ -23,7 +23,7 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   updateCrumbStatus() {
-    let taskID = this.getTaskName();
+    const taskID = this.getTaskName();
 
     if (taskID) {
       this.setState({isLoadingCrumb: false});
@@ -31,7 +31,7 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getTaskName() {
-    let {taskID} = this.props.params;
+    const {taskID} = this.props.params;
 
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;

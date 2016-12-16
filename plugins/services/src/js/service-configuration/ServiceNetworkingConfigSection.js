@@ -50,7 +50,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               protocol: 'protocol'
             };
 
-            let containerPortMappings = findNestedPropertyInObject(
+            const containerPortMappings = findNestedPropertyInObject(
               appDefinition, 'container.docker.portMappings'
             );
             if ((portDefinitions == null || portDefinitions.length === 0) &&
@@ -101,8 +101,8 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 render(prop, row) {
                   // TODO: Only render this when necessary, figure out when
                   // necessary.
-                  let hostname = HostUtil.stringToHostname(appDefinition.id);
-                  let port = row[keys.port];
+                  const hostname = HostUtil.stringToHostname(appDefinition.id);
+                  const port = row[keys.port];
 
                   return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
                 },

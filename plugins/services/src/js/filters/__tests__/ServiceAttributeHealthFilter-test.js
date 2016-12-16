@@ -22,10 +22,10 @@ describe('ServiceAttributeHealthFilter', function () {
   });
 
   it('Should correctly keep services in healthy state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:healthy');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:healthy');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -33,10 +33,10 @@ describe('ServiceAttributeHealthFilter', function () {
   });
 
   it('Should correctly keep services in unhealthy state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:unhealthy');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:unhealthy');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -44,20 +44,20 @@ describe('ServiceAttributeHealthFilter', function () {
   });
 
   it('Should correctly keep nothing on unknown states', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:foo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHealthFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
   });
 
   it('Should be case-insensitive', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:hEaLThY');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:hEaLThY');
 
-    let filters = new DSLFilterList([
+    const filters = new DSLFilterList([
       new ServiceAttributeHealthFilter()
     ]);
 

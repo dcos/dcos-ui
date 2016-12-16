@@ -75,7 +75,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    let {props} = this;
+    const {props} = this;
     if (props.open) {
       CosmosPackagesStore.fetchPackageDescription(
         props.packageName,
@@ -86,7 +86,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    let {props} = this;
+    const {props} = this;
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
         descriptionError: null,
@@ -113,7 +113,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   componentDidUpdate() {
     if (this.triggerAdvancedSubmit) {
       // Trigger submit upfront to validate fields and potentially disable buttons
-      let {isValidated} = this.triggerAdvancedSubmit();
+      const {isValidated} = this.triggerAdvancedSubmit();
       this.internalStorage_update({hasFormErrors: !isValidated});
     }
   }
@@ -124,7 +124,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   onCosmosPackagesStoreDescriptionSuccess() {
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     if (!SchemaUtil.validateSchema(cosmosPackage.getConfig())) {
       this.setState({schemaIncorrect: true});
       return;
@@ -159,14 +159,14 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   handleChangeTab(currentTab) {
-    let newState = {installError: null};
+    const newState = {installError: null};
     if (currentTab === 'advancedInstall') {
       // Change back to previous state and clean up stored config
       newState.advancedConfiguration = null;
     }
 
     if (currentTab === 'reviewAdvancedConfig') {
-      let {isValidated, model} = this.triggerAdvancedSubmit();
+      const {isValidated, model} = this.triggerAdvancedSubmit();
 
       // Change state if form fields are validated and store configuration
       // for submission
@@ -180,10 +180,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   handleInstallPackage() {
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    let name = cosmosPackage.getName();
-    let version = cosmosPackage.getCurrentVersion();
-    let configuration = this.getPackageConfiguration();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const name = cosmosPackage.getName();
+    const version = cosmosPackage.getCurrentVersion();
+    const configuration = this.getPackageConfiguration();
 
     CosmosPackagesStore.installPackage(name, version, configuration);
     this.internalStorage_update({pendingRequest: true});
@@ -196,7 +196,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   handlePreinstallNotesToggle() {
-    let truncatedPreInstallNotes = !this.state.truncatedPreInstallNotes;
+    const truncatedPreInstallNotes = !this.state.truncatedPreInstallNotes;
     this.setState({truncatedPreInstallNotes});
   }
 
@@ -215,11 +215,11 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getPackageConfiguration() {
-    let {advancedConfiguration} = this.internalStorage_get();
-    let {currentTab} = this.state;
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const {advancedConfiguration} = this.internalStorage_get();
+    const {currentTab} = this.state;
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    let isAdvancedInstall = currentTab === 'advancedInstall' ||
+    const isAdvancedInstall = currentTab === 'advancedInstall' ||
       currentTab === 'reviewAdvancedConfig';
 
     if (isAdvancedInstall && advancedConfiguration) {
@@ -246,7 +246,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getInstallErrorScreen() {
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     let {pendingRequest, installError} = this.internalStorage_get();
 
     return (
@@ -322,11 +322,11 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       pendingRequest,
       installError
     } = this.internalStorage_get();
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    let preInstallNotes = cosmosPackage.getPreInstallNotes();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const preInstallNotes = cosmosPackage.getPreInstallNotes();
     let name = cosmosPackage.getName();
     let version = cosmosPackage.getCurrentVersion();
-    let truncated = this.state.truncatedPreInstallNotes;
+    const truncated = this.state.truncatedPreInstallNotes;
     let packageVersionClasses = classNames({
       'flush-bottom': !preInstallNotes
     });
@@ -386,8 +386,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   renderAdvancedInstallTabView() {
-    let {pendingRequest, hasFormErrors} = this.internalStorage_get();
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const {pendingRequest, hasFormErrors} = this.internalStorage_get();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     // Only return footer, we always render SchemaForm, but just change
     // the hidden class in render
@@ -412,8 +412,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   renderReviewAdvancedConfigTabView() {
-    let {pendingRequest} = this.internalStorage_get();
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const {pendingRequest} = this.internalStorage_get();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     let name = cosmosPackage.getName();
     let version = cosmosPackage.getCurrentVersion();
     let buttonText = 'Install';
@@ -449,10 +449,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   renderPackageInstalledTabView() {
-    let {pendingRequest} = this.internalStorage_get();
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const {pendingRequest} = this.internalStorage_get();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    let notes = cosmosPackage.getPostInstallNotes();
+    const notes = cosmosPackage.getPostInstallNotes();
 
     let parsedNotes = StringUtil.parseMarkdown(notes);
 
@@ -550,9 +550,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getModalContents() {
-    let {currentTab, schemaIncorrect} = this.state;
-    let {isLoading} = this.internalStorage_get();
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const {currentTab, schemaIncorrect} = this.state;
+    const {isLoading} = this.internalStorage_get();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     if (cosmosPackage && cosmosPackage.isCLIOnly()) {
       return this.getCLIPackageInfo(cosmosPackage);
@@ -589,10 +589,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   render() {
-    let {props, state} = this;
-    let {currentTab} = state;
+    const {props, state} = this;
+    const {currentTab} = state;
 
-    let isAdvanced = currentTab === 'advancedInstall' ||
+    const isAdvanced = currentTab === 'advancedInstall' ||
       currentTab === 'reviewAdvancedConfig';
 
     let backdropClasses = classNames({

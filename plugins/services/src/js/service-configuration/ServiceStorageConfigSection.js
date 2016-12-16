@@ -64,7 +64,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Size'),
                 prop: 'size',
                 render(prop, row) {
-                  let value = row[prop];
+                  const value = row[prop];
 
                   if (value == null) {
                     return getDisplayValue(value);
@@ -93,7 +93,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
             const volumesData = volumes.map((appVolume) => {
               // We don't want to mutate the appVolume value.
-              let volume = {
+              const volume = {
                 name: null,
                 size: null,
                 type: []

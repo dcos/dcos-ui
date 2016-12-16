@@ -38,7 +38,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {props} = this;
+    const {props} = this;
     if (props.open && !nextProps.open) {
       // Closes, reset state
       this.resetState();
@@ -60,7 +60,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   getAddRepositoryFormDefinition() {
-    let {numberOfRepositories} = this.props;
+    const {numberOfRepositories} = this.props;
 
     return [
       {
@@ -135,7 +135,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {props, state} = this;
 
     return (
       <FormModal

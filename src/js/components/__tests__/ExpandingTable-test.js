@@ -22,7 +22,7 @@ describe('ExpandingTable', function () {
     describe('#expandRow', function () {
 
       it('should add a row to state.expandedRows', function () {
-        let instance = ReactDOM.render(
+        const instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
         );
@@ -33,7 +33,7 @@ describe('ExpandingTable', function () {
       });
 
       it('removes a row from state.expandedRows if expanded', function () {
-        let instance = ReactDOM.render(
+        const instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
         );
@@ -45,7 +45,7 @@ describe('ExpandingTable', function () {
       });
 
       it('should allow multiple rows in state.expandedRows', function () {
-        let instance = ReactDOM.render(
+        const instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
         );
@@ -62,7 +62,7 @@ describe('ExpandingTable', function () {
     describe('#getRenderer', function () {
 
       it('should proxy the render method on each column', function () {
-        let renderSpy = jasmine.createSpy('renderSpy');
+        const renderSpy = jasmine.createSpy('renderSpy');
         this.columns[0].render = renderSpy;
 
         ReactDOM.render(

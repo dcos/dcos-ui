@@ -20,8 +20,8 @@ import SidebarActions from '../events/SidebarActions';
 import UnitHealthStore from '../stores/UnitHealthStore';
 
 function getMesosState() {
-  let states = MesosSummaryStore.get('states');
-  let last = states.lastSuccessful();
+  const states = MesosSummaryStore.get('states');
+  const last = states.lastSuccessful();
 
   return {
     activeNodes: states.getActiveNodesByState(),
@@ -97,11 +97,11 @@ var DashboardPage = React.createClass({
   },
 
   getServicesList() {
-    let services = DCOSStore.serviceTree.getServices().getItems();
+    const services = DCOSStore.serviceTree.getServices().getItems();
 
-    let sortedServices = services.sort(function (service, other) {
-      let health = service.getHealth();
-      let otherHealth = other.getHealth();
+    const sortedServices = services.sort(function (service, other) {
+      const health = service.getHealth();
+      const otherHealth = other.getHealth();
 
       return HealthSorting[health.key] - HealthSorting[otherHealth.key];
     });
@@ -130,7 +130,7 @@ var DashboardPage = React.createClass({
   },
 
   getViewAllServicesBtn() {
-    let servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
+    const servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
     if (!servicesCount) {
       return null;
 
