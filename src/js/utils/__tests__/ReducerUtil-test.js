@@ -216,43 +216,9 @@ describe('ReducerUtil', function () {
       );
     });
 
-    it('should not run reducers that have been turned off', function () {
-      let reducers = ReducerUtil.combineReducers(
-        {id: idReducer},
-        {id: false}
-      );
-
-      const state = this.items.reduce(reducers, {bar: 'bar'});
-
-      expect(state).toEqual({bar: 'bar'});
-    });
-
     it('should run reducers that have not been configured', function () {
-      let reducers = ReducerUtil.combineReducers(
-        {id: idReducer},
-        {}
-      );
-
-      const state = this.items.reduce(reducers, {bar: 'bar'});
-
-      expect(state).toEqual({id: 'foo', bar: 'bar'});
-    });
-
-    it('should run reducers that have been configured with true', function () {
-      let reducers = ReducerUtil.combineReducers(
-        {id: idReducer},
-        {id: true}
-      );
-
-      const state = this.items.reduce(reducers, {bar: 'bar'});
-
-      expect(state).toEqual({id: 'foo', bar: 'bar'});
-    });
-
-    it('should run reducers that have been configured with null', function () {
-      let reducers = ReducerUtil.combineReducers(
-        {id: idReducer},
-        {id: null}
+      const reducers = ReducerUtil.combineReducers(
+        {id: idReducer}
       );
 
       const state = this.items.reduce(reducers, {bar: 'bar'});
