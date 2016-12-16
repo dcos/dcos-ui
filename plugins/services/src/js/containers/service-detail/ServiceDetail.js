@@ -191,7 +191,9 @@ class ServiceDetail extends mixin(TabsMixin) {
     if (this.hasVolumes()) {
       tabs.push({
         label: 'Volumes', routePath: routePrefix + '/volumes',
-        callback: this.tabs_handleTabClick.bind('volumes'),
+        callback: () => {
+          this.setState({currentTab: 'volumes'});
+        },
         isActive: activeTab === 'volumes'
       });
     }

@@ -145,7 +145,7 @@ class VolumeTable extends React.Component {
       routePath = `/nodes/${nodeID}/tasks/${taskID}/volumes/${volumeID}`;
     }
 
-    return <Link to={routePath}>{id}</Link>;
+    return <Link className="table-cell-link-primary" to={routePath}>{id}</Link>;
   }
 
   renderStatusColumn(prop, row) {
