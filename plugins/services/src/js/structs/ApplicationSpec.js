@@ -1,5 +1,4 @@
 import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
-import ContainerConstants from '../constants/ContainerConstants';
 import ServiceSpec from './ServiceSpec';
 
 module.exports = class ApplicationSpec extends ServiceSpec {
@@ -87,24 +86,6 @@ module.exports = class ApplicationSpec extends ServiceSpec {
 
   getUser() {
     return this.get('user');
-  }
-
-  toJSON() {
-    let data = Object.assign({}, super.toJSON());
-    let containerSettings = this.getContainerSettings();
-
-    // Remove container.docker if we have MESOS containerizer
-    if (containerSettings &&
-      ((containerSettings.docker && containerSettings.docker.image) ||
-      containerSettings.type === ContainerConstants.type.MESOS)
-    ) {
-
-      if (data.container.type === ContainerConstants.type.MESOS) {
-        delete(data.container.docker);
-      }
-    }
-
-    return data;
   }
 
 };
