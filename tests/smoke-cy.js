@@ -7,14 +7,6 @@ describe('DC/OS UI [00j]', function () {
     .visitUrl({url: '/', identify: true, fakeAnalytics: true});
   });
 
-  context('Loader', function () {
-
-    it('shows the pulsing pineapple', function () {
-      cy.get('#application .application-loading-indicator .icon.icon-logo-mark');
-    });
-
-  });
-
   context('Dashboard [00k]', function () {
 
     beforeEach(function () {
