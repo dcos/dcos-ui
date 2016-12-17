@@ -31,7 +31,8 @@ const HIDE_BREADCRUMBS = [
   '/networking/networks/:overlayName/tasks/:taskID/details',
   '/nodes/:nodeID/tasks/:taskID/details',
   '/services/overview/:id/tasks/:taskID/details',
-  '/services/overview/:id/tasks/:taskID/logs(/:fileName)'
+  '/services/overview/:id/tasks/:taskID/logs(/:fileName)',
+  '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
