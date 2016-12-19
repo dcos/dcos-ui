@@ -7,4 +7,5 @@ services:
       dockerfile: ./Dockerfile.dev
     volumes:
       - ./:/usr/src/dcos-ui
+    ipc: host
     working_dir: /usr/src
