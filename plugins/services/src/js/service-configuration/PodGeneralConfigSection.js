@@ -62,7 +62,7 @@ function getInstances(appConfig) {
   return null;
 }
 
-module.exports = ({appConfig, onEditClick}) => {
+const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
   let fields = {
     instances: getInstances(appConfig),
     backoff: findNestedPropertyInObject(appConfig,
@@ -190,3 +190,9 @@ module.exports = ({appConfig, onEditClick}) => {
     </div>
   );
 };
+
+PodGeneralConfigSection.propTypes = {
+  onEditClick: React.PropTypes.func
+};
+
+module.exports = PodGeneralConfigSection;

@@ -14,4 +14,9 @@ const ConfigurationMapEditAction = ({tabViewID, onEditClick}) => {
   );
 };
 
+ConfigurationMapEditAction.propTypes = {
+  onEditClick: React.PropTypes.func,
+  tabViewID: React.PropTypes.string
+};
+
 module.exports = ConfigurationMapEditAction;

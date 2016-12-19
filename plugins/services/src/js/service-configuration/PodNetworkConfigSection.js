@@ -120,7 +120,8 @@ PodNetworkConfigSection.defaultProps = {
 };
 
 PodNetworkConfigSection.propTypes = {
-  appConfig: React.PropTypes.object
+  appConfig: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodNetworkConfigSection;

@@ -19,7 +19,7 @@ function renderContainers(appConfig, handleEditClick, tabViewID) {
   });
 }
 
-module.exports = ({appConfig, onEditClick, tabViewID}) => {
+const PodContainersConfigSection = ({appConfig, onEditClick, tabViewID}) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
@@ -39,3 +39,9 @@ module.exports = ({appConfig, onEditClick, tabViewID}) => {
     </div>
   );
 };
+
+PodContainersConfigSection.propTypes = {
+  onEditClick: React.PropTypes.func
+};
+
+module.exports = PodContainersConfigSection;

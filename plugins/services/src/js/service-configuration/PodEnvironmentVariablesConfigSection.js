@@ -23,7 +23,7 @@ const columns = [
   }
 ];
 
-module.exports = ({appConfig, onEditClick}) => {
+const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
   let {environment = {}, containers = []} = appConfig;
 
   if (!environment || !containers) {
@@ -74,3 +74,9 @@ module.exports = ({appConfig, onEditClick}) => {
     </div>
   );
 };
+
+PodEnvironmentVariablesConfigSection.propTypes = {
+  onEditClick: React.PropTypes.func
+};
+
+module.exports = PodEnvironmentVariablesConfigSection;

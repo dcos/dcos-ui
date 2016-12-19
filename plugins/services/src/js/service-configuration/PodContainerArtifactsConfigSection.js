@@ -84,7 +84,8 @@ PodContainerArtifactsConfigSection.defaultProps = {
 };
 
 PodContainerArtifactsConfigSection.propTypes = {
-  artifacts: React.PropTypes.array
+  artifacts: React.PropTypes.array,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodContainerArtifactsConfigSection;

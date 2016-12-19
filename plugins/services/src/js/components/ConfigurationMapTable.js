@@ -150,4 +150,9 @@ class ConfigurationMapTable extends React.Component {
   }
 };
 
+ConfigurationMapTable.propTypes = {
+  onEditClick: React.PropTypes.func,
+  tabViewID: React.PropTypes.string
+};
+
 module.exports = ConfigurationMapTable;

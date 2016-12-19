@@ -26,7 +26,7 @@ function getCommand(containerConfig) {
   return null;
 }
 
-module.exports = ({containerConfig, appConfig, onEditClick}) => {
+const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) => {
   let fields = {
     command: getCommand(containerConfig),
     resources: appConfig.resources || {},
@@ -126,3 +126,9 @@ module.exports = ({containerConfig, appConfig, onEditClick}) => {
     </ConfigurationMapSection>
   );
 };
+
+PodContainerConfigSection.propTypes = {
+  onEditClick: React.PropTypes.func
+};
+
+module.exports = PodContainerConfigSection;
