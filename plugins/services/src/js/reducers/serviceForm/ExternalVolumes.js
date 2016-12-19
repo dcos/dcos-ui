@@ -128,10 +128,10 @@ module.exports = {
         state[index].containerPath = value;
       }
       if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
-        state[index].size= value;
+        state[index].size = value;
       }
       if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
-        state[index].mode= value;
+        state[index].mode = value;
       }
     }
 

@@ -173,9 +173,9 @@ class VolumesFormSection extends Component {
         .name;
 
       const sizeError = errorsLens
-      .at(key, {})
-      .attr('external', {})
-      .get(this.props.errors)
+        .at(key, {})
+        .attr('external', {})
+        .get(this.props.errors)
         .size;
 
       const containerPathError = errorsLens
