@@ -25,6 +25,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   }
 
   render() {
+    const {onEditClick} = this.props;
     let constraints = findNestedPropertyInObject(
       this.props.appConfig,
       'scheduling.placement.constraints'
@@ -43,13 +44,11 @@ class PodPlacementConstraintsConfigSection extends React.Component {
         </ConfigurationMapHeading>
         <ConfigurationMapSection>
           <ConfigurationMapTable
-            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columns={this.getColumns()}
-            columnDefaults={{
-              hideIfempty: true,
-              placeholder: <span>&mdash;</span>
-            }}
-            data={constraints} />
+            columnDefaults={{hideIfempty: true}}
+            data={constraints}
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapSection>
       </div>
     );
@@ -61,7 +60,8 @@ PodPlacementConstraintsConfigSection.defaultProps = {
 };
 
 PodPlacementConstraintsConfigSection.propTypes = {
-  appConfig: React.PropTypes.object
+  appConfig: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodPlacementConstraintsConfigSection;

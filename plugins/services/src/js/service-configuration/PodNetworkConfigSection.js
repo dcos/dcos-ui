@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
@@ -48,6 +49,7 @@ class PodNetworkConfigSection extends React.Component {
   }
 
   render() {
+    const {onEditClick} = this.props;
     const appConfig = this.props.appConfig;
     const {containers = []} = appConfig;
     let endpoints = containers.reduce((memo, container) => {
@@ -91,6 +93,9 @@ class PodNetworkConfigSection extends React.Component {
             <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
             <ConfigurationMapValueWithDefault
               value={getNetworkTypes(appConfig.networks)} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="networking" />
           </ConfigurationMapRow>
 
           {/* Service endpoints */}
@@ -98,10 +103,11 @@ class PodNetworkConfigSection extends React.Component {
             Service Endpoints
           </ConfigurationMapHeading>
           <ConfigurationMapTable
-            className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
             columnDefaults={{hideIfEmpty: true}}
             columns={this.getColumns()}
-            data={endpoints} />
+            data={endpoints}
+            onEditClick={onEditClick}
+            tabViewID="networking" />
 
         </ConfigurationMapSection>
       </div>
@@ -114,7 +120,8 @@ PodNetworkConfigSection.defaultProps = {
 };
 
 PodNetworkConfigSection.propTypes = {
-  appConfig: React.PropTypes.object
+  appConfig: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodNetworkConfigSection;

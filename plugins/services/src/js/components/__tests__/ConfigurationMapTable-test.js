@@ -1,3 +1,4 @@
+jest.dontMock('../ConfigurationMapEditAction');
 jest.dontMock('../ConfigurationMapTable');
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -214,6 +215,44 @@ describe('ConfigurationMapTable', function () {
     expect(cellText).toEqual([
       'A', 'B',
       '1', '2'
+    ]);
+  });
+
+  it('should add edit link column if onEditClick is provided', function () {
+    var instance = TestUtils.renderIntoDocument(
+      <ConfigurationMapTable
+        onEditClick={function () {}}
+        columns={[
+          {
+            heading: 'A',
+            prop: 'a'
+          },
+          {
+            heading: 'B',
+            prop: 'b'
+          }
+        ]}
+        columnDefaults={{
+          className: 'foo-bar'
+        }}
+        data={[
+          {a: 1, b: 2}
+        ]}
+        />
+    );
+
+    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
+      instance, 'th'
+    ).map(JestUtil.mapTextContent);
+    var editText = TestUtils.scryRenderedDOMComponentsWithClass(
+      instance, 'configuration-map-action'
+    ).map(JestUtil.mapTextContent);
+
+    expect(headerText).toEqual([
+      'A', 'B', ''
+    ]);
+    expect(editText).toEqual([
+      '', 'Edit'
     ]);
   });
 

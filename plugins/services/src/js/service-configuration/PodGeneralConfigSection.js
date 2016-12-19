@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
@@ -61,7 +62,7 @@ function getInstances(appConfig) {
   return null;
 }
 
-module.exports = ({appConfig}) => {
+const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
   let fields = {
     instances: getInstances(appConfig),
     backoff: findNestedPropertyInObject(appConfig,
@@ -83,34 +84,52 @@ module.exports = ({appConfig}) => {
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Service ID</ConfigurationMapLabel>
           <ConfigurationMapValue value={appConfig.id} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
           <ConfigurationMapValueWithDefault value={fields.instances} />
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary('cpus', appConfig)}
           </ConfigurationMapValue>
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary('mem', appConfig)}
           </ConfigurationMapValue>
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary('disk', appConfig)}
           </ConfigurationMapValue>
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary('gpu', appConfig)}
           </ConfigurationMapValue>
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID="services" />
         </ConfigurationMapRow>
         {fields.backoff && (
           <ConfigurationMapRow>
@@ -118,12 +137,18 @@ module.exports = ({appConfig}) => {
             <DurationValue
               units="sec"
               value={fields.backoff} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="services" />
           </ConfigurationMapRow>
         )}
         {fields.backoffFactor && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.backoffFactor} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="services" />
           </ConfigurationMapRow>
         )}
         {fields.maxLaunchDelay && (
@@ -134,6 +159,9 @@ module.exports = ({appConfig}) => {
             <DurationValue
               units="sec"
               value={fields.maxLaunchDelay} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="services" />
           </ConfigurationMapRow>
         )}
         {fields.minimumHealthCapacity && (
@@ -142,6 +170,9 @@ module.exports = ({appConfig}) => {
               Upgrade Min Health Capacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.minimumHealthCapacity} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="services" />
           </ConfigurationMapRow>
         )}
         {fields.maximumOverCapacity && (
@@ -150,9 +181,18 @@ module.exports = ({appConfig}) => {
               Upgrade Max Overcapacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.maximumOverCapacity} />
+            <ConfigurationMapEditAction
+              onEditClick={onEditClick}
+              tabViewID="services" />
           </ConfigurationMapRow>
         )}
       </ConfigurationMapSection>
     </div>
   );
 };
+
+PodGeneralConfigSection.propTypes = {
+  onEditClick: React.PropTypes.func
+};
+
+module.exports = PodGeneralConfigSection;

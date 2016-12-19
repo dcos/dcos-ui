@@ -79,6 +79,7 @@ class PodHealthChecksConfigSection extends React.Component {
   }
 
   render() {
+    const {onEditClick} = this.props;
     let {containers = []} = this.props.appConfig;
     let healthChecks = containers.reduce((memo, container) => {
       let {healthCheck} = container;
@@ -133,10 +134,11 @@ class PodHealthChecksConfigSection extends React.Component {
             </ConfigurationMapHeading>
             <ConfigurationMapSection key="pod-general-section">
               <ConfigurationMapTable
-                className="table table-simple table-break-word flush-bottom"
                 columnDefaults={this.getDefaultEndpointsColumns()}
                 columns={this.getEndpointsColumns()}
-                data={healthChecks.endpoints} />
+                data={healthChecks.endpoints}
+                onEditClick={onEditClick}
+                tabViewID="healthChecks" />
             </ConfigurationMapSection>
           </div>
         )}
@@ -148,10 +150,11 @@ class PodHealthChecksConfigSection extends React.Component {
             </ConfigurationMapHeading>
             <ConfigurationMapSection key="pod-general-section">
               <ConfigurationMapTable
-                className="table table-simple table-break-word flush-bottom"
                 columnDefaults={{hideIfEmpty: true}}
                 columns={this.getCommandColumns()}
-                data={healthChecks.command} />
+                data={healthChecks.command}
+                onEditClick={onEditClick}
+                tabViewID="healthChecks" />
             </ConfigurationMapSection>
           </div>
         )}
@@ -166,7 +169,8 @@ PodHealthChecksConfigSection.defaultProps = {
 };
 
 PodHealthChecksConfigSection.propTypes = {
-  appConfig: React.PropTypes.object
+  appConfig: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodHealthChecksConfigSection;
