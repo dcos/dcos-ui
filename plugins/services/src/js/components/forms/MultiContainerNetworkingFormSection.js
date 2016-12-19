@@ -226,9 +226,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 Service Endpoint Name
               </FieldLabel>
               <FieldInput
-                  name={`containers.${containerIndex}.endpoints.${index}.name`}
-                  type="text"
-                  value={endpoint.name} />
+                name={`containers.${containerIndex}.endpoints.${index}.name`}
+                type="text"
+                value={endpoint.name} />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </div>
@@ -315,17 +315,17 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             {this.getVirtualNetworkServiceEndpoints(endpoints, index)}
             <div>
               <button
-                  type="button"
-                  onBlur={(event) => {
-                    event.stopPropagation();
-                  }}
-                  className="button button-primary-link button-flush"
-                  onClick={this.props.onAddItem.bind(
+                type="button"
+                onBlur={(event) => {
+                  event.stopPropagation();
+                }}
+                className="button button-primary-link button-flush"
+                onClick={this.props.onAddItem.bind(
                     this,
-                    {
-                      value: endpoints.length,
-                      path: `containers.${index}.endpoints`
-                    }
+                  {
+                    value: endpoints.length,
+                    path: `containers.${index}.endpoints`
+                  }
                   )}>
                 <Icon color="purple" id="plus" size="tiny"/> Add Service
                 Endpoint
@@ -345,17 +345,17 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           {this.getHostServiceEndpoints(endpoints, index)}
           <div key="add-button">
             <button
-                type="button"
-                onBlur={(event) => {
-                  event.stopPropagation();
-                }}
-                className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(
+              type="button"
+              onBlur={(event) => {
+                event.stopPropagation();
+              }}
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(
                   this,
-                  {
-                    value: endpoints.length,
-                    path: `containers.${index}.endpoints`
-                  }
+                {
+                  value: endpoints.length,
+                  path: `containers.${index}.endpoints`
+                }
                 )}>
               <Icon color="purple" id="plus" size="tiny"/> Add Service
               Endpoint

@@ -181,8 +181,10 @@ class PodContainerServiceFormSection extends Component {
         <h2 className="short-top short-bottom">
           Container
         </h2>
-        <p>Configure your container below. Enter a container image or command
-          you want to run.</p>
+        <p>
+          Configure your container below. Enter a container image or command
+          you want to run.
+        </p>
         <div className="flex row">
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             <FieldLabel>

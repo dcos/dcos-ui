@@ -23,47 +23,47 @@ class MultiContainerHealthChecksFormSection extends Component {
         <AdvancedSectionContent>
           <div className="flex row">
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.gracePeriodSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.gracePeriodSeconds)}>
               <FieldLabel>Grace Period (s)</FieldLabel>
               <FieldInput
-                  name={`${path}.healthChecks.${key}.gracePeriodSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.gracePeriodSeconds}/>
+                name={`${path}.healthChecks.${key}.gracePeriodSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.gracePeriodSeconds}/>
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.intervalSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.intervalSeconds)}>
               <FieldLabel>Interval (s)</FieldLabel>
               <FieldInput
-                  name={`${path}.healthChecks.${key}.intervalSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.intervalSeconds}/>
+                name={`${path}.healthChecks.${key}.intervalSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.intervalSeconds}/>
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.timeoutSeconds)}>
+              className="column-3"
+              showError={Boolean(errors.timeoutSeconds)}>
               <FieldLabel>Timeout (s)</FieldLabel>
               <FieldInput
-                  name={`${path}.healthChecks.${key}.timeoutSeconds`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.timeoutSeconds}/>
+                name={`${path}.healthChecks.${key}.timeoutSeconds`}
+                type="number"
+                min="0"
+                value={healthCheck.timeoutSeconds}/>
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
-                className="column-3"
-                showError={Boolean(errors.maxConsecutiveFailures)}>
+              className="column-3"
+              showError={Boolean(errors.maxConsecutiveFailures)}>
               <FieldLabel>Max Failures</FieldLabel>
               <FieldInput
-                  name={`${path}.healthChecks.${key}.maxConsecutiveFailures`}
-                  type="number"
-                  min="0"
-                  value={healthCheck.maxConsecutiveFailures}/>
+                name={`${path}.healthChecks.${key}.maxConsecutiveFailures`}
+                type="number"
+                min="0"
+                value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </div>
@@ -136,7 +136,7 @@ class MultiContainerHealthChecksFormSection extends Component {
 
           <div>
             <a className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(this, {value: index, path: `containers.${index}.healthChecks`})}>
+              onClick={this.props.onAddItem.bind(this, {value: index, path: `containers.${index}.healthChecks`})}>
               + Add Health Check
             </a>
           </div>
