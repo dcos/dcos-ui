@@ -140,7 +140,7 @@ class ContainerServiceFormSection extends Component {
 
       let inputField = (
         <FieldInput
-          checked={containerType !== DOCKER && Boolean(checked)}
+          checked={containerType === DOCKER && Boolean(checked)}
           name={`container.docker.${settingName}`}
           type="checkbox"
           disabled={containerType !== DOCKER}
