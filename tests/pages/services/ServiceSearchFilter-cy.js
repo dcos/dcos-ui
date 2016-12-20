@@ -1,11 +1,13 @@
-xdescribe('Service Search Filters', function () {
+describe('Service Search Filters', function () {
+
   context('Filters services table', function () {
+
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
         nodeHealth: true
       });
-      cy.visitUrl({url: '/services'});
+      cy.visitUrl({url: '/services/overview'});
     });
 
     it('filters correctly on search string', function () {
@@ -15,25 +17,44 @@ xdescribe('Service Search Filters', function () {
       cy.get('tbody tr').should('to.have.length', 3);
     });
 
-    xit('sets the correct search string filter query params', function () {
+    it('sets the correct search string filter query params', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
-      cy.location().its('href').should(function (href) {
-        var queries = href.split('?')[1];
-        expect(decodeURIComponent(queries))
-          .to.equal('searchString=cassandra-healthy');
+      cy.hash().should(function (hash) {
+        var queries = hash.split('?')[1];
+        var searchString = queries.split('&').find(function (query) {
+          var [key, value] = query.split('=');
+          if (key === 'q') {
+            return value;
+          }
+        });
+        expect(decodeURIComponent(searchString))
+          .to.equal('q=cassandra-healthy');
       });
     });
 
-    xit('will clear filters by clear all link click', function () {
+    it('will clear filters by clear all link click', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
-      cy.get('.h4.clickable .small').click();
-      cy.location().its('href').should(function (href) {
-        var queries = href.split('?')[1];
-        expect(queries).to.equal(undefined);
+      cy.get('@filterInputText')
+        .siblings('.form-control-group-add-on')
+        .eq(1)
+        .click();
+
+      cy.hash().should(function (hash) {
+        var queries = hash.split('?')[1];
+        var searchString = queries.split('&').find(function (query) {
+          var [key, value] = query.split('=');
+          if (key === 'q') {
+            return value;
+          }
+        });
+        expect(decodeURIComponent(searchString))
+          .to.equal('undefined');
       });
       cy.get('tbody tr').should('to.have.length', 6);
     });
+
   });
+
 });
