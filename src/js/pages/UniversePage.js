@@ -9,7 +9,7 @@ class UniversePage extends React.Component {
 }
 
 UniversePage.routeConfig = {
-  label: 'Packages',
+  label: 'Universe',
   icon: <Icon id="packages-inverse" size="small" family="product" />,
   matches: /^\/universe/
 };
