@@ -1,0 +1,230 @@
+{
+  "hostname": "10.0.6.207",
+  "cluster": "frontend-us-west-2-xrx2js1w4p",
+  "slaves": [
+    {
+      "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1",
+      "pid": "slave(1)@10.0.3.46:5051",
+      "hostname": "10.0.3.46",
+      "registered_time": 1482162262.63179,
+      "resources": {
+        "disk": 35577,
+        "mem": 14018,
+        "gpus": 0,
+        "cpus": 4,
+        "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+      },
+      "used_resources": {
+        "disk": 5032,
+        "mem": 4174,
+        "gpus": 0,
+        "cpus": 2.503,
+        "ports": "[1025-1025, 4040-4040, 6147-6148, 10034-10034, 15694-15694, 23183-23183]"
+      },
+      "offered_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "reserved_resources": {
+        "slave_public": {
+          "disk": 32,
+          "mem": 128,
+          "gpus": 0,
+          "cpus": 0.001,
+          "ports": "[4040-4040]"
+        },
+        "confluent-kafka-role": {
+          "disk": 5000,
+          "mem": 2560,
+          "gpus": 0,
+          "cpus": 1.5,
+          "ports": "[1025-1025, 10034-10034]"
+        }
+      },
+      "unreserved_resources": {
+        "disk": 30545,
+        "mem": 11330,
+        "gpus": 0,
+        "cpus": 2.499,
+        "ports": "[1026-2180, 2182-3887, 3889-4039, 4041-5049, 5052-8079, 8082-8180, 8182-10033, 10035-32000]"
+      },
+      "attributes": {},
+      "active": true,
+      "version": "1.2.0",
+      "TASK_STAGING": 0,
+      "TASK_STARTING": 0,
+      "TASK_RUNNING": 5,
+      "TASK_KILLING": 0,
+      "TASK_FINISHED": 138,
+      "TASK_KILLED": 134,
+      "TASK_FAILED": 0,
+      "TASK_LOST": 0,
+      "TASK_ERROR": 0,
+      "framework_ids": [
+        "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0001",
+        "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0003"
+      ]
+    },
+    {
+      "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S0",
+      "pid": "slave(1)@10.0.4.152:5051",
+      "hostname": "10.0.4.152",
+      "registered_time": 1482162243.19107,
+      "resources": {
+        "disk": 35577,
+        "mem": 14018,
+        "gpus": 0,
+        "cpus": 4,
+        "ports": "[1-21, 23-5050, 5052-32000]"
+      },
+      "used_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "offered_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "reserved_resources": {
+        "slave_public": {
+          "disk": 35577,
+          "mem": 14018,
+          "gpus": 0,
+          "cpus": 4,
+          "ports": "[1-21, 23-5050, 5052-32000]"
+        }
+      },
+      "unreserved_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "attributes": {
+        "public_ip": "true"
+      },
+      "active": true,
+      "version": "1.2.0",
+      "TASK_STAGING": 0,
+      "TASK_STARTING": 0,
+      "TASK_RUNNING": 0,
+      "TASK_KILLING": 0,
+      "TASK_FINISHED": 0,
+      "TASK_KILLED": 0,
+      "TASK_FAILED": 0,
+      "TASK_LOST": 0,
+      "TASK_ERROR": 0,
+      "framework_ids": []
+    }
+  ],
+  "frameworks": [
+    {
+      "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0003",
+      "name": "confluent-kafka",
+      "pid": "scheduler-73317ed6-faee-4209-aae3-1ac61a7abfaf@10.0.3.46:33993",
+      "used_resources": {
+        "disk": 5000,
+        "mem": 2560,
+        "gpus": 0,
+        "cpus": 1.5,
+        "ports": "[1025-1025, 10034-10034]"
+      },
+      "offered_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "capabilities": [],
+      "hostname": "ip-10-0-3-46.us-west-2.compute.internal",
+      "webui_url": "",
+      "active": true,
+      "TASK_STAGING": 0,
+      "TASK_STARTING": 0,
+      "TASK_RUNNING": 1,
+      "TASK_KILLING": 0,
+      "TASK_FINISHED": 0,
+      "TASK_KILLED": 0,
+      "TASK_FAILED": 0,
+      "TASK_LOST": 0,
+      "TASK_ERROR": 0,
+      "slave_ids": [
+        "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1"
+      ]
+    },
+    {
+      "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0001",
+      "name": "marathon",
+      "pid": "scheduler-9633014d-fc9b-4424-b6d7-de721b82b037@10.0.6.207:41715",
+      "used_resources": {
+        "disk": 32,
+        "mem": 1614,
+        "gpus": 0,
+        "cpus": 1.003,
+        "ports": "[4040-4040, 6147-6148, 15694-15694, 23183-23183]"
+      },
+      "offered_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "capabilities": [
+        "TASK_KILLING_STATE",
+        "PARTITION_AWARE"
+      ],
+      "hostname": "10.0.6.207",
+      "webui_url": "https://10.0.6.207:8443",
+      "active": true,
+      "TASK_STAGING": 0,
+      "TASK_STARTING": 0,
+      "TASK_RUNNING": 4,
+      "TASK_KILLING": 0,
+      "TASK_FINISHED": 138,
+      "TASK_KILLED": 134,
+      "TASK_FAILED": 0,
+      "TASK_LOST": 0,
+      "TASK_ERROR": 0,
+      "slave_ids": [
+        "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1"
+      ]
+    },
+    {
+      "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0000",
+      "name": "metronome",
+      "pid": "scheduler-34fad524-62c1-4cdf-bc7c-f49e47cf6ec4@10.0.6.207:46847",
+      "used_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "offered_resources": {
+        "disk": 0,
+        "mem": 0,
+        "gpus": 0,
+        "cpus": 0
+      },
+      "capabilities": [],
+      "hostname": "10.0.6.207",
+      "webui_url": "http://10.0.6.207:9090",
+      "active": true,
+      "TASK_STAGING": 0,
+      "TASK_STARTING": 0,
+      "TASK_RUNNING": 0,
+      "TASK_KILLING": 0,
+      "TASK_FINISHED": 0,
+      "TASK_KILLED": 0,
+      "TASK_FAILED": 0,
+      "TASK_LOST": 0,
+      "TASK_ERROR": 0,
+      "slave_ids": []
+    }
+  ]
+}

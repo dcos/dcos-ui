@@ -1,0 +1,1084 @@
+{
+  "id": "/",
+  "dependencies": [],
+  "version": "2016-12-20T00:21:34.716Z",
+  "apps": [
+    {
+      "id": "/confluent-kafka",
+      "cmd": "export PATH=$(ls -d $MESOS_SANDBOX/jre*/bin):$PATH && ./scheduler/bin/kafka-scheduler server ./scheduler/conf/scheduler.yml",
+      "args": [],
+      "user": null,
+      "env": {
+        "KAFKA_OVERRIDE_LEADER_IMBALANCE_CHECK_INTERVAL_SECONDS": "300",
+        "KAFKA_OVERRIDE_OFFSET_METADATA_MAX_BYTES": "4096",
+        "KAFKA_OVERRIDE_PRODUCER_PURGATORY_PURGE_INTERVAL_REQUESTS": "1000",
+        "KAFKA_OVERRIDE_ZOOKEEPER_SESSION_TIMEOUT_MS": "6000",
+        "KAFKA_OVERRIDE_LEADER_IMBALANCE_PER_BROKER_PERCENTAGE": "10",
+        "KAFKA_OVERRIDE_CONTROLLED_SHUTDOWN_MAX_RETRIES": "3",
+        "KAFKA_OVERRIDE_LOG_CLEANER_DEDUPE_BUFFER_SIZE": "134217728",
+        "LD_LIBRARY_PATH": "/opt/mesosphere/lib",
+        "KAFKA_OVERRIDE_CONTROLLER_SOCKET_TIMEOUT_MS": "30000",
+        "KAFKA_OVERRIDE_OFFSETS_LOAD_BUFFER_SIZE": "5242880",
+        "BROKER_MEM": "2304",
+        "KAFKA_OVERRIDE_QUEUED_MAX_REQUESTS": "500",
+        "KAFKA_OVERRIDE_LOG_CLEANER_IO_BUFFER_LOAD_FACTOR": "0.9",
+        "KAFKA_OVERRIDE_OFFSETS_TOPIC_REPLICATION_FACTOR": "3",
+        "BROKER_COUNT": "3",
+        "KAFKA_OVERRIDE_QUOTA_CONSUMER_DEFAULT": "9223372036854775807",
+        "KAFKA_OVERRIDE_INTER_BROKER_PROTOCOL_VERSION": "0.10.0.0",
+        "BROKER_HEALTH_CHECK_MAX_FAILURES": "3",
+        "KAFKA_OVERRIDE_LOG_CLEANER_DELETE_RETENTION_MS": "86400000",
+        "KAFKA_OVERRIDE_CONFLUENT_SUPPORT_CUSTOMER_ID": "anonymous",
+        "KAFKA_OVERRIDE_OFFSETS_TOPIC_SEGMENT_BYTES": "104857600",
+        "BROKER_CPUS": "1",
+        "KAFKA_OVERRIDE_LOG_FLUSH_OFFSET_CHECKPOINT_INTERVAL_MS": "60000",
+        "KAFKA_OVERRIDE_OFFSETS_COMMIT_TIMEOUT_MS": "5000",
+        "KAFKA_OVERRIDE_AUTO_CREATE_TOPICS_ENABLE": "true",
+        "KAFKA_OVERRIDE_LOG_CLEANER_THREADS": "1",
+        "JAVA_URI": "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
+        "KAFKA_OVERRIDE_DELETE_TOPIC_ENABLE": "false",
+        "KAFKA_OVERRIDE_MIN_INSYNC_REPLICAS": "1",
+        "PHASE_STRATEGY": "INSTALL",
+        "ENABLE_BROKER_HEALTH_CHECK": "true",
+        "KAFKA_OVERRIDE_QUOTA_PRODUCER_DEFAULT": "9223372036854775807",
+        "KAFKA_OVERRIDE_GROUP_MIN_SESSION_TIMEOUT_MS": "6000",
+        "KAFKA_OVERRIDE_SOCKET_RECEIVE_BUFFER_BYTES": "102400",
+        "KAFKA_OVERRIDE_COMPRESSION_TYPE": "producer",
+        "BROKER_HEALTH_CHECK_DELAY_SEC": "15",
+        "KAFKA_ADVERTISE_HOST_IP": "true",
+        "KAFKA_OVERRIDE_REPLICA_SOCKET_TIMEOUT_MS": "30000",
+        "KAFKA_OVERRIDE_OFFSETS_RETENTION_CHECK_INTERVAL_MS": "600000",
+        "KAFKA_OVERRIDE_SOCKET_REQUEST_MAX_BYTES": "104857600",
+        "BROKER_HEALTH_CHECK_GRACE_SEC": "10",
+        "BROKER_PORT": "0",
+        "KAFKA_OVERRIDE_OFFSETS_TOPIC_COMPRESSION_CODEC": "0",
+        "KAFKA_OVERRIDE_LOG_CLEANER_ENABLE": "true",
+        "KAFKA_OVERRIDE_DEFAULT_REPLICATION_FACTOR": "1",
+        "KAFKA_OVERRIDE_LOG_ROLL_JITTER_HOURS": "0",
+        "KAFKA_OVERRIDE_LOG_SEGMENT_DELETE_DELAY_MS": "60000",
+        "KAFKA_OVERRIDE_SOCKET_SEND_BUFFER_BYTES": "102400",
+        "KAFKA_OVERRIDE_BACKGROUND_THREADS": "10",
+        "KAFKA_OVERRIDE_LOG_CLEANER_IO_BUFFER_SIZE": "524288",
+        "KAFKA_OVERRIDE_NUM_REPLICA_FETCHERS": "1",
+        "KAFKA_OVERRIDE_METRICS_NUM_SAMPLES": "2",
+        "OVERRIDER_URI": "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/overrider.zip",
+        "KAFKA_OVERRIDE_AUTO_LEADER_REBALANCE_ENABLE": "true",
+        "KAFKA_OVERRIDE_UNCLEAN_LEADER_ELECTION_ENABLE": "true",
+        "KAFKA_OVERRIDE_NUM_RECOVERY_THREADS_PER_DATA_DIR": "1",
+        "BROKER_HEAP_MB": "2048",
+        "KAFKA_OVERRIDE_OFFSETS_TOPIC_NUM_PARTITIONS": "50",
+        "USER": "root",
+        "PLACEMENT_STRATEGY": "NODE",
+        "KAFKA_OVERRIDE_OFFSETS_RETENTION_MINUTES": "1440",
+        "KAFKA_OVERRIDE_LOG_FLUSH_SCHEDULER_INTERVAL_MS": "9223372036854775807",
+        "KAFKA_OVERRIDE_LOG_CLEANER_IO_MAX_BYTES_PER_SECOND": "1.7976931348623157E308",
+        "KAFKA_OVERRIDE_OFFSETS_COMMIT_REQUIRED_ACKS": "-1",
+        "KAFKA_OVERRIDE_QUOTA_WINDOW_SIZE_SECONDS": "1",
+        "FRAMEWORK_PRINCIPAL": "confluent-kafka-principal",
+        "KAFKA_OVERRIDE_REPLICA_HIGH_WATERMARK_CHECKPOINT_INTERVAL_MS": "5000",
+        "KAFKA_OVERRIDE_LOG_RETENTION_HOURS": "168",
+        "RECOVERY_GRACE_PERIOD_SEC": "1200",
+        "BROKER_HEALTH_CHECK_INTERVAL_SEC": "10",
+        "KAFKA_OVERRIDE_CONNECTIONS_MAX_IDLE_MS": "600000",
+        "KAFKA_OVERRIDE_LOG_INDEX_INTERVAL_BYTES": "4096",
+        "KAFKA_OVERRIDE_RESERVED_BROKER_MAX_ID": "1000",
+        "KAFKA_OVERRIDE_LOG_CLEANER_BACKOFF_MS": "15000",
+        "REPLACE_DELAY_SEC": "600",
+        "KAFKA_OVERRIDE_MESSAGE_MAX_BYTES": "1000012",
+        "KAFKA_OVERRIDE_MAX_CONNECTIONS_PER_IP": "2147483647",
+        "KAFKA_OVERRIDE_LOG_CLEANER_MIN_CLEANABLE_RATIO": "0.5",
+        "KAFKA_OVERRIDE_LOG_ROLL_HOURS": "168",
+        "DISK_TYPE": "ROOT",
+        "KAFKA_OVERRIDE_LOG_INDEX_SIZE_MAX_BYTES": "10485760",
+        "KAFKA_OVERRIDE_QUOTA_WINDOW_NUM": "11",
+        "KAFKA_OVERRIDE_REPLICA_FETCH_MIN_BYTES": "1",
+        "KAFKA_OVERRIDE_REQUEST_TIMEOUT_MS": "30000",
+        "KAFKA_OVERRIDE_LOG_FLUSH_INTERVAL_MESSAGES": "9223372036854775807",
+        "KAFKA_OVERRIDE_LOG_RETENTION_CHECK_INTERVAL_MS": "300000",
+        "EXECUTOR_URI": "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/executor.zip",
+        "KAFKA_OVERRIDE_ZOOKEEPER_SYNC_TIME_MS": "2000",
+        "KAFKA_OVERRIDE_REPLICA_LAG_TIME_MAX_MS": "10000",
+        "KAFKA_OVERRIDE_NUM_NETWORK_THREADS": "3",
+        "KAFKA_OVERRIDE_LOG_MESSAGE_FORMAT_VERSION": "0.10.0",
+        "FRAMEWORK_NAME": "confluent-kafka",
+        "KAFKA_URI": "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz",
+        "KAFKA_OVERRIDE_CONTROLLED_SHUTDOWN_RETRY_BACKOFF_MS": "5000",
+        "KAFKA_OVERRIDE_NUM_PARTITIONS": "1",
+        "BROKER_HEALTH_CHECK_TIMEOUT_SEC": "20",
+        "ENABLE_REPLACEMENT": "false",
+        "KAFKA_OVERRIDE_GROUP_MAX_SESSION_TIMEOUT_MS": "300000",
+        "KAFKA_OVERRIDE_REPLICA_FETCH_MAX_BYTES": "1048576",
+        "KAFKA_OVERRIDE_CONTROLLED_SHUTDOWN_ENABLE": "true",
+        "KAFKA_OVERRIDE_MAX_CONNECTIONS_PER_IP_OVERRIDES": "",
+        "KAFKA_OVERRIDE_METRICS_SAMPLE_WINDOW_MS": "30000",
+        "KAFKA_OVERRIDE_NUM_IO_THREADS": "8",
+        "KAFKA_OVERRIDE_LOG_SEGMENT_BYTES": "1073741824",
+        "KAFKA_OVERRIDE_LOG_PREALLOCATE": "false",
+        "KAFKA_OVERRIDE_LOG_RETENTION_BYTES": "-1",
+        "KAFKA_OVERRIDE_CONFLUENT_SUPPORT_METRICS_ENABLE": "false",
+        "KAFKA_OVERRIDE_REPLICA_FETCH_WAIT_MAX_MS": "500",
+        "KAFKA_OVERRIDE_FETCH_PURGATORY_PURGE_INTERVAL_REQUESTS": "1000",
+        "KAFKA_OVERRIDE_LOG_CLEANUP_POLICY": "delete",
+        "BROKER_DISK": "5000",
+        "KAFKA_ZOOKEEPER_URI": "master.mesos:2181",
+        "KAFKA_OVERRIDE_REPLICA_FETCH_BACKOFF_MS": "1000",
+        "KAFKA_OVERRIDE_REPLICA_SOCKET_RECEIVE_BUFFER_BYTES": "65536",
+        "KAFKA_VER_NAME": "kafka_confluent-oss-3.1.1"
+      },
+      "instances": 1,
+      "cpus": 1,
+      "mem": 1230,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [],
+      "uris": [
+        "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
+        "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/scheduler.zip",
+        "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz"
+      ],
+      "fetch": [
+        {
+          "uri": "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
+          "extract": true,
+          "executable": false,
+          "cache": false
+        },
+        {
+          "uri": "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/scheduler.zip",
+          "extract": true,
+          "executable": false,
+          "cache": false
+        },
+        {
+          "uri": "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz",
+          "extract": true,
+          "executable": false,
+          "cache": false
+        }
+      ],
+      "storeUrls": [],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 0,
+          "portIndex": 0,
+          "path": "/admin/healthcheck",
+          "protocol": "HTTP",
+          "ignoreHttp1xx": false
+        }
+      ],
+      "readinessChecks": [
+        {
+          "name": "confluentUpdateProgress",
+          "protocol": "HTTP",
+          "path": "/v1/plan",
+          "portName": "api",
+          "intervalSeconds": 30,
+          "timeoutSeconds": 10,
+          "httpStatusCodesForReady": [
+            200
+          ],
+          "preserveLastResponse": true
+        }
+      ],
+      "dependencies": [],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 0,
+        "maximumOverCapacity": 0
+      },
+      "labels": {
+        "DCOS_PACKAGE_RELEASE": "10",
+        "DCOS_SERVICE_SCHEME": "http",
+        "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+        "DCOS_PACKAGE_COMMAND": "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ==",
+        "DCOS_PACKAGE_METADATA": "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0=",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "3.0",
+        "DCOS_SERVICE_NAME": "confluent-kafka",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "confluent-kafka",
+        "DCOS_SERVICE_PORT_INDEX": "1",
+        "DCOS_PACKAGE_VERSION": "1.1.16-3.1.1",
+        "DCOS_MIGRATION_API_PATH": "/v1/plan",
+        "DCOS_PACKAGE_NAME": "confluent-kafka",
+        "MARATHON_SINGLE_INSTANCE_APP": "true",
+        "DCOS_PACKAGE_IS_FRAMEWORK": "true",
+        "DCOS_MIGRATION_API_VERSION": "v1"
+      },
+      "ipAddress": null,
+      "version": "2016-12-19T23:23:08.882Z",
+      "residency": null,
+      "secrets": {},
+      "taskKillGracePeriodSeconds": null,
+      "ports": [
+        10004,
+        1
+      ],
+      "portDefinitions": [
+        {
+          "port": 10004,
+          "protocol": "tcp",
+          "name": "health",
+          "labels": {}
+        },
+        {
+          "port": 1,
+          "protocol": "tcp",
+          "name": "api",
+          "labels": {}
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2016-12-19T23:23:08.882Z",
+        "lastConfigChangeAt": "2016-12-19T23:23:08.882Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 1,
+      "tasksUnhealthy": 0,
+      "deployments": [
+        {
+          "id": "9c4d4690-961a-4242-babe-b3fd0dd95d6e"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "confluent-kafka.4e941eb7-c642-11e6-9066-5a8a388c67a1",
+          "slaveId": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1",
+          "host": "10.0.3.46",
+          "state": "TASK_RUNNING",
+          "startedAt": "2016-12-19T23:24:51.822Z",
+          "stagedAt": "2016-12-19T23:24:36.986Z",
+          "ports": [
+            6147,
+            6148
+          ],
+          "version": "2016-12-19T23:23:08.882Z",
+          "ipAddresses": [
+            {
+              "ipAddress": "10.0.3.46",
+              "protocol": "IPv4"
+            }
+          ],
+          "appId": "/confluent-kafka",
+          "healthCheckResults": [
+            {
+              "alive": true,
+              "consecutiveFailures": 0,
+              "firstSuccess": "2016-12-19T23:25:14.118Z",
+              "lastFailure": null,
+              "lastSuccess": "2016-12-20T00:32:46.748Z",
+              "lastFailureCause": null,
+              "taskId": "confluent-kafka.4e941eb7-c642-11e6-9066-5a8a388c67a1"
+            }
+          ]
+        }
+      ],
+      "taskStats": {
+        "startedAfterLastScaling": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 4077.736,
+              "medianSeconds": 4077.736
+            }
+          }
+        },
+        "withLatestConfig": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 4077.736,
+              "medianSeconds": 4077.736
+            }
+          }
+        },
+        "totalSummary": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 4077.736,
+              "medianSeconds": 4077.736
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "/lbexample",
+      "cmd": "python -m http.server $PORT0",
+      "args": [],
+      "user": null,
+      "env": {},
+      "instances": 0,
+      "cpus": 0.1,
+      "mem": 128,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": {
+        "type": "DOCKER",
+        "volumes": [],
+        "docker": {
+          "image": "python:3.5",
+          "network": "HOST",
+          "portMappings": [],
+          "privileged": false,
+          "parameters": [],
+          "forcePullImage": true
+        }
+      },
+      "healthChecks": [],
+      "readinessChecks": [],
+      "dependencies": [],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {},
+      "ipAddress": null,
+      "version": "2016-12-19T23:26:39.315Z",
+      "residency": null,
+      "secrets": {},
+      "taskKillGracePeriodSeconds": null,
+      "ports": [
+        80
+      ],
+      "portDefinitions": [
+        {
+          "port": 80,
+          "protocol": "tcp",
+          "name": "test",
+          "labels": {
+            "VIP_0": "/lbexample:80"
+          }
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2016-12-19T23:26:39.315Z",
+        "lastConfigChangeAt": "2016-12-19T23:07:29.179Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 0,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [],
+      "tasks": [],
+      "taskStats": {}
+    },
+    {
+      "id": "/marathon-user",
+      "cmd": "LIBPROCESS_PORT=$PORT1 && ./bin/start    --checkpoint --decline_offer_duration \"120000\" --default_accepted_resource_roles \"*\"   --enable_features \"vips,task_killing\"  --event_stream_max_outstanding_messages \"50\"  --executor \"//cmd\" --failover_timeout \"604800\" --framework_name marathon-user  --ha --hostname $LIBPROCESS_IP   --http_compression   --http_event_callback_slow_consumer_timeout \"10000\" --http_event_request_timeout \"10000\"  --http_port  $PORT0  --http_realm \"Mesosphere\"   --launch_token_refresh_interval \"30000\" --launch_tokens \"100\" --leader_proxy_connection_timeout \"5000\" --leader_proxy_read_timeout \"10000\"  --local_port_max \"20000\" --local_port_min \"10000\"    --master \"zk://master.mesos:2181/mesos\"  --max_tasks_per_offer \"1\" --disable_mesos_authentication --mesos_authentication_principal marathon-user   --mesos_leader_ui_url \"/mesos\" --mesos_role marathon-user   --metrics --min_revive_offers_interval \"5000\" --offer_matching_timeout \"1000\" --on_elected_prepare_timeout \"180000\"   --reconciliation_initial_delay \"15000\" --reconciliation_interval \"600000\"   --revive_offers_repetitions \"3\" --save_tasks_to_launch_timeout \"3000\" --scale_apps_initial_delay \"15000\" --scale_apps_interval \"300000\"      --store_cache --task_launch_confirm_timeout \"300000\" --task_launch_timeout \"300000\" --task_lost_expunge_gc \"75000\" --task_lost_expunge_initial_delay \"300000\" --task_lost_expunge_interval \"30000\" --task_reservation_timeout \"20000\" --disable_tracing  --zk zk://master.mesos:2181/universe/marathon-user  --zk_compression --zk_compression_threshold \"65536\" --zk_max_node_size \"1024000\" --zk_max_versions \"25\" --zk_session_timeout \"10000\" --zk_timeout \"10000\"",
+      "args": [],
+      "user": null,
+      "env": {
+        "JVM_OPTS": "-Xms256m -Xmx768m"
+      },
+      "instances": 1,
+      "cpus": 2,
+      "mem": 1536,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [
+        [
+          "hostname",
+          "UNIQUE"
+        ]
+      ],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": {
+        "type": "DOCKER",
+        "volumes": [],
+        "docker": {
+          "image": "mesosphere/marathon:v1.3.6",
+          "network": "HOST",
+          "portMappings": [],
+          "privileged": false,
+          "parameters": [],
+          "forcePullImage": false
+        }
+      },
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 10,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 3,
+          "portIndex": 0,
+          "path": "/ping",
+          "protocol": "HTTP",
+          "ignoreHttp1xx": false
+        }
+      ],
+      "readinessChecks": [],
+      "dependencies": [],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+        "DCOS_PACKAGE_RELEASE": "6",
+        "DCOS_SERVICE_SCHEME": "http",
+        "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+        "DCOS_PACKAGE_METADATA": "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6Im1hcmF0aG9uIiwidmVyc2lvbiI6IjEuMy42IiwibWFpbnRhaW5lciI6InN1cHBvcnRAbWVzb3NwaGVyZS5pbyIsImRlc2NyaXB0aW9uIjoiQSBjb250YWluZXIgb3JjaGVzdHJhdGlvbiBwbGF0Zm9ybSBmb3IgTWVzb3MgYW5kIERDT1MuIiwidGFncyI6WyJpbml0IiwibG9uZy1ydW5uaW5nIl0sInNlbGVjdGVkIjp0cnVlLCJzY20iOiJodHRwczovL2dpdGh1Yi5jb20vbWVzb3NwaGVyZS9tYXJhdGhvbi5naXQiLCJmcmFtZXdvcmsiOnRydWUsInByZUluc3RhbGxOb3RlcyI6IldlIHJlY29tbWVuZCBhIG1pbmltdW0gb2Ygb25lIG5vZGUgd2l0aCBhdCBsZWFzdCAyIENQVSBzaGFyZXMgYW5kIDFHQiBvZiBSQU0gYXZhaWxhYmxlIGZvciB0aGUgTWFyYXRob24gRENPUyBTZXJ2aWNlLiIsInBvc3RJbnN0YWxsTm90ZXMiOiJNYXJhdGhvbiBEQ09TIFNlcnZpY2UgaGFzIGJlZW4gc3VjY2Vzc2Z1bGx5IGluc3RhbGxlZCFcblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL21lc29zcGhlcmUuZ2l0aHViLmlvL21hcmF0aG9uXG5cdElzc3VlczogaHR0cHM6Ly9naXRodWIuY29tL21lc29zcGhlcmUvbWFyYXRob24vaXNzdWVzXG4iLCJwb3N0VW5pbnN0YWxsTm90ZXMiOiJUaGUgTWFyYXRob24gRENPUyBTZXJ2aWNlIGhhcyBiZWVuIHVuaW5zdGFsbGVkIGFuZCB3aWxsIG5vIGxvbmdlciBydW4uXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cDovL2RvY3MubWVzb3NwaGVyZS5jb20vc2VydmljZXMvbWFyYXRob24vI3VuaW5zdGFsbCB0byBjbGVhbiB1cCBhbnkgcGVyc2lzdGVkIHN0YXRlIiwibGljZW5zZXMiOlt7Im5hbWUiOiJBcGFjaGUgTGljZW5zZSBWZXJzaW9uIDIuMCIsInVybCI6Imh0dHBzOi8vZ2l0aHViLmNvbS9tZXNvc3BoZXJlL21hcmF0aG9uL2Jsb2IvbWFzdGVyL0xJQ0VOU0UifV0sImltYWdlcyI6eyJpY29uLXNtYWxsIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vbWFyYXRob24vYXNzZXRzL2ljb24tc2VydmljZS1tYXJhdGhvbi1zbWFsbC5wbmciLCJpY29uLW1lZGl1bSI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL21hcmF0aG9uL2Fzc2V0cy9pY29uLXNlcnZpY2UtbWFyYXRob24tbWVkaXVtLnBuZyIsImljb24tbGFyZ2UiOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS9tYXJhdGhvbi9hc3NldHMvaWNvbi1zZXJ2aWNlLW1hcmF0aG9uLWxhcmdlLnBuZyJ9fQ==",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "3.0",
+        "DCOS_SERVICE_NAME": "marathon-user",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "marathon-user",
+        "DCOS_SERVICE_PORT_INDEX": "0",
+        "DCOS_PACKAGE_VERSION": "1.3.6",
+        "DCOS_PACKAGE_NAME": "marathon",
+        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+      },
+      "ipAddress": null,
+      "version": "2016-12-20T00:21:34.716Z",
+      "residency": null,
+      "secrets": {},
+      "taskKillGracePeriodSeconds": null,
+      "ports": [
+        10005,
+        10006
+      ],
+      "portDefinitions": [
+        {
+          "port": 10005,
+          "protocol": "tcp",
+          "labels": {}
+        },
+        {
+          "port": 10006,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2016-12-20T00:21:34.716Z",
+        "lastConfigChangeAt": "2016-12-20T00:21:34.716Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 0,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [
+        {
+          "id": "f9c24711-5ad4-46f4-97d4-58219545bc50"
+        }
+      ],
+      "tasks": [],
+      "taskStats": {}
+    },
+    {
+      "id": "/using-lbexample",
+      "cmd": "while true; do /opt/mesosphere/bin/curl lbexample.marathon.l4lb.thisdcos.directory:80; sleep 1; done",
+      "args": [],
+      "user": null,
+      "env": {},
+      "instances": 0,
+      "cpus": 0.1,
+      "mem": 128,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [],
+      "readinessChecks": [],
+      "dependencies": [],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {},
+      "ipAddress": null,
+      "version": "2016-12-19T23:26:45.490Z",
+      "residency": null,
+      "secrets": {},
+      "taskKillGracePeriodSeconds": null,
+      "ports": [
+        10003
+      ],
+      "portDefinitions": [
+        {
+          "port": 10003,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2016-12-19T23:26:45.490Z",
+        "lastConfigChangeAt": "2016-12-19T23:07:43.669Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 0,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [],
+      "tasks": [],
+      "taskStats": {}
+    }
+  ],
+  "groups": [
+    {
+      "id": "/development",
+      "dependencies": [],
+      "version": "2016-12-20T00:21:34.716Z",
+      "apps": [
+        {
+          "id": "/development/logging",
+          "cmd": "sleep 2000",
+          "args": [],
+          "user": null,
+          "env": {
+            "env": "dev"
+          },
+          "instances": 2,
+          "cpus": 0.001,
+          "mem": 128,
+          "disk": 0,
+          "gpus": 0,
+          "executor": "",
+          "constraints": [],
+          "uris": [],
+          "fetch": [],
+          "storeUrls": [],
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [
+            {
+              "gracePeriodSeconds": 10,
+              "intervalSeconds": 10,
+              "timeoutSeconds": 10,
+              "maxConsecutiveFailures": 10,
+              "delay": 15,
+              "command": {
+                "value": "echo \"hello\""
+              },
+              "protocol": "COMMAND"
+            },
+            {
+              "gracePeriodSeconds": 10,
+              "intervalSeconds": 10,
+              "timeoutSeconds": 10,
+              "maxConsecutiveFailures": 10,
+              "portIndex": 0,
+              "path": "/ping",
+              "protocol": "HTTP",
+              "ignoreHttp1xx": false
+            }
+          ],
+          "readinessChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {},
+          "ipAddress": null,
+          "version": "2016-12-19T23:39:29.026Z",
+          "residency": null,
+          "secrets": {},
+          "taskKillGracePeriodSeconds": null,
+          "ports": [
+            99
+          ],
+          "portDefinitions": [
+            {
+              "port": 99,
+              "protocol": "tcp",
+              "labels": {}
+            }
+          ],
+          "requirePorts": false,
+          "versionInfo": {
+            "lastScalingAt": "2016-12-19T23:39:29.026Z",
+            "lastConfigChangeAt": "2016-12-19T21:48:27.244Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 2,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 2,
+          "deployments": [],
+          "tasks": [
+            {
+              "id": "development_logging.a6f0bb45-c64b-11e6-9066-5a8a388c67a1",
+              "slaveId": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1",
+              "host": "10.0.3.46",
+              "state": "TASK_RUNNING",
+              "startedAt": "2016-12-20T00:31:31.284Z",
+              "stagedAt": "2016-12-20T00:31:30.702Z",
+              "ports": [
+                15694
+              ],
+              "version": "2016-12-19T23:39:29.026Z",
+              "ipAddresses": [
+                {
+                  "ipAddress": "10.0.3.46",
+                  "protocol": "IPv4"
+                }
+              ],
+              "appId": "/development/logging",
+              "healthCheckResults": [
+                {
+                  "alive": true,
+                  "consecutiveFailures": 0,
+                  "firstSuccess": "2016-12-20T00:31:46.329Z",
+                  "lastFailure": null,
+                  "lastSuccess": "2016-12-20T00:31:46.329Z",
+                  "lastFailureCause": null,
+                  "taskId": "development_logging.a6f0bb45-c64b-11e6-9066-5a8a388c67a1"
+                },
+                {
+                  "alive": false,
+                  "consecutiveFailures": 6,
+                  "firstSuccess": null,
+                  "lastFailure": "2016-12-20T00:32:40.439Z",
+                  "lastSuccess": null,
+                  "lastFailureCause": "ConnectionAttemptFailedException: Connection attempt to 10.0.3.46:15694 failed",
+                  "taskId": "development_logging.a6f0bb45-c64b-11e6-9066-5a8a388c67a1"
+                }
+              ]
+            },
+            {
+              "id": "development_logging.b8d78e66-c64b-11e6-9066-5a8a388c67a1",
+              "slaveId": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1",
+              "host": "10.0.3.46",
+              "state": "TASK_RUNNING",
+              "startedAt": "2016-12-20T00:32:01.478Z",
+              "stagedAt": "2016-12-20T00:32:00.737Z",
+              "ports": [
+                23183
+              ],
+              "version": "2016-12-19T23:39:29.026Z",
+              "ipAddresses": [
+                {
+                  "ipAddress": "10.0.3.46",
+                  "protocol": "IPv4"
+                }
+              ],
+              "appId": "/development/logging",
+              "healthCheckResults": [
+                {
+                  "alive": true,
+                  "consecutiveFailures": 0,
+                  "firstSuccess": "2016-12-20T00:32:16.517Z",
+                  "lastFailure": null,
+                  "lastSuccess": "2016-12-20T00:32:16.517Z",
+                  "lastFailureCause": null,
+                  "taskId": "development_logging.b8d78e66-c64b-11e6-9066-5a8a388c67a1"
+                },
+                {
+                  "alive": false,
+                  "consecutiveFailures": 3,
+                  "firstSuccess": null,
+                  "lastFailure": "2016-12-20T00:32:40.439Z",
+                  "lastSuccess": null,
+                  "lastFailureCause": "ConnectionAttemptFailedException: Connection attempt to 10.0.3.46:23183 failed",
+                  "taskId": "development_logging.b8d78e66-c64b-11e6-9066-5a8a388c67a1"
+                }
+              ]
+            }
+          ],
+          "lastTaskFailure": {
+            "appId": "/development/logging",
+            "host": "10.0.3.46",
+            "message": "Task was killed since health check failed. Reason: ConnectionAttemptFailedException: Connection attempt to 10.0.3.46:10581 failed",
+            "state": "TASK_KILLED",
+            "taskId": "development_logging.713b7e94-c64b-11e6-9066-5a8a388c67a1",
+            "timestamp": "2016-12-20T00:31:50.338Z",
+            "version": "2016-12-19T23:39:29.026Z",
+            "slaveId": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1"
+          },
+          "taskStats": {
+            "startedAfterLastScaling": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 2,
+                  "healthy": 0,
+                  "unhealthy": 2
+                },
+                "lifeTime": {
+                  "averageSeconds": 63.177,
+                  "medianSeconds": 78.274
+                }
+              }
+            },
+            "withLatestConfig": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 2,
+                  "healthy": 0,
+                  "unhealthy": 2
+                },
+                "lifeTime": {
+                  "averageSeconds": 63.177,
+                  "medianSeconds": 78.274
+                }
+              }
+            },
+            "totalSummary": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 2,
+                  "healthy": 0,
+                  "unhealthy": 2
+                },
+                "lifeTime": {
+                  "averageSeconds": 63.177,
+                  "medianSeconds": 78.274
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "/development/sleep",
+          "cmd": "sleep 2000;",
+          "args": [],
+          "user": null,
+          "env": {},
+          "instances": 1,
+          "cpus": 0.001,
+          "mem": 12811111,
+          "disk": 0,
+          "gpus": 0,
+          "executor": "",
+          "constraints": [],
+          "uris": [],
+          "fetch": [],
+          "storeUrls": [],
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [],
+          "readinessChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {},
+          "ipAddress": null,
+          "version": "2016-12-19T23:32:54.121Z",
+          "residency": null,
+          "secrets": {},
+          "taskKillGracePeriodSeconds": null,
+          "ports": [
+            10001
+          ],
+          "portDefinitions": [
+            {
+              "port": 10001,
+              "protocol": "tcp",
+              "labels": {}
+            }
+          ],
+          "requirePorts": false,
+          "versionInfo": {
+            "lastScalingAt": "2016-12-19T23:32:54.121Z",
+            "lastConfigChangeAt": "2016-12-19T23:32:54.121Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 0,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": [
+            {
+              "id": "e8493b06-a46e-4d5c-b70a-8c3f9e46339a"
+            }
+          ],
+          "tasks": [],
+          "taskStats": {}
+        },
+        {
+          "id": "/development/web-service",
+          "cmd": null,
+          "args": [],
+          "user": null,
+          "env": {},
+          "instances": 0,
+          "cpus": 1,
+          "mem": 128,
+          "disk": 0,
+          "gpus": 0,
+          "executor": "",
+          "constraints": [],
+          "uris": [],
+          "fetch": [],
+          "storeUrls": [],
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": {
+            "type": "DOCKER",
+            "volumes": [],
+            "docker": {
+              "image": "nginx",
+              "network": null,
+              "portMappings": [],
+              "privileged": false,
+              "parameters": [],
+              "forcePullImage": false
+            }
+          },
+          "healthChecks": [],
+          "readinessChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {},
+          "ipAddress": null,
+          "version": "2016-12-19T23:26:22.312Z",
+          "residency": null,
+          "secrets": {},
+          "taskKillGracePeriodSeconds": null,
+          "ports": [
+            10000
+          ],
+          "portDefinitions": [
+            {
+              "port": 10000,
+              "protocol": "tcp",
+              "labels": {}
+            }
+          ],
+          "requirePorts": false,
+          "versionInfo": {
+            "lastScalingAt": "2016-12-19T23:26:22.312Z",
+            "lastConfigChangeAt": "2016-12-19T18:58:53.806Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 0,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": [],
+          "tasks": [],
+          "taskStats": {}
+        }
+      ],
+      "groups": [],
+      "pods": []
+    },
+    {
+      "id": "/mlunoe",
+      "dependencies": [],
+      "version": "2016-12-20T00:21:34.716Z",
+      "apps": [
+        {
+          "id": "/mlunoe/volume-app",
+          "cmd": "sleep 999999",
+          "args": [],
+          "user": null,
+          "env": {},
+          "instances": 1,
+          "cpus": 0.001,
+          "mem": 128,
+          "disk": 0,
+          "gpus": 0,
+          "executor": "",
+          "constraints": [],
+          "uris": [],
+          "fetch": [],
+          "storeUrls": [],
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": {
+            "type": "MESOS",
+            "volumes": [
+              {
+                "containerPath": "path",
+                "mode": "RW",
+                "persistent": {
+                  "size": 32,
+                  "type": "root",
+                  "constraints": []
+                }
+              },
+              {
+                "containerPath": "path",
+                "mode": "RW",
+                "external": {
+                  "name": "external",
+                  "provider": "dvdi",
+                  "options": {
+                    "dvdi/driver": "rexray"
+                  }
+                }
+              }
+            ]
+          },
+          "healthChecks": [],
+          "readinessChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 0.5,
+            "maximumOverCapacity": 0
+          },
+          "labels": {},
+          "ipAddress": null,
+          "version": "2016-12-19T23:32:46.953Z",
+          "residency": {
+            "relaunchEscalationTimeoutSeconds": 10,
+            "taskLostBehavior": "WAIT_FOREVER"
+          },
+          "secrets": {},
+          "taskKillGracePeriodSeconds": null,
+          "ports": [
+            10002
+          ],
+          "portDefinitions": [
+            {
+              "port": 10002,
+              "protocol": "tcp",
+              "labels": {}
+            }
+          ],
+          "requirePorts": false,
+          "versionInfo": {
+            "lastScalingAt": "2016-12-19T23:32:46.953Z",
+            "lastConfigChangeAt": "2016-12-19T23:32:46.953Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 1,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": [],
+          "tasks": [
+            {
+              "id": "mlunoe_volume-app.72a7640d-c643-11e6-9066-5a8a388c67a1",
+              "slaveId": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-S1",
+              "host": "10.0.3.46",
+              "state": "TASK_RUNNING",
+              "startedAt": "2016-12-19T23:33:03.082Z",
+              "stagedAt": "2016-12-19T23:32:47.492Z",
+              "ports": [
+                4040
+              ],
+              "version": "2016-12-19T23:32:46.953Z",
+              "ipAddresses": [
+                {
+                  "ipAddress": "10.0.3.46",
+                  "protocol": "IPv4"
+                }
+              ],
+              "localVolumes": [
+                {
+                  "runSpecId": "/mlunoe/volume-app",
+                  "containerPath": "path",
+                  "uuid": "72a715ec-c643-11e6-9066-5a8a388c67a1",
+                  "persistenceId": "mlunoe_volume-app#path#72a715ec-c643-11e6-9066-5a8a388c67a1"
+                }
+              ],
+              "appId": "/mlunoe/volume-app"
+            }
+          ],
+          "taskStats": {
+            "startedAfterLastScaling": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 3586.476,
+                  "medianSeconds": 3586.476
+                }
+              }
+            },
+            "withLatestConfig": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 3586.476,
+                  "medianSeconds": 3586.476
+                }
+              }
+            },
+            "totalSummary": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 3586.476,
+                  "medianSeconds": 3586.476
+                }
+              }
+            }
+          }
+        }
+      ],
+      "groups": [],
+      "pods": []
+    },
+    {
+      "id": "/production",
+      "dependencies": [],
+      "version": "2016-12-20T00:21:34.716Z",
+      "apps": [],
+      "groups": [],
+      "pods": []
+    }
+  ],
+  "pods": []
+}
