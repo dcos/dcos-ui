@@ -105,18 +105,17 @@ class ContainerServiceFormSection extends Component {
 
     if (disabled) {
       return [
-        <Tooltip
-          key="gpus-input-tooltip"
-          content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <FieldLabel>
-            {'GPUs '}
+        <FieldLabel key="gpus-input-tooltip">
+          {'GPUs '}
+          <Tooltip
+            content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
             <Icon color="grey" id="lock" size="mini" />
-          </FieldLabel>
-        </Tooltip>,
+          </Tooltip>
+        </FieldLabel>,
         inputFiled
       ];
     }
@@ -151,13 +150,13 @@ class ContainerServiceFormSection extends Component {
         return (
           <FieldLabel key={index}>
             {inputField}
+            {label}{' '}
             <Tooltip
               content={dockerOnly}
               interactive={true}
               maxWidth={300}
               scrollContainer=".gm-scroll-view"
               wrapText={true}>
-              {label}
               <Icon color="grey" id="lock" size="mini" />
             </Tooltip>
             <FieldHelp>{helpText}</FieldHelp>
@@ -270,18 +269,17 @@ class ContainerServiceFormSection extends Component {
     if (container == null || container.type == null ||
         container.type === NONE) {
       return [
-        <Tooltip
-          key="container-image-input-tooltip"
-          content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <FieldLabel>
-            {'Container Image'}
+        <FieldLabel key="container-image-input-tooltip">
+          {'Container Image '}
+          <Tooltip
+            content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
             <Icon color="grey" id="lock" size="mini" />
-          </FieldLabel>
-        </Tooltip>,
+          </Tooltip>
+        </FieldLabel>,
         <FieldInput
           key="container-image-input"
           name="container.docker.image"
