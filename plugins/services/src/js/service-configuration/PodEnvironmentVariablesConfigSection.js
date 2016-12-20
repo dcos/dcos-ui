@@ -69,7 +69,7 @@ const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
           columns={columns}
           data={combinedEnv}
           onEditClick={onEditClick}
-          tabViewID="environment" />
+          tabViewID="multienvironment" />
       </ConfigurationMapSection>
     </div>
   );
