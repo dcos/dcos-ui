@@ -48,6 +48,14 @@
     .panel {
       margin-bottom: @panel-grid-margin-vertical;
     }
+
+    &.row {
+
+      &:after,
+      &:before {
+        display: none;
+      }
+    }
   }
 
   .panel-interactive {
