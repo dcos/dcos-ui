@@ -48,7 +48,7 @@ describe('Service Versions', function () {
             'deploymentId': '5ed4c0c5-9ff8-4a6f-a0cd-f57f59a34b43',
             'version': '2015-09-29T15:59:51.164Z'
           },
-          delay: 500
+          delay: 0
         });
 
       cy.get('@dropdown').get('.button span')
@@ -66,7 +66,7 @@ describe('Service Versions', function () {
         .contains('Apply').click();
     });
 
-    xit('opens correct edit modal of the selected service version', function () {
+    it('opens correct edit modal of the selected service version', function () {
       cy.get('@dropdown').get('.button span')
         .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
         .parent()
@@ -75,15 +75,10 @@ describe('Service Versions', function () {
       cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
 
-      cy.get('.page-body-content h4')
-        .contains('Previous Version (' +
-          new Date('2015-02-28T05:12:12.221Z').toLocaleString() + ')')
-        .should('to.have.length', 1);
-
-      cy.get('.page-body-content .tab button.button')
+      cy.get('.page-body-content .button')
         .contains('Edit').click();
 
-      cy.get('.modal .form-panel [name="cmd"]')
+      cy.get('.modal .menu-tabbed-view textarea[name="cmd"]')
         .contains('sleep 1000');
     });
   });
