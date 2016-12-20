@@ -31,7 +31,8 @@ const HIDE_BREADCRUMBS = [
   '/networking/networks/:overlayName/tasks/:taskID/details',
   '/nodes/:nodeID/tasks/:taskID/details',
   '/services/overview/:id/tasks/:taskID/details',
-  '/services/overview/:id/tasks/:taskID/logs(/:fileName)'
+  '/services/overview/:id/tasks/:taskID/logs(/:fileName)',
+  '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -344,6 +345,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+        <div className="flex flex-item-shrink-0 control-group">
+          {this.getBreadcrumbs()}
+        </div>
         {this.getSubView()}
       </div>
     );
