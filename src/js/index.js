@@ -12,7 +12,6 @@ import PluginSDK from 'PluginSDK';
 // require them in the component.js
 import '../styles/index.less';
 import './utils/MomentJSConfig';
-import './utils/ReactSVG';
 import {
   CONFIG_ERROR
 } from './constants/EventTypes';

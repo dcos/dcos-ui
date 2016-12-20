@@ -42,8 +42,10 @@ describe('#StatusBar', function () {
       );
       expect(console.error)
         .toHaveBeenCalledWith(
-          'Warning: Failed propType: Required prop `data` was not' +
-          ' specified in `StatusBar`.'
+          'Warning: Failed prop type: ' +
+          'The prop `data` is marked as required in `StatusBar`, but its value ' +
+          'is `undefined`.\n' +
+          '    in StatusBar'
         );
     });
 
@@ -58,8 +60,10 @@ describe('#StatusBar', function () {
         );
         expect(console.error)
           .toHaveBeenCalledWith(
-            'Warning: Failed propType: Required prop `data[0].value` was not' +
-            ' specified in `StatusBar`.'
+            'Warning: Failed prop type: ' +
+            'The prop `data[0].value` is marked as required in `StatusBar`, but its value ' +
+            'is `undefined`.\n' +
+            '    in StatusBar'
           );
       });
 
@@ -77,8 +81,10 @@ describe('#StatusBar', function () {
         );
         expect(console.error)
           .toHaveBeenCalledWith(
-            'Warning: Failed propType: Required prop `data[1].value` was not' +
-            ' specified in `StatusBar`.'
+            'Warning: Failed prop type: ' +
+            'The prop `data[1].value` is marked as required in `StatusBar`, but its value ' +
+            'is `undefined`.\n' +
+            '    in StatusBar'
           );
       });
 
