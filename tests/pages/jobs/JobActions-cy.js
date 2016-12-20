@@ -1,4 +1,4 @@
-xdescribe('Job Actions', function () {
+describe('Job Actions', function () {
 
   context('Edit Action', function () {
     beforeEach(function () {
@@ -8,7 +8,9 @@ xdescribe('Job Actions', function () {
         nodeHealth: true
       });
       cy.visitUrl({url: '/jobs/foo'});
-      cy.get('.page-header-actions .button').click();
+
+      cy.get('.page-header-actions .dropdown').click();
+      cy.get('.dropdown-menu-items').contains('Edit').click();
     });
 
     it('opens the correct jobs edit modal', function () {
@@ -22,7 +24,7 @@ xdescribe('Job Actions', function () {
           method: 'PUT',
           url: /metronome\/v0\/scheduled-jobs\/foo/,
           response: [],
-          delay: 500
+          delay: 0
         });
       cy.get('.modal .button-collection .button-success')
         .contains('Save Job')
