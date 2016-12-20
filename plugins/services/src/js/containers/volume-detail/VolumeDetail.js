@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import Page from '../../../../../../src/js/components/Page';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import VolumeStatus from '../../constants/VolumeStatus';
 
 class VolumeDetail extends React.Component {
@@ -32,13 +33,14 @@ class VolumeDetail extends React.Component {
     };
 
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
+      <Page>
+        <Page.Header
+          breadcrumbs={<ServiceBreadcrumbs serviceID={service.id} />} />
         <DetailViewHeader
           subTitle={this.renderSubHeader()}
           title={volume.getId()} />
         <DescriptionList hash={detailsHash} />
-      </div>
+      </Page>
     );
   }
 }
