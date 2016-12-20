@@ -41,7 +41,7 @@ module.exports = {
       return [];
     }
 
-    let transactions = [];
+    const transactions = [];
     if (state.scaling.instances) {
       transactions.push(
         new Transaction(['instances'], state.scaling.instances)

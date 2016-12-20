@@ -6,7 +6,7 @@ const Transaction = require('../../../../../../../src/js/structs/Transaction');
 describe('MultiContainerNetwork', function () {
   describe('#JSONReducer', function () {
     it('should be host default type', function () {
-      let batch = new Batch();
+      const batch = new Batch();
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({})))
       .toEqual([{mode: 'host'}]);

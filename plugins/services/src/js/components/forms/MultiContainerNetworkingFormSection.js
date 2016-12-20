@@ -43,7 +43,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   getHostPortFields(endpoint, index, containerIndex) {
     let placeholder;
     let value = endpoint.hostPort;
-    let {errors} = this.props;
+    const {errors} = this.props;
     let hostPortError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.port`
@@ -106,7 +106,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced, vip}, index, containerIndex) {
-    let {errors} = this.props;
+    const {errors} = this.props;
     let loadBalancedError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.labels`
@@ -114,7 +114,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     let address = vip;
     if (address == null) {
-      let hostname = HostUtil.stringToHostname(this.props.data.id);
+      const hostname = HostUtil.stringToHostname(this.props.data.id);
       let port = '';
       if (hostPort != null && hostPort !== '') {
         port = `:${hostPort}`;
@@ -166,7 +166,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getProtocolField(endpoint, index, containerIndex) {
-    let {errors} = this.props;
+    const {errors} = this.props;
     let protocolError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.protocol`
@@ -205,7 +205,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getHostServiceEndpoints(endpoints = [], containerIndex) {
-    let {errors} = this.props;
+    const {errors} = this.props;
 
     return endpoints.map((endpoint, index) => {
       let nameError = findNestedPropertyInObject(
@@ -242,7 +242,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getVirtualNetworkServiceEndpoints(endpoints = [], containerIndex) {
-    let {errors} = this.props;
+    const {errors} = this.props;
 
     return endpoints.map((endpoint, index) => {
       let containerPortError = findNestedPropertyInObject(
@@ -298,12 +298,12 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    let {containers} = this.props.data;
-    let network = findNestedPropertyInObject(this.props.data,
+    const {containers} = this.props.data;
+    const network = findNestedPropertyInObject(this.props.data,
       'networks.0.mode');
 
     return containers.map((container, index) => {
-      let {endpoints = []} = container;
+      const {endpoints = []} = container;
 
       if (network === Networking.type.CONTAINER) {
         return (
@@ -368,7 +368,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getVirtualNetworks() {
     return VirtualNetworksStore.getOverlays().mapItems((overlay) => {
-      let name = overlay.getName();
+      const name = overlay.getName();
 
       return {
         text: `Virtual Network: ${name}`,
@@ -386,9 +386,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getTypeSelections() {
-    let networkType = findNestedPropertyInObject(this.props.data,
+    const networkType = findNestedPropertyInObject(this.props.data,
       'networks.0.mode');
-    let networkName = findNestedPropertyInObject(this.props.data,
+    const networkName = findNestedPropertyInObject(this.props.data,
       'networks.0.name');
 
     let network = networkType;

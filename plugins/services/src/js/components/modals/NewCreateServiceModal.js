@@ -345,7 +345,7 @@ class NewServiceFormModal extends Component {
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
 
-      let isPod = serviceConfig instanceof PodSpec;
+      const isPod = serviceConfig instanceof PodSpec;
 
       let jsonConfigReducers = combineReducers(
         Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)

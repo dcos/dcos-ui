@@ -240,7 +240,7 @@ function containersParser(state) {
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
             endpoint.containerPort
           ));
-          let vip = findNestedPropertyInObject(
+          const vip = findNestedPropertyInObject(
             endpoint,
             `labels.VIP_${endpointIndex}`
           );

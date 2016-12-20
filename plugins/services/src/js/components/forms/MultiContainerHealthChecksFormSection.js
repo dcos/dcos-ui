@@ -146,7 +146,7 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   render() {
-    let {data} = this.props;
+    const {data} = this.props;
 
     return (
       <div className="form flush-bottom" >
