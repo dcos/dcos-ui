@@ -15,12 +15,12 @@ function addImageOptimizer(loader) {
   });
 }
 
-let REPLACEMENT_VARS = {
+const REPLACEMENT_VARS = {
   VERSION: packageInfo.version,
   ENV: process.env.NODE_ENV
 };
 
-let dependencies = Object.assign({}, packageInfo.dependencies);
+const dependencies = Object.assign({}, packageInfo.dependencies);
 delete dependencies['canvas-ui'];
 delete dependencies['cnvs'];
 

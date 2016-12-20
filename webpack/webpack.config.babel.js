@@ -12,17 +12,17 @@ import StringReplacePlugin from 'string-replace-webpack-plugin';
 import IconDCOSLogoMark from '../src/js/components/icons/IconDCOSLogoMark.js';
 
 function absPath() {
-  let args = [].slice.apply(arguments);
+  const args = [].slice.apply(arguments);
   args.unshift(__dirname, '..');
 
   return path.resolve.apply(path.resolve, args);
 }
 
 // Can override this with npm config set externalplugins ../some/relative/path/to/repo
-let externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
+const externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
 
 new Promise(function (resolve, reject) {
-  let cssEntryPoint = path.join(__dirname, '../src/styles/index.less');
+  const cssEntryPoint = path.join(__dirname, '../src/styles/index.less');
   less.render(fs.readFileSync(cssEntryPoint).toString(), {
     filename: cssEntryPoint,
     plugins: [colorLighten]
@@ -32,7 +32,7 @@ new Promise(function (resolve, reject) {
       process.exit(1);
     }
 
-    let prefixer = postcss([autoprefixer]);
+    const prefixer = postcss([autoprefixer]);
     prefixer.process(output.css)
     .then(function (prefixed) {
       resolve(prefixed.css);
@@ -44,13 +44,13 @@ new Promise(function (resolve, reject) {
 });
 
 function requireFromString(src, filename) {
-  let Module = module.constructor;
-  let sourceModule = new Module();
+  const Module = module.constructor;
+  const sourceModule = new Module();
   sourceModule._compile(src, filename);
   return sourceModule.exports;
 }
 
-let bootstrap = {
+const bootstrap = {
   CSS:'',
   HTML: ReactDOMServer.renderToStaticMarkup(
     React.createElement(IconDCOSLogoMark)
@@ -131,16 +131,16 @@ module.exports = {
                 htmlContents = htmlContents
                   .replace(/"\s+\+\s+require\(".*?"\)\s+\+\s+"/g, '');
                 // Load as if it were a module.
-                let compiledHTML = requireFromString(htmlContents);
+                const compiledHTML = requireFromString(htmlContents);
 
-                let css = purifycss(compiledHTML, bootstrap.CSS, {
+                const css = purifycss(compiledHTML, bootstrap.CSS, {
                   minify: true
                 });
 
                 // Webpack doo doo's its pants with some of this CSS for
                 // some stupid reason. So this is why we encode the CSS.
-                let encoded = new Buffer(css).toString('base64');
-                let js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`;
+                const encoded = new Buffer(css).toString('base64');
+                const js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`;
 
                 return `<script>${js}</script>`;
               }
