@@ -37,7 +37,7 @@ gulp.task('checkDependencies', function () {
 
   checker.init({
     start: './'
-  }, function(json, error) {
+  }, function (json, error) {
     if (error) {
       console.log(error);
       process.exit(1);
