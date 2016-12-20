@@ -304,14 +304,12 @@ class NewCreateServiceModalForm extends Component {
     }
 
     return containers.map((item, index) => {
-      let itemErrors = errors && errors.containers && errors.containers[item];
-
       return (
         <TabView key={index} id={`container${index}`}>
           <PodContainerServiceFormSection
             path={`containers.${index}`}
             data={data}
-            errors={itemErrors}
+            errors={errors}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>
