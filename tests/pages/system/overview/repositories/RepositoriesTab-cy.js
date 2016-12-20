@@ -48,4 +48,11 @@ describe('Installed Packages Tab', function () {
     });
   });
 
+  it('displays uninstall modal when uninstall is clicked', function () {
+    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
+    cy
+      .get('.modal .modal-footer .button.button-danger')
+      .should('contain', 'Remove Repository');
+  });
+
 });
