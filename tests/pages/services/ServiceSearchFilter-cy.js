@@ -2,6 +2,14 @@ describe('Service Search Filters', function () {
 
   context('Filters services table', function () {
 
+    function getSearchParameter(hash) {
+      var queries = hash.split('?')[1];
+
+      return queries.split('&').find(function (query) {
+        return query.split('=')[0] === 'q';
+      });
+    }
+
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
@@ -21,14 +29,8 @@ describe('Service Search Filters', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
       cy.hash().should(function (hash) {
-        var queries = hash.split('?')[1];
-        var searchString = queries.split('&').find(function (query) {
-          var [key, value] = query.split('=');
-          if (key === 'q') {
-            return value;
-          }
-        });
-        expect(decodeURIComponent(searchString))
+        var searchParameter = getSearchParameter(hash);
+        expect(decodeURIComponent(searchParameter))
           .to.equal('q=cassandra-healthy');
       });
     });
@@ -42,15 +44,9 @@ describe('Service Search Filters', function () {
         .click();
 
       cy.hash().should(function (hash) {
-        var queries = hash.split('?')[1];
-        var searchString = queries.split('&').find(function (query) {
-          var [key, value] = query.split('=');
-          if (key === 'q') {
-            return value;
-          }
-        });
-        expect(decodeURIComponent(searchString))
-          .to.equal('undefined');
+        var searchParameter = getSearchParameter(hash);
+        expect(decodeURIComponent(searchParameter))
+          .to.equal('q=');
       });
       cy.get('tbody tr').should('to.have.length', 6);
     });
