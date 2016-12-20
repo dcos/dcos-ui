@@ -80,7 +80,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 className: getColumnClassNameFn(),
                 render(prop, row) {
                   let protocol = row[prop] || '';
-                  protocol = protocol.replace(',', ', ');
+                  protocol = protocol.replace(/,\s*/g, ', ');
 
                   return getDisplayValue(protocol);
                 },
