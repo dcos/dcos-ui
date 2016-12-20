@@ -9,7 +9,7 @@ describe('Containers', function () {
   describe('#JSONReducer', function () {
 
     it('should pass through state as default', function () {
-      let batch = new Batch();
+      const batch = new Batch();
 
       expect(batch.reduce(Containers.JSONReducer.bind({}), []))
       .toEqual([]);

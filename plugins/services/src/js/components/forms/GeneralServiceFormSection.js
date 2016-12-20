@@ -82,7 +82,7 @@ class GeneralServiceFormSection extends Component {
       );
     }
 
-    let {containers = []} = data;
+    const {containers = []} = data;
     return containers.map((item, index) => {
       return (
         <FormGroupContainer key={index}
@@ -95,7 +95,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   getConvertToPodAction() {
-    let {service, isEdit} = this.props;
+    const {service, isEdit} = this.props;
 
     if (isEdit || service instanceof PodSpec) {
       return null;
@@ -112,7 +112,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   getMultiContainerSection() {
-    let {service} = this.props;
+    const {service} = this.props;
     if (!(service instanceof PodSpec)) {
       return null;
     }
@@ -230,9 +230,9 @@ class GeneralServiceFormSection extends Component {
   }
 
   getRuntimeSelections() {
-    let {data = {}} = this.props;
-    let {container = {}, gpus} = data;
-    let isDisabled = {};
+    const {data = {}} = this.props;
+    const {container = {}, gpus} = data;
+    const isDisabled = {};
     let disabledTooltipContent;
     let type = NONE;
 
@@ -294,7 +294,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   render() {
-    let {data, errors} = this.props;
+    const {data, errors} = this.props;
 
     return (
       <div>

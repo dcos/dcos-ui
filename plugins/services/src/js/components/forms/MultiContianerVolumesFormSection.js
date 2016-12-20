@@ -87,7 +87,7 @@ class MultiContainerVolumesFormSection extends Component {
   }
 
   render() {
-    let {data} = this.props;
+    const {data} = this.props;
 
     if (data.containers && data.containers.length === 0) {
       return null;

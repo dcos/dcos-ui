@@ -6,7 +6,7 @@ module.exports = {
   JSONReducer(state = [{mode: Networking.type.HOST.toLowerCase()}], {type, path, value}) {
     const index = path[1] || 0;
 
-    let newState = state.slice();
+    const newState = state.slice();
     if (path[0] === 'networks') {
 
       if (type === ADD_ITEM && index !== 0) {
@@ -69,7 +69,7 @@ module.exports = {
   FormReducer(state = [{mode: Networking.type.HOST}], {type, path, value}) {
     const index = path[1] || 0;
 
-    let newState = state.slice();
+    const newState = state.slice();
     if (path[0] === 'networks') {
 
       if (type === ADD_ITEM && index !== 0) {
