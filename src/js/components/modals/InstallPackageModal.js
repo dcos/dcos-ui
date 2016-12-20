@@ -459,7 +459,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     return (
       <div>
         <div className="modal-body">
-          <div className="text-align-center">
+          <div className="horizontal-center">
             <span className="text-success">
               <Icon id="circle-check" size="large" color="green" />
             </span>
@@ -498,11 +498,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <div>
-        <div className="modal-body horizontal-center">
-          <h3>Invalid Configuration</h3>
-          <p className="text-danger text-align-center">
-            {errorText}
-          </p>
+        <div className="modal-body">
+          <div className="horizontal-center">
+            <h3>Invalid Configuration</h3>
+            <p className="text-danger text-align-center">
+              {errorText}
+            </p>
+          </div>
         </div>
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked horizontal-center">
@@ -520,8 +522,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   getCLIPackageInfo(cosmosPackage) {
     return (
       <div>
-        <div className="modal-content">
-          <div className="modal-content-inner modal-content-inner-tall horizontal-center">
+        <div className="modal-body">
+          <div className="horizontal-center">
             <div className="icon icon-jumbo icon-image-container icon-app-container">
               <Image
                 fallbackSrc={defaultServiceImage}
