@@ -1,103 +1,107 @@
-xdescribe('Service Form Modal', function () {
-  context('Root level', function () {
-    beforeEach(function () {
-      cy.configureCluster({
-        mesos: '1-empty-group',
-        nodeHealth: true
-      });
-      cy.visitUrl({url: '/services/overview'});
+describe('Service Form Modal', function () {
+
+  function openServiceModal() {
+    cy.get('.page-header-actions button')
+      .first()
+      .click();
+  }
+
+  function clickRunService() {
+    cy.get('.panel .button')
+      .contains('Run a Service')
+      .click();
+  }
+
+  function openServiceForm() {
+    cy.get('.create-service-modal-service-picker-option')
+      .first()
+      .click();
+  }
+
+  function openServiceJSON() {
+    cy.get('.create-service-modal-service-picker-option')
+      .eq(1)
+      .click();
+  }
+
+  beforeEach(function () {
+    cy.configureCluster({
+      mesos: '1-empty-group',
+      nodeHealth: true
     });
+    cy.visitUrl({url: '/services/overview'});
+  });
+
+  context('Root level', function () {
 
     it('Opens the right modal on click', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form').should('to.have.length', 1);
+      openServiceModal();
+      cy.get('.modal-full-screen').should('to.have.length', 1);
     });
 
-    it('contains the right group id in the modal', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form input[name="id"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('/');
-      });
+    it('contains the right group id in the form modal', function () {
+      openServiceModal();
+      openServiceForm();
+      cy.get('.modal .menu-tabbed-view input[name="id"]')
+        .should('to.have.value', '/');
     });
 
     it('contains the right JSON in the JSON editor', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form-title-label').click();
-
+      openServiceModal();
+      openServiceJSON();
       cy.get('.ace_content').should(function (nodeList) {
         expect(nodeList[0].textContent).to.contain('"id": "/"');
       });
     });
 
     it('remembers the selected form tab when switching back from JSON', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
+      openServiceModal();
+      openServiceForm();
+
+      cy.get('.menu-tabbed-item')
+        .contains('Networking')
         .click();
 
-      cy.get('.multiple-form-modal-sidebar-menu-item.clickable')
-        .contains('Container Settings')
-        .click();
-
-      cy.get('.form-panel:visible .form-row-element h2.form-header').first()
-        .should('to.have.text', 'Container Settings');
+      cy.get('.menu-tabbed-view-container h2').first()
+        .should('to.have.text', 'Networking');
 
       // Switch to JSON
-      cy.get('.modal-form-title-label').click();
+      cy.get('.modal-full-screen-actions label').click();
 
-      // Switch to JSON
       cy.get('.ace_content').should(function (nodeList) {
         expect(nodeList[0].textContent).to.contain('"id": "/"');
       });
 
       // Switch back to form
-      cy.get('.modal-form-title-label').click();
+      cy.get('.modal-full-screen-actions label').click();
 
-      cy.get('.form-panel:visible .form-row-element h2.form-header').first()
-        .should('to.have.text', 'Container Settings');
+      cy.get('.menu-tabbed-view-container h2').first()
+        .should('to.have.text', 'Networking');
 
     });
   });
 
   context('Group level', function () {
+
     beforeEach(function () {
-      cy.configureCluster({
-        mesos: '1-empty-group',
-        nodeHealth: true
-      });
       cy.visitUrl({url: '/services/overview/%2Fservices'});
     });
 
     it('Opens the right modal on click', function () {
-      cy.get('.filter-bar .button')
-        .contains('Run a Service')
-        .click();
-
-      cy.get('.modal-form').should('to.have.length', 1);
+      clickRunService();
+      cy.get('.modal-full-screen').should('to.have.length', 1);
     });
 
     it('contains the right group id in the modal', function () {
-      cy.get('.filter-bar .button')
-        .contains('Run a Service')
-        .click();
-
-      cy.get('.modal-form input[name="id"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('/services/');
-      });
+      clickRunService();
+      openServiceForm();
+      cy.get('.modal .menu-tabbed-view input[name="id"]')
+        .should('to.have.value', '/services/');
     });
 
     it('contains the right JSON in the JSON editor', function () {
-      cy.get('.filter-bar .button')
-        .contains('Run a Service')
-        .click();
-
-      cy.get('.modal-form-title-label').click();
-
+      clickRunService();
+      openServiceJSON();
       cy.get('.ace_content').should(function (nodeList) {
         expect(nodeList[0].textContent).to.contain('"id": "/services/"');
       });
@@ -105,59 +109,33 @@ xdescribe('Service Form Modal', function () {
   });
 
   context('default values', function () {
-    beforeEach(function () {
-      cy.configureCluster({
-        mesos: '1-empty-group',
-        nodeHealth: true
-      });
-      cy.visitUrl({url: '/services/overview'});
-    });
+    function getFormValue(name) {
+      openServiceModal();
+      openServiceForm();
+
+      return cy.get('.modal .menu-tabbed-view input[name="' + name + '"]');
+    }
 
     it('contains right cpus default value', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form input[name="cpus"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('1');
-      });
+      getFormValue('cpus')
+        .should('to.have.value', '0.001');
     });
 
     it('contains right mem default value', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form input[name="mem"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('128');
-      });
+      getFormValue('mem')
+        .should('to.have.value', '128');
     });
 
     it('contains right instances default value', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form input[name="instances"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('1');
-      });
-    });
-
-    it('contains right disk default value', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form input[name="disk"]').should(function (nodeList) {
-        expect(nodeList[0].value).to.equal('0');
-      });
+      getFormValue('instances')
+        .should('to.have.value', '1');
     });
 
     it('contains the right JSON in the JSON editor', function () {
-      cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Run a Service')
-        .click();
-      cy.get('.modal-form-title-label').click();
-
+      openServiceModal();
+      openServiceJSON();
       cy.get('.ace_content').should(function (nodeList) {
-        expect(nodeList[0].textContent).to.contain('"disk": 0');
-        expect(nodeList[0].textContent).to.contain('"cpus": 1');
+        expect(nodeList[0].textContent).to.contain('"cpus": 0.001');
         expect(nodeList[0].textContent).to.contain('"instances": 1');
         expect(nodeList[0].textContent).to.contain('"mem": 128');
       });
