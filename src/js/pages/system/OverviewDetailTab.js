@@ -117,7 +117,15 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     };
   }
 
+  getPageHeaderActions() {
+    return [{
+      label: 'View Cluster Configuration',
+      onItemSelect: this.handleClusterConfigModalOpen
+    }];
+  }
+
   render() {
+    const buildInfo = MetadataStore.get('dcosBuildInfo');
     const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
     let versionsModal = null;
@@ -136,15 +144,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<ClusterDetailsBreadcrumbs />} />
+        <Page.Header actions={this.getPageHeaderActions()}
+          breadcrumbs={<ClusterDetailsBreadcrumbs />} />
         <div className="container">
-          <div className="text-align-right">
-            <button className="button button-link"
-              disabled={buildInfo == null}
-              onClick={this.handleClusterConfigModalOpen}>
-              View Cluster Configuration
-            </button>
-          </div>
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
               Cluster Details
