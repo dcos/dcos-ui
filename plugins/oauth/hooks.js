@@ -64,6 +64,7 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   dcosInstallCommandExtraSteps() {
+    // Inject additional steps into the CLI install instructions
     return 'dcos auth login';
   },
 
