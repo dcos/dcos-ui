@@ -26,12 +26,17 @@ function getCommand(containerConfig) {
   return null;
 }
 
-const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) => {
+const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, index}) => {
   const fields = {
     command: getCommand(containerConfig),
     resources: containerConfig.resources || {},
     user: containerConfig.user || appConfig.user
   };
+
+  let tabViewID = 'services';
+  if (index != null) {
+    tabViewID = `container${index}`;
+  }
 
   return (
     <ConfigurationMapSection key="pod-general-section">
@@ -48,7 +53,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           value={findNestedPropertyInObject(appConfig, 'image.id')} />
         <ConfigurationMapEditAction
           onEditClick={onEditClick}
-          tabViewID="services" />
+          tabViewID={tabViewID} />
       </ConfigurationMapRow>
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
@@ -56,7 +61,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           value={findNestedPropertyInObject(appConfig, 'image.forcePull')} />
         <ConfigurationMapEditAction
           onEditClick={onEditClick}
-          tabViewID="services" />
+          tabViewID={tabViewID} />
       </ConfigurationMapRow>
 
       {/* Resources */}
@@ -66,7 +71,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapValue value={fields.resources.cpus} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
       {fields.resources.mem && (
@@ -75,7 +80,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapSizeValue value={fields.resources.mem} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
       {fields.resources.disk && (
@@ -84,7 +89,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapSizeValue value={fields.resources.disk} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
       {fields.resources.gpus && (
@@ -93,7 +98,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapValue value={fields.resources.gpus} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
 
@@ -104,7 +109,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapValue value={fields.user} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
       {fields.command && (
@@ -113,7 +118,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
           <ConfigurationMapMultilineValue value={fields.command} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
 
@@ -121,13 +126,14 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick}) =>
       <PodContainerArtifactsConfigSection
         artifacts={containerConfig.artifacts}
         onEditClick={onEditClick}
-        tabViewID="services" />
+        index={index} />
 
     </ConfigurationMapSection>
   );
 };
 
 PodContainerConfigSection.propTypes = {
+  index: React.PropTypes.number,
   onEditClick: React.PropTypes.func
 };
 
