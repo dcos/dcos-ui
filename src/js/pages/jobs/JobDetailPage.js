@@ -240,6 +240,24 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
   }
 
+  getJobStatus(job) {
+    let longestRunningTask = null;
+    const longestRunningActiveRun = job.getActiveRuns()
+      .getLongestRunningActiveRun();
+
+    if (longestRunningActiveRun != null) {
+      longestRunningTask = longestRunningActiveRun.getTasks()
+        .getLongestRunningTask();
+    }
+
+    if (longestRunningTask == null) {
+      return null;
+    }
+
+    const status = TaskStates[longestRunningTask.getStatus()];
+    return status.displayName;
+  }
+
   getSubTitle(job) {
     const nodes = [];
     const scheduleText = this.getPrettySchedule(job);
@@ -382,12 +400,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     let job = MetronomeStore.getJob(this.props.params.id);
+    const jobStatus = this.getJobStatus(job);
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} />}
+          breadcrumbs={<JobsBreadcrumbs jobID={job.getId()} jobStatus={jobStatus} />}
           tabs={this.getTabs()} />
         {this.tabs_getTabView(job)}
         <JobFormModal isEdit={true}
