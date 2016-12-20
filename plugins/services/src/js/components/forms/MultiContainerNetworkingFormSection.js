@@ -126,11 +126,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       address = `${hostname}${Networking.L4LB_ADDRESS}${port}`;
     }
 
-    let loadBalancedLabel = 'Disabled';
-    if (loadBalanced) {
-      loadBalancedLabel = 'Enabled';
-    }
-
     return [
       <div className="flex row" key="title">
         <FormGroup className="column-9">
@@ -152,7 +147,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               checked={loadBalanced}
               name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
               type="checkbox" />
-            {loadBalancedLabel}
+            Enabled
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
