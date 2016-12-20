@@ -48,8 +48,8 @@ module.exports = {
       return [];
     }
 
-    let volumes = [];
-    let volumeIndexMap = {};
+    const volumes = [];
+    const volumeIndexMap = {};
 
     let transactions = [];
 

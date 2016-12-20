@@ -35,9 +35,9 @@ const getArtifactsLabel = () => {
 
 class PodContainerServiceFormSection extends Component {
   getArtifacts(data, errors) {
-    let {path} = this.props;
+    const {path} = this.props;
 
-    let artifacts = findNestedPropertyInObject(data, `${path}.artifacts`) || [];
+    const artifacts = findNestedPropertyInObject(data, `${path}.artifacts`) || [];
 
     if (artifacts.length === 0) {
       return (
@@ -78,7 +78,7 @@ class PodContainerServiceFormSection extends Component {
   }
 
   getAdvancedSettings(data = {}, errors = {}) {
-    let {path} = this.props;
+    const {path} = this.props;
 
     let diskErrors = findNestedPropertyInObject(errors,
       `${path}.resources.disk`);
@@ -167,7 +167,7 @@ class PodContainerServiceFormSection extends Component {
   }
 
   render() {
-    let {data, errors, path} = this.props;
+    const {data, errors, path} = this.props;
 
     let imageErrors = findNestedPropertyInObject(errors, `${path}.image`);
     let cpusErrors = findNestedPropertyInObject(errors,

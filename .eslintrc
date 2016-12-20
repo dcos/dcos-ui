@@ -26,6 +26,7 @@
 
   "globals": {
     "cy": true,
+    "Cypress": true,
     "context": true,
     "xcontext": true,
     "xit": true,

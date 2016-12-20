@@ -75,9 +75,7 @@ describe('Installed Packages Tab', function () {
       .invoke('show')
       .click({force: true});
 
-    cy.get('modal').should(function ($modal) {
-      expect($modal).to.not.exist;
-    });
+    cy.get('modal').should('not.exist');
   });
 
   xit('displays error in modal after uninstall causes an error', function () {
