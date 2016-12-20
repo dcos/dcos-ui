@@ -29,13 +29,8 @@ class NodeDetailTab extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          <HashMapDisplay
-            className="pod pod-short flush-top flush-right flush-left"
-            hash={headerValueMapping} />
-          <HashMapDisplay
-            className="pod pod-short flush-top flush-right flush-left"
-            hash={node.attributes}
-            headline="Attributes" />
+          <HashMapDisplay hash={headerValueMapping} />
+          <HashMapDisplay hash={node.attributes} headline="Attributes" />
         </ConfigurationMap>
       </div>
     );
