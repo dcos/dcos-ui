@@ -60,7 +60,7 @@ class DSLInputField extends React.Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    let {expression} = nextProps;
+    const {expression} = nextProps;
 
     if (expression !== this.state.expression) {
       this.setState({expression});
@@ -73,7 +73,7 @@ class DSLInputField extends React.Component {
    * @override
    */
   componentDidUpdate(prevProps, prevState) {
-    let {focus} = this.state;
+    const {focus} = this.state;
 
     if (prevState.focus !== focus && focus && this.inputField) {
       this.inputField.focus();
@@ -138,8 +138,8 @@ class DSLInputField extends React.Component {
       return null;
     }
 
-    let {expression} = this.state;
-    let {inverseStyle} = this.props;
+    const {expression} = this.state;
+    const {inverseStyle} = this.props;
     let color = 'purple';
 
     if (inverseStyle) {
@@ -208,7 +208,7 @@ class DSLInputField extends React.Component {
    * @returns {Node} The input field
    */
   getInputField() {
-    let {expression} = this.state;
+    const {expression} = this.state;
     let {inverseStyle, placeholder} = this.props;
 
     let inputClasses = classNames({
@@ -228,12 +228,12 @@ class DSLInputField extends React.Component {
   }
 
   render() {
-    let {
+    const {
       className,
       inputContainerClass,
       inverseStyle
     } = this.props;
-    let {expression, focus} = this.state;
+    const {expression, focus} = this.state;
 
     let iconColor = 'grey';
     let iconSearchClasses = classNames({

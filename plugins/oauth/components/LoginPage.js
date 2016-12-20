@@ -4,12 +4,12 @@ import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Modal} from 'reactjs-components';
 
-let SDK = require('../SDK').getSDK();
+const SDK = require('../SDK').getSDK();
 
-let {AuthStore, MetadataStore} =
+const {AuthStore, MetadataStore} =
   SDK.get(['AuthStore', 'MetadataStore']);
 
-let METHODS_TO_BIND = [
+const METHODS_TO_BIND = [
   'handleModalClose',
   'onMessageReceived'
 ];
@@ -54,7 +54,7 @@ class LoginPage extends mixin(StoreMixin) {
       return;
     }
 
-    let data = JSON.parse(event.data);
+    const data = JSON.parse(event.data);
 
     switch (data.type) {
       case 'token':
@@ -79,13 +79,13 @@ class LoginPage extends mixin(StoreMixin) {
   }
 
   navigateToAccessDenied() {
-    let router = this.context.router;
+    const router = this.context.router;
 
     router.replace('/access-denied');
   }
 
   render() {
-    let firstUser = SDK.Store.getAppState()
+    const firstUser = SDK.Store.getAppState()
       .config.config.clusterConfiguration.firstUser;
 
     let location = `/login?firstUser=${firstUser}`;

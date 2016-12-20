@@ -61,8 +61,8 @@ class Batch {
 
     // Remove previous if path is the same as current to minimize
     // number of actions
-    let {path} = batch[batch.length - 1] || {};
-    let hasEqualPaths = item && Array.isArray(path) &&
+    const {path} = batch[batch.length - 1] || {};
+    const hasEqualPaths = item && Array.isArray(path) &&
       Array.isArray(item.path) && path.join() === item.path.join();
     if (item.type === TransactionTypes.SET && hasEqualPaths) {
       batch.pop();

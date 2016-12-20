@@ -18,11 +18,11 @@ class TaskFileViewer extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {props, state} = this;
-    let directory = props.directory;
-    let nextDirectory = nextProps.directory;
-    let task = state.task;
-    let nextTask = nextState.task;
+    const {props, state} = this;
+    const directory = props.directory;
+    const nextDirectory = nextProps.directory;
+    const task = state.task;
+    const nextTask = nextState.task;
 
     return !!(
       // Check task
@@ -37,14 +37,14 @@ class TaskFileViewer extends React.Component {
   }
 
   handleViewChange(currentFile) {
-    let {params, routes} = this.props;
-    let path = currentFile.get('path');
+    const {params, routes} = this.props;
+    const path = currentFile.get('path');
     if (path === this.getSelectedFile().get('path')) {
       // File path didn't change, let's not try to update path
       return;
     }
 
-    let routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    const routePath = RouterUtil.reconstructPathFromRoutes(routes);
     this.context.router.push(formatPattern(
       routePath,
       Object.assign({}, params, {filePath: encodeURIComponent(path)})
@@ -52,8 +52,8 @@ class TaskFileViewer extends React.Component {
   }
 
   getLogFiles() {
-    let {directory} = this.props;
-    let logViews = [];
+    const {directory} = this.props;
+    const logViews = [];
     if (!directory) {
       return logViews;
     }
@@ -71,7 +71,7 @@ class TaskFileViewer extends React.Component {
 
   getLogSelectionAsButtons(logFiles, selectedName) {
     let buttons = logFiles.map((item, index) => {
-      let name = item.getName();
+      const name = item.getName();
 
       let classes = classNames({
         'button button-stroke': true,
@@ -107,9 +107,9 @@ class TaskFileViewer extends React.Component {
 
   getDropdownItems(logFiles) {
     return logFiles.map(function (item) {
-      let displayName = item.getDisplayName();
+      const displayName = item.getDisplayName();
       let selectedHtml = this.getItemHtml(displayName);
-      let dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = (<a>{selectedHtml}</a>);
 
       return {
         id: item.getName(),
@@ -122,14 +122,14 @@ class TaskFileViewer extends React.Component {
   }
 
   getSelectedFile() {
-    let {props, state} = this;
-    let file = state.currentFile;
-    let paramsPath = decodeURIComponent(props.params.filePath);
+    const {props, state} = this;
+    const file = state.currentFile;
+    const paramsPath = decodeURIComponent(props.params.filePath);
     if (!file && paramsPath !== 'undefined') {
       return new DirectoryItem({path: paramsPath});
     }
 
-    let files = this.getLogFiles();
+    const files = this.getLogFiles();
 
     return files.find(function (file) {
       return file.getName() === 'stdout';
@@ -138,7 +138,7 @@ class TaskFileViewer extends React.Component {
 
   getSelectionComponent(selectedLogFile) {
     let selectedName = selectedLogFile && selectedLogFile.getName();
-    let logFiles = this.getLogFiles();
+    const logFiles = this.getLogFiles();
     if (logFiles.length < 3) {
       return this.getLogSelectionAsButtons(logFiles, selectedName);
     }
@@ -162,7 +162,7 @@ class TaskFileViewer extends React.Component {
   }
 
   getActions(selectedLogFile, filePath) {
-    let {task} = this.props;
+    const {task} = this.props;
 
     return [
       this.getSelectionComponent(selectedLogFile),
@@ -182,7 +182,7 @@ class TaskFileViewer extends React.Component {
     let {task} = this.props;
 
     // Only try to get path if file exists
-    let selectedLogFile = this.getSelectedFile();
+    const selectedLogFile = this.getSelectedFile();
     let selectedName = selectedLogFile && selectedLogFile.getName();
     let filePath = selectedLogFile && selectedLogFile.get('path');
 

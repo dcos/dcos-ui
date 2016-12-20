@@ -4,7 +4,7 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldHelp = (props) => {
-  let {className, textTransform} = props;
+  const {className, textTransform} = props;
   let classes = classNames(
     'small flush-bottom',
     className,

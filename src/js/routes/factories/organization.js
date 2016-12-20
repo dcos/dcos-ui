@@ -7,7 +7,7 @@ import {Hooks} from 'PluginSDK';
 import OrganizationPage from '../../pages/OrganizationPage';
 import UsersPage from '../../pages/system/UsersPage';
 
-let RouteFactory = {
+const RouteFactory = {
   getOrganizationRoutes() {
     // Return filtered Routes
     return Hooks.applyFilter('organizationRoutes', {
@@ -40,7 +40,7 @@ let RouteFactory = {
   },
 
   getRoutes() {
-    let {routes, redirect} = this.getOrganizationRoutes();
+    const {routes, redirect} = this.getOrganizationRoutes();
 
     return [
       // Redirect should always go before path, otherwise router won't ever reach it

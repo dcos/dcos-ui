@@ -18,7 +18,7 @@ describe('FormUtil', function () {
     });
 
     it('sets the correct name for the definition', function () {
-      let result = FormUtil.getMultipleFieldDefinition(
+      const result = FormUtil.getMultipleFieldDefinition(
         'variable',
         1,
         this.definition
@@ -29,7 +29,7 @@ describe('FormUtil', function () {
     });
 
     it('does not modify the definition', function () {
-      let result = FormUtil.getMultipleFieldDefinition(
+      const result = FormUtil.getMultipleFieldDefinition(
         'variable',
         1,
         this.definition
@@ -40,7 +40,7 @@ describe('FormUtil', function () {
     });
 
     it('sets the value if a model is passed', function () {
-      let result = FormUtil.getMultipleFieldDefinition(
+      const result = FormUtil.getMultipleFieldDefinition(
         'variable',
         1,
         this.definition,
@@ -88,33 +88,33 @@ describe('FormUtil', function () {
 
   describe('#isFieldInstanceOfProp', function () {
     it('should return true if field is instance of prop', function () {
-      let fields = [
+      const fields = [
         {name: 'variable[2].key', value: 'kenny'},
         {name: 'variable[2].value', value: 'tran'}
       ];
-      let result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
+      const result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
       expect(result).toEqual(true);
     });
 
     it('should return false if field is not instance of prop', function () {
-      let fields = [
+      const fields = [
         {name: 'variable[1].key', value: 'kenny'},
         {name: 'variable[1].value', value: 'tran'}
       ];
-      let result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
+      const result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
       expect(result).toEqual(false);
     });
 
     it('should work on a single definition', function () {
-      let field = {name: 'variable[1].key', value: 'kenny'};
-      let result = FormUtil.isFieldInstanceOfProp('variable', field, 1);
+      const field = {name: 'variable[1].key', value: 'kenny'};
+      const result = FormUtil.isFieldInstanceOfProp('variable', field, 1);
       expect(result).toEqual(true);
     });
   });
 
   describe('#removePropID', function () {
     it('should remove the fields with that property', function () {
-      let definition = [
+      const definition = [
         {name: 'password', value: 'secret'},
         {name: 'variable[1].key', value: 'kenny'},
         {name: 'variable[1].value', value: 'tran'},
@@ -124,7 +124,7 @@ describe('FormUtil', function () {
 
       FormUtil.removePropID(definition, 'variable', 1);
 
-      let expectedResult = [
+      const expectedResult = [
         {name: 'password', value: 'secret'},
         {name: 'variable[2].key', value: 'mat'},
         {name: 'variable[2].value', value: 'app'}
@@ -165,7 +165,7 @@ describe('FormUtil', function () {
     });
 
     it('correctly iterates through each definition', function () {
-      let result = [];
+      const result = [];
       FormUtil.forEachDefinition(this.definition, function (fieldDefinition) {
         result.push(fieldDefinition.name);
       });
@@ -176,17 +176,17 @@ describe('FormUtil', function () {
 
   describe('#isFieldDefinition', function () {
     it('returns false if it is not a definition', function () {
-      let result = FormUtil.isFieldDefinition({render() {}});
+      const result = FormUtil.isFieldDefinition({render() {}});
       expect(result).toEqual(false);
     });
 
     it('returns false if it is not an object', function () {
-      let result = FormUtil.isFieldDefinition(null);
+      const result = FormUtil.isFieldDefinition(null);
       expect(result).toEqual(false);
     });
 
     it('returns true if it is a definition', function () {
-      let result = FormUtil.isFieldDefinition({
+      const result = FormUtil.isFieldDefinition({
         name: 'username',
         fieldType: 'text'
       });

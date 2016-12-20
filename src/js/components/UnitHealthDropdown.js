@@ -18,11 +18,11 @@ class UnitHealthDropdown extends React.Component {
   }
 
   getDropdownItems() {
-    let keys = Object.keys(UnitHealthStatus).filter(function (key) {
+    const keys = Object.keys(UnitHealthStatus).filter(function (key) {
       return (key !== 'NA' && key !== 'WARN');
     });
 
-    let items = keys.map(function (key) {
+    const items = keys.map(function (key) {
       return {
         id: key,
         html: UnitHealthStatus[key].title,

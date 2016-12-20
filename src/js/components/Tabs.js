@@ -26,10 +26,10 @@ class Tabs extends React.Component {
   }
 
   getChildren() {
-    let {handleTabChange, props, state} = this;
+    const {handleTabChange, props, state} = this;
 
     return React.Children.map(props.children, (tabElement) => {
-      let newTabProps = {activeTab: state.activeTab};
+      const newTabProps = {activeTab: state.activeTab};
 
       if (tabElement.type === TabButtonList) {
         newTabProps.onChange = handleTabChange;

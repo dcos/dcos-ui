@@ -131,7 +131,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   getUnit() {
-    let {
+    const {
       hasError,
       isLoadingUnit,
       isLoadingNodes
@@ -169,8 +169,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
-    let visibleData = this.getVisibleData(nodes, searchString, healthFilter);
+    const nodes = UnitHealthStore.getNodes(this.props.params.unitID);
+    const visibleData = this.getVisibleData(nodes, searchString, healthFilter);
 
     return (
       <div className="flex-container-col">

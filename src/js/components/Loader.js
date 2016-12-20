@@ -7,7 +7,7 @@ import React from 'react';
  */
 
 // Available types:
-let typeMap = {
+const typeMap = {
   ballBeat: {className: 'ball-beat', divCount: 3},
   ballScale: {className: 'ball-scale', divCount: 1},
   ballSpinFadeLoader: {className: 'ball-spin-fade-loader', divCount: 8}
@@ -50,8 +50,8 @@ class Loader extends React.Component {
   }
 
   render() {
-    let {className, innerClassName, size, type} = this.props;
-    let config = typeMap[type] || typeMap.ballScale;
+    const {className, innerClassName, size, type} = this.props;
+    const config = typeMap[type] || typeMap.ballScale;
     let classes = classNames(
       'loader horizontal-center',
       className
@@ -81,7 +81,7 @@ Loader.defaultProps = {
   type: 'ballScale'
 };
 
-let classPropType = React.PropTypes.oneOfType([
+const classPropType = React.PropTypes.oneOfType([
   React.PropTypes.array,
   React.PropTypes.object,
   React.PropTypes.string

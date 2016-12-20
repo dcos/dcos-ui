@@ -47,7 +47,7 @@ class LogView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {logContainer} = this;
+    const {logContainer} = this;
     let previousScrollTop;
     let previousScrollHeight;
 
@@ -63,8 +63,8 @@ class LogView extends React.Component {
         // before the prepend.
         if (nextProps.direction === PREPEND && previousScrollHeight
           && logContainer) {
-          let currentScrollHeight = logContainer.scrollHeight;
-          let heightDifference = currentScrollHeight - previousScrollHeight;
+          const currentScrollHeight = logContainer.scrollHeight;
+          const heightDifference = currentScrollHeight - previousScrollHeight;
           logContainer.scrollTop = previousScrollTop + heightDifference;
         }
       });
@@ -72,8 +72,8 @@ class LogView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {hasLoadedTop, highlightText, logName, watching} = this.props;
-    let {fullLog, isAtBottom} = this.state;
+    const {hasLoadedTop, highlightText, logName, watching} = this.props;
+    const {fullLog, isAtBottom} = this.state;
 
     return !!(
       // Check hasLoadedTop
@@ -127,7 +127,7 @@ class LogView extends React.Component {
   }
 
   handleLogContainerScroll(event) {
-    let {target} = event;
+    const {target} = event;
     if (!target) {
       return;
     }
@@ -192,8 +192,8 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
-    let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    let isAtBottom = container.offsetHeight + distanceFromTop
+    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
+    const isAtBottom = container.offsetHeight + distanceFromTop
       >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
@@ -204,15 +204,15 @@ class LogView extends React.Component {
   }
 
   goToNewHighlightedSearch() {
-    let {logContainer} = this;
-    let node = logContainer.querySelector('.highlight.selected');
+    const {logContainer} = this;
+    const node = logContainer.querySelector('.highlight.selected');
     if (!node) {
       return;
     }
 
-    let containerHeight = logContainer.clientHeight;
-    let containerScrollTop = logContainer.scrollTop;
-    let nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
+    const containerHeight = logContainer.clientHeight;
+    const containerScrollTop = logContainer.scrollTop;
+    const nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
 
     if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
       nodeDistanceFromTop < containerScrollTop) {
@@ -267,8 +267,8 @@ class LogView extends React.Component {
   }
 
   getGoToBottomButton() {
-    let {highlightText} = this.props;
-    let {isAtBottom} = this.state;
+    const {highlightText} = this.props;
+    const {isAtBottom} = this.state;
 
     // Do not show go to bottom button, if we are already at the bottom,
     // or we are have highlighted text

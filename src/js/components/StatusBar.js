@@ -28,8 +28,8 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
     maxIndex = -1;
   }
 
-  let currentGrowthIndex = indexesLessThanThreshold[0];
-  let sizeToSteal = maxSize * GROW_RATIO;
+  const currentGrowthIndex = indexesLessThanThreshold[0];
+  const sizeToSteal = maxSize * GROW_RATIO;
   // Reassign the portion
   barSizes[currentGrowthIndex] += sizeToSteal;
   if (maxIndex > -1) {
@@ -53,20 +53,20 @@ class StatusBar extends React.Component {
     let max = data.reduce(function (sum, item) {
       return sum + item.value;
     }, 0);
-    let unassignedValue = this.props.scale - max;
+    const unassignedValue = this.props.scale - max;
 
     max = Math.max(this.props.scale, max);
 
     if (max === 0) {
       return null;
     }
-    let indexesLessThanThreshold = [];
-    let unassignedPortion = unassignedValue / max * 100;
+    const indexesLessThanThreshold = [];
+    const unassignedPortion = unassignedValue / max * 100;
 
-    let barSizes = data.map(function (status, index) {
-      let {value} = status;
+    const barSizes = data.map(function (status, index) {
+      const {value} = status;
 
-      let relativeSize = value / max * 100;
+      const relativeSize = value / max * 100;
 
       if (relativeSize > 0 && relativeSize < MIN_SIZE) {
         indexesLessThanThreshold.push(index);
@@ -80,7 +80,7 @@ class StatusBar extends React.Component {
 
     return data.map(function (status, index) {
       let {className, style = {}} = status;
-      let scale = barSizes[index];
+      const scale = barSizes[index];
 
       if (className == null) {
         className = `element-${index}`;
@@ -101,7 +101,7 @@ class StatusBar extends React.Component {
   }
 
   render() {
-    let {data, className} = this.props;
+    const {data, className} = this.props;
 
     if (!data) {
       return null;

@@ -4,7 +4,7 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldTextarea = (props) => {
-  let {className} = props;
+  const {className} = props;
   let classes = classNames('form-control', className);
 
   return (

@@ -33,7 +33,7 @@ class TabForm extends mixin(InternalStorageMixin) {
     this.model = {};
     this.submitMap = {};
 
-    let currentTab =
+    const currentTab =
       this.props.defaultTab || Object.keys(this.props.definition)[0];
 
     this.setState({currentTab});
@@ -68,7 +68,7 @@ class TabForm extends mixin(InternalStorageMixin) {
 
   handleExternalSubmit() {
     this.buildModel();
-    let {isFormValidated} = this.internalStorage_get();
+    const {isFormValidated} = this.internalStorage_get();
 
     if (isFormValidated) {
       this.props.onSubmit(this.model);
@@ -152,20 +152,20 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   getFormPanels() {
-    let currentTab = this.state.currentTab;
-    let multipleDefinition = this.props.definition;
+    const currentTab = this.state.currentTab;
+    const multipleDefinition = this.props.definition;
     let multipleDefinitionClasses = classNames(
       'multiple-form-right-column',
       this.props.formContentClassNames
     );
-    let formRowClass = this.props.formRowClass;
+    const formRowClass = this.props.formRowClass;
 
     let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let formPanelClassSet = classNames('form-panel', {
         'hidden': currentTab !== formKey
       });
 
-      let {definition, description, title} = multipleDefinition[formKey];
+      const {definition, description, title} = multipleDefinition[formKey];
       let formDefinition = [{
         render: this.getHeader.bind(this, title, description)
       }].concat(definition);

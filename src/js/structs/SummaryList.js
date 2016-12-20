@@ -37,7 +37,7 @@ class SummaryList extends List {
 
   lastSuccessful() {
     // finds last StateSummary with successful snapshot
-    let stateResources = this.getItems();
+    const stateResources = this.getItems();
     for (let i = stateResources.length - 1; i >= 0; i--) {
       if (stateResources[i].isSnapshotSuccessful()) {
         return stateResources[i];
@@ -47,8 +47,8 @@ class SummaryList extends List {
   }
 
   getResourceStatesForServiceIDs(ids) {
-    let items = this.getItems() || [];
-    let stateResources = items.map(function (state) {
+    const items = this.getItems() || [];
+    const stateResources = items.map(function (state) {
       let resources = null, totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
@@ -67,7 +67,7 @@ class SummaryList extends List {
   }
 
   getResourceStatesForNodeIDs(ids) {
-    let stateResources = this.getItems().map(function (state) {
+    const stateResources = this.getItems().map(function (state) {
       let resources = null, totalResources = null;
 
       if (state.isSnapshotSuccessful()) {

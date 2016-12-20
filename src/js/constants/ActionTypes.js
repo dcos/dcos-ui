@@ -1,4 +1,4 @@
-let ActionTypes = {};
+const ActionTypes = {};
 [
   'REQUEST_CLI_INSTRUCTIONS',
   'REQUEST_CLUSTER_CCID_ERROR',

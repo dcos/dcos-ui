@@ -23,7 +23,7 @@ class PodContainerTerminationTable extends React.Component {
   }
 
   getColumns() {
-    let {getClassName} = ResourceTableUtil;
+    const {getClassName} = ResourceTableUtil;
 
     return [
       {

@@ -44,9 +44,9 @@ class SidebarLabelsFilters extends React.Component {
   getAvailableLabels(services) {
     return services.reduce(function (memo, item) {
       if (item instanceof Service) {
-        let labels = ServiceUtil.convertServiceLabelsToArray(item);
+        const labels = ServiceUtil.convertServiceLabelsToArray(item);
         labels.forEach(function ({key, value}) {
-          let index = memo.findIndex(function (label) {
+          const index = memo.findIndex(function (label) {
             return label.key === key && label.value === value;
           });
 
@@ -65,8 +65,8 @@ class SidebarLabelsFilters extends React.Component {
   }
 
   getLabelsDropdown() {
-    let {state} = this;
-    let availableLabels = state.availableLabels.map(function (label, i) {
+    const {state} = this;
+    const availableLabels = state.availableLabels.map(function (label, i) {
       let labelText = `${label.key} : ${label.value}`;
 
       return Object.assign({}, label, {
@@ -113,7 +113,7 @@ class SidebarLabelsFilters extends React.Component {
   }
 
   getSelectedLabels() {
-    let {selectedLabels} = this.state;
+    const {selectedLabels} = this.state;
 
     if (selectedLabels == null || selectedLabels.length === 0) {
       return null;
@@ -159,9 +159,9 @@ class SidebarLabelsFilters extends React.Component {
 
   handleActionSelection({key, value}) {
     const {selectedLabels} = this.state;
-    let nextSelectedLabels = selectedLabels.slice();
+    const nextSelectedLabels = selectedLabels.slice();
 
-    let labelIndex = selectedLabels.findIndex(function (item) {
+    const labelIndex = selectedLabels.findIndex(function (item) {
       return item.key === key && item.value === value;
     });
 
@@ -180,7 +180,7 @@ class SidebarLabelsFilters extends React.Component {
   updateSelectedLabels() {
     const state = this.state;
     const stringify = JSON.stringify;
-    let selectedLabels = this.props.filters[ServiceFilterTypes.LABELS] || [];
+    const selectedLabels = this.props.filters[ServiceFilterTypes.LABELS] || [];
 
     if (stringify(selectedLabels) !== stringify(state.selectedLabels)) {
       this.setState({selectedLabels});

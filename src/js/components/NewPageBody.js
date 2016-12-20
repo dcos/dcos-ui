@@ -4,7 +4,7 @@ import React from 'react';
 
 class PageHeader extends React.Component {
   render() {
-    let {props} = this;
+    const {props} = this;
 
     let contentClasses = classNames('pod', props.contentClassName);
     let scrollbarClasses = classNames(

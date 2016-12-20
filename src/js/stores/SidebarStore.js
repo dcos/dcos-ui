@@ -55,7 +55,7 @@ class SidebarStore extends GetSetBaseStore {
           var nextDockedState = action.data;
 
           if (this.get('isDocked') !== nextDockedState) {
-            let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
+            const savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
 
             this.set({
               isVisible: nextDockedState ? false : nextDockedState,

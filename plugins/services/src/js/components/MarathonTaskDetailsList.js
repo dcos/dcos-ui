@@ -5,7 +5,7 @@ import DescriptionList from '../../../../../src/js/components/DescriptionList';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
-    let {ports} = task;
+    const {ports} = task;
     if (!ports || !ports.length) {
       return 'None';
     }

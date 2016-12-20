@@ -9,7 +9,7 @@ import ServiceTree from '../structs/ServiceTree';
  * is the same as "b" in sort order.
  */
 function numberCompareFunction(a, b) {
-  let delta = a - b;
+  const delta = a - b;
   return (delta) / Math.abs(delta || 1);
 }
 
@@ -129,7 +129,7 @@ const ServiceTableUtil = {
    */
   propCompareFunctionFactory(prop, direction) {
 
-    let compareFunction = getCompareFunctionByProp(prop);
+    const compareFunction = getCompareFunctionByProp(prop);
     let score = 1;
 
     if (direction === 'desc') {

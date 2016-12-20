@@ -2,7 +2,7 @@ import {Route} from 'react-router';
 
 import DashboardPage from '../pages/DashboardPage';
 
-let dashboardRoutes = {
+const dashboardRoutes = {
   category: 'root',
   type: Route,
   path: 'dashboard',

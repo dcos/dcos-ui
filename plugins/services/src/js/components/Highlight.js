@@ -33,13 +33,13 @@ class Highlight extends mixin(InternalStorageMixin) {
   }
 
   shouldComponentUpdate(nextProps) {
-    let currentProps = this.props;
+    const currentProps = this.props;
 
     if (nextProps.search !== currentProps.search) {
       clearTimeout(debounceTimeout);
 
-      let searchLength = nextProps.search.length;
-      let {searchDebounceThreshold, searchDebounceDelay} = currentProps;
+      const searchLength = nextProps.search.length;
+      const {searchDebounceThreshold, searchDebounceDelay} = currentProps;
       if (searchLength <= searchDebounceThreshold && searchLength > 0) {
         debounceTimeout = setTimeout(() => {
           this.forceUpdate();
@@ -117,7 +117,7 @@ class Highlight extends mixin(InternalStorageMixin) {
    *   indexes of the first and last characters of a matching string.
    */
   getMatchBoundaries(subject, search) {
-    let matches = search.exec(subject);
+    const matches = search.exec(subject);
     if (matches) {
       return {
         first: matches.index,
@@ -138,8 +138,8 @@ class Highlight extends mixin(InternalStorageMixin) {
    *   An array of ReactElements
    */
   highlightChildren(subject, search) {
-    let children = [];
-    let {watching} = this.props;
+    const children = [];
+    const {watching} = this.props;
     let remaining = subject;
     let highlightCount = 0;
 
@@ -150,16 +150,16 @@ class Highlight extends mixin(InternalStorageMixin) {
         return children;
       }
 
-      let boundaries = this.getMatchBoundaries(remaining, search);
+      const boundaries = this.getMatchBoundaries(remaining, search);
 
       // Capture the string that leads up to a match...
-      let nonMatch = remaining.slice(0, boundaries.first);
+      const nonMatch = remaining.slice(0, boundaries.first);
       if (nonMatch) {
         children.push(this.renderPlain(nonMatch));
       }
 
       // Now, capture the matching string...
-      let match = remaining.slice(boundaries.first, boundaries.last);
+      const match = remaining.slice(boundaries.first, boundaries.last);
       if (match) {
         highlightCount++;
 

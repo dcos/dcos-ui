@@ -97,7 +97,7 @@ module.exports = {
       return state;
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (joinedPath.search('labels') !== -1) {
       if (joinedPath === 'labels') {
@@ -115,7 +115,7 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
+      const index = joinedPath.match(/\d+/)[0];
       if (type === SET && `labels.${index}.key` === joinedPath) {
         state[index].key = value;
       }

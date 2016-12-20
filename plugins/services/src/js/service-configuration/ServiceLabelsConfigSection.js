@@ -70,7 +70,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             const data = Object.keys(labelsDataMap).reduce((memo, labelKey) => {
-              let value = ServiceConfigDisplayUtil.getDisplayValue(
+              const value = ServiceConfigDisplayUtil.getDisplayValue(
                 labelsDataMap[labelKey]
               );
 

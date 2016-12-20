@@ -3,7 +3,7 @@ import React from 'react';
 
 class TabViewList extends React.Component {
   getChildren() {
-    let {activeTab, children} = this.props;
+    const {activeTab, children} = this.props;
 
     return React.Children.map(children, (tab, index) => {
       if (tab.props.id === activeTab || (!activeTab && index === 0)) {

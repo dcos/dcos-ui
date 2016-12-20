@@ -1,4 +1,4 @@
-let ParserUtil = require('../ParserUtil');
+const ParserUtil = require('../ParserUtil');
 
 const SET = 'SET';
 
@@ -17,7 +17,7 @@ describe('ParserUtil', function () {
     });
 
     it('should return the right TransactionLog', function () {
-      let parsers = ParserUtil.combineParsers(
+      const parsers = ParserUtil.combineParsers(
         [
           idParser
         ]
@@ -76,12 +76,12 @@ describe('ParserUtil', function () {
         return [];
       };
 
-      let parser = ParserUtil.combineParsers([
+      const parser = ParserUtil.combineParsers([
         idParser,
         containerParser
       ]);
 
-      let state = {
+      const state = {
         id: 'docker',
         container: {
           docker: {

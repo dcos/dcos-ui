@@ -120,7 +120,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleRunNowButtonClick() {
-    let job = MetronomeStore.getJob(this.props.params.id);
+    const job = MetronomeStore.getJob(this.props.params.id);
 
     MetronomeStore.runJob(job.getId());
   }
@@ -229,22 +229,22 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getPrettySchedule(job) {
-    let schedules = job.getSchedules();
+    const schedules = job.getSchedules();
     if (schedules == null || schedules.length === 0) {
       return null;
     }
 
-    let schedule = schedules[0];
+    const schedule = schedules[0];
     if (schedule.enabled) {
       return prettycron.toString(schedule.cron);
     }
   }
 
   getSubTitle(job) {
-    let nodes = [];
-    let scheduleText = this.getPrettySchedule(job);
+    const nodes = [];
+    const scheduleText = this.getPrettySchedule(job);
     let longestRunningTask = null;
-    let longestRunningActiveRun = job.getActiveRuns()
+    const longestRunningActiveRun = job.getActiveRuns()
       .getLongestRunningActiveRun();
 
     if (longestRunningActiveRun != null) {
@@ -271,9 +271,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     if (longestRunningTask != null) {
-      let dateCompleted = longestRunningTask.getDateCompleted();
+      const dateCompleted = longestRunningTask.getDateCompleted();
 
-      let status = TaskStates[longestRunningTask.getStatus()];
+      const status = TaskStates[longestRunningTask.getStatus()];
       let statusClasses = classNames('job-details-header-status', {
         'text-success': status.stateTypes.includes('success')
         && !status.stateTypes.includes('failure'),
@@ -312,8 +312,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getActions() {
-    let job = MetronomeStore.getJob(this.props.params.id);
-    let [schedule] = job.getSchedules();
+    const job = MetronomeStore.getJob(this.props.params.id);
+    const [schedule] = job.getSchedules();
 
     const actions = [];
 

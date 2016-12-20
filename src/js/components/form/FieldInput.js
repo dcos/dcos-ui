@@ -4,7 +4,7 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldInput = (props) => {
-  let {className, type} = props;
+  const {className, type} = props;
   let classes = classNames('form-control', className);
 
   let toggleIndicator;

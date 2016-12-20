@@ -57,9 +57,9 @@ var NodesGridDials = React.createClass({
   },
 
   getUsedSliceConfig(node) {
-    let {selectedResource} = this.props;
-    let colorIndex = ResourcesUtil.getResourceColor(selectedResource);
-    let label = ResourcesUtil.getResourceLabel(selectedResource);
+    const {selectedResource} = this.props;
+    const colorIndex = ResourcesUtil.getResourceColor(selectedResource);
+    const label = ResourcesUtil.getResourceLabel(selectedResource);
     var serviceSlices = this.getServiceSlicesConfig(node);
     var percentage;
 
@@ -117,7 +117,7 @@ var NodesGridDials = React.createClass({
   },
 
   getDialConfig(node) {
-    let {selectedResource} = this.props;
+    const {selectedResource} = this.props;
     let resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
     if (node.isActive()) {

@@ -53,13 +53,13 @@ class HealthTab extends React.Component {
   }
 
   getColumns() {
-    let classNameFn = ResourceTableUtil.getClassName;
-    let headings = ResourceTableUtil.renderHeading({
+    const classNameFn = ResourceTableUtil.getClassName;
+    const headings = ResourceTableUtil.renderHeading({
       health: 'HEALTH',
       id: 'HEALTH CHECK NAME',
       role: 'ROLE'
     });
-    let sortFunction = UnitHealthUtil.getHealthSortFunction;
+    const sortFunction = UnitHealthUtil.getHealthSortFunction;
 
     return [
       {
@@ -99,7 +99,7 @@ class HealthTab extends React.Component {
   }
 
   renderHealth(prop, node) {
-    let health = node.getHealth();
+    const health = node.getHealth();
 
     return (
       <span className={health.classNames}>
@@ -110,9 +110,9 @@ class HealthTab extends React.Component {
 
   renderUnitHealthCheck(prop, unit) {
     let healthCheckName = unit.getTitle();
-    let {nodeID} = this.props.params;
-    let unitNodeID = this.props.node.get('hostname');
-    let unitID = unit.get('id');
+    const {nodeID} = this.props.params;
+    const unitNodeID = this.props.node.get('hostname');
+    const unitID = unit.get('id');
 
     return (
       <a
@@ -126,7 +126,7 @@ class HealthTab extends React.Component {
 
   render() {
     let {healthFilter, searchString} = this.state;
-    let units = this.props.units;
+    const units = this.props.units;
     let visibleData = this.getVisibleData(units, searchString, healthFilter);
 
     return (

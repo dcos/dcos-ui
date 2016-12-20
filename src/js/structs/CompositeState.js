@@ -5,7 +5,7 @@ const BLANK_NODE = {
   health: 3
 };
 
-let mergeData = function (newData, data) {
+const mergeData = function (newData, data) {
   Object.keys(newData).forEach(function (key) {
     if (Array.isArray(newData[key])) {
       data[key] = mergeMesosArrays(newData, data, key);
@@ -21,7 +21,7 @@ let mergeData = function (newData, data) {
   return data;
 };
 
-let mergeMesosArrays = function (newData, data, key) {
+const mergeMesosArrays = function (newData, data, key) {
   if (key === 'frameworks' || key === 'slaves') {
     // We need to merge the objects within the frameworks and slaves arrays.
     return mergeObjectsById(newData[key], data[key]);
@@ -31,10 +31,10 @@ let mergeMesosArrays = function (newData, data, key) {
   }
 };
 
-let mergeObjectsById = function (newData, data = []) {
+const mergeObjectsById = function (newData, data = []) {
   // Merge the incoming data with the old data.
   return newData.map(function (newDatum) {
-    let oldDatum = data.find(function (datum) {
+    const oldDatum = data.find(function (datum) {
       return datum.id === newDatum.id;
     });
 
@@ -69,15 +69,15 @@ class CompositeState {
       return;
     }
 
-    let oldData = this.data.slaves || [];
-    let dataByIP = {};
+    const oldData = this.data.slaves || [];
+    const dataByIP = {};
 
     data.forEach(function (datum) {
       dataByIP[datum.host_ip] = datum;
     });
 
-    let newData = oldData.map(function (oldDatum) {
-      let matchedNode = dataByIP[oldDatum.hostname] || BLANK_NODE;
+    const newData = oldData.map(function (oldDatum) {
+      const matchedNode = dataByIP[oldDatum.hostname] || BLANK_NODE;
 
       return Object.assign({}, oldDatum, matchedNode);
     });

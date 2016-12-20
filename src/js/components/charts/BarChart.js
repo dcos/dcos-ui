@@ -152,8 +152,8 @@ var BarChart = React.createClass({
   formatYAxis(ticks, maxY) {
     var formatPercent = d3.scale.linear().tickFormat(ticks, '.0%');
     return (d) => {
-      let axisConfiguration = this.props.axisConfiguration;
-      let hideMatch = axisConfiguration.y.hideMatch;
+      const axisConfiguration = this.props.axisConfiguration;
+      const hideMatch = axisConfiguration.y.hideMatch;
       if (hideMatch && hideMatch.test(d.toString())) {
         return '';
       }
@@ -185,7 +185,7 @@ var BarChart = React.createClass({
 
     // The 4 is a number that works, though random :)
     if (firstDataSet) {
-      let xAxisClass = classNames('x axis', {
+      const xAxisClass = classNames('x axis', {
         'text-small': props.width < 350
       });
 
@@ -200,7 +200,7 @@ var BarChart = React.createClass({
         .call(xAxis);
     }
 
-    let yAxisClass = classNames('y axis', {
+    const yAxisClass = classNames('y axis', {
       'text-small': props.width < 350,
       'inverse': props.inverseStyle
     });

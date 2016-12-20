@@ -10,8 +10,8 @@ const JobsBreadcrumbs = ({jobID, taskID, taskName}) => {
   ];
 
   if (jobID != null && jobID.length > 0) {
-    let ids = jobID.split('.');
-    let jobsCrumbs = ids.map(function (id, index) {
+    const ids = jobID.split('.');
+    const jobsCrumbs = ids.map(function (id, index) {
       if (aggregateIDs !== '') {
         aggregateIDs += '.';
       }
@@ -23,7 +23,7 @@ const JobsBreadcrumbs = ({jobID, taskID, taskName}) => {
   }
 
   if (taskID != null && taskName != null) {
-    let encodedTaskID = encodeURIComponent(taskID);
+    const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
       <Link to={`/jobs/${aggregateIDs}/tasks/${encodedTaskID}`}>
         {taskName}

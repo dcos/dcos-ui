@@ -8,7 +8,7 @@ import ResourcesUtil from '../../utils/ResourcesUtil';
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
 
-let ResourceBarChart = React.createClass({
+const ResourceBarChart = React.createClass({
 
   displayName: 'ResourceBarChart',
 
@@ -33,13 +33,13 @@ let ResourceBarChart = React.createClass({
   },
 
   getData() {
-    let props = this.props;
+    const props = this.props;
 
     if (props.itemCount === 0) {
       return [];
     }
 
-    let selectedResource = props.selectedResource;
+    const selectedResource = props.selectedResource;
     return [{
       id: 'used_resources',
       name: selectedResource + ' allocated',
@@ -61,13 +61,13 @@ let ResourceBarChart = React.createClass({
   },
 
   getModeButtons() {
-    let selectedResource = this.props.selectedResource;
+    const selectedResource = this.props.selectedResource;
 
-    let resourceColors = ResourcesUtil.getResourceColors();
-    let resourceLabels = ResourcesUtil.getResourceLabels();
+    const resourceColors = ResourcesUtil.getResourceColors();
+    const resourceLabels = ResourcesUtil.getResourceLabels();
 
     return ResourcesUtil.getDefaultResources().map((resource) => {
-      let classSet = classNames('button button-stroke', {
+      const classSet = classNames('button button-stroke', {
         'active': selectedResource === resource
       });
 
@@ -96,7 +96,7 @@ let ResourceBarChart = React.createClass({
   },
 
   getHeadline(resource) {
-    let label = ResourcesUtil.getResourceLabel(resource);
+    const label = ResourcesUtil.getResourceLabel(resource);
     let headline = `${label} Allocation Rate`;
 
     return (

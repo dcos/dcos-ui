@@ -50,14 +50,14 @@ describe('DCOSStore', function () {
     });
 
     it('calls arbitrary event handler directly', function () {
-      let handler = jasmine.createSpy('handler');
+      const handler = jasmine.createSpy('handler');
       DCOSStore.on('direct', handler);
       DCOSStore.emit('direct');
       expect(handler).toHaveBeenCalled();
     });
 
     it('debounces change event handler calls', function () {
-      let handler = jasmine.createSpy('handler');
+      const handler = jasmine.createSpy('handler');
       DCOSStore.on(EventTypes.DCOS_CHANGE, handler);
       DCOSStore.emit(EventTypes.DCOS_CHANGE);
       jasmine.clock().tick(250);
@@ -66,7 +66,7 @@ describe('DCOSStore', function () {
 
     it('debounce calls change event handler only once after consecutive calls',
       function () {
-        let handler = jasmine.createSpy('handler');
+        const handler = jasmine.createSpy('handler');
         DCOSStore.on(EventTypes.DCOS_CHANGE, handler);
         DCOSStore.emit(EventTypes.DCOS_CHANGE);
         expect(handler).not.toHaveBeenCalled();
@@ -135,8 +135,8 @@ describe('DCOSStore', function () {
       });
 
       it('should populate the deployments with relevant services', function () {
-        let deployment = DCOSStore.deploymentsList.last();
-        let services = deployment.getAffectedServices();
+        const deployment = DCOSStore.deploymentsList.last();
+        const services = deployment.getAffectedServices();
         expect(services.length).toEqual(2);
       });
 
@@ -156,8 +156,8 @@ describe('DCOSStore', function () {
       });
 
       it('should trim stale services', function () {
-        let deployment = DCOSStore.deploymentsList.last();
-        let services = deployment.getAffectedServices();
+        const deployment = DCOSStore.deploymentsList.last();
+        const services = deployment.getAffectedServices();
         expect(services.length).toEqual(0);
       });
 

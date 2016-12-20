@@ -65,12 +65,12 @@ var JSONEditorUtil = {
       return [{path, value: newObj, previous: oldObj}];
     }
 
-    let oldKeys = Object.keys(oldObj);
-    let newKeys = Object.keys(newObj);
+    const oldKeys = Object.keys(oldObj);
+    const newKeys = Object.keys(newObj);
 
     // Process removed/changed keys
     let diff = oldKeys.reduce(function (memo, key) {
-      let index = newKeys.indexOf(key);
+      const index = newKeys.indexOf(key);
       if (index === -1) {
         memo.push(
           {path: path.concat([key]), value: undefined, previous: oldObj[key]}
@@ -113,7 +113,7 @@ var JSONEditorUtil = {
    * @returns {number} Returns the offset in the string with the first difference
    */
   diffLocation(oldString, newString) {
-    let length = Math.min(oldString.length, newString.length);
+    const length = Math.min(oldString.length, newString.length);
     for (let index = 0; index < length; ++index) {
       if (oldString[index] !== newString[index]) {
         return index;
@@ -143,15 +143,15 @@ var JSONEditorUtil = {
     }
 
     if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
-      let oldKeys = Object.keys(oldVal);
-      let newKeys = Object.keys(newVal);
+      const oldKeys = Object.keys(oldVal);
+      const newKeys = Object.keys(newVal);
 
       // Keep keys that exist in both objects, in the order they appear in the
       // `oldKeys` array. In the same time, strip these keys out of the
       // `newKeys` array in order to keep only the `new` keys.
-      let resultKeys = oldKeys.filter(function (key) {
+      const resultKeys = oldKeys.filter(function (key) {
         if (Object.prototype.hasOwnProperty.call(newVal, key)) {
-          let index = newKeys.indexOf(key);
+          const index = newKeys.indexOf(key);
           newKeys.splice(index, 1);
 
           return true;

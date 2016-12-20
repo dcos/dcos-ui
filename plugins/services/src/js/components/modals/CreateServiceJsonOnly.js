@@ -46,8 +46,8 @@ class CreateServiceJsonOnly extends React.Component {
    * @override
    */
   componentDidUpdate(prevProps, prevState) {
-    let hasErrors = (this.state.errorList.length !== 0) || this.state.jsonHasErrors;
-    let hadErrors = (prevState.errorList.length !== 0) || prevState.jsonHasErrors;
+    const hasErrors = (this.state.errorList.length !== 0) || this.state.jsonHasErrors;
+    const hadErrors = (prevState.errorList.length !== 0) || prevState.jsonHasErrors;
 
     // Notify parent component for our error state
     if (hasErrors !== hadErrors) {
@@ -59,8 +59,8 @@ class CreateServiceJsonOnly extends React.Component {
    * @override
    */
   componentWillReceiveProps({service}) {
-    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
-    let nextJSON = ServiceUtil.getServiceJSON(service);
+    const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    const nextJSON = ServiceUtil.getServiceJSON(service);
     // Make sure to not set state unless the service has actually changed
     if (deepEqual(prevJSON, nextJSON)) {
       return;
@@ -85,8 +85,8 @@ class CreateServiceJsonOnly extends React.Component {
   }
 
   validateCurrentState() {
-    let {appConfig} = this.state;
-    let {errorList} = this.getNewStateForJSON(appConfig);
+    const {appConfig} = this.state;
+    const {errorList} = this.getNewStateForJSON(appConfig);
 
     this.setState({errorList});
 
@@ -94,7 +94,7 @@ class CreateServiceJsonOnly extends React.Component {
   }
 
   getNewStateForJSON(appConfig) {
-    let isPod = ServiceValidatorUtil.isPodSpecDefinition(appConfig);
+    const isPod = ServiceValidatorUtil.isPodSpecDefinition(appConfig);
 
     // Pick validators according to JSON specification type
     let validators = APP_ERROR_VALIDATORS;
@@ -103,7 +103,7 @@ class CreateServiceJsonOnly extends React.Component {
     }
 
     // Compile the list of errors
-    let errorList = DataValidatorUtil.validate(appConfig, validators);
+    const errorList = DataValidatorUtil.validate(appConfig, validators);
 
     // Update the error display
     return {appConfig, errorList};

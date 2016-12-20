@@ -57,9 +57,9 @@ class PodNetworkConfigSection extends React.Component {
 
       return memo.concat(
         endpoints.map(({containerPort, labels={}, name, protocol}) => {
-          let lbAddress = Object.keys(labels).reduce((memo, label) => {
+          const lbAddress = Object.keys(labels).reduce((memo, label) => {
             if (label.startsWith('VIP_')) {
-              let [prefix, port] = labels[label].split(':');
+              const [prefix, port] = labels[label].split(':');
               memo.push(`${prefix}.marathon.lb4lb.thisdcos.directory:${port}`);
             }
 

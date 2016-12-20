@@ -19,8 +19,8 @@ class VirtualNetworksTable extends React.Component {
   }
 
   getColumns() {
-    let getClassName = this.getClassName;
-    let heading = this.renderHeading;
+    const getClassName = this.getClassName;
+    const heading = this.renderHeading;
 
     return [
       {

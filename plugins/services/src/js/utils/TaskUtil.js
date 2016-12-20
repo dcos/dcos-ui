@@ -13,9 +13,9 @@ const TaskUtil = {
    * @return {Array.<string>} an array of ip addresses or hosts
    */
   getHostAndPortList(task = {}, node = new Node()) {
-    let networkType = this.getNetworkType(task);
-    let ports = this.getPorts(task);
-    let hostName = node.getHostName();
+    const networkType = this.getNetworkType(task);
+    const ports = this.getPorts(task);
+    const hostName = node.getHostName();
 
     // networkType is 'HOST', but no host name
     if (networkType !== 'BRIDGE' && networkType !== 'USER' && !hostName) {
@@ -28,7 +28,7 @@ const TaskUtil = {
     }
 
     // networkType is 'BRIDGE' or 'USER'
-    let portMappings = this.getPortMappings(task) || [];
+    const portMappings = this.getPortMappings(task) || [];
     if (portMappings.length) {
       return {
         ports: portMappings.map(function (mapping) {
@@ -48,7 +48,7 @@ const TaskUtil = {
    * @return {Array.<number>} an array of port numbers
    */
   getPorts(task = {}) {
-    let ports = Util.findNestedPropertyInObject(task, 'discovery.ports.ports');
+    const ports = Util.findNestedPropertyInObject(task, 'discovery.ports.ports');
 
     // If there are no service ports, use task ports
     if (!ports || !ports.length) {
@@ -65,17 +65,17 @@ const TaskUtil = {
   },
 
   getTaskStatusClassName(task) {
-    let taskStatus = TaskUtil.getTaskStatusSlug(task);
+    const taskStatus = TaskUtil.getTaskStatusSlug(task);
     return `task-status-${taskStatus}`;
   },
 
   getPortMappings(task) {
-    let {container} = task;
+    const {container} = task;
     if (!container || !container.type) {
       return null;
     }
 
-    let portMappings = Util.findNestedPropertyInObject(
+    const portMappings = Util.findNestedPropertyInObject(
       container,
       `${container.type.toLowerCase()}.port_mappings`
     );
@@ -88,7 +88,7 @@ const TaskUtil = {
   },
 
   getNetworkType(task) {
-    let {container} = task;
+    const {container} = task;
     if (!container || !container.type) {
       return null;
     }
@@ -100,7 +100,7 @@ const TaskUtil = {
   },
 
   getIPAddresses(task) {
-    let ipAddresses = Util.findNestedPropertyInObject(
+    const ipAddresses = Util.findNestedPropertyInObject(
       task,
       'statuses.0.container_status.network_infos.0.ip_addresses'
     ) || [];

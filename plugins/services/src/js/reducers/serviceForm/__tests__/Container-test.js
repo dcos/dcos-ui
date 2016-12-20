@@ -9,7 +9,7 @@ describe('Container', function () {
   describe('#JSONReducer', function () {
 
     it('should return a null container as default object', function () {
-      let batch = new Batch();
+      const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
         .toEqual(null);

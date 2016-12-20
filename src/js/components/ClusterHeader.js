@@ -39,7 +39,7 @@ class ClusterHeader extends mixin(StoreMixin) {
   }
 
   getPublicIP() {
-    let metadata = MetadataStore.get('metadata');
+    const metadata = MetadataStore.get('metadata');
 
     if ((typeof metadata !== 'object') ||
       metadata.PUBLIC_IPV4 == null ||

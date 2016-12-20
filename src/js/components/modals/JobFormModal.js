@@ -99,8 +99,8 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {errorMessage, jsonMode} = this.state;
-    let {open} = this.props;
+    const {errorMessage, jsonMode} = this.state;
+    const {open} = this.props;
 
     return (nextProps.open !== open ||
       nextState.errorMessage !== errorMessage ||
@@ -131,7 +131,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   resetState() {
-    let {job} = this.props;
+    const {job} = this.props;
     this.setState({
       defaultTab: '',
       errorMessage: null,
@@ -147,7 +147,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   createJobFromEditorContents(keepValidationErrors = false) {
-    let {jobJsonString, jsonMode} = this.state;
+    const {jobJsonString, jsonMode} = this.state;
     let jobDefinition = null;
 
     // Try to parse JSON string and detect errors
@@ -165,23 +165,23 @@ class JobFormModal extends mixin(StoreMixin) {
       return null;
     }
 
-    let job = new Job(jobDefinition);
+    const job = new Job(jobDefinition);
 
     if (jsonMode) {
 
       // Really hackish way to validate the json string schema, trying to re-use
       // as much code as possilbe without getting nasty.
-      let dummyItemRenderer = function () { return (<div></div>); };
+      const dummyItemRenderer = function () { return (<div></div>); };
 
-      let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
-      let formMultiDef = SchemaUtil.schemaToMultipleDefinition({
+      const formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
+      const formMultiDef = SchemaUtil.schemaToMultipleDefinition({
         schema: JobSchema,
         renderSubheader: dummyItemRenderer,
         renderLabel: dummyItemRenderer,
         renderRemove: dummyItemRenderer,
         renderAdd: dummyItemRenderer
       });
-      let errorDetails = [];
+      const errorDetails = [];
 
       FormUtil.forEachDefinition(formMultiDef, (definition) => {
         definition.showError = false;
@@ -190,7 +190,7 @@ class JobFormModal extends mixin(StoreMixin) {
           return null;
         }
 
-        let fieldValidated = definition
+        const fieldValidated = definition
           .externalValidator(formModel, definition);
         if (!fieldValidated) {
           errorDetails.push({
@@ -222,7 +222,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
     // Therefore we need to ask the SchemaForm to perform validation
     // and return the model once again
-    let {model, isValidated} = this.triggerFormSubmit();
+    const {model, isValidated} = this.triggerFormSubmit();
 
     if (!isValidated) {
       this.setState({
@@ -244,7 +244,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleInputModeToggle() {
-    let job = this.createJobFromEditorContents(true) || this.props.job;
+    const job = this.createJobFromEditorContents(true) || this.props.job;
 
     if (this.state.jsonMode) {
       this.setState({
@@ -284,12 +284,12 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
-    let job = this.createJobFromEditorContents();
+    const job = this.createJobFromEditorContents();
     if (!job) {
       return;
     }
 
-    let jobSpec = JobUtil.createJobSpecFromJob(job);
+    const jobSpec = JobUtil.createJobSpecFromJob(job);
 
     if (!this.props.isEdit) {
       MetronomeStore.createJob(jobSpec);
@@ -307,7 +307,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getErrorMessage() {
-    let {errorMessage} = this.state;
+    const {errorMessage} = this.state;
     let errorList = null;
 
     if (!errorMessage) {
@@ -322,12 +322,12 @@ class JobFormModal extends mixin(StoreMixin) {
         // See: https://github.com/dcos/metronome/issues/71
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '/0/' (or [0] : '(0)'), [1]: '0'
-        let matches = path.match(/[\/\(](\d+)[\/\)]/);
+        const matches = path.match(/[\/\(](\d+)[\/\)]/);
         if (matches != null) {
           // Keep the separator characters as returned by the server
           // Example: (0), /0/  -> ({INDEX}), /{INDEX}/
-          let placeholder = matches[0].replace(/(\d+)/, '{INDEX}');
-          let resolvePath = responseAttributePathToFieldIdMap[
+          const placeholder = matches[0].replace(/(\d+)/, '{INDEX}');
+          const resolvePath = responseAttributePathToFieldIdMap[
             path.replace(matches[0], placeholder)
           ];
 

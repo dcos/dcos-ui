@@ -139,14 +139,14 @@ describe('MesosStateStore', function () {
   describe('#getTaskFromTaskID', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
-      let data = {
+      const data = {
         frameworks: [{
           tasks: [{id: 1}],
           completed_tasks: [{id: 2}]
         }]
       };
       MesosStateStore.processStateSuccess(data);
-      let taskCache = MesosStateStore.indexTasksByID(data);
+      const taskCache = MesosStateStore.indexTasksByID(data);
       MesosStateStore.get = function (id) {
         if (id === 'taskCache') {
           return taskCache;

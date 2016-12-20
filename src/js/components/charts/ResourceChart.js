@@ -13,8 +13,8 @@ const WIDTH_HEIGHT_RATIO = 4.5;
 class ResourceChart extends React.Component {
 
   getResourceChart(resource, totalResources) {
-    let colorIndex = ResourcesUtil.getResourceColor(resource);
-    let resourceLabel = ResourcesUtil.getResourceLabel(resource);
+    const colorIndex = ResourcesUtil.getResourceColor(resource);
+    const resourceLabel = ResourcesUtil.getResourceLabel(resource);
     let resourceData = [{
       name: 'Alloc',
       colorIndex,
@@ -69,7 +69,7 @@ class ResourceChart extends React.Component {
   }
 
   render() {
-    let props = this.props;
+    const props = this.props;
 
     return (
       <div className={props.className}>

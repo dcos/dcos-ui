@@ -27,7 +27,7 @@ var AlertPanel = React.createClass({
 
   // TODO: Use iconIDs instead of icon classes.
   getIcon() {
-    let {icon, iconClassName} = this.props;
+    const {icon, iconClassName} = this.props;
 
     if (!!icon) {
       return icon;
@@ -43,7 +43,7 @@ var AlertPanel = React.createClass({
   },
 
   render() {
-    let classes = classNames(
+    const classes = classNames(
       'panel alert-panel text-align-center flush-bottom',
       this.props.className
     );

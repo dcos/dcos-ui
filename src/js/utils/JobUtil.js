@@ -41,7 +41,7 @@ const JobUtil = {
       return new Job();
     }
 
-    let {
+    const {
       general = {
         id: null
       },
@@ -81,7 +81,7 @@ const JobUtil = {
     // Only transfer schedule if checkbox is set, and create job with reasonable
     // defaults
     if (!schedule || schedule.runOnSchedule) {
-      let {
+      const {
         id = 'default',
         enabled = true,
         cron,
@@ -108,7 +108,7 @@ const JobUtil = {
   },
 
   createJobSpecFromJob(job) {
-    let spec = JSON.parse(JSON.stringify(job));
+    const spec = JSON.parse(JSON.stringify(job));
 
     spec.id = job.getId() || null;
     spec.description = job.getDescription();
@@ -120,19 +120,19 @@ const JobUtil = {
       disk: job.getDisk()
     });
 
-    let labels = job.getLabels();
+    const labels = job.getLabels();
     if (Object.keys(labels).length > 0) {
       spec.labels = labels;
     }
 
-    let docker = job.getDocker();
+    const docker = job.getDocker();
     if (docker.image) {
       Object.assign(spec.run, {docker});
     }
 
-    let [schedule] = job.getSchedules();
+    const [schedule] = job.getSchedules();
     if (schedule) {
-      let {
+      const {
         id = 'default',
         enabled = true,
         cron,

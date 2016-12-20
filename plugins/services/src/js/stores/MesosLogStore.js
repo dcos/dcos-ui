@@ -45,12 +45,12 @@ class MesosLogStore extends GetSetBaseStore {
     });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      let source = payload.source;
+      const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
       }
 
-      let action = payload.action;
+      const action = payload.action;
 
       switch (action.type) {
         case REQUEST_MESOS_LOG_SUCCESS:
@@ -86,7 +86,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   getPreviousLogs(slaveID, path) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;
@@ -108,7 +108,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   startTailing(slaveID, path) {
-    let logBuffer = new LogBuffer();
+    const logBuffer = new LogBuffer();
     this.set({[path]: logBuffer});
     // Request offset to initialize logBuffer
     MesosLogActions.requestOffset(slaveID, path);
@@ -120,7 +120,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processOffset(slaveID, path, entry) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;
@@ -134,7 +134,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processOffsetError(slaveID, path) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       // even if the initial offset request fails
@@ -150,13 +150,13 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogEntry(slaveID, path, entry) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;
     }
 
-    let data = entry.data;
+    const data = entry.data;
     if (data.length > 0) {
       logBuffer.add(new Item(entry));
     }
@@ -165,7 +165,7 @@ class MesosLogStore extends GetSetBaseStore {
     // This way it is easier to tell whether we are for data or it was empty
     this.emit(MESOS_LOG_CHANGE, path, 'append');
 
-    let end = logBuffer.getEnd();
+    const end = logBuffer.getEnd();
     if (data.length === MAX_FILE_SIZE) {
       // Tail immediately if we received as much data as requested,
       // since that might mean that there is more data to show
@@ -178,13 +178,13 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogPrepend(slaveID, path, entry) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;
     }
 
-    let data = entry.data;
+    const data = entry.data;
     if (data.length > 0) {
       logBuffer.prepend(new Item(entry));
     }
@@ -193,7 +193,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogError(slaveID, path) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;
@@ -209,7 +209,7 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogPrependError(slaveID, path) {
-    let logBuffer = this.get(path);
+    const logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
       return;

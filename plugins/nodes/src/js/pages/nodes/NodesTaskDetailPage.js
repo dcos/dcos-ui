@@ -32,14 +32,14 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     const {location, params, routes} = this.props;
     const {nodeID, taskID} = params;
 
-    let routePrefix = `/nodes/${encodeURIComponent(nodeID)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/nodes/${encodeURIComponent(nodeID)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       {label: 'Details', routePath: routePrefix + '/details'},
       {label: 'Files', routePath: routePrefix + '/files'},
       {label: 'Logs', routePath: routePrefix + '/logs'}
     ];
 
-    let task = MesosStateStore.getTaskFromTaskID(taskID);
+    const task = MesosStateStore.getTaskFromTaskID(taskID);
     let breadcrumbs;
     if (task != null) {
       breadcrumbs = (

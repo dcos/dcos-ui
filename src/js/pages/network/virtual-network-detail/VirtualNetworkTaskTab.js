@@ -93,8 +93,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   getColumns() {
-    let getClassName = this.getClassName;
-    let heading = this.renderHeading;
+    const getClassName = this.getClassName;
+    const heading = this.renderHeading;
 
     return [
       {
@@ -158,7 +158,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       'table-cell-link-secondary': hierarchy.secondary
     });
 
-    let overlayName = this.props.overlay.getName();
+    const overlayName = this.props.overlay.getName();
 
     return (
       <Link
@@ -178,7 +178,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   getAgentIP(task) {
-    let ipAddresses = Util.findNestedPropertyInObject(task, agentIPPath);
+    const ipAddresses = Util.findNestedPropertyInObject(task, agentIPPath);
 
     if (!ipAddresses || !Array.isArray(ipAddresses)) {
       return ipAddresses;
@@ -190,7 +190,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   renderAgentIP(prop, task) {
-    let ipAddress = this.getAgentIP(task);
+    const ipAddress = this.getAgentIP(task);
 
     if (!ipAddress) {
       return 'N/A';
@@ -215,13 +215,13 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return 'N/A';
     }
 
-    let title = this.getTitle(portMappings);
+    const title = this.getTitle(portMappings);
     if (portMappings.length > 3) {
       portMappings = portMappings.slice(0, 2);
       portMappings.push({container_port: '...'});
     }
 
-    let {id} = task;
+    const {id} = task;
     return portMappings.map((mapping, index) => {
       let mapTo = null;
 
@@ -271,12 +271,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return this.getErrorScreen();
     }
 
-    let {overlay} = this.props;
+    const {overlay} = this.props;
     if (!overlay) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    let tasks = MesosStateStore.getTasksFromVirtualNetworkName(
+    const tasks = MesosStateStore.getTasksFromVirtualNetworkName(
       overlay.getName()
     );
     let filteredTasks = this.getFilteredTasks(tasks, searchString);

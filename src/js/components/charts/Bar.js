@@ -26,7 +26,7 @@ var Bar = React.createClass({
 
     // here we reset the position of the bar to what it was before the animation started
     // the bar is reset right before we update the bar to the new value
-    let el = ReactDOM.findDOMNode(this);
+    const el = ReactDOM.findDOMNode(this);
     d3.select(el).interrupt()
       .transition()
       .duration(0)
@@ -41,7 +41,7 @@ var Bar = React.createClass({
     if (!props.transitionDelay && !props.transitionDuration) {
       return;
     }
-    let el = ReactDOM.findDOMNode(this);
+    const el = ReactDOM.findDOMNode(this);
     d3.select(el).interrupt()
       .transition()
         .delay(props.transitionDelay)

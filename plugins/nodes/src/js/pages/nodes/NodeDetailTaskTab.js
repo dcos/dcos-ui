@@ -7,7 +7,7 @@ import TasksContainer from '../../../../../services/src/js/containers/tasks/Task
 class NodeDetailTaskTab extends React.Component {
   render() {
 
-    let {nodeID} = this.props.params;
+    const {nodeID} = this.props.params;
     let tasks = MesosStateStore.getTasksFromNodeID(nodeID);
 
     return (

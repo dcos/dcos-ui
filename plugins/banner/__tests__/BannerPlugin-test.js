@@ -12,7 +12,7 @@ PluginTestUtils.dontMock([
   'DOMUtils'
 ]);
 
-let SDK = PluginTestUtils.getSDK('banner', {enabled: true});
+const SDK = PluginTestUtils.getSDK('banner', {enabled: true});
 require('../SDK').setSDK(SDK);
 
 const BannerPlugin = require('../hooks');

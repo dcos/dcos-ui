@@ -53,9 +53,9 @@ class PackagesTable extends React.Component {
   }
 
   getColumns() {
-    let getClassName = this.getClassName;
-    let heading = ResourceTableUtil.renderHeading(PackagesTableHeaderLabels);
-    let sortFunction = TableUtil
+    const getClassName = this.getClassName;
+    const heading = ResourceTableUtil.renderHeading(PackagesTableHeaderLabels);
+    const sortFunction = TableUtil
       .getSortFunction('appId', function (cosmosPackage) {
         return cosmosPackage.getAppId();
       });
@@ -102,7 +102,7 @@ class PackagesTable extends React.Component {
   }
 
   getHeadline(prop, cosmosPackage) {
-    let packageImages = cosmosPackage.getIcons();
+    const packageImages = cosmosPackage.getIcons();
     let name = cosmosPackage.getAppIdName();
 
     return (

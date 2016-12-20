@@ -19,7 +19,7 @@ import VolumeTable from '../components/VolumeTable';
 
 function buildServiceCrumbs({id}) {
   id = decodeURIComponent(id).replace(/^\//, '');
-  let ids = id.split('/');
+  const ids = id.split('/');
   let aggregateIDs = '';
 
   return ids.map(function (id) {
@@ -32,7 +32,7 @@ function buildServiceCrumbs({id}) {
   });
 }
 
-let serviceRoutes = [
+const serviceRoutes = [
   {
     type: Redirect,
     from: '/services',

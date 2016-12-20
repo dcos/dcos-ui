@@ -97,7 +97,7 @@ var MarathonActions = {
   },
 
   editGroup(data, force) {
-    let groupId = encodeURIComponent(data.id);
+    const groupId = encodeURIComponent(data.id);
     let url = buildURI(`/groups/${groupId}`);
     data = Util.omit(data, ['id']);
 
@@ -374,7 +374,7 @@ var MarathonActions = {
     RequestUtil.json({
       url: buildURI(`/apps/${serviceID}/versions`),
       success(response) {
-        let {versions} = response;
+        const {versions} = response;
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
           data: {serviceID, versions}
@@ -411,7 +411,7 @@ var MarathonActions = {
       Config.getRefreshRate(),
       function (resolve, reject) {
         return function (options = {}) {
-          let queryParams = options.params || '';
+          const queryParams = options.params || '';
 
           RequestUtil.json({
             url: buildURI(`/queue${queryParams}`),
@@ -494,7 +494,7 @@ var MarathonActions = {
   },
 
   killPodInstances(pod, instanceIDs, force) {
-    let podID = pod.getId().replace(/^\//, '');
+    const podID = pod.getId().replace(/^\//, '');
     let params = '';
 
     if (force) {

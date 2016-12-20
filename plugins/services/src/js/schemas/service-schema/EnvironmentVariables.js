@@ -3,7 +3,7 @@ import {Hooks} from 'PluginSDK';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let EnvironmentVariables = {
+const EnvironmentVariables = {
   description: (
     <span>
       Set variables for each task your service launches. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
@@ -17,7 +17,7 @@ let EnvironmentVariables = {
       duplicable: true,
       addLabel: 'Add Environment Variable',
       getter(service) {
-        let variableMap = service.getEnvironmentVariables();
+        const variableMap = service.getEnvironmentVariables();
         if (variableMap == null) {
           return [];
         }

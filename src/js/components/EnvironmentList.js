@@ -5,14 +5,14 @@ import Icon from './Icon';
 
 class EnvironmentList extends React.Component {
   render() {
-    let {environment} = this.props;
+    const {environment} = this.props;
 
     if (!environment || Object.keys(environment).length === 0) {
       return null;
     }
 
     let hash = Object.keys(environment).reduce(function (memo, key) {
-      let value = environment[key];
+      const value = environment[key];
 
       if (
         typeof value === 'object' &&

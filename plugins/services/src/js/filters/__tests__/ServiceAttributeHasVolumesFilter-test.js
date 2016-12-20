@@ -20,10 +20,10 @@ describe('ServiceAttributeHasVolumesFilter', function () {
   });
 
   it('Should match instances with volumes', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('has:volumes');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('has:volumes');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1],
@@ -32,20 +32,20 @@ describe('ServiceAttributeHasVolumesFilter', function () {
   });
 
   it('Should correctly keep nothing on unknown values', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('has:foo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('has:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
   });
 
   it('Should be case-insensitive', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('has:vOLumEs');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('has:vOLumEs');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeHasVolumesFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1],

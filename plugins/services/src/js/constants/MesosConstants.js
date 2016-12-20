@@ -1,4 +1,4 @@
-let MesosConstants = {
+const MesosConstants = {
   // Minimum number of cpus per offer.
   MIN_CPUS: 0.01,
   // Minimum amount of memory per offer.

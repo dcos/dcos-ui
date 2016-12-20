@@ -9,7 +9,7 @@ describe('Application', function () {
 
   describe('#getDeployments', function () {
     it('should return an empty array', function () {
-      let service = new Application({
+      const service = new Application({
         deployments: []
       });
 
@@ -17,7 +17,7 @@ describe('Application', function () {
     });
 
     it('should return an array with one deployment', function () {
-      let service = new Application({
+      const service = new Application({
         deployments: [
           {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
         ]
@@ -32,13 +32,13 @@ describe('Application', function () {
   describe('#getHealth', function () {
 
     it('returns NA health status', function () {
-      let service = new Application();
+      const service = new Application();
 
       expect(service.getHealth()).toEqual(HealthStatus.NA);
     });
 
     it('returns correct health status for healthy services', function () {
-      let service = new Application({
+      const service = new Application({
         healthChecks: [{path: '', protocol: 'HTTP'}],
         tasksStaged: 0,
         tasksRunning: 1,
@@ -50,7 +50,7 @@ describe('Application', function () {
     });
 
     it('returns correct health status for unhealthy services', function () {
-      let service = new Application({
+      const service = new Application({
         healthChecks: [{path: '', protocol: 'HTTP'}],
         tasksStaged: 0,
         tasksRunning: 1,
@@ -62,7 +62,7 @@ describe('Application', function () {
     });
 
     it('returns correct health status for idle services', function () {
-      let service = new Application({
+      const service = new Application({
         healthChecks: [{path: '', protocol: 'HTTP'}],
         tasksStaged: 0,
         tasksRunning: 0,
@@ -74,7 +74,7 @@ describe('Application', function () {
     });
 
     it('returns correct health status for NA services', function () {
-      let service = new Application({
+      const service = new Application({
         healthChecks: [],
         tasksStaged: 0,
         tasksRunning: 1,
@@ -87,7 +87,7 @@ describe('Application', function () {
 
     it('returns correct health status for NA services with health checks',
       function () {
-        let service = new Application({
+        const service = new Application({
           healthChecks: [{path: '', protocol: 'HTTP'}],
           tasksStaged: 0,
           tasksRunning: 1,
@@ -102,7 +102,7 @@ describe('Application', function () {
   describe('#getId', function () {
 
     it('returns correct id', function () {
-      let service = new Application({
+      const service = new Application({
         id: '/test/cmd'
       });
 
@@ -114,13 +114,13 @@ describe('Application', function () {
   describe('#getImages', function () {
 
     it('defaults to NA images', function () {
-      let service = new Application({});
+      const service = new Application({});
 
       expect(service.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
 
     it('returns correct images', function () {
-      let service = new Application({
+      const service = new Application({
         labels: {
           'DCOS_PACKAGE_METADATA': 'eyJpbWFnZXMiOiB7ICJpY29uLXNtYWxsIjogImZvby1zbWFsbC5wbmciLCAiaWNvbi1tZWRpdW0iOiAiZm9vLW1lZGl1bS5wbmciLCAiaWNvbi1sYXJnZSI6ICJmb28tbGFyZ2UucG5nIn19'
         }
@@ -138,7 +138,7 @@ describe('Application', function () {
   describe('#getInstancesCount', function () {
 
     it('returns correct instances', function () {
-      let service = new Application({
+      const service = new Application({
         instances: 1
       });
 
@@ -146,7 +146,7 @@ describe('Application', function () {
     });
 
     it('returns 0 instances if instances is not present', function () {
-      let service = new Application({});
+      const service = new Application({});
 
       expect(service.getInstancesCount()).toEqual(0);
     });
@@ -156,7 +156,7 @@ describe('Application', function () {
   describe('#getLabels', function () {
 
     it('returns correct labels', function () {
-      let service = new Application({
+      const service = new Application({
         labels: {
           label_1: '1',
           label_2: '2'
@@ -174,7 +174,7 @@ describe('Application', function () {
   describe('#getLastConfigChange', function () {
 
     it('returns correct date', function () {
-      let service = new Application({
+      const service = new Application({
         versionInfo: {
           lastConfigChangeAt: '2016-03-22T10:46:07.354Z'
         }
@@ -188,7 +188,7 @@ describe('Application', function () {
   describe('#getLastScaled', function () {
 
     it('returns correct date', function () {
-      let service = new Application({
+      const service = new Application({
         versionInfo: {
           lastScalingAt: '2016-03-22T10:46:07.354Z'
         }
@@ -202,7 +202,7 @@ describe('Application', function () {
   describe('#getName', function () {
 
     it('returns correct name', function () {
-      let service = new Application({
+      const service = new Application({
         id: '/test/cmd'
       });
 
@@ -214,7 +214,7 @@ describe('Application', function () {
   describe('#getPorts', function () {
 
     it('returns correct port data', function () {
-      let service = new Application({
+      const service = new Application({
         ports: [10001, 10002]
       });
 
@@ -226,7 +226,7 @@ describe('Application', function () {
   describe('#getResources', function () {
 
     it('returns correct resource data', function () {
-      let service = new Application({
+      const service = new Application({
         cpus: 1,
         mem: 2048,
         disk: 0
@@ -244,7 +244,7 @@ describe('Application', function () {
   describe('#getStatus', function () {
 
     it('returns correct status for running app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 0,
@@ -257,7 +257,7 @@ describe('Application', function () {
     });
 
     it('returns correct status for suspended app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -270,7 +270,7 @@ describe('Application', function () {
     });
 
     it('returns correct status for deploying app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 15,
         tasksHealthy: 0,
@@ -283,7 +283,7 @@ describe('Application', function () {
     });
 
     it('returns correct status for deploying app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -300,7 +300,7 @@ describe('Application', function () {
   describe('#getServiceStatus', function () {
 
     it('returns correct status object for running app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 0,
@@ -314,7 +314,7 @@ describe('Application', function () {
     });
 
     it('returns correct status for suspended app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -328,7 +328,7 @@ describe('Application', function () {
     });
 
     it('returns correct status for deploying app', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 15,
         tasksHealthy: 0,
@@ -342,7 +342,7 @@ describe('Application', function () {
     });
 
     it('returns n/a status object when no other status is found', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -356,7 +356,7 @@ describe('Application', function () {
     });
 
     it('tolerates a missing deployments field', function () {
-      let service = new Application({
+      const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -371,7 +371,7 @@ describe('Application', function () {
   describe('#getLastTaskFailure', function () {
 
     it('returns correct task summary', function () {
-      let service = new Application({
+      const service = new Application({
         lastTaskFailure: {
           appId: '/toggle',
           host: '10.141.141.10',
@@ -399,7 +399,7 @@ describe('Application', function () {
   describe('#getTasksSummary', function () {
 
     it('returns correct task summary', function () {
-      let service = new Application({
+      const service = new Application({
         instances: 2,
         tasksStaged: 0,
         tasksRunning: 1,
@@ -418,7 +418,7 @@ describe('Application', function () {
     });
 
     it('returns correct task summary for overcapcity', function () {
-      let service = new Application({
+      const service = new Application({
         instances: 2,
         tasksStaged: 0,
         tasksRunning: 4,
@@ -441,7 +441,7 @@ describe('Application', function () {
   describe('#getTaskStats', function () {
 
     it('returns task stats instance', function () {
-      let service = new Application({taskStats:{}});
+      const service = new Application({taskStats:{}});
 
       expect(service.getTaskStats() instanceof TaskStats).toBeTruthy();
     });
@@ -451,7 +451,7 @@ describe('Application', function () {
   describe('#getVersion', function () {
 
     it('returns correct version', function () {
-      let service = new Application({
+      const service = new Application({
         version: '2016-03-22T10:46:07.354Z'
       });
 
@@ -464,7 +464,7 @@ describe('Application', function () {
 
     it('returns correct versions map', function () {
       const versionID = '2016-03-22T10:46:07.354Z';
-      let service = new Application({
+      const service = new Application({
         versions: new Map([[versionID]])
       });
 
@@ -477,7 +477,7 @@ describe('Application', function () {
   describe('#getVersionInfo', function () {
 
     it('returns correct version info', function () {
-      let service = new Application({
+      const service = new Application({
         version: '2016-03-22T10:46:07.354Z',
         versionInfo: {
           lastConfigChangeAt: '2016-03-22T10:46:07.354Z',
@@ -497,7 +497,7 @@ describe('Application', function () {
   describe('#getVolumes', function () {
 
     it('returns volume list', function () {
-      let service = new Application({
+      const service = new Application({
         volumes: [{
           containerPath: 'path',
           host: '0.0.0.1',
@@ -513,7 +513,7 @@ describe('Application', function () {
     });
 
     it('returns empty volume list if volumes data is undefined', function () {
-      let service = new Application({});
+      const service = new Application({});
 
       expect(service.getVolumes().getItems().length).toEqual(0);
     });
@@ -523,7 +523,7 @@ describe('Application', function () {
   describe('#getWebURL', function () {
 
     it('returns the url if the service label is present', function () {
-      let service = new Application({
+      const service = new Application({
         labels: {
           DCOS_SERVICE_NAME: 'baz',
           DCOS_SERVICE_PORT_INDEX: '80',
@@ -534,12 +534,12 @@ describe('Application', function () {
     });
 
     it('returns null if no labels are present', function () {
-      let service = new Application({foo: 'bar'});
+      const service = new Application({foo: 'bar'});
       expect(service.getWebURL()).toEqual(null);
     });
 
     it('returns null if not all labels are present', function () {
-      let service1 = new Application({
+      const service1 = new Application({
         foo: 'bar',
         labels: {
           DCOS_SERVICE_NAME: 'baz',
@@ -547,7 +547,7 @@ describe('Application', function () {
           // DCOS_SERVICE_SCHEME: 'https'
         }
       });
-      let service2 = new Application({
+      const service2 = new Application({
         foo: 'bar',
         labels: {
           DCOS_SERVICE_NAME: 'baz',
@@ -555,7 +555,7 @@ describe('Application', function () {
           DCOS_SERVICE_SCHEME: 'https'
         }
       });
-      let service3 = new Application({
+      const service3 = new Application({
         foo: 'bar',
         labels: {
           DCOS_SERVICE_NAME: 'baz'
@@ -569,7 +569,7 @@ describe('Application', function () {
     });
 
     it('returns null if the name is an empty string', function () {
-      let service = new Application({
+      const service = new Application({
         labels: {
           DCOS_SERVICE_NAME: '',
           DCOS_SERVICE_PORT_INDEX: '80',
@@ -583,12 +583,12 @@ describe('Application', function () {
   describe('#toJSON', function () {
 
     it('returns a object with the values in _itemData', function () {
-      let item = new Application({foo: 'bar', baz: 'qux'});
+      const item = new Application({foo: 'bar', baz: 'qux'});
       expect(item.toJSON()).toEqual({foo:'bar', baz:'qux'});
     });
 
     it('returns a JSON string with the values in _itemData', function () {
-      let item = new Application({foo: 'bar', baz: 'qux'});
+      const item = new Application({foo: 'bar', baz: 'qux'});
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 

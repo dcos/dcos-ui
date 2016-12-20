@@ -31,7 +31,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);
     UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
@@ -66,7 +66,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   render() {
-    let {hasError, isLoadingNode, isLoadingUnit} = this.state;
+    const {hasError, isLoadingNode, isLoadingUnit} = this.state;
 
     if (hasError) {
       return this.getErrorNotice();
@@ -76,12 +76,12 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let {unitID, unitNodeID} = this.props.params;
+    const {unitID, unitNodeID} = this.props.params;
 
-    let node = UnitHealthStore.getNode(unitNodeID);
-    let unit = UnitHealthStore.getUnit(unitID);
+    const node = UnitHealthStore.getNode(unitNodeID);
+    const unit = UnitHealthStore.getUnit(unitID);
 
-    let unitSummary = UnitSummaries[unit.get('id')] || {};
+    const unitSummary = UnitSummaries[unit.get('id')] || {};
     let unitDocsURL = unitSummary.getDocumentationURI &&
       unitSummary.getDocumentationURI();
 

@@ -30,7 +30,7 @@ const NavigationServiceUtil = {
 
         NavigationService.registerCategory(category);
 
-        let icon = React.cloneElement(
+        const icon = React.cloneElement(
           route.component.routeConfig.icon,
           {className: 'sidebar-menu-item-icon icon icon-small'}
         );

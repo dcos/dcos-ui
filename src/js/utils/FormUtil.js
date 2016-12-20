@@ -43,7 +43,7 @@ const FormUtil = {
       definitionField.key = `${prop}[${index}].${definitionField.name}`;
       definitionField.name = `${prop}[${id}].${definitionField.name}`;
 
-      let propKey = FormUtil.getPropKey(definitionField.name);
+      const propKey = FormUtil.getPropKey(definitionField.name);
       if (model && Object.prototype.hasOwnProperty.call(model, propKey)) {
         definitionField.value = model[propKey];
       }
@@ -60,7 +60,7 @@ const FormUtil = {
    * @param {Object} model Model to copy fields over from.
    */
   modelToCombinedProps(model) {
-    let propValues = {};
+    const propValues = {};
     model = Object.assign({}, model);
 
     Object.keys(model).forEach(function (key) {
@@ -68,11 +68,11 @@ const FormUtil = {
         return;
       }
 
-      let multipleProperty = FormUtil.getProp(key);
-      let instanceValue = model[key];
+      const multipleProperty = FormUtil.getProp(key);
+      const instanceValue = model[key];
       delete model[key];
-      let valueIndex = FormUtil.getPropIndex(key);
-      let valueProperty = FormUtil.getPropKey(key);
+      const valueIndex = FormUtil.getPropIndex(key);
+      const valueProperty = FormUtil.getPropKey(key);
 
       if (propValues[multipleProperty] == null) {
         propValues[multipleProperty] = [];
@@ -106,8 +106,8 @@ const FormUtil = {
    * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
    */
   isFieldInstanceOfProp(prop, field, id) {
-    let isFieldArray = Array.isArray(field);
-    let recursiveCheck = (nestedField) => {
+    const isFieldArray = Array.isArray(field);
+    const recursiveCheck = (nestedField) => {
       return this.isFieldInstanceOfProp(prop, nestedField, id);
     };
 
@@ -126,7 +126,7 @@ const FormUtil = {
    * @return {undefined}
    */
   removePropID(definition, prop, id) {
-    let fieldsToRemove = [];
+    const fieldsToRemove = [];
     definition.forEach((field) => {
       if (this.isFieldInstanceOfProp(prop, field, id)) {
         fieldsToRemove.push(field);
@@ -159,7 +159,7 @@ const FormUtil = {
       return null;
     }
 
-    let value = key.split('[');
+    const value = key.split('[');
     return parseInt(value[1].split(']')[0]);
   },
 
@@ -207,7 +207,7 @@ const FormUtil = {
     // This means we're at the root of a multiple definition.
     if (!React.isValidElement(definition)) {
       Object.values(definition).forEach(function (nestedDefinition) {
-        let isNested = Object.prototype.hasOwnProperty.call(
+        const isNested = Object.prototype.hasOwnProperty.call(
           nestedDefinition,
           'definition'
         );

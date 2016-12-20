@@ -67,7 +67,7 @@ const MetronomeActions = {
           ],
           success(response) {
             try {
-              let data = MetronomeUtil.parseJobs(response);
+              const data = MetronomeUtil.parseJobs(response);
               AppDispatcher.handleServerAction({
                 type: REQUEST_METRONOME_JOBS_SUCCESS,
                 data

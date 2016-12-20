@@ -10,7 +10,7 @@ module.exports = combineReducers({
   forcePullImage: simpleReducer('container.docker.forcePullImage', null),
   image: simpleReducer('container.docker.image', ''),
   network(state, {type, path = [], value}) {
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (type === SET && joinedPath === 'container.docker.network') {
       return Networking.type[value.split('.')[0]];
@@ -19,7 +19,7 @@ module.exports = combineReducers({
     return state;
   },
   portMappings(state, action) {
-    let {path = [], value} = action;
+    const {path = [], value} = action;
     if (!this.appState) {
       this.appState = {
         id: '',
@@ -27,7 +27,7 @@ module.exports = combineReducers({
       };
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
     if (joinedPath === 'container.docker.network' && Boolean(value)) {
       this.appState.networkType = value.split('.')[0];
     }
@@ -48,11 +48,11 @@ module.exports = combineReducers({
 
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
-      let containerPort = Number(portDefinition.containerPort) || 0;
+      const containerPort = Number(portDefinition.containerPort) || 0;
       let hostPort = Number(portDefinition.hostPort) || 0;
       let protocol = portDefinition.protocol;
-      let servicePort = parseInt(portDefinition.servicePort, 10) || null;
-      let labels = portDefinition.labels;
+      const servicePort = parseInt(portDefinition.servicePort, 10) || null;
+      const labels = portDefinition.labels;
 
       // Do not expose hostPort or protocol, when portMapping is turned off
       if (this.appState.networkType === USER && !portDefinition.portMapping) {
@@ -60,7 +60,7 @@ module.exports = combineReducers({
         protocol = null;
       }
 
-      let newPortDefinition = {
+      const newPortDefinition = {
         name: portDefinition.name,
         hostPort,
         containerPort,
@@ -75,7 +75,7 @@ module.exports = combineReducers({
 
         if (portDefinition.vip == null) {
           // Prefer container port
-          let labelPort = containerPort || hostPort || 0;
+          const labelPort = containerPort || hostPort || 0;
 
           vip = `${this.appState.id}:${labelPort}`;
         }

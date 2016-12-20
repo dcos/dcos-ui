@@ -48,7 +48,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(portDefinition, index) {
     let placeholder;
-    let {errors} = this.props;
+    const {errors} = this.props;
     let hostPortError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.port`
@@ -113,7 +113,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced, vip}, index) {
-    let {errors} = this.props;
+    const {errors} = this.props;
     let loadBalancedError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.labels`
@@ -124,7 +124,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     let address = vip;
     if (address == null) {
-      let hostname = HostUtil.stringToHostname(this.props.data.id);
+      const hostname = HostUtil.stringToHostname(this.props.data.id);
       let port = '';
       if (hostPort != null && hostPort !== '') {
         port = `:${hostPort}`;
@@ -170,7 +170,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getProtocolField(portDefinition, index) {
-    let {errors} = this.props;
+    const {errors} = this.props;
     let protocolError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.protocol`
@@ -212,7 +212,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getBridgeServiceEndpoints(portDefinitions) {
-    let {errors} = this.props;
+    const {errors} = this.props;
 
     return portDefinitions.map((portDefinition, index) => {
       let containerPortError = findNestedPropertyInObject(
@@ -273,7 +273,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getHostServiceEndpoints(portDefinitions) {
-    let {errors} = this.props;
+    const {errors} = this.props;
 
     return portDefinitions.map((portDefinition, index) => {
       let nameError = findNestedPropertyInObject(
@@ -314,7 +314,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getVirtualNetworkServiceEndpoints(portDefinitions) {
-    let {errors} = this.props;
+    const {errors} = this.props;
 
     return portDefinitions.map((portDefinition, index) => {
       let portMappingFields = null;
@@ -394,8 +394,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    let {container, portDefinitions} = this.props.data;
-    let network = findNestedPropertyInObject(container, 'docker.network');
+    const {container, portDefinitions} = this.props.data;
+    const network = findNestedPropertyInObject(container, 'docker.network');
 
     if (network === Networking.type.BRIDGE) {
       return this.getBridgeServiceEndpoints(portDefinitions);
@@ -450,7 +450,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getVirtualNetworks(disabledMap) {
     return VirtualNetworksStore.getOverlays().mapItems((overlay) => {
-      let name = overlay.getName();
+      const name = overlay.getName();
 
       return {
         text: `Virtual Network: ${name}`,
@@ -469,10 +469,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getTypeSelections() {
-    let {container} = this.props.data;
-    let type = findNestedPropertyInObject(container, 'type');
+    const {container} = this.props.data;
+    const type = findNestedPropertyInObject(container, 'type');
     let network = findNestedPropertyInObject(this.props.data, 'networkType');
-    let disabledMap = {};
+    const disabledMap = {};
 
     // Runtime is Mesos
     if (!type || type === NONE) {
@@ -484,7 +484,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Universal Container Runtime';
     }
 
-    let tooltipContent = Object.keys(disabledMap).filter(function (key) {
+    const tooltipContent = Object.keys(disabledMap).filter(function (key) {
       return disabledMap[key];
     })
     .map(function (key) {
@@ -589,7 +589,7 @@ NetworkingFormSection.propTypes = {
 NetworkingFormSection.configReducers = {
   portDefinitions: portDefinitionsReducer,
   networkType(state, {type, path = [], value}) {
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (type === SET && joinedPath === 'container.docker.network') {
       return value;

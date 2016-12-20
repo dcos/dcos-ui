@@ -56,20 +56,20 @@ class CliInstallModal extends React.Component {
     // be updated to a /latest endpoint, when that becomes available.
     // Binary cli links are also all pointing to the open version, which is
     // intentional.
-    let hostname = global.location.hostname;
-    let protocol = global.location.protocol.replace(/[^\w]/g, '');
+    const hostname = global.location.hostname;
+    const protocol = global.location.protocol.replace(/[^\w]/g, '');
     let port = '';
     if (global.location.port) {
       port = ':' + global.location.port;
     }
     let clusterUrl = `${protocol}://${hostname}${port}`;
-    let {selectedOS} = this.state;
+    const {selectedOS} = this.state;
     let version = MetadataStore.parsedVersion;
     // Prepend 'dcos-' to any version other than latest
     if (version !== 'latest') {
       version = `dcos-${version}`;
     }
-    let downloadUrl = `https://downloads.dcos.io/binaries/cli/${osTypes[selectedOS]}/x86-64/${version}/dcos`;
+    const downloadUrl = `https://downloads.dcos.io/binaries/cli/${osTypes[selectedOS]}/x86-64/${version}/dcos`;
     if (selectedOS === 'Windows') {
       return (
         <ol>
@@ -127,7 +127,7 @@ class CliInstallModal extends React.Component {
   }
 
   getOSButtons() {
-    let {selectedOS} = this.state;
+    const {selectedOS} = this.state;
 
     return Object.keys(osTypes).map((name, index) => {
       let classSet = classNames({

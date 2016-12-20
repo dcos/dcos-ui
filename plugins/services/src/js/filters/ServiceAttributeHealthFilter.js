@@ -32,7 +32,7 @@ class SearviceAttribHealthFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    let testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
+    const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
     return resultset.filterItems((service) => {
       return service.getHealth() === testStatus;

@@ -21,17 +21,17 @@ import StringUtil from '../../../../../src/js/utils/StringUtil';
 const NODES_DISPLAY_LIMIT = 300;
 
 function getMesosHosts(state) {
-  let states = MesosSummaryStore.get('states');
-  let lastState = states.lastSuccessful();
-  let nodes = CompositeState.getNodesList();
+  const states = MesosSummaryStore.get('states');
+  const lastState = states.lastSuccessful();
+  const nodes = CompositeState.getNodesList();
 
-  let {byServiceFilter, healthFilter, searchString} = state;
-  let filteredNodes = nodes.filter({
+  const {byServiceFilter, healthFilter, searchString} = state;
+  const filteredNodes = nodes.filter({
     service: byServiceFilter,
     name: searchString,
     health: healthFilter
   }).getItems();
-  let nodeIDs = filteredNodes.map(function (node) {
+  const nodeIDs = filteredNodes.map(function (node) {
     return node.id;
   });
 
@@ -137,7 +137,7 @@ var NodesOverview = React.createClass({
   },
 
   resetFilter() {
-    let state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    const state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
 
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
@@ -215,7 +215,7 @@ var NodesOverview = React.createClass({
   },
 
   getViewTypeRadioButtons(resetFilter) {
-    let isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
+    const isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
 
     var listClassSet = classNames('button button-stroke', {
       'active': !isGridActive
@@ -236,7 +236,7 @@ var NodesOverview = React.createClass({
   getHostsPageContent() {
     let {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
     var data = this.internalStorage_get();
-    let nodes = data.nodes || [];
+    const nodes = data.nodes || [];
     let nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
     let nodesHealth = CompositeState.getNodesList().getItems().map(
       function (node) {
@@ -300,7 +300,7 @@ var NodesOverview = React.createClass({
 
   render() {
     var data = this.internalStorage_get();
-    let statesProcessed = MesosSummaryStore.get('statesProcessed');
+    const statesProcessed = MesosSummaryStore.get('statesProcessed');
     var isEmpty = statesProcessed && data.totalNodes === 0;
 
     return this.getContents(isEmpty);

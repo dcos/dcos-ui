@@ -274,8 +274,8 @@ describe('MesosStateUtil', function () {
     const state = MESOS_STATE_WITH_HISTORY;
 
     it('should correctly return only pod-related tasks', function () {
-      let pod = new Pod({id: '/pod-p0'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p0'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances.length).toEqual(2);
       expect(instances[0].id).toEqual('pod-p0.instance-inst-a1');
@@ -283,39 +283,39 @@ describe('MesosStateUtil', function () {
     });
 
     it('should add `containerID` property on containers', function () {
-      let pod = new Pod({id: '/pod-p1'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p1'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].containerId)
         .toEqual('pod-p1.instance-inst-a1.container-c1');
     });
 
     it('should add `status` property on containers', function () {
-      let pod = new Pod({id: '/pod-p1'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p1'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].status).toEqual('TASK_RUNNING');
     });
 
     it('should add `lastChanged` property on containers', function () {
-      let pod = new Pod({id: '/pod-p1'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p1'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].lastChanged)
         .toEqual(1008 * 1000);
     });
 
     it('should add `lastUpdated` property on containers', function () {
-      let pod = new Pod({id: '/pod-p1'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p1'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].lastUpdated)
         .toEqual(1008 * 1000);
     });
 
     it('should correctly summarize resources', function () {
-      let pod = new Pod({id: '/pod-p0'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p0'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances.length).toEqual(2);
       expect(instances[0].resources)
@@ -325,8 +325,8 @@ describe('MesosStateUtil', function () {
     });
 
     it('should pick the latest timestamp for lastChanged', function () {
-      let pod = new Pod({id: '/pod-p0'});
-      let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
+      const pod = new Pod({id: '/pod-p0'});
+      const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances.length).toEqual(2);
       expect(instances[0].lastChanged).toEqual(1006 * 1000);

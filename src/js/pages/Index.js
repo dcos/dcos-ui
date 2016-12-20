@@ -50,7 +50,7 @@ var Index = React.createClass({
       suppressUpdate: true
     }];
 
-    let state = getSidebarState();
+    const state = getSidebarState();
     this.internalStorage_set(state);
   },
 
@@ -129,7 +129,7 @@ var Index = React.createClass({
 
   render() {
     var {isDocked, isVisible} = this.internalStorage_get();
-    let showErrorScreen =
+    const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
     var classSet = classNames('application-wrapper', {

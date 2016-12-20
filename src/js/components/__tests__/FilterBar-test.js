@@ -22,7 +22,7 @@ describe('FilterBar', function () {
     describe('#getFilterItems', function () {
 
       it('wraps items in array with "filter-bar-item"', function () {
-        let filterItems = this.instance.getFilterItems(
+        const filterItems = this.instance.getFilterItems(
           React.Children.toArray(this.instance.props.children)
         );
 
@@ -36,7 +36,7 @@ describe('FilterBar', function () {
     });
 
     it('renders all items left-aligned', function () {
-      let filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
+      const filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
         this.instance, 'filter-bar-left'
       );
 
@@ -44,7 +44,7 @@ describe('FilterBar', function () {
     });
 
     it('renders no items right-aligned', function () {
-      let filterBarRight = TestUtils.scryRenderedDOMComponentsWithClass(
+      const filterBarRight = TestUtils.scryRenderedDOMComponentsWithClass(
         this.instance, 'filter-bar-right'
       );
 
@@ -67,7 +67,7 @@ describe('FilterBar', function () {
     });
 
     it('renders some items left-aligned', function () {
-      let filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
+      const filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
         this.instance, 'filter-bar-left'
       );
 
@@ -75,7 +75,7 @@ describe('FilterBar', function () {
     });
 
     it('renders some items right-aligned', function () {
-      let filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
+      const filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
         this.instance, 'filter-bar-right'
       );
 
@@ -97,7 +97,7 @@ describe('FilterBar', function () {
     });
 
     it('renders no items left-aligned', function () {
-      let filterBarLeft = TestUtils.scryRenderedDOMComponentsWithClass(
+      const filterBarLeft = TestUtils.scryRenderedDOMComponentsWithClass(
         this.instance, 'filter-bar-left'
       );
 
@@ -105,7 +105,7 @@ describe('FilterBar', function () {
     });
 
     it('renders all items right-aligned', function () {
-      let filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
+      const filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
         this.instance, 'filter-bar-right'
       );
 

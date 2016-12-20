@@ -28,13 +28,13 @@ const defaultFieldValues = {
  * @return {Object[]} new portDefinitions with action performed on it
  */
 function reducer(portDefinitions = [], {type, path = [], value}) {
-  let joinedPath = path.join('.');
+  const joinedPath = path.join('.');
 
   if (path.includes('portDefinitions')) {
     if (joinedPath === 'portDefinitions') {
       switch (type) {
         case ADD_ITEM:
-          let portDefinition = Object.assign({}, defaultFieldValues);
+          const portDefinition = Object.assign({}, defaultFieldValues);
           portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:
@@ -45,7 +45,7 @@ function reducer(portDefinitions = [], {type, path = [], value}) {
       }
     }
 
-    let index = path[1];
+    const index = path[1];
     if (index != null && type === SET) {
       Object.keys(defaultFieldValues).forEach((fieldKey) => {
         if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {

@@ -66,7 +66,7 @@ class JSONEditor extends React.Component {
   constructor() {
     super(...arguments);
     // Clone the given initial value
-    let initialText = JSON.stringify(this.props.value || {}, null, 2);
+    const initialText = JSON.stringify(this.props.value || {}, null, 2);
 
     // We are using the react-way of updating the component **only** when we
     // need to define a new text to work upon (ex. when the owner component has
@@ -137,9 +137,9 @@ class JSONEditor extends React.Component {
     // arrangement.
 
     // Align the order the properties appear & calculate new JSON text
-    let value = JSONEditorUtil.sortObjectKeys(this.jsonValue,
+    const value = JSONEditorUtil.sortObjectKeys(this.jsonValue,
       nextProps.value);
-    let composedText = JSON.stringify(value, null, 2);
+    const composedText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
     this.updateLocalJsonState(composedText);
@@ -204,8 +204,8 @@ class JSONEditor extends React.Component {
       return;
     }
 
-    let editorRect = this.aceEditor.container.getBoundingClientRect();
-    let tooltip = this.aceEditor.container.querySelector('.ace_tooltip');
+    const editorRect = this.aceEditor.container.getBoundingClientRect();
+    const tooltip = this.aceEditor.container.querySelector('.ace_tooltip');
     if (!tooltip) {
       return;
     }
@@ -223,7 +223,7 @@ class JSONEditor extends React.Component {
 
     // Disable syntax highlighing worker, since we are responsible for feeding
     // the correct syntax error + provided error markers
-    let editorSession = editor.getSession();
+    const editorSession = editor.getSession();
     editorSession.setUseWorker(false);
 
     // Enable soft tabs and set tab space to 2
@@ -240,11 +240,11 @@ class JSONEditor extends React.Component {
     //
     // TODO: Properly solve this in CSS
     //
-    let MutationObserver = window.MutationObserver
+    const MutationObserver = window.MutationObserver
       || window.mozMutationObserver
       || window.webkitMutationObserver
       || window.msMutationObserver;
-    let observer = new MutationObserver((mutations) => {
+    const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (!mutation.addedNodes) {
           return;
@@ -281,8 +281,8 @@ class JSONEditor extends React.Component {
    * @param {string} jsonText - The new JSON string
    */
   handleChange(jsonText) {
-    let lastValue = this.jsonValue;
-    let lastError = this.jsonError;
+    const lastValue = this.jsonValue;
+    const lastError = this.jsonError;
 
     // Calculate what the next state is going to be
     this.updateLocalJsonState(jsonText);
@@ -303,7 +303,7 @@ class JSONEditor extends React.Component {
 
     // Calculate differences in the JSON and trigger `onPropertyChange`
     // event for every property that changed in the JSON
-    let diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
+    const diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
     diff.forEach(({path, value}) => {
       this.props.onPropertyChange(path, value, this.jsonValue);
     });
@@ -373,10 +373,10 @@ class JSONEditor extends React.Component {
     } catch (e) {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
-      let errorStr = e.toString();
+      const errorStr = e.toString();
       this.jsonError = errorStr.replace(/at position (\d+)/g,
         (match, offset) => {
-          let cursor = JSONEditorUtil.cursorFromOffset(
+          const cursor = JSONEditorUtil.cursorFromOffset(
             parseInt(offset),
             jsonText
           );
@@ -420,7 +420,7 @@ class JSONEditor extends React.Component {
 
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      let errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, (m, line) => {
+      const errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, (m, line) => {
         errorLine = parseInt(line.split(':')[0]);
 
         return '';
@@ -435,7 +435,7 @@ class JSONEditor extends React.Component {
     }
 
     return this.externalErrors.map((error) => {
-      let {path, message} = error;
+      const {path, message} = error;
 
       // All errorrs with empty paths go to line 0
       if (path.length === 0) {
@@ -447,8 +447,8 @@ class JSONEditor extends React.Component {
       }
 
       // Check if there is a token that matches the path completely
-      let errorPath = error.path.join('.');
-      let token = this.jsonMeta.find(function (token) {
+      const errorPath = error.path.join('.');
+      const token = this.jsonMeta.find(function (token) {
         return token.path.join('.') === errorPath;
       });
 
@@ -465,8 +465,8 @@ class JSONEditor extends React.Component {
       //
       // If nothing is found, default to root ([])
       //
-      let candidates = this.jsonMeta.reduce((memo, token) => {
-        let isMatch = token.path.every((component, i) => {
+      const candidates = this.jsonMeta.reduce((memo, token) => {
+        const isMatch = token.path.every((component, i) => {
           return path[i] === component;
         });
 
@@ -481,12 +481,12 @@ class JSONEditor extends React.Component {
       }, [{path: [], row: 0}]);
 
       // Find the most specific token line
-      let candidate = candidates
+      const candidate = candidates
         .sort((a, b) => b.path.length - a.path.length)[0];
 
       // Keep the difference between the original and the new path and display
       // it as prefix in the error message:
-      let prefixPath = path.slice(candidate.path.length).join('.');
+      const prefixPath = path.slice(candidate.path.length).join('.');
 
       return {
         row: candidate.row,
@@ -503,7 +503,7 @@ class JSONEditor extends React.Component {
     let {width, height, editorProps} = this.props;
     let {initialText} = this.state;
 
-    let omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
+    const omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
 
     return (
       <AceEditor

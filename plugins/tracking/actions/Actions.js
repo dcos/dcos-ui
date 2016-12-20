@@ -4,9 +4,9 @@ import {hashHistory, match} from 'react-router';
 
 import RouterUtil from '../../../src/js/utils/RouterUtil';
 
-let SDK = require('../SDK').getSDK();
+const SDK = require('../SDK').getSDK();
 
-let {Config, Util} = SDK.get(['Config', 'Util']);
+const {Config, Util} = SDK.get(['Config', 'Util']);
 
 var Actions = {
   previousFakePageLog: '',
@@ -34,7 +34,7 @@ var Actions = {
   },
 
   metadataLoaded() {
-    let metadata = SDK.Store.getAppState().metadata;
+    const metadata = SDK.Store.getAppState().metadata;
     return (metadata &&
       metadata.dcosMetadata &&
       metadata.metadata &&
@@ -43,7 +43,7 @@ var Actions = {
 
   listenForDcosMetadata() {
     if (!this.metadataLoaded()) {
-      let unSubscribe = SDK.Store.subscribe(() => {
+      const unSubscribe = SDK.Store.subscribe(() => {
         if (this.metadataLoaded()) {
           unSubscribe();
           this.setDcosMetadata(this.mergeMetaData());
@@ -85,7 +85,7 @@ var Actions = {
     }, 200));
 
     // Poll to deplete queue
-    let checkAnalyticsReady = () => {
+    const checkAnalyticsReady = () => {
       setTimeout(() => {
         if (!this.canLog()) {
           checkAnalyticsReady();
@@ -168,7 +168,7 @@ var Actions = {
       return;
     }
 
-    let traits = Object.assign(this.getLogData(), {email: uid});
+    const traits = Object.assign(this.getLogData(), {email: uid});
     global.analytics.identify(
       uid, traits, this.getAnonymizingKeys()
     );

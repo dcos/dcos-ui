@@ -78,7 +78,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   }
 
   renderHealth(prop, unit) {
-    let health = unit.getHealth();
+    const health = unit.getHealth();
 
     return (
       <span className={health.classNames}>
@@ -115,8 +115,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   }
 
   getColumns() {
-    let classNameFn = ResourceTableUtil.getClassName;
-    let sortFunction = UnitHealthUtil.getHealthSortFunction;
+    const classNameFn = ResourceTableUtil.getClassName;
+    const sortFunction = UnitHealthUtil.getHealthSortFunction;
 
     return [
       {
@@ -156,8 +156,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let data = UnitHealthStore.getUnits();
-    let dataItems = data.getItems();
+    const data = UnitHealthStore.getUnits();
+    const dataItems = data.getItems();
     let {healthFilter, searchString} = this.state;
     let visibleData = this.getVisibleData(data, searchString, healthFilter);
     let dataHealth = dataItems.map(function (unit) {

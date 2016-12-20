@@ -24,7 +24,7 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === 'container.docker.network') {
-      let networkName = value.split('.')[1];
+      const networkName = value.split('.')[1];
       if (networkName != null) {
         return {
           discovery: this.internalState.discovery || {},

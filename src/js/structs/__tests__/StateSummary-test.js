@@ -12,7 +12,7 @@ describe('StateSummary', function () {
   describe('#constructor', function () {
 
     it('constructs a state', function () {
-      let instance = new StateSummary();
+      const instance = new StateSummary();
       expect(instance instanceof StateSummary).toEqual(true);
     });
 
@@ -21,17 +21,17 @@ describe('StateSummary', function () {
   describe('#getSnapshotDate', function () {
 
     it('creates a date when initialized', function () {
-      let before = Date.now();
-      let instance = new StateSummary();
-      let after = Date.now();
+      const before = Date.now();
+      const instance = new StateSummary();
+      const after = Date.now();
 
       expect(instance.getSnapshotDate() >= before).toBeTruthy();
       expect(instance.getSnapshotDate() <= after).toBeTruthy();
     });
 
     it('allows us to set the date', function () {
-      let date = Date.now();
-      let instance = new StateSummary({date});
+      const date = Date.now();
+      const instance = new StateSummary({date});
       expect(instance.getSnapshotDate() === date).toBeTruthy();
     });
 
@@ -40,12 +40,12 @@ describe('StateSummary', function () {
   describe('#getActiveSlaves', function () {
 
     it('returns 0 active slaves by default', function () {
-      let instance = new StateSummary();
+      const instance = new StateSummary();
       expect(instance.getActiveSlaves().length).toEqual(0);
     });
 
     it('correctly calculates active slaves', function () {
-      let snapshot = {
+      const snapshot = {
         frameworks: [],
         slaves: [
           {active: true},
@@ -53,7 +53,7 @@ describe('StateSummary', function () {
           {active: true}
         ]
       };
-      let instance = new StateSummary({snapshot});
+      const instance = new StateSummary({snapshot});
       expect(instance.getActiveSlaves().length).toEqual(2);
     });
 
@@ -62,15 +62,15 @@ describe('StateSummary', function () {
   describe('#getServiceList', function () {
 
     it('returns an instance of ServicesList', function () {
-      let instance = new StateSummary();
-      let services = instance.getServiceList();
+      const instance = new StateSummary();
+      const services = instance.getServiceList();
       expect(services instanceof ServicesList).toBeTruthy();
     });
 
     it('ServicesList contains instances of Framework', function () {
-      let frameworks = [{a: 1}];
-      let instance = new StateSummary({snapshot: {frameworks}});
-      let services = instance.getServiceList().getItems();
+      const frameworks = [{a: 1}];
+      const instance = new StateSummary({snapshot: {frameworks}});
+      const services = instance.getServiceList().getItems();
       expect(services.length).toEqual(1);
       expect(services[0] instanceof Framework).toBeTruthy();
     });
@@ -80,15 +80,15 @@ describe('StateSummary', function () {
   describe('#getNodesList', function () {
 
     it('returns an instance of NodesList', function () {
-      let instance = new StateSummary();
-      let nodes = instance.getNodesList();
+      const instance = new StateSummary();
+      const nodes = instance.getNodesList();
       expect(nodes instanceof NodesList).toBeTruthy();
     });
 
     it('NodesList contains instances of Node', function () {
-      let slaves = [{a: 1}];
-      let instance = new StateSummary({snapshot: {slaves}});
-      let nodes = instance.getNodesList();
+      const slaves = [{a: 1}];
+      const instance = new StateSummary({snapshot: {slaves}});
+      const nodes = instance.getNodesList();
       expect(nodes.getItems().length).toEqual(1);
       expect(nodes instanceof NodesList).toBeTruthy();
     });
@@ -98,13 +98,13 @@ describe('StateSummary', function () {
   describe('#getSlaveTotalResources', function () {
 
     it('defaults to 0 available resources if there\'s nothing', function () {
-      let instance = new StateSummary();
-      let defaultSum = {cpus: 0, mem: 0, disk: 0};
+      const instance = new StateSummary();
+      const defaultSum = {cpus: 0, mem: 0, disk: 0};
       expect(instance.getSlaveTotalResources()).toEqual(defaultSum);
     });
 
     it('calculates total resources available in slaves', function () {
-      let snapshot = {
+      const snapshot = {
         frameworks: [],
         slaves: [
           {resources: {cpus: 1, mem: 0, disk: 2}},
@@ -112,8 +112,8 @@ describe('StateSummary', function () {
           {resources: {cpus: 1, mem: 0, disk: 2}}
         ]
       };
-      let aggregate = {cpus: 3, mem: 0, disk: 6};
-      let instance = new StateSummary({snapshot});
+      const aggregate = {cpus: 3, mem: 0, disk: 6};
+      const instance = new StateSummary({snapshot});
       expect(instance.getSlaveTotalResources()).toEqual(aggregate);
     });
 
@@ -122,13 +122,13 @@ describe('StateSummary', function () {
   describe('#getSlaveUsedResources', function () {
 
     it('defaults to 0 available resources if there\'s nothing', function () {
-      let instance = new StateSummary();
-      let defaultSum = {cpus: 0, mem: 0, disk: 0};
+      const instance = new StateSummary();
+      const defaultSum = {cpus: 0, mem: 0, disk: 0};
       expect(instance.getSlaveUsedResources()).toEqual(defaultSum);
     });
 
     it('calculates used resources in slaves', function () {
-      let snapshot = {
+      const snapshot = {
         frameworks: [],
         slaves: [
           {used_resources: {cpus: 1, mem: 0, disk: 2}},
@@ -136,8 +136,8 @@ describe('StateSummary', function () {
           {used_resources: {cpus: 1, mem: 0, disk: 2}}
         ]
       };
-      let aggregate = {cpus: 3, mem: 0, disk: 6};
-      let instance = new StateSummary({snapshot});
+      const aggregate = {cpus: 3, mem: 0, disk: 6};
+      const instance = new StateSummary({snapshot});
       expect(instance.getSlaveUsedResources()).toEqual(aggregate);
     });
 
@@ -146,13 +146,13 @@ describe('StateSummary', function () {
   describe('#getServiceUsedResources', function () {
 
     it('defaults to 0 available resources if there\'s nothing', function () {
-      let instance = new StateSummary();
-      let defaultSum = {cpus: 0, mem: 0, disk: 0};
+      const instance = new StateSummary();
+      const defaultSum = {cpus: 0, mem: 0, disk: 0};
       expect(instance.getServiceUsedResources()).toEqual(defaultSum);
     });
 
     it('calculates total resources available in slaves', function () {
-      let snapshot = {
+      const snapshot = {
         frameworks: [
           {used_resources: {cpus: 1, mem: 0, disk: 2}},
           {used_resources: {cpus: 1, mem: 0, disk: 2}},
@@ -160,8 +160,8 @@ describe('StateSummary', function () {
         ],
         slaves: []
       };
-      let aggregate = {cpus: 3, mem: 0, disk: 6};
-      let instance = new StateSummary({snapshot});
+      const aggregate = {cpus: 3, mem: 0, disk: 6};
+      const instance = new StateSummary({snapshot});
       expect(instance.getServiceUsedResources()).toEqual(aggregate);
     });
 

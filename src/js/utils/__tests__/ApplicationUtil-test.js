@@ -23,8 +23,8 @@ describe('ApplicationUtil', function () {
     });
 
     it('should call callback right away', function () {
-      let handler = jasmine.createSpy('handler');
-      let now = Date.now();
+      const handler = jasmine.createSpy('handler');
+      const now = Date.now();
 
       global.getPageLoadedTime = function () {
         return now - Config.applicationRenderDelay;
@@ -37,8 +37,8 @@ describe('ApplicationUtil', function () {
     });
 
     it('should call after time has elapsed', function () {
-      let handler = jasmine.createSpy('handler');
-      let now = Date.now();
+      const handler = jasmine.createSpy('handler');
+      const now = Date.now();
 
       global.getPageLoadedTime = function () {
         return now;
@@ -58,7 +58,7 @@ describe('ApplicationUtil', function () {
   describe('#beginTemporaryPolling', function () {
 
     it('calls callback once event is emitted', function () {
-      let handler = jasmine.createSpy('handler');
+      const handler = jasmine.createSpy('handler');
       ApplicationUtil.beginTemporaryPolling(handler);
       expect(handler).not.toBeCalled();
       MesosSummaryStore.emit(EventTypes.MESOS_SUMMARY_CHANGE);

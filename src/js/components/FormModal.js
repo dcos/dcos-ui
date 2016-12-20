@@ -46,9 +46,9 @@ class FormModal extends React.Component {
   focusOnField() {
     // Gotta account for animation
     setTimeout(() => {
-      let el = this.refs['form-wrapper'];
+      const el = this.refs['form-wrapper'];
       if (el) {
-        let input = el.querySelector('form input');
+        const input = el.querySelector('form input');
         if (input) {
           input.focus();
         }

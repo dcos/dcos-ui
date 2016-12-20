@@ -1,4 +1,4 @@
-let EventTypes = {};
+const EventTypes = {};
 [
   'AUTH_USER_LOGIN_CHANGED'
 ].forEach(function (eventType) {

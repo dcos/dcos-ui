@@ -12,8 +12,8 @@ module.exports = {
    * @param  {Func} onDelayEndCallback Gets called after delay has elapsed
    */
   invokeAfterPageLoad(onDelayEndCallback) {
-    let timeSpentLoading = Date.now() - global.getPageLoadedTime();
-    let msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
+    const timeSpentLoading = Date.now() - global.getPageLoadedTime();
+    const msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
 
     if (msLeftOfDelay <= 0) {
       setTimeout(onDelayEndCallback);
@@ -28,7 +28,7 @@ module.exports = {
    * @param  {Func} onSummaryReceivedCallback Called after summary request response
    */
   beginTemporaryPolling(onSummaryReceivedCallback) {
-    let mesosEvents = [MESOS_SUMMARY_CHANGE, MESOS_SUMMARY_REQUEST_ERROR];
+    const mesosEvents = [MESOS_SUMMARY_CHANGE, MESOS_SUMMARY_REQUEST_ERROR];
 
     MesosSummaryStore.init();
 

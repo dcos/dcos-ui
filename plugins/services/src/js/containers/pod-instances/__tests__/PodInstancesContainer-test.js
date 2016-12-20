@@ -29,7 +29,7 @@ const PodFixture = require('../../../../../../../tests/_fixtures/pods/PodFixture
 describe('PodInstancesContainer', function () {
 
   // Fix the dates in order to test the relative date field
-  let fixture = Util.deepCopy(PodFixture);
+  const fixture = Util.deepCopy(PodFixture);
   fixture.instances[0].lastUpdated = new Date(Date.now() - (86400000 * 1)).toString();
   fixture.instances[0].lastChanged = new Date(Date.now() - (86400000 * 2)).toString();
   fixture.instances[0].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 3)).toString();
@@ -52,11 +52,11 @@ describe('PodInstancesContainer', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesContainer,
+        const component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        let searchInput = TestUtils.findRenderedDOMComponentWithClass(
+        const searchInput = TestUtils.findRenderedDOMComponentWithClass(
           this.instance, 'filter-input-text' );
 
         searchInput.value = 'instance-1';
@@ -80,11 +80,11 @@ describe('PodInstancesContainer', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesContainer,
+        const component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        let searchInput = TestUtils.findRenderedDOMComponentWithClass(
+        const searchInput = TestUtils.findRenderedDOMComponentWithClass(
           this.instance, 'filter-input-text' );
 
         searchInput.value = 'container-1';
@@ -132,11 +132,11 @@ describe('PodInstancesContainer', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesContainer,
+        const component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        let buttons = TestUtils.findRenderedDOMComponentWithClass(
+        const buttons = TestUtils.findRenderedDOMComponentWithClass(
           this.instance, 'button-group' ).querySelectorAll('button');
 
         // First button is 'All'
@@ -163,11 +163,11 @@ describe('PodInstancesContainer', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesContainer,
+        const component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        let buttons = TestUtils.findRenderedDOMComponentWithClass(
+        const buttons = TestUtils.findRenderedDOMComponentWithClass(
           this.instance, 'button-group' ).querySelectorAll('button');
 
         // Third button is 'Completed'

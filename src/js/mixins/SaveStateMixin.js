@@ -4,12 +4,12 @@ import {SAVED_STATE_KEY} from '../constants/UserSettings';
 
 const SaveStateMixin = {
   componentWillMount() {
-    let key = this.saveState_key;
+    const key = this.saveState_key;
     if (!key) {
       return;
     }
 
-    let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY);
+    const savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY);
     if (savedStates == null || savedStates[key] == null) {
       return;
     }
@@ -22,7 +22,7 @@ const SaveStateMixin = {
   },
 
   saveState_save() {
-    let {saveState_key, saveState_properties, state} = this;
+    const {saveState_key, saveState_properties, state} = this;
     let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY);
     if (savedStates == null) {
       savedStates = {};

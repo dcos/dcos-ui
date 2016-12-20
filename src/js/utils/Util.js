@@ -1,6 +1,6 @@
 import ValidatorUtil from './ValidatorUtil';
 
-let uniqueIDMap = {};
+const uniqueIDMap = {};
 
 const Util = {
 
@@ -53,7 +53,7 @@ const Util = {
    * @return {Int}                 Index of last item or -1 if not found
    */
   findLastIndex(array, condition) {
-    let length = array.length;
+    const length = array.length;
     let index = length - 1;
     for (; index >= 0; index--) {
       if (condition(array[index], index, array)) {
@@ -103,7 +103,7 @@ const Util = {
     let canCall = true;
     let callWhenReady = false;
 
-    let resetCall = function () {
+    const resetCall = function () {
       if (callWhenReady) {
         setTimeout(resetCall.bind(this, arguments[0]), wait);
         callWhenReady = false;

@@ -8,10 +8,10 @@ module.exports = {
   JSONReducer: null,
 
   JSONParser(state) {
-    let transactions = [];
+    const transactions = [];
     let networkType =
       findNestedPropertyInObject(state, 'container.docker.network');
-    let networkName =
+    const networkName =
       findNestedPropertyInObject(state, 'ipAddress.networkName');
 
     if (networkType == null && networkName == null) {
@@ -29,9 +29,9 @@ module.exports = {
         'network'
       ], `${networkType}.${networkName}`));
 
-      let groups = findNestedPropertyInObject(state, 'ipAddress.groups');
-      let discovery = findNestedPropertyInObject(state, 'ipAddress.discovery');
-      let labels = findNestedPropertyInObject(state, 'ipAddress.labels');
+      const groups = findNestedPropertyInObject(state, 'ipAddress.groups');
+      const discovery = findNestedPropertyInObject(state, 'ipAddress.discovery');
+      const labels = findNestedPropertyInObject(state, 'ipAddress.labels');
 
       if (groups != null) {
         transactions.push(new Transaction([

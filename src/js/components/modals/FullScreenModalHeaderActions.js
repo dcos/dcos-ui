@@ -3,7 +3,7 @@ import React from 'react';
 
 class FullScreenModalHeaderActions extends React.Component {
   getActions() {
-    let {actions} = this.props;
+    const {actions} = this.props;
 
     if (!actions || actions.length === 0) {
       return null;
@@ -30,7 +30,7 @@ class FullScreenModalHeaderActions extends React.Component {
   }
 
   render() {
-    let {className, type} = this.props;
+    const {className, type} = this.props;
 
     let classes = classNames(
       `modal-full-screen-actions modal-full-screen-actions-${type} button-collection flush-vertical`,

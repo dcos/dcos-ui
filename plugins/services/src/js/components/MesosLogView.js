@@ -51,7 +51,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    let {props} = this;
+    const {props} = this;
     if (props.filePath) {
       MesosLogStore.startTailing(props.task.slave_id, props.filePath);
     }
@@ -60,7 +60,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    let {props} = this;
+    const {props} = this;
     if (props.filePath === nextProps.filePath) {
       return;
     }
@@ -78,7 +78,7 @@ class MesosLogView extends mixin(StoreMixin) {
   componentDidUpdate(prevProps, prevState) {
     super.componentDidUpdate(...arguments);
 
-    let logContainerNode = this.getLogContainerNode();
+    const logContainerNode = this.getLogContainerNode();
     if (logContainerNode == null) {
       return;
     }
@@ -103,7 +103,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {props, state} = this;
+    const {props, state} = this;
 
     return !!(
       // Check highlightText
@@ -126,7 +126,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   handleLogContainerScroll(e) {
-    let container = e.target;
+    const container = e.target;
     if (!container) {
       return;
     }
@@ -136,7 +136,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   handleGoToBottom() {
-    let logContainerNode = this.getLogContainerNode();
+    const logContainerNode = this.getLogContainerNode();
     if (logContainerNode == null) {
       return;
     }
@@ -168,13 +168,13 @@ class MesosLogView extends mixin(StoreMixin) {
 
   onMesosLogStoreSuccess(path, direction) {
     // Check the filePath before we reload
-    let {filePath} = this.props;
+    const {filePath} = this.props;
     if (path !== filePath) {
       // This event is not for our filePath
       return;
     }
 
-    let logContainer = ReactDOM.findDOMNode(this.refs.logContainer);
+    const logContainer = ReactDOM.findDOMNode(this.refs.logContainer);
     let previousScrollTop;
     let previousScrollHeight;
 
@@ -183,13 +183,13 @@ class MesosLogView extends mixin(StoreMixin) {
       previousScrollHeight = logContainer.scrollHeight;
     }
 
-    let fullLog = MesosLogStore.get(filePath).getFullLog();
+    const fullLog = MesosLogStore.get(filePath).getFullLog();
     this.setState({fullLog}, () => {
       // This allows the user to stay at the place of the log they were at
       // before the prepend.
       if (direction === 'prepend' && previousScrollHeight) {
-        let currentScrollHeight = logContainer.scrollHeight;
-        let heightDifference = currentScrollHeight - previousScrollHeight;
+        const currentScrollHeight = logContainer.scrollHeight;
+        const heightDifference = currentScrollHeight - previousScrollHeight;
         this.setScrollTop(previousScrollTop + heightDifference);
       }
     });
@@ -200,17 +200,17 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfCloseToTop(container) {
-    let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    let logBuffer = MesosLogStore.get(this.props.filePath);
+    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
+    const logBuffer = MesosLogStore.get(this.props.filePath);
     if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
-      let {props} = this;
+      const {props} = this;
       MesosLogStore.getPreviousLogs(props.task.slave_id, props.filePath);
     }
   }
 
   checkIfAwayFromBottom(container) {
-    let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    let isAtBottom = container.offsetHeight + distanceFromTop
+    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
+    const isAtBottom = container.offsetHeight + distanceFromTop
       >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
@@ -219,15 +219,15 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   goToNewHighlightedSearch() {
-    let logContainer = this.getLogContainerNode();
-    let node = logContainer.querySelector('.highlight.selected');
+    const logContainer = this.getLogContainerNode();
+    const node = logContainer.querySelector('.highlight.selected');
     if (!node) {
       return;
     }
 
-    let containerHeight = logContainer.clientHeight;
-    let containerScrollTop = logContainer.scrollTop;
-    let nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
+    const containerHeight = logContainer.clientHeight;
+    const containerScrollTop = logContainer.scrollTop;
+    const nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
 
     if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
       nodeDistanceFromTop < containerScrollTop) {
@@ -236,7 +236,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLogContainerNode() {
-    let logContainer = this.refs.logContainer;
+    const logContainer = this.refs.logContainer;
     if (!logContainer) {
       return null;
     }
@@ -276,7 +276,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLog() {
-    let {props, state} = this;
+    const {props, state} = this;
 
     if (!props.logName) {
       return this.getEmptyDirectoryScreen();
@@ -309,7 +309,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getGoToBottomButton() {
-    let isAtBottom = this.state.isAtBottom;
+    const isAtBottom = this.state.isAtBottom;
 
     if (isAtBottom) {
       return null;
@@ -325,7 +325,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLogPrepend() {
-    let logBuffer = MesosLogStore.get(this.props.filePath);
+    const logBuffer = MesosLogStore.get(this.props.filePath);
     if (!logBuffer || logBuffer.hasLoadedTop()) {
       return (
         <div className="text-align-center">
@@ -344,7 +344,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {props, state} = this;
 
     if (state.hasLoadingError >= 3) {
       return this.getErrorScreen();

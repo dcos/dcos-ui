@@ -10,7 +10,7 @@ describe('DSLExpression', function () {
   describe('#value', function () {
 
     it('returns the raw string valiue', function () {
-      let expression = new DSLExpression('foo');
+      const expression = new DSLExpression('foo');
 
       expect(expression.value).toEqual('foo');
     });
@@ -20,13 +20,13 @@ describe('DSLExpression', function () {
   describe('#defined', function () {
 
     it('returns true if there is a value defined', function () {
-      let expression = new DSLExpression('foo');
+      const expression = new DSLExpression('foo');
 
       expect(expression.defined).toBeTruthy();
     });
 
     it('returns false if nothing defined', function () {
-      let expression = new DSLExpression('');
+      const expression = new DSLExpression('');
 
       expect(expression.defined).toBeFalsy();
     });
@@ -36,7 +36,7 @@ describe('DSLExpression', function () {
   describe('#filter', function () {
 
     it('returns a filter function', function () {
-      let expression = new DSLExpression('foo');
+      const expression = new DSLExpression('foo');
 
       expect(typeof expression.filter).toEqual('function');
     });
@@ -46,7 +46,7 @@ describe('DSLExpression', function () {
   describe('#ast', function () {
 
     it('returns the ast tree', function () {
-      let expression = new DSLExpression('foo');
+      const expression = new DSLExpression('foo');
 
       expect(expression.ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
     });

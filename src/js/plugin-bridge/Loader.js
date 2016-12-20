@@ -69,7 +69,7 @@ function removeDir(dirs, atIndex) {
  * @return {module}      - result of require
  */
 function pluckComponent(path) {
-  let dirs = path.split('/');
+  const dirs = path.split('/');
   switch (dirs[1]) {
     case 'charts':
       return requireCharts(removeDir(dirs, 1));
@@ -91,7 +91,7 @@ function pluckComponent(path) {
  * @return {module}      - result of require
  */
 function requireModule(dir, name) {
-  let path = './' + name;
+  const path = './' + name;
   switch (dir) {
     case 'config':
       return requireConfig(path);

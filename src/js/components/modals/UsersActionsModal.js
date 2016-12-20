@@ -28,8 +28,8 @@ class UsersActionsModal extends ActionsModal {
   }
 
   handleButtonConfirm() {
-    let {itemID, selectedItems} = this.props;
-    let itemsByID = selectedItems.map(function (item) {
+    const {itemID, selectedItems} = this.props;
+    const itemsByID = selectedItems.map(function (item) {
       return item[itemID];
     });
 

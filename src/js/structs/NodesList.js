@@ -42,8 +42,8 @@ class NodesList extends List {
   }
 
   sumUsedResources() {
-    let services = this.getItems();
-    let resourcesList = services.map(function (service) {
+    const services = this.getItems();
+    const resourcesList = services.map(function (service) {
       return service.used_resources;
     });
 
@@ -51,8 +51,8 @@ class NodesList extends List {
   }
 
   sumResources() {
-    let services = this.getItems();
-    let resourcesList = services.map(function (service) {
+    const services = this.getItems();
+    const resourcesList = services.map(function (service) {
       return service.resources;
     });
 

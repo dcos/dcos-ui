@@ -3,11 +3,11 @@ import React, {PropTypes} from 'react';
 
 class BreadcrumbSegmentLink extends React.Component {
   render() {
-    let {props} = this;
-    let content = props.label;
+    const {props} = this;
+    const content = props.label;
 
     if (props.route) {
-      let {to, params} = props.route;
+      const {to, params} = props.route;
 
       return (
         <Link

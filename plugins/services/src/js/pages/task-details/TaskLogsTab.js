@@ -163,7 +163,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   getLogSelectionAsButtons() {
-    let {streams, selectedStream} = this.state;
+    const {streams, selectedStream} = this.state;
     let buttons = streams.map((name, index) => {
 
       let classes = classNames({
@@ -195,7 +195,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   getDropdownItems() {
     return this.state.streams.map(function (name) {
       let selectedHtml = <span className="flush dropdown-header">{name}</span>;
-      let dropdownHtml = <a>{selectedHtml}</a>;
+      const dropdownHtml = <a>{selectedHtml}</a>;
 
       return {
         id: name,
@@ -232,8 +232,8 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   getDownloadButton() {
-    let {task} = this.props;
-    let {selectedStream} = this.state;
+    const {task} = this.props;
+    const {selectedStream} = this.state;
     const params = getLogParameters(task, {filter: {STREAM: selectedStream}});
 
     // This is a hacky way of interacting with the API to be able to download

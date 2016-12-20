@@ -144,11 +144,11 @@ class ServicesTable extends React.Component {
   }
 
   renderServiceActions(service) {
-    let isGroup = service instanceof ServiceTree;
-    let isPod = service instanceof Pod;
-    let isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
-    let isFramework = service instanceof Framework;
-    let instancesCount = service.getInstancesCount();
+    const isGroup = service instanceof ServiceTree;
+    const isPod = service instanceof Pod;
+    const isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
+    const isFramework = service instanceof Framework;
+    const instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
     if (isGroup) {
       scaleText = 'Scale By';
@@ -221,7 +221,7 @@ class ServicesTable extends React.Component {
     let serviceStatus = service.getStatus();
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let tasksSummary = service.getTasksSummary();
-    let {tasksRunning} = tasksSummary;
+    const {tasksRunning} = tasksSummary;
     let tooltip = null;
 
     let isDeploying = serviceStatus === 'Deploying';
@@ -232,7 +232,7 @@ class ServicesTable extends React.Component {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
-    let queue = service.getQueue();
+    const queue = service.getQueue();
     if (queue != null) {
       const waitingSince = DateUtil.strToMs(queue.since);
       const timeWaiting = Date.now() - waitingSince;
@@ -272,10 +272,10 @@ class ServicesTable extends React.Component {
   }
 
   renderStats(prop, service) {
-    let instancesCount = service.getInstancesCount();
-    let resource = service.getResources()[prop];
+    const instancesCount = service.getInstancesCount();
+    const resource = service.getResources()[prop];
 
-    let value = resource * instancesCount;
+    const value = resource * instancesCount;
     return (
       <span>
         {Units.formatResource(prop, value)}
@@ -284,7 +284,7 @@ class ServicesTable extends React.Component {
   }
 
   renderStatsHeading(prop, sortBy, row) {
-    let isHeader = row == null;
+    const isHeader = row == null;
 
     return classNames('flush-left text-align-right hidden-small-down', {
       'active': prop === sortBy.prop,
@@ -293,9 +293,9 @@ class ServicesTable extends React.Component {
   }
 
   getColumns() {
-    let className = ResourceTableUtil.getClassName;
-    let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
-    let {isFiltered} = this.props;
+    const className = ResourceTableUtil.getClassName;
+    const heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
+    const {isFiltered} = this.props;
 
     return [
       {

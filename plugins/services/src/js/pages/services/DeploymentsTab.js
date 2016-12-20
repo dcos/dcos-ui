@@ -45,7 +45,7 @@ const METHODS_TO_BIND = [
 // collapsing columns are tightly coupled to the left-align caret property;
 // this wrapper allows ordinary columns to collapse.
 function columnClassNameGetter(prop, sortBy, row) {
-  let classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
+  const classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
   if (COLLAPSING_COLUMNS.includes(prop)) {
     return classNames(classSet, 'hidden-small-down');
   }
@@ -81,7 +81,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   onMarathonStoreDeploymentRollbackSuccess(data) {
-    let {deploymentToRollback} = this.state;
+    const {deploymentToRollback} = this.state;
     if (deploymentToRollback != null &&
         deploymentToRollback.getId() === data.originalDeploymentID) {
       this.setState({
@@ -93,7 +93,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   onMarathonStoreDeploymentRollbackError(data) {
-    let {deploymentToRollback} = this.state;
+    const {deploymentToRollback} = this.state;
     if (deploymentToRollback != null &&
         deploymentToRollback.getId() === data.originalDeploymentID) {
       this.setState({
@@ -257,7 +257,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   handleRollbackConfirm() {
-    let {deploymentToRollback} = this.state;
+    const {deploymentToRollback} = this.state;
     if (deploymentToRollback != null) {
       this.setState({awaitingRevertDeploymentResponse: true});
       MarathonActions.revertDeployment(deploymentToRollback.getId());
@@ -349,7 +349,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderRollbackModal() {
-    let {
+    const {
       awaitingRevertDeploymentResponse,
       deploymentToRollback,
       deploymentRollbackError
@@ -384,16 +384,16 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   getRollbackModalText(deploymentToRollback) {
-    let serviceNames = deploymentToRollback.getAffectedServices()
+    const serviceNames = deploymentToRollback.getAffectedServices()
       .map(function (service) {
         return StringUtil.capitalize(service.getName());
       });
-    let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
-    let serviceCount = serviceNames.length;
+    const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
+    const serviceCount = serviceNames.length;
 
-    let service = StringUtil.pluralize('service', serviceCount);
-    let its = (serviceCount === 1) ? 'its' : 'their';
-    let version = StringUtil.pluralize('version', serviceCount);
+    const service = StringUtil.pluralize('service', serviceCount);
+    const its = (serviceCount === 1) ? 'its' : 'their';
+    const version = StringUtil.pluralize('version', serviceCount);
 
     if (deploymentToRollback.isStarting()) {
       return `This will stop the current deployment of ${listOfServiceNames}
@@ -416,8 +416,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let deployments = DCOSStore.deploymentsList.getItems();
-    let loading = !DCOSStore.dataProcessed;
+    const deployments = DCOSStore.deploymentsList.getItems();
+    const loading = !DCOSStore.dataProcessed;
 
     if (loading) {
       return this.renderLoading();

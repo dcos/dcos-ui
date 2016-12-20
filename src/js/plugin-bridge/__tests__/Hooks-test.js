@@ -118,7 +118,7 @@ describe('HooksAPI', function () {
     });
 
     it('doesn\'t remove other listeners', function () {
-      let fakeAction2 = jasmine.createSpy('fakeAction');
+      const fakeAction2 = jasmine.createSpy('fakeAction');
       this.hooks.addAction('foo', fakeAction2);
       this.hooks.removeAction('foo', this.fakeAction);
       this.hooks.doAction('foo', 'bar');
@@ -127,11 +127,11 @@ describe('HooksAPI', function () {
     });
 
     it('doesn\'t skip other listeners when removing current listener', function () {
-      let fakeAction2 = () => {
+      const fakeAction2 = () => {
         this.hooks.removeAction('foo', fakeAction2);
       };
       this.hooks.addAction('foo', fakeAction2);
-      let fakeAction3 = jasmine.createSpy('fakeAction3');
+      const fakeAction3 = jasmine.createSpy('fakeAction3');
       this.hooks.addAction('foo', fakeAction3);
       this.hooks.doAction('foo', 'bar');
       expect(fakeAction3.calls.count()).toEqual(1);
@@ -171,7 +171,7 @@ describe('HooksAPI', function () {
     });
 
     it('doesn\'t remove other listeners', function () {
-      let fakeFilter2 = jasmine.createSpy('fakeFilter');
+      const fakeFilter2 = jasmine.createSpy('fakeFilter');
       this.hooks.addFilter('foo', fakeFilter2);
       this.hooks.removeFilter('foo', this.fakeFilter);
       this.hooks.applyFilter('foo', 'bar');
@@ -180,11 +180,11 @@ describe('HooksAPI', function () {
     });
 
     it('doesn\'t skip other listeners when removing current listener', function () {
-      let fakeAction2 = () => {
+      const fakeAction2 = () => {
         this.hooks.removeFilter('foo', fakeAction2);
       };
       this.hooks.addFilter('foo', fakeAction2);
-      let fakeAction3 = jasmine.createSpy('fakeAction3');
+      const fakeAction3 = jasmine.createSpy('fakeAction3');
       this.hooks.addFilter('foo', fakeAction3);
       this.hooks.applyFilter('foo', 'bar');
       expect(fakeAction3.calls.count()).toEqual(1);

@@ -14,7 +14,7 @@ import StringUtil from '../utils/StringUtil';
  * @return {Object} item, cast if list is typed.
  */
 function cast(item) {
-  let Type = this.constructor.type;
+  const Type = this.constructor.type;
   if (Type != null && !(item instanceof Type)) {
     return new Type(item);
   }
@@ -75,11 +75,11 @@ module.exports = class List {
    */
   combine(list) {
     let actualLength = 0;
-    let currentItems = this.getItems();
-    let newItems = list.getItems();
+    const currentItems = this.getItems();
+    const newItems = list.getItems();
 
     // We pre-allocate the result array with the worst possible scenario
-    let combinedItems = new Array(currentItems.length + newItems.length);
+    const combinedItems = new Array(currentItems.length + newItems.length);
 
     // Instead of using the O(n²) approach of iterating over `newItems` and
     // checking if each item exist on `currentItems`, we use a trick that brings
@@ -88,7 +88,7 @@ module.exports = class List {
     // We first generate a unique object for the current combine operation
     // and we mark all the objects of `currentItems` with it, declaring them as
     // used.
-    let comparisonTag = {};
+    const comparisonTag = {};
     for (let i=0, length=currentItems.length; i<length; ++i) {
       combinedItems[actualLength++] =
         ObjectUtil.markObject(currentItems[i], comparisonTag);
@@ -115,7 +115,7 @@ module.exports = class List {
    * @return {List} List (or child class) containing mapped items
    */
   filterItems(callback) {
-    let items = this.getItems().filter((item, index) => {
+    const items = this.getItems().filter((item, index) => {
       return callback(item, index, this);
     });
 
@@ -134,13 +134,13 @@ module.exports = class List {
 
     if (filterText) {
       items = StringUtil.filterByString(items, function (item) {
-        let searchFields = Object.keys(filterProperties).map(function (prop) {
+        const searchFields = Object.keys(filterProperties).map(function (prop) {
           // We need different handlers for item getters since the property
           // since there can be different ways of getting the value needed
 
           // Use getter function if specified in filterProperties.
           // This is used if property is nested or type is different than string
-          let valueGetter = filterProperties[prop];
+          const valueGetter = filterProperties[prop];
           if (typeof valueGetter === 'function') {
             return valueGetter(item, prop);
           }
@@ -179,7 +179,7 @@ module.exports = class List {
    * @return {List} List (or child class) containing mapped items
    */
   mapItems(callback) {
-    let items = this.getItems().map((item, index) => {
+    const items = this.getItems().map((item, index) => {
       return callback(item, index, this);
     });
 

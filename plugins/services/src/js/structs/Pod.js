@@ -52,7 +52,7 @@ module.exports = class Pod extends Service {
    * @returns {String} The normalized mesos ID
    */
   getMesosId() {
-    let id = this.getId().substr(1);
+    const id = this.getId().substr(1);
     return id.replace(/\//g, '_');
   }
 
@@ -129,9 +129,9 @@ module.exports = class Pod extends Service {
    * @override
    */
   getServiceStatus() {
-    let scalingInstances = this.getSpec().getScalingInstances();
-    let runningInstances = this.countRunningInstances();
-    let nonterminalInstances = this.countNonTerminalInstances();
+    const scalingInstances = this.getSpec().getScalingInstances();
+    const runningInstances = this.countRunningInstances();
+    const nonterminalInstances = this.countNonTerminalInstances();
 
     if ((nonterminalInstances === 0) && (scalingInstances === 0)) {
       return ServiceStatus.SUSPENDED;
@@ -159,7 +159,7 @@ module.exports = class Pod extends Service {
    * @override
    */
   getTasksSummary() {
-    let taskSummary = {
+    const taskSummary = {
       tasksHealthy: 0,
       tasksUnhealthy: 0,
       tasksStaged: 0,
@@ -186,8 +186,8 @@ module.exports = class Pod extends Service {
       }
     });
 
-    let totalInstances = taskSummary.tasksStaged + taskSummary.tasksRunning;
-    let definedInstances = this.getSpec().getScalingInstances();
+    const totalInstances = taskSummary.tasksStaged + taskSummary.tasksRunning;
+    const definedInstances = this.getSpec().getScalingInstances();
 
     if (totalInstances > definedInstances) {
       taskSummary.tasksOverCapacity = totalInstances - definedInstances;

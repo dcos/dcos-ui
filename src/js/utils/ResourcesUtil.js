@@ -9,13 +9,13 @@ const DefaultResourceTypes = {
 };
 
 // Let's create an instance of a Node with our default resources
-let fakeUsedResources = Object.keys(DefaultResourceTypes)
+const fakeUsedResources = Object.keys(DefaultResourceTypes)
 .reduce(function (memo, resource) {
   memo[resource] = 0;
 
   return memo;
 }, {});
-let fakeNode = new Node({used_resources: fakeUsedResources});
+const fakeNode = new Node({used_resources: fakeUsedResources});
 
 const usedColors = Object.keys(DefaultResourceTypes)
 .map(function (resource) {
@@ -28,7 +28,7 @@ const availableColors = Array(9).fill().map(function (value, index) {
 });
 
 function getAvailableColors() {
-  let colors = availableColors.slice(0);
+  const colors = availableColors.slice(0);
 
   // Concat the array twice. In case there's many resources.
   // Unlikely that there will more than 4 anyways.
@@ -64,7 +64,7 @@ const ResourcesUtil = {
   },
 
   getAdditionalResources() {
-    let rest = this.getAvailableResources(this.getDefaultResources());
+    const rest = this.getAvailableResources(this.getDefaultResources());
     // We sort so we get the same color in future calls to this method
     rest.sort();
 
@@ -86,7 +86,7 @@ const ResourcesUtil = {
   },
 
   getResourceLabels() {
-    let resources = this.getAvailableResources();
+    const resources = this.getAvailableResources();
 
     return resources.reduce((memo, resource) => {
       memo[resource] = this.getResourceLabel(resource);
@@ -110,20 +110,20 @@ const ResourcesUtil = {
       opts.resourceList = this.getAdditionalResources();
     }
 
-    let index = opts.resourceList.indexOf(resource);
+    const index = opts.resourceList.indexOf(resource);
 
     return opts.availableColors[index];
   },
 
   getResourceColors() {
     // Map the default ones first
-    let map = this.getDefaultResources().reduce((memo, resource) => {
+    const map = this.getDefaultResources().reduce((memo, resource) => {
       memo[resource] = this.getResourceColor(resource);
 
       return memo;
     }, {});
 
-    let rest = this.getAdditionalResources();
+    const rest = this.getAdditionalResources();
 
     // Map the rest
     return rest.reduce((memo, resource) => {

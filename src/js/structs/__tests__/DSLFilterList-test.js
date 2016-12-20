@@ -18,8 +18,8 @@ describe('DSLFilterList', function () {
       }
     }
 
-    let matchInst = new MatchFilter();
-    let unmatchInst = new UnmatchFilter();
+    const matchInst = new MatchFilter();
+    const unmatchInst = new UnmatchFilter();
     let filters = new DSLFilterList();
 
     filters = filters.add(matchInst, unmatchInst);

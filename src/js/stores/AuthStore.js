@@ -83,7 +83,7 @@ class AuthStore extends GetSetBaseStore {
   }
 
   getUser() {
-    let userCode = CookieUtils.getUserMetadata();
+    const userCode = CookieUtils.getUserMetadata();
 
     if (userCode == null) {
       return null;

@@ -16,9 +16,9 @@ class Node extends Item {
   }
 
   getUsageStats(resource) {
-    let total = this.get('resources')[resource];
-    let value = this.get('used_resources')[resource];
-    let percentage = Math.round(100 * value / Math.max(1, total));
+    const total = this.get('resources')[resource];
+    const value = this.get('used_resources')[resource];
+    const percentage = Math.round(100 * value / Math.max(1, total));
 
     return {percentage, total, value};
   }

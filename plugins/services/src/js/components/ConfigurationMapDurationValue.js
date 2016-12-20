@@ -26,8 +26,8 @@ class ConfigurationMapDurationValue extends React.Component {
     }
 
     // Compose value multiplicants
-    let valueInMs = value * multiplicants[units];
-    let components = DateUtil.msToMultiplicants(valueInMs, multiplicants);
+    const valueInMs = value * multiplicants[units];
+    const components = DateUtil.msToMultiplicants(valueInMs, multiplicants);
 
     // Check if components are redundant
     if ((components.length === 1) && (components[0].split(' ')[1] === units)) {

@@ -146,11 +146,11 @@ class DCOSStore extends EventEmitter {
     if (!this.data.dataProcessed) {
       return;
     }
-    let deploymentsList = MarathonStore.get('deployments');
-    let serviceTree = MarathonStore.get('groups');
+    const deploymentsList = MarathonStore.get('deployments');
+    const serviceTree = MarathonStore.get('groups');
 
-    let deploymentListlength = deploymentsList.getItems().length;
-    let currentDeploymentCount = NotificationStore.getNotificationCount(
+    const deploymentListlength = deploymentsList.getItems().length;
+    const currentDeploymentCount = NotificationStore.getNotificationCount(
       'services-deployments'
     );
 
@@ -165,9 +165,9 @@ class DCOSStore extends EventEmitter {
     // Populate deployments with affected services
     this.data.marathon.deploymentsList = deploymentsList
       .mapItems(function (deployment) {
-        let ids = deployment.getAffectedServiceIds();
-        let services = ids.reduce(function (memo, id) {
-          let service = serviceTree.findItemById(id);
+        const ids = deployment.getAffectedServiceIds();
+        const services = ids.reduce(function (memo, id) {
+          const service = serviceTree.findItemById(id);
           if (service != null) {
             memo.affected.push(service);
           } else {
@@ -198,7 +198,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonGroupsChange() {
-    let serviceTree = MarathonStore.get('groups');
+    const serviceTree = MarathonStore.get('groups');
     if (!(serviceTree instanceof ServiceTree)) {
       return;
     }
@@ -213,9 +213,9 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonQueueChange(nextQueue) {
-    let {marathon:{queue}} = this.data;
+    const {marathon:{queue}} = this.data;
 
-    let queuedAppIDs = [];
+    const queuedAppIDs = [];
     nextQueue.forEach((entry) => {
       if (entry.app == null && entry.pod == null) {
         return;
@@ -256,7 +256,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonServiceVersionChange({serviceID, versionID, version}) {
-    let {marathon:{versions}} = this.data;
+    const {marathon:{versions}} = this.data;
     let currentVersions = versions.get(serviceID);
 
     if (!currentVersions) {
@@ -270,8 +270,8 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonServiceVersionsChange({serviceID, versions:nextVersions}) {
-    let {marathon:{versions}} = this.data;
-    let currentVersions = versions.get(serviceID);
+    const {marathon:{versions}} = this.data;
+    const currentVersions = versions.get(serviceID);
 
     if (currentVersions) {
       nextVersions = new Map([...nextVersions, ...currentVersions]);
@@ -282,7 +282,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMesosSummaryChange() {
-    let states = MesosSummaryStore.get('states');
+    const states = MesosSummaryStore.get('states');
     if (!(states instanceof SummaryList)) {
       return;
     }
@@ -367,10 +367,10 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    let {marathon:{serviceTree, queue, versions}, mesos} = this.data;
+    const {marathon:{serviceTree, queue, versions}, mesos} = this.data;
 
     // Create framework dict from Mesos data
-    let frameworks = mesos.lastSuccessful().getServiceList()
+    const frameworks = mesos.lastSuccessful().getServiceList()
       .reduceItems(function (memo, framework) {
         if (framework instanceof Item) {
           memo[framework.get('name')] = framework.get();
@@ -385,7 +385,7 @@ class DCOSStore extends EventEmitter {
         return item;
       }
 
-      let serviceId = item.getId();
+      const serviceId = item.getId();
       let options = {
         versions: versions.get(serviceId),
         queue: queue.get(serviceId)

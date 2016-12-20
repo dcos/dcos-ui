@@ -28,7 +28,7 @@ class SearchLog extends React.Component {
   }
 
   componentDidMount() {
-    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+    const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
 
     if (filterInput) {
       filterInput.addEventListener('keydown', this.handleKeyDown);
@@ -36,9 +36,9 @@ class SearchLog extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    let nextSearchString = nextState.searchString;
-    let nextTotalFound = nextState.totalFound;
-    let updatedState = {};
+    const nextSearchString = nextState.searchString;
+    const nextTotalFound = nextState.totalFound;
+    const updatedState = {};
 
     if (nextTotalFound === 0) {
       updatedState.watching = 0;
@@ -51,7 +51,7 @@ class SearchLog extends React.Component {
   }
 
   componentWillUnmount() {
-    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+    const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
 
     if (filterInput) {
       filterInput.removeEventListener('keydown', this.handleKeyDown);
@@ -59,7 +59,7 @@ class SearchLog extends React.Component {
   }
 
   handleKeyDown(event) {
-    let {keyCode} = event;
+    const {keyCode} = event;
     if (keyCode === KeyboardUtil.keyCodes.enter) {
       this.changeWatching('next');
     }

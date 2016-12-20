@@ -19,10 +19,10 @@ describe('ServiceNameTextFilter', function () {
   });
 
   it('Should match parts of service name', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('foo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('foo');
 
-    let filters = new DSLFilterList().add(new ServiceNameTextFilter());
+    const filters = new DSLFilterList().add(new ServiceNameTextFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0],
@@ -31,10 +31,10 @@ describe('ServiceNameTextFilter', function () {
   });
 
   it('Should match exact parts of service name', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('"foo bar"');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('"foo bar"');
 
-    let filters = new DSLFilterList().add(new ServiceNameTextFilter());
+    const filters = new DSLFilterList().add(new ServiceNameTextFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]

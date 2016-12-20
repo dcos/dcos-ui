@@ -16,9 +16,9 @@ import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
 import VirtualNetworkTaskPage from '../../pages/network/virtual-network-detail/VirtualNetworkTaskPage';
 import VirtualNetworkTaskTab from '../../pages/network/virtual-network-detail/VirtualNetworkTaskTab';
 
-let RouteFactory = {
+const RouteFactory = {
   getNetworkRoutes() {
-    let virtualNetworksRoute = [
+    const virtualNetworksRoute = [
       {
         type: Route,
         path: 'networks',
@@ -48,7 +48,7 @@ let RouteFactory = {
               return {
                 parentCrumb: '/networking/networks',
                 getCrumbs(params) {
-                  let {overlayName} = params;
+                  const {overlayName} = params;
 
                   return [{
                     label: overlayName,
@@ -70,7 +70,7 @@ let RouteFactory = {
               return {
                 parentCrumb: '/networking/networks',
                 getCrumbs(params) {
-                  let {overlayName} = params;
+                  const {overlayName} = params;
 
                   return [{
                     label: overlayName,
@@ -183,7 +183,7 @@ let RouteFactory = {
   },
 
   getRoutes() {
-    let {routes, redirect} = this.getNetworkRoutes();
+    const {routes, redirect} = this.getNetworkRoutes();
 
     return [
       // Redirect should always go before path, otherwise router won't ever reach it

@@ -30,7 +30,7 @@ describe('TabButton', function () {
       </TabButton>
     );
 
-    let nestedInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton)[0];
+    const nestedInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton)[0];
 
     expect(nestedInstance.props.activeTab).toEqual('foo');
     expect(nestedInstance.props.onClick).toEqual(this.clickHandler);

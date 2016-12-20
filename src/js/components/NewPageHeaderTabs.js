@@ -4,7 +4,7 @@ import React from 'react';
 
 class PageHeaderTabs extends React.Component {
   render() {
-    let {props: {tabs}} = this;
+    const {props: {tabs}} = this;
 
     let tabElements = tabs.map(function (tab, index) {
       let {isActive, callback} = tab;

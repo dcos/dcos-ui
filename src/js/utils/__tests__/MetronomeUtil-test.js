@@ -83,7 +83,7 @@ describe('MetronomeUtil', function () {
     });
 
     it('defaults id to empty string (root group id)', function () {
-      let tree = MetronomeUtil.parseJobs([]);
+      const tree = MetronomeUtil.parseJobs([]);
       expect(tree.id).toEqual('');
     });
 
@@ -100,7 +100,7 @@ describe('MetronomeUtil', function () {
     });
 
     it('converts a single item into a subitem of root', function () {
-      let instance = MetronomeUtil.parseJobs({id: 'group.job'});
+      const instance = MetronomeUtil.parseJobs({id: 'group.job'});
 
       expect(instance.id).toEqual('');
       expect(instance.items[0].id).toEqual('group');
@@ -108,7 +108,7 @@ describe('MetronomeUtil', function () {
     });
 
     it('merges data of items that are defined multiple times', function () {
-      let result = this.instance.items[0].items[3];
+      const result = this.instance.items[0].items[3];
       expect(result).toEqual({
         id: 'group.beta',
         cmd: '>beta',
@@ -139,7 +139,7 @@ describe('MetronomeUtil', function () {
     });
 
     it('should just do nothing if history is undefined', function () {
-      let job = MetronomeUtil.parseJob({id: 'foo'});
+      const job = MetronomeUtil.parseJob({id: 'foo'});
 
       expect(job).toEqual({id: 'foo'});
     });

@@ -5,7 +5,7 @@ import Util from '../../../../../src/js/utils/Util';
 const serviceAddressKey = 'Service Address';
 
 function buildHostName(id, port) {
-  let hostname = HostUtil.stringToHostname(id);
+  const hostname = HostUtil.stringToHostname(id);
   return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
 }
 
@@ -28,7 +28,7 @@ var ServiceConfigUtil = {
 
     // Pod
     // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/podContainer.raml#L61
-    let {shell, argv} =
+    const {shell, argv} =
       Util.findNestedPropertyInObject(container, 'exec.command') || {};
 
     if (shell) {
@@ -43,7 +43,7 @@ var ServiceConfigUtil = {
 
   getPortDefinitionGroups(id, portDefinitions, createLink = defaultCreateLink) {
     return portDefinitions.map(function (portDefinition, index) {
-      let hash = Object.assign({}, portDefinition);
+      const hash = Object.assign({}, portDefinition);
       let headline = `Port Definition ${index + 1}`;
 
       if (portDefinition.name) {
@@ -52,7 +52,7 @@ var ServiceConfigUtil = {
 
       // Check if this port is load balanced
       if (hasVIPLabel(portDefinition.labels)) {
-        let link = buildHostName(id, portDefinition.port);
+        const link = buildHostName(id, portDefinition.port);
         hash[serviceAddressKey] = createLink(link, link);
       }
 

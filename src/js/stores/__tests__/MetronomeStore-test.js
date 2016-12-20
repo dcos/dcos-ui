@@ -49,7 +49,7 @@ describe('MetronomeStore', function () {
   describe('dispatcher', function () {
 
     it('emits event after #fetchJobs success event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       MetronomeStore.addChangeListener(
         EventTypes.METRONOME_JOBS_CHANGE,
         changeHandler
@@ -64,7 +64,7 @@ describe('MetronomeStore', function () {
     });
 
     it('emits event after #fetchJobs error event is dispatched', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       MetronomeStore.addChangeListener(
         EventTypes.METRONOME_JOBS_ERROR,
         changeHandler
@@ -79,7 +79,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #fetchJobDetail success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_DETAIL_CHANGE,
           changeHandler
@@ -95,7 +95,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #fetchJobDetail error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_DETAIL_ERROR,
           changeHandler
@@ -110,7 +110,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #deleteJob success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_DELETE_SUCCESS,
           changeHandler
@@ -127,7 +127,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #deleteJob error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_DELETE_ERROR,
           changeHandler
@@ -145,7 +145,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #runJob success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_RUN_SUCCESS,
           changeHandler
@@ -162,7 +162,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after #runJob error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_RUN_ERROR,
           changeHandler
@@ -179,7 +179,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after update schedule success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
           changeHandler
@@ -197,7 +197,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after update schedule error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
           changeHandler
@@ -215,7 +215,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after create job success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_CREATE_SUCCESS,
           changeHandler
@@ -230,7 +230,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after create job error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_CREATE_ERROR,
           changeHandler
@@ -248,7 +248,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after update job success event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_UPDATE_SUCCESS,
           changeHandler
@@ -263,7 +263,7 @@ describe('MetronomeStore', function () {
 
     it('emits event after update job error event is dispatched',
       function () {
-        let changeHandler = jasmine.createSpy('changeHandler');
+        const changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
           EventTypes.METRONOME_JOB_UPDATE_ERROR,
           changeHandler
@@ -284,7 +284,7 @@ describe('MetronomeStore', function () {
   describe('jobTree', function () {
 
     it('should return an instance of JobTree', function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
+      const changeHandler = jasmine.createSpy('changeHandler');
       MetronomeStore.addChangeListener(
         EventTypes.METRONOME_JOBS_CHANGE,
         changeHandler
@@ -295,7 +295,7 @@ describe('MetronomeStore', function () {
         data: jobsFixture
       });
 
-      let {jobTree} = MetronomeStore;
+      const {jobTree} = MetronomeStore;
       expect(jobTree instanceof JobTree).toEqual(true);
     });
 

@@ -31,7 +31,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {errors} = nextProps;
+    const {errors} = nextProps;
     if (!errors) {
       this.setState({errorMsg: null});
 
@@ -45,7 +45,7 @@ class ServiceDestroyModal extends React.Component {
     }
 
     let {message: errorMsg = '', details} = errors;
-    let hasDetails = details && details.length !== 0;
+    const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
       errorMsg = details.reduce(function (memo, error) {

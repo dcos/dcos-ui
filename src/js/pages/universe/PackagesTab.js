@@ -125,7 +125,7 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getSelectedPackages(packages) {
-    let {searchString} = this.state;
+    const {searchString} = this.state;
     if (searchString) {
       return null;
     }
@@ -179,8 +179,8 @@ class PackagesTab extends mixin(StoreMixin) {
     let title = 'Community Packages';
 
     if (this.state.searchString) {
-      let foundPackagesLength = packages.getItems().length;
-      let packagesWord = StringUtil.pluralize('package', foundPackagesLength);
+      const foundPackagesLength = packages.getItems().length;
+      const packagesWord = StringUtil.pluralize('package', foundPackagesLength);
 
       title = `${packages.getItems().length} ${packagesWord} found`;
     }
@@ -197,7 +197,7 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {state} = this;
+    const {state} = this;
     let content, packageName, packageVersion;
 
     if (state.errorMessage) {
@@ -210,11 +210,11 @@ class PackagesTab extends mixin(StoreMixin) {
         packageVersion = state.installModalPackage.getCurrentVersion();
       }
 
-      let packages = CosmosPackagesStore.getAvailablePackages();
-      let splitPackages = packages.getSelectedAndNonSelectedPackages();
+      const packages = CosmosPackagesStore.getAvailablePackages();
+      const splitPackages = packages.getSelectedAndNonSelectedPackages();
 
       let tablePackages = splitPackages.nonSelectedPackages;
-      let gridPackages = splitPackages.selectedPackages;
+      const gridPackages = splitPackages.selectedPackages;
 
       if (state.searchString) {
         tablePackages = packages.filterItemsByText(state.searchString);

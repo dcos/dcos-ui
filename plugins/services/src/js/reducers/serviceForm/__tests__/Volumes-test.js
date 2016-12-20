@@ -7,7 +7,7 @@ const {ADD_ITEM, REMOVE_ITEM, SET} =
 describe('Volumes', function () {
   describe('#JSONReducer', function () {
     it('should return an empty array if no volumes are set', function () {
-      let batch = new Batch();
+      const batch = new Batch();
 
       expect(batch.reduce(Volumes.JSONReducer, [])).toEqual([]);
     });

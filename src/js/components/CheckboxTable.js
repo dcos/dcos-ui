@@ -25,9 +25,9 @@ class CheckboxTable extends React.Component {
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
-    let {allowMultipleSelect, checkedItemsMap, onCheckboxChange} = this.props;
-    let isChecked = eventObject.fieldValue;
-    let rowID = eventObject.fieldName;
+    const {allowMultipleSelect, checkedItemsMap, onCheckboxChange} = this.props;
+    const isChecked = eventObject.fieldValue;
+    const rowID = eventObject.fieldName;
     let checkedIDs;
 
     if (isChecked) {
@@ -46,12 +46,12 @@ class CheckboxTable extends React.Component {
   }
 
   handleHeadingCheckboxChange(prevCheckboxState, eventObject) {
-    let isChecked = eventObject.fieldValue;
+    const isChecked = eventObject.fieldValue;
     this.bulkCheck(isChecked);
   }
 
   bulkCheck(isChecked) {
-    let checkedIDs = [];
+    const checkedIDs = [];
     let {data, onCheckboxChange, uniqueProperty, disabledItemsMap} = this.props;
 
     data = data.filter(function (datum) {
@@ -79,7 +79,7 @@ class CheckboxTable extends React.Component {
   renderHeadingCheckbox() {
     let checked = false;
     let indeterminate = false;
-    let {
+    const {
       allowMultipleSelect,
       checkedItemsMap,
       disabledItemsMap,
@@ -90,8 +90,8 @@ class CheckboxTable extends React.Component {
       return null;
     }
 
-    let checkedCount = Object.keys(checkedItemsMap).length;
-    let disabledCount = Object.keys(disabledItemsMap).length;
+    const checkedCount = Object.keys(checkedItemsMap).length;
+    const disabledCount = Object.keys(disabledItemsMap).length;
 
     if (checkedCount > 0) {
       indeterminate = true;
@@ -124,8 +124,8 @@ class CheckboxTable extends React.Component {
   }
 
   renderCheckbox(prop, row) {
-    let {checkedItemsMap, disabledItemsMap, uniqueProperty} = this.props;
-    let rowID = row[uniqueProperty];
+    const {checkedItemsMap, disabledItemsMap, uniqueProperty} = this.props;
+    const rowID = row[uniqueProperty];
 
     if (disabledItemsMap[rowID]) {
       return null;
@@ -154,7 +154,7 @@ class CheckboxTable extends React.Component {
   }
 
   getTableRowOptions(row) {
-    let {
+    const {
       checkedItemsMap,
       inactiveItemsMap,
       uniqueProperty
@@ -172,7 +172,7 @@ class CheckboxTable extends React.Component {
   }
 
   getColumns() {
-    let {getClassName} = ResourceTableUtil;
+    const {getClassName} = ResourceTableUtil;
 
     return [
       {
@@ -187,10 +187,10 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
-    let {className, data, getColGroup, sortOrder, sortProp} = this.props;
-    let columns = this.getColumns();
+    const {className, data, getColGroup, sortOrder, sortProp} = this.props;
+    const columns = this.getColumns();
 
-    let tableClassSet = classNames(
+    const tableClassSet = classNames(
       'table table-borderless-outer table-borderless-inner-columns',
       'flush-bottom',
       className

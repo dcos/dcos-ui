@@ -24,7 +24,7 @@ import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/brea
 import NodesUnitsHealthDetailPage from '../pages/nodes/NodesUnitsHealthDetailPage';
 import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 
-let nodesRoutes = {
+const nodesRoutes = {
   type: Route,
   path: 'nodes',
   component: NodesPage,

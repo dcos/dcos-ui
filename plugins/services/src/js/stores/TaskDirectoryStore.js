@@ -25,7 +25,7 @@ var requestInterval = null;
 var activeXHR = null;
 
 function fetchState(task, innerPath) {
-  let node = MesosStateStore.getNodeFromID(task.slave_id);
+  const node = MesosStateStore.getNodeFromID(task.slave_id);
   activeXHR = TaskDirectoryActions.fetchNodeState(task, node, innerPath);
 }
 
@@ -68,7 +68,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
         return false;
       }
 
-      let {data, innerPath, task, type} = payload.action;
+      const {data, innerPath, task, type} = payload.action;
       switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:
           this.processStateSuccess(data, innerPath, task.id);

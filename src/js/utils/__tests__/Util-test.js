@@ -7,12 +7,12 @@ describe('Util', function () {
   describe('#uniqueID', function () {
 
     it('should return a unique ID each time it is called', function () {
-      let ids = Array(100).fill(null);
+      const ids = Array(100).fill(null);
       ids.forEach(function (value, index) {
         ids[index] = Util.uniqueID('100');
       });
 
-      let result = ids.every(function (id, index, array) {
+      const result = ids.every(function (id, index, array) {
         return !array.includes(id, index + 1);
       });
 
@@ -20,7 +20,7 @@ describe('Util', function () {
     });
 
     it('should provide an integer', function () {
-      let id = Util.uniqueID('integerID');
+      const id = Util.uniqueID('integerID');
 
       expect(typeof id === 'number' && id % 1 === 0).toBeTruthy();
     });
@@ -28,8 +28,8 @@ describe('Util', function () {
     it('should start over from 0 for each namespace', function () {
       Util.uniqueID('firstNamespace');
       Util.uniqueID('firstNamespace');
-      let id1 =Util.uniqueID('firstNamespace');
-      let id2 = Util.uniqueID('secondNamespace');
+      const id1 =Util.uniqueID('firstNamespace');
+      const id2 = Util.uniqueID('secondNamespace');
 
       expect(id1).toEqual(2);
       expect(id2).toEqual(0);
@@ -374,7 +374,7 @@ describe('Util', function () {
 
   describe('#filterEmptyValues', function () {
     it('filters empty values from an Object', function () {
-      let expectedObject = {
+      const expectedObject = {
         booleanFalse: false,
         booleanTrue: true,
         string: 'string',

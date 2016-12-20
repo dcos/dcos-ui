@@ -45,7 +45,7 @@ describe('ServiceTree', function () {
     });
 
     it('defaults id to root tree (groups) id', function () {
-      let tree = new ServiceTree({apps: [], groups: []});
+      const tree = new ServiceTree({apps: [], groups: []});
       expect(tree.getId()).toEqual('/');
     });
 
@@ -72,19 +72,19 @@ describe('ServiceTree', function () {
   describe('#add', function () {
 
     it('adds a service', function () {
-      let tree = new ServiceTree({id: '/test', items: []});
+      const tree = new ServiceTree({id: '/test', items: []});
       tree.add(new Application({id: 'a'}));
       expect(tree.getItems()[0].get('id')).toEqual('a');
     });
 
     it('adds service like items', function () {
-      let tree = new ServiceTree({id: '/test', items: []});
+      const tree = new ServiceTree({id: '/test', items: []});
       tree.add({id: 'a'});
       expect(tree.getItems()[0].id).toEqual('a');
     });
 
     it('adds two items', function () {
-      let tree = new ServiceTree({id: '/test', items: []});
+      const tree = new ServiceTree({id: '/test', items: []});
       tree.add(new Application({id: 'a'}));
       tree.add(new Application({id: 'b'}));
       expect(tree.getItems()[0].get('id')).toEqual('a');
@@ -92,7 +92,7 @@ describe('ServiceTree', function () {
     });
 
     it('adds items to current Tree', function () {
-      let tree = new ServiceTree({
+      const tree = new ServiceTree({
         id: '/test',
         items: [new Application({id: 'a'})]
       });
@@ -148,22 +148,22 @@ describe('ServiceTree', function () {
     });
 
     it('should return an instance of ServiceTree', function () {
-      let filteredTree = this.instance.filterItemsByText('alpha');
+      const filteredTree = this.instance.filterItemsByText('alpha');
       expect(filteredTree instanceof ServiceTree).toBeTruthy();
     });
 
     it('should include matching trees', function () {
-      let filteredItems = this.instance.filterItemsByText('test').getItems();
+      const filteredItems = this.instance.filterItemsByText('test').getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
 
     it('should not include empty trees', function () {
-      let filteredItems = this.instance.filterItemsByText('beta').getItems();
+      const filteredItems = this.instance.filterItemsByText('beta').getItems();
       expect(filteredItems[0] instanceof Framework).toBeTruthy();
     });
 
     it('should no include matching subtrees', function () {
-      let filteredItems = this.instance.filterItemsByText('foo').getItems();
+      const filteredItems = this.instance.filterItemsByText('foo').getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
   });
@@ -217,7 +217,7 @@ describe('ServiceTree', function () {
     });
 
     it('should filter by name', function () {
-      let filteredServices = this.instance.filterItemsByFilter({
+      const filteredServices = this.instance.filterItemsByFilter({
         id: 'alpha'
       }).getItems();
 
@@ -226,7 +226,7 @@ describe('ServiceTree', function () {
     });
 
     it('should filter by name in groups', function () {
-      let filteredServices = this.instance.filterItemsByFilter({
+      const filteredServices = this.instance.filterItemsByFilter({
         id: '/group/test/foo'
       }).getItems();
 
@@ -235,7 +235,7 @@ describe('ServiceTree', function () {
     });
 
     it('should filter by health', function () {
-      let filteredServices = this.instance.filterItemsByFilter({
+      const filteredServices = this.instance.filterItemsByFilter({
         health: [HealthTypes.HEALTHY]
       }).getItems();
 
@@ -244,7 +244,7 @@ describe('ServiceTree', function () {
     });
 
     it('should perform a logical AND with multiple filters', function () {
-      let filteredServices = this.instance.filterItemsByFilter({
+      const filteredServices = this.instance.filterItemsByFilter({
         health: [HealthTypes.NA],
         id: 'alpha'
       }).getItems();
@@ -333,7 +333,7 @@ describe('ServiceTree', function () {
   describe('#getDeployments', function () {
 
     it('should return an empty array', function () {
-      let serviceTree = new ServiceTree({
+      const serviceTree = new ServiceTree({
         id: '/group/id',
         items: [
           {
@@ -377,7 +377,7 @@ describe('ServiceTree', function () {
     });
 
     it('should return an array with three deployments', function () {
-      let serviceTree = new ServiceTree({
+      const serviceTree = new ServiceTree({
         id: '/group/id',
         items: [
           {
@@ -757,7 +757,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns an array with all the Services in the group', function () {
-      let services = this.instance.getServices();
+      const services = this.instance.getServices();
       expect(services.getItems().length).toEqual(3);
     });
 
@@ -848,7 +848,7 @@ describe('ServiceTree', function () {
         }]
       }));
 
-      let volumeList = this.instance.getVolumes();
+      const volumeList = this.instance.getVolumes();
       expect(volumeList).toEqual(jasmine.any(VolumeList));
       expect(volumeList.getItems().length).toEqual(2);
     });
@@ -870,7 +870,7 @@ describe('ServiceTree', function () {
         id: '/sleeper'
       }));
 
-      let frameworks = this.instance.getFrameworks();
+      const frameworks = this.instance.getFrameworks();
       expect(frameworks.length).toEqual(1);
     });
 
@@ -902,7 +902,7 @@ describe('ServiceTree', function () {
         id: '/sleeper'
       }));
 
-      let labels = this.instance.getLabels();
+      const labels = this.instance.getLabels();
       expect(labels.length).toEqual(3);
       expect(labels).toEqual([
         {key: 'label_one', value: 'value_one'},
@@ -927,7 +927,7 @@ describe('ServiceTree', function () {
         }
       }));
 
-      let labels = this.instance.getLabels();
+      const labels = this.instance.getLabels();
       expect(labels.length).toEqual(2);
       expect(labels).toEqual([
         {key: 'label_one', value: 'value_one'},
@@ -940,13 +940,13 @@ describe('ServiceTree', function () {
         id: '/metronome'
       }));
 
-      let labels = this.instance.getLabels();
+      const labels = this.instance.getLabels();
       expect(labels.length).toEqual(0);
       expect(labels).toEqual([]);
     });
 
     it('returns an empty array if tree is empty', function () {
-      let labels = this.instance.getLabels();
+      const labels = this.instance.getLabels();
       expect(labels.length).toEqual(0);
       expect(labels).toEqual([]);
     });

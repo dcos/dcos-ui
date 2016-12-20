@@ -1,4 +1,4 @@
-let RESOURCE_ICONS = {
+const RESOURCE_ICONS = {
   disk: 'harddrive',
   cpu: 'cpu',
   memory: 'memory'

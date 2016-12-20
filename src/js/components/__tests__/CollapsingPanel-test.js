@@ -22,7 +22,7 @@ describe('TabButtons', function () {
   });
 
   it('should toggle state when clicking on the header', function () {
-    let header = ReactDOM.findDOMNode(this.instance).querySelector('.panel-cell-header');
+    const header = ReactDOM.findDOMNode(this.instance).querySelector('.panel-cell-header');
 
     expect(this.instance.state.isExpanded).toEqual(false);
     TestUtils.Simulate.click(header);
@@ -32,8 +32,8 @@ describe('TabButtons', function () {
   });
 
   it('should not render the content when the panel is collapsed', function () {
-    let node = ReactDOM.findDOMNode(this.instance);
-    let header = node.querySelector('.panel-cell-header');
+    const node = ReactDOM.findDOMNode(this.instance);
+    const header = node.querySelector('.panel-cell-header');
 
     expect(node.textContent).toEqual('Foo');
     TestUtils.Simulate.click(header);

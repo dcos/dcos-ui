@@ -8,7 +8,7 @@ const deepEqual = require('deep-equal');
 const PluginSDK = require('PluginSDK');
 const PluginTestUtils = require('PluginTestUtils');
 
-let Hooks = PluginSDK.Hooks;
+const Hooks = PluginSDK.Hooks;
 
 describe('PluginSDK', function () {
 

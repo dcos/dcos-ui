@@ -22,7 +22,7 @@ describe('TabButtonList', function () {
       </TabButtonList>
     );
 
-    let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
+    const instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
 
     instances.forEach((tabButtonInstance) => {
       expect(tabButtonInstance.props.onClick).toEqual(this.changeHandler);
@@ -38,7 +38,7 @@ describe('TabButtonList', function () {
       </TabButtonList>
     );
 
-    let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
+    const instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
 
     instances.forEach(function (tabButtonInstance, index) {
       if (index === 0) {
@@ -58,7 +58,7 @@ describe('TabButtonList', function () {
       </TabButtonList>
     );
 
-    let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
+    const instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
 
     instances.forEach(function (tabButtonInstance) {
       if (tabButtonInstance.props.id === 'bar') {

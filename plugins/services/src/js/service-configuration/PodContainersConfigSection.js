@@ -5,7 +5,7 @@ import ConfigurationMapHeading from '../../../../../src/js/components/Configurat
 import PodContainerConfigSection from './PodContainerConfigSection';
 
 function renderContainers(appConfig, handleEditClick, tabViewID) {
-  let {containers = []} = appConfig;
+  const {containers = []} = appConfig;
 
   return containers.map((container) => {
     return (

@@ -30,7 +30,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   handleButtonConfirm() {
-    let {selectedItems, jobID} = this.props;
+    const {selectedItems, jobID} = this.props;
     // TODO DCOS-8763 introduce support for multiple job run IDs
     if (selectedItems.length === 1) {
       MetronomeStore.stopJobRun(jobID, selectedItems[0]);
@@ -79,8 +79,8 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {selectedItems} = this.props;
-    let selectedItemsLength = selectedItems.length;
+    const {selectedItems} = this.props;
+    const selectedItemsLength = selectedItems.length;
 
     return (
       <div className="text-align-center">
@@ -92,7 +92,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   render() {
     let {onClose, open, selectedItems} = this.props;
     let rightButtonText = 'Stop Job Run';
-    let selectedItemsLength = selectedItems.length;
+    const selectedItemsLength = selectedItems.length;
 
     if (selectedItems.length > 1) {
       rightButtonText = 'Stop Job Runs';

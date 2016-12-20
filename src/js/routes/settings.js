@@ -3,7 +3,7 @@ import {Route, Redirect} from 'react-router';
 import RepositoriesTab from '../pages/system/RepositoriesTab';
 import SettingsPage from '../pages/SettingsPage';
 
-let settingsRoutes = [
+const settingsRoutes = [
   {
     type: Redirect,
     from: '/settings',

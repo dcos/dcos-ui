@@ -1,4 +1,4 @@
-let Networking = {
+const Networking = {
   type: {
     BRIDGE: 'BRIDGE',
     HOST: 'HOST',

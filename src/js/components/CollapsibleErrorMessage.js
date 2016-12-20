@@ -61,7 +61,7 @@ class CollapsibleErrorMessage extends React.Component {
    * Toggle the expanded state of the collapsible error bar
    */
   toggleExpanded() {
-    let expanded = !this.state.expanded;
+    const expanded = !this.state.expanded;
     this.setState({expanded});
 
     // Call onToggle callback
@@ -74,7 +74,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getShowDetailsLink() {
-    let {message, details} = this.props;
+    const {message, details} = this.props;
 
     // Check if we must not show the detail link at all
     if (!message || !details || !details.length) {
@@ -104,7 +104,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component} - The rendered content
    */
   getDetailsListItems() {
-    let {details} = this.props;
+    const {details} = this.props;
 
     return details.map(function (message, i) {
       let msg = message.toString();
@@ -146,8 +146,8 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getCollapsibleMessagePart() {
-    let {message, details} = this.props;
-    let isDetailed = !!message && details && details.length;
+    const {message, details} = this.props;
+    const isDetailed = !!message && details && details.length;
 
     // If not expanded or detailed, just exit
     if (!isDetailed || !this.state.expanded) {
@@ -173,7 +173,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   render() {
-    let {message} = this.props;
+    const {message} = this.props;
 
     // If not visible, just exit
     if (!message) {

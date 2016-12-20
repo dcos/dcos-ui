@@ -12,7 +12,7 @@ function getJson(constraints) {
   return constraints.filter((item) => {
     return !isEmpty(item.field) && !isEmpty(item.operator);
   }).map(({field, operator, value}) => {
-    let normalisedOperator = operator.toUpperCase();
+    const normalisedOperator = operator.toUpperCase();
 
     if (!isEmpty(value)) {
       return [field, normalisedOperator, value];

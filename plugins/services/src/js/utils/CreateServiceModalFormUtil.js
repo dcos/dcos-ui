@@ -23,7 +23,7 @@ const CreateServiceModalFormUtil = {
     return Object.keys(object).reduce(function (memo, key) {
       if (!ValidatorUtil.isEmpty(object[key])) {
         // Apply the strip function recursively and keep only non-empty values
-        let value = CreateServiceModalFormUtil.stripEmptyProperties(object[key]);
+        const value = CreateServiceModalFormUtil.stripEmptyProperties(object[key]);
         if (!ValidatorUtil.isEmpty(value)) {
           memo[key] = value;
         }
@@ -87,7 +87,7 @@ const CreateServiceModalFormUtil = {
         return memo;
       }
 
-      let value = CreateServiceModalFormUtil.applyPatch(memo[key], patch[key]);
+      const value = CreateServiceModalFormUtil.applyPatch(memo[key], patch[key]);
 
       // If a field was emptied, remove it from the object, to keep structures
       // as clean as possible. (Again, only if the base value in `data` is not

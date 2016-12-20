@@ -47,7 +47,7 @@ module.exports = class ApplicationSpec extends ServiceSpec {
   }
 
   getHealthChecks() {
-    let healthChecks = this.get('healthChecks') || [];
+    const healthChecks = this.get('healthChecks') || [];
 
     // "Clone" health checks to ensure that no one is accidentally altering the
     // properties.

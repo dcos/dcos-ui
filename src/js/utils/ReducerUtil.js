@@ -25,25 +25,25 @@ module.exports = {
    *   the passed object, and builds a state object with the same shape.
    */
   combineReducers(reducers = {}) {
-    let reducerKeys = Object.keys(reducers).filter(
+    const reducerKeys = Object.keys(reducers).filter(
       function (reducerKey) {
         return typeof reducers[reducerKey] === 'function';
       }
     );
 
     // This is creating the context for this combined reducer.
-    let context = new WeakMap();
+    const context = new WeakMap();
 
     return function (state, action, index = 0) {
       let reducerIndex = reducerKeys.length;
-      let localState = Object.assign({}, state);
+      const localState = Object.assign({}, state);
 
       // As the while is faster then the Array.prototype.forEach and this
       // function can potentially be called more often we choose while here.
       while (--reducerIndex >= 0) {
-        let key = reducerKeys[reducerIndex];
+        const key = reducerKeys[reducerIndex];
 
-        let reducer = reducers[key];
+        const reducer = reducers[key];
 
         if (index === 0 || !context.has(reducer)) {
           context.set(reducer, {});
@@ -76,7 +76,7 @@ module.exports = {
 
   simpleIntReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
-      let parsedValue = parseInt(value);
+      const parsedValue = parseInt(value);
       if (type === TransactionTypes.SET && path.join('.') === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;
@@ -91,7 +91,7 @@ module.exports = {
 
   simpleFloatReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
-      let parsedValue = parseFloat(value);
+      const parsedValue = parseFloat(value);
       if (type === TransactionTypes.SET && path.join('.') === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;

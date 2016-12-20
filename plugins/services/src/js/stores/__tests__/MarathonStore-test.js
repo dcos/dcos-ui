@@ -86,14 +86,14 @@ describe('MarathonStore', function () {
 
     it('returns a dateString', function () {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
-      let version = MarathonStore.getServiceInstalledTime('Framework 1');
+      const version = MarathonStore.getServiceInstalledTime('Framework 1');
 
       expect(!isNaN(Date.parse(version))).toEqual(true);
     });
 
     it('returns null when no service version', function () {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
-      let version = MarathonStore.getServiceInstalledTime('bloop');
+      const version = MarathonStore.getServiceInstalledTime('bloop');
 
       expect(version).toEqual(null);
     });
@@ -104,14 +104,14 @@ describe('MarathonStore', function () {
 
     it('returns a version', function () {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
-      let version = MarathonStore.getServiceVersion('Framework 1');
+      const version = MarathonStore.getServiceVersion('Framework 1');
 
       expect(version).toEqual('0.1.0');
     });
 
     it('returns null when no service version', function () {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoVersion);
-      let version = MarathonStore.getServiceVersion('Framework 1');
+      const version = MarathonStore.getServiceVersion('Framework 1');
 
       expect(version).toEqual(null);
     });
@@ -198,7 +198,7 @@ describe('MarathonStore', function () {
     });
 
     it('should emit a populated DeploymentsList', function () {
-      let deployments = this.handler.mock.calls[0][0];
+      const deployments = this.handler.mock.calls[0][0];
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual('deployment-id');
     });
@@ -243,7 +243,7 @@ describe('MarathonStore', function () {
     });
 
     it('should emit a launch queue', function () {
-      let queue = this.handler.mock.calls[0][0];
+      const queue = this.handler.mock.calls[0][0];
       expect(queue).toEqual(jasmine.any(Object));
       expect(queue[0].app.id).toEqual('/service-id');
     });
@@ -253,7 +253,7 @@ describe('MarathonStore', function () {
   describe('#processMarathonServiceVersion', function () {
 
     it('should emit correct event', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: 'service-id',
@@ -265,27 +265,27 @@ describe('MarathonStore', function () {
     });
 
     it('should pass correct service id', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: 'service-id',
         versionID: 'version-id',
         version: {}
       });
-      let {serviceID} = handler.mock.calls[0][0];
+      const {serviceID} = handler.mock.calls[0][0];
 
       expect(serviceID).toBe('service-id');
     });
 
     it('should pass correct version id', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: 'service-id',
         versionID: 'version-id',
         version: {}
       });
-      let {versionID} = handler.mock.calls[0][0];
+      const {versionID} = handler.mock.calls[0][0];
 
       expect(versionID).toBe('version-id');
     });
@@ -295,7 +295,7 @@ describe('MarathonStore', function () {
   describe('#processMarathonServiceVersions', function () {
 
     it('should emit correct event', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: 'service-id',
@@ -306,26 +306,26 @@ describe('MarathonStore', function () {
     });
 
     it('should convert versions list to Map', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: 'service-id',
         versions: ['2016-05-02T16:07:32.583Z']
       });
-      let {versions} = handler.mock.calls[0][0];
+      const {versions} = handler.mock.calls[0][0];
 
       expect(versions instanceof Map).toBe(true);
       expect(versions.has('2016-05-02T16:07:32.583Z')).toBe(true);
     });
 
     it('should pass correct service id', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: 'service-id',
         versions: ['2016-05-02T16:07:32.583Z']
       });
-      let {serviceID} = handler.mock.calls[0][0];
+      const {serviceID} = handler.mock.calls[0][0];
 
       expect(serviceID).toBe('service-id');
     });
@@ -342,7 +342,7 @@ describe('MarathonStore', function () {
     });
 
     it('should emit a deployments change event', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, handler);
       MarathonStore.processMarathonDeploymentRollback({
         originalDeploymentID: 'deployment-id'
@@ -351,7 +351,7 @@ describe('MarathonStore', function () {
     });
 
     it('should emit a rollback success event', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore
         .once(EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, handler);
       MarathonStore.processMarathonDeploymentRollback({
@@ -368,7 +368,7 @@ describe('MarathonStore', function () {
   describe('processMarathonDeploymentRollbackError', function () {
 
     it('should emit a rollback error event', function () {
-      let handler = jest.genMockFunction();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_ERROR, handler);
       MarathonStore.processMarathonDeploymentRollbackError({
         originalDeploymentID: 'deployment-id',

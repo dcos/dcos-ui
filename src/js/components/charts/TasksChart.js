@@ -47,7 +47,7 @@ var TasksChart = React.createClass({
     var numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
     return DISPLAYED_TASK_KEYS.map(function (key) {
-      let info = TASK_INFO[key];
+      const info = TASK_INFO[key];
       var task = tasks.find(function (task) {
         return task.name === key;
       });

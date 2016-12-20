@@ -109,7 +109,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
   }
 
   getUniversePackagesGrid() {
-    let packages = CosmosPackagesStore.getAvailablePackages();
+    const packages = CosmosPackagesStore.getAvailablePackages();
     let packagesGrid = packages.getItems().map((cosmosPackage, index) => {
       return this.getServiceOption(
         this.getServiceOptionIconWrapper(this.getPackageIcon(cosmosPackage)),

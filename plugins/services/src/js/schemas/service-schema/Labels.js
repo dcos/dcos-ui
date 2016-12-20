@@ -8,7 +8,7 @@ const Labels = {
       duplicable: true,
       addLabel: 'Add Label',
       getter(service) {
-        let labels = service.getLabels() || {};
+        const labels = service.getLabels() || {};
 
         return Object.keys(labels).map(function (key) {
           return {

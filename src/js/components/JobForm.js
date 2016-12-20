@@ -34,15 +34,15 @@ class JobForm extends SchemaForm {
   }
 
   shouldUpdateDefinition(changes, eventType, fieldName) {
-    let propKey = FormUtil.getPropKey(fieldName);
-    let blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(
+    const propKey = FormUtil.getPropKey(fieldName);
+    const blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(
         function (item) {
           return item.blurOnly && item.blurOnly.includes(propKey);
         }
     );
 
     return Object.keys(changes).some(function (changeKey) {
-      let tab = FormUtil.getProp(changeKey);
+      const tab = FormUtil.getProp(changeKey);
 
       return ((tab in DUPLICABLE_FIELDS_TO_WATCH)
           && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
@@ -54,7 +54,7 @@ class JobForm extends SchemaForm {
   }
 
   handleFormChange(changes, eventObj) {
-    let {eventType, fieldName} = eventObj;
+    const {eventType, fieldName} = eventObj;
 
     if (!this.shouldUpdateDefinition(changes, eventType, fieldName) ) {
       return;
@@ -97,7 +97,7 @@ class JobForm extends SchemaForm {
         return;
       }
 
-      let fieldValidated = definition.externalValidator(this.model, definition);
+      const fieldValidated = definition.externalValidator(this.model, definition);
       if (!fieldValidated) {
         isValidated = false;
       }
@@ -116,9 +116,9 @@ class JobForm extends SchemaForm {
   // Fallback to props model, if provided model is not defined,
   // i.e. more up to date
   getNewDefinition(model = this.props.model) {
-    let multipleDefinition = super.getNewDefinition();
+    const multipleDefinition = super.getNewDefinition();
 
-    let scheduleEnabled = model.schedule.runOnSchedule;
+    const scheduleEnabled = model.schedule.runOnSchedule;
     if (!scheduleEnabled) {
       multipleDefinition.schedule.definition.forEach(function (definition) {
         if (SCHEDULE_FIELDS.includes(definition.name)) {

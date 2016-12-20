@@ -10,8 +10,8 @@ describe('PodContainer', function () {
   describe('#constructor', function () {
 
     it('should correctly create instances', function () {
-      let containerSpec = PodFixture.instances[0].containers[0];
-      let container = new PodContainer(Object.assign({}, containerSpec));
+      const containerSpec = PodFixture.instances[0].containers[0];
+      const container = new PodContainer(Object.assign({}, containerSpec));
 
       expect(container.get()).toEqual(containerSpec);
     });
@@ -21,7 +21,7 @@ describe('PodContainer', function () {
   describe('#getContainerStatus', function () {
 
     it('should correctly detect container in ERROR state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_ERROR'
       });
 
@@ -31,7 +31,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in FAILED state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_FAILED'
       });
 
@@ -41,7 +41,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in FINISHED state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_FINISHED'
       });
 
@@ -51,7 +51,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in KILLED state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_KILLED'
       });
 
@@ -61,7 +61,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in RUNNING state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_RUNNING'
       });
 
@@ -71,7 +71,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in HEALTHY state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_RUNNING',
         endpoints: [
           {
@@ -88,7 +88,7 @@ describe('PodContainer', function () {
     });
 
     it('should correctly detect container in UNHEALTHY state', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_RUNNING',
         endpoints: [
           {
@@ -110,7 +110,7 @@ describe('PodContainer', function () {
     });
 
     it('should properly handle  unknown states', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'totallyrandom'
       });
 
@@ -120,7 +120,7 @@ describe('PodContainer', function () {
     });
 
     it('should properly handle unknown states', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         status: 'TASK_TOTALLY_RANDOM'
       });
 
@@ -134,16 +134,16 @@ describe('PodContainer', function () {
   describe('#getEndpoints', function () {
 
     it('should return the correct value', function () {
-      let endpoints = [
+      const endpoints = [
         { 'name': 'nginx', 'allocatedHostPort': 31001 }
       ];
-      let podContainer = new PodContainer({ endpoints });
+      const podContainer = new PodContainer({ endpoints });
 
       expect(podContainer.getEndpoints()).toEqual(endpoints);
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getEndpoints()).toEqual([]);
     });
 
@@ -152,13 +152,13 @@ describe('PodContainer', function () {
   describe('#getId', function () {
 
     it('should return the correct value', function () {
-      let podContainer = new PodContainer({ containerId: 'container-1234' });
+      const podContainer = new PodContainer({ containerId: 'container-1234' });
 
       expect(podContainer.getId()).toEqual('container-1234');
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getId()).toEqual('');
     });
 
@@ -167,14 +167,14 @@ describe('PodContainer', function () {
   describe('#getLastChanged', function () {
 
     it('should return the correct value', function () {
-      let dateString = '2016-08-31T01:01:01.001';
-      let podContainer = new PodContainer({ lastChanged: dateString });
+      const dateString = '2016-08-31T01:01:01.001';
+      const podContainer = new PodContainer({ lastChanged: dateString });
 
       expect(podContainer.getLastChanged()).toEqual(new Date(dateString));
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getLastChanged().getTime()).toBeNaN();
     });
 
@@ -183,14 +183,14 @@ describe('PodContainer', function () {
   describe('#getLastUpdated', function () {
 
     it('should return the correct value', function () {
-      let dateString = '2016-08-31T01:01:01.001';
-      let podContainer = new PodContainer({ lastUpdated: dateString });
+      const dateString = '2016-08-31T01:01:01.001';
+      const podContainer = new PodContainer({ lastUpdated: dateString });
 
       expect(podContainer.getLastUpdated()).toEqual(new Date(dateString));
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getLastUpdated().getTime()).toBeNaN();
     });
 
@@ -199,13 +199,13 @@ describe('PodContainer', function () {
   describe('#getName', function () {
 
     it('should return the correct value', function () {
-      let podContainer = new PodContainer({ name: 'container-1234' });
+      const podContainer = new PodContainer({ name: 'container-1234' });
 
       expect(podContainer.getName()).toEqual('container-1234');
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getName()).toEqual('');
     });
 
@@ -214,7 +214,7 @@ describe('PodContainer', function () {
   describe('#getResources', function () {
 
     it('should return the correct value', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         resources: { cpus: 0.5, mem: 64 }
       });
 
@@ -224,7 +224,7 @@ describe('PodContainer', function () {
     });
 
     it('should return the correct default value', function () {
-      let podContainer = new PodContainer();
+      const podContainer = new PodContainer();
       expect(podContainer.getResources()).toEqual({
         cpus: 0, mem: 0, disk: 0, gpus: 0
       });
@@ -235,7 +235,7 @@ describe('PodContainer', function () {
   describe('#hasHealthChecks', function () {
 
     it('should return false if no health checks defined', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001 },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }
@@ -246,7 +246,7 @@ describe('PodContainer', function () {
     });
 
     it('should return false if healthy is not defined everywhere', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001, healthy: true },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }
@@ -257,7 +257,7 @@ describe('PodContainer', function () {
     });
 
     it('should return true if at least one check has failed', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001, healthy: false },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }
@@ -268,7 +268,7 @@ describe('PodContainer', function () {
     });
 
     it('should return true if healthy is defined everywhere', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001, healthy: true },
           { 'name': 'netcat', 'allocatedHostPort': 31002, healthy: true }
@@ -283,7 +283,7 @@ describe('PodContainer', function () {
   describe('#isHealthy', function () {
 
     it('should return true if no health checks defined', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001 },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }
@@ -294,7 +294,7 @@ describe('PodContainer', function () {
     });
 
     it('should return false if at least one check fails', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001, healthy: false },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }
@@ -305,7 +305,7 @@ describe('PodContainer', function () {
     });
 
     it('should return true if all defined tests passes', function () {
-      let podContainer = new PodContainer({
+      const podContainer = new PodContainer({
         endpoints: [
           { 'name': 'nginx', 'allocatedHostPort': 31001, healthy: true },
           { 'name': 'netcat', 'allocatedHostPort': 31002 }

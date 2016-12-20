@@ -10,7 +10,7 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthTypesDescription from '../constants/HealthTypesDescription';
 import Loader from '../../../../../src/js/components/Loader';
 
-let ServiceList = React.createClass({
+const ServiceList = React.createClass({
 
   displayName: 'ServiceList',
 
@@ -42,7 +42,7 @@ let ServiceList = React.createClass({
       (event.ctrlKey || event.shiftKey || event.metaKey)) {
       return;
     }
-    let id = encodeURIComponent(service.getId());
+    const id = encodeURIComponent(service.getId());
     // Modifier key not pressed or service didn't have a web URL, open detail
     event.preventDefault();
     this.context.router.push(`/services/overview/${id}`);
@@ -50,7 +50,7 @@ let ServiceList = React.createClass({
 
   getServices(services, healthProcessed) {
     return services.map((service) => {
-      let appHealth = service.getHealth();
+      const appHealth = service.getHealth();
       let state = HealthStatus.NA;
       let tooltipContent;
 
@@ -114,7 +114,7 @@ let ServiceList = React.createClass({
   },
 
   getList() {
-    let props = this.props;
+    const props = this.props;
 
     return (
       <div className="dashboard-health-list">

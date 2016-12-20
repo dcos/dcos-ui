@@ -119,7 +119,7 @@ describe('PackagesTab', function () {
         return new UniversePackagesList();
       };
 
-      let packages = CosmosPackagesStore.getAvailablePackages();
+      const packages = CosmosPackagesStore.getAvailablePackages();
       expect(this.instance.getSelectedPackages(packages).length).toEqual(0);
     });
 

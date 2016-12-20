@@ -21,7 +21,7 @@ class DisplayPackagesTable extends React.Component {
   }
 
   getColumns() {
-    let heading = this.getHeader;
+    const heading = this.getHeader;
 
     return [
       {
@@ -49,7 +49,7 @@ class DisplayPackagesTable extends React.Component {
   }
 
   getHeadline(prop, cosmosPackage) {
-    let packageImages = cosmosPackage.getIcons();
+    const packageImages = cosmosPackage.getIcons();
     let name = cosmosPackage.getName();
 
     // Remove initial slash if present

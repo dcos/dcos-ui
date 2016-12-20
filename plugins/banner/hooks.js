@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let SDK = require('./SDK').getSDK();
+const SDK = require('./SDK').getSDK();
 
 let {Icon, DOMUtils} = SDK.get(['Icon', 'DOMUtils']);
 
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   isEnabled() {
-    let configuration = this.configuration;
+    const configuration = this.configuration;
 
     return configuration.headerTitle != null ||
       configuration.headerContent != null ||
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   toggleFullContent() {
-    let banner = document.querySelector('.banner-plugin-wrapper');
+    const banner = document.querySelector('.banner-plugin-wrapper');
     banner.classList.toggle('display-full');
   },
 
@@ -58,7 +58,7 @@ module.exports = {
       return;
     }
 
-    let frame = document.getElementById('banner-plugin-iframe');
+    const frame = document.getElementById('banner-plugin-iframe');
 
     if (frame == null) {
       return;
@@ -70,8 +70,8 @@ module.exports = {
 
     this.historyListenerAdded = true;
 
-    let frameWindow = frame.contentWindow;
-    let topWindow = window;
+    const frameWindow = frame.contentWindow;
+    const topWindow = window;
 
     frameWindow.addEventListener('hashchange', function () {
       topWindow.location.hash = frameWindow.location.hash;

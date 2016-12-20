@@ -36,7 +36,7 @@ var Panel = React.createClass({
   },
 
   getNode(nodeName) {
-    let {props} = this;
+    const {props} = this;
     let node = props[nodeName];
 
     if (!node) {
@@ -56,7 +56,7 @@ var Panel = React.createClass({
   },
 
   render() {
-    let {props} = this;
+    const {props} = this;
     let contentClasses = classNames(defaultClasses.content, props.contentClass);
     let panelClasses = classNames(defaultClasses.panel, props.className);
 

@@ -86,8 +86,8 @@ class NodeHealthStore extends GetSetBaseStore {
         return false;
       }
 
-      let action = payload.action;
-      let data = action.data;
+      const action = payload.action;
+      const data = action.data;
 
       switch (action.type) {
         case REQUEST_HEALTH_NODES_SUCCESS:
@@ -164,7 +164,7 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   getUnits(nodeID) {
-    let units = this.get('unitsByNodeID')[nodeID] || [];
+    const units = this.get('unitsByNodeID')[nodeID] || [];
     return new HealthUnitsList({items: units});
   }
 
@@ -197,7 +197,7 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   processNode(nodeData, nodeID) {
-    let nodesByID = this.get('nodesByID');
+    const nodesByID = this.get('nodesByID');
     nodesByID[nodeID] = nodeData;
 
     this.set({nodesByID});
@@ -206,7 +206,7 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   processUnits(units, nodeID) {
-    let unitsByNodeID = this.get('unitsByNodeID');
+    const unitsByNodeID = this.get('unitsByNodeID');
     unitsByNodeID[nodeID] = units;
 
     this.set({unitsByNodeID});
@@ -215,7 +215,7 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   processUnit(unitData, nodeID, unitID) {
-    let unitsByID = this.get('unitsByID');
+    const unitsByID = this.get('unitsByID');
     unitsByID[unitID] = unitData;
 
     this.set({unitsByID});

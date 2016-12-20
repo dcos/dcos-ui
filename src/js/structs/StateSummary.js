@@ -18,7 +18,7 @@ module.exports = class StateSummary {
       slaveUsedResources: {cpus: 0, mem: 0, disk: 0},
       slaveTotalResources: {cpus: 0, mem: 0, disk: 0}
     };
-    let snapshot = options.snapshot || this.snapshot;
+    const snapshot = options.snapshot || this.snapshot;
     // Only place where we normalize server data
     // we may be able to remove this, but it needs testing
     snapshot.slaves = snapshot.slaves || [];
@@ -29,7 +29,7 @@ module.exports = class StateSummary {
     }
     this.metadata.date = options.date || Date.now();
 
-    let slaves = this.snapshot.slaves;
+    const slaves = this.snapshot.slaves;
 
     // Store computed data – this is something we may not need to store
     this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
@@ -46,7 +46,7 @@ module.exports = class StateSummary {
       })
     );
 
-    let frameworks = this.snapshot.frameworks || [];
+    const frameworks = this.snapshot.frameworks || [];
     this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
       frameworks.map(function (framework) {
         return framework.used_resources;

@@ -20,7 +20,7 @@ class Image extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {src, fallbackSrc} = this.props;
+    const {src, fallbackSrc} = this.props;
     let newSrc;
     if (src !== nextProps.src) {
       newSrc = nextProps.src;
@@ -32,14 +32,14 @@ class Image extends React.Component {
 
     // Try again if a new url was provided
     if (newSrc) {
-      let image = ReactDOM.findDOMNode(this);
+      const image = ReactDOM.findDOMNode(this);
       image.src = newSrc;
       this.setState({imageErrorCount: 0});
     }
   }
 
   onImageError(event) {
-    let {props: {fallbackSrc}, state: {imageErrorCount}} = this;
+    const {props: {fallbackSrc}, state: {imageErrorCount}} = this;
 
     if (imageErrorCount === 0) {
       event.target.src = fallbackSrc;
@@ -50,7 +50,7 @@ class Image extends React.Component {
   }
 
   render() {
-    let {props, state: {imageErrorCount}} = this;
+    const {props, state: {imageErrorCount}} = this;
     let classes = classNames(
       {'hidden': imageErrorCount > 1},
       props.className

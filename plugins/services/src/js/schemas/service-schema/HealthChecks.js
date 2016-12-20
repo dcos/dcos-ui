@@ -2,7 +2,7 @@ import FormUtil from '../../../../../../src/js/utils/FormUtil';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 import NetworkValidatorUtil from '../../../../../../src/js/utils/NetworkValidatorUtil';
 
-let HealthChecks = {
+const HealthChecks = {
   type: 'object',
   title: 'Health Checks',
   description: 'Perform health checks on running tasks to determine if they are operating as expected.',
@@ -36,7 +36,7 @@ let HealthChecks = {
         return `Health check #${index}`;
       },
       filterProperties(service = {}, instanceDefinition) {
-        let properties = HealthChecks
+        const properties = HealthChecks
           .properties
           .healthChecks
           .itemShape

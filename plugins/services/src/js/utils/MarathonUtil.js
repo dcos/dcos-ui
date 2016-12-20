@@ -2,7 +2,7 @@ import VolumeTypes from '../constants/VolumeTypes';
 import VolumeStatus from '../constants/VolumeStatus';
 
 function parseApp(app) {
-  let {id, tasks = [], container = {}} = app;
+  const {id, tasks = [], container = {}} = app;
 
   if (id == null || !id.startsWith('/') || id.endsWith('/')) {
     throw new Error(`Id (${id}) must start with a leading slash ("/") ` +
@@ -13,8 +13,8 @@ function parseApp(app) {
     return app;
   }
 
-  let volumeDefinitionMap = new Map();
-  let volumes = [];
+  const volumeDefinitionMap = new Map();
+  const volumes = [];
 
   // Parse container volumes to extract external volumes
   // and persistent volume definitions
@@ -53,8 +53,8 @@ function parseApp(app) {
     }
 
     localVolumes.forEach(function ({containerPath, persistenceId:id}) {
-      let volumeDefinition = volumeDefinitionMap.get(containerPath);
-      let volume = Object.assign({}, volumeDefinition,
+      const volumeDefinition = volumeDefinitionMap.get(containerPath);
+      const volume = Object.assign({}, volumeDefinition,
         {status, host, containerPath, id, taskID});
 
       volumes.push(volume);
@@ -65,7 +65,7 @@ function parseApp(app) {
 }
 
 function parsePod(pod) {
-  let {id} = pod;
+  const {id} = pod;
 
   if (id == null || !id.startsWith('/') || id.endsWith('/')) {
     throw new Error(`Id (${id}) must start with a leading slash ("/") ` +
@@ -84,7 +84,7 @@ const MarathonUtil = {
     }
 
     // Parse items
-    let items = [].concat(
+    const items = [].concat(
       groups.map(this.parseGroups.bind(this)),
       apps.map(parseApp),
       pods.map(parsePod)

@@ -1030,7 +1030,7 @@ describe('MarathonActions', function () {
 
       it('calls the appropriate endpoint if scaled is true', function () {
         MarathonActions.killTasks(['task1', 'task2'], true);
-        let configuration = RequestUtil.json.calls.mostRecent().args[0];
+        const configuration = RequestUtil.json.calls.mostRecent().args[0];
         expect(configuration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/tasks/delete?scale=true`
         );

@@ -34,14 +34,14 @@ class UnitHealthNodesTable extends React.Component {
   }
 
   getColumns() {
-    let classNameFn = ResourceTableUtil.getClassName;
-    let headings = ResourceTableUtil.renderHeading({
+    const classNameFn = ResourceTableUtil.getClassName;
+    const headings = ResourceTableUtil.renderHeading({
       health: 'HEALTH',
       host_ip: 'NODE',
       role: 'ROLE'
     });
 
-    let sortFunction = TableUtil.getSortFunction('host_ip',
+    const sortFunction = TableUtil.getSortFunction('host_ip',
       function (node, prop) {
         if (prop === 'health') {
           return UnitHealthUtil.getHealthSorting(node);
@@ -83,8 +83,8 @@ class UnitHealthNodesTable extends React.Component {
   }
 
   getNodeLink(node, linkText) {
-    let {unitID} = this.props.params;
-    let unitNodeID = node.get('host_ip');
+    const {unitID} = this.props.params;
+    const unitNodeID = node.get('host_ip');
 
     return (
       <Link className="table-cell-link-primary text-overflow"
@@ -95,7 +95,7 @@ class UnitHealthNodesTable extends React.Component {
   }
 
   renderHealth(prop, node) {
-    let health = node.getHealth();
+    const health = node.getHealth();
 
     return (
       <span className={health.classNames}>

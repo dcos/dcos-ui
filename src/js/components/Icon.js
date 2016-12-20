@@ -5,9 +5,9 @@ import Util from '../utils/Util';
 
 class Icon extends React.Component {
   render() {
-    let {props} = this;
+    const {props} = this;
 
-    let additionalProps = Util.omit(
+    const additionalProps = Util.omit(
       props,
       ['className', 'color', 'family', 'id', 'size']
     );

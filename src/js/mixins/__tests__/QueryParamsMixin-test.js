@@ -30,7 +30,7 @@ describe('QueryParamsMixin', function () {
   });
 
   it('returns an Object built from the query params', function () {
-    let queryParamObject = {
+    const queryParamObject = {
       stringValue: 'string',
       arrayValue: [
         'value1',
@@ -47,7 +47,7 @@ describe('QueryParamsMixin', function () {
 
   it('should transition to the right path with the given query params',
   function () {
-    let queryObject = {
+    const queryObject = {
       arrayValue: [
         'value1',
         'value2'
@@ -58,23 +58,23 @@ describe('QueryParamsMixin', function () {
 
     this.instance.setQueryParam('paramKey', 'paramValue');
 
-    let push = this.instance.context.router.push;
+    const push = this.instance.context.router.push;
 
     expect(push.calls.count()).toEqual(1);
 
-    let {pathname, query} = push.calls.first().args[0];
+    const {pathname, query} = push.calls.first().args[0];
 
     expect(pathname).toEqual('/pathname');
     expect(query).toEqual(queryObject);
   });
 
   it('decodes an arrayString given in the query params', function () {
-    let decodedArrayString = this.instance.decodeQueryParamArray('a;b;c');
+    const decodedArrayString = this.instance.decodeQueryParamArray('a;b;c');
     expect(decodedArrayString).toEqual(['a', 'b', 'c']);
   });
 
   it('should encode nested arrays in query params', function () {
-    let queryObject = {
+    const queryObject = {
       arrayValue: [
         'value1',
         'value2'
@@ -97,11 +97,11 @@ describe('QueryParamsMixin', function () {
       'non-array'
     ]);
 
-    let push = this.instance.context.router.push;
+    const push = this.instance.context.router.push;
 
     expect(push.calls.count()).toEqual(1);
 
-    let {pathname, query} = push.calls.first().args[0];
+    const {pathname, query} = push.calls.first().args[0];
 
     expect(pathname).toEqual('/pathname');
     expect(query).toEqual(queryObject);

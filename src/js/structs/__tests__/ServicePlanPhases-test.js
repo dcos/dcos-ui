@@ -6,7 +6,7 @@ describe('ServicePlanPhases', function () {
   describe('#getActive', function () {
 
     it('should return null when no active phase', function () {
-      let Phases = new ServicePlanPhases({
+      const Phases = new ServicePlanPhases({
         items: [{
           status: ServicePlanStatusTypes.COMPLETE
         }]
@@ -16,7 +16,7 @@ describe('ServicePlanPhases', function () {
     });
 
     it('should return first phase not complete', function () {
-      let Phases = new ServicePlanPhases({
+      const Phases = new ServicePlanPhases({
         items: [
           {
             status: ServicePlanStatusTypes.COMPLETE
@@ -36,7 +36,7 @@ describe('ServicePlanPhases', function () {
   describe('#getActiveIndex', function () {
 
     it('should return -1 when no active phase', function () {
-      let Phases = new ServicePlanPhases({
+      const Phases = new ServicePlanPhases({
         items: [{
           status: ServicePlanStatusTypes.COMPLETE
         }]
@@ -46,7 +46,7 @@ describe('ServicePlanPhases', function () {
     });
 
     it('should return index of 1', function () {
-      let Phases = new ServicePlanPhases({
+      const Phases = new ServicePlanPhases({
         items: [
           {
             status: ServicePlanStatusTypes.COMPLETE

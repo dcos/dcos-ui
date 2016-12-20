@@ -32,7 +32,7 @@ class ServiceGroupFormModal extends React.Component {
   }
 
   handleNewGroupSubmit(model) {
-    let {parentGroupId} = this.props;
+    const {parentGroupId} = this.props;
 
     this.props.createGroup(Object.assign({}, model,
       {id: `${parentGroupId}/${model.id}`})

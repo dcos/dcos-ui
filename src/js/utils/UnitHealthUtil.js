@@ -27,7 +27,7 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    let healthKey = Object.keys(UnitHealthStatus).find(function (key) {
+    const healthKey = Object.keys(UnitHealthStatus).find(function (key) {
       return (UnitHealthStatus[key].value === health);
     });
 

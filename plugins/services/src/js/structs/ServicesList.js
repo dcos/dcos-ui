@@ -31,17 +31,17 @@ class ServicesList extends List {
   }
 
   sumUsedResources() {
-    let services = this.getItems();
-    let resourcesList = services.map(function (service) {
+    const services = this.getItems();
+    const resourcesList = services.map(function (service) {
       return service.used_resources;
     });
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 
   sumTaskStates() {
-    let services = this.getItems();
+    const services = this.getItems();
 
-    let tasks = {
+    const tasks = {
       TASK_STAGING: 0,
       TASK_STARTING: 0,
       TASK_RUNNING: 0,
@@ -55,7 +55,7 @@ class ServicesList extends List {
       return tasks;
     }
 
-    let taskTypes = Object.keys(tasks);
+    const taskTypes = Object.keys(tasks);
 
     services.forEach(function (service) {
       taskTypes.forEach(function (taskType) {

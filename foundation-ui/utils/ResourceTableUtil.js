@@ -27,7 +27,7 @@ function leftAlignCaret(prop) {
 }
 
 function getUpdatedTimestamp(model) {
-  let lastStatus = Util.last(model.statuses);
+  const lastStatus = Util.last(model.statuses);
   return (lastStatus && lastStatus.timestamp) || null;
 }
 
@@ -89,7 +89,7 @@ var ResourceTableUtil = {
   renderHeading(config) {
     return function (prop, order, sortBy) {
       let title = config[prop];
-      let caret = {
+      const caret = {
         before: null,
         after: null
       };
@@ -132,7 +132,7 @@ var ResourceTableUtil = {
   },
 
   renderUpdated(prop, model) {
-    let updatedAt = getUpdatedTimestamp(model);
+    const updatedAt = getUpdatedTimestamp(model);
 
     if (updatedAt == null) {
       return 'N/A';

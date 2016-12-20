@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 const ModalHeading = (props) => {
-  let {align, children, className, flush, level} = props;
+  const {align, children, className, flush, level} = props;
 
   return React.createElement(
     `h${level}`,

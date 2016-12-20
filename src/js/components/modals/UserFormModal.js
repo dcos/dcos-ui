@@ -60,7 +60,7 @@ class UserFormModal extends mixin(StoreMixin) {
   handleNewUserSubmit(model) {
     this.setState({disableNewUser: true});
 
-    let userModelObject = Hooks.applyFilter('userModelObject', Object.assign(
+    const userModelObject = Hooks.applyFilter('userModelObject', Object.assign(
       {}, model, {
         creator_uid: AuthStore.getUser().uid,
         cluster_url: `${window.location.protocol}//${window.location.hostname}`
@@ -85,7 +85,7 @@ class UserFormModal extends mixin(StoreMixin) {
   }
 
   getNewUserFormDefinition() {
-    let {props, state} = this;
+    const {props, state} = this;
 
     return Hooks.applyFilter('userFormModalDefinition', [{
       fieldType: 'text',

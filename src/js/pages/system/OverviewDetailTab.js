@@ -77,7 +77,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   getMarathonDetailsHash() {
-    let marathonDetails = MarathonStore.getInstanceInfo();
+    const marathonDetails = MarathonStore.getInstanceInfo();
 
     if (!Object.keys(marathonDetails).length) {
       return null;
@@ -109,7 +109,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let marathonHash = this.getMarathonDetailsHash();
+    const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
 
     if (marathonHash) {

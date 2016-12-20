@@ -20,15 +20,15 @@ const MesosSummaryUtil = {
   stateResourcesToResourceStates(stateResources) {
     // Transpose from [{date, resources, totalResources}, ...]
     // to {resource: [{date, value, percentage}, ...], resource: ...}
-    let resources = {cpus: [], mem: [], disk: []};
-    let resourceTypes = Object.keys(resources);
+    const resources = {cpus: [], mem: [], disk: []};
+    const resourceTypes = Object.keys(resources);
 
     stateResources.forEach(function (stateResource) {
       resourceTypes.forEach(function (resourceType) {
         let percentage = null, value = null;
 
         if (stateResource.resources != null) {
-          let max = Math.max(1, stateResource.totalResources[resourceType]);
+          const max = Math.max(1, stateResource.totalResources[resourceType]);
           value = stateResource.resources[resourceType];
           percentage = Maths.round(100 * value / max);
         }
@@ -53,7 +53,7 @@ const MesosSummaryUtil = {
   getInitialStates() {
     var currentDate = Date.now();
     // reverse date range!!!
-    let reverseRange = [];
+    const reverseRange = [];
 
     for (let i = Config.historyLength; i > 0; i--) {
       reverseRange.push(-i);

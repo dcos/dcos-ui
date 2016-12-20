@@ -24,10 +24,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in delayed state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:delayed');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:delayed');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
@@ -35,10 +35,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in deploying state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:deploying');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:deploying');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[1]
@@ -46,10 +46,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in running state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:running');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:running');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[2]
@@ -57,10 +57,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in suspended state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:suspended');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:suspended');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[3]
@@ -68,10 +68,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in waiting state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:waiting');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:waiting');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[4]
@@ -79,10 +79,10 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep services in n/a state', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:na');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:na');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[5]
@@ -90,20 +90,20 @@ describe('ServiceAttributeIsFilter', function () {
   });
 
   it('Should correctly keep nothing on unknown states', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:foo');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:foo');
 
-    let filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
+    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
     ]);
   });
 
   it('Should be case-insensitive', function () {
-    let services = new List({items: this.mockItems});
-    let expr = SearchDSL.parse('is:dElAyED');
+    const services = new List({items: this.mockItems});
+    const expr = SearchDSL.parse('is:dElAyED');
 
-    let filters = new DSLFilterList([
+    const filters = new DSLFilterList([
       new ServiceAttributeIsFilter()
     ]);
 

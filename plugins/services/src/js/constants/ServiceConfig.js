@@ -1,4 +1,4 @@
-let ServiceConfig = {
+const ServiceConfig = {
   BLACKLIST: [
     'uris',
     'ports',

@@ -9,7 +9,7 @@ describe('Artifacts', function () {
   describe('#JSONReducer', function () {
 
     it('emits correct JSON', function () {
-      let batch = new Batch([
+      const batch = new Batch([
         new Transaction(['fetch'], 0, ADD_ITEM),
         new Transaction(['fetch', 0, 'uri'], 'http://mesosphere.io', SET),
         new Transaction(['fetch'], 1, ADD_ITEM),

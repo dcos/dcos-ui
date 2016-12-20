@@ -9,7 +9,7 @@ describe('UnitHealthUnit', function () {
 
   describe('#getHealthSorting', function () {
     beforeEach(function () {
-      let unit = new HealthUnit({health: 0, id: 'aaa'});
+      const unit = new HealthUnit({health: 0, id: 'aaa'});
       this.healthWeight = UnitHealthUtil.getHealthSorting(unit);
     });
 
@@ -41,13 +41,13 @@ describe('UnitHealthUnit', function () {
   describe('#filterByHealth', function () {
 
     it('filters by unit health title', function () {
-      let items = [
+      const items = [
         {id: 'food', health: 0},
         {id: 'bard', health: 0},
         {id: 'bluh', health: 2}
       ];
-      let list = new NodesList({items});
-      let filteredList = list.filter({health: 'healthy'}).getItems();
+      const list = new NodesList({items});
+      const filteredList = list.filter({health: 'healthy'}).getItems();
       expect(filteredList.length).toEqual(2);
       expect(filteredList[0].get('id')).toEqual('food');
       expect(filteredList[1].get('id')).toEqual('bard');

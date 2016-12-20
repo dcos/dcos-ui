@@ -57,9 +57,9 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   updateCurrentTab(nextProps) {
-    let {pathname} = (nextProps || this.props).location;
+    const {pathname} = (nextProps || this.props).location;
     // Get top level Tab
-    let topLevelTab = pathname.split('/').slice(0, 3).join('/');
+    const topLevelTab = pathname.split('/').slice(0, 3).join('/');
     this.tabs_tabs = STYLES_SUB_TABS[topLevelTab];
   }
 
@@ -72,8 +72,8 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    let routes = this.props.routes;
-    let currentRoute = routes[routes.length - 2].path;
+    const routes = this.props.routes;
+    const currentRoute = routes[routes.length - 2].path;
 
     return (
       <ul className="menu-tabbed">
@@ -95,7 +95,7 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   render() {
-    let {currentTab} = this.state;
+    const {currentTab} = this.state;
 
     return (
       <Page

@@ -36,7 +36,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   handleItemCheck(idsChecked) {
-    let checkedItems = {};
+    const checkedItems = {};
 
     idsChecked.forEach(function (id) {
       checkedItems[id] = true;
@@ -77,7 +77,7 @@ class JobRunHistoryTable extends React.Component {
       }
     );
 
-    let headingStrings = {
+    const headingStrings = {
       'jobID': 'Job ID',
       'status': 'Status',
       'startedAt': 'Started',
@@ -134,10 +134,10 @@ class JobRunHistoryTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
-    let jobRuns = job.getJobRuns();
+    const jobRuns = job.getJobRuns();
 
     return jobRuns.getItems().map(function (jobRun) {
-      let children = jobRun.getTasks().getItems().map(function (jobTask) {
+      const children = jobRun.getTasks().getItems().map(function (jobTask) {
         return {
           taskID: jobTask.getTaskID(),
           status: jobTask.getStatus(),
@@ -159,7 +159,7 @@ class JobRunHistoryTable extends React.Component {
 
   getDisabledItemsMap(job) {
     return job.getJobRuns().getItems().reduce(function (memo, jobRun) {
-      let isDisabled = ['ACTIVE', 'INITIAL', 'STARTING'].indexOf(jobRun.getStatus()) < 0;
+      const isDisabled = ['ACTIVE', 'INITIAL', 'STARTING'].indexOf(jobRun.getStatus()) < 0;
       memo[jobRun.get('id')] = isDisabled;
       return memo;
     }, {});
@@ -186,7 +186,7 @@ class JobRunHistoryTable extends React.Component {
       return null;
     }
 
-    let {isStopRunModalShown} = this.state;
+    const {isStopRunModalShown} = this.state;
     let jobRuns = Object.keys(checkedItems);
 
     return (
@@ -202,7 +202,7 @@ class JobRunHistoryTable extends React.Component {
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       let taskID = row.taskID;
-      let id = this.props.job.getId();
+      const id = this.props.job.getId();
 
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
@@ -253,7 +253,7 @@ class JobRunHistoryTable extends React.Component {
 
   renderStatusColumn(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
-      let status = JobStates[row[prop]];
+      const status = JobStates[row[prop]];
       let statusClasses = classNames({
         'text-success': status.stateTypes.includes('success')
           && !status.stateTypes.includes('failure'),
@@ -268,7 +268,7 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
-    let status = TaskStates[row[prop]];
+    const status = TaskStates[row[prop]];
     let statusClasses = classNames({
       'text-success': status.stateTypes.includes('success')
         && !status.stateTypes.includes('failure'),
@@ -289,7 +289,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   render() {
-    let {job} = this.props;
+    const {job} = this.props;
     let {checkedItems} = this.state;
     let disabledItems = this.getDisabledItemsMap(job);
     let totalRunCount = job.getJobRuns().getItems().length;

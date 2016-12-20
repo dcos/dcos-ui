@@ -17,7 +17,7 @@ const Schedule = {
       title: 'Run on a schedule',
       type: 'boolean',
       getter(job) {
-        let [schedule] = job.getSchedules();
+        const [schedule] = job.getSchedules();
 
         return schedule != null;
       }
@@ -31,7 +31,7 @@ const Schedule = {
       ),
       type: 'string',
       getter(job) {
-        let [schedule = {}] = job.getSchedules();
+        const [schedule = {}] = job.getSchedules();
 
         return schedule.cron;
       },
@@ -58,7 +58,7 @@ const Schedule = {
       ),
       type: 'string',
       getter(job) {
-        let [schedule = {}] = job.getSchedules();
+        const [schedule = {}] = job.getSchedules();
 
         return schedule.timezone;
       }
@@ -70,7 +70,7 @@ const Schedule = {
       'counted as failed ones.',
       type: 'number',
       getter(job) {
-        let [schedule = {}] = job.getSchedules();
+        const [schedule = {}] = job.getSchedules();
 
         return schedule.startingDeadlineSeconds;
       },

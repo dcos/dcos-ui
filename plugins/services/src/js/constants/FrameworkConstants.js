@@ -1,4 +1,4 @@
-let constants = {
+const constants = {
   ROUTE_ACCESS_PREFIX: 'dcos:adminrouter:service:',
   FRAMEWORK_ID_VALID_CHARACTERS: '\\w-'
 };

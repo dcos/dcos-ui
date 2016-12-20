@@ -91,7 +91,7 @@ class MountService extends EventEmitter {
    * @param  {String} type
    */
   unregisterComponent(component, type) {
-    let {components, instance} = this;
+    const {components, instance} = this;
 
     let i = components.length;
     while (--i >= 0) {
@@ -113,7 +113,7 @@ class MountService extends EventEmitter {
    * @returns {Array} list of matching components ordered by priority
    */
   findComponentsWithType(type) {
-    let {components} = this;
+    const {components} = this;
 
     return components.filter((descriptor) => descriptor.type === type)
         .map((descriptor) => descriptor.component);

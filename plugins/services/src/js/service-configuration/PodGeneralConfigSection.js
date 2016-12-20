@@ -20,8 +20,8 @@ import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
  * @returns {Node|String} Returns the contents to be rendererd
  */
 function getContainerResourceSummary(resource, {containers = []}) {
-  let summary = containers.reduce((memo, {name, resources = {}}) => {
-    let value = resources[resource];
+  const summary = containers.reduce((memo, {name, resources = {}}) => {
+    const value = resources[resource];
     if (value) {
       memo.value += value;
       memo.parts.push(
@@ -63,7 +63,7 @@ function getInstances(appConfig) {
 }
 
 const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
-  let fields = {
+  const fields = {
     instances: getInstances(appConfig),
     backoff: findNestedPropertyInObject(appConfig,
       'scheduling.backoff.backoff'),

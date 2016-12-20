@@ -6,7 +6,7 @@ describe('Job', function () {
   describe('#getActiveRuns', function () {
 
     it('returns an instance of JobActiveRunList', function () {
-      let job = new Job({id: 'foo', activeRuns: []});
+      const job = new Job({id: 'foo', activeRuns: []});
 
       expect(job.getActiveRuns() instanceof JobRunList).toBeTruthy();
     });
@@ -16,14 +16,14 @@ describe('Job', function () {
   describe('#getCommand', function () {
 
     it('returns the command', function () {
-      let job = new Job({id: 'foo', run: {cmd: 'foo'}});
+      const job = new Job({id: 'foo', run: {cmd: 'foo'}});
 
       expect(job.getCommand()).toEqual('foo');
     });
 
     it('does\'t throw and error if run configuration is undefined',
       function () {
-        let job = new Job({});
+        const job = new Job({});
 
         expect(function () {
           job.getCommand();
@@ -35,7 +35,7 @@ describe('Job', function () {
   describe('#getCpus', function () {
 
     it('returns the correct cpus', function () {
-      let job = new Job({
+      const job = new Job({
         run: {
           cpus: 2
         }
@@ -45,7 +45,7 @@ describe('Job', function () {
     });
 
     it('defaults to the correct value if property is undefined', function () {
-      let job = new Job({
+      const job = new Job({
         run: {}
       });
 
@@ -54,7 +54,7 @@ describe('Job', function () {
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
-        let job = new Job({});
+        const job = new Job({});
 
         expect(job.getCpus()).toEqual(0.01);
       }
@@ -65,7 +65,7 @@ describe('Job', function () {
   describe('#getDescription', function () {
 
     it('returns the description', function () {
-      let job = new Job({id: 'foo', description: 'bar'});
+      const job = new Job({id: 'foo', description: 'bar'});
 
       expect(job.getDescription()).toEqual('bar');
     });
@@ -75,20 +75,20 @@ describe('Job', function () {
   describe('#getDocker', function () {
 
     it('returns the docker configuration', function () {
-      let job = new Job({id: 'foo', run: {docker: {image: 'busybox'}}});
+      const job = new Job({id: 'foo', run: {docker: {image: 'busybox'}}});
 
       expect(job.getDocker()).toEqual({image: 'busybox'});
     });
 
     it('defaults to an empty object if property is undefined', function () {
-      let job = new Job({run: {}});
+      const job = new Job({run: {}});
 
       expect(job.getDocker()).toEqual({});
     });
 
     it('defaults to an empty object  if run configuration is undefined',
       function () {
-        let job = new Job({run: {}});
+        const job = new Job({run: {}});
 
         expect(job.getDocker()).toEqual({});
       }
@@ -99,7 +99,7 @@ describe('Job', function () {
   describe('#getDisk', function () {
 
     it('returns the correct disk', function () {
-      let job = new Job({
+      const job = new Job({
         run: {
           disk: 125
         }
@@ -109,7 +109,7 @@ describe('Job', function () {
     });
 
     it('defaults to the correct value if property is undefined', function () {
-      let job = new Job({
+      const job = new Job({
         run: {}
       });
 
@@ -118,7 +118,7 @@ describe('Job', function () {
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
-        let job = new Job({});
+        const job = new Job({});
 
         expect(job.getDisk()).toEqual(0);
       }
@@ -129,7 +129,7 @@ describe('Job', function () {
   describe('#getId', function () {
 
     it('returns correct id', function () {
-      let job = new Job({id: 'test.job'});
+      const job = new Job({id: 'test.job'});
 
       expect(job.getId()).toEqual('test.job');
     });
@@ -139,13 +139,13 @@ describe('Job', function () {
   describe('#getJobRuns', function () {
 
     it('returns an instance of JobRunList', function () {
-      let job = new Job({id: 'foo', activeRuns: []});
+      const job = new Job({id: 'foo', activeRuns: []});
 
       expect(job.getJobRuns()).toEqual(jasmine.any(JobRunList));
     });
 
     it('includes failed finished runs', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'foo', activeRuns: [], history: {
           failedFinishedRuns: [
             {
@@ -159,7 +159,7 @@ describe('Job', function () {
     });
 
     it('includes successful finished runs', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'foo', activeRuns: [], history: {
           successfulFinishedRuns: [
             {
@@ -176,7 +176,7 @@ describe('Job', function () {
   describe('#getLabels', function () {
 
     it('returns the correct labels', function () {
-      let job = new Job({
+      const job = new Job({
         labels: {
           foo: 'bar'
         }
@@ -186,7 +186,7 @@ describe('Job', function () {
     });
 
     it('defaults to an empty object if property is undefined', function () {
-      let job = new Job({
+      const job = new Job({
         run: {}
       });
 
@@ -198,7 +198,7 @@ describe('Job', function () {
   describe('#getMem', function () {
 
     it('returns the correct mem', function () {
-      let job = new Job({
+      const job = new Job({
         run: {
           mem: 49
         }
@@ -208,7 +208,7 @@ describe('Job', function () {
     });
 
     it('defaults to the correct value if property is undefined', function () {
-      let job = new Job({
+      const job = new Job({
         run: {}
       });
 
@@ -217,7 +217,7 @@ describe('Job', function () {
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
-        let job = new Job({});
+        const job = new Job({});
 
         expect(job.getMem()).toEqual(32);
       }
@@ -228,7 +228,7 @@ describe('Job', function () {
   describe('#getLastRunStatus', function () {
 
     it('returns an object with the time in ms', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
@@ -240,7 +240,7 @@ describe('Job', function () {
     });
 
     it('returns the most recent status', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
@@ -252,7 +252,7 @@ describe('Job', function () {
     });
 
     it('returns the most recent status', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {
           lastSuccessAt: '1985-04-30T00:00:00Z',
@@ -264,7 +264,7 @@ describe('Job', function () {
     });
 
     it('returns N/A status if both are undefiend', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {}
       });
@@ -274,7 +274,7 @@ describe('Job', function () {
     });
 
     it('returns success if lastFailureAt is undefiend', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z'
@@ -285,7 +285,7 @@ describe('Job', function () {
     });
 
     it('returns success if lastSuccessAt is undefiend', function () {
-      let job = new Job({
+      const job = new Job({
         id: 'test.job',
         historySummary: {
           lastFailureAt: '1990-04-30T00:00:00Z'
@@ -300,7 +300,7 @@ describe('Job', function () {
   describe('#getName', function () {
 
     it('returns correct name', function () {
-      let job = new Job({id: 'test.job'});
+      const job = new Job({id: 'test.job'});
 
       expect(job.getName()).toEqual('job');
     });
@@ -310,13 +310,13 @@ describe('Job', function () {
   describe('#getSchedules', function () {
 
     it('returns the schedules', function () {
-      let job = new Job({id: 'foo', schedules: ['bar']});
+      const job = new Job({id: 'foo', schedules: ['bar']});
 
       expect(job.getSchedules()).toEqual(['bar']);
     });
 
     it('returns an empty array if schedules is undefined', function () {
-      let job = new Job({id: '/foo'});
+      const job = new Job({id: '/foo'});
 
       expect(job.getSchedules()).toEqual([]);
     });
@@ -326,7 +326,7 @@ describe('Job', function () {
   describe('#getScheduleStatus', function () {
 
     it('returns the longest running job\'s status', function () {
-      let job = new Job({
+      const job = new Job({
         id: '/foo',
         activeRuns: [{
           status: 'foo',
@@ -342,7 +342,7 @@ describe('Job', function () {
     });
 
     it('returns scheduled if there are no active runs and the schedule is enabled', function () {
-      let job = new Job({
+      const job = new Job({
         id: '/foo',
         activeRuns: [],
         schedules: [{
@@ -354,7 +354,7 @@ describe('Job', function () {
     });
 
     it('returns unscheduled if there are no active runs and no enabled schedule', function () {
-      let job = new Job({
+      const job = new Job({
         id: '/foo',
         activeRuns: [],
         scheduled: [{
@@ -366,7 +366,7 @@ describe('Job', function () {
     });
 
     it('returns unscheduled if there are no active runs and no schedule', function () {
-      let job = new Job({
+      const job = new Job({
         id: '/foo',
         activeRuns: []
       });
@@ -379,17 +379,17 @@ describe('Job', function () {
   describe('#toJSON', function () {
 
     it('returns a object with the values in _itemData', function () {
-      let item = new Job({foo: 'bar', baz: 'qux'});
+      const item = new Job({foo: 'bar', baz: 'qux'});
       expect(item.toJSON()).toEqual({foo:'bar', baz:'qux'});
     });
 
     it('returns a JSON string with the values in _itemData', function () {
-      let item = new Job({foo: 'bar', baz: 'qux'});
+      const item = new Job({foo: 'bar', baz: 'qux'});
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
     it('should drop blacklisted keys', function () {
-      let item = new Job({foo: 'bar', baz: 'qux', 'history': []});
+      const item = new Job({foo: 'bar', baz: 'qux', 'history': []});
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 

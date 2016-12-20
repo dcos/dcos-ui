@@ -4,7 +4,7 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldError = (props) => {
-  let {className} = props;
+  const {className} = props;
   let classes = classNames('small text-danger flush-bottom', className);
 
   return (

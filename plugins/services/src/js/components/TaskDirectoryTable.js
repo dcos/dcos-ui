@@ -21,8 +21,8 @@ class TaskDirectoryTable extends React.Component {
 
   renderHeadline(prop, directoryItem) {
     let label;
-    let {nodeID} = this.props;
-    let filePath = directoryItem.get('path');
+    const {nodeID} = this.props;
+    const filePath = directoryItem.get('path');
     let iconID = 'page';
     let value = directoryItem.getName();
 
@@ -92,8 +92,8 @@ class TaskDirectoryTable extends React.Component {
   }
 
   getClassName(prop, sortBy, row) {
-    let isHeader = row == null;
-    let propsToRight = ['uid', 'size', 'mtime'];
+    const isHeader = row == null;
+    const propsToRight = ['uid', 'size', 'mtime'];
 
     return classNames({
       'text-align-right': propsToRight.includes(prop),
@@ -105,8 +105,8 @@ class TaskDirectoryTable extends React.Component {
   getDirectorySortFunction(baseProp) {
     return function (prop, order) {
       return function (a, b) {
-        let aIsDirectory = a.isDirectory();
-        let bIsDirectory = b.isDirectory();
+        const aIsDirectory = a.isDirectory();
+        const bIsDirectory = b.isDirectory();
 
         if (aIsDirectory && !bIsDirectory) {
           if (order === 'desc') {
@@ -135,11 +135,11 @@ class TaskDirectoryTable extends React.Component {
   }
 
   getColumns() {
-    let className = this.getClassName;
-    let heading = ResourceTableUtil.renderHeading(TaskDirectoryHeaderLabels);
-    let sortFunction = this.getDirectorySortFunction('path');
+    const className = this.getClassName;
+    const heading = ResourceTableUtil.renderHeading(TaskDirectoryHeaderLabels);
+    const sortFunction = this.getDirectorySortFunction('path');
 
-    let defaultColumnSettings = {
+    const defaultColumnSettings = {
       className,
       heading,
       headerClassName: className,

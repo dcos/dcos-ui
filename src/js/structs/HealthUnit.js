@@ -22,7 +22,7 @@ class HealthUnit extends Item {
 
   getPrettyPrintID() {
     let id = this.get('id') || '';
-    let prefixIndex = id.indexOf(ID_PREFIX);
+    const prefixIndex = id.indexOf(ID_PREFIX);
 
     if (prefixIndex >= 0) {
       id = id.slice(prefixIndex + ID_PREFIX.length);

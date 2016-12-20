@@ -45,7 +45,7 @@ function testHistoryOnline() {
 }
 
 function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
-  let url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
+  const url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
   let successEventType = REQUEST_SUMMARY_SUCCESS;
 
   if (timeScale === TimeScales.MINUTE) {
@@ -105,12 +105,12 @@ var MesosSummaryActions = {
     function (resolve, reject) {
 
       return function (timeScale) {
-        let canAccessHistoryAPI = Hooks.applyFilter(
+        const canAccessHistoryAPI = Hooks.applyFilter(
           'hasCapability', false, 'historyServiceAPI'
         );
 
         if (!_historyServiceOnline || !canAccessHistoryAPI) {
-          let canAccessMesosAPI = Hooks.applyFilter(
+          const canAccessMesosAPI = Hooks.applyFilter(
             'hasCapability', false, 'mesosAPI'
           );
           if (canAccessMesosAPI) {

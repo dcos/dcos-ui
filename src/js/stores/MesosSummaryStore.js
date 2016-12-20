@@ -36,7 +36,7 @@ function startPolling() {
     MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
 
     requestInterval = setInterval(() => {
-      let wasInactive = isInactive && !VisibilityStore.get('isInactive');
+      const wasInactive = isInactive && !VisibilityStore.get('isInactive');
       isInactive = VisibilityStore.get('isInactive');
 
       if (!isInactive) {
@@ -127,8 +127,8 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   getInitialStates() {
-    let initialStates = MesosSummaryUtil.getInitialStates().slice();
-    let states = new SummaryList({maxLength: Config.historyLength});
+    const initialStates = MesosSummaryUtil.getInitialStates().slice();
+    const states = new SummaryList({maxLength: Config.historyLength});
     initialStates.forEach((state) => {
       states.addSnapshot(state, state.date, false);
     });
@@ -171,7 +171,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   getServiceFromName(name) {
-    let services = this.getActiveServices();
+    const services = this.getActiveServices();
 
     return services.find(function (service) {
       return service.get('name') === name;
@@ -179,14 +179,14 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   hasServiceUrl(serviceName) {
-    let service = this.getServiceFromName(serviceName);
-    let webuiUrl = service.get('webui_url');
+    const service = this.getServiceFromName(serviceName);
+    const webuiUrl = service.get('webui_url');
 
     return service && !!webuiUrl && webuiUrl.length > 0;
   }
 
   getNextRequestTime() {
-    let lastRequestTime = this.get('lastRequestTime');
+    const lastRequestTime = this.get('lastRequestTime');
     if (!lastRequestTime) {
       return Date.now();
     }
@@ -201,10 +201,10 @@ class MesosSummaryStore extends GetSetBaseStore {
       return this.processSummaryError();
     }
 
-    let states = this.get('states');
+    const states = this.get('states');
 
     if (typeof data.date !== 'number') {
-      let lastRequestTime = this.getNextRequestTime();
+      const lastRequestTime = this.getNextRequestTime();
       this.set({lastRequestTime});
       data.date = lastRequestTime;
     }
@@ -227,7 +227,7 @@ class MesosSummaryStore extends GetSetBaseStore {
     // If we get less data than the history length
     // fill the front with the `n` copies of the earliest snapshot available
     if (data.length < Config.historyLength) {
-      let diff = Config.historyLength - data.length;
+      const diff = Config.historyLength - data.length;
       for (var i = 0; i < diff; i++) {
         data.unshift(Util.deepCopy(data[0]));
       }
@@ -243,8 +243,8 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   processSummaryError(options = {}) {
-    let unsuccessfulSummary = new StateSummary({successful: false});
-    let states = this.get('states');
+    const unsuccessfulSummary = new StateSummary({successful: false});
+    const states = this.get('states');
 
     this.set({lastRequestTime: this.getNextRequestTime()});
 

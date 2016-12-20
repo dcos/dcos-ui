@@ -7,7 +7,7 @@ import {VISIBILITY_CHANGE} from '../constants/EventTypes';
 // Use visibility API to check if current tab is active or not
 const Visibility = (function () {
   let stateKey;
-  let keys = {
+  const keys = {
     hidden: 'visibilitychange',
     webkitHidden: 'webkitvisibilitychange',
     mozHidden: 'mozvisibilitychange',
@@ -76,7 +76,7 @@ class VisibilityStore extends GetSetBaseStore {
   }
 
   onVisibilityChange() {
-    let isTabVisible = Visibility.getVisibility();
+    const isTabVisible = Visibility.getVisibility();
 
     this.set({isTabVisible});
     this.emit(VISIBILITY_CHANGE);

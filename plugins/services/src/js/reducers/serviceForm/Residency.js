@@ -7,7 +7,7 @@ module.exports = {
       this.localVolumes = [];
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (joinedPath.search('localVolumes') !== -1) {
       if (joinedPath === 'localVolumes') {
@@ -22,12 +22,12 @@ module.exports = {
             break;
         }
       }
-      let index = path[1];
+      const index = path[1];
       if (type === SET && `localVolumes.${index}.type` === joinedPath) {
         this.localVolumes[index] = value === 'PERSISTENT';
       }
 
-      let hasLocalVolumes = this.localVolumes.find((value) => {
+      const hasLocalVolumes = this.localVolumes.find((value) => {
         return value;
       });
       if (hasLocalVolumes && this.residency == null) {

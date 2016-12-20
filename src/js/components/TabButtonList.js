@@ -3,10 +3,10 @@ import React from 'react';
 
 class TabButtonList extends React.Component {
   getChildren() {
-    let {activeTab, children, onChange} = this.props;
+    const {activeTab, children, onChange} = this.props;
 
     return React.Children.map(children, (tab, index) => {
-      let tabProps = {activeTab, onClick: onChange};
+      const tabProps = {activeTab, onClick: onChange};
 
       if (tab.props.id === activeTab || (!activeTab && index === 0)) {
         tabProps.active = true;
@@ -17,7 +17,7 @@ class TabButtonList extends React.Component {
   }
 
   render() {
-    let {className, vertical} = this.props;
+    const {className, vertical} = this.props;
     let classes = classNames(
       'menu-tabbed',
       {

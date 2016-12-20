@@ -14,8 +14,8 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    let {unitID, unitNodeID} = this.props.params;
-    let node = UnitHealthStore.getNode(unitNodeID);
+    const {unitID, unitNodeID} = this.props.params;
+    const node = UnitHealthStore.getNode(unitNodeID);
 
     if (node.get('host_ip')) {
       /* eslint-disable react/no-did-mount-set-state */
@@ -31,8 +31,8 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getCrumbLabel() {
-    let {unitNodeID} = this.props.params;
-    let node = UnitHealthStore.getNode(unitNodeID);
+    const {unitNodeID} = this.props.params;
+    const node = UnitHealthStore.getNode(unitNodeID);
 
     return node.get('host_ip');
   }

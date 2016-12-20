@@ -7,7 +7,7 @@ describe('JobRunList', function () {
   describe('#getLongestRunningActiveRun', function () {
 
     it('returns the longest running active run', function () {
-      let activeRunList = new JobRunList({
+      const activeRunList = new JobRunList({
         items: [
           {'createdAt': '1990-01-03T00:00:00Z-1'},
           {'createdAt': '1985-01-03T00:00:00Z-1'},
@@ -20,7 +20,7 @@ describe('JobRunList', function () {
     });
 
     it('returns the longest running active run', function () {
-      let activeRunList = new JobRunList({
+      const activeRunList = new JobRunList({
         items: [
           {'createdAt': '1990-01-03T00:10:00Z-1'},
           {'createdAt': '1990-01-03T00:05:00Z-1'},

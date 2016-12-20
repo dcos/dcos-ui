@@ -184,7 +184,7 @@ module.exports = {
       this.cache = [];
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (type === REMOVE_ITEM && joinedPath === 'portDefinitions') {
       state = state.map((item) => {
@@ -216,7 +216,7 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
+      const index = joinedPath.match(/\d+/)[0];
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           state[index].protocol = value;

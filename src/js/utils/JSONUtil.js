@@ -30,17 +30,17 @@ function nextJSONToken( chunk, offset ) {
   let lastName = '';
   let lastMatch = '';
   let lastOffset = chunk.length;
-  let tokenCount = TOKENIZER_NAMES.length;
+  const tokenCount = TOKENIZER_NAMES.length;
 
   while (i < tokenCount) {
-    let tokenName = TOKENIZER_NAMES[i];
-    let tokenRegExp = TOKENIZER_TOKENS[tokenName];
+    const tokenName = TOKENIZER_NAMES[i];
+    const tokenRegExp = TOKENIZER_TOKENS[tokenName];
 
     // Search for a token at given offset
     tokenRegExp.lastIndex = offset;
 
     // If we got something closer to the last match, prefer this one
-    let match = tokenRegExp.exec(chunk);
+    const match = tokenRegExp.exec(chunk);
     if (match && match.index < lastOffset) {
       lastOffset = match.index;
       lastName = tokenName;
@@ -107,11 +107,11 @@ module.exports = {
    * @returns {array} - An array with the objects in the JSON
    */
   getObjectInformation(source) {
-    let keyLines = [];
+    const keyLines = [];
     // Keeps track of the current line number
     let lineNo = 1;
     // The current path in the object trace
-    let path = [];
+    const path = [];
     // Keeps track of last literal (number, string, null, boolean)
     let lastLiteral;
     // This variable is used only when the parser is within an array [ ],
@@ -122,7 +122,7 @@ module.exports = {
     let objectKey = null;
     // Stack of block tokens, used to keep track of the last opened block
     // token in order to update the ending position.
-    let blockTokens = [];
+    const blockTokens = [];
 
     // First validate sanity of the JSON source, in order for us
     // to safely asume that this is a legit JSON source
@@ -131,7 +131,7 @@ module.exports = {
 
     // Process tokens
     let i = 0;
-    let sourceLength = source.length;
+    const sourceLength = source.length;
     while (i<sourceLength) {
       // Get next token or exit if there are no more
       let [token, match, offset] = nextJSONToken( source, i );
@@ -141,7 +141,7 @@ module.exports = {
 
       // Count how many new lines we encountered since the
       // last index and forward line number accordingly
-      let curr = i;
+      const curr = i;
       i = offset + match.length;
       lineNo += countNewLines( source, curr, i );
 
@@ -154,7 +154,7 @@ module.exports = {
         case 'begin-object':
           // Keep track of keyed objects
           if (objectKey) {
-            let blockToken = {
+            const blockToken = {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: 'object',
@@ -170,7 +170,7 @@ module.exports = {
 
           // Keep track of indexed objects
           if (arrayIndex !== -1) {
-            let blockToken = {
+            const blockToken = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: 'object',
@@ -193,7 +193,7 @@ module.exports = {
         case 'begin-array':
           // Keep track of keyed arrays
           if (objectKey) {
-            let blockToken = {
+            const blockToken = {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: 'array',
@@ -209,7 +209,7 @@ module.exports = {
 
           // Keep track of indexed arrays
           if (arrayIndex !== -1) {
-            let blockToken = {
+            const blockToken = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: 'array',
@@ -233,7 +233,7 @@ module.exports = {
         case 'end-object':
         case 'end-array':
           // Pop path and resume possible array tracking
-          let lastValue = path.pop();
+          const lastValue = path.pop();
           if (typeof lastValue === 'number') {
             arrayIndex = lastValue;
           } else {
@@ -241,7 +241,7 @@ module.exports = {
           }
 
           // Update the ending position of the last block token on stack
-          let lastBlockToken = blockTokens.pop();
+          const lastBlockToken = blockTokens.pop();
           if (lastBlockToken) {
             lastBlockToken.position[1] = i;
           }

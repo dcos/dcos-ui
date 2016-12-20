@@ -143,7 +143,7 @@ describe('ReducerUtil', function () {
     });
 
     it('should properly apply a set of user actions', function () {
-      let dockerReduce = ReducerUtil.combineReducers({
+      const dockerReduce = ReducerUtil.combineReducers({
         id(state, action) {
           if (action.action === 'SET' &&
             action.path.join('.') === 'container.docker') {
@@ -153,7 +153,7 @@ describe('ReducerUtil', function () {
         }
       });
 
-      let reducers = ReducerUtil.combineReducers({
+      const reducers = ReducerUtil.combineReducers({
         id(state = '', action) {
           if (action.action === 'SET' &&
             action.path.join('') === 'id') {
@@ -182,7 +182,7 @@ describe('ReducerUtil', function () {
 
       let state = {};
 
-      let actions = [
+      const actions = [
         {
           action: 'SET',
           path: ['id'],

@@ -100,7 +100,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   handleAddRow(prop, definition, newDefinition, index) {
-    let propID = Util.uniqueID(prop);
+    const propID = Util.uniqueID(prop);
     newDefinition = FormUtil.getMultipleFieldDefinition(
       prop,
       propID,
@@ -109,7 +109,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       index
     );
 
-    let deleteButtonTop = Object.values(definition.itemShapes || {})
+    const deleteButtonTop = Object.values(definition.itemShapes || {})
       .some(function (itemShape) {
         return itemShape.deleteButtonTop;
       });
@@ -149,7 +149,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
-    let index = this.getIndexFromDefinition(generalDefinition);
+    const index = this.getIndexFromDefinition(generalDefinition);
     let label = 'Add New Line';
 
     if (labelText !== '') {
@@ -223,8 +223,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getNewDefinition(model = this.props.model) {
-    let {schema} = this.props;
-    let definition = SchemaUtil.schemaToMultipleDefinition({
+    const {schema} = this.props;
+    const definition = SchemaUtil.schemaToMultipleDefinition({
       schema,
       renderSubheader: this.getSubHeader,
       renderLabel: this.getLabel,
@@ -248,19 +248,19 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   validateForm() {
-    let schema = this.props.schema;
+    const schema = this.props.schema;
     let isValidated = true;
 
     this.model = this.triggerTabFormSubmit();
     // Reset the definition in order to reset all errors.
     this.multipleDefinition = this.getNewDefinition();
-    let model = SchemaFormUtil.processFormModel(
+    const model = SchemaFormUtil.processFormModel(
       this.model, this.multipleDefinition
     );
 
     SchemaFormUtil.validateModelWithSchema(model, schema).forEach((error) => {
-      let path = error.path;
-      let obj = SchemaFormUtil.getDefinitionFromPath(
+      const path = error.path;
+      const obj = SchemaFormUtil.getDefinitionFromPath(
         this.multipleDefinition, path
       );
 

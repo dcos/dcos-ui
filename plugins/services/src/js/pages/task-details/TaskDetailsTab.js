@@ -34,8 +34,8 @@ class TaskDetailsTab extends React.Component {
     }
 
     let headerValueMapping = {'Task ID': mesosTask.id};
-    let services = CompositeState.getServiceList();
-    let service = services.filter({ids: [mesosTask.framework_id]}).last();
+    const services = CompositeState.getServiceList();
+    const service = services.filter({ids: [mesosTask.framework_id]}).last();
     if (service != null) {
       headerValueMapping['Service'] = `${service.name} (${service.id})`;
     }
@@ -46,7 +46,7 @@ class TaskDetailsTab extends React.Component {
       headerValueMapping['Node'] = `${node.getHostName()} (${node.getID()})`;
     }
 
-    let sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
+    const sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
     if (sandBoxPath) {
       headerValueMapping['Sandbox Path'] = sandBoxPath;
     }
@@ -86,19 +86,19 @@ class TaskDetailsTab extends React.Component {
       return null;
     }
 
-    let resourceColors = ResourcesUtil.getResourceColors();
-    let resourceLabels = ResourcesUtil.getResourceLabels();
+    const resourceColors = ResourcesUtil.getResourceColors();
+    const resourceLabels = ResourcesUtil.getResourceLabels();
 
     return ResourcesUtil.getDefaultResources().map(function (resource) {
       if (resource === 'ports') {
         return null;
       }
 
-      let resourceLabel = resourceLabels[resource];
+      const resourceLabel = resourceLabels[resource];
       let resourceValue = Units.formatResource(
         resource, task.resources[resource]
       );
-      let colorIndex = resourceColors[resource];
+      const colorIndex = resourceColors[resource];
 
       return (
         <div key={resource} className="media-object-item">
@@ -114,7 +114,7 @@ class TaskDetailsTab extends React.Component {
   }
 
   render() {
-    let {task} = this.props;
+    const {task} = this.props;
 
     if (!MesosSummaryStore.get('statesProcessed')) {
       return <Loader />;

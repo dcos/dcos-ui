@@ -58,7 +58,7 @@ class TaskTable extends React.Component {
   getColumns() {
     var className = this.getClassName;
     var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
-    let sortFunction = ResourceTableUtil.getSortFunction('id');
+    const sortFunction = ResourceTableUtil.getSortFunction('id');
 
     return [
       {
@@ -161,7 +161,7 @@ class TaskTable extends React.Component {
         render: this.renderVersion,
         sortable: true,
         sortFunction: TableUtil.getSortFunction('id', (task) => {
-          let version = this.getVersionValue(task);
+          const version = this.getVersionValue(task);
           if (version == null) {
             return null;
           }
@@ -221,7 +221,7 @@ class TaskTable extends React.Component {
 
     return (prop, task) => {
       let title = task[prop];
-      let {id, nodeID} = this.props.params;
+      const {id, nodeID} = this.props.params;
 
       let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}`;
       if (nodeID != null) {
@@ -246,7 +246,7 @@ class TaskTable extends React.Component {
 
   renderLog(prop, task) {
     let title = task.name || task.id;
-    let {id, nodeID} = this.props.params;
+    const {id, nodeID} = this.props.params;
 
     let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
     if (nodeID != null) {
@@ -289,7 +289,7 @@ class TaskTable extends React.Component {
   }
 
   renderStatus(prop, task) {
-    let statusClassName = TaskUtil.getTaskStatusClassName(task);
+    const statusClassName = TaskUtil.getTaskStatusClassName(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
     return (
@@ -303,14 +303,14 @@ class TaskTable extends React.Component {
   }
 
   renderHealth(prop, task) {
-    let {state} = task;
+    const {state} = task;
 
-    let dangerState = TaskStates[state].stateTypes.includes('failure');
-    let activeState = TaskStates[state].stateTypes.includes('active');
+    const dangerState = TaskStates[state].stateTypes.includes('failure');
+    const activeState = TaskStates[state].stateTypes.includes('active');
 
-    let healthy = task.health;
-    let unhealthy = (healthy === false);
-    let unknown = (healthy === null);
+    const healthy = task.health;
+    const unhealthy = (healthy === false);
+    const unknown = (healthy === null);
 
     let tooltipContent = 'Healthy';
 
@@ -322,8 +322,8 @@ class TaskTable extends React.Component {
       tooltipContent = 'No health checks available';
     }
 
-    let failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
-    let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
+    const failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
+    const running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
 
     let statusClass = classNames({
       'dot': true,
@@ -348,7 +348,7 @@ class TaskTable extends React.Component {
   }
 
   renderVersion(prop, task) {
-    let version = this.getVersionValue(task);
+    const version = this.getVersionValue(task);
 
     if (version == null) {
       return null;

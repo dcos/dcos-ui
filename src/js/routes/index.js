@@ -17,7 +17,7 @@ import styles from './styles'; // eslint-disable-line
 import universe from './universe';
 
 // Modules that produce routes
-let routeFactories = [Organization, Network];
+const routeFactories = [Organization, Network];
 
 function getApplicationRoutes() {
   // Statically defined routes
@@ -89,7 +89,7 @@ function getRoutes() {
   // Provide opportunity for plugins to inject routes
   routes = Hooks.applyFilter('applicationRoutes', routes);
 
-  let indexRoute = routes[0].children.find((route) => route.id === 'index');
+  const indexRoute = routes[0].children.find((route) => route.id === 'index');
 
   // Register packages
   indexRoute.children = indexRoute.children.concat(

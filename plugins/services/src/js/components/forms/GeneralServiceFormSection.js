@@ -94,8 +94,8 @@ class GeneralServiceFormSection extends Component {
     });
   }
   getRuntimeSelections(data = {}) {
-    let {container = {}, gpus} = data;
-    let isDisabled = {};
+    const {container = {}, gpus} = data;
+    const isDisabled = {};
     let disabledTooltipContent;
     let type = NONE;
 

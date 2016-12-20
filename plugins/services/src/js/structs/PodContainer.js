@@ -73,7 +73,7 @@ module.exports = class PodContainer extends Item {
     // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/container-status.raml#L49
     // 'healthy: should only be present if a health check is defined for this endpoint'
     //
-    let endpoints = this.getEndpoints();
+    const endpoints = this.getEndpoints();
     let allHaveChecks = (endpoints.length > 0);
     let hasFailure = false;
 

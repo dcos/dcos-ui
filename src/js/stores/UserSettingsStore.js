@@ -5,7 +5,7 @@ import LocalStorageUtil from '../utils/LocalStorageUtil';
 const LOCAL_STORAGE_KEY = 'dcosUserSettings';
 
 function getLocalStorageObject() {
-  let localStorageObject = LocalStorageUtil.get(LOCAL_STORAGE_KEY);
+  const localStorageObject = LocalStorageUtil.get(LOCAL_STORAGE_KEY);
   try {
     return JSON.parse(localStorageObject);
   } catch (e) {
@@ -19,7 +19,7 @@ class UserSettingsStore extends EventEmitter {
   }
 
   getKey(key) {
-    let localStorageObject = getLocalStorageObject();
+    const localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {
       return null;
     }

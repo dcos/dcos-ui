@@ -77,8 +77,8 @@ const MetronomeUtil = {
    * }} jobs and groups in a tree structure
    */
   parseJobs(jobs) {
-    let rootTree = {id: ''};
-    let jobsAlreadyAdded = {
+    const rootTree = {id: ''};
+    const jobsAlreadyAdded = {
       [rootTree.id]: rootTree
     };
 

@@ -12,14 +12,14 @@ class DSLExpression {
    */
   constructor(value='') {
     let ast = null;
-    let cleanValue = value.trim();
+    const cleanValue = value.trim();
     let filter = (filters, resultset) => resultset;
     let hasErrors = false;
 
     if (cleanValue !== '') {
       // Try to parse the expression
       try {
-        let result = SearchDSL.parse(cleanValue);
+        const result = SearchDSL.parse(cleanValue);
         if (result.ast && result.filter) {
           ast = result.ast;
           filter = result.filter;

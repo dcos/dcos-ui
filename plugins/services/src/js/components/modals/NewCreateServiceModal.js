@@ -70,7 +70,7 @@ class NewServiceFormModal extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (!ServiceUtil.isEqual(this.props.service, nextProps.service)) {
-      let newState = {serviceConfig: nextProps.service.getSpec()};
+      const newState = {serviceConfig: nextProps.service.getSpec()};
 
       if (nextProps.isEdit) {
         newState.servicePickerActive = false;
@@ -98,7 +98,7 @@ class NewServiceFormModal extends Component {
   }
 
   handleGoBack({tabViewID}) {
-    let {
+    const {
       serviceFormActive,
       serviceJsonActive,
       servicePickerActive,
@@ -206,7 +206,7 @@ class NewServiceFormModal extends Component {
   }
 
   handleServiceRun() {
-    let {marathonAction, service} = this.props;
+    const {marathonAction, service} = this.props;
     marathonAction(
       service,
       this.state.serviceConfig,
@@ -234,7 +234,7 @@ class NewServiceFormModal extends Component {
     }
 
     let title = 'Run a Service';
-    let {isEdit, service} = this.props;
+    const {isEdit, service} = this.props;
     let serviceName = service.getName();
     if (serviceName) {
       serviceName = `"${serviceName}"`;
@@ -360,7 +360,7 @@ class NewServiceFormModal extends Component {
   }
 
   getPrimaryActions() {
-    let {
+    const {
       serviceFormActive,
       serviceJsonActive,
       servicePickerActive,
@@ -427,7 +427,7 @@ class NewServiceFormModal extends Component {
   }
 
   getResetState(nextProps = this.props) {
-    let newState = {
+    const newState = {
       activeTab: null,
       isJSONModeActive: false,
       serviceConfig: nextProps.service.getSpec(),
@@ -453,7 +453,7 @@ class NewServiceFormModal extends Component {
   }
 
   getSecondaryActions() {
-    let {
+    const {
       servicePickerActive,
       serviceReviewActive
     } = this.state;
@@ -473,7 +473,7 @@ class NewServiceFormModal extends Component {
   }
 
   render() {
-    let {props, state: {servicePickerActive, serviceReviewActive}} = this;
+    const {props, state: {servicePickerActive, serviceReviewActive}} = this;
     let useGemini = false;
 
     if (servicePickerActive || serviceReviewActive) {

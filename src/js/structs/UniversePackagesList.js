@@ -9,7 +9,7 @@ class UniversePackagesList extends List {
         description: null, // use default getter
         name: null, // use default getter
         tags(item) {
-          let tags = item.get('tags') || [];
+          const tags = item.get('tags') || [];
 
           return tags.join(' ');
         }
@@ -21,8 +21,8 @@ class UniversePackagesList extends List {
   }
 
   getSelectedAndNonSelectedPackages() {
-    let selectedPackages = [];
-    let nonSelectedPackages = [];
+    const selectedPackages = [];
+    const nonSelectedPackages = [];
 
     this.getItems().forEach(function (universePackage) {
       if (universePackage.isSelected()) {

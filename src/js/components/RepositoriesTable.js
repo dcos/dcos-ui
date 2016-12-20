@@ -67,7 +67,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   handleDeleteRepository() {
-    let {repositoryToRemove} = this.state;
+    const {repositoryToRemove} = this.state;
     CosmosPackagesStore.deleteRepository(
       repositoryToRemove.get('name'),
       repositoryToRemove.get('url')
@@ -85,11 +85,11 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   getColumns() {
-    let {repositories} = this.props;
-    let getClassName = this.getClassName;
-    let heading = ResourceTableUtil
+    const {repositories} = this.props;
+    const getClassName = this.getClassName;
+    const heading = ResourceTableUtil
       .renderHeading(RepositoriesTableHeaderLabels);
-    let sortFunction = TableUtil.getSortFunction('uri', function (item, prop) {
+    const sortFunction = TableUtil.getSortFunction('uri', function (item, prop) {
       if (prop === 'priority') {
         return repositories.getPriority(item);
       }
@@ -203,7 +203,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {props, state} = this;
     let heading = (
       <ModalHeading>
         Are you sure?

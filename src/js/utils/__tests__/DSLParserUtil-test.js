@@ -61,7 +61,7 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct ast node', function () {
-      let {ast} = this.op;
+      const {ast} = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -77,11 +77,11 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct filter function', function () {
-      let {filter} = this.op;
+      const {filter} = this.op;
 
       expect(typeof filter).toEqual('function');
 
-      let filters = new DSLFilterList([
+      const filters = new DSLFilterList([
         new AttribFilter()
       ]);
 
@@ -102,7 +102,7 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct ast node', function () {
-      let {ast} = this.op;
+      const {ast} = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -117,11 +117,11 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct filter function', function () {
-      let {filter} = this.op;
+      const {filter} = this.op;
 
       expect(typeof filter).toEqual('function');
 
-      let filters = new DSLFilterList([
+      const filters = new DSLFilterList([
         new ExactFilter()
       ]);
 
@@ -141,7 +141,7 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct ast node', function () {
-      let {ast} = this.op;
+      const {ast} = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -156,11 +156,11 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct filter function', function () {
-      let {filter} = this.op;
+      const {filter} = this.op;
 
       expect(typeof filter).toEqual('function');
 
-      let filters = new DSLFilterList([
+      const filters = new DSLFilterList([
         new FuzzyFilter()
       ]);
 
@@ -185,7 +185,7 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct ast node', function () {
-      let {ast} = this.op;
+      const {ast} = this.op;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
       // ASTNode properties
@@ -197,11 +197,11 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct filter function', function () {
-      let {filter} = this.op;
+      const {filter} = this.op;
 
       expect(typeof filter).toEqual('function');
 
-      let filters = new DSLFilterList([
+      const filters = new DSLFilterList([
         new AttribFilter(),
         new FuzzyFilter()
       ]);
@@ -226,7 +226,7 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct ast node', function () {
-      let {ast} = this.op;
+      const {ast} = this.op;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
       // ASTNode properties
@@ -238,11 +238,11 @@ describe('DSLParserUtil', function () {
     });
 
     it('should create the correct filter function', function () {
-      let {filter} = this.op;
+      const {filter} = this.op;
 
       expect(typeof filter).toEqual('function');
 
-      let filters = new DSLFilterList([
+      const filters = new DSLFilterList([
         new AttribFilter(),
         new FuzzyFilter()
       ]);

@@ -5,13 +5,13 @@ describe('TaskStat', function () {
   describe('#getName', function () {
 
     it('returns undefined if no name have been provided', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getName()).toEqual(undefined);
     });
 
     it('returns name if name have been provided', function () {
-      let statistics = new TaskStat({name: 'foo'});
+      const statistics = new TaskStat({name: 'foo'});
 
       expect(statistics.getName()).toEqual('foo');
     });
@@ -21,19 +21,19 @@ describe('TaskStat', function () {
   describe('#isEmpty', function () {
 
     it('returns true if no stats have been provided', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.isEmpty()).toEqual(true);
     });
 
     it('returns true if stats with no keys have been provided', function () {
-      let statistics = new TaskStat({stats: {}});
+      const statistics = new TaskStat({stats: {}});
 
       expect(statistics.isEmpty()).toEqual(true);
     });
 
     it('returns false if stats have been provided', function () {
-      let statistics = new TaskStat({stats: {counts: {}}});
+      const statistics = new TaskStat({stats: {counts: {}}});
 
       expect(statistics.isEmpty()).toEqual(false);
     });
@@ -43,19 +43,19 @@ describe('TaskStat', function () {
   describe('#getHealthyTaskCount', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getHealthyTaskCount()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {counts: {}}});
+      const statistics = new TaskStat({stats: {counts: {}}});
 
       expect(statistics.getHealthyTaskCount()).toEqual(0);
     });
 
     it('returns correct number of tasks', function () {
-      let statistics = new TaskStat({stats: {counts: {healthy: 5}}});
+      const statistics = new TaskStat({stats: {counts: {healthy: 5}}});
 
       expect(statistics.getHealthyTaskCount()).toEqual(5);
     });
@@ -65,19 +65,19 @@ describe('TaskStat', function () {
   describe('#getRunningTaskCount', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getRunningTaskCount()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {counts: {}}});
+      const statistics = new TaskStat({stats: {counts: {}}});
 
       expect(statistics.getRunningTaskCount()).toEqual(0);
     });
 
     it('returns correct number of tasks', function () {
-      let statistics = new TaskStat({stats: {counts: {running: 10}}});
+      const statistics = new TaskStat({stats: {counts: {running: 10}}});
 
       expect(statistics.getRunningTaskCount()).toEqual(10);
     });
@@ -87,19 +87,19 @@ describe('TaskStat', function () {
   describe('#getStagedTaskCount', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getStagedTaskCount()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {counts: {}}});
+      const statistics = new TaskStat({stats: {counts: {}}});
 
       expect(statistics.getStagedTaskCount()).toEqual(0);
     });
 
     it('returns correct number of tasks', function () {
-      let statistics = new TaskStat({stats: {counts: {staged: 2}}});
+      const statistics = new TaskStat({stats: {counts: {staged: 2}}});
 
       expect(statistics.getStagedTaskCount()).toEqual(2);
     });
@@ -109,19 +109,19 @@ describe('TaskStat', function () {
   describe('#getUnhealthyTaskCount', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getUnhealthyTaskCount()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {counts: {}}});
+      const statistics = new TaskStat({stats: {counts: {}}});
 
       expect(statistics.getUnhealthyTaskCount()).toEqual(0);
     });
 
     it('returns correct number of tasks', function () {
-      let statistics = new TaskStat({stats: {counts: {unhealthy: 3}}});
+      const statistics = new TaskStat({stats: {counts: {unhealthy: 3}}});
 
       expect(statistics.getUnhealthyTaskCount()).toEqual(3);
     });
@@ -131,19 +131,19 @@ describe('TaskStat', function () {
   describe('#getAverageLifeTime', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getAverageLifeTime()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {lifeTime: {}}});
+      const statistics = new TaskStat({stats: {lifeTime: {}}});
 
       expect(statistics.getAverageLifeTime()).toEqual(0);
     });
 
     it('returns correct life time', function () {
-      let statistics = new TaskStat({stats: {lifeTime: {averageSeconds: 60}}});
+      const statistics = new TaskStat({stats: {lifeTime: {averageSeconds: 60}}});
 
       expect(statistics.getAverageLifeTime()).toEqual(60);
     });
@@ -153,19 +153,19 @@ describe('TaskStat', function () {
   describe('#getMediaLifeTime', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {
-      let statistics = new TaskStat({});
+      const statistics = new TaskStat({});
 
       expect(statistics.getMedianLifeTime()).toEqual(0);
     });
 
     it('returns defaults to zero (0) if property is undefined', function () {
-      let statistics = new TaskStat({stats: {lifeTime: {}}});
+      const statistics = new TaskStat({stats: {lifeTime: {}}});
 
       expect(statistics.getMedianLifeTime()).toEqual(0);
     });
 
     it('returns correct life time', function () {
-      let statistics = new TaskStat({stats: {lifeTime: {medianSeconds: 40}}});
+      const statistics = new TaskStat({stats: {lifeTime: {medianSeconds: 40}}});
 
       expect(statistics.getMedianLifeTime()).toEqual(40);
     });

@@ -97,10 +97,10 @@ const NodeHealthActions = {
 };
 
 if (Config.useFixtures) {
-  let nodesFixture = require('../../../tests/_fixtures/unit-health/nodes.json');
-  let nodeFixture = require('../../../tests/_fixtures/unit-health/node.json');
-  let nodeUnitsFixture = require('../../../tests/_fixtures/unit-health/node-units.json');
-  let nodeUnitFixture = require('../../../tests/_fixtures/unit-health/node-unit.json');
+  const nodesFixture = require('../../../tests/_fixtures/unit-health/nodes.json');
+  const nodeFixture = require('../../../tests/_fixtures/unit-health/node.json');
+  const nodeUnitsFixture = require('../../../tests/_fixtures/unit-health/node-units.json');
+  const nodeUnitFixture = require('../../../tests/_fixtures/unit-health/node-unit.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};

@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let Optional = {
+const Optional = {
   title: 'Optional',
   type: 'object',
   properties: {

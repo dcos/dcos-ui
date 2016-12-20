@@ -28,7 +28,7 @@ class ImageViewer extends React.Component {
 
   handleImageViewerLeftClick() {
     let {selectedImage} = this.state;
-    let {images} = this.props;
+    const {images} = this.props;
     if (--selectedImage < 0) {
       selectedImage = images.length - 1;
     }
@@ -37,7 +37,7 @@ class ImageViewer extends React.Component {
 
   handleImageViewerRightClick() {
     let {selectedImage} = this.state;
-    let {images} = this.props;
+    const {images} = this.props;
     // Add before the modulus operator and use modulus as a circular buffer
     this.setState({selectedImage: ++selectedImage % images.length});
   }

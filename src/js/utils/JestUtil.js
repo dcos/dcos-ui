@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {routerShape} from 'react-router';
 
-let stores = {
+const stores = {
   CosmosPackagesStore: '../stores/CosmosPackagesStore',
   MesosStateStore: '../stores/MesosStateStore',
   MesosSummaryStore: '../stores/MesosSummaryStore',
@@ -109,8 +109,8 @@ const JestUtil = {
    * @param {String} timezone - The IANA timezone string (ex. Europe/Athens) or 'UTC'
    */
   mockTimezone(timezone) {
-    let date = new Date();
-    let timezoneOffset = (
+    const date = new Date();
+    const timezoneOffset = (
           new Date(date.toLocaleString(undefined, {timeZone: 'UTC'}))
         - new Date(date.toLocaleString(undefined, {timeZone: timezone}))
       ) / 1000 / 60;
@@ -188,7 +188,7 @@ const JestUtil = {
    */
   reduceTextContentOfSelector(selector) {
     return function (strings, element) {
-      let matchedElements = Array.from(element.querySelectorAll(selector));
+      const matchedElements = Array.from(element.querySelectorAll(selector));
 
       matchedElements.forEach(function (stringElement) {
         strings.push(stringElement.textContent);

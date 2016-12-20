@@ -123,9 +123,9 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
-    let isChecked = eventObject.fieldValue;
-    let checkedCount = this.state.checkedCount + (isChecked || -1);
-    let selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const isChecked = eventObject.fieldValue;
+    const checkedCount = this.state.checkedCount + (isChecked || -1);
+    const selectedIDSet = this.internalStorage_get().selectedIDSet;
 
     selectedIDSet[eventObject.fieldName] = isChecked;
     this.internalStorage_update({selectedIDSet});
@@ -137,7 +137,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   handleHeadingCheckboxChange(prevCheckboxState, eventObject) {
-    let isChecked = eventObject.fieldValue;
+    const isChecked = eventObject.fieldValue;
     this.bulkCheck(isChecked);
   }
 
@@ -169,10 +169,10 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   renderCheckbox(prop, row) {
-    let rowID = row[this.props.itemID];
-    let remoteIDSet = this.internalStorage_get().remoteIDSet;
-    let {checkableCount, checkedCount} = this.state;
-    let disabled = (remoteIDSet[rowID] === true);
+    const rowID = row[this.props.itemID];
+    const remoteIDSet = this.internalStorage_get().remoteIDSet;
+    const {checkableCount, checkedCount} = this.state;
+    const disabled = (remoteIDSet[rowID] === true);
     let checked = null;
 
     if (disabled || checkedCount === 0) {
@@ -249,7 +249,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getColumns() {
-    let {getClassName} = this;
+    const {getClassName} = this;
 
     return [
       {
@@ -283,7 +283,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       return null;
     }
 
-    let actionPhrases = BulkOptions[itemName];
+    const actionPhrases = BulkOptions[itemName];
     let initialID = null;
 
     // Get first Action to set as initially selected option in dropdown.
@@ -331,8 +331,8 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   getCheckedItemObjects(items, itemIDName) {
     if (this.state.selectedAction) {
-      let checkboxStates = this.internalStorage_get().selectedIDSet;
-      let selectedItems = {};
+      const checkboxStates = this.internalStorage_get().selectedIDSet;
+      const selectedItems = {};
 
       Object.keys(checkboxStates).forEach(function (id) {
         if (checkboxStates[id] === true) {
@@ -341,7 +341,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       });
 
       return items.filter(function (item) {
-        let itemID = item[itemIDName];
+        const itemID = item[itemIDName];
         return selectedItems[itemID] || false;
       });
     } else {
@@ -355,8 +355,8 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
     if (searchString !== '') {
       return items.filter((item) => {
-        let description = item.get('description').toLowerCase();
-        let id = item.get(this.props.itemID).toLowerCase();
+        const description = item.get('description').toLowerCase();
+        const id = item.get(this.props.itemID).toLowerCase();
 
         return description.indexOf(searchString) > -1
           || id.indexOf(searchString) > -1;
@@ -386,7 +386,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getTableRowOptions(row) {
-    let selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const selectedIDSet = this.internalStorage_get().selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
       return {className: 'selected'};
     }
@@ -395,7 +395,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   bulkCheck(isChecked) {
     let checkedCount = 0;
-    let selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const selectedIDSet = this.internalStorage_get().selectedIDSet;
 
     Object.keys(selectedIDSet).forEach(function (id) {
       selectedIDSet[id] = isChecked;
@@ -415,13 +415,13 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   resetTablewideCheckboxTabulations() {
     let {items, itemID} = this.props;
     items = this.getVisibleItems(items);
-    let selectedIDSet = {};
-    let remoteIDSet = {};
+    const selectedIDSet = {};
+    const remoteIDSet = {};
     let checkableCount = 0;
 
     // Initializing hash of items' IDs and corresponding checkbox state.
     items.forEach(function (item) {
-      let id = item.get(itemID);
+      const id = item.get(itemID);
       checkableCount += 1;
       selectedIDSet[id] = false;
     });
@@ -435,14 +435,14 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   render() {
-    let {items, itemID, itemName} = this.props;
-    let state = this.state;
-    let action = state.selectedAction;
+    const {items, itemID, itemName} = this.props;
+    const state = this.state;
+    const action = state.selectedAction;
     let capitalizedItemName = StringUtil.capitalize(itemName);
     let visibleItems = this.getVisibleItems(items);
     let actionDropdown = this.getActionDropdown(itemName);
     let actionsModal = this.getActionsModal(action, items, itemID, itemName);
-    let sortProp = itemID;
+    const sortProp = itemID;
 
     return (
       <Page>

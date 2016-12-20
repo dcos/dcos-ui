@@ -17,19 +17,19 @@ module.exports = {
    * portMapping takes preceedence.
    */
   JSONParser(state) {
-    let portMappings = findNestedPropertyInObject(
+    const portMappings = findNestedPropertyInObject(
       state,
       'container.docker.portMappings'
     ) || [];
-    let portDefinitionsLength = findNestedPropertyInObject(
+    const portDefinitionsLength = findNestedPropertyInObject(
       state,
       'portDefinitions.length'
     ) || 0;
 
     // Add additional fields if we have more definitions in portMappings
     // than in portDefinitions
-    let length = portMappings.length - portDefinitionsLength;
-    let addTransactions = [];
+    const length = portMappings.length - portDefinitionsLength;
+    const addTransactions = [];
     Array.from({length}).forEach((_, index) => {
       addTransactions.push(
         new Transaction(['portDefinitions'], portMappings.length + index - 1, ADD_ITEM)
@@ -50,7 +50,7 @@ module.exports = {
       // If port is a number but not zero, we set automaticPort to false
       // so we can set the port and portMapping to true,
       // since we have a host port
-      let hostPort = Number(item.hostPort);
+      const hostPort = Number(item.hostPort);
       if (!isNaN(hostPort) && hostPort !== 0) {
         memo.push(new Transaction([
           'portDefinitions',
@@ -96,7 +96,7 @@ module.exports = {
         ], false, SET));
       }
 
-      let containerPort = Number(item.containerPort);
+      const containerPort = Number(item.containerPort);
       if (!isNaN(containerPort)) {
         memo.push(new Transaction([
           'portDefinitions',
@@ -105,7 +105,7 @@ module.exports = {
         ], containerPort, SET));
       }
 
-      let servicePort = Number(item.servicePort);
+      const servicePort = Number(item.servicePort);
       if (!isNaN(servicePort)) {
         memo.push(new Transaction([
           'portDefinitions',
@@ -122,7 +122,7 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      let vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
+      const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
       if (vip != null) {
         memo.push(new Transaction([
           'portDefinitions',

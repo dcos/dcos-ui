@@ -54,7 +54,7 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({MOUNT_TYPE, COMPONENTS}) => {
   COMPONENTS.forEach((component, index, componentArray) => {
     // Define  component priorities based on index (highest prio goes first)
     // and pad priorities, so that we can add components in between.
-    let priority = (componentArray.length - index) * PRIORITIES_PAD_NUMBER;
+    const priority = (componentArray.length - index) * PRIORITIES_PAD_NUMBER;
     MountService.MountService.registerComponent(
       component,
       MOUNT_TYPE,

@@ -186,7 +186,7 @@ describe('#StatusBar', function () {
               className="test-bar"/>,
             this.container
           );
-          let percentages = [];
+          const percentages = [];
           [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
             percentages.push(parseInt(el.style.width.replace('%', '')));
           });
@@ -215,7 +215,7 @@ describe('#StatusBar', function () {
               className="test-bar"/>,
             this.container
           );
-          let percentages = [];
+          const percentages = [];
           [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
             percentages.push(parseInt(el.style.width.replace('%', '')));
           });

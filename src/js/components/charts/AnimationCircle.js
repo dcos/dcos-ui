@@ -34,7 +34,7 @@ var AnitmationCircle = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    let node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this);
 
     // Handle first position to not animate into position
     // We need this because we get 0-data for graphs on the first render

@@ -90,7 +90,7 @@ module.exports = {
       return state;
     }
 
-    let joinedPath = path.join('.');
+    const joinedPath = path.join('.');
 
     if (path[0] === 'externalVolumes') {
       if (joinedPath === 'externalVolumes') {
@@ -114,7 +114,7 @@ module.exports = {
         return state;
       }
 
-      let index = path[1];
+      const index = path[1];
       if (type === SET && `externalVolumes.${index}.provider` === joinedPath) {
         state[index].provider = value;
       }
