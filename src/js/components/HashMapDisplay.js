@@ -29,7 +29,7 @@ class HashMapDisplay extends React.Component {
   }
 
   getItems() {
-    let {hash, headingLevel, renderKeys} = this.props;
+    const {hash, headingLevel, renderKeys} = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
@@ -72,7 +72,7 @@ class HashMapDisplay extends React.Component {
   }
 
   render() {
-    let {hash} = this.props;
+    const {hash} = this.props;
     if (!hash || Object.keys(hash).length === 0) {
       return null;
     }

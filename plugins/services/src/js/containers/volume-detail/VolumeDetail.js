@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import Page from '../../../../../../src/js/components/Page';
