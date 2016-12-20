@@ -49,6 +49,12 @@ module.exports = {
 
     const joinedPath = path.join('.');
 
+    // Make sure to parse as integer when possible
+    let parsedValue = parseInt(value);
+    if (!isNaN(parsedValue)) {
+      value = parsedValue;
+    }
+
     if (joinedPath === 'container.docker.image') {
       this.docker = value !== '';
     }
@@ -106,6 +112,9 @@ module.exports = {
       if (type === SET && `externalVolumes.${index}.containerPath` === joinedPath) {
         this.externalVolumes[index].containerPath = value;
       }
+      if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
+        this.externalVolumes[index].external.size = parseInt(value, 10);
+      }
       if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
         this.externalVolumes[index].mode = value;
       }
@@ -137,12 +146,6 @@ module.exports = {
 
       const index = path[1];
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
-        // Make sure to parse as integer when possible
-        let parsedValue = parseInt(value);
-        if (!isNaN(parsedValue)) {
-          value = parsedValue;
-        }
-
         this.localVolumes[index].persistent.size = value;
       }
       if (type === SET && `localVolumes.${index}.type` === joinedPath) {

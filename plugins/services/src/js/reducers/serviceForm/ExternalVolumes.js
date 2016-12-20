@@ -42,6 +42,14 @@ module.exports = {
         ], item.external.name, SET));
       }
 
+      if (item.external.size != null) {
+        memo.push(new Transaction([
+          'externalVolumes',
+          index,
+          'size'
+        ], item.external.size, SET));
+      }
+
       if (item.containerPath != null) {
         memo.push(new Transaction([
           'externalVolumes',
@@ -119,8 +127,11 @@ module.exports = {
       if (type === SET && `externalVolumes.${index}.containerPath` === joinedPath) {
         state[index].containerPath = value;
       }
+      if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
+        state[index].size = value;
+      }
       if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
-        state[index].mode= value;
+        state[index].mode = value;
       }
     }
 

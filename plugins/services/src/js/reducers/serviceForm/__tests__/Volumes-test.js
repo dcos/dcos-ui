@@ -108,11 +108,13 @@ describe('Volumes', function () {
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 'null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'options'], {someValue: true}, SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 'provider', SET));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'size'], 1024, SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
           containerPath: '/dev/null',
           external: {
+            size: 1024,
             name: 'null',
             provider: 'provider',
             options: {
