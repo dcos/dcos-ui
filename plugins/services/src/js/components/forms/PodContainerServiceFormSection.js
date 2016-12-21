@@ -171,7 +171,7 @@ class PodContainerServiceFormSection extends Component {
   render() {
     const {data, errors, path} = this.props;
 
-    let imageErrors = findNestedPropertyInObject(errors, `${path}.image`);
+    let imageErrors = findNestedPropertyInObject(errors, `${path}.image.id`);
     let cpusErrors = findNestedPropertyInObject(errors,
       `${path}.resources.cpus`);
     let memErrors = findNestedPropertyInObject(errors, `${path}.resources.mem`);
