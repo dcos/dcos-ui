@@ -24,7 +24,7 @@ const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 const containerRuntimes = {
   [NONE]: {
     label: <span>{labelMap[NONE]}</span>,
-    helpText: 'Normal behaviour'
+    helpText: 'Normal behavior'
   },
   [MESOS]: {
     label: <span>{labelMap[MESOS]}</span>,
