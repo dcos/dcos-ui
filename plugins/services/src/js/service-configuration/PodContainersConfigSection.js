@@ -4,22 +4,22 @@ import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
 
-function renderContainers(appConfig, handleEditClick, tabViewID) {
+function renderContainers(appConfig, handleEditClick) {
   const {containers = []} = appConfig;
 
-  return containers.map((container) => {
+  return containers.map((container, index) => {
     return (
       <PodContainerConfigSection
         appConfig={appConfig}
         containerConfig={container}
         key={`pod-container-${container.name}`}
         onEditClick={handleEditClick}
-        tabViewID={tabViewID} />
+        index={index} />
     );
   });
 }
 
-const PodContainersConfigSection = ({appConfig, onEditClick, tabViewID}) => {
+const PodContainersConfigSection = ({appConfig, onEditClick}) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
@@ -35,7 +35,7 @@ const PodContainersConfigSection = ({appConfig, onEditClick, tabViewID}) => {
   return (
     <div>
       <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
-      {renderContainers(appConfig, onEditClick, tabViewID)}
+      {renderContainers(appConfig, onEditClick)}
     </div>
   );
 };

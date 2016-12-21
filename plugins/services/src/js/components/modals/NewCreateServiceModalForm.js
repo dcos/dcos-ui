@@ -412,7 +412,7 @@ class NewCreateServiceModalForm extends Component {
 
   render() {
     let {appConfig, batch, errorList} = this.state;
-    let {isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
+    let {activeTab, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
     let data = batch.reduce(this.props.inputConfigReducers, {});
 
     let jsonEditorPlaceholderClasses = classNames(
@@ -435,7 +435,7 @@ class NewCreateServiceModalForm extends Component {
               className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
               <form onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}>
-                <Tabs vertical={true}>
+                <Tabs activeTab={activeTab} vertical={true}>
                   <TabButtonList>
                     <TabButton id="services" label="Services" key="services">
                       {this.getContainerList(data)}
