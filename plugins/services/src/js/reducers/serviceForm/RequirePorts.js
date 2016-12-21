@@ -12,6 +12,7 @@ module.exports = {
       this.requriePorts[index] = value > 0;
     }
 
-    return this.requriePorts.find((entry) => entry);
+    // Make sure to return null for falsy values
+    return this.requriePorts.includes(true) || null;
   }
 };

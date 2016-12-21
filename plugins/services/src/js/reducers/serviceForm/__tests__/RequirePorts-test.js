@@ -6,12 +6,12 @@ const {SET} =
 
 describe('RequirePorts', function () {
   describe('#JSONReducer', function () {
-    it('it should return undefined as default', function () {
+    it('it should return null as default', function () {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(['id'], 'foo'));
 
-      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(undefined);
+      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(null);
     });
 
     it('should return true if there is an endpoint with requested host port', function () {
@@ -34,7 +34,7 @@ describe('RequirePorts', function () {
       .toEqual(true);
     });
 
-    it('should return undefined if all of the endpoints do not request host port', function () {
+    it('should return null if all of the endpoints do not request host port', function () {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 0, SET));
@@ -42,7 +42,7 @@ describe('RequirePorts', function () {
       batch = batch.add(new Transaction(['portDefinitions', 2, 'hostPort'], 0, SET));
 
       expect(batch.reduce(RequirePorts.JSONReducer.bind({})))
-      .toEqual(undefined);
+      .toEqual(null);
     });
 
   });
