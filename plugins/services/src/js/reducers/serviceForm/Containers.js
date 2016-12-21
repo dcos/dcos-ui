@@ -6,7 +6,8 @@ import {
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {
   combineReducers,
-  simpleFloatReducer
+  simpleFloatReducer,
+  simpleReducer
 } from '../../../../../../src/js/utils/ReducerUtil';
 import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
@@ -15,6 +16,12 @@ import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
 import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
 
 const containerReducer = combineReducers({
+  cpus: simpleReducer('resources.cpus'),
+  mem: simpleReducer('resources.mem'),
+  disk: simpleReducer('resources.disk')
+});
+
+const containerFloatReducer = combineReducers({
   cpus: simpleFloatReducer('resources.cpus'),
   mem: simpleFloatReducer('resources.mem'),
   disk: simpleFloatReducer('resources.disk')
@@ -514,7 +521,8 @@ module.exports = {
     }
 
     if (type === SET && field === 'resources') {
-      newState[index].resources = containerReducer.call(
+      // Parse numbers
+      newState[index].resources = containerFloatReducer.call(
         this.cache[index],
         newState[index].resources,
         {type, value, path: path.slice(2)}
@@ -672,6 +680,9 @@ module.exports = {
     }
 
     if (type === SET && field === 'resources') {
+      // Do not parse numbers, as user might be in the middle of
+      // entering a number. 0.0 would then equal 0, yielding it impossible to
+      // enter, e.g. 0.001
       newState[index].resources = containerReducer.call(
         this.cache[index],
         newState[index].resources,
