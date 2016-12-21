@@ -98,7 +98,7 @@ class ContainerServiceFormSection extends Component {
     const inputFiled = (
       <FieldInput
         key="gpus-input"
-        min="0.001"
+        min="0"
         name="gpus"
         step="any"
         type="number"
