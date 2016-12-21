@@ -48,6 +48,10 @@ describe('Tabs', function () {
     );
   });
 
+  afterEach(function () {
+    ReactDOM.unmountComponentAtNode(this.container);
+  });
+
   it('calls handleTabChange function', function () {
     const tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll('.menu-tabbed-item');
 
