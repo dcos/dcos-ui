@@ -171,6 +171,11 @@ class HealthChecksFormSection extends Component {
     return data.map((healthCheck, key) => {
       const errors = errorsLens.at(key, {}).get(this.props.errors);
 
+      if (!['', 'HTTP', 'HTTPS', 'COMMAND'].includes(healthCheck.protocol) &&
+        healthCheck.protocol != null) {
+        return null;
+      }
+
       return (
         <FormGroupContainer
           key={key}
