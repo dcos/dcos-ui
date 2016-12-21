@@ -17,7 +17,7 @@ function mapHealthChecks(item) {
       };
     }
 
-    if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
+    if (item.protocol.toUpperCase() !== 'COMMAND') {
       newItem.path = item.path;
     }
   }
@@ -147,18 +147,10 @@ module.exports = {
             'https'
           ], true, SET));
         }
-        memo.push(new Transaction([
-          'healthChecks',
-          index,
-          'path'
-        ], item.path, SET));
-        memo.push(new Transaction([
-          'healthChecks',
-          index,
-          'portIndex'
-        ], item.portIndex, SET));
       }
       [
+        'path',
+        'portIndex',
         'gracePeriodSeconds',
         'intervalSeconds',
         'timeoutSeconds',
