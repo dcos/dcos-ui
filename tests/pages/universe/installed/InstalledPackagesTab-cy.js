@@ -1,4 +1,4 @@
-xdescribe('Installed Packages Tab', function () {
+describe('Installed Packages Tab', function () {
 
   beforeEach(function () {
     cy
@@ -9,12 +9,6 @@ xdescribe('Installed Packages Tab', function () {
       .visitUrl({url: '/universe/installed-packages'});
   });
 
-  it('activates the correct tab', function () {
-    cy
-      .get('.page-navigation-list .menu-tabbed-item.active .menu-tabbed-item-label')
-      .should('contain', 'Installed');
-  });
-
   it('displays a table of installed packages', function () {
     cy
       .get('table.table > tbody > tr .package-table-heading')
@@ -22,9 +16,9 @@ xdescribe('Installed Packages Tab', function () {
 
     cy
       .get('@itemNames').eq(0)
-      .should('contain', 'arangodb')
+      .should('contain', 'marathon-user')
       .get('@itemNames').eq(1)
-      .should('contain', 'marathon-user');
+      .should('contain', 'arangodb');
   });
 
   it('allows users to filter packages', function () {
