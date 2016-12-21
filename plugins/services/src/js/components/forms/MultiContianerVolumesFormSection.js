@@ -87,10 +87,19 @@ class MultiContainerVolumesFormSection extends Component {
   }
 
   render() {
-    const {data} = this.props;
+    const {data, handleTabChange} = this.props;
 
-    if (data.containers && data.containers.length === 0) {
-      return null;
+    if (!data.containers || !data.containers.length) {
+      return (
+        <div className="form flush-bottom">
+          <h2 className="form-header flush-top short-bottom">
+            Volumes
+          </h2>
+          <p>
+            Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring.
+          </p>
+        </div>
+      );
     }
 
     return (
@@ -118,6 +127,7 @@ class MultiContainerVolumesFormSection extends Component {
 MultiContainerVolumesFormSection.defaultProps = {
   data: {},
   errors: {},
+  handleTabChange() {},
   onAddItem() {},
   onRemoveItem() {}
 };
@@ -125,6 +135,7 @@ MultiContainerVolumesFormSection.defaultProps = {
 MultiContainerVolumesFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
+  handleTabChange: React.PropTypes.func,
   onAddItem: React.PropTypes.func,
   onRemoveItem: React.PropTypes.func
 };
