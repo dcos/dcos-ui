@@ -34,7 +34,7 @@ class DSLFilterField extends React.Component {
    * @override
    */
   componentDidMount() {
-    window.addEventListener('click', this.handleDismissClick, false);
+    global.addEventListener('click', this.handleDismissClick, false);
   }
 
   /**
@@ -42,7 +42,7 @@ class DSLFilterField extends React.Component {
    * @override
    */
   componentWillUnmount() {
-    window.removeEventListener('click', this.handleDismissClick);
+    global.removeEventListener('click', this.handleDismissClick);
   }
 
   /**

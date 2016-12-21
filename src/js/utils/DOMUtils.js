@@ -59,10 +59,10 @@ var DOMUtils = {
 
   getComputedDimensions(obj) {
     var compstyle;
-    if (typeof window.getComputedStyle === 'undefined') {
+    if (typeof global.getComputedStyle === 'undefined') {
       compstyle = obj.currentStyle;
     } else {
-      compstyle = window.getComputedStyle(obj);
+      compstyle = global.getComputedStyle(obj);
     }
 
     var computeInnerBound = function (acc, key) {
@@ -109,7 +109,7 @@ var DOMUtils = {
 
   isTopFrame() {
     try {
-      return window.self === window.top;
+      return global.self === global.top;
     } catch (e) {
       return true;
     }

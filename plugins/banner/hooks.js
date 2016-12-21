@@ -71,7 +71,7 @@ module.exports = {
     this.historyListenerAdded = true;
 
     const frameWindow = frame.contentWindow;
-    const topWindow = window;
+    const topWindow = global;
 
     frameWindow.addEventListener('hashchange', function () {
       topWindow.location.hash = frameWindow.location.hash;
