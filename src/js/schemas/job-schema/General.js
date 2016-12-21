@@ -4,6 +4,7 @@ import React from 'react';
 import JobValidatorUtil from '../../utils/JobValidatorUtil';
 import ValidatorUtil from '../../utils/ValidatorUtil';
 import MesosConstants from '../../../../plugins/services/src/js/constants/MesosConstants';
+import JobResources from '../../constants/JobResources';
 
 const General = {
   title: 'General',
@@ -43,7 +44,7 @@ const General = {
       properties: {
         cpus: {
           title: 'CPUs',
-          default: MesosConstants.MIN_CPUS,
+          default: JobResources.DEFAULT_CPUS,
           description: 'The amount of CPUs the job requires',
           type:'number',
           getter(job) {
@@ -63,7 +64,7 @@ const General = {
         },
         mem: {
           title: 'Mem (MiB)',
-          default: MesosConstants.MIN_MEM,
+          default: JobResources.DEFAULT_MEM,
           type: 'number',
           getter(job) {
             return `${job.getMem()}`;
@@ -82,7 +83,7 @@ const General = {
         },
         disk: {
           title: 'Disk (MiB)',
-          default: 0,
+          default: JobResources.DEFAULT_DISK,
           type: 'number',
           getter(job) {
             return `${job.getDisk()}`;
