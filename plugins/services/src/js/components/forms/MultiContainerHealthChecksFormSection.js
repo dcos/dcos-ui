@@ -146,10 +146,23 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   render() {
-    const {data} = this.props;
+    const {data, handleTabChange} = this.props;
+
+    if (!data.containers || !data.containers.length) {
+      return (
+        <div className="form flush-bottom">
+          <h2 className="form-header flush-top short-bottom">
+            Health Checks
+          </h2>
+          <p>
+            Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring health checks.
+          </p>
+        </div>
+      );
+    }
 
     return (
-      <div className="form flush-bottom" >
+      <div className="form flush-bottom">
         {this.getContainerHealthChecks(data.containers)}
       </div>
     );
@@ -160,6 +173,7 @@ MultiContainerHealthChecksFormSection.defaultProps = {
   data: {},
   errors: {},
   onAddItem() {},
+  handleTabChange() {},
   onRemoveItem() {}
 };
 
@@ -167,6 +181,7 @@ MultiContainerHealthChecksFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
+  handleTabChange: React.PropTypes.func,
   onRemoveItem: React.PropTypes.func
 };
 

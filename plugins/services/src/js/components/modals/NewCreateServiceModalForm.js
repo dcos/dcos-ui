@@ -144,7 +144,8 @@ class NewCreateServiceModalForm extends Component {
     // Otherwise update if the state has changed
     return (this.state.errorList !== nextState.errorList) ||
       (this.state.baseConfig !== nextState.baseConfig) ||
-      (this.state.batch !== nextState.batch);
+      (this.state.batch !== nextState.batch) ||
+      (this.props.activeTab !== nextProps.activeTab);
   }
 
   getNewStateForJSON(baseConfig = {},
@@ -361,6 +362,7 @@ class NewCreateServiceModalForm extends Component {
           <MultiContainerHealthChecksFormSection
             data={data}
             errors={errorMap}
+            handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>,
@@ -368,6 +370,7 @@ class NewCreateServiceModalForm extends Component {
           <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
+            handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>
@@ -479,6 +482,7 @@ class NewCreateServiceModalForm extends Component {
 }
 
 NewCreateServiceModalForm.defaultProps = {
+  handleTabChange() {},
   isJSONModeActive: false,
   onChange() {},
   onErrorStateChange() {}
@@ -486,6 +490,7 @@ NewCreateServiceModalForm.defaultProps = {
 
 NewCreateServiceModalForm.propTypes = {
   activeTab: PropTypes.string,
+  handleTabChange: PropTypes.func,
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
   onErrorStateChange: PropTypes.func,

@@ -43,7 +43,8 @@ const METHODS_TO_BIND = [
   'handleServiceErrorChange',
   'handleServiceReview',
   'handleServiceRun',
-  'handleServiceSelection'
+  'handleServiceSelection',
+  'handleTabChange'
 ];
 
 class NewServiceFormModal extends Component {
@@ -142,6 +143,10 @@ class NewServiceFormModal extends Component {
       });
 
     }
+  }
+
+  handleTabChange(activeTab) {
+    this.setState({activeTab});
   }
 
   handleClose() {
@@ -368,6 +373,7 @@ class NewServiceFormModal extends Component {
           activeTab={this.state.activeTab}
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
+          handleTabChange={this.handleTabChange}
           inputConfigReducers={inputConfigReducers}
           isJSONModeActive={isJSONModeActive}
           ref={(ref) => {
