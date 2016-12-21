@@ -4,19 +4,15 @@ import React from 'react';
 const DetailViewSectionHeading = (props) => {
   const {children, className, level} = props;
 
-  return React.createElement(
-    `h${level}`,
-    {
-      className: classNames(
-        'detail-view-section-heading',
-        {
-          'detail-view-section-heading-primary': level === 1
-        },
-        className
-      )
-    },
-    children
-  );
+  const headingProps = {
+    className: classNames(
+      'detail-view-section-heading',
+      {'detail-view-section-heading-primary': level === 1},
+      className
+    )
+  };
+
+  return React.createElement(`h${level}`, headingProps, children);
 };
 
 DetailViewSectionHeading.defaultProps = {

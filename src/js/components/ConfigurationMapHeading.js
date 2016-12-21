@@ -23,7 +23,8 @@ ConfigurationMapHeading.propTypes = {
     React.PropTypes.array,
     React.PropTypes.object,
     React.PropTypes.string
-  ])
+  ]),
+  level: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
 module.exports = ConfigurationMapHeading;
