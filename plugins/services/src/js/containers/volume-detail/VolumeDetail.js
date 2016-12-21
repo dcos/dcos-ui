@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import Page from '../../../../../../src/js/components/Page';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
+import Page from '../../../../../../src/js/components/Page';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import VolumeStatus from '../../constants/VolumeStatus';
 
@@ -39,7 +39,7 @@ class VolumeDetail extends React.Component {
         <DetailViewHeader
           subTitle={this.renderSubHeader()}
           title={volume.getId()} />
-        <DescriptionList hash={detailsHash} />
+        <HashMapDisplay hash={detailsHash} />
       </Page>
     );
   }

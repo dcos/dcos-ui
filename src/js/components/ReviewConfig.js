@@ -3,7 +3,7 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
 import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
-import DescriptionList from './DescriptionList';
+import HashMapDisplay from './HashMapDisplay';
 import Icon from './Icon';
 import Image from './Image';
 import ScrollbarUtil from '../utils/ScrollbarUtil';
@@ -98,7 +98,7 @@ class ReviewConfig extends React.Component {
           && fieldValue !== null) {
           elementsToRender.push(
             this.getFieldSubheader(fieldKey),
-            this.renderDescriptionList(fieldValue, uniqueKey)
+            this.renderHashMapDisplay(fieldValue, uniqueKey)
           );
           return;
         }
@@ -108,7 +108,7 @@ class ReviewConfig extends React.Component {
         }
 
         elementsToRender.push(
-          this.renderDescriptionList({[fieldKey]: fieldValue}, uniqueKey)
+          this.renderHashMapDisplay({[fieldKey]: fieldValue}, uniqueKey)
         );
       });
     });
@@ -116,14 +116,8 @@ class ReviewConfig extends React.Component {
     return elementsToRender;
   }
 
-  renderDescriptionList(hash, key) {
-    return (
-      <DescriptionList
-        hash={hash}
-        key={key}
-        ddClassName="column-6 text-color-neutral"
-        dtClassName="column-6"/>
-    );
+  renderHashMapDisplay(hash, key) {
+    return <HashMapDisplay hash={hash} key={key} />;
   }
 
   render() {

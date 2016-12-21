@@ -92,9 +92,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="button-collection">
-        {this.getVersionsDropdown()}
-        {this.getRollbackButtons()}
+      <div className="pod flush-top flush-right flush-left">
+        <div className="button-collection">
+          {this.getVersionsDropdown()}
+          {this.getRollbackButtons()}
+        </div>
       </div>
     );
   }
@@ -192,9 +194,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     return (
       <div className="container">
-        <div className="pod flush-top flush-right flush-left">
-          {this.getVersionsActions()}
-        </div>
+        {this.getVersionsActions()}
         {content}
       </div>
     );

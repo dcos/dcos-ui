@@ -1,7 +1,7 @@
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
 
-import DescriptionList from '../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../src/js/components/HashMapDisplay';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
@@ -34,7 +34,7 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 
-  getMarathonTaskDetailsDescriptionList(task) {
+  getMarathonTaskDetailsHashMapDisplay(task) {
     if (task == null) {
       return null;
     }
@@ -49,7 +49,7 @@ class MarathonTaskDetailsList extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Marathon Task Configuration" />
     );
@@ -82,7 +82,7 @@ class MarathonTaskDetailsList extends React.Component {
       };
 
       return (
-        <DescriptionList
+        <HashMapDisplay
           key={i}
           hash={headerValueMapping}
           headline={`Health Check Result ${i+1}`} />
@@ -93,7 +93,7 @@ class MarathonTaskDetailsList extends React.Component {
   render() {
     const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(this.props.taskID);
     const taskConfiguration =
-      this.getMarathonTaskDetailsDescriptionList(marathonTask);
+      this.getMarathonTaskDetailsHashMapDisplay(marathonTask);
     const healthCheckResults =
       this.getMarathonTaskHealthCheckResults(marathonTask);
 

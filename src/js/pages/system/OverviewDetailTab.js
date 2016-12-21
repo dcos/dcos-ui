@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
@@ -8,7 +7,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
-import DescriptionList from '../../components/DescriptionList';
+import ConfigurationMap from '../../components/ConfigurationMap';
+import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
+import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
 import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
@@ -94,33 +95,26 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     };
   }
 
-  buildDescriptionList(hash, addSpacing) {
-    let headlineClassName = classNames({
-      'h4': true,
-      'flush-top': !addSpacing
-    });
-
-    return (
-      <DescriptionList
-        dtClassName="column-3 text-mute text-overflow-break-word"
-        hash={hash}
-        headlineClassName={headlineClassName} />
-    );
-  }
-
   render() {
     const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
 
     if (marathonHash) {
-      marathonDetails = this.buildDescriptionList(marathonHash, true);
+      marathonDetails = <HashMapDisplay hash={marathonHash} />;
     }
 
     return (
       <Page>
         <Page.Header breadcrumbs={<ClusterDetailsBreadcrumbs />} />
-        {this.buildDescriptionList(this.getClusterDetailsHash())}
-        {marathonDetails}
+        <div className="container">
+          <ConfigurationMap>
+            <ConfigurationMapHeading className="flush-top">
+              Cluster Details
+            </ConfigurationMapHeading>
+            <HashMapDisplay hash={this.getClusterDetailsHash()} />
+            {marathonDetails}
+          </ConfigurationMap>
+        </div>
       </Page>
     );
   }

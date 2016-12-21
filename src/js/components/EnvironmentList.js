@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DescriptionList from './DescriptionList';
+import HashMapDisplay from './HashMapDisplay';
 import Icon from './Icon';
 
 class EnvironmentList extends React.Component {
@@ -34,7 +34,7 @@ class EnvironmentList extends React.Component {
       return memo;
     }, {});
 
-    return <DescriptionList hash={hash} />;
+    return <HashMapDisplay hash={hash} />;
   }
 }
 
