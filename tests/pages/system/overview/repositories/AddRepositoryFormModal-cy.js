@@ -77,30 +77,36 @@ describe('Add Repository Form Modal', function () {
     });
   });
 
-  xit('displays error in modal after add causes an error', function () {
+  it('displays error in modal after add causes an error', function () {
     // We need to add a fixture for this test to pass.
+    var url = 'http://there-is-no-stopping.us';
     cy
-      .get('tr .text-overflow-break-word')
-      .then(function ($urlField) {
-        var url = $urlField[0].textContent;
-        cy
-          .get('.modal input')
-          .eq(0).type('Here we go!')
-          .get('.modal input')
-          .eq(1).type(url);
-        cy
-          .get('.modal .modal-footer .button.button-success')
-          .contains('Add')
-          .click();
+      .route({
+        method: 'POST',
+        url: /repository\/add/,
+        status: 409,
+        response: {
+          message: 'Conflict with ' + url
+        }
+      })
+      .get('.modal input')
+      .eq(0).type('Here we go!')
+      .get('.modal input')
+      .eq(1).type(url)
+      .get('.modal input')
+      .eq(2).type('0');
+    cy
+      .get('.modal .modal-footer .button.button-success')
+      .contains('Add')
+      .click();
 
-        cy
-          .get('.modal h4.text-danger')
-          .should('contain', url);
-      });
+    cy
+      .get('.modal h4.text-danger')
+      .should('contain', url);
   });
 
   // TODO: Turn into unit test
-  xit('displays generic error in modal if no message is provided', function () {
+  it('displays generic error in modal if no message is provided', function () {
     cy
       .route({
         method: 'POST',
@@ -112,7 +118,9 @@ describe('Add Repository Form Modal', function () {
       .eq(0).type('Here we go!');
     cy
       .get('.modal input')
-      .eq(1).type('http://there-is-no-stopping.us');
+      .eq(1).type('http://there-is-no-stopping.us')
+      .get('.modal input')
+      .eq(2).type('0');
     cy
       .get('.modal .modal-footer .button.button-success')
       .contains('Add')
