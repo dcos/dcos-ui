@@ -1,5 +1,10 @@
 const Job = require('../Job');
 const JobRunList = require('../JobRunList');
+const {
+  DEFAULT_CPUS,
+  DEFAULT_DISK,
+  DEFAULT_MEM
+} = require('../../constants/JobResources');
 
 describe('Job', function () {
 
@@ -49,14 +54,14 @@ describe('Job', function () {
         run: {}
       });
 
-      expect(job.getCpus()).toEqual(0.01);
+      expect(job.getCpus()).toEqual(DEFAULT_CPUS);
     });
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
         const job = new Job({});
 
-        expect(job.getCpus()).toEqual(0.01);
+        expect(job.getCpus()).toEqual(DEFAULT_CPUS);
       }
     );
 
@@ -113,14 +118,14 @@ describe('Job', function () {
         run: {}
       });
 
-      expect(job.getDisk()).toEqual(0);
+      expect(job.getDisk()).toEqual(DEFAULT_DISK);
     });
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
         const job = new Job({});
 
-        expect(job.getDisk()).toEqual(0);
+        expect(job.getDisk()).toEqual(DEFAULT_DISK);
       }
     );
 
@@ -212,14 +217,14 @@ describe('Job', function () {
         run: {}
       });
 
-      expect(job.getMem()).toEqual(32);
+      expect(job.getMem()).toEqual(DEFAULT_MEM);
     });
 
     it('defaults to the correct value if run configuration is undefined',
       function () {
         const job = new Job({});
 
-        expect(job.getMem()).toEqual(32);
+        expect(job.getMem()).toEqual(DEFAULT_MEM);
       }
     );
 

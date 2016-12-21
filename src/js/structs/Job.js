@@ -2,7 +2,11 @@ import {cleanJobJSON} from '../utils/CleanJSONUtil';
 import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobRunList from './JobRunList';
-import MesosConstants from '../../../plugins/services/src/js/constants/MesosConstants';
+import {
+  DEFAULT_CPUS,
+  DEFAULT_DISK,
+  DEFAULT_MEM
+} from '../constants/JobResources';
 
 module.exports = class Job extends Item {
   getActiveRuns() {
@@ -16,7 +20,7 @@ module.exports = class Job extends Item {
   }
 
   getCpus() {
-    const {cpus = MesosConstants.MIN_CPUS} = this.get('run') || {};
+    const {cpus = DEFAULT_CPUS} = this.get('run') || {};
 
     return cpus;
   }
@@ -32,7 +36,7 @@ module.exports = class Job extends Item {
   }
 
   getDisk() {
-    const {disk = 0} = this.get('run') || {};
+    const {disk = DEFAULT_DISK} = this.get('run') || {};
 
     return disk;
   }
@@ -58,7 +62,7 @@ module.exports = class Job extends Item {
   }
 
   getMem() {
-    const {mem = MesosConstants.MIN_MEM} = this.get('run') || {};
+    const {mem = DEFAULT_MEM} = this.get('run') || {};
 
     return mem;
   }
