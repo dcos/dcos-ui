@@ -67,7 +67,7 @@ class PodDebugTabView extends React.Component {
       );
     }
 
-    return history.reduce(function (accumulator, item, index) {
+    return history.map(function (item, index) {
       let headline;
       let startedAt = item.getStartedAt();
       let terminatedAt = item.getTerminatedAt();
@@ -95,7 +95,7 @@ class PodDebugTabView extends React.Component {
         );
       }
 
-      accumulator.push(
+      return (
         <ConfigurationMapSection key={`termination-${index}`}>
           {headline}
           <HashMapDisplay hash={terminationValueMapping} />
@@ -107,9 +107,7 @@ class PodDebugTabView extends React.Component {
           <PodContainerTerminationTable containers={item.getContainers()} />
         </ConfigurationMapSection>
       );
-
-      return accumulator;
-    }, []);
+    });
   }
 
   getLastVersionChange() {
