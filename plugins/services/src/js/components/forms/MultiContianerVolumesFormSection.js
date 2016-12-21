@@ -105,7 +105,7 @@ class MultiContainerVolumesFormSection extends Component {
     return (
       <div className="form flush-bottom">
         <h2 className="flush-top short-bottom">
-          Ephermal Volumes
+          Ephemeral Volumes
         </h2>
         <p>
           Set up volumes variables for each task your service launches.
@@ -116,7 +116,7 @@ class MultiContainerVolumesFormSection extends Component {
             className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this,
               {value: data.volumeMounts.length, path: 'volumeMounts'})}>
-            + Add Ephermal Volume
+            + Add Ephemeral Volume
           </a>
         </div>
       </div>
