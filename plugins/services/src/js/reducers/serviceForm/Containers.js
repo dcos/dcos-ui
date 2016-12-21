@@ -103,6 +103,7 @@ function containersParser(state) {
     if (item.name) {
       memo.push(new Transaction(['containers', index, 'name'], item.name));
     }
+    // TODO DCOS-12665 make the transaction path consistent with the app config
     if (item.image && item.image.id) {
       memo.push(new Transaction(['containers', index, 'image'], item.image.id));
     }
@@ -529,6 +530,7 @@ module.exports = {
       );
     }
 
+    // TODO DCOS-12665 make the transaction path consistent with the app config
     if (type === SET && joinedPath === `containers.${index}.image`) {
       newState[index] =
         Object.assign({},
@@ -690,6 +692,7 @@ module.exports = {
       );
     }
 
+    // TODO DCOS-12665 make the transaction path consistent with the app config
     if (type === SET && joinedPath === `containers.${index}.image`) {
       newState[index] = Object.assign({}, newState[index], {image: value});
     }
