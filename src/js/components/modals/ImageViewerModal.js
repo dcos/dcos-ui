@@ -78,7 +78,7 @@ class ImageViewerModal extends React.Component {
     const {props} = this;
 
     return (
-      <div className="fill-image-contianer">
+      <div className="fill-image-container">
         <img
           className="fill-image"
           onLoad={this.handleLoadingImageChange.bind(this, false)}

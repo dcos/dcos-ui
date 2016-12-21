@@ -10,7 +10,7 @@ import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const NETWORK_MODE_NAME = {
-  'container': 'Contaienr',
+  'container': 'Container',
   'host': 'Host'
 };
 

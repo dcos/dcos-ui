@@ -83,23 +83,23 @@ describe('TaskUtil', function () {
     });
 
     it('should handle empty type well', function () {
-      expect(TaskUtil.getPortMappings({contianer: {}}))
+      expect(TaskUtil.getPortMappings({container: {}}))
         .toEqual(null);
     });
 
     it('should handle empty info well', function () {
-      expect(TaskUtil.getPortMappings({contianer: {type: 'FOO'}}))
+      expect(TaskUtil.getPortMappings({container: {type: 'FOO'}}))
         .toEqual(null);
     });
 
     it('should handle empty port mappings well', function () {
-      expect(TaskUtil.getPortMappings({contianer: {type: 'FOO', foo: {}}}))
+      expect(TaskUtil.getPortMappings({container: {type: 'FOO', foo: {}}}))
         .toEqual(null);
     });
 
     it('should handle if port mappings are is not an array', function () {
       expect(TaskUtil.getPortMappings(
-        {contianer: {type: 'FOO', foo: {port_mappings: 0}}}
+        {container: {type: 'FOO', foo: {port_mappings: 0}}}
       )).toEqual(null);
     });
 
