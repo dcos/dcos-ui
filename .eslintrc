@@ -61,7 +61,11 @@
     "no-new": "off",
     "no-trailing-spaces": ["error", { "skipBlankLines": false }],
     "no-underscore-dangle": "off",
-    "no-unused-vars": ["error", {"args": "after-used", "argsIgnorePattern": "PluginSDK"}],
+    "no-unused-vars": ["error", {
+      "args": "after-used",
+      "argsIgnorePattern": "PluginSDK|^_",
+      "varsIgnorePattern": "^_"
+    }],
     "no-use-before-define": "off",
     "no-multiple-empty-lines": ["error", {"max": 1}],
     // Ternary
