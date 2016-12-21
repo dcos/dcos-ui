@@ -98,7 +98,9 @@ class ContainerServiceFormSection extends Component {
     const inputFiled = (
       <FieldInput
         key="gpus-input"
+        min="0.001"
         name="gpus"
+        step="any"
         type="number"
         disabled={disabled}
         value={data.gpus} />
@@ -189,7 +191,9 @@ class ContainerServiceFormSection extends Component {
           <FormGroup className="column-4" showError={Boolean(errors.disk)}>
             <FieldLabel>Disk (MiB)</FieldLabel>
             <FieldInput
+              min="0.001"
               name="disk"
+              step="any"
               type="number"
               value={data.disk} />
             <FieldError>{errors.disk}</FieldError>
@@ -337,9 +341,10 @@ class ContainerServiceFormSection extends Component {
               CPUs
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name="cpus"
+              step="any"
               type="number"
-              step="0.01"
               value={data.cpus} />
             <FieldError>{errors.cpus}</FieldError>
           </FormGroup>
@@ -352,7 +357,9 @@ class ContainerServiceFormSection extends Component {
               Memory (MiB)
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name="mem"
+              step="any"
               type="number"
               value={data.mem} />
             <FieldError>{errors.mem}</FieldError>

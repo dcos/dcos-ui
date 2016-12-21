@@ -89,7 +89,9 @@ class PodContainerServiceFormSection extends Component {
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
             <FieldLabel>Disk (MiB)</FieldLabel>
             <FieldInput
+              min="0.001"
               name={`${path}.resources.disk`}
+              step="any"
               type="number"
               value={findNestedPropertyInObject(data,
                 `${path}.resources.disk`)} />
@@ -220,9 +222,10 @@ class PodContainerServiceFormSection extends Component {
               CPUs
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name={`${path}.resources.cpus`}
+              step="any"
               type="number"
-              step="0.01"
               value={findNestedPropertyInObject(data,
                 `${path}.resources.cpus`)} />
             <FieldError>
@@ -237,7 +240,9 @@ class PodContainerServiceFormSection extends Component {
               Memory (MiB)
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name={`${path}.resources.mem`}
+              step="any"
               type="number"
               value={findNestedPropertyInObject(data,
                 `${path}.resources.mem`)} />
