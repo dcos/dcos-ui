@@ -18,7 +18,7 @@ import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
-import MultiContainerVolumesFormSection from '../forms/MultiContianerVolumesFormSection';
+import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
 import PodSpec from '../../structs/PodSpec';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';

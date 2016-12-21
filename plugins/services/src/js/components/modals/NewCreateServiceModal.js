@@ -26,7 +26,7 @@ import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
-import MultiContainerVolumesFormSection from '../forms/MultiContianerVolumesFormSection';
+import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
