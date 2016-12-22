@@ -18,7 +18,7 @@ class FakeComponent extends React.Component {
 
 describe('Authenticated', function () {
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.originalWillTransitionTo = Authenticated.willTransitionTo;
     this.originalIsLoggedIn = AuthStore.isLoggedIn;
     this.callback = jasmine.createSpy();

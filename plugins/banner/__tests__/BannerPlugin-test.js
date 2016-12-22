@@ -22,7 +22,7 @@ var defaultConfiguration = BannerPlugin.configuration;
 describe('BannerPlugin', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     BannerPlugin.configuration = Object.assign({}, defaultConfiguration);
   });
 
@@ -156,12 +156,12 @@ describe('BannerPlugin', function () {
   describe('#applicationRendered', function () {
     beforeEach(function () {
       this.mockFn = jasmine.createSpy('ContentWindow Spy');
-      this.iframe = document.createElement('iframe');
+      this.iframe = global.document.createElement('iframe');
       var mockFn = this.mockFn;
       this.iframe.__defineGetter__('contentWindow', function () {
         return {addEventListener: mockFn};
       });
-      document.getElementById = jasmine.createSpy('HTML Element')
+      global.document.getElementById = jasmine.createSpy('HTML Element')
         .and.returnValue(this.iframe);
 
     });

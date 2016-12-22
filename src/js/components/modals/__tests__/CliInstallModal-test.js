@@ -23,7 +23,7 @@ describe('CliInstallModal', function () {
   describe('#onClose', function () {
     beforeEach(function () {
       this.callback = jasmine.createSpy();
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <CliInstallModal
           onClose={this.callback}
@@ -51,8 +51,8 @@ describe('CliInstallModal', function () {
 
   describe('#getCliInstructions', function () {
     beforeEach(function () {
-      this.container1 = document.createElement('div');
-      this.container2 = document.createElement('div');
+      this.container1 = global.document.createElement('div');
+      this.container2 = global.document.createElement('div');
       setUserAgent('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)');
       this.instance1 = ReactDOM.render(
         <CliInstallModal

@@ -22,7 +22,7 @@ describe('TaskTable', function () {
       getTaskFromTaskID: jest.fn()
     };
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
 
     this.instance = ReactDOM.render(
       JestUtil.stubRouterContext(

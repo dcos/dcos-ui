@@ -10,7 +10,7 @@ const Panel = require('../Panel');
 describe('Panel', function () {
   beforeEach(function () {
     this.onClickSpy = jasmine.createSpy('onClickSpy');
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <Panel
         className="foo"

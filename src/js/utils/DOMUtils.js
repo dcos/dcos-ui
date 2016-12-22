@@ -2,7 +2,7 @@ const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'bor
 const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
 
 const matchesFn = (function () {
-  const el = document.querySelector('body');
+  const el = global.document.querySelector('body');
   const names = [
     'matches',
     'matchesSelector',
@@ -23,11 +23,11 @@ const matchesFn = (function () {
 
 var DOMUtils = {
   appendScript(el, code) {
-    const scriptNode = document.createElement('script');
+    const scriptNode = global.document.createElement('script');
     scriptNode.type = 'text/javascript';
 
     try {
-      scriptNode.appendChild(document.createTextNode(code));
+      scriptNode.appendChild(global.document.createTextNode(code));
     } catch (e) {
       scriptNode.text = code;
     }
@@ -91,8 +91,8 @@ var DOMUtils = {
   },
 
   getPageHeight() {
-    var body = document.body;
-    var html = document.documentElement;
+    var body = global.document.body;
+    var html = global.document.documentElement;
 
     return Math.max(
       body.scrollHeight,

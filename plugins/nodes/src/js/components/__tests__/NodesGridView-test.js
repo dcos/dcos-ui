@@ -60,7 +60,7 @@ describe('NodesGridView', function () {
           ]
         }
       ]});
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <NodesGridView
           selectedResource={'mem'}

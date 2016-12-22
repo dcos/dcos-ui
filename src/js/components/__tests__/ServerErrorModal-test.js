@@ -17,7 +17,7 @@ const ServerErrorModal = require('../ServerErrorModal');
 
 describe('ServerErrorModal', function () {
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <ServerErrorModal />,
       this.container

@@ -71,39 +71,39 @@ describe('DOMUtils', function () {
 
     it('calculates left padding', function () {
       this.style.push('padding-left: 1px');
-      document.body.innerHTML = buildElement(this.style);
+      global.document.body.innerHTML = buildElement(this.style);
 
       // jsdom doesn't calculate
-      document.querySelector('div').offsetWidth = 101;
+      global.document.querySelector('div').offsetWidth = 101;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 
     it('calculates right padding', function () {
       this.style.push('padding-right: 1px');
-      document.body.innerHTML = buildElement(this.style);
-      document.querySelector('div').offsetWidth = 101;
+      global.document.body.innerHTML = buildElement(this.style);
+      global.document.querySelector('div').offsetWidth = 101;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 
     it('calculates left border', function () {
       this.style.push('border-left-width: 1px');
-      document.body.innerHTML = buildElement(this.style);
-      document.querySelector('div').offsetWidth = 101;
+      global.document.body.innerHTML = buildElement(this.style);
+      global.document.querySelector('div').offsetWidth = 101;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 
     it('calculates right border', function () {
       this.style.push('border-right-width: 1px');
-      document.body.innerHTML = buildElement(this.style);
-      document.querySelector('div').offsetWidth = 101;
+      global.document.body.innerHTML = buildElement(this.style);
+      global.document.querySelector('div').offsetWidth = 101;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 
@@ -114,10 +114,10 @@ describe('DOMUtils', function () {
         'border-left-width: 1px',
         'border-right-width: 1px'
       );
-      document.body.innerHTML = buildElement(this.style);
-      document.querySelector('div').offsetWidth = 104;
+      global.document.body.innerHTML = buildElement(this.style);
+      global.document.querySelector('div').offsetWidth = 104;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 
@@ -128,10 +128,10 @@ describe('DOMUtils', function () {
         'border-top-width: 1px',
         'border-bottom-width: 1px'
       );
-      document.body.innerHTML = buildElement(this.style);
-      document.querySelector('div').offsetWidth = 100;
+      global.document.body.innerHTML = buildElement(this.style);
+      global.document.querySelector('div').offsetWidth = 100;
 
-      var width = DOMUtils.getComputedWidth(document.querySelector('div'));
+      var width = DOMUtils.getComputedWidth(global.document.querySelector('div'));
       expect(width).toEqual(100);
     });
 

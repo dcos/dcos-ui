@@ -27,7 +27,7 @@ const TaskDetail = require('../TaskDetail');
 
 describe('TaskDetail', function () {
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.params = {
 
     };
@@ -123,7 +123,7 @@ describe('TaskDetail', function () {
       MesosStateStore.getNodeFromID = function () {
         return {hostname: 'hello'};
       };
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
     });
 
     afterEach(function () {

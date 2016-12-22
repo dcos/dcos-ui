@@ -52,7 +52,7 @@ module.exports = {
   },
 
   pluginsConfigured() {
-    DOMUtils.appendScript(document.head, segmentScript);
+    DOMUtils.appendScript(global.document.head, segmentScript);
 
     global.analytics.ready(() => {
       const updateTrackJSConfiguration = () => {

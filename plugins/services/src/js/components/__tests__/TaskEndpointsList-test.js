@@ -11,7 +11,7 @@ const TaskEndpointsList = require('../TaskEndpointsList');
 describe('TaskEndpointsList', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
   });
 
   afterEach(function () {

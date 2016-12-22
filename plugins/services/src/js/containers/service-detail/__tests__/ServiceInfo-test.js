@@ -31,7 +31,7 @@ describe('ServiceInfo', function () {
 
   describe('#render', function () {
     beforeEach(function () {
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <ServiceInfo service={service} />,
         this.container

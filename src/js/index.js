@@ -23,7 +23,7 @@ import NavigationServiceUtil from './utils/NavigationServiceUtil';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
 
-const domElement = document.getElementById('application');
+const domElement = global.document.getElementById('application');
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
@@ -34,13 +34,13 @@ setTimeout(function () {
   ajax.open('GET', 'sprite.svg', true);
   ajax.send();
   ajax.onload = function () {
-    var div = document.createElement('div');
+    var div = global.document.createElement('div');
     div.innerHTML = ajax.responseText;
     div.style.height = 0;
     div.style.overflow = 'hidden';
     div.style.width = 0;
     div.style.visibility = 'hidden';
-    document.body.insertBefore(div, document.body.childNodes[0]);
+    global.document.body.insertBefore(div, global.document.body.childNodes[0]);
   };
 });
 
@@ -105,7 +105,7 @@ RequestUtil.json = function (options = {}) {
 
   function onConfigurationError() {
     // Try to find appropriate DOM element or fallback
-    const element = document.querySelector('#canvas div') || domElement;
+    const element = global.document.querySelector('#canvas div') || domElement;
     let columnClasses = {
       'column-small-8': false,
       'column-small-offset-2': false,

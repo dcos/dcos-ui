@@ -140,7 +140,7 @@ module.exports = {
                 // Webpack doo doo's its pants with some of this CSS for
                 // some stupid reason. So this is why we encode the CSS.
                 const encoded = new Buffer(css).toString('base64');
-                const js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`;
+                const js = `var css = '${encoded}';css = atob(css);var tag = global.document.createElement('style');tag.innerHTML = css;global.document.head.appendChild(tag);`;
 
                 return `<script>${js}</script>`;
               }

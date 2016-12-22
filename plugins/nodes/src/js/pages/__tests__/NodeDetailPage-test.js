@@ -32,7 +32,7 @@ describe('NodeDetailPage', function () {
     this.storeGetNode = MesosStateStore.getNodeFromID;
     this.getNodesList = CompositeState.getNodesList;
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
 
     CompositeState.getNodesList = function () {
       return new NodesList({items: [{id: 'existingNode'}]});
