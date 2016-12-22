@@ -108,7 +108,7 @@ class ContainerServiceFormSection extends Component {
 
     if (disabled) {
       return [
-        <FieldLabel key="gpus-input-tooltip">
+        <FieldLabel className="text-no-transform" key="gpus-input-tooltip">
           {'GPUs '}
           <Tooltip
             content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
@@ -124,7 +124,9 @@ class ContainerServiceFormSection extends Component {
     }
 
     return [
-      <FieldLabel key="gpus-label">GPUs</FieldLabel>,
+      <FieldLabel className="text-no-transform" key="gpus-label">
+        GPUs
+      </FieldLabel>,
       inputFiled
     ];
   }
@@ -189,7 +191,7 @@ class ContainerServiceFormSection extends Component {
             <FieldError>{errors.gpus}</FieldError>
           </FormGroup>
           <FormGroup className="column-4" showError={Boolean(errors.disk)}>
-            <FieldLabel>Disk (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">DISK (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name="disk"
@@ -337,7 +339,7 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.cpus)}>
-            <FieldLabel>
+            <FieldLabel className="text-no-transform">
               CPUs
             </FieldLabel>
             <FieldInput
@@ -353,8 +355,8 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.mem)}>
-            <FieldLabel>
-              Memory (MiB)
+            <FieldLabel className="text-no-transform">
+              MEMORY (MiB)
             </FieldLabel>
             <FieldInput
               min="0.001"

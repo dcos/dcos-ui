@@ -140,7 +140,9 @@
     text-transform: uppercase;
   }
 
-  .text-no-transform {
+  // Specificity necessary here for labels
+  .text-no-transform,
+  label.text-no-transform {
     text-transform: none;
   }
 }
