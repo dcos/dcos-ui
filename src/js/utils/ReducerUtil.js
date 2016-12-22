@@ -30,7 +30,6 @@ module.exports = {
         return typeof reducers[reducerKey] === 'function';
       }
     );
-
     // This is creating the context for this combined reducer.
     const context = new WeakMap();
 

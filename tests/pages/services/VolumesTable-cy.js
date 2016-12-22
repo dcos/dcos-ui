@@ -53,13 +53,13 @@ describe('Volumes', function () {
     });
 
     it('displays the details of the volume', function () {
-      cy.get('.page-body-content dl').should(function ($descriptionListEls) {
-        expect($descriptionListEls[0].children[1].textContent).to.equal('data-1');
-        expect($descriptionListEls[1].children[1].textContent).to.equal('RW');
-        expect($descriptionListEls[2].children[1].textContent).to.equal('100');
-        expect($descriptionListEls[3].children[1].textContent).to.equal('/sleep');
-        expect($descriptionListEls[4].children[1].textContent).to.equal('foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d');
-        expect($descriptionListEls[5].children[1].textContent).to.equal('10.0.1.117');
+      cy.get('.configuration-map-row .configuration-map-value').should(function ($descriptionListEls) {
+        expect($descriptionListEls[0].textContent).to.equal('data-1');
+        expect($descriptionListEls[1].textContent).to.equal('RW');
+        expect($descriptionListEls[2].textContent).to.equal('100');
+        expect($descriptionListEls[3].textContent).to.equal('/sleep');
+        expect($descriptionListEls[4].textContent).to.equal('foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d');
+        expect($descriptionListEls[5].textContent).to.equal('10.0.1.117');
       });
     });
 

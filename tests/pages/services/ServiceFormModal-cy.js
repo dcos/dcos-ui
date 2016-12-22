@@ -14,13 +14,13 @@ describe('Service Form Modal', function () {
 
   function openServiceForm() {
     cy.get('.create-service-modal-service-picker-option')
-      .first()
+      .contains('Use the Form')
       .click();
   }
 
   function openServiceJSON() {
     cy.get('.create-service-modal-service-picker-option')
-      .eq(1)
+      .contains('Enter JSON')
       .click();
   }
 
@@ -118,7 +118,7 @@ describe('Service Form Modal', function () {
 
     it('contains right cpus default value', function () {
       getFormValue('cpus')
-        .should('to.have.value', '0.001');
+        .should('to.have.value', '1');
     });
 
     it('contains right mem default value', function () {
@@ -135,7 +135,7 @@ describe('Service Form Modal', function () {
       openServiceModal();
       openServiceJSON();
       cy.get('.ace_content').should(function (nodeList) {
-        expect(nodeList[0].textContent).to.contain('"cpus": 0.001');
+        expect(nodeList[0].textContent).to.contain('"cpus": 1');
         expect(nodeList[0].textContent).to.contain('"instances": 1');
         expect(nodeList[0].textContent).to.contain('"mem": 128');
       });

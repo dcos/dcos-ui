@@ -138,7 +138,7 @@ class PodHealthChecksConfigSection extends React.Component {
                 columns={this.getEndpointsColumns()}
                 data={healthChecks.endpoints}
                 onEditClick={onEditClick}
-                tabViewID="healthChecks" />
+                tabViewID="multihealthChecks" />
             </ConfigurationMapSection>
           </div>
         )}
@@ -154,7 +154,7 @@ class PodHealthChecksConfigSection extends React.Component {
                 columns={this.getCommandColumns()}
                 data={healthChecks.command}
                 onEditClick={onEditClick}
-                tabViewID="healthChecks" />
+                tabViewID="multihealthChecks" />
             </ConfigurationMapSection>
           </div>
         )}

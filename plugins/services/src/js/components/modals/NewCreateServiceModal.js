@@ -3,10 +3,10 @@ import React, {Component, PropTypes} from 'react';
 import {Hooks} from 'PluginSDK';
 
 import Application from '../../structs/Application';
-import Pod from '../../structs/Pod';
+import PodSpec from '../../structs/PodSpec';
 
-import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
-import {NEW_POD_DEFAULTS} from '../../constants/NewPodDefaults';
+import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
+import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
 
 import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
 import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
@@ -25,21 +25,26 @@ import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
+import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
+import MultiContainerVolumesFormSection from '../forms/MultiContianerVolumesFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
-import JSONConfigReducers from '../../reducers/JSONConfigReducers';
-import JSONParserReducers from '../../reducers/JSONParserReducers';
+import JSONAppReducers from '../../reducers/JSONAppReducers';
+import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
+import JSONParser from '../../reducers/JSONParser';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
   'handleClose',
+  'handleConvertToPod',
   'handleJSONToggle',
   'handleServiceChange',
   'handleServiceErrorChange',
   'handleServiceReview',
   'handleServiceRun',
-  'handleServiceSelection'
+  'handleServiceSelection',
+  'handleTabChange'
 ];
 
 class NewServiceFormModal extends Component {
@@ -77,7 +82,7 @@ class NewServiceFormModal extends Component {
         newState.serviceJsonActive = false;
         newState.serviceFormActive = true;
 
-        if (nextProps.service instanceof Pod) {
+        if (nextProps.service instanceof PodSpec) {
           newState.serviceJsonActive = true;
           newState.serviceFormActive = false;
         }
@@ -140,9 +145,17 @@ class NewServiceFormModal extends Component {
     }
   }
 
+  handleTabChange(activeTab) {
+    this.setState({activeTab});
+  }
+
   handleClose() {
     this.props.onClose();
     this.setState(this.getResetState());
+  }
+
+  handleConvertToPod() {
+    this.handleServiceSelection({type: 'pod'});
   }
 
   handleJSONToggle() {
@@ -167,7 +180,7 @@ class NewServiceFormModal extends Component {
           serviceConfig: new Application(
             Object.assign(
               {id: this.props.service.getId()},
-              NEW_APP_DEFAULTS
+              DEFAULT_APP_SPEC
             )
           )
         });
@@ -176,11 +189,11 @@ class NewServiceFormModal extends Component {
       case 'pod':
         this.setState({
           servicePickerActive: false,
-          serviceJsonActive: true,
-          serviceConfig: new Pod(
+          serviceFormActive: true,
+          serviceConfig: new PodSpec(
             Object.assign(
               {id: this.props.service.getId()},
-              NEW_POD_DEFAULTS
+              DEFAULT_POD_SPEC
             )
           )
         });
@@ -262,6 +275,15 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+    let {
+      isJSONModeActive,
+      serviceConfig,
+      serviceFormActive,
+      serviceJsonActive,
+      servicePickerActive,
+      serviceReviewActive
+    } = this.state;
+
     let errorsMap = new Map();
     if (this.props.errors) {
       let message = this.props.errors.message;
@@ -289,13 +311,13 @@ class NewServiceFormModal extends Component {
     }
 
     // NOTE: Always prioritize review screen check
-    if (this.state.serviceReviewActive) {
+    if (serviceReviewActive) {
       return (
         <div className="flex-item-grow-1">
           <div className="container">
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
-              appConfig={this.state.serviceConfig}
+              appConfig={serviceConfig}
               clearError={this.props.clearError}
               errors={errorsMap} />
           </div>
@@ -303,29 +325,43 @@ class NewServiceFormModal extends Component {
       );
     }
 
-    if (this.state.servicePickerActive) {
+    if (servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
           onServiceSelect={this.handleServiceSelection} />
       );
     }
 
-    if (this.state.serviceFormActive) {
+    if (serviceFormActive) {
+      let {isEdit} = this.props;
+
       const SECTIONS = [
         ContainerServiceFormSection,
         EnvironmentFormSection,
         GeneralServiceFormSection,
         HealthChecksFormSection,
         NetworkingFormSection,
-        VolumesFormSection
+        VolumesFormSection,
+        MultiContainerVolumesFormSection,
+        MultiContainerNetworkingFormSection
       ];
 
       const jsonParserReducers = combineParsers(
-        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParserReducers)
+        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
-      const jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers)
+
+      const isPod = serviceConfig instanceof PodSpec;
+
+      let jsonConfigReducers = combineReducers(
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
       );
+
+      if (isPod) {
+        jsonConfigReducers = combineReducers(
+          Hooks.applyFilter('serviceJsonConfigReducers', JSONMultiContainerReducers)
+        );
+      }
+
       const inputConfigReducers = combineReducers(
         Hooks.applyFilter('serviceInputConfigReducers',
           Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
@@ -337,20 +373,27 @@ class NewServiceFormModal extends Component {
           activeTab={this.state.activeTab}
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
+          handleTabChange={this.handleTabChange}
           inputConfigReducers={inputConfigReducers}
-          isJSONModeActive={this.state.isJSONModeActive}
-          ref={(ref) => { return this.createComponent = ref; }}
-          service={this.state.serviceConfig}
+          isJSONModeActive={isJSONModeActive}
+          ref={(ref) => {
+            return this.createComponent = ref;
+          }}
+          service={serviceConfig}
           onChange={this.handleServiceChange}
-          onErrorStateChange={this.handleServiceErrorChange} />
+          onConvertToPod={this.handleConvertToPod}
+          onErrorStateChange={this.handleServiceErrorChange}
+          isEdit={isEdit} />
       );
     }
 
-    if (this.state.serviceJsonActive) {
+    if (serviceJsonActive) {
       return (
         <CreateServiceJsonOnly
-          ref={(ref) => { return this.createComponent = ref; }}
-          service={this.state.serviceConfig}
+          ref={(ref) => {
+            return this.createComponent = ref;
+          }}
+          service={serviceConfig}
           onChange={this.handleServiceChange}
           onErrorStateChange={this.handleServiceErrorChange} />
       );
@@ -442,7 +485,7 @@ class NewServiceFormModal extends Component {
     if (nextProps.isEdit) {
       newState.servicePickerActive = false;
 
-      if (nextProps.service instanceof Pod) {
+      if (nextProps.service instanceof PodSpec) {
         newState.serviceJsonActive = true;
       } else {
         newState.serviceFormActive = true;

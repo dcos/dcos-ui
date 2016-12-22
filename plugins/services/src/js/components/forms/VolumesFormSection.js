@@ -37,7 +37,7 @@ class VolumesFormSection extends Component {
           className="column-3"
           required={false}
           showError={Boolean(sizeError)}>
-          <FieldLabel>Size (MiB)</FieldLabel>
+          <FieldLabel className="text-no-transform">SIZE (MiB)</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.size`}
             type="number"
@@ -208,7 +208,7 @@ class VolumesFormSection extends Component {
               className="column-3"
               required={false}
               showError={Boolean(sizeError)}>
-              <FieldLabel>Size (MiB)</FieldLabel>
+              <FieldLabel className="text-no-transform">SIZE (MiB)</FieldLabel>
               <FieldInput
                 name={`externalVolumes.${key}.size`}
                 type="number"

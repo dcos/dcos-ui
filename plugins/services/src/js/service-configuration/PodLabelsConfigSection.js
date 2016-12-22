@@ -75,7 +75,7 @@ class PodLabelsConfigSection extends React.Component {
             columns={this.getColumns()}
             data={combinedLabels}
             onEditClick={onEditClick}
-            tabViewID="environment" />
+            tabViewID="multienvironment" />
         </ConfigurationMapSection>
       </div>
     );

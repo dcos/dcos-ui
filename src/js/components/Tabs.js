@@ -3,45 +3,20 @@ import React from 'react';
 
 import TabButtonList from './TabButtonList';
 
-const METHODS_TO_BIND = ['handleTabChange'];
-
 class Tabs extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {activeTab: this.props.activeTab};
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  componentWillReceiveProps({activeTab}) {
-    // Only change if defined, props change and if different than state
-    if (activeTab &&
-      this.props.activeTab !== activeTab &&
-      this.state.activeTab !== activeTab) {
-      this.setState({activeTab});
-    }
-  }
-
   getChildren() {
-    const {handleTabChange, props, state} = this;
+    const {props} = this;
 
     return React.Children.map(props.children, (tabElement) => {
-      const newTabProps = {activeTab: state.activeTab};
+      const newTabProps = {activeTab: props.activeTab};
 
       if (tabElement.type === TabButtonList) {
-        newTabProps.onChange = handleTabChange;
+        newTabProps.onChange = props.handleTabChange;
         newTabProps.vertical = props.vertical;
       }
 
       return React.cloneElement(tabElement, newTabProps);
     });
-  }
-
-  handleTabChange(tabID) {
-    this.setState({activeTab: tabID});
   }
 
   render() {
@@ -66,6 +41,7 @@ Tabs.propTypes = {
     React.PropTypes.object,
     React.PropTypes.string
   ]),
+  handleTabChange: React.PropTypes.func.isRequired,
   vertical: React.PropTypes.bool
 };
 

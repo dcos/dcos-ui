@@ -63,7 +63,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     let tooltipContent = (
       <span>
-        {'This host port will be accessible as an environment variable called `$PORT{index}0`. '}
+        {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
         <a href="https://mesosphere.github.io/marathon/docs/ports.html" about="_blank">
           More information
         </a>

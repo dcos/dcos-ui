@@ -14,18 +14,10 @@ import {
   simpleReducer
 } from '../../../../../src/js/utils/ReducerUtil';
 
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-
 module.exports = {
   id: simpleReducer('id'),
   instances: simpleIntReducer('instances'),
-  container() {
-    const newState = container.apply(this, arguments);
-    if (ValidatorUtil.isEmpty(newState)) {
-      return null;
-    }
-    return newState;
-  },
+  container,
   cpus: simpleFloatReducer('cpus'),
   mem: simpleIntReducer('mem'),
   disk: simpleIntReducer('disk'),

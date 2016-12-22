@@ -29,6 +29,12 @@ class NewCreateServiceModalServicePicker extends React.Component {
       type: 'app'
     }, {
       icon: (
+        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
+      ),
+      label: 'Use the Form to create a MultiContainer',
+      type: 'pod'
+    }, {
+      icon: (
         <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
       ),
       label: 'Enter JSON',

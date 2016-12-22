@@ -215,6 +215,16 @@ describe('ReducerUtil', function () {
         }
       );
     });
+
+    it('should run reducers that have not been configured', function () {
+      const reducers = ReducerUtil.combineReducers(
+        {id: idReducer}
+      );
+
+      const state = this.items.reduce(reducers, {bar: 'bar'});
+
+      expect(state).toEqual({id: 'foo', bar: 'bar'});
+    });
   });
 
   describe('#simpleReducer', function () {

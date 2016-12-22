@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
+import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {FormReducer} from '../../reducers/serviceForm/Container';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -97,7 +98,9 @@ class ContainerServiceFormSection extends Component {
     const inputFiled = (
       <FieldInput
         key="gpus-input"
+        min="0"
         name="gpus"
+        step="any"
         type="number"
         disabled={disabled}
         value={data.gpus} />
@@ -105,7 +108,7 @@ class ContainerServiceFormSection extends Component {
 
     if (disabled) {
       return [
-        <FieldLabel key="gpus-input-tooltip">
+        <FieldLabel className="text-no-transform" key="gpus-input-tooltip">
           {'GPUs '}
           <Tooltip
             content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
@@ -121,7 +124,9 @@ class ContainerServiceFormSection extends Component {
     }
 
     return [
-      <FieldLabel key="gpus-label">GPUs</FieldLabel>,
+      <FieldLabel className="text-no-transform" key="gpus-label">
+        GPUs
+      </FieldLabel>,
       inputFiled
     ];
   }
@@ -186,9 +191,11 @@ class ContainerServiceFormSection extends Component {
             <FieldError>{errors.gpus}</FieldError>
           </FormGroup>
           <FormGroup className="column-4" showError={Boolean(errors.disk)}>
-            <FieldLabel>Disk (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">DISK (MiB)</FieldLabel>
             <FieldInput
+              min="0.001"
               name="disk"
+              step="any"
               type="number"
               value={data.disk} />
             <FieldError>{errors.disk}</FieldError>
@@ -332,13 +339,14 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.cpus)}>
-            <FieldLabel>
+            <FieldLabel className="text-no-transform">
               CPUs
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name="cpus"
+              step="any"
               type="number"
-              step="0.01"
               value={data.cpus} />
             <FieldError>{errors.cpus}</FieldError>
           </FormGroup>
@@ -347,11 +355,13 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.mem)}>
-            <FieldLabel>
-              Memory (MiB)
+            <FieldLabel className="text-no-transform">
+              MEMORY (MiB)
             </FieldLabel>
             <FieldInput
+              min="0.001"
               name="mem"
+              step="any"
               type="number"
               value={data.mem} />
             <FieldError>{errors.mem}</FieldError>
@@ -395,7 +405,8 @@ ContainerServiceFormSection.propTypes = {
 };
 
 ContainerServiceFormSection.configReducers = {
-  container: FormReducer
+  container: ContainerReducer,
+  containers: ContainersReducer
 };
 
 module.exports = ContainerServiceFormSection;
