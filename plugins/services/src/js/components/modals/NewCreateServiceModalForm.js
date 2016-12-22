@@ -24,7 +24,10 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
 
+import DragAndDrop from '../DragAndDrop';
+
 const METHODS_TO_BIND = [
+  'handleFileContents',
   'handleFormChange',
   'handleFormBlur',
   'handleJSONChange',
@@ -184,6 +187,10 @@ class NewCreateServiceModalForm extends Component {
     });
   }
 
+  handleFileContents(appString) {
+    this.handleJSONChange(JSON.parse(appString));
+  }
+
   handleAddItem({value, path}) {
     let {batch} = this.state;
 
@@ -258,11 +265,15 @@ class NewCreateServiceModalForm extends Component {
     let rootErrorComponent = this.getRootErrorMessage();
 
     return (
-      <div className="flex flex-item-grow-1">
-        <div className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
+      <DragAndDrop className="flex flex-item-grow-1"
+        handleFileContents={this.handleFileContents}>
+        <div
+          className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
-            <div className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
-              <form onChange={this.handleFormChange} onBlur={this.handleFormBlur}>
+            <div
+              className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
+              <form onChange={this.handleFormChange}
+                onBlur={this.handleFormBlur}>
                 <Tabs vertical={true} activeTab={activeTab}>
                   <TabButtonList>
                     <TabButton id="services" label="Services" />
@@ -316,6 +327,7 @@ class NewCreateServiceModalForm extends Component {
           </FluidGeminiScrollbar>
         </div>
         <div className={jsonEditorPlaceholderClasses} />
+
         <div className={jsonEditorClasses}>
           <JSONEditor
             errors={errorList}
@@ -327,7 +339,7 @@ class NewCreateServiceModalForm extends Component {
             value={appConfig}
             width="100%" />
         </div>
-      </div>
+      </DragAndDrop>
     );
   }
 }
