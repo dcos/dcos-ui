@@ -87,7 +87,7 @@ class PodContainerServiceFormSection extends Component {
       <AdvancedSectionContent>
         <div className="flex row">
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
-            <FieldLabel>Disk (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">DISK (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name={`${path}.resources.disk`}
@@ -218,7 +218,7 @@ class PodContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(cpusErrors)}>
-            <FieldLabel>
+            <FieldLabel className="text-no-transform">
               CPUs
             </FieldLabel>
             <FieldInput
@@ -236,8 +236,8 @@ class PodContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(memErrors)}>
-            <FieldLabel>
-              Memory (MiB)
+            <FieldLabel className="text-no-transform">
+              MEMORY (MiB)
             </FieldLabel>
             <FieldInput
               min="0.001"
