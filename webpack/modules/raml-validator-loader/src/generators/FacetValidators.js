@@ -100,7 +100,7 @@ const FACET_FRAGMENT_GENERATORS = {
   },
 
   /**
-   * [Number] `multipleOf` : Value must be divisible by this value
+   * [Number] `multipleOf` : Value must be divisable by this value
    */
   multipleOf: function(value, context) {
     let ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
@@ -117,7 +117,9 @@ const FACET_FRAGMENT_GENERATORS = {
    * [String] `pattern`: Regular expression this value should match against
    */
   pattern: function(value, context) {
-    let REGEX = context.getConstantExpression('REGEX', `/${value}/`);
+    let REGEX = context.getConstantExpression(
+      'REGEX', `new RegExp('${value.replace(/'/g, '\\\'')}')`
+    );
     let ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
       'STRING_PATTERN', 'Must match the pattern "{pattern}"');
 
@@ -291,7 +293,7 @@ const FACET_FRAGMENT_GENERATORS = {
 module.exports = {
 
   /**
-   * Generate an array of code fragments that perform the validations as
+   * Generate an array of code fragments that perform the validataions as
    * described in the `facets` object.
    *
    * @param {Object} facets - The object with the facet names and values
@@ -301,7 +303,6 @@ module.exports = {
    */
   generateFacetFragments(facets, context) {
     let keys = Object.keys(facets);
-
     return keys.reduce(function(fragments, facet) {
       if (FACET_FRAGMENT_GENERATORS[facet] == null) {
         throw new TypeError(`Unknown facet: '${facet}'`);

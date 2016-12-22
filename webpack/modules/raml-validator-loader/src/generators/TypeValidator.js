@@ -65,7 +65,6 @@ module.exports = {
 
     // Wrap everything in type validation
     let type = RAMLUtil.getBuiltinType(itype);
-
     return NativeValidators.wrapWithNativeTypeValidator(
       fragments, type, context
     );

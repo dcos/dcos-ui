@@ -133,7 +133,7 @@ module.exports = {
       variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
     }
     if (variableExports.length) {
-      variableExports.unshift('// Expose properties that can be overridden remotely');
+      variableExports.unshift('// Expose properties that can be overriden remotely');
     }
 
     //
