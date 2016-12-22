@@ -86,7 +86,7 @@ class KillTaskModal extends React.Component {
   getModalContents() {
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action] || '';
-    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
+    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('task', selectedItemsLength)}`;
 
     return (
       <div className="text-align-center">
@@ -124,7 +124,7 @@ class KillTaskModal extends React.Component {
 
     let header = (
       <ModalHeading className="text-danger">
-        {ACTION_DISPLAY_NAMES[action]} {StringUtil.pluralize('Task', selectedItems.length)}
+        {ACTION_DISPLAY_NAMES[action]} {StringUtil.pluralize('task', selectedItems.length)}
       </ModalHeading>
     );
 

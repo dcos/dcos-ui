@@ -147,7 +147,7 @@ var ResourceTableUtil = {
     return (
       <span>
         {model[prop]}
-        <span className="visible-mini-inline"> Tasks</span>
+        <span className="visible-mini-inline"> tasks</span>
       </span>
     );
   }
