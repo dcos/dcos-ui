@@ -50,6 +50,27 @@ describe('StringUtil', function () {
 
   });
 
+  describe('#getSearchTokens', function () {
+
+    it('splits on non-word characters, but not slashes', function () {
+      expect(StringUtil.getSearchTokens('foo/bar\\.baz.quis,qux quux[quuz]corge grault,garply\twaldo\bfred'))
+        .toEqual(['foo/bar', 'baz', 'quis', 'qux', 'quux', 'quuz', 'corge', 'grault', 'garply', 'waldo', 'fred']);
+    });
+
+    it('returns converts input to string if not a string', function () {
+      expect(StringUtil.getSearchTokens(10)).toEqual(['10']);
+    });
+
+    it('removes empty strings', function () {
+      expect(StringUtil.getSearchTokens('bar\\.baz')).toEqual(['bar', 'baz']);
+    });
+
+    it('lowercases strings', function () {
+      expect(StringUtil.getSearchTokens('QuUx[qUuz]coRge')).toEqual(['quux', 'quuz', 'corge']);
+    });
+
+  });
+
   describe('#filterByString', function () {
 
     it('filters using a key as getter', function () {
