@@ -11,7 +11,7 @@ describe('Universe Page', function () {
     cy.visitUrl({url: '/dashboard', logIn: true});
 
     // Opens up collapsible menu
-    cy.get('.sidebar').contains('Packages').click();
+    cy.get('.sidebar').contains('Universe').click();
     cy.get('.sidebar a[href]').contains('Packages').click();
     cy.hash().should('match', /universe\/packages/);
   });
