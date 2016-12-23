@@ -180,6 +180,70 @@ describe('MesosStateStore', function () {
     });
   });
 
+  describe('#getSchedulerTasks', function () {
+    beforeEach(function () {
+      this.get = MesosStateStore.get;
+    });
+
+    afterEach(function () {
+      MesosStateStore.get = this.get;
+    });
+
+    it('should return scheduler tasks', function () {
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [{
+            name: 'marathon',
+            tasks: [
+              {
+                id: 'foo',
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+              },
+              {
+                id: 'bar'
+              },
+              {
+                id: 'baz',
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'baz'}]
+              }
+            ]
+          }]
+        };
+      };
+
+      const schedulerTasks = MesosStateStore.getSchedulerTasks();
+      expect(schedulerTasks).toEqual([
+        {
+          id: 'foo',
+          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+        },
+        {
+          id: 'baz',
+          labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'baz'}]
+        }
+      ]);
+    });
+
+    it('should not return plain tasks', function () {
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [{
+            name: 'marathon',
+            tasks: [
+              {
+                id: 'foo'
+              }
+            ]
+          }]
+        };
+      };
+
+      const schedulerTasks = MesosStateStore.getSchedulerTasks();
+      expect(schedulerTasks).toEqual([]);
+    });
+
+  });
+
   describe('#getSchedulerTaskFromServiceName', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
@@ -187,10 +251,15 @@ describe('MesosStateStore', function () {
         return {
           frameworks: [{
             name: 'marathon',
-            tasks: [{
-              id: 1,
-              labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
-            }]
+            tasks: [
+              {
+                id: 'foo',
+                labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+              },
+              {
+                id: 'bar'
+              }
+            ]
           }]
         };
       };
@@ -200,15 +269,24 @@ describe('MesosStateStore', function () {
       MesosStateStore.get = this.get;
     });
 
-    it('should find a currently running task', function () {
-      var result = MesosStateStore.getSchedulerTaskFromServiceName('foo');
-      expect(result.id).toEqual(1);
+    it('should return the matching scheduler task', function () {
+      const schedulerTask =
+        MesosStateStore.getSchedulerTaskFromServiceName('foo');
+
+      expect(schedulerTask).toEqual({
+        id: 'foo',
+        labels: [{key: 'DCOS_PACKAGE_FRAMEWORK_NAME', value: 'foo'}]
+      });
     });
 
-    it('shouldn\'t find a task', function () {
-      var result = MesosStateStore.getSchedulerTaskFromServiceName('bar');
-      expect(result).toEqual(undefined);
-    });
+    it('should return undefined if no matching scheduler task was found',
+      function () {
+        const schedulerTask =
+          MesosStateStore.getSchedulerTaskFromServiceName('bar');
+
+        expect(schedulerTask).toEqual(undefined);
+      }
+    );
   });
 
   describe('#getPodHistoricalInstances', function () {

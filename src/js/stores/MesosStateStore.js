@@ -37,11 +37,11 @@ function stopPolling() {
 /**
  * Assigns a property to task if it is a scheduler task.
  * @param  {Object} task
- * @param  {Array} schedulerTaskIds Array of scheduler task Ids
+ * @param  {Array} schedulerTasks Array of scheduler task
  * @return {Object} task
  */
-function assignSchedulerTaskField(task, schedulerTaskIds) {
-  if (schedulerTaskIds.includes(task.id)) {
+function assignSchedulerTaskField(task, schedulerTasks) {
+  if (schedulerTasks.some(({id}) => task.id === id)) {
     return Object.assign({}, task, {schedulerTask: true});
   }
 
@@ -193,21 +193,12 @@ class MesosStateStore extends GetSetBaseStore {
     const services = this.get('lastMesosState').frameworks || [];
     const memberTasks = {};
 
-    const schedulerTaskIds = services.reduce((memo, service) => {
-      const serviceName = service.name.split('.').reverse().join('/');
-      const schedulerTask = this.getSchedulerTaskFromServiceName(serviceName);
-
-      if (schedulerTask) {
-        memo.push(schedulerTask.id);
-      }
-
-      return memo;
-    }, []);
+    const schedulerTasks = this.getSchedulerTasks();
 
     services.forEach((service) => {
       service.tasks.forEach(function (task) {
         if (task.slave_id === nodeID) {
-          memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTaskIds);
+          memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTasks);
         }
       });
       service.completed_tasks.forEach(function (task) {
@@ -229,36 +220,30 @@ class MesosStateStore extends GetSetBaseStore {
     return new Task(foundTask);
   }
 
-  getSchedulerTaskFromServiceName(serviceName) {
-    const frameworks = this.get('lastMesosState').frameworks;
+  /**
+   * @return {Array} list of scheduler tasks
+   */
+  getSchedulerTasks() {
+    const tasks = this.getTasksFromServiceName('marathon');
 
-    if (!frameworks) {
-      return null;
-    }
-
-    const framework = frameworks.find(function (framework) {
-      return framework.name.toLowerCase() === 'marathon';
-    });
-
-    if (!framework || !framework.tasks) {
-      return null;
-    }
-
-    const result = framework.tasks.find(function (task) {
-      const labels = task.labels;
-
+    return tasks.filter(function ({labels}) {
       if (!labels) {
         return false;
       }
 
-      const frameworkName = labels.find(function (label) {
-        return label.key === 'DCOS_PACKAGE_FRAMEWORK_NAME';
-      });
-
-      return frameworkName && frameworkName.value === serviceName;
+      return labels.some(({key}) => key === 'DCOS_PACKAGE_FRAMEWORK_NAME');
     });
+  }
 
-    return result;
+  getSchedulerTaskFromServiceName(serviceName) {
+    const tasks = this.getSchedulerTasks();
+
+    return tasks.find(function ({labels}) {
+
+      return labels.some(({key, value}) => {
+        return key === 'DCOS_PACKAGE_FRAMEWORK_NAME' && value === serviceName;
+      });
+    });
   }
 
   getTasksFromServiceName(serviceName) {
@@ -293,12 +278,7 @@ class MesosStateStore extends GetSetBaseStore {
       return [];
     }
 
-    const schedulerTaskIds = [];
-
-    const schedulerTask = this.getSchedulerTaskFromServiceName(serviceName);
-    if (schedulerTask) {
-      schedulerTaskIds.push(schedulerTask.id);
-    }
+    const schedulerTasks = this.getSchedulerTasks();
 
     // Combine framework (if matching framework was found) and filtered
     // Marathon tasks. This will give you a list of framework tasks including
@@ -309,7 +289,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (service instanceof Framework && name === serviceName) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
+          .map((task) => assignSchedulerTaskField(task, schedulerTasks));
       }
 
       // Filter marathon tasks by service name
@@ -317,7 +297,7 @@ class MesosStateStore extends GetSetBaseStore {
         return tasks.concat(completed_tasks)
           .filter(({name}) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map((task) => assignSchedulerTaskField(task, schedulerTaskIds));
+          .map((task) => assignSchedulerTaskField(task, schedulerTasks));
       }
 
       return serviceTasks;
