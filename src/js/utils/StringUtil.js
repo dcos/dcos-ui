@@ -4,7 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 const StringUtil = {
-  arrayToJoinedString(array=[], separator = ', ') {
+  arrayToJoinedString(array = [], separator = ', ') {
     if (Array.isArray(array)) {
       return array.join(separator);
     }
@@ -12,18 +12,37 @@ const StringUtil = {
     return '';
   },
 
+  getSearchTokens(searchString) {
+    if (!searchString) {
+      return [];
+    }
+
+    return String(searchString)
+      .toLowerCase()
+      // split on non-word characters and slash
+      .split(/[^\w\/]/)
+      .filter(Boolean);
+  },
+
   filterByString(objects, getter, searchString) {
-    var regex = StringUtil.escapeForRegExp(searchString);
-    var searchPattern = new RegExp(regex, 'i');
+    const searchItems = this.getSearchTokens(searchString);
 
     if (typeof getter === 'function') {
-      return objects.filter(function (obj) {
-        return searchPattern.test(getter(obj));
+      return objects.filter((obj) => {
+        return searchItems.some((item) => {
+          return this.getSearchTokens(getter(obj)).some((token) => {
+            return token.startsWith(item);
+          });
+        });
       });
     }
 
-    return objects.filter(function (obj) {
-      return searchPattern.test(obj[getter]);
+    return objects.filter((obj) => {
+      return searchItems.some((item) => {
+        return this.getSearchTokens(obj[getter]).some((token) => {
+          return token.startsWith(item);
+        });
+      });
     });
   },
 
