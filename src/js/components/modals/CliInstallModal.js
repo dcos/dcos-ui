@@ -63,7 +63,7 @@ class CliInstallModal extends React.Component {
     if (global.location.port) {
       port = ':' + global.location.port;
     }
-    let clusterUrl = `${protocol}://${hostname}${port}`;
+    const clusterUrl = `${protocol}://${hostname}${port}`;
     const {selectedOS} = this.state;
     let version = MetadataStore.parsedVersion;
     // Prepend 'dcos-' to any version other than latest
@@ -143,7 +143,7 @@ class CliInstallModal extends React.Component {
     const {selectedOS} = this.state;
 
     return Object.keys(osTypes).map((name, index) => {
-      let classSet = classNames({
+      const classSet = classNames({
         'button button-stroke': true,
         'active': name === selectedOS
       });
@@ -173,8 +173,8 @@ class CliInstallModal extends React.Component {
   }
 
   render() {
-    let {footer, open, showFooter, title} = this.props;
-    let header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
+    const {footer, open, showFooter, title} = this.props;
+    const header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
 
     return (
       <Modal
@@ -197,8 +197,7 @@ CliInstallModal.propTypes = {
   subHeaderContent: React.PropTypes.string,
   showFooter: React.PropTypes.bool.isRequired,
   footer: React.PropTypes.node,
-  onClose: React.PropTypes.func.isRequired,
-  additionalContent: React.PropTypes.element
+  onClose: React.PropTypes.func.isRequired
 };
 
 module.exports = CliInstallModal;
