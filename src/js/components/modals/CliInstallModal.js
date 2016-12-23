@@ -1,5 +1,6 @@
 import browserInfo from 'browser-info';
 import classNames from 'classnames';
+import {Hooks} from 'PluginSDK';
 import {Modal} from 'reactjs-components';
 import React from 'react';
 
@@ -62,7 +63,7 @@ class CliInstallModal extends React.Component {
     if (global.location.port) {
       port = ':' + global.location.port;
     }
-    let clusterUrl = `${protocol}://${hostname}${port}`;
+    const clusterUrl = `${protocol}://${hostname}${port}`;
     const {selectedOS} = this.state;
     let version = MetadataStore.parsedVersion;
     // Prepend 'dcos-' to any version other than latest
@@ -71,46 +72,17 @@ class CliInstallModal extends React.Component {
     }
     const downloadUrl = `https://downloads.dcos.io/binaries/cli/${osTypes[selectedOS]}/x86-64/${version}/dcos`;
     if (selectedOS === 'Windows') {
-      return (
-        <ol>
-          <li>
-            Download and install: <a href={downloadUrl + '.exe'}>
-              <Icon id="download" size="mini" /> Download dcos.exe
-            </a>.
-          </li>
-          <li>
-            <p className="short-bottom">In Terminal, enter</p>
-            <div className="flush-top snippet-wrapper">
-              <ClickToSelect>
-                <pre className="prettyprint flush-bottom prettyprinted">
-                  cd path/to/download/directory
-                </pre>
-              </ClickToSelect>
-            </div>
-          </li>
-          <li>
-            <p className="short-bottom">Enter</p>
-            <div className="flush-top snippet-wrapper">
-              <ClickToSelect>
-                <pre className="prettyprint flush-bottom prettyprinted">
-                  dcos config set core.dcos_url <a href={clusterUrl}>{clusterUrl}</a>
-                </pre>
-              </ClickToSelect>
-            </div>
-          </li>
-          <li>
-            <p className="short-bottom">Enter</p>
-            <div className="flush-top snippet-wrapper">
-              <ClickToSelect>
-                <pre className="prettyprint flush-bottom prettyprinted">
-                  dcos
-                </pre>
-              </ClickToSelect>
-            </div>
-          </li>
-        </ol>
-      );
+      return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }
+
+    const instructions = [
+      `curl ${downloadUrl} -o dcos`,
+      'sudo mv dcos /usr/local/bin',
+      'sudo chmod +x /usr/local/bin/dcos',
+      `dcos config set core.dcos_url ${clusterUrl}`,
+      Hooks.applyFilter('dcosInstallCommandExtraSteps', undefined),
+      'dcos'
+    ].filter((instruction) => instruction !== undefined);
 
     return (
       <div>
@@ -118,7 +90,7 @@ class CliInstallModal extends React.Component {
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
-              {`curl ${downloadUrl} -o dcos && \n sudo mv dcos /usr/local/bin && \n sudo chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
+              {instructions.join(' && \n')}
             </pre>
           </ClickToSelect>
         </div>
@@ -126,11 +98,52 @@ class CliInstallModal extends React.Component {
     );
   }
 
+  getWindowsInstallInstruction(clusterUrl, downloadUrl) {
+    const steps = [
+      'cd path/to/download/directory',
+      <span>dcos config set core.dcos_url <a href={clusterUrl}>{clusterUrl}</a></span>,
+      Hooks.applyFilter('dcosInstallCommandExtraSteps', undefined),
+      'dcos'
+    ]
+    .filter((instruction) => instruction !== undefined)
+    .map((instruction, index) => {
+      let helpText = 'Enter';
+
+      if (index === 0) {
+        helpText = 'In Terminal, enter';
+      }
+
+      return (
+        <li key={index}>
+          <p className="short-bottom">{helpText}</p>
+          <div className="flush-top snippet-wrapper">
+            <ClickToSelect>
+              <pre className="prettyprint flush-bottom prettyprinted">
+                {instruction}
+              </pre>
+            </ClickToSelect>
+          </div>
+        </li>
+      );
+    });
+
+    return (
+      <ol>
+        <li>
+          Download and install: <a href={downloadUrl + '.exe'}>
+            <Icon id="download" size="mini" /> Download dcos.exe
+          </a>.
+        </li>
+        {steps}
+      </ol>
+    );
+  }
+
   getOSButtons() {
     const {selectedOS} = this.state;
 
     return Object.keys(osTypes).map((name, index) => {
-      let classSet = classNames({
+      const classSet = classNames({
         'button button-stroke': true,
         'active': name === selectedOS
       });
@@ -160,8 +173,8 @@ class CliInstallModal extends React.Component {
   }
 
   render() {
-    let {footer, open, showFooter, title} = this.props;
-    let header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
+    const {footer, open, showFooter, title} = this.props;
+    const header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
 
     return (
       <Modal
@@ -184,8 +197,7 @@ CliInstallModal.propTypes = {
   subHeaderContent: React.PropTypes.string,
   showFooter: React.PropTypes.bool.isRequired,
   footer: React.PropTypes.node,
-  onClose: React.PropTypes.func.isRequired,
-  additionalContent: React.PropTypes.element
+  onClose: React.PropTypes.func.isRequired
 };
 
 module.exports = CliInstallModal;
