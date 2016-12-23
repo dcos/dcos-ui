@@ -3,7 +3,7 @@ describe('ComponentsList [10b]', function () {
   context('No Components Found [10f]', function () {
 
     // TODO: Turn into unit test
-    xit('shows error when components not found [10d]', function () {
+    it('shows error when components not found [10d]', function () {
 
       cy.configureCluster({
         mesos: '1-task-healthy',
