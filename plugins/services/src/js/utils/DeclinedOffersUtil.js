@@ -1,7 +1,9 @@
+import DateUtil from '../../../../../src/js/utils/DateUtil';
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 import Util from '../../../../../src/js/utils/Util';
 
-const unavailableText = 'N/A';
+const DEPLOYMENT_WARNING_DELAY_MS = 1000 * 60 * 5;
+const UNAVAILABLE_TEXT = 'N/A';
 
 const rangeReducer = (accumulator, range) => {
   accumulator.push(`${range.begin} – ${range.end}`);
@@ -24,7 +26,7 @@ const constraintsReducer = (accumulator, constraint) => {
   }
 
   if (!value) {
-    value = unavailableText;
+    value = UNAVAILABLE_TEXT;
   }
 
   accumulator.push(`${name}:${value}`);
@@ -129,14 +131,14 @@ const DecinedOffersUtil = {
 
     return {
       roles: {
-        requested: requestedResources.roles.join(', ') || unavailableText,
+        requested: requestedResources.roles.join(', ') || UNAVAILABLE_TEXT,
         offers: roleOfferSummary.processed,
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraints: {
         requested: requestedResources.constraints.map((constraint = []) => {
           return constraint.join(':');
-        }).join(', ') || unavailableText,
+        }).join(', ') || UNAVAILABLE_TEXT,
         offers: constraintOfferSummary.processed,
         matched: constraintOfferSummary.processed
           - constraintOfferSummary.declined
@@ -159,7 +161,7 @@ const DecinedOffersUtil = {
       ports: {
         requested: requestedResources.ports.map((resourceArr = []) => {
           return resourceArr.join(', ');
-        }).join(', ') || unavailableText,
+        }).join(', ') || UNAVAILABLE_TEXT,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }
@@ -210,6 +212,15 @@ const DecinedOffersUtil = {
         })
       };
     });
+  },
+
+  shouldDisplayDeclinedOffersWarning(queue) {
+    if (queue == null) {
+      return false;
+    }
+
+    return Date.now() - DateUtil.strToMs(queue.since)
+      >= DEPLOYMENT_WARNING_DELAY_MS;
   }
 };
 

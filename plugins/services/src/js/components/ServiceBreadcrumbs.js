@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import {DCOSStore} from 'foundation-ui';
 import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
+import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
 
 function getHealthStatus(serviceID) {
   if (serviceID == null) {
@@ -25,6 +26,7 @@ function getHealthStatus(serviceID) {
   return (
     <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
       {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
+      <ServiceStatusWarningWithDebugInformation item={service} />
       <HealthBar isDeploying={isDeploying}
         tasksSummary={tasksSummary}
         instancesCount={instancesCount}/>

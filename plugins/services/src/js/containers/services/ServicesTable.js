@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import {Dropdown, Table, Tooltip} from 'reactjs-components';
+import {Dropdown, Table} from 'reactjs-components';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 
-import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import Framework from '../../structs/Framework';
 import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
@@ -13,6 +12,7 @@ import NestedServiceLinks from '../../../../../../src/js/components/NestedServic
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
+import ServiceStatusWarning from '../../components/ServiceStatusWarning';
 import ServiceTableHeaderLabels from '../../constants/ServiceTableHeaderLabels';
 import ServiceTableUtil from '../../utils/ServiceTableUtil';
 import ServiceTree from '../../structs/ServiceTree';
@@ -222,7 +222,6 @@ class ServicesTable extends React.Component {
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let tasksSummary = service.getTasksSummary();
     const {tasksRunning} = tasksSummary;
-    let tooltip = null;
 
     let isDeploying = serviceStatus === 'Deploying';
 
@@ -230,26 +229,6 @@ class ServicesTable extends React.Component {
     let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Instance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
-    }
-
-    const queue = service.getQueue();
-    if (queue != null) {
-      const waitingSince = DateUtil.strToMs(queue.since);
-      const timeWaiting = Date.now() - waitingSince;
-
-      // If the service has been waiting for less than five minutes, we don't
-      // display the warning.
-      if (timeWaiting >= 1000 * 60 * 5) {
-        tooltip = (
-          <Tooltip
-            content={`DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`}
-            maxWidth={250}
-            wrapText={true}
-            wrapperClassName="tooltip-wrapper status-waiting-indicator">
-            <Icon color="red" id="yield" size="mini" />
-          </Tooltip>
-        );
-      }
     }
 
     return (
@@ -265,7 +244,7 @@ class ServicesTable extends React.Component {
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           <span className="hidden-large-down">{verboseOverview}</span>
           <span className="hidden-jumbo-up">{conciseOverview}</span>
-          {tooltip}
+          <ServiceStatusWarning item={service} />
         </span>
       </div>
     );
