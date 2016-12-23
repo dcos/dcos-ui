@@ -8,15 +8,11 @@ import Pod from '../structs/Pod';
 import Service from '../structs/Service';
 import ServiceTree from '../structs/ServiceTree';
 
-const getTooltipContent = (timeWaiting, showDebugInstruction) => {
-  const additionalCopy = showDebugInstruction
-    ? ' See more information in the debug tab.'
-    : '';
-
-  return `DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.${additionalCopy}`;
+const getTooltipContent = (timeWaiting) => {
+  return `DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`;
 };
 
-const ServiceStatusWarning = ({item, showDebugInstruction}) => {
+const ServiceStatusWarning = ({item}) => {
   const queue = item.getQueue();
 
   if (queue != null
@@ -26,7 +22,7 @@ const ServiceStatusWarning = ({item, showDebugInstruction}) => {
 
     return (
       <Tooltip
-        content={getTooltipContent(timeWaiting, showDebugInstruction)}
+        content={getTooltipContent(timeWaiting)}
         width={250}
         wrapText={true}
         wrapperClassName="tooltip-wrapper status-waiting-indicator">
@@ -38,17 +34,12 @@ const ServiceStatusWarning = ({item, showDebugInstruction}) => {
   return <noscript />;
 };
 
-ServiceStatusWarning.defaultProps = {
-  showDebugInstruction: false
-};
-
 ServiceStatusWarning.propTypes = {
   item: React.PropTypes.oneOfType([
     React.PropTypes.instanceOf(Service),
     React.PropTypes.instanceOf(ServiceTree),
     React.PropTypes.instanceOf(Pod)
-  ]),
-  showDebugInstruction: React.PropTypes.bool
+  ])
 };
 
 module.exports = ServiceStatusWarning;
