@@ -3,7 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path');
-var testPaths = ['src', 'plugins', 'foundation-ui'];
+var testPaths = ['src', 'plugins', 'foundation-ui', 'tests'];
 
 if (process.env.npm_config_externalplugins) {
   testPaths.push(process.env.npm_config_externalplugins);
@@ -65,6 +65,7 @@ var config = {
     'reactjs-mixin',
     'react-router',
     'redux',
+    'tests',
     'underscore'
   ],
   'testPathIgnorePatterns': [
