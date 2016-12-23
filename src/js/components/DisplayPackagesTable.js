@@ -103,6 +103,7 @@ class DisplayPackagesTable extends React.Component {
         className="table table-hover no-header inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
+        containerSelector=".page-content"
         data={this.props.packages.getItems().slice()} />
     );
   }
