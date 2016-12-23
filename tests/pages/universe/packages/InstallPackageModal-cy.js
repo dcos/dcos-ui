@@ -1,4 +1,4 @@
-xdescribe('Install Package Modal', function () {
+describe('Install Package Modal', function () {
 
   beforeEach(function () {
     cy
@@ -12,9 +12,9 @@ xdescribe('Install Package Modal', function () {
       .click();
   });
 
-  xit('displays install modal for package', function () {
+  it('displays install modal for package', function () {
     cy
-      .get('.modal .modal-content')
+      .get('.modal .modal-body')
       .should('contain', 'marathon');
   });
 
