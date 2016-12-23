@@ -1,14 +1,8 @@
+import {getSearchParameter} from '../../utils/testUtil';
+
 describe('Service Search Filters', function () {
 
   context('Filters services table', function () {
-
-    function getSearchParameter(hash) {
-      var queries = hash.split('?')[1];
-
-      return queries.split('&').find(function (query) {
-        return query.split('=')[0] === 'q';
-      });
-    }
 
     beforeEach(function () {
       cy.configureCluster({
@@ -29,7 +23,7 @@ describe('Service Search Filters', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
       cy.hash().should(function (hash) {
-        var searchParameter = getSearchParameter(hash);
+        let searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter))
           .to.equal('q=cassandra-healthy');
       });
@@ -44,7 +38,7 @@ describe('Service Search Filters', function () {
         .click();
 
       cy.hash().should(function (hash) {
-        var searchParameter = getSearchParameter(hash);
+        let searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter))
           .to.equal('q=');
       });
