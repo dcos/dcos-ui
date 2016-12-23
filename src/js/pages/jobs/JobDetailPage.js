@@ -255,6 +255,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     const status = TaskStates[longestRunningTask.getStatus()];
+
     return status.displayName;
   }
 
