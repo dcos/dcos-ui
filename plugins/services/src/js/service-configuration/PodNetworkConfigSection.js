@@ -10,7 +10,7 @@ import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const NETWORK_MODE_NAME = {
-  'container': 'Contaienr',
+  'container': 'Container',
   'host': 'Host'
 };
 
@@ -95,7 +95,7 @@ class PodNetworkConfigSection extends React.Component {
               value={getNetworkTypes(appConfig.networks)} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="networking" />
+              tabViewID="multinetworking" />
           </ConfigurationMapRow>
 
           {/* Service endpoints */}
@@ -107,7 +107,7 @@ class PodNetworkConfigSection extends React.Component {
             columns={this.getColumns()}
             data={endpoints}
             onEditClick={onEditClick}
-            tabViewID="networking" />
+            tabViewID="multinetworking" />
 
         </ConfigurationMapSection>
       </div>

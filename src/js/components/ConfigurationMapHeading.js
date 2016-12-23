@@ -1,22 +1,21 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import DetailViewSectionHeading from './DetailViewSectionHeading';
+
 const ConfigurationMapHeading = (props) => {
   const {children, className, level} = props;
+  const classes = classNames('configuration-map-heading', className);
 
-  return React.createElement(
-    `h${level}`,
-    {
-      className: classNames(
-        'configuration-map-heading',
-        {
-          'configuration-map-heading-primary': level === 1
-        },
-        className
-      )
-    },
-    children
+  return (
+    <DetailViewSectionHeading className={classes} level={level}>
+      {children}
+    </DetailViewSectionHeading>
   );
+};
+
+ConfigurationMapHeading.defaultProps = {
+  level: 1
 };
 
 ConfigurationMapHeading.propTypes = {

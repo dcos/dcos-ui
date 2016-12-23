@@ -9,7 +9,7 @@ describe('Volumes', function () {
     it('should return an empty array if no volumes are set', function () {
       const batch = new Batch();
 
-      expect(batch.reduce(Volumes.JSONReducer, [])).toEqual([]);
+      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([]);
     });
 
     it('should return a local volume', function () {

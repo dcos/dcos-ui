@@ -8,13 +8,13 @@ function SVGCompilerPlugin(options) {
   this.options = {baseDir: path.resolve(options.baseDir)};
 }
 
-SVGCompilerPlugin.prototype.apply = function(compiler) {
+SVGCompilerPlugin.prototype.apply = function (compiler) {
   var baseDir = this.options.baseDir;
 
-  compiler.plugin('emit', function(compilation, callback) {
+  compiler.plugin('emit', function (compilation, callback) {
     let content = null;
-    let files = glob.sync('**/*.svg', {cwd: baseDir});
-    let svgSpriter = new SVGSprite({
+    const files = glob.sync('**/*.svg', {cwd: baseDir});
+    const svgSpriter = new SVGSprite({
       mode: {
         defs: true
       },
@@ -33,16 +33,16 @@ SVGCompilerPlugin.prototype.apply = function(compiler) {
       }));
     });
 
-    svgSpriter.compile(function (error, result, data) {
+    svgSpriter.compile(function (error, result) {
       content = result.defs.sprite.contents.toString();
     });
 
     // Insert this list into the Webpack build as a new file asset:
     compilation.assets['sprite.svg'] = {
-      source: function() {
+      source() {
         return content;
       },
-      size: function() {
+      size() {
         return content.length;
       }
     };

@@ -1,6 +1,6 @@
 // TODO: Audit these variables and all z-index proeprties, some are not being
 // used properly.
-@z-index-dropdown: @z-index-modal-container + 1;
+@z-index-dropdown: @z-index-modal + 1;
 @z-index-dropdown-chart-details: @z-index-side-panel + 20;
 @z-index-dygraph-chart: @z-index-side-panel + 10;
 @z-index-dygraph-hover-label: 100;
@@ -9,8 +9,6 @@
 @z-index-header: 1000;
 @z-index-header-border: 1;
 @z-index-header-tabs: @z-index-header-border + 1;
-@z-index-modal-backdrop: @z-index-modal + 1;
-@z-index-modal-container: @z-index-modal + 2;
 @z-index-modal-side-panel: @z-index-header-tabs + 1;
 @z-index-menu-tabbed-item-active-indicator: @z-index-header-tabs + 1;
 @z-index-nodes-grid: 2;
@@ -22,9 +20,9 @@
 @z-index-side-panel-expand-button: @z-index-side-panel + 10;
 @z-index-sidebar: @z-index-modal - 1;
 @z-index-sidebar-overlay: @z-index-sidebar - 1;
-@z-index-tooltip: @z-index-modal-container + 1;
+@z-index-tooltip: @z-index-modal + 1;
 // The error message comes in 'body' and 'modal' varieties
-@z-index-errormsg-floater-modal: @z-index-modal-container + 1;
+@z-index-errormsg-floater-modal: @z-index-modal + 1;
 // This has to be at least 10000 to render above gemini.
 @z-index-user-account-menu-dropdown: 10000;
 @z-index-user-dropdown-menu: @z-index-modal + 1;

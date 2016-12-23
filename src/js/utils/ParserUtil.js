@@ -39,11 +39,8 @@ module.exports = {
       if (value == null) {
         return [];
       }
+      return new Transaction(path, value);
 
-      return new Transaction(path, findNestedPropertyInObject(
-        state,
-        searchPath
-      ));
     };
   }
 };

@@ -55,19 +55,19 @@ describe('SearchDSL', function () {
     describe('Filters (Operands)', function () {
 
       it('should parse fuzzy text', function () {
-        let expr = SearchDSL.parse('fuzzy');
+        const expr = SearchDSL.parse('fuzzy');
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.FUZZY);
         expect(expr.ast.filterParams.text).toEqual('fuzzy');
       });
 
       it('should parse exact text', function () {
-        let expr = SearchDSL.parse('"exact string"');
+        const expr = SearchDSL.parse('"exact string"');
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.EXACT);
         expect(expr.ast.filterParams.text).toEqual('exact string');
       });
 
       it('should parse attributes', function () {
-        let expr = SearchDSL.parse('attrib:value');
+        const expr = SearchDSL.parse('attrib:value');
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.ATTRIB);
         expect(expr.ast.filterParams.text).toEqual('value');
         expect(expr.ast.filterParams.label).toEqual('attrib');
@@ -78,18 +78,18 @@ describe('SearchDSL', function () {
     describe('Combiners (Operators)', function () {
 
       it('should use AND operator by default', function () {
-        let expr = SearchDSL.parse('text1 text2');
+        const expr = SearchDSL.parse('text1 text2');
         expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.AND);
       });
 
       it('should properly use OR operator', function () {
-        let expr = SearchDSL.parse('text1, text2');
+        const expr = SearchDSL.parse('text1, text2');
         expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
       });
 
       it('should properly use OR shorthand operator on attrib', function () {
         // NOTE: attrib:value1,value2 becomes -> attrib:value1, attrib:value2
-        let expr = SearchDSL.parse('attrib:value1,value2');
+        const expr = SearchDSL.parse('attrib:value1,value2');
         expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
         expect(expr.ast.children[0].filterType).toEqual(DSLFilterTypes.ATTRIB);
         expect(expr.ast.children[0].filterParams.text).toEqual('value1');
@@ -101,7 +101,7 @@ describe('SearchDSL', function () {
 
       it('should properly handle OR shorthand + OR with other operands', function () {
         // NOTE: attrib:value1,value2 becomes -> attrib:value1, attrib:value2
-        let expr = SearchDSL.parse('attrib:value1,value2, foo');
+        const expr = SearchDSL.parse('attrib:value1,value2, foo');
         expect(expr.ast.combinerType).toEqual(DSLCombinerTypes.OR);
 
         expect(expr.ast.children[0].combinerType).toEqual(DSLCombinerTypes.OR);
@@ -123,7 +123,7 @@ describe('SearchDSL', function () {
       });
 
       it('should correctly populate children', function () {
-        let expr = SearchDSL.parse('text1 text2');
+        const expr = SearchDSL.parse('text1 text2');
         expect(expr.ast.children[0].filterType).toEqual(DSLFilterTypes.FUZZY);
         expect(expr.ast.children[0].filterParams.text).toEqual('text1');
         expect(expr.ast.children[1].filterType).toEqual(DSLFilterTypes.FUZZY);
@@ -135,7 +135,7 @@ describe('SearchDSL', function () {
     describe('Complex expressions', function () {
 
       it('should nest operations in correct order', function () {
-        let expr = SearchDSL.parse('text1 text2, (text3 (text4 text5), text6)');
+        const expr = SearchDSL.parse('text1 text2, (text3 (text4 text5), text6)');
 
         // .       : [text1 text2] OR [(text3 (text4 text5), text6)]
         expect(expr.ast.combinerType)
@@ -200,22 +200,22 @@ describe('SearchDSL', function () {
     describe('Token positions', function () {
 
       it('should properly track location of fuzzy text', function () {
-        let expr = SearchDSL.parse('fuzzy');
+        const expr = SearchDSL.parse('fuzzy');
         expect(expr.ast.position).toEqual([[0, 5]]);
       });
 
       it('should properly track location of exact text', function () {
-        let expr = SearchDSL.parse('"exact string"');
+        const expr = SearchDSL.parse('"exact string"');
         expect(expr.ast.position).toEqual([[0, 14]]);
       });
 
       it('should properly track location of attrib', function () {
-        let expr = SearchDSL.parse('attrib:value');
+        const expr = SearchDSL.parse('attrib:value');
         expect(expr.ast.position).toEqual([[0, 7], [7, 12]]);
       });
 
       it('should properly track location of attrib with multi values', function () {
-        let expr = SearchDSL.parse('attrib:value1,value2');
+        const expr = SearchDSL.parse('attrib:value1,value2');
         expect(expr.ast.children[1].position).toEqual([[0, 7], [14, 20]]);
       });
 
@@ -238,7 +238,7 @@ describe('SearchDSL', function () {
       });
 
       it('should properly filter by fuzzy match', function () {
-        let expr = SearchDSL.parse('test');
+        const expr = SearchDSL.parse('test');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']},
@@ -247,7 +247,7 @@ describe('SearchDSL', function () {
       });
 
       it('should properly filter by exact match', function () {
-        let expr = SearchDSL.parse('"some other string"');
+        const expr = SearchDSL.parse('"some other string"');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some other string', attrib: ['c', 'd']}
@@ -255,7 +255,7 @@ describe('SearchDSL', function () {
       });
 
       it('should properly filter by attribute', function () {
-        let expr = SearchDSL.parse('attrib:b');
+        const expr = SearchDSL.parse('attrib:b');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']},
@@ -264,7 +264,7 @@ describe('SearchDSL', function () {
       });
 
       it('should combine with OR operator with multi-value attr', function () {
-        let expr = SearchDSL.parse('attrib:a,b');
+        const expr = SearchDSL.parse('attrib:a,b');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']},
@@ -273,7 +273,7 @@ describe('SearchDSL', function () {
       });
 
       it('should combine with OR operator multiple attr', function () {
-        let expr = SearchDSL.parse('attrib:a, attrib:b');
+        const expr = SearchDSL.parse('attrib:a, attrib:b');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']},
@@ -282,7 +282,7 @@ describe('SearchDSL', function () {
       });
 
       it('should combine with AND operator multiple attr', function () {
-        let expr = SearchDSL.parse('attrib:a attrib:b');
+        const expr = SearchDSL.parse('attrib:a attrib:b');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']}
@@ -290,7 +290,7 @@ describe('SearchDSL', function () {
       });
 
       it('should combine with AND operator multiple attr', function () {
-        let expr = SearchDSL.parse('attrib:a attrib:b');
+        const expr = SearchDSL.parse('attrib:a attrib:b');
 
         expect(expr.filter(this.filters, this.mockResultset).getItems()).toEqual([
           {text: 'some test string', attrib: ['a', 'b']}

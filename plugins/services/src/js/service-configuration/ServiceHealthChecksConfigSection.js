@@ -89,9 +89,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
+                className: getColumnClassNameFn(),
                 heading: getColumnHeadingFn('Max Failures'),
                 prop: 'maxConsecutiveFailures',
-                className: getColumnClassNameFn(),
+                render(prop, row) {
+                  return getDisplayValue(row[prop]);
+                },
                 sortable: true
               }
             ];
@@ -173,9 +176,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
+                className: getColumnClassNameFn(),
                 heading: getColumnHeadingFn('Max Failures'),
                 prop: 'maxConsecutiveFailures',
-                className: getColumnClassNameFn(),
+                render(prop, row) {
+                  return getDisplayValue(row[prop]);
+                },
                 sortable: true
               }
             ];

@@ -152,6 +152,7 @@ class FilterInputText extends React.Component {
 FilterInputText.defaultProps = {
   inverseStyle: false,
   placeholder: 'Filter',
+  searchString: '',
   sideText: null
 };
 
@@ -159,7 +160,7 @@ FilterInputText.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   inverseStyle: PropTypes.bool,
   placeholder: PropTypes.string,
-  searchString: PropTypes.string.isRequired,
+  searchString: PropTypes.string,
   sideText: PropTypes.node
 };
 

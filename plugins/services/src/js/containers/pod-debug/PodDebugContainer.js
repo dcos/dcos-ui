@@ -3,9 +3,12 @@ import {routerShape} from 'react-router';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
-import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import PodContainerTerminationTable from './PodContainerTerminationTable';
@@ -41,7 +44,9 @@ class PodDebugTabView extends React.Component {
 
     return (
       <div>
-        <h2 className="short-bottom">Details</h2>
+        <ConfigurationMapHeading level={2}>
+          Details
+        </ConfigurationMapHeading>
         <DeclinedOffersTable offers={queue.declinedOffers.offers}
           service={pod}
           summary={queue.declinedOffers.summary} />
@@ -53,16 +58,16 @@ class PodDebugTabView extends React.Component {
     const history = this.props.pod.getTerminationHistoryList().getItems();
     if (!history.length) {
       return (
-        <div>
-          <h4 className="flush-top">
+        <ConfigurationMapSection>
+          <ConfigurationMapHeading>
             Last Terminations
-          </h4>
+          </ConfigurationMapHeading>
           <p>(No data)</p>
-        </div>
+        </ConfigurationMapSection>
       );
     }
 
-    return history.map(function (item, index) {
+    return history.reduce(function (acc, item, index) {
       let headline;
       let startedAt = item.getStartedAt();
       let terminatedAt = item.getTerminatedAt();
@@ -78,29 +83,33 @@ class PodDebugTabView extends React.Component {
 
       if (index === 0) {
         headline = (
-          <h4 className="flush-top">
+          <ConfigurationMapHeading level={2}>
             Last Termination (<TimeAgo time={terminatedAt} />)
-          </h4>
+          </ConfigurationMapHeading>
         );
       } else {
         headline = (
-          <h4 className="flush-top">
+          <ConfigurationMapHeading level={2}>
             Terminated at {terminatedAt.toString()} (<TimeAgo time={terminatedAt} />)
-          </h4>
+          </ConfigurationMapHeading>
         );
       }
 
-      return (
-        <div key={index}>
+      acc.push(
+        <ConfigurationMapSection key={`termination-${index}`}>
           {headline}
-          <DescriptionList hash={terminationValueMapping} />
-          <h5 className="flush-top">
+          <HashMapDisplay hash={terminationValueMapping} />
+        </ConfigurationMapSection>,
+        <ConfigurationMapSection key={`container-${index}`}>
+          <ConfigurationMapHeading level={3}>
             Containers
-          </h5>
+          </ConfigurationMapHeading>
           <PodContainerTerminationTable containers={item.getContainers()} />
-        </div>
+        </ConfigurationMapSection>
       );
-    });
+
+      return acc;
+    }, []);
   }
 
   getLastVersionChange() {
@@ -120,7 +129,14 @@ class PodDebugTabView extends React.Component {
       )
     };
 
-    return <DescriptionList hash={LastVersionChangeValueMapping} />;
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
+          Last Changes
+        </ConfigurationMapHeading>
+        <HashMapDisplay hash={LastVersionChangeValueMapping} />
+      </ConfigurationMapSection>
+    );
   }
 
   getRecentOfferSummary() {
@@ -139,9 +155,9 @@ class PodDebugTabView extends React.Component {
 
       mainContent = (
         <div>
-          <h2 className="short-bottom">
+          <ConfigurationMapHeading level={2}>
             Summary
-          </h2>
+          </ConfigurationMapHeading>
           <RecentOffersSummary data={summary} />
         </div>
       );
@@ -151,7 +167,9 @@ class PodDebugTabView extends React.Component {
 
     return (
       <div ref={(ref) => { this.offerSummaryRef = ref; }}>
-        <h1 className="short-bottom">Recent Resource Offers{offerCount}</h1>
+        <ConfigurationMapHeading>
+          Recent Resource Offers{offerCount}
+        </ConfigurationMapHeading>
         <p>{introText}</p>
         {mainContent}
       </div>
@@ -189,15 +207,14 @@ class PodDebugTabView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.getWaitingForResourcesNotice()}
-        <h4 className="flush-top">
-          Last Changes
-        </h4>
-        {this.getLastVersionChange()}
-        {this.getTerminationHistory()}
-        {this.getRecentOfferSummary()}
-        {this.getDeclinedOffersTable()}
+        <ConfigurationMap>
+          {this.getLastVersionChange()}
+          {this.getTerminationHistory()}
+          {this.getRecentOfferSummary()}
+          {this.getDeclinedOffersTable()}
+        </ConfigurationMap>
       </div>
     );
   }

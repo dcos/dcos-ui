@@ -101,7 +101,7 @@ class PodStorageConfigSection extends React.Component {
             columns={this.getColumns()}
             data={volumeSummary}
             onEditClick={onEditClick}
-            tabViewID="volumes" />
+            tabViewID="multivolumes" />
         </ConfigurationMapSection>
       </div>
     );

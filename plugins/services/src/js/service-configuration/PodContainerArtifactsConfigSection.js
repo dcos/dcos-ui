@@ -57,7 +57,11 @@ class PodContainerArtifactsConfigSection extends React.Component {
   }
 
   render() {
-    const {artifacts, onEditClick} = this.props;
+    const {artifacts, index, onEditClick} = this.props;
+    let tabViewID = 'services';
+    if (index != null) {
+      tabViewID = `container${index}`;
+    }
 
     if (!artifacts || !artifacts.length) {
       return <noscript />;
@@ -73,7 +77,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
           columns={this.getColumns()}
           data={artifacts}
           onEditClick={onEditClick}
-          tabViewID="services" />
+          tabViewID={tabViewID} />
       </div>
     );
   }
@@ -85,6 +89,7 @@ PodContainerArtifactsConfigSection.defaultProps = {
 
 PodContainerArtifactsConfigSection.propTypes = {
   artifacts: React.PropTypes.array,
+  index: React.PropTypes.number,
   onEditClick: React.PropTypes.func
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import DescriptionList from '../../components/DescriptionList';
+import ConfigurationMap from '../../components/ConfigurationMap';
+import HashMapDisplay from '../../components/HashMapDisplay';
 import Job from '../../structs/Job';
 
 class JobConfiguration extends React.Component {
@@ -15,7 +16,7 @@ class JobConfiguration extends React.Component {
     return 'No schedule available.';
   }
 
-  getGenralSection(job) {
+  getGeneralSection(job) {
     let headerValueMapping = {
       'ID': job.getId(),
       'Description': job.getDescription(),
@@ -26,7 +27,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="General" />
     );
@@ -47,7 +48,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Schedule" />
     );
@@ -55,7 +56,7 @@ class JobConfiguration extends React.Component {
 
   getDockerContainerSection(job) {
     const docker = job.getDocker();
-    if (docker == null) {
+    if (docker == null || !docker.image) {
       return null;
     }
 
@@ -64,7 +65,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={headerValueMapping}
         headline="Docker Container" />
     );
@@ -72,7 +73,7 @@ class JobConfiguration extends React.Component {
 
   getLabelSection(job) {
     return (
-      <DescriptionList
+      <HashMapDisplay
         hash={job.getLabels()}
         headline="Labels" />
     );
@@ -82,12 +83,13 @@ class JobConfiguration extends React.Component {
     const {job} = this.props;
 
     return (
-      <div>
-        <h4>Configuration</h4>
-        {this.getGenralSection(job)}
-        {this.getScheduleSection(job)}
-        {this.getDockerContainerSection(job)}
-        {this.getLabelSection(job)}
+      <div className="container">
+        <ConfigurationMap>
+          {this.getGeneralSection(job)}
+          {this.getScheduleSection(job)}
+          {this.getDockerContainerSection(job)}
+          {this.getLabelSection(job)}
+        </ConfigurationMap>
       </div>
     );
   }

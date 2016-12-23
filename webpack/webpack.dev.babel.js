@@ -10,10 +10,10 @@ import webpackConfig from './webpack.config.babel';
 
 // Defaults to value in package.json.
 // Can override with npm config set port 80
-let PORT = parseInt(process.env.npm_package_config_port, 10);
-let environment = process.env.NODE_ENV;
+const PORT = parseInt(process.env.npm_package_config_port, 10);
+const environment = process.env.NODE_ENV;
 let devtool = null;
-let devServer = {
+const devServer = {
   proxy: require('./proxy.dev.js'),
   stats: {
     assets: false,
@@ -26,7 +26,7 @@ let devServer = {
   }
 };
 
-let REPLACEMENT_VARS = {
+const REPLACEMENT_VARS = {
   VERSION: packageInfo.version,
   ENV: environment
 };
@@ -38,7 +38,7 @@ dependencies = Object.keys(dependencies).map(function (dependency) {
   return 'node_modules/' + dependency;
 });
 
-let entry = {
+const entry = {
   index: ['./src/js/index.js'],
   vendor: dependencies
 };
@@ -55,7 +55,7 @@ if (environment === 'development') {
   // when Cypress goes to load the application again, it may not be ready to
   // be served, which causes the test to fail. This delays rebuilding the
   // application for a very long time when in a testing environment.
-  let delayTime = 1000 * 60 * 60 * 5;
+  const delayTime = 1000 * 60 * 60 * 5;
   devServer.watchOptions = {
     aggregateTimeout: delayTime,
     poll: delayTime
