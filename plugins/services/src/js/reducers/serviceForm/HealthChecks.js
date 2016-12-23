@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {HTTP, HTTPS, COMMAND} from '../../constants/HealtCheckProtocols';
 import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
@@ -11,13 +12,13 @@ function mapHealthChecks(item) {
 
   if (item.protocol != null) {
     newItem.protocol = item.protocol;
-    if (item.protocol.toUpperCase() === 'COMMAND' && item.command != null) {
+    if (item.protocol.toUpperCase() === COMMAND && item.command != null) {
       newItem.command = {
         value: item.command
       };
     }
 
-    if (item.protocol.toUpperCase() !== 'COMMAND') {
+    if (item.protocol.toUpperCase() !== COMMAND) {
       newItem.path = item.path;
     }
   }
@@ -77,8 +78,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           this.healthChecks[index].protocol = value;
-          if (value === 'HTTP' && this.healthChecks[index].https) {
-            this.healthChecks[index].protocol = 'HTTPS';
+          if (value === HTTP && this.healthChecks[index].https) {
+            this.healthChecks[index].protocol = HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -105,9 +106,9 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
           if (value === true) {
-            this.healthChecks[index].protocol = 'HTTPS';
+            this.healthChecks[index].protocol = HTTPS;
           } else {
-            this.healthChecks[index].protocol = 'HTTP';
+            this.healthChecks[index].protocol = HTTP;
           }
         }
       }
@@ -130,7 +131,7 @@ module.exports = {
         index,
         'protocol'
       ], item.protocol.toUpperCase(), SET));
-      if (item.protocol.toUpperCase() === 'COMMAND') {
+      if (item.protocol.toUpperCase() === COMMAND) {
         if (item.command != null && item.command.value != null) {
           memo.push(new Transaction([
             'healthChecks',
@@ -139,8 +140,8 @@ module.exports = {
           ], item.command.value, SET));
         }
       }
-      if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
-        if (item.protocol === 'HTTPS') {
+      if (item.protocol.toUpperCase().replace(HTTPS, HTTP) === HTTP) {
+        if (item.protocol === HTTPS) {
           memo.push(new Transaction([
             'healthChecks',
             index,
@@ -212,8 +213,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           state[index].protocol = value;
-          if (value === 'HTTP' && this.cache[index]) {
-            state[index].protocol = 'HTTPS';
+          if (value === HTTP && this.cache[index]) {
+            state[index].protocol = HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -240,9 +241,9 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.cache[index] = value;
           if (value === true) {
-            state[index].protocol = 'HTTPS';
+            state[index].protocol = HTTPS;
           } else {
-            state[index].protocol = 'HTTP';
+            state[index].protocol = HTTP;
           }
         }
       }
