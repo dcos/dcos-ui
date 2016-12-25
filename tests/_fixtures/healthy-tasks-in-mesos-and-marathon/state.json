@@ -115,7 +115,9 @@
         "cpus": 2.499,
         "ports": "[1026-2180, 2182-3887, 3889-4039, 4041-5049, 5052-8079, 8082-8180, 8182-10033, 10035-32000]"
       },
-      "attributes": {},
+      "attributes": {
+        
+      },
       "active": true,
       "version": "1.2.0"
     },
@@ -183,7 +185,9 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [],
+      "capabilities": [
+        
+      ],
       "hostname": "ip-10-0-3-46.us-west-2.compute.internal",
       "webui_url": "",
       "active": true,
@@ -269,8 +273,12 @@
           }
         }
       ],
-      "completed_tasks": [],
-      "offers": [],
+      "completed_tasks": [
+        
+      ],
+      "offers": [
+        
+      ],
       "executors": [
         {
           "executor_id": "broker-0__bdee4d00-5229-4147-9002-af64ed516562",
@@ -278,7 +286,9 @@
           "framework_id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0003",
           "command": {
             "value": "./executor/bin/kafka-executor server ./executor/conf/executor.yml",
-            "argv": [],
+            "argv": [
+              
+            ],
             "environment": {
               "variables": [
                 {
@@ -542,7 +552,9 @@
                 }
               }
             ],
-            "mesos": {}
+            "mesos": {
+              
+            }
           }
         },
         {
@@ -17776,8 +17788,12 @@
           }
         }
       ],
-      "offers": [],
-      "executors": []
+      "offers": [
+        
+      ],
+      "executors": [
+        
+      ]
     },
     {
       "id": "c116a0cf-3d63-45f5-898d-5bc2136e2c5b-0000",
@@ -17795,7 +17811,9 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [],
+      "capabilities": [
+        
+      ],
       "hostname": "10.0.6.207",
       "webui_url": "http://10.0.6.207:9090",
       "active": true,
@@ -17812,10 +17830,18 @@
         "gpus": 0,
         "cpus": 0
       },
-      "tasks": [],
-      "completed_tasks": [],
-      "offers": [],
-      "executors": []
+      "tasks": [
+        
+      ],
+      "completed_tasks": [
+        
+      ],
+      "offers": [
+        
+      ],
+      "executors": [
+        
+      ]
     }
   ],
   "completed_frameworks": [
@@ -17835,7 +17861,9 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [],
+      "capabilities": [
+        
+      ],
       "hostname": "ip-10-0-3-46.us-west-2.compute.internal",
       "webui_url": "http://10.0.3.46:1938/",
       "active": true,
@@ -17852,12 +17880,24 @@
         "gpus": 0,
         "cpus": 0
       },
-      "tasks": [],
-      "completed_tasks": [],
-      "offers": [],
-      "executors": []
+      "tasks": [
+        
+      ],
+      "completed_tasks": [
+        
+      ],
+      "offers": [
+        
+      ],
+      "executors": [
+        
+      ]
     }
   ],
-  "orphan_tasks": [],
-  "unregistered_frameworks": []
+  "orphan_tasks": [
+    
+  ],
+  "unregistered_frameworks": [
+    
+  ]
 }

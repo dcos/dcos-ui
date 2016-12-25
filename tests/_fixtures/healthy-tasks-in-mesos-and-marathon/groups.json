@@ -1,12 +1,16 @@
 {
   "id": "/",
-  "dependencies": [],
+  "dependencies": [
+    
+  ],
   "version": "2016-12-20T00:21:34.716Z",
   "apps": [
     {
       "id": "/confluent-kafka",
       "cmd": "export PATH=$(ls -d $MESOS_SANDBOX/jre*/bin):$PATH && ./scheduler/bin/kafka-scheduler server ./scheduler/conf/scheduler.yml",
-      "args": [],
+      "args": [
+        
+      ],
       "user": null,
       "env": {
         "KAFKA_OVERRIDE_LEADER_IMBALANCE_CHECK_INTERVAL_SECONDS": "300",
@@ -131,7 +135,9 @@
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [],
+      "constraints": [
+        
+      ],
       "uris": [
         "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
         "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/scheduler.zip",
@@ -157,7 +163,9 @@
           "cache": false
         }
       ],
-      "storeUrls": [],
+      "storeUrls": [
+        
+      ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
@@ -188,7 +196,9 @@
           "preserveLastResponse": true
         }
       ],
-      "dependencies": [],
+      "dependencies": [
+        
+      ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 0,
         "maximumOverCapacity": 0
@@ -213,7 +223,9 @@
       "ipAddress": null,
       "version": "2016-12-19T23:23:08.882Z",
       "residency": null,
-      "secrets": {},
+      "secrets": {
+        
+      },
       "taskKillGracePeriodSeconds": null,
       "ports": [
         10004,
@@ -224,13 +236,17 @@
           "port": 10004,
           "protocol": "tcp",
           "name": "health",
-          "labels": {}
+          "labels": {
+            
+          }
         },
         {
           "port": 1,
           "protocol": "tcp",
           "name": "api",
-          "labels": {}
+          "labels": {
+            
+          }
         }
       ],
       "requirePorts": false,
@@ -328,46 +344,74 @@
     {
       "id": "/lbexample",
       "cmd": "python -m http.server $PORT0",
-      "args": [],
+      "args": [
+        
+      ],
       "user": null,
-      "env": {},
+      "env": {
+        
+      },
       "instances": 0,
       "cpus": 0.1,
       "mem": 128,
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [],
-      "uris": [],
-      "fetch": [],
-      "storeUrls": [],
+      "constraints": [
+        
+      ],
+      "uris": [
+        
+      ],
+      "fetch": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": {
         "type": "DOCKER",
-        "volumes": [],
+        "volumes": [
+          
+        ],
         "docker": {
           "image": "python:3.5",
           "network": "HOST",
-          "portMappings": [],
+          "portMappings": [
+            
+          ],
           "privileged": false,
-          "parameters": [],
+          "parameters": [
+            
+          ],
           "forcePullImage": true
         }
       },
-      "healthChecks": [],
-      "readinessChecks": [],
-      "dependencies": [],
+      "healthChecks": [
+        
+      ],
+      "readinessChecks": [
+        
+      ],
+      "dependencies": [
+        
+      ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
       },
-      "labels": {},
+      "labels": {
+        
+      },
       "ipAddress": null,
       "version": "2016-12-19T23:26:39.315Z",
       "residency": null,
-      "secrets": {},
+      "secrets": {
+        
+      },
       "taskKillGracePeriodSeconds": null,
       "ports": [
         80
@@ -391,14 +435,22 @@
       "tasksRunning": 0,
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
-      "deployments": [],
-      "tasks": [],
-      "taskStats": {}
+      "deployments": [
+        
+      ],
+      "tasks": [
+        
+      ],
+      "taskStats": {
+        
+      }
     },
     {
       "id": "/marathon-user",
       "cmd": "LIBPROCESS_PORT=$PORT1 && ./bin/start    --checkpoint --decline_offer_duration \"120000\" --default_accepted_resource_roles \"*\"   --enable_features \"vips,task_killing\"  --event_stream_max_outstanding_messages \"50\"  --executor \"//cmd\" --failover_timeout \"604800\" --framework_name marathon-user  --ha --hostname $LIBPROCESS_IP   --http_compression   --http_event_callback_slow_consumer_timeout \"10000\" --http_event_request_timeout \"10000\"  --http_port  $PORT0  --http_realm \"Mesosphere\"   --launch_token_refresh_interval \"30000\" --launch_tokens \"100\" --leader_proxy_connection_timeout \"5000\" --leader_proxy_read_timeout \"10000\"  --local_port_max \"20000\" --local_port_min \"10000\"    --master \"zk://master.mesos:2181/mesos\"  --max_tasks_per_offer \"1\" --disable_mesos_authentication --mesos_authentication_principal marathon-user   --mesos_leader_ui_url \"/mesos\" --mesos_role marathon-user   --metrics --min_revive_offers_interval \"5000\" --offer_matching_timeout \"1000\" --on_elected_prepare_timeout \"180000\"   --reconciliation_initial_delay \"15000\" --reconciliation_interval \"600000\"   --revive_offers_repetitions \"3\" --save_tasks_to_launch_timeout \"3000\" --scale_apps_initial_delay \"15000\" --scale_apps_interval \"300000\"      --store_cache --task_launch_confirm_timeout \"300000\" --task_launch_timeout \"300000\" --task_lost_expunge_gc \"75000\" --task_lost_expunge_initial_delay \"300000\" --task_lost_expunge_interval \"30000\" --task_reservation_timeout \"20000\" --disable_tracing  --zk zk://master.mesos:2181/universe/marathon-user  --zk_compression --zk_compression_threshold \"65536\" --zk_max_node_size \"1024000\" --zk_max_versions \"25\" --zk_session_timeout \"10000\" --zk_timeout \"10000\"",
-      "args": [],
+      "args": [
+        
+      ],
       "user": null,
       "env": {
         "JVM_OPTS": "-Xms256m -Xmx768m"
@@ -415,21 +467,33 @@
           "UNIQUE"
         ]
       ],
-      "uris": [],
-      "fetch": [],
-      "storeUrls": [],
+      "uris": [
+        
+      ],
+      "fetch": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": {
         "type": "DOCKER",
-        "volumes": [],
+        "volumes": [
+          
+        ],
         "docker": {
           "image": "mesosphere/marathon:v1.3.6",
           "network": "HOST",
-          "portMappings": [],
+          "portMappings": [
+            
+          ],
           "privileged": false,
-          "parameters": [],
+          "parameters": [
+            
+          ],
           "forcePullImage": false
         }
       },
@@ -445,8 +509,12 @@
           "ignoreHttp1xx": false
         }
       ],
-      "readinessChecks": [],
-      "dependencies": [],
+      "readinessChecks": [
+        
+      ],
+      "dependencies": [
+        
+      ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
@@ -467,7 +535,9 @@
       "ipAddress": null,
       "version": "2016-12-20T00:21:34.716Z",
       "residency": null,
-      "secrets": {},
+      "secrets": {
+        
+      },
       "taskKillGracePeriodSeconds": null,
       "ports": [
         10005,
@@ -477,12 +547,16 @@
         {
           "port": 10005,
           "protocol": "tcp",
-          "labels": {}
+          "labels": {
+            
+          }
         },
         {
           "port": 10006,
           "protocol": "tcp",
-          "labels": {}
+          "labels": {
+            
+          }
         }
       ],
       "requirePorts": false,
@@ -499,41 +573,67 @@
           "id": "f9c24711-5ad4-46f4-97d4-58219545bc50"
         }
       ],
-      "tasks": [],
-      "taskStats": {}
+      "tasks": [
+        
+      ],
+      "taskStats": {
+        
+      }
     },
     {
       "id": "/using-lbexample",
       "cmd": "while true; do /opt/mesosphere/bin/curl lbexample.marathon.l4lb.thisdcos.directory:80; sleep 1; done",
-      "args": [],
+      "args": [
+        
+      ],
       "user": null,
-      "env": {},
+      "env": {
+        
+      },
       "instances": 0,
       "cpus": 0.1,
       "mem": 128,
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [],
-      "uris": [],
-      "fetch": [],
-      "storeUrls": [],
+      "constraints": [
+        
+      ],
+      "uris": [
+        
+      ],
+      "fetch": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": null,
-      "healthChecks": [],
-      "readinessChecks": [],
-      "dependencies": [],
+      "healthChecks": [
+        
+      ],
+      "readinessChecks": [
+        
+      ],
+      "dependencies": [
+        
+      ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
       },
-      "labels": {},
+      "labels": {
+        
+      },
       "ipAddress": null,
       "version": "2016-12-19T23:26:45.490Z",
       "residency": null,
-      "secrets": {},
+      "secrets": {
+        
+      },
       "taskKillGracePeriodSeconds": null,
       "ports": [
         10003
@@ -542,7 +642,9 @@
         {
           "port": 10003,
           "protocol": "tcp",
-          "labels": {}
+          "labels": {
+            
+          }
         }
       ],
       "requirePorts": false,
@@ -554,21 +656,31 @@
       "tasksRunning": 0,
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
-      "deployments": [],
-      "tasks": [],
-      "taskStats": {}
+      "deployments": [
+        
+      ],
+      "tasks": [
+        
+      ],
+      "taskStats": {
+        
+      }
     }
   ],
   "groups": [
     {
       "id": "/development",
-      "dependencies": [],
+      "dependencies": [
+        
+      ],
       "version": "2016-12-20T00:21:34.716Z",
       "apps": [
         {
           "id": "/development/logging",
           "cmd": "sleep 2000",
-          "args": [],
+          "args": [
+            
+          ],
           "user": null,
           "env": {
             "env": "dev"
@@ -579,10 +691,18 @@
           "disk": 0,
           "gpus": 0,
           "executor": "",
-          "constraints": [],
-          "uris": [],
-          "fetch": [],
-          "storeUrls": [],
+          "constraints": [
+            
+          ],
+          "uris": [
+            
+          ],
+          "fetch": [
+            
+          ],
+          "storeUrls": [
+            
+          ],
           "backoffSeconds": 1,
           "backoffFactor": 1.15,
           "maxLaunchDelaySeconds": 3600,
@@ -610,17 +730,25 @@
               "ignoreHttp1xx": false
             }
           ],
-          "readinessChecks": [],
-          "dependencies": [],
+          "readinessChecks": [
+            
+          ],
+          "dependencies": [
+            
+          ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
           },
-          "labels": {},
+          "labels": {
+            
+          },
           "ipAddress": null,
           "version": "2016-12-19T23:39:29.026Z",
           "residency": null,
-          "secrets": {},
+          "secrets": {
+            
+          },
           "taskKillGracePeriodSeconds": null,
           "ports": [
             99
@@ -629,7 +757,9 @@
             {
               "port": 99,
               "protocol": "tcp",
-              "labels": {}
+              "labels": {
+                
+              }
             }
           ],
           "requirePorts": false,
@@ -641,7 +771,9 @@
           "tasksRunning": 2,
           "tasksHealthy": 0,
           "tasksUnhealthy": 2,
-          "deployments": [],
+          "deployments": [
+            
+          ],
           "tasks": [
             {
               "id": "development_logging.a6f0bb45-c64b-11e6-9066-5a8a388c67a1",
@@ -780,35 +912,57 @@
         {
           "id": "/development/sleep",
           "cmd": "sleep 2000;",
-          "args": [],
+          "args": [
+            
+          ],
           "user": null,
-          "env": {},
+          "env": {
+            
+          },
           "instances": 1,
           "cpus": 0.001,
           "mem": 12811111,
           "disk": 0,
           "gpus": 0,
           "executor": "",
-          "constraints": [],
-          "uris": [],
-          "fetch": [],
-          "storeUrls": [],
+          "constraints": [
+            
+          ],
+          "uris": [
+            
+          ],
+          "fetch": [
+            
+          ],
+          "storeUrls": [
+            
+          ],
           "backoffSeconds": 1,
           "backoffFactor": 1.15,
           "maxLaunchDelaySeconds": 3600,
           "container": null,
-          "healthChecks": [],
-          "readinessChecks": [],
-          "dependencies": [],
+          "healthChecks": [
+            
+          ],
+          "readinessChecks": [
+            
+          ],
+          "dependencies": [
+            
+          ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
           },
-          "labels": {},
+          "labels": {
+            
+          },
           "ipAddress": null,
           "version": "2016-12-19T23:32:54.121Z",
           "residency": null,
-          "secrets": {},
+          "secrets": {
+            
+          },
           "taskKillGracePeriodSeconds": null,
           "ports": [
             10001
@@ -817,7 +971,9 @@
             {
               "port": 10001,
               "protocol": "tcp",
-              "labels": {}
+              "labels": {
+                
+              }
             }
           ],
           "requirePorts": false,
@@ -834,52 +990,84 @@
               "id": "e8493b06-a46e-4d5c-b70a-8c3f9e46339a"
             }
           ],
-          "tasks": [],
-          "taskStats": {}
+          "tasks": [
+            
+          ],
+          "taskStats": {
+            
+          }
         },
         {
           "id": "/development/web-service",
           "cmd": null,
-          "args": [],
+          "args": [
+            
+          ],
           "user": null,
-          "env": {},
+          "env": {
+            
+          },
           "instances": 0,
           "cpus": 1,
           "mem": 128,
           "disk": 0,
           "gpus": 0,
           "executor": "",
-          "constraints": [],
-          "uris": [],
-          "fetch": [],
-          "storeUrls": [],
+          "constraints": [
+            
+          ],
+          "uris": [
+            
+          ],
+          "fetch": [
+            
+          ],
+          "storeUrls": [
+            
+          ],
           "backoffSeconds": 1,
           "backoffFactor": 1.15,
           "maxLaunchDelaySeconds": 3600,
           "container": {
             "type": "DOCKER",
-            "volumes": [],
+            "volumes": [
+              
+            ],
             "docker": {
               "image": "nginx",
               "network": null,
-              "portMappings": [],
+              "portMappings": [
+                
+              ],
               "privileged": false,
-              "parameters": [],
+              "parameters": [
+                
+              ],
               "forcePullImage": false
             }
           },
-          "healthChecks": [],
-          "readinessChecks": [],
-          "dependencies": [],
+          "healthChecks": [
+            
+          ],
+          "readinessChecks": [
+            
+          ],
+          "dependencies": [
+            
+          ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
           },
-          "labels": {},
+          "labels": {
+            
+          },
           "ipAddress": null,
           "version": "2016-12-19T23:26:22.312Z",
           "residency": null,
-          "secrets": {},
+          "secrets": {
+            
+          },
           "taskKillGracePeriodSeconds": null,
           "ports": [
             10000
@@ -888,7 +1076,9 @@
             {
               "port": 10000,
               "protocol": "tcp",
-              "labels": {}
+              "labels": {
+                
+              }
             }
           ],
           "requirePorts": false,
@@ -900,35 +1090,59 @@
           "tasksRunning": 0,
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
-          "deployments": [],
-          "tasks": [],
-          "taskStats": {}
+          "deployments": [
+            
+          ],
+          "tasks": [
+            
+          ],
+          "taskStats": {
+            
+          }
         }
       ],
-      "groups": [],
-      "pods": []
+      "groups": [
+        
+      ],
+      "pods": [
+        
+      ]
     },
     {
       "id": "/mlunoe",
-      "dependencies": [],
+      "dependencies": [
+        
+      ],
       "version": "2016-12-20T00:21:34.716Z",
       "apps": [
         {
           "id": "/mlunoe/volume-app",
           "cmd": "sleep 999999",
-          "args": [],
+          "args": [
+            
+          ],
           "user": null,
-          "env": {},
+          "env": {
+            
+          },
           "instances": 1,
           "cpus": 0.001,
           "mem": 128,
           "disk": 0,
           "gpus": 0,
           "executor": "",
-          "constraints": [],
-          "uris": [],
-          "fetch": [],
-          "storeUrls": [],
+          "constraints": [
+            
+          ],
+          "uris": [
+            
+          ],
+          "fetch": [
+            
+          ],
+          "storeUrls": [
+            
+          ],
           "backoffSeconds": 1,
           "backoffFactor": 1.15,
           "maxLaunchDelaySeconds": 3600,
@@ -941,7 +1155,9 @@
                 "persistent": {
                   "size": 32,
                   "type": "root",
-                  "constraints": []
+                  "constraints": [
+                    
+                  ]
                 }
               },
               {
@@ -957,21 +1173,31 @@
               }
             ]
           },
-          "healthChecks": [],
-          "readinessChecks": [],
-          "dependencies": [],
+          "healthChecks": [
+            
+          ],
+          "readinessChecks": [
+            
+          ],
+          "dependencies": [
+            
+          ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 0.5,
             "maximumOverCapacity": 0
           },
-          "labels": {},
+          "labels": {
+            
+          },
           "ipAddress": null,
           "version": "2016-12-19T23:32:46.953Z",
           "residency": {
             "relaunchEscalationTimeoutSeconds": 10,
             "taskLostBehavior": "WAIT_FOREVER"
           },
-          "secrets": {},
+          "secrets": {
+            
+          },
           "taskKillGracePeriodSeconds": null,
           "ports": [
             10002
@@ -980,7 +1206,9 @@
             {
               "port": 10002,
               "protocol": "tcp",
-              "labels": {}
+              "labels": {
+                
+              }
             }
           ],
           "requirePorts": false,
@@ -992,7 +1220,9 @@
           "tasksRunning": 1,
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
-          "deployments": [],
+          "deployments": [
+            
+          ],
           "tasks": [
             {
               "id": "mlunoe_volume-app.72a7640d-c643-11e6-9066-5a8a388c67a1",
@@ -1068,17 +1298,31 @@
           }
         }
       ],
-      "groups": [],
-      "pods": []
+      "groups": [
+        
+      ],
+      "pods": [
+        
+      ]
     },
     {
       "id": "/production",
-      "dependencies": [],
+      "dependencies": [
+        
+      ],
       "version": "2016-12-20T00:21:34.716Z",
-      "apps": [],
-      "groups": [],
-      "pods": []
+      "apps": [
+        
+      ],
+      "groups": [
+        
+      ],
+      "pods": [
+        
+      ]
     }
   ],
-  "pods": []
+  "pods": [
+    
+  ]
 }

@@ -50,7 +50,9 @@
         "cpus": 2.499,
         "ports": "[1026-2180, 2182-3887, 3889-4039, 4041-5049, 5052-8079, 8082-8180, 8182-10033, 10035-32000]"
       },
-      "attributes": {},
+      "attributes": {
+        
+      },
       "active": true,
       "version": "1.2.0",
       "TASK_STAGING": 0,
@@ -120,7 +122,9 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "framework_ids": []
+      "framework_ids": [
+        
+      ]
     }
   ],
   "frameworks": [
@@ -141,7 +145,9 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [],
+      "capabilities": [
+        
+      ],
       "hostname": "ip-10-0-3-46.us-west-2.compute.internal",
       "webui_url": "",
       "active": true,
@@ -211,7 +217,9 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [],
+      "capabilities": [
+        
+      ],
       "hostname": "10.0.6.207",
       "webui_url": "http://10.0.6.207:9090",
       "active": true,
@@ -224,7 +232,9 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "slave_ids": []
+      "slave_ids": [
+        
+      ]
     }
   ]
 }
