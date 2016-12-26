@@ -1,7 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 
-import Framework from '../../structs/Framework';
 import Page from '../../../../../../src/js/components/Page';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
@@ -146,13 +145,11 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
-    if (!(service instanceof Framework)) {
-      actions.push({
-        className: 'text-danger',
-        label: 'Destroy',
-        onItemSelect: modalHandlers.deleteService
-      });
-    }
+    actions.push({
+      className: 'text-danger',
+      label: 'Destroy',
+      onItemSelect: modalHandlers.deleteService
+    });
 
     return actions;
   }

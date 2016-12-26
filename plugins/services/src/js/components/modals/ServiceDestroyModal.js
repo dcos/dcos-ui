@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import AppLockedMessage from './AppLockedMessage';
+import Framework from '../../structs/Framework';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
@@ -64,6 +65,29 @@ class ServiceDestroyModal extends React.Component {
     return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
+  getDestroyMessage() {
+    const {service} = this.props;
+    let serviceName = '';
+
+    if (service) {
+      serviceName = service.getId();
+    }
+
+    if (service instanceof Framework) {
+      return (
+        <p>
+          This will only destroy the package scheduler for <span className="emphasize">{serviceName}</span>. Any tasks that were started by this scheduler will persist in the system. Are you sure you want to continue?
+        </p>
+      );
+    }
+
+    return (
+      <p>
+        Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
+      </p>
+    );
+  }
+
   getErrorMessage() {
     const {errorMsg = null} = this.state;
 
@@ -92,7 +116,6 @@ class ServiceDestroyModal extends React.Component {
     } = this.props;
 
     let itemText = 'Service';
-    let serviceName = '';
 
     if (service instanceof Pod) {
       itemText = 'Pod';
@@ -100,10 +123,6 @@ class ServiceDestroyModal extends React.Component {
 
     if (service instanceof ServiceTree) {
       itemText = 'Group';
-    }
-
-    if (service) {
-      serviceName = service.getId();
     }
 
     let heading = (
@@ -124,9 +143,7 @@ class ServiceDestroyModal extends React.Component {
         rightButtonClassName="button button-danger"
         rightButtonCallback={() => deleteItem(this.shouldForceUpdate())}
         showHeader={true}>
-        <p>
-          Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
-        </p>
+        {this.getDestroyMessage()}
         {this.getErrorMessage()}
       </Confirm>
     );
