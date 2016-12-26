@@ -66,6 +66,7 @@ const TaskUtil = {
 
   getTaskStatusClassName(task) {
     const taskStatus = TaskUtil.getTaskStatusSlug(task);
+
     return `task-status-${taskStatus}`;
   },
 

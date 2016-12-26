@@ -31,6 +31,7 @@ class UnitHealthDropdown extends React.Component {
     });
 
     items.unshift(DEFAULT_ITEM);
+
     return items;
   }
 

@@ -26,6 +26,7 @@ const HealthChecks = {
           if (check.port != null) {
             check.portType = 'PORT_NUMBER';
           }
+
           return check;
         });
 

@@ -56,6 +56,7 @@ class PodContainerServiceFormSection extends Component {
       if (index === 0) {
         label = getArtifactsLabel();
       }
+
       return (
         <div className="flex row" key={`${path}.artifacts.${index}`}>
           <FormGroup className="column-10" showError={Boolean(artifactError)}>

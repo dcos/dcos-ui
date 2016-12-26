@@ -301,6 +301,7 @@ module.exports = {
    */
   generateFacetFragments(facets, context) {
     let keys = Object.keys(facets);
+
     return keys.reduce(function(fragments, facet) {
       if (FACET_FRAGMENT_GENERATORS[facet] == null) {
         throw new TypeError(`Unknown facet: '${facet}'`);

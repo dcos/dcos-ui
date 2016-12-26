@@ -162,6 +162,7 @@ class JobFormModal extends mixin(StoreMixin) {
           ]
         }
       });
+
       return null;
     }
 

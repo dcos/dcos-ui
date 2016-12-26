@@ -118,6 +118,7 @@ class MesosStateStore extends GetSetBaseStore {
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
       startPolling();
+
       return;
     }
 
@@ -217,6 +218,7 @@ class MesosStateStore extends GetSetBaseStore {
     if (foundTask == null) {
       return null;
     }
+
     return new Task(foundTask);
   }
 

@@ -61,8 +61,10 @@ var DialChart = React.createClass({
       .duration(nextProps.duration)
       .attrTween('d', function (d) {
         var interpolate = d3.interpolate(this._current, d);
+
         return function (t) {
           this._current = interpolate(t);
+
           return innerArc(this._current);
         }.bind(this);
       }).each('end', function (d) {
@@ -100,12 +102,14 @@ var DialChart = React.createClass({
     var sumOfData = data.reduce(function (memo, datum) {
       return memo + datum.value;
     }, 0);
+
     return sumOfData === 0;
   },
 
   getSlice(props) {
     var data = this.internalStorage_get();
     var normalizedData = this.getNormalizedData(props.slices, props.data);
+
     return d3.select(ReactDOM.findDOMNode(this)).selectAll('path')
       .data(data.pie(normalizedData));
   },
@@ -118,6 +122,7 @@ var DialChart = React.createClass({
 
   getArcs(props) {
     var radius = this.getRadius(props);
+
     return {
       innerArc: d3.svg.arc()
         .outerRadius(radius * 0.9)

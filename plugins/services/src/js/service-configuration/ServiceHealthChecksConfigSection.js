@@ -17,6 +17,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
    */
   shouldExcludeItem() {
     const {appConfig} = this.props;
+
     return !Util.findNestedPropertyInObject(appConfig, 'healthChecks.length');
   }
 

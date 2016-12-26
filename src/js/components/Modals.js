@@ -142,6 +142,7 @@ var Modals = React.createClass({
     }.bind(this);
 
     var versions = SidebarStore.get('versions');
+
     return (
       <VersionsModal
         onClose={onClose}

@@ -154,6 +154,7 @@ module.exports = class Tree extends List {
       if (currentValue instanceof Tree) {
         returnValue = currentValue.reduceItems(callback, returnValue);
       }
+
       return returnValue;
     }, initialValue);
   }

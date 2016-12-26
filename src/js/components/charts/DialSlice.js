@@ -18,6 +18,7 @@ var DialSlice = React.createClass({
       classes['path-color-' + this.props.colorIndex] = true;
     }
     var classSet = classNames(classes);
+
     return (
       <g className={classSet}>
         <path d={this.props.path} />

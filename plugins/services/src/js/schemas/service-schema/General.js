@@ -102,6 +102,7 @@ const General = {
             if ((instances !== 0 && !instances) || instances < 0) {
               instances = this.default;
             }
+
             return `${instances}`;
           }
         }

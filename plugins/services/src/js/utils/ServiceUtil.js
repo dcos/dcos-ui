@@ -499,6 +499,7 @@ const ServiceUtil = {
 
   getServiceNameFromTaskID(taskID) {
     const serviceName = taskID.split('.')[0].split('_');
+
     return serviceName[serviceName.length - 1];
   },
 

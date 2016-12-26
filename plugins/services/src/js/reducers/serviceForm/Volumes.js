@@ -12,6 +12,7 @@ const mapLocalVolumes = function (volume) {
       containerPath: volume.containerPath
     };
   }
+
   return {
     containerPath: volume.containerPath,
     hostPath: volume.hostPath,

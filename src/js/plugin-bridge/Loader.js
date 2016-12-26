@@ -60,6 +60,7 @@ function getAvailablePlugins() {
  */
 function removeDir(dirs, atIndex) {
   dirs.splice(atIndex, 1);
+
   return dirs.join('/');
 }
 

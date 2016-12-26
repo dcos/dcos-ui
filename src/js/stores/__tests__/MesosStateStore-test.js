@@ -151,6 +151,7 @@ describe('MesosStateStore', function () {
         if (id === 'taskCache') {
           return taskCache;
         }
+
         return data;
       };
     });

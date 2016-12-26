@@ -191,6 +191,7 @@ const StringUtil = {
           return title;
         }
         word = replace[word] || this.capitalize(word.toLowerCase().trim());
+
         return `${title} ${word}`;
       }, '').trim();
     }
@@ -201,6 +202,7 @@ const StringUtil = {
       splitWords.map(function (token) {
         accumulated.push(token);
       });
+
       return accumulated;
     }, []);
 

@@ -27,6 +27,7 @@ const MesosStateUtil = {
    */
   decomposePodTaskId(taskID) {
     const [, podID, instanceID, taskName] = POD_TASK_REGEX.exec(taskID);
+
     return {
       podID,
       instanceID,
@@ -56,6 +57,7 @@ const MesosStateUtil = {
    */
   getFramework(state, frameworkID) {
     const {frameworks, completed_frameworks} = state;
+
     return [].concat(frameworks, completed_frameworks).find(
       function (framework) {
         return framework != null && framework.id === frameworkID;
@@ -97,6 +99,7 @@ const MesosStateUtil = {
 
   getTasksFromVirtualNetworkName(state = {}, overlayName) {
     const frameworks = state.frameworks || [];
+
     return frameworks.reduce(function (memo, framework) {
       const tasks = framework.tasks || [];
 
@@ -145,6 +148,7 @@ const MesosStateUtil = {
               if (!memo || (status.timestamp > memo.timestamp)) {
                 return status;
               }
+
               return memo;
             }, null);
 
@@ -229,12 +233,14 @@ const MesosStateUtil = {
               // For a detail documentation on how to construct the task path
               // please see: https://reviews.apache.org/r/52376/
               taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
+
               return false;
             }
 
             // Simply use the executors directory for "apps" and "frameworks",
             // as well as any other executor
             taskPath = `${executor.directory}/${path}`;
+
             return false;
           }
 

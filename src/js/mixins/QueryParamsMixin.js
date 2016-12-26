@@ -18,11 +18,13 @@ var QueryParamsMixin = {
 
   getCurrentPathname() {
     const {pathname} = this.props.location;
+
     return pathname || {};
   },
 
   getQueryParamObject() {
     const {query} = this.props.location;
+
     return query || {};
   },
 

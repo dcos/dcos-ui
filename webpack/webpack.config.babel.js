@@ -47,6 +47,7 @@ function requireFromString(src, filename) {
   const Module = module.constructor;
   const sourceModule = new Module();
   sourceModule._compile(src, filename);
+
   return sourceModule.exports;
 }
 

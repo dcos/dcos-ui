@@ -143,6 +143,7 @@ class UnitHealthStore extends GetSetBaseStore {
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
       startPolling();
+
       return;
     }
 
@@ -165,6 +166,7 @@ class UnitHealthStore extends GetSetBaseStore {
 
   getNodes(unitID) {
     const nodes = this.get('nodesByUnitID')[unitID] || [];
+
     return new NodesList({items: nodes});
   }
 

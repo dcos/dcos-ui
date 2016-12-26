@@ -56,6 +56,7 @@ const General = {
             })) {
               definition.showError = 'CPUs must be a number at least equal to ' +
                 MesosConstants.MIN_CPUS;
+
               return false;
             }
 
@@ -75,6 +76,7 @@ const General = {
             })) {
               definition.showError = 'Mem must be a number and at least ' +
                 MesosConstants.MIN_MEM + ' MiB';
+
               return false;
             }
 
@@ -92,6 +94,7 @@ const General = {
             if (ValidatorUtil.isDefined(general.disk) &&
                !ValidatorUtil.isNumberInRange(general.disk)) {
               definition.showError = 'Disk must be a positive number';
+
               return false;
             }
 

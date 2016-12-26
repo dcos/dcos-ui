@@ -57,6 +57,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
         return !!isTab;
       }).reduce(function (tabs, {path, title}) {
         tabs[path] = title;
+
         return tabs;
       }, this.tabs_tabs);
     }

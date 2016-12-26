@@ -61,6 +61,7 @@ module.exports = {
     let facets = itype.getFixedFacets();
     let comment = 'This is an in-line specialisation of ' + this.getInlineTypeBase(itype)
       + '\n with the following constraints:\n\n';
+
     return comment + Object.keys(facets).map(function(name) {
       if (name === 'items') {
         return `- ${name}: ${this.getTypeName(facets[name].extras.nominal)}`;
@@ -108,6 +109,7 @@ module.exports = {
 
     // Calculate unique name
     let typeName = this.getInlineTypeBase(itype);
+
     return 'inline' + typeName[0].toUpperCase() + typeName.substr(1) + '_' +
             crypto.createHash('md5').update(expr).digest('hex');
   },

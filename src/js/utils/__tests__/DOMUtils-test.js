@@ -150,6 +150,7 @@ describe('DOMUtils', function () {
       var now = -15;
       Date.now = function () {
         now += 15;
+
         return now;
       };
     });

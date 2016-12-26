@@ -14,6 +14,7 @@ module.exports = {
       enumerable: false,
       writable: true
     });
+
     return obj;
   },
 

@@ -26,6 +26,7 @@ module.exports = function(source) {
         }
 
         this.addDependency(path);
+
         return fs.readFileSync(path).toString();
       }).bind(this)
     }

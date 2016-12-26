@@ -117,12 +117,14 @@ class NewServiceFormModal extends Component {
         serviceReviewActive: false,
         activeTab: tabViewID
       });
+
       return;
     }
 
     // Close if picker is open, or if editing a service in the form
     if (servicePickerActive || (!serviceReviewActive && this.props.isEdit)) {
       this.handleClose();
+
       return;
     }
 
@@ -132,6 +134,7 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceFormActive: false
       });
+
       return;
     }
 

@@ -28,11 +28,13 @@ const DSLUtil = {
         const filterStr = DSLUtil.getNodeString(filter);
         if (memo.found[filterStr] == null) {
           memo.found[filterStr] = true;
+
           return memo;
         }
 
         // If we found a repeating token, mark repeating
         memo.isRepeating = true;
+
         return memo;
       },
       {isRepeating: false, found: {}}
@@ -169,6 +171,7 @@ const DSLUtil = {
         //
         case DSLFilterTypes.ATTRIB:
           memo[prop] = (matchingNodes.length === 1);
+
           return memo;
 
         //
@@ -177,10 +180,12 @@ const DSLUtil = {
         case DSLFilterTypes.EXACT:
           if (matchingNodes.length === 0) {
             memo[prop] = null;
+
             return memo;
           }
 
           memo[prop] = matchingNodes[0].filterParams.text;
+
           return memo;
 
         //
@@ -190,6 +195,7 @@ const DSLUtil = {
         case DSLFilterTypes.FUZZY:
           if (matchingNodes.length === 0) {
             memo[prop] = null;
+
             return memo;
           }
 

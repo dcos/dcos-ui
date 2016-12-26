@@ -86,6 +86,7 @@ var TimeSeriesChart = React.createClass({
       var width = this.getWidth(nextProps);
 
       this.renderAxis(nextProps, width, height);
+
       return true;
     }
 
@@ -239,6 +240,7 @@ var TimeSeriesChart = React.createClass({
     if (yFormat === ValueTypes.PERCENTAGE) {
       return '%';
     }
+
     return '';
   },
 
@@ -306,6 +308,7 @@ var TimeSeriesChart = React.createClass({
     // look at the difference between the last and the third last point
     // to calculate transition time
     var l = data.length - 1;
+
     return (data[l].date - data[l - 1].date) / 1;
   },
 

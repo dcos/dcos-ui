@@ -60,6 +60,7 @@ const Util = {
         return index;
       }
     }
+
     return -1;
   },
 
@@ -193,6 +194,7 @@ const Util = {
       return !ValidatorUtil.isEmpty(obj[key]);
     }).reduce(function (memo, key) {
       memo[key] = obj[key];
+
       return memo;
     }, {});
   }

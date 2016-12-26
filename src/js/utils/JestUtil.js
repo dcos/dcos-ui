@@ -30,6 +30,7 @@ const defaultToLocaleString = Date.prototype.toLocaleString;
 const JestUtil = {
   renderAndFindTag(instance, tag) {
     var result = TestUtils.renderIntoDocument(instance);
+
     return TestUtils.findRenderedDOMComponentWithTag(result, tag);
   },
 
@@ -44,6 +45,7 @@ const JestUtil = {
   dontMockStore(storeID) {
     if (storeID in stores) {
       jest.dontMock(stores[storeID]);
+
       return true;
     }
   },
@@ -121,6 +123,7 @@ const JestUtil = {
     };
     Date.prototype.toLocaleString = function (locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
+
       return defaultToLocaleString.call(this, locale, options);
     };
     /* eslint-enable no-extend-native */

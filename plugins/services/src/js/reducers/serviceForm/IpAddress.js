@@ -33,6 +33,7 @@ module.exports = {
           networkName: value.split('.')[1]
         };
       }
+
       return null;
     }
 

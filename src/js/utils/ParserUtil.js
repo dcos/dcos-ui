@@ -39,6 +39,7 @@ module.exports = {
       if (value == null) {
         return [];
       }
+
       return new Transaction(path, value);
 
     };

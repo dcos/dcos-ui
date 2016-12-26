@@ -9,6 +9,7 @@ import FrameworkSpec from './FrameworkSpec';
 module.exports = class Framework extends Application {
   getInstancesCount() {
     const tasksRunning = this.get('TASK_RUNNING') || 0;
+
     return super.getInstancesCount() + tasksRunning;
   }
 
@@ -17,6 +18,7 @@ module.exports = class Framework extends Application {
     if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
       return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
     }
+
     return super.getName();
   }
 
@@ -26,6 +28,7 @@ module.exports = class Framework extends Application {
 
   getResourceID() {
     const regexp = new RegExp(`[^${FRAMEWORK_ID_VALID_CHARACTERS}]`, 'g');
+
     // Strip non-alphanumeric chars from name for safety
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
@@ -36,7 +39,6 @@ module.exports = class Framework extends Application {
 
   getTasksSummary() {
     const tasksSummary = Object.assign({}, super.getTasksSummary());
-
     const tasksRunning = this.get('TASK_RUNNING') || 0;
     tasksSummary.tasksRunning += tasksRunning;
     tasksSummary.tasksUnknown += tasksRunning;

@@ -33,6 +33,7 @@ RequestUtil.json = function () {};
       );
 
       lastTime = currTime + timeToCall;
+
       return id;
     };
 

@@ -28,6 +28,7 @@ const CreateServiceModalFormUtil = {
           memo[key] = value;
         }
       }
+
       return memo;
     }, baseObject);
   },

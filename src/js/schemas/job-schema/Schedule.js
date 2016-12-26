@@ -43,6 +43,7 @@ const Schedule = {
         if (!JobValidatorUtil.isValidCronSchedule(schedule.cron)) {
           definition.showError = 'CRON Schedule must not be empty and it must '+
           'follow the correct CRON format specifications';
+
           return false;
         }
 
@@ -85,6 +86,7 @@ const Schedule = {
 
         if (!ValidatorUtil.isNumberInRange(schedule.startingDeadlineSeconds)) {
           definition.showError = 'Expecting a positive number here';
+
           return true;
         }
 

@@ -69,6 +69,7 @@ function countNewLines(src, startAt, endAt) {
       newLines++;
     }
   }
+
   return newLines;
 }
 

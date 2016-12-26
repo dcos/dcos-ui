@@ -49,6 +49,7 @@ function columnClassNameGetter(prop, sortBy, row) {
   if (COLLAPSING_COLUMNS.includes(prop)) {
     return classNames(classSet, 'hidden-small-down');
   }
+
   return classSet;
 }
 
@@ -119,6 +120,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     if (serviceIds == null) {
       return;
     }
+
     return serviceIds.map(function (serviceId) {
       return (
         <dd key={`stale_${serviceId}`}>
@@ -235,6 +237,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       if (deployment.isStarting()) {
         linkText = linkText + ' & Remove';
       }
+
       return (
         <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
           onClick={this.handleRollbackClick.bind(null, deployment)}>

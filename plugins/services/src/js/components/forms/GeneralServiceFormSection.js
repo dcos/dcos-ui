@@ -83,6 +83,7 @@ class GeneralServiceFormSection extends Component {
     }
 
     const {containers = []} = data;
+
     return containers.map((item, index) => {
       return (
         <FormGroupContainer key={index}

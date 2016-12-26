@@ -85,6 +85,7 @@ const DataValidatorUtil = {
 
   stripErrorsOnPath(errorList, path) {
     const pathStr = path.join('.');
+
     return errorList.filter(function (error) {
       return error.path.join('.') !== pathStr;
     });
