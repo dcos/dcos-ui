@@ -239,7 +239,6 @@ class MesosStateStore extends GetSetBaseStore {
     const tasks = this.getSchedulerTasks();
 
     return tasks.find(function ({labels}) {
-
       return labels.some(({key, value}) => {
         return key === 'DCOS_PACKAGE_FRAMEWORK_NAME' && value === serviceName;
       });

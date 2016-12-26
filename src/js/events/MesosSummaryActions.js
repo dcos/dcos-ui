@@ -103,7 +103,6 @@ var MesosSummaryActions = {
   fetchSummary: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
-
       return function (timeScale) {
         const canAccessHistoryAPI = Hooks.applyFilter(
           'hasCapability', false, 'historyServiceAPI'

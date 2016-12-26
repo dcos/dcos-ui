@@ -57,7 +57,6 @@ class MarathonTaskDetailsList extends React.Component {
 
   getMarathonTaskHealthCheckResults(task) {
     if (task == null || task.healthCheckResults == null) {
-
       return null;
     }
 

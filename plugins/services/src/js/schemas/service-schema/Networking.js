@@ -25,13 +25,11 @@ const Networking = {
       getter(service) {
         const ipAddress = service.getIpAddress();
         if (ipAddress) {
-
           return ipAddress.networkName;
         }
 
         const container = service.getContainerSettings();
         if (container && container.docker && container.docker.network) {
-
           return container.docker.network.toLowerCase();
         }
 
