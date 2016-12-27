@@ -41,7 +41,13 @@ module.exports = {
       if (joinedPath === 'healthChecks') {
         switch (type) {
           case ADD_ITEM:
-            this.healthChecks.push({protocol: 'COMMAND'});
+            this.healthChecks.push({
+              protocol: 'COMMAND',
+              gracePeriodSeconds: 300,
+              intervalSeconds: 60,
+              timeoutSeconds: 20,
+              maxConsecutiveFailures: 3
+            });
             break;
           case REMOVE_ITEM:
             this.healthChecks = this.healthChecks.filter((item, index) => {

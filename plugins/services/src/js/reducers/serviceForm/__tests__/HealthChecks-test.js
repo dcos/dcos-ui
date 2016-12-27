@@ -11,7 +11,12 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
-      .toEqual([{}]);
+      .toEqual([{
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
+      }]);
     });
 
     it('should set the protocol', function () {
@@ -21,7 +26,11 @@ describe('Labels', function () {
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([{
-        protocol: 'COMMAND'
+        protocol: 'COMMAND',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
@@ -34,6 +43,10 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([{
         protocol: 'COMMAND',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3,
         command: {
           value: 'sleep 1000;'
         }
@@ -49,6 +62,10 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([{
         protocol: 'HTTP',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3,
         path: '/test'
       }]);
     });
@@ -90,6 +107,10 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([{
         protocol: 'HTTP',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3,
         path: '/test'
       }]);
     });
@@ -102,7 +123,12 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
-      .toEqual([{}]);
+      .toEqual([{
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
+      }]);
     });
 
     it('should set the protocol', function () {
@@ -112,7 +138,11 @@ describe('Labels', function () {
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
       .toEqual([{
-        protocol: 'COMMAND'
+        protocol: 'COMMAND',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
@@ -125,7 +155,11 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
       .toEqual([{
         protocol: 'COMMAND',
-        command: 'sleep 1000;'
+        command: 'sleep 1000;',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
@@ -138,7 +172,11 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
       .toEqual([{
         protocol: 'HTTP',
-        path: '/test'
+        path: '/test',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
@@ -175,7 +213,11 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{
-        protocol: 'HTTPS'
+        protocol: 'HTTPS',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
@@ -189,7 +231,11 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], false));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{
-        protocol: 'HTTP'
+        protocol: 'HTTP',
+        gracePeriodSeconds: 300,
+        intervalSeconds: 60,
+        timeoutSeconds: 20,
+        maxConsecutiveFailures: 3
       }]);
     });
 
