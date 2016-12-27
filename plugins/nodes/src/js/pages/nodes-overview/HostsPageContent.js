@@ -53,6 +53,7 @@ class HostsPageContent extends React.Component {
       totalResources,
       viewTypeRadioButtons
     } = this.props;
+
     return (
       <div>
         <ResourceBarChart

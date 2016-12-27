@@ -127,6 +127,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     if (!SchemaUtil.validateSchema(cosmosPackage.getConfig())) {
       this.setState({schemaIncorrect: true});
+
       return;
     }
 

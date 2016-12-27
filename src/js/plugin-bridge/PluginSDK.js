@@ -71,6 +71,7 @@ const initialize = function (pluginsConfig) {
       if (Config.environment === 'development') {
         console.warn(`Plugin ${pluginID} not available in bundle`);
       }
+
       return;
     }
     let pluginType;
@@ -131,6 +132,7 @@ const getModule = function (moduleName) {
     throw new Error(`Module ${moduleName} does not exist.`);
   }
   const dir = foundDirs[0];
+
   return Loader.requireModule(dir, PluginModules[dir][moduleName]);
 };
 
@@ -146,9 +148,11 @@ const getApplicationModuleAPI = function () {
         // other end.
         return modules.reduce(function (acc, module) {
           acc[module] = getModule(module);
+
           return acc;
         }, {});
       }
+
       return getModule(modules);
     }
   };
@@ -187,6 +191,7 @@ const getActionsAPI = function (SDK) {
         }
         throw Error(`No registered actions for ${name}. Make sure plugin is loaded or actions are registered`);
       }
+
       return REGISTERED_ACTIONS[name];
     }
   };

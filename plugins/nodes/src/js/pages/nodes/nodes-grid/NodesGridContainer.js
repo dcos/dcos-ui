@@ -146,6 +146,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     } = this.state;
 
     const {services, selectedResource} = this.props;
+
     return (
       <NodesGridView
         hasLoadingError={hasLoadingError}

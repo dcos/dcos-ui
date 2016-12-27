@@ -72,9 +72,11 @@ class TabForm extends mixin(InternalStorageMixin) {
 
     if (isFormValidated) {
       this.props.onSubmit(this.model);
+
       return this.model;
     } else {
       this.props.onError();
+
       return false;
     }
   }

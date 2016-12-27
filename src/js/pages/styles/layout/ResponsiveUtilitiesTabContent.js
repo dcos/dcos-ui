@@ -5,7 +5,6 @@ import SidebarActions from '../../../events/SidebarActions';
 class ResponsiveUtilitiesTabContent extends React.Component {
 
   render() {
-
     return (
 
       <div>

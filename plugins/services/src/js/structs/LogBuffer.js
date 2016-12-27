@@ -14,6 +14,7 @@ function truncateItemData(itemData, sizeDiff) {
   itemData = itemData.substring(sizeDiff);
   // Truncate to first newline
   const newLineIndex = itemData.indexOf('\n') + 1;
+
   return itemData.substring(newLineIndex);
   // Update currentSize accordingly
 }

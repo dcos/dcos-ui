@@ -28,6 +28,7 @@ const StructUtil = {
     if (obj instanceof Date) {
       copy = new Date();
       copy.setTime(obj.getTime());
+
       return copy;
     }
     // Handle Array
@@ -42,6 +43,7 @@ const StructUtil = {
           copy[attr] = copyRawObject(obj[attr]);
         }
       }
+
       return copy;
     }
   }

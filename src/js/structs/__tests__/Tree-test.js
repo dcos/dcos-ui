@@ -398,6 +398,7 @@ describe('Tree', function () {
         function (previousValue, currentValue) {
           if (currentValue instanceof Tree) {
             previousValue.push(currentValue.getItems().length);
+
             return previousValue;
           }
           previousValue.push(currentValue.name);

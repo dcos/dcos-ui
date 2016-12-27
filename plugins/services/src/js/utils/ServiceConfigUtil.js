@@ -6,6 +6,7 @@ const serviceAddressKey = 'Service Address';
 
 function buildHostName(id, port) {
   const hostname = HostUtil.stringToHostname(id);
+
   return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
 }
 

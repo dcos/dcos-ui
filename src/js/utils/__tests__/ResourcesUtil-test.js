@@ -5,6 +5,7 @@ const ResourcesUtil = require('../ResourcesUtil');
 
 function createFnWithResources(used_resources) {
   const instance = new Node({used_resources});
+
   return function () { return new NodesList({items: [instance]}); };
 }
 

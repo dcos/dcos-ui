@@ -93,12 +93,14 @@ class MetadataStore extends GetSetBaseStore {
 
   get version() {
     const metadata = this.get('dcosMetadata');
+
     return metadata && metadata.version;
   }
 
   get parsedVersion() {
     let version = (this.version) || 'latest';
     version = version.split('-')[0];
+
     return version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
   }
 

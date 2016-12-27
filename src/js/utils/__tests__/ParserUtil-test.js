@@ -73,6 +73,7 @@ describe('ParserUtil', function () {
             }
           ])(state);
         }
+
         return [];
       };
 

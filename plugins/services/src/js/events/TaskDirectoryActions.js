@@ -49,6 +49,7 @@ var TaskDirectoryActions = {
           error(xhr) {
             if (xhr.statusText === 'abort') {
               resolve();
+
               return;
             }
 
@@ -73,6 +74,7 @@ var TaskDirectoryActions = {
         type: REQUEST_TASK_DIRECTORY_ERROR,
         task
       });
+
       return;
     }
 

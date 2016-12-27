@@ -68,6 +68,7 @@ class HealthBar extends React.Component {
       })
       .reduce(function (memo, key) {
         memo[key] = tasksSummary[key];
+
         return memo;
       }, {});
 

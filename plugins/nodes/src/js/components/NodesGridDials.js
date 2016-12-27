@@ -90,6 +90,7 @@ var NodesGridDials = React.createClass({
 
     var percentage = config.reduce(function (memo, slice) {
       memo += slice.percentage;
+
       return memo;
     }, 0);
     percentage = Math.round(percentage);
@@ -122,6 +123,7 @@ var NodesGridDials = React.createClass({
 
     if (node.isActive()) {
       var sliceData = this.getActiveSliceData(node);
+
       return {
         data: sliceData.data,
         description: [

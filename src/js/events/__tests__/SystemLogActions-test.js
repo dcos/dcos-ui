@@ -22,6 +22,7 @@ describe('SystemLogActions', function () {
     cookie.parse = function () {
       var cookieObj = {};
       cookieObj[USER_COOKIE_KEY] = 'aRandomCode';
+
       return cookieObj;
     };
 
@@ -58,6 +59,7 @@ describe('SystemLogActions', function () {
       cookie.parse = function () {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = null;
+
         return cookieObj;
       };
 
@@ -178,6 +180,7 @@ describe('SystemLogActions', function () {
       cookie.parse = function () {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = null;
+
         return cookieObj;
       };
 

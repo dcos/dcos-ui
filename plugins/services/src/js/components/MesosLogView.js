@@ -85,6 +85,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
     if (!prevState.fullLog && this.state.fullLog) {
       logContainerNode.scrollTop = logContainerNode.scrollHeight;
+
       return;
     }
 

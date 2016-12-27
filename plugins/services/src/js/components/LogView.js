@@ -99,6 +99,7 @@ class LogView extends React.Component {
 
     if (!prevState.fullLog && this.state.fullLog) {
       logContainer.scrollTop = logContainer.scrollHeight;
+
       return;
     }
 

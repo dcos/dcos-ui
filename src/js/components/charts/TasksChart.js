@@ -64,6 +64,7 @@ var TasksChart = React.createClass({
         classes['column-small-' + (12 / numberOfTasks)] = true;
       }
       var classSet = classNames(classes);
+
       return (
         <div key={key} className={classSet}>
           <p className="h1 unit flush-top">

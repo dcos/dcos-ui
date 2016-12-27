@@ -14,6 +14,7 @@ const PERMISSIONS_LIST = [
 function updateState(prevState, action) {
   // Peel away Structs and assign to State tree rooted at storeID
   prevState[action.storeID] = StructUtil.copyRawObject(action.data);
+
   return prevState;
 }
 

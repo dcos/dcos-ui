@@ -137,6 +137,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
       jobs = item.filterItemsByText(searchString, filterProperties).getItems();
     }
+
     return jobs;
   }
 

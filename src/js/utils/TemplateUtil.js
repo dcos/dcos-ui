@@ -40,6 +40,7 @@ const TemplateUtil = {
    */
   filterTemplateChildren(T, children) {
     const types = this.getTypesOfTemplateChildren(T);
+
     return React.Children.toArray(children)
         .filter((child) => !types.includes(child.type));
   },

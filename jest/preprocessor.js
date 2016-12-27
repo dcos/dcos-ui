@@ -37,6 +37,7 @@ module.exports = {
       // aliased path.
       src = webpackAlias.process(src, filename);
     }
+
     return src;
   }
 };

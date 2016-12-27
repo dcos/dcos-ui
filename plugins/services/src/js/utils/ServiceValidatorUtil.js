@@ -12,7 +12,6 @@ const ServiceValidatorUtil = {
     );
 
     return serviceID.split('/').every(function (segment, index) {
-
       return (index === 0 && (segment == null || segment === '')) ||
         segment === '.' || segment === '..' ||
         serviceIDSegmentPattern.test(segment);

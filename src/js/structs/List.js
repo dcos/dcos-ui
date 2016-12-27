@@ -18,6 +18,7 @@ function cast(item) {
   if (Type != null && !(item instanceof Type)) {
     return new Type(item);
   }
+
   return item;
 }
 
@@ -105,6 +106,7 @@ module.exports = class List {
     // Finally we trim-down the `combinedItems` array with the actual length
     // of the end result and we create the new list
     combinedItems.length = actualLength;
+
     return new this.constructor({items: combinedItems});
   }
 

@@ -147,6 +147,7 @@ class Highlight extends mixin(InternalStorageMixin) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
         this.internalStorage_set({highlightCount});
+
         return children;
       }
 
@@ -174,6 +175,7 @@ class Highlight extends mixin(InternalStorageMixin) {
       remaining = remaining.slice(boundaries.last);
 
     }
+
     return children;
   }
 
@@ -187,6 +189,7 @@ class Highlight extends mixin(InternalStorageMixin) {
    */
   renderPlain(string) {
     this.count++;
+
     return (
       <span key={this.count}>
         {string}

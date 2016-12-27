@@ -44,6 +44,7 @@ class ServiceGroupFormModal extends React.Component {
     if (!errors) {
       return null;
     }
+
     return (
       <h4 className="text-align-center text-danger flush-top">{errors}</h4>
     );

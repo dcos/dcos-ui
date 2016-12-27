@@ -42,6 +42,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
     definitionToSet.definition.find(function (field, i) {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         firstIndex = i;
+
         return true;
       }
 
@@ -357,6 +358,7 @@ const SchemaFormUtil = {
         newModel[key] = SchemaFormUtil.processFormModel(
           value, multipleDefinition, path
         );
+
         return;
       }
 

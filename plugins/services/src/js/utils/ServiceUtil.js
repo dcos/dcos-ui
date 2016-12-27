@@ -14,7 +14,6 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
 const getFindPropertiesRecursive = function (service, item) {
-
   return Object.keys(item).reduce(function (memo, subItem) {
 
     if (item[subItem].type === 'group') {
@@ -500,6 +499,7 @@ const ServiceUtil = {
 
   getServiceNameFromTaskID(taskID) {
     const serviceName = taskID.split('.')[0].split('_');
+
     return serviceName[serviceName.length - 1];
   },
 

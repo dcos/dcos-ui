@@ -26,6 +26,7 @@ var ResourceTimeSeriesChart = React.createClass({
 
   getData() {
     var props = this.props;
+
     return [{
       name: 'Alloc',
       colorIndex: this.props.colorIndex,

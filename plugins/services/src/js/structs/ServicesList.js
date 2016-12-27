@@ -35,6 +35,7 @@ class ServicesList extends List {
     const resourcesList = services.map(function (service) {
       return service.used_resources;
     });
+
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 

@@ -250,6 +250,7 @@ class ServicesTable extends React.Component {
     const resource = service.getResources()[prop];
 
     const value = resource * instancesCount;
+
     return (
       <span>
         {Units.formatResource(prop, value)}

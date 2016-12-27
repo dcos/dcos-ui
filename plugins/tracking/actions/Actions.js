@@ -35,6 +35,7 @@ var Actions = {
 
   metadataLoaded() {
     const metadata = SDK.Store.getAppState().metadata;
+
     return (metadata &&
       metadata.dcosMetadata &&
       metadata.metadata &&
@@ -119,6 +120,7 @@ var Actions = {
   logFakePageView(fakePageLog) {
     if (!this.canLog()) {
       this.logQueue.push(fakePageLog);
+
       return;
     }
 
@@ -137,6 +139,7 @@ var Actions = {
 
     if (!this.canLog()) {
       this.pageQueue.push(path);
+
       return;
     }
 
@@ -179,6 +182,7 @@ var Actions = {
   logPage(path) {
     if (!this.canLog()) {
       this.pageQueue.push(path);
+
       return;
     }
 
@@ -223,6 +227,7 @@ var Actions = {
   log(eventID) {
     if (!this.canLog()) {
       this.logQueue.push(eventID);
+
       return;
     }
 

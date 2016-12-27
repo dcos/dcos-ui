@@ -47,7 +47,6 @@ const defaultEndpointsFieldValues = {
 };
 
 function mapEndpoints(endpoints = [], networkType, appState) {
-
   return endpoints.map((endpoint, index) => {
     let {
       name,
@@ -94,7 +93,6 @@ function mapEndpoints(endpoints = [], networkType, appState) {
 
 function containersParser(state) {
   if (state == null || state.containers == null) {
-
     return [];
   }
 
@@ -146,7 +144,6 @@ function containersParser(state) {
     if (item.healthChecks != null && item.healthChecks.length !== 0) {
       memo = item.healthChecks.reduce(function (memo, item, HealthCheckIndex) {
         if (item.protocol == null) {
-
           return memo;
         }
         memo.push(new Transaction([
@@ -175,7 +172,6 @@ function containersParser(state) {
         }
 
         advancedContainerSettings.filter((key) => {
-
           return item[key] != null;
         }).forEach((key) => {
           if (item[key] != null) {
@@ -203,7 +199,6 @@ function containersParser(state) {
           ], artifactIndex, ADD_ITEM)
         );
         memo.push(...Object.keys(artifact).map((key) => {
-
           return new Transaction([
             'containers',
             index,
@@ -334,7 +329,6 @@ module.exports = {
     }
 
     if (!path.includes('containers') && !path.includes('volumeMounts')) {
-
       return state.map((container, index) => {
         container.endpoints = mapEndpoints(
           this.endpoints[index].endpoints,
@@ -379,15 +373,12 @@ module.exports = {
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
-
             return index !== value;
           });
           this.cache = this.cache.filter((item, index) => {
-
             return index !== value;
           });
           this.endpoints = this.endpoints.filter((item, index) => {
-
             return index !== value;
           });
           break;
@@ -404,10 +395,8 @@ module.exports = {
     newState = state.map((container, index) => {
       if (this.volumeMounts.length !== 0) {
         container.volumeMounts = this.volumeMounts.filter((volumeMount) => {
-
           return volumeMount.name != null && volumeMount.mountPath[index];
         }).map((volumeMount) => {
-
           return {
             name: volumeMount.name,
             mountPath: volumeMount.mountPath[index]
@@ -433,7 +422,6 @@ module.exports = {
         case REMOVE_ITEM:
           this.endpoints[index].endpoints =
             this.endpoints[index].endpoints.filter((item, index) => {
-
               return index !== value;
             });
           break;
@@ -496,7 +484,6 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].artifacts =
             newState[index].artifacts.filter((item, index) => {
-
               return index !== value;
             });
           break;
@@ -546,7 +533,6 @@ module.exports = {
     const [_, index, field, secondIndex, name] = path;
 
     if (!path.includes('containers')) {
-
       return state;
     }
 
@@ -575,11 +561,9 @@ module.exports = {
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
-
             return index !== value;
           });
           this.cache = this.cache.filter((item, index) => {
-
             return index !== value;
           });
           break;
@@ -603,7 +587,6 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].endpoints =
             newState[index].endpoints.filter((item, index) => {
-
               return index !== value;
             });
           break;
@@ -654,7 +637,6 @@ module.exports = {
         case REMOVE_ITEM:
           newState[index].artifacts =
             newState[index].artifacts.filter((item, index) => {
-
               return index !== value;
             });
           break;

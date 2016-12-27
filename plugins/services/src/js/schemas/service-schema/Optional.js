@@ -23,6 +23,7 @@ const Optional = {
         if (!service.getFetch()) {
           return null;
         }
+
         return service.getFetch().map(function (item) {
           return item.uri;
         }).join(', ');

@@ -136,6 +136,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   onTaskDirectoryStoreSuccess(taskID) {
     if (this.props.params.taskID !== taskID) {
       this.handleFetchDirectory();
+
       return;
     }
 

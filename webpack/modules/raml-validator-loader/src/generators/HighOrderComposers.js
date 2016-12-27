@@ -218,6 +218,7 @@ const HighOrderComposers = {
         }, []),
         regexMatchers.reduce(function(fragments, [regex, unused1, unused2]) {
           let REGEX = context.getConstantExpression('REGEX', `/${regex}/`);
+
           return fragments.concat([
             `if (${REGEX}.exec(key)) return;`
           ]);

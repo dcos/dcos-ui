@@ -147,6 +147,7 @@ module.exports = class ServiceTree extends Tree {
               memo = memo.concat(
                 service.filterItemsByFilter({health: [healthValue]}).getItems()
               );
+
               return;
             }
 
@@ -166,6 +167,7 @@ module.exports = class ServiceTree extends Tree {
               memo = memo.concat(
                 service.filterItemsByFilter({labels: [label]}).getItems()
               );
+
               return;
             }
 
@@ -238,6 +240,7 @@ module.exports = class ServiceTree extends Tree {
               memo = memo.concat(
                 service.filterItemsByFilter({status: [statusValue]}).getItems()
               );
+
               return;
             }
 
@@ -312,6 +315,7 @@ module.exports = class ServiceTree extends Tree {
           serviceTreeStatus = status;
         }
       }
+
       return serviceTreeStatus;
     }, ServiceStatus.NA);
   }
@@ -389,6 +393,7 @@ module.exports = class ServiceTree extends Tree {
             serviceTreeLabels = serviceTreeLabels.concat([{key, value}]);
           }
         });
+
       return serviceTreeLabels;
     }, []);
   }

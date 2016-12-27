@@ -52,6 +52,7 @@ module.exports = {
         if (item.portIndex > value) {
           item.portIndex--;
         }
+
         return item;
       }).filter((item) => {
         return item != null;
@@ -188,6 +189,7 @@ module.exports = {
         if (item.portIndex > value) {
           item.portIndex--;
         }
+
         return item;
       }).filter((item) => {
         return item != null;
@@ -206,6 +208,7 @@ module.exports = {
             });
             break;
         }
+
         return state;
       }
 
@@ -248,6 +251,7 @@ module.exports = {
         }
       }
     }
+
     return state;
   }
 };

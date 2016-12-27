@@ -158,6 +158,7 @@ module.exports = Object.assign({}, StoreMixin, {
         type: Route
       }
     );
+
     return routes;
   },
 

@@ -46,6 +46,7 @@ const DSLUpdateUtil = {
     // Extract string expressions so we have a simpler expression to work with
     src = src.replace(STRING_EXPR, (match) => {
       strings.push(match);
+
       return '\x01';
     });
 

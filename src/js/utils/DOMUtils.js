@@ -188,6 +188,7 @@ var DOMUtils = {
     }
 
     const parentTop = parentNode.getBoundingClientRect().top;
+
     return elTop - parentTop;
   }
 };

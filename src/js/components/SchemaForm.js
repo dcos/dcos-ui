@@ -87,6 +87,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   handleExternalSubmit() {
     this.validateForm();
+
     return this.getDataTriple();
   }
 
@@ -119,6 +120,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     definition.forEach(function (field, i) {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         lastIndex = i;
+
         return;
       }
 
@@ -271,6 +273,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
     this.forceUpdate();
     this.isValidated = isValidated;
+
     return isValidated;
   }
 

@@ -57,6 +57,7 @@ class PodStorageConfigSection extends React.Component {
       const containerMounts = containers.reduce(
         (cmMemo, container) => {
           const {volumeMounts = []} = container;
+
           return cmMemo.concat(
             volumeMounts
               .filter((volumeMount) => volumeMount.name === volume.name)

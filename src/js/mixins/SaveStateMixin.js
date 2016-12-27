@@ -32,6 +32,7 @@ const SaveStateMixin = {
     if (saveState_properties) {
       stateToSave = saveState_properties.reduce(function (newState, property) {
         newState[property] = state[property];
+
         return newState;
       }, {});
     }

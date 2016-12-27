@@ -222,6 +222,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     const {id} = task;
+
     return portMappings.map((mapping, index) => {
       let mapTo = null;
 

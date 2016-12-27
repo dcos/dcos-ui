@@ -118,6 +118,7 @@ class MesosStateStore extends GetSetBaseStore {
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
       startPolling();
+
       return;
     }
 
@@ -217,6 +218,7 @@ class MesosStateStore extends GetSetBaseStore {
     if (foundTask == null) {
       return null;
     }
+
     return new Task(foundTask);
   }
 
@@ -239,7 +241,6 @@ class MesosStateStore extends GetSetBaseStore {
     const tasks = this.getSchedulerTasks();
 
     return tasks.find(function ({labels}) {
-
       return labels.some(({key, value}) => {
         return key === 'DCOS_PACKAGE_FRAMEWORK_NAME' && value === serviceName;
       });

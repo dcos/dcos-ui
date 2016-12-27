@@ -46,6 +46,7 @@ module.exports = class Deployment extends Item {
     if (services == null) {
       throw Error('Affected services list is stale.');
     }
+
     return services;
   }
 

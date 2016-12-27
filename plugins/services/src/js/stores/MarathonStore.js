@@ -164,6 +164,7 @@ class MarathonStore extends GetSetBaseStore {
         if (event === 'appsSuccess') {
           return store.hasProcessedApps();
         }
+
         return true;
       },
       listenAlways: true
@@ -306,6 +307,7 @@ class MarathonStore extends GetSetBaseStore {
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
       startPolling();
+
       return;
     }
 

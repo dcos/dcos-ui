@@ -30,6 +30,7 @@ function getKey(key) {
   if (_data[key] == null) {
     return {};
   }
+
   return _data[key];
 }
 

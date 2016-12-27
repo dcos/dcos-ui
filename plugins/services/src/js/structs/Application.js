@@ -164,6 +164,7 @@ module.exports = class Application extends Service {
       Math.max(0, tasksSum - this.getInstancesCount());
 
     healthData.tasksRunning = this.get('tasksRunning');
+
     return healthData;
   }
 

@@ -11,6 +11,7 @@ module.exports = {
 
       if (type === ADD_ITEM && index !== 0) {
         newState.push({mode: Networking.type.HOST.toLowerCase()});
+
         return newState;
       }
 
@@ -22,6 +23,7 @@ module.exports = {
             name,
             mode: mode.toLowerCase()
           };
+
           return newState;
         }
 
@@ -58,10 +60,12 @@ module.exports = {
         const name = network.name;
 
         memo.push(new Transaction(['networks', index], `${mode}.${name}`));
+
         return memo;
       }
 
       memo.push(new Transaction(['networks', index], network.mode.toUpperCase()));
+
       return memo;
     }, []);
   },
@@ -74,6 +78,7 @@ module.exports = {
 
       if (type === ADD_ITEM && index !== 0) {
         newState.push({mode: Networking.type.HOST});
+
         return newState;
       }
 
@@ -85,6 +90,7 @@ module.exports = {
             name,
             mode
           };
+
           return newState;
         }
 

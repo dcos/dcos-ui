@@ -48,6 +48,7 @@
     // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
     "strict": ["error", "never"], // <-- fix
+    "newline-before-return": "error",
     "no-mixed-operators": [2, {
       "groups": [
         ["+", "-", "*", "/", "%", "**"],

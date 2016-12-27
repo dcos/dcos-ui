@@ -58,6 +58,7 @@ const RouterUtil = {
         const children = RouterUtil.createComponentsFromRoutes(route.children);
         args = args.concat(children);
       }
+
       return React.createElement(...args);
     });
   },
@@ -71,6 +72,7 @@ const RouterUtil = {
    */
   buildRoutes(originalRoutes) {
     const elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
+
     return createRoutes(elementRoutes);
   },
 

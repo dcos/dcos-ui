@@ -125,6 +125,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     if (!errorMsg) {
       return null;
     }
+
     return (
       <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );

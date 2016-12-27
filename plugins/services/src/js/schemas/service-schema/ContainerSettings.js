@@ -24,6 +24,7 @@ const ContainerSettings = {
             if (container && container.docker && container.docker.image) {
               return container.docker.image;
             }
+
             return null;
           },
           externalValidator({containerSettings}, definition) {
@@ -58,6 +59,7 @@ const ContainerSettings = {
             ) {
               return container.docker.privileged;
             }
+
             return null;
           }
         },
@@ -72,6 +74,7 @@ const ContainerSettings = {
             ) {
               return container.docker.forcePullImage;
             }
+
             return null;
           }
         }
@@ -94,6 +97,7 @@ const ContainerSettings = {
         ) {
           return container.docker.parameters;
         }
+
         return null;
       },
       itemShape: {

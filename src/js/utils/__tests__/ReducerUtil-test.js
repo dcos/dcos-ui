@@ -7,6 +7,7 @@ describe('ReducerUtil', function () {
       if (action.path.join('') === 'id') {
         state = action.value;
       }
+
       return state;
     };
 
@@ -56,6 +57,7 @@ describe('ReducerUtil', function () {
           if (this.id && this.port) {
             return `${this.id}:${this.port}`;
           }
+
           return state;
         }
 
@@ -102,6 +104,7 @@ describe('ReducerUtil', function () {
             if (this.id && this.port) {
               return `${this.id}:${this.port}`;
             }
+
             return state;
           }
 
@@ -149,6 +152,7 @@ describe('ReducerUtil', function () {
             action.path.join('.') === 'container.docker') {
             return action.value;
           }
+
           return state;
         }
       });
@@ -159,6 +163,7 @@ describe('ReducerUtil', function () {
             action.path.join('') === 'id') {
             state = action.value;
           }
+
           return state;
         },
         cmd(state, action) {
@@ -166,6 +171,7 @@ describe('ReducerUtil', function () {
             action.path.join('') === 'cmd') {
             state = action.value;
           }
+
           return state;
         },
         container: ReducerUtil.combineReducers({
@@ -203,6 +209,7 @@ describe('ReducerUtil', function () {
       state = actions.reduce(
         function (state, action) {
           state = reducers(state, action);
+
           return state;
         }, state
       );
