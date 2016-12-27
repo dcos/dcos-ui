@@ -437,8 +437,9 @@ class NewCreateServiceModalForm extends Component {
               className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
               <form onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}>
-                <Tabs activeTab={activeTab} vertical={true} handleTabChange={handleTabChange}>
-                  <TabButtonList>
+                <Tabs activeTab={activeTab} vertical={true}
+                  handleTabChange={handleTabChange}>
+                  <TabButtonList className="form-tabs-list">
                     <TabButton id="services" label="Services" key="services">
                       {this.getContainerList(data)}
                     </TabButton>

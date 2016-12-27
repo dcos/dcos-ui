@@ -150,6 +150,10 @@
       }
     }
   }
+
+  .form-tabs-list {
+    max-width: @menu-tabbed-vertical-width;
+  }
 }
 
 & when (@menu-tabbed-enabled) and (@layout-screen-small-enabled) {
@@ -196,6 +200,10 @@
 
     .menu-tabbed-item-label {
       padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-small;
+    }
+
+    .form-tabs-list {
+      max-width: @menu-tabbed-vertical-width-screen-small;
     }
   }
 }
@@ -245,6 +253,10 @@
     .menu-tabbed-item-label {
       padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-medium;
     }
+
+    .form-tabs-list {
+      max-width: @menu-tabbed-vertical-width-screen-medium;
+    }
   }
 }
 
@@ -293,6 +305,10 @@
     .menu-tabbed-item-label {
       padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-large;
     }
+
+    .form-tabs-list {
+      max-width: @menu-tabbed-vertical-width-screen-large;
+    }
   }
 }
 
@@ -340,6 +356,10 @@
 
     .menu-tabbed-item-label {
       padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-jumbo;
+    }
+
+    .form-tabs-list {
+      max-width: @menu-tabbed-vertical-width-screen-jumbo;
     }
   }
 }
