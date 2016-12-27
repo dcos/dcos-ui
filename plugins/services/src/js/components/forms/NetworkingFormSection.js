@@ -409,45 +409,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return this.getHostServiceEndpoints(portDefinitions);
   }
 
-  getServiceEndpointsSection() {
-    const {container, portDefinitions} = this.props.data;
-    const runtimeType = findNestedPropertyInObject(container, 'type');
-    const networkType =
-      findNestedPropertyInObject(this.props.data, 'networkType') || '';
-
-    // Service Endpoints are unavailable for Mesos tasks
-    if (runtimeType === NONE && networkType.startsWith(Networking.type.USER)) {
-      return null;
-    }
-
-    return [
-      <h3 className="short-bottom" key="service-endpoints-header">
-        Service Endpoints
-      </h3>,
-      <p key="service-endpoints-description">
-        DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-      </p>,
-      this.getServiceEndpoints(),
-      <FormRow key="service-endpoints-add-button">
-        <FormGroup className="column-12">
-          <button
-            type="button"
-            onBlur={(event) => { event.stopPropagation(); }}
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(
-              this,
-              {
-                value: portDefinitions.length,
-                path: 'portDefinitions'
-              }
-            )}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-          </button>
-        </FormGroup>
-      </FormRow>
-    ];
-  }
-
   getVirtualNetworks(disabledMap) {
     return VirtualNetworksStore.getOverlays().mapItems((overlay) => {
       const name = overlay.getName();
@@ -477,6 +438,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     // Runtime is Mesos
     if (!type || type === NONE) {
       disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime';
+      disabledMap[Networking.type.USER] = 'Virtual networking is not compatible with the Mesos runtime';
     }
 
     // Runtime is Universal Container Runtime
@@ -527,6 +489,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   render() {
+    const {portDefinitions} = this.props.data;
     let networkError = findNestedPropertyInObject(
       this.props.errors,
       'container.docker.network'
@@ -566,7 +529,30 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.getServiceEndpointsSection()}
+        <h3 className="short-bottom" key="service-endpoints-header">
+        Service Endpoints
+        </h3>
+        <p key="service-endpoints-description">
+          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+        </p>
+        this.getServiceEndpoints()
+        <FormRow key="service-endpoints-add-button">
+          <FormGroup className="column-12">
+            <button
+              type="button"
+              onBlur={(event) => { event.stopPropagation(); }}
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(
+                this,
+                {
+                  value: portDefinitions.length,
+                  path: 'portDefinitions'
+                }
+              )}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
+            </button>
+          </FormGroup>
+        </FormRow>
       </div>
     );
   }
