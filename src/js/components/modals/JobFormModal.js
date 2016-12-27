@@ -149,27 +149,29 @@ class JobFormModal extends mixin(StoreMixin) {
     let {jobJsonString, jsonMode} = this.state;
     let jobDefinition = null;
 
-    if (jsonMode) {
+    // Try to parse JSON string and detect errors
+    try {
+      jobDefinition = JSON.parse(jobJsonString);
+    } catch (e) {
+      this.setState({
+        errorMessage: {
+          message: 'Invalid JSON syntax',
+          details: [
+            { path: '/', errors: [e.toString()] }
+          ]
+        }
+      });
+      return null;
+    }
 
-      // Try to parse JSON string and detect errors
-      try {
-        jobDefinition = JSON.parse(jobJsonString);
-      } catch (e) {
-        this.setState({
-          errorMessage: {
-            message: 'Invalid JSON syntax',
-            details: [
-              { path: '/', errors: [e.toString()] }
-            ]
-          }
-        });
-        return null;
-      }
+    let job = new Job(jobDefinition);
+
+    if (jsonMode) {
 
       // Really hackish way to validate the json string schema, trying to re-use
       // as much code as possilbe without getting nasty.
       let dummyItemRenderer = function () { return (<div></div>); };
-      let job = new Job(jobDefinition);
+
       let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
       let formMultiDef = SchemaUtil.schemaToMultipleDefinition({
         schema: JobSchema,
@@ -233,7 +235,7 @@ class JobFormModal extends mixin(StoreMixin) {
       }
     }
 
-    return JobUtil.createJobFromFormModel(model);
+    return JobUtil.createJobFromFormModel(model, job.get());
   }
 
   handleCancel() {
