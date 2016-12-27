@@ -86,7 +86,7 @@ describe('JobUtil', function () {
           run: {
             cmd: 'sleep 1000;',
             cpus: 0.01,
-            mem: 32,
+            mem: 128,
             disk: 0
           },
           schedules: []
