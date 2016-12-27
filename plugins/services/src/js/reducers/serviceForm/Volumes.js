@@ -60,6 +60,10 @@ module.exports = {
       this.docker = value !== '';
     }
 
+    if (joinedPath === 'container.type') {
+      this.docker = value !== 'NONE';
+    }
+
     if (path[0] === 'externalVolumes') {
       if (joinedPath === 'externalVolumes') {
         switch (type) {
