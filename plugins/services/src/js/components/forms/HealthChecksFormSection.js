@@ -175,7 +175,19 @@ class HealthChecksFormSection extends Component {
 
       if (!HealthCheckUtil.isKnownProtocol(healthCheck.protocol) &&
         healthCheck.protocol != null) {
-        return null;
+        return (
+          <FormGroupContainer
+            key={key}
+            onRemove={this.props.onRemoveItem.bind(this,
+              {value: key, path: 'healthChecks'})}>
+            <FieldLabel>
+              Unable to edit this HealthCheck
+            </FieldLabel>
+            <pre>
+              {JSON.stringify(healthCheck, null, 2)}
+            </pre>
+          </FormGroupContainer>
+        );
       }
 
       return (
