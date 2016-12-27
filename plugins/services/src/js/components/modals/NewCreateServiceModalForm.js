@@ -287,6 +287,7 @@ class NewCreateServiceModalForm extends Component {
 
         return (
           <TabButton
+            labelClassName="text-overflow"
             key={index}
             id={`container${index}`}
             label={getContainerNameWithIcon(fakeContainer)} />
