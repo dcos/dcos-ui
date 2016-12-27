@@ -302,7 +302,7 @@ class GeneralServiceFormSection extends Component {
           Services
         </h2>
         <p>
-          Configure your service below. Start by giving your service a name.
+          Configure your service below. Start by giving your service an Id.
         </p>
 
         <FormRow>
@@ -311,7 +311,7 @@ class GeneralServiceFormSection extends Component {
             required={true}
             showError={Boolean(errors.id)}>
             <FieldLabel>
-              Service Name
+              Service ID
             </FieldLabel>
             <FieldInput
               name="id"
