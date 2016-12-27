@@ -143,7 +143,9 @@ describe('Service Actions', function () {
         cy.get('.confirm-modal .button-collection .button-danger')
           .as('dangerButton').click();
         cy.get('@dangerButton').should('have.class', 'disabled');
-        cy.get('@dangerButton').should('not.have.class', 'disabled');
+        cy
+          .wait(100)
+          .get('@dangerButton').should('not.have.class', 'disabled');
       });
 
       it('closes dialog on secondary button click', function () {
