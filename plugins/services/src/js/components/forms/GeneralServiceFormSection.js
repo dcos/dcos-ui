@@ -302,7 +302,7 @@ class GeneralServiceFormSection extends Component {
           Services
         </h2>
         <p>
-          Configure your service below. Start by giving your service an Id.
+          Configure your service below. Start by giving your service an ID.
         </p>
 
         <FormRow>
