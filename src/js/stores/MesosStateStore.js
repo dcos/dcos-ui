@@ -83,7 +83,7 @@ class MesosStateStore extends GetSetBaseStore {
           this.processStateSuccess(action.data);
           break;
         case ActionTypes.REQUEST_MESOS_STATE_ERROR:
-          this.processStateError();
+          this.processStateError(action.xhr);
           break;
         case ActionTypes.REQUEST_MESOS_STATE_ONGOING:
           this.processOngoingRequest();
@@ -318,8 +318,8 @@ class MesosStateStore extends GetSetBaseStore {
     this.emit(MESOS_STATE_CHANGE);
   }
 
-  processStateError() {
-    this.emit(MESOS_STATE_REQUEST_ERROR);
+  processStateError(xhr) {
+    this.emit(MESOS_STATE_REQUEST_ERROR, xhr);
   }
 
   processOngoingRequest() {

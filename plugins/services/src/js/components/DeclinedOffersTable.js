@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
+import {MountService} from 'foundation-ui';
 import React from 'react';
 import {Table, Tooltip} from 'reactjs-components';
 
@@ -292,11 +293,13 @@ class RejectedOffersTable extends React.Component {
     const {offers} = this.props;
 
     return (
-      <Table className="table table-simple table-header-nowrap table-break-word flush-bottom"
-        colGroup={this.getColGroup()}
-        columns={this.getColumns()}
-        data={offers}
-        sortBy={{prop: 'timestamp', order: 'desc'}} />
+      <MountService.Mount type="DeclinedOffersTable">
+        <Table className="table table-simple table-header-nowrap table-break-word flush-bottom"
+          colGroup={this.getColGroup()}
+          columns={this.getColumns()}
+          data={offers}
+          sortBy={{prop: 'timestamp', order: 'desc'}} />
+      </MountService.Mount>
     );
   }
 }

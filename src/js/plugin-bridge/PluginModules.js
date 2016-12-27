@@ -13,6 +13,7 @@ module.exports = {
     BaseStore: 'BaseStore',
     ConfigStore: 'ConfigStore',
     CosmosPackagesStore: 'CosmosPackagesStore',
+    MesosStateStore: 'MesosStateStore',
     MetadataStore: 'MetadataStore',
     NotificationStore: 'NotificationStore',
     UsersStore: 'UsersStore',

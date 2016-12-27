@@ -1,4 +1,5 @@
 import mixin from 'reactjs-mixin';
+import {MountService} from 'foundation-ui';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -50,7 +51,7 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
     });
   }
 
-  render() {
+  getContents() {
     const isLoading = Object.keys(
       MesosStateStore.get('lastMesosState')
     ).length === 0;
@@ -61,16 +62,21 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       return <Loader />;
     }
 
+    // General Error
     if (hasError) {
       return <RequestErrorMsg />;
     }
 
     let tasks = MesosStateStore.getTasksByService(this.props.service);
 
+    return <TasksContainer params={this.props.params} tasks={tasks} />;
+  }
+
+  render() {
     return (
-      <TasksContainer
-        params={this.props.params}
-        tasks={tasks} />
+      <MountService.Mount type="ServiceTasksContainer:TasksContainer">
+        {this.getContents()}
+      </MountService.Mount>
     );
   }
 }

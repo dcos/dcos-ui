@@ -21,10 +21,11 @@ var MesosStateActions = {
             });
             resolve();
           },
-          error(e) {
+          error(xhr) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_ERROR,
-              data: e.message
+              data: xhr.message,
+              xhr
             });
             reject();
           },
