@@ -5426,9 +5426,9 @@
       "resolved": "https://registry.npmjs.org/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz"
     },
     "reactjs-components": {
-      "version": "0.15.0-beta.5",
-      "from": "reactjs-components@0.15.0-beta.5",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.15.0-beta.5.tgz"
+      "version": "0.15.0-beta.6",
+      "from": "reactjs-components@0.15.0-beta.6",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.15.0-beta.6.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
