@@ -173,7 +173,7 @@ class HealthChecksFormSection extends Component {
     return data.map((healthCheck, key) => {
       const errors = errorsLens.at(key, {}).get(this.props.errors);
 
-      if (HealthCheckUtil.isKnownProtocol(healthCheck.protocol) &&
+      if (!HealthCheckUtil.isKnownProtocol(healthCheck.protocol) &&
         healthCheck.protocol != null) {
         return null;
       }
