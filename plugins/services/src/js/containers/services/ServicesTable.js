@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 
-import Framework from '../../structs/Framework';
 import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -147,7 +146,6 @@ class ServicesTable extends React.Component {
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
     const isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
-    const isFramework = service instanceof Framework;
     const instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
     if (isGroup) {
@@ -188,9 +186,6 @@ class ServicesTable extends React.Component {
         html: 'Suspend'
       },
       {
-        className: classNames({
-          hidden: isFramework
-        }),
         id: ServiceActionItem.DESTROY,
         html: <span className="text-danger">Destroy</span>
       }
