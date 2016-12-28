@@ -1,0 +1,25 @@
+{
+  "id": "/app-with-service-address",
+  "cmd": "python3 -m http.server 8080",
+  "cpus": 0.5,
+  "mem": 32,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "python:3",
+      "network": "USER",
+      "portMappings": [
+        {
+          "name": "http",
+          "containerPort": 8080,
+          "labels": {
+            "VIP_0": "app-with-service-address:8080"
+          }
+        }
+      ]
+    }
+  },
+  "ipAddress": {
+    "networkName": "dcos"
+  }
+}

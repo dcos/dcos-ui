@@ -1,0 +1,23 @@
+{
+  "id": "/app-with-persistent-volume",
+  "cmd": "while true ; do echo 'test' > test/echo ; sleep 100 ; done",
+  "cpus": 0.1,
+  "mem": 10,
+  "instances": 1,
+  "container": {
+    "volumes": [
+      {
+        "persistent": {
+          "size": 128
+        },
+        "mode": "RW",
+        "containerPath": "test"
+      }
+    ],
+    "type": "MESOS"
+  },
+  "residency": {
+    "relaunchEscalationTimeoutSeconds": 10,
+    "taskLostBehavior": "WAIT_FOREVER"
+  }
+}

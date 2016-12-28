@@ -1,0 +1,15 @@
+{
+  "id": "/app-with-command-health-check",
+  "cmd": "while true ; do echo 'test' ; sleep 100 ; done",
+  "cpus": 0.1,
+  "mem": 10,
+  "instances": 1,
+  "healthChecks": [
+    {
+      "protocol": "COMMAND",
+      "command": {
+        "value": "sleep 5 ; exit 0"
+      }
+    }
+  ]
+}
