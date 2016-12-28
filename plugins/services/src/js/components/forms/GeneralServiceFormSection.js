@@ -13,16 +13,19 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import General from '../../reducers/serviceForm/General';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
+import OperatorTypes from '../../constants/OperatorTypes';
 import PodSpec from '../../structs/PodSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
+const {GROUP_BY, LIKE, MAX_PER_OPERATOR, UNIQUE} = OperatorTypes;
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
 const METHODS_TO_BIND = [
@@ -139,52 +142,155 @@ class GeneralServiceFormSection extends Component {
     );
   }
 
+  getOperatorTypes() {
+    return Object.keys(OperatorTypes).map((type, index) => {
+      return (<option key={index} value={type}>{type}</option>);
+    });
+  }
+
   getPlacementConstraints(data = []) {
     const errors = this.props.errors || [];
+    const fieldTooltipContent = (
+      <span>
+        {'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node. '}
+        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+    const operatorTooltipContent = (
+      <span>
+        {'Operators specify where your app will run. '}
+        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+    const parameterTooltipContent = (
+      <span>
+        {'Parameters allow you to further specify your constraint. '}
+        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          Learn more
+        </a>.
+      </span>
+    );
+    const showParameterLabel = data.some((constraint) => {
+      return ![GROUP_BY, UNIQUE].includes(constraint.operator);
+    });
+    const showRequiredLabel = data.some((constraint) => {
+      return [LIKE, MAX_PER_OPERATOR].includes(constraint.operator);
+    });
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
       let operatorLabel = null;
       let parameterLabel = null;
+      const showParameterField = ![GROUP_BY, UNIQUE]
+        .includes(constraint.operator);
+      const paramterIsRequired = [LIKE, MAX_PER_OPERATOR]
+        .includes(constraint.operator);
+
       if (index === 0) {
-        fieldLabel = <FieldLabel>Field</FieldLabel>;
-        operatorLabel = <FieldLabel>Operator</FieldLabel>;
-        parameterLabel = <FieldLabel>Parameter</FieldLabel>;
+        fieldLabel = (
+          <FieldLabel>
+            {'Field '}
+            <Tooltip
+              content={fieldTooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FieldLabel>
+        );
+        operatorLabel = (
+          <FieldLabel>
+            {'Operator '}
+            <Tooltip
+              content={operatorTooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FieldLabel>
+        );
+      }
+      if (index === 0 && showParameterLabel) {
+        parameterLabel = (
+          <FieldLabel>
+            {'Parameter '}
+            <Tooltip
+              content={parameterTooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FieldLabel>
+        );
       }
 
       return (
         <FormRow key={index}>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              'column-6': !showParameterLabel
+            }}
             required={true}
             showError={Boolean(errors[index])}>
             {fieldLabel}
             <FieldInput
               name={`constraints.${index}.field`}
               type="text"
+              placeholer="hostname"
               value={constraint.field} />
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              'column-6': !showParameterLabel
+            }}
             required={true}
             showError={Boolean(errors[index])}>
             {operatorLabel}
-            <FieldInput
+            <FieldSelect
               name={`constraints.${index}.operator`}
               type="text"
-              value={constraint.operator} />
+              value={String(constraint.operator)}>
+              <option value="">Select</option>
+              {this.getOperatorTypes()}
+            </FieldSelect>
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              hidden: !showParameterLabel
+            }}
+            required={showRequiredLabel}
             showError={Boolean(errors[index])}>
             {parameterLabel}
             <FieldInput
+              className={{hidden:!showParameterField}}
               name={`constraints.${index}.value`}
               type="text"
               value={constraint.value} />
-            <FieldError>{errors[index]}</FieldError>
+            <FieldHelp
+              className={{hidden: paramterIsRequired || !showParameterField}}>
+              This field is optional.
+            </FieldHelp>
+            <FieldError className={{hidden: !showParameterField}}>
+              {errors[index]}
+            </FieldError>
           </FormGroup>
 
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
@@ -297,11 +403,21 @@ class GeneralServiceFormSection extends Component {
       'containers.length'
     ) || 1);
 
-    const tooltipContent = (
+    const idTooltipContent = (
       <span>
         {'Include the path to your service, if applicable. E.g. /dev/tools/my-service. '}
         <a
           href="https://mesosphere.github.io/marathon/docs/application-groups.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+    const placementTooltipContent = (
+      <span>
+        {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/constraints.html"
           target="_blank">
           More information
         </a>.
@@ -325,7 +441,7 @@ class GeneralServiceFormSection extends Component {
             <FieldLabel>
               {'Service ID '}
               <Tooltip
-                content={tooltipContent}
+                content={idTooltipContent}
                 interactive={true}
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
@@ -368,7 +484,7 @@ class GeneralServiceFormSection extends Component {
             <h3 className="short-top short-bottom">
               {'Placement Constraints '}
               <Tooltip
-                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+                content={placementTooltipContent}
                 interactive={true}
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
