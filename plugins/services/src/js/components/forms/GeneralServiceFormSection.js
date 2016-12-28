@@ -282,8 +282,14 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
-  getIDHelpBlock() {
-    return (
+  render() {
+    const {data, errors} = this.props;
+    const title = pluralize('Service', findNestedPropertyInObject(
+      data,
+      'containers.length'
+    ) || 1);
+
+    const tooltipContent = (
       <span>
         {'Include the path to your service, if applicable. E.g. /dev/tools/my-service. '}
         <a
@@ -293,14 +299,6 @@ class GeneralServiceFormSection extends Component {
         </a>.
       </span>
     );
-  }
-
-  render() {
-    const {data, errors} = this.props;
-    const title = pluralize('Service', findNestedPropertyInObject(
-      data,
-      'containers.length'
-    ) || 1);
 
     return (
       <div>
@@ -317,13 +315,23 @@ class GeneralServiceFormSection extends Component {
             required={true}
             showError={Boolean(errors.id)}>
             <FieldLabel>
-              Service ID
+              {'Service ID '}
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
             </FieldLabel>
             <FieldInput
               name="id"
               type="text"
               value={data.id} />
-            <FieldHelp>{this.getIDHelpBlock()}</FieldHelp>
+            <FieldHelp>
+              Give your service a unique name within the cluster, e.g. my-service.
+            </FieldHelp>
             <FieldError>{errors.id}</FieldError>
           </FormGroup>
 
