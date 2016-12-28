@@ -33,15 +33,23 @@ const METHODS_TO_BIND = [
 
 const containerRuntimes = {
   [DOCKER]: {
-    label: <span>{labelMap[DOCKER]} <em>(Recommended for Docker)</em></span>,
+    label: <span>{labelMap[DOCKER]} <em>(recommended for Docker)</em></span>,
     helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   },
   [NONE]: {
     label: <span>{labelMap[NONE]}</span>,
-    helpText: 'Normal behavior'
+    helpText: (
+      <span>
+        {'The default Mesos containerizer. '}
+        <a href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    )
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]}</span>,
+    label: <span>{labelMap[MESOS]} <em>(experimental)</em></span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   }
 };
