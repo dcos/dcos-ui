@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Confirm, Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {pluralize} from '../../../../../../src/js/utils/StringUtil';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -296,11 +297,15 @@ class GeneralServiceFormSection extends Component {
 
   render() {
     const {data, errors} = this.props;
+    const title = pluralize('Service', findNestedPropertyInObject(
+      data,
+      'containers.length'
+    ) || 1);
 
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Services
+          {title}
         </h2>
         <p>
           Configure your service below. Start by giving your service an ID.
