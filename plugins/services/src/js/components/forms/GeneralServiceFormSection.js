@@ -148,35 +148,34 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
+  getConstraintField(name, tooltipText, linkText = 'More information') {
+    const tooltipContent = (
+      <span>
+        {`${tooltipText} `}
+        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          {linkText}
+        </a>.
+      </span>
+    );
+
+    return (
+      <FieldLabel>
+        {`${name} `}
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </FieldLabel>
+    );
+  }
+
   getPlacementConstraints(data = []) {
     const errors = this.props.errors || [];
-    const fieldTooltipContent = (
-      <span>
-        {'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node. '}
-        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
-          target="_blank">
-          More information
-        </a>.
-      </span>
-    );
-    const operatorTooltipContent = (
-      <span>
-        {'Operators specify where your app will run. '}
-        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
-          target="_blank">
-          More information
-        </a>.
-      </span>
-    );
-    const parameterTooltipContent = (
-      <span>
-        {'Parameters allow you to further specify your constraint. '}
-        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
-          target="_blank">
-          Learn more
-        </a>.
-      </span>
-    );
     const showParameterLabel = data.some((constraint) => {
       return ![GROUP_BY, UNIQUE].includes(constraint.operator);
     });
@@ -194,46 +193,20 @@ class GeneralServiceFormSection extends Component {
         .includes(constraint.operator);
 
       if (index === 0) {
-        fieldLabel = (
-          <FieldLabel>
-            {'Field '}
-            <Tooltip
-              content={fieldTooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
-          </FieldLabel>
+        fieldLabel = this.getConstraintField(
+          'Field',
+          'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.'
         );
-        operatorLabel = (
-          <FieldLabel>
-            {'Operator '}
-            <Tooltip
-              content={operatorTooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
-          </FieldLabel>
+        operatorLabel = this.getConstraintField(
+          'Operator',
+          'Operators specify where your app will run.'
         );
       }
       if (index === 0 && showParameterLabel) {
-        parameterLabel = (
-          <FieldLabel>
-            {'Parameter '}
-            <Tooltip
-              content={parameterTooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
-          </FieldLabel>
+        parameterLabel = this.getConstraintField(
+          'Parameter',
+          'Parameters allow you to further specify your constraint.',
+          'Learn more'
         );
       }
 
