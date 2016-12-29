@@ -1,0 +1,18 @@
+{
+  "id": "job-with-schedule",
+  "run": {
+    "cpus": 0.01,
+    "mem": 32,
+    "disk": 0,
+    "cmd": "echo 'test' ; sleep 100"
+  },
+  "schedules": [
+    {
+      "id": "default",
+      "enabled": true,
+      "cron": "* * * * *",
+      "concurrencyPolicy": "ALLOW"
+    }
+  ]
+}
+

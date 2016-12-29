@@ -1,0 +1,13 @@
+{
+  "id": "job-with-docker-config",
+  "run": {
+    "cpus": 0.5,
+    "mem": 32,
+    "disk": 0,
+    "cmd": "echo 'test' ; sleep 100",
+    "docker": {
+      "image": "python:3"
+    }
+  },
+  "schedules": []
+}
