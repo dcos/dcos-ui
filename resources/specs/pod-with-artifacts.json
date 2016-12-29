@@ -1,0 +1,37 @@
+{
+  "id": "/pod-with-artifacts",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 10
+      },
+      "exec": {
+        "command": {
+          "shell": "while true ; do echo 'test' ; sleep 100 ; done"
+        }
+      },
+      "artifacts": [
+        {
+          "uri": "http://lorempicsum.com/simpsons/600/400/1"
+        },
+        {
+          "uri": "http://lorempicsum.com/simpsons/600/400/2"
+        },
+        {
+          "uri": "http://lorempicsum.com/simpsons/600/400/3"
+        }
+      ]
+    }
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ]
+}

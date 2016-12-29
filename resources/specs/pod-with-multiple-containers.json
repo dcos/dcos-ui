@@ -1,0 +1,39 @@
+{
+  "id": "/pod-with-multiple-containers",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 10
+      },
+      "exec": {
+        "command": {
+          "shell": "while true ; do echo 'test 1' ; sleep 100 ; done"
+        }
+      }
+    },
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 10
+      },
+      "exec": {
+        "command": {
+          "shell": "while true ; do echo 'test 2' ; sleep 100 ; done"
+        }
+      }
+    }
+
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ]
+}

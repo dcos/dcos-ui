@@ -1,0 +1,37 @@
+{
+  "id": "/pod-with-ephemeral-volume",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 10
+      },
+      "exec": {
+        "command": {
+          "shell": "while true ; do echo 'test' ; sleep 100 ; done"
+        }
+      },
+      "volumeMounts": [
+        {
+          "name": "test",
+          "mountPath": "test"
+        }
+      ]
+    }
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "test"
+    }
+  ]
+}
