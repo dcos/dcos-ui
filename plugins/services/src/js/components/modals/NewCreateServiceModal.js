@@ -112,7 +112,7 @@ class NewServiceFormModal extends Component {
 
     if (serviceReviewActive) {
       // Just hide review screen. Form or JSON mode will be
-      // activated automaticaly depending on their last state
+      // activated automatically depending on their last state
       this.setState({
         serviceReviewActive: false,
         activeTab: tabViewID

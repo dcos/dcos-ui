@@ -5,7 +5,7 @@ import ConfigurationMapEditAction from './ConfigurationMapEditAction';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
 /**
- * Optimised method to check if all row props are empty for a given column
+ * Optimized method to check if all row props are empty for a given column
  *
  * @param {Array} data - The array of rows top rocess
  * @param {String} prop - The property name of the column
@@ -58,7 +58,7 @@ function defaultRenderFunction(prop, row) {
  * to the underlaying <Table /> component, trying to be as least intrusive
  * as possible.
  *
- * @example <caption>Eample of ConfigurationMapTable</caption>
+ * @example <caption>Example of ConfigurationMapTable</caption>
  * <ConfigurationMapTable
  *   className='table table-simple table-break-word flush-bottom'
  *   columnDefaults={{

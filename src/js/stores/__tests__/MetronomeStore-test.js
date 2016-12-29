@@ -330,7 +330,7 @@ describe('MetronomeStore', function () {
 
   describe('#stopJobDetailMonitor', function () {
 
-    it('should prevent subequent fetchJobDetail calls for specific jobID',
+    it('should prevent subsequent fetchJobDetail calls for specific jobID',
       function () {
         // Begin monitoring job details on specific ID
         MetronomeStore.monitorJobDetail('foo');
@@ -343,7 +343,7 @@ describe('MetronomeStore', function () {
         expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(4);
       });
 
-    it('should prevent subequent fetchJobDetail calls for all jobID',
+    it('should prevent subsequent fetchJobDetail calls for all jobID',
       function () {
         // Begin monitoring job details on specific IDs
         MetronomeStore.monitorJobDetail('foo');

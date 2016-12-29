@@ -277,7 +277,7 @@ class FormTabContent extends React.Component {
 
                     <p className="small flush-bottom">
 
-                      Must include atleast 1 number and 1 symbol.
+                      Must include at least 1 number and 1 symbol.
 
                     </p>
 
@@ -1187,7 +1187,7 @@ class FormTabContent extends React.Component {
 
                       <p className="small flush-bottom inverse">
 
-                        Must include atleast 1 number and 1 symbol.
+                        Must include at least 1 number and 1 symbol.
 
                       </p>
 

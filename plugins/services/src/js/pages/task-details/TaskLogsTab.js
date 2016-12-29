@@ -70,7 +70,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
    */
   componentWillUnmount() {
     super.componentWillUnmount();
-    // Unusubscribe and clean up stored log lines
+    // Unsubscribe and clean up stored log lines
     SystemLogStore.stopTailing(this.state.subscriptionID, true);
   }
 
@@ -156,7 +156,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       skip_prev: PAGE_ENTRY_COUNT
     });
 
-    // Unusubscribe and clean up stored log lines
+    // Unsubscribe and clean up stored log lines
     SystemLogStore.stopTailing(this.state.subscriptionID, true);
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
     this.setState({isLoading: true, selectedStream, subscriptionID});

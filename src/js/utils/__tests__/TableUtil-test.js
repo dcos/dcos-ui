@@ -57,7 +57,7 @@ describe('TableUtil', function () {
       expect(sortPropFunction(this.foo, this.bar)).toEqual(1);
     });
 
-    it('should handle nested propeties through getter function', function () {
+    it('should handle nested properties through getter function', function () {
       var sortPropFunction = this.sortFunction('timestamp');
       expect(sortPropFunction(this.foo, this.bar)).toEqual(-1);
     });

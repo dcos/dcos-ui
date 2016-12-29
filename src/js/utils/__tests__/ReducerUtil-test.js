@@ -36,7 +36,7 @@ describe('ReducerUtil', function () {
       expect(state).toEqual({id: 'foo'});
     });
 
-    it('should not remove exisiting values', function () {
+    it('should not remove existing values', function () {
       const state = this.items.reduce(this.reducers, {bar: 'bar'});
 
       expect(state).toEqual({id: 'foo', bar: 'bar'});

@@ -39,7 +39,7 @@ describe('MultiContainerScaling', function () {
   });
 
   describe('#JSONParser', function () {
-    it('should not populate tarnsactions on empty config', function () {
+    it('should not populate transactions on empty config', function () {
       const expectedObject = [
       ];
 

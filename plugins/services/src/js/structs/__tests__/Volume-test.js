@@ -84,7 +84,7 @@ describe('Volume', function () {
 
   describe('#getType', function () {
 
-    it('returns correct tyoe', function () {
+    it('returns correct type', function () {
       const service = new Volume({
         type: VolumeTypes.PERSISTENT
       });
@@ -96,7 +96,7 @@ describe('Volume', function () {
 
   describe('#getTaskID', function () {
 
-    it('returns correct tyoe', function () {
+    it('returns correct type', function () {
       const service = new Volume({
         taskID: 'foo'
       });

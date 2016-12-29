@@ -110,7 +110,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
       updatePolicy
     } = this.props;
 
-    // The node(s) relevant to the proeprty we are updating
+    // The node(s) relevant to the property we are updating
     const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, updateNode);
 
     // All the existing nodes for all properties
@@ -124,12 +124,12 @@ class DSLFormWithExpressionUpdates extends React.Component {
       //
       // The way an attribute updates depends on the `dslUpdatePolicy`.
       //
-      // In case of Checkbox poliy, the attribute is added/removed, but in Radio
+      // In case of Checkbox policy, the attribute is added/removed, but in Radio
       // policy the previous labels must be removed.
       //
       case DSLFilterTypes.ATTRIB:
 
-        // On 'Radio' update policy the new value is replacing any occurence
+        // On 'Radio' update policy the new value is replacing any occurrence
         // of all of the specified nodes.
         if (updatePolicy === DSLUpdatePolicy.Radio) {
           if (value) {

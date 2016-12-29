@@ -62,7 +62,7 @@ var ServiceSpecUtil = {
   },
 
   /**
-   * High-level action for picking the correct scaling function accoring
+   * High-level action for picking the correct scaling function according
    * to spec type.
    *
    * @param {PodSpec|ApplicationSpec|FrameworkSpec} spec - The spec to change

@@ -24,7 +24,7 @@ const getGraphBar = (resource, data, index) => {
   let percentageMatched = null;
   let percentageOffered = null;
 
-  // Avoid NaN and inifinite values from division by zero.
+  // Avoid NaN and infinite values from division by zero.
   if (offeredCount === 0) {
     percentageMatched = 0;
   } else {

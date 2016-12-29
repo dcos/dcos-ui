@@ -262,7 +262,7 @@ class IconsTabContent extends React.Component {
 
           <p>
 
-            Like with sizes, Canvas also provides a number of built in styles to apply to your icons.  These styles modify only the <code>color</code> and <code>fill</code> properties, which means they work with SVG and Font defined icons, not bitmap icons.  For bitmap images, you will need to introdue an alternate means (e.g. sprite sheet) for dynamically switching between image styles.
+            Like with sizes, Canvas also provides a number of built in styles to apply to your icons.  These styles modify only the <code>color</code> and <code>fill</code> properties, which means they work with SVG and Font defined icons, not bitmap icons.  For bitmap images, you will need to introduce an alternate means (e.g. sprite sheet) for dynamically switching between image styles.
 
           </p>
 

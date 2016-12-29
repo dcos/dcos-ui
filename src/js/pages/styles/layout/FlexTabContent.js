@@ -124,7 +124,7 @@ class FlexTabContent extends React.Component {
 
           <p>
 
-            CNVS provides a number of available classes for quickly assigning flex box behavior to your layout.  All classes are prefixed with <code>.flex-</code>.  Classes were selected to be human-readable and don't necessarily match directly with the related styling prorperties they invoke.
+            CNVS provides a number of available classes for quickly assigning flex box behavior to your layout.  All classes are prefixed with <code>.flex-</code>.  Classes were selected to be human-readable and don't necessarily match directly with the related styling properties they invoke.
 
           </p>
 

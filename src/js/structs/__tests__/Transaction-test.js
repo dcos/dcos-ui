@@ -18,7 +18,7 @@ describe('Transaction', function () {
         .not.toThrowError();
     });
 
-    it('type should not be writeable', function () {
+    it('type should not be writable', function () {
       const transaction = new Transaction(0, 0);
       expect(() => transaction.type = 'EVIL DELETE').toThrowError();
     });
@@ -29,7 +29,7 @@ describe('Transaction', function () {
       expect(transaction.value).toEqual(value);
     });
 
-    it('value should not be writeable', function () {
+    it('value should not be writable', function () {
       const transaction = new Transaction(0, 0);
       expect(() => transaction.value = 'EVIL value').toThrowError();
     });
@@ -40,7 +40,7 @@ describe('Transaction', function () {
       expect(transaction.path).toEqual(path);
     });
 
-    it('path should not be writeable', function () {
+    it('path should not be writable', function () {
       const transaction = new Transaction(0, 0);
       expect(() => transaction.path = 'EVIL path').toThrowError();
     });

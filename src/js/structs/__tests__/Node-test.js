@@ -13,12 +13,12 @@ describe('Node', function () {
 
   describe('#getActive', function () {
 
-    it('return false when node is innactive', function () {
+    it('return false when node is inactive', function () {
       const node = new Node({active: false});
       expect(node.isActive()).toBeFalsy();
     });
 
-    it('return true when node is nactive', function () {
+    it('return true when node is inactive', function () {
       const node = new Node({active: true});
       expect(node.isActive()).toBeTruthy();
     });

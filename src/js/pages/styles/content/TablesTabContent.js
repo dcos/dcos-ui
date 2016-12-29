@@ -64,7 +64,7 @@ class TablesTabContent extends React.Component {
 
         <p>
 
-          For truly tabular data, use the <code>&lt;table&gt;</code> tag and add the class <code>.table</code>.  The table element applies basic stying propeties and padding to the default <code>&lt;table&gt;</code> element.
+          For truly tabular data, use the <code>&lt;table&gt;</code> tag and add the class <code>.table</code>.  The table element applies basic styling properties and padding to the default <code>&lt;table&gt;</code> element.
 
         </p>
 

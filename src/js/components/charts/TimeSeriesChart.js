@@ -218,7 +218,7 @@ var TimeSeriesChart = React.createClass({
       var hiddenValuesCount = 1;
       var values = firstDataSet.values;
       // [first date, last date - 1]
-      // Ristrict x domain to have one extra point outside of graph area,
+      // Restrict x domain to have one extra point outside of graph area,
       // since we are animating the graph in from right
       date = values[0].date;
       dateDelta = values[values.length - 1 - hiddenValuesCount].date;
@@ -331,10 +331,10 @@ var TimeSeriesChart = React.createClass({
    * Returns the y position of the data point that we are about to animate in
    */
   getNextYPosition(obj, y, yScale, height) {
-    var lastestDataPoint = Util.last(obj.values);
+    var latestDataPoint = Util.last(obj.values);
 
     // most recent y - height of chart
-    return yScale(lastestDataPoint[y]) - height;
+    return yScale(latestDataPoint[y]) - height;
   },
 
   getAreaList(props, yScale, xTimeScale) {

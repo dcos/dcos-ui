@@ -86,7 +86,7 @@ class ContainersTabContent extends React.Component {
 
           <p>
 
-            In previous versions of CNVS, <code>.container-fluid</code> was used to encapsulated content that should fill the width of it's parent.  A fluid container applied outerward spacing to the left and right of the Container and was a quick way to create a header, banner, or other full-width components.  With the introduction of the <code>.pod</code> layout component (see: <a href="/layout/pods"><em>Pods</em></a>) we Containers have been generalized to be used only for bounding content by width.  To create the previously seen by <code>.container-fluid</code> it is now suggested that you wrap content in a <code>.pod</code>.
+            In previous versions of CNVS, <code>.container-fluid</code> was used to encapsulated content that should fill the width of it's parent.  A fluid container applied outward spacing to the left and right of the Container and was a quick way to create a header, banner, or other full-width components.  With the introduction of the <code>.pod</code> layout component (see: <a href="/layout/pods"><em>Pods</em></a>) we Containers have been generalized to be used only for bounding content by width.  To create the previously seen by <code>.container-fluid</code> it is now suggested that you wrap content in a <code>.pod</code>.
 
           </p>
 

@@ -128,7 +128,7 @@ describe('NodesGridDials', function () {
       this.resourceType = ResourcesUtil.cpus;
     });
 
-    it('returns different configurations depending on the active paramter', function () {
+    it('returns different configurations depending on the active parameter', function () {
       let host = Object.assign({}, this.hosts[0]);
       host.active = true;
       var config1 = this.instance.getDialConfig(new Node(host));

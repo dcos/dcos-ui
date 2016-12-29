@@ -37,7 +37,7 @@ describe('Authenticated', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it('should reditect to /login if user is not logged in', function () {
+  it('should redirect to /login if user is not logged in', function () {
     this.callback = jasmine.createSpy();
     Hooks.addAction('redirectToLogin', function (nextState, replace) {
       replace('/login');

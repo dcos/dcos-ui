@@ -119,14 +119,14 @@ module.exports = {
     // pointing to the current array index. Otherwise it's -1
     let arrayIndex = -1;
     // This variable keeps track of the current object key. It's used only
-    // when in an object { } and is populated only when a colon ':'' is encoutered
+    // when in an object { } and is populated only when a colon ':'' is encountered
     let objectKey = null;
     // Stack of block tokens, used to keep track of the last opened block
     // token in order to update the ending position.
     const blockTokens = [];
 
     // First validate sanity of the JSON source, in order for us
-    // to safely asume that this is a legit JSON source
+    // to safely assume that this is a legit JSON source
     // (This will throw an exception)
     JSON.parse(source);
 

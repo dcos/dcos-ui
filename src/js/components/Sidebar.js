@@ -332,7 +332,7 @@ var Sidebar = React.createClass({
 
   handleSidebarTransitionEnd(event) {
     // Some elements (graphs and Gemini) need to update when the main content
-    // width canges, so we emit an event.
+    // width changes, so we emit an event.
     if (event.target === this.sidebarWrapperRef) {
       SidebarActions.sidebarWidthChange();
     }

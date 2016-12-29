@@ -135,7 +135,7 @@ module.exports = {
   /**
    * Namespace for the merge operator
    *
-   * @namesapce
+   * @namespace
    */
   Merge: {
 
@@ -178,7 +178,7 @@ module.exports = {
   /**
    * Operator namespace
    *
-   * @namesapce
+   * @namespace
    */
   Operator: {
 

@@ -71,7 +71,7 @@ const Util = {
   },
 
   /**
-   * Finds the property in a given object using a string of propeties
+   * Finds the property in a given object using a string of properties
    * using dot-notation, e.g. 'hello.is.it.me.you.are.looking.for'
    * @param  {Object} obj          Object to search in
    * @param  {String} propertyPath Property path to search for

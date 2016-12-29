@@ -80,7 +80,7 @@ describe('MetronomeActions', function () {
       this.configuration.success([]);
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -122,7 +122,7 @@ describe('MetronomeActions', function () {
       this.configuration.success([]);
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -172,7 +172,7 @@ describe('MetronomeActions', function () {
       this.configuration.success([]);
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -265,7 +265,7 @@ describe('MetronomeActions', function () {
       this.configuration.success([]);
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -366,7 +366,7 @@ describe('MetronomeActions', function () {
       this.configuration.success([]);
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);

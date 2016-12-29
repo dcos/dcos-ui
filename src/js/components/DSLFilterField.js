@@ -46,7 +46,7 @@ class DSLFilterField extends React.Component {
   }
 
   /**
-   * Component should update only when fiters or expressions changes
+   * Component should update only when filters or expressions changes
    *
    * @override
    */

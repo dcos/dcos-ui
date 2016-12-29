@@ -32,7 +32,7 @@ describe('ValidatorUtil', function () {
     // RFC822 email address validator
     // http://sphinx.mythic-beasts.com/~pdw/cgi-bin/emailvalidate?address=
 
-    it('should have at least an username, an @ and one peroid', function () {
+    it('should have at least an username, an @ and one period', function () {
       expect(ValidatorUtil.isEmail('user@foo.bar')).toBe(true);
       expect(ValidatorUtil.isEmail('Abc.123@example.com')).toBe(true);
       expect(
@@ -55,7 +55,7 @@ describe('ValidatorUtil', function () {
       expect(ValidatorUtil.isEmail('user@foo.bar')).toBe(true);
     });
 
-    it('should have at least one peroid after @', function () {
+    it('should have at least one period after @', function () {
       expect(ValidatorUtil.isEmail('user@foobar')).toBe(false);
       expect(ValidatorUtil.isEmail('Abc.123@examplecom')).toBe(false);
       expect(ValidatorUtil.isEmail('user@foo.bar')).toBe(true);

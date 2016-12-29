@@ -199,7 +199,7 @@ const getActionsAPI = function (SDK) {
 
 /**
  * Create a flux store that exposes events to components. This store
- * does not support set methods. It provides an abstration for handling
+ * does not support set methods. It provides an abstraction for handling
  * state changes in the OmniStore.
  * @param  {Object} definition - Store definition
  * @return {Object}            - Created store

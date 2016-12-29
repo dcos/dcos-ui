@@ -7,7 +7,7 @@ import {FilterNode} from './DSLASTNodes';
  *
  * The functions and getters in this file are just shorthands to create virtual
  * AST nodes (without any position information) that are used as comparision
- * targets for selecting the correct nodes from the paresed AST nodes.
+ * targets for selecting the correct nodes from the parsed AST nodes.
  *
  * @example <caption>How to use DSLExpressionPart</caption>
  *

@@ -104,7 +104,7 @@ describe('BannerPlugin', function () {
       expect(BannerPlugin.isEnabled()).toBeFalsy();
     });
 
-    it('should return true with mixed intialization', function () {
+    it('should return true with mixed initialization', function () {
       BannerPlugin.configure({
         headerTitle: null,
         headerContent: undefined,

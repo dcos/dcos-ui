@@ -3,14 +3,14 @@ import CompositeState from '../../../../../../../src/js/structs/CompositeState';
 
 class NodeDetailBreadCrumb extends BreadcrumbSegment {
   componentDidMount() {
-    this.updateCrumbSatus();
+    this.updateCrumbStatus();
   }
 
   componentWillReceiveProps() {
-    this.updateCrumbSatus();
+    this.updateCrumbStatus();
   }
 
-  updateCrumbSatus() {
+  updateCrumbStatus() {
     const hostname = this.getHostname();
 
     if (hostname) {

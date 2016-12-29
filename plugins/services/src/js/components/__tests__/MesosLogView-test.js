@@ -245,7 +245,7 @@ describe('MesosLogView', function () {
       expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it('shouldn\' call getLoadingScreen when fullLog is empty', function () {
+    it('shouldn\'t call getLoadingScreen when fullLog is empty', function () {
       this.instance.state.fullLog = '';
       MesosLogStore.get = jasmine.createSpy('MesosLogStore#get');
       this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');

@@ -33,7 +33,7 @@ module.exports = {
     }
 
     if (this.healthChecks == null) {
-      // `this` is a context which is givven to every reducer so it could
+      // `this` is a context which is given to every reducer so it could
       // cache information.
       // In this case we are caching an array structure and although the
       // output structure is a object. But this enables us to not overwrite

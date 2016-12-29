@@ -9,7 +9,7 @@ describe('DSLExpression', function () {
 
   describe('#value', function () {
 
-    it('returns the raw string valiue', function () {
+    it('returns the raw string value', function () {
       const expression = new DSLExpression('foo');
 
       expect(expression.value).toEqual('foo');

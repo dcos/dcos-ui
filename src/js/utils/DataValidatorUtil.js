@@ -5,7 +5,7 @@ import Objektiv from 'objektiv';
  *
  * @param {Array} path - The array of the path components
  * @param {function} [strategy] - The trategy to chose for missing elements
- * @return {Objectiv.lens} Returns the lens to adress the path
+ * @return {Objectiv.lens} Returns the lens to address the path
  */
 function path2lens(path, strategy=Objektiv.resolve.tryhard) {
   return path.reduce(function (parent, segment) {

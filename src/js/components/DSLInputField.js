@@ -91,7 +91,7 @@ class DSLInputField extends React.Component {
   }
 
   /**
-   * Callback whith the new text on every keystroke
+   * Callback with the new text on every keystroke
    *
    * @param {SyntheticEvent} event - The change event
    */
@@ -122,7 +122,7 @@ class DSLInputField extends React.Component {
   }
 
   /**
-   * Callback whith empty text  when user clears the input
+   * Callback with empty text  when user clears the input
    */
   handleInputClear() {
     this.props.onChange(new DSLExpression());

@@ -23,7 +23,7 @@ const DSLFormUtil = {
      * Returning `true` means that the AST already contains a relevant node and
      * that node must be updated (if possible).
      *
-     * The default behaviour is to loosely compare AST nodes, meaning that
+     * The default behavior is to loosely compare AST nodes, meaning that
      * attribute nodes will be compared only against their `label`. However this
      * function makes attribute matching more strict, and scoped to the parts
      * given.

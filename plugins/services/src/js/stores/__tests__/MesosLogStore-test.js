@@ -64,7 +64,7 @@ describe('MesosLogStore', function () {
 
     it('does nothing if logBuffer doesn\'t exist', function () {
       MesosLogStore.getPreviousLogs.call(
-        this.MockMesosLogStore, 'slaveID', 'nonExistantPath'
+        this.MockMesosLogStore, 'slaveID', 'nonExistentPath'
       );
 
       expect(MesosLogActions.fetchPreviousLog).not.toHaveBeenCalled();
@@ -167,7 +167,7 @@ describe('MesosLogStore', function () {
       );
     });
 
-    it('should not call emit with an non-existant path', function () {
+    it('should not call emit with an non-existent path', function () {
       MesosLogStore.emit = jasmine.createSpy();
       MesosLogStore.processLogPrepend('foo', 'wtf', {data: '', offset: 100});
       expect(MesosLogStore.emit).not.toHaveBeenCalled();
@@ -215,7 +215,7 @@ describe('MesosLogStore', function () {
       );
     });
 
-    it('should not call emit with an non-existant path', function () {
+    it('should not call emit with an non-existent path', function () {
       MesosLogStore.emit = jasmine.createSpy();
       MesosLogStore.processLogPrepend('foo', 'wtf', {data: '', offset: 100});
       expect(MesosLogStore.emit).not.toHaveBeenCalled();
