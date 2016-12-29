@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import {Link} from 'react-router';
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -113,6 +114,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             </ConfigurationMapHeading>
             <HashMapDisplay hash={this.getClusterDetailsHash()} />
             {marathonDetails}
+            <MountService.Mount
+              type="OverviewDetailTab:AdditionalClusterDetails" />
           </ConfigurationMap>
         </div>
       </Page>
