@@ -8,7 +8,7 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from '../utils/ServiceConfigDisplayUtil';
-import HostUtil from '../utils/HostUtil';
+import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
@@ -47,7 +47,8 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
             const keys = {
               name: 'name',
               port: 'port',
-              protocol: 'protocol'
+              protocol: 'protocol',
+              labels: 'labels'
             };
 
             const containerPortMappings = findNestedPropertyInObject(
@@ -101,12 +102,16 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: '',
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  // TODO: Only render this when necessary, figure out when
-                  // necessary.
-                  const hostname = HostUtil.stringToHostname(appDefinition.id);
-                  const port = row[keys.port];
+                  const {port, labels} = row;
 
-                  return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
+                  if (labels && ServiceConfigUtil.hasVIPLabel(labels)) {
+                    return ServiceConfigUtil.buildHostName(
+                      appDefinition.id,
+                      port
+                    );
+                  }
+
+                  return getDisplayValue(undefined);
                 },
                 sortable: true
               }

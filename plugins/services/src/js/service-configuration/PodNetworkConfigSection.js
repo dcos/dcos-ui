@@ -8,6 +8,7 @@ import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationM
 import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import Networking from '../../../../../src/js/constants/Networking';
 
 const NETWORK_MODE_NAME = {
   'container': 'Container',
@@ -52,7 +53,7 @@ class PodNetworkConfigSection extends React.Component {
     const {onEditClick} = this.props;
     const appConfig = this.props.appConfig;
     const {containers = []} = appConfig;
-    let endpoints = containers.reduce((memo, container) => {
+    const endpoints = containers.reduce((memo, container) => {
       const {endpoints = []} = container;
 
       return memo.concat(
@@ -60,7 +61,7 @@ class PodNetworkConfigSection extends React.Component {
           const lbAddress = Object.keys(labels).reduce((memo, label) => {
             if (label.startsWith('VIP_')) {
               const [prefix, port] = labels[label].split(':');
-              memo.push(`${prefix}.marathon.lb4lb.thisdcos.directory:${port}`);
+              memo.push(`${prefix}.${Networking.L4LB_ADDRESS}:${port}`);
             }
 
             return memo;
