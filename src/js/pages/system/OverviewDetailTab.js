@@ -1,5 +1,4 @@
 import mixin from 'reactjs-mixin';
-import {Hooks} from 'PluginSDK';
 import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -32,7 +31,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       open: false
     };
 
-    this.store_listeners = Hooks.applyFilter('OverviewDetailTab:StoreListeners', [
+    this.store_listeners = [
       {
         name: 'config',
         events: ['ccidSuccess']
@@ -45,16 +44,13 @@ class OverviewDetailTab extends mixin(StoreMixin) {
         name: 'metadata',
         events: ['dcosSuccess']
       }
-    ]);
+    ];
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
     ConfigStore.fetchCCID();
     MarathonStore.fetchMarathonInstanceInfo();
-
-    Hooks.applyFilter('OverviewDetailTab:DidMountCallbacks', [])
-      .forEach((cb) => cb());
   }
 
   getLoading() {
@@ -75,11 +71,10 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       productVersion = this.getLoading();
     }
 
-    // Allow plugins to add to the cluster details hash
-    return Hooks.applyFilter('OverviewDetailTab:ClusterDetails', {
+    return {
       [`${Config.productName} Version`]: productVersion,
       'Cryptographic Cluster ID': ccid
-    });
+    };
   }
 
   getMarathonDetailsHash() {
