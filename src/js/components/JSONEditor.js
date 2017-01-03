@@ -293,7 +293,7 @@ class JSONEditor extends React.Component {
     }
 
     // Update the `isTyping` flag
-    this.isTyping = true;
+    this.isTyping = false;
     this.scheduleIsTypingReset(ISTYPING_TIMEOUT);
 
     // If we have errors don't continue with updating the local structures
