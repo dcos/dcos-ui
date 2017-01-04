@@ -12,7 +12,6 @@ import ConfigurationMap from '../../components/ConfigurationMap';
 import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
 import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
-import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
 import MetadataStore from '../../stores/MetadataStore';
 import Page from '../../components/Page';
@@ -157,6 +156,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
               type="OverviewDetailTab:AdditionalClusterDetails" />
           </ConfigurationMap>
         </div>
+        {versionsModal}
       </Page>
     );
   }
