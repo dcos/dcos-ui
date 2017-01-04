@@ -272,6 +272,10 @@ module.exports = {
       this.appState = {};
     }
 
+    if (this.healthCheckState == null) {
+      this.healthCheckState = [];
+    }
+
     if (base === 'id' && type === SET) {
       this.appState.id = value;
     }
@@ -407,13 +411,14 @@ module.exports = {
     });
 
     if (field === 'healthCheck') {
-      if (newState[index].healthCheck == null) {
-        newState[index].healthCheck = {};
+      if (this.healthCheckState[index] == null) {
+        this.healthCheckState[index] = {};
       }
 
       newState[index].healthCheck = multiContainerHealthCheckReducer.call(
-        newState[index].healthCheck,
-        {type, path: path.slice(2), value}
+        this.healthCheckState[index],
+        newState[index].healthCheck || {},
+        {type, path: path.slice(3), value}
       );
     }
 
@@ -485,6 +490,10 @@ module.exports = {
       this.cache = [];
     }
 
+    if (this.healthCheckState == null) {
+      this.healthCheckState = [];
+    }
+
     if (!state) {
       state = [];
     }
@@ -551,13 +560,14 @@ module.exports = {
     }
 
     if (field === 'healthCheck') {
-      if (newState[index].healthCheck == null) {
-        newState[index].healthCheck = {};
+      if (this.healthCheckState[index] == null) {
+        this.healthCheckState[index] = {};
       }
 
       newState[index].healthCheck = multiContainerHealthCheckReducer.call(
-        newState[index].healthCheck,
-        {type, path: path.slice(2), value}
+        this.healthCheckState[index],
+        newState[index].healthCheck || {},
+        {type, path: path.slice(3), value}
       );
     }
 

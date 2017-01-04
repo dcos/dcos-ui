@@ -156,6 +156,12 @@ module.exports = {
     const newState = Object.assign({}, state);
     const [group, field] = path;
 
+    // If we are assigning the entire group to `null`, we are
+    // effectively disabling the health checks
+    if ((path.length === 0) && (value == null)) {
+      return null;
+    }
+
     // Format object structure according to protocol switch
     if (group === 'protocol') {
       switch (value) {
