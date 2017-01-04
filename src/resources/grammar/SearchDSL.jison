@@ -61,7 +61,7 @@ e   /* Operators */
         /* NOTE: We expand the comma-separated list of values as individual
                  label:value tokens, combined with an OR operator */
         {$$ = $2.reduce(function (last_fn, v) {
-            let fn = Operator.attribute($1, v.text, @1.first_column, @1.last_column, v.start, v.end);
+            var fn = Operator.attribute($1, v.text, @1.first_column, @1.last_column, v.start, v.end);
             if (last_fn) {
                 return Merge.or(last_fn, fn);
             } else {
