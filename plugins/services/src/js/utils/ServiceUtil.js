@@ -457,6 +457,7 @@ const ServiceUtil = {
 
   createFormModelFromSchema(schema, service = new Application()) {
     console.warn('ServieUtil.createFormModelFromSchema has been deprecated.');
+
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
