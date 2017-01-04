@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React from 'react';
 
-import PageHeaderBreadcrumbs from '../../components/NewPageHeaderBreadcrumbs';
+import PageHeaderBreadcrumbs from '../../components/PageHeaderBreadcrumbs';
 
 const JobsBreadcrumbs = ({jobID, taskID, taskName, jobStatus}) => {
   let aggregateIDs = '';

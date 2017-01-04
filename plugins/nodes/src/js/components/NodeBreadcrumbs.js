@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import CompositeState from '../../../../../src/js/structs/CompositeState';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
+import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import UnitHealthStore from '../../../../../src/js/stores/UnitHealthStore';
 
 const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {

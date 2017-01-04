@@ -2,16 +2,16 @@ import classNames from 'classnames/dedupe';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import BasePageHeader from '../components/PageHeader';
 import FluidGeminiScrollbar from './FluidGeminiScrollbar';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import NewPageHeader from '../components/NewPageHeader';
 import ScrollbarUtil from '../utils/ScrollbarUtil';
 import SidebarToggle from '../components/SidebarToggle';
 import TemplateUtil from '../utils/TemplateUtil';
 
 const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
   return (
-    <NewPageHeader
+    <BasePageHeader
       actions={actions}
       addButton={addButton}
       breadcrumbs={breadcrumbs}
@@ -20,9 +20,9 @@ const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
 };
 
 TemplateUtil.defineChildren(PageHeader, {
-  Breadcrumbs: NewPageHeader.Breadcrumbs,
-  Actions: NewPageHeader.Actions,
-  Tabs: NewPageHeader.Actions
+  Breadcrumbs: BasePageHeader.Breadcrumbs,
+  Actions: BasePageHeader.Actions,
+  Tabs: BasePageHeader.Actions
 });
 
 PageHeader.defaultProps = {
