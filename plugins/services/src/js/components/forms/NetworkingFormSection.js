@@ -280,7 +280,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return portDefinitions.map((portDefinition, index) => {
       let portMappingFields = null;
 
-      let nameError = findNestedPropertyInObject(
+      const nameError = findNestedPropertyInObject(
         errors,
         `portDefinitions.${index}.name`
       ) || findNestedPropertyInObject(
@@ -348,13 +348,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getTypeSelections() {
     const {container} = this.props.data;
     const type = findNestedPropertyInObject(container, 'type');
-    let network = findNestedPropertyInObject(this.props.data, 'networkType');
+    const network = findNestedPropertyInObject(this.props.data, 'networkType');
     const disabledMap = {};
 
     // Runtime is Mesos
     if (!type || type === NONE) {
       disabledMap[BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime';
-      disabledMap[USER] = 'Virtual networking is not compatible with the Mesos runtime';
     }
 
     // Runtime is Universal Container Runtime
@@ -369,7 +368,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       return disabledMap[key];
     }).join(', ');
 
-    let selections = (
+    const selections = (
       <FieldSelect
         name="container.docker.network"
         value={network}>
@@ -404,14 +403,70 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 
+  getServiceEndpointsSection() {
+    const {portDefinitions, container, networkType} = this.props.data;
+    const type = findNestedPropertyInObject(container, 'type');
+    const isMesosRuntime = !type || type === NONE;
+    const isUserNetwork = networkType && networkType.startsWith(USER);
+
+    // Mesos Runtime doesn't support Service Endpoints for the USER network
+    if (isMesosRuntime && isUserNetwork) {
+      return (
+        <div>
+          <h3 className="short-bottom muted" key="service-endpoints-header">
+            {'Service Endpoints '}
+            <Tooltip
+              content="Service Endpoints are not available in the Mesos Runtime"
+              maxWidth={500}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="lock" size="mini" />
+            </Tooltip>
+          </h3>
+          <p key="service-endpoints-description" className="muted">
+            DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <h3 className="short-bottom" key="service-endpoints-header">
+          Service Endpoints
+        </h3>
+        <p key="service-endpoints-description">
+          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+        </p>
+        {this.getServiceEndpoints()}
+        <FormRow key="service-endpoints-add-button">
+          <FormGroup className="column-12">
+            <button
+              type="button"
+              onBlur={(event) => { event.stopPropagation(); }}
+              className="button button-primary-link button-flush"
+              onClick={this.props.onAddItem.bind(
+                this,
+                {
+                  value: portDefinitions.length,
+                  path: 'portDefinitions'
+                }
+              )}>
+              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
+            </button>
+          </FormGroup>
+        </FormRow>
+      </div>
+    );
+  }
+
   render() {
-    const {portDefinitions} = this.props.data;
-    let networkError = findNestedPropertyInObject(
+    const networkError = findNestedPropertyInObject(
       this.props.errors,
       'container.docker.network'
     );
 
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
         <a href="https://mesosphere.github.io/marathon/docs/ports.html" target="_blank">
@@ -445,30 +500,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        <h3 className="short-bottom" key="service-endpoints-header">
-        Service Endpoints
-        </h3>
-        <p key="service-endpoints-description">
-          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-        </p>
-        {this.getServiceEndpoints()}
-        <FormRow key="service-endpoints-add-button">
-          <FormGroup className="column-12">
-            <button
-              type="button"
-              onBlur={(event) => { event.stopPropagation(); }}
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(
-                this,
-                {
-                  value: portDefinitions.length,
-                  path: 'portDefinitions'
-                }
-              )}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-            </button>
-          </FormGroup>
-        </FormRow>
+        {this.getServiceEndpointsSection()}
       </div>
     );
   }
