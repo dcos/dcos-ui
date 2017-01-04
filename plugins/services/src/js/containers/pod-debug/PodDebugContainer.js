@@ -8,6 +8,7 @@ import ConfigurationMapHeading from '../../../../../../src/js/components/Configu
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
+import DeclinedOffersUtil from '../../utils/DeclinedOffersUtil';
 import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
@@ -38,7 +39,8 @@ class PodDebugTabView extends React.Component {
     const {pod} = this.props;
     const queue = pod.getQueue();
 
-    if (queue == null || queue.declinedOffers.offers == null) {
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+      || queue.declinedOffers.offers == null) {
       return null;
     }
 
@@ -145,7 +147,8 @@ class PodDebugTabView extends React.Component {
     let mainContent = null;
     let offerCount = null;
 
-    if (queue == null || queue.declinedOffers.summary == null) {
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+      || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
       const {declinedOffers: {summary}} = queue;

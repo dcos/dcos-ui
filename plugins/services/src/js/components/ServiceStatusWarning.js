@@ -16,8 +16,7 @@ class ServiceStatusWarning extends Component {
     const {item} = this.props;
     const queue = item.getQueue();
 
-    if (queue != null
-      && DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)) {
+    if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)) {
       const waitingSince = DateUtil.strToMs(queue.since);
       const timeWaiting = Date.now() - waitingSince;
 
