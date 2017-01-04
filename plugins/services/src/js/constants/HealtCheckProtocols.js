@@ -1,5 +1,6 @@
 module.exports = {
+  COMMAND: 'COMMAND',
   HTTP: 'HTTP',
   HTTPS: 'HTTPS',
-  COMMAND: 'COMMAND'
+  TCP: 'TCP'
 };
