@@ -21,7 +21,7 @@ import Config from '../config/Config';
 import SystemLogActions from '../events/SystemLogActions';
 import {APPEND, PREPEND} from '../constants/SystemLogTypes';
 import {findNestedPropertyInObject} from '../utils/Util';
-import {HOSTNAME, MESSAGE, PID, SYSLOG_IDENTIFIER} from '../constants/LogFields';
+import {MESSAGE} from '../constants/LogFields';
 import {msToCTime} from '../utils/DateUtil';
 
 // Max data storage, i.e. maximum 5MB per log stream
@@ -93,7 +93,7 @@ class SystemLogStore extends BaseStore {
     const length = entries.reduce((sum, entry) => {
       return sum + findNestedPropertyInObject(
         entry,
-        'fields.MESSAGE.length'
+        `fields.${MESSAGE}.length`
       ) || 0;
     }, 0);
 
@@ -112,7 +112,7 @@ class SystemLogStore extends BaseStore {
       }
       newLogData.totalSize -= findNestedPropertyInObject(
         removedEntry,
-        'fields.MESSAGE.length'
+        `fields.${MESSAGE}.length`
       ) || 0;
     }
 
@@ -137,25 +137,6 @@ class SystemLogStore extends BaseStore {
       if (typeof entry.realtime_timestamp === 'number') {
         lineData.push(msToCTime(entry.realtime_timestamp/1000));
       }
-
-      // Optional fields
-      [HOSTNAME, SYSLOG_IDENTIFIER].forEach((optionalField) => {
-        if (fields[optionalField]) {
-          lineData.push(fields[optionalField]);
-        }
-      });
-
-      // Concat to SYSLOG_IDENTIFIER if available
-      if (fields[PID] && fields[SYSLOG_IDENTIFIER]) {
-        const lastElement = lineData[lineData.length - 1];
-        lineData[lineData.length - 1] = `${lastElement}[${fields[PID]}]`;
-      }
-
-      // If SYSLOG_IDENTIFIER is not available just add as separate field
-      if (fields[PID] && !fields[SYSLOG_IDENTIFIER]) {
-        lineData.push(`[${fields[PID]}]`);
-      }
-
       // Concat `:` to last element if there is data
       if (lineData.length) {
         const lastElement = lineData[lineData.length - 1];
@@ -164,7 +145,7 @@ class SystemLogStore extends BaseStore {
 
       lineData.push(fields[MESSAGE]);
 
-      // Format: `date _HOSTNAME SYSLOG_IDENTIFIER[_PID]: MESSAGE`
+      // Format: `date: MESSAGE`
       return `${lineData.join(' ')}`;
     }).join('\n');
   }

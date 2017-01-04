@@ -359,40 +359,16 @@ describe('SystemLogStore', function () {
 
       SystemLogStore.processLogEntry(
         'subscriptionID',
-        {fields: {MESSAGE: 'foo', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+        {fields: {MESSAGE: 'foo'}, realtime_timestamp: 10000000}
       );
       SystemLogStore.processLogEntry(
         'subscriptionID',
-        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+        {fields: {MESSAGE: 'bar'}}
       );
 
       const result = SystemLogStore.getFullLog('subscriptionID');
 
-      expect(result).toEqual('host systemID[pid]: foo\nhost systemID[pid]: bar\nhost systemID[pid]: baz');
-    });
-
-    it('excludes optional fields', function () {
-
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'foo', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID'}}
-      );
-
-      const result = SystemLogStore.getFullLog('subscriptionID');
-
-      expect(result).toEqual('systemID[pid]: foo\nhost [pid]: bar\nhost systemID: baz');
+      expect(result).toEqual('Thu Jan 01 00:00:10 1970: foo\nbar');
     });
 
     it('returns empty string for a log that doesn\'t exist', function () {
