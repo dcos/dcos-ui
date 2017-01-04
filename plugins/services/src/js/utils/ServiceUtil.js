@@ -93,6 +93,7 @@ const ServiceUtil = {
   },
 
   createSpecFromDefinition(data) {
+    console.warn('ServieUtil.createSpecFromDefinition has been deprecated.');
     if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
       return new PodSpec(data);
     }
@@ -109,7 +110,7 @@ const ServiceUtil = {
   },
 
   createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
-
+    console.warn('ServieUtil.createSpecFromFormModel has been deprecated.');
     if (formModel != null) {
       const {
         general,
@@ -455,6 +456,7 @@ const ServiceUtil = {
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
+    console.warn('ServieUtil.createFormModelFromSchema has been deprecated.');
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
