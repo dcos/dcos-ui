@@ -22,7 +22,7 @@ import SystemLogActions from '../events/SystemLogActions';
 import {APPEND, PREPEND} from '../constants/SystemLogTypes';
 import {findNestedPropertyInObject} from '../utils/Util';
 import {MESSAGE} from '../constants/LogFields';
-import {msToCTime} from '../utils/DateUtil';
+import {msToLogTime} from '../utils/DateUtil';
 
 // Max data storage, i.e. maximum 5MB per log stream
 const MAX_FILE_SIZE = 500000;
@@ -135,7 +135,7 @@ class SystemLogStore extends BaseStore {
       // entry.realtime_timestamp returns a unix time in microseconds
       // https://www.freedesktop.org/software/systemd/man/sd_journal_get_realtime_usec.html
       if (typeof entry.realtime_timestamp === 'number') {
-        lineData.push(msToCTime(entry.realtime_timestamp/1000));
+        lineData.push(msToLogTime(entry.realtime_timestamp/1000));
       }
       // Concat `:` to last element if there is data
       if (lineData.length) {

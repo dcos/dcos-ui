@@ -368,7 +368,7 @@ describe('SystemLogStore', function () {
 
       const result = SystemLogStore.getFullLog('subscriptionID');
 
-      expect(result).toEqual('Thu Jan 01 00:00:10 1970: foo\nbar');
+      expect(result).toEqual('1970-01-01 12:00:10: foo\nbar');
     });
 
     it('returns empty string for a log that doesn\'t exist', function () {
