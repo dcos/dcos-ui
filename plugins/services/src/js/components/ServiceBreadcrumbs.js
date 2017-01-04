@@ -23,6 +23,10 @@ function getHealthStatus(serviceID) {
   const instancesCount = service.getInstancesCount();
   const isDeploying = serviceStatus === 'Deploying';
 
+  if (instancesCount === 0) {
+    return null;
+  }
+
   return (
     <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
       {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
