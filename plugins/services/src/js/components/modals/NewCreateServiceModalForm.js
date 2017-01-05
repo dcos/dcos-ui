@@ -289,6 +289,7 @@ class NewCreateServiceModalForm extends Component {
 
         return (
           <TabButton
+            labelClassName="text-overflow"
             key={index}
             id={`container${index}`}
             label={getContainerNameWithIcon(fakeContainer)} />
@@ -444,7 +445,7 @@ class NewCreateServiceModalForm extends Component {
               <form onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}>
                 <Tabs activeTab={activeTab} vertical={true} handleTabChange={handleTabChange}>
-                  <TabButtonList>
+                  <TabButtonList className="form-tabs-list">
                     <TabButton id="services" label={serviceLabel} key="services">
                       {this.getContainerList(data)}
                     </TabButton>
