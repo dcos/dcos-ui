@@ -43,6 +43,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       direction: APPEND,
       hasError: false,
       streams: [],
+      isFetchingPrevious: false,
       isLoading: true
     };
 
@@ -79,7 +80,11 @@ class TaskLogsTab extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({hasError: true, isLoading: false});
+    this.setState({
+      hasError: true,
+      isFetchingPrevious: false,
+      isLoading: false
+    });
   }
 
   onSystemLogStoreSuccess(subscriptionID, direction) {
@@ -87,7 +92,12 @@ class TaskLogsTab extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({hasError: false, direction, isLoading: false});
+    this.setState({
+      hasError: false,
+      direction,
+      isFetchingPrevious: false,
+      isLoading: false
+    });
   }
 
   onSystemLogStoreStreamError() {
@@ -118,6 +128,11 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   handleFetchPreviousLog() {
+    // Ongoing previous log fetch, wait for that to complete
+    if (this.state.isFetchingPrevious) {
+      return;
+    }
+
     const {task} = this.props;
     const {subscriptionID} = this.state;
 
@@ -128,6 +143,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       subscriptionID
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);
+    this.setState({isFetchingPrevious: true});
   }
 
   handleAtBottomChange(isAtBottom) {
@@ -238,7 +254,6 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
     // This is a hacky way of interacting with the API to be able to download
     // logs with a POST request
-
     return (
       <form
         key="download"

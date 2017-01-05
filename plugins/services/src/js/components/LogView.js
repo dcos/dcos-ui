@@ -176,19 +176,12 @@ class LogView extends React.Component {
   }
 
   checkIfCloseToTop(container) {
-    const {closeToTop} = this.state;
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    if (distanceFromTop < 100 && !closeToTop) {
-      this.setState({closeToTop: true}, () => {
-        const {hasLoadedTop, fetchPreviousLogs} = this.props;
-        if (!hasLoadedTop) {
-          fetchPreviousLogs();
-        }
-      });
-    }
-
-    if (distanceFromTop > 100 && closeToTop) {
-      this.setState({closeToTop: false});
+    if (distanceFromTop < 100) {
+      const {hasLoadedTop, fetchPreviousLogs} = this.props;
+      if (!hasLoadedTop) {
+        fetchPreviousLogs();
+      }
     }
   }
 
