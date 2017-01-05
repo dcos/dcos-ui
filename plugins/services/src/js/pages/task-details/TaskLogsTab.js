@@ -20,7 +20,7 @@ const METHODS_TO_BIND = [
   'handleItemSelection'
 ];
 
-const PAGE_ENTRY_COUNT = 100;
+const PAGE_ENTRY_COUNT = 200;
 
 function getLogParameters(task, options) {
   let {framework_id:frameworkID, executor_id:executorID, id} = task;
@@ -136,10 +136,13 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const {task} = this.props;
     const {subscriptionID} = this.state;
 
-    // Get a full page of previous log entries
+    // Stop tailing before fetching preiovus logs
+    SystemLogStore.stopTailing(this.state.subscriptionID);
+    // Fetch two pages previous log entries to gain more leverage to explore
+    // previous logs
     const params = getLogParameters(task, {
       filter: {STREAM: this.state.selectedStream},
-      limit: PAGE_ENTRY_COUNT,
+      limit: 2 * PAGE_ENTRY_COUNT,
       subscriptionID
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);
