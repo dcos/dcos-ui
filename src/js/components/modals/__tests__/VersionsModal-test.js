@@ -55,16 +55,14 @@ describe('VersionsModal', function () {
       var content = this.instance.getContent();
       var contentInstance = ReactDOM.render(content, this.container);
       var node = ReactDOM.findDOMNode(contentInstance);
-      var result = node.querySelector('pre');
-      expect(result.tagName).toBe('PRE');
+      expect(node.tagName).toBe('PRE');
     });
 
     it('should return a pre element tag', function () {
       var content = this.instance.getContent();
       var contentInstance = ReactDOM.render(content, this.container);
       var node = ReactDOM.findDOMNode(contentInstance);
-      var result = node.querySelector('pre');
-      expect(result.innerHTML).toEqual('{\n  "foo": "bar"\n}');
+      expect(node.innerHTML).toEqual('{\n  "foo": "bar"\n}');
     });
 
   });

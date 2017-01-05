@@ -22,9 +22,7 @@ var VersionsModal = React.createClass({
     var string = JSON.stringify(this.props.versionDump, null, 2);
 
     return (
-      <div className="versions-modal-content">
-        <pre>{string}</pre>
-      </div>
+      <pre className="flush-bottom">{string}</pre>
     );
   },
 

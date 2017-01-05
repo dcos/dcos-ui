@@ -124,11 +124,6 @@ var Sidebar = React.createClass({
     SidebarActions.close();
   },
 
-  handleVersionClick() {
-    SidebarActions.close();
-    SidebarActions.showVersions();
-  },
-
   getNavigationSections() {
     const definition = NavigationService.getDefinition();
 
