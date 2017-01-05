@@ -5,7 +5,7 @@ class FullScreenModalHeaderTitle extends React.Component {
   render() {
     let {children, className} = this.props;
     let classes = classNames(
-      'modal-full-screen-header-title h3 flush',
+      'modal-full-screen-header-title',
       className
     );
 
