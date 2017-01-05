@@ -11,7 +11,8 @@ import {
 } from '../../../../../../src/js/utils/ReducerUtil';
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
-  JSONSegmentParser as multiContainerHealthCheckParser
+  JSONSegmentParser as multiContainerHealthCheckParser,
+  FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
@@ -564,7 +565,7 @@ module.exports = {
         this.healthCheckState[index] = {};
       }
 
-      newState[index].healthCheck = multiContainerHealthCheckReducer.call(
+      newState[index].healthCheck = multiContainerHealthFormReducer.call(
         this.healthCheckState[index],
         newState[index].healthCheck || {},
         {type, path: path.slice(3), value}

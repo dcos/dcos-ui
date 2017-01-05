@@ -1,7 +1,7 @@
 import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
-import {COMMAND, HTTP, TCP} from '../../constants/HealtCheckProtocols';
+import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealtCheckProtocols';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 function intOrNull(value) {
@@ -38,8 +38,8 @@ function parseHttpHealthCheck(healthCheck, path, memo) {
 
   if (healthCheck.scheme != null) {
     memo.push(new Transaction(
-      path.concat(['scheme']),
-      healthCheck.scheme,
+      path.concat(['https']),
+      healthCheck.scheme === HTTPS,
       SET
     ));
   }
@@ -55,8 +55,20 @@ function reduceHttpHealthCheck(newState, field, value) {
       newState.http.path = value;
       break;
 
-    case 'scheme':
-      newState.http.scheme = value;
+    case 'https':
+      if (value) {
+        newState.http.scheme = HTTPS;
+      } else {
+        newState.http.scheme = null;
+      }
+      break;
+  }
+}
+
+function reduceFormHttpHealthCheck(newState, field, value) {
+  switch (field) {
+    case 'https':
+      newState.http.https = value;
       break;
   }
 }
@@ -81,7 +93,7 @@ function parseTcpHealthCheck(healthCheck, path, memo) {
 function reduceTcpHealthCheck(newState, field, value) {
   switch (field) {
     case 'endpoint':
-      newState.endpoint = value;
+      newState.tcp.endpoint = value;
       break;
   }
 }
@@ -94,32 +106,32 @@ function reduceTcpHealthCheck(newState, field, value) {
  * @param {Array} memo - The memo object where to append the transations
  */
 function parseCommandHealthCheck(healthCheck, path, memo) {
-  const {command} = healthCheck;
+  const {command={}} = healthCheck;
 
   if (command.shell != null) {
     memo.push(new Transaction(
-      path.concat(['shell']),
+      path.concat(['command', 'shell']),
       true,
       SET
     ));
 
     memo.push(new Transaction(
-      path.concat(['command']),
+      path.concat(['command', 'string']),
       command.shell,
       SET
     ));
   }
 
-  if (command.argv != null) {
+  if ((command.argv != null) && Array.isArray(command.argv)) {
     memo.push(new Transaction(
-      path.concat(['shell']),
+      path.concat(['command', 'shell']),
       false,
       SET
     ));
 
     // Always cast to string, since the UI cannot handle arrays
     memo.push(new Transaction(
-      path.concat(['command']),
+      path.concat(['command', 'string']),
       command.argv.join(' '),
       SET
     ));
@@ -127,7 +139,7 @@ function parseCommandHealthCheck(healthCheck, path, memo) {
 }
 
 function reduceCommandHealthCheck(newState, field, value) {
-  const {exec: {command}} = newState;
+  const {exec: {command={}}} = newState;
 
   switch (field) {
     case 'shell':
@@ -136,7 +148,7 @@ function reduceCommandHealthCheck(newState, field, value) {
       // field, we should convert and set-up a placeholder
       if (value) {
         command.shell = '';
-        if (command.argv != null) {
+        if ((command.argv != null) && Array.isArray(command.argv)) {
           command.shell = command.argv.join(' ');
           delete command.argv;
         }
@@ -149,20 +161,36 @@ function reduceCommandHealthCheck(newState, field, value) {
       }
       break;
 
-    case 'command':
-      if (command.shell != null) {
-        command.shell = value;
+    case 'string':
+      // By default we are creating `shell`. Only if `argv` exists
+      // we should create an array
+      if (command.argv != null) {
+        command.argv = value.split(' ');
       } else {
-        command.shell = value.split(' ');
+        command.shell = value;
       }
       break;
   }
 }
 
-module.exports = {
+function reduceFormCommandHealthCheck(newState, field, value) {
+  const {exec: {command={}}} = newState;
+
+  switch (field) {
+    case 'shell':
+      command.shell = value;
+      break;
+
+    case 'string':
+      command.string = value;
+      break;
+  }
+}
+
+const MultiContainerHealthChecks = {
   JSONSegmentReducer(state, {path, value}) {
     const newState = Object.assign({}, state);
-    const [group, field] = path;
+    const [group, field, secondField] = path;
 
     // If we are assigning the entire group to `null`, we are
     // effectively disabling the health checks
@@ -200,7 +228,7 @@ module.exports = {
     // Assign properties
     switch (group) {
       case 'exec':
-        reduceTcpHealthCheck(newState, field, value);
+        reduceCommandHealthCheck(newState, secondField, value);
         break;
 
       case 'http':
@@ -208,7 +236,7 @@ module.exports = {
         break;
 
       case 'tcp':
-        reduceCommandHealthCheck(newState, field, value);
+        reduceTcpHealthCheck(newState, field, value);
         break;
 
       case 'gracePeriodSeconds':
@@ -290,5 +318,37 @@ module.exports = {
     }
 
     return memo;
+  },
+
+  FormReducer(state, {path, value}) {
+    const newState = MultiContainerHealthChecks.JSONSegmentReducer
+      .call(this, state, {path, value});
+
+    // Bail early on nulled cases
+    if (newState == null) {
+      return newState;
+    }
+
+    const [group, field, secondField] = path;
+
+    // Include additional fields only present in the form
+    if (group === 'protocol') {
+      newState.protocol = value;
+    }
+
+    // Assign detailed properties
+    switch (group) {
+      case 'exec':
+        reduceFormCommandHealthCheck(newState, secondField, value);
+        break;
+
+      case 'http':
+        reduceFormHttpHealthCheck(newState, field, value);
+        break;
+    }
+
+    return newState;
   }
 };
+
+module.exports = MultiContainerHealthChecks;
