@@ -16,10 +16,25 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
+  shouldExcludeItem(row) {
+    if (row.key !== 'ipAddress.networkName') {
+      return false;
+    }
+
+    const {appConfig} = this.props;
+    const networkName = findNestedPropertyInObject(appConfig,
+      row.key);
+
+    return !networkName;
+  }
+
+  /**
+   * @override
+   */
   getDefinition() {
     const {onEditClick} = this.props;
 
-    const definition = {
+    return {
       tabViewID: 'networking',
       values: [
         {
@@ -29,8 +44,16 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: 'container.docker.network',
           label: 'Network Type',
-          transformValue(network) {
-            return network || Networking.type.HOST;
+          transformValue(networkType, appDefinition) {
+            networkType = networkType || Networking.type.HOST;
+            const networkName = findNestedPropertyInObject(
+              appDefinition,
+              'ipAddress.networkName'
+            );
+
+            return networkName != null ?
+              Networking.type.USER :
+              networkType;
           }
         },
         {
@@ -143,19 +166,6 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
         }
       ]
     };
-
-    const {appConfig} = this.props;
-
-    const network = findNestedPropertyInObject(appConfig,
-      'container.docker.network');
-
-    if (appConfig.portDefinition != null || network !== 'USER') {
-      definition.values = definition.values.filter(({key}) => {
-        return key !== 'ipAddress.networkName';
-      });
-    }
-
-    return definition;
   }
 }
 
