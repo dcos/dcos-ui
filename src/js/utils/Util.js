@@ -168,13 +168,13 @@ const Util = {
     let copy;
     if (Array.isArray(obj)) {
       copy = obj.slice(); // shallow copy
-    } else if (this.isObject(obj)) {
+    } else if (Util.isObject(obj)) {
       copy = Object.assign({}, obj);
     }
 
     if (copy != null) {
       Object.keys(copy).forEach((key) => {
-        copy[key] = this.deepCopy(copy[key]);
+        copy[key] = Util.deepCopy(copy[key]);
       });
     } else {
       copy = obj;
