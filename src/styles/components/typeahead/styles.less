@@ -4,19 +4,11 @@
 
     .typeahead {
 
-      .form-control {
-
-        &.bootstrap-typeahead-input-hint {
-          // Overriding `!important`s in Canvas' .form-control-group
-          margin-bottom: 0 !important;
-          margin-top: 0 !important;
-        }
-      }
-
       .dropdown-menu {
-        margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~' - ' (-2 * @form-control-padding-left));
+        margin-left: @typeahead-dropdown-menu-margin-left;
+        margin-top: @typeahead-dropdown-menu-margin-top;
+        min-width: @typeahead-dropdown-menu-width;
         position: absolute;
-        width: calc(~'100% +' @icon-mini-width + @form-control-border-width ~' + ' (3 * @form-control-padding-left));
 
         .dropdown-menu-list {
 
@@ -105,7 +97,6 @@
       .typeahead {
 
         .dropdown-menu {
-          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~' - ' (-2 * @form-control-padding-left));
           // We are matching the width of .filter-input-text-group
           // as defined in reactjs-components
           min-width: 200px;
