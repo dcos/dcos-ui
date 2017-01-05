@@ -106,7 +106,7 @@ const ServiceList = React.createClass({
 
   getNoServicesMessage() {
     return (
-      <div className="flex-item-align-center">
+      <div>
         <h3 className="flush-top text-align-center">No Services Running</h3>
         <p className="flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
       </div>
