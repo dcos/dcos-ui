@@ -54,34 +54,6 @@ describe('SystemLogStore', function () {
       expect(result.totalSize).toEqual(15);
     });
 
-    it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      const entires = [
-        {fields: {MESSAGE: 'foo'}},
-        {fields: {MESSAGE: 'bar'}},
-        {fields: {MESSAGE: 'baz'}}
-      ];
-      const logData = {
-        entries: [
-          {fields: {MESSAGE: 'one'}},
-          {fields: {MESSAGE: 'two'}}
-        ],
-        // Allow room for one more entry, but not the two following
-        totalSize: 500000 - 3
-      };
-      const result = SystemLogStore.addEntries(
-        logData,
-        entires,
-        SystemLogTypes.APPEND
-      );
-
-      const entries = result.entries.map((entry) => {
-        return entry.fields.MESSAGE;
-      });
-
-      expect(entries).toEqual(['foo', 'bar', 'baz']);
-      expect(result.totalSize).toEqual(500000);
-    });
-
     it('doesn\'t remove when there is no length added', function () {
       const entires = [
         {fields: {MESSAGE: ''}},
@@ -135,32 +107,6 @@ describe('SystemLogStore', function () {
 
       expect(entries).toEqual(['foo', 'bar', 'baz', 'one', 'two']);
       expect(result.totalSize).toEqual(15);
-    });
-
-    it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      const entries = [
-        {fields: {MESSAGE: 'foo'}},
-        {fields: {MESSAGE: 'bar'}},
-        {fields: {MESSAGE: 'baz'}}
-      ];
-      const logData = {
-        entries: [
-          {fields: {MESSAGE: 'one'}},
-          {fields: {MESSAGE: 'two'}}
-        ],
-        // Allow room for two more entry, but not the last one
-        totalSize: 500000 - 6
-      };
-      const result = SystemLogStore.addEntries(
-        logData,
-        entries,
-        SystemLogTypes.PREPEND
-      );
-
-      expect(result.entries.map((entry) => {
-        return entry.fields.MESSAGE;
-      })).toEqual(['foo', 'bar', 'baz', 'one']);
-      expect(result.totalSize).toEqual(500000);
     });
 
     it('doesn\'t remove when there is no length added', function () {
@@ -218,32 +164,6 @@ describe('SystemLogStore', function () {
         .toEqual('one\ntwo\nfoo\nbar\nbaz');
     });
 
-    it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      resetLogData('subscriptionID', {
-        entries: [
-          {fields: {MESSAGE: 'one'}},
-          {fields: {MESSAGE: 'two'}}
-        ],
-        // Allow room for one more entry, but not the two following
-        totalSize: 500000 - 3
-      });
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'foo'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'bar'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'baz'}}
-      );
-
-      expect(SystemLogStore.getFullLog('subscriptionID'))
-        .toEqual('foo\nbar\nbaz');
-    });
-
     it('doesn\'t add empty MESSAGEs', function () {
       resetLogData('subscriptionID', {
         entries: [
@@ -283,26 +203,6 @@ describe('SystemLogStore', function () {
 
       expect(SystemLogStore.getFullLog('subscriptionID'))
         .toEqual('foo\nbar\nbaz\none\ntwo');
-    });
-
-    it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      resetLogData('subscriptionID', {
-        entries: [
-          {fields: {MESSAGE: 'one'}},
-          {fields: {MESSAGE: 'two'}}
-        ],
-        // Allow room for two more entry, but not the last one
-        totalSize: 500000 - 6
-      });
-
-      SystemLogStore.processLogPrepend('subscriptionID', false, [
-        {fields: {MESSAGE: 'foo'}},
-        {fields: {MESSAGE: 'bar'}},
-        {fields: {MESSAGE: 'baz'}}
-      ]);
-
-      expect(SystemLogStore.getFullLog('subscriptionID'))
-        .toEqual('foo\nbar\nbaz\none');
     });
 
     it('doesn\'t remove when there is no length added', function () {
