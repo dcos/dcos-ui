@@ -10,7 +10,7 @@ describe('ExpandingTable', function () {
   beforeEach(function () {
     this.columns = [{heading() {}, prop: 'id'}];
     this.rows = [{id: 'foo'}, {id: 'bar'}];
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
   });
 
   afterEach(function () {

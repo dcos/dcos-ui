@@ -37,7 +37,7 @@ describe('InstallPackageModal', function () {
     };
     this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <InstallPackageModal
         open={true}
@@ -77,7 +77,7 @@ describe('InstallPackageModal', function () {
       RequestUtil.json = function () {
         // Do nothing
       };
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <InstallPackageModal
           open={true}

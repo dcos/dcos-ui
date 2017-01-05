@@ -46,7 +46,7 @@ var Chart = React.createClass({
     } else {
       this.updateWidth();
     }
-    window.addEventListener('resize', this.updateWidth);
+    global.addEventListener('resize', this.updateWidth);
   },
 
   shouldComponentUpdate() {
@@ -54,7 +54,7 @@ var Chart = React.createClass({
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWidth);
+    global.removeEventListener('resize', this.updateWidth);
   },
 
   onSidebarStoreWidthChange() {

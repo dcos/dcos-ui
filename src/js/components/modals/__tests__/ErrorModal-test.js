@@ -12,7 +12,7 @@ describe('ErrorModal', function () {
   describe('#onClose', function () {
     beforeEach(function () {
       this.callback = jasmine.createSpy();
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <ErrorModal
           onClose={this.callback} />,

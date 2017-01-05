@@ -27,7 +27,7 @@ describe('MesosLogView', function () {
     MesosLogStore.startTailing = jasmine.createSpy('startTailing');
     MesosLogStore.stopTailing = jasmine.createSpy('stopTailing');
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <MesosLogView
         filePath="/some/file/path"

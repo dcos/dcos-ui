@@ -54,7 +54,7 @@ describe('TimeSeriesArea', function () {
       .interpolate('monotone');
     this.valueLine = this.valueLineDef(this.props.values);
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <TimeSeriesArea
         line={this.valueLine}

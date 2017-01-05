@@ -71,7 +71,7 @@ var Sidebar = React.createClass({
       );
     }
 
-    global.window.addEventListener('keydown', this.handleKeyPress, true);
+    global.addEventListener('keydown', this.handleKeyPress, true);
   },
 
   componentWillUnmount() {
@@ -92,7 +92,7 @@ var Sidebar = React.createClass({
       );
     }
 
-    global.window.removeEventListener('keydown', this.handleKeyPress, true);
+    global.removeEventListener('keydown', this.handleKeyPress, true);
   },
 
   onDCOSMetadataChange() {

@@ -52,9 +52,9 @@ module.exports = {
   },
 
   pluginsConfigured() {
-    DOMUtils.appendScript(document.head, segmentScript);
+    DOMUtils.appendScript(global.document.head, segmentScript);
 
-    window.analytics.ready(() => {
+    global.analytics.ready(() => {
       const updateTrackJSConfiguration = () => {
         global.trackJs.configure({version: MetadataStore.version});
         global.trackJs.addMetadata('version', MetadataStore.version);

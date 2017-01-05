@@ -63,7 +63,7 @@ class UserFormModal extends mixin(StoreMixin) {
     const userModelObject = Hooks.applyFilter('userModelObject', Object.assign(
       {}, model, {
         creator_uid: AuthStore.getUser().uid,
-        cluster_url: `${window.location.protocol}//${window.location.hostname}`
+        cluster_url: `${global.location.protocol}//${global.location.hostname}`
       }
     ));
     UserStore.addUser(userModelObject);

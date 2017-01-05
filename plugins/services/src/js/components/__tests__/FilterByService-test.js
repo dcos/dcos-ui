@@ -21,7 +21,7 @@ describe('FilterByService', function () {
     };
 
     const services = new ServicesList({items: MockFrameworks.frameworks});
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <FilterByService
         byServiceFilter={this.byServiceFilter}

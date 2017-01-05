@@ -29,7 +29,7 @@ describe('NodesGridDials', function () {
 
   beforeEach(function () {
     this.hosts = [new Node(Object.assign({}, mockHost))];
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <NodesGridDials
         hosts={this.hosts}

@@ -15,7 +15,7 @@ describe('ServiceList', function () {
 
     beforeEach(function () {
       var services = new ServiceTree({items: [{name: 'foo'}]});
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <ServiceList
           services={services.getServices().getItems()}
@@ -46,7 +46,7 @@ describe('ServiceList', function () {
 
     beforeEach(function () {
       var services = new ServiceTree({items: [{name: 'foo'}]});
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <ServiceList
           services={services.getServices().getItems()}

@@ -39,11 +39,11 @@ if (Config.environment === 'development'
   .uiConfigurationFixture
   .uiConfiguration
   .enableDevTools
-  && window.devToolsExtension) {
+  && global.devToolsExtension) {
 
   // Use Chrome extension if available
   // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
-  devToolIfEnabled = window.devToolsExtension();
+  devToolIfEnabled = global.devToolsExtension();
 }
 
 // Create Redux Store

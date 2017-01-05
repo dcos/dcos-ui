@@ -30,7 +30,7 @@ describe('ServiceConfigurationContainer', function () {
 
   beforeEach(function () {
     const actions = {editService: () => {}};
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <ServiceConfigurationContainer
         actions={actions}

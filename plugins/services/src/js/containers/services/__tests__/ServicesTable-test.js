@@ -25,7 +25,7 @@ describe('ServicesTable', function () {
   });
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <ServicesTable />,
       this.container

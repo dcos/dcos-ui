@@ -189,14 +189,14 @@ class JSONEditor extends React.Component {
    * @override
    */
   componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize);
+    global.addEventListener('resize', this.handleWindowResize);
   }
 
   /**
    * @override
    */
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize);
+    global.removeEventListener('resize', this.handleWindowResize);
   }
 
   handleWindowResize() {
@@ -240,10 +240,10 @@ class JSONEditor extends React.Component {
     //
     // TODO: Properly solve this in CSS
     //
-    const MutationObserver = window.MutationObserver
-      || window.mozMutationObserver
-      || window.webkitMutationObserver
-      || window.msMutationObserver;
+    const MutationObserver = global.MutationObserver
+      || global.mozMutationObserver
+      || global.webkitMutationObserver
+      || global.msMutationObserver;
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (!mutation.addedNodes) {
