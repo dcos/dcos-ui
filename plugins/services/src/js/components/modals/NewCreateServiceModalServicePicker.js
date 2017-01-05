@@ -1,3 +1,4 @@
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -70,9 +71,11 @@ class NewCreateServiceModalServicePicker extends React.Component {
         <h4 className="short flush-top">
           Run your own Service
         </h4>
-        <p className="lead tall">
-          Create a containerized service or run a command in one of two ways: use our form to be guided through the correct configuration, or enter your JSON configuration directly.
-        </p>
+        <MountService.Mount type="CreateService:ServicePicker:IntroductoryText">
+          <p className="lead tall">
+            Create a containerized service or run a command in one of two ways: use our form to be guided through the correct configuration, or enter your JSON configuration directly.
+          </p>
+        </MountService.Mount>
         {this.getCustomServiceGrid()}
       </div>
     );
