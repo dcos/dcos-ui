@@ -108,7 +108,11 @@ class MultiContainerHealthChecksFormSection extends Component {
     }
 
     return container.endpoints.map((endpoint) => {
-      return <option value={endpoint.name}>{endpoint.name}</option>;
+      return (
+        <option key={endpoint} value={endpoint.name}>
+          {endpoint.name}
+        </option>
+      );
     });
   }
 
@@ -184,14 +188,49 @@ class MultiContainerHealthChecksFormSection extends Component {
     );
   }
 
+  getHealthChecksBody(container, index) {
+    const {healthCheck} = container;
+    const path = `containers.${index}.healthCheck`;
+    const errorsLens = Objektiv.attr('containers', [])
+      .at(index, {})
+      .attr('healthCheck', {});
+
+    if (healthCheck == null) {
+      return (
+        <div>
+          <a className="button button-primary-link button-flush"
+            onClick={this.props.onSetItem.bind(this, {path, value: {}})}>
+            + Add Health Check
+          </a>
+        </div>
+      );
+    }
+
+    return (
+      <FormGroupContainer
+        onRemove={this.props.onSetItem.bind(this, {path, value: null})}>
+        <FormRow>
+          <FormGroup className="column-6">
+            <FieldLabel>Protocol</FieldLabel>
+            <FieldSelect name={`${path}.protocol`}
+              value={healthCheck.protocol}>
+              <option value="">Select Protocol</option>
+              <option value={COMMAND}>Command</option>
+              <option value={HTTP}>HTTP</option>
+              <option value={TCP}>TCP</option>
+            </FieldSelect>
+          </FormGroup>
+        </FormRow>
+        {this.getHTTPFields(healthCheck, container, path, errorsLens)}
+        {this.getTCPFields(healthCheck, container, path)}
+        {this.getCommandFields(healthCheck, path, errorsLens)}
+        {this.getAdvancedSettings(healthCheck, path, errorsLens)}
+      </FormGroupContainer>
+    );
+  }
+
   getContainerHealthChecks(containers) {
     return containers.map((container, index) => {
-      const {healthCheck} = container;
-      const path = `containers.${index}.healthCheck`;
-      const errorsLens = Objektiv.attr('containers', [])
-        .at(index, {})
-        .attr('healthCheck', {});
-
       return (
         <div key={container.name}>
           <div className="form-row-element">
@@ -204,34 +243,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             </p>
           </div>
 
-          {(healthCheck != null) ? (
-            <FormGroupContainer
-              onRemove={this.props.onSetItem.bind(this, {path, value: null})}>
-              <FormRow>
-                <FormGroup className="column-6">
-                  <FieldLabel>Protocol</FieldLabel>
-                  <FieldSelect name={`${path}.protocol`}
-                    value={healthCheck.protocol}>
-                    <option value="">Select Protocol</option>
-                    <option value={COMMAND}>Command</option>
-                    <option value={HTTP}>HTTP</option>
-                    <option value={TCP}>TCP</option>
-                  </FieldSelect>
-                </FormGroup>
-              </FormRow>
-              {this.getHTTPFields(healthCheck, container, path, errorsLens)}
-              {this.getTCPFields(healthCheck, container, path)}
-              {this.getCommandFields(healthCheck, path, errorsLens)}
-              {this.getAdvancedSettings(healthCheck, path, errorsLens)}
-            </FormGroupContainer>
-          ) : (
-            <div>
-              <a className="button button-primary-link button-flush"
-                onClick={this.props.onSetItem.bind(this, {path, value: {}})}>
-                + Add Health Check
-              </a>
-            </div>
-          )}
+          {this.getHealthChecksBody(container, index)}
         </div>
       );
     });
