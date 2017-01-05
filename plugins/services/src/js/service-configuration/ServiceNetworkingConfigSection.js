@@ -19,7 +19,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   getDefinition() {
     const {onEditClick} = this.props;
 
-    return {
+    const definition = {
       tabViewID: 'networking',
       values: [
         {
@@ -143,6 +143,19 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
         }
       ]
     };
+
+    const {appConfig} = this.props;
+
+    const network = findNestedPropertyInObject(appConfig,
+      'container.docker.network');
+
+    if (appConfig.portDefinition != null || network !== 'USER') {
+      definition.values = definition.values.filter(({key}) => {
+        return key !== 'ipAddress.networkName';
+      });
+    }
+
+    return definition;
   }
 }
 
