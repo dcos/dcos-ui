@@ -5,7 +5,7 @@ import {omit} from '../../utils/Util';
 
 const FieldError = (props) => {
   const {className} = props;
-  let classes = classNames('small text-danger flush-bottom', className);
+  let classes = classNames('form-control-feedback', className);
 
   return (
     <p
