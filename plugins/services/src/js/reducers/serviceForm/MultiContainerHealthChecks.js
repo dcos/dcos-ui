@@ -4,6 +4,14 @@ import {
 import {COMMAND, HTTP, TCP} from '../../constants/HealtCheckProtocols';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
+function intOrNull(value) {
+  if ((value === '') || (value === null) || (value === undefined)) {
+    return null;
+  }
+
+  return parseInt(value);
+}
+
 /**
  * JSON Parser Fragment for `HttpHealthCheck` type
  *
@@ -204,23 +212,23 @@ module.exports = {
         break;
 
       case 'gracePeriodSeconds':
-        newState.gracePeriodSeconds = value;
+        newState.gracePeriodSeconds = intOrNull(value);
         break;
 
       case 'intervalSeconds':
-        newState.intervalSeconds = value;
+        newState.intervalSeconds = intOrNull(value);
         break;
 
       case 'maxConsecutiveFailures':
-        newState.maxConsecutiveFailures = value;
+        newState.maxConsecutiveFailures = intOrNull(value);
         break;
 
       case 'timeoutSeconds':
-        newState.timeoutSeconds = value;
+        newState.timeoutSeconds = intOrNull(value);
         break;
 
       case 'delaySeconds':
-        newState.delaySeconds = value;
+        newState.delaySeconds = intOrNull(value);
         break;
     }
 
@@ -248,35 +256,35 @@ module.exports = {
     if (healthCheck.gracePeriodSeconds != null) {
       memo.push(new Transaction(
         path.concat(['gracePeriodSeconds']),
-        healthCheck.gracePeriodSeconds,
+        parseInt(healthCheck.gracePeriodSeconds),
         SET
       ));
     }
     if (healthCheck.intervalSeconds != null) {
       memo.push(new Transaction(
         path.concat(['intervalSeconds']),
-        healthCheck.intervalSeconds,
+        parseInt(healthCheck.intervalSeconds),
         SET
       ));
     }
     if (healthCheck.maxConsecutiveFailures != null) {
       memo.push(new Transaction(
         path.concat(['maxConsecutiveFailures']),
-        healthCheck.maxConsecutiveFailures,
+        parseInt(healthCheck.maxConsecutiveFailures),
         SET
       ));
     }
     if (healthCheck.timeoutSeconds != null) {
       memo.push(new Transaction(
         path.concat(['timeoutSeconds']),
-        healthCheck.timeoutSeconds,
+        parseInt(healthCheck.timeoutSeconds),
         SET
       ));
     }
     if (healthCheck.delaySeconds != null) {
       memo.push(new Transaction(
         path.concat(['delaySeconds']),
-        healthCheck.delaySeconds,
+        parseInt(healthCheck.delaySeconds),
         SET
       ));
     }
