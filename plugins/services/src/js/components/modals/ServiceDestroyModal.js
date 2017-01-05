@@ -10,7 +10,8 @@ import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 
-const REDIRECT_DELAY = 500;
+// This needs to be at least equal to @modal-animation-duration
+const REDIRECT_DELAY = 300;
 const METHODS_TO_BIND = [
   'handleRightButtonClick'
 ];
@@ -124,7 +125,8 @@ class ServiceDestroyModal extends React.Component {
   redirectToServices() {
     const {router} = this.context;
 
-    // Delayed redirect so that Modal has some time to be closed
+    // Close the modal and redirect after the close animation has completed
+    this.props.onClose();
     setTimeout(() => {
       router.push({pathname: '/services/overview'});
     }, REDIRECT_DELAY);
