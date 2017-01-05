@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Confirm, Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {pluralize} from '../../../../../../src/js/utils/StringUtil';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -12,16 +13,19 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import General from '../../reducers/serviceForm/General';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
+import OperatorTypes from '../../constants/OperatorTypes';
 import PodSpec from '../../structs/PodSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
+const {GROUP_BY, LIKE, MAX_PER_OPERATOR, UNIQUE} = OperatorTypes;
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
 const METHODS_TO_BIND = [
@@ -31,17 +35,25 @@ const METHODS_TO_BIND = [
 ];
 
 const containerRuntimes = {
+  [DOCKER]: {
+    label: <span>{labelMap[DOCKER]} <em>(recommended for Docker)</em></span>,
+    helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
+  },
   [NONE]: {
     label: <span>{labelMap[NONE]}</span>,
-    helpText: 'Normal behavior'
+    helpText: (
+      <span>
+        {'The default Mesos containerizer. '}
+        <a href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    )
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]}</span>,
+    label: <span>{labelMap[MESOS]} <em>(experimental)</em></span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
-  },
-  [DOCKER]: {
-    label: <span>{labelMap[DOCKER]} <em>(recommended)</em></span>,
-    helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   }
 };
 
@@ -130,52 +142,128 @@ class GeneralServiceFormSection extends Component {
     );
   }
 
+  getOperatorTypes() {
+    return Object.keys(OperatorTypes).map((type, index) => {
+      return (<option key={index} value={type}>{type}</option>);
+    });
+  }
+
+  getConstraintField(name, tooltipText, linkText = 'More information') {
+    const tooltipContent = (
+      <span>
+        {`${tooltipText} `}
+        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          {linkText}
+        </a>.
+      </span>
+    );
+
+    return (
+      <FieldLabel>
+        {`${name} `}
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </FieldLabel>
+    );
+  }
+
   getPlacementConstraints(data = []) {
     const errors = this.props.errors || [];
+    const showParameterLabel = data.some((constraint) => {
+      return ![GROUP_BY, UNIQUE].includes(constraint.operator);
+    });
+    const showRequiredLabel = data.some((constraint) => {
+      return [LIKE, MAX_PER_OPERATOR].includes(constraint.operator);
+    });
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
       let operatorLabel = null;
       let parameterLabel = null;
+      const showParameterField = ![GROUP_BY, UNIQUE]
+        .includes(constraint.operator);
+      const paramterIsRequired = [LIKE, MAX_PER_OPERATOR]
+        .includes(constraint.operator);
+
       if (index === 0) {
-        fieldLabel = <FieldLabel>Field</FieldLabel>;
-        operatorLabel = <FieldLabel>Operator</FieldLabel>;
-        parameterLabel = <FieldLabel>Parameter</FieldLabel>;
+        fieldLabel = this.getConstraintField(
+          'Field',
+          'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.'
+        );
+        operatorLabel = this.getConstraintField(
+          'Operator',
+          'Operators specify where your app will run.'
+        );
+      }
+      if (index === 0 && showParameterLabel) {
+        parameterLabel = this.getConstraintField(
+          'Parameter',
+          'Parameters allow you to further specify your constraint.',
+          'Learn more'
+        );
       }
 
       return (
         <FormRow key={index}>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              'column-6': !showParameterLabel
+            }}
             required={true}
             showError={Boolean(errors[index])}>
             {fieldLabel}
             <FieldInput
               name={`constraints.${index}.field`}
               type="text"
+              placeholer="hostname"
               value={constraint.field} />
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              'column-6': !showParameterLabel
+            }}
             required={true}
             showError={Boolean(errors[index])}>
             {operatorLabel}
-            <FieldInput
+            <FieldSelect
               name={`constraints.${index}.operator`}
               type="text"
-              value={constraint.operator} />
+              value={String(constraint.operator)}>
+              <option value="">Select</option>
+              {this.getOperatorTypes()}
+            </FieldSelect>
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className={{
+              'column-4': showParameterLabel,
+              hidden: !showParameterLabel
+            }}
+            required={showRequiredLabel}
             showError={Boolean(errors[index])}>
             {parameterLabel}
             <FieldInput
+              className={{hidden:!showParameterField}}
               name={`constraints.${index}.value`}
               type="text"
               value={constraint.value} />
-            <FieldError>{errors[index]}</FieldError>
+            <FieldHelp
+              className={{hidden: paramterIsRequired || !showParameterField}}>
+              This field is optional.
+            </FieldHelp>
+            <FieldError className={{hidden: !showParameterField}}>
+              {errors[index]}
+            </FieldError>
           </FormGroup>
 
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
@@ -281,8 +369,14 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
-  getIDHelpBlock() {
-    return (
+  render() {
+    const {data, errors} = this.props;
+    const title = pluralize('Service', findNestedPropertyInObject(
+      data,
+      'containers.length'
+    ) || 1);
+
+    const idTooltipContent = (
       <span>
         {'Include the path to your service, if applicable. E.g. /dev/tools/my-service. '}
         <a
@@ -292,15 +386,21 @@ class GeneralServiceFormSection extends Component {
         </a>.
       </span>
     );
-  }
-
-  render() {
-    const {data, errors} = this.props;
+    const placementTooltipContent = (
+      <span>
+        {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Services
+          {title}
         </h2>
         <p>
           Configure your service below. Start by giving your service an ID.
@@ -312,13 +412,23 @@ class GeneralServiceFormSection extends Component {
             required={true}
             showError={Boolean(errors.id)}>
             <FieldLabel>
-              Service ID
+              {'Service ID '}
+              <Tooltip
+                content={idTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
             </FieldLabel>
             <FieldInput
               name="id"
               type="text"
               value={data.id} />
-            <FieldHelp>{this.getIDHelpBlock()}</FieldHelp>
+            <FieldHelp>
+              Give your service a unique name within the cluster, e.g. my-service.
+            </FieldHelp>
             <FieldError>{errors.id}</FieldError>
           </FormGroup>
 
@@ -347,7 +457,7 @@ class GeneralServiceFormSection extends Component {
             <h3 className="short-top short-bottom">
               {'Placement Constraints '}
               <Tooltip
-                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+                content={placementTooltipContent}
                 interactive={true}
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"

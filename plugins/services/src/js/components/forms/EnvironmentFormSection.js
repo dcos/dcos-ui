@@ -27,7 +27,7 @@ class EnvironmentFormSection extends Component {
       return (
         <FormRow key={key}>
           <FormGroup
-            className="column-3"
+            className="column-4"
             required={false}>
             {keyLabel}
             <FieldInput
@@ -37,7 +37,7 @@ class EnvironmentFormSection extends Component {
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className="column-4"
             required={false}
             showError={Boolean(errors[env.key])}>
             {valueLabel}
@@ -70,7 +70,7 @@ class EnvironmentFormSection extends Component {
       return (
         <FormRow key={key}>
           <FormGroup
-            className="column-3">
+            className="column-4">
             {keyLabel}
             <FieldInput
               name={`labels.${key}.key`}
@@ -79,7 +79,7 @@ class EnvironmentFormSection extends Component {
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className="column-4"
             required={false}
             showError={Boolean(errors[label.key])}>
             {valueLabel}

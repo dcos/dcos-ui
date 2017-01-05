@@ -2,7 +2,9 @@ import classNames from 'classnames';
 import React, {PropTypes, Component} from 'react';
 import deepEqual from 'deep-equal';
 
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
+import {pluralize} from '../../../../../../src/js/utils/StringUtil';
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
@@ -413,20 +415,24 @@ class NewCreateServiceModalForm extends Component {
   }
 
   render() {
-    let {appConfig, batch, errorList} = this.state;
-    let {activeTab, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
-    let data = batch.reduce(this.props.inputConfigReducers, {});
+    const {appConfig, batch, errorList} = this.state;
+    const {activeTab, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
+    const data = batch.reduce(this.props.inputConfigReducers, {});
 
-    let jsonEditorPlaceholderClasses = classNames(
+    const jsonEditorPlaceholderClasses = classNames(
       'modal-full-screen-side-panel-placeholder',
       {'is-visible': isJSONModeActive}
     );
-    let jsonEditorClasses = classNames('modal-full-screen-side-panel', {
+    const jsonEditorClasses = classNames('modal-full-screen-side-panel', {
       'is-visible': isJSONModeActive
     });
 
-    let errorMap = DataValidatorUtil.errorArrayToMap(errorList);
-    let rootErrorComponent = this.getRootErrorMessage();
+    const errorMap = DataValidatorUtil.errorArrayToMap(errorList);
+    const rootErrorComponent = this.getRootErrorMessage();
+    const serviceLabel = pluralize('Service', findNestedPropertyInObject(
+      appConfig,
+      'containers.length'
+    ) || 1);
 
     return (
       <div className="flex flex-item-grow-1">
@@ -439,7 +445,7 @@ class NewCreateServiceModalForm extends Component {
                 onBlur={this.handleFormBlur}>
                 <Tabs activeTab={activeTab} vertical={true} handleTabChange={handleTabChange}>
                   <TabButtonList>
-                    <TabButton id="services" label="Services" key="services">
+                    <TabButton id="services" label={serviceLabel} key="services">
                       {this.getContainerList(data)}
                     </TabButton>
                     {this.getSectionList()}
