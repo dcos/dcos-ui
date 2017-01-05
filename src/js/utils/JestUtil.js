@@ -95,7 +95,7 @@ const JestUtil = {
    *   'table-column-name'
    * ).map(mapTextContent);
    *
-   * @param {DOMElement} element - The DOM element for which to get the contnet
+   * @param {DOMElement} element - The DOM element for which to get the content
    * @returns {string} The text content
    */
   mapTextContent(element) {
@@ -219,7 +219,7 @@ const JestUtil = {
   },
 
   /**
-   * Restore the original version of the Date prototype functions, overwriten
+   * Restore the original version of the Date prototype functions, overwritten
    * by the mockTimezone function.
    */
   unmockTimezone() {

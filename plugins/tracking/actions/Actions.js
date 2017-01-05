@@ -221,7 +221,7 @@ var Actions = {
   },
 
   /**
-   * Logs arbitriary data
+   * Logs arbitrary data
    * @param  {String} eventID
    */
   log(eventID) {

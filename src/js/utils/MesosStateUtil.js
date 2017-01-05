@@ -173,7 +173,7 @@ const MesosStateUtil = {
 
     // Try to compose actual PodInstance structures from the information we
     // have so far. Obviously we don't have any details, but we can populate
-    // most of the UI-interesting fields by summarising container details
+    // most of the UI-interesting fields by summarizing container details
     return Object.keys(instancesMap).map(function (instanceID) {
       const containers = instancesMap[instanceID];
       const summaryProperties = containers.reduce(function (memo, instance) {

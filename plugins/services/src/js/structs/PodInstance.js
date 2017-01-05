@@ -83,7 +83,7 @@ module.exports = class PodInstance extends Item {
 
   hasHealthChecks() {
     // If for any reason any of the containers has at least 1 health
-    // check that is failing, assume that we have leath checks
+    // check that is failing, assume that we have health checks
     if (!this.isHealthy()) {
       return true;
     }

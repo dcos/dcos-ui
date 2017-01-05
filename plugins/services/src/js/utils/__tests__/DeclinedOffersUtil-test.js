@@ -238,7 +238,7 @@ describe('DeclinedOffersUtil', function () {
       });
     });
 
-    it('adds executorResources to a pod\'s requestes resources', function () {
+    it('adds executorResources to a pod\'s requested resources', function () {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         pod: {
           containers: [

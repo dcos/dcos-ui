@@ -14,7 +14,7 @@ describe('NotificationStore', function () {
 
     describe('#addNotification', function () {
 
-      it('emits the correct event on visiblityChange', function () {
+      it('emits the correct event on visibilityChange', function () {
         expect(this.mockFn).toBeCalled();
       });
 
@@ -24,7 +24,7 @@ describe('NotificationStore', function () {
     });
 
     describe('#removeNotification', function () {
-      it('emits the correct event on visiblityChange', function () {
+      it('emits the correct event on visibilityChange', function () {
         expect(this.mockFn).toBeCalled();
       });
 

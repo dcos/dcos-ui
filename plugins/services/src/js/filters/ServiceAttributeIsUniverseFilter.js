@@ -6,7 +6,7 @@ const LABEL = 'is';
 const LABEL_TEXT = 'universe';
 
 /**
- * This filter handles the `is:univese` for filtering universe frameworks
+ * This filter handles the `is:universe` for filtering universe frameworks
  */
 class ServiceAttributeIsUniverseFilter extends DSLFilter {
 

@@ -492,7 +492,7 @@ describe('ServiceUtil', function () {
           expect(service.container.docker.network).toEqual('BRIDGE');
         });
 
-        it('should not add any port definitions if ports is emoty',
+        it('should not add any port definitions if ports is empty',
           function () {
             const service = ServiceUtil.createSpecFromFormModel({
               networking: {
@@ -690,7 +690,7 @@ describe('ServiceUtil', function () {
           }
         );
 
-        it('should not add any port definitions if ports is emoty',
+        it('should not add any port definitions if ports is empty',
           function () {
             const service = ServiceUtil.createSpecFromFormModel({
               containerSettings: {image: 'redis'},
@@ -997,7 +997,7 @@ describe('ServiceUtil', function () {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
     });
 
-    it('should return false if same type but diferent content', function () {
+    it('should return false if same type but different content', function () {
       const serviceA = new Application({
         id: 'foo'
       });

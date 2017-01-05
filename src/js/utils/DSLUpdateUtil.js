@@ -214,7 +214,7 @@ const DSLUpdateUtil = {
       return src + DSLUtil.getNodeString(node);
     }
 
-    // If we are using OR operator, just appned
+    // If we are using OR operator, just append
     if (src) {
       src += ', ';
     }
@@ -270,7 +270,7 @@ const DSLUpdateUtil = {
       );
 
       // If this is the first element, check if we have previous relevant
-      // occurences in the expresison, and if yes, use the `newCombiner`
+      // occurrences in the expression, and if yes, use the `newCombiner`
       if (index === 0) {
         if (relevantNodes.length === 0) {
           combiner = newCombiner;
@@ -314,7 +314,7 @@ const DSLUpdateUtil = {
    */
   applyDelete(expression, nodes) {
     const newExpression = nodes.reduce(({value, offset}, node) => {
-      // Delte value
+      // Delete value
       const newValue = DSLUpdateUtil.deleteNodeString(
         value, node, offset
       );
@@ -361,7 +361,7 @@ const DSLUpdateUtil = {
       expressionValue = newValue;
     }
 
-    // Comile the status of the expression so far
+    // Compile the status of the expression so far
     const newExpression = new DSLExpression(expressionValue);
 
     // Delete nodes using applyDelete

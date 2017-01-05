@@ -12,13 +12,13 @@ function getJson(constraints) {
   return constraints.filter((item) => {
     return !isEmpty(item.field) && !isEmpty(item.operator);
   }).map(({field, operator, value}) => {
-    const normalisedOperator = operator.toUpperCase();
+    const normalizedOperator = operator.toUpperCase();
 
     if (!isEmpty(value)) {
-      return [field, normalisedOperator, value];
+      return [field, normalizedOperator, value];
     }
 
-    return [field, normalisedOperator];
+    return [field, normalizedOperator];
   });
 }
 

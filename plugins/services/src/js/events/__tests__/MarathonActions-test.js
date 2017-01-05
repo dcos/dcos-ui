@@ -55,7 +55,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -106,7 +106,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -166,7 +166,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -224,7 +224,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -280,7 +280,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -332,7 +332,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -380,7 +380,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -444,7 +444,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -503,7 +503,7 @@ describe('MarathonActions', function () {
         });
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -562,7 +562,7 @@ describe('MarathonActions', function () {
         this.configuration.success({});
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -617,7 +617,7 @@ describe('MarathonActions', function () {
         this.configuration.success({});
       });
 
-      it('dispatches the correct action when unsucessful', function () {
+      it('dispatches the correct action when unsuccessful', function () {
         var id = AppDispatcher.register(function (payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
@@ -664,7 +664,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -709,7 +709,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -760,7 +760,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -809,7 +809,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -857,7 +857,7 @@ describe('MarathonActions', function () {
       });
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -903,7 +903,7 @@ describe('MarathonActions', function () {
       this.configuration.success({foo: 'bar', baz: 'qux'});
     });
 
-    it('dispatches the correct action when unsucessful', function () {
+    it('dispatches the correct action when unsuccessful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);

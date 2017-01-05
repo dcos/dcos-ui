@@ -27,13 +27,13 @@ class PodsTabContent extends React.Component {
 
           <p className="lead">
 
-            Pods are simple and convient way to adding space around your content.  With provided classes, you can quickly define layout rules that fit the requirements of your project.
+            Pods are simple and convenient way to adding space around your content.  With provided classes, you can quickly define layout rules that fit the requirements of your project.
 
           </p>
 
           <p>
 
-            Use the class <code>.pod</code> to apply vertical and horizontal margin to any component. By default, margin is applied evenly to all sides of the pod. However, with the provided classes you can override this to behave differently &mdash; taller, shorter, narower, wider, or no padding at all.
+            Use the class <code>.pod</code> to apply vertical and horizontal margin to any component. By default, margin is applied evenly to all sides of the pod. However, with the provided classes you can override this to behave differently &mdash; taller, shorter, narrower, wider, or no padding at all.
 
           </p>
 

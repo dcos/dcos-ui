@@ -17,7 +17,7 @@ import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
  *
  * @param {String} resource - The name of the resource in the field
  * @param {Object} appConfig - The application configuration
- * @returns {Node|String} Returns the contents to be rendererd
+ * @returns {Node|String} Returns the contents to be rendered
  */
 function getContainerResourceSummary(resource, {containers = []}) {
   const summary = containers.reduce((memo, {name, resources = {}}) => {

@@ -100,7 +100,7 @@ const FACET_FRAGMENT_GENERATORS = {
   },
 
   /**
-   * [Number] `multipleOf` : Value must be divisable by this value
+   * [Number] `multipleOf` : Value must be divisible by this value
    */
   multipleOf: function(value, context) {
     let ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
@@ -291,7 +291,7 @@ const FACET_FRAGMENT_GENERATORS = {
 module.exports = {
 
   /**
-   * Generate an array of code fragments that perform the validataions as
+   * Generate an array of code fragments that perform the validations as
    * described in the `facets` object.
    *
    * @param {Object} facets - The object with the facet names and values

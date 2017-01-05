@@ -74,7 +74,7 @@ class PodStorageConfigSection extends React.Component {
         }, []
       );
 
-      // If threre are no mounts, add only one line without containers
+      // If there are no mounts, add only one line without containers
       if (containerMounts.length === 0) {
         memo.push(volumeInfo);
 

@@ -99,7 +99,7 @@ class SystemLogStore extends BaseStore {
 
     // Update new size
     newLogData.totalSize += length;
-    // Remove entires until we have room for next entry
+    // Remove entries until we have room for next entry
     while (newLogData.totalSize > 0 && newLogData.entries.length > 0 &&
       newLogData.totalSize > MAX_FILE_SIZE) {
       let removedEntry;

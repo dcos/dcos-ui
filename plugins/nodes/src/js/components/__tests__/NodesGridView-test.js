@@ -74,7 +74,7 @@ describe('NodesGridView', function () {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it('should return a list of unique framwork_ids', function () {
+    it('should return a list of unique framework_ids', function () {
       var list = this.instance.getActiveServiceIds(this.hosts.getItems());
 
       expect(list).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'z']);

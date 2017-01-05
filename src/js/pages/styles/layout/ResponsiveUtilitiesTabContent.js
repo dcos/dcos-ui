@@ -253,7 +253,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
 
           </p>
 
-          <table className="table table-bordered table-striped responsive-utilitie flush-bottom">
+          <table className="table table-bordered table-striped responsive-utilities flush-bottom">
             <thead>
               <tr>
                 <th>Class</th>

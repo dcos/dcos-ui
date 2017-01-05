@@ -270,7 +270,7 @@ describe('JSONEditorUtil', function () {
       expect(value).toEqual({a: ['b', 'a', 'c']});
     });
 
-    it('should properly handle null-to-object comparisions', function () {
+    it('should properly handle null-to-object comparisons', function () {
       const a = {a: {b: 'foo', c: 'bar'}};
       const b = {a: null};
 

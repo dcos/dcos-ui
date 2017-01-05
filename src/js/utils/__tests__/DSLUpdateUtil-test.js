@@ -421,7 +421,7 @@ describe('DSLUpdateUtil', function () {
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {text: 'be'})
       ];
 
-      // NOTE: We already have a fuzzy node, so `newCombiner` shoud not be
+      // NOTE: We already have a fuzzy node, so `newCombiner` should not be
       //       applied to the expression.
       expect(
         DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
@@ -646,7 +646,7 @@ describe('DSLUpdateUtil', function () {
 
   describe('#defaultNodeCompareFunction', function () {
 
-    it('should return false when comparing nodes of diferent type', function () {
+    it('should return false when comparing nodes of different type', function () {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
         text: 'text'
       });

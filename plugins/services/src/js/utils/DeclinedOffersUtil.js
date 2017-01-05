@@ -34,7 +34,7 @@ const constraintsReducer = (accumulator, constraint) => {
   return accumulator;
 };
 
-const DecinedOffersUtil = {
+const DeclinedOffersUtil = {
   getSummaryFromQueue(queue) {
     const {app, pod, processedOffersSummary = {}} = queue;
 
@@ -224,4 +224,4 @@ const DecinedOffersUtil = {
   }
 };
 
-module.exports = DecinedOffersUtil;
+module.exports = DeclinedOffersUtil;

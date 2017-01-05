@@ -90,7 +90,7 @@ describe('HealthUnit', function () {
       expect(this.unit.getTitle()).toEqual('Foo Bar Qqq');
     });
 
-    it('removes capitalises DNS', function () {
+    it('removes capitalizes DNS', function () {
       this.unit = new HealthUnit({
         'id': 'foo-dns-bar',
         'health': '0'

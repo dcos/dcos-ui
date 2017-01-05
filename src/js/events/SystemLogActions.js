@@ -22,21 +22,21 @@ import SystemLogUtil from '../utils/SystemLogUtil';
 const sources = {};
 const SystemLogActions = {
   /**
-   * Subscribes to the events stream for logs given the paramters provided
+   * Subscribes to the events stream for logs given the parameters provided
    * @param {String} nodeID ID of the node to retrieve logs from
    * @param {Object} [options] Optional parameters for request
    * @param {String} [options.cursor] ID of the cursor to request entries from
    * @param {String} [options.subscriptionID] ID to emit events to,
    *   if omitted a new one will be created
    * @param {Number} [options.skip_prev] how many entries backwards to look
-   * @param {Number} [options.skip_next] how many entroes to look ahead
+   * @param {Number} [options.skip_next] how many entries to look ahead
    * @param {Number} [options.limit] limit how many entries to receive
    * @param {Object} [options.filter] filter parameters to add to URL
    * @param {String} [options.frameworkID] ID for framework to retrieve logs from
    * @param {String} [options.executorID] ID for executor to retrieve logs from
    * @param {String} [options.containerID] ID for container to retrieve logs from
    * @param {String} [options.read_reverse] will read events in reverse order if set to true
-   * @return {Symbol} subscriptionID to ubsubscribe or resubscribe with
+   * @return {Symbol} subscriptionID to unsubscribe or resubscribe with
    */
   subscribe(nodeID, options = {}) {
     let {subscriptionID, cursor, skip_prev} = options;
@@ -97,8 +97,8 @@ const SystemLogActions = {
   },
 
   /**
-   * Ubsubscribes from the event stream from the given subscriptionID
-   * @param {String} subscriptionID ID returned from subcribe function
+   * Unsubscribes from the event stream from the given subscriptionID
+   * @param {String} subscriptionID ID returned from subscribe function
    */
   unsubscribe(subscriptionID) {
     if (sources[subscriptionID]) {
@@ -112,14 +112,14 @@ const SystemLogActions = {
   },
 
   /**
-   * Fetches a range of log entries given the paramters provided
+   * Fetches a range of log entries given the parameters provided
    * @param {String} nodeID ID of the node to retrieve logs from
    * @param {Object} [options] Optional parameters for request
    * @param {String} [options.cursor] ID of the cursor to request entries from
    * @param {String} [options.subscriptionID] ID to emit events to,
    *   if omitted a new one will be created
    * @param {Number} [options.skip_prev] how many entries backwards to look
-   * @param {Number} [options.skip_next] how many entroes to look ahead
+   * @param {Number} [options.skip_next] how many entries to look ahead
    * @param {Number} [options.limit] limit how many entries to receive
    * @param {Object} [options.filter] filter parameters to add to URL
    * @param {String} [options.frameworkID] ID for framework to retrieve logs from
@@ -130,7 +130,7 @@ const SystemLogActions = {
     let {limit, subscriptionID} = options;
     const url = SystemLogUtil.getUrl(
       nodeID,
-      // Avioding duplicate events by using read reverse (stream backwards).
+      // Avoiding duplicate events by using read reverse (stream backwards).
       // Connection will close all events are received or have reached the top
       Object.assign(options, {read_reverse: true}),
       false
@@ -165,7 +165,7 @@ const SystemLogActions = {
       const {eventPhase} = event;
 
       if (eventPhase === EventSource.CLOSED) {
-        // Reverse the items, as the come in opporsite order
+        // Reverse the items, as the come in opposite order
         items.reverse();
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
