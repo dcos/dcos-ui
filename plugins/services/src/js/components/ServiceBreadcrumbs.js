@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import {DCOSStore} from 'foundation-ui';
 import HealthBar from './HealthBar';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
+import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
 
 function getHealthStatus(serviceID) {
