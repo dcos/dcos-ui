@@ -138,9 +138,9 @@ function containersParser(state) {
     }
 
     if (item.healthCheck != null) {
-      memo = multiContainerHealthCheckParser(
+      memo = memo.concat(multiContainerHealthCheckParser(
         item.healthCheck, ['containers', index, 'healthCheck']
-      );
+      ));
     }
 
     if (item.artifacts != null && item.artifacts.length !== 0) {
