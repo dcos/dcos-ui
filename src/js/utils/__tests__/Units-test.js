@@ -203,6 +203,7 @@ describe('Units', function () {
 
     it('should format small 1.123456 correctly ', function () {
       expect(Units.contractNumber(1.123456)).toEqual('1.12');
+
       return expect(Units.contractNumber(1.123456, {
         decimalPlaces: 4
       })).toEqual('1.1235');
@@ -210,6 +211,7 @@ describe('Units', function () {
 
     it('doesn\'t mess with fractions (TODO revise)', function () {
       expect(Units.contractNumber(0.123456)).toEqual('0.123456');
+
       return expect(Units.contractNumber(0.123456, {
         decimalPlaces: 4
       })).toEqual('0.123456');
@@ -217,6 +219,7 @@ describe('Units', function () {
 
     it('doesn\'t mess with small whole numbers', function () {
       expect(Units.contractNumber(1)).toEqual('1');
+
       return expect(Units.contractNumber(1, {
         decimalPlaces: 4
       })).toEqual('1');

@@ -180,7 +180,7 @@ describe('Volumes', function () {
 
     });
 
-    it('should contain a mixed combinantion of volumes', function () {
+    it('should contain a mixed combination of volumes', function () {
       let batch = new Batch();
 
       // Add the first external Volume

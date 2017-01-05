@@ -9,7 +9,7 @@ const ReviewConfig = require('../ReviewConfig');
 
 describe('ReviewConfig', function () {
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
   });
 
   afterEach(function () {

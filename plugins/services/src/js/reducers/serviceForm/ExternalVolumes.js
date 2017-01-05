@@ -21,7 +21,7 @@ module.exports = {
        * external is set). After that we do get all the values even
        * stuff which we do not handle in the form yet. These steps are:
        * 1) Add a new Item to the path with the index equal to index.
-       * 2) Set the neame from `volume.external.name`on the path
+       * 2) Set the name from `volume.external.name`on the path
        *    `externalVolumes.${index}.name`.
        * 3) Set the containerPath from `volume.containerPath on the path
        *    `externalVolumes.${index}.containerPath`

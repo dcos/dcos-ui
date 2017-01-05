@@ -80,7 +80,7 @@ module.exports =
 	  // Override the default filesystem resolver in order to:
 	  //
 	  // 1) Provide a custom content for the source file
-	  // 2) Track dependant files in order for webpack to invalidate caches
+	  // 2) Track dependent files in order for webpack to invalidate caches
 	  //
 	  var raml = _raml1Parser2.default.loadApiSync(this.resourcePath, {
 	    fsResolver: {
@@ -240,7 +240,7 @@ module.exports =
 	      variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
 	    }
 	    if (variableExports.length) {
-	      variableExports.unshift('// Expose properties that can be overriden remotely');
+	      variableExports.unshift('// Expose properties that can be overridden remotely');
 	    }
 
 	    //
@@ -266,8 +266,8 @@ module.exports =
 	module.exports = {
 
 	  /**
-	   * This function checks if the given runtime type is an inline defininition,
-	   * since such definitions needs further specialisation.
+	   * This function checks if the given runtime type is an inline definition,
+	   * since such definitions needs further specialization.
 	   *
 	   * Keep in mind that the RAML parser considers this:
 	   *
@@ -289,7 +289,7 @@ module.exports =
 	   */
 	  isInlineType: function isInlineType(itype) {
 	    // So, a type that has no name, but is either an array or a value type
-	    // is considered an in-line definition, and has a dedicated specialisation
+	    // is considered an in-line definition, and has a dedicated specialization
 	    return itype.nameId() == null && (itype.isArray() || itype.isValueType());
 	  },
 
@@ -304,7 +304,7 @@ module.exports =
 	   * properties:
 	   *   arrayProp: SomeType[]
 	   *
-	   * Should generate a validator named `SomeTypeAsArray` instead of an anomyous
+	   * Should generate a validator named `SomeTypeAsArray` instead of an anonymous
 	   * validator like inline.
 	   *
 	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
@@ -319,11 +319,11 @@ module.exports =
 	   * Return a comment that describes this inline type
 	   *
 	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
-	   * @returns {String} The comment to the specialised inline type
+	   * @returns {String} The comment to the specialized inline type
 	   */
 	  getInlineTypeComment: function getInlineTypeComment(itype) {
 	    var facets = itype.getFixedFacets();
-	    var comment = 'This is an in-line specialisation of ' + this.getInlineTypeBase(itype) + '\n with the following constraints:\n\n';
+	    var comment = 'This is an in-line specializations of ' + this.getInlineTypeBase(itype) + '\n with the following constraints:\n\n';
 	    return comment + Object.keys(facets).map(function (name) {
 	      if (name === 'items') {
 	        return '- ' + name + ': ' + this.getTypeName(facets[name].extras.nominal);
@@ -703,7 +703,7 @@ module.exports =
 	  },
 
 	  /**
-	   * [Number] `multipleOf` : Value must be divisable by this value
+	   * [Number] `multipleOf` : Value must be divisible by this value
 	   */
 	  multipleOf: function multipleOf(value, context) {
 	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MULTIPLEOF', 'Must be multiple of {value}');
@@ -830,7 +830,7 @@ module.exports =
 	module.exports = {
 
 	  /**
-	   * Generate an array of code fragments that perform the validataions as
+	   * Generate an array of code fragments that perform the validations as
 	   * described in the `facets` object.
 	   *
 	   * @param {Object} facets - The object with the facet names and values
@@ -922,7 +922,7 @@ module.exports =
 	  }
 
 	  // The metadata KnownPropertyRestriction is defined when the
-	  // additionalProperties facet is defiend and it's value contains
+	  // additionalProperties facet is defined and it's value contains
 	  // the facet's value
 	  var knownProperty = typeAdapter.meta().find(function (meta) {
 	    return meta.constructor.name === 'KnownPropertyRestriction';
@@ -954,8 +954,8 @@ module.exports =
 	    // Pick the validation with the fewest possible errors
 	    //
 	    // If == 0 : The union type validation succeeded
-	    // If  > 0 : The union with the fewest errors, and therfore the most
-	    //           probabel match.
+	    // If  > 0 : The union with the fewest errors, and therefore the most
+	    //           probable match.
 	    //
 	    '})[0]);');
 
@@ -1068,7 +1068,7 @@ module.exports =
 	    }
 
 	    // The `additionalProperties` facet is a bit more complicated, since it
-	    // requires traversal thorugh it's keys
+	    // requires traversal through it's keys
 	    if (getAdditionalPropertiesValue(itype) === false) {
 	      var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_ADDITIONAL_PROPS', 'Unexpected extraneous property `{name}`');
 
@@ -1289,7 +1289,7 @@ module.exports =
 
 	    _classCallCheck(this, GeneratorContext);
 
-	    // Configuration parameters that define the behaviour of the parser in some
+	    // Configuration parameters that define the behavior of the parser in some
 	    // corner cases
 	    this.options = {
 
@@ -1303,7 +1303,7 @@ module.exports =
 	      patternPropertiesAreOptional: true,
 
 	      /**
-	       * If this flag is set to `true`, all missing properties will be emmited
+	       * If this flag is set to `true`, all missing properties will be emitted
 	       * in their path. For example, if property `foo` is missing on the object
 	       * `bar`, you will get an error:
 	       *

@@ -28,6 +28,7 @@ const CreateServiceModalFormUtil = {
           memo[key] = value;
         }
       }
+
       return memo;
     }, baseObject);
   },
@@ -39,7 +40,7 @@ const CreateServiceModalFormUtil = {
    *
    * 2. The previous statement is not applied when the respective `data` field
    *    already contains an "empty" value. In that case, the "empty" data value
-   *    is perserved.
+   *    is preserved.
    *
    * 3. If both `data` and `patch` have a value in a field, but with different
    *    types, the value from `data` is preferred.

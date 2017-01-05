@@ -391,6 +391,7 @@ class ServiceForm extends SchemaForm {
     const networkType = (model.networking.networkType || 'host').toLowerCase();
     const isUserMode = model.networking
       && !['host', 'bridge'].includes(networkType);
+
     return {networkType, isUserMode};
   }
 

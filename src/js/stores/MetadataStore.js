@@ -3,6 +3,8 @@ import PluginSDK from 'PluginSDK';
 
 import {
   REQUEST_DCOS_METADATA,
+  REQUEST_DCOS_BUILD_INFO_ERROR,
+  REQUEST_DCOS_BUILD_INFO_SUCCESS,
   REQUEST_METADATA,
   SERVER_ACTION
 } from '../constants/ActionTypes';
@@ -10,6 +12,8 @@ import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 import {
   DCOS_METADATA_CHANGE,
+  DCOS_BUILD_INFO_ERROR,
+  DCOS_BUILD_INFO_CHANGE,
   METADATA_CHANGE
 } from '../constants/EventTypes';
 import GetSetBaseStore from './GetSetBaseStore';
@@ -24,7 +28,9 @@ class MetadataStore extends GetSetBaseStore {
       storeID: this.storeID,
       events: {
         success: METADATA_CHANGE,
-        dcosSuccess: DCOS_METADATA_CHANGE
+        dcosSuccess: DCOS_METADATA_CHANGE,
+        dcosBuildInfoChange: DCOS_BUILD_INFO_CHANGE,
+        dcosBuildInfoError: DCOS_BUILD_INFO_ERROR
       },
       unmountWhen() {
         return true;
@@ -61,6 +67,19 @@ class MetadataStore extends GetSetBaseStore {
             this.emitChange(DCOS_METADATA_CHANGE);
           }
           break;
+        case REQUEST_DCOS_BUILD_INFO_ERROR:
+          this.emitChange(DCOS_BUILD_INFO_ERROR);
+          break;
+        case REQUEST_DCOS_BUILD_INFO_SUCCESS:
+          const prevDCOSBuildInfo = this.get('dcosBuildInfo');
+          const nextDCOSBuildInfo = action.data;
+
+          if (!deepEqual(prevDCOSBuildInfo, nextDCOSBuildInfo)) {
+            this.set({dcosBuildInfo: nextDCOSBuildInfo});
+            this.emitChange(DCOS_BUILD_INFO_CHANGE);
+          }
+
+          break;
       }
 
       return true;
@@ -69,8 +88,10 @@ class MetadataStore extends GetSetBaseStore {
 
   init() {
     this.set({
-      metadata: {}
+      metadata: {},
+      dcosBuildInfo: null
     });
+
     MetadataActions.fetch();
   }
 
@@ -91,14 +112,20 @@ class MetadataStore extends GetSetBaseStore {
     return `${Config.documentationURI}/${this.parsedVersion}${path}`;
   }
 
+  fetchDCOSBuildInfo() {
+    MetadataActions.fetchDCOSBuildInfo();
+  }
+
   get version() {
     const metadata = this.get('dcosMetadata');
+
     return metadata && metadata.version;
   }
 
   get parsedVersion() {
     let version = (this.version) || 'latest';
     version = version.split('-')[0];
+
     return version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
   }
 

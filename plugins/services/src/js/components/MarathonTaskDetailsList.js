@@ -17,6 +17,7 @@ class MarathonTaskDetailsList extends React.Component {
     if (task == null || task.status == null) {
       return 'Unknown';
     }
+
     return task.status;
   }
 
@@ -57,7 +58,6 @@ class MarathonTaskDetailsList extends React.Component {
 
   getMarathonTaskHealthCheckResults(task) {
     if (task == null || task.healthCheckResults == null) {
-
       return null;
     }
 

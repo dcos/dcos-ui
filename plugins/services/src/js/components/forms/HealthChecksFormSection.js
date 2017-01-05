@@ -12,6 +12,8 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
+import {HTTP, HTTPS, COMMAND} from '../../constants/HealtCheckProtocols';
+import HealthCheckUtil from '../../utils/HealtCheckUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
@@ -20,8 +22,8 @@ const errorsLens = Objektiv.attr('healthChecks', []);
 
 class HealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, key) {
-    if (healthCheck.protocol !== 'COMMAND' && healthCheck.protocol !== 'HTTP' &&
-      healthCheck.protocol !== 'HTTPS') {
+    if (healthCheck.protocol !== COMMAND && healthCheck.protocol !== HTTP &&
+      healthCheck.protocol !== HTTPS) {
       return null;
     }
 
@@ -85,7 +87,7 @@ class HealthChecksFormSection extends Component {
   }
 
   getCommandFields(healthCheck, key) {
-    if (healthCheck.protocol !== 'COMMAND') {
+    if (healthCheck.protocol !== COMMAND) {
       return null;
     }
 
@@ -119,7 +121,7 @@ class HealthChecksFormSection extends Component {
   }
 
   getHTTPFields(healthCheck, key) {
-    if (healthCheck.protocol !== 'HTTP' && healthCheck.protocol !== 'HTTPS') {
+    if (healthCheck.protocol !== HTTP && healthCheck.protocol !== HTTPS) {
       return null;
     }
 
@@ -155,7 +157,7 @@ class HealthChecksFormSection extends Component {
         <FormGroup showError={false} className="column-12">
           <FieldLabel>
             <FieldInput
-              checked={healthCheck.protocol === 'HTTPS'}
+              checked={healthCheck.protocol === HTTPS}
               name={`healthChecks.${key}.https`}
               type="checkbox"
               value="HTTPS"/>
@@ -171,6 +173,23 @@ class HealthChecksFormSection extends Component {
     return data.map((healthCheck, key) => {
       const errors = errorsLens.at(key, {}).get(this.props.errors);
 
+      if (!HealthCheckUtil.isKnownProtocol(healthCheck.protocol) &&
+        healthCheck.protocol != null) {
+        return (
+          <FormGroupContainer
+            key={key}
+            onRemove={this.props.onRemoveItem.bind(this,
+              {value: key, path: 'healthChecks'})}>
+            <FieldLabel>
+              Unable to edit this HealthCheck
+            </FieldLabel>
+            <pre>
+              {JSON.stringify(healthCheck, null, 2)}
+            </pre>
+          </FormGroupContainer>
+        );
+      }
+
       return (
         <FormGroupContainer
           key={key}
@@ -183,10 +202,10 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>Protocol</FieldLabel>
               <FieldSelect name={`healthChecks.${key}.protocol`}
                 value={healthCheck.protocol &&
-                healthCheck.protocol.replace('HTTPS', 'HTTP')}>
+                healthCheck.protocol.replace(HTTPS, HTTP)}>
                 <option value="">Select Protocol</option>
-                <option value="COMMAND">Command</option>
-                <option value="HTTP">HTTP</option>
+                <option value={COMMAND}>Command</option>
+                <option value={HTTP}>HTTP</option>
               </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>

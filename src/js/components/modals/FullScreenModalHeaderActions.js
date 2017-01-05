@@ -15,7 +15,7 @@ class FullScreenModalHeaderActions extends React.Component {
           return node;
         }
 
-        let classes = classNames('button', className);
+        let classes = classNames('button flush-top', className);
 
         return (
           <button className={classes}

@@ -46,7 +46,7 @@ var Chart = React.createClass({
     } else {
       this.updateWidth();
     }
-    window.addEventListener('resize', this.updateWidth);
+    global.addEventListener('resize', this.updateWidth);
   },
 
   shouldComponentUpdate() {
@@ -54,7 +54,7 @@ var Chart = React.createClass({
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWidth);
+    global.removeEventListener('resize', this.updateWidth);
   },
 
   onSidebarStoreWidthChange() {
@@ -89,6 +89,7 @@ var Chart = React.createClass({
       var children = this.props.children;
       if (Array.isArray(children)) {
         height = height / children.length;
+
         return children.map(function (child) {
           return React.cloneElement(
             child,
@@ -105,7 +106,7 @@ var Chart = React.createClass({
   },
 
   render() {
-    // at the moment, 'chart' is used to inject the chart colour palette.
+    // at the moment, 'chart' is used to inject the chart color palette.
     // we should reclaim it as the rightful className of <Chart />
     return (
       <div className="chart-chart">

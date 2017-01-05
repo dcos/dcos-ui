@@ -54,7 +54,7 @@ class PodHealthChecksConfigSection extends React.Component {
       hideIfEmpty: true,
       render(prop, row) {
         // We use a default <Value/> renderer in order to render
-        // all elements as <Div/>s. Otherwise the booleans look
+        // all elements as <Div/>s. Otherwise the boolean's look
         // funny.
         return <ConfigurationMapValueWithDefault value={row[prop]} />;
       }

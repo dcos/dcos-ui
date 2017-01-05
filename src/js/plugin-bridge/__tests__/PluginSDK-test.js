@@ -180,6 +180,7 @@ describe('PluginSDK', function () {
       this.mockPlugin = jest.genMockFunction().mockImplementation(
         function (SDK) {
           testArgs.dispatch = SDK.dispatch;
+
           return mockReducer;
         }
       );

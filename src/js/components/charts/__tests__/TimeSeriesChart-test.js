@@ -16,7 +16,7 @@ describe('TimeSeriesChart', function () {
     beforeEach(function () {
       var data = [{values: [{date: 0, y: 0}, {date: 1, y: 0}]}];
 
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <TimeSeriesChart data={data} width={0} height={0} />,
         this.container

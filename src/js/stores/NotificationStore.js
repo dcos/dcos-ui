@@ -31,6 +31,7 @@ class NotificationStore extends GetSetBaseStore {
     }
 
     notificationMap[location][notificationID] = value;
+
     return notificationMap;
   }
 
@@ -40,6 +41,7 @@ class NotificationStore extends GetSetBaseStore {
     }
 
     delete notificationMap[location][notificationID];
+
     return notificationMap;
   }
 

@@ -71,7 +71,7 @@ var Sidebar = React.createClass({
       );
     }
 
-    global.window.addEventListener('keydown', this.handleKeyPress, true);
+    global.addEventListener('keydown', this.handleKeyPress, true);
   },
 
   componentWillUnmount() {
@@ -92,7 +92,7 @@ var Sidebar = React.createClass({
       );
     }
 
-    global.window.removeEventListener('keydown', this.handleKeyPress, true);
+    global.removeEventListener('keydown', this.handleKeyPress, true);
   },
 
   onDCOSMetadataChange() {
@@ -122,11 +122,6 @@ var Sidebar = React.createClass({
 
   handleSubmenuItemClick() {
     SidebarActions.close();
-  },
-
-  handleVersionClick() {
-    SidebarActions.close();
-    SidebarActions.showVersions();
   },
 
   getNavigationSections() {
@@ -332,7 +327,7 @@ var Sidebar = React.createClass({
 
   handleSidebarTransitionEnd(event) {
     // Some elements (graphs and Gemini) need to update when the main content
-    // width canges, so we emit an event.
+    // width changes, so we emit an event.
     if (event.target === this.sidebarWrapperRef) {
       SidebarActions.sidebarWidthChange();
     }

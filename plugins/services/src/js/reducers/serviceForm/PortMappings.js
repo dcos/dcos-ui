@@ -14,7 +14,7 @@ module.exports = {
    * @param {Object} state current appConfig
    * @returns {Transaction[]} A list of transactions resulting _portDefinition_
    * settings. NOT portMappings! The source of truth is portDefinitions, but
-   * portMapping takes preceedence.
+   * portMapping takes precedence.
    */
   JSONParser(state) {
     const portMappings = findNestedPropertyInObject(

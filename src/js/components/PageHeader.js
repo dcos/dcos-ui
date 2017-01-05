@@ -1,9 +1,9 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import NewPageHeaderActions from './NewPageHeaderActions';
-import NewPageHeaderBreadcrumbs from './NewPageHeaderBreadcrumbs';
-import NewPageHeaderTabs from './NewPageHeaderTabs';
+import PageHeaderActions from './PageHeaderActions';
+import PageHeaderBreadcrumbs from './PageHeaderBreadcrumbs';
+import PageHeaderTabs from './PageHeaderTabs';
 import SidebarToggle from './SidebarToggle';
 
 class PageHeader extends React.Component {
@@ -51,12 +51,12 @@ class PageHeader extends React.Component {
           <div className={primaryContentClasses}>
             <SidebarToggle />
             {breadcrumbs}
-            <NewPageHeaderActions
+            <PageHeaderActions
               actions={actions}
               addButton={addButton} />
           </div>
           <div className={secondaryContentClasses}>
-            <NewPageHeaderTabs tabs={tabs} />
+            <PageHeaderTabs tabs={tabs} />
             {secondaryContentDetailElement}
           </div>
         </div>
@@ -91,8 +91,8 @@ PageHeader.propTypes = {
   tabs: React.PropTypes.array
 };
 
-PageHeader.Breadcrumbs = NewPageHeaderBreadcrumbs;
-PageHeader.Actions = NewPageHeaderActions;
-PageHeader.Tabs = NewPageHeaderTabs;
+PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;
+PageHeader.Actions = PageHeaderActions;
+PageHeader.Tabs = PageHeaderTabs;
 
 module.exports = PageHeader;

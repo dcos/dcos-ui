@@ -11,14 +11,14 @@ const paramOptions = [
 const SystemLogUtil = {
   /**
    * Creates a URL to use with the events stream for logs
-   * given the paramters provided
+   * given the parameters provided
    * @param {String} nodeID ID of the node to retrieve logs from
    * @param {Object} [options] Optional parameters for request
    * @param {String} [options.cursor] ID of the cursor to request entries from
    * @param {String} [options.subscriptionID] ID to emit events to,
    *   if omitted a new one will be created
    * @param {Number} [options.skip_prev] how many entries backwards to look
-   * @param {Number} [options.skip_next] how many entroes to look ahead
+   * @param {Number} [options.skip_next] how many entries to look ahead
    * @param {Number} [options.limit] limit how many entries to receive
    * @param {Object} [options.filter] filter parameters to add to URL
    * @param {String} [options.frameworkID] ID for framework to retrieve logs from

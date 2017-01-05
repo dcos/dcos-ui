@@ -11,7 +11,7 @@ const {HOST} = Networking.type;
 
 module.exports = {
   /**
-   * Creates portDefinitions for the JSON Editor. Only returns defintions for
+   * Creates portDefinitions for the JSON Editor. Only returns definitions for
    * network type HOST, but will still record changes if network is
    * something else
    * @param {Object[]} state Initial state to apply action on
@@ -61,7 +61,7 @@ module.exports = {
         protocol: portDefinition.protocol
       };
 
-      // Only set labels if port mapping is load balaced
+      // Only set labels if port mapping is load balanced
       if (portDefinition.loadBalanced) {
         let vip = portDefinition.vip;
 

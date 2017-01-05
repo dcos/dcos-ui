@@ -131,7 +131,7 @@ class ActionsModal extends mixin(StoreMixin) {
 
       // Handle grammar for nth element and concatenate to list
       if (selectedItems.length <= ITEMS_DISPLAYED) {
-        // SelectedItems may be 0 length and Util.last will retun null
+        // SelectedItems may be 0 length and Util.last will return null
         if (selectedItems.length > 0) {
           selectedItemsString += `and ${Util.last(selectedItems)[itemID]} `;
         }

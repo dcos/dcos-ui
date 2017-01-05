@@ -149,16 +149,16 @@ class DCOSStore extends EventEmitter {
     const deploymentsList = MarathonStore.get('deployments');
     const serviceTree = MarathonStore.get('groups');
 
-    const deploymentListlength = deploymentsList.getItems().length;
+    const deploymentListLength = deploymentsList.getItems().length;
     const currentDeploymentCount = NotificationStore.getNotificationCount(
       'services-deployments'
     );
 
-    if (deploymentListlength !== currentDeploymentCount) {
+    if (deploymentListLength !== currentDeploymentCount) {
       NotificationStore.addNotification(
         'services-deployments',
         'deployment-count',
-        deploymentListlength
+        deploymentListLength
       );
     }
 
@@ -173,6 +173,7 @@ class DCOSStore extends EventEmitter {
           } else {
             memo.stale.push(id);
           }
+
           return memo;
         }, {affected: [], stale: []});
 
@@ -189,8 +190,11 @@ class DCOSStore extends EventEmitter {
     // Debounce specified events
     if ([DCOS_CHANGE].includes(eventType)) {
       clearTimeout(this.debouncedEvents.get(eventType));
-      this.debouncedEvents.set(eventType,
-          setTimeout(super.emit.bind(this, ...arguments), EVENT_DEBOUNCE_TIME));
+      this.debouncedEvents.set(eventType, setTimeout(
+        super.emit.bind(this, ...arguments),
+        EVENT_DEBOUNCE_TIME
+      ));
+
       return;
     }
 

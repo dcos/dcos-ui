@@ -30,6 +30,7 @@ const defaultToLocaleString = Date.prototype.toLocaleString;
 const JestUtil = {
   renderAndFindTag(instance, tag) {
     var result = TestUtils.renderIntoDocument(instance);
+
     return TestUtils.findRenderedDOMComponentWithTag(result, tag);
   },
 
@@ -44,6 +45,7 @@ const JestUtil = {
   dontMockStore(storeID) {
     if (storeID in stores) {
       jest.dontMock(stores[storeID]);
+
       return true;
     }
   },
@@ -93,7 +95,7 @@ const JestUtil = {
    *   'table-column-name'
    * ).map(mapTextContent);
    *
-   * @param {DOMElement} element - The DOM element for which to get the contnet
+   * @param {DOMElement} element - The DOM element for which to get the content
    * @returns {string} The text content
    */
   mapTextContent(element) {
@@ -121,6 +123,7 @@ const JestUtil = {
     };
     Date.prototype.toLocaleString = function (locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
+
       return defaultToLocaleString.call(this, locale, options);
     };
     /* eslint-enable no-extend-native */
@@ -216,7 +219,7 @@ const JestUtil = {
   },
 
   /**
-   * Restore the original version of the Date prototype functions, overwriten
+   * Restore the original version of the Date prototype functions, overwritten
    * by the mockTimezone function.
    */
   unmockTimezone() {

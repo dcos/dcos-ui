@@ -27,7 +27,7 @@ describe('MesosLogView', function () {
     MesosLogStore.startTailing = jasmine.createSpy('startTailing');
     MesosLogStore.stopTailing = jasmine.createSpy('stopTailing');
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <MesosLogView
         filePath="/some/file/path"
@@ -245,7 +245,7 @@ describe('MesosLogView', function () {
       expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it('shouldn\' call getLoadingScreen when fullLog is empty', function () {
+    it('shouldn\'t call getLoadingScreen when fullLog is empty', function () {
       this.instance.state.fullLog = '';
       MesosLogStore.get = jasmine.createSpy('MesosLogStore#get');
       this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');

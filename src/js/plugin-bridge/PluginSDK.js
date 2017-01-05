@@ -39,11 +39,11 @@ if (Config.environment === 'development'
   .uiConfigurationFixture
   .uiConfiguration
   .enableDevTools
-  && window.devToolsExtension) {
+  && global.devToolsExtension) {
 
   // Use Chrome extension if available
   // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
-  devToolIfEnabled = window.devToolsExtension();
+  devToolIfEnabled = global.devToolsExtension();
 }
 
 // Create Redux Store
@@ -71,6 +71,7 @@ const initialize = function (pluginsConfig) {
       if (Config.environment === 'development') {
         console.warn(`Plugin ${pluginID} not available in bundle`);
       }
+
       return;
     }
     let pluginType;
@@ -131,6 +132,7 @@ const getModule = function (moduleName) {
     throw new Error(`Module ${moduleName} does not exist.`);
   }
   const dir = foundDirs[0];
+
   return Loader.requireModule(dir, PluginModules[dir][moduleName]);
 };
 
@@ -146,9 +148,11 @@ const getApplicationModuleAPI = function () {
         // other end.
         return modules.reduce(function (acc, module) {
           acc[module] = getModule(module);
+
           return acc;
         }, {});
       }
+
       return getModule(modules);
     }
   };
@@ -187,6 +191,7 @@ const getActionsAPI = function (SDK) {
         }
         throw Error(`No registered actions for ${name}. Make sure plugin is loaded or actions are registered`);
       }
+
       return REGISTERED_ACTIONS[name];
     }
   };
@@ -194,7 +199,7 @@ const getActionsAPI = function (SDK) {
 
 /**
  * Create a flux store that exposes events to components. This store
- * does not support set methods. It provides an abstration for handling
+ * does not support set methods. It provides an abstraction for handling
  * state changes in the OmniStore.
  * @param  {Object} definition - Store definition
  * @return {Object}            - Created store

@@ -18,12 +18,14 @@ var ChartMixin = {
   // Only used by TimeSeriesChart, but is meant to be re-used elsewhere
   getHeight(props) {
     var margin = props.margin;
+
     return props.height - margin.top - margin.bottom;
   },
 
   // Only used by TimeSeriesChart, but is meant to be re-used elsewhere
   getWidth(props) {
     var margin = props.margin;
+
     return props.width - margin.left - margin.right;
   },
 

@@ -24,9 +24,9 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   componentDidMount() {
-    if (global.window != null) {
-      window.addEventListener('resize', this.handleResize);
-      window.addEventListener('focus', this.handleResize);
+    if (global != null) {
+      global.addEventListener('resize', this.handleResize);
+      global.addEventListener('focus', this.handleResize);
     }
   }
 
@@ -35,9 +35,9 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   componentWillUnmount() {
-    if (global.window != null) {
-      window.removeEventListener('resize', this.handleResize);
-      window.removeEventListener('focus', this.handleResize);
+    if (global != null) {
+      global.removeEventListener('resize', this.handleResize);
+      global.removeEventListener('focus', this.handleResize);
     }
   }
 

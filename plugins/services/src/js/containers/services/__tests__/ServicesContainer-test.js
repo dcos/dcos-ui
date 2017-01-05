@@ -14,7 +14,7 @@ const DSLExpression = require('../../../../../../../src/js/structs/DSLExpression
 describe('ServicesContainer', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.routerStubs = {
       getCurrentPathname() {
         return 'test';

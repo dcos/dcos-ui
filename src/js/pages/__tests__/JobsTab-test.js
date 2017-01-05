@@ -28,7 +28,7 @@ describe('JobsTab', function () {
       id: '/test'
     }]));
     DCOSStore.dataProcessed = true;
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
   });
 
   afterEach(function () {

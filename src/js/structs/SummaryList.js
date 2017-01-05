@@ -43,6 +43,7 @@ class SummaryList extends List {
         return stateResources[i];
       }
     }
+
     return new StateSummary({successful: false});
   }
 

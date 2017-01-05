@@ -59,6 +59,7 @@ module.exports = {
           return memo;
         }
         volumeIndexMap[volume.name] = volumes.push(volume.name) - 1;
+
         return memo.concat(
           new Transaction(['volumeMounts'], volumeIndexMap[volume.name], ADD_ITEM),
           new Transaction(
@@ -106,6 +107,7 @@ module.exports = {
         case ADD_ITEM:
           newState = newState.map((volumeMount) => {
             volumeMount.mountPath.push('');
+
             return volumeMount;
           });
           break;
@@ -113,6 +115,7 @@ module.exports = {
           newState = newState.map((volumeMount) => {
             volumeMount.mountPath =
               volumeMount.mountPath.filter((item, index) => index !== value);
+
             return volumeMount;
           });
           break;

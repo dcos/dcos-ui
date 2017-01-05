@@ -65,6 +65,7 @@ var PodUtil = {
     const podInstancesMap =
         podInstances.reduceItems(function (memo, podInstance) {
           memo[podInstance.getId()] = podInstance.get();
+
           return memo;
         }, {});
 
@@ -74,6 +75,7 @@ var PodUtil = {
           const podInstance = memo[historicalInstance.id];
           if (podInstance === undefined) {
             memo[historicalInstance.id] = historicalInstance;
+
             return memo;
           }
 
@@ -104,6 +106,7 @@ var PodUtil = {
     const instances = Object.values(combinedInstanceMap).map(function (instance) {
       return new PodInstance(instance);
     });
+
     return new PodInstanceList({items: instances});
   }
 

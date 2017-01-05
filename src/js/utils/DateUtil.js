@@ -54,12 +54,12 @@ const DateUtil = {
   },
 
   /**
-   * Creates a ANSI C time string from time provided
+   * Creates a log timestamp string from time provided
    * @param  {Date|Number} ms number to convert to ANSI C time string
-   * @return {String} time string with the format 'ddd MMM DD HH:mm:ss YYYY'
+   * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
-  msToCTime(ms) {
-    return moment(ms).utc().format('ddd MMM DD HH:mm:ss YYYY');
+  msToLogTime(ms) {
+    return moment(ms).utc().format('YYYY-MM-DD hh:mm:ss');
   },
 
   /**

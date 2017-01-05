@@ -10,6 +10,7 @@ import ServiceTree from '../structs/ServiceTree';
  */
 function numberCompareFunction(a, b) {
   const delta = a - b;
+
   return (delta) / Math.abs(delta || 1);
 }
 

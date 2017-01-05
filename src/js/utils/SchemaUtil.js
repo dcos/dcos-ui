@@ -32,6 +32,7 @@ function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   // Set the label property of checkboxes if a label is defined.
   if (fieldProps.type === 'boolean') {
     definition.label = fieldProps.label || label;
+
     return;
   }
 
@@ -380,6 +381,7 @@ const SchemaUtil = {
       SchemaUtil.definitionToJSONDocument(
         SchemaUtil.schemaToMultipleDefinition({schema})
       );
+
       return true;
     } catch (e) {
       return false;

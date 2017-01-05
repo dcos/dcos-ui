@@ -85,7 +85,7 @@ describe('Framework', function () {
       });
     });
 
-    it('returns correct task summary for overcapcity', function () {
+    it('returns correct task summary for overcapacity', function () {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,

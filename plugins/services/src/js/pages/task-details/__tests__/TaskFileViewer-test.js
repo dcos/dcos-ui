@@ -21,7 +21,7 @@ const TaskFileViewer = require('../TaskFileViewer');
 describe('TaskFileViewer', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <TaskFileViewer
         directory={new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})}

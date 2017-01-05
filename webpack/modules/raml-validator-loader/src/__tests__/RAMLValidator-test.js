@@ -691,7 +691,7 @@ describe('RAMLValidator', function () {
         expect(errors.length).toEqual(0);
       });
 
-      it('should return error if string does not match patern', function () {
+      it('should return error if string does not match pattern', function () {
         var errors = this.validator('bdc');
         expect(errors.length).toEqual(1);
       });

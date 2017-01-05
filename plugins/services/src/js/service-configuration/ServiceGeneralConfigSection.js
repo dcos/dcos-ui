@@ -142,6 +142,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           label: 'Container Image',
           transformValue(value, appConfig) {
             const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+
             // Disabled for NONE
             return getDisplayValue(value, runtime == null || runtime === NONE);
           }

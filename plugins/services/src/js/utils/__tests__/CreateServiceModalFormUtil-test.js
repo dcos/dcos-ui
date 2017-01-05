@@ -136,7 +136,7 @@ describe('CreateServiceModalFormUtil', function () {
       expect(patched).toEqual({a: {b: 'foo'}});
     });
 
-    it('should strip empty propeties from patch-only objects', function () {
+    it('should strip empty properties from patch-only objects', function () {
       const data = {};
       const patch = {a: {b: 'foo', c: {d: null}}};
       const patched = CreateServiceModalFormUtil.applyPatch(data, patch);

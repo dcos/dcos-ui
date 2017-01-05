@@ -40,6 +40,7 @@ const ResourceBarChart = React.createClass({
     }
 
     const selectedResource = props.selectedResource;
+
     return [{
       id: 'used_resources',
       name: selectedResource + ' allocated',

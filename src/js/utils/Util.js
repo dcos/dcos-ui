@@ -60,6 +60,7 @@ const Util = {
         return index;
       }
     }
+
     return -1;
   },
 
@@ -70,7 +71,7 @@ const Util = {
   },
 
   /**
-   * Finds the property in a given object using a string of propeties
+   * Finds the property in a given object using a string of properties
    * using dot-notation, e.g. 'hello.is.it.me.you.are.looking.for'
    * @param  {Object} obj          Object to search in
    * @param  {String} propertyPath Property path to search for
@@ -167,13 +168,13 @@ const Util = {
     let copy;
     if (Array.isArray(obj)) {
       copy = obj.slice(); // shallow copy
-    } else if (this.isObject(obj)) {
+    } else if (Util.isObject(obj)) {
       copy = Object.assign({}, obj);
     }
 
     if (copy != null) {
       Object.keys(copy).forEach((key) => {
-        copy[key] = this.deepCopy(copy[key]);
+        copy[key] = Util.deepCopy(copy[key]);
       });
     } else {
       copy = obj;
@@ -193,6 +194,7 @@ const Util = {
       return !ValidatorUtil.isEmpty(obj[key]);
     }).reduce(function (memo, key) {
       memo[key] = obj[key];
+
       return memo;
     }, {});
   }

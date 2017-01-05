@@ -82,6 +82,7 @@ const MesosSummaryUtil = {
     return data.map(function (datum, i) {
       var timeDelta = (-length + i) * timeStep;
       datum.date = timeNow + timeDelta;
+
       return datum;
     });
   }

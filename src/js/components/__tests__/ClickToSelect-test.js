@@ -12,14 +12,14 @@ describe('ClickToSelect', function () {
 
   beforeEach(function () {
     this.spy = {selectAllChildren: jasmine.createSpy()};
-    this.getSelection = document.getSelection;
+    this.getSelection = global.document.getSelection;
 
     // Mock this document function, which is unsupported by jest.
-    document.getSelection = function () {
+    global.document.getSelection = function () {
       return this.spy;
     }.bind(this);
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <ClickToSelect>
         <span>hello text</span>
@@ -30,7 +30,7 @@ describe('ClickToSelect', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
-    document.getSelection = this.getSelection;
+    global.document.getSelection = this.getSelection;
   });
 
   it('sets selection when node is clicked', function () {

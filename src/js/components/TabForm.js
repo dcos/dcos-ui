@@ -72,9 +72,11 @@ class TabForm extends mixin(InternalStorageMixin) {
 
     if (isFormValidated) {
       this.props.onSubmit(this.model);
+
       return this.model;
     } else {
       this.props.onError();
+
       return false;
     }
   }
@@ -187,7 +189,7 @@ class TabForm extends mixin(InternalStorageMixin) {
       );
     });
 
-    // On intial render, we don't want to render with Gemini because it will
+    // On initial render, we don't want to render with Gemini because it will
     // cancel the parent's animation, due to it measuring the component.
     if (!this.state.renderGemini) {
       return (

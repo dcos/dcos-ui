@@ -160,6 +160,7 @@ const FormUtil = {
     }
 
     const value = key.split('[');
+
     return parseInt(value[1].split(']')[0]);
   },
 
@@ -184,6 +185,7 @@ const FormUtil = {
     // to false.
     if (FormUtil.isFieldDefinition(definition)) {
       callback(definition);
+
       return;
     }
 
@@ -192,6 +194,7 @@ const FormUtil = {
       definition.forEach(function (fieldDefinition) {
         FormUtil.forEachDefinition(fieldDefinition, callback);
       });
+
       return;
     }
 
@@ -201,6 +204,7 @@ const FormUtil = {
     if (Object.prototype.hasOwnProperty.call(definition, 'definition') &&
       Array.isArray(definition.definition)) {
       FormUtil.forEachDefinition(definition.definition, callback);
+
       return;
     }
 

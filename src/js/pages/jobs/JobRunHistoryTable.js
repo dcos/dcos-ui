@@ -161,6 +161,7 @@ class JobRunHistoryTable extends React.Component {
     return job.getJobRuns().getItems().reduce(function (memo, jobRun) {
       const isDisabled = ['ACTIVE', 'INITIAL', 'STARTING'].indexOf(jobRun.getStatus()) < 0;
       memo[jobRun.get('id')] = isDisabled;
+
       return memo;
     }, {});
   }
@@ -302,6 +303,7 @@ class JobRunHistoryTable extends React.Component {
         filteredItems[key] = checkedItems[key];
         hasCheckedTasks = true;
       }
+
       return filteredItems;
     }, {});
 

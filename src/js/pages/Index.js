@@ -58,7 +58,7 @@ var Index = React.createClass({
     SidebarStore.addChangeListener(
       EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
     );
-    window.addEventListener('resize', SidebarActions.close);
+    global.addEventListener('resize', SidebarActions.close);
 
     ConfigStore.addChangeListener(
       EventTypes.CONFIG_ERROR, this.onConfigError
@@ -74,7 +74,7 @@ var Index = React.createClass({
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
     );
-    window.removeEventListener('resize', SidebarActions.close);
+    global.removeEventListener('resize', SidebarActions.close);
 
     ConfigStore.removeChangeListener(
       EventTypes.CONFIG_ERROR, this.onConfigError

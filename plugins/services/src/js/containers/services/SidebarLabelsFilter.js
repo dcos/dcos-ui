@@ -129,6 +129,7 @@ class SidebarLabelsFilters extends React.Component {
 
     let labelNodes = selectedLabels.map(({key, value}, i) => {
       let labelText = `${key} : ${value}`;
+
       return (
         <li className={labelClassName} key={i} title={labelText}>
           <div className="text-overflow pill-wrap">

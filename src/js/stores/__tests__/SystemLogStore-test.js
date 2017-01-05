@@ -30,7 +30,7 @@ describe('SystemLogStore', function () {
   describe('#addEntries', function () {
 
     it('appends data to existing data', function () {
-      const entires = [
+      const entries = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
@@ -44,15 +44,13 @@ describe('SystemLogStore', function () {
       };
       const result = SystemLogStore.addEntries(
         logData,
-        entires,
+        entries,
         SystemLogTypes.APPEND
       );
 
-      const entries = result.entries.map((entry) => {
+      expect(result.entries.map((entry) => {
         return entry.fields.MESSAGE;
-      });
-
-      expect(entries).toEqual(['one', 'two', 'foo', 'bar', 'baz']);
+      })).toEqual(['one', 'two', 'foo', 'bar', 'baz']);
       expect(result.totalSize).toEqual(15);
     });
 
@@ -140,7 +138,7 @@ describe('SystemLogStore', function () {
     });
 
     it('removes from beginning when size exceeds MAX_FILE_SIZE', function () {
-      const entires = [
+      const entries = [
         {fields: {MESSAGE: 'foo'}},
         {fields: {MESSAGE: 'bar'}},
         {fields: {MESSAGE: 'baz'}}
@@ -155,20 +153,18 @@ describe('SystemLogStore', function () {
       };
       const result = SystemLogStore.addEntries(
         logData,
-        entires,
+        entries,
         SystemLogTypes.PREPEND
       );
 
-      const entries = result.entries.map((entry) => {
+      expect(result.entries.map((entry) => {
         return entry.fields.MESSAGE;
-      });
-
-      expect(entries).toEqual(['foo', 'bar', 'baz', 'one']);
+      })).toEqual(['foo', 'bar', 'baz', 'one']);
       expect(result.totalSize).toEqual(500000);
     });
 
     it('doesn\'t remove when there is no length added', function () {
-      const entires = [
+      const entries = [
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}},
         {fields: {MESSAGE: ''}}
@@ -183,15 +179,13 @@ describe('SystemLogStore', function () {
       };
       const result = SystemLogStore.addEntries(
         logData,
-        entires,
+        entries,
         SystemLogTypes.PREPEND
       );
 
-      const entries = result.entries.map((entry) => {
+      expect(result.entries.map((entry) => {
         return entry.fields.MESSAGE;
-      });
-
-      expect(entries).toEqual(['', '', '', 'one', 'two']);
+      })).toEqual(['', '', '', 'one', 'two']);
       expect(result.totalSize).toEqual(500000);
     });
 
@@ -359,40 +353,16 @@ describe('SystemLogStore', function () {
 
       SystemLogStore.processLogEntry(
         'subscriptionID',
-        {fields: {MESSAGE: 'foo', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+        {fields: {MESSAGE: 'foo'}, realtime_timestamp: 10000000}
       );
       SystemLogStore.processLogEntry(
         'subscriptionID',
-        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
+        {fields: {MESSAGE: 'bar'}}
       );
 
       const result = SystemLogStore.getFullLog('subscriptionID');
 
-      expect(result).toEqual('host systemID[pid]: foo\nhost systemID[pid]: bar\nhost systemID[pid]: baz');
-    });
-
-    it('excludes optional fields', function () {
-
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'foo', SYSLOG_IDENTIFIER: 'systemID', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'bar', _HOSTNAME: 'host', _PID: 'pid'}}
-      );
-      SystemLogStore.processLogEntry(
-        'subscriptionID',
-        {fields: {MESSAGE: 'baz', _HOSTNAME: 'host', SYSLOG_IDENTIFIER: 'systemID'}}
-      );
-
-      const result = SystemLogStore.getFullLog('subscriptionID');
-
-      expect(result).toEqual('systemID[pid]: foo\nhost [pid]: bar\nhost systemID: baz');
+      expect(result).toEqual('1970-01-01 12:00:10: foo\nbar');
     });
 
     it('returns empty string for a log that doesn\'t exist', function () {

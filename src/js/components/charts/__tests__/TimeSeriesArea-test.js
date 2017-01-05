@@ -21,7 +21,7 @@ function checkPath(instance, props) {
   var index = 1;
   var points = ReactDOM.findDOMNode(area).attributes.d.value.split(',');
   points.forEach(function (str, i) {
-    // Disgard values after we've been through data
+    // Discard values after we've been through data
     // Also parseFloat and check with index (int) to make sure we exactly
     // where we want to be
     if (index < props.values.length && parseFloat(str) === index) {
@@ -54,7 +54,7 @@ describe('TimeSeriesArea', function () {
       .interpolate('monotone');
     this.valueLine = this.valueLineDef(this.props.values);
 
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <TimeSeriesArea
         line={this.valueLine}

@@ -10,7 +10,7 @@ const TimeSeriesLabel = require('../TimeSeriesLabel');
 describe('TimeSeriesLabel', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <TimeSeriesLabel colorIndex={2}
         currentValue="10"

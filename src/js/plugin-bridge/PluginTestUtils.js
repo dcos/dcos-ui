@@ -66,6 +66,7 @@ function getSDK(pluginID, config, loadPlugin = false) {
       [pluginID]: config
     });
   }
+
   // Get SDK for pluginID.
   return PluginSDK.__getSDK(pluginID, config);
 }
@@ -79,6 +80,7 @@ function getSDK(pluginID, config, loadPlugin = false) {
  */
 function setMock(name, mock) {
   Loader.__setMockModule(name, mock);
+
   return mock;
 }
 
@@ -101,6 +103,7 @@ function addReducer(root, reducer) {
 function dontMock(moduleNames) {
   if (Array.isArray(moduleNames)) {
     moduleNames.forEach(dontMock);
+
     return;
   }
   // Just one module to mock

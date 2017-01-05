@@ -42,6 +42,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
     definitionToSet.definition.find(function (field, i) {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         firstIndex = i;
+
         return true;
       }
 
@@ -171,7 +172,7 @@ function processValue(value, valueType) {
 
 /**
  * Recursive function to flatten the 'group' types
- * in a definiton.
+ * in a definition.
  *
  * @param {object} definition - The input definition
  * @returns {object} The flattened definition
@@ -227,7 +228,7 @@ tv4.defineKeyword('validator', function (data, validationFunction) {
   // Call the validation function and return:
   //
   //  - null     : No error
-  //  - 'string' : The eror description
+  //  - 'string' : The error description
   //
   return validationFunction( data );
 
@@ -357,6 +358,7 @@ const SchemaFormUtil = {
         newModel[key] = SchemaFormUtil.processFormModel(
           value, multipleDefinition, path
         );
+
         return;
       }
 

@@ -27,6 +27,7 @@ var ServiceSpecUtil = {
     }
 
     newSpec.scaling.instances = instancesCount;
+
     return new PodSpec(newSpec);
   },
 
@@ -41,6 +42,7 @@ var ServiceSpecUtil = {
   setApplicationInstances(spec, instancesCount) {
     var newSpec = Util.deepCopy(spec.get());
     newSpec.instances = instancesCount;
+
     return new ApplicationSpec(newSpec);
   },
 
@@ -55,11 +57,12 @@ var ServiceSpecUtil = {
   setFrameworkInstances(spec, instancesCount) {
     var newSpec = Util.deepCopy(spec.get());
     newSpec.instances = instancesCount;
+
     return new FrameworkSpec(newSpec);
   },
 
   /**
-   * High-level action for picking the correct scaling function accoring
+   * High-level action for picking the correct scaling function according
    * to spec type.
    *
    * @param {PodSpec|ApplicationSpec|FrameworkSpec} spec - The spec to change

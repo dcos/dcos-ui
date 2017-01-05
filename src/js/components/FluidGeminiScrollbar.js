@@ -13,7 +13,7 @@ import Util from '../utils/Util';
  * element will always match the width of its parent.
  *
  * It writes an inline <style> tag to the document's head in order to
- * dyanimcally apply a width with an offset equal to the width of the browser's
+ * dynamically apply a width with an offset equal to the width of the browser's
  * scrollbar. This is only added once, as the same styles apply for all
  * instances of this component.
  *

@@ -7,7 +7,7 @@ class ClickToSelect extends React.Component {
   }
 
   selectAll() {
-    document.getSelection().selectAllChildren(this.refs.node);
+    global.document.getSelection().selectAllChildren(this.refs.node);
   }
 
   render() {

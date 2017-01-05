@@ -66,7 +66,7 @@ describe('ServiceDetail', function () {
   };
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.wrapper = ReactDOM.render(
       JestUtil.stubRouterContext(
         ServiceDetail, {service}, {}, contextTypes, context

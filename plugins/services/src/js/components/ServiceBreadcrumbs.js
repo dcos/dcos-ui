@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import {DCOSStore} from 'foundation-ui';
 import HealthBar from './HealthBar';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/NewPageHeaderBreadcrumbs';
+import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
 
 function getHealthStatus(serviceID) {
@@ -22,6 +22,10 @@ function getHealthStatus(serviceID) {
   const runningTasksCount = tasksSummary.tasksRunning;
   const instancesCount = service.getInstancesCount();
   const isDeploying = serviceStatus === 'Deploying';
+
+  if (instancesCount === 0) {
+    return null;
+  }
 
   return (
     <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">

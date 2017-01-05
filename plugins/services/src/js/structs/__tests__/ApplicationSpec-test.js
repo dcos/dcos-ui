@@ -309,13 +309,13 @@ describe('ApplicationSpec', function () {
     it('should return the right updateStrategy value', function () {
       const service = new ApplicationSpec({
         updateStrategy: {
-          maximunOverCapacity: 0,
+          maximumOverCapacity: 0,
           minimumHealthCapacity: 0
         }
       });
 
       expect(service.getUpdateStrategy()).toEqual({
-        maximunOverCapacity: 0,
+        maximumOverCapacity: 0,
         minimumHealthCapacity: 0
       });
     });

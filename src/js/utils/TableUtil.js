@@ -8,7 +8,7 @@ function toLowerCaseIfString(item) {
 
 var TableUtil = {
   /**
-   * WARNING: When removing/modifiying this function be aware of comments/sizes
+   * WARNING: When removing/modifying this function be aware of comments/sizes
    * in variables-layout.less
    * Returns an integer of what the expected height of a
    * row will be given the current window dimensions.
@@ -25,7 +25,7 @@ var TableUtil = {
     };
 
     let rowHeight = null;
-    const windowWidth = window.innerWidth;
+    const windowWidth = global.innerWidth;
     Object.keys(definitionList).forEach(function (size) {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;

@@ -289,6 +289,7 @@ class MetronomeStore extends EventEmitter {
 
       if (this.shouldPoll()) {
         startPolling();
+
         return;
       }
     }
@@ -305,6 +306,7 @@ class MetronomeStore extends EventEmitter {
     if (jobID != null) {
       global.clearInterval(jobDetailFetchTimers[jobID]);
       delete jobDetailFetchTimers[jobID];
+
       return;
     }
 

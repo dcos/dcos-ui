@@ -18,7 +18,7 @@ class DSLFilter {
   }
 
   /**
-   * Apply the filter to the given resultset, using the operand details given
+   * Apply the filter to the given result set, using the operand details given
    *
    * @abstract
    * @param {List} resultset - The list with the results to filter

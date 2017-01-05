@@ -14,7 +14,6 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
 const getFindPropertiesRecursive = function (service, item) {
-
   return Object.keys(item).reduce(function (memo, subItem) {
 
     if (item[subItem].type === 'group') {
@@ -94,6 +93,7 @@ const ServiceUtil = {
   },
 
   createSpecFromDefinition(data) {
+    console.warn('ServieUtil.createSpecFromDefinition has been deprecated.');
     if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
       return new PodSpec(data);
     }
@@ -110,7 +110,7 @@ const ServiceUtil = {
   },
 
   createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
-
+    console.warn('ServieUtil.createSpecFromFormModel has been deprecated.');
     if (formModel != null) {
       const {
         general,
@@ -456,6 +456,8 @@ const ServiceUtil = {
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
+    console.warn('ServieUtil.createFormModelFromSchema has been deprecated.');
+
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
@@ -500,6 +502,7 @@ const ServiceUtil = {
 
   getServiceNameFromTaskID(taskID) {
     const serviceName = taskID.split('.')[0].split('_');
+
     return serviceName[serviceName.length - 1];
   },
 

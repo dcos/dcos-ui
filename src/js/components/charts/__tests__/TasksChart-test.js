@@ -12,7 +12,7 @@ describe('TasksChart', function () {
   describe('#getTaskInfo', function () {
 
     beforeEach(function () {
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <TasksChart tasks={{}} />,
         this.container
@@ -51,7 +51,7 @@ describe('TasksChart', function () {
 
     beforeEach(function () {
       this.tasks = {TASK_RUNNING: 0};
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
         <TasksChart tasks={this.tasks} />,
         this.container
@@ -80,7 +80,7 @@ describe('TasksChart', function () {
   describe('#getDialChartChildren', function () {
 
     beforeEach(function () {
-      this.container = document.createElement('div');
+      this.container = global.document.createElement('div');
       var parent = ReactDOM.render(
         <TasksChart tasks={{}} />,
         this.container

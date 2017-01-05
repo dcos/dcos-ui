@@ -22,9 +22,9 @@ class CollapsingString extends React.Component {
   }
 
   componentDidMount() {
-    if (global.window != null) {
-      window.addEventListener('resize', this.updateDimensions);
-      window.addEventListener('focus', this.updateDimensions);
+    if (global != null) {
+      global.addEventListener('resize', this.updateDimensions);
+      global.addEventListener('focus', this.updateDimensions);
     }
 
     this.updateDimensions();
@@ -35,9 +35,9 @@ class CollapsingString extends React.Component {
   }
 
   componentWillUnmount() {
-    if (global.window != null) {
-      window.removeEventListener('resize', this.updateDimensions);
-      window.removeEventListener('focus', this.updateDimensions);
+    if (global != null) {
+      global.removeEventListener('resize', this.updateDimensions);
+      global.removeEventListener('focus', this.updateDimensions);
     }
   }
 

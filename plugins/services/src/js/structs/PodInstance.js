@@ -11,6 +11,7 @@ module.exports = class PodInstance extends Item {
 
   getContainers() {
     const containers = this.get('containers') || [];
+
     return containers.map((container) => {
       return new PodContainer(container);
     });
@@ -82,7 +83,7 @@ module.exports = class PodInstance extends Item {
 
   hasHealthChecks() {
     // If for any reason any of the containers has at least 1 health
-    // check that is failing, assume that we have leath checks
+    // check that is failing, assume that we have health checks
     if (!this.isHealthy()) {
       return true;
     }
@@ -104,6 +105,7 @@ module.exports = class PodInstance extends Item {
     if (this.getStatus() !== PodInstanceState.STABLE) {
       return false;
     }
+
     return this.getContainers().every(function (container) {
       return container.isHealthy();
     });
@@ -111,12 +113,14 @@ module.exports = class PodInstance extends Item {
 
   isRunning() {
     const status = this.getStatus();
+
     return (status === PodInstanceState.STABLE) ||
            (status === PodInstanceState.DEGRADED);
   }
 
   isStaging() {
     const status = this.getStatus();
+
     return (status === PodInstanceState.PENDING) ||
            (status === PodInstanceState.STAGING);
   }

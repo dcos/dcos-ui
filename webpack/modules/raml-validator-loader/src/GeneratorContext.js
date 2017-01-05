@@ -3,7 +3,7 @@ import RAMLUtil from './utils/RAMLUtil';
 class GeneratorContext {
 
   constructor(options={}) {
-    // Configuration parameters that define the behaviour of the parser in some
+    // Configuration parameters that define the behavior of the parser in some
     // corner cases
     this.options = {
 
@@ -17,7 +17,7 @@ class GeneratorContext {
       patternPropertiesAreOptional: true,
 
       /**
-       * If this flag is set to `true`, all missing properties will be emmited
+       * If this flag is set to `true`, all missing properties will be emitted
        * in their path. For example, if property `foo` is missing on the object
        * `bar`, you will get an error:
        *

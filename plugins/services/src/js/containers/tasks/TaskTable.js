@@ -198,6 +198,7 @@ class TaskTable extends React.Component {
       })
       .reduce(function (acc, task) {
         acc[task.id] = true;
+
         return acc;
       }, {});
   }

@@ -26,7 +26,7 @@ function getAdditionalPropertiesValue(itype, defaultValue=true) {
   }
 
   // The metadata KnownPropertyRestriction is defined when the
-  // additionalProperties facet is defiend and it's value contains
+  // additionalProperties facet is defined and it's value contains
   // the facet's value
   let knownProperty = typeAdapter.meta().find(function(meta) {
     return meta.constructor.name === 'KnownPropertyRestriction';
@@ -60,8 +60,8 @@ const HighOrderComposers = {
       // Pick the validation with the fewest possible errors
       //
       // If == 0 : The union type validation succeeded
-      // If  > 0 : The union with the fewest errors, and therfore the most
-      //           probabel match.
+      // If  > 0 : The union with the fewest errors, and therefore the most
+      //           probable match.
       //
       `})[0]);`
     );
@@ -132,7 +132,7 @@ const HighOrderComposers = {
       // properties from being processed as regex
       let outliers = stringMatchers.map(function(match) {
         return match[0];
-      });
+      });                           ``
       if (outliers.length) {
         fragments.push(
           `var regexProps = props.filter(function(key) {`,
@@ -196,7 +196,7 @@ const HighOrderComposers = {
     }
 
     // The `additionalProperties` facet is a bit more complicated, since it
-    // requires traversal thorugh it's keys
+    // requires traversal through it's keys
     if (getAdditionalPropertiesValue(itype) === false) {
       let ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
         'PROP_ADDITIONAL_PROPS', 'Unexpected extraneous property `{name}`');
@@ -218,6 +218,7 @@ const HighOrderComposers = {
         }, []),
         regexMatchers.reduce(function(fragments, [regex, unused1, unused2]) {
           let REGEX = context.getConstantExpression('REGEX', `/${regex}/`);
+
           return fragments.concat([
             `if (${REGEX}.exec(key)) return;`
           ]);
@@ -232,7 +233,7 @@ const HighOrderComposers = {
   },
 
   /**
-   * Compose a required property framgent
+   * Compose a required property fragment
    */
   composeRequiredProperty(property, validatorFn, context) {
     let errorPath = 'path';
@@ -259,7 +260,7 @@ const HighOrderComposers = {
   },
 
   /**
-   * Compose a property framgent
+   * Compose a property fragment
    */
   composeProperty(property, validatorFn, context) {
     return [

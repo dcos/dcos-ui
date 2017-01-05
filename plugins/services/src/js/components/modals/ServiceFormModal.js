@@ -142,6 +142,7 @@ class ServiceFormModal extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {state, props} = this;
+
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
       props.isPending !== nextProps.isPending ||
@@ -231,6 +232,7 @@ class ServiceFormModal extends React.Component {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
+
         return Object.keys(port.labels).some(function (key) {
           return port.labels[key] === `${serviceSpec.getId()}:${port.port}`;
         });
@@ -245,6 +247,7 @@ class ServiceFormModal extends React.Component {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
+
         return Object.keys(port.labels).some(function (key) {
           return port.labels[key] === `${serviceSpec.getId()}:` +
               `${port.containerPort}`;
@@ -354,6 +357,7 @@ class ServiceFormModal extends React.Component {
           if (serverResponseMappings[error]) {
             return serverResponseMappings[error];
           }
+
           return error;
         });
 
@@ -385,6 +389,7 @@ class ServiceFormModal extends React.Component {
     if (this.props.isEdit) {
       return 'Deploy Changes';
     }
+
     return 'Deploy';
   }
 

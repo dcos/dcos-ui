@@ -7,6 +7,7 @@ const pub = function () {
       Object.keys(listeners).forEach(function (id) {
         listeners[id].call(null, action);
       });
+
       return next(action);
     };
   };
@@ -20,6 +21,7 @@ const unsubscribe = function (id) {
 
 const sub = function (callback) {
   listeners[++ID] = callback;
+
   return unsubscribe(ID);
 };
 

@@ -112,6 +112,7 @@ module.exports = class Job extends Item {
 
     if (activeRunsLength > 0) {
       const longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
+
       return longestRunningActiveRun.getStatus();
     }
 

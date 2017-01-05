@@ -27,6 +27,7 @@ module.exports = class Pod extends Service {
       if (instance.isRunning()) {
         return counter + 1;
       }
+
       return counter;
     }, 0);
   }
@@ -36,6 +37,7 @@ module.exports = class Pod extends Service {
       if (!instance.isTerminating()) {
         return counter + 1;
       }
+
       return counter;
     }, 0);
   }
@@ -53,6 +55,7 @@ module.exports = class Pod extends Service {
    */
   getMesosId() {
     const id = this.getId().substr(1);
+
     return id.replace(/\//g, '_');
   }
 

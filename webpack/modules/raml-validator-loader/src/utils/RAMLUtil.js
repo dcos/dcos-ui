@@ -3,8 +3,8 @@ import crypto from 'crypto';
 module.exports = {
 
   /**
-   * This function checks if the given runtime type is an inline defininition,
-   * since such definitions needs further specialisation.
+   * This function checks if the given runtime type is an inline definition,
+   * since such definitions needs further specialization.
    *
    * Keep in mind that the RAML parser considers this:
    *
@@ -26,7 +26,7 @@ module.exports = {
    */
   isInlineType(itype) {
     // So, a type that has no name, but is either an array or a value type
-    // is considered an in-line definition, and has a dedicated specialisation
+    // is considered an in-line definition, and has a dedicated specialization
     return (itype.nameId() == null) &&
            (itype.isArray() || itype.isValueType());
   },
@@ -41,7 +41,7 @@ module.exports = {
    * properties:
    *   arrayProp: SomeType[]
    *
-   * Should generate a validator named `SomeTypeAsArray` instead of an anomyous
+   * Should generate a validator named `SomeTypeAsArray` instead of an anonymous
    * validator like inline.
    *
    * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
@@ -55,12 +55,13 @@ module.exports = {
    * Return a comment that describes this inline type
    *
    * @param {ITypeDefinition} itype - The runtime type of a RAML definition
-   * @returns {String} The comment to the specialised inline type
+   * @returns {String} The comment to the specialized inline type
    */
   getInlineTypeComment(itype) {
     let facets = itype.getFixedFacets();
-    let comment = 'This is an in-line specialisation of ' + this.getInlineTypeBase(itype)
+    let comment = 'This is an in-line specialization of ' + this.getInlineTypeBase(itype)
       + '\n with the following constraints:\n\n';
+
     return comment + Object.keys(facets).map(function(name) {
       if (name === 'items') {
         return `- ${name}: ${this.getTypeName(facets[name].extras.nominal)}`;
@@ -108,6 +109,7 @@ module.exports = {
 
     // Calculate unique name
     let typeName = this.getInlineTypeBase(itype);
+
     return 'inline' + typeName[0].toUpperCase() + typeName.substr(1) + '_' +
             crypto.createHash('md5').update(expr).digest('hex');
   },

@@ -22,7 +22,7 @@ const testData = {
 const testInstanceCount = 4;
 describe('#HealthBar', function () {
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <HealthBar
         tasksSummary={testData}

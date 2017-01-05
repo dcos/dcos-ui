@@ -158,6 +158,7 @@ module.exports = Object.assign({}, StoreMixin, {
         type: Route
       }
     );
+
     return routes;
   },
 
@@ -221,7 +222,7 @@ module.exports = Object.assign({}, StoreMixin, {
     const redirectTo = RouterUtil.getRedirectTo();
 
     if (redirectTo) {
-      window.location.href = redirectTo;
+      global.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {
         const loginRedirectRoute = AuthStore.get('loginRedirectRoute');
@@ -257,6 +258,6 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   navigateToLoginPage() {
-    window.location.href = '#/login';
+    global.location.href = '#/login';
   }
 });

@@ -31,6 +31,7 @@ describe('AuthStore', function () {
       cookie.parse = function () {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = '';
+
         return cookieObj;
       };
       expect(AuthStore.isLoggedIn()).toEqual(false);
@@ -40,6 +41,7 @@ describe('AuthStore', function () {
       cookie.parse = function () {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = 'aRandomCode';
+
         return cookieObj;
       };
       expect(AuthStore.isLoggedIn()).toEqual(true);
@@ -88,6 +90,7 @@ describe('AuthStore', function () {
         // {uid: 'joe', description: 'Joe Doe'}
         cookieObj[USER_COOKIE_KEY] =
           'eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ==';
+
         return cookieObj;
       };
     });

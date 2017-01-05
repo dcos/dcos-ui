@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import {Link} from 'react-router';
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -11,9 +12,15 @@ import ConfigurationMap from '../../components/ConfigurationMap';
 import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
 import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
-import MetadataStore from '../../stores/MetadataStore';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
+import MetadataStore from '../../stores/MetadataStore';
 import Page from '../../components/Page';
+import VersionsModal from '../../components/modals/VersionsModal';
+
+const METHODS_TO_BIND = [
+  'handleClusterConfigModalClose',
+  'handleClusterConfigModalOpen'
+];
 
 const ClusterDetailsBreadcrumbs = () => {
   const crumbs = [
@@ -28,7 +35,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
-      open: false
+      isClusterBuildInfoOpen: false
     };
 
     this.store_listeners = [
@@ -42,15 +49,29 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       },
       {
         name: 'metadata',
-        events: ['dcosSuccess']
+        events: ['dcosBuildInfoChange', 'dcosSuccess']
       }
     ];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
+
     ConfigStore.fetchCCID();
     MarathonStore.fetchMarathonInstanceInfo();
+    MetadataStore.fetchDCOSBuildInfo();
+  }
+
+  handleClusterConfigModalOpen() {
+    this.setState({isClusterBuildInfoOpen: true});
+  }
+
+  handleClusterConfigModalClose() {
+    this.setState({isClusterBuildInfoOpen: false});
   }
 
   getLoading() {
@@ -95,17 +116,35 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     };
   }
 
+  getPageHeaderActions() {
+    return [{
+      label: 'View Cluster Configuration',
+      onItemSelect: this.handleClusterConfigModalOpen
+    }];
+  }
+
   render() {
+    const buildInfo = MetadataStore.get('dcosBuildInfo');
     const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
+    let versionsModal = null;
 
     if (marathonHash) {
       marathonDetails = <HashMapDisplay hash={marathonHash} />;
     }
 
+    if (buildInfo != null) {
+      versionsModal = (
+        <VersionsModal onClose={this.handleClusterConfigModalClose}
+          open={this.state.isClusterBuildInfoOpen}
+          versionDump={buildInfo} />
+      );
+    }
+
     return (
       <Page>
-        <Page.Header breadcrumbs={<ClusterDetailsBreadcrumbs />} />
+        <Page.Header actions={this.getPageHeaderActions()}
+          breadcrumbs={<ClusterDetailsBreadcrumbs />} />
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
@@ -113,8 +152,11 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             </ConfigurationMapHeading>
             <HashMapDisplay hash={this.getClusterDetailsHash()} />
             {marathonDetails}
+            <MountService.Mount
+              type="OverviewDetailTab:AdditionalClusterDetails" />
           </ConfigurationMap>
         </div>
+        {versionsModal}
       </Page>
     );
   }

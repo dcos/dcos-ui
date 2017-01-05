@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {HTTP, HTTPS, COMMAND} from '../../constants/HealtCheckProtocols';
 import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
@@ -11,13 +12,13 @@ function mapHealthChecks(item) {
 
   if (item.protocol != null) {
     newItem.protocol = item.protocol;
-    if (item.protocol.toUpperCase() === 'COMMAND' && item.command != null) {
+    if (item.protocol.toUpperCase() === COMMAND && item.command != null) {
       newItem.command = {
         value: item.command
       };
     }
 
-    if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
+    if (item.protocol.toUpperCase() !== COMMAND) {
       newItem.path = item.path;
     }
   }
@@ -32,7 +33,7 @@ module.exports = {
     }
 
     if (this.healthChecks == null) {
-      // `this` is a context which is givven to every reducer so it could
+      // `this` is a context which is given to every reducer so it could
       // cache information.
       // In this case we are caching an array structure and although the
       // output structure is a object. But this enables us to not overwrite
@@ -51,6 +52,7 @@ module.exports = {
         if (item.portIndex > value) {
           item.portIndex--;
         }
+
         return item;
       }).filter((item) => {
         return item != null;
@@ -77,8 +79,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           this.healthChecks[index].protocol = value;
-          if (value === 'HTTP' && this.healthChecks[index].https) {
-            this.healthChecks[index].protocol = 'HTTPS';
+          if (value === HTTP && this.healthChecks[index].https) {
+            this.healthChecks[index].protocol = HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -105,9 +107,9 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
           if (value === true) {
-            this.healthChecks[index].protocol = 'HTTPS';
+            this.healthChecks[index].protocol = HTTPS;
           } else {
-            this.healthChecks[index].protocol = 'HTTP';
+            this.healthChecks[index].protocol = HTTP;
           }
         }
       }
@@ -130,7 +132,7 @@ module.exports = {
         index,
         'protocol'
       ], item.protocol.toUpperCase(), SET));
-      if (item.protocol.toUpperCase() === 'COMMAND') {
+      if (item.protocol.toUpperCase() === COMMAND) {
         if (item.command != null && item.command.value != null) {
           memo.push(new Transaction([
             'healthChecks',
@@ -139,26 +141,18 @@ module.exports = {
           ], item.command.value, SET));
         }
       }
-      if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
-        if (item.protocol === 'HTTPS') {
+      if (item.protocol.toUpperCase().replace(HTTPS, HTTP) === HTTP) {
+        if (item.protocol === HTTPS) {
           memo.push(new Transaction([
             'healthChecks',
             index,
             'https'
           ], true, SET));
         }
-        memo.push(new Transaction([
-          'healthChecks',
-          index,
-          'path'
-        ], item.path, SET));
-        memo.push(new Transaction([
-          'healthChecks',
-          index,
-          'portIndex'
-        ], item.portIndex, SET));
       }
       [
+        'path',
+        'portIndex',
         'gracePeriodSeconds',
         'intervalSeconds',
         'timeoutSeconds',
@@ -195,6 +189,7 @@ module.exports = {
         if (item.portIndex > value) {
           item.portIndex--;
         }
+
         return item;
       }).filter((item) => {
         return item != null;
@@ -213,6 +208,7 @@ module.exports = {
             });
             break;
         }
+
         return state;
       }
 
@@ -220,8 +216,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           state[index].protocol = value;
-          if (value === 'HTTP' && this.cache[index]) {
-            state[index].protocol = 'HTTPS';
+          if (value === HTTP && this.cache[index]) {
+            state[index].protocol = HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -248,13 +244,14 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.cache[index] = value;
           if (value === true) {
-            state[index].protocol = 'HTTPS';
+            state[index].protocol = HTTPS;
           } else {
-            state[index].protocol = 'HTTP';
+            state[index].protocol = HTTP;
           }
         }
       }
     }
+
     return state;
   }
 };

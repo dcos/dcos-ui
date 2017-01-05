@@ -110,6 +110,7 @@ class JobForm extends SchemaForm {
 
     // Return validation status
     this.isValidated = isValidated;
+
     return isValidated;
   }
 

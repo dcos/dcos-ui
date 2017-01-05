@@ -5,6 +5,7 @@ const ResourcesUtil = require('../ResourcesUtil');
 
 function createFnWithResources(used_resources) {
   const instance = new Node({used_resources});
+
   return function () { return new NodesList({items: [instance]}); };
 }
 
@@ -71,12 +72,12 @@ describe('ResourcesUtil', function () {
       });
     });
 
-    it('returns resources that are unkown to the application', function () {
+    it('returns resources that are unknown to the application', function () {
       const resources = ResourcesUtil.getAdditionalResources();
       expect(resources).toEqual(['bananas', 'gpu']);
     });
 
-    it('returns an empty array if there is no unkown resources', function () {
+    it('returns an empty array if there is no unknown resources', function () {
       CompositeState.getNodesList = createFnWithResources({
         cpus: 0, mem: 0, disk: 0
       });

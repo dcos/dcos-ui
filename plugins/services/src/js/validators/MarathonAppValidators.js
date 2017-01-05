@@ -22,6 +22,7 @@ const MarathonAppValidators = {
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
       const notBothMessage = 'Please specify only one of `cmd` or `args`';
+
       return [
         {path: ['cmd'], message: notBothMessage},
         {path: ['args'], message: notBothMessage}

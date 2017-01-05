@@ -46,6 +46,7 @@ const TabsUtil = {
       .map((val) => val[0])
       .reduce((acc, curr) => {
         acc[curr] = tabs[curr].content;
+
         return acc;
       }, {});
   }

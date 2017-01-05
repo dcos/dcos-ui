@@ -13,6 +13,7 @@ const performComplexMath = function (Store, prevState, action, factor) {
   //
   // Lets just do some addition and multiply by our options parameter
   newState.countSoFar = prevState.countSoFar + (action.payload * factor);
+
   // Don't mutate state - return new state
   return Object.assign({}, prevState, newState);
 };

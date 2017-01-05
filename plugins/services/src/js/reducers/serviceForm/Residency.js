@@ -41,6 +41,7 @@ module.exports = {
     }
     if (type === SET && joinedPath === 'residency') {
       this.residency = value;
+
       return value;
     }
 
@@ -51,6 +52,7 @@ module.exports = {
     if (state.residency == null) {
       return [];
     }
+
     return new Transaction(['residency'], state.residency);
   }
 };

@@ -74,7 +74,7 @@ describe('JobValidatorUtil', function () {
         '* 1-10 4,5,6,7 1/1 1-2/3,4,5,6-10')).toBe(true);
     });
 
-    it('should properly handle compoents that do not start with a number or *', function () {
+    it('should properly handle components that do not start with a number or *', function () {
       expect(JobValidatorUtil.isValidCronSchedule('-1 * * * *')).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule('/2 * * * *')).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule(',2 * * * *')).toBe(false);

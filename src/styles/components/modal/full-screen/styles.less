@@ -96,7 +96,11 @@
   }
 
   .modal-full-screen-header-title {
+    color: @modal-full-screen-header-title-color;
     flex: 1 1 auto;
+    font-size: @modal-full-screen-header-title-font-size;
+    font-weight: @modal-full-screen-header-title-font-weight;
+    line-height: @modal-full-screen-header-title-line-height;
     text-align: center;
   }
 
@@ -173,6 +177,10 @@
 & when (@full-screen-modal-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
+
+    .modal-full-screen-header-title {
+      line-height: @modal-full-screen-header-title-line-height-screen-large;
+    }
 
     .modal-full-screen-actions-primary {
       right: @pod-margin-right-screen-large;

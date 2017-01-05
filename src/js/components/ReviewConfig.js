@@ -100,6 +100,7 @@ class ReviewConfig extends React.Component {
             this.getFieldSubheader(fieldKey),
             this.renderHashMapDisplay(fieldValue, uniqueKey)
           );
+
           return;
         }
 

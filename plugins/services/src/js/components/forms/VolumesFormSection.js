@@ -248,7 +248,7 @@ class VolumesFormSection extends Component {
           <a
             className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'localVolumes'})}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Local Volumes
+            <Icon color="purple" id="plus" size="tiny" /> Add Local Volume
           </a>
         </div>
         <h2 className="short-bottom">
@@ -263,7 +263,7 @@ class VolumesFormSection extends Component {
             <a
               className="button button-primary-link button-flush"
               onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add External Volumes
+              <Icon color="purple" id="plus" size="tiny" /> Add External Volume
             </a>
           </FormGroup>
         </FormRow>

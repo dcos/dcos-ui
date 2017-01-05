@@ -151,6 +151,7 @@ var BarChart = React.createClass({
 
   formatYAxis(ticks, maxY) {
     var formatPercent = d3.scale.linear().tickFormat(ticks, '.0%');
+
     return (d) => {
       const axisConfiguration = this.props.axisConfiguration;
       const hideMatch = axisConfiguration.y.hideMatch;

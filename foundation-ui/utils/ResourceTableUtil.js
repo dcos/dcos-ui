@@ -28,6 +28,7 @@ function leftAlignCaret(prop) {
 
 function getUpdatedTimestamp(model) {
   const lastStatus = Util.last(model.statuses);
+
   return (lastStatus && lastStatus.timestamp) || null;
 }
 

@@ -111,7 +111,7 @@ describe('#JSONParser', function () {
       ]);
     });
 
-    it('shouldn\t add loadBalanced for wrong label', function () {
+    it('shouldn\'t add loadBalanced for wrong label', function () {
       expect(PortMappings.JSONParser({
         type: DOCKER,
         container: {

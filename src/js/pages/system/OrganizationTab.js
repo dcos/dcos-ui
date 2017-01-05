@@ -342,6 +342,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
       return items.filter(function (item) {
         const itemID = item[itemIDName];
+
         return selectedItems[itemID] || false;
       });
     } else {
@@ -390,6 +391,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     if (selectedIDSet[row[this.props.itemID]]) {
       return {className: 'selected'};
     }
+
     return {};
   }
 

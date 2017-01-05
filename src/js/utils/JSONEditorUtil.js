@@ -1,6 +1,6 @@
 /**
  * This module contains the utility functions for the `JSONEditor` component,
- * separated into a different file solely for organisation purposes.
+ * separated into a different file solely for organization purposes.
  */
 var JSONEditorUtil = {
 

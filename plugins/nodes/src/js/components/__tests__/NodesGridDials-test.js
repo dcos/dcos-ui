@@ -29,7 +29,7 @@ describe('NodesGridDials', function () {
 
   beforeEach(function () {
     this.hosts = [new Node(Object.assign({}, mockHost))];
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <NodesGridDials
         hosts={this.hosts}
@@ -128,7 +128,7 @@ describe('NodesGridDials', function () {
       this.resourceType = ResourcesUtil.cpus;
     });
 
-    it('returns different configurations depending on the active paramter', function () {
+    it('returns different configurations depending on the active parameter', function () {
       let host = Object.assign({}, this.hosts[0]);
       host.active = true;
       var config1 = this.instance.getDialConfig(new Node(host));

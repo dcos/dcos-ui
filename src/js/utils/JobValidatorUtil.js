@@ -8,6 +8,7 @@ const JobValidatorUtil = {
     // This RegExp is taken from the metronome schema definition:
     // https://github.com/dcos/metronome/blob/master/api/src/main/resources/public/api/v1/schema/jobspec.schema.json
     const metronomeIdPattern = /^([a-z0-9]([a-z0-9-]*[a-z0-9]+)*)([.][a-z0-9]([a-z0-9-]*[a-z0-9]+)*)*$/;
+
     return metronomeIdPattern.test(serviceID);
 
   },
@@ -25,6 +26,7 @@ const JobValidatorUtil = {
 
     // Make sure each component contains valid characters
     const cronComponentPattern = /^[0-9\*]+([0-9\-,\/\*])*$/;
+
     return components.every(function (component) {
       return cronComponentPattern.test(component);
     });

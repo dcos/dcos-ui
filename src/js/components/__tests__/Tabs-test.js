@@ -18,7 +18,7 @@ describe('Tabs', function () {
 
   beforeEach(function () {
     this.handleTabChange = jest.fn();
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
       <Tabs vertical={true} handleTabChange={this.handleTabChange} activeTab="foo">
         <TabButtonList>

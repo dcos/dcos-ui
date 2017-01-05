@@ -20,7 +20,7 @@ var getInstanceWithProps = function (props, container) {
 describe('DialChart', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = getInstanceWithProps({
       data: [],
       label: 'Items',

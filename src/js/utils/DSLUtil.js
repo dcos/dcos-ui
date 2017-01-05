@@ -28,11 +28,13 @@ const DSLUtil = {
         const filterStr = DSLUtil.getNodeString(filter);
         if (memo.found[filterStr] == null) {
           memo.found[filterStr] = true;
+
           return memo;
         }
 
         // If we found a repeating token, mark repeating
         memo.isRepeating = true;
+
         return memo;
       },
       {isRepeating: false, found: {}}
@@ -45,7 +47,7 @@ const DSLUtil = {
 
   /**
    * This function checks if the given partFilters can create clean results
-   * with the given AST sturcutre as input.
+   * with the given AST structure as input.
    *
    * @param {DSLExpression} expression - The parsed expression
    * @param {Array} partFilters - An array of `FilterNode` to use for match ref.
@@ -169,6 +171,7 @@ const DSLUtil = {
         //
         case DSLFilterTypes.ATTRIB:
           memo[prop] = (matchingNodes.length === 1);
+
           return memo;
 
         //
@@ -177,10 +180,12 @@ const DSLUtil = {
         case DSLFilterTypes.EXACT:
           if (matchingNodes.length === 0) {
             memo[prop] = null;
+
             return memo;
           }
 
           memo[prop] = matchingNodes[0].filterParams.text;
+
           return memo;
 
         //
@@ -190,6 +195,7 @@ const DSLUtil = {
         case DSLFilterTypes.FUZZY:
           if (matchingNodes.length === 0) {
             memo[prop] = null;
+
             return memo;
           }
 
@@ -203,9 +209,9 @@ const DSLUtil = {
           //       since white spaces at the end of the expression are not part
           //       of a regular DSL expression and are trimmed.
           //
-          const tailingWaitspace = ENDING_WHITESPACE.exec(expression.value);
-          if (tailingWaitspace) {
-            memo[prop] += tailingWaitspace[0];
+          const tailingWhitespace = ENDING_WHITESPACE.exec(expression.value);
+          if (tailingWhitespace) {
+            memo[prop] += tailingWhitespace[0];
           }
 
           return memo;

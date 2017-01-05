@@ -24,7 +24,7 @@ const ISTYPING_TIMEOUT = 2000;
 
 /**
  * This is a high-order component on top of `AceEditor` that abstracts the JSON
- * string manipulation and allows object-level access to the underlaying data.
+ * string manipulation and allows object-level access to the underlying data.
  *
  * It's features are:
  *
@@ -96,7 +96,7 @@ class JSONEditor extends React.Component {
     this.isTyping = false;
     this.timerIsTyping = null;
 
-    // Initial state synchronisation
+    // Initial state synchronization
     this.updateLocalJsonState(initialText);
 
     METHODS_TO_BIND.forEach((method) => {
@@ -108,7 +108,7 @@ class JSONEditor extends React.Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    // Synchronise error updates
+    // Synchronize error updates
     if (!deepEqual(this.externalErrors, nextProps.errors)) {
       this.externalErrors = (nextProps.errors || []).slice();
       this.updateEditorState();
@@ -149,7 +149,7 @@ class JSONEditor extends React.Component {
   /**
    * Since ACEEditor component does not behave nicely when we update the text
    * as a response to an `onChange` event, we must be very careful never to
-   * render the ACEeditor when the user types.
+   * render the ACEEditor when the user types.
    *
    * This way, the component is updated *only* when:
    *
@@ -189,14 +189,14 @@ class JSONEditor extends React.Component {
    * @override
    */
   componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize);
+    global.addEventListener('resize', this.handleWindowResize);
   }
 
   /**
    * @override
    */
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize);
+    global.removeEventListener('resize', this.handleWindowResize);
   }
 
   handleWindowResize() {
@@ -221,7 +221,7 @@ class JSONEditor extends React.Component {
   handleEditorLoad(editor) {
     this.aceEditor = editor;
 
-    // Disable syntax highlighing worker, since we are responsible for feeding
+    // Disable syntax highlighting worker, since we are responsible for feeding
     // the correct syntax error + provided error markers
     const editorSession = editor.getSession();
     editorSession.setUseWorker(false);
@@ -229,7 +229,7 @@ class JSONEditor extends React.Component {
     // Enable soft tabs and set tab space to 2
     editorSession.setTabSize(2);
 
-    // Synchronise editor state
+    // Synchronize editor state
     this.updateEditorState();
 
     // -- BEGIN HACK -----------------------------------------------------------
@@ -240,10 +240,10 @@ class JSONEditor extends React.Component {
     //
     // TODO: Properly solve this in CSS
     //
-    const MutationObserver = window.MutationObserver
-      || window.mozMutationObserver
-      || window.webkitMutationObserver
-      || window.msMutationObserver;
+    const MutationObserver = global.MutationObserver
+      || global.mozMutationObserver
+      || global.webkitMutationObserver
+      || global.msMutationObserver;
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (!mutation.addedNodes) {
@@ -346,7 +346,7 @@ class JSONEditor extends React.Component {
 
   /**
    * This function assigns the local state of the JSON text, outside the React
-   * state, since this does not nesseceraly trigger an update.
+   * state, since this does not necessarily trigger an update.
    *
    * This is useful in order to have the latest available metainformation when
    * the user changes the text (on the `handleChange` handler), but we don't
@@ -437,7 +437,7 @@ class JSONEditor extends React.Component {
     return this.externalErrors.map((error) => {
       const {path, message} = error;
 
-      // All errorrs with empty paths go to line 0
+      // All errors with empty paths go to line 0
       if (path.length === 0) {
         return {
           row: 0,
@@ -460,7 +460,7 @@ class JSONEditor extends React.Component {
         };
       }
 
-      // When we are not able to find an exact match we are going to graduately
+      // When we are not able to find an exact match we are going to gradually
       // increase the error scope until we find a token that exists.
       //
       // If nothing is found, default to root ([])

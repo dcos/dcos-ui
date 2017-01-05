@@ -31,7 +31,7 @@ const UniversePackagesList = require('../../../structs/UniversePackagesList');
 describe('PackagesTab', function () {
 
   beforeEach(function () {
-    this.container = document.createElement('div');
+    this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(<PackagesTab />, this.container);
   });
 

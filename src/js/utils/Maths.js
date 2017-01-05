@@ -3,6 +3,7 @@ var Maths = {
   round(value, precision) {
     precision = precision || 0;
     var factor = Math.pow(10, precision);
+
     return Math.round(value * factor) / factor;
   },
 

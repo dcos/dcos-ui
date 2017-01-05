@@ -2,9 +2,9 @@ import d3 from 'd3';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var AnitmationCircle = React.createClass({
+var AnimationCircle = React.createClass({
 
-  displayName: 'AnitmationCircle',
+  displayName: 'AnimationCircle',
 
   propTypes: {
     className: React.PropTypes.string,
@@ -65,4 +65,4 @@ var AnitmationCircle = React.createClass({
   }
 });
 
-module.exports = AnitmationCircle;
+module.exports = AnimationCircle;

@@ -49,7 +49,7 @@ module.exports = {
   },
 
   toggleFullContent() {
-    const banner = document.querySelector('.banner-plugin-wrapper');
+    const banner = global.document.querySelector('.banner-plugin-wrapper');
     banner.classList.toggle('display-full');
   },
 
@@ -58,7 +58,7 @@ module.exports = {
       return;
     }
 
-    const frame = document.getElementById('banner-plugin-iframe');
+    const frame = global.document.getElementById('banner-plugin-iframe');
 
     if (frame == null) {
       return;
@@ -71,7 +71,7 @@ module.exports = {
     this.historyListenerAdded = true;
 
     const frameWindow = frame.contentWindow;
-    const topWindow = window;
+    const topWindow = global;
 
     frameWindow.addEventListener('hashchange', function () {
       topWindow.location.hash = frameWindow.location.hash;
@@ -90,7 +90,7 @@ module.exports = {
         <iframe
           frameBorder="0"
           id="banner-plugin-iframe"
-          src={`./index.html${window.location.hash}`} />
+          src={`./index.html${global.location.hash}`} />
 
         {this.getFooter()}
       </div>

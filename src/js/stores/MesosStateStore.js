@@ -83,7 +83,7 @@ class MesosStateStore extends GetSetBaseStore {
           this.processStateSuccess(action.data);
           break;
         case ActionTypes.REQUEST_MESOS_STATE_ERROR:
-          this.processStateError();
+          this.processStateError(action.xhr);
           break;
         case ActionTypes.REQUEST_MESOS_STATE_ONGOING:
           this.processOngoingRequest();
@@ -118,6 +118,7 @@ class MesosStateStore extends GetSetBaseStore {
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
       startPolling();
+
       return;
     }
 
@@ -217,6 +218,7 @@ class MesosStateStore extends GetSetBaseStore {
     if (foundTask == null) {
       return null;
     }
+
     return new Task(foundTask);
   }
 
@@ -239,7 +241,6 @@ class MesosStateStore extends GetSetBaseStore {
     const tasks = this.getSchedulerTasks();
 
     return tasks.find(function ({labels}) {
-
       return labels.some(({key, value}) => {
         return key === 'DCOS_PACKAGE_FRAMEWORK_NAME' && value === serviceName;
       });
@@ -318,8 +319,8 @@ class MesosStateStore extends GetSetBaseStore {
     this.emit(MESOS_STATE_CHANGE);
   }
 
-  processStateError() {
-    this.emit(MESOS_STATE_REQUEST_ERROR);
+  processStateError(xhr) {
+    this.emit(MESOS_STATE_REQUEST_ERROR, xhr);
   }
 
   processOngoingRequest() {
