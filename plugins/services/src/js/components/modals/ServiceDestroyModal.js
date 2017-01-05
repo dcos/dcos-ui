@@ -1,6 +1,7 @@
 import {Confirm} from 'reactjs-components';
-import React, {PropTypes} from 'react';
+import {routerShape} from 'react-router';
 import PureRender from 'react-addons-pure-render-mixin';
+import React, {PropTypes} from 'react';
 
 import AppLockedMessage from './AppLockedMessage';
 import Framework from '../../structs/Framework';
@@ -8,6 +9,12 @@ import ModalHeading from '../../../../../../src/js/components/modals/ModalHeadin
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
+
+// This needs to be at least equal to @modal-animation-duration
+const REDIRECT_DELAY = 300;
+const METHODS_TO_BIND = [
+  'handleRightButtonClick'
+];
 
 class ServiceDestroyModal extends React.Component {
   constructor() {
@@ -18,6 +25,10 @@ class ServiceDestroyModal extends React.Component {
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentWillUpdate(nextProps) {
@@ -65,6 +76,11 @@ class ServiceDestroyModal extends React.Component {
     return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
+  handleRightButtonClick() {
+    this.props.deleteItem(this.shouldForceUpdate());
+    this.redirectToServices();
+  }
+
   getDestroyMessage() {
     const {service} = this.props;
     let serviceName = '';
@@ -106,9 +122,18 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
+  redirectToServices() {
+    const {router} = this.context;
+
+    // Close the modal and redirect after the close animation has completed
+    this.props.onClose();
+    setTimeout(() => {
+      router.push({pathname: '/services/overview'});
+    }, REDIRECT_DELAY);
+  }
+
   render() {
     const {
-      deleteItem,
       isPending,
       onClose,
       open,
@@ -125,7 +150,7 @@ class ServiceDestroyModal extends React.Component {
       itemText = 'Group';
     }
 
-    let heading = (
+    const heading = (
       <ModalHeading className="text-danger">
         Destroy {itemText}
       </ModalHeading>
@@ -141,7 +166,7 @@ class ServiceDestroyModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={() => deleteItem(this.shouldForceUpdate())}
+        rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}>
         {this.getDestroyMessage()}
         {this.getErrorMessage()}
@@ -149,6 +174,10 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 }
+
+ServiceDestroyModal.contextTypes = {
+  router: routerShape
+};
 
 ServiceDestroyModal.propTypes = {
   deleteItem: PropTypes.func.isRequired,
