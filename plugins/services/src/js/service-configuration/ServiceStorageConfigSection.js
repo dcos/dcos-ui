@@ -106,6 +106,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 volume.size = appVolume.persistent.size;
                 volume.type.push('Persistent', 'Local');
               } else if (appVolume.external != null) {
+                volume.size = appVolume.external.size;
                 volume.type.push('External');
               } else {
                 volume.type.push('Host', 'Volume');
