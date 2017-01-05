@@ -199,7 +199,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       return (
         <div>
           <a className="button button-primary-link button-flush"
-            onClick={this.props.onSetItem.bind(this, {path, value: {}})}>
+            onClick={this.props.onAddItem.bind(this, {path})}>
             + Add Health Check
           </a>
         </div>
@@ -208,7 +208,7 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     return (
       <FormGroupContainer
-        onRemove={this.props.onSetItem.bind(this, {path, value: null})}>
+        onRemove={this.props.onRemoveItem.bind(this, {path})}>
         <FormRow>
           <FormGroup className="column-6">
             <FieldLabel>Protocol</FieldLabel>
@@ -276,15 +276,17 @@ class MultiContainerHealthChecksFormSection extends Component {
 MultiContainerHealthChecksFormSection.defaultProps = {
   data: {},
   errors: {},
-  onSetItem() {},
-  handleTabChange() {}
+  handleTabChange() {},
+  onAddItem() {},
+  onRemoveItem() {}
 };
 
 MultiContainerHealthChecksFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
-  onSetItem: React.PropTypes.func,
-  handleTabChange: React.PropTypes.func
+  handleTabChange: React.PropTypes.func,
+  onAddItem: React.PropTypes.func,
+  onRemoveItem: React.PropTypes.func
 };
 
 module.exports = MultiContainerHealthChecksFormSection;

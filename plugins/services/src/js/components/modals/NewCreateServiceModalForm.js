@@ -39,7 +39,6 @@ const METHODS_TO_BIND = [
   'handleFormBlur',
   'handleJSONChange',
   'handleAddItem',
-  'handleSetItem',
   'handleRemoveItem',
   'getNewStateForJSON'
 ];
@@ -236,16 +235,6 @@ class NewCreateServiceModalForm extends Component {
     this.setState({batch, appConfig: this.getAppConfig(batch)});
   }
 
-  handleSetItem({value, path}) {
-    let {batch} = this.state;
-
-    batch = batch.add(
-      new Transaction(path.split('.'), value, TransactionTypes.SET)
-    );
-
-    this.setState({batch, appConfig: this.getAppConfig(batch)});
-  }
-
   handleRemoveItem({value, path}) {
     let {batch} = this.state;
 
@@ -378,7 +367,8 @@ class NewCreateServiceModalForm extends Component {
             data={data}
             errors={errorMap}
             handleTabChange={this.props.handleTabChange}
-            onSetItem={this.handleSetItem} />
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
           <MultiContainerVolumesFormSection
