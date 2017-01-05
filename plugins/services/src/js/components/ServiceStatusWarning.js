@@ -10,7 +10,7 @@ import ServiceTree from '../structs/ServiceTree';
 
 class ServiceStatusWarning extends Component {
   getTooltipContent(timeWaiting) {
-    return `DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`;
+    return `DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`;
   }
   render() {
     const {item} = this.props;
