@@ -408,7 +408,7 @@ class GeneralServiceFormSection extends Component {
 
         <FormRow>
           <FormGroup
-            className="column-8"
+            className="column-9"
             required={true}
             showError={Boolean(errors.id)}>
             <FieldLabel>
@@ -433,7 +433,7 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
 
           <FormGroup
-            className="column-4"
+            className="column-3"
             showError={Boolean(errors.instances)}>
             <FieldLabel>
               Instances
