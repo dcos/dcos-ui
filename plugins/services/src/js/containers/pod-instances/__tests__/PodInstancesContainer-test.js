@@ -65,7 +65,7 @@ describe('PodInstancesContainer', function () {
 
       it('should properly return matching instances', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -93,7 +93,7 @@ describe('PodInstancesContainer', function () {
 
       it('should properly return matching instances and containers', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -113,7 +113,7 @@ describe('PodInstancesContainer', function () {
 
       it('should always show instance total resources', function () {
         var mem = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-mem')
+            this.instance, 'task-table-column-mem')
             .filter(JestUtil.filterByTagName('TD'))
             .reduce(JestUtil.reduceTextContentOfSelector(
               'span'), []);
@@ -146,7 +146,7 @@ describe('PodInstancesContainer', function () {
 
       it('should properly show all instances', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -178,7 +178,7 @@ describe('PodInstancesContainer', function () {
 
       it('should properly show no instances', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 

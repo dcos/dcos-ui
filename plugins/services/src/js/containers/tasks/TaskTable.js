@@ -12,6 +12,20 @@ import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
 import TaskUtil from '../../utils/TaskUtil';
 import Units from '../../../../../../src/js/utils/Units';
 
+const tableColumnClasses = {
+  checkbox: 'task-table-column-checkbox',
+  id: 'task-table-column-primary',
+  name: 'task-table-column-name',
+  address: 'task-table-column-host-address',
+  status: 'task-table-column-status',
+  health: 'task-table-column-health',
+  logs: 'task-table-column-logs',
+  cpus: 'task-table-column-cpus',
+  mem: 'task-table-column-mem',
+  updated: 'task-table-column-updated',
+  version: 'task-table-column-version'
+};
+
 const METHODS_TO_BIND = [
   'getStatusValue',
   'renderHeadline',
@@ -21,8 +35,6 @@ const METHODS_TO_BIND = [
   'renderStats',
   'renderVersion'
 ];
-
-const RIGHT_ALIGN_PROPS = ['cpus', 'disk', 'log', 'mem', 'version'];
 
 class TaskTable extends React.Component {
   constructor() {
@@ -46,10 +58,7 @@ class TaskTable extends React.Component {
   }
 
   getClassName(prop, sortBy, row) {
-    return classNames({
-      'text-align-right': RIGHT_ALIGN_PROPS.includes(prop),
-      'hidden-small-down': ['host', 'cpus', 'mem'].includes(prop),
-      'hidden-large-down': ['name', 'status', 'health', 'version', 'log'].includes(prop),
+    return classNames(tableColumnClasses[prop], {
       'highlight': prop === sortBy.prop,
       'clickable': row == null // this is a header
     });
@@ -115,7 +124,7 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'log',
+        prop: 'logs',
         render: this.renderLog,
         sortable: false,
         sortFunction
@@ -175,17 +184,17 @@ class TaskTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40px'}} />
+        <col className={tableColumnClasses.checkbox} />
         <col />
-        <col style={{width: '10%'}} className="hidden-medium-down" />
-        <col style={{width: '100px'}} className="hidden-small-down" />
-        <col style={{width: '80px'}} className="hidden-small-down" />
-        <col style={{width: '40px'}} className="hidden-small-down" />
-        <col style={{width: '40px'}} className="hidden-large-down" />
-        <col style={{width: '85px'}} className="hidden-small-down" />
-        <col style={{width: '85px'}} className="hidden-small-down" />
-        <col style={{width: '120px'}} />
-        <col style={{width: '110px'}} className="hidden-large-down"/>
+        <col className={tableColumnClasses.name} />
+        <col className={tableColumnClasses.address} />
+        <col className={tableColumnClasses.status} />
+        <col className={tableColumnClasses.health} />
+        <col className={tableColumnClasses.logs} />
+        <col className={tableColumnClasses.cpus} />
+        <col className={tableColumnClasses.mem} />
+        <col className={tableColumnClasses.updated} />
+        <col className={tableColumnClasses.version} />
       </colgroup>
     );
   }

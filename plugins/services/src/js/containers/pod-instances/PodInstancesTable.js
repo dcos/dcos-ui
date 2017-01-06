@@ -18,16 +18,16 @@ import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 import Units from '../../../../../../src/js/utils/Units';
 
 const tableColumnClasses = {
-  checkbox: 'pod-instances-table-column-checkbox',
-  name: 'pod-instances-table-column-primary',
-  address: 'pod-instances-table-column-host-address',
-  status: 'pod-instances-table-column-status',
-  health: 'pod-instances-table-column-health',
-  logs: 'pod-instances-table-column-logs',
-  cpus: 'pod-instances-table-column-cpus',
-  mem: 'pod-instances-table-column-mem',
-  updated: 'pod-instances-table-column-updated',
-  version: 'pod-instances-table-column-version'
+  checkbox: 'task-table-column-checkbox',
+  name: 'task-table-column-primary',
+  address: 'task-table-column-host-address',
+  status: 'task-table-column-status',
+  health: 'task-table-column-health',
+  logs: 'task-table-column-logs',
+  cpus: 'task-table-column-cpus',
+  mem: 'task-table-column-mem',
+  updated: 'task-table-column-updated',
+  version: 'task-table-column-version'
 };
 
 const METHODS_TO_BIND = [
@@ -446,7 +446,7 @@ class PodInstancesTable extends React.Component {
     return (
       <ExpandingTable
         allowMultipleSelect={true}
-        className="pod-instances-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="task-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
         childRowClassName="expanding-table-child"
         checkedItemsMap={checkedItems}
         columns={this.getColumns()}

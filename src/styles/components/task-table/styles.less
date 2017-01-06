@@ -1,13 +1,12 @@
-& when (@pod-instances-table-enabled) {
+& when (@task-table-enabled) {
 
-  .pod-instances-table-column {
+  .task-table-column {
 
     &-host-address,
-    &-status,
-    &-health,
-    &-logs,
     &-cpus,
     &-mem,
+    &-name,
+    &-updated,
     &-version {
       display: none;
     }
@@ -18,6 +17,10 @@
 
     &-primary {
       width: auto;
+    }
+
+    &-name {
+      width: 80px;
     }
 
     &-host-address {
@@ -52,16 +55,21 @@
       white-space: break-all;
       width: 175px;
     }
+
+    &-cpus,
+    &-mem {
+      text-align: right;
+    }
   }
 }
 
-& when (@pod-instances-table-enabled) and (@layout-screen-small-enabled) {
+& when (@task-table-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .pod-instances-table-column {
+    .task-table-column {
 
-      &-host-address {
+      &-name {
         display: table-cell;
 
         col& {
@@ -72,15 +80,12 @@
   }
 }
 
-& when (@pod-instances-table-enabled) and (@layout-screen-large-enabled) {
+& when (@task-table-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .pod-instances-table-column {
+    .task-table-column {
 
-      &-status,
-      &-health,
-      &-logs,
       &-cpus,
       &-mem {
         display: table-cell;
@@ -89,16 +94,22 @@
           display: table-column;
         }
       }
+
+      &-name {
+        width: 120px;
+      }
     }
   }
 }
 
-& when (@pod-instances-table-enabled) and (@layout-screen-jumbo-enabled) {
+& when (@task-table-enabled) and (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .pod-instances-table-column {
+    .task-table-column {
 
+      &-host-address,
+      &-updated,
       &-version {
         display: table-cell;
 
