@@ -76,11 +76,11 @@ var IdentifyModal = React.createClass({
     var emailClassSet = classNames({
       'form-group': true,
       'flush-bottom': true,
-      'form-group-error': data.emailHasError
+      'form-group-danger': data.emailHasError
     });
 
     var emailHelpBlock = classNames({
-      'form-help-block': true,
+      'form-control-feedback': true,
       'hidden': !data.emailHasError
     });
 

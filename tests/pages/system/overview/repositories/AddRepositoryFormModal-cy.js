@@ -29,11 +29,11 @@ describe('Add Repository Form Modal', function () {
       .contains('Add')
       .click();
 
-    cy.get('.modal .form-help-block')
+    cy.get('.modal .form-control-feedback')
       .eq(0)
       .should('contain', 'Field cannot be empty.');
 
-    cy.get('.modal .form-help-block')
+    cy.get('.modal .form-control-feedback')
       .eq(1)
       .should('contain', 'Must be a valid url with http:// or https://');
   });
@@ -44,7 +44,7 @@ describe('Add Repository Form Modal', function () {
       .contains('Add')
       .click();
 
-    cy.get('.modal .form-help-block')
+    cy.get('.modal .form-control-feedback')
       .should('contain', 'Must be a valid url with http:// or https://');
   });
 
