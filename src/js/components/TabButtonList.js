@@ -40,7 +40,7 @@ class TabButtonList extends React.Component {
 TabButtonList.propTypes = {
   activeTab: React.PropTypes.string,
   children: React.PropTypes.node,
-  className: React.PropTypes.oneOf([
+  className: React.PropTypes.oneOfType([
     React.PropTypes.array,
     React.PropTypes.object,
     React.PropTypes.string
