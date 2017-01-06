@@ -50,7 +50,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Container Image</ConfigurationMapLabel>
         <ConfigurationMapValueWithDefault
-          value={findNestedPropertyInObject(appConfig, 'image.id')} />
+          value={findNestedPropertyInObject(containerConfig, 'image.id')} />
         <ConfigurationMapEditAction
           onEditClick={onEditClick}
           tabViewID={tabViewID} />
@@ -58,7 +58,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
         <ConfigurationMapBooleanValue
-          value={findNestedPropertyInObject(appConfig, 'image.forcePull')} />
+          value={findNestedPropertyInObject(containerConfig, 'image.forcePull')} />
         <ConfigurationMapEditAction
           onEditClick={onEditClick}
           tabViewID={tabViewID} />
