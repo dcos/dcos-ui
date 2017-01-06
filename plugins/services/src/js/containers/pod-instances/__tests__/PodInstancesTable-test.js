@@ -65,7 +65,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the name column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -78,7 +78,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the address column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-host-address')
+            this.instance, 'task-table-column-host-address')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -91,7 +91,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the status column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-status')
+            this.instance, 'task-table-column-status')
             .reduce(JestUtil.reduceTextContentOfSelector('.status-text'),
               []);
 
@@ -104,7 +104,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the cpu column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-cpus')
+            this.instance, 'task-table-column-cpus')
             .filter(JestUtil.filterByTagName('TD'))
             .map(JestUtil.mapTextContent);
 
@@ -117,7 +117,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the mem column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-mem')
+            this.instance, 'task-table-column-mem')
             .filter(JestUtil.filterByTagName('TD'))
             .map(JestUtil.mapTextContent);
 
@@ -130,7 +130,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the updated column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-updated')
+            this.instance, 'task-table-column-updated')
             .filter(JestUtil.filterByTagName('TD'))
             .map(JestUtil.mapTextContent);
 
@@ -143,7 +143,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the version column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-version')
+            this.instance, 'task-table-column-version')
             .filter(JestUtil.filterByTagName('TD'))
             .map(JestUtil.mapTextContent);
 
@@ -165,13 +165,13 @@ describe('PodInstancesTable', function () {
 
         // 1 click on the header (ascending)
         const columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')[0];
+            this.instance, 'task-table-column-primary')[0];
         TestUtils.Simulate.click(columnHeader);
       });
 
       it('should properly sort the name column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -193,14 +193,14 @@ describe('PodInstancesTable', function () {
 
         // 2 clicks on the header (descending)
         const columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')[0];
+            this.instance, 'task-table-column-primary')[0];
         TestUtils.Simulate.click(columnHeader);
         TestUtils.Simulate.click(columnHeader);
       });
 
       it('should properly sort the name column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -223,7 +223,7 @@ describe('PodInstancesTable', function () {
 
         // Expand all table rows by clicking on each one of them
         TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary'
+            this.instance, 'task-table-column-primary'
         ).forEach(function (element) {
           const target = element.querySelector('.is-expandable');
           if (target) {
@@ -234,7 +234,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the name column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-primary')
+            this.instance, 'task-table-column-primary')
             .reduce(JestUtil.reduceTextContentOfSelector(
               '.collapsing-string-full-string'), []);
 
@@ -253,7 +253,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the address column', function () {
         var columns = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-host-address');
+            this.instance, 'task-table-column-host-address');
         const agents = columns.reduce(JestUtil.reduceTextContentOfSelector(
             '.collapsing-string-full-string'), []);
         const ports = columns.reduce(JestUtil.reduceTextContentOfSelector('a'), []);
@@ -275,7 +275,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the status column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-status')
+            this.instance, 'task-table-column-status')
             .reduce(JestUtil.reduceTextContentOfSelector('.status-text'), []);
 
         expect(names).toEqual([
@@ -293,7 +293,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the cpu column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-cpus')
+            this.instance, 'task-table-column-cpus')
             .filter(JestUtil.filterByTagName('TD'))
             .reduce(JestUtil.reduceTextContentOfSelector('div > div > span'), []);
 
@@ -312,7 +312,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the mem column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-mem')
+            this.instance, 'task-table-column-mem')
             .filter(JestUtil.filterByTagName('TD'))
             .reduce(JestUtil.reduceTextContentOfSelector('div > div > span'), []);
 
@@ -331,7 +331,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the updated column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-updated')
+            this.instance, 'task-table-column-updated')
             .filter(JestUtil.filterByTagName('TD'))
             .reduce(JestUtil.reduceTextContentOfSelector('time'), []);
 
@@ -350,7 +350,7 @@ describe('PodInstancesTable', function () {
 
       it('should properly render the version column', function () {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'pod-instances-table-column-version')
+            this.instance, 'task-table-column-version')
             .filter(JestUtil.filterByTagName('TD'))
             .map(JestUtil.mapTextContent);
 
