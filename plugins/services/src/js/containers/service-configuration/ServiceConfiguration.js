@@ -128,9 +128,10 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const {service} = this.props;
     const versions = service.getVersions();
 
-    let versionItems = [];
-    for (const version of versions.keys()) {
-      let localeVersion = new Date(version).toLocaleString();
+    const versionItems = Array.from(versions.keys()).sort((a, b) => {
+      return new Date(a) - new Date(b);
+    }).map((version) => {
+      const localeVersion = new Date(version).toLocaleString();
       let itemCaption = localeVersion;
       if (version === service.getVersion()) {
         itemCaption = (
@@ -141,7 +142,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         );
       }
 
-      versionItems.push({
+      return {
         id: version,
         html: (
           <div className="button-split-content-wrapper">
@@ -159,8 +160,8 @@ class ServiceConfiguration extends mixin(StoreMixin) {
             </span>
           </div>
         )
-      });
-    }
+      };
+    });
 
     return (
       <Dropdown
