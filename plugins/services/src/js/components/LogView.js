@@ -28,7 +28,7 @@ class LogView extends React.Component {
     });
 
     this.handleLogContainerScroll = Util.throttleScroll(
-      this.handleLogContainerScroll, 500
+      this.handleLogContainerScroll, 50
     );
 
     this.handleWindowResize = Util.debounce(
@@ -177,7 +177,7 @@ class LogView extends React.Component {
 
   checkIfCloseToTop(container) {
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    if (distanceFromTop < 100) {
+    if (distanceFromTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
