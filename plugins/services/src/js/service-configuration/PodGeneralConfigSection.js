@@ -131,7 +131,7 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
             onEditClick={onEditClick}
             tabViewID="services" />
         </ConfigurationMapRow>
-        {fields.backoff && (
+        {!!fields.backoff && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
             <DurationValue
@@ -142,7 +142,7 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
               tabViewID="services" />
           </ConfigurationMapRow>
         )}
-        {fields.backoffFactor && (
+        {!!fields.backoffFactor && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.backoffFactor} />
@@ -151,7 +151,7 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
               tabViewID="services" />
           </ConfigurationMapRow>
         )}
-        {fields.maxLaunchDelay && (
+        {!!fields.maxLaunchDelay && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Backoff Max Launch Delay
@@ -164,7 +164,7 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
               tabViewID="services" />
           </ConfigurationMapRow>
         )}
-        {fields.minimumHealthCapacity && (
+        {!!fields.minimumHealthCapacity && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Upgrade Min Health Capacity
@@ -175,7 +175,7 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
               tabViewID="services" />
           </ConfigurationMapRow>
         )}
-        {fields.maximumOverCapacity && (
+        {!!fields.maximumOverCapacity && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Upgrade Max Overcapacity
