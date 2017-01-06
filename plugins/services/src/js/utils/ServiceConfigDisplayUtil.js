@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import {getDuration} from '../../../../../src/js/utils/DateUtil';
 import {isObject} from '../../../../../src/js/utils/Util';
 import Icon from '../../../../../src/js/components/Icon';
 
@@ -66,17 +65,8 @@ const ServiceConfigDisplayUtil = {
         <em>&nbsp;Shared</em>
       </span>
     );
-  },
-
-  renderMillisecondsFromSeconds(prop, row) {
-    let value = row[prop];
-
-    if (value != null) {
-      value = getDuration(value);
-    }
-
-    return ServiceConfigDisplayUtil.getDisplayValue(value);
   }
+
 };
 
 module.exports = ServiceConfigDisplayUtil;

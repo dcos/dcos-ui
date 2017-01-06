@@ -4,10 +4,10 @@ import {Table} from 'reactjs-components';
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
-  getDisplayValue,
-  renderMillisecondsFromSeconds
+  getDisplayValue
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
+import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import Util from '../../../../../src/js/utils/Util';
 
@@ -43,7 +43,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: 'healthChecks',
           render(healthChecks) {
-            let serviceEndpointHealthChecks = healthChecks.filter(
+            const serviceEndpointHealthChecks = healthChecks.filter(
               (healthCheck) => {
                 return ['HTTP', 'HTTPS', 'TCP'].includes(healthCheck.protocol);
               }
@@ -72,21 +72,39 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Grace Period'),
                 prop: 'gracePeriodSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Interval'),
                 prop: 'intervalSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Timeout'),
                 prop: 'timeoutSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
@@ -131,7 +149,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: 'healthChecks',
           render(healthChecks) {
-            let commandHealthChecks = healthChecks.filter((healthCheck) => {
+            const commandHealthChecks = healthChecks.filter((healthCheck) => {
               return healthCheck.protocol === 'COMMAND';
             });
 
@@ -141,7 +159,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: 'command',
                 render: (prop, row) => {
                   const command = row[prop] || {};
-                  let value = getDisplayValue(command.value);
+                  const value = getDisplayValue(command.value);
                   if (!command.value) {
                     return value;
                   }
@@ -159,21 +177,39 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Grace Period'),
                 prop: 'gracePeriodSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Interval'),
                 prop: 'intervalSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Timeout'),
                 prop: 'timeoutSeconds',
                 className: getColumnClassNameFn(),
-                render: renderMillisecondsFromSeconds,
+                render(prop, row) {
+                  return (
+                    <ConfigurationMapDurationValue
+                      units="sec"
+                      value={row[prop]} />
+                  );
+                },
                 sortable: true
               },
               {
