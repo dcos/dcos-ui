@@ -194,7 +194,7 @@ class PodDebugTabView extends React.Component {
 
     return (
       <Alert>
-        DC/OS has been waiting for resources and unable to complete this deployment for {DateUtil.getDuration(timeWaiting, null)}. <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>See recent resource offers</a>.
+        DC/OS has been waiting for resources and is unable to complete this deployment for {DateUtil.getDuration(timeWaiting, null)}. <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>See recent resource offers</a>.
       </Alert>
     );
   }
