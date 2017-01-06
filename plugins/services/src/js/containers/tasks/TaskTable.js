@@ -16,7 +16,7 @@ const tableColumnClasses = {
   checkbox: 'task-table-column-checkbox',
   id: 'task-table-column-primary',
   name: 'task-table-column-name',
-  address: 'task-table-column-host-address',
+  host: 'task-table-column-host-address',
   status: 'task-table-column-status',
   health: 'task-table-column-health',
   logs: 'task-table-column-logs',
@@ -187,7 +187,7 @@ class TaskTable extends React.Component {
         <col className={tableColumnClasses.checkbox} />
         <col />
         <col className={tableColumnClasses.name} />
-        <col className={tableColumnClasses.address} />
+        <col className={tableColumnClasses.host} />
         <col className={tableColumnClasses.status} />
         <col className={tableColumnClasses.health} />
         <col className={tableColumnClasses.logs} />

@@ -80,6 +80,23 @@
   }
 }
 
+& when (@task-table-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .task-table-column {
+
+      &-host-address {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
+    }
+  }
+}
+
 & when (@task-table-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
@@ -108,7 +125,6 @@
 
     .task-table-column {
 
-      &-host-address,
       &-updated,
       &-version {
         display: table-cell;
