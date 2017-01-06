@@ -1,5 +1,6 @@
 import DateUtil from '../../../../../src/js/utils/DateUtil';
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
+import ServiceTree from '../structs/ServiceTree';
 import Util from '../../../../../src/js/utils/Util';
 
 const DEPLOYMENT_WARNING_DELAY_MS = 1000 * 60 * 5;
@@ -35,6 +36,26 @@ const constraintsReducer = (accumulator, constraint) => {
 };
 
 const DeclinedOffersUtil = {
+  getAppsWithDeclinedOffersFromServiceTree(serviceTree = {}) {
+    if (!serviceTree.list || serviceTree.list.length === 0) {
+      return [];
+    }
+
+    return serviceTree.list.reduce((accumulator, item) => {
+      if (item instanceof ServiceTree) {
+        accumulator = accumulator.concat(
+          DeclinedOffersUtil.getAppsWithDeclinedOffersFromServiceTree(item)
+        );
+      } else if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(
+          item.getQueue()
+        )) {
+        accumulator.push(item);
+      }
+
+      return accumulator;
+    }, []);
+  },
+
   getSummaryFromQueue(queue) {
     const {app, pod, processedOffersSummary = {}} = queue;
 

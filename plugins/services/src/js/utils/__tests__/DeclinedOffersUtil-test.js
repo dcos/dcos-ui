@@ -1,8 +1,103 @@
 jest.dontMock('../DeclinedOffersUtil');
+jest.dontMock('../../structs/Application');
+jest.dontMock('../../structs/ServiceTree');
 
 const DeclinedOffersUtil = require('../DeclinedOffersUtil');
+const Application = require('../../structs/Application');
+const ServiceTree = require('../../structs/ServiceTree');
 
 describe('DeclinedOffersUtil', function () {
+
+  describe('#getAppsWithDeclinedOffersFromServiceTree', function () {
+
+    it('should return an empty array if no items exist', function () {
+      const services = DeclinedOffersUtil.getAppsWithDeclinedOffersFromServiceTree(
+        new ServiceTree({
+          id: '/'
+        })
+      );
+
+      expect(services).toEqual([]);
+    });
+
+    it('should aggregate apps', function () {
+      const serviceFoo = new Application({id: '/foo', queue: {since: 0}});
+      const serviceBar = new Application({id: '/bar', queue: {since: 0}});
+
+      const services = DeclinedOffersUtil.getAppsWithDeclinedOffersFromServiceTree(
+        new ServiceTree({
+          id: '/',
+          items: [
+            serviceFoo,
+            serviceBar
+          ]
+        })
+      );
+
+      expect(services.length).toEqual(2);
+    });
+
+    it('should only aggregate apps with stale deployments', function () {
+      const serviceFoo = new Application({id: '/foo', queue: {since: 0}});
+      const serviceBar = new Application({id: '/bar', queue: {since: Date.now()}});
+
+      const services = DeclinedOffersUtil.getAppsWithDeclinedOffersFromServiceTree(
+        new ServiceTree({
+          id: '/',
+          items: [
+            serviceFoo,
+            serviceBar
+          ]
+        })
+      );
+
+      expect(services.length).toEqual(1);
+    });
+
+    it('should aggregate nested apps nested in other ServiceTree instances', function () {
+      const serviceFoo = new Application({id: '/foo', queue: {since: 0}});
+      const serviceBar = new Application({id: '/bar-0/bar-1/bar-2/bar-3/bar', queue: {since: 0}});
+      const serviceBaz = new Application({id: '/bar-0/bar-1/bar-2/baz', queue: {since: 0}});
+      const serviceQux = new Application({id: '/bar-0/bar-1/qux', queue: {since: 0}});
+      const serviceQuux = new Application({id: '/bar-0/quux', queue: {since: 0}});
+
+      const services = DeclinedOffersUtil.getAppsWithDeclinedOffersFromServiceTree(
+        new ServiceTree({
+          id: '/',
+          items: [
+            serviceFoo,
+            new ServiceTree({
+              id: '/bar-0',
+              items: [
+                new ServiceTree({
+                  id: '/bar-1',
+                  items: [
+                    new ServiceTree({
+                      id: '/bar-2',
+                      items: [
+                        new ServiceTree({
+                          id: '/bar-3',
+                          items: [
+                            serviceBar
+                          ]
+                        }),
+                        serviceBaz
+                      ]
+                    }),
+                    serviceQux
+                  ]
+                }),
+                serviceQuux
+              ]
+            })
+          ]
+        })
+      );
+
+      expect(services.length).toEqual(5);
+    });
+
+  });
 
   describe('#getSummaryFromQueue', function () {
 
