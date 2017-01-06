@@ -219,7 +219,11 @@ const DeclinedOffersUtil = {
       return false;
     }
 
-    return Date.now() - DateUtil.strToMs(queue.since)
+    const timeWaiting = Util.findNestedPropertyInObject(
+        queue, 'processedOffersSummary.lastUsedOfferAt'
+      ) || queue.since;
+
+    return Date.now() - DateUtil.strToMs(timeWaiting)
       >= DEPLOYMENT_WARNING_DELAY_MS;
   }
 };
