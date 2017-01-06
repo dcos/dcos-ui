@@ -22,8 +22,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
     }
 
     const {appConfig} = this.props;
-    const networkName = findNestedPropertyInObject(appConfig,
-      row.key);
+    const networkName = findNestedPropertyInObject(appConfig, row.key);
 
     return !networkName;
   }
