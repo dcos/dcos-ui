@@ -19,7 +19,6 @@ class LogView extends React.Component {
 
     this.state = {
       isAtBottom: true,
-      userScroll: true,
       fullLog: this.props.fullLog
     };
 
@@ -44,6 +43,12 @@ class LogView extends React.Component {
 
   componentDidMount() {
     global.addEventListener('resize', this.handleWindowResize);
+
+    const {logContainer} = this;
+    if (logContainer) {
+      // Make sure to check if we are at the top on mount
+      this.checkIfCloseToTop(logContainer);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,13 +96,14 @@ class LogView extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {logContainer, logNode} = this;
+  componentDidUpdate(prevProps) {
+    const {logContainer} = this;
     if (logContainer == null) {
       return;
     }
 
-    if (!prevState.fullLog && this.state.fullLog) {
+    // Make sure to go to bottom if we are tailing
+    if (this.state.isAtBottom) {
       logContainer.scrollTop = logContainer.scrollHeight;
 
       return;
@@ -106,20 +112,6 @@ class LogView extends React.Component {
     if (prevProps.watching !== this.props.watching ||
       prevProps.highlightText !== this.props.highlightText) {
       this.goToNewHighlightedSearch();
-    }
-
-    // Make sure to scroll to bottom if there is a view to scroll,
-    // i.e. more logs than log view height
-    if (DOMUtils.getComputedHeight(logContainer) <
-      DOMUtils.getComputedHeight(logNode) && this.state.isAtBottom) {
-      this.handleGoToBottom();
-    }
-
-    // If the amount of logs is less than the size of the container, let's
-    // request backwards to see if we have reached the top
-    if (DOMUtils.getComputedHeight(logContainer) >=
-      DOMUtils.getComputedHeight(logNode)) {
-      this.checkIfCloseToTop(logContainer);
     }
   }
 
@@ -134,17 +126,14 @@ class LogView extends React.Component {
     }
 
     this.checkIfCloseToTop(target);
-    // Only update variables if user actually interacts with the view
-    if (this.state.userScroll) {
-      this.checkIfAwayFromBottom(target);
-    }
+    this.checkIfAwayFromBottom(target);
   }
 
   handleGoToBottom() {
-    const {logContainer, props: {highlightText}, state: {userScroll}} = this;
+    const {logContainer, props: {highlightText}} = this;
     // Do not scroll to bottom if we want to highlight a word in the log,
     // or we are already scrolling
-    if (logContainer == null || highlightText || !userScroll) {
+    if (logContainer == null || highlightText) {
       return;
     }
 
@@ -157,17 +146,11 @@ class LogView extends React.Component {
       500
     );
 
-    // Let's not handle user scroll events when animating
-    this.setState({userScroll: false}, () => {
-      DOMUtils.scrollTo(
-        logContainer,
-        animationTime,
-        logContainer.scrollHeight - logContainer.clientHeight,
-        () => {
-          this.setState({userScroll: true});
-        }
-      );
-    });
+    DOMUtils.scrollTo(
+      logContainer,
+      animationTime,
+      logContainer.scrollHeight - logContainer.clientHeight
+    );
   }
 
   handleWindowResize() {
@@ -246,16 +229,14 @@ class LogView extends React.Component {
         onScroll={this.handleLogContainerScroll}
         style={{wordWrap: 'break-word', whiteSpace: 'pre-wrap'}}>
         {this.getLogPrepend()}
-        <div ref={(ref) => { this.logNode = ref; }}>
-          <Highlight
-            matchClass="highlight"
-            matchElement="span"
-            onCountChange={onCountChange}
-            search={highlightText}
-            watching={watching}>
-            {fullLog}
-          </Highlight>
-        </div>
+        <Highlight
+          matchClass="highlight"
+          matchElement="span"
+          onCountChange={onCountChange}
+          search={highlightText}
+          watching={watching}>
+          {fullLog}
+        </Highlight>
       </pre>
     );
   }
