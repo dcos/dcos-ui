@@ -75,7 +75,7 @@ class LogView extends React.Component {
     const {hasLoadedTop, highlightText, logName, watching} = this.props;
     const {fullLog, isAtBottom} = this.state;
 
-    return !!(
+    return Boolean(
       // Check hasLoadedTop
       (hasLoadedTop !== nextProps.hasLoadedTop) ||
       // Check highlightText

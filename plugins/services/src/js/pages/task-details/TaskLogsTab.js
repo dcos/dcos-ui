@@ -1,11 +1,12 @@
-import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
+import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 import {APPEND} from '../../../../../../src/js/constants/SystemLogTypes';
+import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 import LogView from '../../components/LogView';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
@@ -41,6 +42,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
     this.state = {
       direction: APPEND,
+      fullLog: null,
       hasError: false,
       streams: [],
       isFetchingPrevious: false,
@@ -75,6 +77,35 @@ class TaskLogsTab extends mixin(StoreMixin) {
     SystemLogStore.stopTailing(this.state.subscriptionID, true);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const {task = {}} = this.props;
+    const {
+      direction,
+      fullLog,
+      hasError,
+      streams,
+      isFetchingPrevious,
+      isLoading
+    } = this.state;
+
+    return Boolean(
+      // Check task
+      (nextProps.task && task.slave_id !== nextProps.task.slave_id) ||
+      // Check direction
+      (direction !== nextState.direction) ||
+      // Check fullLog
+      (fullLog !== nextState.fullLog) ||
+      // Check hasError
+      (hasError !== nextState.hasError) ||
+      // Check streams
+      (!deepEqual(streams, nextState.streams)) ||
+      // Check isFetchingPrevious
+      (isFetchingPrevious !== nextState.isFetchingPrevious) ||
+      // Check isLoading
+      (isLoading !== nextState.isLoading)
+    );
+  }
+
   onSystemLogStoreError(subscriptionID) {
     if (subscriptionID !== this.state.subscriptionID) {
       return;
@@ -96,7 +127,8 @@ class TaskLogsTab extends mixin(StoreMixin) {
       hasError: false,
       direction,
       isFetchingPrevious: false,
-      isLoading: false
+      isLoading: false,
+      fullLog: SystemLogStore.getFullLog(subscriptionID)
     });
   }
 
@@ -275,6 +307,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     let {
       hasError,
       direction,
+      fullLog,
       isLoading,
       selectedStream,
       subscriptionID
@@ -292,7 +325,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       <LogView
         logName={selectedStream}
         direction={direction}
-        fullLog={SystemLogStore.getFullLog(subscriptionID)}
+        fullLog={fullLog}
         fetchPreviousLogs={this.handleFetchPreviousLog}
         onAtBottomChange={this.handleAtBottomChange}
         hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)} />
