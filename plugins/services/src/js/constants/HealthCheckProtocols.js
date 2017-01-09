@@ -2,5 +2,8 @@ module.exports = {
   COMMAND: 'COMMAND',
   HTTP: 'HTTP',
   HTTPS: 'HTTPS',
-  TCP: 'TCP'
+  TCP: 'TCP',
+  MESOS_HTTP: 'MESOS_HTTP',
+  MESOS_HTTPS: 'MESOS_HTTPS',
+  MESOS_TCP: 'MESOS_TCP'
 };

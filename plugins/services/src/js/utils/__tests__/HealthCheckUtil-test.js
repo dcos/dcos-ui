@@ -14,7 +14,7 @@ describe('HealthCheckUtil', function () {
     });
 
     it('should return false for a unknown protocol', function () {
-      expect(HealthCheckUtil.isKnownProtocol('MESOS_HTTP')).toEqual(false);
+      expect(HealthCheckUtil.isKnownProtocol('MESOS_GOPHER')).toEqual(false);
     });
   });
 });
