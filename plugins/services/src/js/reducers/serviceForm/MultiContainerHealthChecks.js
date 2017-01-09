@@ -250,7 +250,7 @@ const MultiContainerHealthChecks = {
     if (type === REMOVE_ITEM) {
       if (path.length !== 0) {
         if (process.env.NODE_ENV !== 'production') {
-          throw new TypeError('Trying to ADD_ITEM on a wrong health path');
+          throw new TypeError('Trying to REMOVE_ITEM on a wrong health path');
         }
 
         return newState;
