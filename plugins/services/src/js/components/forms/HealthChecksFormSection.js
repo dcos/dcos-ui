@@ -13,7 +13,7 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {HTTP, HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
-import HealthCheckUtil from '../../utils/HealtCheckUtil';
+import HealthCheckUtil from '../../utils/HealthCheckUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
