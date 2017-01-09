@@ -17,9 +17,11 @@ function intOrNull(value) {
  *
  * @param {Object} healthCheck - The healthcheck data to parse
  * @param {Array} path - The path prefix to the transaction
- * @param {Array} memo - The memo object where to append the transations
+ * @returns {Array} - Returns an array with the new transactions to append
  */
-function parseHttpHealthCheck(healthCheck, path, memo) {
+function parseHttpHealthCheck(healthCheck, path) {
+  const memo = [];
+
   if (healthCheck.endpoint != null) {
     memo.push(new Transaction(
       path.concat(['endpoint']),
@@ -43,9 +45,14 @@ function parseHttpHealthCheck(healthCheck, path, memo) {
       SET
     ));
   }
+
+  return memo;
 }
 
-function reduceHttpHealthCheck(newState, field, value) {
+function reduceHttpHealthCheck(state, field, value) {
+  const newState = Object.assign({}, state);
+  newState.http = Object.assign({}, newState.http || {});
+
   switch (field) {
     case 'endpoint':
       newState.http.endpoint = value;
@@ -63,14 +70,21 @@ function reduceHttpHealthCheck(newState, field, value) {
       }
       break;
   }
+
+  return newState;
 }
 
-function reduceFormHttpHealthCheck(newState, field, value) {
+function reduceFormHttpHealthCheck(state, field, value) {
+  const newState = Object.assign({}, state);
+  newState.http = Object.assign({}, newState.http || {});
+
   switch (field) {
     case 'https':
       newState.http.https = value;
       break;
   }
+
+  return newState;
 }
 
 /**
@@ -78,9 +92,11 @@ function reduceFormHttpHealthCheck(newState, field, value) {
  *
  * @param {Object} healthCheck - The healthcheck data to parse
  * @param {Array} path - The path prefix to the transaction
- * @param {Array} memo - The memo object where to append the transations
+ * @returns {Array} - Returns an array with the new transactions to append
  */
-function parseTcpHealthCheck(healthCheck, path, memo) {
+function parseTcpHealthCheck(healthCheck, path) {
+  const memo = [];
+
   if (healthCheck.endpoint != null) {
     memo.push(new Transaction(
       path.concat(['endpoint']),
@@ -88,14 +104,21 @@ function parseTcpHealthCheck(healthCheck, path, memo) {
       SET
     ));
   }
+
+  return memo;
 }
 
-function reduceTcpHealthCheck(newState, field, value) {
+function reduceTcpHealthCheck(state, field, value) {
+  const newState = Object.assign({}, state);
+  newState.tcp = Object.assign({}, newState.tcp || {});
+
   switch (field) {
     case 'endpoint':
       newState.tcp.endpoint = value;
       break;
   }
+
+  return newState;
 }
 
 /**
@@ -103,9 +126,10 @@ function reduceTcpHealthCheck(newState, field, value) {
  *
  * @param {Object} healthCheck - The healthcheck data to parse
  * @param {Array} path - The path prefix to the transaction
- * @param {Array} memo - The memo object where to append the transations
+ * @returns {Array} - Returns an array with the new transactions to append
  */
-function parseCommandHealthCheck(healthCheck, path, memo) {
+function parseCommandHealthCheck(healthCheck, path) {
+  const memo = [];
   const {command={}} = healthCheck;
 
   if (command.shell != null) {
@@ -136,10 +160,15 @@ function parseCommandHealthCheck(healthCheck, path, memo) {
       SET
     ));
   }
+
+  return memo;
 }
 
-function reduceCommandHealthCheck(newState, field, value) {
-  const {exec: {command={}}} = newState;
+function reduceCommandHealthCheck(state, field, value) {
+  const newState = Object.assign({}, state);
+  newState.exec = Object.assign({}, newState.exec || {});
+  newState.exec.command = Object.assign({}, newState.exec.command || {});
+  const command = newState.exec.command;
 
   switch (field) {
     case 'shell':
@@ -171,10 +200,15 @@ function reduceCommandHealthCheck(newState, field, value) {
       }
       break;
   }
+
+  return newState;
 }
 
-function reduceFormCommandHealthCheck(newState, field, value) {
-  const {exec: {command={}}} = newState;
+function reduceFormCommandHealthCheck(state, field, value) {
+  const newState = Object.assign({}, state);
+  newState.exec = Object.assign({}, newState.exec || {});
+  newState.exec.command = Object.assign({}, newState.exec.command || {});
+  const command = newState.exec.command;
 
   switch (field) {
     case 'shell':
@@ -185,6 +219,8 @@ function reduceFormCommandHealthCheck(newState, field, value) {
       command.string = value;
       break;
   }
+
+  return newState;
 }
 
 const MultiContainerHealthChecks = {
@@ -228,16 +264,13 @@ const MultiContainerHealthChecks = {
     // Assign properties
     switch (group) {
       case 'exec':
-        reduceCommandHealthCheck(newState, secondField, value);
-        break;
+        return reduceCommandHealthCheck(newState, secondField, value);
 
       case 'http':
-        reduceHttpHealthCheck(newState, field, value);
-        break;
+        return reduceHttpHealthCheck(newState, field, value);
 
       case 'tcp':
-        reduceTcpHealthCheck(newState, field, value);
-        break;
+        return reduceTcpHealthCheck(newState, field, value);
 
       case 'gracePeriodSeconds':
         newState.gracePeriodSeconds = intOrNull(value);
@@ -269,15 +302,24 @@ const MultiContainerHealthChecks = {
     // Parse detailed fields according to type
     if (healthCheck.http != null) {
       memo.push(new Transaction(path.concat(['protocol']), HTTP, SET));
-      parseHttpHealthCheck(healthCheck.http, path.concat(['http']), memo);
+      memo.push(
+        ...parseHttpHealthCheck(healthCheck.http, path.concat(['http']), memo)
+      );
     }
     if (healthCheck.tcp != null) {
       memo.push(new Transaction(path.concat(['protocol']), TCP, SET));
-      parseTcpHealthCheck(healthCheck.tcp, path.concat(['tcp']), memo);
+      memo.push(
+        ...parseTcpHealthCheck(healthCheck.tcp, path.concat(['tcp']), memo)
+      );
     }
     if (healthCheck.exec != null) {
       memo.push(new Transaction(path.concat(['protocol']), COMMAND, SET));
-      parseCommandHealthCheck(healthCheck.exec, path.concat(['exec']), memo);
+      memo.push(
+        ...parseCommandHealthCheck(
+          healthCheck.exec, path.concat(['exec']),
+          memo
+        )
+      );
     }
 
     // Parse generic fields
@@ -339,12 +381,10 @@ const MultiContainerHealthChecks = {
     // Assign detailed properties
     switch (group) {
       case 'exec':
-        reduceFormCommandHealthCheck(newState, secondField, value);
-        break;
+        return reduceFormCommandHealthCheck(newState, secondField, value);
 
       case 'http':
-        reduceFormHttpHealthCheck(newState, field, value);
-        break;
+        return reduceFormHttpHealthCheck(newState, field, value);
     }
 
     return newState;
