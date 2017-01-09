@@ -54,7 +54,7 @@ describe('Tasks Table', function () {
 
       beforeEach(function () {
         cy.get('table tr')
-          .contains('broker-0__110e02b3-b6a3-4979-be56-7e5535757ebf')
+          .contains('broker-0__3c7ab984-a9b9-41fb-bb73-0569f88c657e')
           .closest('tr').find('td').as('tds');
       });
 
@@ -74,7 +74,7 @@ describe('Tasks Table', function () {
 
       beforeEach(function () {
         cy.get('table tr')
-          .contains('confluent-kafka.4e941eb7-c642-11e6-9066-5a8a388c67a1')
+          .contains('confluent-kafka.825e1e2e-d6a6-11e6-a564-8605ecf0a9df')
           .closest('tr').find('td').as('tds');
       });
 
