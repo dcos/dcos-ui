@@ -8,6 +8,20 @@
     transform: translateX(-50%);
   }
 
+  // We need to override CNVS display properies for button elements, as flex is
+  // invalid in Safari and other browsers.
+  button {
+
+    &,
+    &.button {
+      display: inline-block;
+
+      &.button-block {
+        display: block;
+      }
+    }
+  }
+
   // TODO: Name this animation specifically.
   .button {
 
