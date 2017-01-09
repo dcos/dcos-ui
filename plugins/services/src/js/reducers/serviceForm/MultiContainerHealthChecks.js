@@ -1,8 +1,11 @@
 import {
+  ADD_ITEM,
+  REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealtCheckProtocols';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 function intOrNull(value) {
   if ((value === '') || (value === null) || (value === undefined)) {
@@ -224,13 +227,35 @@ function reduceFormCommandHealthCheck(state, field, value) {
 }
 
 const MultiContainerHealthChecks = {
-  JSONSegmentReducer(state, {path, value}) {
+  JSONSegmentReducer(state, {type, path, value}) {
     const newState = Object.assign({}, state);
     const [group, field, secondField] = path;
 
-    // If we are assigning the entire group to `null`, we are
-    // effectively disabling the health checks
-    if ((path.length === 0) && (value == null)) {
+    // ADD_ITEM does nothing more but to define an object as a value,
+    // since we cannot have more than 1 items.
+    if (type === ADD_ITEM) {
+      if (path.length !== 0) {
+        if (process.env.NODE_ENV !== 'production') {
+          throw new TypeError('Trying to ADD_ITEM on a wrong health path');
+        }
+
+        return newState;
+      }
+
+      return {};
+    }
+
+    // REMOVE_ITEM resets the state back to `null` since we can only
+    // have one item.
+    if (type === REMOVE_ITEM) {
+      if (path.length !== 0) {
+        if (process.env.NODE_ENV !== 'production') {
+          throw new TypeError('Trying to ADD_ITEM on a wrong health path');
+        }
+
+        return newState;
+      }
+
       return null;
     }
 
@@ -298,6 +323,12 @@ const MultiContainerHealthChecks = {
 
   JSONSegmentParser(healthCheck, path) {
     const memo = [];
+    if (ValidatorUtil.isEmpty(healthCheck)) {
+      return memo;
+    }
+
+    // Add an ADD_ITEM transaction
+    memo.push(new Transaction(path, null, ADD_ITEM));
 
     // Parse detailed fields according to type
     if (healthCheck.http != null) {
@@ -362,9 +393,9 @@ const MultiContainerHealthChecks = {
     return memo;
   },
 
-  FormReducer(state, {path, value}) {
+  FormReducer(state, {type, path, value}) {
     const newState = MultiContainerHealthChecks.JSONSegmentReducer
-      .call(this, state, {path, value});
+      .call(this, state, {type, path, value});
 
     // Bail early on nulled cases
     if (newState == null) {

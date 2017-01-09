@@ -3,7 +3,8 @@ const {COMMAND, HTTP, HTTPS, TCP} =
   require('../../../constants/HealtCheckProtocols');
 const MultiContainerHealthChecks = require('../MultiContainerHealthChecks');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {SET} = require('../../../../../../../src/js/constants/TransactionTypes');
+const {ADD_ITEM, REMOVE_ITEM, SET} =
+  require('../../../../../../../src/js/constants/TransactionTypes');
 
 describe('MultiContainerHealthChecks', function () {
   describe('#JSONSegmentReducer', function () {
@@ -17,9 +18,20 @@ describe('MultiContainerHealthChecks', function () {
           )).toEqual({});
       });
 
-      it('Should undefine health checks on SET=null', function () {
+      it('Should define health checks on ADD_ITEM', function () {
         let batch = new Batch();
-        batch = batch.add(new Transaction([], null));
+        batch = batch.add(new Transaction([], null, ADD_ITEM));
+
+        const state = {};
+        expect(batch.reduce(
+            MultiContainerHealthChecks.JSONSegmentReducer.bind({}), state
+          ))
+          .toEqual({});
+      });
+
+      it('Should undefine health checks on REMOVE_ITEM', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction([], null, REMOVE_ITEM));
 
         const state = {};
         expect(batch.reduce(
@@ -405,6 +417,7 @@ describe('MultiContainerHealthChecks', function () {
         }
       };
       const transactions = [
+        {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: HTTP, path: ['protocol']},
         {type: SET, value: 'foo', path: ['http', 'endpoint']},
         {type: SET, value: '/bar', path: ['http', 'path']},
@@ -422,6 +435,7 @@ describe('MultiContainerHealthChecks', function () {
         }
       };
       const transactions = [
+        {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: TCP, path: ['protocol']},
         {type: SET, value: 'foo', path: ['tcp', 'endpoint']}
       ];
@@ -439,6 +453,7 @@ describe('MultiContainerHealthChecks', function () {
         }
       };
       const transactions = [
+        {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: COMMAND, path: ['protocol']},
         {type: SET, value: true, path: ['exec', 'command', 'shell']},
         {type: SET, value: 'test', path: ['exec', 'command', 'string']}
@@ -457,6 +472,7 @@ describe('MultiContainerHealthChecks', function () {
         }
       };
       const transactions = [
+        {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: COMMAND, path: ['protocol']},
         {type: SET, value: false, path: ['exec', 'command', 'shell']},
         {type: SET, value: 'test', path: ['exec', 'command', 'string']}
