@@ -50,7 +50,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getHostPortFields(portDefinition, index) {
     let placeholder;
     const {errors} = this.props;
-    let hostPortError = findNestedPropertyInObject(
+    const hostPortError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.port`
     ) || findNestedPropertyInObject(
@@ -62,7 +62,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       placeholder = `$PORT${index}`;
     }
 
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
         <a href="https://mesosphere.github.io/marathon/docs/ports.html" about="_blank">
@@ -115,7 +115,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced, vip}, index) {
     const {errors} = this.props;
-    let loadBalancedError = findNestedPropertyInObject(
+    const loadBalancedError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.labels`
     ) || findNestedPropertyInObject(
@@ -172,7 +172,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getProtocolField(portDefinition, index) {
     const {errors} = this.props;
-    let protocolError = findNestedPropertyInObject(
+    const protocolError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.protocol`
     ) || findNestedPropertyInObject(
