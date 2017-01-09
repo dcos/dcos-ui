@@ -67,7 +67,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                   const value = row[prop];
 
                   if (value == null) {
-                    return getDisplayValue(value);
+                    return getDisplayValue(value, row.isHostVolume);
                   }
 
                   return formatResource('disk', value);
@@ -96,7 +96,8 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
               const volume = {
                 name: null,
                 size: null,
-                type: []
+                type: [],
+                isHostVolume: false
               };
 
               volume.containerPath = appVolume.containerPath;
@@ -106,8 +107,10 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 volume.size = appVolume.persistent.size;
                 volume.type.push('Persistent', 'Local');
               } else if (appVolume.external != null) {
+                volume.size = appVolume.external.size;
                 volume.type.push('External');
               } else {
+                volume.isHostVolume = true;
                 volume.type.push('Host', 'Volume');
               }
 
@@ -120,7 +123,10 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 shouldDisplayHostPath = true;
               }
 
-              volume.hostPath = getDisplayValue(appVolume.hostPath);
+              volume.hostPath = getDisplayValue(
+                appVolume.hostPath,
+                !volume.isHostVolume
+              );
 
               return volume;
             });
