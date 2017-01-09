@@ -1,5 +1,5 @@
 const HealthCheckUtil = require('../HealtCheckUtil');
-const HealthCheckProtocols = require('../../constants/HealtCheckProtocols');
+const HealthCheckProtocols = require('../../constants/HealthCheckProtocols');
 
 describe('HealthCheckUtil', function () {
   describe('#IsKnowProtocol', function () {

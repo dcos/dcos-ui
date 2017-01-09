@@ -12,7 +12,7 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import {HTTP, HTTPS, COMMAND} from '../../constants/HealtCheckProtocols';
+import {HTTP, HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealtCheckUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 

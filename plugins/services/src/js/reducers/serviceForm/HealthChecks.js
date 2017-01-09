@@ -3,7 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
-import {HTTP, HTTPS, COMMAND} from '../../constants/HealtCheckProtocols';
+import {HTTP, HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 

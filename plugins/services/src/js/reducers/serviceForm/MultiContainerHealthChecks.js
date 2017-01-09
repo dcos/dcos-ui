@@ -3,7 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
-import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealtCheckProtocols';
+import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealthCheckProtocols';
 import MesosCommandTypes from '../../constants/MesosCommandTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
