@@ -274,8 +274,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    const {errors, data: {portDefinitions}} = this.props;
-    const network = findNestedPropertyInObject(this.props.data, 'networkType');
+    const {errors, data: {portDefinitions, networkType = HOST}} = this.props;
 
     return portDefinitions.map((portDefinition, index) => {
       let portMappingFields = null;
@@ -288,7 +287,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         `container.docker.portMappings.${index}.name`
       );
 
-      if (portDefinition.portMapping || [BRIDGE, HOST].includes(network)) {
+      if (portDefinition.portMapping || [BRIDGE, HOST].includes(networkType)) {
         portMappingFields = (
           <FormRow>
             {this.getHostPortFields(portDefinition, index)}
@@ -305,7 +304,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             {value: index, path: 'portDefinitions'}
           )}>
           <FormRow>
-            {this.getContainerPortField(portDefinition, network, errors, index)}
+            {this.getContainerPortField(portDefinition, networkType, errors, index)}
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
@@ -316,7 +315,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 value={portDefinition.name} />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-            {this.getPortMappingCheckbox(portDefinition, network, index)}
+            {this.getPortMappingCheckbox(portDefinition, networkType, index)}
           </FormRow>
           {portMappingFields}
           {this.getLoadBalancedServiceAddressField(portDefinition, index)}
