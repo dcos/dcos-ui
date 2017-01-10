@@ -209,9 +209,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <Page>
         <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
-        <div className="pod">
-          <RequestErrorMsg />
-        </div>
+        <RequestErrorMsg />
       </Page>
     );
   }
