@@ -61,6 +61,20 @@ class TaskDetailsTab extends React.Component {
       <TaskEndpointsList task={mesosTask} node={node} />
     );
 
+    if (mesosTask.resources != null) {
+      const resourceLabels = ResourcesUtil.getResourceLabels();
+
+      ResourcesUtil.getDefaultResources().forEach(function (resource) {
+        if (resource !== 'ports') {
+          const resourceLabel = resourceLabels[resource];
+
+          headerValueMapping[resourceLabel] = Units.formatResource(
+            resource, mesosTask.resources[resource]
+          );
+        }
+      });
+    }
+
     return (
       <HashMapDisplay
         hash={headerValueMapping}
@@ -87,48 +101,6 @@ class TaskDetailsTab extends React.Component {
     );
   }
 
-  getResources(task) {
-    if (task.resources == null) {
-      return null;
-    }
-
-    const resourceColors = ResourcesUtil.getResourceColors();
-    const resourceLabels = ResourcesUtil.getResourceLabels();
-
-    const resourceGraphs = ResourcesUtil.getDefaultResources().map(function (resource) {
-      if (resource === 'ports') {
-        return null;
-      }
-
-      const resourceLabel = resourceLabels[resource];
-      let resourceValue = Units.formatResource(
-        resource, task.resources[resource]
-      );
-      const colorIndex = resourceColors[resource];
-
-      return (
-        <div key={resource} className="media-object-item">
-          <h4 className="flush-top flush-bottom">
-            {resourceValue}
-          </h4>
-          <span className={`side-panel-resource-label text-color-${colorIndex}`}>
-            {resourceLabel.toUpperCase()}
-          </span>
-        </div>
-      );
-    });
-
-    return (
-      <div className="pod flush-top flush-right flush-left">
-        <div className="media-object-spacing-wrapper media-object-spacing-wide">
-          <div className="media-object">
-            {resourceGraphs}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   render() {
     const {task} = this.props;
 
@@ -138,7 +110,6 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <div className="container">
-        {this.getResources(task)}
         <ConfigurationMap>
           {this.getMesosTaskDetailsHashMapDisplay(task)}
           {this.getMesosTaskLabelHashMapDisplay(task)}
