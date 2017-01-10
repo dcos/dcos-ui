@@ -24,6 +24,7 @@ const segmentScript = `!function(){var analytics=window.analytics=window.analyti
 
 module.exports = {
   filters: [
+    'pluginsLoadedCheck',
     'userFormModalFooter'
   ],
 
@@ -49,32 +50,42 @@ module.exports = {
     if (AuthStore.getUser()) {
       Actions.identify(AuthStore.getUser().uid);
     }
+
+    DOMUtils.appendScript(global.document.head, segmentScript);
+  },
+
+  pluginsLoadedCheck(promiseArray) {
+    const promise = new Promise((resolve) => {
+      global.analytics.ready(() => {
+        resolve();
+      });
+    });
+
+    promiseArray.push(promise);
+
+    return promiseArray;
   },
 
   pluginsConfigured() {
-    DOMUtils.appendScript(global.document.head, segmentScript);
+    const updateTrackJSConfiguration = () => {
+      global.trackJs.configure({version: MetadataStore.version});
+      global.trackJs.addMetadata('version', MetadataStore.version);
+    };
 
-    global.analytics.ready(() => {
-      const updateTrackJSConfiguration = () => {
-        global.trackJs.configure({version: MetadataStore.version});
-        global.trackJs.addMetadata('version', MetadataStore.version);
-      };
+    if (this.configuration && this.configuration.metadata) {
+      const config = this.configuration.metadata;
+      Object.keys(config).forEach((metaKey) => {
+        global.trackJs.addMetadata(metaKey, config[metaKey]);
+      });
+    }
 
-      if (this.configuration && this.configuration.metadata) {
-        const config = this.configuration.metadata;
-        Object.keys(config).forEach((metaKey) => {
-          global.trackJs.addMetadata(metaKey, config[metaKey]);
-        });
-      }
-
-      if (!MetadataStore.version) {
-        MetadataStore.addChangeListener(
-          EventTypes.DCOS_METADATA_CHANGE, updateTrackJSConfiguration
-        );
-      } else {
-        updateTrackJSConfiguration();
-      }
-    });
+    if (!MetadataStore.version) {
+      MetadataStore.addChangeListener(
+        EventTypes.DCOS_METADATA_CHANGE, updateTrackJSConfiguration
+      );
+    } else {
+      updateTrackJSConfiguration();
+    }
   },
 
   userLoginSuccess() {
