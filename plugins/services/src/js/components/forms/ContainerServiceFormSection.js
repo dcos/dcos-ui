@@ -29,17 +29,28 @@ const containerSettings = {
   },
   forcePullImage: {
     label: <span>Force Pull Image On Launch</span>,
-    helpText: 'Force Docker to pull the image before launching each task.',
+    helpText: 'Force Docker to pull the image before launching each instance.',
     dockerOnly: 'Force pull image on launch is only supported in Docker Runtime.'
   }
 };
 
 const getArtifactsLabel = () => {
+  const tooltipContent = (
+    <span>
+      {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
+      <a
+        href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+        target="_blank">
+        More information
+      </a>.
+    </span>
+  );
+
   return (
     <FieldLabel>
       {'Artifact URI '}
       <Tooltip
-        content="Provided URIs are passed to Mesos fetcher module and resolved at runtime."
+        content={tooltipContent}
         interactive={true}
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
@@ -55,26 +66,27 @@ class ContainerServiceFormSection extends Component {
     const errors = this.props.errors.fetch || [];
 
     let content = data.map((item, index) => {
-      let label;
+      let label = null;
       if (index === 0) {
         label = getArtifactsLabel();
       }
 
       return (
         <FormRow key={index}>
-          <FormGroup
-            className="column-10"
-            showError={Boolean(errors[index])}>
+          <FormGroup className="column-10" showError={Boolean(errors[index])}>
             {label}
             <FieldInput
               name={`fetch.${index}.uri`}
-              type="text"
+              placeholder="http://"
               value={item.uri}/>
             <FieldError>{errors[index]}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+          <FormGroup className="flex flex-item-align-end column-2">
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})} />
+              onClick={this.props.onRemoveItem.bind(
+                this,
+                {value: index, path: 'fetch'}
+              )} />
           </FormGroup>
         </FormRow>
       );
@@ -206,7 +218,10 @@ class ContainerServiceFormSection extends Component {
           <FormGroup className="column-12">
             <a
               className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
+              onClick={this.props.onAddItem.bind(
+                this,
+                {value: data.fetch.length, path: 'fetch'}
+              )}>
               <Icon color="purple" id="plus" size="tiny" /> Add Artifact
             </a>
           </FormGroup>
@@ -216,10 +231,12 @@ class ContainerServiceFormSection extends Component {
   }
 
   getCMDLabel() {
-    const tooltipContent = (
+    let tooltipContent = (
       <span>
         {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
-        <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          target="_blank">
           More information
         </a>.
       </span>
@@ -241,14 +258,16 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    const tooltipContent = (
+    let tooltipContent = (
       <span>
         {'Enter a Docker image or browse '}
         <a href="https://hub.docker.com/explore/" target="_blank">
           Docker Hub
         </a>
         {' to find more. You can also enter an image from your private registry. '}
-        <a href={MetadataStore.buildDocsURI('/usage/tutorials/registry/#docs-article')} target="_blank">
+        <a
+          href={MetadataStore.buildDocsURI('/usage/tutorials/registry/#docs-article')}
+          target="_blank">
           More information
         </a>.
       </span>
@@ -291,7 +310,8 @@ class ContainerServiceFormSection extends Component {
           key="container-image-input"
           name="container.docker.image"
           disabled={true}
-          value={image} />
+          value={image} />,
+        <FieldHelp>Enter a Docker image you want to run, e.g. nginx.</FieldHelp>
       ];
     }
 
@@ -322,26 +342,25 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom">
+        <h2 className="short-top short-bottom">
           Container
         </h2>
-        <p>Configure your container below. Enter a container image or command you want to run.</p>
-
+        <p>
+          Configure your container below. Enter a container image or command you want to run.
+        </p>
         <FormRow>
           <FormGroup
             className="column-6"
             showError={Boolean(containerType != null && containerType !== NONE && imageErrors)}>
             {this.getImageInput(data)}
-            <FieldError key="image-errors">{imageErrors}</FieldError>
+            <FieldError>{imageErrors}</FieldError>
           </FormGroup>
 
           <FormGroup
             className="column-3"
             required={true}
             showError={Boolean(errors.cpus)}>
-            <FieldLabel className="text-no-transform">
-              CPUs
-            </FieldLabel>
+            <FieldLabel className="text-no-transform">CPUs</FieldLabel>
             <FieldInput
               min="0.001"
               name="cpus"
@@ -355,9 +374,7 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.mem)}>
-            <FieldLabel className="text-no-transform">
-              MEMORY (MiB)
-            </FieldLabel>
+            <FieldLabel className="text-no-transform">MEMORY (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name="mem"
