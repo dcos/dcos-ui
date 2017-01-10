@@ -1,18 +1,66 @@
 & when (@create-services-modal-enabled) {
 
-  .create-service-modal-service-picker {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+  .create-service-modal {
 
-  .create-service-modal-service-picker-options {
-    display: flex;
-    justify-content: center;
-  }
+    &-service-picker {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-  .create-service-modal-service-picker-option {
-    flex: 0 0 auto;
+      &-options {
+        display: flex;
+        justify-content: center;
+      }
+
+      &-option {
+        flex: 0 0 auto;
+      }
+    }
+
+    &-form {
+      display: flex;
+
+      &-container {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: row;
+        min-height: 100%;
+      }
+
+      .menu-tabbed-container {
+        flex: 1 1 auto;
+      }
+
+      .menu-tabbed-vertical {
+
+        &:after {
+          bottom: -@modal-body-padding-bottom;
+          height: auto;
+          top: -@modal-body-padding-top;
+        }
+      }
+    }
+
+    &-json-only {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+
+      &-introduction {
+        flex: 0 0 auto;
+        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom;
+      }
+
+      &-editor {
+        border-radius: @create-services-modal-json-editor-border-radius;
+        overflow: hidden;
+
+        &-container {
+          flex: 1 1 auto;
+          height: 100%;
+        }
+      }
+    }
   }
 
   // TODO: Remove this custom margin and rely on the FormSection component to
@@ -20,42 +68,38 @@
   .artifacts-section {
     margin-top: @base-spacing-unit * 3/4;
   }
-
-  .create-service-modal-json-only {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-
-    &-introduction {
-      flex: 0 0 auto;
-      margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom;
-    }
-
-    &-editor {
-      border-radius: @create-services-modal-json-editor-border-radius;
-      overflow: hidden;
-
-      &-container {
-        flex: 1 1 auto;
-        height: 100%;
-      }
-    }
-  }
 }
 
 & when (@create-services-modal-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .artifacts-section {
-      margin-top: @base-spacing-unit-screen-small * 3/4;
+    .create-service-modal {
+
+      &-form {
+
+        &-container {
+
+          .menu-tabbed-vertical {
+
+            &:after {
+              bottom: -@modal-body-padding-bottom-screen-small;
+              top: -@modal-body-padding-top-screen-small;
+            }
+          }
+        }
+      }
+
+      &-json-only {
+
+        &-introduction {
+          margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-small;
+        }
+      }
     }
 
-    .create-service-modal-json-only {
-
-      &-introduction {
-        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-small;
-      }
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-small * 3/4;
     }
   }
 }
@@ -64,15 +108,32 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .artifacts-section {
-      margin-top: @base-spacing-unit-screen-medium * 3/4;
+    .create-service-modal {
+
+      &-form {
+
+        &-container {
+
+          .menu-tabbed-vertical {
+
+            &:after {
+              bottom: -@modal-body-padding-bottom-screen-medium;
+              top: -@modal-body-padding-top-screen-medium;
+            }
+          }
+        }
+      }
+
+      &-json-only {
+
+        &-introduction {
+          margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-medium;
+        }
+      }
     }
 
-    .create-service-modal-json-only {
-
-      &-introduction {
-        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-medium;
-      }
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-medium * 3/4;
     }
   }
 }
@@ -81,15 +142,32 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .artifacts-section {
-      margin-top: @base-spacing-unit-screen-large * 3/4;
+    .create-service-modal {
+
+      &-form {
+
+        &-container {
+
+          .menu-tabbed-vertical {
+
+            &:after {
+              bottom: -@modal-body-padding-bottom-screen-large;
+              top: -@modal-body-padding-top-screen-large;
+            }
+          }
+        }
+      }
+
+      &-json-only {
+
+        &-introduction {
+          margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-large;
+        }
+      }
     }
 
-    .create-service-modal-json-only {
-
-      &-introduction {
-        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-large;
-      }
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-large * 3/4;
     }
   }
 }
@@ -98,15 +176,32 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .artifacts-section {
-      margin-top: @base-spacing-unit-screen-jumbo * 3/4;
+    .create-service-modal {
+
+      &-form {
+
+        &-container {
+
+          .menu-tabbed-vertical {
+
+            &:after {
+              bottom: -@modal-body-padding-bottom-screen-jumbo;
+              top: -@modal-body-padding-top-screen-jumbo;
+            }
+          }
+        }
+      }
+
+      &-json-only {
+
+        &-introduction {
+          margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-jumbo;
+        }
+      }
     }
 
-    .create-service-modal-json-only {
-
-      &-introduction {
-        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-jumbo;
-      }
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-jumbo * 3/4;
     }
   }
 }
