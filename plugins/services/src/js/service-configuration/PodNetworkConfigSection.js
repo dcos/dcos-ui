@@ -40,7 +40,8 @@ class PodNetworkConfigSection extends React.Component {
       },
       {
         heading: 'Load Balanced Address',
-        prop: 'lbAddress'
+        prop: 'lbAddress',
+        placeholder: <em>Not Enabled</em>
       },
       {
         heading: 'Container',
