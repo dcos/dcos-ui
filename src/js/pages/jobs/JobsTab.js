@@ -61,7 +61,6 @@ class JobsTab extends mixin(StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    console.log(nextProps);
     this.updateFromProps(nextProps);
   }
 
