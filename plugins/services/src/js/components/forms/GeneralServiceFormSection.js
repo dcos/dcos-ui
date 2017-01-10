@@ -99,8 +99,10 @@ class GeneralServiceFormSection extends Component {
     const containerElements = containers.map((item, index) => {
       return (
         <FormGroupContainer key={index}
-          onRemove={this.props.onRemoveItem.bind(this,
-            {value: index, path: 'containers'})}>
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: index, path: 'containers'}
+          )}>
           {item.name || `container-${index + 1}`}
         </FormGroupContainer>
       );
@@ -143,9 +145,11 @@ class GeneralServiceFormSection extends Component {
       <div>
         <a
           className="button button-primary-link button-flush"
-          onClick={this.props.onAddItem.bind(this,
-            {value: 0, path: 'containers'})}>
-          + Add Container
+          onClick={this.props.onAddItem.bind(
+            this,
+            {value: 0, path: 'containers'}
+          )}>
+          <Icon color="purple" id="plus" size="tiny" /> Add Container
         </a>
       </div>
     );
