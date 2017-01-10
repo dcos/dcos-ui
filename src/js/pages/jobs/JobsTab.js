@@ -11,13 +11,12 @@ import FilterHeadline from '../../components/FilterHeadline';
 import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
 import JobsTable from './JobsTable';
 import JobSearchFilter from '../../components/JobSearchFilter';
+import JobFilterTypes from '../../constants/JobFilterTypes';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobTree from '../../structs/JobTree';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
-import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import ServiceFilterTypes from '../../../../plugins/services/src/js/constants/ServiceFilterTypes';
-import SaveStateMixin from '../../mixins/SaveStateMixin';
 
 const METHODS_TO_BIND = [
   'getHeadline',
@@ -32,9 +31,7 @@ var DEFAULT_FILTER_OPTIONS = {
   searchString: ''
 };
 
-const saveState_properties = Object.keys(DEFAULT_FILTER_OPTIONS);
-
-class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
+class JobsTab extends mixin(StoreMixin) {
 
   constructor() {
     super(...arguments);
@@ -42,9 +39,6 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     this.state = Object.assign({
       isJobFormModalOpen: false
     }, DEFAULT_FILTER_OPTIONS);
-
-    this.saveState_key = 'jobsPage';
-    this.saveState_properties = saveState_properties;
 
     this.store_listeners = [
       {name: 'dcos', events: ['change'], suppressUpdate: false},
@@ -62,15 +56,13 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
   componentDidMount() {
     super.componentDidMount();
-    const {state} = this;
+    this.updateFromProps(this.props);
+  }
 
-    Object.keys(DEFAULT_FILTER_OPTIONS).forEach((saveStateKey) => {
-      const queryParams = this.getQueryParamObject();
-      const saveStateValue = state[saveStateKey];
-      if (saveStateValue !== queryParams[saveStateKey]) {
-        this.setQueryParam(saveStateKey, saveStateValue);
-      }
-    });
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(...arguments);
+    console.log(nextProps);
+    this.updateFromProps(nextProps);
   }
 
   handleCloseJobFormModal() {
@@ -81,11 +73,17 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     this.setState({isJobFormModalOpen: true});
   }
 
-  handleFilterChange(filterValues, filterType) {
-    var stateChanges = Object.assign({}, this.state);
-    stateChanges[filterType] = filterValues;
+  handleFilterChange(filterValue) {
+    const {router} = this.context;
+    const {location: {pathname}} = this.props;
+    const query = {};
 
-    this.setState(stateChanges);
+    query[JobFilterTypes.TEXT] = filterValue;
+    router.push({pathname, query});
+
+    this.setState({
+      searchString: filterValue
+    });
   }
 
   resetFilterQueryParams() {
@@ -102,6 +100,17 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   resetFilter() {
     var state = Object.assign({}, this.state, DEFAULT_FILTER_OPTIONS);
     this.setState(state, this.resetFilterQueryParams);
+  }
+
+  updateFromProps(props) {
+    const {location={query:{}}} = props;
+
+    if (location.query[JobFilterTypes.TEXT] != null) {
+      const state = {};
+
+      state[JobFilterTypes.TEXT] = location.query[JobFilterTypes.TEXT];
+      this.setState(state);
+    }
   }
 
   getHeadline(item, filteredJobs) {
@@ -153,8 +162,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
           {this.getHeadline(item, filteredJobs)}
           <FilterBar>
             <JobSearchFilter
-              handleFilterChange={this.handleFilterChange}
-              location={this.props.location} />
+              onChange={this.handleFilterChange}
+              value={this.state.searchString} />
           </FilterBar>
           <JobsTable jobs={filteredJobs} />
         </div>
@@ -228,7 +237,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 }
 
 JobsTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
+  location: React.PropTypes.object.isRequired
 };
 
 module.exports = JobsTab;
