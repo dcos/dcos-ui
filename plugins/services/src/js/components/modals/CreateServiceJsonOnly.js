@@ -121,16 +121,16 @@ class CreateServiceJsonOnly extends React.Component {
     };
 
     return (
-      <div className="modal-create-service-json-only container">
-        <div className="modal-create-service-json-only-introduction">
+      <div className="create-service-modal-json-only container">
+        <div className="create-service-modal-json-only-introduction">
           <FieldLabel>JSON Configuration</FieldLabel>
           <FieldHelp>
             Use this text area to customize your configuration via JSON.
           </FieldHelp>
         </div>
-        <div className="modal-create-service-json-only-editor-container">
+        <div className="create-service-modal-json-only-editor-container">
           <JSONEditor
-            className="modal-create-service-json-only-editor"
+            className="create-service-modal-json-only-editor"
             errors={errorList}
             onChange={this.handleJSONChange}
             onErrorStateChange={this.handleJSONErrorStateChange}
