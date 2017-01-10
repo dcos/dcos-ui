@@ -12,6 +12,18 @@ import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
+const getNetworkType = (networkType, appDefinition) => {
+  networkType = networkType || Networking.type.HOST;
+  const networkName = findNestedPropertyInObject(
+    appDefinition,
+    'ipAddress.networkName'
+  );
+
+  return networkName != null ?
+    Networking.type.USER :
+    networkType;
+};
+
 class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
@@ -43,17 +55,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: 'container.docker.network',
           label: 'Network Type',
-          transformValue(networkType, appDefinition) {
-            networkType = networkType || Networking.type.HOST;
-            const networkName = findNestedPropertyInObject(
-              appDefinition,
-              'ipAddress.networkName'
-            );
-
-            return networkName != null ?
-              Networking.type.USER :
-              networkType;
-          }
+          transformValue: getNetworkType
         },
         {
           key: 'ipAddress.networkName',
@@ -73,13 +75,20 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               labels: 'labels'
             };
 
+            const networkType = getNetworkType(
+              findNestedPropertyInObject(
+                appDefinition, 'container.docker.network'
+              ),
+              appDefinition
+            );
+
             const containerPortMappings = findNestedPropertyInObject(
               appDefinition, 'container.docker.portMappings'
             );
             if ((portDefinitions == null || portDefinitions.length === 0) &&
               containerPortMappings != null && containerPortMappings.length !== 0) {
               portDefinitions = containerPortMappings;
-              keys.port = 'containerPort';
+              keys.port = 'hostPort';
             }
 
             // Make sure to have something to render, even if there is no data
@@ -110,11 +119,10 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Port'),
+                heading: getColumnHeadingFn('Host Port'),
                 prop: keys.port,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  // TODO: Figure out how to determine static or dynamic port.
                   return getDisplayValue(row[prop]);
                 },
                 sortable: true
@@ -124,7 +132,11 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: '',
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  const {port, labels} = row;
+                  const portKey = networkType === Networking.type.HOST ?
+                    'port' :
+                    'containerPort';
+
+                  const {[portKey]: port, labels} = row;
 
                   if (labels && ServiceConfigUtil.hasVIPLabel(labels)) {
                     return ServiceConfigUtil.buildHostName(
@@ -138,6 +150,24 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               }
             ];
+
+            // We add the container port column if the network type is anything
+            // but HOST.
+            if (networkType !== Networking.type.HOST) {
+              const hostPortIndex = columns.findIndex((column) => {
+                return column.prop === keys.port;
+              });
+
+              columns.splice(hostPortIndex, 0, {
+                heading: getColumnHeadingFn('Container Port'),
+                prop: 'containerPort',
+                className: getColumnClassNameFn(),
+                render(prop, row) {
+                  return getDisplayValue(row[prop]);
+                },
+                sortable: true
+              });
+            }
 
             if (onEditClick) {
               columns.push({
