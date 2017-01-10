@@ -196,11 +196,6 @@ module.exports = {
       delete newState.docker;
     }
 
-    if (newState.docker && newState.type !== DOCKER) {
-      delete newState.docker.privileged;
-      delete newState.docker.forcePullImage;
-    }
-
     if (ValidatorUtil.isEmpty(newState.volumes)) {
       delete newState.volumes;
     }
