@@ -4,6 +4,8 @@ import deepEqual from 'deep-equal';
 import Application from '../../structs/Application';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
+import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import PodSpec from '../../structs/PodSpec';
@@ -115,23 +117,30 @@ class CreateServiceJsonOnly extends React.Component {
     // Note: The `transform` parameter is just a hack to properly align the
     // error message.
     let editorStyles = {
-      position: 'absolute',
-      'transform': 'translateX(0)'
+      transform: 'translateX(0)'
     };
 
     return (
-      <JSONEditor
-        errors={errorList}
-        className="modal-full-screen-fill-body"
-        onChange={this.handleJSONChange}
-        onErrorStateChange={this.handleJSONErrorStateChange}
-        showGutter={true}
-        showPrintMargin={false}
-        style={editorStyles}
-        theme="monokai"
-        height="100%"
-        value={appConfig}
-        width="100%" />
+      <div className="modal-create-service-json-only container">
+        <div className="modal-create-service-json-only-introduction">
+          <FieldLabel>JSON Configuration</FieldLabel>
+          <FieldHelp>
+            Use this text area to customize your configuration via JSON.
+          </FieldHelp>
+        </div>
+        <div className="modal-create-service-json-only-editor-container">
+          <JSONEditor
+            className="modal-create-service-json-only-editor"
+            errors={errorList}
+            onChange={this.handleJSONChange}
+            onErrorStateChange={this.handleJSONErrorStateChange}
+            showGutter={true}
+            showPrintMargin={false}
+            style={editorStyles}
+            theme="monokai"
+            value={appConfig} />
+        </div>
+      </div>
     );
   }
 }
