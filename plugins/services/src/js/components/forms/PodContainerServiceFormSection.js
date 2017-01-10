@@ -18,37 +18,40 @@ import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
-const getArtifactsLabel = () => {
-  const tooltipContent = (
-    <span>
-      {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
-      <a
-        href="https://mesosphere.github.io/marathon/docs/application-basics.html"
-        target="_blank">
-        More information
-      </a>.
-    </span>
-  );
-
-  return (
-    <FieldLabel>
-      {'Artifact URI '}
-      <Tooltip
-        content={tooltipContent}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon color="grey" id="circle-question" size="mini" />
-      </Tooltip>
-    </FieldLabel>
-  );
-};
-
 class PodContainerServiceFormSection extends Component {
-  getArtifactsInputs(data, errors) {
-    const {path} = this.props;
+  getArtifactsLabel() {
+    const tooltipContent = (
+      <span>
+        {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
+    return (
+      <FieldLabel>
+        {'Artifact URI '}
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </FieldLabel>
+    );
+  }
+
+  getArtifactsInputs() {
+    const {data, errors, path} = this.props;
+    const artifactErrors = findNestedPropertyInObject(
+      errors,
+      `${path}.artifacts`
+    ) || [];
     const artifacts = findNestedPropertyInObject(
       data,
       `${path}.artifacts`
@@ -58,31 +61,29 @@ class PodContainerServiceFormSection extends Component {
       return (
         <FormRow>
           <FormGroup className="column-10">
-            {getArtifactsLabel()}
+            {this.getArtifactsLabel()}
           </FormGroup>
         </FormRow>
       );
     }
 
     return artifacts.map((item, index) => {
-      let artifactError = findNestedPropertyInObject(
-        errors,
-        `${path}.artifacts.${index}`
-      );
       let label = null;
       if (index === 0) {
-        label = getArtifactsLabel();
+        label = this.getArtifactsLabel();
       }
 
       return (
         <FormRow key={`${path}.artifacts.${index}`}>
-          <FormGroup className="column-10" showError={Boolean(artifactError)}>
+          <FormGroup
+            className="column-10"
+            showError={Boolean(artifactErrors[index])}>
             {label}
             <FieldInput
               name={`${path}.artifacts.${index}.uri`}
               placeholder="http://"
               value={item} />
-            <FieldError>{artifactError}</FieldError>
+            <FieldError>{artifactErrors[index]}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
             <DeleteRowButton
@@ -96,10 +97,9 @@ class PodContainerServiceFormSection extends Component {
     });
   }
 
-  getAdvancedSettings(data = {}, errors = {}) {
-    const {path} = this.props;
-
-    let diskErrors = findNestedPropertyInObject(
+  getAdvancedSettings() {
+    const {data, errors, path} = this.props;
+    const diskErrors = findNestedPropertyInObject(
       errors,
       `${path}.resources.disk`
     );
@@ -121,7 +121,7 @@ class PodContainerServiceFormSection extends Component {
             <FieldError>{diskErrors}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.getArtifactsInputs(data, errors)}
+        {this.getArtifactsInputs()}
         <FormRow>
           <FormGroup className="column-12">
             <a
@@ -139,7 +139,7 @@ class PodContainerServiceFormSection extends Component {
   }
 
   getCMDLabel() {
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
         <a
@@ -166,7 +166,7 @@ class PodContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'Enter a Docker image or browse '}
         <a href="https://hub.docker.com/explore/" target="_blank">
@@ -198,16 +198,20 @@ class PodContainerServiceFormSection extends Component {
 
   render() {
     const {data, errors, path} = this.props;
-
-    let imageErrors = findNestedPropertyInObject(errors, `${path}.image.id`);
-    let cpusErrors = findNestedPropertyInObject(
-      errors,
-      `${path}.resources.cpus`
+    const container = findNestedPropertyInObject(data, path) || {};
+    const containerErrors = findNestedPropertyInObject(errors, path) || {};
+    const imageErrors = findNestedPropertyInObject(containerErrors, 'image.id');
+    const cpusErrors = findNestedPropertyInObject(
+      containerErrors,
+      'resources.cpus'
     );
-    let memErrors = findNestedPropertyInObject(errors, `${path}.resources.mem`);
-    let commandErrors = findNestedPropertyInObject(
-      errors,
-      `${path}.exec.command.shell`
+    const memErrors = findNestedPropertyInObject(
+      containerErrors,
+      'resources.mem'
+    );
+    const commandErrors = findNestedPropertyInObject(
+      containerErrors,
+      'exec.command.shell'
     );
 
     return (
@@ -232,7 +236,7 @@ class PodContainerServiceFormSection extends Component {
             {this.getImageLabel()}
             <FieldInput
               name={`${path}.image`}
-              value={findNestedPropertyInObject(data, `${path}.image`)} />
+              value={container.image} />
             <FieldHelp>
               Enter a Docker image you want to run, e.g. nginx.
             </FieldHelp>
@@ -249,10 +253,7 @@ class PodContainerServiceFormSection extends Component {
               name={`${path}.resources.cpus`}
               step="any"
               type="number"
-              value={findNestedPropertyInObject(
-                data,
-                `${path}.resources.cpus`
-              )} />
+              value={findNestedPropertyInObject(container, 'resources.cpus')} />
             <FieldError>{cpusErrors}</FieldError>
           </FormGroup>
 
@@ -266,10 +267,7 @@ class PodContainerServiceFormSection extends Component {
               name={`${path}.resources.mem`}
               step="any"
               type="number"
-              value={findNestedPropertyInObject(
-                data,
-                `${path}.resources.mem`
-              )} />
+              value={findNestedPropertyInObject(container, 'resources.mem')} />
             <FieldError>{memErrors}</FieldError>
           </FormGroup>
         </FormRow>
@@ -279,8 +277,10 @@ class PodContainerServiceFormSection extends Component {
             {this.getCMDLabel()}
             <FieldTextarea
               name={`${path}.exec.command.shell`}
-              value={findNestedPropertyInObject(data,
-                `${path}.exec.command.shell`)} />
+              value={findNestedPropertyInObject(
+                container,
+                'exec.command.shell'
+              )} />
             <FieldHelp>
               A shell command for your container to execute.
             </FieldHelp>
@@ -292,7 +292,7 @@ class PodContainerServiceFormSection extends Component {
           <AdvancedSectionLabel>
             Advanced Container Settings
           </AdvancedSectionLabel>
-          {this.getAdvancedSettings(data, errors)}
+          {this.getAdvancedSettings()}
         </AdvancedSection>
       </div>
     );
@@ -302,7 +302,9 @@ class PodContainerServiceFormSection extends Component {
 PodContainerServiceFormSection.defaultProps = {
   data: {},
   errors: {},
-  path: 'container.docker'
+  onAddItem() {},
+  onRemoveItem() {},
+  path: 'container'
 };
 
 PodContainerServiceFormSection.propTypes = {

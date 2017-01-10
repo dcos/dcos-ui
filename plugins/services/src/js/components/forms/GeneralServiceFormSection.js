@@ -87,8 +87,9 @@ class GeneralServiceFormSection extends Component {
     if (!(this.props.service instanceof PodSpec)) {
       return (
         <ContainerServiceFormSection
+          path="container"
           data={data}
-          errors={errors.container}
+          errors={errors}
           onAddItem={this.props.onAddItem}
           onRemoveItem={this.props.onRemoveItem} />
       );
