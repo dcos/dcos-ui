@@ -30,7 +30,7 @@ class TaskDirectoryTable extends React.Component {
       iconID = 'folder';
       label = (
         <a
-          className="table-cell-link-primary"
+          className="table-cell-link-primary clickable"
           onClick={this.handleTaskClick.bind(this, value)}>
           {value}
         </a>
