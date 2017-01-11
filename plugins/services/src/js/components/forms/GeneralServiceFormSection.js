@@ -95,8 +95,7 @@ class GeneralServiceFormSection extends Component {
     }
 
     const {containers = []} = data;
-
-    return containers.map((item, index) => {
+    const containerElements = containers.map((item, index) => {
       return (
         <FormGroupContainer key={index}
           onRemove={this.props.onRemoveItem.bind(this,
@@ -105,6 +104,15 @@ class GeneralServiceFormSection extends Component {
         </FormGroupContainer>
       );
     });
+
+    return (
+      <div>
+        <h2 className="short-bottom">
+          Containers
+        </h2>
+        {containerElements}
+      </div>
+    );
   }
 
   getConvertToPodAction() {
