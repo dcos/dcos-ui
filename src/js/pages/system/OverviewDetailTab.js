@@ -49,7 +49,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       },
       {
         name: 'metadata',
-        events: ['dcosBuildInfoChange', 'dcosSuccess']
+        events: ['dcosBuildInfoChange', 'dcosSuccess', 'success']
       }
     ];
 
@@ -80,6 +80,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
   getClusterDetailsHash() {
     let ccid = ConfigStore.get('ccid');
+    let publicIP = this.getPublicIP();
     let productVersion = MetadataStore.version;
 
     if (Object.keys(ccid).length) {
@@ -92,9 +93,14 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       productVersion = this.getLoading();
     }
 
+    if (publicIP == null) {
+      publicIP = this.getLoading();
+    }
+
     return {
       [`${Config.productName} Version`]: productVersion,
-      'Cryptographic Cluster ID': ccid
+      'Cryptographic Cluster ID': ccid,
+      'Public IP': publicIP
     };
   }
 
@@ -123,6 +129,18 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     }];
   }
 
+  getPublicIP() {
+    const metadata = MetadataStore.get('metadata');
+
+    if ((typeof metadata !== 'object') ||
+      metadata.PUBLIC_IPV4 == null ||
+      metadata.PUBLIC_IPV4.length === 0) {
+      return null;
+    }
+
+    return metadata.PUBLIC_IPV4;
+  }
+
   render() {
     const buildInfo = MetadataStore.get('dcosBuildInfo');
     const marathonHash = this.getMarathonDetailsHash();
@@ -149,6 +167,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
               Cluster Details
+            </ConfigurationMapHeading>
+            <ConfigurationMapHeading level={2}>
+              General
             </ConfigurationMapHeading>
             <HashMapDisplay hash={this.getClusterDetailsHash()} />
             {marathonDetails}
