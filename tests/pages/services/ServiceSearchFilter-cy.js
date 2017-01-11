@@ -1,4 +1,4 @@
-import {getSearchParameter} from '../../utils/testUtil';
+import {getSearchParameter} from '../../_support/utils/testUtil';
 
 describe('Service Search Filters', function () {
 
@@ -23,7 +23,7 @@ describe('Service Search Filters', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
       cy.hash().should(function (hash) {
-        let searchParameter = getSearchParameter(hash);
+        const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter))
           .to.equal('q=cassandra-healthy');
       });
@@ -38,7 +38,7 @@ describe('Service Search Filters', function () {
         .click();
 
       cy.hash().should(function (hash) {
-        let searchParameter = getSearchParameter(hash);
+        const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter))
           .to.equal('q=');
       });
