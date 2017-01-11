@@ -39,5 +39,58 @@ describe('Tasks Table', function () {
     });
 
   });
+
+  context('For a Service', function () {
+
+    beforeEach(function () {
+      cy.configureCluster({
+        mesos: 'healthy-tasks-in-mesos-and-marathon'
+      });
+      cy.viewport('macbook-15');
+      cy.visitUrl({url: '/services/overview/%2Fconfluent-kafka'});
+    });
+
+    context('Running task without healthcheck', function () {
+
+      beforeEach(function () {
+        cy.get('table tr')
+          .contains('broker-0__3c7ab984-a9b9-41fb-bb73-0569f88c657e')
+          .closest('tr').find('td').as('tds');
+      });
+
+      it('correctly shows status', function () {
+        cy.get('@tds').eq(4).contains('Running');
+      });
+
+      it('correctly shows health', function () {
+        cy.get('@tds').eq(5).find('.dot')
+          .triggerHover();
+        cy.get('.tooltip').contains('No health checks available');
+      });
+
+    });
+
+    context('Running task with healthcheck', function () {
+
+      beforeEach(function () {
+        cy.get('table tr')
+          .contains('confluent-kafka.825e1e2e-d6a6-11e6-a564-8605ecf0a9df')
+          .closest('tr').find('td').as('tds');
+      });
+
+      it('correctly shows status', function () {
+        cy.get('@tds').eq(4).contains('Running');
+      });
+
+      it('correctly shows health', function () {
+        cy.get('@tds').eq(5).find('.dot')
+          .triggerHover();
+        cy.get('.tooltip').contains('Healthy');
+      });
+
+    });
+
+  });
+
 });
 

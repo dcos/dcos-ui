@@ -1,7 +1,7 @@
 import {DCOSStore} from 'foundation-ui';
 
 import CompositeState from '../../../../../src/js/structs/CompositeState';
-import TaskStates from '../constants/TaskStates';
+import TaskHealthStates from '../constants/TaskHealthStates';
 
 function getTaskHealthFromMesos(task) {
   if (task.statuses == null) {
@@ -44,7 +44,7 @@ function getTaskHealthFromMarathon(task) {
 }
 
 function mergeHealth(task) {
-  let health = TaskStates[task.state].displayName;
+  let health = TaskHealthStates.UNKNOWN;
   let taskHealth = getTaskHealthFromMesos(task);
 
   if (taskHealth === null) {
@@ -52,10 +52,10 @@ function mergeHealth(task) {
   }
   // task status should only reflect health if taskHealth is defined
   if (taskHealth === true) {
-    health = 'Healthy';
+    health = TaskHealthStates.HEALTHY;
   }
   if (taskHealth === false) {
-    health = 'Unhealthy';
+    health = TaskHealthStates.UNHEALTHY;
   }
 
   task.health = health;

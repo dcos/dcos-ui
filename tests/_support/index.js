@@ -95,6 +95,14 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/state/, 'fx:marathon-1-task/state');
   }
 
+  if (configuration.mesos === 'healthy-tasks-in-mesos-and-marathon') {
+    cy
+      .route(/marathon\/v2\/groups/, 'fx:healthy-tasks-in-mesos-and-marathon/groups')
+      .route(/history\/last/, 'fx:healthy-tasks-in-mesos-and-marathon/summary')
+      .route(/state-summary/, 'fx:healthy-tasks-in-mesos-and-marathon/summary')
+      .route(/state/, 'fx:healthy-tasks-in-mesos-and-marathon/state');
+  }
+
   if (configuration.deployments === 'one-deployment') {
     cy
       .route(/marathon\/v2\/deployments/, 'fx:deployments/one-deployment')
@@ -219,4 +227,22 @@ Cypress.addParentCommand('visitUrl', function (options) {
 
   var url = Cypress.env('CLUSTER_URL') + '/#' + options.url;
   cy.visit(url, {onBeforeLoad: callback});
+});
+
+Cypress.addChildCommand('triggerHover', function (elements) {
+  elements.each((index, element) => {
+    fireEvent(element, 'mouseover');
+  });
+
+  function fireEvent(element, event) {
+    if (element.fireEvent) {
+      element.fireEvent('on' + event);
+    } else {
+      var evObj = document.createEvent('Events');
+
+      evObj.initEvent(event, true, false);
+
+      element.dispatchEvent(evObj);
+    }
+  }
 });

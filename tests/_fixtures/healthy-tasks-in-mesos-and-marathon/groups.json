@@ -1,0 +1,369 @@
+{
+  "id": "/",
+  "dependencies": [
+    
+  ],
+  "version": "2017-01-09T20:02:12.029Z",
+  "apps": [
+    {
+      "id": "/confluent-kafka",
+      "cmd": "export PATH=$(ls -d $MESOS_SANDBOX/jre*/bin):$PATH && ./scheduler/bin/kafka-scheduler server ./scheduler/conf/scheduler.yml",
+      "args": null,
+      "user": null,
+      "env": {
+        "KAFKA_OVERRIDE_LEADER_IMBALANCE_CHECK_INTERVAL_SECONDS": "300"
+      },
+      "instances": 1,
+      "cpus": 1,
+      "mem": 1230,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [
+        
+      ],
+      "uris": [
+        
+      ],
+      "fetch": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [
+        {
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 0,
+          "portIndex": 0,
+          "path": "/admin/healthcheck",
+          "protocol": "HTTP",
+          "ignoreHttp1xx": false
+        }
+      ],
+      "readinessChecks": [
+        {
+          "name": "confluentUpdateProgress",
+          "protocol": "HTTP",
+          "path": "/v1/plan",
+          "portName": "api",
+          "intervalSeconds": 30,
+          "timeoutSeconds": 10,
+          "httpStatusCodesForReady": [
+            200
+          ],
+          "preserveLastResponse": true
+        }
+      ],
+      "dependencies": [
+        
+      ],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 0,
+        "maximumOverCapacity": 0
+      },
+      "labels": {
+        "DCOS_PACKAGE_RELEASE": "10",
+        "DCOS_SERVICE_SCHEME": "http",
+        "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+        "DCOS_PACKAGE_COMMAND": "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ==",
+        "DCOS_PACKAGE_METADATA": "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0=",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "3.0",
+        "DCOS_SERVICE_NAME": "confluent-kafka",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "confluent-kafka",
+        "DCOS_SERVICE_PORT_INDEX": "1",
+        "DCOS_PACKAGE_VERSION": "1.1.16-3.1.1",
+        "DCOS_MIGRATION_API_PATH": "/v1/plan",
+        "DCOS_PACKAGE_NAME": "confluent-kafka",
+        "MARATHON_SINGLE_INSTANCE_APP": "true",
+        "DCOS_PACKAGE_IS_FRAMEWORK": "true",
+        "DCOS_MIGRATION_API_VERSION": "v1"
+      },
+      "ipAddress": null,
+      "version": "2017-01-09T20:02:12.029Z",
+      "residency": null,
+      "secrets": {
+        
+      },
+      "taskKillGracePeriodSeconds": null,
+      "unreachableStrategy": {
+        "inactiveAfterSeconds": 900,
+        "expungeAfterSeconds": 604800
+      },
+      "killSelection": "YoungestFirst",
+      "ports": [
+        10001,
+        1
+      ],
+      "portDefinitions": [
+        {
+          "port": 10001,
+          "protocol": "tcp",
+          "name": "health",
+          "labels": {
+            
+          }
+        },
+        {
+          "port": 1,
+          "protocol": "tcp",
+          "name": "api",
+          "labels": {
+            
+          }
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2017-01-09T20:02:12.029Z",
+        "lastConfigChangeAt": "2017-01-09T20:02:12.029Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 1,
+      "tasksUnhealthy": 0,
+      "deployments": [
+        {
+          "id": "b381ed6c-f10b-493b-99f1-007a14fb0fc4"
+        }
+      ],
+      "tasks": [
+        {
+          "ipAddresses": [
+            {
+              "ipAddress": "10.0.2.121",
+              "protocol": "IPv4"
+            }
+          ],
+          "stagedAt": "2017-01-09T20:02:12.154Z",
+          "state": "TASK_RUNNING",
+          "ports": [
+            24348,
+            24349
+          ],
+          "startedAt": "2017-01-09T20:02:26.435Z",
+          "version": "2017-01-09T20:02:12.029Z",
+          "id": "confluent-kafka.825e1e2e-d6a6-11e6-a564-8605ecf0a9df",
+          "appId": "/confluent-kafka",
+          "slaveId": "74f1836b-6784-4030-816e-aacbdd45ff57-S1",
+          "host": "10.0.2.121",
+          "healthCheckResults": [
+            {
+              "alive": true,
+              "consecutiveFailures": 0,
+              "firstSuccess": "2017-01-09T20:02:47.288Z",
+              "lastFailure": null,
+              "lastSuccess": "2017-01-09T20:03:47.213Z",
+              "lastFailureCause": null,
+              "instanceId": "confluent-kafka.marathon-825e1e2e-d6a6-11e6-a564-8605ecf0a9df"
+            }
+          ]
+        }
+      ],
+      "taskStats": {
+        "startedAfterLastScaling": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 91.855,
+              "medianSeconds": 91.855
+            }
+          }
+        },
+        "withLatestConfig": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 91.855,
+              "medianSeconds": 91.855
+            }
+          }
+        },
+        "totalSummary": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 1,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 91.855,
+              "medianSeconds": 91.855
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "/no-healthcheck",
+      "cmd": "sleep 1234567;",
+      "args": null,
+      "user": null,
+      "env": {
+        
+      },
+      "instances": 1,
+      "cpus": 0.01,
+      "mem": 32,
+      "disk": 0,
+      "gpus": 0,
+      "executor": "",
+      "constraints": [
+        
+      ],
+      "uris": [
+        
+      ],
+      "fetch": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [
+        
+      ],
+      "readinessChecks": [
+        
+      ],
+      "dependencies": [
+        
+      ],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+        
+      },
+      "ipAddress": null,
+      "version": "2017-01-09T20:02:03.443Z",
+      "residency": null,
+      "secrets": {
+        
+      },
+      "taskKillGracePeriodSeconds": null,
+      "unreachableStrategy": {
+        "inactiveAfterSeconds": 900,
+        "expungeAfterSeconds": 604800
+      },
+      "killSelection": "YoungestFirst",
+      "ports": [
+        10000
+      ],
+      "portDefinitions": [
+        {
+          "port": 10000,
+          "protocol": "tcp",
+          "labels": {
+            
+          }
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2017-01-09T20:02:03.443Z",
+        "lastConfigChangeAt": "2017-01-09T20:02:03.443Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [
+        
+      ],
+      "tasks": [
+        {
+          "ipAddresses": [
+            {
+              "ipAddress": "10.0.2.121",
+              "protocol": "IPv4"
+            }
+          ],
+          "stagedAt": "2017-01-09T20:02:03.826Z",
+          "state": "TASK_RUNNING",
+          "ports": [
+            29557
+          ],
+          "startedAt": "2017-01-09T20:02:04.600Z",
+          "version": "2017-01-09T20:02:03.443Z",
+          "id": "no-healthcheck.7d61432d-d6a6-11e6-a564-8605ecf0a9df",
+          "appId": "/no-healthcheck",
+          "slaveId": "74f1836b-6784-4030-816e-aacbdd45ff57-S1",
+          "host": "10.0.2.121"
+        }
+      ],
+      "taskStats": {
+        "startedAfterLastScaling": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 113.688,
+              "medianSeconds": 113.688
+            }
+          }
+        },
+        "withLatestConfig": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 113.688,
+              "medianSeconds": 113.688
+            }
+          }
+        },
+        "totalSummary": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 113.688,
+              "medianSeconds": 113.688
+            }
+          }
+        }
+      }
+    }
+  ],
+  "groups": [
+    
+  ],
+  "pods": [
+    
+  ]
+}

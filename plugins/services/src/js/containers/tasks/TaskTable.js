@@ -8,6 +8,7 @@ import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
 import Icon from '../../../../../../src/js/components/Icon';
 import TableUtil from '../../../../../../src/js/utils/TableUtil';
 import TaskStates from '../../constants/TaskStates';
+import TaskHealthStates from '../../constants/TaskHealthStates';
 import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
 import TaskUtil from '../../utils/TaskUtil';
 import Units from '../../../../../../src/js/utils/Units';
@@ -50,7 +51,7 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
-    return task.health;
+    return TaskStates[task.state].displayName;
   }
 
   getVersionValue(task) {
@@ -318,14 +319,14 @@ class TaskTable extends React.Component {
     const dangerState = TaskStates[state].stateTypes.includes('failure');
     const activeState = TaskStates[state].stateTypes.includes('active');
 
-    const healthy = task.health;
-    const unhealthy = (healthy === false);
-    const unknown = (healthy === null);
+    const healthy = (task.health === TaskHealthStates.HEALTHY);
+    const unhealthy = (task.health === TaskHealthStates.UNHEALTHY);
+    const unknown = (task.health === TaskHealthStates.UNKNOWN);
 
-    let tooltipContent = 'Healthy';
+    let tooltipContent = TaskHealthStates.HEALTHY;
 
     if (unhealthy) {
-      tooltipContent = 'Unhealthy';
+      tooltipContent = TaskHealthStates.UNHEALTHY;
     }
 
     if (!activeState || unknown) {
