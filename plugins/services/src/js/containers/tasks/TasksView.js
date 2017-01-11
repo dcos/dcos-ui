@@ -10,6 +10,7 @@ import FilterInputText from '../../../../../../src/js/components/FilterInputText
 import GraphQLTaskUtil from '../../utils/GraphQLTaskUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import SaveStateMixin from '../../../../../../src/js/mixins/SaveStateMixin';
+import ServiceStatusTypes from '../../constants/ServiceStatusTypes';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TaskStates from '../../constants/TaskStates';
 import TaskTable from './TaskTable';
@@ -67,7 +68,7 @@ class TasksView extends mixin(SaveStateMixin) {
     this.setState({checkedItems});
   }
 
-  handleStopClick(killAction) {
+  handleAcitonClick(killAction) {
     const {checkedItems} = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -143,12 +144,16 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   getStopButtons() {
-    const {tasks} = this.props;
+    const {service, tasks} = this.props;
     const {checkedItems} = this.state;
 
     if (!Object.keys(checkedItems).length) {
       return null;
     }
+
+    // Only allow restarting the task if the service isn't deploying.
+    const isDeploying = service.getServiceStatus().key
+      === ServiceStatusTypes.DEPLOYING;
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks
       .some((task) => task.id in checkedItems && task.schedulerTask);
@@ -156,29 +161,46 @@ class TasksView extends mixin(SaveStateMixin) {
     // Using Button's native "disabled" prop prevents onMouseLeave from
     // being correctly called, preventing correct dismissal of the Tooltip.
     //
-    // So we manually disable the button.
+    // So we overwrite the click handlers manually.
+    let handleRestartClick = function () {};
     let handleStopClick = function () {};
+
+    if (!isDeploying) {
+      handleRestartClick = this.handleStopClick.bind(this, 'restart');
+    }
 
     if (!hasSchedulerTask) {
       handleStopClick = this.handleStopClick.bind(this, 'stop');
     }
 
-    let stopButtonClasses = classNames('button button-link', {
+    const restartButtonClasses = classNames('button button-link', {
+      disabled: isDeploying
+    });
+    const stopButtonClasses = classNames('button button-link', {
       disabled: hasSchedulerTask
     });
 
     return (
       <div className="button-collection flush-bottom">
-        <button
-          className="button button-link"
-          onClick={this.handleStopClick.bind(this, 'restart')}>
-          <Icon id="repeat" size="mini" />
-          <span>Restart</span>
-        </button>
         <Tooltip
+          content="Restarting tasks is not supported while the service is deploying."
+          suppress={!isDeploying}
+          width={200}
           wrapperClassName="button-group"
+          wrapText={true}>
+          <button
+            className={restartButtonClasses}
+            onClick={handleRestartClick}>
+            <Icon id="repeat" size="mini" />
+            <span>Restart</span>
+          </button>
+        </Tooltip>
+        <Tooltip
           content="Stopping a scheduler task is not supported."
-          suppress={!hasSchedulerTask}>
+          suppress={!hasSchedulerTask}
+          width={200}
+          wrapText={true}
+          wrapperClassName="button-group">
           <button
             className={stopButtonClasses}
             onClick={handleStopClick}>
