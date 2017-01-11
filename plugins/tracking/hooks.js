@@ -59,6 +59,10 @@ module.exports = {
       global.analytics.ready(() => {
         resolve();
       });
+
+      // Let's not block the application loading in case it takes a really
+      // long time to ready-up analytics or the integrations.
+      global.setTimeout(resolve, 2000);
     });
 
     promiseArray.push(promise);
@@ -67,25 +71,29 @@ module.exports = {
   },
 
   pluginsConfigured() {
-    const updateTrackJSConfiguration = () => {
-      global.trackJs.configure({version: MetadataStore.version});
-      global.trackJs.addMetadata('version', MetadataStore.version);
-    };
+    // Ensure analytics is actually ready, because in #pluginsLoadedCheck we
+    // may skip the check so that we don't completely block the applicaiton
+    global.analytics.ready(() => {
+      const updateTrackJSConfiguration = () => {
+        global.trackJs.configure({version: MetadataStore.version});
+        global.trackJs.addMetadata('version', MetadataStore.version);
+      };
 
-    if (this.configuration && this.configuration.metadata) {
-      const config = this.configuration.metadata;
-      Object.keys(config).forEach((metaKey) => {
-        global.trackJs.addMetadata(metaKey, config[metaKey]);
-      });
-    }
+      if (this.configuration && this.configuration.metadata) {
+        const config = this.configuration.metadata;
+        Object.keys(config).forEach((metaKey) => {
+          global.trackJs.addMetadata(metaKey, config[metaKey]);
+        });
+      }
 
-    if (!MetadataStore.version) {
-      MetadataStore.addChangeListener(
-        EventTypes.DCOS_METADATA_CHANGE, updateTrackJSConfiguration
-      );
-    } else {
-      updateTrackJSConfiguration();
-    }
+      if (!MetadataStore.version) {
+        MetadataStore.addChangeListener(
+          EventTypes.DCOS_METADATA_CHANGE, updateTrackJSConfiguration
+        );
+      } else {
+        updateTrackJSConfiguration();
+      }
+    });
   },
 
   userLoginSuccess() {

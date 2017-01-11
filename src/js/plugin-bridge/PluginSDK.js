@@ -99,9 +99,20 @@ const initialize = function (pluginsConfig) {
 
   // Allows plugins to do things before the application ever renders
   const promises = hooks.applyFilter('pluginsLoadedCheck', []);
+  let pluginsLoaded = false;
+
   Promise.all(promises).then(function () {
+    pluginsLoaded = true;
     hooks.doAction('pluginsConfigured');
   });
+
+  global.setTimeout(() => {
+    if (!pluginsLoaded) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Failed to load plugins.');
+      }
+    }
+  }, 5000);
 };
 
 /**

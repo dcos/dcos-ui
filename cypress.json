@@ -7,7 +7,5 @@
   "fixturesFolder": "tests/_fixtures",
   "integrationFolder": "tests",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
-  "screenshotOnHeadlessFailure": false,
-  "supportFile": "tests/_support",
-  "videoRecording": false
+  "supportFile": "tests/_support"
 }
