@@ -55,13 +55,13 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'path'], '/test'));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([
         {
-          protocol: 'HTTP',
+          protocol: 'MESOS_HTTP',
           path: '/test'
         }
       ]);
@@ -71,7 +71,7 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
       batch = batch.add(new Transaction(['healthChecks', 0, 'path'], '/test'));
       batch =
@@ -91,7 +91,7 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([
         {
-          protocol: 'HTTPS',
+          protocol: 'MESOS_HTTPS',
           path: '/test',
           gracePeriodSeconds: 1,
           intervalSeconds: 2,
@@ -110,14 +110,14 @@ describe('Labels', function () {
       batch =
         batch.add(new Transaction(['healthChecks', 0, 'path'], 'sleep 1000;'));
       batch =
-        batch.add(new Transaction(['healthChecks', 1, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 1, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 1, 'path'], '/test'));
       batch = batch.add(new Transaction(['healthChecks'], 0, REMOVE_ITEM));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {}))
       .toEqual([
         {
-          protocol: 'HTTP',
+          protocol: 'MESOS_HTTP',
           path: '/test'
         }
       ]);
@@ -271,13 +271,13 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'path'], '/test'));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
       .toEqual([
         {
-          protocol: 'HTTP',
+          protocol: 'MESOS_HTTP',
           path: '/test'
         }
       ]);
@@ -287,7 +287,7 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
       batch = batch.add(new Transaction(['healthChecks', 0, 'path'], '/test'));
       batch =
@@ -307,7 +307,7 @@ describe('Labels', function () {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), []))
       .toEqual([
         {
-          protocol: 'HTTPS',
+          protocol: 'MESOS_HTTPS',
           path: '/test',
           gracePeriodSeconds: 1,
           intervalSeconds: 2,
@@ -363,16 +363,16 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
       batch =
         batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'COMMAND'));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
-          protocol: 'HTTPS'
+          protocol: 'MESOS_HTTPS'
         }
       ]);
     });
@@ -381,17 +381,17 @@ describe('Labels', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
       batch =
         batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'COMMAND'));
       batch =
-        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+        batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'MESOS_HTTP'));
       batch = batch.add(new Transaction(['healthChecks', 0, 'https'], false));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
-          protocol: 'HTTP'
+          protocol: 'MESOS_HTTP'
         }
       ]);
     });

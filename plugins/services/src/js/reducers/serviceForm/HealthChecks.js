@@ -3,7 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
-import {HTTP, HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
+import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
 import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
@@ -79,8 +79,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           this.healthChecks[index].protocol = value;
-          if (value === HTTP && this.healthChecks[index].https) {
-            this.healthChecks[index].protocol = HTTPS;
+          if (value === MESOS_HTTP && this.healthChecks[index].https) {
+            this.healthChecks[index].protocol = MESOS_HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -107,9 +107,9 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
           if (value === true) {
-            this.healthChecks[index].protocol = HTTPS;
+            this.healthChecks[index].protocol = MESOS_HTTPS;
           } else {
-            this.healthChecks[index].protocol = HTTP;
+            this.healthChecks[index].protocol = MESOS_HTTP;
           }
         }
       }
@@ -141,8 +141,8 @@ module.exports = {
           ], item.command.value, SET));
         }
       }
-      if (item.protocol.toUpperCase().replace(HTTPS, HTTP) === HTTP) {
-        if (item.protocol === HTTPS) {
+      if (item.protocol.toUpperCase().replace(MESOS_HTTPS, MESOS_HTTP) === MESOS_HTTP) {
+        if (item.protocol === MESOS_HTTPS) {
           memo.push(new Transaction([
             'healthChecks',
             index,
@@ -216,8 +216,8 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           state[index].protocol = value;
-          if (value === HTTP && this.cache[index]) {
-            state[index].protocol = HTTPS;
+          if (value === MESOS_HTTP && this.cache[index]) {
+            state[index].protocol = MESOS_HTTPS;
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
@@ -244,9 +244,9 @@ module.exports = {
         if (`healthChecks.${index}.https` === joinedPath) {
           this.cache[index] = value;
           if (value === true) {
-            state[index].protocol = HTTPS;
+            state[index].protocol = MESOS_HTTPS;
           } else {
-            state[index].protocol = HTTP;
+            state[index].protocol = MESOS_HTTP;
           }
         }
       }

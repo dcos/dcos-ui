@@ -6,6 +6,7 @@ import ApplicationSpec from '../structs/ApplicationSpec';
 import ContainerConstants from '../constants/ContainerConstants';
 import Framework from '../structs/Framework';
 import FrameworkSpec from '../structs/FrameworkSpec';
+import {MESOS_HTTP} from '../constants/HealthCheckProtocols';
 import Pod from '../structs/Pod';
 import PodSpec from '../structs/PodSpec';
 import Service from '../structs/Service';
@@ -294,7 +295,7 @@ const ServiceUtil = {
                 healthCheck.portType = 'PORT_INDEX';
               }
               if (healthCheck.protocol == null) {
-                healthCheck.protocol = 'HTTP';
+                healthCheck.protocol = MESOS_HTTP;
               }
 
               memo.push(

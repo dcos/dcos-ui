@@ -12,7 +12,7 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import {HTTP, HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
+import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealthCheckUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 
@@ -22,8 +22,8 @@ const errorsLens = Objektiv.attr('healthChecks', []);
 
 class HealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, key) {
-    if (healthCheck.protocol !== COMMAND && healthCheck.protocol !== HTTP &&
-      healthCheck.protocol !== HTTPS) {
+    if (healthCheck.protocol !== COMMAND && healthCheck.protocol !== MESOS_HTTP &&
+      healthCheck.protocol !== MESOS_HTTPS) {
       return null;
     }
 
@@ -121,7 +121,7 @@ class HealthChecksFormSection extends Component {
   }
 
   getHTTPFields(healthCheck, key) {
-    if (healthCheck.protocol !== HTTP && healthCheck.protocol !== HTTPS) {
+    if (healthCheck.protocol !== MESOS_HTTP && healthCheck.protocol !== MESOS_HTTPS) {
       return null;
     }
 
@@ -153,11 +153,11 @@ class HealthChecksFormSection extends Component {
       </FormRow>
     ),
     (
-      <FormRow key="HTTPS">
+      <FormRow key="MESOS_HTTPS">
         <FormGroup showError={false} className="column-12">
           <FieldLabel>
             <FieldInput
-              checked={healthCheck.protocol === HTTPS}
+              checked={healthCheck.protocol === MESOS_HTTPS}
               name={`healthChecks.${key}.https`}
               type="checkbox"
               value="HTTPS"/>
@@ -202,10 +202,10 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>Protocol</FieldLabel>
               <FieldSelect name={`healthChecks.${key}.protocol`}
                 value={healthCheck.protocol &&
-                healthCheck.protocol.replace(HTTPS, HTTP)}>
+                healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
                 <option value="">Select Protocol</option>
                 <option value={COMMAND}>Command</option>
-                <option value={HTTP}>HTTP</option>
+                <option value={MESOS_HTTP}>HTTP</option>
               </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>

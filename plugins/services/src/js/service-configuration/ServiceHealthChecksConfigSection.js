@@ -9,6 +9,7 @@ import {
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
+import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../constants/HealthCheckProtocols';
 import Util from '../../../../../src/js/utils/Util';
 
 class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
@@ -45,7 +46,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
           render(healthChecks) {
             const serviceEndpointHealthChecks = healthChecks.filter(
               (healthCheck) => {
-                return ['HTTP', 'HTTPS', 'TCP'].includes(healthCheck.protocol);
+                return [MESOS_HTTP, MESOS_HTTPS, COMMAND].includes(healthCheck.protocol);
               }
             );
 
@@ -150,7 +151,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
           key: 'healthChecks',
           render(healthChecks) {
             const commandHealthChecks = healthChecks.filter((healthCheck) => {
-              return healthCheck.protocol === 'COMMAND';
+              return healthCheck.protocol === COMMAND;
             });
 
             const columns = [
