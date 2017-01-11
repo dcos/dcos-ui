@@ -13,6 +13,57 @@
       margin-left: 0.25 * @base-spacing-unit;
     }
   }
+
+  .button {
+
+    .badge {
+      background: @button-badge-background-color;
+      border-color: @button-badge-background-color;
+    }
+
+    &.active,
+    &:hover {
+
+      .badge {
+        background: @button-badge-hover-background-color;
+        border-color: @button-badge-hover-background-color;
+      }
+    }
+
+    &:active {
+
+      .badge {
+        background: @button-badge-active-background-color;
+        border-color: @button-badge-active-background-color;
+      }
+    }
+  }
+
+  .button-stroke,
+  .dropdown-menu li {
+
+    .badge {
+      background: @badge-background-color;
+      border-color: @badge-background-color;
+    }
+
+    &.active,
+    &:hover {
+
+      .badge {
+        background: @button-stroke-badge-hover-background-color;
+        border-color: @button-stroke-badge-hover-background-color;
+      }
+    }
+
+    &:active {
+
+      .badge {
+        background: @button-stroke-badge-active-background-color;
+        border-color: @button-stroke-badge-active-background-color;
+      }
+    }
+  }
 }
 
 & when (@badge-enabled) and (@layout-screen-small-enabled) {
