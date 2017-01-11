@@ -2,7 +2,9 @@
 /*              common filter description language.                           */
 
 %{
-const {Merge, Operator} = require('../../js/utils/DSLParserUtil');
+const DSLParserUtil = require('../../js/utils/DSLParserUtil');
+const Merge = DSLParserUtil.Merge;
+const Operator = DSLParserUtil.Operator;
 %}
 
 /* lexical grammar */
