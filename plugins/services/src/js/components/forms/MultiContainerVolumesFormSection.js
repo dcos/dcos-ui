@@ -28,7 +28,9 @@ class MultiContainerVolumesFormSection extends Component {
         <div className="flex row" key={containerIndex}>
           <div className="column-3">
             {containersLabel}
-            {getContainerNameWithIcon(container)}
+            <div className="form-control-input-height">
+              {getContainerNameWithIcon(container)}
+            </div>
           </div>
           <FormGroup
             className="column-9"
