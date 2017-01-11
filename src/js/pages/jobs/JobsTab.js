@@ -75,9 +75,8 @@ class JobsTab extends mixin(StoreMixin) {
   handleFilterChange(filterValue) {
     const {router} = this.context;
     const {location: {pathname}} = this.props;
-    const query = {};
+    const query = {[JobFilterTypes.TEXT]: filterValue};
 
-    query[JobFilterTypes.TEXT] = filterValue;
     router.push({pathname, query});
 
     this.setState({
@@ -102,7 +101,7 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   updateFromProps(props) {
-    const {location={query:{}}} = props;
+    const {location = {query:{}}} = props;
 
     if (location.query[JobFilterTypes.TEXT] != null) {
       const state = {};
