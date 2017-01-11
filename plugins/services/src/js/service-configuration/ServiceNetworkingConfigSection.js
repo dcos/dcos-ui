@@ -12,7 +12,7 @@ import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
-const getNetworkType = (networkType, appDefinition) => {
+function getNetworkType(networkType, appDefinition) {
   networkType = networkType || Networking.type.HOST;
   const networkName = findNestedPropertyInObject(
     appDefinition,
