@@ -9,9 +9,9 @@ import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
-import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
@@ -302,6 +302,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getContainerContent(data, errors) {
+    const {service} = this.props;
     const {containers} = data;
     const rootErrorComponent = this.getRootErrorMessage();
 
@@ -313,12 +314,13 @@ class NewCreateServiceModalForm extends Component {
       return (
         <TabView key={index} id={`container${index}`}>
           {rootErrorComponent}
-          <PodContainerServiceFormSection
-            path={`containers.${index}`}
+          <ContainerServiceFormSection
             data={data}
             errors={errors}
+            onAddItem={this.handleAddItem}
             onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+            path={`containers.${index}`}
+            service={service} />
         </TabView>
       );
     });
