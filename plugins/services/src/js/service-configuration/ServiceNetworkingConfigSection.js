@@ -85,8 +85,8 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
             const containerPortMappings = findNestedPropertyInObject(
               appDefinition, 'container.docker.portMappings'
             );
-            if ((portDefinitions == null || portDefinitions.length === 0) &&
-              containerPortMappings != null && containerPortMappings.length !== 0) {
+            if (containerPortMappings != null
+              && containerPortMappings.length !== 0) {
               portDefinitions = containerPortMappings;
               keys.port = 'hostPort';
             }
