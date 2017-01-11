@@ -322,7 +322,7 @@ const MultiContainerHealthChecks = {
   },
 
   JSONSegmentParser(healthCheck, path) {
-    const memo = [];
+    let memo = [];
     if (ValidatorUtil.isEmpty(healthCheck)) {
       return memo;
     }
@@ -333,20 +333,20 @@ const MultiContainerHealthChecks = {
     // Parse detailed fields according to type
     if (healthCheck.http != null) {
       memo.push(new Transaction(path.concat(['protocol']), HTTP, SET));
-      memo.push(
-        ...parseHttpHealthCheck(healthCheck.http, path.concat(['http']), memo)
+      memo = memo.concat(
+        parseHttpHealthCheck(healthCheck.http, path.concat(['http']), memo)
       );
     }
     if (healthCheck.tcp != null) {
       memo.push(new Transaction(path.concat(['protocol']), TCP, SET));
-      memo.push(
-        ...parseTcpHealthCheck(healthCheck.tcp, path.concat(['tcp']), memo)
+      memo = memo.concat(
+        parseTcpHealthCheck(healthCheck.tcp, path.concat(['tcp']), memo)
       );
     }
     if (healthCheck.exec != null) {
       memo.push(new Transaction(path.concat(['protocol']), COMMAND, SET));
-      memo.push(
-        ...parseCommandHealthCheck(
+      memo = memo.concat(
+        parseCommandHealthCheck(
           healthCheck.exec, path.concat(['exec']),
           memo
         )
