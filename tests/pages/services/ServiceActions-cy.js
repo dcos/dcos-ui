@@ -128,7 +128,7 @@ describe('Service Actions', function () {
             response: {
               message: {message: 'Not Authorized to perform this action!'}
             },
-            delay: 50
+            delay: 100
           });
         cy.get('.confirm-modal .button-collection .button-danger')
           .as('dangerButton').click();
