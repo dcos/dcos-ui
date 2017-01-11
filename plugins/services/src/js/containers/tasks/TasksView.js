@@ -10,6 +10,7 @@ import FilterInputText from '../../../../../../src/js/components/FilterInputText
 import GraphQLTaskUtil from '../../utils/GraphQLTaskUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import SaveStateMixin from '../../../../../../src/js/mixins/SaveStateMixin';
+import Service from '../../structs/Service';
 import ServiceStatusTypes from '../../constants/ServiceStatusTypes';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TaskStates from '../../constants/TaskStates';
@@ -281,6 +282,7 @@ TasksView.propTypes = {
   params: React.PropTypes.object.isRequired,
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
+  service: React.PropTypes.instanceOf(Service).isRequired,
   tasks: React.PropTypes.array
 };
 

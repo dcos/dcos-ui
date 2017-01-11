@@ -188,7 +188,7 @@ TasksContainer.childContextTypes = {
 };
 
 TasksContainer.propTypes = {
-  service: PropTypes.instanceOf(Service),
+  service: PropTypes.instanceOf(Service).isRequired,
   tasks: PropTypes.array.isRequired,
   params: PropTypes.object.isRequired
 };
