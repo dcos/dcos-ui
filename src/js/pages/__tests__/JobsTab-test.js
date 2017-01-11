@@ -15,11 +15,9 @@ const JestUtil = require('../../utils/JestUtil');
 const AlertPanel = require('../../components/AlertPanel');
 const MetronomeUtil = require('../../utils/MetronomeUtil');
 const DCOSStore = require('foundation-ui').DCOSStore;
-const QueryParamsMixin = require('../../mixins/QueryParamsMixin');
 const JobsTab = require('../jobs/JobsTab');
 const JobTree = require('../../structs/JobTree');
 const JobsTable = require('../../pages/jobs/JobsTable');
-const UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('JobsTab', function () {
 
@@ -33,39 +31,6 @@ describe('JobsTab', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
-  });
-
-  describe('Query parameters', function () {
-
-    afterEach(UserSettingsStore.__reset);
-
-    it('are set to the default values if not stored', function () {
-      ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
-        this.container
-      );
-
-      expect(QueryParamsMixin.setQueryParam).toHaveBeenCalledWith(
-        'searchString', ''
-      );
-    });
-
-    it('are reinstated if stored', function () {
-      UserSettingsStore.__setKeyResponse('savedStates', {
-        jobsPage: {
-          searchString: 'foo'
-        }
-      });
-      ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
-        this.container
-      );
-
-      expect(QueryParamsMixin.setQueryParam).toHaveBeenCalledWith(
-        'searchString', 'foo'
-      );
-    });
-
   });
 
   describe('#render', function () {
