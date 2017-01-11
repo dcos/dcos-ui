@@ -5,14 +5,21 @@ import {DCOSStore} from 'foundation-ui';
 import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
+import ServiceTree from '../structs/ServiceTree';
 
-function getHealthStatus(serviceID) {
-  if (serviceID == null) {
+function getServiceImage(service) {
+  if (service instanceof ServiceTree) {
     return null;
   }
 
-  const service = DCOSStore.serviceTree.findItemById(serviceID);
+  return (
+    <span className="icon icon-circle icon-small icon-image-container icon-app-container page-header-breadcrumb-item-icon">
+      <img src={service.getImages()['icon-small']}/>
+    </span>
+  );
+}
 
+function getHealthStatus(service) {
   if (service == null) {
     return null;
   }
@@ -39,7 +46,6 @@ function getHealthStatus(serviceID) {
 }
 
 const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
-
   const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
   const ids = trimmedServiceID.split('/');
   let aggregateIDs = '';
@@ -51,9 +57,22 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   if (serviceID != null && trimmedServiceID.length > 0) {
     const serviceCrumbs = ids.map(function (id, index) {
       let breadcrumbHealth = null;
+      let serviceImage = null;
 
       if (index === ids.length - 1) {
-        breadcrumbHealth = getHealthStatus(serviceID);
+        const service = DCOSStore.serviceTree.findItemById(serviceID);
+
+        breadcrumbHealth = getHealthStatus(service);
+        serviceImage = getServiceImage(service);
+      }
+
+      if (serviceImage != null) {
+        id = (
+          <span className="page-header-breadcrumb-item-icon-container">
+            {serviceImage}
+            {id}
+          </span>
+        );
       }
 
       aggregateIDs += encodeURIComponent(`/${id}`);
