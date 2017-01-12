@@ -20,6 +20,27 @@
   .artifacts-section {
     margin-top: @base-spacing-unit * 3/4;
   }
+
+  .create-service-modal-json-only {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    &-introduction {
+      flex: 0 0 auto;
+      margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom;
+    }
+
+    &-editor {
+      border-radius: @create-services-modal-json-editor-border-radius;
+      overflow: hidden;
+
+      &-container {
+        flex: 1 1 auto;
+        height: 100%;
+      }
+    }
+  }
 }
 
 & when (@create-services-modal-enabled) and (@layout-screen-small-enabled) {
@@ -28,6 +49,13 @@
 
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-small * 3/4;
+    }
+
+    .create-service-modal-json-only {
+
+      &-introduction {
+        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-small;
+      }
     }
   }
 }
@@ -39,6 +67,13 @@
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-medium * 3/4;
     }
+
+    .create-service-modal-json-only {
+
+      &-introduction {
+        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-medium;
+      }
+    }
   }
 }
 
@@ -49,6 +84,13 @@
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-large * 3/4;
     }
+
+    .create-service-modal-json-only {
+
+      &-introduction {
+        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-large;
+      }
+    }
   }
 }
 
@@ -58,6 +100,13 @@
 
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-jumbo * 3/4;
+    }
+
+    .create-service-modal-json-only {
+
+      &-introduction {
+        margin-bottom: @create-services-modal-json-editor-introduction-margin-bottom-screen-jumbo;
+      }
     }
   }
 }
