@@ -144,7 +144,8 @@ const MarathonAppValidators = {
    * @returns {Array} Returns an array with validation errors
    */
   mustNotContainUris(app) {
-    if (ValidatorUtil.isDefined(app.uris)) {
+    if (ValidatorUtil.isDefined(app.uris) &&
+        ValidatorUtil.isDefined(app.fetch)) {
       const message = '`uris` are deprecated. Please use `fetch` instead';
 
       return [
