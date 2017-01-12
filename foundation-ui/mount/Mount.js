@@ -102,7 +102,7 @@ Mount.propTypes = {
   limit: PropTypes.number,
   children: PropTypes.element,
   type: PropTypes.string.isRequired,
-  wrapper: PropTypes.node
+  wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
 module.exports = Mount;
