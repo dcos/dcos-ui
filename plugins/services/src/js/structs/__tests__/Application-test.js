@@ -594,4 +594,14 @@ describe('Application', function () {
 
   });
 
+  describe('#getSpec', function () {
+
+    it('should clean-up JSON when getting the spec', function () {
+      const item = new Application({foo: 'bar', baz: 'qux', uris: []});
+      const spec = item.getSpec();
+      expect(JSON.stringify(spec)).toEqual('{"foo":"bar","baz":"qux"}');
+    });
+
+  });
+
 });

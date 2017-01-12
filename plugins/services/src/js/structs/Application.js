@@ -1,5 +1,6 @@
 import ApplicationSpec from './ApplicationSpec';
 import Config from '../../../../../src/js/config/Config';
+import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
@@ -16,7 +17,11 @@ module.exports = class Application extends Service {
    * @override
    */
   getSpec() {
-    return new ApplicationSpec(this.get());
+    // Strip state information and other useless information from the
+    // application in order to compose a spec.
+    return new ApplicationSpec(
+      cleanServiceJSON(this.get())
+    );
   }
 
   /**
