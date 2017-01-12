@@ -24,9 +24,6 @@ import {findNestedPropertyInObject} from '../utils/Util';
 import {MESSAGE} from '../constants/LogFields';
 import {msToLogTime} from '../utils/DateUtil';
 
-// Max data storage, i.e. maximum 5MB per log stream
-const MAX_FILE_SIZE = 500000;
-
 class SystemLogStore extends BaseStore {
   constructor() {
     super(...arguments);
@@ -99,22 +96,6 @@ class SystemLogStore extends BaseStore {
 
     // Update new size
     newLogData.totalSize += length;
-    // Remove entries until we have room for next entry
-    while (newLogData.totalSize > 0 && newLogData.entries.length > 0 &&
-      newLogData.totalSize > MAX_FILE_SIZE) {
-      let removedEntry;
-      if (eventType === APPEND) {
-        removedEntry = newLogData.entries.shift();
-        // Removing from top, let's update hasLoadedTop
-        newLogData.hasLoadedTop = false;
-      } else {
-        removedEntry = newLogData.entries.pop();
-      }
-      newLogData.totalSize -= findNestedPropertyInObject(
-        removedEntry,
-        `fields.${MESSAGE}.length`
-      ) || 0;
-    }
 
     return newLogData;
   }
@@ -227,6 +208,9 @@ class SystemLogStore extends BaseStore {
   }
 
   processLogError(subscriptionID, data) {
+    if (!this.logs[subscriptionID]) {
+      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+    }
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
   }
 
@@ -247,6 +231,9 @@ class SystemLogStore extends BaseStore {
   }
 
   processLogPrependError(subscriptionID, data) {
+    if (!this.logs[subscriptionID]) {
+      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+    }
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
   }
 
