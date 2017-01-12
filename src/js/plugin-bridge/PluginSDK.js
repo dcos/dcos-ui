@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {APPLICATION} from '../constants/PluginConstants';
+import {APPLICATION, PLUGIN_LOAD_TIMEOUT} from '../constants/PluginConstants';
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
 import ActionsPubSub from './middleware/ActionsPubSub';
 import AppReducer from './AppReducer';
@@ -112,7 +112,7 @@ const initialize = function (pluginsConfig) {
         console.warn('Failed to load plugins.');
       }
     }
-  }, 5000);
+  }, PLUGIN_LOAD_TIMEOUT);
 };
 
 /**

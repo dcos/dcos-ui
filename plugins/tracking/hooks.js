@@ -2,6 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import {ANALYTICS_LOAD_TIMEOUT} from './constants/PluginConstants';
 import Actions from './actions/Actions';
 
 const SDK = require('./SDK').getSDK();
@@ -62,7 +63,7 @@ module.exports = {
 
       // Let's not block the application loading in case it takes a really
       // long time to ready-up analytics or the integrations.
-      global.setTimeout(resolve, 2000);
+      global.setTimeout(resolve, ANALYTICS_LOAD_TIMEOUT);
     });
 
     promiseArray.push(promise);
