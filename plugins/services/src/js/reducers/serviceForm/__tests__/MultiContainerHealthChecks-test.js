@@ -2,6 +2,7 @@ const Batch = require('../../../../../../../src/js/structs/Batch');
 const {COMMAND, HTTP, HTTPS, TCP} =
   require('../../../constants/HealtCheckProtocols');
 const MultiContainerHealthChecks = require('../MultiContainerHealthChecks');
+const MesosCommandTypes = require('../../../constants/MesosCommandTypes');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
   require('../../../../../../../src/js/constants/TransactionTypes');
@@ -116,7 +117,7 @@ describe('MultiContainerHealthChecks', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
 
         const state = {};
         expect(batch.reduce(
@@ -131,12 +132,13 @@ describe('MultiContainerHealthChecks', function () {
           });
       });
 
-      it('Should populate argv when shell=false on commands', function () {
+      it('Should populate argv when type=ARGV on commands', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
-        batch = batch.add(new Transaction(['exec', 'command', 'shell'], false));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'type'],
+          MesosCommandTypes.ARGV));
 
         const state = {};
         expect(batch.reduce(
@@ -151,12 +153,13 @@ describe('MultiContainerHealthChecks', function () {
           });
       });
 
-      it('The order of shell=false should not matter on commands', function () {
+      it('The order of type=ARGV should not matter on commands', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'shell'], false));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'type'],
+          MesosCommandTypes.ARGV));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
 
         const state = {};
         expect(batch.reduce(
@@ -251,7 +254,7 @@ describe('MultiContainerHealthChecks', function () {
         batch = batch.add(new Transaction(['protocol'], TCP));
         batch = batch.add(new Transaction(['tcp', 'endpoint'], 'test'));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
 
         const state = {};
         expect(batch.reduce(
@@ -272,7 +275,7 @@ describe('MultiContainerHealthChecks', function () {
         batch = batch.add(new Transaction(['protocol'], HTTP));
         batch = batch.add(new Transaction(['http', 'endpoint'], 'test'));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
 
         const state = {};
         expect(batch.reduce(
@@ -291,7 +294,7 @@ describe('MultiContainerHealthChecks', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
         batch = batch.add(new Transaction(['protocol'], HTTP));
         batch = batch.add(new Transaction(['http', 'endpoint'], 'test'));
 
@@ -310,7 +313,7 @@ describe('MultiContainerHealthChecks', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(['protocol'], COMMAND));
-        batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+        batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
         batch = batch.add(new Transaction(['protocol'], TCP));
         batch = batch.add(new Transaction(['tcp', 'endpoint'], 'test'));
 
@@ -345,11 +348,12 @@ describe('MultiContainerHealthChecks', function () {
         });
     });
 
-    it('Should include `exec.command.shell` field', function () {
+    it('Should include `exec.command.type` field', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(['protocol'], COMMAND));
-      batch = batch.add(new Transaction(['exec', 'command', 'shell'], false));
+      batch = batch.add(new Transaction(['exec', 'command', 'type'],
+        MesosCommandTypes.ARGV));
 
       const state = {};
       expect(batch.reduce(
@@ -360,7 +364,7 @@ describe('MultiContainerHealthChecks', function () {
           'exec': {
             'command': {
               'argv': [],
-              'shell': false
+              'type': MesosCommandTypes.ARGV
             }
           }
         });
@@ -370,7 +374,7 @@ describe('MultiContainerHealthChecks', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(['protocol'], COMMAND));
-      batch = batch.add(new Transaction(['exec', 'command', 'string'], 'test'));
+      batch = batch.add(new Transaction(['exec', 'command', 'value'], 'test'));
 
       const state = {};
       expect(batch.reduce(
@@ -381,7 +385,7 @@ describe('MultiContainerHealthChecks', function () {
           'exec': {
             'command': {
               'shell': 'test',
-              'string': 'test'
+              'value': 'test'
             }
           }
         });
@@ -455,8 +459,8 @@ describe('MultiContainerHealthChecks', function () {
       const transactions = [
         {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: COMMAND, path: ['protocol']},
-        {type: SET, value: true, path: ['exec', 'command', 'shell']},
-        {type: SET, value: 'test', path: ['exec', 'command', 'string']}
+        {type: SET, value: MesosCommandTypes.SHELL, path: ['exec', 'command', 'type']},
+        {type: SET, value: 'test', path: ['exec', 'command', 'value']}
       ];
 
       expect(MultiContainerHealthChecks.JSONSegmentParser(healthCheck, []))
@@ -474,8 +478,8 @@ describe('MultiContainerHealthChecks', function () {
       const transactions = [
         {type: ADD_ITEM, value: null, path: []},
         {type: SET, value: COMMAND, path: ['protocol']},
-        {type: SET, value: false, path: ['exec', 'command', 'shell']},
-        {type: SET, value: 'test', path: ['exec', 'command', 'string']}
+        {type: SET, value: MesosCommandTypes.ARGV, path: ['exec', 'command', 'type']},
+        {type: SET, value: 'test', path: ['exec', 'command', 'value']}
       ];
 
       expect(MultiContainerHealthChecks.JSONSegmentParser(healthCheck, []))

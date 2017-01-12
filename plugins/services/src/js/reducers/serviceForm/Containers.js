@@ -418,7 +418,7 @@ module.exports = {
 
       newState[index].healthCheck = multiContainerHealthCheckReducer.call(
         this.healthCheckState[index],
-        newState[index].healthCheck || {},
+        newState[index].healthCheck,
         {type, path: path.slice(3), value}
       );
     }
@@ -567,7 +567,7 @@ module.exports = {
 
       newState[index].healthCheck = multiContainerHealthFormReducer.call(
         this.healthCheckState[index],
-        newState[index].healthCheck || {},
+        newState[index].healthCheck,
         {type, path: path.slice(3), value}
       );
     }

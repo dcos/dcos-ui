@@ -4,15 +4,18 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealtCheckProtocols';
+import MesosCommandTypes from '../../constants/MesosCommandTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
-function intOrNull(value) {
-  if ((value === '') || (value === null) || (value === undefined)) {
+function parseIntOrNull(value) {
+  const intValue = parseInt(value);
+
+  if (Number.isNaN(intValue)) {
     return null;
   }
 
-  return parseInt(value);
+  return intValue;
 }
 
 /**
@@ -137,13 +140,13 @@ function parseCommandHealthCheck(healthCheck, path) {
 
   if (command.shell != null) {
     memo.push(new Transaction(
-      path.concat(['command', 'shell']),
-      true,
+      path.concat(['command', 'type']),
+      MesosCommandTypes.SHELL,
       SET
     ));
 
     memo.push(new Transaction(
-      path.concat(['command', 'string']),
+      path.concat(['command', 'value']),
       command.shell,
       SET
     ));
@@ -151,14 +154,14 @@ function parseCommandHealthCheck(healthCheck, path) {
 
   if ((command.argv != null) && Array.isArray(command.argv)) {
     memo.push(new Transaction(
-      path.concat(['command', 'shell']),
-      false,
+      path.concat(['command', 'type']),
+      MesosCommandTypes.ARGV,
       SET
     ));
 
     // Always cast to string, since the UI cannot handle arrays
     memo.push(new Transaction(
-      path.concat(['command', 'string']),
+      path.concat(['command', 'value']),
       command.argv.join(' '),
       SET
     ));
@@ -174,26 +177,32 @@ function reduceCommandHealthCheck(state, field, value) {
   const command = newState.exec.command;
 
   switch (field) {
-    case 'shell':
+    case 'type':
       // Shell is a meta-field that denotes if we are going to populate
       // the argument or the shell field. So, if we encounter an opposite
       // field, we should convert and set-up a placeholder
-      if (value) {
+      if (value === MesosCommandTypes.SHELL) {
         command.shell = '';
         if ((command.argv != null) && Array.isArray(command.argv)) {
           command.shell = command.argv.join(' ');
           delete command.argv;
         }
-      } else {
+
+        break;
+      }
+
+      if (value === MesosCommandTypes.ARGV) {
         command.argv = [];
         if (command.shell != null) {
           command.argv = command.shell.split(' ');
           delete command.shell;
         }
+
+        break;
       }
       break;
 
-    case 'string':
+    case 'value':
       // By default we are creating `shell`. Only if `argv` exists
       // we should create an array
       if (command.argv != null) {
@@ -214,12 +223,12 @@ function reduceFormCommandHealthCheck(state, field, value) {
   const command = newState.exec.command;
 
   switch (field) {
-    case 'shell':
-      command.shell = value;
+    case 'type':
+      command.type = value;
       break;
 
-    case 'string':
-      command.string = value;
+    case 'value':
+      command.value = value;
       break;
   }
 
@@ -298,23 +307,23 @@ const MultiContainerHealthChecks = {
         return reduceTcpHealthCheck(newState, field, value);
 
       case 'gracePeriodSeconds':
-        newState.gracePeriodSeconds = intOrNull(value);
+        newState.gracePeriodSeconds = parseIntOrNull(value);
         break;
 
       case 'intervalSeconds':
-        newState.intervalSeconds = intOrNull(value);
+        newState.intervalSeconds = parseIntOrNull(value);
         break;
 
       case 'maxConsecutiveFailures':
-        newState.maxConsecutiveFailures = intOrNull(value);
+        newState.maxConsecutiveFailures = parseIntOrNull(value);
         break;
 
       case 'timeoutSeconds':
-        newState.timeoutSeconds = intOrNull(value);
+        newState.timeoutSeconds = parseIntOrNull(value);
         break;
 
       case 'delaySeconds':
-        newState.delaySeconds = intOrNull(value);
+        newState.delaySeconds = parseIntOrNull(value);
         break;
     }
 
