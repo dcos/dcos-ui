@@ -16,3 +16,4 @@ tmp/
 jest/config.json
 webpack/proxy.dev.js
 src/resources/raml
+/jest/testresults
