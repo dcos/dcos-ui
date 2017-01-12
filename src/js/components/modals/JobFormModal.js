@@ -373,7 +373,7 @@ class JobFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
-          height="462px"
+          height="100%"
           value={jobJsonString}
           width="100%" />
       );
