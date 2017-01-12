@@ -32,7 +32,8 @@ describe('Service Versions', function () {
         .parent()
         .click();
 
-      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li')
+        .contains(new Date('2015-02-28T05:12:12.221Z').toLocaleString())
         .click();
 
       cy.get('@dropdown')
@@ -56,7 +57,8 @@ describe('Service Versions', function () {
         .parent()
         .click();
 
-      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li')
+        .contains(new Date('2015-02-28T05:12:12.221Z').toLocaleString())
         .click();
 
       cy.get('@dropdown')
@@ -72,7 +74,8 @@ describe('Service Versions', function () {
         .parent()
         .click();
 
-      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li')
+        .contains(new Date('2015-02-28T05:12:12.221Z').toLocaleString())
         .click();
 
       cy.get('.page-body-content .button')

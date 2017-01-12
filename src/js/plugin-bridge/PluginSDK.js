@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {APPLICATION} from '../constants/PluginConstants';
+import {APPLICATION, PLUGIN_LOAD_TIMEOUT} from '../constants/PluginConstants';
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
 import ActionsPubSub from './middleware/ActionsPubSub';
 import AppReducer from './AppReducer';
@@ -99,9 +99,20 @@ const initialize = function (pluginsConfig) {
 
   // Allows plugins to do things before the application ever renders
   const promises = hooks.applyFilter('pluginsLoadedCheck', []);
+  let pluginsLoaded = false;
+
   Promise.all(promises).then(function () {
+    pluginsLoaded = true;
     hooks.doAction('pluginsConfigured');
   });
+
+  global.setTimeout(() => {
+    if (!pluginsLoaded) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Failed to load plugins.');
+      }
+    }
+  }, PLUGIN_LOAD_TIMEOUT);
 };
 
 /**

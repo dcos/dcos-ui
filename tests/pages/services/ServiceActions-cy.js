@@ -51,16 +51,6 @@ describe('Service Actions', function () {
 
   context('Destroy Action', function () {
 
-    context('Framework', function () {
-
-      it('does not have a destroy action for a framework', function () {
-        cy.get('.page-header-actions .dropdown').click();
-        cy.get('.dropdown-menu-items').contains('Destroy')
-          .should('to.have.length', 0);
-      });
-
-    });
-
     context('Application', function () {
 
       beforeEach(function () {
@@ -138,7 +128,7 @@ describe('Service Actions', function () {
             response: {
               message: {message: 'Not Authorized to perform this action!'}
             },
-            delay: 50
+            delay: 100
           });
         cy.get('.confirm-modal .button-collection .button-danger')
           .as('dangerButton').click();

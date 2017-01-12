@@ -2,6 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import {ANALYTICS_LOAD_TIMEOUT} from './constants/PluginConstants';
 import Actions from './actions/Actions';
 
 const SDK = require('./SDK').getSDK();
@@ -24,6 +25,7 @@ const segmentScript = `!function(){var analytics=window.analytics=window.analyti
 
 module.exports = {
   filters: [
+    'pluginsLoadedCheck',
     'userFormModalFooter'
   ],
 
@@ -49,11 +51,29 @@ module.exports = {
     if (AuthStore.getUser()) {
       Actions.identify(AuthStore.getUser().uid);
     }
+
+    DOMUtils.appendScript(global.document.head, segmentScript);
+  },
+
+  pluginsLoadedCheck(promiseArray) {
+    const promise = new Promise((resolve) => {
+      global.analytics.ready(() => {
+        resolve();
+      });
+
+      // Let's not block the application loading in case it takes a really
+      // long time to ready-up analytics or the integrations.
+      global.setTimeout(resolve, ANALYTICS_LOAD_TIMEOUT);
+    });
+
+    promiseArray.push(promise);
+
+    return promiseArray;
   },
 
   pluginsConfigured() {
-    DOMUtils.appendScript(global.document.head, segmentScript);
-
+    // Ensure analytics is actually ready, because in #pluginsLoadedCheck we
+    // may skip the check so that we don't completely block the applicaiton
     global.analytics.ready(() => {
       const updateTrackJSConfiguration = () => {
         global.trackJs.configure({version: MetadataStore.version});

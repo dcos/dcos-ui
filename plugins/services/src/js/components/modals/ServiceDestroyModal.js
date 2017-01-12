@@ -38,7 +38,7 @@ class ServiceDestroyModal extends React.Component {
     const shouldClose = requestCompleted && !nextProps.errors;
 
     if (shouldClose) {
-      this.props.onClose();
+      this.redirectToServices();
     }
   }
 
@@ -78,7 +78,6 @@ class ServiceDestroyModal extends React.Component {
 
   handleRightButtonClick() {
     this.props.deleteItem(this.shouldForceUpdate());
-    this.redirectToServices();
   }
 
   getDestroyMessage() {

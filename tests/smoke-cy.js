@@ -48,7 +48,6 @@ describe('DC/OS UI [00j]', function () {
 
     beforeEach(function () {
       cy.get('.sidebar-menu-item').contains('Nodes').click();
-      cy.get('table tbody tr').as('tableRows');
     });
 
     it('can change hash to nodes page [00s]', function () {
@@ -56,12 +55,8 @@ describe('DC/OS UI [00j]', function () {
     });
 
     it('should display one row on the table [00t]', function () {
-      cy.get('@tableRows').should('to.have.length', 3);
-    });
-
-    it('should list one node [00u]', function () {
-      cy.wait(1000);
-      cy.get('@tableRows').contains('dcos-01');
+      cy.get('table tbody tr')
+        .should('to.have.length', 3).contains('dcos-01');
     });
 
   });
