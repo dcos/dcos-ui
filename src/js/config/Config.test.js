@@ -4,7 +4,7 @@ var ConfigDev = {
   rootUrl: '',
   historyServer: '',
   analyticsKey: '39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP',
-  stateRefresh: 20000,
+  stateRefresh: 3000,
   useFixtures: false,
   useUIConfigFixtures: false
 };
