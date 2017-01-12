@@ -65,7 +65,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
       </ConfigurationMapRow>
 
       {/* Resources */}
-      {fields.resources.cpus && (
+      {Boolean(fields.resources.cpus) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.cpus} />
@@ -74,7 +74,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
             tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
-      {fields.resources.mem && (
+      {Boolean(fields.resources.mem) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.mem} />
@@ -83,7 +83,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
             tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
-      {fields.resources.disk && (
+      {Boolean(fields.resources.disk) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.disk} />
@@ -92,7 +92,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
             tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
-      {fields.resources.gpus && (
+      {Boolean(fields.resources.gpus) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.gpus} />
@@ -103,7 +103,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
       )}
 
       {/* Global Properties */}
-      {fields.user && (
+      {Boolean(fields.user) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.user} />
@@ -112,7 +112,7 @@ const PodContainerConfigSection = ({containerConfig, appConfig, onEditClick, ind
             tabViewID={tabViewID} />
         </ConfigurationMapRow>
       )}
-      {fields.command && (
+      {Boolean(fields.command) && (
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Command</ConfigurationMapLabel>
           <ConfigurationMapMultilineValue value={fields.command} />
