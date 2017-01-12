@@ -1,4 +1,5 @@
 const Service = require('../Service');
+const ServiceConfig = require('../../constants/ServiceConfig');
 
 describe('Service', function () {
 
@@ -38,9 +39,13 @@ describe('Service', function () {
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
-    it('should drop blacklisted keys', function () {
-      const item = new Service({foo: 'bar', baz: 'qux', uris: []});
-      expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
+    ServiceConfig.BLACKLIST.forEach(function (blacklistedKey) {
+
+      it(`should drop blacklisted key '${blacklistedKey}'`, function () {
+        const item = new Service({foo: 'bar', baz: 'qux', [blacklistedKey]: []});
+        expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
+      });
+
     });
 
   });
