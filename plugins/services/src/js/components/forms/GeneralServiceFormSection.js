@@ -344,7 +344,7 @@ class GeneralServiceFormSection extends Component {
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
-      let {helpText, label} = containerRuntimes[runtimeName];
+      const {helpText, label} = containerRuntimes[runtimeName];
       let field = (
         <FieldLabel className="text-align-left" key={index}>
           <FieldInput
