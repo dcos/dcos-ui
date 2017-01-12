@@ -44,7 +44,7 @@ const containerRuntimes = {
     helpText: (
       <span>
         {'The default Mesos containerizer. '}
-        <a href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
+        <a tabIndex="-1" href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
           target="_blank">
           More information
         </a>.
