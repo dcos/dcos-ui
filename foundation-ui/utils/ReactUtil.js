@@ -15,6 +15,10 @@ const ReactUil = {
       return null;
     }
 
+    if (Array.isArray(elements) && elements.length === 1 && !alwaysWrap) {
+      return elements[0];
+    }
+
     if (React.isValidElement(elements) && !alwaysWrap) {
       return elements;
     }
@@ -24,4 +28,3 @@ const ReactUil = {
 };
 
 module.exports = ReactUil;
-
