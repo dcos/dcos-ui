@@ -8,6 +8,7 @@ import ConfigurationMapSection from '../../../../../../src/js/components/Configu
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
+import DeclinedOffersUtil from '../../utils/DeclinedOffersUtil';
 import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
@@ -117,7 +118,8 @@ class ServiceDebugContainer extends React.Component {
       } else {
         introText = 'Rejected offer analysis is not currently supported.';
       }
-    } else if (queue == null || queue.declinedOffers.summary == null) {
+    } else if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+      || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
       const {declinedOffers: {summary}} = queue;
@@ -157,7 +159,8 @@ class ServiceDebugContainer extends React.Component {
 
     const queue = service.getQueue();
 
-    if (queue == null || queue.declinedOffers.offers == null) {
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+      || queue.declinedOffers.offers == null) {
       return null;
     }
 

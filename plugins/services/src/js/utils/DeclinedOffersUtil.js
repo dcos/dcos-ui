@@ -214,12 +214,19 @@ const DeclinedOffersUtil = {
     });
   },
 
+  getTimeWaiting(queue) {
+    return Util.findNestedPropertyInObject(
+        queue, 'processedOffersSummary.lastUsedOfferAt'
+      ) || queue.since;
+  },
+
   shouldDisplayDeclinedOffersWarning(queue) {
     if (queue == null) {
       return false;
     }
 
-    return Date.now() - DateUtil.strToMs(queue.since)
+    return Date.now()
+      - DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(queue))
       >= DEPLOYMENT_WARNING_DELAY_MS;
   }
 };
