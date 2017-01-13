@@ -4,6 +4,9 @@ const ReactUil = {
   /**
    * Wrap React elements
    *
+   * If elements is an array with a single element, it will not be wrapped
+   * unless alwaysWrap is true.
+   *
    * @param {Array.<ReactElement>|ReactElement} elements
    * @param  {function|String} wrapper component
    * @param {boolean} [alwaysWrap]
