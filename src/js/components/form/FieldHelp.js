@@ -6,7 +6,7 @@ import {omit} from '../../utils/Util';
 const FieldHelp = (props) => {
   const {className, textTransform} = props;
   let classes = classNames(
-    'small flush-bottom',
+    'form-control-feedback',
     className,
     {
       'text-uppercase': textTransform === 'uppercase',
