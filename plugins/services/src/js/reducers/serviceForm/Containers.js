@@ -9,7 +9,11 @@ import {
   simpleFloatReducer,
   simpleReducer
 } from '../../../../../../src/js/utils/ReducerUtil';
-import {JSONReducer as MultiContainerHealthChecks} from './MultiContainerHealthChecks';
+import {
+  JSONSegmentReducer as multiContainerHealthCheckReducer,
+  JSONSegmentParser as multiContainerHealthCheckParser,
+  FormReducer as multiContainerHealthFormReducer
+} from './MultiContainerHealthChecks';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
 import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
@@ -26,13 +30,6 @@ const containerFloatReducer = combineReducers({
   mem: simpleFloatReducer('resources.mem'),
   disk: simpleFloatReducer('resources.disk')
 });
-
-const advancedContainerSettings = [
-  'gracePeriodSeconds',
-  'intervalSeconds',
-  'timeoutSeconds',
-  'maxConsecutiveFailures'
-];
 
 const defaultEndpointsFieldValues = {
   automaticPort: true,
@@ -141,52 +138,10 @@ function containersParser(state) {
       ], item.privileged));
     }
 
-    if (item.healthChecks != null && item.healthChecks.length !== 0) {
-      memo = item.healthChecks.reduce(function (memo, item, HealthCheckIndex) {
-        if (item.protocol == null) {
-          return memo;
-        }
-        memo.push(new Transaction([
-          'containers',
-          index,
-          'healthChecks'
-        ], HealthCheckIndex, ADD_ITEM));
-        memo.push(new Transaction([
-          'containers',
-          index,
-          'healthChecks',
-          HealthCheckIndex,
-          'protocol'
-        ], item.protocol.toUpperCase(), SET));
-
-        if (item.protocol.toUpperCase() === 'COMMAND') {
-          if (item.command != null && item.command.command != null) {
-            memo.push(new Transaction([
-              'containers',
-              index,
-              'healthChecks',
-              HealthCheckIndex,
-              'command'
-            ], item.command.command, SET));
-          }
-        }
-
-        advancedContainerSettings.filter((key) => {
-          return item[key] != null;
-        }).forEach((key) => {
-          if (item[key] != null) {
-            memo.push(new Transaction([
-              'containers',
-              index,
-              'healthChecks',
-              HealthCheckIndex,
-              key
-            ], item[key], SET));
-          }
-        });
-
-        return memo;
-      }, memo);
+    if (item.healthCheck != null) {
+      memo = memo.concat(multiContainerHealthCheckParser(
+        item.healthCheck, ['containers', index, 'healthCheck']
+      ));
     }
 
     if (item.artifacts != null && item.artifacts.length !== 0) {
@@ -318,6 +273,10 @@ module.exports = {
       this.appState = {};
     }
 
+    if (this.healthCheckState == null) {
+      this.healthCheckState = [];
+    }
+
     if (base === 'id' && type === SET) {
       this.appState.id = value;
     }
@@ -346,10 +305,6 @@ module.exports = {
       // the reducers are not overwriting each others context we are
       // providing one object per item in the array.
       this.cache = [];
-    }
-
-    if (this.healthChecks == null) {
-      this.healthChecks = [];
     }
 
     if (this.endpoints == null) {
@@ -456,19 +411,15 @@ module.exports = {
       return container;
     });
 
-    if (field === 'healthChecks') {
-      if (newState[index].healthChecks == null) {
-        newState[index].healthChecks = [];
+    if (field === 'healthCheck') {
+      if (this.healthCheckState[index] == null) {
+        this.healthCheckState[index] = {};
       }
 
-      if (this.healthChecks[index] == null) {
-        this.healthChecks[index] = {};
-      }
-
-      newState[index].healthChecks = MultiContainerHealthChecks.call(
-        this.healthChecks[index],
-        newState[index].healthChecks,
-        {type, path: path.slice(2), value}
+      newState[index].healthCheck = multiContainerHealthCheckReducer.call(
+        this.healthCheckState[index],
+        newState[index].healthCheck,
+        {type, path: path.slice(3), value}
       );
     }
 
@@ -540,8 +491,8 @@ module.exports = {
       this.cache = [];
     }
 
-    if (this.healthChecks == null) {
-      this.healthChecks = [];
+    if (this.healthCheckState == null) {
+      this.healthCheckState = [];
     }
 
     if (!state) {
@@ -609,19 +560,15 @@ module.exports = {
       }
     }
 
-    if (field === 'healthChecks') {
-      if (newState[index].healthChecks == null) {
-        newState[index].healthChecks = [];
+    if (field === 'healthCheck') {
+      if (this.healthCheckState[index] == null) {
+        this.healthCheckState[index] = {};
       }
 
-      if (this.healthChecks[index] == null) {
-        this.healthChecks[index] = {};
-      }
-
-      newState[index].healthChecks = MultiContainerHealthChecks.call(
-        this.healthChecks[index],
-        newState[index].healthChecks,
-        {type, path: path.slice(2), value}
+      newState[index].healthCheck = multiContainerHealthFormReducer.call(
+        this.healthCheckState[index],
+        newState[index].healthCheck,
+        {type, path: path.slice(3), value}
       );
     }
 
