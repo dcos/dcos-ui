@@ -253,21 +253,21 @@ class TaskLogsTab extends mixin(StoreMixin) {
   getDownloadButton() {
     const {task} = this.props;
     const {selectedStream} = this.state;
-    const params = getLogParameters(task, {filter: {STREAM: selectedStream}});
+    const params = getLogParameters(task, {
+      // This will be added to the name
+      postfix: selectedStream && selectedStream.toLowerCase(),
+      filter: {STREAM: selectedStream}
+    });
 
     // This is a hacky way of interacting with the API to be able to download
     // logs with a POST request
     return (
-      <form
-        key="download"
-        action={SystemLogUtil.getUrl(task.slave_id, params, false)}
-        method="POST">
-        <button
-          className="button button-stroke"
-          disabled={!task}>
-          <Icon id="download" size="mini" />
-        </button>
-      </form>
+      <a
+        className="button button-stroke"
+        disabled={!task}
+        href={SystemLogUtil.getUrl(task.slave_id, params, false, '/download')}>
+        <Icon id="download" size="mini" />
+      </a>
     );
   }
 

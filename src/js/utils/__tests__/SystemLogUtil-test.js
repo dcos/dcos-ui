@@ -59,11 +59,12 @@ describe('SystemLogUtil', function () {
       var result = SystemLogUtil.getUrl('foo', {
         cursor: 'cursor',
         limit: 'lim&it',
+        postfix: 'postfix',
         filter: {'param/1': 'param/1', 'param\\2': 'param\\2'}
       });
 
       expect(result).toEqual(
-        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&limit=lim%26it&filter=param%2F1:param%2F1&filter=param%5C2:param%5C2'
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&limit=lim%26it&postfix=postfix&filter=param%2F1:param%2F1&filter=param%5C2:param%5C2'
       );
     });
 
@@ -141,6 +142,20 @@ describe('SystemLogUtil', function () {
       expect(result).toEqual(
         '/system/v1/agent/foo/logs/v1/range/' +
         'framework/bar/executor/baz/container/quis?cursor=cursor'
+      );
+    });
+
+    it('should add aditional endpoint to the URL', function () {
+      var result = SystemLogUtil.getUrl('foo', {
+        cursor: 'cursor',
+        frameworkID: 'bar',
+        executorID: 'baz',
+        containerID: 'quis'
+      }, false, '/download');
+
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/' +
+        'framework/bar/executor/baz/container/quis/download?cursor=cursor'
       );
     });
 
