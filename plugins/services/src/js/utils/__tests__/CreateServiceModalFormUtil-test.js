@@ -4,6 +4,24 @@ const EMPTY_TYPES = [null, undefined, {}, [], ''];
 const VALUE_TYPES = [1234, 'foo', {a: 'b'}, ['a']];
 
 describe('CreateServiceModalFormUtil', function () {
+  describe('#stripEmptyProperties', function () {
+    EMPTY_TYPES.forEach(function (emptyType) {
+      const emptyTypeStr = JSON.stringify(emptyType);
+
+      it(`should remove ${emptyTypeStr} object properties`, function () {
+        const data = {a: 'foo', b: emptyType};
+        const clean = CreateServiceModalFormUtil.stripEmptyProperties(data);
+        expect(clean).toEqual({a: 'foo'});
+      });
+
+      it(`should remove ${emptyTypeStr} array items`, function () {
+        const data = ['foo', emptyType];
+        const clean = CreateServiceModalFormUtil.stripEmptyProperties(data);
+        expect(clean).toEqual(['foo']);
+      });
+    });
+  });
+
   describe('#applyPatch', function () {
 
     it('should always return cloned objects', function () {
@@ -28,7 +46,6 @@ describe('CreateServiceModalFormUtil', function () {
     });
 
     describe('Array Clean-ups', function () {
-
       EMPTY_TYPES.forEach(function (emptyType) {
         const emptyTypeStr = JSON.stringify(emptyType);
 
