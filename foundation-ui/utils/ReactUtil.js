@@ -18,7 +18,8 @@ const ReactUil = {
       return null;
     }
 
-    if (Array.isArray(elements) && elements.length === 1 && !alwaysWrap) {
+    if (Array.isArray(elements) && elements.length === 1
+      && React.isValidElement(elements[0]) && !alwaysWrap) {
       return elements[0];
     }
 
