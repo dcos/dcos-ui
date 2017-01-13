@@ -9,6 +9,7 @@ describe('Nodes Page', function () {
       });
       cy.visitUrl({url: '/nodes'});
       cy.get('tbody tr td:first-child').as('hostnames');
+      cy.get('.filter-bar').as('filterBar');
     });
 
     it('should show all nodes', function () {
@@ -19,7 +20,6 @@ describe('Nodes Page', function () {
     });
 
     it('should only show healthy node', function () {
-      cy.get('.filter-bar').as('filterBar');
       cy.get('@filterBar').contains('Healthy').click();
 
       cy.get('@hostnames')
@@ -29,7 +29,6 @@ describe('Nodes Page', function () {
     });
 
     it('should only show unhealthy node', function () {
-      cy.get('.filter-bar').as('filterBar');
       cy.get('@filterBar').contains('Unhealthy').click();
 
       cy.get('@hostnames')
@@ -39,7 +38,6 @@ describe('Nodes Page', function () {
     });
 
     it('should only show nodes with service', function () {
-      cy.get('.filter-bar').as('filterBar');
       cy.get('@filterBar').contains('Filter by Service').click();
       cy.get('.dropdown-menu').contains('cassandra-healthy').click();
 
@@ -76,10 +74,10 @@ describe('Nodes Page', function () {
 
       beforeEach(function () {
         cy.visitUrl({url: '/nodes/grid'});
+        cy.get('.filter-bar').as('filterBar');
       });
 
       it('should only show cassandra-healthy nodes', function () {
-        cy.get('.filter-bar').as('filterBar');
         cy.get('@filterBar').contains('Filter by Service').click();
         cy.get('.dropdown-menu').contains('cassandra-healthy').click();
 
@@ -90,7 +88,6 @@ describe('Nodes Page', function () {
       });
 
       it('should not display any nodes', function () {
-        cy.get('.filter-bar').as('filterBar');
         cy.get('@filterBar').contains('Filter by Service').click();
         cy.get('.dropdown-menu').contains('cassandra-na').click();
 
@@ -101,7 +98,6 @@ describe('Nodes Page', function () {
       });
 
       it('should only show unhealthy node', function () {
-        cy.get('.filter-bar').as('filterBar');
         cy.get('@filterBar').contains('Filter by Service').click();
         cy.get('.dropdown-menu').contains('cassandra-unhealthy').click();
         cy.get('@filterBar').contains('Healthy').click();
