@@ -40,4 +40,18 @@ describe('ReactUtil', function () {
     expect(elements).toEqual(null);
   });
 
+  it('should not wrap elements if they are an array with a single item', function () {
+    const elements = ReactUtil.wrapElements([<span key={0}>test</span>], 'p');
+
+    expect(TestUtils.isElementOfType(elements, 'span')).toEqual(true);
+  });
+
+  it('should wrap elements if they are an array with a single item when alwaysWrap is true', function () {
+    const elements = ReactUtil.wrapElements(
+      [<span key={0}>test</span>], 'p', true
+    );
+
+    expect(TestUtils.isElementOfType(elements, 'p')).toEqual(true);
+  });
+
 });
