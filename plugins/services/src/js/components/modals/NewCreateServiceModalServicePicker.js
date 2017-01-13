@@ -6,9 +6,9 @@ import React from 'react';
 import {routerShape} from 'react-router';
 
 import CreateServiceModalServicePickerOption from '../../../../../../src/js/components/CreateServiceModalServicePickerOption';
-import CreateServiceModalServicePickerOptionWrapper from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionWrapper';
+import CreateServiceModalServicePickerOptionContent from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionContent';
+import CreateServiceModalServicePickerOptionImage from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionImage';
 import defaultServiceImage from '../../../img/icon-service-default-large@2x.png';
-import Image from '../../../../../../src/js/components/Image';
 import jsonServiceImage from '../../../img/service-image-json-large@2x.png';
 
 const METHODS_TO_BIND = ['handleServiceSelect'];
@@ -38,32 +38,39 @@ class NewCreateServiceModalServicePicker extends React.Component {
           <div className="row">
             <div className={containerClasses}>
               <div className="row panel-grid">
-                <CreateServiceModalServicePickerOptionWrapper>
-                  <CreateServiceModalServicePickerOption
-                    icon={<Image src={defaultServiceImage} />}
-                    offset={true}
-                    onOptionSelect={
-                      this.handleServiceSelect.bind(null, {type: 'app'})
-                    }
-                    title="Single Container" />
-                </CreateServiceModalServicePickerOptionWrapper>
-                <CreateServiceModalServicePickerOptionWrapper>
-                  <CreateServiceModalServicePickerOption
-                    icon={<Image src={defaultServiceImage} />}
-                    onOptionSelect={
-                      this.handleServiceSelect.bind(null, {type: 'pod'})
-                    }
-                    title="Multi-container (Pod)"
-                    />
-                </CreateServiceModalServicePickerOptionWrapper>
-                <CreateServiceModalServicePickerOptionWrapper>
-                  <CreateServiceModalServicePickerOption
-                    icon={<Image src={jsonServiceImage} />}
-                    onOptionSelect={
-                      this.handleServiceSelect.bind(null, {type: 'json'})
-                    }
-                    title="JSON Configuration" />
-                </CreateServiceModalServicePickerOptionWrapper>
+                <CreateServiceModalServicePickerOption
+                  onOptionSelect={
+                    this.handleServiceSelect.bind(null, {type: 'app'})
+                  }>
+                  <CreateServiceModalServicePickerOptionImage
+                    src={defaultServiceImage} />
+                  <CreateServiceModalServicePickerOptionContent>
+                    Single Container
+                  </CreateServiceModalServicePickerOptionContent>
+                </CreateServiceModalServicePickerOption>
+
+                <CreateServiceModalServicePickerOption
+                  onOptionSelect={
+                    this.handleServiceSelect.bind(null, {type: 'pod'})
+                  }>
+                  <CreateServiceModalServicePickerOptionImage
+                    src={defaultServiceImage} />
+                  <CreateServiceModalServicePickerOptionContent>
+                    Multi-container (Pod)
+                  </CreateServiceModalServicePickerOptionContent>
+                </CreateServiceModalServicePickerOption>
+
+                <CreateServiceModalServicePickerOption
+                  onOptionSelect={
+                    this.handleServiceSelect.bind(null, {type: 'json'})
+                  }>
+                  <CreateServiceModalServicePickerOptionImage
+                    src={jsonServiceImage} />
+                  <CreateServiceModalServicePickerOptionContent>
+                    JSON Configuration
+                  </CreateServiceModalServicePickerOptionContent>
+                </CreateServiceModalServicePickerOption>
+
                 <MountService.Mount
                   type="CreateService:ServicePicker:GridOptions"
                   onOptionSelect={this.handleServiceSelect}

@@ -69,8 +69,10 @@ module.exports = {
     CollapsingString: 'CollapsingString',
     CreateServiceModalServicePickerOption:
       'CreateServiceModalServicePickerOption',
-    CreateServiceModalServicePickerOptionWrapper:
-      'CreateServiceModalServicePickerOptionWrapper',
+    CreateServiceModalServicePickerOptionContent:
+      'CreateServiceModalServicePickerOptionContent',
+    CreateServiceModalServicePickerOptionImage:
+      'CreateServiceModalServicePickerOptionImage',
     DetailViewHeader: 'DetailViewHeader',
     DCOSLogo: 'DCOSLogo',
     FilterBar: 'FilterBar',
