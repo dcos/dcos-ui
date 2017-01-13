@@ -1,12 +1,11 @@
-import {Dropdown} from 'reactjs-components';
 import classNames from 'classnames';
+import {Dropdown} from 'reactjs-components';
 import deepEqual from 'deep-equal';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPEND} from '../../../../../../src/js/constants/SystemLogTypes';
-import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 import LogView from '../../components/LogView';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
@@ -14,6 +13,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 import SearchLog from '../../components/SearchLog';
 import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
+import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 
 const METHODS_TO_BIND = [
   'handleAtBottomChange',
