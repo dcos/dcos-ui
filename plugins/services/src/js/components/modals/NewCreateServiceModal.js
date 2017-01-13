@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, {Component, PropTypes} from 'react';
 import {Hooks} from 'PluginSDK';
+import React, {Component, PropTypes} from 'react';
+import {routerShape} from 'react-router';
 
 import Application from '../../structs/Application';
 import PodSpec from '../../structs/PodSpec';
@@ -331,7 +332,8 @@ class NewServiceFormModal extends Component {
     if (servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
-          onServiceSelect={this.handleServiceSelection} />
+          onServiceSelect={this.handleServiceSelection}
+          router={this.context.router} />
       );
     }
 
@@ -539,6 +541,10 @@ class NewServiceFormModal extends Component {
     );
   }
 }
+
+NewServiceFormModal.contextTypes = {
+  router: routerShape
+};
 
 NewServiceFormModal.propTypes = {
   clearError: PropTypes.func.isRequired,

@@ -1,18 +1,23 @@
 & when (@create-services-modal-enabled) {
 
   .create-service-modal-service-picker {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
 
-  .create-service-modal-service-picker-options {
-    display: flex;
-    justify-content: center;
-  }
+    &-options {
+      display: flex;
+      justify-content: center;
+    }
 
-  .create-service-modal-service-picker-option {
-    flex: 0 0 auto;
+    &-option {
+      flex: 0 0 auto;
+
+      .panel-content {
+        justify-content: center;
+      }
+    }
   }
 
   // TODO: Remove this custom margin and rely on the FormSection component to
@@ -46,6 +51,13 @@
 & when (@create-services-modal-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
+
+    .create-service-modal-service-picker {
+
+      &-options {
+        max-width: 500px;
+      }
+    }
 
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-small * 3/4;

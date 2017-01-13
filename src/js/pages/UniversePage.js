@@ -1,6 +1,13 @@
+import {MountService} from 'foundation-ui';
 import React from 'react';
 
+import CreateServiceModalUniversePanelOption from './universe/CreateServiceModalUniversePanelOption';
 import Icon from '../components/Icon';
+
+MountService.MountService.registerComponent(
+  CreateServiceModalUniversePanelOption,
+  'CreateService:ServicePicker:GridOptions'
+);
 
 class UniversePage extends React.Component {
   render() {
