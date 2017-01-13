@@ -12,7 +12,6 @@ module.exports = {
     var raml = RAML.parseRAMLSync(ramlDocument);
     var types = raml.types().reduce(function(types, type) {
       types[type.name()] = type;
-
       return types;
     }, {});
 
@@ -26,7 +25,6 @@ module.exports = {
 
     // Return the validator for this type
     typeValidators[typeName].code = code;
-
     return typeValidators[typeName];
   }
 
