@@ -14,5 +14,5 @@ tmp/
 .plugins/
 .external_plugins/
 jest/config.json
-jest/testresults
+jest/test-results
 webpack/proxy.dev.js
