@@ -15,27 +15,29 @@ function CreateServiceModalServicePickerOption({children, onOptionSelect}) {
   const columnClass = Hooks.applyFilter(
     'servicePickerOptionColumnClasses', 'column-12 column-small-4'
   );
+  const contentClasses = [
+    'horizontal-center panel-cell flush-top',
+    {
+      'panel-cell-short': false,
+      'panel-cell-shorter': false
+    }
+  ];
+  const headingClasses = [
+    'panel-cell-borderless horizontal-center panel-cell',
+    {
+      'panel-cell-light': false,
+      'panel-cell-shorter': false
+    }
+  ];
 
   return (
     <div className={`create-service-modal-service-picker-option panel-grid-item ${columnClass}`}>
       <Panel className="panel-interactive clickable"
-        contentClass={[
-          'horizontal-center panel-cell flush-top',
-          {
-            'panel-cell-short': false,
-            'panel-cell-shorter': false
-          }
-        ]}
+        contentClass={contentClasses}
         heading={
           getChildOfType(children, CreateServiceModalServicePickerOptionImage)
         }
-        headingClass={[
-          'panel-cell-borderless horizontal-center panel-cell',
-          {
-            'panel-cell-light': false,
-            'panel-cell-shorter': false
-          }
-        ]}
+        headingClass={headingClasses}
         onClick={onOptionSelect}>
         {getChildOfType(children, CreateServiceModalServicePickerOptionContent)}
       </Panel>
