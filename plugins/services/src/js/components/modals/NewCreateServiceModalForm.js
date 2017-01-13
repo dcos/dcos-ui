@@ -302,6 +302,7 @@ class NewCreateServiceModalForm extends Component {
 
   getContainerContent(data, errors) {
     const {containers} = data;
+    const rootErrorComponent = this.getRootErrorMessage();
 
     if (containers == null) {
       return [];
@@ -310,6 +311,7 @@ class NewCreateServiceModalForm extends Component {
     return containers.map((item, index) => {
       return (
         <TabView key={index} id={`container${index}`}>
+          {rootErrorComponent}
           <PodContainerServiceFormSection
             path={`containers.${index}`}
             data={data}
@@ -342,11 +344,12 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getSectionContent(data, errorMap) {
-    let rootErrorComponent = this.getRootErrorMessage();
+    const rootErrorComponent = this.getRootErrorMessage();
 
     if (this.state.isPod) {
       return [
         <TabView id="networking" key="multinetworking">
+          {rootErrorComponent}
           <MultiContainerNetworkingFormSection
             data={data}
             errors={errorMap}
@@ -363,6 +366,7 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
+          {rootErrorComponent}
           <MultiContainerHealthChecksFormSection
             data={data}
             errors={errorMap}
@@ -371,6 +375,7 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
+          {rootErrorComponent}
           <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
@@ -383,6 +388,7 @@ class NewCreateServiceModalForm extends Component {
 
     return [
       <TabView id="networking" key="networking">
+        {rootErrorComponent}
         <NetworkingFormSection
           data={data}
           errors={errorMap}
@@ -399,6 +405,7 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="healthChecks" key="healthChecks">
+        {rootErrorComponent}
         <HealthChecksFormSection
           data={data}
           errors={errorMap}
@@ -406,6 +413,7 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="volumes" key="volumes">
+        {rootErrorComponent}
         <VolumesFormSection
           data={data}
           errors={errorMap}
