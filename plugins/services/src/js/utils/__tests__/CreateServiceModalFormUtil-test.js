@@ -1,5 +1,8 @@
 const CreateServiceModalFormUtil = require('../CreateServiceModalFormUtil');
 
+const EMPTY_TYPES = [null, undefined, {}, [], ''];
+const VALUE_TYPES = [1234, 'foo', {a: 'b'}, ['a']];
+
 describe('CreateServiceModalFormUtil', function () {
   describe('#applyPatch', function () {
 
@@ -24,158 +27,250 @@ describe('CreateServiceModalFormUtil', function () {
       expect(patched).toEqual({a: 'foo', b: 'bar'});
     });
 
-    it('should remove fields if patch value is undefined', function () {
-      const data = {a: 'foo'};
-      const patch = {a: undefined};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
+    describe('Array Clean-ups', function () {
+
+      EMPTY_TYPES.forEach(function (emptyType) {
+        const emptyTypeStr = JSON.stringify(emptyType);
+
+        //
+        // Empty values are removed from patched arrays
+        //
+
+        it(`should remove ${emptyTypeStr} from beginning of array`,
+          function () {
+            const data = {a: []};
+            const patch = {a: [emptyType, 'foo', 'bar']};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['foo', 'bar']});
+          }
+        );
+
+        it(`should remove ${emptyTypeStr} from middle of array`,
+          function () {
+            const data = {a: []};
+            const patch = {a: ['foo', emptyType, 'bar']};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['foo', 'bar']});
+          }
+        );
+
+        it(`should remove ${emptyTypeStr} from end of array`,
+          function () {
+            const data = {a: []};
+            const patch = {a: ['foo', 'bar', emptyType]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['foo', 'bar']});
+          }
+        );
+
+        //
+        // Source arrays are never optimized
+        //
+
+        it(`should keep ${emptyTypeStr} in beginning of source array`,
+          function () {
+            const data = {a: [emptyType, 'foo', 'bar']};
+            const patch = {};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: [emptyType, 'foo', 'bar']});
+          }
+        );
+
+        it(`should keep ${emptyTypeStr} in middle of source array`,
+          function () {
+            const data = {a: ['foo', emptyType, 'bar']};
+            const patch = {};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['foo', emptyType, 'bar']});
+          }
+        );
+
+        it(`should keep ${emptyTypeStr} in end of source array`,
+          function () {
+            const data = {a: ['foo', 'bar', emptyType]};
+            const patch = {};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['foo', 'bar', emptyType]});
+          }
+        );
+
+        //
+        // Source empty values are kept when patching on top of them
+        //
+
+        it(`should keep ${emptyTypeStr} in beginning when mixing arrays`,
+          function () {
+            const data = {a: ['foo', emptyType, 'bar']};
+            const patch = {a: [emptyType, emptyType, 'bar']};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: [emptyType, 'bar']});
+          }
+        );
+
+        it(`should keep ${emptyTypeStr} in middle when mixing arrays`,
+          function () {
+            const data = {a: [emptyType, 'foo', 'bar']};
+            const patch = {a: [emptyType, emptyType, 'bar']};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: [emptyType, 'bar']});
+          }
+        );
+
+        it(`should keep ${emptyTypeStr} in end when mixing arrays`,
+          function () {
+            const data = {a: ['foo', 'bar', emptyType]};
+            const patch = {a: [emptyType, 'bar', emptyType]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: ['bar', emptyType]});
+          }
+        );
+
+      });
+
     });
 
-    it('should remove fields if patch value is null', function () {
-      const data = {a: 'foo'};
-      const patch = {a: null};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
+    describe('Data Source Preference', function () {
+
+      //
+      // If the source value is null/undefined whatever type is given it should
+      // replace it.
+      //
+
+      [undefined, null].forEach(function (nullType) {
+        const nullTypeStr = JSON.stringify(nullType);
+
+        VALUE_TYPES.forEach(function (valueType) {
+          const valueTypeStr = JSON.stringify(valueType);
+
+          it(`should prefer ${valueTypeStr} if source value is ${nullTypeStr}`,
+            function () {
+              const data = nullType;
+              const patch = {foo: valueType};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({foo: valueType});
+            }
+          );
+
+        });
+
+      });
+
+      //
+      // If we are mixing types, always prefer the source type
+      //
+
+      VALUE_TYPES.forEach(function (typeA) {
+        const typeAStr = JSON.stringify(typeA);
+
+        VALUE_TYPES.reverse().forEach(function (typeB) {
+          const typeBStr = JSON.stringify(typeB);
+
+          it(`should perserve original type ${typeAStr} when ${typeBStr} given`,
+            function () {
+              const data = {a: typeA};
+              const patch = {a: typeB};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: typeA});
+            }
+          );
+
+        });
+
+      });
+
     });
 
-    it('should remove fields if patch value is \'\'', function () {
-      const data = {a: 'foo'};
-      const patch = {a: ''};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
-    });
+    describe('Value Removal', function () {
+      EMPTY_TYPES.forEach(function (emptyType) {
+        const emptyTypeStr = JSON.stringify(emptyType);
 
-    it('should remove fields if patch value is {}', function () {
-      const data = {a: 'foo'};
-      const patch = {a: {}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
-    });
+        //
+        // Empty properties and empty objects should be removed
+        // from the patch before they are applied to the source
+        //
 
-    it('should remove fields if patch value is []', function () {
-      const data = {a: 'foo'};
-      const patch = {a: []};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
-    });
+        it(`should remove ${emptyTypeStr} along with empty deep objects`,
+          function () {
+            const data = {a: {}};
+            const patch = {a: {b: {c: {d: {emptyType}}}}};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: {}});
+          }
+        );
 
-    it('should preserve string source type if array is given', function () {
-      const data = {a: 'foo'};
-      const patch = {a: ['a']};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: 'foo'});
-    });
+        it(`should remove ${emptyTypeStr} along with empty deep arrays`,
+          function () {
+            const data = {a: []};
+            const patch = {a: [[emptyType, emptyType, [emptyType, [emptyType]]]]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: []});
+          }
+        );
 
-    it('should preserve string source type if object is given', function () {
-      const data = {a: 'foo'};
-      const patch = {a: {b: 'c'}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: 'foo'});
-    });
+        it(`should remove ${emptyTypeStr} along with mixed empty structures`,
+          function () {
+            const data = {a: []};
+            const patch = {a: [{b: emptyType}, [emptyType, {c: emptyType}]]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: []});
+          }
+        );
 
-    it('should preserve string source type if number is given', function () {
-      const data = {a: 'foo'};
-      const patch = {a: 42};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: 'foo'});
-    });
+        //
+        // Specifying an empty value to an existing non-empty property
+        // should result to it's removal
+        //
 
-    it('should preserve null source type if null is given', function () {
-      const data = {a: null};
-      const patch = {a: null};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: null});
-    });
+        VALUE_TYPES.forEach(function (valueType) {
+          const valueTypeStr = JSON.stringify(valueType);
 
-    it('should preserve null source type if \'\' is given', function () {
-      const data = {a: null};
-      const patch = {a: ''};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: null});
-    });
+          it(`should remove ${emptyTypeStr} on ${valueTypeStr}`,
+            function () {
+              const data = {a: valueType};
+              const patch = {a: emptyType};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({});
+            }
+          );
 
-    it('should preserve null source type if [] is given', function () {
-      const data = {a: null};
-      const patch = {a: []};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: null});
-    });
+          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in array`,
+            function () {
+              const data = {a: [valueType, valueType]};
+              const patch = {a: [valueType, emptyType, valueType]};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: [valueType, valueType]});
+            }
+          );
 
-    it('should preserve null source type if {} is given', function () {
-      const data = {a: null};
-      const patch = {a: {}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: null});
-    });
+          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in object`,
+            function () {
+              const data = {a: {b: valueType, c: 'value'}};
+              const patch = {a: {b: emptyType, c: 'value'}};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: {c: 'value'}});
+            }
+          );
 
-    it('should preserve [] source type if number is given', function () {
-      const data = {a: [1, 2, 3]};
-      const patch = {a: 42};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: [1, 2, 3]});
-    });
+          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in object in array`,
+            function () {
+              const data = {a: [{b: valueType, c: 'value'}, {d: 'other'}]};
+              const patch = {a: [{b: emptyType, c: 'value'}, {d: 'other'}]};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: [{c: 'value'}, {d: 'other'}]});
+            }
+          );
 
-    it('should remove empty fields from patch objects', function () {
-      const data = {a: null};
-      const patch = {a: {b: null, c:'', d:'foo'}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: {d: 'foo'}});
-    });
+          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in array in object`,
+            function () {
+              const data = {a: {b: [valueType, 'value']}};
+              const patch = {a: {b: [emptyType, 'value']}};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: {b: ['value']}});
+            }
+          );
 
-    it('should keep the original empty value if patch object is empty', function () {
-      const data = {a: {}};
-      const patch = {a: {b: null, c:'', d:undefined}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: {}});
-    });
-
-    it('should recursively remove empty fields from patch objects', function () {
-      const data = {a: {b: 'foo', c: {d: 'bar'}}};
-      const patch = {a: {b: 'foo', c: {d: null}}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: {b: 'foo'}});
-    });
-
-    it('should strip empty properties from patch-only objects', function () {
-      const data = {};
-      const patch = {a: {b: 'foo', c: {d: null}}};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: {b: 'foo'}});
-    });
-
-    it('should properly create new array structures', function () {
-      const data = {};
-      const patch = {a: [{b: 'foo'}, {c: 'bar'}]};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: [{b: 'foo'}, {c: 'bar'}]});
-    });
-
-    it('should not create empty array structures', function () {
-      const data = {};
-      const patch = {a: []};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
-    });
-
-    it('should not create array structures that contain empty items', function () {
-      const data = {};
-      const patch = {a: [null, undefined, '', {}]};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
-    });
-
-    it('should replace array structures when patching', function () {
-      const data = {a: [1, 2, 3, 4]};
-      const patch = {a: [3, 4]};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({a: [3, 4]});
-    });
-
-    it('should remove array structures with empty value', function () {
-      const data = {a: [1, 2]};
-      const patch = {a: null};
-      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-      expect(patched).toEqual({});
+        });
+      });
     });
   });
 });

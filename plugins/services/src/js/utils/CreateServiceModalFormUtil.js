@@ -34,6 +34,119 @@ const CreateServiceModalFormUtil = {
   },
 
   /**
+   * Patch an object with an object
+   *
+   * This function:
+   * - Removes items whose patch value is `empty` (null, undefined, 0, or '')
+   * - Keeps `empty` values whose source value is also `empty`
+   * - Uses the `applyPatch` function recursively to patch each property
+   *
+   * @param {Object} data - The source data to patch
+   * @param {Object} patch - The patch to apply on the data
+   * @returns {Object} Returns the patched data response
+   */
+  applyPatchObject(data, patch) {
+    const newObj = Object.assign({}, data);
+
+    return Object.keys(patch).reduce(function (memo, key) {
+      const dataValue = memo[key];
+      const patchValue = patch[key];
+
+      // If the patch value becomes empty, we should remove the item from
+      // the data object, but only if it does not already have an empty value
+      if (ValidatorUtil.isEmpty(patchValue)) {
+        if (!ValidatorUtil.isEmpty(dataValue)) {
+          delete memo[key];
+
+          return memo;
+        }
+      }
+
+      const value = CreateServiceModalFormUtil.applyPatch(dataValue, patchValue);
+
+      // Repeat the same check like before, since the patched structure
+      // might have been emptied
+      if (ValidatorUtil.isEmpty(value)) {
+        if (ValidatorUtil.isEmpty(dataValue)) {
+          return memo;
+        }
+
+        delete memo[key];
+
+        return memo;
+      }
+
+      memo[key] = value;
+
+      return memo;
+    }, newObj);
+  },
+
+  /**
+   * Patch an array with an array
+   *
+   * This function:
+   * - Removes array items whose value is `empty` (null, undefined, 0, or '')
+   * - Keeps `empty` items whose source value is also `empty`
+   * - Uses the `applyPatch` function recursively to patch each item
+   *
+   * @param {Array} data - The source data to patch
+   * @param {Array} patch - The patch to apply on the data
+   * @returns {Array} Returns the patched data response
+   */
+  applyPatchArray(data, patch) {
+    const itemCount = Math.max(data.length, patch.length);
+    const result = [];
+
+    for (let i=0; i<itemCount; ++i) {
+      const dataValue = data[i];
+      const patchValue = patch[i];
+
+      // Process in priority new entries
+      if (i >= data.length) {
+        if (!ValidatorUtil.isEmpty(patchValue)) {
+          const value = CreateServiceModalFormUtil
+            .stripEmptyProperties(patchValue);
+
+          if (!ValidatorUtil.isEmpty(value)) {
+            result.push(value);
+          }
+        }
+
+        /* eslint-disable no-continue */
+        continue;
+        /* eslint-enable no-continue */
+      }
+
+      // If the patch value becomes empty, we should remove the item from
+      // the array. Effectively, this means that we should not push the item
+      // in the next step and therefore we must continue the loop;
+      if (ValidatorUtil.isEmpty(patchValue)) {
+        if (!ValidatorUtil.isEmpty(dataValue)) {
+          /* eslint-disable no-continue */
+          continue;
+          /* eslint-enable no-continue */
+        }
+      }
+
+      const value = CreateServiceModalFormUtil.applyPatch(dataValue, patchValue);
+
+      // Push value only if the value is not empty
+      if (ValidatorUtil.isEmpty(value)) {
+        if (!ValidatorUtil.isEmpty(dataValue)) {
+          /* eslint-disable no-continue */
+          continue;
+          /* eslint-enable no-continue */
+        }
+      }
+
+      result.push(value);
+    }
+
+    return result;
+  },
+
+  /**
    * Apply patch data on the given source data, following the principles:
    *
    * 1. An "empty" value in the patch removes the field.
@@ -67,46 +180,11 @@ const CreateServiceModalFormUtil = {
       return patch;
     }
 
-    // Pick base object according to type
-    // (Note that arrays get replaced, but objects get merged)
-    let baseObject = [];
-    if (!Array.isArray(data)) {
-      baseObject = Object.assign({}, data);
+    if (Array.isArray(data)) {
+      return CreateServiceModalFormUtil.applyPatchArray(data, patch);
     }
 
-    // Walk object types
-    return Object.keys(patch).reduce(function (memo, key) {
-
-      // If the patch contains an empty value we have to remove the item,
-      // with the only exception of the source value having already an empty
-      // value in place.
-      if (ValidatorUtil.isEmpty(patch[key])) {
-        if (!ValidatorUtil.isEmpty(memo[key])) {
-          delete memo[key];
-        }
-
-        return memo;
-      }
-
-      const value = CreateServiceModalFormUtil.applyPatch(memo[key], patch[key]);
-
-      // If a field was emptied, remove it from the object, to keep structures
-      // as clean as possible. (Again, only if the base value in `data` is not
-      // empty)
-      if (ValidatorUtil.isEmpty(value)) {
-        if (ValidatorUtil.isEmpty(memo[key])) {
-          return memo;
-        }
-
-        delete memo[key];
-
-        return memo;
-      }
-
-      memo[key] = value;
-
-      return memo;
-    }, baseObject);
+    return CreateServiceModalFormUtil.applyPatchObject(data, patch);
   }
 };
 
