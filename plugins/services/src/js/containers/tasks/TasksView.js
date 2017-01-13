@@ -69,7 +69,7 @@ class TasksView extends mixin(SaveStateMixin) {
     this.setState({checkedItems});
   }
 
-  handleAcitonClick(killAction) {
+  handleActionClick(killAction) {
     const {checkedItems} = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -167,11 +167,11 @@ class TasksView extends mixin(SaveStateMixin) {
     let handleStopClick = function () {};
 
     if (!isDeploying) {
-      handleRestartClick = this.handleStopClick.bind(this, 'restart');
+      handleRestartClick = this.handleActionClick.bind(this, 'restart');
     }
 
     if (!hasSchedulerTask) {
-      handleStopClick = this.handleStopClick.bind(this, 'stop');
+      handleStopClick = this.handleActionClick.bind(this, 'stop');
     }
 
     const restartButtonClasses = classNames('button button-link', {
