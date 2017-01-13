@@ -10,6 +10,7 @@ import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
 import ConfigurationMap from '../../components/ConfigurationMap';
 import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
+import {findNestedPropertyInObject} from '../../utils/Util';
 import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
 import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
@@ -130,15 +131,15 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   getPublicIP() {
-    const metadata = MetadataStore.get('metadata');
+    const publicIP = findNestedPropertyInObject(
+      MetadataStore.get('metadata'), 'PUBLIC_IPV4'
+    );
 
-    if ((typeof metadata !== 'object') ||
-      metadata.PUBLIC_IPV4 == null ||
-      metadata.PUBLIC_IPV4.length === 0) {
+    if (!publicIP) {
       return null;
     }
 
-    return metadata.PUBLIC_IPV4;
+    return publicIP;
   }
 
   render() {
