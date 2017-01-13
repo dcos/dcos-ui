@@ -13,7 +13,7 @@ function getServiceImage(service) {
   }
 
   return (
-    <span className="icon icon-circle icon-small icon-image-container icon-app-container page-header-breadcrumb-item-icon">
+    <span className="icon icon-small icon-image-container icon-app-container page-header-breadcrumb-item-icon">
       <img src={service.getImages()['icon-small']}/>
     </span>
   );
