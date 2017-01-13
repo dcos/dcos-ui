@@ -148,8 +148,7 @@ describe('Mount', function () {
       </Mount>
     );
 
-    expect(renderer.getRenderOutput().props.children[0].props)
-        .toEqual({message:'hello world'});
+    expect(renderer.getRenderOutput().props).toEqual({message:'hello world'});
   });
 
 });

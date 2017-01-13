@@ -4,6 +4,9 @@ const ReactUil = {
   /**
    * Wrap React elements
    *
+   * If elements is an array with a single element, it will not be wrapped
+   * unless alwaysWrap is true.
+   *
    * @param {Array.<ReactElement>|ReactElement} elements
    * @param  {function|String} wrapper component
    * @param {boolean} [alwaysWrap]
@@ -15,6 +18,11 @@ const ReactUil = {
       return null;
     }
 
+    if (Array.isArray(elements) && elements.length === 1
+      && React.isValidElement(elements[0]) && !alwaysWrap) {
+      return elements[0];
+    }
+
     if (React.isValidElement(elements) && !alwaysWrap) {
       return elements;
     }
@@ -24,4 +32,3 @@ const ReactUil = {
 };
 
 module.exports = ReactUil;
-
