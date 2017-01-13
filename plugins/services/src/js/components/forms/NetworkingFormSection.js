@@ -213,7 +213,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getContainerPortField(portDefinition, network, errors, index) {
-    if (network === HOST) {
+    if (network == null || network === HOST) {
       return null;
     }
 
