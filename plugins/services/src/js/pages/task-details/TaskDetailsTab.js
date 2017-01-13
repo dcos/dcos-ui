@@ -65,13 +65,11 @@ class TaskDetailsTab extends React.Component {
       const resourceLabels = ResourcesUtil.getResourceLabels();
 
       ResourcesUtil.getDefaultResources().forEach(function (resource) {
-        if (resource !== 'ports') {
-          const resourceLabel = resourceLabels[resource];
+        const resourceLabel = resourceLabels[resource];
 
-          headerValueMapping[resourceLabel] = Units.formatResource(
-            resource, mesosTask.resources[resource]
-          );
-        }
+        headerValueMapping[resourceLabel] = Units.formatResource(
+          resource, mesosTask.resources[resource]
+        );
       });
     }
 
