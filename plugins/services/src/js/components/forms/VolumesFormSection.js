@@ -1,16 +1,18 @@
+import {Tooltip} from 'reactjs-components';
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
+import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
+import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
-import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -25,11 +27,18 @@ class VolumesFormSection extends Component {
       .attr('persistent', {})
       .get(this.props.errors)
       .size;
-
     const containerPathError = errorsLens
       .at(key, {})
       .get(this.props.errors)
       .containerPath;
+    const tooltipContent = (
+      <span>
+        {'The path where your application will read and write data. This must be a single-level path relative to the container. '}
+        <a href={MetadataStore.buildDocsURI('/usage/storage/persistent-volume/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
     return (
       <FormRow>
@@ -48,7 +57,17 @@ class VolumesFormSection extends Component {
           className="column-6"
           required={false}
           showError={Boolean(containerPathError)}>
-          <FieldLabel>Container Path</FieldLabel>
+          <FieldLabel>
+            {'Container Path '}
+            <Tooltip
+              content={tooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
             type="text"
@@ -68,6 +87,14 @@ class VolumesFormSection extends Component {
     const hostPathError = errors.hostPath;
     const containerPathError = errors.containerPath;
     const modeError = errors.mode;
+    const tooltipContent = (
+      <span>
+        {'If you are using the Mesos containerizer, this must be a single-level path relative to the container. '}
+        <a href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
     return (
       <FormRow>
@@ -75,7 +102,7 @@ class VolumesFormSection extends Component {
           className="column-4"
           required={false}
           showError={Boolean(hostPathError)}>
-          <FieldLabel>HostPath</FieldLabel>
+          <FieldLabel>Host Path</FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.hostPath`}
             value={volume.hostPath} />
@@ -85,7 +112,17 @@ class VolumesFormSection extends Component {
           className="column-4"
           required={false}
           showError={Boolean(containerPathError)}>
-          <FieldLabel>Container Path</FieldLabel>
+          <FieldLabel>
+            {'Container Path '}
+            <Tooltip
+              content={tooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
             type="text"
@@ -98,8 +135,8 @@ class VolumesFormSection extends Component {
           showError={Boolean(modeError)}>
           <FieldLabel>Mode</FieldLabel>
           <FieldSelect name={`localVolumes.${key}.mode`} value={volume.mode}>
-            <option value="RW">READ and Write</option>
-            <option value="RO">READ ONLY</option>
+            <option value="RW">Read and Write</option>
+            <option value="RO">Read Only</option>
           </FieldSelect>
         </FormGroup>
       </FormRow>
@@ -111,7 +148,12 @@ class VolumesFormSection extends Component {
       return null;
     }
 
-    return <option value="HOST">Host Volume</option>;
+    return (
+      <option value="HOST">
+        Host Volume
+
+      </option>
+    );
   }
 
   getLocalVolumesLines(data) {
@@ -145,8 +187,8 @@ class VolumesFormSection extends Component {
               <FieldLabel>Volume Type</FieldLabel>
               <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
                 <option>Select...</option>
-                <option value="PERSISTENT">Persistent Volume</option>
                 {this.getHostOption(dockerImage)}
+                <option value="PERSISTENT">Persistent Volume</option>
               </FieldSelect>
             </FormGroup>
           </FormRow>
@@ -219,7 +261,7 @@ class VolumesFormSection extends Component {
               className="column-9"
               required={false}
               showError={Boolean(containerPathError)}>
-              <FieldLabel>Container Mount Path</FieldLabel>
+              <FieldLabel>Container Path</FieldLabel>
               <FieldInput
                 name={`externalVolumes.${key}.containerPath`}
                 type="text"
@@ -235,13 +277,41 @@ class VolumesFormSection extends Component {
   render() {
     const {data} = this.props;
 
+    const tooltipContent = (
+      <span>
+        {'DC/OS offers several storage options. '}
+        <a href={MetadataStore.buildDocsURI('/usage/storage/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Local Volumes Variables
+          {'Volumes '}
+          <Tooltip
+            content={tooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
         </h2>
         <p>
-          Set up volumes variables for each task your service launches.
+          Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
+        </p>
+        <h3 className="flush-top short-bottom">
+          Local Volumes Variables
+        </h3>
+        <p>
+          {'Choose a local persistent volume if you need quick access to stored data. '}
+          <a
+            href={MetadataStore.buildDocsURI('/usage/storage/persistent-volume/')}
+            target="_blank">
+            More information
+          </a>.
         </p>
         {this.getLocalVolumesLines(data.localVolumes)}
         <div>
@@ -251,11 +321,16 @@ class VolumesFormSection extends Component {
             <Icon color="purple" id="plus" size="tiny" /> Add Local Volume
           </a>
         </div>
-        <h2 className="short-bottom">
+        <h3 className="short-bottom">
           External Volumes Variables
-        </h2>
+        </h3>
         <p>
-          Set up volumes variables for each task your service launches.
+          {'Choose an external persistent volume if fault-tolerance is crucial for your service. '}
+          <a
+            href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')}
+            target="_blank">
+            More information
+          </a>.
         </p>
         {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
         <FormRow>
