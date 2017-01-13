@@ -395,10 +395,9 @@ class NewCreateServiceModalForm extends Component {
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem} />
       </TabView>,
-      <TabView id="environment" key="environment">
+      <TabView id="volumes" key="volumes">
         {rootErrorComponent}
-        <EnvironmentFormSection
-          mountType="CreateService:EnvironmentFormSection"
+        <VolumesFormSection
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
@@ -412,9 +411,10 @@ class NewCreateServiceModalForm extends Component {
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem} />
       </TabView>,
-      <TabView id="volumes" key="volumes">
+      <TabView id="environment" key="environment">
         {rootErrorComponent}
-        <VolumesFormSection
+        <EnvironmentFormSection
+          mountType="CreateService:EnvironmentFormSection"
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
