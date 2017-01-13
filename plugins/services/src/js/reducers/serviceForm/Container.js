@@ -80,15 +80,9 @@ const containerJSONReducer = combineReducers({
       this.containerType = value;
     }
 
-    if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
-      const newState = Object.assign({}, this.internalState);
-      Object.keys(this.internalState).forEach((key) => {
-        if (ValidatorUtil.isEmpty(this.internalState[key])) {
-          delete newState[key];
-        }
-      });
-
-      return newState;
+    if (!ValidatorUtil.isEmpty(this.internalState) &&
+      this.containerType !== NONE) {
+      return Object.assign({}, this.internalState);
     }
   },
   volumes
