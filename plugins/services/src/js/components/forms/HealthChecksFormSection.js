@@ -223,7 +223,7 @@ class HealthChecksFormSection extends Component {
 
     return (
       <div>
-        <h2 className="form-header flush-top short-bottom">
+        <h2 className="flush-top short-bottom">
           Health Checks
         </h2>
         <p>
