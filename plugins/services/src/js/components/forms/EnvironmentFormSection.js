@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import {Tooltip} from 'reactjs-components';
 import {MountService} from 'foundation-ui';
+import React, {Component} from 'react';
 
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
@@ -10,6 +11,7 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
 class EnvironmentFormSection extends Component {
 
@@ -99,15 +101,44 @@ class EnvironmentFormSection extends Component {
   }
 
   render() {
-    let {data, errors} = this.props;
+    const {data, errors} = this.props;
+
+    const envTooltipContent = (
+      <span>
+        {'DC/OS also exposes environment variables for host ports and metdata. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+    const labelsTooltipContent = (
+      <span>
+        {'For example, you could label services “staging” and “production” to mark them by their position in the pipeline. '}
+        <a
+          href={MetadataStore.buildDocsURI('/usage/tutorials/task-labels/')}
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Environment Variables
+          {'Environment Variables '}
+          <Tooltip
+            content={envTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
         </h2>
         <p>
-          Set up environment variables for each task your service launches.
+          Set up environment variables for each instance your service launches.
         </p>
         {this.getEnvironmentLines(data.env)}
         <FormRow>
@@ -120,7 +151,15 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
         </FormRow>
         <h2 className="short-bottom">
-          Labels
+          {'Labels '}
+          <Tooltip
+            content={labelsTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
         </h2>
         <p>
           Attach metadata to expose additional information to other services.
