@@ -145,7 +145,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                     );
                   }
 
-                  return getDisplayValue(undefined);
+                  return <em>Not Enabled</em>;
                 },
                 sortable: true
               }
