@@ -1,13 +1,33 @@
 import {combineReducers, simpleReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import ContainerConstants from '../../constants/ContainerConstants';
 import networkingReducer from './Networking';
 import Networking from '../../../../../../src/js/constants/Networking';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 
+const {DOCKER} = ContainerConstants.type;
+
 const {BRIDGE, HOST, USER} = Networking.type;
 
+function getContainerSettingsReducer(name) {
+  return function (_, {type, path = [], value}) {
+    const joinedPath = path.join('.');
+    if (joinedPath === 'container.type' && Boolean(value)) {
+      this.networkType = value;
+    }
+    if (type === SET && joinedPath === `container.docker.${name}`) {
+      this.value = Boolean(value);
+    }
+    if (this.networkType === DOCKER) {
+      return this.value;
+    }
+
+    return null;
+  };
+}
+
 module.exports = combineReducers({
-  privileged: simpleReducer('container.docker.privileged', null),
-  forcePullImage: simpleReducer('container.docker.forcePullImage', null),
+  privileged: getContainerSettingsReducer('privileged'),
+  forcePullImage: getContainerSettingsReducer('forcePullImage'),
   image: simpleReducer('container.docker.image', ''),
   network(state, {type, path = [], value}) {
     const joinedPath = path.join('.');

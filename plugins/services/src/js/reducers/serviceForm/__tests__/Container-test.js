@@ -145,6 +145,41 @@ describe('Container', function () {
       )).toEqual(null);
     });
 
+    it('removes forcePullImage when runtime is changed', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
+      batch = batch.add(
+        new Transaction(['container', 'docker', 'forcePullImage'], true, SET)
+      );
+      batch = batch.add(new Transaction(['container', 'type'], 'MESOS', SET));
+      batch = batch.add(
+          new Transaction(['container', 'docker', 'image'], 'foo', SET)
+      );
+
+      expect(batch.reduce(
+        Container.JSONReducer.bind({}),
+        {}
+      )).toEqual({type: 'MESOS', docker: {image: 'foo'}});
+    });
+
+    it('remembers forcePullImage from earlier setting', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
+      batch = batch.add(
+        new Transaction(['container', 'docker', 'forcePullImage'], true, SET)
+      );
+      batch = batch.add(new Transaction(['container', 'type'], 'MESOS', SET));
+      batch = batch.add(
+          new Transaction(['container', 'docker', 'image'], 'foo', SET)
+      );
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
+
+      expect(batch.reduce(
+        Container.JSONReducer.bind({}),
+        {}
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: true}});
+    });
+
     it('sets image correctly', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
