@@ -2,6 +2,7 @@ describe('Service Actions', function () {
 
   function clickHeaderAction(actionText) {
     cy.get('.page-header-actions .dropdown').click();
+
     cy.get('.dropdown-menu-items').contains(actionText).click();
   }
 
@@ -11,7 +12,8 @@ describe('Service Actions', function () {
       nodeHealth: true
     });
 
-    cy.visitUrl({url: '/services/overview/%2Fcassandra-healthy'});
+    cy.visitUrl({url: '/services/overview/%2Fcassandra-healthy'})
+      .wait(['@marathon/groups', '@marathon/deployments', '@state']);
   });
 
   context('Edit Action', function () {
@@ -29,9 +31,9 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: [],
-          delay: 0
+          response: []
         });
+
       cy.get('.modal .modal-header .button')
         .contains('Review & Run')
         .click();
@@ -59,7 +61,8 @@ describe('Service Actions', function () {
           nodeHealth: true
         });
 
-        cy.visitUrl({url: '/services/overview/%2Fsleep'});
+        cy.visitUrl({url: '/services/overview/%2Fsleep'})
+          .wait(['@marathon/groups', '@marathon/deployments', '@state']);
         clickHeaderAction('Destroy');
       });
 
@@ -73,12 +76,11 @@ describe('Service Actions', function () {
           .route({
             method: 'DELETE',
             url: /marathon\/v2\/apps\/\/sleep/,
-            response: [],
-            delay: 0
+            response: []
           });
         cy.get('.confirm-modal .button-collection .button-danger')
-          .as('primaryButton').click();
-        cy.get('@primaryButton').should('have.class', 'disabled');
+          .click()
+          .should('have.class', 'disabled');
       });
 
       it('closes dialog on successful API request', function () {
@@ -86,8 +88,7 @@ describe('Service Actions', function () {
           .route({
             method: 'DELETE',
             url: /marathon\/v2\/apps\/\/sleep/,
-            response: [],
-            delay: 0
+            response: []
           });
         cy.get('.confirm-modal .button-collection .button-danger').click();
         cy.get('.confirm-modal').should('to.have.length', 0);
@@ -101,6 +102,7 @@ describe('Service Actions', function () {
             url: /marathon\/v2\/apps\/\/sleep/,
             response: {message: 'App is locked by one or more deployments.'}
           });
+
         cy.get('.confirm-modal .button-collection .button-danger').click();
         cy.get('.modal-body .text-danger')
           .should('to.have.text', 'App is locked by one or more deployments.');
@@ -114,6 +116,7 @@ describe('Service Actions', function () {
             url: /marathon\/v2\/apps\/\/sleep/,
             response: {message: 'Not Authorized to perform this action!'}
           });
+
         cy.get('.confirm-modal .button-collection .button-danger').click();
         cy.get('.modal-body .text-danger')
           .should('to.have.text', 'Not Authorized to perform this action!');
@@ -128,13 +131,14 @@ describe('Service Actions', function () {
             response: {
               message: {message: 'Not Authorized to perform this action!'}
             },
-            delay: 100
-          });
+            delay:100
+          }).as('marathon/apps/sleep:deleteService');
+
         cy.get('.confirm-modal .button-collection .button-danger')
-          .as('dangerButton').click();
-        cy.get('@dangerButton').should('have.class', 'disabled');
-        cy
-          .wait(100)
+          .as('dangerButton').click()
+          .should('have.class', 'disabled');
+
+        cy.wait('@marathon/apps/sleep:deleteService')
           .get('@dangerButton').should('not.have.class', 'disabled');
       });
 
@@ -164,12 +168,11 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: [],
-          delay: 0
+          response: []
         });
       cy.get('.modal-footer .button-collection .button-primary')
-        .as('primaryButton').click();
-      cy.get('@primaryButton').should('have.class', 'disabled');
+        .click()
+        .should('have.class', 'disabled');
     });
 
     it('closes dialog on successful API request', function () {
@@ -177,8 +180,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: [],
-          delay: 0
+          response: []
         });
       cy.get('.modal-footer .button-collection .button-primary').click();
       cy.get('.modal-body').should('to.have.length', 0);
@@ -220,12 +222,15 @@ describe('Service Actions', function () {
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
           response: [],
-          delay: 50
-        });
+          delay:100
+        }).as('marathon/apps/cassandra-healthy:scaleService');
+
       cy.get('.modal-footer .button-collection .button-primary')
-        .as('primaryButton').click();
-      cy.get('@primaryButton').should('have.class', 'disabled');
-      cy.wait(100).get('@primaryButton').should('not.have.class', 'disabled');
+        .as('primaryButton').click()
+        .should('have.class', 'disabled');
+
+      cy.wait('@marathon/apps/cassandra-healthy:scaleService')
+        .get('@primaryButton').should('not.have.class', 'disabled');
     });
 
     it('closes dialog on secondary button click', function () {
@@ -250,12 +255,12 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: [],
-          delay: 0
+          response: []
         });
+
       cy.get('.confirm-modal .button-collection .button-primary')
-        .as('primaryButton').click();
-      cy.get('@primaryButton').should('have.class', 'disabled');
+        .click()
+        .should('have.class', 'disabled');
     });
 
     it('closes dialog on successful API request', function () {
@@ -263,8 +268,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: [],
-          delay: 0
+          response: []
         });
       cy.get('.confirm-modal .button-collection .button-primary').click();
       cy.get('.confirm-modal').should('to.have.length', 0);
@@ -306,12 +310,15 @@ describe('Service Actions', function () {
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
           response: [],
-          delay: 50
-        });
+          delay:100
+        }).as('marathon/apps/cassandra-healthy:suspendService');
+
       cy.get('.confirm-modal .button-collection .button-primary')
-        .as('primaryButton').click();
-      cy.get('@primaryButton').should('have.class', 'disabled');
-      cy.wait(100).get('@primaryButton').should('not.have.class', 'disabled');
+        .as('primaryButton').click()
+        .should('have.class', 'disabled');
+
+      cy.wait('@marathon/apps/cassandra-healthy:suspendService')
+        .get('@primaryButton').should('not.have.class', 'disabled');
     });
 
     it('closes dialog on secondary button click', function () {
