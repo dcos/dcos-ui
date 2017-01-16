@@ -35,7 +35,12 @@ const ErrorMessagesUtil = {
 
           // Replace tempalte variables in the error message
           return match.message.replace(TEMPLATE_VAR_REGEXP, function (match) {
-            return String(templateVars[match.slice(1, -1)] || '');
+            const value = templateVars[match.slice(1, -1)];
+            if (value === undefined) {
+              return '';
+            }
+
+            return String(value);
           });
         };
       })(errorMessageTests);
