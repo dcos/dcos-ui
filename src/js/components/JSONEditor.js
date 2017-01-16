@@ -221,6 +221,9 @@ class JSONEditor extends React.Component {
   handleEditorLoad(editor) {
     this.aceEditor = editor;
 
+    // Disable tab index for JSON editor
+    this.aceEditor.renderer.textarea.setAttribute('tabIndex', -1);
+
     // Disable syntax highlighting worker, since we are responsible for feeding
     // the correct syntax error + provided error markers
     const editorSession = editor.getSession();

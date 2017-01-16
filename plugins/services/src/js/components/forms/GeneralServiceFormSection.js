@@ -44,7 +44,7 @@ const containerRuntimes = {
     helpText: (
       <span>
         {'The default Mesos containerizer. '}
-        <a href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
+        <a tabIndex="-1" href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
           target="_blank">
           More information
         </a>.
@@ -344,7 +344,7 @@ class GeneralServiceFormSection extends Component {
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
-      let {helpText, label} = containerRuntimes[runtimeName];
+      const {helpText, label} = containerRuntimes[runtimeName];
       let field = (
         <FieldLabel className="text-align-left" key={index}>
           <FieldInput
