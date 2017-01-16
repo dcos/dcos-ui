@@ -13,6 +13,7 @@ import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import ErrorMessagesUtil from '../../../../../../src/js/utils/ErrorMessagesUtil';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
@@ -21,6 +22,7 @@ import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
+import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
 import ServiceUtil from '../../utils/ServiceUtil';
 import PodSpec from '../../structs/PodSpec';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
@@ -48,15 +50,18 @@ const KEY_VALUE_FIELDS = [
   'labels'
 ];
 
+const ramlErrorMessages = ErrorMessagesUtil
+  .errorMessagesFromConfig(ServiceErrorMessages);
+
 const APP_ERROR_VALIDATORS = [
-  AppValidators.App,
+  AppValidators.clone({errorMessages: ramlErrorMessages}).App,
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules
 ];
 
 const POD_ERROR_VALIDATORS = [
-  PodValidators.Pod
+  PodValidators.clone({errorMessages: ramlErrorMessages}).Pod
 ];
 
 class NewCreateServiceModalForm extends Component {
