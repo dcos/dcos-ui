@@ -439,6 +439,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
+            <p>The network type will be shared across all your containers.</p>
             {this.getTypeSelections()}
             <FieldError>{networkError}</FieldError>
           </FormGroup>
