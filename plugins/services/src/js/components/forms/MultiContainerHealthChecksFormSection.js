@@ -302,6 +302,10 @@ class MultiContainerHealthChecksFormSection extends Component {
               <Icon id="container" size="mini" color="purple" />
               {` ${container.name}`}
             </h4>
+            <p>
+              Health checks may be specified per application to be run against
+              the application{'\''}s instances.
+            </p>
           </div>
           {this.getHealthChecksBody(container, index)}
         </div>
