@@ -192,13 +192,15 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({ docker: {
-        forcePullImage: null,
-        image: '',
-        privileged: null,
-        network: undefined,
-        portMappings: null
-      }});
+      )).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: '',
+          privileged: null,
+          network: undefined,
+          portMappings: null
+        }
+      });
     });
 
     it('removes forcePullImage when runtime is changed', function () {
@@ -215,7 +217,16 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'MESOS', docker: {image: 'foo'}});
+      )).toEqual({
+        type: 'MESOS',
+        docker: {
+          forcePullImage: null,
+          image: 'foo',
+          network: undefined,
+          portMappings: null,
+          privileged: null
+        }
+      });
     });
 
     it('remembers forcePullImage from earlier setting', function () {
@@ -233,7 +244,16 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: true}});
+      )).toEqual({
+        type: 'DOCKER',
+        docker: {
+          forcePullImage: true,
+          image: 'foo',
+          network: undefined,
+          portMappings: null,
+          privileged: null
+        }
+      });
     });
 
     it('sets image correctly', function () {
