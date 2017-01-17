@@ -262,7 +262,7 @@ class LogView extends React.Component {
   getLogPrepend() {
     if (this.props.hasLoadedTop) {
       return (
-        <div className="text-align-center vertical-center">
+        <div className="text-muted">
           (AT BEGINNING OF FILE)
         </div>
       );
