@@ -67,9 +67,14 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       return <RequestErrorMsg />;
     }
 
-    let tasks = MesosStateStore.getTasksByService(this.props.service);
+    const {service} = this.props;
+    const tasks = MesosStateStore.getTasksByService(service);
 
-    return <TasksContainer params={this.props.params} tasks={tasks} />;
+    return (
+      <TasksContainer params={this.props.params}
+        service={service}
+        tasks={tasks} />
+    );
   }
 
   render() {
