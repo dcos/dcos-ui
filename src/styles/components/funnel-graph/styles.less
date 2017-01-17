@@ -44,10 +44,10 @@
     &-item {
       align-items: center;
       display: flex;
-      flex: 1 0 auto;
+      flex: 1 1 auto;
       flex-direction: column;
-      max-width: @funnel-graph-item-max-width;
       text-align: center;
+      width: @funnel-graph-item-width;
 
       &-percentage {
         font-weight: 600;
@@ -110,8 +110,8 @@
 
         &:first-child,
         &:last-child {
-          max-width: none;
           min-width: 0;
+          width: none;
         }
 
         .icon {
@@ -152,7 +152,7 @@
       }
 
       &-item {
-        max-width: @funnel-graph-item-max-width-screen-small;
+        width: @funnel-graph-item-width-screen-small;
 
         &-percentage {
           margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-small;
@@ -197,7 +197,7 @@
       }
 
       &-item {
-        max-width: @funnel-graph-item-max-width-screen-medium;
+        width: @funnel-graph-item-width-screen-medium;
 
         &-percentage {
           margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-medium;
@@ -242,7 +242,7 @@
       }
 
       &-item {
-        max-width: @funnel-graph-item-max-width-screen-large;
+        width: @funnel-graph-item-width-screen-large;
 
         &-percentage {
           margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-large;
@@ -288,7 +288,7 @@
       }
 
       &-item {
-        max-width: @funnel-graph-item-max-width-screen-jumbo;
+        width: @funnel-graph-item-width-screen-jumbo;
 
         &-percentage {
           margin-bottom: @funnel-graph-item-percentage-margin-bottom-screen-jumbo;
