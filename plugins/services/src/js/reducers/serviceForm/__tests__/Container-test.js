@@ -12,7 +12,15 @@ describe('Container', function () {
       const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-        .toEqual(null);
+        .toEqual({
+          docker: {
+            forcePullImage: null,
+            image: '',
+            privileged: null,
+            network: undefined,
+            portMappings: null
+          }
+        });
     });
 
     it('switches container name along with type', function () {
@@ -23,7 +31,13 @@ describe('Container', function () {
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-        .toEqual({type: 'DOCKER', docker: {image: 'foo'}});
+        .toEqual({type: 'DOCKER', docker: {
+          image: 'foo',
+          forcePullImage: null,
+          privileged: null,
+          network: undefined,
+          portMappings: null
+        }});
     });
 
     it('creates new container info when there is nothing', function () {
@@ -37,7 +51,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo',
+        forcePullImage: null,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('keeps top-level container info with type switch', function () {
@@ -50,7 +69,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'MESOS', docker: {image: 'foo'}});
+      )).toEqual({type: 'MESOS', docker: {image: 'foo',
+        forcePullImage: null,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('sets privileged correctly', function () {
@@ -66,7 +90,11 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: true}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: true,
+        forcePullImage: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('sets privileged correctly to false', function () {
@@ -82,7 +110,11 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: false}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: false,
+        forcePullImage: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('doesn\'t set privileged if path doesn\'t match type', function () {
@@ -98,7 +130,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo',
+        forcePullImage: null,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('sets forcePullImage correctly', function () {
@@ -114,7 +151,11 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: true}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: true,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('sets forcePullImage correctly to false', function () {
@@ -130,7 +171,16 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: false}});
+        )).toEqual({
+          type: 'DOCKER',
+          docker: {
+            image: 'foo',
+            forcePullImage: false,
+            privileged: null,
+            network: undefined,
+            portMappings: null
+          }
+        });
     });
 
     it('doesn\'t set forcePullImage if path doesn\'t match type', function () {
@@ -142,7 +192,13 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual(null);
+      )).toEqual({ docker: {
+        forcePullImage: null,
+        image: '',
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('removes forcePullImage when runtime is changed', function () {
@@ -190,7 +246,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo',
+        forcePullImage: null,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('changes image value correctly', function () {
@@ -203,7 +264,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({type: 'DOCKER', docker: {image: 'bar'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'bar',
+        forcePullImage: null,
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     it('doesn\'t set image if path doesn\'t match type', function () {
@@ -215,7 +281,13 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual(null);
+      )).toEqual({ docker: {
+        forcePullImage: null,
+        image: '',
+        privileged: null,
+        network: undefined,
+        portMappings: null
+      }});
     });
 
     describe('PortMappings', function () {
@@ -229,6 +301,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
@@ -249,6 +324,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: null, labels: null, name: null, protocol: null, servicePort: null}
@@ -270,6 +348,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: BRIDGE,
               portMappings: [
                 {containerPort: 0, hostPort: 100, labels: null, name: null, protocol: 'udp', servicePort: null}
@@ -287,6 +368,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: BRIDGE,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
@@ -300,7 +384,15 @@ describe('Container', function () {
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-          .toEqual(null);
+          .toEqual({
+            docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
+              network: undefined,
+              portMappings: null
+            }
+          });
       });
 
       it('shouldn\'t create portMappings for HOST', function () {
@@ -310,7 +402,7 @@ describe('Container', function () {
         batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-          .toEqual({docker: {network: HOST}});
+          .toEqual({docker: {network: HOST, forcePullImage: null, image: '', privileged: null, portMappings: null}});
       });
 
       it('should create two default portDefinition configurations', function () {
@@ -324,6 +416,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
@@ -343,6 +438,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: 'foo', protocol: 'tcp', servicePort: null}
@@ -362,6 +460,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 100, labels: null, name: null, protocol: 'tcp', servicePort: null}
@@ -382,6 +483,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
@@ -400,6 +504,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'udp', servicePort: null}
@@ -420,6 +527,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
@@ -442,6 +552,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {VIP_0: ':0'}, servicePort: null},
@@ -465,6 +578,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 300, name: null, protocol: 'tcp', labels: {VIP_0: ':300'}, servicePort: null},
@@ -488,6 +604,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
@@ -511,6 +630,9 @@ describe('Container', function () {
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
