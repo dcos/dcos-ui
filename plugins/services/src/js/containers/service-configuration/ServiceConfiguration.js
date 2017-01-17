@@ -1,5 +1,6 @@
+
 import {DCOSStore} from 'foundation-ui';
-import {Dropdown} from 'reactjs-components';
+import {Dropdown, Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -164,20 +165,23 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     });
 
     return (
-      <Dropdown
-        buttonClassName="services-version-select-toggle dropdown-toggle button button-transparent button-split-content flush-left"
-        dropdownMenuClassName="services-version-select-menu dropdown-menu"
-        dropdownMenuListClassName="dropdown-menu-list"
-        dropdownMenuListItemClassName="clickable"
-        items={versionItems}
-        key="version-dropdown"
-        onItemSelection={this.handleVersionSelection}
-        persistentID={this.state.selectedVersionID}
-        scrollContainer=".gm-scroll-view"
-        scrollContainerParentSelector=".gm-prevented"
-        transition={true}
-        transitionName="dropdown-menu"
-        wrapperClassName="services-version-select dropdown" />
+      <Tooltip content="Configuration version"
+        wrapperClassName="button button-transparent button-flush">
+        <Dropdown
+          buttonClassName="services-version-select-toggle dropdown-toggle button button-transparent button-split-content flush-left"
+          dropdownMenuClassName="services-version-select-menu dropdown-menu"
+          dropdownMenuListClassName="dropdown-menu-list"
+          dropdownMenuListItemClassName="clickable"
+          items={versionItems}
+          key="version-dropdown"
+          onItemSelection={this.handleVersionSelection}
+          persistentID={this.state.selectedVersionID}
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
+          transition={true}
+          transitionName="dropdown-menu"
+          wrapperClassName="services-version-select dropdown" />
+      </Tooltip>
     );
   }
 
