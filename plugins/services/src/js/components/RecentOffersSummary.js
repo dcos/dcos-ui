@@ -167,10 +167,22 @@ function RecentOffersSummary({data}) {
   );
 
   return (
-    <div className="funnel-graph pod ">
-      {funnelGraphItems}
+    <div className="funnel-graph pod flush-horizontal">
+      <div className="funnel-graph-bars">
+        {funnelGraphItems}
+      </div>
+      <div className="funnel-graph-key">
+        <div className="funnel-graph-key-item">
+          <span className="funnel-graph-key-dot funnel-graph-key-dot-matched dot" />
+          Matched
+        </div>
+        <div className="funnel-graph-key-item">
+          <span className="funnel-graph-key-dot funnel-graph-key-dot-declined dot" />
+          Declined
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 module.exports = RecentOffersSummary;

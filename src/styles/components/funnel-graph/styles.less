@@ -1,9 +1,45 @@
 & when (@funnel-graph-enabled) {
 
   .funnel-graph {
-    align-items: flex-end;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+
+    &-bars {
+      align-items: flex-end;
+      display: flex;
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+
+    &-key {
+      display: flex;
+      flex: 0 0 auto;
+      justify-content: center;
+      margin-top: @funnel-graph-key-margin-top;
+
+      &-dot {
+        display: inline-block;
+        margin-right: @funnel-graph-key-dot-margin-right;
+
+        &-declined {
+
+          &.dot {
+            background-color: @funnel-graph-item-bar-offered-background;
+          }
+        }
+
+        &-matched {
+
+          &.dot {
+            background-color: @funnel-graph-item-bar-matched-background;
+          }
+        }
+      }
+
+      &-item {
+        margin-right: @funnel-graph-key-item-margin-right;
+      }
+    }
 
     &-item {
       align-items: center;
@@ -103,6 +139,18 @@
 
     .funnel-graph {
 
+      &-key {
+        margin-top: @funnel-graph-key-margin-top-screen-small;
+
+        &-dot {
+          margin-right: @funnel-graph-key-dot-margin-right-screen-small;
+        }
+
+        &-item {
+          margin-right: @funnel-graph-key-item-margin-right-screen-small;
+        }
+      }
+
       &-item {
         max-width: @funnel-graph-item-max-width-screen-small;
 
@@ -135,6 +183,18 @@
   @media (min-width: @layout-screen-medium-min-width) {
 
     .funnel-graph {
+
+      &-key {
+        margin-top: @funnel-graph-key-margin-top-screen-medium;
+
+        &-dot {
+          margin-right: @funnel-graph-key-dot-margin-right-screen-medium;
+        }
+
+        &-item {
+          margin-right: @funnel-graph-key-item-margin-right-screen-medium;
+        }
+      }
 
       &-item {
         max-width: @funnel-graph-item-max-width-screen-medium;
@@ -169,6 +229,18 @@
 
     .funnel-graph {
 
+      &-key {
+        margin-top: @funnel-graph-key-margin-top-screen-large;
+
+        &-dot {
+          margin-right: @funnel-graph-key-dot-margin-right-screen-large;
+        }
+
+        &-item {
+          margin-right: @funnel-graph-key-item-margin-right-screen-large;
+        }
+      }
+
       &-item {
         max-width: @funnel-graph-item-max-width-screen-large;
 
@@ -202,6 +274,18 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     .funnel-graph {
+
+      &-key {
+        margin-top: @funnel-graph-key-margin-top-screen-jumbo;
+
+        &-dot {
+          margin-right: @funnel-graph-key-dot-margin-right-screen-jumbo;
+        }
+
+        &-item {
+          margin-right: @funnel-graph-key-item-margin-right-screen-jumbo;
+        }
+      }
 
       &-item {
         max-width: @funnel-graph-item-max-width-screen-jumbo;
