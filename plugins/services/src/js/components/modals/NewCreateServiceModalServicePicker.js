@@ -1,4 +1,3 @@
-import {Hooks} from 'PluginSDK';
 import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -7,12 +6,13 @@ import React from 'react';
 import CreateServiceModalServicePickerOption from '../../../../../../src/js/components/CreateServiceModalServicePickerOption';
 import CreateServiceModalServicePickerOptionContent from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionContent';
 import CreateServiceModalServicePickerOptionImage from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionImage';
+import CreateServiceModalServicePickerOptionWrapper from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionWrapper';
 import defaultServiceImage from '../../../img/icon-service-default-large@2x.png';
 import jsonServiceImage from '../../../img/service-image-json-large@2x.png';
 
-function SingleContainerOption({onOptionSelect}) {
+function SingleContainerOption({columnClasses, onOptionSelect}) {
   return (
-    <CreateServiceModalServicePickerOption
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
       onOptionSelect={onOptionSelect.bind(null, {type: 'app'})}>
       <CreateServiceModalServicePickerOptionImage
         src={defaultServiceImage} />
@@ -23,9 +23,9 @@ function SingleContainerOption({onOptionSelect}) {
   );
 }
 
-function MultiContainerOption({onOptionSelect}) {
+function MultiContainerOption({columnClasses, onOptionSelect}) {
   return (
-    <CreateServiceModalServicePickerOption
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
       onOptionSelect={onOptionSelect.bind(null, {type: 'pod'})}>
       <CreateServiceModalServicePickerOptionImage
         src={defaultServiceImage} />
@@ -36,9 +36,9 @@ function MultiContainerOption({onOptionSelect}) {
   );
 }
 
-function JSONOption({onOptionSelect}) {
+function JSONOption({columnClasses, onOptionSelect}) {
   return (
-    <CreateServiceModalServicePickerOption
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
       onOptionSelect={onOptionSelect.bind(null, {type: 'json'})}>
       <CreateServiceModalServicePickerOptionImage
         src={jsonServiceImage} />
@@ -47,10 +47,6 @@ function JSONOption({onOptionSelect}) {
       </CreateServiceModalServicePickerOptionContent>
     </CreateServiceModalServicePickerOption>
   );
-}
-
-function OptionsWrapper({children}) {
-  return <div className="row panel-grid">{children}</div>;
 }
 
 class NewCreateServiceModalServicePicker extends React.Component {
@@ -77,21 +73,14 @@ class NewCreateServiceModalServicePicker extends React.Component {
   }
 
   render() {
-    const containerClasses = Hooks.applyFilter(
-      'servicePickerOptionContainerColumnClasses',
-      'column-12 column-medium-10 column-medium-offset-1'
-    );
-
     return (
       <div className="create-service-modal-service-picker container">
         <div className="create-service-modal-service-picker-options">
           <div className="row">
-            <div className={containerClasses}>
-              <MountService.Mount alwaysWrap={true}
-                onOptionSelect={this.props.onServiceSelect}
-                type="CreateService:ServicePicker:GridOptions"
-                wrapper={OptionsWrapper} />
-            </div>
+            <MountService.Mount alwaysWrap={true}
+              onOptionSelect={this.props.onServiceSelect}
+              type="CreateService:ServicePicker:GridOptions"
+              wrapper={CreateServiceModalServicePickerOptionWrapper} />
           </div>
         </div>
       </div>

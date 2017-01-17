@@ -1,4 +1,3 @@
-import {Hooks} from 'PluginSDK';
 import React from 'react';
 
 import CreateServiceModalServicePickerOptionContent from './CreateServiceModalServicePickerOptionContent';
@@ -11,10 +10,9 @@ function getChildOfType(children, type) {
   );
 }
 
-function CreateServiceModalServicePickerOption({children, onOptionSelect}) {
-  const columnClass = Hooks.applyFilter(
-    'servicePickerOptionColumnClasses', 'column-12 column-small-4'
-  );
+function CreateServiceModalServicePickerOption({
+    children, columnClasses, onOptionSelect
+  }) {
   const contentClasses = [
     'horizontal-center panel-cell flush-top',
     {
@@ -31,7 +29,7 @@ function CreateServiceModalServicePickerOption({children, onOptionSelect}) {
   ];
 
   return (
-    <div className={`create-service-modal-service-picker-option panel-grid-item ${columnClass}`}>
+    <div className={`create-service-modal-service-picker-option panel-grid-item ${columnClasses}`}>
       <Panel className="panel-interactive clickable"
         contentClass={contentClasses}
         heading={
