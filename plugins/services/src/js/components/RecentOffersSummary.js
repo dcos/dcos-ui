@@ -17,7 +17,7 @@ const displayedResourceValues = {
 
 const MAX_BAR_HEIGHT = 200;
 
-const getGraphBar = (resource, data, index) => {
+function getGraphBar(resource, data, index) {
   const resourceOfferSummary = data[resource];
   const matchedOffers = resourceOfferSummary.matched;
   const offeredCount = resourceOfferSummary.offers;
@@ -77,9 +77,9 @@ const getGraphBar = (resource, data, index) => {
       </div>
     </Tooltip>
   );
-};
+}
 
-const getGraphSpacer = ({key, showIcon = true}) => {
+function getGraphSpacer({key, showIcon = true}) {
   let icon = null;
 
   if (showIcon) {
@@ -92,9 +92,9 @@ const getGraphSpacer = ({key, showIcon = true}) => {
       <div className="funnel-graph-item-label" />
     </div>
   );
-};
+}
 
-const getResourceTooltipContent = (resource, data) => {
+function getResourceTooltipContent(resource, data) {
   let {matched, offers, requested: requestedValue} = data[resource];
   let docsURI = null;
   let explanatoryText = null;
@@ -144,9 +144,9 @@ const getResourceTooltipContent = (resource, data) => {
       {explanatoryText} <a href={docsURI} target="_blank">Learn more</a>.
     </span>
   );
-};
+}
 
-const RecentOffersSummary = ({data}) => {
+function RecentOffersSummary({data}) {
   const funnelItems = ['roles', 'constraints', 'cpus', 'mem', 'disk', 'ports'];
   const funnelGraphItems = funnelItems.reduce((accumulator, item, index) => {
     accumulator.push(getGraphBar(item, data, index));
