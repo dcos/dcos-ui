@@ -375,20 +375,20 @@ var Sidebar = React.createClass({
             {this.getSidebarHeader()}
           </header>
           <GeminiScrollbar autoshow={true}
-            className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view"
+            className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
             ref={(ref) => this.geminiRef = ref}>
             <div className="sidebar-content-wrapper">
               <div className="sidebar-sections pod pod-narrow">
                 {this.getNavigationSections()}
               </div>
-              <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">
-                <Icon className="sidebar-dock-trigger"
-                  size="mini"
-                  id={dockIconID}
-                  onClick={this.toggleSidebarDocking} />
-              </div>
             </div>
           </GeminiScrollbar>
+          <div className="sidebar-dock-container">
+            <Icon className="sidebar-dock-trigger"
+              size="mini"
+              id={dockIconID}
+              onClick={this.toggleSidebarDocking} />
+          </div>
         </div>
       </div>
     );

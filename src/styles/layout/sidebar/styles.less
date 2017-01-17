@@ -267,9 +267,11 @@
   }
 
   .sidebar-dock-container {
+    border-top: 1px solid @sidebar-dock-container-border-color;
     display: flex;
     flex: 0 0 auto;
     justify-content: flex-end;
+    padding: @sidebar-dock-container-padding-vertical @sidebar-dock-container-padding-horizontal;
   }
 
   .sidebar-dock-trigger {
@@ -347,6 +349,10 @@
             }
           }
         }
+      }
+
+      .sidebar-dock-container {
+        padding: @sidebar-dock-container-padding-vertical-screen-small @sidebar-dock-container-padding-horizontal-screen-small;
       }
     }
   }
@@ -444,6 +450,10 @@
       .sidebar-dock-trigger {
         display: block;
       }
+
+      .sidebar-dock-container {
+        padding: @sidebar-dock-container-padding-vertical-screen-medium @sidebar-dock-container-padding-horizontal-screen-medium;
+      }
     }
   }
 }
@@ -525,6 +535,10 @@
           }
         }
       }
+
+      .sidebar-dock-container {
+        padding: @sidebar-dock-container-padding-vertical-screen-large @sidebar-dock-container-padding-horizontal-screen-large;
+      }
     }
   }
 }
@@ -605,6 +619,10 @@
             }
           }
         }
+      }
+
+      .sidebar-dock-container {
+        padding: @sidebar-dock-container-padding-vertical-screen-jumbo @sidebar-dock-container-padding-horizontal-screen-jumbo;
       }
     }
   }
