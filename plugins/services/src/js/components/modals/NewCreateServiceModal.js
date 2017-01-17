@@ -174,7 +174,7 @@ class NewServiceFormModal extends Component {
     this.setState({serviceFormHasErrors: hasErrors});
   }
 
-  handleServiceSelection({type}) {
+  handleServiceSelection({route, type}) {
     switch (type) {
 
       case 'app':
@@ -209,6 +209,10 @@ class NewServiceFormModal extends Component {
           serviceJsonActive: true,
           serviceConfig: this.props.service
         });
+        break;
+
+      case 'redirect':
+        this.context.router.push(route);
         break;
 
     };
@@ -332,8 +336,7 @@ class NewServiceFormModal extends Component {
     if (servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
-          onServiceSelect={this.handleServiceSelection}
-          router={this.context.router} />
+          onServiceSelect={this.handleServiceSelection} />
       );
     }
 

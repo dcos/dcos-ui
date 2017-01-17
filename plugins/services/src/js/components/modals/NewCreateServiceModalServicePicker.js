@@ -3,15 +3,12 @@ import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
 
 import CreateServiceModalServicePickerOption from '../../../../../../src/js/components/CreateServiceModalServicePickerOption';
 import CreateServiceModalServicePickerOptionContent from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionContent';
 import CreateServiceModalServicePickerOptionImage from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionImage';
 import defaultServiceImage from '../../../img/icon-service-default-large@2x.png';
 import jsonServiceImage from '../../../img/service-image-json-large@2x.png';
-
-const METHODS_TO_BIND = ['handleServiceSelect'];
 
 function SingleContainerOption({onOptionSelect}) {
   return (
@@ -60,10 +57,6 @@ class NewCreateServiceModalServicePicker extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-
     MountService.MountService.registerComponent(
       SingleContainerOption,
       'CreateService:ServicePicker:GridOptions',
@@ -83,10 +76,6 @@ class NewCreateServiceModalServicePicker extends React.Component {
     );
   }
 
-  handleServiceSelect(service) {
-    this.props.onServiceSelect(service);
-  }
-
   render() {
     const containerClasses = Hooks.applyFilter(
       'servicePickerOptionContainerColumnClasses',
@@ -99,8 +88,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
           <div className="row">
             <div className={containerClasses}>
               <MountService.Mount alwaysWrap={true}
-                onOptionSelect={this.handleServiceSelect}
-                redirect={(route) => this.props.router.push(route)}
+                onOptionSelect={this.props.onServiceSelect}
                 type="CreateService:ServicePicker:GridOptions"
                 wrapper={OptionsWrapper} />
             </div>
@@ -112,8 +100,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
 }
 
 NewCreateServiceModalServicePicker.propTypes = {
-  onServiceSelect: React.PropTypes.func,
-  router: routerShape
+  onServiceSelect: React.PropTypes.func
 };
 
 module.exports = NewCreateServiceModalServicePicker;
