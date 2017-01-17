@@ -74,7 +74,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
 
   render() {
     return (
-      <div className="create-service-modal-service-picker container">
+      <div className="create-service-modal-service-picker container container-wide">
         <div className="create-service-modal-service-picker-options">
           <div className="row">
             <MountService.Mount alwaysWrap={true}
