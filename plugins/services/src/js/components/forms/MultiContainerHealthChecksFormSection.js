@@ -93,9 +93,9 @@ class MultiContainerHealthChecksFormSection extends Component {
           showError={Boolean(errors.shell || errors.argv)}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
-            name={`${path}.exec.command.string`}
+            name={`${path}.exec.command.value`}
             type="text"
-            value={exec && exec.command.string}/>
+            value={exec && exec.command.value}/>
           <FieldError>{errors.shell || errors.argv}</FieldError>
         </FormGroup>
       </div>
