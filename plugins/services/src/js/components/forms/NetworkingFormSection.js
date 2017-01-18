@@ -404,16 +404,19 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const {portDefinitions, container, networkType} = this.props.data;
     const type = findNestedPropertyInObject(container, 'type');
     const isMesosRuntime = !type || type === NONE;
+    const isUniversalContainerizer = !type || type === MESOS;
     const isUserNetwork = networkType && networkType.startsWith(USER);
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if (isMesosRuntime && isUserNetwork) {
+    if ((isMesosRuntime || isUniversalContainerizer) && isUserNetwork) {
+      const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
+
       return (
         <div>
           <h3 className="short-bottom muted" key="service-endpoints-header">
             {'Service Endpoints '}
             <Tooltip
-              content="Service Endpoints are not available in the Mesos Runtime"
+              content={tooltipMessage}
               maxWidth={500}
               scrollContainer=".gm-scroll-view"
               wrapText={true}>

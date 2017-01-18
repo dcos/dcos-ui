@@ -5,7 +5,7 @@ import ContainerConstants from '../../constants/ContainerConstants';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 
-const {DOCKER} = ContainerConstants.type;
+const {DOCKER, NONE} = ContainerConstants.type;
 
 const {BRIDGE, HOST, USER} = Networking.type;
 
@@ -31,7 +31,19 @@ module.exports = combineReducers({
   forcePullImage: getContainerSettingsReducer('forcePullImage'),
   image: simpleReducer('container.docker.image', ''),
   network(state, {type, path = [], value}) {
+    if (!this.containerType) {
+      this.containerType = NONE;
+    }
+
     const joinedPath = path.join('.');
+    if (type === SET && joinedPath === 'container.type') {
+      this.containerType = value;
+    }
+
+    // Universal containerizer does not support network
+    if (this.containerType !== DOCKER) {
+      return null;
+    }
 
     if (type === SET && joinedPath === 'container.docker.network') {
       return Networking.type[value.split('.')[0]];
@@ -40,15 +52,22 @@ module.exports = combineReducers({
     return state;
   },
   portMappings(state, action) {
-    const {path = [], value} = action;
+    const {path = [], value, type} = action;
     if (!this.appState) {
       this.appState = {
         id: '',
         networkType: HOST
       };
     }
+    if (!this.containerType) {
+      this.containerType = NONE;
+    }
 
     const joinedPath = path.join('.');
+    if (type === SET && joinedPath === 'container.type') {
+      this.containerType = value;
+    }
+
     if (joinedPath === 'container.docker.network' && Boolean(value)) {
       this.appState.networkType = value.split('.')[0];
     }
@@ -60,6 +79,11 @@ module.exports = combineReducers({
     // Apply networkingReducer to retrieve updated local state
     // Store the change no matter what network type we have
     this.portDefinitions = networkingReducer(this.portDefinitions, action);
+
+    // Universal containerizer does not support portMappings
+    if (this.containerType !== DOCKER) {
+      return null;
+    }
 
     // We only want portMappings for networks of type BRIDGE or USER
     if (this.appState.networkType !== BRIDGE &&
