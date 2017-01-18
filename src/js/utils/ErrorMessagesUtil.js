@@ -24,7 +24,6 @@ const ErrorMessagesUtil = {
       const typeErrorMessages = typeGroups[errorType];
 
       // Create a function override for the RAML validator
-      // NOTE: We are creating a clojure for ensuring the correct
       memo[errorType] = function (templateVars, path) {
         const pathStr = path.join('.');
         const match = typeErrorMessages.find(function (item) {
@@ -33,7 +32,7 @@ const ErrorMessagesUtil = {
         });
 
         // We must never reach this case. If we did, we were not
-        // careful default when we populated the errors or the overrides
+        // careful when we defined the default errors or the overrides
         if (!match) {
           if (process.env.NODE_ENV !== 'production') {
             throw new TypeError(`No patch matched for error type ${errorType}`);
