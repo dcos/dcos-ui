@@ -368,7 +368,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       return (
         <Confirm
           closeByBackdropClick={true}
-          disabled={!!awaitingRevertDeploymentResponse}
+          disabled={awaitingRevertDeploymentResponse}
           header={heading}
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}

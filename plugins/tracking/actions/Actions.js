@@ -99,7 +99,7 @@ var Actions = {
   },
 
   canLog() {
-    return !!(global.analytics
+    return (global.analytics
       && global.analytics.initialized
       && this.dcosMetadata != null
       && this.routes != null);

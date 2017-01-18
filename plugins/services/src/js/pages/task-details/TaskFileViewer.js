@@ -24,7 +24,7 @@ class TaskFileViewer extends React.Component {
     const task = state.task;
     const nextTask = nextState.task;
 
-    return !!(
+    return (
       // Check task
       (props.task !== nextProps.task) ||
       (task && nextTask && task.slave_id !== nextTask.slave_id) ||

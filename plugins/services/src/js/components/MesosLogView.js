@@ -106,7 +106,7 @@ class MesosLogView extends mixin(StoreMixin) {
   shouldComponentUpdate(nextProps, nextState) {
     const {props, state} = this;
 
-    return !!(
+    return (
       // Check highlightText
       (props.highlightText !== nextProps.highlightText) ||
       // Check filePath

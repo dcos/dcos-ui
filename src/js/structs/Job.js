@@ -119,7 +119,7 @@ module.exports = class Job extends Item {
     if (scheduleLength > 0) {
       const schedule = this.getSchedules()[0];
 
-      if (!!schedule && schedule.enabled) {
+      if (schedule != null && schedule.enabled) {
         return 'SCHEDULED';
       }
     }
