@@ -63,11 +63,14 @@ class DCOSStore extends EventEmitter {
         serviceTree: new ServiceTree(),
         queue: new Map(),
         deploymentsList: new DeploymentsList(),
-        versions: new Map()
+        versions: new Map(),
+        dataReceived: false
       },
-      metronome: new JobTree(),
-      mesos: new SummaryList(),
-      dataProcessed: false
+      metronome: {
+        jobTree: new JobTree(),
+        dataReceived: false
+      },
+      mesos: new SummaryList()
     };
 
     this.debouncedEvents = new Map();
@@ -143,7 +146,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonDeploymentsChange() {
-    if (!this.data.dataProcessed) {
+    if (!this.data.marathon.dataReceived) {
       return;
     }
     const deploymentsList = MarathonStore.get('deployments');
@@ -207,8 +210,11 @@ class DCOSStore extends EventEmitter {
       return;
     }
 
-    this.data.marathon.serviceTree = serviceTree;
-    this.data.dataProcessed = true;
+    const {marathon} = this.data;
+
+    // Update service tree and data received flag
+    marathon.serviceTree = serviceTree;
+    marathon.dataReceived = true;
 
     // Populate deployments with services data immediately
     this.onMarathonDeploymentsChange();
@@ -296,7 +302,12 @@ class DCOSStore extends EventEmitter {
   }
 
   onMetronomeChange() {
-    this.data.metronome = MetronomeStore.jobTree;
+    const {metronome} = this.data;
+
+    // Update job tree and data received flag
+    metronome.jobTree = MetronomeStore.jobTree;
+    metronome.dataReceived = true;
+
     this.emit(DCOS_CHANGE);
   }
 
@@ -357,7 +368,7 @@ class DCOSStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return this.data.metronome;
+    return this.data.metronome.jobTree;
   }
 
   /**
@@ -412,8 +423,12 @@ class DCOSStore extends EventEmitter {
 
   }
 
-  get dataProcessed() {
-    return this.data.dataProcessed;
+  get jobDataReceived() {
+    return this.data.metronome.dataReceived;
+  }
+
+  get serviceDataReceived() {
+    return this.data.marathon.dataReceived;
   }
 
   get storeID() {

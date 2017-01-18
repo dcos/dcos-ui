@@ -211,7 +211,7 @@ var DashboardPage = React.createClass({
               footer={this.getViewAllServicesBtn()}
               footerClass="text-align-center">
               <ServiceList
-                healthProcessed={DCOSStore.dataProcessed}
+                healthProcessed={DCOSStore.serviceDataReceived}
                 services={this.getServicesList()} />
             </Panel>
           </div>

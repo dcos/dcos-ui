@@ -183,7 +183,7 @@ class JobsTab extends mixin(StoreMixin) {
 
   getContents(item, modal) {
     // Render loading screen
-    if (!DCOSStore.dataProcessed) {
+    if (!DCOSStore.jobDataReceived) {
       return (
         <Page>
           <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />

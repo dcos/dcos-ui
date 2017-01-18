@@ -25,7 +25,7 @@ describe('JobsTab', function () {
     DCOSStore.jobTree = new JobTree(MetronomeUtil.parseJobs([{
       id: '/test'
     }]));
-    DCOSStore.dataProcessed = true;
+    DCOSStore.jobDataReceived = true;
     this.container = global.document.createElement('div');
   });
 
@@ -47,7 +47,7 @@ describe('JobsTab', function () {
     });
 
     it('renders loading screen', function () {
-      DCOSStore.dataProcessed = false;
+      DCOSStore.jobDataReceived = false;
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
         this.container
