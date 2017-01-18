@@ -5,6 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -288,23 +289,16 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             {` ${container.name}`}
           </h3>
           {this.getServiceContainerEndpoints(endpoints, index)}
-          <div key="add-button">
-            <button
-              type="button"
-              onBlur={(event) => {
-                event.stopPropagation();
-              }}
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(
-                  this,
-                {
-                  value: endpoints.length,
-                  path: `containers.${index}.endpoints`
-                }
-                )}>
-              <Icon color="purple" id="plus" size="tiny"/> Add Service
-              Endpoint
-            </button>
+          <div>
+            <AddButton onClick={this.props.onAddItem.bind(
+              this,
+              {
+                value: endpoints.length,
+                path: `containers.${index}.endpoints`
+              }
+            )}>
+              Add Service Endpoint
+            </AddButton>
           </div>
         </div>
       );

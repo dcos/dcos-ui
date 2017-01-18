@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -14,8 +15,6 @@ import FormGroupContainer from '../../../../../../src/js/components/form/FormGro
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealthCheckUtil';
-import Icon from '../../../../../../src/js/components/Icon';
-
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
 const errorsLens = Objektiv.attr('healthChecks', []);
@@ -233,10 +232,9 @@ class HealthChecksFormSection extends Component {
         {this.getHealthChecksLines(data.healthChecks)}
         <FormRow>
           <FormGroup className="column-12">
-            <a className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Health Check
-            </a>
+            <AddButton onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
+              Add Health Check
+            </AddButton>
           </FormGroup>
         </FormRow>
       </div>

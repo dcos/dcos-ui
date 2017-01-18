@@ -3,6 +3,7 @@ import {Confirm, Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {pluralize} from '../../../../../../src/js/utils/StringUtil';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -144,14 +145,12 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <a
-          className="button button-primary-link button-flush"
-          onClick={this.props.onAddItem.bind(
+        <AddButton onClick={this.props.onAddItem.bind(
             this,
             {value: 0, path: 'containers'}
           )}>
-          <Icon color="purple" id="plus" size="tiny" /> Add Container
-        </a>
+          Add Container
+        </AddButton>
       </div>
     );
   }
@@ -483,11 +482,9 @@ class GeneralServiceFormSection extends Component {
             {this.getPlacementConstraints(data.constraints)}
             <FormRow>
               <FormGroup className="column-12">
-                <a
-                  className="button button-primary-link button-flush"
-                  onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
-                </a>
+                <AddButton onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                  Add Placement Constraint
+                </AddButton>
               </FormGroup>
             </FormRow>
           </AdvancedSectionContent>

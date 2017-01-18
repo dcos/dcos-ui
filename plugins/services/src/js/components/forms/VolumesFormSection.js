@@ -4,6 +4,7 @@ import Objektiv from 'objektiv';
 
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
@@ -315,11 +316,11 @@ class VolumesFormSection extends Component {
         </p>
         {this.getLocalVolumesLines(data.localVolumes)}
         <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'localVolumes'})}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Local Volume
-          </a>
+          <AddButton onClick={this.props.onAddItem.bind(
+              this, {value: data.localVolumes.length, path: 'localVolumes'}
+            )}>
+            Add Local Volume
+          </AddButton>
         </div>
         <h3 className="short-bottom">
           External Volumes Variables
@@ -335,11 +336,11 @@ class VolumesFormSection extends Component {
         {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
         <FormRow>
           <FormGroup className="column-12">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add External Volume
-            </a>
+            <AddButton onClick={this.props.onAddItem.bind(
+                this, {value: data.localVolumes.length, path: 'externalVolumes'}
+              )}>
+              Add External Volume
+            </AddButton>
           </FormGroup>
         </FormRow>
       </div>

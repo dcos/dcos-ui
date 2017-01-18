@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -143,11 +144,10 @@ class EnvironmentFormSection extends Component {
         {this.getEnvironmentLines(data.env)}
         <FormRow>
           <FormGroup className="column-12">
-            <a
-              className="button button-primary-link button-flush"
+            <AddButton
               onClick={this.props.onAddItem.bind(this, {value: data.env.length, path: 'env'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Environment Variable
-            </a>
+              Add Environment Variable
+            </AddButton>
           </FormGroup>
         </FormRow>
         <h2 className="short-bottom">
@@ -167,11 +167,10 @@ class EnvironmentFormSection extends Component {
         {this.getLabelsLines(data.labels)}
         <FormRow>
           <FormGroup className="column-12">
-            <a
-              className="button button-primary-link button-flush"
+            <AddButton
               onClick={this.props.onAddItem.bind(this, {value: data.labels.length, path: 'labels'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Label
-            </a>
+              Add Label
+            </AddButton>
           </FormGroup>
         </FormRow>
         <MountService.Mount

@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import ContainerConstants from '../../constants/ContainerConstants';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -443,19 +444,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
           <FormGroup className="column-12">
-            <button
-              type="button"
-              onBlur={(event) => { event.stopPropagation(); }}
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(
-                this,
-                {
-                  value: portDefinitions.length,
-                  path: 'portDefinitions'
-                }
-              )}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-            </button>
+            <AddButton onClick={this.props.onAddItem.bind(
+              this,
+              {
+                value: portDefinitions.length,
+                path: 'portDefinitions'
+              }
+            )}>
+              Add Service Endpoint
+            </AddButton>
           </FormGroup>
         </FormRow>
       </div>

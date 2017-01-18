@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -12,8 +13,8 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import {HTTP, TCP, COMMAND} from '../../constants/HealthCheckProtocols';
 import Icon from '../../../../../../src/js/components/Icon';
+import {HTTP, TCP, COMMAND} from '../../constants/HealthCheckProtocols';
 
 class MultiContainerHealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, path, errorsLens) {
@@ -199,10 +200,11 @@ class MultiContainerHealthChecksFormSection extends Component {
     if (healthCheck == null) {
       return (
         <div>
-          <a className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {path, value: index})}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Health Check
-          </a>
+          <AddButton onClick={this.props.onAddItem.bind(
+              this, {path, value: index})
+            }>
+            Add Health Check
+          </AddButton>
         </div>
       );
     }
