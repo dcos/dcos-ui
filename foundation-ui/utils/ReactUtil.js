@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReactUil = {
+const ReactUtil = {
   /**
    * Wrap React elements
    *
@@ -31,4 +31,4 @@ const ReactUil = {
   }
 };
 
-module.exports = ReactUil;
+module.exports = ReactUtil;
