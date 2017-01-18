@@ -199,8 +199,7 @@ class MultiContainerHealthChecksFormSection extends Component {
     if (healthCheck == null) {
       return (
         <div>
-          <a
-            className="button button-primary-link button-flush"
+          <a className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(this, {path, value: index})}>
             <Icon color="purple" id="plus" size="tiny" /> Add Health Check
           </a>
