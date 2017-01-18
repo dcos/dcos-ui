@@ -46,7 +46,7 @@ var IdentifyModal = React.createClass({
   getFooter() {
     return (
       <div className="button-collection button-collection-align-horizontal-center flush-bottom">
-        <button className="button button-primary button-large button-wide-below-screen-mini"
+        <button className="button button-primary button-wide-below-screen-mini"
           onClick={this.handleSubmit}>
           Try {Config.productName}
         </button>
