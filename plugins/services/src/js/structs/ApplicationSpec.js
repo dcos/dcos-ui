@@ -75,6 +75,18 @@ module.exports = class ApplicationSpec extends ServiceSpec {
     return this.get('residency');
   }
 
+  /**
+   * @override
+   */
+  getResources() {
+    return {
+      cpus: this.get('cpus'),
+      mem: this.get('mem'),
+      gpus: this.get('gpus'),
+      disk: this.get('disk')
+    };
+  }
+
   getUpdateStrategy() {
     return this.get('updateStrategy');
   }
