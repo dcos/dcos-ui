@@ -139,6 +139,35 @@ const MarathonAppValidators = {
     return [];
   },
 
+  /*
+   * This validator tests two fields:
+   *
+   * - container.volumes.X.containerPath should not contain '/'
+   *
+   * @param {Object} app - The data to validate
+   * @returns {Array} Returns an array with validation errors
+   */
+  containerVolmesPath(app) {
+    const volumes = findNestedPropertyInObject(app, 'container.volumes');
+    if (ValidatorUtil.isEmpty(volumes)) {
+      return [];
+    }
+
+    return volumes.reduce(function (memo, volume, index) {
+      const containerPath = volume.containerPath || '';
+
+      // Local volumes should not contain '/'
+      if (containerPath.indexOf('/') !== -1) {
+        memo.push({
+          path: ['container', 'volumes', index, 'containerPath'],
+          message: 'Should not contain "/"'
+        });
+      }
+
+      return memo;
+    }, []);
+  },
+
   /**
    * @param {Object} app - The data to validate
    * @returns {Array} Returns an array with validation errors
@@ -153,6 +182,7 @@ const MarathonAppValidators = {
       ];
     }
 
+    // No errors
     return [];
   }
 };
