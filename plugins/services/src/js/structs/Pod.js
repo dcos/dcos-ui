@@ -125,7 +125,7 @@ module.exports = class Pod extends Service {
    * @override
    */
   getResources() {
-    return this.getSpec().getResourcesSummary();
+    return this.getSpec().getResources();
   }
 
   /**

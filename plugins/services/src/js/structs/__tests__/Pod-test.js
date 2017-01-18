@@ -122,7 +122,7 @@ describe('Pod', function () {
 
     it('should pass-through from specs', function () {
       const pod = new Pod(PodFixture);
-      expect(pod.getResources()).toEqual(pod.getSpec().getResourcesSummary());
+      expect(pod.getResources()).toEqual(pod.getSpec().getResources());
     });
 
   });
