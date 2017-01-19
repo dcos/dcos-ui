@@ -9,6 +9,21 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
+  constructor() {
+    super(...arguments);
+
+    // For performance reasons only one instance of the spec is created
+    // instead of creating a new instance every time a user calls `getSpec()`.
+    //
+    // State and other _useless_ information is removed to create a clean
+    // service spec.
+    //
+    // The variable is prefixed because `Item` will expose all the properties
+    // it gets as a properties of this object and we want to avoid any naming
+    // collisions.
+    this._spec = new ApplicationSpec(cleanServiceJSON(this.get()));
+  }
+
   getDeployments() {
     return this.get('deployments');
   }
@@ -17,11 +32,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getSpec() {
-    // Strip state information and other useless information from the
-    // application in order to compose a spec.
-    return new ApplicationSpec(
-      cleanServiceJSON(this.get())
-    );
+    return this._spec;
   }
 
   /**
@@ -89,17 +100,6 @@ module.exports = class Application extends Service {
 
   getPorts() {
     return this.get('ports');
-  }
-
-  /**
-   * @override
-   */
-  getResources() {
-    return {
-      cpus: this.get('cpus'),
-      mem: this.get('mem'),
-      disk: this.get('disk')
-    };
   }
 
   getResidency() {

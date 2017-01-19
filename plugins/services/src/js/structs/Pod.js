@@ -124,13 +124,6 @@ module.exports = class Pod extends Service {
   /**
    * @override
    */
-  getResources() {
-    return this.getSpec().getResources();
-  }
-
-  /**
-   * @override
-   */
   getServiceStatus() {
     const scalingInstances = this.getSpec().getScalingInstances();
     const runningInstances = this.countRunningInstances();

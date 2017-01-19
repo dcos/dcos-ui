@@ -225,17 +225,37 @@ describe('Application', function () {
 
   describe('#getResources', function () {
 
-    it('returns correct resource data', function () {
+    it('should return correct resource data', function () {
       const service = new Application({
         cpus: 1,
-        mem: 2048,
-        disk: 0
+        mem: 2,
+        gpus: 3,
+        disk: 4,
+        instances: 1
       });
 
       expect(service.getResources()).toEqual({
         cpus: 1,
-        mem: 2048,
-        disk: 0
+        mem: 2,
+        gpus: 3,
+        disk: 4
+      });
+    });
+
+    it('should multiply resource by the number instances', function () {
+      const service = new Application({
+        cpus: 1,
+        mem: 2,
+        gpus: 3,
+        disk: 4,
+        instances: 2
+      });
+
+      expect(service.getResources()).toEqual({
+        cpus: 2,
+        mem: 4,
+        gpus: 6,
+        disk: 8
       });
     });
 

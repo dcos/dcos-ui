@@ -26,6 +26,19 @@ describe('Service', function () {
 
   });
 
+  describe('#getResources', function () {
+
+    it('should return default correct resource data', function () {
+      expect(new Service().getResources()).toEqual({
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      });
+    });
+
+  });
+
   describe('#toJSON', function () {
 
     it('returns a object with the values in _itemData', function () {

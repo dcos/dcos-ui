@@ -120,9 +120,59 @@ describe('Pod', function () {
 
   describe('#getResources', function () {
 
-    it('should pass-through from specs', function () {
-      const pod = new Pod(PodFixture);
-      expect(pod.getResources()).toEqual(pod.getSpec().getResources());
+    it('should return correct resource data', function () {
+      const pod = new Pod({
+        spec: {
+          containers: [
+            {
+              resources: {
+                cpus: 1,
+                mem: 2,
+                gpus: 3,
+                disk: 4
+              }
+            }
+          ],
+          scaling: {
+            kind: 'fixed',
+            instances: 1
+          }
+        }
+      });
+
+      expect(pod.getResources()).toEqual({
+        cpus: 1,
+        mem: 2,
+        gpus: 3,
+        disk: 4
+      });
+    });
+
+    it('should multiply resource by the number instances', function () {
+      const pod = new Pod({
+        spec: {
+          containers: [
+            {
+              resources: {
+                cpus: 1,
+                mem: 2,
+                gpus: 3,
+                disk: 4
+              }
+            }
+          ],
+          scaling: {
+            kind: 'fixed',
+            instances: 2
+          }
+        }
+      });
+      expect(pod.getResources()).toEqual({
+        cpus: 2,
+        mem: 4,
+        gpus: 6,
+        disk: 8
+      });
     });
 
   });

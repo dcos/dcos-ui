@@ -76,10 +76,15 @@ module.exports = class Service extends Item {
   }
 
   getResources() {
+    const instances = this.getInstancesCount();
+    const {cpus = 0, mem = 0, gpus = 0, disk = 0} =
+      this.getSpec().getResources();
+
     return {
-      cpus: 0,
-      mem: 0,
-      disk: 0
+      cpus: cpus * instances,
+      mem: mem * instances,
+      gpus: gpus * instances,
+      disk: disk * instances
     };
   }
 
