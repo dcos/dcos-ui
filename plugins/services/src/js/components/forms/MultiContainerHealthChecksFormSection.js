@@ -8,12 +8,15 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
+import {HTTP, TCP, COMMAND} from '../../constants/HealtCheckProtocols';
 
 class MultiContainerHealthChecksFormSection extends Component {
-  getAdvancedSettings(healthCheck, key, path, errorsLens) {
-    const errors = errorsLens.at(key, {}).get(this.props.errors);
+  getAdvancedSettings(healthCheck, path, errorsLens) {
+    const errors = errorsLens.get(this.props.errors);
 
     return (
       <AdvancedSection>
@@ -27,7 +30,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               showError={Boolean(errors.gracePeriodSeconds)}>
               <FieldLabel>Grace Period (s)</FieldLabel>
               <FieldInput
-                name={`${path}.healthChecks.${key}.gracePeriodSeconds`}
+                name={`${path}.gracePeriodSeconds`}
                 type="number"
                 min="0"
                 value={healthCheck.gracePeriodSeconds}/>
@@ -38,7 +41,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               showError={Boolean(errors.intervalSeconds)}>
               <FieldLabel>Interval (s)</FieldLabel>
               <FieldInput
-                name={`${path}.healthChecks.${key}.intervalSeconds`}
+                name={`${path}.intervalSeconds`}
                 type="number"
                 min="0"
                 value={healthCheck.intervalSeconds}/>
@@ -49,7 +52,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               showError={Boolean(errors.timeoutSeconds)}>
               <FieldLabel>Timeout (s)</FieldLabel>
               <FieldInput
-                name={`${path}.healthChecks.${key}.timeoutSeconds`}
+                name={`${path}.timeoutSeconds`}
                 type="number"
                 min="0"
                 value={healthCheck.timeoutSeconds}/>
@@ -60,7 +63,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               showError={Boolean(errors.maxConsecutiveFailures)}>
               <FieldLabel>Max Failures</FieldLabel>
               <FieldInput
-                name={`${path}.healthChecks.${key}.maxConsecutiveFailures`}
+                name={`${path}.maxConsecutiveFailures`}
                 type="number"
                 min="0"
                 value={healthCheck.maxConsecutiveFailures}/>
@@ -72,9 +75,14 @@ class MultiContainerHealthChecksFormSection extends Component {
     );
   }
 
-  getCommandFields(healthCheck, key, path, errorsLens) {
+  getCommandFields(healthCheck, path, errorsLens) {
+    if (healthCheck.protocol !== COMMAND) {
+      return null;
+    }
+
+    const {exec} = healthCheck;
     const errors = errorsLens
-      .at(key, {})
+      .attr('exec', {})
       .attr('command', {})
       .get(this.props.errors);
 
@@ -82,45 +90,147 @@ class MultiContainerHealthChecksFormSection extends Component {
       <div className="flex row">
         <FormGroup
           className="column-12"
-          showError={Boolean(errors.command)}>
+          showError={Boolean(errors.shell || errors.argv)}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
-            name={`${path}.healthChecks.${key}.command`}
+            name={`${path}.exec.command.value`}
             type="text"
-            value={healthCheck.command && healthCheck.command.command}/>
-          <FieldError>{errors.command}</FieldError>
+            value={exec && exec.command.value}/>
+          <FieldError>{errors.shell || errors.argv}</FieldError>
         </FormGroup>
       </div>
     );
   }
 
-  getEndpoints() {
-    const {data} = this.props;
+  getEndpoints(container) {
+    if (container.endpoints == null) {
+      return [];
+    }
 
-    return data.portDefinitions.map((port, index) => {
-      return <option value={index}>{port.name || index}</option>;
-    });
-  }
-
-  getHealthChecksLines(data, pathPrefix, errorsLens) {
-    return data.map((healthCheck, key) => {
+    return container.endpoints.map((endpoint) => {
       return (
-        <FormGroupContainer key={key}
-          onRemove={this.props.onRemoveItem.bind(this,
-            {value: key, path: `${pathPrefix}.healthChecks`})}>
-          {this.getCommandFields(healthCheck, key, pathPrefix, errorsLens)}
-          {this.getAdvancedSettings(healthCheck, key, pathPrefix, errorsLens)}
-        </FormGroupContainer>
+        <option key={endpoint} value={endpoint.name}>
+          {endpoint.name}
+        </option>
       );
     });
   }
 
+  getHTTPFields(healthCheck, container, path, errorsLens) {
+    if (healthCheck.protocol !== HTTP) {
+      return null;
+    }
+
+    const errors = errorsLens
+      .at('http', {})
+      .get(this.props.errors);
+
+    return [(
+      <FormRow key="path">
+        <FormGroup
+          className="column-6"
+          showError={false}>
+          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldSelect
+            name={`${path}.http.endpoint`}
+            value={String(healthCheck.http.endpoint)}>
+            <option value="">Select Endpoint</option>
+            {this.getEndpoints(container)}
+          </FieldSelect>
+        </FormGroup>
+        <FormGroup
+          className="column-6"
+          showError={Boolean(errors.path)}>
+          <FieldLabel>Path</FieldLabel>
+          <FieldInput
+            name={`${path}.http.path`}
+            type="text"
+            value={healthCheck.http.path}/>
+          <FieldError>{errors.path}</FieldError>
+        </FormGroup>
+      </FormRow>
+    ),
+    (
+      <FormRow key="HTTPS">
+        <FormGroup showError={false} className="column-12">
+          <FieldLabel>
+            <FieldInput
+              checked={healthCheck.http.https}
+              name={`${path}.http.https`}
+              type="checkbox" />
+            Make HTTPS
+          </FieldLabel>
+          <FieldError>{errors.protocol}</FieldError>
+        </FormGroup>
+      </FormRow>
+    )];
+  }
+
+  getTCPFields(healthCheck, container, path) {
+    if (healthCheck.protocol !== TCP) {
+      return null;
+    }
+
+    return (
+      <FormRow key="path">
+        <FormGroup
+          className="column-12"
+          showError={false}>
+          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldSelect
+            name={`${path}.tcp.endpoint`}
+            value={String(healthCheck.tcp.endpoint)}>
+            <option value="">Select Endpoint</option>
+            {this.getEndpoints(container)}
+          </FieldSelect>
+        </FormGroup>
+      </FormRow>
+    );
+  }
+
+  getHealthChecksBody(container, index) {
+    const {healthCheck} = container;
+    const path = `containers.${index}.healthCheck`;
+    const errorsLens = Objektiv.attr('containers', [])
+      .at(index, {})
+      .attr('healthCheck', {});
+
+    if (healthCheck == null) {
+      return (
+        <div>
+          <a className="button button-primary-link button-flush"
+            onClick={this.props.onAddItem.bind(this, {path})}>
+            + Add Health Check
+          </a>
+        </div>
+      );
+    }
+
+    return (
+      <FormGroupContainer
+        onRemove={this.props.onRemoveItem.bind(this, {path})}>
+        <FormRow>
+          <FormGroup className="column-6">
+            <FieldLabel>Protocol</FieldLabel>
+            <FieldSelect name={`${path}.protocol`}
+              value={healthCheck.protocol}>
+              <option value="">Select Protocol</option>
+              <option value={COMMAND}>Command</option>
+              <option value={HTTP}>HTTP</option>
+              <option value={TCP}>TCP</option>
+            </FieldSelect>
+          </FormGroup>
+        </FormRow>
+        {this.getHTTPFields(healthCheck, container, path, errorsLens)}
+        {this.getTCPFields(healthCheck, container, path)}
+        {this.getCommandFields(healthCheck, path, errorsLens)}
+        {this.getAdvancedSettings(healthCheck, path, errorsLens)}
+      </FormGroupContainer>
+    );
+  }
+
   getContainerHealthChecks(containers) {
     return containers.map((container, index) => {
-      const errorsLens = Objektiv.attr('containers', [])
-        .at(index, {})
-        .attr('healthChecks', []);
-
       return (
         <div key={container.name}>
           <div className="form-row-element">
@@ -132,14 +242,8 @@ class MultiContainerHealthChecksFormSection extends Component {
               the application{'\''}s tasks.
             </p>
           </div>
-          {this.getHealthChecksLines(container.healthChecks || [], `containers.${index}`, errorsLens)}
 
-          <div>
-            <a className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: index, path: `containers.${index}.healthChecks`})}>
-              + Add Health Check
-            </a>
-          </div>
+          {this.getHealthChecksBody(container, index)}
         </div>
       );
     });
@@ -172,16 +276,16 @@ class MultiContainerHealthChecksFormSection extends Component {
 MultiContainerHealthChecksFormSection.defaultProps = {
   data: {},
   errors: {},
-  onAddItem() {},
   handleTabChange() {},
+  onAddItem() {},
   onRemoveItem() {}
 };
 
 MultiContainerHealthChecksFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
   handleTabChange: React.PropTypes.func,
+  onAddItem: React.PropTypes.func,
   onRemoveItem: React.PropTypes.func
 };
 

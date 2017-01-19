@@ -97,7 +97,11 @@ class PodHealthChecksConfigSection extends React.Component {
       };
 
       if (healthCheck.exec != null) {
-        spec.command = healthCheck.exec.command;
+        spec.command = healthCheck.exec.command.shell;
+        if (healthCheck.exec.command.argv) {
+          spec.command = healthCheck.exec.command.argv.join(' ');
+        }
+
         memo.command.push(spec);
       }
 
