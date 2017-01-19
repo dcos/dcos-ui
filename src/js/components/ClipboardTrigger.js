@@ -1,4 +1,3 @@
-import browserInfo from 'browser-info';
 import Clipboard from 'clipboard';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
@@ -44,8 +43,35 @@ class ClipboardTrigger extends React.Component {
     }
   }
 
+  getTriggerContent() {
+    const {children, className} = this.props;
+
+    if (children != null) {
+      return (
+        <span className={className} onMouseEnter={this.handleCopyIconMouseEnter}
+          ref="copyButton">
+          {children}
+        </span>
+      );
+    }
+
+    return (
+      <Icon
+        id="clipboard"
+        size="mini"
+        className={`clickable icon-clipboard ${className}`}
+        color="purple"
+        onMouseEnter={this.handleCopyIconMouseEnter}
+        ref="copyButton" />
+    );
+  }
+
   handleCopy() {
     this.setState({hasCopiedToClipboard: true});
+
+    if (this.props.onTextCopy) {
+      this.props.onTextCopy();
+    }
   }
 
   handleCopyIconMouseEnter() {
@@ -53,30 +79,23 @@ class ClipboardTrigger extends React.Component {
   }
 
   render() {
-    if (/safari/i.test(browserInfo().name)) {
-      return null;
+    const {copiedText, tooltipContent, useTooltip} = this.props;
+
+    if (useTooltip) {
+      let text = tooltipContent;
+
+      if (this.state.hasCopiedToClipboard) {
+        text = copiedText;
+      }
+
+      return (
+        <Tooltip position="bottom" content={text}>
+          {this.getTriggerContent()}
+        </Tooltip>
+      );
     }
 
-    const {copiedText, tooltipContent} = this.props;
-    const clipboardIcon = (
-      <Icon
-        id="clipboard"
-        size="mini"
-        className="clickable icon-clipboard"
-        color="purple"
-        onMouseEnter={this.handleCopyIconMouseEnter} />
-    );
-    let text = tooltipContent;
-
-    if (this.state.hasCopiedToClipboard) {
-      text = copiedText;
-    }
-
-    return (
-      <Tooltip position="bottom" content={text} ref="copyButton">
-        {clipboardIcon}
-      </Tooltip>
-    );
+    return this.getTriggerContent();
   }
 }
 
@@ -86,9 +105,13 @@ ClipboardTrigger.defaultProps = {
 };
 
 ClipboardTrigger.propTypes = {
-  copiedText: PropTypes.string,
-  copyText: PropTypes.string,
-  tooltipContent: PropTypes.string
+  children: PropTypes.node,
+  className: PropTypes.string,
+  copiedText: PropTypes.node,
+  copyText: PropTypes.node,
+  onTextCopy: PropTypes.func,
+  tooltipContent: PropTypes.node,
+  useTooltip: PropTypes.bool
 };
 
 module.exports = ClipboardTrigger;
