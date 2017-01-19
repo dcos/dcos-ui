@@ -74,7 +74,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     let placeholder;
     let value = endpoint.hostPort;
     const {errors} = this.props;
-    let hostPortError = findNestedPropertyInObject(
+    const hostPortError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.port`
     );
@@ -84,7 +84,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       value = null;
     }
 
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
         <a href="https://mesosphere.github.io/marathon/docs/ports.html" about="_blank">
@@ -196,7 +196,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getProtocolField(endpoint, index, containerIndex) {
     const {errors} = this.props;
-    let protocolError = findNestedPropertyInObject(
+    const protocolError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.protocol`
     );
@@ -325,7 +325,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <option
           key={index}
           value={virtualNetwork.value}>
-        {virtualNetwork.text}
+          {virtualNetwork.text}
         </option>
       );
     });
@@ -356,12 +356,12 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   render() {
-    let networkError = findNestedPropertyInObject(
+    const networkError = findNestedPropertyInObject(
       this.props.errors,
       'container.docker.network'
     );
 
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
         <a href="https://mesosphere.github.io/marathon/docs/ports.html" target="_blank">
