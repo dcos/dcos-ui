@@ -189,20 +189,18 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <FormGroup className="column-auto">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
-                checked={portDefinition.protocol === 'tcp'}
-                name={`portDefinitions.${index}.protocol`}
-                type="radio"
-                value="tcp" />
+                checked={portDefinition.protocol.tcp}
+                name={`portDefinitions.${index}.protocol.tcp`}
+                type="checkbox" />
               TCP
             </FieldLabel>
           </FormGroup>
           <FormGroup className="column-auto">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
-                checked={portDefinition.protocol === 'udp'}
-                name={`portDefinitions.${index}.protocol`}
-                type="radio"
-                value="udp" />
+                checked={portDefinition.protocol.udp}
+                name={`portDefinitions.${index}.protocol.udp`}
+                type="checkbox" />
               UDP
             </FieldLabel>
           </FormGroup>
