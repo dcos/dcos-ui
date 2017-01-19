@@ -1,139 +1,90 @@
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import defaultServiceImage from '../../../img/icon-service-default-medium@2x.png';
-import jsonServiceImage from '../../../img/service-image-json-medium@2x.png';
-import CosmosPackagesStore from '../../../../../../src/js/stores/CosmosPackagesStore';
-import Image from '../../../../../../src/js/components/Image';
-import Panel from '../../../../../../src/js/components/Panel';
+import CreateServiceModalServicePickerOption from '../../../../../../src/js/components/CreateServiceModalServicePickerOption';
+import CreateServiceModalServicePickerOptionContent from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionContent';
+import CreateServiceModalServicePickerOptionImage from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionImage';
+import CreateServiceModalServicePickerOptionWrapper from '../../../../../../src/js/components/CreateServiceModalServicePickerOptionWrapper';
+import defaultServiceImage from '../../../img/icon-service-default-large@2x.png';
+import jsonServiceImage from '../../../img/service-image-json-large@2x.png';
+
+function SingleContainerOption({columnClasses, onOptionSelect}) {
+  return (
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
+      onOptionSelect={onOptionSelect.bind(null, {type: 'app'})}>
+      <CreateServiceModalServicePickerOptionImage
+        src={defaultServiceImage} />
+      <CreateServiceModalServicePickerOptionContent>
+        Single Container
+      </CreateServiceModalServicePickerOptionContent>
+    </CreateServiceModalServicePickerOption>
+  );
+}
+
+function MultiContainerOption({columnClasses, onOptionSelect}) {
+  return (
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
+      onOptionSelect={onOptionSelect.bind(null, {type: 'pod'})}>
+      <CreateServiceModalServicePickerOptionImage
+        src={defaultServiceImage} />
+      <CreateServiceModalServicePickerOptionContent>
+        Multi-container (Pod)
+      </CreateServiceModalServicePickerOptionContent>
+    </CreateServiceModalServicePickerOption>
+  );
+}
+
+function JSONOption({columnClasses, onOptionSelect}) {
+  return (
+    <CreateServiceModalServicePickerOption columnClasses={columnClasses}
+      onOptionSelect={onOptionSelect.bind(null, {type: 'json'})}>
+      <CreateServiceModalServicePickerOptionImage
+        src={jsonServiceImage} />
+      <CreateServiceModalServicePickerOptionContent>
+        JSON Configuration
+      </CreateServiceModalServicePickerOptionContent>
+    </CreateServiceModalServicePickerOption>
+  );
+}
 
 class NewCreateServiceModalServicePicker extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-    };
-  }
-
-  handleServiceSelect(service) {
-    this.props.onServiceSelect(service);
-  }
-
-  getCustomServiceGrid() {
-    let customOptions = [{
-      icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
-      ),
-      label: 'Use the Form',
-      type: 'app'
-    }, {
-      icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
-      ),
-      label: 'Use the Form to create a MultiContainer',
-      type: 'pod'
-    }, {
-      icon: (
-        <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
-      ),
-      label: 'Enter JSON',
-      type: 'json'
-    }].map((item, index) => {
-      return this.getServiceOption(
-        this.getServiceOptionIconWrapper(item.icon),
-        item.label,
-        index,
-        item
-      );
-    });
-
-    return (
-      <div className="create-service-modal-service-picker-options panel-grid row">
-        {customOptions}
-      </div>
+    MountService.MountService.registerComponent(
+      SingleContainerOption,
+      'CreateService:ServicePicker:GridOptions',
+      3
     );
-  }
 
-  getPackageIcon(cosmosPackage) {
-    return (
-      <Image
-        fallbackSrc={defaultServiceImage}
-        src={cosmosPackage.getIcons()['icon-medium']} />
+    MountService.MountService.registerComponent(
+      MultiContainerOption,
+      'CreateService:ServicePicker:GridOptions',
+      2
     );
-  }
 
-  getServiceDeployOptions() {
-    // TODO: Implement the correct copy when received. DCOS-11807
-    return (
-      <div className="create-service-modal-service-picker container text-align-center">
-        <h4 className="short flush-top">
-          Run your own Service
-        </h4>
-        <p className="lead tall">
-          Create a containerized service or run a command in one of two ways: use our form to be guided through the correct configuration, or enter your JSON configuration directly.
-        </p>
-        {this.getCustomServiceGrid()}
-      </div>
-    );
-  }
-
-  getServiceOption(icon, title, index, service) {
-    return (
-      <div className="create-service-modal-service-picker-option panel-grid-item column-12 column-small-4 column-large-3"
-        key={index}>
-        <Panel className="panel-interactive clickable"
-          contentClass={[
-            'horizontal-center panel-cell-short flush-top',
-            {
-              'panel-cell-shorter': false
-            }
-          ]}
-          heading={icon}
-          headingClass={[
-            'panel-cell-borderless horizontal-center panel-cell-short',
-            {
-              'panel-cell-light': false,
-              'panel-cell-shorter': false
-            }
-          ]}
-          onClick={this.handleServiceSelect.bind(this, service)}>
-          <h5 className="flush text-align-center">
-            {title}
-          </h5>
-        </Panel>
-      </div>
-    );
-  }
-
-  getServiceOptionIconWrapper(icon) {
-    return (
-      <div className="icon icon-jumbo icon-image-container icon-app-container icon-default-white">
-        {icon}
-      </div>
-    );
-  }
-
-  getUniversePackagesGrid() {
-    const packages = CosmosPackagesStore.getAvailablePackages();
-    let packagesGrid = packages.getItems().map((cosmosPackage, index) => {
-      return this.getServiceOption(
-        this.getServiceOptionIconWrapper(this.getPackageIcon(cosmosPackage)),
-        cosmosPackage.getName(),
-        index,
-        cosmosPackage
-      );
-    });
-
-    return (
-      <div className="panel-grid row">
-        {packagesGrid}
-      </div>
+    MountService.MountService.registerComponent(
+      JSONOption,
+      'CreateService:ServicePicker:GridOptions',
+      1
     );
   }
 
   render() {
-    return this.getServiceDeployOptions();
+    return (
+      <div className="create-service-modal-service-picker container">
+        <div className="create-service-modal-service-picker-options">
+          <div className="row">
+            <MountService.Mount alwaysWrap={true}
+              onOptionSelect={this.props.onServiceSelect}
+              type="CreateService:ServicePicker:GridOptions"
+              wrapper={CreateServiceModalServicePickerOptionWrapper} />
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
