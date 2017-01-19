@@ -395,7 +395,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        <h3 className="flush-top short-bottom">
+        <h3 className="short-bottom">
           Service Endpoints
         </h3>
         <p>
