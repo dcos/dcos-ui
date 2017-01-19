@@ -1,9 +1,11 @@
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Redirect, Route, hashHistory} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import AuthenticatedUserAccountDropdown from './components/AuthenticatedUserAccountDropdown';
 import LoginPage from './components/LoginPage';
 
 const SDK = require('./SDK').getSDK();
@@ -46,7 +48,6 @@ module.exports = Object.assign({}, StoreMixin, {
     'delayApplicationLoad',
     'dcosInstallCommandExtraSteps',
     'organizationRoutes',
-    'userDropdownItems',
     'serverErrorModalListeners'
   ],
 
@@ -61,6 +62,7 @@ module.exports = Object.assign({}, StoreMixin, {
       name: 'config',
       events: ['success', 'error']
     }]);
+    this.registerUserAccountDropdown();
   },
 
   dcosInstallCommandExtraSteps() {
@@ -100,40 +102,6 @@ module.exports = Object.assign({}, StoreMixin, {
     });
 
     return listeners;
-  },
-
-  userDropdownItems(defaultMenuItems) {
-    const menuItems = defaultMenuItems.slice();
-    const user = AuthStore.getUser();
-
-    let userLabel = null;
-
-    if (user && !user.is_remote) {
-      userLabel = user.description;
-    } else if (user && user.is_remote) {
-      userLabel = user.uid;
-    }
-
-    menuItems.push(
-      {
-        className: 'dropdown-menu-section-header',
-        html: <label>User</label>,
-        id: 'header-b',
-        selectable: false
-      },
-      {
-        html: <div className="text-overflow">{userLabel}</div>,
-        id: 'username',
-        selectable: false
-      },
-      {
-        html: 'Sign Out',
-        id: 'sign-out',
-        onClick: AuthStore.logout
-      }
-    );
-
-    return menuItems;
   },
 
   applicationRoutes(routes) {
@@ -216,6 +184,14 @@ module.exports = Object.assign({}, StoreMixin, {
     };
 
     return routeDefinition;
+  },
+
+  registerUserAccountDropdown() {
+    MountService.MountService.registerComponent(
+      AuthenticatedUserAccountDropdown,
+      'Sidebar:UserAccountDropdown',
+      100
+    );
   },
 
   userLoginSuccess() {

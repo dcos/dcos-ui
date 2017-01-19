@@ -6,7 +6,6 @@ import React from 'react';
 import PluginSDK from 'PluginSDK';
 
 import {keyCodes} from '../utils/KeyboardUtil';
-import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -15,8 +14,8 @@ import MetadataStore from '../stores/MetadataStore';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import ScrollbarUtil from '../utils/ScrollbarUtil';
 import SidebarActions from '../events/SidebarActions';
+import SidebarHeader from './SidebarHeader';
 import SidebarStore from '../stores/SidebarStore';
-import UserAccountDropdown from './UserAccountDropdown';
 
 const {
   NavigationService,
@@ -111,11 +110,6 @@ var Sidebar = React.createClass({
 
   onNavigationChange() {
     this.forceUpdate();
-  },
-
-  handleInstallCLI() {
-    SidebarActions.close();
-    SidebarActions.openCliInstructions();
   },
 
   handleKeyPress(event) {
@@ -280,43 +274,6 @@ var Sidebar = React.createClass({
     );
   },
 
-  getSidebarHeader() {
-    const defaultItems = [
-      {
-        className: 'hidden',
-        html: (
-          <ClusterHeader showCaret={true}
-            useClipboard={false}
-            onUpdate={this.handleClusterHeaderUpdate} />
-        ),
-        id: 'dropdown-trigger'
-      },
-      {
-        className: 'dropdown-menu-section-header flush-top',
-        html: <label>Support</label>,
-        id: 'header-a',
-        selectable: false
-      },
-      {
-        html: 'Documentation',
-        id: 'documentation',
-        onClick: () => {
-          global.open(MetadataStore.buildDocsURI('/'), '_blank');
-        }
-      },
-      {
-        html: 'Install CLI',
-        id: 'install-cli',
-        onClick: this.handleInstallCLI
-      }
-    ];
-
-    return (
-      <UserAccountDropdown
-        menuItems={Hooks.applyFilter('userDropdownItems', defaultItems)} />
-    );
-  },
-
   handleClusterHeaderUpdate() {
     ScrollbarUtil.updateWithRef(this.geminiRef);
   },
@@ -381,9 +338,7 @@ var Sidebar = React.createClass({
           {overlay}
         </CSSTransitionGroup>
         <div className="sidebar flex flex-direction-top-to-bottom">
-          <header className="header flex-item-shrink-0">
-            {this.getSidebarHeader()}
-          </header>
+          <SidebarHeader onUpdate={this.handleClusterHeaderUpdate} />
           <GeminiScrollbar autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
             ref={(ref) => this.geminiRef = ref}>

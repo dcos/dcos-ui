@@ -58,7 +58,6 @@ module.exports = {
     Chart: 'charts/Chart',
     CheckboxTable: 'CheckboxTable',
     ClipboardTrigger: 'ClipboardTrigger',
-    ClusterHeader: 'ClusterHeader',
     ClusterName: 'ClusterName',
     ConfigurationMap: 'ConfigurationMap',
     ConfigurationMapHeading: 'ConfigurationMapHeading',
@@ -95,6 +94,8 @@ module.exports = {
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton',
     Typeahead: 'Typeahead',
+    UserAccountDropdown: 'UserAccountDropdown',
+    UserAccountDropdownTrigger: 'UserAccountDropdownTrigger',
     UserFormModal: 'modals/UserFormModal',
     'form-elements': 'form/index'
   },
