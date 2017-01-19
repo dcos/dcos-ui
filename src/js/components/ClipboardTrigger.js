@@ -46,25 +46,23 @@ class ClipboardTrigger extends React.Component {
   getTriggerContent() {
     const {children, className} = this.props;
 
-    let childNode = (
+    if (children != null) {
+      return (
+        <span className={className} onMouseEnter={this.handleCopyIconMouseEnter}
+          ref="copyButton">
+          {children}
+        </span>
+      );
+    }
+
+    return (
       <Icon
         id="clipboard"
         size="mini"
         className={`clickable icon-clipboard ${className}`}
-        color="purple" />
-    );
-
-    if (children != null) {
-      childNode = children;
-    }
-
-    return (
-      <span
-        className={className}
+        color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter}
-        ref="copyButton">
-        {childNode}
-      </span>
+        ref="copyButton" />
     );
   }
 
