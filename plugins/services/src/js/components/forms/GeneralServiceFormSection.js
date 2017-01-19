@@ -195,6 +195,7 @@ class GeneralServiceFormSection extends Component {
       let fieldLabel = null;
       let operatorLabel = null;
       let parameterLabel = null;
+      let padDeleteButton = false;
       const showParameterField = ![GROUP_BY, UNIQUE]
         .includes(constraint.operator);
       const paramterIsRequired = [LIKE, MAX_PER_OPERATOR]
@@ -209,6 +210,7 @@ class GeneralServiceFormSection extends Component {
           'Operator',
           'Operators specify where your app will run.'
         );
+        padDeleteButton = true;
       }
       if (index === 0 && showParameterLabel) {
         parameterLabel = this.getConstraintField(
@@ -274,7 +276,10 @@ class GeneralServiceFormSection extends Component {
             </FieldError>
           </FormGroup>
 
-          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+          <FormGroup className={{
+            'column-2 flush-left': true,
+            'form-group-without-top-label': padDeleteButton
+          }}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this,
                 {value: index, path: 'constraints'})} />
