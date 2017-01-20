@@ -5,7 +5,7 @@ import Icon from '../Icon';
 
 function AddButton({children, className, icon, onClick}) {
   const classes = classNames(
-    'button button-primary-link button-flush text-no-transform', className
+    'button button-primary-link button-flush', className
   );
 
   return (
