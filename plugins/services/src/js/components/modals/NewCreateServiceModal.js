@@ -205,11 +205,18 @@ class NewCreateServiceModal extends Component {
     } = this.state;
 
     if (serviceReviewActive) {
+      // Remove the 'Application is deploying' error when we havigate back
+      // since it's not related to the form
+      const apiErrors = this.state.apiErrors.filter(function (error) {
+        return error.type !== ServiceErrorTypes.SERVICE_DEPLOYING;
+      });
+
       // Just hide review screen. Form or JSON mode will be
       // activated automatically depending on their last state
       this.setState({
-        serviceReviewActive: false,
-        activeTab: tabViewID
+        activeTab: tabViewID,
+        apiErrors,
+        serviceReviewActive: false
       });
 
       return;
@@ -248,7 +255,10 @@ class NewCreateServiceModal extends Component {
   }
 
   handleClearError() {
-    this.setState({apiErrors: []});
+    this.setState({
+      apiErrors: [],
+      showAllErrors: false
+    });
   }
 
   handleClose() {
@@ -269,7 +279,11 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceChange(newService) {
-    this.setState({serviceConfig: newService});
+    this.setState({
+      apiErrors: [],
+      serviceConfig: newService,
+      showAllErrors: false
+    });
   }
 
   handleServiceErrorsChange(errors) {
@@ -324,6 +338,8 @@ class NewCreateServiceModal extends Component {
     const errors = this.getAllErrors();
     if (errors.length === 0) {
       this.setState({serviceReviewActive: true});
+    } else {
+      this.setState({showAllErrors: true});
     }
   }
 
@@ -438,7 +454,6 @@ class NewCreateServiceModal extends Component {
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
               appConfig={serviceConfig}
-              clearError={this.handleClearError}
               errors={this.getAllErrors()} />
           </div>
         </div>
@@ -454,6 +469,7 @@ class NewCreateServiceModal extends Component {
 
     if (serviceFormActive) {
       const {location} = this.props;
+      const {showAllErrors} = this.state;
 
       const SECTIONS = [
         ContainerServiceFormSection,
@@ -496,15 +512,16 @@ class NewCreateServiceModal extends Component {
           jsonConfigReducers={jsonConfigReducers}
           handleTabChange={this.handleTabChange}
           inputConfigReducers={inputConfigReducers}
+          isEdit={this.isLocationEdit(location)}
           isJSONModeActive={isJSONModeActive}
           ref={(ref) => {
             return this.createComponent = ref;
           }}
-          service={serviceConfig}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
-          isEdit={this.isLocationEdit(location)} />
+          service={serviceConfig}
+          showAllErrors={showAllErrors} />
       );
     }
 
@@ -557,7 +574,7 @@ class NewCreateServiceModal extends Component {
     }
 
     if (serviceFormActive) {
-      const errors = this.getAllErrors();
+      // const errors = this.getAllErrors();
 
       return [
         {
@@ -575,20 +592,22 @@ class NewCreateServiceModal extends Component {
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: errors.length !== 0,
+          disabled: false,
+          // disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
     }
 
     if (serviceJsonActive) {
-      const errors = this.getAllErrors();
+      // const errors = this.getAllErrors();
 
       return [
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: errors.length !== 0,
+          disabled: false,
+          // disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
@@ -628,7 +647,8 @@ class NewCreateServiceModal extends Component {
       serviceJsonActive: false,
       servicePickerActive: !isEdit, // Switch directly to form/json if edit
       serviceReviewActive: false,
-      serviceFormHasErrors: false
+      serviceFormHasErrors: false,
+      showAllErrors: false
     };
 
     // Only add change listener if we didn't receive our service in first try
