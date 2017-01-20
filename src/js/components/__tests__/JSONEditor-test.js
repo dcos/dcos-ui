@@ -99,6 +99,35 @@ describe('JSONEditor', function () {
       }
     );
 
+    it('should properly handle JSON change even with interfering prop updates',
+      function () {
+        jest.useFakeTimers();
+
+        let instance = null;
+
+        const onChangeHandler = jest.fn();
+        const onErrorStateChangeHandler = jest.fn(function () {
+          // Run all pending timers to reset internal `isTyping` state
+          jest.runOnlyPendingTimers();
+
+          instance
+            .componentWillReceiveProps({value: JSON.parse(initialJSONText)});
+        });
+
+        instance = ReactDOM.render((
+          <JSONEditor
+            onChange={onChangeHandler}
+            onErrorStateChange={onErrorStateChangeHandler} />
+        ), this.container);
+
+        instance.handleChange(initialJSONText);
+        instance.handleChange(invalidJsonText);
+        instance.handleChange(validJSONText);
+
+        expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
+      }
+    );
+
   });
 
 });

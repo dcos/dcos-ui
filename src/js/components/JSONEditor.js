@@ -141,7 +141,7 @@ class JSONEditor extends React.Component {
     const composedText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
-    this.updateLocalJsonState(composedText);
+    this.updateLocalJsonState(this.getNewJsonState(composedText));
     this.setState({initialText: composedText});
   }
 
@@ -214,31 +214,32 @@ class JSONEditor extends React.Component {
     const lastError = this.jsonError;
 
     // Calculate what the next state is going to be
-    this.updateLocalJsonState(jsonText);
-
-    // Handle errors
-    if (lastError !== this.jsonError) {
-      this.props.onErrorStateChange(this.jsonError);
-    }
+    const {jsonValue, jsonMeta, jsonError} = this.getNewJsonState(jsonText);
 
     // Update the `isTyping` flag
     this.isTyping = true;
     this.scheduleIsTypingReset(ISTYPING_TIMEOUT);
 
-    // If we have errors don't continue with updating the local structures
-    if (this.jsonError) {
-      return;
+    // Handle errors
+    if (lastError !== jsonError) {
+      this.props.onErrorStateChange(jsonError);
     }
 
-    // Calculate differences in the JSON and trigger `onPropertyChange`
-    // event for every property that changed in the JSON
-    const diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
-    diff.forEach(({path, value}) => {
-      this.props.onPropertyChange(path, value, this.jsonValue);
-    });
+    // If we have errors don't continue with updating the local structures
+    if (!jsonError) {
+      // Calculate differences in the JSON and trigger `onPropertyChange`
+      // event for every property that changed in the JSON
+      const diff = JSONEditorUtil.deepObjectDiff(lastValue, jsonValue);
+      diff.forEach(({path, value}) => {
+        this.props.onPropertyChange(path, value, jsonValue);
+      });
 
-    // Trigger change with the latest json object
-    this.props.onChange(this.jsonValue);
+      // Trigger change with the latest json object
+      this.props.onChange(jsonValue);
+    }
+
+    // Update local json state
+    this.updateLocalJsonState({jsonValue, jsonMeta, jsonError, jsonText});
   }
 
   /**
@@ -274,17 +275,17 @@ class JSONEditor extends React.Component {
   }
 
   /**
-   * This function assigns the local state of the JSON text, outside the React
-   * state, since this does not necessarily trigger an update.
-   *
-   * This is useful in order to have the latest available metainformation when
-   * the user changes the text (on the `handleChange` handler), but we don't
-   * want to re-do the processing when this will eventually trigger an update
-   * to the `value` property with the same data.
+   * Get new JSON state (parsed value and meta data) from json text.
    *
    * @param {String} jsonText - The JSON buffer to extract metadata from
+   * @return {{
+   *      jsonValue:object,
+   *      jsonText:string,
+   *      jsonMeta:object,
+   *      jsonError:string
+   *    }} jsonState - JSON state including parsed value and meta data
    */
-  updateLocalJsonState(jsonText) {
+  getNewJsonState(jsonText) {
     // Do not perform heavyweight calculations, such as `getObjectInformation`
     // if the json text hasn't really changed.
     if (this.jsonText === jsonText) {
@@ -292,18 +293,18 @@ class JSONEditor extends React.Component {
     }
 
     // Reset some properties
-    this.jsonText = jsonText;
-    this.jsonError = null;
+    let {jsonValue, jsonMeta, jsonError} = this;
 
     // Try to parse and extract metadata
     try {
-      this.jsonValue = JSON.parse(jsonText);
-      this.jsonMeta = JSONUtil.getObjectInformation(jsonText);
+      jsonError = null;
+      jsonValue = JSON.parse(jsonText);
+      jsonMeta = JSONUtil.getObjectInformation(jsonText);
     } catch (e) {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
       const errorStr = e.toString();
-      this.jsonError = errorStr.replace(/at position (\d+)/g,
+      jsonError = errorStr.replace(/at position (\d+)/g,
         (match, offset) => {
           const cursor = JSONEditorUtil.cursorFromOffset(
             parseInt(offset),
@@ -313,7 +314,31 @@ class JSONEditor extends React.Component {
           return `at line ${cursor.row}:${cursor.column}`;
         }
       );
-    }
+    };
+
+    return {jsonValue, jsonText, jsonMeta, jsonError};
+  }
+
+  /**
+   * This function assigns the local JSON state (parsed value and meta data),
+   * outside the React state, since this does not necessarily trigger an update.
+   *
+   * This is useful in order to have the latest available metainformation when
+   * the user changes the text (on the `handleChange` handler), but we don't
+   * want to re-do the processing when this will eventually trigger an update
+   * to the `value` property with the same data.
+   *
+   * @param {object} jsonSate
+   * @param {object} jsonSate.jsonValue
+   * @param {string} jsonSate.jsonText
+   * @param {object} jsonSate.jsonMeta
+   * @param {string} jsonSate.jsonError
+   */
+  updateLocalJsonState(jsonSate) {
+    this.jsonText = jsonSate.jsonText;
+    this.jsonError = jsonSate.jsonError;
+    this.jsonValue = jsonSate.jsonValue;
+    this.jsonMeta = jsonSate.jsonMeta;
 
     // Sync editor without a render cycle
     this.updateEditorState();
