@@ -11,6 +11,7 @@ import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import ErrorMessageUtil from '../../../../../../src/js/utils/ErrorMessageUtil';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
@@ -19,6 +20,7 @@ import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
+import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
 import ServiceUtil from '../../utils/ServiceUtil';
 import PodSpec from '../../structs/PodSpec';
 import TabButton from '../../../../../../src/js/components/TabButton';
@@ -268,9 +270,15 @@ class NewCreateServiceModalForm extends Component {
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
+  getErrors() {
+    return ErrorMessageUtil.translateErrorMessages(
+      this.props.errors, ServiceErrorMessages
+    );
+  }
+
   getErrorsAlertComponent() {
-    const {errors, showAllErrors} = this.props;
-    let showErrors = errors;
+    const {showAllErrors} = this.props;
+    let showErrors = this.getErrors();
 
     if (!showAllErrors) {
       showErrors = showErrors.filter(function (error) {
@@ -458,10 +466,10 @@ class NewCreateServiceModalForm extends Component {
    * @returns {Array} - Returns an array of errors that passed the filter
    */
   getUnmutedErrors() {
-    const {errors, showAllErrors} = this.props;
+    const {showAllErrors} = this.props;
     const {editedFieldPaths, editingFieldPath} = this.state;
 
-    return errors.filter(function (error) {
+    return this.getErrors().filter(function (error) {
       const errorPath = error.path.join('.');
 
       // Always mute the error on the field we are editing
@@ -480,9 +488,10 @@ class NewCreateServiceModalForm extends Component {
 
   render() {
     const {appConfig, batch} = this.state;
-    const {activeTab, errors, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
+    const {activeTab, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
     const data = batch.reduce(this.props.inputConfigReducers, {});
     const unmutedErrors = this.getUnmutedErrors();
+    const errors = this.getErrors();
 
     const jsonEditorPlaceholderClasses = classNames(
       'modal-full-screen-side-panel-placeholder',
