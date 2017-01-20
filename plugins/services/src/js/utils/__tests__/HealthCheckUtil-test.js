@@ -1,5 +1,5 @@
-const HealthCheckUtil = require('../HealtCheckUtil');
-const HealthCheckProtocols = require('../../constants/HealtCheckProtocols');
+const HealthCheckUtil = require('../HealthCheckUtil');
+const HealthCheckProtocols = require('../../constants/HealthCheckProtocols');
 
 describe('HealthCheckUtil', function () {
   describe('#IsKnowProtocol', function () {
@@ -14,7 +14,7 @@ describe('HealthCheckUtil', function () {
     });
 
     it('should return false for a unknown protocol', function () {
-      expect(HealthCheckUtil.isKnownProtocol('MESOS_HTTP')).toEqual(false);
+      expect(HealthCheckUtil.isKnownProtocol('MESOS_GOPHER')).toEqual(false);
     });
   });
 });

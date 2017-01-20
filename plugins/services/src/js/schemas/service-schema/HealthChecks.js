@@ -1,6 +1,7 @@
 import FormUtil from '../../../../../../src/js/utils/FormUtil';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
+import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
 import NetworkValidatorUtil from '../../../../../../src/js/utils/NetworkValidatorUtil';
+import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 const HealthChecks = {
   type: 'object',
@@ -19,7 +20,7 @@ const HealthChecks = {
         }
 
         healthChecks = healthChecks.map(function (check) {
-          if (check.protocol === 'COMMAND') {
+          if (check.protocol === COMMAND) {
             check.command = check.command.value;
           }
           check.portType = 'PORT_INDEX';
@@ -62,9 +63,9 @@ const HealthChecks = {
             fieldType: 'select',
             type: 'string',
             options: [
-              'HTTP',
-              'COMMAND',
-              'TCP'
+              MESOS_HTTP,
+              MESOS_HTTPS,
+              COMMAND
             ]
           },
           command: {
@@ -92,7 +93,7 @@ const HealthChecks = {
             title: 'Path',
             type: 'string',
             shouldShow(service) {
-              return service.protocol == null || service.protocol === 'HTTP';
+              return service.protocol == null || service.protocol === MESOS_HTTP;
             },
             externalValidator({healthChecks}, definition) {
               const index = FormUtil.getPropIndex(definition.name);
@@ -100,7 +101,7 @@ const HealthChecks = {
               const {[`healthChecks[${index}].protocol`]: protocol}
                = healthChecks;
 
-              if (protocol === 'HTTP' && !ValidatorUtil.isDefined(path)) {
+              if (protocol === MESOS_HTTP && !ValidatorUtil.isDefined(path)) {
                 definition.showError = 'Path must not be empty.';
 
                 return false;
@@ -247,7 +248,7 @@ const HealthChecks = {
             showLabel: false,
             type: 'boolean',
             shouldShow(service) {
-              return service.protocol == null || service.protocol === 'HTTP';
+              return service.protocol == null || service.protocol === MESOS_HTTP;
             }
           }
         }
