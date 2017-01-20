@@ -1,4 +1,5 @@
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import Icon from '../Icon';
 
@@ -7,10 +8,16 @@ const FormGroupContainer = (props) => {
   if (props.onRemove != null) {
     removeButton = (
       <div className="form-group-container-action-button-group">
-        <a className="button button-primary-link"
-          onClick={props.onRemove}>
-          <Icon id="close" color="grey" size="tiny" family="tiny"/>
-        </a>
+        <Tooltip content="Delete"
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <a className="button button-primary-link"
+            onClick={props.onRemove}>
+            <Icon id="close" color="grey" size="tiny" family="tiny"/>
+          </a>
+        </Tooltip>
       </div>
     );
   }
