@@ -156,7 +156,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               size="mini"
               color="neutral" />
             <span className="button-split-content-item text-overflow"
-              title={itemCaption}>
+              title={version}>
               {itemCaption}
             </span>
           </div>
