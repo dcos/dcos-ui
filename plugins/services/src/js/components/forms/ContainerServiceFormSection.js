@@ -64,7 +64,7 @@ class ContainerServiceFormSection extends Component {
 
   getArtifactsInputs() {
     const {data, errors, path} = this.props;
-    const artifacts = findNestedPropertyInObject(data, `${path}.fetch`) || [];
+    const artifacts = findNestedPropertyInObject(data, 'fetch') || [];
     const artifactErrors = findNestedPropertyInObject(
       errors,
       `${path}.fetch`
@@ -157,7 +157,7 @@ class ContainerServiceFormSection extends Component {
   getAdvancedSettings() {
     const {data, errors, path} = this.props;
     const container = findNestedPropertyInObject(data, path) || {};
-    const artifactIndex = findNestedPropertyInObject(container, 'fetch.length');
+    const artifactIndex = findNestedPropertyInObject(data, 'fetch.length');
     const containerType = container.type;
     const gpuDisabled = containerType !== MESOS;
     const typeErrors = findNestedPropertyInObject(errors, `${path}.type`);
