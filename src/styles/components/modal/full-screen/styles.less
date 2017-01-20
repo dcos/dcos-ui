@@ -129,16 +129,15 @@
 
   .modal-full-screen-side-panel {
     height: 100%;
-    left: 0;
     position: absolute;
+    right: -100%;
     top: 0;
-    transform: translateX(100%);
-    transition: transform 0.35s;
+    transition: right 0.35s;
     width: 100%;
     z-index: @z-index-modal-side-panel;
 
     &.is-visible {
-      transform: translateX(0);
+      right: 0;
     }
   }
 
@@ -236,8 +235,6 @@
     }
 
     .modal-full-screen-side-panel {
-      left: auto;
-      right: 0;
       width: 400px;
     }
 
