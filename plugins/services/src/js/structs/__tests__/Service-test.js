@@ -38,11 +38,6 @@ describe('Service', function () {
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
-    it('should drop blacklisted keys', function () {
-      const item = new Service({foo: 'bar', baz: 'qux', uris: []});
-      expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
-    });
-
   });
 
 });
