@@ -1,6 +1,11 @@
 const ServiceErrorTypes = {
 
   /**
+   * A generic type of error without any detailed information
+   */
+  GENERIC: 'GENERIC',
+
+  /**
    * Two or more properties are present in the configuration that are are
    * conflicting to eachother.
    *
@@ -40,7 +45,12 @@ const ServiceErrorTypes = {
    *    "names": "prop1, prop2, prop3, ..."
    * }
    */
-  PROP_MISSING_ONE: 'PROP_MISSING_ONE'
+  PROP_MISSING_ONE: 'PROP_MISSING_ONE',
+
+  /**
+   * Service is locked for deployment
+   */
+  SERVICE_DEPLOYING: 'SERVICE_DEPLOYING'
 
 };
 

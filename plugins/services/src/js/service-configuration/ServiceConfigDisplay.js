@@ -77,24 +77,30 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   getRootErrors() {
-    if (this.props.errors.size === 0) {
+    const {errors} = this.props;
+
+    if (errors.length === 0) {
       return null;
     }
 
-    let messages = [];
-    for (const [path, errors] of this.props.errors) {
-      messages = messages.concat(
-        errors.map((message, index) => {
-          return <div key={`${path}-${index}`}>{message}</div>;
-        })
-      );
-    }
+    return (
+      <Alert>
+        <strong>There is an error with your configuration</strong>
+        <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
+          <ul className="list-unstyled short flush-bottom">
+            {errors.map((error, index) => {
+              const prefix = error.path.length ? `${error.path.join('.')}:` : '';
 
-    if (!messages.length) {
-      return null;
-    }
-
-    return <Alert>{messages}</Alert>;
+              return (
+                <li key={index} className="short">
+                  {`\u2022 ${prefix} ${error.message}`}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Alert>
+    );
   }
 
   render() {
@@ -115,13 +121,13 @@ class ServiceConfigDisplay extends React.Component {
 
 ServiceConfigDisplay.defaultProps = {
   clearError() {},
-  errors: new Map()
+  errors: []
 };
 
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
   clearError: React.PropTypes.func,
-  errors: React.PropTypes.object,
+  errors: React.PropTypes.array,
   onEditClick: React.PropTypes.func
 };
 

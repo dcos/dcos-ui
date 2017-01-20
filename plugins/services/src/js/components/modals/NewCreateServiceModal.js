@@ -5,6 +5,7 @@ import {Hooks} from 'PluginSDK';
 import {routerShape} from 'react-router';
 
 import Application from '../../structs/Application';
+import ApplicationSpec from '../../structs/ApplicationSpec';
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 
@@ -25,10 +26,20 @@ import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
+import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
 import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
 import FullScreenModalHeaderActions from '../../../../../../src/js/components/modals/FullScreenModalHeaderActions';
 import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
+import MarathonAppValidators from '../../validators/MarathonAppValidators';
+import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
+import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
+import NewCreateServiceModalForm from './NewCreateServiceModalForm';
+import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
+import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
+import ToggleButton from '../../../../../../src/js/components/ToggleButton';
+import Util from '../../../../../../src/js/utils/Util';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
@@ -37,12 +48,8 @@ import JSONParser from '../../reducers/JSONParser';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
-import NewCreateServiceModalForm from './NewCreateServiceModalForm';
-import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
-import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
-import {getBaseID} from '../../utils/ServiceUtil';
-import ToggleButton from '../../../../../../src/js/components/ToggleButton';
-import Util from '../../../../../../src/js/utils/Util';
+import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
+import ServiceErrorTypes from '../../constants/ServiceErrorTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
@@ -54,7 +61,7 @@ const METHODS_TO_BIND = [
   'handleConvertToPod',
   'handleJSONToggle',
   'handleServiceChange',
-  'handleServiceErrorChange',
+  'handleServiceErrorsChange',
   'handleServiceReview',
   'handleServiceRun',
   'handleServiceSelection',
@@ -66,41 +73,22 @@ const METHODS_TO_BIND = [
   'onMarathonStoreServiceEditSuccess'
 ];
 
+const APP_ERROR_VALIDATORS = [
+  AppValidators.App,
+  MarathonAppValidators.containsCmdArgsOrContainer,
+  MarathonAppValidators.complyWithResidencyRules,
+  MarathonAppValidators.complyWithIpAddressRules
+];
+
+const POD_ERROR_VALIDATORS = [
+  PodValidators.Pod
+];
+
 class NewCreateServiceModal extends Component {
   constructor() {
     super(...arguments);
 
-    const {location, params} = this.props;
-    const isEdit = this.isLocationEdit(location);
-    const serviceID = decodeURIComponent(params.id || '/');
-    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
-    const isSpecificVersion = service instanceof Application && params.version;
-    let serviceConfig = new Application(
-      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
-    );
-
-    if (isEdit && service instanceof Service && !isSpecificVersion) {
-      serviceConfig = service.getSpec();
-    }
-
-    if (isEdit && isSpecificVersion) {
-      serviceConfig = service.getVersions().get(params.version);
-    }
-
-    this.state = {
-      activeTab: null,
-      errors: null,
-      isJSONModeActive: false,
-      isOpen: true,
-      isPending: false,
-      service,
-      serviceConfig,
-      serviceFormActive: isEdit, // Switch directly to form/json if edit
-      serviceJsonActive: false,
-      servicePickerActive: !isEdit, // Switch directly to form/json if edit
-      serviceReviewActive: false,
-      serviceFormHasErrors: false
-    };
+    this.state = this.getResetState(this.props);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -124,11 +112,6 @@ class NewCreateServiceModal extends Component {
       MARATHON_SERVICE_EDIT_SUCCESS,
       this.onMarathonStoreServiceEditSuccess
     );
-
-    // Only add change listener if we didn't receive our service in first try
-    if (!service && isEdit) {
-      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -139,41 +122,12 @@ class NewCreateServiceModal extends Component {
       return;
     }
 
-    const isEdit = this.isLocationEdit(nextProps.location);
-    const serviceID = decodeURIComponent(nextProps.params.id || '/');
-    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
-    let serviceConfig = new Application(
-      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
-    );
-
-    if (isEdit && service instanceof Service) {
-      serviceConfig = service.getSpec();
-    }
-
-    this.setState({
-      activeTab: null,
-      errors: null,
-      isJSONModeActive: false,
-      isOpen: true,
-      isPending: false,
-      service,
-      serviceConfig,
-      serviceFormActive: isEdit, // Switch directly to form/json if edit
-      serviceJsonActive: false,
-      servicePickerActive: !isEdit, // Switch directly to form/json if edit
-      serviceReviewActive: false,
-      serviceFormHasErrors: false
-    });
-
-    // Only add change listener if we didn't receive our service in first try
-    if (!service && isEdit) {
-      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
-    }
+    this.setState(this.getResetState(nextProps));
   }
 
   componentWillUpdate(nextProps, nextState) {
     const requestCompleted = this.state.isPending && !nextState.isPending;
-    const shouldClose = requestCompleted && !nextState.errors;
+    const shouldClose = requestCompleted && !nextState.apiErrors.length;
 
     if (shouldClose) {
       this.context.router.push(`/services/overview/${encodeURIComponent(nextProps.params.id)}`);
@@ -203,29 +157,31 @@ class NewCreateServiceModal extends Component {
   }
 
   onMarathonStoreServiceCreateError(errors) {
-    this.setState({errors, isPending: false});
+    this.setState({
+      apiErrors: MarathonErrorUtil.parseErrors(errors),
+      isPending: false
+    });
   }
 
   onMarathonStoreServiceCreateSuccess() {
-    this.setState({errors: null, isPending: false});
+    this.setState({apiErrors: [], isPending: false});
   }
 
   onMarathonStoreServiceEditError(errors) {
-    this.setState({errors, isPending: false});
+    this.setState({
+      apiErrors: MarathonErrorUtil.parseErrors(errors),
+      isPending: false
+    });
   }
 
   onMarathonStoreServiceEditSuccess() {
-    this.setState({errors: null, isPending: false});
+    this.setState({apiErrors: [], isPending: false});
   }
 
   shouldForceSubmit() {
-    const {errors} = this.state;
-
-    if (errors && errors.message) {
-      return /force=true/.test(errors.message);
-    }
-
-    return false;
+    return this.state.apiErrors.some(function (error) {
+      return error.type === ServiceErrorTypes.SERVICE_DEPLOYING;
+    });
   }
 
   handleStoreChange() {
@@ -292,7 +248,7 @@ class NewCreateServiceModal extends Component {
   }
 
   handleClearError() {
-    this.setState({errors: null});
+    this.setState({apiErrors: []});
   }
 
   handleClose() {
@@ -316,8 +272,8 @@ class NewCreateServiceModal extends Component {
     this.setState({serviceConfig: newService});
   }
 
-  handleServiceErrorChange(hasErrors) {
-    this.setState({serviceFormHasErrors: hasErrors});
+  handleServiceErrorsChange(errors) {
+    this.setState({serviceFormErrors: errors});
   }
 
   handleServiceSelection({route, type}) {
@@ -330,7 +286,7 @@ class NewCreateServiceModal extends Component {
           activeTab: null,
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceConfig: new Application(
+          serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           )
         });
@@ -352,7 +308,7 @@ class NewCreateServiceModal extends Component {
           activeTab: null,
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceConfig: new Application(
+          serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           )
         });
@@ -365,9 +321,8 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceReview() {
-    if (this.createComponent && this.createComponent.validateCurrentState()) {
-      this.handleServiceErrorChange(true);
-    } else {
+    const errors = this.getAllErrors();
+    if (errors.length === 0) {
       this.setState({serviceReviewActive: true});
     }
   }
@@ -387,6 +342,41 @@ class NewCreateServiceModal extends Component {
 
   isLocationEdit(location) {
     return location.pathname.includes('/edit');
+  }
+
+  /**
+   * This function combines the errors received from marathon and the errors
+   * produced by the form into a unified error array
+   *
+   * @returns {Array} - An array of error objects
+   */
+  getAllErrors() {
+    const {apiErrors, serviceFormErrors, serviceConfig} = this.state;
+    let validationErrors = [];
+
+    // Validate Application or Pod according to the contents
+    // of the serviceConfig property.
+
+    if (serviceConfig instanceof ApplicationSpec) {
+      validationErrors = DataValidatorUtil.validate(
+        getServiceJSON(serviceConfig),
+        APP_ERROR_VALIDATORS
+      );
+    }
+
+    if (serviceConfig instanceof PodSpec) {
+      validationErrors = DataValidatorUtil.validate(
+        getServiceJSON(serviceConfig),
+        POD_ERROR_VALIDATORS
+      );
+    }
+
+    // Combine all errors
+    return [].concat(
+      apiErrors,
+      serviceFormErrors,
+      validationErrors
+    );
   }
 
   getHeader() {
@@ -433,7 +423,6 @@ class NewCreateServiceModal extends Component {
 
   getModalContent() {
     const {
-      errors,
       isJSONModeActive,
       serviceConfig,
       serviceFormActive,
@@ -441,32 +430,6 @@ class NewCreateServiceModal extends Component {
       servicePickerActive,
       serviceReviewActive
     } = this.state;
-
-    const errorsMap = new Map();
-    if (errors) {
-      let message = errors.message;
-
-      if (this.shouldForceSubmit()) {
-        message = `App is currently locked by one or more deployments.
-         Press the button again to forcefully change and deploy the
-         new configuration.`;
-      }
-      errorsMap.set('/', [message]);
-
-      if (errors.details) {
-        errors.details.forEach(function (item) {
-          const existingMessages = errorsMap.get(item.path);
-
-          let messages = item.errors;
-
-          if (existingMessages) {
-            messages = messages.concat(existingMessages);
-          }
-
-          errorsMap.set(item.path, messages);
-        });
-      }
-    }
 
     // NOTE: Always prioritize review screen check
     if (serviceReviewActive) {
@@ -477,7 +440,7 @@ class NewCreateServiceModal extends Component {
               onEditClick={this.handleGoBack}
               appConfig={serviceConfig}
               clearError={this.handleClearError}
-              errors={errorsMap} />
+              errors={this.getAllErrors()} />
           </div>
         </div>
       );
@@ -529,6 +492,7 @@ class NewCreateServiceModal extends Component {
       return (
         <NewCreateServiceModalForm
           activeTab={this.state.activeTab}
+          errors={this.getAllErrors()}
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
           handleTabChange={this.handleTabChange}
@@ -540,7 +504,7 @@ class NewCreateServiceModal extends Component {
           service={serviceConfig}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
-          onErrorStateChange={this.handleServiceErrorChange}
+          onErrorsChange={this.handleServiceErrorsChange}
           isEdit={this.isLocationEdit(location)} />
       );
     }
@@ -550,12 +514,13 @@ class NewCreateServiceModal extends Component {
 
       return (
         <CreateServiceJsonOnly
+          errors={this.getAllErrors()}
+          onChange={this.handleServiceChange}
+          onErrorsChange={this.handleServiceErrorsChange}
           ref={(ref) => {
             return this.createComponent = ref;
           }}
-          service={serviceConfig}
-          onChange={this.handleServiceChange}
-          onErrorStateChange={this.handleServiceErrorChange} />
+          service={serviceConfig} />
       );
     }
 
@@ -593,6 +558,8 @@ class NewCreateServiceModal extends Component {
     }
 
     if (serviceFormActive) {
+      const errors = this.getAllErrors();
+
       return [
         {
           node: (
@@ -609,24 +576,68 @@ class NewCreateServiceModal extends Component {
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: this.state.serviceFormHasErrors,
+          disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
     }
 
     if (serviceJsonActive) {
+      const errors = this.getAllErrors();
+
       return [
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: this.state.serviceFormHasErrors,
+          disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
     }
 
     return [];
+  }
+
+  getResetState(nextProps = this.props) {
+    const {location, params} = nextProps;
+    const isEdit = this.isLocationEdit(location);
+    const serviceID = decodeURIComponent(params.id || '/');
+    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
+    const isSpecificVersion = service instanceof Application && params.version;
+    let serviceConfig = new Application(
+      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
+    );
+
+    if (isEdit && service instanceof Service && !isSpecificVersion) {
+      serviceConfig = service.getSpec();
+    }
+
+    if (isEdit && isSpecificVersion) {
+      serviceConfig = service.getVersions().get(params.version);
+    }
+
+    const newState = {
+      activeTab: null,
+      apiErrors: [],
+      isJSONModeActive: false,
+      isOpen: true,
+      isPending: false,
+      service,
+      serviceConfig,
+      serviceFormActive: isEdit, // Switch directly to form/json if edit
+      serviceFormErrors: [],
+      serviceJsonActive: false,
+      servicePickerActive: !isEdit, // Switch directly to form/json if edit
+      serviceReviewActive: false,
+      serviceFormHasErrors: false
+    };
+
+    // Only add change listener if we didn't receive our service in first try
+    if (!service && isEdit) {
+      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
+    }
+
+    return newState;
   }
 
   getSecondaryActions() {

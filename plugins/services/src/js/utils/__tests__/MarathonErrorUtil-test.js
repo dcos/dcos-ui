@@ -1,6 +1,7 @@
 jest.dontMock('../MarathonErrorUtil');
 
 const MarathonErrorUtil = require('../MarathonErrorUtil');
+const ServiceErrorTypes = require('../../constants/ServiceErrorTypes');
 
 describe('MarathonErrorUtil', function () {
 
@@ -13,7 +14,7 @@ describe('MarathonErrorUtil', function () {
         {
           path: [],
           message: 'Some error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);
@@ -28,7 +29,7 @@ describe('MarathonErrorUtil', function () {
         {
           path: [],
           message: 'Some error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);
@@ -44,7 +45,7 @@ describe('MarathonErrorUtil', function () {
         {
           path: [],
           message: 'Some error details',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);
@@ -65,13 +66,13 @@ describe('MarathonErrorUtil', function () {
         {
           path: [],
           message: 'First Error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         },
         {
           path: [],
           message: 'Second Error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);
@@ -92,7 +93,7 @@ describe('MarathonErrorUtil', function () {
         {
           path: ['some', 'property'],
           message: 'First Error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);
@@ -113,7 +114,7 @@ describe('MarathonErrorUtil', function () {
         {
           path: ['some', 'indexed', 3, 'property'],
           message: 'First Error',
-          type: 'MARATHON_ERROR',
+          type: ServiceErrorTypes.GENERIC,
           variables: {}
         }
       ]);

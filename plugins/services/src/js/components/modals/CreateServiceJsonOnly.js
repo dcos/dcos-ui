@@ -1,15 +1,11 @@
 import React, {PropTypes} from 'react';
 import deepEqual from 'deep-equal';
 
-import Application from '../../structs/Application';
-import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
-import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import ApplicationSpec from '../../structs/ApplicationSpec';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import PodSpec from '../../structs/PodSpec';
-import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
@@ -18,43 +14,17 @@ const METHODS_TO_BIND = [
   'handleJSONErrorStateChange'
 ];
 
-const APP_ERROR_VALIDATORS = [
-  AppValidators.App,
-  MarathonAppValidators.containsCmdArgsOrContainer,
-  MarathonAppValidators.complyWithResidencyRules,
-  MarathonAppValidators.complyWithIpAddressRules
-];
-
-const POD_ERROR_VALIDATORS = [
-  PodValidators.Pod
-];
-
 class CreateServiceJsonOnly extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      appConfig: ServiceUtil.getServiceJSON(this.props.service),
-      errorList: [],
-      jsonHasErrors: false
+      appConfig: ServiceUtil.getServiceJSON(this.props.service)
     };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  /**
-   * @override
-   */
-  componentDidUpdate(prevProps, prevState) {
-    const hasErrors = (this.state.errorList.length !== 0) || this.state.jsonHasErrors;
-    const hadErrors = (prevState.errorList.length !== 0) || prevState.jsonHasErrors;
-
-    // Notify parent component for our error state
-    if (hasErrors !== hadErrors) {
-      this.props.onErrorStateChange(hasErrors);
-    }
   }
 
   /**
@@ -68,51 +38,59 @@ class CreateServiceJsonOnly extends React.Component {
       return;
     }
 
-    this.setState(this.getNewStateForJSON(ServiceUtil.getServiceJSON(service)));
+    this.setState({
+      appConfig: ServiceUtil.getServiceJSON(service)
+    });
   }
 
+  /**
+   * Emmit the correct ServiceSpec on JSON change
+   *
+   * @param {Object} jsonObject - The JSON object from which to build the spec
+   */
   handleJSONChange(jsonObject) {
     let newObject;
     if (ServiceValidatorUtil.isPodSpecDefinition(jsonObject)) {
       newObject = new PodSpec(jsonObject);
     } else {
-      newObject = new Application(jsonObject);
+      newObject = new ApplicationSpec(jsonObject);
     }
 
     this.props.onChange(newObject);
   }
 
+  /**
+   * Emmit JSON form errors if the syntax is invalid
+   *
+   * @param {Boolean} errorState - True if there are JSON syntax errors
+   */
   handleJSONErrorStateChange(errorState) {
-    this.setState({jsonHasErrors: !!errorState});
-  }
+    const {errors, onErrorsChange} = this.props;
+    const hasJsonError = errors.some(function (error) {
+      return error.type === 'JSON_ERROR';
+    });
 
-  validateCurrentState() {
-    const {appConfig} = this.state;
-    const {errorList} = this.getNewStateForJSON(appConfig);
-
-    this.setState({errorList});
-
-    return Boolean(errorList.length);
-  }
-
-  getNewStateForJSON(appConfig) {
-    const isPod = ServiceValidatorUtil.isPodSpecDefinition(appConfig);
-
-    // Pick validators according to JSON specification type
-    let validators = APP_ERROR_VALIDATORS;
-    if (isPod) {
-      validators = POD_ERROR_VALIDATORS;
+    // Produce a JSON error if we have errors
+    if (errorState && !hasJsonError) {
+      onErrorsChange([
+        {
+          path: [],
+          type: 'JSON_ERROR',
+          variables: {},
+          message: 'The input entered is not a valid JSON string'
+        }
+      ]);
     }
 
-    // Compile the list of errors
-    const errorList = DataValidatorUtil.validate(appConfig, validators);
-
-    // Update the error display
-    return {appConfig, errorList};
+    // Remove JSON error if we are back to normal
+    if (!errorState && hasJsonError) {
+      onErrorsChange([]);
+    }
   }
 
   render() {
-    const {appConfig, errorList} = this.state;
+    const {appConfig} = this.state;
+    const {errors} = this.props;
 
     return (
       <div className="create-service-modal-json-only container container-wide">
@@ -125,7 +103,7 @@ class CreateServiceJsonOnly extends React.Component {
         <div className="create-service-modal-json-only-editor-container">
           <JSONEditor
             className="create-service-modal-json-only-editor"
-            errors={errorList}
+            errors={errors}
             onChange={this.handleJSONChange}
             onErrorStateChange={this.handleJSONErrorStateChange}
             showGutter={true}
@@ -140,12 +118,13 @@ class CreateServiceJsonOnly extends React.Component {
 
 CreateServiceJsonOnly.defaultProps = {
   onChange() {},
-  onErrorStateChange() {}
+  onErrorsChange() {}
 };
 
 CreateServiceJsonOnly.propTypes = {
+  errors: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  onErrorStateChange: PropTypes.func,
+  onErrorsChange: PropTypes.func,
   service: PropTypes.object
 };
 
