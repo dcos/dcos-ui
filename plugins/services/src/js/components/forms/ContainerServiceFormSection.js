@@ -98,7 +98,7 @@ class ContainerServiceFormSection extends Component {
               value={item.uri}/>
             <FieldError>{artifactErrors[index]}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2">
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,
@@ -316,7 +316,7 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-top short-bottom">
+        <h2 className="short-bottom">
           Container
         </h2>
         <p>

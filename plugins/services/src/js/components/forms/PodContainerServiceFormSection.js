@@ -216,7 +216,7 @@ class PodContainerServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-top short-bottom">
+        <h2 className="flush-top short-bottom">
           Container
         </h2>
         <p>
