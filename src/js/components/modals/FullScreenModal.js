@@ -18,7 +18,8 @@ class FullScreenModal extends React.Component {
     }
 
     return (
-      <Modal geminiClass={geminiClasses}
+      <Modal
+        geminiClass={geminiClasses}
         modalClass="modal modal-full-screen"
         modalHeight={modalHeight}
         showHeader={true}

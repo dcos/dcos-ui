@@ -50,14 +50,8 @@ import {
   REQUEST_MARATHON_GROUP_EDIT_ERROR,
   REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
 
-  REQUEST_MARATHON_SERVICE_CREATE_ERROR,
-  REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
-
   REQUEST_MARATHON_SERVICE_DELETE_ERROR,
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
-
-  REQUEST_MARATHON_SERVICE_EDIT_ERROR,
-  REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
 
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
@@ -127,9 +121,7 @@ const METHODS_TO_BIND = [
   'revertDeployment',
   'deleteGroup',
   'editGroup',
-  'createService',
   'deleteService',
-  'editService',
   'restartService',
   'onStoreChange'
 ];
@@ -226,22 +218,10 @@ class ServicesContainer extends React.Component {
     return MarathonActions.editGroup(...arguments);
   }
 
-  createService() {
-    this.setPendingAction(ActionKeys.SERVICE_CREATE);
-
-    return MarathonActions.createService(...arguments);
-  }
-
   deleteService() {
     this.setPendingAction(ActionKeys.SERVICE_DELETE);
 
     return MarathonActions.deleteService(...arguments);
-  }
-
-  editService() {
-    this.setPendingAction(ActionKeys.SERVICE_EDIT);
-
-    return MarathonActions.editService(...arguments);
   }
 
   restartService() {
@@ -292,25 +272,11 @@ class ServicesContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.GROUP_EDIT);
         break;
 
-      case REQUEST_MARATHON_SERVICE_CREATE_ERROR:
-        this.unsetPendingAction(ActionKeys.SERVICE_CREATE, action.data);
-        break;
-      case REQUEST_MARATHON_SERVICE_CREATE_SUCCESS:
-        this.unsetPendingAction(ActionKeys.SERVICE_CREATE);
-        break;
-
       case REQUEST_MARATHON_SERVICE_DELETE_ERROR:
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE, action.data);
         break;
       case REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE);
-        break;
-
-      case REQUEST_MARATHON_SERVICE_EDIT_ERROR:
-        this.unsetPendingAction(ActionKeys.SERVICE_EDIT, action.data);
-        break;
-      case REQUEST_MARATHON_SERVICE_EDIT_SUCCESS:
-        this.unsetPendingAction(ActionKeys.SERVICE_EDIT);
         break;
 
       case REQUEST_MARATHON_SERVICE_RESTART_ERROR:
@@ -403,8 +369,6 @@ class ServicesContainer extends React.Component {
 
     return {
       createGroup: () => set(ServiceActionItem.CREATE_GROUP),
-      createService: () => set(ServiceActionItem.CREATE),
-      editService: (props) => set(ServiceActionItem.EDIT, props),
       // All methods below work on ServiceTree and Service types
       deleteService: (props) => set(ServiceActionItem.DESTROY, props),
       restartService: (props) => set(ServiceActionItem.RESTART, props),
@@ -419,9 +383,7 @@ class ServicesContainer extends React.Component {
       createGroup: this.createGroup,
       deleteGroup: this.deleteGroup,
       editGroup: this.editGroup,
-      createService: this.createService,
       deleteService: this.deleteService,
-      editService: this.editService,
       restartService: this.restartService
     };
   }
@@ -450,6 +412,7 @@ class ServicesContainer extends React.Component {
       return this.props.children;
     }
 
+    const {children, params, routes} = this.props;
     const {
       fetchErrors,
       filterExpression,
@@ -489,8 +452,10 @@ class ServicesContainer extends React.Component {
       return (
         <PodDetail
           actions={this.getActions()}
-          pod={item}
-          modals={this.getModals(item)} />
+          pod={item}>
+          {this.getModals(item)}
+          {children}
+        </PodDetail>
       );
     }
 
@@ -498,10 +463,12 @@ class ServicesContainer extends React.Component {
       return (
         <ServiceDetail
           actions={this.getActions()}
-          params={this.props.params}
-          routes={this.props.routes}
-          service={item}
-          modals={this.getModals(item)} />
+          params={params}
+          routes={routes}
+          service={item}>
+          {this.getModals(item)}
+          {children}
+        </ServiceDetail>
       );
     }
 
@@ -522,12 +489,14 @@ class ServicesContainer extends React.Component {
           filters={SERVICE_FILTERS}
           filterExpression={filterExpression}
           isEmpty={isEmpty}
-          modals={this.getModals(item)}
           onFilterExpressionChange={this.handleFilterExpressionChange}
-          params={this.props.params}
-          routes={this.props.routes}
+          params={params}
+          routes={routes}
           services={filteredServices.getItems()}
-          serviceTree={item} />
+          serviceTree={item}>
+          {this.getModals(item)}
+          {children}
+        </ServiceTreeView>
       );
     }
 
@@ -547,8 +516,6 @@ class ServicesContainer extends React.Component {
 ServicesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     createGroup: PropTypes.func,
-    createService: PropTypes.func,
-    editService: PropTypes.func,
     deleteService: PropTypes.func,
     restartService: PropTypes.func,
     scaleService: PropTypes.func,

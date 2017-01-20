@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, {PropTypes} from 'react';
+import {routerShape} from 'react-router';
 
 import EmptyServiceTree from './EmptyServiceTree';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
@@ -62,7 +63,7 @@ class ServiceTreeView extends React.Component {
 
   render() {
     const {
-      modals,
+      children,
       filterExpression,
       isEmpty,
       serviceTree,
@@ -70,6 +71,11 @@ class ServiceTreeView extends React.Component {
     } = this.props;
 
     const {modalHandlers} = this.context;
+    const createService = () => {
+      this.context.router.push(
+        `/services/overview/${encodeURIComponent(serviceTree.id)}/create`
+      );
+    };
 
     if (isEmpty) {
       return (
@@ -77,8 +83,8 @@ class ServiceTreeView extends React.Component {
           <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
           <EmptyServiceTree
             onCreateGroup={modalHandlers.createGroup}
-            onCreateService={modalHandlers.createService} />
-          {modals}
+            onCreateService={createService} />
+          {children}
         </Page>
       );
     }
@@ -88,7 +94,7 @@ class ServiceTreeView extends React.Component {
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
           actions={[{onItemSelect: modalHandlers.createGroup, label: 'Create Group'}]}
-          addButton={{onItemSelect: modalHandlers.createService, label: 'Run a Service'}}
+          addButton={{onItemSelect: createService, label: 'Run a Service'}}
           />
         <div>
           {this.getFilterBar()}
@@ -98,7 +104,7 @@ class ServiceTreeView extends React.Component {
             modalHandlers={modalHandlers}
             services={services} />
         </div>
-        {modals}
+        {children}
       </Page>
     );
   }
@@ -106,9 +112,9 @@ class ServiceTreeView extends React.Component {
 
 ServiceTreeView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    createGroup: PropTypes.func,
-    createService: PropTypes.func
-  }).isRequired
+    createGroup: PropTypes.func
+  }).isRequired,
+  router: routerShape
 };
 
 ServiceTreeView.defaultProps = {
@@ -120,7 +126,7 @@ ServiceTreeView.propTypes = {
   filters: PropTypes.instanceOf(DSLFilterList).isRequired,
   filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
   isEmpty: PropTypes.bool,
-  modals: PropTypes.node,
+  children: PropTypes.node,
   onFilterExpressionChange: PropTypes.func,
   services: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.instanceOf(Service),

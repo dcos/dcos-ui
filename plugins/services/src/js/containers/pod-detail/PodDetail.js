@@ -44,7 +44,9 @@ class PodDetail extends mixin(TabsMixin) {
 
   handleActionEdit() {
     const {pod} = this.props.pod;
-    this.context.modalHandlers.editService({pod});
+    this.context.router.push(
+      `/services/overview/${encodeURIComponent(pod.getId())}/edit`
+    );
   }
 
   handleActionScale() {
@@ -132,7 +134,7 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const {modals, pod} = this.props;
+    const {children, pod} = this.props;
 
     const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
 
@@ -151,7 +153,7 @@ class PodDetail extends mixin(TabsMixin) {
             tabs={this.tabs_getUnroutedTabs()} />
         </Page.Header>
         {this.tabs_getTabView()}
-        {modals}
+        {children}
       </Page>
     );
   }
@@ -167,7 +169,7 @@ PodDetail.contextTypes = {
 };
 
 PodDetail.propTypes = {
-  modals: PropTypes.node,
+  children: PropTypes.node,
   pod: React.PropTypes.instanceOf(Pod)
 };
 

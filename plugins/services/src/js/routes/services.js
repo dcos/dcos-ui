@@ -5,6 +5,7 @@ import React from 'react';
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServicesContainer from '../containers/services/ServicesContainer';
+import NewCreateServiceModal from '../components/modals/NewCreateServiceModal';
 import ServicesPage from '../pages/ServicesPage';
 import ServiceTaskDetailPage from '../pages/task-details/ServiceTaskDetailPage';
 import ServiceVolumeContainer from '../containers/volume-detail/ServiceVolumeContainer';
@@ -65,10 +66,18 @@ const serviceRoutes = [
         children: [
           {
             type: Route,
+            path: 'create',
+            component: NewCreateServiceModal,
+            buildBreadCrumb() {
+              return {
+                parentCrumb: '/services/overview',
+                getCrumbs: buildServiceCrumbs
+              };
+            }
+          },
+          {
+            type: Route,
             path: ':id',
-            component({children}) {
-              return children;
-            },
             buildBreadCrumb() {
               return {
                 parentCrumb: '/services/overview',
@@ -76,6 +85,28 @@ const serviceRoutes = [
               };
             },
             children: [
+              {
+                type: Route,
+                path: 'create',
+                component: NewCreateServiceModal,
+                buildBreadCrumb(params) {
+                  return {
+                    parentCrumb: `/services/overview/${params.id}`,
+                    getCrumbs: buildServiceCrumbs
+                  };
+                }
+              },
+              {
+                type: Route,
+                path: 'edit',
+                component: NewCreateServiceModal,
+                buildBreadCrumb(params) {
+                  return {
+                    parentCrumb: `/services/overview/${params.id}`,
+                    getCrumbs: buildServiceCrumbs
+                  };
+                }
+              },
               // This route needs to be rendered outside of the tabs that are
               // rendered in the service-task-details route.
               {

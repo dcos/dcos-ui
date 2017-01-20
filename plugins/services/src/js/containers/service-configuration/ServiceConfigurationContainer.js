@@ -1,5 +1,6 @@
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Loader from '../../../../../../src/js/components/Loader';
 import Service from '../../structs/Service';
@@ -22,25 +23,32 @@ class ServiceConfigurationContainer extends React.Component {
   }
 
   render() {
-    const {actions, service} = this.props;
+    const {service} = this.props;
 
     // Wait till we've loaded the versions
     if (!service.getVersions().size) {
       return <Loader />;
     }
 
+    const editService = () => {
+      this.context.router.push(
+        `/services/overview/${encodeURIComponent(service.getId())}/edit`
+      );
+    };
+
     return (
       <ServiceConfiguration
-        editService={actions.editService}
+        editService={editService}
         service={service} />
     );
   }
 }
 
+ServiceConfigurationContainer.contextTypes = {
+  router: routerShape
+};
+
 ServiceConfigurationContainer.propTypes = {
-  actions: React.PropTypes.shape({
-    editService: React.PropTypes.func.isRequired
-  }).isRequired,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 
