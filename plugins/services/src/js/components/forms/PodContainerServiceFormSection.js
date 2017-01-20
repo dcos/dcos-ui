@@ -81,7 +81,7 @@ class PodContainerServiceFormSection extends Component {
             {label}
             <FieldInput
               name={`${path}.artifacts.${index}.uri`}
-              placeholder="http://"
+              placeholder="http://example.com"
               value={item} />
             <FieldError>{artifactErrors[index]}</FieldError>
           </FormGroup>

@@ -94,7 +94,7 @@ class ContainerServiceFormSection extends Component {
             {label}
             <FieldInput
               name={`fetch.${index}.uri`}
-              placeholder="http://"
+              placeholder="http://example.com"
               value={item.uri}/>
             <FieldError>{artifactErrors[index]}</FieldError>
           </FormGroup>
