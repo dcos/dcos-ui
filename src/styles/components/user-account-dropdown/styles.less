@@ -2,6 +2,13 @@
 
   .user-account-dropdown {
     display: flex;
+
+    &-list {
+
+      .dropdown-menu-items {
+        padding-top: @user-account-dropdown-menu-padding-top;
+      }
+    }
   }
 
   .user-account-dropdown-button {
@@ -21,15 +28,9 @@
       border: none;
     }
 
-    &:hover {
-
-      .icon {
-        fill: color-lighten(@button-color, 15);
-      }
-    }
-
     .cluster-header {
       align-items: stretch;
+      color: @white;
       // This !important overrides an awful CNVS !important tag.
       // https://github.com/mesosphere/canvas/issues/24
       display: flex !important;
@@ -37,28 +38,39 @@
       flex-direction: column;
       min-width: 0;
       text-align: left;
-    }
 
-    .cluster-header-name {
-      align-items: center;
-      display: flex;
-      flex: 1 1 auto;
-    }
+      &-primary {
+        flex: 0 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        padding-right: @user-account-dropdown-menu-primary-padding-right;
 
-    .header-title {
-      flex: 0 1 auto;
-      min-width: 0;
-      overflow: hidden;
-      padding-right: @base-spacing-unit * 1/2;
+        &-wrapper {
+          align-items: center;
+          display: flex;
+          flex: 1 1 auto;
+
+          & + .cluster-header {
+
+            &-secondary {
+              margin-top: @user-account-dropdown-menu-primary-margin-bottom;
+            }
+          }
+        }
+      }
+
+      &-secondary {
+        font-size: 0.75rem;
+        font-weight: 400;
+      }
     }
 
     .icon {
-      fill: @button-color;
+      fill: @white;
       flex: 0 0 auto;
       transition: fill 0.2s, transform 0.2s;
 
       .open & {
-        fill: color-lighten(@button-color, 15);
         transform: rotate(180deg);
       }
     }
@@ -66,6 +78,31 @@
 
   .user-account-dropdown-menu {
     margin-left: @pod-margin-left * @pod-narrow-margin-left-scale;
+
+    &-public-ip {
+
+      li& {
+        padding: 0;
+      }
+
+      &:hover {
+
+        .user-account-dropdown-menu {
+
+          &-copy-text {
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+    &-copy-text {
+      color: @purple;
+      display: inline-block;
+      margin-left: @user-account-dropdown-menu-copy-text-margin-left;
+      text-decoration: underline;
+      visibility: hidden;
+    }
   }
 }
 
@@ -75,10 +112,31 @@
 
     .user-account-dropdown-button {
       padding: @pod-margin-top-screen-small * @pod-short-margin-top-scale @pod-margin-right-screen-small * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-small * @pod-short-margin-bottom-scale @pod-margin-left-screen-small * @pod-narrow-margin-left-scale;
+
+      .cluster-header {
+
+        &-primary {
+
+          &-wrapper {
+            padding-right: @user-account-dropdown-menu-primary-padding-right-screen-small;
+
+            & + .cluster-header {
+
+              &-secondary {
+                margin-top: @user-account-dropdown-menu-primary-margin-bottom-screen-small;
+              }
+            }
+          }
+        }
+      }
     }
 
     .user-account-dropdown-menu {
       margin-left: @pod-margin-left-screen-small * @pod-narrow-margin-left-scale;
+
+      &-copy-text {
+        margin-left: @user-account-dropdown-menu-copy-text-margin-left-screen-small;
+      }
     }
   }
 }
@@ -89,10 +147,31 @@
 
     .user-account-dropdown-button {
       padding: @pod-margin-top-screen-medium * @pod-short-margin-top-scale @pod-margin-right-screen-medium * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-medium * @pod-short-margin-bottom-scale @pod-margin-left-screen-medium * @pod-narrow-margin-left-scale;
+
+      .cluster-header {
+
+        &-primary {
+
+          &-wrapper {
+            padding-right: @user-account-dropdown-menu-primary-padding-right-screen-medium;
+
+            & + .cluster-header {
+
+              &-secondary {
+                margin-top: @user-account-dropdown-menu-primary-margin-bottom-screen-medium;
+              }
+            }
+          }
+        }
+      }
     }
 
     .user-account-dropdown-menu {
       margin-left: @pod-margin-left-screen-medium * @pod-narrow-margin-left-scale;
+
+      &-copy-text {
+        margin-left: @user-account-dropdown-menu-copy-text-margin-left-screen-medium;
+      }
     }
   }
 }
@@ -103,10 +182,31 @@
 
     .user-account-dropdown-button {
       padding: @pod-margin-top-screen-large * @pod-short-margin-top-scale @pod-margin-right-screen-large * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-large * @pod-short-margin-bottom-scale @pod-margin-left-screen-large * @pod-narrow-margin-left-scale;
+
+      .cluster-header {
+
+        &-primary {
+
+          &-wrapper {
+            padding-right: @user-account-dropdown-menu-primary-padding-right-screen-large;
+
+            & + .cluster-header {
+
+              &-secondary {
+                margin-top: @user-account-dropdown-menu-primary-margin-bottom-screen-large;
+              }
+            }
+          }
+        }
+      }
     }
 
     .user-account-dropdown-menu {
       margin-left: @pod-margin-left-screen-large * @pod-narrow-margin-left-scale;
+
+      &-copy-text {
+        margin-left: @user-account-dropdown-menu-copy-text-margin-left-screen-large;
+      }
     }
   }
 }
@@ -117,10 +217,31 @@
 
     .user-account-dropdown-button {
       padding: @pod-margin-top-screen-jumbo * @pod-short-margin-top-scale @pod-margin-right-screen-jumbo * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-jumbo * @pod-short-margin-bottom-scale @pod-margin-left-screen-jumbo * @pod-narrow-margin-left-scale;
+
+      .cluster-header {
+
+        &-primary {
+
+          &-wrapper {
+            padding-right: @user-account-dropdown-menu-primary-padding-right-screen-jumbo;
+
+            & + .cluster-header {
+
+              &-secondary {
+                margin-top: @user-account-dropdown-menu-primary-margin-bottom-screen-jumbo;
+              }
+            }
+          }
+        }
+      }
     }
 
     .user-account-dropdown-menu {
       margin-left: @pod-margin-left-screen-jumbo * @pod-narrow-margin-left-scale;
+
+      &-copy-text {
+        margin-left: @user-account-dropdown-menu-copy-text-margin-left-screen-jumbo;
+      }
     }
   }
 }
