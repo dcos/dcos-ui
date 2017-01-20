@@ -23,12 +23,19 @@ const StatusMapping = {
   'Running': 'running-state'
 };
 
+const columnClasses = {
+  name: 'service-table-column-name',
+  status: 'service-table-column-status',
+  cpus: 'service-table-column-cpus',
+  mem: 'service-table-column-mem',
+  disk: 'service-table-column-disk'
+};
+
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
   'renderHeadline',
   'renderStats',
-  'renderStatus',
-  'renderStatsHeading'
+  'renderStatus'
 ];
 
 class ServicesTable extends React.Component {
@@ -258,29 +265,22 @@ class ServicesTable extends React.Component {
     );
   }
 
-  renderStatsHeading(prop, sortBy, row) {
+  getCellClasses(prop, sortBy, row) {
     const isHeader = row == null;
 
-    return classNames('flush-left text-align-right hidden-small-down', {
+    return classNames(columnClasses[prop], {
       'active': prop === sortBy.prop,
       'clickable': isHeader
     });
   }
 
   getColumns() {
-    const className = ResourceTableUtil.getClassName;
     const heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
-    const {isFiltered} = this.props;
 
     return [
       {
-        className() {
-          return classNames([
-            className.apply(this, arguments),
-            {'table-cell-short': isFiltered}
-          ]);
-        },
-        headerClassName: className,
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
@@ -288,8 +288,8 @@ class ServicesTable extends React.Component {
         heading
       },
       {
-        className,
-        headerClassName: className,
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: 'status',
         helpText: (
           <span>
@@ -306,8 +306,8 @@ class ServicesTable extends React.Component {
         heading
       },
       {
-        className: this.renderStatsHeading,
-        headerClassName: this.renderStatsHeading,
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: 'cpus',
         render: this.renderStats,
         sortable: true,
@@ -315,8 +315,8 @@ class ServicesTable extends React.Component {
         heading
       },
       {
-        className: this.renderStatsHeading,
-        headerClassName: this.renderStatsHeading,
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: 'mem',
         render: this.renderStats,
         sortable: true,
@@ -324,8 +324,8 @@ class ServicesTable extends React.Component {
         heading
       },
       {
-        className: this.renderStatsHeading,
-        headerClassName: this.renderStatsHeading,
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: 'disk',
         render: this.renderStats,
         sortable: true,
@@ -338,11 +338,11 @@ class ServicesTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col />
-        <col className="status-bar-column"/>
-        <col className="hidden-small-down" style={{width: '65px'}} />
-        <col className="hidden-small-down" style={{width: '75px'}} />
-        <col className="hidden-small-down" style={{width: '65px'}} />
+        <col className={columnClasses.name} />
+        <col className={columnClasses.status} />
+        <col className={columnClasses.cpus} />
+        <col className={columnClasses.mem} />
+        <col className={columnClasses.disk} />
       </colgroup>
     );
   }
