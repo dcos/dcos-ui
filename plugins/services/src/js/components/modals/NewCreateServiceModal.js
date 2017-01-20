@@ -446,7 +446,7 @@ class NewServiceFormModal extends Component {
           node: (
             <ToggleButton
               className="flush"
-              checkboxClassName="toggle-button"
+              checkboxClassName="toggle-button toggle-button-align-left"
               checked={this.state.isJSONModeActive}
               onChange={this.handleJSONToggle}
               key="json-editor">

@@ -50,6 +50,23 @@
         transform: translateX(0);
       }
     }
+
+    &.toggle-button-align-left {
+
+      & + span {
+        padding-left: @toggle-width + @base-spacing-unit / 2;
+
+        &:before {
+          left: 0;
+          right: auto;
+        }
+
+        &:after {
+          left: @toggle-border-width + @toggle-height / 2;
+          right: auto;
+        }
+      }
+    }
   }
 }
 
@@ -61,6 +78,13 @@
 
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-small / 2;
+      }
+
+      &.toggle-button-align-left {
+
+        & + span {
+          padding-right: @toggle-width + @base-spacing-unit-screen-small / 2;
+        }
       }
     }
   }
@@ -75,6 +99,13 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-medium / 2;
       }
+
+      &.toggle-button-align-left {
+
+        & + span {
+          padding-left: @toggle-width + @base-spacing-unit-screen-medium / 2;
+        }
+      }
     }
   }
 }
@@ -88,6 +119,13 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-large / 2;
       }
+
+      &.toggle-button-align-left {
+
+        & + span {
+          padding-left: @toggle-width + @base-spacing-unit-screen-large / 2;
+        }
+      }
     }
   }
 }
@@ -100,6 +138,13 @@
 
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-jumbo / 2;
+      }
+
+      &.toggle-button-align-left {
+
+        & + span {
+          padding-left: @toggle-width + @base-spacing-unit-screen-jumbo / 2;
+        }
       }
     }
   }
