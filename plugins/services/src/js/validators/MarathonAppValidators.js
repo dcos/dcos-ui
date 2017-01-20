@@ -22,10 +22,12 @@ const MarathonAppValidators = {
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
       const notBothMessage = 'Please specify only one of `cmd` or `args`';
+      const type = 'MARATHON_APP_ONE_OF_CMD_ARGS';
+      const variables = {};
 
       return [
-        {path: ['cmd'], message: notBothMessage},
-        {path: ['args'], message: notBothMessage}
+        {path: ['cmd'], message: notBothMessage, type, variables},
+        {path: ['args'], message: notBothMessage, type, variables}
       ];
     }
 
@@ -53,7 +55,9 @@ const MarathonAppValidators = {
           return [
             {
               path: ['container', 'appc', 'id'],
-              message: 'AppContainer id should start with \'sha512-\''
+              message: 'AppContainer id should start with \'sha512-\'',
+              type: 'MARATHON_APP_APPCONTAINER_ID',
+              variables: {}
             }
           ];
         }
@@ -66,11 +70,13 @@ const MarathonAppValidators = {
     // Create one error for every field, instead of showing the error
     // to the root.
     const message = 'You must specify a command, an argument or a container';
+    const type = 'MARATHON_APP_CMD_OR_IMAGE';
+    const variables = {};
 
     return [
-      {path: ['cmd'], message},
-      {path: ['args'], message},
-      {path: ['container', 'docker', 'image'], message}
+      {path: ['cmd'], message, type, variables},
+      {path: ['args'], message, type, variables},
+      {path: ['container', 'docker', 'image'], message, type, variables}
     ];
   },
 
@@ -91,10 +97,12 @@ const MarathonAppValidators = {
     if (hasAppResidency !== hasPersistentVolumes) {
       const message = 'AppDefinition must contain persistent volumes and ' +
         'define residency';
+      const type = 'MARATHON_APP_RESIDENCY_RULES';
+      const variables = {};
 
       return [
-        {path: ['residency'], message},
-        {path: ['container', 'volumes'], message}
+        {path: ['residency'], message, type, variables},
+        {path: ['container', 'volumes'], message, type, variables}
       ];
     }
 
@@ -127,11 +135,13 @@ const MarathonAppValidators = {
     if (/^(BRIDGE|USER)$/.exec(app.container.docker.network)) {
       const message = 'ipAddress/discovery is not allowed for Docker ' +
         'containers using BRIDGE or USER networks';
+      const type = 'MARATHON_APP_IP_ADDRESS_RULES';
+      const variables = {};
 
       return [
-        {path: ['ipAddress'], message},
-        {path: ['discoveryInfo'], message},
-        {path: ['container', 'docker', 'network'], message}
+        {path: ['ipAddress'], message, type, variables},
+        {path: ['discoveryInfo'], message, type, variables},
+        {path: ['container', 'docker', 'network'], message, type, variables}
       ];
     }
 
@@ -147,9 +157,11 @@ const MarathonAppValidators = {
     if (ValidatorUtil.isDefined(app.uris) &&
         ValidatorUtil.isDefined(app.fetch)) {
       const message = '`uris` are deprecated. Please use `fetch` instead';
+      const type = 'MARATHON_APP_URIS_DEPRECATED';
+      const variables = {};
 
       return [
-        {path: ['uris'], message}
+        {path: ['uris'], message, type, variables}
       ];
     }
 
