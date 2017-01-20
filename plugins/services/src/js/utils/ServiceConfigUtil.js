@@ -3,10 +3,16 @@ import Networking from '../../../../../src/js/constants/Networking';
 
 const ServiceConfigUtil = {
 
+  matchVIPLabel(str) {
+    return Networking.VIP_LABEL_REGEX.test(str);
+  },
+
+  findVIPLabel(labels = {}) {
+    return Object.keys(labels).find(ServiceConfigUtil.matchVIPLabel);
+  },
+
   hasVIPLabel(labels = {}) {
-    return Object.keys(labels).find(function (key) {
-      return /^VIP_[0-9]+$/.test(key);
-    });
+    return !!ServiceConfigUtil.findVIPLabel(labels);
   },
 
   buildHostName(id, port) {
