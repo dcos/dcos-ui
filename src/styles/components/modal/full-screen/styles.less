@@ -130,10 +130,11 @@
   .modal-full-screen-side-panel {
     height: 100%;
     position: absolute;
-    right: -100%;
+    right: @modal-full-screen-side-panel-width * -1;
     top: 0;
     transition: right 0.35s;
-    width: 100%;
+    width: @modal-full-screen-side-panel-width;
+    will-change: right;
     z-index: @z-index-modal-side-panel;
 
     &.is-visible {
@@ -235,7 +236,8 @@
     }
 
     .modal-full-screen-side-panel {
-      width: 400px;
+      right: @modal-full-screen-side-panel-width-screen-large * -1;
+      width: @modal-full-screen-side-panel-width-screen-large;
     }
 
     .modal-full-screen-side-panel-placeholder {
@@ -245,7 +247,7 @@
       width: 0;
 
       &.is-visible {
-        width: 400px;
+        width: @modal-full-screen-side-panel-width-screen-large;
       }
     }
   }
@@ -276,13 +278,14 @@
     }
 
     .modal-full-screen-side-panel {
-      width: 500px;
+      right: @modal-full-screen-side-panel-width-screen-jumbo * -1;
+      width: @modal-full-screen-side-panel-width-screen-jumbo;
     }
 
     .modal-full-screen-side-panel-placeholder {
 
       &.is-visible {
-        width: 500px;
+        width: @modal-full-screen-side-panel-width-screen-jumbo;
       }
     }
   }
