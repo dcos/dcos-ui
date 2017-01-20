@@ -1,6 +1,5 @@
 const ServiceConfig = {
   BLACKLIST: [
-    'uris',
     'ports',
     'version',
     'versions',
