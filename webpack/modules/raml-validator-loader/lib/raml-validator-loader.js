@@ -47,19 +47,17 @@ module.exports =
 
 	'use strict';
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _fs = __webpack_require__(1);
 
 	var _fs2 = _interopRequireDefault(_fs);
 
-	var _path = __webpack_require__(2);
-
-	var _path2 = _interopRequireDefault(_path);
-
-	var _raml1Parser = __webpack_require__(3);
+	var _raml1Parser = __webpack_require__(2);
 
 	var _raml1Parser2 = _interopRequireDefault(_raml1Parser);
 
-	var _Generator = __webpack_require__(4);
+	var _Generator = __webpack_require__(3);
 
 	var _Generator2 = _interopRequireDefault(_Generator);
 
@@ -71,8 +69,12 @@ module.exports =
 
 	/**
 	 * Entry point of the raml-validator-loader
+	 *
+	 * @param {String} source - The source code of the RAML document
+	 * @returns {String} Returns the transpiled JS code blob
 	 */
 	module.exports = function (source) {
+	  var _this = this;
 
 	  // Mark the contents cacheable
 	  this.cacheable();
@@ -80,23 +82,60 @@ module.exports =
 	  // Override the default filesystem resolver in order to:
 	  //
 	  // 1) Provide a custom content for the source file
-	  // 2) Track dependant files in order for webpack to invalidate caches
+	  // 2) Track dependent files in order for webpack to invalidate caches
 	  //
 	  var raml = _raml1Parser2.default.loadApiSync(this.resourcePath, {
 	    fsResolver: {
-	      content: function (path) {
-	        if (path == this.resourcePath) {
+	      content: function content(path) {
+	        if (path === _this.resourcePath) {
 	          return source;
 	        }
 
-	        this.addDependency(path);
+	        // When RAML loader is requesting a file, trackit as a dependency
+	        // so webpack can do it's magic internally.
+	        _this.addDependency(path);
+
 	        return _fs2.default.readFileSync(path).toString();
-	      }.bind(this)
+	      }
 	    }
 	  });
 
+	  // Parse URL parameters to generator configuration
+	  var config = {};
+	  if (this.query) {
+	    var query = this.query.substr(1);
+	    if (query[0] === '{') {
+	      config = JSON.parse(query);
+	    } else {
+	      config = query.split('&').reduce(function (memo, kv) {
+	        var _kv$split = kv.split('='),
+	            _kv$split2 = _slicedToArray(_kv$split, 2),
+	            key = _kv$split2[0],
+	            value = _kv$split2[1];
+
+	        if (!key) {
+	          return memo;
+	        }
+
+	        // Do some type conversion
+	        if (value === 'true') {
+	          value = true;
+	        } else if (value === 'false') {
+	          value = false;
+	        } else if (!isNaN(value)) {
+	          value = Number(value);
+	        }
+
+	        // Keep the config
+	        memo[key] = value;
+
+	        return memo;
+	      }, {});
+	    }
+	  }
+
 	  // Prepare generator context
-	  var ctx = new _GeneratorContext2.default();
+	  var ctx = new _GeneratorContext2.default(config);
 
 	  // Use all types in this RAML specification
 	  raml.types().forEach(function (type) {
@@ -117,35 +156,33 @@ module.exports =
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = require("path");
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
 	module.exports = require("raml-1-parser");
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _RAMLUtil = __webpack_require__(5);
+	var _DefaultErrorMessages = __webpack_require__(4);
 
-	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
+	var _DefaultErrorMessages2 = _interopRequireDefault(_DefaultErrorMessages);
 
-	var _GeneratorUtil = __webpack_require__(7);
+	var _GeneratorUtil = __webpack_require__(5);
 
 	var _GeneratorUtil2 = _interopRequireDefault(_GeneratorUtil);
 
-	var _TypeValidator = __webpack_require__(8);
+	var _RAMLErrorPayload = __webpack_require__(6);
+
+	var _RAMLErrorPayload2 = _interopRequireDefault(_RAMLErrorPayload);
+
+	var _RAMLUtil = __webpack_require__(7);
+
+	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
+
+	var _TypeValidator = __webpack_require__(9);
 
 	var _TypeValidator2 = _interopRequireDefault(_TypeValidator);
-
-	var _RAMLError = __webpack_require__(13);
-
-	var _RAMLError2 = _interopRequireDefault(_RAMLError);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -163,12 +200,15 @@ module.exports =
 	    }), [' */']);
 	  },
 
+
 	  /**
 	   * Generate a full source using the given generator context
 	   *
 	   * @param {GeneratorContext} context - The generator context to use
 	   * @returns {String} The generated module source code
 	   */
+	  /* eslint-disable no-cond-assign */
+	  /* eslint-disable no-continue */
 	  generate: function generate(context) {
 	    var itype = void 0;
 	    var privateValidatorFragments = ['var PrivateValidators = {'];
@@ -178,7 +218,7 @@ module.exports =
 	    // The following loop generates the validators for every type in the context
 	    // A validator generator might push more types while it's being processed.
 	    //
-	    while (itype = context.nextTypeInQueue()) {
+	    while ((itype = context.nextTypeInQueue()) != null) {
 	      var typeName = _RAMLUtil2.default.getTypeName(itype);
 	      var fragments = [];
 
@@ -214,50 +254,139 @@ module.exports =
 	    validatorFragments.push('};');
 
 	    //
+	    // Compose default error messages, by keeping only the error
+	    // messages used by the validators
+	    //
+	    var defaultErrorMessagesTable = 'var DEFAULT_ERROR_MESSAGES = ' + JSON.stringify(context.usedErrors.reduce(function (table, errorConstant) {
+	      table[errorConstant] = _DefaultErrorMessages2.default[errorConstant];
+
+	      return table;
+	    }, {}), null, 2);
+
+	    //
 	    // While processing the types, the validator generators will populate
 	    // constants in the global constants table(s).
 	    //
-	    var globalTableFragments = Object.keys(context.constantTables).reduce(function (lines, tableName) {
+	    var globalTableFragments = [].concat('var DEFAULT_CONTEXT = {', _GeneratorUtil2.default.indentFragments(Object.keys(context.constantTables).reduce(function (lines, tableName) {
 	      var table = context.constantTables[tableName];
 	      if (Array.isArray(table)) {
 	        // Array of anonymous expressions
-	        return lines.concat(['var ' + tableName + ' = ['], _GeneratorUtil2.default.indentFragments(table).map(function (line) {
+	        return lines.concat([tableName + ': ['], _GeneratorUtil2.default.indentFragments(table).map(function (line) {
 	          return line + ',';
-	        }), ['];']);
+	        }), ['],']);
 	      } else {
 	        // Object of named expressions
-	        return lines.concat(['var ' + tableName + ' = {'], _GeneratorUtil2.default.indentFragments(Object.keys(table).map(function (key) {
+	        return lines.concat([tableName + ': {'], _GeneratorUtil2.default.indentFragments(Object.keys(table).map(function (key) {
 	          return key + ': ' + table[key] + ',';
-	        })), ['};', '']);
+	        })), ['},', '']);
 	      }
-	    }, []);
+	    }, [])), '}');
 
 	    //
-	    // Compose exports
+	    // Compose validator class
 	    //
-	    var variableExports = [];
-	    if (context.constantTables['ERROR_MESSAGES'] != null) {
-	      variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
-	    }
-	    if (variableExports.length) {
-	      variableExports.unshift('// Expose properties that can be overriden remotely');
-	    }
+	    var validatorClass = [].concat('var RAMLValidator = function(config) {', _GeneratorUtil2.default.indentFragments([].concat('if (!config) config = {};', 'var context = Object.assign({}, DEFAULT_CONTEXT);', '', '// Override errorMessages through config', 'context.ERROR_MESSAGES = Object.assign(', '\t{},', '\tDEFAULT_ERROR_MESSAGES,', '\tconfig.errorMessages', ')', '', privateValidatorFragments, '', validatorFragments, '', '// Expose validator functions, bound to local overrides', 'Object.keys(Validators).forEach((function(key) {', '\tthis[key] = Validators[key];', '}).bind(this));', '', '// Expose .clone function that allows further overrides to apply', 'this.clone = function(cloneConfig) {', '\treturn new RAMLValidator(Object.assign(config, cloneConfig));', '}')), '}');
 
 	    //
 	    // Compose the individual fragments into the full module source
 	    //
-	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', variableExports, '', 'return Validators;', '})();').join('\n');
+	    return [].concat('module.exports = (function() {', _RAMLErrorPayload2.default, defaultErrorMessagesTable, '', globalTableFragments, '', validatorClass, '', 'return new RAMLValidator();', '})();').join('\n');
 	  }
+	  /* eslint-enable no-cond-assign */
+	  /* eslint-enable no-continue */
 
 	};
 
 /***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Every time you are about to write a description for the error message
+	 * make sure that it sounds natural when prefixed with "The service"
+	 *
+	 * For example: "The service must be one of {{values}}"
+	 *
+	 * This can produce a more natural error description when used
+	 */
+	var DefaultErrorMessages = {
+	  'ENUM': 'Must be one of {{values}}',
+	  'ITEMS_MAX': 'Must contain at most {{value}} items in the array',
+	  'ITEMS_MIN': 'Must contain at least {{value}} items in the array',
+	  'ITEMS_UNIQUE': 'Must contain only unique items',
+	  'PROP_MISSING_MATCH': 'Must contain a property that matches `{{pattern}}`',
+	  'PROP_ADDITIONAL_PROPS': 'Contains extraneous property `{{name}}`',
+	  'PROP_IS_MISSING': 'Must be defined',
+	  'PROP_MISSING': 'Must define property `{{name}}`',
+	  'PROPS_MIN': 'Must contain at least {{value}} properties',
+	  'PROPS_MAX': 'Must contain at most {{value}} properties',
+	  'TYPE_NOT_NULL': 'Must be null',
+	  'TYPE_NOT_NUMBER': 'Must be a number',
+	  'TYPE_NOT_INTEGER': 'Must be an integer number',
+	  'TYPE_NOT_BOOLEAN': 'Must be a boolean value',
+	  'TYPE_NOT_STRING': 'Must be a string',
+	  'TYPE_NOT_DATETIME': 'Must be a date/time string',
+	  'TYPE_NOT_OBJECT': 'Must be an object',
+	  'TYPE_NOT_ARRAY': 'Must be an array',
+	  'NUMBER_MAX': 'Must be smaller than or equal to {{value}}',
+	  'NUMBER_MIN': 'Must be bigger than or equal to {{value}}',
+	  'NUMBER_TYPE': 'Must be of type `{{type}}`',
+	  'NUMBER_MULTIPLEOF': 'Must be multiple of {{value}}',
+	  'STRING_PATTERN': 'Must match the pattern `{{pattern}}`',
+	  'LENGTH_MIN': 'Must be at least {{value}} characters long',
+	  'LENGTH_MAX': 'Must be at most {{value}} characters long'
+	};
+
+	exports.default = DefaultErrorMessages;
+
+/***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+
+	  /**
+	   * Indent the given fragments
+	   *
+	   * @param {Array} fragments - An array with the code lines
+	   * @param {String} [prefix] - The prefix to prepend for indentation
+	   * @returns {Array} - Returns the indented code lines
+	   */
+	  indentFragments: function indentFragments(fragments) {
+	    var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '\t';
+
+	    return fragments.map(function (line) {
+	      return '' + prefix + line;
+	    });
+	  }
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * The following string defines the RAMLError class, instantiated by the
+	 * validator when an error occurs.
+	 */
+	module.exports = "\nconst REPLACE_MESSAGE_TEMPLATE = /\\{\\{([^\\}]+)\\}\\}/g;\n\nfunction RAMLError(path, context, type, _messageVariables) {\n  var messageVariables = _messageVariables || {};\n  var message = context.ERROR_MESSAGES[type];\n  Object.defineProperties(this, {\n    message: {\n      enumerable: true,\n      get: function() {\n        if (typeof message === 'function') {\n          return message(messageVariables, path);\n        }\n\n        return message.replace(REPLACE_MESSAGE_TEMPLATE, function(match) {\n          return ''+messageVariables[match.slice(2,-2)] || '';\n        });\n      }\n    },\n    path: {\n      enumerable: true,\n      value: path\n    },\n    type: {\n      enumerable: true,\n      value: type\n    },\n    variables: {\n      enumerable: true,\n      value: messageVariables\n    }\n  });\n}\n";
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _crypto = __webpack_require__(6);
+	var _crypto = __webpack_require__(8);
 
 	var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -266,8 +395,8 @@ module.exports =
 	module.exports = {
 
 	  /**
-	   * This function checks if the given runtime type is an inline defininition,
-	   * since such definitions needs further specialisation.
+	   * This function checks if the given runtime type is an inline definition,
+	   * since such definitions needs further specialization.
 	   *
 	   * Keep in mind that the RAML parser considers this:
 	   *
@@ -289,7 +418,7 @@ module.exports =
 	   */
 	  isInlineType: function isInlineType(itype) {
 	    // So, a type that has no name, but is either an array or a value type
-	    // is considered an in-line definition, and has a dedicated specialisation
+	    // is considered an in-line definition, and has a dedicated specialization
 	    return itype.nameId() == null && (itype.isArray() || itype.isValueType());
 	  },
 
@@ -304,7 +433,7 @@ module.exports =
 	   * properties:
 	   *   arrayProp: SomeType[]
 	   *
-	   * Should generate a validator named `SomeTypeAsArray` instead of an anomyous
+	   * Should generate a validator named `SomeTypeAsArray` instead of an anonymous
 	   * validator like inline.
 	   *
 	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
@@ -319,11 +448,12 @@ module.exports =
 	   * Return a comment that describes this inline type
 	   *
 	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
-	   * @returns {String} The comment to the specialised inline type
+	   * @returns {String} The comment to the specialized inline type
 	   */
 	  getInlineTypeComment: function getInlineTypeComment(itype) {
 	    var facets = itype.getFixedFacets();
-	    var comment = 'This is an in-line specialisation of ' + this.getInlineTypeBase(itype) + '\n with the following constraints:\n\n';
+	    var comment = 'This is an in-line specialization of ' + this.getInlineTypeBase(itype) + '\nwith the following constraints:\n\n';
+
 	    return comment + Object.keys(facets).map(function (name) {
 	      if (name === 'items') {
 	        return '- ' + name + ': ' + this.getTypeName(facets[name].extras.nominal);
@@ -373,6 +503,7 @@ module.exports =
 
 	    // Calculate unique name
 	    var typeName = this.getInlineTypeBase(itype);
+
 	    return 'inline' + typeName[0].toUpperCase() + typeName.substr(1) + '_' + _crypto2.default.createHash('md5').update(expr).digest('hex');
 	  },
 
@@ -430,7 +561,7 @@ module.exports =
 	    // If the type is still anonymous, try to lookup it's type by
 	    // traversing the super classes
 	    //
-	    if (itype.nameId() == null) {
+	    if (itype.nameId() == null || itype.nameId() === '') {
 	      return this.getTypeName(itype.superTypes()[0]);
 	    }
 
@@ -459,6 +590,9 @@ module.exports =
 
 	  /**
 	   * Return the reference to the given type
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of the RAML definition
+	   * @returns {string} Returns the code reference to the given type
 	   */
 	  getTypeRef: function getTypeRef(itype) {
 	    return this.getTypeGroup(itype) + '.' + this.getTypeName(itype);
@@ -500,54 +634,26 @@ module.exports =
 	};
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = require("crypto");
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = {
-
-	  /**
-	   * Indent the given fragments
-	   */
-	  indentFragments: function indentFragments(fragments) {
-	    var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '\t';
-
-	    return fragments.map(function (line) {
-	      return '' + prefix + line;
-	    });
-	  }
-	};
-
-/***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _FacetValidators = __webpack_require__(9);
-
-	var _FacetValidators2 = _interopRequireDefault(_FacetValidators);
-
-	var _GeneratorUtil = __webpack_require__(7);
-
-	var _GeneratorUtil2 = _interopRequireDefault(_GeneratorUtil);
-
-	var _HighOrderComposers = __webpack_require__(11);
+	var _HighOrderComposers = __webpack_require__(10);
 
 	var _HighOrderComposers2 = _interopRequireDefault(_HighOrderComposers);
 
-	var _NativeValidators = __webpack_require__(12);
+	var _NativeValidators = __webpack_require__(13);
 
 	var _NativeValidators2 = _interopRequireDefault(_NativeValidators);
 
-	var _RAMLUtil = __webpack_require__(5);
+	var _RAMLUtil = __webpack_require__(7);
 
 	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
 
@@ -578,7 +684,6 @@ module.exports =
 	   * @returns {String} - Returns the function javascript source
 	   */
 	  generateTypeValidator: function generateTypeValidator(itype, context) {
-	    var typeName = _RAMLUtil2.default.getTypeName(itype);
 	    var fragments = [];
 
 	    // We first use the high-order composers to generate the base code
@@ -601,297 +706,22 @@ module.exports =
 
 	    // Wrap everything in type validation
 	    var type = _RAMLUtil2.default.getBuiltinType(itype);
+
 	    return _NativeValidators2.default.wrapWithNativeTypeValidator(fragments, type, context);
 	  }
 	};
 
 /***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _FragmentFactory = __webpack_require__(10);
-
-	var _FragmentFactory2 = _interopRequireDefault(_FragmentFactory);
-
-	var _RAMLUtil = __webpack_require__(5);
-
-	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var FACET_FRAGMENT_GENERATORS = {
-
-	  /**
-	   * [Number]  `maximum`: Maximum numeric value
-	   */
-	  maximum: function maximum(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MAX', 'Must be smaller than or equal to {value}');
-
-	    return _FragmentFactory2.default.testAndPushError('value > ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Number] `minimum`: Minimum numeric value
-	   */
-	  minimum: function minimum(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MIN', 'Must be bigger than or equal to {value}');
-
-	    return _FragmentFactory2.default.testAndPushError('value < ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Number] `format` : The format of the value
-	   *
-	   * Must be one of: int32, int64, int, long, float, double, int16, int8
-	   */
-	  format: function format(value, context) {
-	    var IS_FLOAT = '(value % 1 !== 0)';
-	    var IS_INT = '(value % 1 === 0)';
-	    var FLOAT_HELPER = context.getConstantExpression('HELPERS', 'new Float32Array(1)');
-
-	    var condition = void 0;
-	    switch (value) {
-	      case 'int64':
-	        condition = '' + IS_INT;
-	        break;
-
-	      case 'int32':
-	        condition = IS_INT + ' && (value >= -2147483648) && (value <= 2147483647)';
-	        break;
-
-	      case 'int16':
-	        condition = IS_INT + ' && (value >= -32768) && (value <= 32767)';
-	        break;
-
-	      case 'int8':
-	        condition = IS_INT + ' && (value >= -128) && (value <= 127)';
-	        break;
-
-	      case 'int':
-	        condition = IS_INT + ' && (value >= -32768) && (value <= 32767)';
-	        break;
-
-	      case 'long':
-	        condition = IS_INT + ' && (value >= -2147483648) && (value <= 2147483647)';
-	        break;
-
-	      case 'float':
-	        //
-	        // To test for Float32 we are first casting the number to an internally
-	        // representable Float32 number and we are then calculating the difference
-	        // to the original value.
-	        //
-	        // We are then checking if this difference is smaller than the number of
-	        // decimals in the number
-	        //
-	        condition = 'Math.abs((' + FLOAT_HELPER + '[0] = value) - ' + FLOAT_HELPER + '[0])' + ' < Math.pow(10, -(value+\'.\').split(\'.\')[1].length-1)';
-	        break;
-
-	      case 'double':
-	        return [];
-	        break;
-
-	      default:
-	        throw new TypeError('Unknown value for the \'format\' facet: \'' + value + '\'');
-	    }
-
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_TYPE', 'Must be of type `{value}`');
-
-	    return _FragmentFactory2.default.testAndPushError('!(' + condition + ')', ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Number] `multipleOf` : Value must be divisable by this value
-	   */
-	  multipleOf: function multipleOf(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MULTIPLEOF', 'Must be multiple of {value}');
-
-	    return _FragmentFactory2.default.testAndPushError('value % ' + value + ' !== 0', ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [String] `pattern`: Regular expression this value should match against
-	   */
-	  pattern: function pattern(value, context) {
-	    var REGEX = context.getConstantExpression('REGEX', 'new RegExp(\'' + value.replace(/'/g, '\\\'') + '\')');
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'STRING_PATTERN', 'Must match the pattern "{pattern}"');
-
-	    return _FragmentFactory2.default.testAndPushError('!' + REGEX + '.exec(value)', ERROR_MESSAGE, { pattern: value });
-	  },
-
-	  /**
-	   * [String] `minLength`: Minimum length of the string
-	   */
-	  minLength: function minLength(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'LENGTH_MIN', 'Must be at least {value} characters long');
-
-	    return _FragmentFactory2.default.testAndPushError('value.length < ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [String] `maxLength`: Maximum length of the string
-	   */
-	  maxLength: function maxLength(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'LENGTH_MAX', 'Must be at most {value} characters long');
-
-	    return _FragmentFactory2.default.testAndPushError('value.length > ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Array] `minItems` : Minimum amount of items in the array
-	   */
-	  minItems: function minItems(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'ITEMS_MIN', 'Must contain at least {value} items in the array');
-
-	    return _FragmentFactory2.default.testAndPushError('value.length < ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Array] `maxItems` : Maximum amount of items in the array
-	   */
-	  maxItems: function maxItems(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'ITEMS_MAX', 'Must contain at most {value} items in the array');
-
-	    return _FragmentFactory2.default.testAndPushError('value.length > ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Array] `uniqueItems` : All array items MUST be unique
-	   */
-	  uniqueItems: function uniqueItems(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'ITEMS_UNIQUE', 'Must contain only unique items');
-
-	    return ['if ((function() {', '\tvar valuesSoFar = Object.create(null);', '\tfor (var i = 0; i < value.length; ++i) {', '\t\tvar val = value[i];', '\t\tif (val in valuesSoFar) {', '\t\t\treturn true;', '\t\t}', '\t\tvaluesSoFar[val] = true;', '\t}', '\treturn false;', '})()) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '}'];
-	  },
-
-	  /**
-	   * [Array] `items` : Type for the items
-	   */
-	  items: function items(value, context) {
-
-	    // The value passed is an `InheritedType` instance, that describes the
-	    // RAML metadata. In order to access the underlying run-time information,
-	    // that we operate upon, we need to use `extras.normal` to access it:
-	    var itype = value.extras.nominal;
-	    var validatorFn = context.uses(itype);
-
-	    // Validate every child
-	    return ['errors = value.reduce(function(errors, value, i) {', '\treturn errors.concat(', '\t\t' + validatorFn + '(value, path.concat([i]))', '\t);', '}, errors);'];
-	  },
-
-	  //
-	  // Object facets from here:
-	  // https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md#object-type
-	  //
-
-	  /**
-	   * [Object] `minProperties`: Minimum number of properties
-	   */
-	  minProperties: function minProperties(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROPS_MIN', 'Must contain at least {value} properties in the object');
-
-	    return _FragmentFactory2.default.testAndPushError('Object.keys(value).length < ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [Object] `maxProperties`: Maximum number of properties
-	   */
-	  maxProperties: function maxProperties(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROPS_MAX', 'Must contain at most {value} properties in the object');
-
-	    return _FragmentFactory2.default.testAndPushError('Object.keys(value).length > ' + value, ERROR_MESSAGE, { value: value });
-	  },
-
-	  /**
-	   * [General] `enum`: Enumeration of the given values
-	   */
-	  enum: function _enum(values, context) {
-	    var ENUM = context.getConstantExpression('ENUMS', JSON.stringify(values));
-	    var ENUM_STRING = values.map(function (value) {
-	      return String(value);
-	    }).join(', ');
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'ENUM', 'Must be one of {values}');
-
-	    return _FragmentFactory2.default.testAndPushError(ENUM + '.indexOf(value) === -1', ERROR_MESSAGE, { values: ENUM_STRING });
-	  },
-
-	  /**
-	   * (Handled by the HighOrderComposers, since it's not so simple to be
-	   * implemented as a fragment generator)
-	   */
-	  additionalProperties: function additionalProperties() {
-	    return [];
-	  }
-
-	};
-
-	module.exports = {
-
-	  /**
-	   * Generate an array of code fragments that perform the validataions as
-	   * described in the `facets` object.
-	   *
-	   * @param {Object} facets - The object with the facet names and values
-	   * @param {GeneratorContext} context - The generator context
-	   *
-	   * @returns {Array} Returns an array of validator code fragments
-	   */
-	  generateFacetFragments: function generateFacetFragments(facets, context) {
-	    var keys = Object.keys(facets);
-	    return keys.reduce(function (fragments, facet) {
-	      if (FACET_FRAGMENT_GENERATORS[facet] == null) {
-	        throw new TypeError('Unknown facet: \'' + facet + '\'');
-	      }
-
-	      return fragments.concat(FACET_FRAGMENT_GENERATORS[facet](facets[facet], context));
-	    }, []);
-	  }
-	};
-
-/***/ },
 /* 10 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = {
-
-	  /**
-	   * Simple fragment factory that tests the given expression and if it fails,
-	   * it creates a new RAMLError instance with the error message from the
-	   * constant specified. If that constant is using templates, you can use the
-	   * errorMessageVariables to pass values for these variables.
-	   *
-	   * @param {String} testExpr - The javascript test expression
-	   * @param {String} errorConstant - The error constant from the ERROR_MESSAGES global table
-	   * @param {Object} [errorMessageVariables] - Optional values for the error message templates
-	   *
-	   * @returns {String} Returns the contents of the javascript fragment
-	   */
-	  testAndPushError: function testAndPushError(testExpr, errorConstant) {
-	    var errorMessageVariables = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-	    var variablesExpr = JSON.stringify(errorMessageVariables);
-
-	    return ['if (' + testExpr + ') {', '\terrors.push(new RAMLError(path, ' + errorConstant + ', ' + variablesExpr + '));', '}'];
-	  }
-	};
-
-/***/ },
-/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	var _FacetValidators = __webpack_require__(9);
+	var _FacetValidators = __webpack_require__(11);
 
 	var _FacetValidators2 = _interopRequireDefault(_FacetValidators);
-
-	var _GeneratorUtil = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -922,7 +752,7 @@ module.exports =
 	  }
 
 	  // The metadata KnownPropertyRestriction is defined when the
-	  // additionalProperties facet is defiend and it's value contains
+	  // additionalProperties facet is defined and it's value contains
 	  // the facet's value
 	  var knownProperty = typeAdapter.meta().find(function (meta) {
 	    return meta.constructor.name === 'KnownPropertyRestriction';
@@ -938,8 +768,13 @@ module.exports =
 
 	  /**
 	   * Compose a union validator
+	   *
+	   * @param {Object} facets - An object with all the facets in the type
+	   * @param {Array} unionValidatorFns - The names of the type validation
+	   *   functions taking place in the union.
+	   * @return {Array} - The union validator code lines
 	   */
-	  composeUnion: function composeUnion(facets, unionValidatorFns, context) {
+	  composeUnion: function composeUnion(facets, unionValidatorFns) {
 	    var fragments = [].concat('errors = errors.concat([',
 
 	    // Run the union validation type for every possible union type
@@ -954,8 +789,8 @@ module.exports =
 	    // Pick the validation with the fewest possible errors
 	    //
 	    // If == 0 : The union type validation succeeded
-	    // If  > 0 : The union with the fewest errors, and therfore the most
-	    //           probabel match.
+	    // If  > 0 : The union with the fewest errors, and therefore the most
+	    //           probable match.
 	    //
 	    '})[0]);');
 
@@ -964,7 +799,11 @@ module.exports =
 
 
 	  /**
-	   * Compose a plain type, only by it's facets
+	   * Compose a plain type, validated only by it's facets
+	   *
+	   * @param {Object} facets - An object with all the facets in the type
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  composeFacets: function composeFacets(facets, context) {
 	    return _FacetValidators2.default.generateFacetFragments(facets, context);
@@ -972,7 +811,12 @@ module.exports =
 
 
 	  /**
-	   * Compose object properties fragments
+	   * Compose object properties type validator
+	   *
+	   * @param {Array} properties - An array of IProperty instances
+	   * @param {ITypeDefinition} itype - The RAML type that has these properties
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  composeObjectProperties: function composeObjectProperties(properties, itype, context) {
 	    var REGEX_MATCHING_REGEX = /[\[\]\(\)\{\}\\\^\$\.\|\?\*\+/]/g;
@@ -1037,13 +881,13 @@ module.exports =
 	            validatorFn = _ref2[2];
 
 	        var REGEX = context.getConstantExpression('REGEX', 'new RegExp(\'' + regex.replace(/'/g, '\\\'') + '\')');
-	        var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING_MATCH', 'Missing a property that matches `{name}`');
 
 	        fragments.push('matched = regexProps.filter(function(key) {', '\treturn ' + REGEX + '.exec(key);', '});');
 
 	        // Check for required props
 	        if (required) {
-	          fragments.push('if (matched.length === 0) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + ', {name: \'' + regex + '\'}));', '}');
+	          context.useError('PROP_MISSING_MATCH');
+	          fragments.push('if (matched.length === 0) {', '\terrors.push(new RAMLError(path, context, "PROP_MISSING_MATCH", {pattern: \'' + regex + '\'}));', '}');
 	        }
 
 	        // Validate property children
@@ -1068,32 +912,34 @@ module.exports =
 	    }
 
 	    // The `additionalProperties` facet is a bit more complicated, since it
-	    // requires traversal thorugh it's keys
+	    // requires traversal through it's keys
 	    if (getAdditionalPropertiesValue(itype) === false) {
-	      var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_ADDITIONAL_PROPS', 'Unexpected extraneous property `{name}`');
 
 	      // Don't re-define props if we already have them
 	      if (!hasPropsDefined) {
 	        fragments.push('var props = Object.keys(value);');
 	      }
 
+	      context.useError('PROP_ADDITIONAL_PROPS');
+
 	      // Iterate over properties and check if the validators match
 	      fragments = fragments.concat('props.forEach(function(key) {', stringMatchers.reduce(function (fragments, _ref5) {
 	        var _ref6 = _slicedToArray(_ref5, 3),
 	            name = _ref6[0],
-	            unused1 = _ref6[1],
-	            unused2 = _ref6[2];
+	            _ = _ref6[1],
+	            __ = _ref6[2];
 
 	        return fragments.concat(['\tif (key === "' + name + '") return;']);
 	      }, []), regexMatchers.reduce(function (fragments, _ref7) {
 	        var _ref8 = _slicedToArray(_ref7, 3),
 	            regex = _ref8[0],
-	            unused1 = _ref8[1],
-	            unused2 = _ref8[2];
+	            _ = _ref8[1],
+	            __ = _ref8[2];
 
 	        var REGEX = context.getConstantExpression('REGEX', 'new RegExp(\'' + regex.replace(/'/g, '\\\'') + '\')');
+
 	        return fragments.concat(['if (' + REGEX + '.exec(key)) return;']);
-	      }, []), '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + ', {name: key}));', '});');
+	      }, []), '\terrors.push(new RAMLError(path, context, "PROP_ADDITIONAL_PROPS", {name: key}));', '});');
 	    }
 
 	    return fragments;
@@ -1101,29 +947,43 @@ module.exports =
 
 
 	  /**
-	   * Compose a required property framgent
+	   * Compose a required property validator fragment
+	   *
+	   * @param {String} property - The name of the property
+	   * @param {String} validatorFn - The name of the type validator function
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  composeRequiredProperty: function composeRequiredProperty(property, validatorFn, context) {
 	    var errorPath = 'path';
-	    var ERROR_MESSAGE = void 0;
+	    var ERROR_TYPE = void 0;
 
 	    // If we are configured to show missing properties to their own path use
 	    // different error message and different error path.
 	    if (context.options.missingPropertiesOnTheirPath) {
 	      errorPath = 'path.concat([\'' + property + '\'])';
-	      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING', 'Missing property');
+	      ERROR_TYPE = 'PROP_IS_MISSING';
 	    } else {
-	      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING', 'Missing property `{name}`');
+	      ERROR_TYPE = 'PROP_MISSING';
 	    }
 
-	    return ['if (value.' + property + ' == null) {', '\terrors.push(new RAMLError(' + errorPath + ', ' + ERROR_MESSAGE + ', {name: \'' + property + '\'}));', '} else {', '\terrors = errors.concat(' + validatorFn + '(value.' + property + ', path.concat([\'' + property + '\'])));', '}'];
+	    context.useError(ERROR_TYPE);
+
+	    return ['if (value.' + property + ' == null) {', '\terrors.push(new RAMLError(' + errorPath + ', context, "' + ERROR_TYPE + '", {name: \'' + property + '\'}));', '} else {', '\terrors = errors.concat(' + validatorFn + '(value.' + property + ', path.concat([\'' + property + '\'])));', '}'];
 	  },
 
 
 	  /**
-	   * Compose a property framgent
+	   * Compose a property validator fragment
+	   *
+	   * @param {String} property - The name of the property
+	   * @param {String} validatorFn - The name of the type validator function
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
+	  /* eslint-disable no-unused-vars */
 	  composeProperty: function composeProperty(property, validatorFn, context) {
+	    /* eslint-enable no-unused-vars */
 	    return ['if (value.' + property + ' != null) {', '\terrors = errors.concat(' + validatorFn + '(value.' + property + ', path.concat([\'' + property + '\'])));', '}'];
 	  }
 	};
@@ -1131,18 +991,372 @@ module.exports =
 	module.exports = HighOrderComposers;
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _FragmentFactory = __webpack_require__(10);
+	var _FragmentFactory = __webpack_require__(12);
 
 	var _FragmentFactory2 = _interopRequireDefault(_FragmentFactory);
 
-	var _GeneratorUtil = __webpack_require__(7);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _RAMLUtil = __webpack_require__(5);
+	var FACET_FRAGMENT_GENERATORS = {
+
+	  /**
+	   * [Number]  `maximum`: Maximum numeric value
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  maximum: function maximum(value, context) {
+	    context.useError('NUMBER_MAX');
+
+	    return _FragmentFactory2.default.testAndPushError('value > ' + value, 'NUMBER_MAX', { value: value });
+	  },
+
+
+	  /**
+	   * [Number] `minimum`: Minimum numeric value
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  minimum: function minimum(value, context) {
+	    context.useError('NUMBER_MIN');
+
+	    return _FragmentFactory2.default.testAndPushError('value < ' + value, 'NUMBER_MIN', { value: value });
+	  },
+
+
+	  /**
+	   * [Number] `format` : The format of the value
+	   *
+	   * Must be one of: int32, int64, int, long, float, double, int16, int8
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  format: function format(value, context) {
+	    var IS_INT = '(value % 1 === 0)';
+	    var FLOAT_HELPER = context.getConstantExpression('HELPERS', 'new Float32Array(1)');
+
+	    var condition = void 0;
+	    switch (value) {
+	      case 'int64':
+	        condition = '' + IS_INT;
+	        break;
+
+	      case 'int32':
+	        condition = IS_INT + ' && (value >= -2147483648) && (value <= 2147483647)';
+	        break;
+
+	      case 'int16':
+	        condition = IS_INT + ' && (value >= -32768) && (value <= 32767)';
+	        break;
+
+	      case 'int8':
+	        condition = IS_INT + ' && (value >= -128) && (value <= 127)';
+	        break;
+
+	      case 'int':
+	        condition = IS_INT + ' && (value >= -32768) && (value <= 32767)';
+	        break;
+
+	      case 'long':
+	        condition = IS_INT + ' && (value >= -2147483648) && (value <= 2147483647)';
+	        break;
+
+	      case 'float':
+	        //
+	        // To test for Float32 we are first casting the number to an internally
+	        // representable Float32 number and we are then calculating the difference
+	        // to the original value.
+	        //
+	        // We are then checking if this difference is smaller than the number of
+	        // decimals in the number
+	        //
+	        condition = 'Math.abs((' + FLOAT_HELPER + '[0] = value) - ' + FLOAT_HELPER + '[0])' + ' < Math.pow(10, -(value+\'.\').split(\'.\')[1].length-1)';
+	        break;
+
+	      case 'double':
+	        return [];
+	        break;
+
+	      default:
+	        throw new TypeError('Unknown value for the \'format\' facet: \'' + value + '\'');
+	    }
+
+	    context.useError('NUMBER_TYPE');
+
+	    return _FragmentFactory2.default.testAndPushError('!(' + condition + ')', 'NUMBER_TYPE', { type: value });
+	  },
+
+
+	  /**
+	   * [Number] `multipleOf` : Value must be divisible by this value
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  multipleOf: function multipleOf(value, context) {
+	    context.useError('NUMBER_MULTIPLEOF');
+
+	    return _FragmentFactory2.default.testAndPushError('value % ' + value + ' !== 0', 'NUMBER_MULTIPLEOF', { value: value });
+	  },
+
+
+	  /**
+	   * [String] `pattern`: Regular expression this value should match against
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  pattern: function pattern(value, context) {
+	    var REGEX = context.getConstantExpression('REGEX', 'new RegExp(\'' + value.replace(/'/g, '\\\'') + '\')');
+
+	    context.useError('STRING_PATTERN');
+
+	    return _FragmentFactory2.default.testAndPushError('!' + REGEX + '.exec(value)', 'STRING_PATTERN', { pattern: value });
+	  },
+
+
+	  /**
+	   * [String] `minLength`: Minimum length of the string
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  minLength: function minLength(value, context) {
+	    context.useError('LENGTH_MIN');
+
+	    return _FragmentFactory2.default.testAndPushError('value.length < ' + value, 'LENGTH_MIN', { value: value });
+	  },
+
+
+	  /**
+	   * [String] `maxLength`: Maximum length of the string
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  maxLength: function maxLength(value, context) {
+	    context.useError('LENGTH_MAX');
+
+	    return _FragmentFactory2.default.testAndPushError('value.length > ' + value, 'LENGTH_MAX', { value: value });
+	  },
+
+
+	  /**
+	   * [Array] `minItems` : Minimum amount of items in the array
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  minItems: function minItems(value, context) {
+	    context.useError('ITEMS_MIN');
+
+	    return _FragmentFactory2.default.testAndPushError('value.length < ' + value, 'ITEMS_MIN', { value: value });
+	  },
+
+
+	  /**
+	   * [Array] `maxItems` : Maximum amount of items in the array
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  maxItems: function maxItems(value, context) {
+	    context.useError('ITEMS_MAX');
+
+	    return _FragmentFactory2.default.testAndPushError('value.length > ' + value, 'ITEMS_MAX', { value: value });
+	  },
+
+
+	  /**
+	   * [Array] `uniqueItems` : All array items MUST be unique
+	   *
+	   * @param {Boolean} value - True if the items must be unique
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  uniqueItems: function uniqueItems(value, context) {
+	    context.useError('ITEMS_UNIQUE');
+
+	    return ['if ((function() {', '\tvar valuesSoFar = Object.create(null);', '\tfor (var i = 0; i < value.length; ++i) {', '\t\tvar val = value[i];', '\t\tif (val in valuesSoFar) {', '\t\t\treturn true;', '\t\t}', '\t\tvaluesSoFar[val] = true;', '\t}', '\treturn false;', '})()) {', '\terrors.push(new RAMLError(path, context, "ITEMS_UNIQUE"));', '}'];
+	  },
+
+
+	  /**
+	   * [Array] `items` : Type for the items
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  items: function items(value, context) {
+
+	    // The value passed is an `InheritedType` instance, that describes the
+	    // RAML metadata. In order to access the underlying run-time information,
+	    // that we operate upon, we need to use `extras.normal` to access it:
+	    var itype = value.extras.nominal;
+	    var validatorFn = context.uses(itype);
+
+	    // Validate every child
+	    return ['errors = value.reduce(function(errors, value, i) {', '\treturn errors.concat(', '\t\t' + validatorFn + '(value, path.concat([i]))', '\t);', '}, errors);'];
+	  },
+
+
+	  //
+	  // Object facets from here:
+	  // https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md#object-type
+	  //
+
+	  /**
+	   * [Object] `minProperties`: Minimum number of properties
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  minProperties: function minProperties(value, context) {
+	    context.useError('PROPS_MIN');
+
+	    return _FragmentFactory2.default.testAndPushError('Object.keys(value).length < ' + value, 'PROPS_MIN', { value: value });
+	  },
+
+
+	  /**
+	   * [Object] `maxProperties`: Maximum number of properties
+	   *
+	   * @param {String} value - The facet value
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  maxProperties: function maxProperties(value, context) {
+	    context.useError('PROPS_MAX');
+
+	    return _FragmentFactory2.default.testAndPushError('Object.keys(value).length > ' + value, 'PROPS_MAX', { value: value });
+	  },
+
+
+	  /**
+	   * [General] `enum`: Enumeration of the given values
+	   *
+	   * @param {Array} values - The enum options
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The facet validator code lines
+	   */
+	  enum: function _enum(values, context) {
+	    context.useError('ENUM');
+
+	    // If we have caseInsensitiveEnums option defined, convert everything
+	    // in lower-case and also use a lower-case test
+	    if (context.options.caseInsensitiveEnums) {
+	      var LOWER_VALUES = values.map(function (value) {
+	        return String(value).toLowerCase();
+	      });
+	      var _ENUM_STRING = LOWER_VALUES.join(', ');
+	      var _ENUM = context.getConstantExpression('ENUMS', JSON.stringify(LOWER_VALUES));
+
+	      return _FragmentFactory2.default.testAndPushError(_ENUM + '.indexOf(value.toLowerCase()) === -1', 'ENUM', { values: _ENUM_STRING });
+	    }
+
+	    var ENUM = context.getConstantExpression('ENUMS', JSON.stringify(values));
+	    var ENUM_STRING = values.map(function (value) {
+	      return String(value);
+	    }).join(', ');
+
+	    return _FragmentFactory2.default.testAndPushError(ENUM + '.indexOf(value) === -1', 'ENUM', { values: ENUM_STRING });
+	  },
+
+
+	  /**
+	   * This is only a placeholder in order to avoid throwing an error
+	   * when this facet is encountered.
+	   *
+	   * Implemented in the HighOrderComposers, since it's not so simple to be
+	   * implemented as a facet validator.
+	   *
+	   * @return {Array} - The facet validator code lines
+	   */
+	  additionalProperties: function additionalProperties() {
+	    return [];
+	  }
+	};
+
+	module.exports = {
+
+	  /**
+	   * Generate an array of code fragments that perform the validations as
+	   * described in the `facets` object.
+	   *
+	   * @param {Object} facets - The object with the facet names and values
+	   * @param {GeneratorContext} context - The generator context
+	   *
+	   * @returns {Array} Returns an array of validator code fragments
+	   */
+	  generateFacetFragments: function generateFacetFragments(facets, context) {
+	    var keys = Object.keys(facets);
+
+	    return keys.reduce(function (fragments, facet) {
+	      if (FACET_FRAGMENT_GENERATORS[facet] == null) {
+	        throw new TypeError('Unknown facet: \'' + facet + '\'');
+	      }
+
+	      return fragments.concat(FACET_FRAGMENT_GENERATORS[facet](facets[facet], context));
+	    }, []);
+	  }
+	};
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+
+	  /**
+	   * Simple fragment factory that tests the given expression and if it fails,
+	   * it creates a new RAMLError instance with the error message from the
+	   * constant specified. If that constant is using templates, you can use the
+	   * errorMessageVariables to pass values for these variables.
+	   *
+	   * @param {String} testExpr - The javascript test expression
+	   * @param {String} errorConstant - The error constant from the ERROR_MESSAGES global table
+	   * @param {Object} [errorMessageVariables] - Optional values for the error message templates
+	   *
+	   * @returns {String} Returns the contents of the javascript fragment
+	   */
+	  testAndPushError: function testAndPushError(testExpr, errorConstant) {
+	    var errorMessageVariables = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	    var variablesExpr = JSON.stringify(errorMessageVariables);
+
+	    return ['if (' + testExpr + ') {', '\terrors.push(new RAMLError(path, context, "' + errorConstant + '", ' + variablesExpr + '));', '}'];
+	  }
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _GeneratorUtil = __webpack_require__(5);
+
+	var _RAMLUtil = __webpack_require__(7);
 
 	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
 
@@ -1152,91 +1366,143 @@ module.exports =
 
 	  /**
 	   * Any
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
+	  /* eslint-disable no-unused-vars */
 	  any: function any(fragments, context) {
+	    /* eslint-enable no-unused-vars */
 	    // Everything passes
 	    return [];
 	  },
 
+
 	  /**
 	   * Nil
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  nil: function nil(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_NULL', 'Expecting null');
+	    context.useError('TYPE_NOT_NULL');
 
-	    return [].concat('if (value !== null) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (value !== null) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_NULL"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Number type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  NumberType: function NumberType(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_NUMBER', 'Expecting a number');
+	    context.useError('TYPE_NOT_NUMBER');
 
-	    return [].concat('if (isNaN(value)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (isNaN(value)) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_NUMBER"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Integer type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  IntegerType: function IntegerType(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_INTEGER', 'Expecting an integer number');
+	    context.useError('TYPE_NOT_INTEGER');
 
-	    return [].concat('if (isNaN(value) || (value % 1 !== 0)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (isNaN(value) || (value % 1 !== 0)) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_INTEGER"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Boolean type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  BooleanType: function BooleanType(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_BOOLEAN', 'Expecting a boolean value');
+	    context.useError('TYPE_NOT_BOOLEAN');
 
-	    return [].concat('if ((value !== false) && (value !== true)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if ((value !== false) && (value !== true)) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_BOOLEAN"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * String type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  StringType: function StringType(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_STRING', 'Expecting a string');
+	    context.useError('TYPE_NOT_STRING');
 
-	    return [].concat('if (typeof value != "string") {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (typeof value != "string") {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_STRING"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Date/Time type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  DateTimeType: function DateTimeType(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_DATETIME', 'Expecting a date/time string');
+	    context.useError('TYPE_NOT_DATETIME');
 
-	    return [].concat('if (isNaN(new Date(value).getTime())) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (isNaN(new Date(value).getTime())) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_DATETIME"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Object type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  object: function object(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_OBJECT', 'Expecting an object');
+	    context.useError('TYPE_NOT_OBJECT');
 
-	    return [].concat('if ((typeof value != "object") || (value === null)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if ((typeof value != "object") || (value === null)) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_OBJECT"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Array type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  array: function array(fragments, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_ARRAY', 'Expecting an array');
+	    context.useError('TYPE_NOT_ARRAY');
 
-	    return [].concat('if (!Array.isArray(value)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (!Array.isArray(value)) {', '\terrors.push(new RAMLError(path, context, "TYPE_NOT_ARRAY"));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
+
 
 	  /**
 	   * Union type
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
+	  /* eslint-disable no-unused-vars */
 	  union: function union(fragments, context) {
+	    /* eslint-enable no-unused-vars */
 	    return fragments;
 	  }
-
 	};
 
 	module.exports = {
@@ -1244,6 +1510,11 @@ module.exports =
 	  /**
 	   * Wrap a set of fragments in a condition only if the value passes the native
 	   * type test.
+	   *
+	   * @param {Array} fragments - The validator fragment code lines so far
+	   * @param {ITypeDefinition} itype - The RAML type to create validation for
+	   * @param {GeneratorContext} context - The current generator context
+	   * @return {Array} - The type validator code lines
 	   */
 	  wrapWithNativeTypeValidator: function wrapWithNativeTypeValidator(fragments, itype, context) {
 	    var typeName = _RAMLUtil2.default.getBuiltinTypeName(itype);
@@ -1256,18 +1527,6 @@ module.exports =
 	};
 
 /***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * The following string defines the RAMLError class, instantiated by the
-	 * validator when an error occurs.
-	 */
-	module.exports = "\nconst REPLACE_MESSAGE_TEMPLATE = /\\{([^\\}]+)}/g;\n\nfunction RAMLError(path, message, _messageVariables) {\n  var messageVariables = _messageVariables || {};\n\n  Object.defineProperty(this, 'path', {\n    enumerable: true,\n    get: function() {\n      return path;\n    },\n  });\n\n  Object.defineProperty(this, 'message', {\n    enumerable: true,\n    get: function() {\n      return message.replace(REPLACE_MESSAGE_TEMPLATE, function(match) {\n        return ''+messageVariables[match.slice(1,-1)] || '';\n      });\n    },\n  });\n}\n";
-
-/***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1275,7 +1534,7 @@ module.exports =
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _RAMLUtil = __webpack_require__(5);
+	var _RAMLUtil = __webpack_require__(7);
 
 	var _RAMLUtil2 = _interopRequireDefault(_RAMLUtil);
 
@@ -1289,7 +1548,7 @@ module.exports =
 
 	    _classCallCheck(this, GeneratorContext);
 
-	    // Configuration parameters that define the behaviour of the parser in some
+	    // Configuration parameters that define the behavior of the parser in some
 	    // corner cases
 	    this.options = {
 
@@ -1303,7 +1562,7 @@ module.exports =
 	      patternPropertiesAreOptional: true,
 
 	      /**
-	       * If this flag is set to `true`, all missing properties will be emmited
+	       * If this flag is set to `true`, all missing properties will be emitted
 	       * in their path. For example, if property `foo` is missing on the object
 	       * `bar`, you will get an error:
 	       *
@@ -1315,7 +1574,15 @@ module.exports =
 	       *
 	       * @property {boolean}
 	       */
-	      missingPropertiesOnTheirPath: true
+	      missingPropertiesOnTheirPath: true,
+
+	      /**
+	       * If this flag is set to `true` all enum comparisons will be done
+	       * case-insensitive.
+	       *
+	       * @property {boolean}
+	       */
+	      caseInsensitiveEnums: true
 
 	    };
 
@@ -1323,6 +1590,7 @@ module.exports =
 	    this.typesProcessed = {};
 	    this.typesQueue = [];
 	    this.options = Object.assign(this.options, options);
+	    this.usedErrors = [];
 	  }
 
 	  /**
@@ -1351,7 +1619,29 @@ module.exports =
 	    }
 
 	    /**
+	     * Mark a particular error constant as used.
+	     *
+	     * This approach is used as an optimisation in order to reduce the total
+	     * number of error messages included for smaller output size, when some
+	     * of them are not used.
+	     *
+	     * @param {String} errorConstant - The error constant
+	     */
+
+	  }, {
+	    key: 'useError',
+	    value: function useError(errorConstant) {
+	      if (this.usedErrors.indexOf(errorConstant) !== -1) {
+	        return;
+	      }
+
+	      this.usedErrors.push(errorConstant);
+	    }
+
+	    /**
 	     * Shift the next type in the type queue
+	     *
+	     * @returns {ITypeDefinition|undefined} The next item on queue or undefined if empty
 	     */
 
 	  }, {
@@ -1361,9 +1651,13 @@ module.exports =
 	    }
 
 	    /**
-	     * @param {String} tableName
-	     * @param {String} name
-	     * @param {String} value
+	     * Create a constant string in the string table and return a code reference
+	     * to it
+	     *
+	     * @param {String} tableName - The name of the table to put a string into
+	     * @param {String} name - The name of the string
+	     * @param {String} value - The value of the string
+	     * @returns {String} The code reference to the table entry
 	     */
 
 	  }, {
@@ -1378,8 +1672,17 @@ module.exports =
 	      }
 
 	      // Return constant name
-	      return tableName + '.' + name;
+	      return 'context.' + tableName + '.' + name;
 	    }
+
+	    /**
+	     * Create a constant expression and get a code reference to it
+	     *
+	     * @param {String} tableName - The name of the table to put a string into
+	     * @param {String} expression - The constant expression
+	     * @returns {String} The code reference to the table entry
+	     */
+
 	  }, {
 	    key: 'getConstantExpression',
 	    value: function getConstantExpression(tableName, expression) {
@@ -1393,7 +1696,7 @@ module.exports =
 	        this.constantTables[tableName].push(expression);
 	      }
 
-	      return tableName + '[' + index + ']';
+	      return 'context.' + tableName + '[' + index + ']';
 	    }
 	  }]);
 

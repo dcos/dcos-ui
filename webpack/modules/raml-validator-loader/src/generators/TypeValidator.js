@@ -1,5 +1,3 @@
-import FacetValidators from './FacetValidators';
-import GeneratorUtil from '../utils/GeneratorUtil';
 import HighOrderComposers from './HighOrderComposers';
 import NativeValidators from './NativeValidators';
 import RAMLUtil from '../utils/RAMLUtil';
@@ -32,14 +30,13 @@ module.exports = {
    * @returns {String} - Returns the function javascript source
    */
   generateTypeValidator(itype, context) {
-    let typeName = RAMLUtil.getTypeName(itype);
     let fragments = [];
 
     // We first use the high-order composers to generate the base code
     // depending on the major classifications of the validators
     if (itype.isUnion()) {
-      let unionTypes = collectUnionTypes(itype);
-      let unionValidators = unionTypes.map(function(itype) {
+      const unionTypes = collectUnionTypes(itype);
+      const unionValidators = unionTypes.map(function (itype) {
         return context.uses( itype );
       });
       fragments = HighOrderComposers.composeUnion(
@@ -64,7 +61,8 @@ module.exports = {
     }
 
     // Wrap everything in type validation
-    let type = RAMLUtil.getBuiltinType(itype);
+    const type = RAMLUtil.getBuiltinType(itype);
+
     return NativeValidators.wrapWithNativeTypeValidator(
       fragments, type, context
     );

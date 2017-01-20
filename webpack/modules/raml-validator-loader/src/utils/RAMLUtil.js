@@ -3,8 +3,8 @@ import crypto from 'crypto';
 module.exports = {
 
   /**
-   * This function checks if the given runtime type is an inline defininition,
-   * since such definitions needs further specialisation.
+   * This function checks if the given runtime type is an inline definition,
+   * since such definitions needs further specialization.
    *
    * Keep in mind that the RAML parser considers this:
    *
@@ -26,7 +26,7 @@ module.exports = {
    */
   isInlineType(itype) {
     // So, a type that has no name, but is either an array or a value type
-    // is considered an in-line definition, and has a dedicated specialisation
+    // is considered an in-line definition, and has a dedicated specialization
     return (itype.nameId() == null) &&
            (itype.isArray() || itype.isValueType());
   },
@@ -41,7 +41,7 @@ module.exports = {
    * properties:
    *   arrayProp: SomeType[]
    *
-   * Should generate a validator named `SomeTypeAsArray` instead of an anomyous
+   * Should generate a validator named `SomeTypeAsArray` instead of an anonymous
    * validator like inline.
    *
    * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
@@ -55,13 +55,14 @@ module.exports = {
    * Return a comment that describes this inline type
    *
    * @param {ITypeDefinition} itype - The runtime type of a RAML definition
-   * @returns {String} The comment to the specialised inline type
+   * @returns {String} The comment to the specialized inline type
    */
   getInlineTypeComment(itype) {
-    let facets = itype.getFixedFacets();
-    let comment = 'This is an in-line specialisation of ' + this.getInlineTypeBase(itype)
-      + '\n with the following constraints:\n\n';
-    return comment + Object.keys(facets).map(function(name) {
+    const facets = itype.getFixedFacets();
+    const comment = 'This is an in-line specialization of ' + this.getInlineTypeBase(itype)
+      + '\nwith the following constraints:\n\n';
+
+    return comment + Object.keys(facets).map(function (name) {
       if (name === 'items') {
         return `- ${name}: ${this.getTypeName(facets[name].extras.nominal)}`;
       } else {
@@ -100,14 +101,15 @@ module.exports = {
    */
   getInlineTypeName(itype) {
     // Calculate the checksum of the facets
-    let facets = itype.getFixedFacets();
-    let facetKeys = Object.keys(facets).sort();
-    let expr = facetKeys.reduce(function(expr, key) {
+    const facets = itype.getFixedFacets();
+    const facetKeys = Object.keys(facets).sort();
+    const expr = facetKeys.reduce(function (expr, key) {
       return expr + '|' + key + '=' + facets[key];
     }, '');
 
     // Calculate unique name
-    let typeName = this.getInlineTypeBase(itype);
+    const typeName = this.getInlineTypeBase(itype);
+
     return 'inline' + typeName[0].toUpperCase() + typeName.substr(1) + '_' +
             crypto.createHash('md5').update(expr).digest('hex');
   },
@@ -164,7 +166,7 @@ module.exports = {
     // If the type is still anonymous, try to lookup it's type by
     // traversing the super classes
     //
-    if (itype.nameId() == null) {
+    if ((itype.nameId() == null) || (itype.nameId() === '')) {
       return this.getTypeName(itype.superTypes()[0]);
     }
 
@@ -191,6 +193,9 @@ module.exports = {
 
   /**
    * Return the reference to the given type
+   *
+   * @param {ITypeDefinition} itype - The runtime type of the RAML definition
+   * @returns {string} Returns the code reference to the given type
    */
   getTypeRef(itype) {
     return this.getTypeGroup(itype) + '.' + this.getTypeName(itype);
@@ -208,7 +213,7 @@ module.exports = {
       return itype;
     }
 
-    return itype.allSuperTypes().find(function(type) {
+    return itype.allSuperTypes().find(function (type) {
       return type.isBuiltIn();
     });
   },
@@ -220,7 +225,7 @@ module.exports = {
    * @returns {string|null} The builtin type name or null if not found
    */
   getBuiltinTypeName(itype) {
-    let builtinType = this.getBuiltinType(itype);
+    const builtinType = this.getBuiltinType(itype);
     if (builtinType == null) {
       return null;
     }

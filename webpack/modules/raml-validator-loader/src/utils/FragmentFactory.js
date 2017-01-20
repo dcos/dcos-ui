@@ -13,11 +13,11 @@ module.exports = {
    * @returns {String} Returns the contents of the javascript fragment
    */
   testAndPushError(testExpr, errorConstant, errorMessageVariables={}) {
-    let variablesExpr = JSON.stringify(errorMessageVariables);
+    const variablesExpr = JSON.stringify(errorMessageVariables);
 
     return [
       `if (${testExpr}) {`,
-        `\terrors.push(new RAMLError(path, ${errorConstant}, ${variablesExpr}));`,
+      `\terrors.push(new RAMLError(path, context, "${errorConstant}", ${variablesExpr}));`,
       '}'
     ];
   }
