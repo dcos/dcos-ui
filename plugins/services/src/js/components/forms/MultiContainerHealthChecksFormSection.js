@@ -12,7 +12,7 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import {HTTP, TCP, COMMAND} from '../../constants/HealtCheckProtocols';
+import {HTTP, TCP, COMMAND} from '../../constants/HealthCheckProtocols';
 
 class MultiContainerHealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, path, errorsLens) {
