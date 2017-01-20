@@ -64,10 +64,6 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({MOUNT_TYPE, COMPONENTS}) => {
 });
 
 class ServiceConfigDisplay extends React.Component {
-  componentWillUnmount() {
-    this.props.clearError();
-  }
-
   getMountType() {
     if (this.props.appConfig instanceof PodSpec) {
       return 'CreateService:ServiceConfigDisplay:Pod';
@@ -122,13 +118,11 @@ class ServiceConfigDisplay extends React.Component {
 }
 
 ServiceConfigDisplay.defaultProps = {
-  clearError() {},
   errors: []
 };
 
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
-  clearError: React.PropTypes.func,
   errors: React.PropTypes.array,
   onEditClick: React.PropTypes.func
 };
