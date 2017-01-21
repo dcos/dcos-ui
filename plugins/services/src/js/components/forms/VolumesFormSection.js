@@ -302,7 +302,7 @@ class VolumesFormSection extends Component {
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        <h3 className="flush-top short-bottom">
+        <h3 className="short-bottom">
           Local Volumes Variables
         </h3>
         <p>

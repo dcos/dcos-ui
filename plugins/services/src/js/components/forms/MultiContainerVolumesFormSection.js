@@ -121,7 +121,7 @@ class MultiContainerVolumesFormSection extends Component {
 
     if (!data.containers || !data.containers.length) {
       return (
-        <div className="flush-bottom">
+        <div>
           {this.getHeadline()}
           <p>
             Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring Volumes.
@@ -131,12 +131,12 @@ class MultiContainerVolumesFormSection extends Component {
     }
 
     return (
-      <div className="flush-bottom">
+      <div>
         {this.getHeadline()}
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        <h3 className="flush-top short-bottom">
+        <h3 className="flush-top">
           Ephemeral Volumes
         </h3>
         <p>

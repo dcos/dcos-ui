@@ -254,7 +254,7 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     if (!data.containers || !data.containers.length) {
       return (
-        <div className="flush-bottom">
+        <div>
           <h2 className="flush-top short-bottom">
             Health Checks
           </h2>
@@ -266,7 +266,7 @@ class MultiContainerHealthChecksFormSection extends Component {
     }
 
     return (
-      <div className="flush-bottom">
+      <div>
         {this.getContainerHealthChecks(data.containers)}
       </div>
     );
