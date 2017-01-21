@@ -11,6 +11,8 @@ class ToggleButton extends React.Component {
       onChange
     } = this.props;
 
+    const textClassName = {'muted': !checked};
+
     return (
       <label className={classNames(className)}>
         <input
@@ -19,7 +21,7 @@ class ToggleButton extends React.Component {
           name="checkbox"
           onChange={onChange}
           type="checkbox" />
-        <span>{children}</span>
+        <span className={classNames(textClassName)}>{children}</span>
       </label>
     );
   }
