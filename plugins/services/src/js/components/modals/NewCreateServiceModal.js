@@ -40,6 +40,7 @@ import NetworkingFormSection from '../forms/NetworkingFormSection';
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
 import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
+import {getBaseID} from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 import VolumesFormSection from '../forms/VolumesFormSection';
@@ -74,7 +75,7 @@ class NewCreateServiceModal extends Component {
     const serviceID = decodeURIComponent(params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
     let serviceConfig = new Application(
-      Object.assign({id: serviceID}, DEFAULT_APP_SPEC)
+      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
     );
 
     if (isEdit && service instanceof Service) {
@@ -137,7 +138,7 @@ class NewCreateServiceModal extends Component {
     const serviceID = decodeURIComponent(nextProps.params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
     let serviceConfig = new Application(
-      Object.assign({id: serviceID}, DEFAULT_APP_SPEC)
+      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
     );
 
     if (isEdit && service instanceof Service) {
@@ -312,7 +313,7 @@ class NewCreateServiceModal extends Component {
 
   handleServiceSelection({route, type}) {
     const {params} = this.props;
-    const serviceID = decodeURIComponent(params.id || '/');
+    const baseID = getBaseID(decodeURIComponent(params.id || '/'));
 
     switch (type) {
       case 'app':
@@ -321,7 +322,7 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new Application(
-            Object.assign({id: serviceID}, DEFAULT_APP_SPEC)
+            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           )
         });
         break;
@@ -332,7 +333,7 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new PodSpec(
-            Object.assign({id: serviceID}, DEFAULT_POD_SPEC)
+            Object.assign({id: baseID}, DEFAULT_POD_SPEC)
           )
         });
         break;
@@ -343,7 +344,7 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceJsonActive: true,
           serviceConfig: new Application(
-            Object.assign({id: serviceID}, DEFAULT_APP_SPEC)
+            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           )
         });
         break;
