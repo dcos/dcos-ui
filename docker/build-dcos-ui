@@ -2,8 +2,8 @@
 
 # Switch to branch or commit hash
 
-if ! [ -z "$PLUGINS_CHECKOUT" ]; then
-  cd dcos-ui-plugins
+if [[ ! -z "$PLUGINS_CHECKOUT" && -d "./dcos-ui-plugins" ]]; then
+  cd ./dcos-ui-plugins
   git pull
   git checkout $PLUGINS_CHECKOUT
 fi
