@@ -141,9 +141,7 @@ describe('CreateServiceModalFormUtil', function () {
             expect(patched).toEqual({a: ['bar', emptyType]});
           }
         );
-
       });
-
     });
 
     describe('Data Source Preference', function () {
@@ -167,9 +165,7 @@ describe('CreateServiceModalFormUtil', function () {
               expect(patched).toEqual({foo: valueType});
             }
           );
-
         });
-
       });
 
       //
@@ -182,18 +178,29 @@ describe('CreateServiceModalFormUtil', function () {
         VALUE_TYPES.reverse().forEach(function (typeB) {
           const typeBStr = JSON.stringify(typeB);
 
-          it(`should perserve original type ${typeAStr} when ${typeBStr} given`,
+          it(`should replace source type [${typeAStr}] with [${typeBStr}]`,
             function () {
-              const data = {a: typeA};
-              const patch = {a: typeB};
+              const data = {a: [typeA]};
+              const patch = {a: [typeB]};
               const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-              expect(patched).toEqual({a: typeA});
+              expect(patched).toEqual({a: [typeB]});
             }
           );
 
+          it(`should replace source type [${typeAStr}, ${typeBStr}] when [${typeBStr}, ${typeAStr}`,
+            function () {
+              const data = {a: [typeA, typeB]};
+              const patch = {a: [typeB, typeA]};
+              const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+              expect(patched).toEqual({a: [typeB, typeA]});
+            }
+          );
         });
-
       });
+
+      //
+      // If we are mixing types, within an array, always prefer destination type
+      //
 
     });
 
@@ -241,7 +248,7 @@ describe('CreateServiceModalFormUtil', function () {
         VALUE_TYPES.forEach(function (valueType) {
           const valueTypeStr = JSON.stringify(valueType);
 
-          it(`should remove ${emptyTypeStr} on ${valueTypeStr}`,
+          it(`should remove if ${emptyTypeStr} on ${valueTypeStr}`,
             function () {
               const data = {a: valueType};
               const patch = {a: emptyType};
@@ -250,7 +257,7 @@ describe('CreateServiceModalFormUtil', function () {
             }
           );
 
-          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in array`,
+          it(`should remove if ${emptyTypeStr} on ${valueTypeStr} in array`,
             function () {
               const data = {a: [valueType, valueType]};
               const patch = {a: [valueType, emptyType, valueType]};
@@ -259,7 +266,7 @@ describe('CreateServiceModalFormUtil', function () {
             }
           );
 
-          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in object`,
+          it(`should remove if ${emptyTypeStr} on ${valueTypeStr} in object`,
             function () {
               const data = {a: {b: valueType, c: 'value'}};
               const patch = {a: {b: emptyType, c: 'value'}};
@@ -268,7 +275,7 @@ describe('CreateServiceModalFormUtil', function () {
             }
           );
 
-          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in object in array`,
+          it(`should remove if ${emptyTypeStr} on ${valueTypeStr} in object in array`,
             function () {
               const data = {a: [{b: valueType, c: 'value'}, {d: 'other'}]};
               const patch = {a: [{b: emptyType, c: 'value'}, {d: 'other'}]};
@@ -277,7 +284,7 @@ describe('CreateServiceModalFormUtil', function () {
             }
           );
 
-          it(`should remove ${emptyTypeStr} on ${valueTypeStr} in array in object`,
+          it(`should remove if ${emptyTypeStr} on ${valueTypeStr} in array in object`,
             function () {
               const data = {a: {b: [valueType, 'value']}};
               const patch = {a: {b: [emptyType, 'value']}};
@@ -288,6 +295,112 @@ describe('CreateServiceModalFormUtil', function () {
 
         });
       });
+
+      //
+      // Make sure that `0` is not considered an empty value
+      //
+
+      //
+      // HINT: We skip tyoe #0 (1234) because it's a numeric type and it
+      //       will end-up replacing the numerical value with `0`
+      //
+      VALUE_TYPES.slice(1).forEach(function (valueType) {
+        const valueTypeStr = JSON.stringify(valueType);
+
+        it(`should not remove if 0 on ${valueTypeStr}`,
+          function () {
+            const data = {a: valueType};
+            const patch = {a: 0};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: valueType});
+          }
+        );
+
+        it(`should not remove if 0 on ${valueTypeStr} in array`,
+          function () {
+            const data = {a: [valueType, valueType]};
+            const patch = {a: [valueType, 0, valueType]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: [valueType, 0, valueType]});
+          }
+        );
+
+        it(`should not remove if 0 on ${valueTypeStr} in object`,
+          function () {
+            const data = {a: {b: valueType, c: 'value'}};
+            const patch = {a: {b: 0, c: 'value'}};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: {b: valueType, c: 'value'}});
+          }
+        );
+
+        it(`should not remove if 0 on ${valueTypeStr} in object in array`,
+          function () {
+            const data = {a: [{b: valueType, c: 'value'}, {d: 'other'}]};
+            const patch = {a: [{b: 0, c: 'value'}, {d: 'other'}]};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: [{b: valueType, c: 'value'}, {d: 'other'}]});
+          }
+        );
+
+        it(`should not remove if 0 on ${valueTypeStr} in array in object`,
+          function () {
+            const data = {a: {b: [valueType, 'value']}};
+            const patch = {a: {b: [0, 'value']}};
+            const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+            expect(patched).toEqual({a: {b: [0, 'value']}});
+          }
+        );
+      });
+
+      //
+      // Test now `0` over a numerical type, since it should behave differently
+      //
+      it('should not remove if 0 on 1234',
+        function () {
+          const data = {a: 123};
+          const patch = {a: 0};
+          const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+          expect(patched).toEqual({a: 0});
+        }
+      );
+
+      it('should not remove if 0 on 1234 in array',
+        function () {
+          const data = {a: [123, 123]};
+          const patch = {a: [123, 0, 123]};
+          const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+          expect(patched).toEqual({a: [123, 0, 123]});
+        }
+      );
+
+      it('should not remove if 0 on 1234 in object',
+        function () {
+          const data = {a: {b: 123, c: 'value'}};
+          const patch = {a: {b: 0, c: 'value'}};
+          const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+          expect(patched).toEqual({a: {b: 0, c: 'value'}});
+        }
+      );
+
+      it('should not remove if 0 on 1234 in object in array',
+        function () {
+          const data = {a: [{b: 123, c: 'value'}, {d: 'other'}]};
+          const patch = {a: [{b: 0, c: 'value'}, {d: 'other'}]};
+          const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+          expect(patched).toEqual({a: [{b: 0, c: 'value'}, {d: 'other'}]});
+        }
+      );
+
+      it('should not remove if 0 on 1234 in array in object',
+        function () {
+          const data = {a: {b: [123, 'value']}};
+          const patch = {a: {b: [0, 'value']}};
+          const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+          expect(patched).toEqual({a: {b: [0, 'value']}});
+        }
+      );
+
     });
   });
 });

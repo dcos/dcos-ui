@@ -37,7 +37,7 @@ const CreateServiceModalFormUtil = {
    * Patch an object with an object
    *
    * This function:
-   * - Removes items whose patch value is `empty` (null, undefined, 0, or '')
+   * - Removes items whose patch value is `empty` (null, undefined or '')
    * - Keeps `empty` values whose source value is also `empty`
    * - Uses the `applyPatch` function recursively to patch each property
    *
@@ -86,7 +86,7 @@ const CreateServiceModalFormUtil = {
    * Patch an array with an array
    *
    * This function:
-   * - Removes array items whose value is `empty` (null, undefined, 0, or '')
+   * - Removes array items whose value is `empty` (null, undefined, or '')
    * - Keeps `empty` items whose source value is also `empty`
    * - Uses the `applyPatch` function recursively to patch each item
    *
@@ -102,7 +102,8 @@ const CreateServiceModalFormUtil = {
       const dataValue = data[i];
       const patchValue = patch[i];
 
-      // Process in priority new entries
+      // If we have exhausted patching entries and we are now
+      // adding new ones, process them in priority.
       if (i >= data.length) {
         if (!ValidatorUtil.isEmpty(patchValue)) {
           const value = CreateServiceModalFormUtil
@@ -129,7 +130,10 @@ const CreateServiceModalFormUtil = {
         }
       }
 
-      const value = CreateServiceModalFormUtil.applyPatch(dataValue, patchValue);
+      // Arrays allow type replacement in the patch function
+      const value = CreateServiceModalFormUtil.applyPatch(
+        dataValue, patchValue, true
+      );
 
       // Push value only if the value is not empty
       if (ValidatorUtil.isEmpty(value)) {
@@ -160,9 +164,10 @@ const CreateServiceModalFormUtil = {
    *
    * @param {Object} data - The source data to patch
    * @param {Object} patch - The patch to apply with
+   * @param {Boolean} allowTypeChange - Set to true to allow types to change
    * @returns {Object} The patched data response
    */
-  applyPatch(data, patch) {
+  applyPatch(data, patch, allowTypeChange=false) {
     // If we don't have data, prefer patch, but make sure not to include
     // empty properties in the objects
     if (data == null) {
@@ -172,7 +177,10 @@ const CreateServiceModalFormUtil = {
     // Prefer `data` type if we have a type clash
     if ((typeof data !== typeof patch) ||
         (Array.isArray(data) !== Array.isArray(patch))) {
-      return data;
+
+      return allowTypeChange
+        ? patch
+        : data;
     }
 
     // Non-object types just pass through
