@@ -125,17 +125,16 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   onCosmosPackagesStoreDescriptionSuccess() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    if (!SchemaUtil.validateSchema(cosmosPackage.getConfig())) {
-      this.setState({schemaIncorrect: true});
-
-      return;
-    }
+    const schemaIncorrect = !SchemaUtil.validateSchema(
+      cosmosPackage.getConfig()
+    );
 
     this.internalStorage_update({
-      hasError: false,
+      hasError: schemaIncorrect,
       isLoading: false
     });
-    this.setState({schemaIncorrect: false});
+
+    this.setState({schemaIncorrect});
   }
 
   onCosmosPackagesStoreInstallError(installError) {
@@ -557,16 +556,16 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     const {isLoading} = this.internalStorage_get();
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
+    if (isLoading || !cosmosPackage) {
+      return this.getLoadingScreen();
+    }
+
     if (cosmosPackage && cosmosPackage.isCLIOnly()) {
       return this.getCLIPackageInfo(cosmosPackage);
     }
 
     if (schemaIncorrect) {
       return this.getIncorrectSchemaWarning(cosmosPackage);
-    }
-
-    if (isLoading || !cosmosPackage) {
-      return this.getLoadingScreen();
     }
 
     let name = cosmosPackage.getName();
