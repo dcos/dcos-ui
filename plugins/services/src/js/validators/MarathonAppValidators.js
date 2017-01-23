@@ -140,9 +140,8 @@ const MarathonAppValidators = {
   },
 
   /*
-   * This validator tests two fields:
-   *
-   * - container.volumes.X.containerPath should not contain '/'
+   * This validator ensures that `container.volumes.X.containerPath` does
+   * not contain the character '/', according to marathon `^[^/]*$ rule
    *
    * @param {Object} app - The data to validate
    * @returns {Array} Returns an array with validation errors
@@ -156,7 +155,7 @@ const MarathonAppValidators = {
     return volumes.reduce(function (memo, volume, index) {
       const containerPath = volume.containerPath || '';
 
-      // Local volumes should not contain '/'
+      // Local or external volumes require the same check
       if (containerPath.indexOf('/') !== -1) {
         memo.push({
           path: ['container', 'volumes', index, 'containerPath'],
