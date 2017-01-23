@@ -3,6 +3,36 @@ const MESSAGE_VARIABLE = /\{\{([^}]+)\}\}/g;
 const ErrorMessageUtil = {
 
   /**
+   * This function returns the `message` of the given array object,
+   * with the path and message components concatenated into a uniform
+   * string that can be displayed unanchored.
+   *
+   * @param {Object} error - The error message
+   * @param {Array} pathTranslationRules - The path translation rules
+   * @returns {String} Returns the composed error string
+   */
+  getUnanchoredErrorMessage(error, pathTranslationRules) {
+    const pathString = error.path.join('.');
+    const rule = pathTranslationRules.find(function (rule) {
+      return rule.match.exec(pathString);
+    });
+
+    // If no translation found, prefix with the path ID
+    if (!rule && !pathString) {
+      return error.message;
+    }
+    if (!rule) {
+      return `${pathString}: ${error.message}`;
+    }
+
+    // Otherwise prefix with the name from the rule
+    const errorMessage = error.message[0].toLowerCase() +
+      error.message.substr(1);
+
+    return `${rule.name} ${errorMessage}`;
+  },
+
+  /**
    * Translate the error messages in the `errors` array, using the translation
    * rules in the `translationRules` array.
    *
