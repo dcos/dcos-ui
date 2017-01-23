@@ -8,9 +8,8 @@ const MarathonErrorUtil = {
    * @param {String} message - The marathon error string
    * @returns {String} Returns the message type
    */
-  /* eslint-disable no-unused-vars */
+  // eslint-disable-next-line no-unused-vars
   getErrorType(message) {
-  /* eslint-enable no-unused-vars */
 
     // TODO: This will be implemented on the next PR
     return 'MARATHON_ERROR';
@@ -46,12 +45,13 @@ const MarathonErrorUtil = {
       ];
     }
 
-    // `details` can be missing
-    if (!error.details) {
-      if (!error.message) {
-        return [];
-      }
+    // Both `details` and `errors` can be missing
+    if (!error.details && !error.message) {
+      return [];
+    }
 
+    // Only `details` can be missing
+    if (!error.details && error.message) {
       return [
         {
           path: [],
@@ -84,15 +84,14 @@ const MarathonErrorUtil = {
       // A marathon path looks like: /container(0)/containerPath
       //
       const pathString = path
-        .replace(/\//g, '.')
-        .replace(/\((\d+)\)/g, (_, id) => `.${id}`)
+        .replace(/\((\d+)\)/g, (_, id) => `/${id}`)
         .slice(1);
 
       // Don't create array with empty first item when we have an empty path
       let pathComponents = [];
       if (pathString !== '') {
         pathComponents = pathString
-          .split('.')
+          .split('/')
           .map(function (component) {
             if (ValidatorUtil.isNumber(component)) {
               return Number(component);
