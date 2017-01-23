@@ -22,22 +22,18 @@ class ServiceStatusWarning extends Component {
     );
   }
 
-  getAppsWithDeclinedOffers(serviceTree) {
-    return serviceTree.filterItems(function (item) {
-      if (!(item instanceof ServiceTree)) {
-        return DeclinedOffersUtil
-          .shouldDisplayDeclinedOffersWarning(item.getQueue());
-      }
-
-      return false;
-    }).flattenItems().getItems();
-  }
-
   render() {
     const {item} = this.props;
 
     if (item instanceof ServiceTree) {
-      const appsWithDeclinedOffers = this.getAppsWithDeclinedOffers(item);
+      const appsWithDeclinedOffers = item.filterItems(function (item) {
+        if (!(item instanceof ServiceTree)) {
+          return DeclinedOffersUtil
+            .shouldDisplayDeclinedOffersWarning(item.getQueue());
+        }
+
+        return false;
+      }).flattenItems().getItems();
       const appCount = appsWithDeclinedOffers.length;
 
       if (appCount > 0) {
