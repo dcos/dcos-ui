@@ -149,5 +149,37 @@ describe('ErrorMessageUtil', function () {
         ]);
 
     });
+
+    it('should correctly replace variables', function () {
+      const errorInput = [
+        {
+          message: 'message1 is 3',
+          type: 'TYPE1',
+          path: [],
+          variables: {
+            value: 3
+          }
+        }
+      ];
+      const translationRules = [
+        {
+          type: 'TYPE1',
+          path: /.*/,
+          message: 'message2 is {{value}}'
+        }
+      ];
+
+      expect(ErrorMessageUtil.translateErrorMessages(errorInput, translationRules))
+        .toEqual([
+          {
+            message: 'message2 is 3',
+            type: 'TYPE1',
+            path: [],
+            variables: {
+              value: 3
+            }
+          }
+        ]);
+    });
   });
 });
