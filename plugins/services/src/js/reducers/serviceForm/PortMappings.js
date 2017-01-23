@@ -135,7 +135,7 @@ module.exports = {
           'loadBalanced'
         ], true, SET));
 
-        if (!vip.startsWith(state.id)) {
+        if (!vip.startsWith(`${state.id}:`)) {
           memo.push(new Transaction([
             'portDefinitions',
             index,

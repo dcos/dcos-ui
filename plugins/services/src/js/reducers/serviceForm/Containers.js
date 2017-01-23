@@ -213,7 +213,7 @@ function containersParser(state) {
               'loadBalanced'
             ], true));
 
-            if (!vip.startsWith(state.id)) {
+            if (!vip.startsWith(`${state.id}:`)) {
               memo.push(new Transaction([
                 'containers', index, 'endpoints', endpointIndex,
                 'vip'
