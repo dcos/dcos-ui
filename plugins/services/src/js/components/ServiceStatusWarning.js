@@ -45,7 +45,9 @@ class ServiceStatusWarning extends Component {
       const queue = item.getQueue();
 
       if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)) {
-        const timeWaiting = DeclinedOffersUtil.getTimeWaiting(queue);
+        const timeWaiting = Date.now() - DateUtil.strToMs(
+          DeclinedOffersUtil.getTimeWaiting(queue)
+        );
 
         return this.getTooltip(`DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`);
       }
