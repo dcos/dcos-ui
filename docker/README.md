@@ -1,4 +1,4 @@
-## Running DCOS US in Docker
+## Running DC/OS UI in Docker
 
 ### Requirements
 1. [Install docker](https://www.docker.com/products/overview)
@@ -14,11 +14,12 @@
 
   ```sh
   docker build \
-  # --build-arg PLUGINS_REPO="" \ # Optional
+    `# Optional` \
+    --build-arg PLUGINS_REPO="" \
     -t dcos-ui:latest \
     -f docker/Dockerfile.dev .
   ```
-  If you have a repository of plugins to enhance DC/OS UI, you may configure this by passing a URL to the git repo to be cloned. For example: `https://TOKEN:x-oauth-basic@github.com/my-company/dcos-ui-plugins.git`
+  If you have a repository of plugins to enhance DC/OS UI, you may configure this by passing a URL to the git repo to be cloned. For example: `https://{AUTH_TOKEN}:x-oauth-basic@github.com/my-company/dcos-ui-plugins.git`, where `{AUTH_TOKEN}` would be your generated token from, e.g. https://github.com/settings/tokens.
 
 3. Run the dcos-ui docker image
 
@@ -27,7 +28,8 @@
     -p 127.0.0.1:4200:4200 \
     -e "CLUSTER_ADDRESS=https://a-dcos-cluster.us-west-2.elb.amazonaws.com" \
     -e "APPLICATION_CHECKOUT=master" \
-  # -e "PLUGINS_CHECKOUT=master" \ # Optional
+    `# Optional`
+    -e "PLUGINS_CHECKOUT=master" \
     -it dcos-ui
   ```
   You may configure the following set of environment variables.

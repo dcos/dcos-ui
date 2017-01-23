@@ -12,6 +12,12 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 # Basic dependencies
 RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+
+# Insert this line before "RUN apt-get update" to dynamically
+# replace httpredir.debian.org with a single working domain
+# in attempt to "prevent" the "Error reading from server" error.
+* https://github.com/rgeissert/http-redirector/issues/74#issuecomment-241682578
+RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
 RUN apt-get update                     \
     && apt-get install -y xvfb         \
         libgtk2.0-0 libnotify4         \
