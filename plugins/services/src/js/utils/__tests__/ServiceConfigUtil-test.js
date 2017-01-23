@@ -61,4 +61,31 @@ describe('ServiceConfigUtil', function () {
 
   });
 
+  describe('#buildHostNameFromVipLabel', function () {
+    it('builds correct hostname', function () {
+      expect(
+        ServiceConfigUtil.buildHostNameFromVipLabel('/some-app:8080')
+      ).toEqual('some-app.marathon.l4lb.thisdcos.directory:8080');
+    });
+
+    it('builds correct hostname for an IP address', function () {
+      expect(
+        ServiceConfigUtil.buildHostNameFromVipLabel('192.168.0.1:9091')
+      ).toEqual('192.168.0.1:9091');
+    });
+
+    it('correctly displays <random port>', function () {
+      expect(
+        ServiceConfigUtil.buildHostNameFromVipLabel('192.168.0.1:0', undefined)
+      ).toEqual('192.168.0.1:<assigned port>');
+    });
+
+    it('correctly uses desired port', function () {
+      expect(
+        ServiceConfigUtil.buildHostNameFromVipLabel('192.168.0.1:0', 9070)
+      ).toEqual('192.168.0.1:9070');
+    });
+
+  });
+
 });

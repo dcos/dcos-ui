@@ -5,17 +5,17 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
+import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
+import ServiceConfigUtil from '../../utils/ServiceConfigUtil';
 import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
 const {CONTAINER, HOST} = Networking.type;
@@ -146,18 +146,19 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       errors,
       `containers.${containerIndex}.endpoints.${index}.labels`
     );
+
     let address = vip;
     if (address == null) {
-      const hostname = HostUtil.stringToHostname(this.props.data.id);
       let port = '';
       if (hostPort != null && hostPort !== '') {
-        port = `:${hostPort}`;
+        port = hostPort;
       }
       if (containerPort != null && containerPort !== '') {
-        port = `:${containerPort}`;
+        port = containerPort;
       }
+      port = port || 0;
 
-      address = `${hostname}${Networking.L4LB_ADDRESS}${port}`;
+      address = `${this.props.data.id}:${port}`;
     }
 
     return [
@@ -187,7 +188,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         </FormGroup>
         <FormGroup className="column-auto flush-left" key="address">
           <span>
-            {address}
+            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
           </span>
         </FormGroup>
       </div>
