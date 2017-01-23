@@ -68,6 +68,7 @@ class PodContainerServiceFormSection extends Component {
     }
 
     return artifacts.map((item, index) => {
+      const error = findNestedPropertyInObject(artifactErrors, `${index}.uri`);
       let label = null;
       if (index === 0) {
         label = this.getArtifactsLabel();
@@ -77,13 +78,13 @@ class PodContainerServiceFormSection extends Component {
         <FormRow key={`${path}.artifacts.${index}`}>
           <FormGroup
             className="column-10"
-            showError={Boolean(artifactErrors[index])}>
+            showError={Boolean(error)}>
             {label}
             <FieldInput
               name={`${path}.artifacts.${index}.uri`}
               placeholder="http://example.com"
               value={item} />
-            <FieldError>{artifactErrors[index]}</FieldError>
+            <FieldError>{error}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
             <DeleteRowButton
