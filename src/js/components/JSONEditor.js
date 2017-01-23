@@ -10,7 +10,6 @@ const METHODS_TO_BIND = [
   'handleBlur',
   'handleChange',
   'handleEditorLoad',
-  'handleWindowResize',
   'handleFocus'
 ];
 
@@ -177,47 +176,6 @@ class JSONEditor extends React.Component {
     this.updateEditorState();
   }
 
-  // -- BEGIN HACK -------------------------------------------------------------
-  //
-  // This tries to undo an issue caused by a `transform` attribute in the CSS
-  // chain, that makes Ace editor miscalculate the viewport origin and
-  // therefore render the tooltip outside the viewable region.
-  //
-  // TODO: Properly solve this in CSS
-  //
-  /**
-   * @override
-   */
-  componentDidMount() {
-    global.addEventListener('resize', this.handleWindowResize);
-  }
-
-  /**
-   * @override
-   */
-  componentWillUnmount() {
-    global.removeEventListener('resize', this.handleWindowResize);
-  }
-
-  handleWindowResize() {
-    if (!this.aceEditor) {
-      return;
-    }
-
-    const editorRect = this.aceEditor.container.getBoundingClientRect();
-    const tooltip = this.aceEditor.container.querySelector('.ace_tooltip');
-    if (!tooltip) {
-      return;
-    }
-
-    tooltip.style.transform =
-      tooltip.style.webkitTransform =
-      tooltip.style.mozTransform =
-      tooltip.style.msTransform =
-      `translateX(-${editorRect.left}px) translateY(-${editorRect.top}px)`;
-  }
-  // -- END HACK ---------------------------------------------------------------
-
   handleEditorLoad(editor) {
     this.aceEditor = editor;
 
@@ -234,38 +192,6 @@ class JSONEditor extends React.Component {
 
     // Synchronize editor state
     this.updateEditorState();
-
-    // -- BEGIN HACK -----------------------------------------------------------
-    //
-    // This tries to undo an issue caused by a `transform` attribute in the CSS
-    // chain, that makes Ace editor miscalculate the viewport origin and
-    // therefore render the tooltip outside the viewable region.
-    //
-    // TODO: Properly solve this in CSS
-    //
-    const MutationObserver = global.MutationObserver
-      || global.mozMutationObserver
-      || global.webkitMutationObserver
-      || global.msMutationObserver;
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (!mutation.addedNodes) {
-          return;
-        }
-        // Wait until we the tooltip DOM element is injected and position it
-        // accordingly
-        mutation.addedNodes.forEach((node) => {
-          if (node.classList.contains('ace_tooltip')) {
-            this.handleWindowResize();
-            observer.disconnect();
-          }
-        });
-      });
-    });
-    observer.observe(this.aceEditor.container, {childList: true});
-    //
-    // -- END HACK -------------------------------------------------------------
-
   }
 
   /**
