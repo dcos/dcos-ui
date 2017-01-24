@@ -73,6 +73,7 @@ describe('ServiceDetail', function () {
         ServiceDetail,
         {
           actions: {editService() {}},
+          errors: {},
           params: {},
           service
         },

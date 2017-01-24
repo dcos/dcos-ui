@@ -469,9 +469,9 @@ const ServiceUtil = {
 
     // Only compare the service specs as everything else is status data
     return deepEqual(
-        serviceA.getSpec(),
-        serviceB.getSpec()
-      );
+      serviceA.getSpec(),
+      serviceB.getSpec()
+    );
   },
 
   getBaseID(serviceID) {
@@ -484,6 +484,30 @@ const ServiceUtil = {
     // return value of `getId` would be `/` so in most cases we want to append a
     // `/` so that the user can begin typing the `id` of their application.
     return serviceID.replace(/^(\/.+)$/, '$1/');
+  },
+
+  getErrorsMap(errors) {
+    const errorsMap = new Map();
+    if (errors) {
+      const {message} = errors;
+      errorsMap.set('/', [message]);
+
+      if (errors.details) {
+        errors.details.forEach(function (item) {
+          const existingMessages = errorsMap.get(item.path);
+
+          let messages = item.errors;
+
+          if (existingMessages) {
+            messages = messages.concat(existingMessages);
+          }
+
+          errorsMap.set(item.path, messages);
+        });
+      }
+    }
+
+    return errorsMap;
   },
 
   getDefinitionFromSpec(spec) {

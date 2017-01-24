@@ -23,7 +23,7 @@ class ServiceConfigurationContainer extends React.Component {
   }
 
   render() {
-    const {onEditClick, service} = this.props;
+    const {onClearError, errors, onEditClick, service} = this.props;
 
     // Wait till we've loaded the versions
     if (!service.getVersions().size) {
@@ -32,6 +32,8 @@ class ServiceConfigurationContainer extends React.Component {
 
     return (
       <ServiceConfiguration
+        onClearError={onClearError}
+        errors={errors}
         onEditClick={onEditClick}
         service={service} />
     );
@@ -39,7 +41,9 @@ class ServiceConfigurationContainer extends React.Component {
 }
 
 ServiceConfigurationContainer.propTypes = {
+  onClearError: React.PropTypes.func,
   onEditClick: React.PropTypes.func.isRequired,
+  errors: React.PropTypes.object,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 
