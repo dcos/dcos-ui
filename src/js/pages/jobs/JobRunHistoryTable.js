@@ -15,6 +15,15 @@ import JobStopRunModal from '../../components/modals/JobStopRunModal';
 import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
 import TimeAgo from '../../components/TimeAgo';
 
+const columnClasses = {
+  checkbox: 'job-run-history-table-column-checkbox',
+  jobID: 'job-run-history-table-column-id',
+  status: 'job-run-history-table-column-status',
+  startedAt: 'job-run-history-table-column-started',
+  finishedAt: 'job-run-history-table-column-finished',
+  runTime: 'job-run-history-table-column-run-time'
+};
+
 const METHODS_TO_BIND = [
   'renderJobIDColumn',
   'handleItemCheck',
@@ -69,12 +78,12 @@ class JobRunHistoryTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40px'}} />
-        <col />
-        <col style={{width: '120px'}} />
-        <col style={{width: '160px'}} />
-        <col style={{width: '160px'}} />
-        <col style={{width: '160px'}} />
+        <col className={columnClasses.checkbox} />
+        <col className={columnClasses.jobID} />
+        <col className={columnClasses.status} />
+        <col className={columnClasses.startedAt} />
+        <col className={columnClasses.finishedAt} />
+        <col className={columnClasses.runTime} />
       </colgroup>
     );
   }
@@ -105,7 +114,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getColumnClassName(prop, sortBy, row) {
-    return classNames({
+    return classNames(columnClasses[prop], {
       'active': prop === sortBy.prop,
       'clickable': row == null
     });
