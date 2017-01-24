@@ -34,9 +34,10 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
    */
   getMenuItems() {
     const {clusterName, menuItems} = this.props;
+    const nextMenuItems = menuItems.slice();
     const userLabel = this.getUserLabel();
 
-    menuItems.unshift({
+    nextMenuItems.unshift({
       className: 'hidden',
       html: (
         <UserAccountDropdownTrigger primaryContent={clusterName}
@@ -46,7 +47,7 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
       selectable: false
     });
 
-    menuItems.push({
+    nextMenuItems.push({
       className: 'dropdown-menu-section-header',
       html: <label className="text-overflow">{userLabel}</label>,
       id: 'header-user-label',
@@ -57,7 +58,7 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
       onClick: AuthStore.logout
     });
 
-    return menuItems;
+    return nextMenuItems;
   }
 }
 
