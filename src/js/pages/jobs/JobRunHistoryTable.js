@@ -196,7 +196,7 @@ class JobRunHistoryTable extends React.Component {
         selectedItems={jobRuns}
         onClose={this.handleStopJobRunModalClose}
         onSuccess={this.handleStopJobRunSuccess}
-        open={!!isStopRunModalShown} />
+        open={isStopRunModalShown} />
     );
   }
 

@@ -190,7 +190,7 @@ class ServiceForm extends SchemaForm {
           serviceAddress += Networking.L4LB_ADDRESS;
 
           const addresses = ports.filter(function (port) {
-            return !!port.lbPort;
+            return port.lbPort !== 0;
           }).map(function (port, index) {
             return (
               <li key={index}>

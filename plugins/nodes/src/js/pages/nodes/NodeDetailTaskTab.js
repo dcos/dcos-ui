@@ -38,9 +38,9 @@ class NodeDetailTaskTab extends React.Component {
   onStoreChange() {
     // Throttle updates from DCOSStore
     if (Date.now() - this.state.lastUpdate > 1000
-      || (!!DCOSStore.serviceDataReceived && this.state.isLoading)) {
+      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
       this.setState({
-        isLoading: !(!!DCOSStore.serviceDataReceived),
+        isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
       });
     }

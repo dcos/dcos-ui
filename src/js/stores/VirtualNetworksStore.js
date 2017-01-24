@@ -71,7 +71,7 @@ class VirtualNetworksStore extends BaseStore {
   }
 
   shouldPoll() {
-    return !!this.listeners(VIRTUAL_NETWORKS_CHANGE).length;
+    return this.listeners(VIRTUAL_NETWORKS_CHANGE).length > 0;
   }
 
   startPolling() {

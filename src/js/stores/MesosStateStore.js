@@ -126,7 +126,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   shouldPoll() {
-    return !!this.listeners(MESOS_STATE_CHANGE).length;
+    return this.listeners(MESOS_STATE_CHANGE).length > 0;
   }
 
   indexTasksByID(lastMesosState) {

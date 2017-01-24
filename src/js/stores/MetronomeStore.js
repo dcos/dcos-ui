@@ -299,7 +299,7 @@ class MetronomeStore extends EventEmitter {
   }
 
   shouldPoll() {
-    return !!this.listeners(METRONOME_JOBS_CHANGE).length;
+    return this.listeners(METRONOME_JOBS_CHANGE).length > 0;
   }
 
   stopJobDetailMonitor(jobID) {

@@ -378,7 +378,7 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   hasProcessedApps() {
-    return !!Object.keys(this.get('apps')).length;
+    return Object.keys(this.get('apps')).length > 0;
   }
 
   getFrameworkHealth(app) {
