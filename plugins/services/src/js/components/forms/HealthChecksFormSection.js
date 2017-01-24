@@ -32,7 +32,7 @@ class HealthChecksFormSection extends Component {
 
     const errors = errorsLens.at(key, {}).get(this.props.errors);
 
-    const gracePeriodTooltipContent = (
+    const gracePeriodHelpText = (
       <span>
         (Optional. Default: 300): Health check failures are ignored within this
         number of seconds or until the instance becomes healthy for the first
@@ -40,20 +40,20 @@ class HealthChecksFormSection extends Component {
       </span>
     );
 
-    const intervalTooltipContent = (
+    const intervalHelpText = (
       <span>
         (Optional. Default: 60): Number of seconds to wait between health checks.
       </span>
     );
 
-    const timeoutTooltipContent = (
+    const timeoutHelpText = (
       <span>
         (Optional. Default: 20): Number of seconds after which a health check
         is considered a failure regardless of the response.
       </span>
     );
 
-    const failuresTooltipContent = (
+    const failuresHelpText = (
       <span>
         (Optional. Default: 3): Number of consecutive health check failures
         after which the unhealthy instance should be killed. HTTP & TCP health
@@ -79,7 +79,7 @@ class HealthChecksFormSection extends Component {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
-                      content={gracePeriodTooltipContent}
+                      content={gracePeriodHelpText}
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
@@ -107,7 +107,7 @@ class HealthChecksFormSection extends Component {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
-                      content={intervalTooltipContent}
+                      content={intervalHelpText}
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
@@ -135,7 +135,7 @@ class HealthChecksFormSection extends Component {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
-                      content={timeoutTooltipContent}
+                      content={timeoutHelpText}
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
@@ -163,7 +163,7 @@ class HealthChecksFormSection extends Component {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
-                      content={failuresTooltipContent}
+                      content={failuresHelpText}
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
@@ -235,10 +235,10 @@ class HealthChecksFormSection extends Component {
 
     const errors = errorsLens.at(key, {}).get(this.props.errors);
 
-    const endpointTooltipContent = (
+    const endpointHelpText = (
       <span>Select a service endpoint that you configured in Networking.</span>
     );
-    const pathTooltipContent = (
+    const pathHelpText = (
       <span>
         Enter a path that is reachable in your service and where you expect
         a response code between 200 and 399.
@@ -257,7 +257,7 @@ class HealthChecksFormSection extends Component {
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
-                  content={endpointTooltipContent}
+                  content={endpointHelpText}
                   interactive={true}
                   maxWidth={300}
                   scrollContainer=".gm-scroll-view"
@@ -285,7 +285,7 @@ class HealthChecksFormSection extends Component {
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
-                  content={pathTooltipContent}
+                  content={pathHelpText}
                   interactive={true}
                   maxWidth={300}
                   scrollContainer=".gm-scroll-view"
@@ -428,7 +428,7 @@ class HealthChecksFormSection extends Component {
           interactive={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view"
-          wrapperClassName={"tooltip-wrapper text-align-center pull-right"}
+          wrapperClassName="tooltip-wrapper text-align-center pull-right"
           wrapText={true}>
           <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
