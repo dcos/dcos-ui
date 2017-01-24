@@ -1,4 +1,6 @@
 jest.dontMock('../DeclinedOffersUtil');
+jest.dontMock('../../structs/Application');
+jest.dontMock('../../structs/ServiceTree');
 
 const DeclinedOffersUtil = require('../DeclinedOffersUtil');
 
