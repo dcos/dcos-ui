@@ -77,22 +77,24 @@ class HealthChecksFormSection extends Component {
                   <FormGroupHeadingContent primary={true}>
                     Grace Period (s)
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content={gracePeriodTooltipContent}
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <Tooltip
-                content={gracePeriodTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                wrapText={true}>
-                <FieldInput
-                  name={`healthChecks.${key}.gracePeriodSeconds`}
-                  type="number"
-                  min="0"
-                  placeholder="300"
-                  value={healthCheck.gracePeriodSeconds}/>
-              </Tooltip>
+              <FieldInput
+                name={`healthChecks.${key}.gracePeriodSeconds`}
+                type="number"
+                min="0"
+                placeholder="300"
+                value={healthCheck.gracePeriodSeconds}/>
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -103,22 +105,24 @@ class HealthChecksFormSection extends Component {
                   <FormGroupHeadingContent primary={true}>
                     Interval (s)
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content={intervalTooltipContent}
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <Tooltip
-                content={intervalTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                wrapText={true}>
-                <FieldInput
-                  name={`healthChecks.${key}.intervalSeconds`}
-                  type="number"
-                  min="0"
-                  placeholder="60"
-                  value={healthCheck.intervalSeconds}/>
-              </Tooltip>
+              <FieldInput
+                name={`healthChecks.${key}.intervalSeconds`}
+                type="number"
+                min="0"
+                placeholder="60"
+                value={healthCheck.intervalSeconds}/>
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -129,22 +133,24 @@ class HealthChecksFormSection extends Component {
                   <FormGroupHeadingContent primary={true}>
                     Timeout (s)
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content={timeoutTooltipContent}
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <Tooltip
-                content={timeoutTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                wrapText={true}>
-                <FieldInput
-                  name={`healthChecks.${key}.timeoutSeconds`}
-                  type="number"
-                  min="0"
-                  placeholder="20"
-                  value={healthCheck.timeoutSeconds}/>
-              </Tooltip>
+              <FieldInput
+                name={`healthChecks.${key}.timeoutSeconds`}
+                type="number"
+                min="0"
+                placeholder="20"
+                value={healthCheck.timeoutSeconds}/>
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -155,22 +161,24 @@ class HealthChecksFormSection extends Component {
                   <FormGroupHeadingContent primary={true}>
                     Max Failures
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content={failuresTooltipContent}
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <Tooltip
-                content={failuresTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                wrapText={true}>
-                <FieldInput
-                  name={`healthChecks.${key}.maxConsecutiveFailures`}
-                  type="number"
-                  min="0"
-                  placeholder="3"
-                  value={healthCheck.maxConsecutiveFailures}/>
-              </Tooltip>
+              <FieldInput
+                name={`healthChecks.${key}.maxConsecutiveFailures`}
+                type="number"
+                min="0"
+                placeholder="3"
+                value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </FormRow>
@@ -247,22 +255,25 @@ class HealthChecksFormSection extends Component {
               <FormGroupHeadingContent primary={true}>
                 Service Endpoint
               </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={endpointTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <Tooltip
-            content={endpointTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-            wrapText={true}>
-            <FieldSelect
-              name={`healthChecks.${key}.portIndex`}
-              value={String(healthCheck.portIndex)}>
-              <option value="">Select Endpoint</option>
-              {this.getEndpoints()}
-            </FieldSelect>
-          </Tooltip>
+          <FieldSelect
+            name={`healthChecks.${key}.portIndex`}
+            value={String(healthCheck.portIndex)}>
+            <option value="">Select Endpoint</option>
+            {this.getEndpoints()}
+          </FieldSelect>
         </FormGroup>
         <FormGroup
           className="column-6"
@@ -272,20 +283,22 @@ class HealthChecksFormSection extends Component {
               <FormGroupHeadingContent primary={true}>
                 Path
               </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={pathTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <Tooltip
-            content={pathTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-            wrapText={true}>
-            <FieldInput
-              name={`healthChecks.${key}.path`}
-              type="text"
-              value={healthCheck.path}/>
-          </Tooltip>
+          <FieldInput
+            name={`healthChecks.${key}.path`}
+            type="text"
+            value={healthCheck.path}/>
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
       </FormRow>
@@ -351,6 +364,17 @@ class HealthChecksFormSection extends Component {
                   <FormGroupHeadingContent primary={true}>
                     Protocol
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content={tooltipContent}
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapperClassName={"tooltip-wrapper text-align-center pull-right"}
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
               <p>
@@ -359,21 +383,13 @@ class HealthChecksFormSection extends Component {
                   More Information
                 </a>.
               </p>
-              <Tooltip
-                content={tooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                wrapText={true}>
-                <FieldSelect name={`healthChecks.${key}.protocol`}
-                  value={healthCheck.protocol &&
-                  healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
-                  <option value="">Select Protocol</option>
-                  <option value={COMMAND}>Command</option>
-                  <option value={MESOS_HTTP}>HTTP</option>
-                </FieldSelect>
-              </Tooltip>
+              <FieldSelect name={`healthChecks.${key}.protocol`}
+                value={healthCheck.protocol &&
+                healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
+                <option value="">Select Protocol</option>
+                <option value={COMMAND}>Command</option>
+                <option value={MESOS_HTTP}>HTTP</option>
+              </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>
           </FormRow>
@@ -407,6 +423,15 @@ class HealthChecksFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName={"tooltip-wrapper text-align-center pull-right"}
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
         <p>
           Health checks may be specified per application to be run against
           the application{'\''}s instances.
