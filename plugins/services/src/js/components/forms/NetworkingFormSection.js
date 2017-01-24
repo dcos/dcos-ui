@@ -12,7 +12,6 @@ import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import ContainerConstants from '../../constants/ContainerConstants';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
@@ -79,6 +78,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
+    const assignHelpText = (
+      <span>
+        {'Most services will use TCP. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
+      </span>
+    );
+
     return [
       <FormGroup
         className="column-3"
@@ -121,7 +127,21 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             checked={portDefinition.automaticPort}
             name={`portDefinitions.${index}.automaticPort`}
             type="checkbox" />
-          Assign Automatically
+          <FormGroupHeading>
+            <FormGroupHeadingContent>
+              Assign Automatically
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={assignHelpText}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
       </FormGroup>
     ];
@@ -171,6 +191,17 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </span>
       );
     }
+    const loadBalancerTooltipContent = (
+      <span>
+        {`Load balance the service internally (layer 4), and create a service
+        address. For external (layer 7) load balancing, create an external
+        load balancer and attach this service. `}
+        <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/"
+          target="_blank">
+          More Information
+        </a>
+      </span>
+    );
 
     return [
       <FormRow key="title">
@@ -180,11 +211,22 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               <FormGroupHeadingContent primary={true}>
                 Load Balanced Service Address
               </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={loadBalancerTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
             </FormGroupHeading>
-            <FieldHelp>
-              Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
-            </FieldHelp>
           </FieldLabel>
+          <p>
+            Load balance this service internally.
+          </p>
         </FormGroup>
       </FormRow>,
       <FormRow key="toggle">
@@ -362,6 +404,17 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   <FormGroupHeadingContent primary={true}>
                     Service Endpoint Name
                   </FormGroupHeadingContent>
+                  <FormGroupHeadingContent>
+                    <Tooltip
+                      content="Name your endpoint to search for it by a meaningful name, rather than the port number."
+                      interactive={true}
+                      maxWidth={300}
+                      scrollContainer=".gm-scroll-view"
+                      wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                      wrapText={true}>
+                      <Icon color="grey" id="circle-question" size="mini" />
+                    </Tooltip>
+                  </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
               <FieldInput
@@ -465,6 +518,24 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isUserNetwork = networkType && networkType.startsWith(USER);
     const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
+    const serviceEndpointsTooltipContent = (
+      <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+        target="_blank">
+        More Information
+      </a>
+    );
+    const serviceEndpointsTooltip = (
+      <Tooltip
+        content={serviceEndpointsTooltipContent}
+        interactive={true}
+        maxWidth={300}
+        scrollContainer=".gm-scroll-view"
+        wrapperClassName="tooltip-wrapper text-align-center pull-right"
+        wrapText={true}>
+        <Icon color="grey" id="circle-question" size="mini" />
+      </Tooltip>
+    );
+
     // Mesos Runtime doesn't support Service Endpoints for the USER network
     if ((isMesosRuntime || isUniversalContainerizer) &&
         (isUserNetwork || isBridgeNetwork)) {
@@ -484,8 +555,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </h3>
+          {serviceEndpointsTooltip}
           <p key="service-endpoints-description" className="muted">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+            Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
           </p>
         </Tooltip>
       );
@@ -496,8 +569,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <h3 className="short-bottom" key="service-endpoints-header">
           Service Endpoints
         </h3>
+        {serviceEndpointsTooltip}
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+          Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
         </p>
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
