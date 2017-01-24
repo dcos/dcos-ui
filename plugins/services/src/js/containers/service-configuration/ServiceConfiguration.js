@@ -3,6 +3,7 @@ import {DCOSStore} from 'foundation-ui';
 import {Dropdown, Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ApplicationSpec from '../../structs/ApplicationSpec';
@@ -58,12 +59,12 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   handleApplyButtonClick() {
-    const {editService, service} = this.props;
+    const {onEditClick, service} = this.props;
     const {selectedVersionID} = this.state;
 
     const serviceConfiguration = service.getVersions().get(selectedVersionID);
 
-    editService(service,
+    onEditClick(service,
       ServiceUtil.getDefinitionFromSpec(
           new ApplicationSpec(serviceConfiguration)
       )
@@ -76,7 +77,10 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     const service = ServiceUtil.createServiceFromResponse(serviceConfiguration);
 
-    this.context.modalHandlers.editService({service});
+    this.context.router.push(
+      `/services/overview/${encodeURIComponent(service.getId())}/edit`
+    );
+
   }
 
   handleVersionSelection(versionItem) {
@@ -194,7 +198,9 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     if (config == null) {
       content = <Loader />;
     } else {
-      content = <ServiceConfigDisplay appConfig={config} />;
+      content = (
+        <ServiceConfigDisplay appConfig={config} />
+      );
     }
 
     return (
@@ -208,13 +214,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 }
 
 ServiceConfiguration.contextTypes = {
-  modalHandlers: React.PropTypes.shape({
-    editService: React.PropTypes.func.isRequired
-  }).isRequired
+  router: routerShape
 };
 
 ServiceConfiguration.propTypes = {
-  editService: React.PropTypes.func.isRequired,
+  onEditClick: React.PropTypes.func.isRequired,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 

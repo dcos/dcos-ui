@@ -46,10 +46,15 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   onActionsItemSelection(actionItem) {
-    const {modalHandlers} = this.context;
+    const {modalHandlers, router} = this.context;
     const {service} = this.props;
 
     switch (actionItem.id) {
+      case ServiceActionItem.EDIT:
+        router.push(
+          `/services/overview/${encodeURIComponent(service.getId())}/edit`
+        );
+        break;
       case ServiceActionItem.SCALE:
         modalHandlers.scaleService({service});
         break;
@@ -80,8 +85,12 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   renderConfigurationTabView() {
+    const {actions, service} = this.props;
+
     return (
-      <ServiceConfigurationContainer service={this.props.service} />
+      <ServiceConfigurationContainer
+        onEditClick={actions.editService}
+        service={service} />
     );
   }
 

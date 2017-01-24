@@ -53,6 +53,9 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_ERROR,
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
 
+  REQUEST_MARATHON_SERVICE_EDIT_ERROR,
+  REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from '../../constants/ActionTypes';
@@ -122,6 +125,7 @@ const METHODS_TO_BIND = [
   'deleteGroup',
   'editGroup',
   'deleteService',
+  'editService',
   'restartService',
   'onStoreChange'
 ];
@@ -224,6 +228,12 @@ class ServicesContainer extends React.Component {
     return MarathonActions.deleteService(...arguments);
   }
 
+  editService() {
+    this.setPendingAction(ActionKeys.SERVICE_EDIT);
+
+    return MarathonActions.editService(...arguments);
+  }
+
   restartService() {
     this.setPendingAction(ActionKeys.SERVICE_RESTART);
 
@@ -277,6 +287,13 @@ class ServicesContainer extends React.Component {
         break;
       case REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE);
+        break;
+
+      case REQUEST_MARATHON_SERVICE_EDIT_ERROR:
+        this.unsetPendingAction(ActionKeys.SERVICE_EDIT, action.data);
+        break;
+      case REQUEST_MARATHON_SERVICE_EDIT_SUCCESS:
+        this.unsetPendingAction(ActionKeys.SERVICE_EDIT);
         break;
 
       case REQUEST_MARATHON_SERVICE_RESTART_ERROR:
@@ -371,6 +388,7 @@ class ServicesContainer extends React.Component {
       createGroup: () => set(ServiceActionItem.CREATE_GROUP),
       // All methods below work on ServiceTree and Service types
       deleteService: (props) => set(ServiceActionItem.DESTROY, props),
+      editService: (props) => set(ServiceActionItem.EDIT, props),
       restartService: (props) => set(ServiceActionItem.RESTART, props),
       scaleService: (props) => set(ServiceActionItem.SCALE, props),
       suspendService: (props) => set(ServiceActionItem.SUSPEND, props)
@@ -384,6 +402,7 @@ class ServicesContainer extends React.Component {
       deleteGroup: this.deleteGroup,
       editGroup: this.editGroup,
       deleteService: this.deleteService,
+      editService: this.editService,
       restartService: this.restartService
     };
   }
@@ -463,6 +482,8 @@ class ServicesContainer extends React.Component {
       return (
         <ServiceDetail
           actions={this.getActions()}
+          errors={this.state.actionErrors}
+          clearError={this.clearActionError}
           params={params}
           routes={routes}
           service={item}>
@@ -517,6 +538,7 @@ ServicesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     createGroup: PropTypes.func,
     deleteService: PropTypes.func,
+    editService: PropTypes.func,
     restartService: PropTypes.func,
     scaleService: PropTypes.func,
     suspendService: PropTypes.func
