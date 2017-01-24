@@ -8,7 +8,7 @@ import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWith
 import ServiceTree from '../structs/ServiceTree';
 
 function getServiceImage(service) {
-  if (service instanceof ServiceTree) {
+  if (service == null || service instanceof ServiceTree) {
     return null;
   }
 
