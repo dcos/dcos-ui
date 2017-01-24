@@ -13,6 +13,7 @@ const FieldLabel = (props) => {
     }
   });
   const classes = classNames(
+    'form-control-label',
     {'form-control-toggle form-control-toggle-custom': isToggle},
     className
   );
