@@ -10,7 +10,6 @@ import {
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
@@ -96,12 +95,19 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     const tooltipContent = (
       <span>
-        {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
+        {`This host port will be accessible as an environment variable called ENDPOINT_${index}'. `}
         <a
           href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
           More information
         </a>
+      </span>
+    );
+
+    const assignHelpText = (
+      <span>
+        {'Most services will use TCP. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
       </span>
     );
 
@@ -142,12 +148,30 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           &nbsp;
         </FieldLabel>
-        <FieldLabel matchInputHeight={true}>
-          <FieldInput
-            checked={endpoint.automaticPort}
-            name={`containers.${containerIndex}.endpoints.${index}.automaticPort`}
-            type="checkbox" />
-          Assign Automatically
+        <FieldLabel
+          helpText={assignHelpText}
+          matchInputHeight={true}>
+          <FormGroupHeading>
+            <FormGroupHeadingContent>
+              <FieldInput
+                checked={endpoint.automaticPort}
+                name={`containers.${containerIndex}.endpoints.${index}.automaticPort`}
+                type="checkbox" />
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              Assign Automatically
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
       </FormGroup>
     ];
@@ -183,6 +207,18 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       address = `${this.props.data.id}:${port}`;
     }
 
+    const loadBalancerTooltipContent = (
+      <span>
+        {`Load balance the service internally (layer 4), and create a service
+        address. For external (layer 7) load balancing, create an external
+        load balancer and attach this service. `}
+        <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/"
+          target="_blank">
+          More Information
+        </a>
+      </span>
+    );
+
     return [
       <FormRow key="title">
         <FormGroup className="column-9">
@@ -191,11 +227,22 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               <FormGroupHeadingContent primary={true}>
                 Load Balanced Service Address
               </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={loadBalancerTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
             </FormGroupHeading>
-            <FieldHelp>
-              Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
-            </FieldHelp>
           </FieldLabel>
+          <p>
+            Load balance this service internally.
+          </p>
         </FormGroup>
       </FormRow>,
       <div className="flex flex-align-items-center row" key="toggle">
@@ -412,6 +459,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
+    const serviceEndpointsTooltipContent = (
+      <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+        target="_blank">
+        More Information
+      </a>
+    );
+
     return (
       <div className="form flush-bottom">
         <h2 className="flush-top short-bottom">
@@ -447,8 +501,18 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <h3 className="short-bottom">
           Service Endpoints
         </h3>
+        <Tooltip
+          content={serviceEndpointsTooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName="tooltip-wrapper text-align-center pull-right"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
         <p>
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+          Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
         </p>
         {this.getServiceEndpoints()}
       </div>
