@@ -1,14 +1,14 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import {omit} from '../../utils/Util';
+import {findNestedPropertyInObject, omit} from '../../utils/Util';
 
 const FieldLabel = (props) => {
   const {children, className, matchInputHeight, required} = props;
   let isToggle = false;
   React.Children.forEach(children, (child) => {
-    const {props = {}} = child;
-    if (['radio', 'checkbox'].includes(props.type)) {
+    const type = findNestedPropertyInObject(child, 'props.type');
+    if (['radio', 'checkbox'].includes(type)) {
       isToggle = true;
     }
   });

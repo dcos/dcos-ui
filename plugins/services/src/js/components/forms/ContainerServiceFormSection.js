@@ -23,92 +23,100 @@ const {DOCKER, NONE, MESOS} = ContainerConstants.type;
 
 const containerSettings = {
   privileged: {
-    label: <span>Grant Runtime Privileges</span>,
+    label: 'Grant Runtime Privileges',
     helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.',
     dockerOnly: 'Grant runtime privileges is only supported in Docker Runtime.'
   },
   forcePullImage: {
-    label: <span>Force Pull Image On Launch</span>,
-    helpText: 'Force Docker to pull the image before launching each task.',
+    label: 'Force Pull Image On Launch',
+    helpText: 'Force Docker to pull the image before launching each instance.',
     dockerOnly: 'Force pull image on launch is only supported in Docker Runtime.'
   }
 };
 
-const getArtifactsLabel = () => {
-  return (
-    <FieldLabel>
-      {'Artifact URI '}
-      <Tooltip
-        content="Provided URIs are passed to Mesos fetcher module and resolved at runtime."
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon color="grey" id="circle-question" size="mini" />
-      </Tooltip>
-    </FieldLabel>
-  );
-};
-
 class ContainerServiceFormSection extends Component {
-  getArtifactsInputs(data = []) {
-    const errors = this.props.errors.fetch || [];
+  getArtifactsLabel() {
+    const tooltipContent = (
+      <span>
+        {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
-    let content = data.map((item, index) => {
-      let label;
-      if (index === 0) {
-        label = getArtifactsLabel();
-      }
+    return (
+      <FieldLabel>
+        {'Artifact URI '}
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </FieldLabel>
+    );
+  }
 
+  getArtifactsInputs() {
+    const {data, errors, path} = this.props;
+    const artifacts = findNestedPropertyInObject(data, 'fetch') || [];
+    const artifactErrors = findNestedPropertyInObject(
+      errors,
+      `${path}.fetch`
+    ) || [];
+
+    if (artifacts.length === 0) {
       return (
-        <FormRow key={index}>
-          <FormGroup
-            className="column-10"
-            showError={Boolean(errors[index])}>
-            {label}
-            <FieldInput
-              name={`fetch.${index}.uri`}
-              type="text"
-              value={item.uri}/>
-            <FieldError>{errors[index]}</FieldError>
-          </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2 flush-left">
-            <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})} />
-          </FormGroup>
-        </FormRow>
-      );
-    });
-
-    if (data.length === 0) {
-      content = (
         <FormRow>
           <FormGroup className="column-10">
-            {getArtifactsLabel()}
+            {this.getArtifactsLabel()}
           </FormGroup>
         </FormRow>
       );
     }
 
-    return content;
+    return artifacts.map((item, index) => {
+      let label = null;
+      if (index === 0) {
+        label = this.getArtifactsLabel();
+      }
+
+      return (
+        <FormRow key={`${path}.artifacts.${index}`}>
+          <FormGroup
+            className="column-10"
+            showError={Boolean(artifactErrors[index])}>
+            {label}
+            <FieldInput
+              name={`fetch.${index}.uri`}
+              placeholder="http://example.com"
+              value={item.uri}/>
+            <FieldError>{artifactErrors[index]}</FieldError>
+          </FormGroup>
+          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+            <DeleteRowButton
+              onClick={this.props.onRemoveItem.bind(
+                this,
+                {value: index, path: 'fetch'}
+              )} />
+          </FormGroup>
+        </FormRow>
+      );
+    });
   }
 
-  getGPUSInput(data) {
-    const disabled = data.container && data.container.type !== MESOS;
-    const inputFiled = (
-      <FieldInput
-        key="gpus-input"
-        min="0"
-        name="gpus"
-        step="any"
-        type="number"
-        disabled={disabled}
-        value={data.gpus} />
-    );
+  getGPUSLabel() {
+    const {data, path} = this.props;
+    const disabled = findNestedPropertyInObject(data, `${path}.type`) !== MESOS;
 
     if (disabled) {
-      return [
-        <FieldLabel className="text-no-transform" key="gpus-input-tooltip">
+      return (
+        <FieldLabel className="text-no-transform">
           {'GPUs '}
           <Tooltip
             content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
@@ -118,61 +126,64 @@ class ContainerServiceFormSection extends Component {
             wrapText={true}>
             <Icon color="grey" id="lock" size="mini" />
           </Tooltip>
-        </FieldLabel>,
-        inputFiled
-      ];
+        </FieldLabel>
+      );
     }
 
-    return [
-      <FieldLabel className="text-no-transform" key="gpus-label">
+    return (
+      <FieldLabel className="text-no-transform">
         GPUs
-      </FieldLabel>,
-      inputFiled
-    ];
+      </FieldLabel>
+    );
   }
 
-  getAdvancedSettings(data = {}, errors = {}) {
-    const containerType = findNestedPropertyInObject(data.container, 'type');
-    const typeErrors = errors.container && errors.container.type;
+  getTooltipIfContent(content) {
+    if (!content) {
+      return null;
+    }
+
+    return (
+      <Tooltip
+        content={content}
+        interactive={true}
+        maxWidth={300}
+        scrollContainer=".gm-scroll-view"
+        wrapText={true}>
+        <Icon color="grey" id="lock" size="mini" />
+      </Tooltip>
+    );
+  }
+
+  getAdvancedSettings() {
+    const {data, errors, path} = this.props;
+    const container = findNestedPropertyInObject(data, path) || {};
+    const artifactIndex = findNestedPropertyInObject(data, 'fetch.length');
+    const containerType = container.type;
     const gpuDisabled = containerType !== MESOS;
+    const typeErrors = findNestedPropertyInObject(errors, `${path}.type`);
     const selections = Object.keys(containerSettings).map((settingName, index) => {
-      const {helpText, label, dockerOnly} = containerSettings[settingName];
+      let {helpText, label, dockerOnly} = containerSettings[settingName];
       const checked = findNestedPropertyInObject(
-        data.container,
+        container,
         `docker.${settingName}`
       );
 
-      const inputField = (
-        <FieldInput
-          checked={containerType === DOCKER && Boolean(checked)}
-          name={`container.docker.${settingName}`}
-          type="checkbox"
-          disabled={containerType !== DOCKER}
-          value={settingName} />
-      );
-
-      if (containerType !== DOCKER) {
-        return (
-          <FieldLabel key={index}>
-            {inputField}
-            {label}{' '}
-            <Tooltip
-              content={dockerOnly}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="lock" size="mini" />
-            </Tooltip>
-            <FieldHelp>{helpText}</FieldHelp>
-          </FieldLabel>
-        );
+      if (containerType === DOCKER) {
+        dockerOnly = '';
+      } else {
+        label = label + ' ';
       }
 
       return (
         <FieldLabel key={index}>
-          {inputField}
+          <FieldInput
+            checked={containerType === DOCKER && Boolean(checked)}
+            name={`${path}.docker.${settingName}`}
+            type="checkbox"
+            disabled={containerType !== DOCKER}
+            value={settingName} />
           {label}
+          {this.getTooltipIfContent(dockerOnly)}
           <FieldHelp>{helpText}</FieldHelp>
         </FieldLabel>
       );
@@ -186,8 +197,17 @@ class ContainerServiceFormSection extends Component {
         </FormGroup>
 
         <FormRow>
-          <FormGroup className="column-4" showError={Boolean(!gpuDisabled && errors.gpus)}>
-            {this.getGPUSInput(data)}
+          <FormGroup
+            className="column-4"
+            showError={Boolean(!gpuDisabled && errors.gpus)}>
+            {this.getGPUSLabel()}
+            <FieldInput
+              disabled={gpuDisabled}
+              min="0"
+              name="gpus"
+              step="any"
+              type="number"
+              value={data.gpus} />
             <FieldError>{errors.gpus}</FieldError>
           </FormGroup>
           <FormGroup className="column-4" showError={Boolean(errors.disk)}>
@@ -201,12 +221,15 @@ class ContainerServiceFormSection extends Component {
             <FieldError>{errors.disk}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.getArtifactsInputs(data.fetch)}
+        {this.getArtifactsInputs()}
         <FormRow>
           <FormGroup className="column-12">
             <a
               className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
+              onClick={this.props.onAddItem.bind(
+                this,
+                {value: artifactIndex, path: 'fetch'}
+              )}>
               <Icon color="purple" id="plus" size="tiny" /> Add Artifact
             </a>
           </FormGroup>
@@ -219,7 +242,9 @@ class ContainerServiceFormSection extends Component {
     const tooltipContent = (
       <span>
         {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
-        <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          target="_blank">
           More information
         </a>.
       </span>
@@ -241,21 +266,31 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    const tooltipContent = (
+    const {data, path} = this.props;
+    const containerType = findNestedPropertyInObject(data, `${path}.type`);
+    let iconID = 'circle-question';
+    let tooltipContent = (
       <span>
         {'Enter a Docker image or browse '}
         <a href="https://hub.docker.com/explore/" target="_blank">
           Docker Hub
         </a>
         {' to find more. You can also enter an image from your private registry. '}
-        <a href={MetadataStore.buildDocsURI('/usage/tutorials/registry/#docs-article')} target="_blank">
+        <a
+          href={MetadataStore.buildDocsURI('/usage/tutorials/registry/#docs-article')}
+          target="_blank">
           More information
         </a>.
       </span>
     );
 
+    if (containerType == null || containerType === NONE) {
+      tooltipContent = 'Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images.';
+      iconID = 'lock';
+    }
+
     return (
-      <FieldLabel key="image-label">
+      <FieldLabel>
         {'Container Image '}
         <Tooltip
           content={tooltipContent}
@@ -263,61 +298,20 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
+          <Icon color="grey" id={iconID} size="mini" />
         </Tooltip>
       </FieldLabel>
     );
   }
 
-  getImageInput(data) {
-    const {container = {}} = data;
-    const image = findNestedPropertyInObject(container, 'docker.image');
-
-    if (container == null || container.type == null ||
-        container.type === NONE) {
-      return [
-        <FieldLabel key="container-image-input-tooltip">
-          {'Container Image '}
-          <Tooltip
-            content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="lock" size="mini" />
-          </Tooltip>
-        </FieldLabel>,
-        <FieldInput
-          key="container-image-input"
-          name="container.docker.image"
-          disabled={true}
-          value={image} />
-      ];
-    }
-
-    return [
-      this.getImageLabel(),
-      <FieldInput
-        key="image-field"
-        name="container.docker.image"
-        value={image} />,
-      <FieldHelp key="image-help">
-        Enter a Docker image you want to run, e.g. nginx.
-      </FieldHelp>
-    ];
-  }
-
   render() {
-    const {data, errors} = this.props;
-
+    const {data, errors, path} = this.props;
+    const containerType = findNestedPropertyInObject(data, `${path}.type`);
+    const image = findNestedPropertyInObject(data, `${path}.docker.image`);
+    const imageDisabled = containerType == null || containerType === NONE;
     const imageErrors = findNestedPropertyInObject(
       errors,
-      'container.docker.image'
-    );
-
-    const containerType = findNestedPropertyInObject(
-      data,
-      'container.type'
+      `${path}.docker.image`
     );
 
     return (
@@ -325,23 +319,29 @@ class ContainerServiceFormSection extends Component {
         <h2 className="short-bottom">
           Container
         </h2>
-        <p>Configure your container below. Enter a container image or command you want to run.</p>
-
+        <p>
+          Configure your container below. Enter a container image or command you want to run.
+        </p>
         <FormRow>
           <FormGroup
             className="column-6"
-            showError={Boolean(containerType != null && containerType !== NONE && imageErrors)}>
-            {this.getImageInput(data)}
-            <FieldError key="image-errors">{imageErrors}</FieldError>
+            showError={Boolean(!imageDisabled && imageErrors)}>
+            {this.getImageLabel()}
+            <FieldInput
+              name={`${path}.docker.image`}
+              disabled={imageDisabled}
+              value={image} />
+            <FieldHelp>
+              Enter a Docker image you want to run, e.g. nginx.
+            </FieldHelp>
+            <FieldError>{imageErrors}</FieldError>
           </FormGroup>
 
           <FormGroup
             className="column-3"
             required={true}
             showError={Boolean(errors.cpus)}>
-            <FieldLabel className="text-no-transform">
-              CPUs
-            </FieldLabel>
+            <FieldLabel className="text-no-transform">CPUs</FieldLabel>
             <FieldInput
               min="0.001"
               name="cpus"
@@ -355,9 +355,7 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(errors.mem)}>
-            <FieldLabel className="text-no-transform">
-              MEMORY (MiB)
-            </FieldLabel>
+            <FieldLabel className="text-no-transform">MEMORY (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name="mem"
@@ -383,7 +381,7 @@ class ContainerServiceFormSection extends Component {
           <AdvancedSectionLabel>
             Advanced Container Settings
           </AdvancedSectionLabel>
-          {this.getAdvancedSettings(data, errors)}
+          {this.getAdvancedSettings()}
         </AdvancedSection>
       </div>
     );
@@ -394,7 +392,8 @@ ContainerServiceFormSection.defaultProps = {
   data: {},
   errors: {},
   onAddItem() {},
-  onRemoveItem() {}
+  onRemoveItem() {},
+  path: 'container'
 };
 
 ContainerServiceFormSection.propTypes = {
