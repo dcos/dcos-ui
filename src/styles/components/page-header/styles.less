@@ -219,8 +219,14 @@
           }
 
           li {
-            padding-left: @page-header-navigation-dropdown-padding-left;
-            padding-right: @page-header-navigation-dropdown-padding-right;
+            height: @page-header-dropdown-menu-button-height;
+            line-height: @page-header-dropdown-menu-button-height;
+            padding: @page-header-navigation-dropdown-padding-top @page-header-navigation-dropdown-padding-right @page-header-navigation-dropdown-padding-bottom @page-header-navigation-dropdown-padding-left;
+          }
+
+          .dropdown-menu-items {
+            padding-bottom: 0;
+            padding-top: 0;
           }
         }
 
@@ -317,8 +323,9 @@
               }
 
               li {
-                padding-left: @page-header-navigation-dropdown-padding-left-screen-small;
-                padding-right: @page-header-navigation-dropdown-padding-right-screen-small;
+                height: @page-header-dropdown-menu-button-height-screen-small;
+                line-height: @page-header-dropdown-menu-button-height-screen-small;
+                padding: @page-header-navigation-dropdown-padding-top-screen-small @page-header-navigation-dropdown-padding-right-screen-small @page-header-navigation-dropdown-padding-bottom-screen-small @page-header-navigation-dropdown-padding-left-screen-small;
               }
             }
           }
