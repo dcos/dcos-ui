@@ -6,6 +6,7 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 
 const {HOST} = Networking.type;
 
@@ -55,10 +56,13 @@ module.exports = {
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
       const hostPort = Number(portDefinition.hostPort) || 0;
+      const protocol = PROTOCOLS.filter(function (protocol) {
+        return portDefinition.protocol[protocol];
+      }).join(',');
       const newPortDefinition = {
+        protocol,
         name: portDefinition.name,
-        port: hostPort,
-        protocol: portDefinition.protocol
+        port: hostPort
       };
 
       // Only set labels if port mapping is load balanced
@@ -129,11 +133,15 @@ module.exports = {
       }
 
       if (item.protocol != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'protocol'
-        ], item.protocol, SET));
+        const protocols = item.protocol.split(',');
+        PROTOCOLS.forEach((protocol) => {
+          memo.push(new Transaction([
+            'portDefinitions',
+            index,
+            'protocol',
+            protocol
+          ], protocols.includes(protocol), SET));
+        });
       }
 
       const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);

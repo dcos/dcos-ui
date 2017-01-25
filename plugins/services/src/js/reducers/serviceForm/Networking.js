@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 
 const defaultFieldValues = {
   automaticPort: true,
@@ -12,7 +13,10 @@ const defaultFieldValues = {
   loadBalanced: false,
   name: null,
   portMapping: false,
-  protocol: 'tcp',
+  protocol: {
+    tcp: true,
+    udp: false
+  },
   servicePort: null,
   vip: null
 };
@@ -28,13 +32,15 @@ const defaultFieldValues = {
  * @return {Object[]} new portDefinitions with action performed on it
  */
 function reducer(portDefinitions = [], {type, path = [], value}) {
+  const [base, index, field, subfield] = path;
   const joinedPath = path.join('.');
 
-  if (path.includes('portDefinitions')) {
+  if (base === 'portDefinitions') {
     if (joinedPath === 'portDefinitions') {
       switch (type) {
         case ADD_ITEM:
           const portDefinition = Object.assign({}, defaultFieldValues);
+          portDefinition.protocol = Object.assign({}, defaultFieldValues.protocol);
           portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:
@@ -45,13 +51,16 @@ function reducer(portDefinitions = [], {type, path = [], value}) {
       }
     }
 
-    const index = path[1];
     if (index != null && type === SET) {
       Object.keys(defaultFieldValues).forEach((fieldKey) => {
         if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {
           portDefinitions[index][fieldKey] = value;
         }
       });
+
+      if (field === 'protocol' && PROTOCOLS.includes(subfield)) {
+        portDefinitions[index].protocol[subfield] = value;
+      }
 
       // If port is assigned automatically, remove hostPort
       if (portDefinitions[index].automaticPort) {

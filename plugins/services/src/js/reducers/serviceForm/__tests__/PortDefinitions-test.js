@@ -112,11 +112,24 @@ describe('PortDefinitions', function () {
     it('should set the protocol value', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], false));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 0, protocol: 'udp'}
+        ]);
+    });
+
+    it('should set the complex protocol value', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true));
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
+        .toEqual([
+          {name: null, port: 0, protocol: 'udp,tcp'}
         ]);
     });
 

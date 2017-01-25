@@ -338,7 +338,7 @@ describe('Container', function () {
         // This is default
         // batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], false));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
@@ -361,7 +361,8 @@ describe('Container', function () {
         // This is default
         // batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], false));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], false));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
@@ -519,7 +520,8 @@ describe('Container', function () {
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
-        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
@@ -529,7 +531,7 @@ describe('Container', function () {
               privileged: null,
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'udp', servicePort: null}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'udp,tcp', servicePort: null}
               ]
             }
           });
@@ -553,7 +555,7 @@ describe('Container', function () {
               network: USER,
               portMappings: [
                 {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
-                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {'VIP_1': ':0'}, servicePort: null}
+                {containerPort: 0, hostPort: 0, labels: {'VIP_1': ':0'}, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });

@@ -1,8 +1,9 @@
 import {combineReducers, simpleReducer} from '../../../../../../src/js/utils/ReducerUtil';
-import ContainerConstants from '../../constants/ContainerConstants';
-import networkingReducer from './Networking';
-import Networking from '../../../../../../src/js/constants/Networking';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import ContainerConstants from '../../constants/ContainerConstants';
+import Networking from '../../../../../../src/js/constants/Networking';
+import networkingReducer from './Networking';
 
 const {DOCKER} = ContainerConstants.type;
 
@@ -72,8 +73,10 @@ module.exports = combineReducers({
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       let hostPort = Number(portDefinition.hostPort) || 0;
-      let protocol = portDefinition.protocol;
       let labels = portDefinition.labels;
+      let protocol = PROTOCOLS.filter(function (protocol) {
+        return portDefinition.protocol[protocol];
+      }).join(',');
 
       // Do not expose hostPort or protocol, when portMapping is turned off
       if (this.appState.networkType === USER && !portDefinition.portMapping) {
