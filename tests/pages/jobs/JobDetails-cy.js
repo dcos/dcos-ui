@@ -9,28 +9,6 @@ describe('Job Details', function () {
     cy.visitUrl({url: '/jobs/foo'});
   });
 
-  context('Job Details Header', function () {
-
-    it('renders the proper job name', function () {
-      cy.get('.detail-view-header-title').should('contain',
-        'Foo Description');
-    });
-
-    it('renders the proper job status', function () {
-      cy.get('.job-details-header-status').should('contain', 'Failed');
-    });
-
-    it('renders the pretty cron schedule', function () {
-      cy.get('.detail-view-header-sub-heading')
-        .should('contain', 'Scheduled 01:00 on the 6th in Sep');
-    });
-
-    it('renders the relative time of the longest running task', function () {
-      cy.get('.detail-view-header-sub-heading').should('contain', '32 years ago');
-    });
-
-  });
-
   context('Run History Tab', function () {
 
     it('shows the correct number of jobs in the filter header', function () {
