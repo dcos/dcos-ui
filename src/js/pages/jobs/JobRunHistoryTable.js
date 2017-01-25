@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 
+import moment from 'moment';
+
 import CollapsingString from '../../components/CollapsingString';
 import CheckboxTable from '../../components/CheckboxTable';
 import ExpandingTable from '../../components/ExpandingTable';
@@ -20,6 +22,14 @@ const METHODS_TO_BIND = [
   'handleStopJobRunModalClose',
   'handleStopJobRunSuccess'
 ];
+
+function calculateRunTime(startedAt, finishedAt) {
+  if (finishedAt == null) {
+    return null;
+  }
+
+  return finishedAt - startedAt;
+}
 
 class JobRunHistoryTable extends React.Component {
   constructor() {
@@ -64,6 +74,7 @@ class JobRunHistoryTable extends React.Component {
         <col style={{width: '120px'}} />
         <col style={{width: '160px'}} />
         <col style={{width: '160px'}} />
+        <col style={{width: '160px'}} />
       </colgroup>
     );
   }
@@ -81,7 +92,8 @@ class JobRunHistoryTable extends React.Component {
       'jobID': 'Job ID',
       'status': 'Status',
       'startedAt': 'Started',
-      'finishedAt': 'Finished'
+      'finishedAt': 'Finished',
+      'runTime': 'Run Time'
     };
 
     return (
@@ -128,6 +140,13 @@ class JobRunHistoryTable extends React.Component {
         prop: 'finishedAt',
         render: this.renderTimeColumn,
         sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
+        prop: 'runTime',
+        render: this.renderRunTimeColumn,
+        sortable: true
       }
     ];
   }
@@ -138,13 +157,22 @@ class JobRunHistoryTable extends React.Component {
 
     return jobRuns.getItems().map(function (jobRun) {
       const children = jobRun.getTasks().getItems().map(function (jobTask) {
+        const startedAt = jobTask.getDateStarted();
+        const finishedAt = jobTask.getDateCompleted();
+        const runTime = calculateRunTime(startedAt, finishedAt);
+
         return {
           taskID: jobTask.getTaskID(),
           status: jobTask.getStatus(),
-          startedAt: jobTask.getDateStarted(),
-          finishedAt: jobTask.getDateCompleted()
+          startedAt,
+          finishedAt,
+          runTime
         };
       });
+
+      const startedAt = jobRun.getDateCreated();
+      const finishedAt = jobRun.getDateFinished();
+      const runTime = calculateRunTime(startedAt, finishedAt);
 
       return {
         finishedAt: jobRun.getDateFinished(),
@@ -152,6 +180,7 @@ class JobRunHistoryTable extends React.Component {
         jobID: jobRun.getJobID(),
         startedAt: jobRun.getDateCreated(),
         status: jobRun.getStatus(),
+        runTime,
         children
       };
     });
@@ -196,7 +225,7 @@ class JobRunHistoryTable extends React.Component {
         selectedItems={jobRuns}
         onClose={this.handleStopJobRunModalClose}
         onSuccess={this.handleStopJobRunSuccess}
-        open={!!isStopRunModalShown} />
+        open={isStopRunModalShown} />
     );
   }
 
@@ -280,6 +309,21 @@ class JobRunHistoryTable extends React.Component {
       <span className={statusClasses}>
         {status.displayName}
       </span>
+    );
+  }
+
+  renderRunTimeColumn(prop, row) {
+    const time = row[prop];
+
+    if (time == null) {
+      return (
+        <div>N/A</div>
+      );
+    }
+    const runTimeFormat = moment.duration(time).humanize();
+
+    return (
+      <div>{runTimeFormat}</div>
     );
   }
 

@@ -69,7 +69,9 @@ module.exports = combineReducers({
 
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
+      const vipLabel = `VIP_${index}`;
       const containerPort = Number(portDefinition.containerPort) || 0;
+      const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       let hostPort = Number(portDefinition.hostPort) || 0;
       let protocol = PROTOCOLS.filter(function (protocol) {
         return portDefinition.protocol[protocol];
@@ -83,32 +85,31 @@ module.exports = combineReducers({
         protocol = null;
       }
 
-      const newPortDefinition = {
-        name: portDefinition.name,
-        hostPort,
-        containerPort,
-        protocol,
-        servicePort,
-        labels
-      };
-
-      // Only set labels if port mapping is load balanced
+      // Only set VIP labels if port mapping is load balanced
       if (portDefinition.loadBalanced) {
-        let vip = portDefinition.vip;
+        let vipValue = portDefinition.vip;
 
-        if (portDefinition.vip == null) {
+        if (vipValue == null) {
           // Prefer container port
+          // because this is what a user would expect to get load balanced
           const labelPort = containerPort || hostPort || 0;
 
-          vip = `${this.appState.id}:${labelPort}`;
+          vipValue = `${this.appState.id}:${labelPort}`;
         }
 
-        newPortDefinition.labels = Object.assign({}, labels, {
-          [`VIP_${index}`]: vip
-        });
+        labels = Object.assign({}, labels, {[vipLabel]: vipValue});
+      } else if (labels) {
+        delete labels[vipLabel];
       }
 
-      return newPortDefinition;
+      return {
+        containerPort,
+        hostPort,
+        labels,
+        protocol,
+        servicePort,
+        name: portDefinition.name
+      };
     });
   }
 });

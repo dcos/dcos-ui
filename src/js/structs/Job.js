@@ -102,7 +102,13 @@ module.exports = class Job extends Item {
   }
 
   getSchedules() {
-    return this.get('schedules') || [];
+    const schedules = this.get('schedules');
+
+    if (!Array.isArray(schedules)) {
+      return [];
+    }
+
+    return schedules;
   }
 
   getScheduleStatus() {
@@ -119,7 +125,7 @@ module.exports = class Job extends Item {
     if (scheduleLength > 0) {
       const schedule = this.getSchedules()[0];
 
-      if (!!schedule && schedule.enabled) {
+      if (schedule != null && schedule.enabled) {
         return 'SCHEDULED';
       }
     }

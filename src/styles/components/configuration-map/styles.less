@@ -54,6 +54,24 @@
       }
     }
 
+    &,
+    &-table {
+
+      &-label {
+
+        &,
+        & > * {
+          overflow-wrap: break-word;
+          word-break: break-all;
+        }
+
+        code,
+        pre {
+          white-space: pre-wrap;
+        }
+      }
+    }
+
     &-label {
       color: @neutral;
       flex: 0 0 @configuration-map-label-width;

@@ -1,6 +1,7 @@
 & when (@icon-enabled) {
 
   .icon {
+    position: relative;
 
     svg {
       display: block;
@@ -93,6 +94,13 @@
     .button &,
     button & {
       flex: 0 0 auto;
+    }
+
+    .icon {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 

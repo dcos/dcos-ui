@@ -114,12 +114,6 @@ class CreateServiceJsonOnly extends React.Component {
   render() {
     let {appConfig, errorList} = this.state;
 
-    // Note: The `transform` parameter is just a hack to properly align the
-    // error message.
-    let editorStyles = {
-      transform: 'translateX(0)'
-    };
-
     return (
       <div className="create-service-modal-json-only container">
         <div className="create-service-modal-json-only-introduction">
@@ -136,7 +130,6 @@ class CreateServiceJsonOnly extends React.Component {
             onErrorStateChange={this.handleJSONErrorStateChange}
             showGutter={true}
             showPrintMargin={false}
-            style={editorStyles}
             theme="monokai"
             value={appConfig} />
         </div>

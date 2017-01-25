@@ -3,14 +3,41 @@
   .service-table {
     table-layout: fixed;
 
+    &-column {
+
+      &-cpus,
+      &-mem,
+      &-disk {
+        display: none;
+
+        td&,
+        th& {
+          text-align: right;
+        }
+      }
+
+      &-mem,
+      &-disk {
+        width: 85px;
+      }
+
+      &-name {
+        width: auto;
+      }
+
+      &-status {
+        width: 144px;
+      }
+
+      &-cpus {
+        width: 65px;
+      }
+    }
+
     // We don't want the status bar to increase the height of the table row
     // when it wraps to two lines.
     .status-bar-wrapper {
       line-height: 1;
-    }
-
-    .status-bar-column {
-      width: @base-spacing-unit * 6;
     }
 
     .status-bar-indicator {
@@ -33,8 +60,11 @@
 
     .service-table {
 
-      .status-bar-column {
-        width: @base-spacing-unit * 8;
+      &-column {
+
+        &-status {
+          width: 160px;
+        }
       }
     }
 
@@ -50,8 +80,21 @@
 
     .service-table {
 
-      .status-bar-column {
-        width: @base-spacing-unit * 10;
+      &-column {
+
+        &-cpus,
+        &-mem,
+        &-disk {
+          display: table-cell;
+
+          col& {
+            display: table-column;
+          }
+        }
+
+        &-status {
+          width: 220px;
+        }
       }
 
       .status-bar-wrapper {
@@ -71,8 +114,11 @@
 
     .service-table {
 
-      .status-bar-column {
-        width: @base-spacing-unit * 11;
+      &-column {
+
+        &-status {
+          width: 264px;
+        }
       }
     }
 
@@ -88,8 +134,11 @@
 
     .service-table {
 
-      .status-bar-column {
-        width: @base-spacing-unit * 13;
+      &-column {
+
+        &-status {
+          width: 312px;
+        }
       }
     }
 

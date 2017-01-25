@@ -193,10 +193,10 @@ class ServicesContainer extends React.Component {
   onStoreChange() {
     // Throttle updates from DCOSStore
     if (Date.now() - this.state.lastUpdate > 1000
-      || (!!DCOSStore.dataProcessed && this.state.isLoading)) {
+      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
 
       this.setState({
-        isLoading: !(!!DCOSStore.dataProcessed),
+        isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
       });
     }

@@ -1,6 +1,6 @@
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const {COMMAND, HTTP, HTTPS, TCP} =
-  require('../../../constants/HealtCheckProtocols');
+  require('../../../constants/HealthCheckProtocols');
 const MultiContainerHealthChecks = require('../MultiContainerHealthChecks');
 const MesosCommandTypes = require('../../../constants/MesosCommandTypes');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');

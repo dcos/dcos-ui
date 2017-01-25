@@ -226,8 +226,7 @@ class LogView extends React.Component {
       <pre
         className="flex-item-grow-1 flush-bottom prettyprint"
         ref={(ref) => { this.logContainer = ref; }}
-        onScroll={this.handleLogContainerScroll}
-        style={{wordWrap: 'break-word', whiteSpace: 'pre-wrap'}}>
+        onScroll={this.handleLogContainerScroll}>
         {this.getLogPrepend()}
         <Highlight
           matchClass="highlight"
@@ -263,7 +262,7 @@ class LogView extends React.Component {
   getLogPrepend() {
     if (this.props.hasLoadedTop) {
       return (
-        <div className="text-align-center vertical-center">
+        <div className="text-muted">
           (AT BEGINNING OF FILE)
         </div>
       );

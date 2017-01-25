@@ -163,7 +163,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   shouldPoll() {
-    return !!this.listeners(MESOS_SUMMARY_CHANGE).length;
+    return this.listeners(MESOS_SUMMARY_CHANGE).length > 0;
   }
 
   getActiveServices() {
@@ -182,7 +182,7 @@ class MesosSummaryStore extends GetSetBaseStore {
     const service = this.getServiceFromName(serviceName);
     const webuiUrl = service.get('webui_url');
 
-    return service && !!webuiUrl && webuiUrl.length > 0;
+    return service && webuiUrl != null && webuiUrl.length > 0;
   }
 
   getNextRequestTime() {

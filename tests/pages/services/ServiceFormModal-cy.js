@@ -14,13 +14,13 @@ describe('Service Form Modal', function () {
 
   function openServiceForm() {
     cy.get('.create-service-modal-service-picker-option')
-      .contains('Use the Form')
+      .contains('Single Container')
       .click();
   }
 
   function openServiceJSON() {
     cy.get('.create-service-modal-service-picker-option')
-      .contains('Enter JSON')
+      .contains('JSON Configuration')
       .click();
   }
 

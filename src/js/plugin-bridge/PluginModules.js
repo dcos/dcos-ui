@@ -67,6 +67,12 @@ module.exports = {
     ConfigurationMapSection: 'ConfigurationMapSection',
     ConfigurationMapValue: 'ConfigurationMapValue',
     CollapsingString: 'CollapsingString',
+    CreateServiceModalServicePickerOption:
+      'CreateServiceModalServicePickerOption',
+    CreateServiceModalServicePickerOptionContent:
+      'CreateServiceModalServicePickerOptionContent',
+    CreateServiceModalServicePickerOptionImage:
+      'CreateServiceModalServicePickerOptionImage',
     DetailViewHeader: 'DetailViewHeader',
     DCOSLogo: 'DCOSLogo',
     FilterBar: 'FilterBar',
@@ -77,11 +83,13 @@ module.exports = {
     FormModal: 'FormModal',
     HashMapDisplay: 'HashMapDisplay',
     Icon: 'Icon',
+    Image: 'Image',
     Loader: 'Loader',
     MesosphereLogo: 'icons/MesosphereLogo',
     ModalHeading: 'modals/ModalHeading',
     NestedServiceLinks: 'NestedServiceLinks',
     Page: 'Page',
+    Panel: 'Panel',
     RequestErrorMsg: 'RequestErrorMsg',
     StatusBar: 'StatusBar',
     TabForm: 'TabForm',

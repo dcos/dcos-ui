@@ -97,7 +97,7 @@ describe('DCOSStore', function () {
       ]}));
       spyOn(NotificationStore, 'addNotification');
       // DCOSStore is a singleton, need to reset it manually
-      DCOSStore.data.dataProcessed = false;
+      DCOSStore.data.marathon.dataReceived = false;
     });
 
     describe('when the groups endpoint is not populated', function () {

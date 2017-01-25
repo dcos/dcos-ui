@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, {Component, PropTypes} from 'react';
 import {Hooks} from 'PluginSDK';
+import React, {Component, PropTypes} from 'react';
+import {routerShape} from 'react-router';
 
 import Application from '../../structs/Application';
 import PodSpec from '../../structs/PodSpec';
@@ -173,7 +174,7 @@ class NewServiceFormModal extends Component {
     this.setState({serviceFormHasErrors: hasErrors});
   }
 
-  handleServiceSelection({type}) {
+  handleServiceSelection({route, type}) {
     switch (type) {
 
       case 'app':
@@ -208,6 +209,10 @@ class NewServiceFormModal extends Component {
           serviceJsonActive: true,
           serviceConfig: this.props.service
         });
+        break;
+
+      case 'redirect':
+        this.context.router.push(route);
         break;
 
     };
@@ -539,6 +544,10 @@ class NewServiceFormModal extends Component {
     );
   }
 }
+
+NewServiceFormModal.contextTypes = {
+  router: routerShape
+};
 
 NewServiceFormModal.propTypes = {
   clearError: PropTypes.func.isRequired,
