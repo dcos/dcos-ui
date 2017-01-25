@@ -5,28 +5,36 @@ const APPCONTAINERID_ERRORS = [
   {
     path: ['container', 'appc', 'id'],
     message: 'AppContainer id should start with \'sha512-\'',
-    type: 'MARATHON_APP_APPCONTAINER_ID',
-    variables: {}
+    type: 'STRING_PATTERN',
+    variables: {
+      pattern: '^sha512-'
+    }
   }
 ];
 const CMDORDOCKERIMAGE_ERRORS = [
   {
     path: ['cmd'],
     message: 'You must specify a command, an argument or a container',
-    type: 'MARATHON_APP_CMD_OR_IMAGE',
-    variables: {}
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   },
   {
     path: ['args'],
     message: 'You must specify a command, an argument or a container',
-    type: 'MARATHON_APP_CMD_OR_IMAGE',
-    variables: {}
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   },
   {
     path: ['container', 'docker', 'image'],
     message: 'You must specify a command, an argument or a container',
-    type: 'MARATHON_APP_CMD_OR_IMAGE',
-    variables: {}
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   }
 ];
 
@@ -34,14 +42,18 @@ const COMPLYWITHRESIDENCY_ERRORS = [
   {
     path: ['residency'],
     message: 'AppDefinition must contain persistent volumes and define residency',
-    type: 'MARATHON_APP_RESIDENCY_RULES',
-    variables: {}
+    type: 'PROP_MISSING_ALL',
+    variables: {
+      names: 'residency, container.volumes'
+    }
   },
   {
     path: ['container', 'volumes'],
     message: 'AppDefinition must contain persistent volumes and define residency',
-    type: 'MARATHON_APP_RESIDENCY_RULES',
-    variables: {}
+    type: 'PROP_MISSING_ALL',
+    variables: {
+      names: 'residency, container.volumes'
+    }
   }
 ];
 
@@ -49,20 +61,29 @@ const COMPLYWITHIPADDRESS_ERRORS = [
   {
     path: ['ipAddress'],
     message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
-    type: 'MARATHON_APP_IP_ADDRESS_RULES',
-    variables: {}
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
   },
   {
     path: ['discoveryInfo'],
     message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
-    type: 'MARATHON_APP_IP_ADDRESS_RULES',
-    variables: {}
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
   },
   {
     path: ['container', 'docker', 'network'],
     message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
-    type: 'MARATHON_APP_IP_ADDRESS_RULES',
-    variables: {}
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
   }
 ];
 
@@ -70,14 +91,20 @@ const NOTBOTHCMDARGS_ERRORS = [
   {
     path: ['cmd'],
     message: 'Please specify only one of `cmd` or `args`',
-    type: 'MARATHON_APP_ONE_OF_CMD_ARGS',
-    variables: {}
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'cmd',
+      feature2: 'args'
+    }
   },
   {
     path: ['args'],
     message: 'Please specify only one of `cmd` or `args`',
-    type: 'MARATHON_APP_ONE_OF_CMD_ARGS',
-    variables: {}
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'cmd',
+      feature2: 'args'
+    }
   }
 ];
 
