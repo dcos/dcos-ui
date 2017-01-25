@@ -98,7 +98,7 @@ const serviceRoutes = [
               },
               {
                 type: Route,
-                path: 'edit',
+                path: 'edit(/:version)',
                 component: NewCreateServiceModal,
                 buildBreadCrumb(params) {
                   return {

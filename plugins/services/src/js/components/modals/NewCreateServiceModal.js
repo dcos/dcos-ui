@@ -74,12 +74,17 @@ class NewCreateServiceModal extends Component {
     const isEdit = location.pathname.includes('/edit');
     const serviceID = decodeURIComponent(params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
+    const isSpecificVersion = service instanceof Application && params.version;
     let serviceConfig = new Application(
       Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
     );
 
-    if (isEdit && service instanceof Service) {
+    if (isEdit && service instanceof Service && !isSpecificVersion) {
       serviceConfig = service.getSpec();
+    }
+
+    if (isEdit && isSpecificVersion) {
+      serviceConfig = service.getVersions().get(params.version);
     }
 
     this.state = {

@@ -72,15 +72,12 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   handleEditButtonClick() {
-    const serviceConfiguration =
-      this.props.service.getVersions().get(this.state.selectedVersionID);
-
-    const service = ServiceUtil.createServiceFromResponse(serviceConfiguration);
+    const serviceID = encodeURIComponent(this.props.service.getId());
+    const {selectedVersionID} = this.state;
 
     this.context.router.push(
-      `/services/overview/${encodeURIComponent(service.getId())}/edit`
+      `/services/overview/${serviceID}/edit/${selectedVersionID}`
     );
-
   }
 
   handleVersionSelection(versionItem) {
