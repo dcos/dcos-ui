@@ -116,6 +116,35 @@ describe('ErrorMessageUtil', function () {
 
     });
 
+    it('should not modify path if a rule matches', function () {
+      const errorInput = [
+        {
+          message: 'message1',
+          type: 'TYPE1',
+          path: ['foo', 0, 'bar'],
+          variables: {}
+        }
+      ];
+      const translationRules = [
+        {
+          type: 'TYPE1',
+          path: /.*/,
+          message: 'message2'
+        }
+      ];
+
+      expect(ErrorMessageUtil.translateErrorMessages(errorInput, translationRules))
+        .toEqual([
+          {
+            message: 'message2',
+            type: 'TYPE1',
+            path: ['foo', 0, 'bar'],
+            variables: {}
+          }
+        ]);
+
+    });
+
     it('should pick the first translation that passes', function () {
       const errorInput = [
         {
