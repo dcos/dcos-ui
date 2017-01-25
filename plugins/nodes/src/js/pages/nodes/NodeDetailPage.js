@@ -35,7 +35,10 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       '/nodes/:nodeID/details': 'Details'
     };
 
-    this.state = {node: null};
+    this.state = {
+      mesosStateLoaded: false,
+      node: null
+    };
   }
 
   componentWillMount() {
@@ -80,6 +83,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     if (node && !this.state.node) {
       this.setState({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
+    }
+  }
+
+  onStateStoreSuccess() {
+    if (this.state.mesosStateLoaded === false) {
+      this.setState({mesosStateLoaded: true});
     }
   }
 
@@ -146,7 +155,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   render() {
-    if (!MesosSummaryStore.get('statesProcessed')) {
+    if (!MesosSummaryStore.get('statesProcessed') ||
+      !this.state.mesosStateLoaded) {
       return this.getLoadingScreen();
     }
 
