@@ -73,11 +73,10 @@ module.exports = combineReducers({
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       let hostPort = Number(portDefinition.hostPort) || 0;
+      let labels = portDefinition.labels;
       let protocol = PROTOCOLS.filter(function (protocol) {
         return portDefinition.protocol[protocol];
       }).join(',');
-      const servicePort = parseInt(portDefinition.servicePort, 10) || null;
-      const labels = portDefinition.labels;
 
       // Do not expose hostPort or protocol, when portMapping is turned off
       if (this.appState.networkType === USER && !portDefinition.portMapping) {
