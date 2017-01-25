@@ -1,13 +1,16 @@
+import {Tooltip} from 'reactjs-components';
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
+import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
+import Icon from '../../../../../../src/js/components/Icon';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -21,7 +24,7 @@ class MultiContainerVolumesFormSection extends Component {
       let pathLabel = null;
       if (containerIndex === 0) {
         containersLabel = <FieldLabel>Containers</FieldLabel>;
-        pathLabel = <FieldLabel>Container Mount Path</FieldLabel>;
+        pathLabel = <FieldLabel>Container Path</FieldLabel>;
       }
 
       return (
@@ -88,15 +91,38 @@ class MultiContainerVolumesFormSection extends Component {
     });
   }
 
+  getHeadline() {
+    const tooltipContent = (
+      <span>
+        {'DC/OS offers several storage options. '}
+        <a href={MetadataStore.buildDocsURI('/usage/storage/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+
+    return (
+      <h2 className="flush-top short-bottom">
+        {'Volumes '}
+        <Tooltip
+          content={tooltipContent}
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </h2>
+    );
+  }
+
   render() {
     const {data, handleTabChange} = this.props;
 
     if (!data.containers || !data.containers.length) {
       return (
-        <div className="form flush-bottom">
-          <h2 className="form-header flush-top short-bottom">
-            Volumes
-          </h2>
+        <div>
+          {this.getHeadline()}
           <p>
             Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring Volumes.
           </p>
@@ -105,12 +131,16 @@ class MultiContainerVolumesFormSection extends Component {
     }
 
     return (
-      <div className="form flush-bottom">
-        <h2 className="flush-top short-bottom">
-          Ephemeral Volumes
-        </h2>
+      <div>
+        {this.getHeadline()}
         <p>
-          Set up volumes variables for each task your service launches.
+          Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
+        </p>
+        <h3 className="flush-top">
+          Ephemeral Volumes
+        </h3>
+        <p>
+          Choose a place in your container as the destination.
         </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>

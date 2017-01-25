@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
@@ -231,18 +232,17 @@ class MultiContainerHealthChecksFormSection extends Component {
 
   getContainerHealthChecks(containers) {
     return containers.map((container, index) => {
+      const classes = classNames('short-bottom', {'flush-top': index === 0});
+
       return (
         <div key={container.name}>
-          <div className="form-row-element">
-            <h2 className="form-header flush-top short-bottom">
-              Health Checks {container.name}
-            </h2>
-            <p>
-              Health checks may be specified per application to be run against
-              the application{'\''}s tasks.
-            </p>
-          </div>
-
+          <h2 className={classes}>
+            Health Checks {container.name}
+          </h2>
+          <p>
+            Health checks may be specified per application to be run against
+            the application{'\''}s tasks.
+          </p>
           {this.getHealthChecksBody(container, index)}
         </div>
       );
@@ -254,8 +254,8 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     if (!data.containers || !data.containers.length) {
       return (
-        <div className="form flush-bottom">
-          <h2 className="form-header flush-top short-bottom">
+        <div>
+          <h2 className="flush-top short-bottom">
             Health Checks
           </h2>
           <p>
@@ -266,7 +266,7 @@ class MultiContainerHealthChecksFormSection extends Component {
     }
 
     return (
-      <div className="form flush-bottom">
+      <div>
         {this.getContainerHealthChecks(data.containers)}
       </div>
     );
