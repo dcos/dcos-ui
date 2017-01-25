@@ -352,7 +352,7 @@ describe('CreateServiceModalFormUtil', function () {
       });
 
       //
-      // Numerical tpyes behave a bit differently, that's why they have their
+      // Numerical types behave a bit differently, that's why they have their
       // own set of test cases.
       //
 
