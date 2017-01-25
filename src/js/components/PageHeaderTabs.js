@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import {Dropdown} from 'reactjs-components';
 import {Link, routerShape} from 'react-router';
 import React from 'react';
 
-import Icon from './Icon';
+import PageHeaderNavigationDropdown from './PageHeaderNavigationDropdown';
 
 const METHODS_TO_BIND = ['handleNavigationItemSelection'];
 
@@ -60,60 +59,28 @@ class PageHeaderTabs extends React.Component {
     );
   }
 
-  getDropdown() {
-    let activeID = null;
-    const {props: {tabs}} = this;
+  getNavigationDropdownItems() {
+    const {tabs} = this.props;
 
-    if (!tabs || tabs.length === 0) {
-      return null;
+    if (tabs == null) {
+      return [];
     }
 
-    const dropdownItems = tabs.map((tab, index) => {
+    return tabs.map((tab, index) => {
       const {callback, isActive, label, routePath} = tab;
       // We add 1 to index for the ID to avoid an ID of 0, due to coercion in
       // the Dropdown component.
       const id = index + 1;
 
-      if (isActive || (routePath != null && this.isRouteActive(routePath))) {
-        activeID = id;
-      }
-
       return {
-        html: label,
+        label,
         id,
+        isActive: isActive || (routePath != null
+          && this.isRouteActive(routePath)),
         callback,
-        routePath,
-        selectedHtml: (
-          <div className="page-header-navigation-dropdown-active-item">
-            <span className="page-header-navigation-dropdown-label">
-              {label}
-            </span>
-            <span className="page-header-navigation-dropdown-caret">
-              <Icon id="caret-down"
-                color="light-grey"
-                family="tiny"
-                size="tiny" />
-            </span>
-          </div>
-        )
+        routePath
       };
     });
-
-    return (
-      <Dropdown
-        buttonClassName="page-header-navigation-dropdown-button button button-transparent"
-        dropdownMenuClassName="page-header-navigation-dropdown-menu dropdown-menu"
-        dropdownMenuListClassName="dropdown-menu-list"
-        dropdownMenuListItemClassName="clickable"
-        items={dropdownItems}
-        onItemSelection={this.handleNavigationItemSelection}
-        persistentID={activeID}
-        scrollContainer=".gm-scroll-view"
-        scrollContainerParentSelector=".gm-prevented"
-        transition={true}
-        transitionName="dropdown-menu"
-        wrapperClassName="page-header-navigation-dropdown dropdown" />
-    );
   }
 
   handleNavigationItemSelection({callback, routePath}) {
@@ -134,7 +101,9 @@ class PageHeaderTabs extends React.Component {
     return (
       <div className="page-header-navigation">
         {this.getTabs()}
-        {this.getDropdown()}
+        <PageHeaderNavigationDropdown
+          handleNavigationItemSelection={this.handleNavigationItemSelection}
+          items={this.getNavigationDropdownItems()} />
       </div>
     );
   }
