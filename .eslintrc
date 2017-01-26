@@ -21,6 +21,7 @@
   },
 
   "plugins": [
+    "jsx-max-len",
     "react"
   ],
 
@@ -83,6 +84,7 @@
     }],
     "spaced-comment": ["error", "always"],
     // "max-len": ["error", 80, 4], TODO: DCOS-914
+    "jsx-max-len/jsx-max-len": ["error", {"lineMaxLength": 80, "tabWidth": 2, "maxAttributesPerLine": 1}],
     "valid-jsdoc": ["error", {
       "requireReturn": false,
       "requireParamDescription": false
