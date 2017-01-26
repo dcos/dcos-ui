@@ -1,28 +1,33 @@
-// TODO: Audit these variables and all z-index properties, some are not being
-// used properly.
+@z-index-modal: 1000;
+
+@z-index-auth-providers-modal-divider: 0;
+@z-index-auth-providers-modal-divider-content: @z-index-auth-providers-modal-divider + 1;
+
 @z-index-dropdown: @z-index-modal + 1;
-@z-index-dropdown-chart-details: @z-index-side-panel + 20;
-@z-index-dygraph-chart: @z-index-side-panel + 10;
-@z-index-dygraph-hover-label: 100;
-@gemini-scrollbar-handle: @z-index-header-tabs + 1;
-@z-index-form-group-container-action-button-group: 1;
-@z-index-header: 1000;
-@z-index-header-border: 1;
-@z-index-header-tabs: @z-index-header-border + 1;
-@z-index-modal-side-panel: @z-index-header-tabs + 1;
-@z-index-menu-tabbed-item-active-indicator: @z-index-header-tabs + 1;
-@z-index-nodes-grid: 2;
-@z-index-overlay: @z-index-side-panel + 10;
-@z-index-overlay-header: @z-index-side-panel + 2;
-@z-index-page-navigation-sidebar-toggle: 100;
-@z-index-side-panel: 2000;
-@z-index-side-panel-container: @z-index-side-panel + 4;
-@z-index-side-panel-expand-button: @z-index-side-panel + 10;
-@z-index-sidebar: @z-index-modal - 1;
-@z-index-sidebar-overlay: @z-index-sidebar - 1;
-@z-index-tooltip: @z-index-modal + 1;
+
+@z-index-dygraph-chart: @z-index-dropdown - 1;
+@z-index-dygraph-hover-label: @z-index-dropdown + 1;
+
 // The error message comes in 'body' and 'modal' varieties
 @z-index-errormsg-floater-modal: @z-index-modal + 1;
-// This has to be at least 10000 to render above gemini.
-@z-index-user-account-menu-dropdown: 10000;
-@z-index-user-dropdown-menu: @z-index-modal + 1;
+
+@z-index-form-group-container-action-button-group: 1;
+
+@z-index-gemini-scrollbar-handle: @z-index-header-tabs + 1;
+
+@z-index-header-border: 1;
+@z-index-header-tabs: @z-index-header-border + 1;
+
+@z-index-json-editor-help-tooltip: @z-index-modal - 1;
+
+@z-index-menu-tabbed-item-active-indicator: @z-index-header-tabs + 1;
+
+@z-index-modal-side-panel: @z-index-header-tabs + 1;
+
+@z-index-overlay-header: @z-index-overlay + 1;
+@z-index-overlay: @z-index-dropdown + 1;
+
+@z-index-sidebar-overlay: @z-index-sidebar - 1;
+@z-index-sidebar: @z-index-modal - 1;
+
+@z-index-tooltip: @z-index-dropdown + 1;
