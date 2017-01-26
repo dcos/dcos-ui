@@ -30,7 +30,8 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
-        new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
+        new Transaction(['portDefinitions', 0, 'protocol', 'udp'], false),
+        new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true)
       ]);
     });
 
@@ -62,7 +63,8 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
-        new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
+        new Transaction(['portDefinitions', 0, 'protocol', 'udp'], false),
+        new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true)
       ]);
     });
 
@@ -149,7 +151,8 @@ describe('#JSONParser', function () {
       })).toEqual([
         new Transaction(['portDefinitions'], 0, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'portMapping'], false),
-        new Transaction(['portDefinitions', 0, 'protocol'], 'udp')
+        new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true),
+        new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], false)
       ]);
     });
 
@@ -191,13 +194,15 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
-        new Transaction(['portDefinitions', 0, 'protocol'], 'tcp'),
+        new Transaction(['portDefinitions', 0, 'protocol', 'udp'], false),
+        new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true),
         new Transaction(['portDefinitions', 1, 'name'], 'bar'),
         new Transaction(['portDefinitions', 1, 'automaticPort'], false),
         new Transaction(['portDefinitions', 1, 'portMapping'], true),
         new Transaction(['portDefinitions', 1, 'hostPort'], 10),
         new Transaction(['portDefinitions', 1, 'containerPort'], 81),
-        new Transaction(['portDefinitions', 1, 'protocol'], 'tcp'),
+        new Transaction(['portDefinitions', 1, 'protocol', 'udp'], false),
+        new Transaction(['portDefinitions', 1, 'protocol', 'tcp'], true),
         new Transaction(['portDefinitions', 1, 'loadBalanced'], true),
         new Transaction(['portDefinitions', 1, 'vip'], '/:0'),
         new Transaction(['portDefinitions', 1, 'labels'], {VIP_1: '/:0'})
@@ -240,7 +245,8 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
-        new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
+        new Transaction(['portDefinitions', 0, 'protocol', 'udp'], false),
+        new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], true)
       ]);
     });
 

@@ -4,6 +4,7 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 
 module.exports = {
   JSONReducer: null,
@@ -115,11 +116,15 @@ module.exports = {
       }
 
       if (item.protocol != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'protocol'
-        ], item.protocol, SET));
+        const protocols = item.protocol.split(',');
+        PROTOCOLS.forEach((protocol) => {
+          memo.push(new Transaction([
+            'portDefinitions',
+            index,
+            'protocol',
+            protocol
+          ], protocols.includes(protocol), SET));
+        });
       }
 
       const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
