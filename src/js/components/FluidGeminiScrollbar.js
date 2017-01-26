@@ -43,8 +43,11 @@ class FluidGeminiScrollbar extends React.Component {
     // If the browser's scrollbar width is larger than zero and this is the
     // first instance of the component, then add the stylesheet to the
     // document's head.
-    if (componentMountCount === 0) {
+    if (componentMountCount <= 0) {
       const scrollbarWidth = ScrollbarUtil.getScrollbarWidth();
+
+      // Reset component mount counter
+      componentMountCount = 0;
 
       if (scrollbarWidth > 0) {
         const head = global.document.head
@@ -78,7 +81,7 @@ class FluidGeminiScrollbar extends React.Component {
    * last mounted {FluidGeminiScrollbar} instance.
    */
   componentWillUnmount() {
-    if (--componentMountCount === 0) {
+    if (--componentMountCount > 0) {
       return;
     }
 
