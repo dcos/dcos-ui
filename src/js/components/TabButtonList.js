@@ -21,7 +21,7 @@ class TabButtonList extends React.Component {
 
   render() {
     const {className, vertical} = this.props;
-    let classes = classNames(
+    const classes = classNames(
       'menu-tabbed',
       {
         'menu-tabbed-vertical': vertical

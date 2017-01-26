@@ -10,7 +10,7 @@ class ComponentList extends React.Component {
   getComponentListContent(units) {
     return units.map(function (unit) {
       const health = unit.getHealth();
-      let healthClasses = classNames('text-align-right', health.classNames);
+      const healthClasses = classNames('text-align-right', health.classNames);
       const unitID = unit.get('id');
 
       return {
@@ -89,7 +89,7 @@ class ComponentList extends React.Component {
     const {displayCount} = this.props;
     const visibleUnits = this.getVisibleComponents(units, displayCount);
 
-    let content = this.getComponentListContent(visibleUnits);
+    const content = this.getComponentListContent(visibleUnits);
 
     return (
       <div className="dashboard-health-list">

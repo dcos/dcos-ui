@@ -6,12 +6,12 @@ class PageHeaderTabs extends React.Component {
   render() {
     const {props: {tabs}} = this;
 
-    let tabElements = tabs.map(function (tab, index) {
-      let {isActive, callback} = tab;
-      let classes = classNames('menu-tabbed-item', {active: isActive});
-      let linkClasses = classNames('menu-tabbed-item-label', {active: isActive});
+    const tabElements = tabs.map(function (tab, index) {
+      const {isActive, callback} = tab;
+      const classes = classNames('menu-tabbed-item', {active: isActive});
+      const linkClasses = classNames('menu-tabbed-item-label', {active: isActive});
 
-      let innerLinkSpan = (
+      const innerLinkSpan = (
         <span className="menu-tabbed-item-label-text">
           {tab.label}
         </span>

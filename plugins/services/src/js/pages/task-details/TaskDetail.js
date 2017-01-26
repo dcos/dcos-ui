@@ -222,7 +222,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     const service = this.getService();
-    let taskIcon = (
+    const taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
     const filePath = (selectedLogFile && selectedLogFile.get('path')) || null;
@@ -244,15 +244,15 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       });
     }
 
-    let navigationTabs = (
+    const navigationTabs = (
       <ul className="menu-tabbed">
         {tabsArray}
       </ul>
     );
 
     const taskState = task.get('state');
-    let serviceStatus = TaskStates[taskState].displayName;
-    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    const serviceStatus = TaskStates[taskState].displayName;
+    const serviceStatusClassSet = StatusMapping[serviceStatus] || '';
 
     return (
       <DetailViewHeader
@@ -293,7 +293,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     const innerPath = TaskDirectoryStore.get('innerPath').split('/');
     let onClickPath = '';
-    let crumbs = innerPath.map((directoryItem, index) => {
+    const crumbs = innerPath.map((directoryItem, index) => {
       let textValue = directoryItem;
 
       // First breadcrumb is always 'Working Directory'.

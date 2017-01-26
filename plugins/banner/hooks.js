@@ -4,7 +4,7 @@ import React from 'react';
 
 const SDK = require('./SDK').getSDK();
 
-let {Icon, DOMUtils} = SDK.get(['Icon', 'DOMUtils']);
+const {Icon, DOMUtils} = SDK.get(['Icon', 'DOMUtils']);
 
 module.exports = {
   configuration: {
@@ -113,7 +113,7 @@ module.exports = {
   },
 
   getIcon() {
-    let imagePath = this.configuration.imagePath;
+    const imagePath = this.configuration.imagePath;
 
     if (imagePath == null || imagePath === '') {
       return null;
@@ -131,7 +131,7 @@ module.exports = {
   },
 
   getTitle() {
-    let title = this.configuration.headerTitle;
+    const title = this.configuration.headerTitle;
 
     if (title == null || title === '') {
       return null;
@@ -147,7 +147,7 @@ module.exports = {
   },
 
   getHeaderContent() {
-    let content = this.configuration.headerContent;
+    const content = this.configuration.headerContent;
 
     if (content == null || content === '') {
       return null;
@@ -161,9 +161,9 @@ module.exports = {
   },
 
   getHeader() {
-    let icon = this.getIcon();
-    let title = this.getTitle();
-    let content = this.getHeaderContent();
+    const icon = this.getIcon();
+    const title = this.getTitle();
+    const content = this.getHeaderContent();
 
     if (icon == null && title == null && content == null) {
       return null;
@@ -193,7 +193,7 @@ module.exports = {
   },
 
   getFooter() {
-    let content = this.configuration.footerContent;
+    const content = this.configuration.footerContent;
 
     if (content == null || content === '') {
       return null;

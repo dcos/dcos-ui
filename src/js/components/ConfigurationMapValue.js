@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 const ConfigurationMapValue = (props) => {
-  let classes = classNames('configuration-map-value', {
+  const classes = classNames('configuration-map-value', {
     'configuration-map-value-stacked': props.stacked
   });
 

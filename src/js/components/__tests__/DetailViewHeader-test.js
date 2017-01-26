@@ -18,7 +18,7 @@ describe('DetailViewHeader', function () {
   describe('#render', function () {
 
     it('allows classes to be added', function () {
-      let className = 'foo';
+      const className = 'foo';
       const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
         this.container

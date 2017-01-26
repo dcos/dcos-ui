@@ -91,7 +91,7 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getErrorScreen() {
-    let {errorMessage} = this.state;
+    const {errorMessage} = this.state;
 
     return (
       <CosmosErrorMessage

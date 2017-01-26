@@ -175,7 +175,7 @@ class UnitHealthStore extends GetSetBaseStore {
   }
 
   getDownloadURL() {
-    return `${Config.rootUrl}${Config.unitHealthAPIPrefix}\/report\/download`;
+    return `${Config.rootUrl}${Config.unitHealthAPIPrefix}/report/download`;
   }
 
   fetchUnits() {

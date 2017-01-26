@@ -26,7 +26,7 @@ class ServiceTreeView extends React.Component {
       onFilterExpressionChange
     } = this.props;
 
-    let hostClasses = classNames({
+    const hostClasses = classNames({
       'column-medium-5': !filterExpression.value,
       'column-medium-12': filterExpression.value
     });

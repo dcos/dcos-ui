@@ -40,7 +40,7 @@ class ServiceGroupFormModal extends React.Component {
   }
 
   getErrorMessage() {
-    let {errors} = this.props;
+    const {errors} = this.props;
     if (!errors) {
       return null;
     }

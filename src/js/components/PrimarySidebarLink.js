@@ -34,7 +34,7 @@ const PrimarySidebarLink = ({
   }
 
   if (hasChildren) {
-    let classes = classNames({
+    const classes = classNames({
       'clickable': !isChildActive,
       'is-expanded': isExpanded
     });

@@ -2,7 +2,7 @@ import classNames from 'classnames/dedupe';
 import React from 'react';
 
 const AdvancedSectionContent = ({className, children}) => {
-  let classes = classNames('advanced-section-content', className);
+  const classes = classNames('advanced-section-content', className);
 
   return (
     <div className={classes}>

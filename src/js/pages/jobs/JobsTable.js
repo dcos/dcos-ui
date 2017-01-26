@@ -178,13 +178,13 @@ class JobsTable extends React.Component {
   }
 
   renderLastRunStatusColumn(prop, row) {
-    let {lastFailureAt, lastSuccessAt, status} = row[prop];
-    let statusClasses = classNames({
+    const {lastFailureAt, lastSuccessAt, status} = row[prop];
+    const statusClasses = classNames({
       'text-success': status === 'Success',
       'text-danger': status === 'Failed'
     });
-    let nodes = [];
-    let statusNode = <span className={statusClasses}>{status}</span>;
+    const nodes = [];
+    const statusNode = <span className={statusClasses}>{status}</span>;
 
     if (lastFailureAt == null && lastSuccessAt == null) {
       return statusNode;
@@ -224,7 +224,7 @@ class JobsTable extends React.Component {
 
     const jobState = JobStates[statusKey];
 
-    let statusClasses = classNames({
+    const statusClasses = classNames({
       'text-success': jobState.stateTypes.includes('success'),
       'text-danger': jobState.stateTypes.includes('failure'),
       'text-color-white': jobState.stateTypes.includes('active')

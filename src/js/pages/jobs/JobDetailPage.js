@@ -182,7 +182,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         'runs. Do you want to stop all runs and destroy the job?';
     }
 
-    let content = (
+    const content = (
       <div>
         <h2 className="text-danger text-align-center flush-top">
           Destroy Job
@@ -296,14 +296,14 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       const dateCompleted = longestRunningTask.getDateCompleted();
 
       const status = TaskStates[longestRunningTask.getStatus()];
-      let statusClasses = classNames('job-details-header-status', {
+      const statusClasses = classNames('job-details-header-status', {
         'text-success': status.stateTypes.includes('success')
         && !status.stateTypes.includes('failure'),
         'text-danger': status.stateTypes.includes('failure')
       });
 
       let timePrefix = null;
-      let shouldSuppressRelativeTime = dateCompleted == null;
+      const shouldSuppressRelativeTime = dateCompleted == null;
 
       if (shouldSuppressRelativeTime) {
         timePrefix = 'for ';
@@ -403,7 +403,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return this.props.children;
     }
 
-    let job = MetronomeStore.getJob(this.props.params.id);
+    const job = MetronomeStore.getJob(this.props.params.id);
     const jobStatus = this.getJobStatus(job);
 
     return (

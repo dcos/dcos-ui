@@ -6,7 +6,7 @@ import SidebarActions from '../../../events/SidebarActions';
 class TypographyTabContent extends React.Component {
 
   render() {
-    let codeBlockTypographyBody =
+    const codeBlockTypographyBody =
 `<p>
   Collaboratively administrate empowered…
 </p>
@@ -14,7 +14,7 @@ class TypographyTabContent extends React.Component {
 <p>
   Efficiently unleash cross-media information…
 </p>`;
-    let codeBlockTypographyBodyLead =
+    const codeBlockTypographyBodyLead =
 `<p class="lead">
   Collaboratively administrate empowered…
 </p>
@@ -22,7 +22,7 @@ class TypographyTabContent extends React.Component {
 <p>
   Efficiently unleash cross-media information…
 </p>`;
-    let codeBlockTypographyBodySmall =
+    const codeBlockTypographyBodySmall =
 `<p>
   Collaboratively administrate empowered…
 </p>
@@ -30,7 +30,7 @@ class TypographyTabContent extends React.Component {
 <p class="small">
   Efficiently unleash cross-media information…
 </p>`;
-    let codeBlockTypographyHeadings =
+    const codeBlockTypographyHeadings =
 `<h1>
   h1 Heading Text
 </h1>
@@ -54,7 +54,7 @@ class TypographyTabContent extends React.Component {
 <h6>
   h6 Heading Text
 </h6>`;
-    let codeBlockTypographyInlineStylingEmphasis =
+    const codeBlockTypographyInlineStylingEmphasis =
 `<h2 className="flush-top">
   Heading with <span className="emphasis">emphasized</span> text
 </h2>
@@ -66,7 +66,7 @@ class TypographyTabContent extends React.Component {
 <p className="flush-bottom">
   Efficiently unleash <span className="emphasis">cross-media</span> inf…
 </p>`;
-    let codeBlockTypographyInlineStylingMuted =
+    const codeBlockTypographyInlineStylingMuted =
 `<h2 className="flush-top">
   Heading with <span className="muted">muted</span> text
 </h2>
@@ -78,7 +78,7 @@ class TypographyTabContent extends React.Component {
 <p className="flush-bottom">
   Efficiently unleash <span className="muted">cross-media</span> inf…
 </p>`;
-    let codeBlockTypographyInverseStyling=
+    const codeBlockTypographyInverseStyling=
 `<h2 className="inverse">
   h2 Heading Text
 </h2>
@@ -94,7 +94,7 @@ class TypographyTabContent extends React.Component {
 <p className="inverse">
   Efficiently unleash <span className="muted">cross-media</span> information…
 </p>`;
-    let codeBlockTypographyAlignment =
+    const codeBlockTypographyAlignment =
 `<p className="text-align-left">
   Left aligned text.
 </p>
@@ -114,7 +114,7 @@ class TypographyTabContent extends React.Component {
 <p className="text-align-nowrap">
   No wrap text.
 </p>`;
-    let codeBlockTypographyTransformation =
+    const codeBlockTypographyTransformation =
 `<p className="text-uppercase">
   Uppercase text
 </p>
@@ -126,25 +126,25 @@ class TypographyTabContent extends React.Component {
 <p className="text-capitalize">
   Capitalized text.
 </p>`;
-    let codeBlockTypographyListsOrdered =
+    const codeBlockTypographyListsOrdered =
 `<ol>
   <li>
     …
   </li>
 </ol>`;
-    let codeBlockTypographyListsUnordered =
+    const codeBlockTypographyListsUnordered =
 `<ol>
   <li>
     …
   </li>
 </ol>`;
-    let codeBlockTypographyListsUnstyled =
+    const codeBlockTypographyListsUnstyled =
 `<ul className="list-unstyled">
   <li>
     …
   </li>
 </ul>`;
-    let codeBlockTypographyListsInline =
+    const codeBlockTypographyListsInline =
 `<ul className="list-inline">
   <li>
     …

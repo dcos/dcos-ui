@@ -4,14 +4,14 @@ import React from 'react';
 import Config from '../config/Config';
 
 function getDefaultMessage() {
-  let slackLink = (
+  const slackLink = (
     <a
       href={Config.slackChannel}
       target="_blank">
       Slack channel
     </a>
   );
-  let supportLink = (
+  const supportLink = (
     <a href={`mailto:${Config.supportEmail}`}>
       {Config.supportEmail}
     </a>

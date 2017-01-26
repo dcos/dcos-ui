@@ -215,8 +215,8 @@ class LogView extends React.Component {
   }
 
   getLog() {
-    let {highlightText, onCountChange, watching} = this.props;
-    let {fullLog} = this.state;
+    const {highlightText, onCountChange, watching} = this.props;
+    const {fullLog} = this.state;
 
     if (fullLog === '') {
       return this.getEmptyLogScreen();

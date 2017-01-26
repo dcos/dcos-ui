@@ -19,7 +19,7 @@ const TabsUtil = {
     const tabSet = Object.keys(tabs);
 
     return tabSet.map(function (tab, index) {
-      let tabClass = classNames({
+      const tabClass = classNames({
         'menu-tabbed-item': true,
         'active': !!currentTab && currentTab.startsWith(tab)
       });

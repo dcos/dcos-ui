@@ -89,12 +89,12 @@ var ResourceTableUtil = {
 
   renderHeading(config) {
     return function (prop, order, sortBy) {
-      let title = config[prop];
+      const title = config[prop];
       const caret = {
         before: null,
         after: null
       };
-      let caretClassSet = classNames(
+      const caretClassSet = classNames(
         'caret',
         {
           [`caret--${order}`]: order != null,
@@ -139,7 +139,7 @@ var ResourceTableUtil = {
       return 'N/A';
     }
 
-    let ms = updatedAt.toFixed(3) * 1000;
+    const ms = updatedAt.toFixed(3) * 1000;
 
     return <TimeAgo time={ms} autoUpdate={false} />;
   },

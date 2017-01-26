@@ -25,7 +25,7 @@ const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
   }
 
   if (task) {
-    let taskName = task.getName();
+    const taskName = task.getName();
     crumbs.push(<Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>{taskName}</Link>);
   } else {
     crumbs.push(<span>{taskID}</span>);
@@ -48,7 +48,7 @@ class VirtualNetworkTaskPage extends React.Component {
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-    let overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
+    const overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
       return overlay.getName() === overlayName;
     });
 

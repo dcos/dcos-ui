@@ -58,7 +58,7 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   renderConfigurationTabView() {
-    let {pod} = this.props;
+    const {pod} = this.props;
 
     return (
       <PodConfigurationContainer pod={pod} />
@@ -66,13 +66,13 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   renderDebugTabView() {
-    let {pod} = this.props;
+    const {pod} = this.props;
 
     return (<PodDebugContainer pod={pod} />);
   }
 
   renderInstancesTabView() {
-    let {pod} = this.props;
+    const {pod} = this.props;
 
     return (<PodInstancesContainer pod={pod} />);
   }

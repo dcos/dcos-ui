@@ -282,7 +282,7 @@ class MesosLogView extends mixin(StoreMixin) {
     if (!props.logName) {
       return this.getEmptyDirectoryScreen();
     }
-    let fullLog = state.fullLog;
+    const fullLog = state.fullLog;
     if (fullLog === '') {
       return this.getEmptyLogScreen();
     }

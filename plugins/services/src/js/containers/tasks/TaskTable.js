@@ -225,13 +225,13 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(options) {
-    let anchorClasses = classNames('text-overflow', {
+    const anchorClasses = classNames('text-overflow', {
       'table-cell-link-primary': options.primary,
       'table-cell-link-secondary': options.secondary
     });
 
     return (prop, task) => {
-      let title = task[prop];
+      const title = task[prop];
       const {id, nodeID} = this.props.params;
 
       let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}`;
@@ -256,7 +256,7 @@ class TaskTable extends React.Component {
   }
 
   renderLog(prop, task) {
-    let title = task.name || task.id;
+    const title = task.name || task.id;
     const {id, nodeID} = this.props.params;
 
     let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
@@ -301,7 +301,7 @@ class TaskTable extends React.Component {
 
   renderStatus(prop, task) {
     const statusClassName = TaskUtil.getTaskStatusClassName(task);
-    let statusLabelClasses = `${statusClassName} table-cell-value`;
+    const statusLabelClasses = `${statusClassName} table-cell-value`;
 
     return (
       <div className="flex-box flex-box-align-vertical-center
@@ -336,7 +336,7 @@ class TaskTable extends React.Component {
     const failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
     const running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
 
-    let statusClass = classNames({
+    const statusClass = classNames({
       'dot': true,
       'flush': true,
       'inactive': !activeState,
@@ -365,7 +365,7 @@ class TaskTable extends React.Component {
       return null;
     }
 
-    let localeVersion = new Date(version).toLocaleString();
+    const localeVersion = new Date(version).toLocaleString();
 
     return (
       <span>
@@ -375,7 +375,7 @@ class TaskTable extends React.Component {
   }
 
   render() {
-    let {checkedItemsMap, className, onCheckboxChange, tasks} = this.props;
+    const {checkedItemsMap, className, onCheckboxChange, tasks} = this.props;
 
     return (
       <CheckboxTable

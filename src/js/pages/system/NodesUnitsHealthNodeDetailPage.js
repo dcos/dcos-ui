@@ -18,7 +18,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   ];
 
   if (unit != null) {
-    let unitTitle = unit.getTitle();
+    const unitTitle = unit.getTitle();
 
     crumbs.push(
       <Link to={`/components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
@@ -114,7 +114,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     const unit = UnitHealthStore.getUnit(unitID);
 
     const unitSummary = UnitSummaries[unit.get('id')] || {};
-    let unitDocsURL = unitSummary.getDocumentationURI &&
+    const unitDocsURL = unitSummary.getDocumentationURI &&
       unitSummary.getDocumentationURI();
 
     return (
@@ -131,8 +131,8 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   render() {
     const {unitID, unitNodeID} = this.props.params;
 
-    let node = UnitHealthStore.getNode(unitNodeID);
-    let unit = UnitHealthStore.getUnit(unitID);
+    const node = UnitHealthStore.getNode(unitNodeID);
+    const unit = UnitHealthStore.getUnit(unitID);
 
     return (
       <Page>

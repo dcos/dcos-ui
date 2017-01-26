@@ -9,7 +9,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
  */
 class ConfigurationMapJSONValue extends React.Component {
   render() {
-    let {defaultValue, value} = this.props;
+    const {defaultValue, value} = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {

@@ -323,7 +323,7 @@ class JobFormModal extends mixin(StoreMixin) {
         // See: https://github.com/dcos/metronome/issues/71
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '/0/' (or [0] : '(0)'), [1]: '0'
-        const matches = path.match(/[\/\(](\d+)[\/\)]/);
+        const matches = path.match(/[/(](\d+)[/)]/);
         if (matches != null) {
           // Keep the separator characters as returned by the server
           // Example: (0), /0/  -> ({INDEX}), /{INDEX}/
@@ -363,7 +363,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {defaultTab, jobFormModel, jobJsonString, jsonMode} = this.state;
+    const {defaultTab, jobFormModel, jobJsonString, jsonMode} = this.state;
 
     if (jsonMode) {
       return (

@@ -18,7 +18,7 @@ const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
   ];
 
   if (overlay) {
-    let name = overlay.getName();
+    const name = overlay.getName();
     crumbs.push(<Link to={`/networking/networks/${name}`} key={0}>{name}</Link>);
   } else {
     crumbs.push(<span>{overlayID}</span>);
@@ -134,7 +134,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       }
     ];
 
-    let overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
+    const overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
       return overlay.getName() === this.props.params.overlayName;
     });
 

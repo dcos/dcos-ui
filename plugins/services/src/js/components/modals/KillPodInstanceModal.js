@@ -69,7 +69,7 @@ class KillPodInstanceModal extends React.Component {
   }
 
   getErrorMessage() {
-    let {errorMsg} = this.state;
+    const {errorMsg} = this.state;
 
     if (!errorMsg) {
       return null;
@@ -87,7 +87,7 @@ class KillPodInstanceModal extends React.Component {
   getModalContents() {
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action];
-    let instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Instance', selectedItemsLength)}`;
+    const instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Instance', selectedItemsLength)}`;
 
     return (
       <div className="text-align-center">
@@ -126,7 +126,7 @@ class KillPodInstanceModal extends React.Component {
       this.shouldForceUpdate()
     );
 
-    let header = (
+    const header = (
       <ModalHeading className="text-danger">
         {ACTION_DISPLAY_NAMES[action]} {StringUtil.pluralize('Instance', selectedItems.length)}
       </ModalHeading>

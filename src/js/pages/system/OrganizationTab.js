@@ -289,7 +289,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     // Get first Action to set as initially selected option in dropdown.
     initialID = Object.keys(actionPhrases)[0] || null;
 
-    let dropdownItems = this.getActionsDropdownItems(actionPhrases);
+    const dropdownItems = this.getActionsDropdownItems(actionPhrases);
     if (dropdownItems.length === 1) {
       return (
         <button
@@ -372,7 +372,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       return null;
     }
 
-    let checkedItemObjects = this.getCheckedItemObjects(items, itemID) || [];
+    const checkedItemObjects = this.getCheckedItemObjects(items, itemID) || [];
 
     return (
       <UsersActionsModal
@@ -440,10 +440,10 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     const {items, itemID, itemName} = this.props;
     const state = this.state;
     const action = state.selectedAction;
-    let capitalizedItemName = StringUtil.capitalize(itemName);
-    let visibleItems = this.getVisibleItems(items);
-    let actionDropdown = this.getActionDropdown(itemName);
-    let actionsModal = this.getActionsModal(action, items, itemID, itemName);
+    const capitalizedItemName = StringUtil.capitalize(itemName);
+    const visibleItems = this.getVisibleItems(items);
+    const actionDropdown = this.getActionDropdown(itemName);
+    const actionsModal = this.getActionsModal(action, items, itemID, itemName);
     const sortProp = itemID;
 
     return (

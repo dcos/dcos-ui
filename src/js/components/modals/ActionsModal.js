@@ -187,7 +187,7 @@ class ActionsModal extends mixin(StoreMixin) {
   getRequestErrorMessage(errors) {
     if (errors.length > 0) {
       // Only show 5 first errors
-      let errorMessages = errors.slice(0, 5).map(function (error, index) {
+      const errorMessages = errors.slice(0, 5).map(function (error, index) {
         return (
           <p className="text-error-state" key={index}>{error}</p>
         );
@@ -208,7 +208,7 @@ class ActionsModal extends mixin(StoreMixin) {
       return null;
     }
 
-    let heading = (
+    const heading = (
       <ModalHeading>
         {this.props.actionText.title}
       </ModalHeading>

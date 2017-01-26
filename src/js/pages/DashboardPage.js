@@ -158,7 +158,7 @@ var DashboardPage = React.createClass({
   },
 
   render() {
-    let columnClasses = 'column-12 column-small-6 column-large-4';
+    const columnClasses = 'column-12 column-small-6 column-large-4';
     var data = this.internalStorage_get();
 
     return (

@@ -7,11 +7,11 @@ class ButtonTabContent extends React.Component {
 
   render() {
 
-    let codeBlockButton =
+    const codeBlockButton =
 `<button class="button">
   Simple Button
 </button>`;
-    let codeBlockButtonSizes =
+    const codeBlockButtonSizes =
 `<!-- Button: Jumbo -->
 <button class="button button-jumbo">
   Jumbo
@@ -36,7 +36,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-mini">
   Mini
 </button>`;
-    let codeBlockButtonStates =
+    const codeBlockButtonStates =
 `<!-- Button: Default -->
 <button class="button">
   Default
@@ -61,7 +61,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-danger">
   Danger
 </button>`;
-    let codeBlockButtonTypesRounded =
+    const codeBlockButtonTypesRounded =
 `<!-- Button: Default -->
 <button class="button button-rounded">
   Default
@@ -71,7 +71,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-rounded button-primary">
   Primary
 </button>`;
-    let codeBlockButtonTypesOutline =
+    const codeBlockButtonTypesOutline =
 `<!-- Button: Default -->
 <button class="button button-outline">
   Default
@@ -81,7 +81,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-primary-outline">
   Primary
 </button>`;
-    let codeBlockButtonTypesLink =
+    const codeBlockButtonTypesLink =
 `<!-- Button: Default -->
 <button class="button button-link">
   Default
@@ -91,7 +91,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-primary-link">
   Primary
 </button>`;
-    let codeBlockButtonTypesCombined =
+    const codeBlockButtonTypesCombined =
 `<!-- Button: Default -->
 <button class="button button-outline button-rounded">
   Default
@@ -101,23 +101,23 @@ class ButtonTabContent extends React.Component {
 <button class="button button-primary-outline button-rounded">
   Primary
 </button>`;
-    let codeBlockButtonInverseStyling =
+    const codeBlockButtonInverseStyling =
 `<button class="button button-inverse">
   Default
 </button>`;
-    let codeBlockButtonWide =
+    const codeBlockButtonWide =
 `<button class="button button-wide">
   Wide Button
 </button>`;
-    let codeBlockButtonNarrow =
+    const codeBlockButtonNarrow =
 `<button class="button button-narrow">
   Narrow Button
 </button>`;
-    let codeBlockButtonBlock =
+    const codeBlockButtonBlock =
 `<button class="button button-block">
   Block Button
 </button>`;
-    let codeBlockButtonBlockResponsive =
+    const codeBlockButtonBlockResponsive =
 `<!-- Block Button: When Smaller than Screen Mini-->
 <button class="button button-block button-block-below-screen-small">
   Block Button (Mini)
@@ -137,7 +137,7 @@ class ButtonTabContent extends React.Component {
 <button class="button button-block button-block-below-screen-jumbo">
   Block Button (Large)
 </button>`;
-    let codeBlockButtonDropdowns =
+    const codeBlockButtonDropdowns =
 `<div class="button-group">
   <button type="button" class="button dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     Toggle Button
@@ -162,7 +162,7 @@ class ButtonTabContent extends React.Component {
     </ul>
   </span>
 </div>`;
-    let codeBlockButtonDropdownsSizes =
+    const codeBlockButtonDropdownsSizes =
 `<div class="button-collection">
   <div class="button-group">
     <button type="button" class="button button-jumbo dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -209,11 +209,11 @@ class ButtonTabContent extends React.Component {
     </span>
   </div>
 </div>`;
-    let codeBlockButtonControlsToggles =
+    const codeBlockButtonControlsToggles =
 `<button type="button" class="button button-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
   Toggle Button
 </button>`;
-    let codeBlockButtonControlsButtonGroupsCheckboxes =
+    const codeBlockButtonControlsButtonGroupsCheckboxes =
 `<div class="button-group" data-toggle="buttons">
   <label class="button button-primary active">
     <input type="checkbox" autocomplete="off" checked> Checkbox 1
@@ -225,7 +225,7 @@ class ButtonTabContent extends React.Component {
     <input type="checkbox" autocomplete="off"> Checkbox 3
   </label>
 </div>`;
-    let codeBlockButtonControlsButtonGroupsRadios =
+    const codeBlockButtonControlsButtonGroupsRadios =
 `<div class="button-group" data-toggle="buttons">
   <label class="button button-primary active">
     <input type="radio" name="options" id="option1" autocomplete="off" checked> Radio 1
@@ -237,7 +237,7 @@ class ButtonTabContent extends React.Component {
     <input type="radio" name="options" id="option1" autocomplete="off"> Radio 3
   </label>
 </div>`;
-    let codeBlockButtonContent =
+    const codeBlockButtonContent =
 `<!-- Button: Default -->
 <button class="button">
   <i class="icon icon-mini"></i>

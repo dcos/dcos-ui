@@ -83,7 +83,7 @@ RequestUtil.json = function (options = {}) {
       }
 
       function renderApplicationToDOM() {
-        let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+        const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
         NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
 
         renderAppToDOM(
@@ -106,7 +106,7 @@ RequestUtil.json = function (options = {}) {
   function onConfigurationError() {
     // Try to find appropriate DOM element or fallback
     const element = global.document.querySelector('#canvas div') || domElement;
-    let columnClasses = {
+    const columnClasses = {
       'column-small-8': false,
       'column-small-offset-2': false,
       'column-medium-6': false,

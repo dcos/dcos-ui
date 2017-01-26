@@ -149,7 +149,7 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   getJobTreeView(item, modal) {
-    let filteredJobs = this.getFilteredJobs(item);
+    const filteredJobs = this.getFilteredJobs(item);
 
     return (
       <Page>

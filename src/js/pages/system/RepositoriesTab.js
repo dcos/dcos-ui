@@ -86,7 +86,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
   }
 
   getContent() {
-    let {
+    const {
       addRepositoryModalOpen,
       hasError,
       isLoading,
@@ -101,7 +101,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let repositories = CosmosPackagesStore.getRepositories()
+    const repositories = CosmosPackagesStore.getRepositories()
       .filterItemsByText(searchString);
 
     return (

@@ -9,7 +9,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
  */
 class ConfigurationMapMultilineValue extends React.Component {
   render() {
-    let {value, defaultValue} = this.props;
+    const {value, defaultValue} = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {

@@ -15,16 +15,16 @@ class ResourceChart extends React.Component {
   getResourceChart(resource, totalResources) {
     const colorIndex = ResourcesUtil.getResourceColor(resource);
     const resourceLabel = ResourcesUtil.getResourceLabel(resource);
-    let resourceData = [{
+    const resourceData = [{
       name: 'Alloc',
       colorIndex,
       values: totalResources[resource]
     }];
-    let resourceValue = Units.formatResource(
+    const resourceValue = Units.formatResource(
       resource, Util.last(totalResources[resource]).value
     );
 
-    let axisConfiguration = {
+    const axisConfiguration = {
       x: {hideMatch: /^0$/},
       y: {showPercentage: false, suffix: '%'}
     };

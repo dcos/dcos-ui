@@ -5,7 +5,7 @@ import {omit} from '../../utils/Util';
 
 const FieldInput = (props) => {
   const {className, type} = props;
-  let classes = classNames('form-control', className);
+  const classes = classNames('form-control', className);
 
   let toggleIndicator;
   if (['radio', 'checkbox'].includes(type)) {

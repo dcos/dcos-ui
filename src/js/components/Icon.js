@@ -11,14 +11,14 @@ class Icon extends React.Component {
       props,
       ['className', 'color', 'family', 'id', 'size']
     );
-    let classes = classNames('icon',
+    const classes = classNames('icon',
       {
         [`icon-${props.color}`]: !!props.color,
         [`icon-${props.size}`]: !!props.size
       },
       props.className
     );
-    let iconID = `#icon-${props.family}--${props.id}`;
+    const iconID = `#icon-${props.family}--${props.id}`;
 
     return (
       <svg className={classes} {...additionalProps}>

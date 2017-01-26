@@ -7,7 +7,7 @@ import {omit} from '../../utils/Util';
 const FormGroup = (props) => {
   const {children, className, errorClassName, showError, required} = props;
 
-  let clonedChildren = React.Children.map(children, (child) => {
+  const clonedChildren = React.Children.map(children, (child) => {
     if (child == null || (!showError && child.type === FieldError)) {
       return null;
     }
@@ -15,7 +15,7 @@ const FormGroup = (props) => {
     return React.cloneElement(child, {required});
   });
 
-  let classes = classNames(
+  const classes = classNames(
     {[errorClassName]: showError},
     'form-group',
     className

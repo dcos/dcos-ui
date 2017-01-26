@@ -8,7 +8,7 @@ import SidebarToggle from './SidebarToggle';
 
 class PageHeader extends React.Component {
   render() {
-    let {
+    const {
       props: {
         actions,
         addButton,
@@ -22,16 +22,16 @@ class PageHeader extends React.Component {
       }
     } = this;
 
-    let classes = classNames('page-header', className);
-    let innerClasses = classNames(
+    const classes = classNames('page-header', className);
+    const innerClasses = classNames(
       'page-header-inner pod',
       innerClassName
     );
-    let primaryContentClasses = classNames(
+    const primaryContentClasses = classNames(
       'page-header-content-section page-header-content-section-primary',
       primaryContentClassName
     );
-    let secondaryContentClasses = classNames(
+    const secondaryContentClasses = classNames(
       'page-header-content-section page-header-content-section-secondary',
       secondaryContentClassName
     );

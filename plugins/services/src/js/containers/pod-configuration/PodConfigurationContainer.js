@@ -5,8 +5,8 @@ import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDispl
 
 class PodConfigurationTabView extends React.Component {
   render() {
-    let spec = this.props.pod.getSpec();
-    let localeVersion = new Date(spec.getVersion()).toLocaleString();
+    const spec = this.props.pod.getSpec();
+    const localeVersion = new Date(spec.getVersion()).toLocaleString();
 
     return (
       <div className="container">

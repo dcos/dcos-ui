@@ -427,7 +427,7 @@ class ServicesContainer extends React.Component {
   }
 
   getModals(service) {
-    let modalProps = Object.assign({}, this.state.modal);
+    const modalProps = Object.assign({}, this.state.modal);
 
     if (!modalProps.service) {
       modalProps.service = service;
@@ -507,7 +507,7 @@ class ServicesContainer extends React.Component {
 
     // Show Tree
     if (item instanceof ServiceTree) {
-      let isEmpty = (item.getItems().length === 0);
+      const isEmpty = (item.getItems().length === 0);
       let filteredServices = item;
 
       if (filterExpression.defined) {

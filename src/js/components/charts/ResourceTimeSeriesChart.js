@@ -61,7 +61,7 @@ var ResourceTimeSeriesChart = React.createClass({
     var props = this.props;
     var usedValue = Math.round(props.usedResources[props.mode]);
     var totalValue = Math.round(props.totalResources[props.mode]);
-    let percentage = Math.round(100 * usedValue / totalValue) || 0;
+    const percentage = Math.round(100 * usedValue / totalValue) || 0;
 
     return (
       <div className="chart">

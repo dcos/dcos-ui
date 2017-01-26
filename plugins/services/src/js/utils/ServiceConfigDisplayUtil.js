@@ -15,7 +15,7 @@ const ServiceConfigDisplayUtil = {
 
   getColumnHeadingFn(defaultHeading) {
     return (prop, order, sortBy) => {
-      let caretClassNames = classNames('caret', {
+      const caretClassNames = classNames('caret', {
         [`caret--${order}`]: order != null && sortBy.prop === prop,
         'caret--visible': sortBy.prop === prop
       });

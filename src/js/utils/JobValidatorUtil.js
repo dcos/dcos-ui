@@ -25,7 +25,7 @@ const JobValidatorUtil = {
     }
 
     // Make sure each component contains valid characters
-    const cronComponentPattern = /^[0-9\*]+([0-9\-,\/\*])*$/;
+    const cronComponentPattern = /^[0-9*]+([0-9\-,/*])*$/;
 
     return components.every(function (component) {
       return cronComponentPattern.test(component);

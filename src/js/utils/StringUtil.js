@@ -20,7 +20,7 @@ const StringUtil = {
     return String(searchString)
       .toLowerCase()
       // split on non-word characters and slash
-      .split(/[^\w\/]/)
+      .split(/[^\w/]/)
       .filter(Boolean);
   },
 
@@ -47,7 +47,7 @@ const StringUtil = {
   },
 
   escapeForRegExp(str) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
   },
 
   isUrl(str) {

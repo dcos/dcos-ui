@@ -170,7 +170,7 @@ class DSLInputField extends React.Component {
    */
   getDropdownButton() {
     let color = 'grey';
-    let {
+    const {
       dropdownVisible,
       hasDropdown,
       inverseStyle,
@@ -209,9 +209,9 @@ class DSLInputField extends React.Component {
    */
   getInputField() {
     const {expression} = this.state;
-    let {inverseStyle, placeholder} = this.props;
+    const {inverseStyle, placeholder} = this.props;
 
-    let inputClasses = classNames({
+    const inputClasses = classNames({
       'form-control filter-input-text': true,
       'form-control-inverse': inverseStyle
     });
@@ -236,7 +236,7 @@ class DSLInputField extends React.Component {
     const {expression, focus} = this.state;
 
     let iconColor = 'grey';
-    let iconSearchClasses = classNames({
+    const iconSearchClasses = classNames({
       'active': focus
     });
 
@@ -248,13 +248,13 @@ class DSLInputField extends React.Component {
       iconColor = 'red';
     }
 
-    let inputContainerClasses = classNames({
+    const inputContainerClasses = classNames({
       'form-control form-control-group': true,
       'form-control-inverse': inverseStyle,
       'focus': focus
     }, inputContainerClass);
 
-    let formGroupClasses = classNames({
+    const formGroupClasses = classNames({
       'form-group': true,
       'form-group-danger': expression.hasErrors
     }, className);

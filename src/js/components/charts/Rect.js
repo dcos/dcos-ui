@@ -24,7 +24,7 @@ class Rect extends React.Component {
   }
 
   render() {
-    let {width, height, x, y, fill, className} = this.props;
+    const {width, height, x, y, fill, className} = this.props;
 
     return (
       <rect

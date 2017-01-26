@@ -68,7 +68,7 @@ class KillTaskModal extends React.Component {
   }
 
   getErrorMessage() {
-    let {errorMsg} = this.state;
+    const {errorMsg} = this.state;
 
     if (!errorMsg) {
       return null;
@@ -86,7 +86,7 @@ class KillTaskModal extends React.Component {
   getModalContents() {
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action] || '';
-    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('task', selectedItemsLength)}`;
+    const taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('task', selectedItemsLength)}`;
 
     return (
       <div className="text-align-center">
@@ -122,7 +122,7 @@ class KillTaskModal extends React.Component {
       this.shouldForceUpdate()
     );
 
-    let header = (
+    const header = (
       <ModalHeading className="text-danger">
         {ACTION_DISPLAY_NAMES[action]} {StringUtil.pluralize('task', selectedItems.length)}
       </ModalHeading>

@@ -58,7 +58,7 @@ class ClipboardTrigger extends React.Component {
     }
 
     const {copiedText, tooltipContent} = this.props;
-    let clipboardIcon = (
+    const clipboardIcon = (
       <Icon
         id="clipboard"
         size="mini"

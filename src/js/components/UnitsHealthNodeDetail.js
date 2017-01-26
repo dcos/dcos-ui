@@ -82,7 +82,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     const unit = UnitHealthStore.getUnit(unitID);
 
     const unitSummary = UnitSummaries[unit.get('id')] || {};
-    let unitDocsURL = unitSummary.getDocumentationURI &&
+    const unitDocsURL = unitSummary.getDocumentationURI &&
       unitSummary.getDocumentationURI();
 
     return (

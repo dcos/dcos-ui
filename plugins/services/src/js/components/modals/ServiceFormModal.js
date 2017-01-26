@@ -399,7 +399,7 @@ class ServiceFormModal extends React.Component {
       isPending
     } = this.props;
 
-    let deployButtonClassNames = classNames('button button-large',
+    const deployButtonClassNames = classNames('button button-large',
       {
         'button-success': !isPending,
         'disabled': isPending
@@ -430,8 +430,8 @@ class ServiceFormModal extends React.Component {
     } = this.state;
 
     if (jsonMode) {
-      let jsonDefinition = JSON.stringify(serviceSpec, null, 2);
-      let toolTipContent = (
+      const jsonDefinition = JSON.stringify(serviceSpec, null, 2);
+      const toolTipContent = (
         <div>
           Use the JSON editor to enter Marathon Application definitions manually.
           {' '}
@@ -466,7 +466,7 @@ class ServiceFormModal extends React.Component {
       );
     }
 
-    let model = ServiceUtil.createFormModelFromSchema(
+    const model = ServiceUtil.createFormModelFromSchema(
       ServiceSchema,
       serviceSpec
     );
@@ -484,13 +484,13 @@ class ServiceFormModal extends React.Component {
 
   getToggleButton() {
     let classSet = 'modal-form-title-label flush-bottom';
-    let {jsonLockReason} = this.state;
+    const {jsonLockReason} = this.state;
 
     if (jsonLockReason) {
       classSet = `${classSet} disabled`;
     }
 
-    let toggleButton = (
+    const toggleButton = (
       <ToggleButton
         className={classSet}
         checkboxClassName="toggle-button"
@@ -522,7 +522,7 @@ class ServiceFormModal extends React.Component {
       headerText = 'Edit Service';
     }
 
-    let header = (
+    const header = (
       <div>
         <div className="header-flex">
           <div className="header-left">

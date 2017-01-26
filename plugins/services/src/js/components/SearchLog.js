@@ -134,7 +134,7 @@ class SearchLog extends React.Component {
       onCountChange: this.handleCountChange
     });
 
-    let inputContainerClassSet = classNames({
+    const inputContainerClassSet = classNames({
       'filter-input-text-group-wide': this.state.searchString
     });
 

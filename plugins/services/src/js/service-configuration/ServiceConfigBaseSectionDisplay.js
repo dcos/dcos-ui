@@ -36,7 +36,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
       // Some rows must be excluded if relevant data is missing.
       return !this.shouldExcludeItem(row);
     }).map((row, rowIndex) => {
-      let reactKey = `${rowIndex}`;
+      const reactKey = `${rowIndex}`;
       let value = findNestedPropertyInObject(appConfig, row.key);
 
       // If a transformValue was specified on the row, we use it.

@@ -89,7 +89,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getColumnHeading(prop, order, sortBy) {
-    let caretClassNames = classNames(
+    const caretClassNames = classNames(
       'caret',
       {
         [`caret--${order}`]: order != null,
@@ -226,7 +226,7 @@ class JobRunHistoryTable extends React.Component {
     }
 
     const {isStopRunModalShown} = this.state;
-    let jobRuns = Object.keys(checkedItems);
+    const jobRuns = Object.keys(checkedItems);
 
     return (
       <JobStopRunModal
@@ -240,7 +240,7 @@ class JobRunHistoryTable extends React.Component {
 
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
-      let taskID = row.taskID;
+      const taskID = row.taskID;
       const id = this.props.job.getId();
 
       return (
@@ -255,7 +255,7 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
-    let cellContent = (
+    const cellContent = (
       <span className="table-cell-flex-box">
         <Icon
           className="icon-margin-right table-cell-icon"
@@ -270,10 +270,10 @@ class JobRunHistoryTable extends React.Component {
       );
 
     if (row.children && row.children.length > 0) {
-      let classes = classNames('expanding-table-primary-cell is-expandable', {
+      const classes = classNames('expanding-table-primary-cell is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
-      let {clickHandler} = rowOptions;
+      const {clickHandler} = rowOptions;
 
       return (
         <div className={classes} onClick={clickHandler}>
@@ -293,7 +293,7 @@ class JobRunHistoryTable extends React.Component {
   renderStatusColumn(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
       const status = JobStates[row[prop]];
-      let statusClasses = classNames({
+      const statusClasses = classNames({
         'text-success': status.stateTypes.includes('success')
           && !status.stateTypes.includes('failure'),
         'text-danger': status.stateTypes.includes('failure'),
@@ -308,7 +308,7 @@ class JobRunHistoryTable extends React.Component {
     }
 
     const status = TaskStates[row[prop]];
-    let statusClasses = classNames({
+    const statusClasses = classNames({
       'text-success': status.stateTypes.includes('success')
         && !status.stateTypes.includes('failure'),
       'text-danger': status.stateTypes.includes('failure')
@@ -345,8 +345,8 @@ class JobRunHistoryTable extends React.Component {
   render() {
     const {job} = this.props;
     let {checkedItems} = this.state;
-    let disabledItems = this.getDisabledItemsMap(job);
-    let totalRunCount = job.getJobRuns().getItems().length;
+    const disabledItems = this.getDisabledItemsMap(job);
+    const totalRunCount = job.getJobRuns().getItems().length;
     let rightAlignLastNChildren = 0;
     let hasCheckedTasks = false;
 

@@ -17,7 +17,7 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 
 const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
-  let name = cosmosPackage.getName();
+  const name = cosmosPackage.getName();
   const version = cosmosPackage.getCurrentVersion();
 
   const crumbs = [
@@ -163,7 +163,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getSelectedBadge(cosmosPackage, version) {
-    let versionTag = (
+    const versionTag = (
       <span>{version}</span>
     );
 
@@ -208,13 +208,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
       return this.getErrorScreen();
     }
 
-    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     if (state.isLoading || !cosmosPackage) {
       return this.getLoadingScreen();
     }
 
-    let name = cosmosPackage.getName();
-    let version = cosmosPackage.getCurrentVersion();
+    const name = cosmosPackage.getName();
+    const version = cosmosPackage.getCurrentVersion();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
 

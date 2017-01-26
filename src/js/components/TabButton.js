@@ -33,15 +33,15 @@ class TabButton extends React.Component {
   }
 
   render() {
-    let {active, activeTab, className, label, labelClassName, id} = this.props;
-    let classes = classNames(
+    const {active, activeTab, className, label, labelClassName, id} = this.props;
+    const classes = classNames(
       'menu-tabbed-item',
       {
         'active': active || activeTab === id
       },
       className
     );
-    let labelClasses = classNames('menu-tabbed-item-label', labelClassName);
+    const labelClasses = classNames('menu-tabbed-item-label', labelClassName);
 
     return (
       <div className={classes}>

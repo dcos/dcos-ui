@@ -106,12 +106,12 @@ class SidebarFilter extends React.Component {
 
   getFormLabel(filterLabel, filterValue) {
     let badge = null;
-    let count = this.getCountByValue(filterValue);
-    let filterLabelClasses = classNames(
+    const count = this.getCountByValue(filterValue);
+    const filterLabelClasses = classNames(
       'sidebar-filters-item-label',
       {'badge-container': count}
     );
-    let filterLabelTextClasses = classNames({'badge-container-text': count});
+    const filterLabelTextClasses = classNames({'badge-container-text': count});
 
     if (count) {
       badge = (
@@ -167,7 +167,7 @@ class SidebarFilter extends React.Component {
   }
 
   getForm() {
-    let definition = [{
+    const definition = [{
       fieldType: 'checkbox',
       name: 'filterNodes',
       value: this.getCheckboxes(),
@@ -184,7 +184,7 @@ class SidebarFilter extends React.Component {
   }
 
   getTitle() {
-    let {title} = this.props;
+    const {title} = this.props;
 
     if (title == null) {
       return null;

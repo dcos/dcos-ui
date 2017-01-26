@@ -52,12 +52,12 @@ class Loader extends React.Component {
   render() {
     const {className, innerClassName, size, type} = this.props;
     const config = typeMap[type] || typeMap.ballScale;
-    let classes = classNames(
+    const classes = classNames(
       'loader horizontal-center',
       className
     );
 
-    let innerClasses = classNames(
+    const innerClasses = classNames(
       config.className,
       {
         'loader-small': size === 'small'

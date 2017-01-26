@@ -177,7 +177,7 @@ class ManualBreadcrumbs extends React.Component {
   }
 
   render() {
-    let classSet = classNames(
+    const classSet = classNames(
       'breadcrumb list list-inline list-unstyled h4 flush-top flush-left',
       {collapsed: this.state.collapsed},
       this.props.breadcrumbClasses

@@ -27,7 +27,7 @@ var VersionsModal = React.createClass({
   },
 
   render() {
-    let header = (
+    const header = (
       <ModalHeading>
         {Config.productName} Info
       </ModalHeading>

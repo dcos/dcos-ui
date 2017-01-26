@@ -13,7 +13,7 @@ import Units from '../../../../../src/js/utils/Units';
  */
 class ConfigurationMapSizeValue extends React.Component {
   render() {
-    let {decimals, defaultValue, multiplier, scale, threshold, units,
+    const {decimals, defaultValue, multiplier, scale, threshold, units,
       value} = this.props;
 
     // Bail early with default if empty

@@ -11,7 +11,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   ];
 
   if (unit != null) {
-    let unitTitle = unit.getTitle();
+    const unitTitle = unit.getTitle();
 
     crumbs.push(
       <Link to={`/components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
@@ -40,8 +40,8 @@ class ComponentsUnitHealthDetailPage extends React.Component {
   render() {
     const {unitID, unitNodeID} = this.props.params;
 
-    let node = UnitHealthStore.getNode(unitNodeID);
-    let unit = UnitHealthStore.getUnit(unitID);
+    const node = UnitHealthStore.getNode(unitNodeID);
+    const unit = UnitHealthStore.getUnit(unitID);
 
     return (
       <Page>

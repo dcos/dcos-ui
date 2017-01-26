@@ -69,7 +69,7 @@ class PodContainerTerminationTable extends React.Component {
   }
 
   getColumnHeading(prop, order, sortBy) {
-    let caretClassNames = classNames(
+    const caretClassNames = classNames(
       'caret',
       {
         [`caret--${order}`]: order != null,

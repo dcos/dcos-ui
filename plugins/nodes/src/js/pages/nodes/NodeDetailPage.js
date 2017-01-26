@@ -137,7 +137,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
 
     const states = MesosSummaryStore.get('states');
-    let resources = states[`getResourceStatesFor${itemType}IDs`]([item.id]);
+    const resources = states[`getResourceStatesFor${itemType}IDs`]([item.id]);
 
     return (
       <div className="row">
@@ -161,7 +161,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
 
     const {node} = this.state;
-    let {nodeID} = this.props.params;
+    const {nodeID} = this.props.params;
 
     if (!node) {
       return this.getNotFound(nodeID);

@@ -55,7 +55,7 @@ class TaskEndpointsList extends React.Component {
         );
       }
 
-      let portLinks = this.getPortsList(
+      const portLinks = this.getPortsList(
         renderedPorts,
         host,
         hostIndex,
@@ -143,7 +143,7 @@ class TaskEndpointsList extends React.Component {
     let content = null;
 
     if (hosts.length === 1 && totalPortCount === 1) {
-      let url = `${hosts[0]}:${ports[0]}`;
+      const url = `${hosts[0]}:${ports[0]}`;
       content = <a href={`//${url}`} target="_blank">{url}</a>;
     } else {
       content = this.getEndpointsList(hosts, ports);

@@ -5,7 +5,7 @@ import SidebarActions from '../../../events/SidebarActions';
 class ColorsTabContent extends React.Component {
 
   render() {
-    let codeBlockColorLighten =
+    const codeBlockColorLighten =
 `// Lighten Purple by 50%
 color: color-lighten(@purple, 50);
 

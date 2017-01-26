@@ -286,14 +286,14 @@ var BarChart = React.createClass({
     }
 
     return data.stackedData.map(function (service) {
-      let rectWidth = (chartWidth - marginLeft - marginRight) /
+      const rectWidth = (chartWidth - marginLeft - marginRight) /
         (valuesLength - 1);
 
       return service.values.map(function (val, j) {
         let rectHeight, colorClass;
         let barMargin = 0;
         let shapeRendering = 'auto';
-        let posX = chartWidth - marginLeft - marginRight -
+        const posX = chartWidth - marginLeft - marginRight -
           (rectWidth * (valuesLength - 1 - j));
 
         if (val.percentage == null) {

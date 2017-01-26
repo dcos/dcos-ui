@@ -73,7 +73,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {hasError, isLoading, searchString} = this.state;
+    const {hasError, isLoading, searchString} = this.state;
     let content = null;
 
     if (hasError) {
@@ -81,7 +81,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
     } else if (isLoading) {
       content = this.getLoadingScreen();
     } else {
-      let packages = CosmosPackagesStore.getInstalledPackages()
+      const packages = CosmosPackagesStore.getInstalledPackages()
         .filterItemsByText(searchString);
 
       content = (

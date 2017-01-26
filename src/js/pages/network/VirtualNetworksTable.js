@@ -64,7 +64,7 @@ class VirtualNetworksTable extends React.Component {
   }
 
   renderName(prop, overlay) {
-    let overlayName = overlay.getName();
+    const overlayName = overlay.getName();
 
     return (
       <Link

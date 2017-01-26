@@ -17,15 +17,15 @@ class ReviewConfig extends React.Component {
   }
 
   getHeader() {
-    let {
+    const {
       configuration,
       packageIcon,
       packageName,
       packageVersion
     } = this.props;
-    let fileName = 'config.json';
+    const fileName = 'config.json';
     const configString = JSON.stringify(configuration, null, 2);
-    let ieDownloadConfig = function () {
+    const ieDownloadConfig = function () {
       // Download if on IE
       if (global.navigator.msSaveOrOpenBlob) {
         const blob = new Blob([configString], {type: 'application/json'});
@@ -72,7 +72,7 @@ class ReviewConfig extends React.Component {
   }
 
   getFieldTitle(title, index) {
-    let classes = classNames({'flush-top': index === 0});
+    const classes = classNames({'flush-top': index === 0});
 
     return <h3 className={classes} key={`${title}-header`}>{title}</h3>;
   }

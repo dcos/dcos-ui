@@ -14,7 +14,7 @@ class PageHeaderBreadcrumbs extends React.Component {
   }
 
   render() {
-    let {props: {iconID, breadcrumbs}} = this;
+    const {props: {iconID, breadcrumbs}} = this;
 
     const containerIcon = (
       <li className="page-header-breadcrumb page-header-breadcrumb-icon" key="-1">
@@ -22,7 +22,7 @@ class PageHeaderBreadcrumbs extends React.Component {
       </li>
     );
 
-    let breadcrumbElements = breadcrumbs.reduce((memo, breadcrumb, index) => {
+    const breadcrumbElements = breadcrumbs.reduce((memo, breadcrumb, index) => {
       memo.push(
         <li className="page-header-breadcrumb h3" key={index}>
           {breadcrumb}

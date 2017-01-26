@@ -7,8 +7,8 @@ import HealthTab from '../../components/HealthTab';
 
 class NodeDetailHealthTab extends React.Component {
   render() {
-    let {node} = this.props;
-    let units = NodeHealthStore.getUnits(node.hostname);
+    const {node} = this.props;
+    const units = NodeHealthStore.getUnits(node.hostname);
 
     return (
       <HealthTab

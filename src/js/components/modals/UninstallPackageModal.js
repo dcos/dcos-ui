@@ -89,7 +89,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getErrorMessage() {
-    let {packageUninstallError} = this.state;
+    const {packageUninstallError} = this.state;
     if (!packageUninstallError) {
       return null;
     }
@@ -110,7 +110,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     }
 
     const name = cosmosPackage.getAppIdName();
-    let notes = cosmosPackage.getPostUninstallNotes();
+    const notes = cosmosPackage.getPostUninstallNotes();
 
     return (
       <div className="pod pod-short flush-right flush-left text-align-center">
@@ -136,8 +136,8 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       return this.getEmptyNode();
     }
 
-    let errorMessage = this.getErrorMessage();
-    let paragraphTagClasses = classNames({
+    const errorMessage = this.getErrorMessage();
+    const paragraphTagClasses = classNames({
       'flush-bottom': errorMessage == null
     });
 
@@ -153,13 +153,13 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {
+    const {
       handleClose,
       props: {open},
       state: {pendingUninstallRequest, uninstallSuccess}
     } = this;
 
-    let rightButtonClassName = classNames('button button-danger', {
+    const rightButtonClassName = classNames('button button-danger', {
       'hidden': uninstallSuccess
     });
 

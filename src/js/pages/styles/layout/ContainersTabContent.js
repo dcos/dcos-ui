@@ -5,11 +5,11 @@ import SidebarActions from '../../../events/SidebarActions';
 class ContainersTabContent extends React.Component {
 
   render() {
-    let codeBlockContainersFixed =
+    const codeBlockContainersFixed =
 `<div class="container">
   <!-- Container content goes here -->
 </div>`;
-    let codeBlockContainersFluid =
+    const codeBlockContainersFluid =
 `<div class="pod flush-top flush-bottom">
   <!-- Container content goes here -->
 </div>`;

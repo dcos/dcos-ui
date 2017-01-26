@@ -31,7 +31,7 @@ class RejectedOffersTable extends React.Component {
 
   getColumnHeadingFn(defaultHeading, abbreviation) {
     return (prop, order, sortBy) => {
-      let caretClassNames = classNames('caret', {
+      const caretClassNames = classNames('caret', {
         [`caret--${order}`]: order != null,
         'caret--visible': sortBy.prop === prop
       });

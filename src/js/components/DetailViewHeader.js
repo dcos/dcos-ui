@@ -6,13 +6,13 @@ import CollapsingString from './CollapsingString';
 class DetailViewHeader extends React.Component {
 
   getIcon() {
-    let {icon, iconClassName} = this.props;
+    const {icon, iconClassName} = this.props;
 
     if (icon == null) {
       return null;
     }
 
-    let iconClasses = classNames('icon icon-large', iconClassName);
+    const iconClasses = classNames('icon icon-large', iconClassName);
 
     return (
       <div className="detail-view-header-icon">
@@ -24,13 +24,13 @@ class DetailViewHeader extends React.Component {
   }
 
   getTitle() {
-    let {title, titleClassName} = this.props;
+    const {title, titleClassName} = this.props;
 
     if (title == null) {
       return null;
     }
 
-    let titleClasses = classNames(
+    const titleClasses = classNames(
       'h1 flush',
       titleClassName
     );
@@ -43,13 +43,13 @@ class DetailViewHeader extends React.Component {
   }
 
   getSubTitle() {
-    let {subTitle, subTitleClassName} = this.props;
+    const {subTitle, subTitleClassName} = this.props;
 
     if (subTitle == null) {
       return null;
     }
 
-    let subtitleClasses = classNames(
+    const subtitleClasses = classNames(
       'emphasize',
       subTitleClassName
     );
@@ -58,8 +58,8 @@ class DetailViewHeader extends React.Component {
   }
 
   renderActionButtons() {
-    let {actionButtons, buttonCollectionClassNames} = this.props;
-    let buttonCollectionClasses = classNames(
+    const {actionButtons, buttonCollectionClassNames} = this.props;
+    const buttonCollectionClasses = classNames(
       'button-collection',
       buttonCollectionClassNames
     );
@@ -76,7 +76,7 @@ class DetailViewHeader extends React.Component {
   }
 
   render() {
-    let {
+    const {
       children,
       className,
       detailViewHeaderContentWrapperClassNames,
@@ -84,18 +84,18 @@ class DetailViewHeader extends React.Component {
       navigationTabs
     } = this.props;
 
-    let detailViewHeaderClasses = classNames(
+    const detailViewHeaderClasses = classNames(
       'detail-view-header flex-item-shrink-0',
       {'has-tabs': !!navigationTabs},
       className
     );
 
-    let detailViewHeaderContentWrapperClasses = classNames(
+    const detailViewHeaderContentWrapperClasses = classNames(
       'detail-view-header-content-wrapper',
       detailViewHeaderContentWrapperClassNames
     );
 
-    let detailViewHeaderContentHeadingClasses = classNames(
+    const detailViewHeaderContentHeadingClasses = classNames(
       'detail-view-header-content-heading',
       detailViewHeaderContentHeadingClassNames
     );

@@ -7,7 +7,7 @@ class FormTabContent extends React.Component {
 
   render() {
 
-    let codeBlockFormOverview =
+    const codeBlockFormOverview =
 `<form className="form flush-bottom">
   <div className="row">
     <div className="column-small-6">
@@ -35,17 +35,17 @@ class FormTabContent extends React.Component {
   </div>
 </form>`;
 
-    let codeBlockFormControls =
+    const codeBlockFormControls =
 `<div className="form-group">
   <input type="text" className="form-control" placeholder="Placeholder Text" />
 </div>`;
 
-    let codeBlockFormControlsTextArea =
+    const codeBlockFormControlsTextArea =
 `<div className="form-group">
   <textarea className="form-control" placeholder="Placeholder Text" rows="4"></textarea>
 </div>`;
 
-    let codeBlockFormControlsCheckboxes =
+    const codeBlockFormControlsCheckboxes =
 `<div className="form-group">
   <div className="checkbox">
     <label>
@@ -62,7 +62,7 @@ class FormTabContent extends React.Component {
   …
 </div>`;
 
-    let codeBlockFormControlsSelects =
+    const codeBlockFormControlsSelects =
 `<div className="form-group">
   <span className="form-control form-control-select">
     <select>
@@ -83,14 +83,14 @@ class FormTabContent extends React.Component {
   </span>
 </div>`;
 
-    let codeBlockFormControlSizes =
+    const codeBlockFormControlSizes =
 `<input type="text" className="form-control form-control-mini" />
 <input type="text" className="form-control form-control-small" />
 <input type="text" className="form-control" />
 <input type="text" className="form-control form-control-large" />
 <input type="text" className="form-control form-control-jumbo" />`;
 
-    let codeBlockFormControlStates =
+    const codeBlockFormControlStates =
 `<div className="form-group">
   <label>
     Default Input
@@ -121,7 +121,7 @@ class FormTabContent extends React.Component {
   </p>
 </div>`;
 
-    let codeBlockFormControlInverse =
+    const codeBlockFormControlInverse =
 `<div className="form-group">
   <label className="inverse">
     …
@@ -132,7 +132,7 @@ class FormTabContent extends React.Component {
   </p>
 </div>`;
 
-    let codeBlockFormHelpBlock =
+    const codeBlockFormHelpBlock =
 `<div className="form-group">
   <label>
   Input with help text
@@ -143,7 +143,7 @@ class FormTabContent extends React.Component {
   </p>
 </div>`;
 
-    let codeBlockFormControlGroups =
+    const codeBlockFormControlGroups =
 `<!-- Input With Add On Before -->
 
 <div className="form-control-group">

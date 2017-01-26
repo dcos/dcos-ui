@@ -286,7 +286,7 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
-    let {
+    const {
       isJSONModeActive,
       serviceConfig,
       serviceFormActive,
@@ -295,7 +295,7 @@ class NewServiceFormModal extends Component {
       serviceReviewActive
     } = this.state;
 
-    let errorsMap = new Map();
+    const errorsMap = new Map();
     if (this.props.errors) {
       let message = this.props.errors.message;
 
@@ -344,7 +344,7 @@ class NewServiceFormModal extends Component {
     }
 
     if (serviceFormActive) {
-      let {isEdit} = this.props;
+      const {isEdit} = this.props;
 
       const SECTIONS = [
         ContainerServiceFormSection,

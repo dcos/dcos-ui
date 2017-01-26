@@ -56,7 +56,7 @@ class ServiceDebugContainer extends React.Component {
     }
 
     const {version, timestamp, taskId, state, message, host} = lastTaskFailure;
-    let taskFailureValueMapping = {
+    const taskFailureValueMapping = {
       'Task ID': this.getValueText(taskId),
       'State': this.getValueText(state),
       'Message': this.getValueText(message),

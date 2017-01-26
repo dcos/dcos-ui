@@ -91,10 +91,10 @@ class ExpandingTable extends React.Component {
 
   render() {
     const {props} = this;
-    let classes = classNames(props.className, {
+    const classes = classNames(props.className, {
       [`table-align-${props.alignCells}`]: props.alignCells != null
     });
-    let TableComponent = props.tableComponent;
+    const TableComponent = props.tableComponent;
 
     return (
       <TableComponent

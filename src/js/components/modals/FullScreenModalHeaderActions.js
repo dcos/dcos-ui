@@ -15,7 +15,7 @@ class FullScreenModalHeaderActions extends React.Component {
           return node;
         }
 
-        let classes = classNames('button flush-top', className);
+        const classes = classNames('button flush-top', className);
 
         return (
           <button className={classes}
@@ -32,7 +32,7 @@ class FullScreenModalHeaderActions extends React.Component {
   render() {
     const {className, type} = this.props;
 
-    let classes = classNames(
+    const classes = classNames(
       `modal-full-screen-actions modal-full-screen-actions-${type} button-collection flush-vertical`,
       className
     );

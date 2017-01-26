@@ -42,7 +42,7 @@ class PodViewFilter extends React.Component {
   }
 
   getFilterButtons() {
-    let {filter, items, inverseStyle, statusMapper, statusChoices} = this.props;
+    const {filter, items, inverseStyle, statusMapper, statusChoices} = this.props;
     if (!statusChoices.length) {
       return null;
     }
@@ -59,8 +59,8 @@ class PodViewFilter extends React.Component {
   }
 
   render() {
-    let {children, filter, inverseStyle} = this.props;
-    let childrenCount = React.Children.count(children);
+    const {children, filter, inverseStyle} = this.props;
+    const childrenCount = React.Children.count(children);
 
     return (
       <FilterBar rightAlignLastNChildren={childrenCount}>

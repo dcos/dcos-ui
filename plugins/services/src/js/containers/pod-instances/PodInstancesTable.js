@@ -109,7 +109,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumnHeading(prop, order, sortBy) {
-    let caretClassNames = classNames(
+    const caretClassNames = classNames(
       'caret',
       {
         [`caret--${order}`]: order != null,
@@ -348,7 +348,7 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    let {address} = row;
+    const {address} = row;
 
     if (rowOptions.isParent) {
       const {agent} = row;
@@ -425,7 +425,7 @@ class PodInstancesTable extends React.Component {
       return null;
     }
 
-    let localeVersion = new Date(row.version).toLocaleString();
+    const localeVersion = new Date(row.version).toLocaleString();
 
     return this.renderWithClickHandler(rowOptions, (
       <span>{localeVersion}</span>
@@ -434,14 +434,14 @@ class PodInstancesTable extends React.Component {
 
   render() {
     let {instances, pod, filterText} = this.props;
-    let {checkedItems} = this.state;
+    const {checkedItems} = this.state;
 
     // If custom list of instances is not provided, use the default instances
     // from the pod
     if (instances == null) {
       instances = pod.getInstanceList();
     }
-    let disabledItems = this.getDisabledItemsMap(instances);
+    const disabledItems = this.getDisabledItemsMap(instances);
 
     return (
       <ExpandingTable

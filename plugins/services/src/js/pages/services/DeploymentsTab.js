@@ -220,7 +220,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderStatusBar(currentStep, totalSteps) {
-    let data = [
+    const data = [
       {className: 'color-4', value: currentStep - 1},
       {className: 'staged', value: 1},
       {className: '', value: totalSteps - currentStep}
@@ -331,8 +331,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderPopulated(deploymentsItems) {
-    let deploymentsCount = deploymentsItems.length;
-    let deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
+    const deploymentsCount = deploymentsItems.length;
+    const deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
 
     return (
       <Page>
@@ -358,7 +358,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       deploymentRollbackError
     } = this.state;
 
-    let heading = (
+    const heading = (
       <ModalHeading>
         You're About To Rollback The Deployment
       </ModalHeading>

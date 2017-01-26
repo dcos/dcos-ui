@@ -218,16 +218,16 @@ class ServicesTable extends React.Component {
   }
 
   renderStatus(prop, service) {
-    let instancesCount = service.getInstancesCount();
-    let serviceId = service.getId();
-    let serviceStatus = service.getStatus();
-    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
-    let tasksSummary = service.getTasksSummary();
+    const instancesCount = service.getInstancesCount();
+    const serviceId = service.getId();
+    const serviceStatus = service.getStatus();
+    const serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    const tasksSummary = service.getTasksSummary();
     const {tasksRunning} = tasksSummary;
 
-    let isDeploying = serviceStatus === 'Deploying';
+    const isDeploying = serviceStatus === 'Deploying';
 
-    let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
+    const conciseOverview = ` (${tasksRunning}/${instancesCount})`;
     let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Instance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;

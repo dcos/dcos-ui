@@ -117,7 +117,7 @@ class CollapsingString extends React.Component {
   }
 
   render() {
-    let fullString = this.props.string;
+    const fullString = this.props.string;
     let endLength = this.props.endLength;
     let stringEnding = null;
 

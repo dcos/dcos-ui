@@ -11,7 +11,7 @@ class EnvironmentList extends React.Component {
       return null;
     }
 
-    let hash = Object.keys(environment).reduce(function (memo, key) {
+    const hash = Object.keys(environment).reduce(function (memo, key) {
       const value = environment[key];
 
       if (

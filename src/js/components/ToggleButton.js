@@ -3,7 +3,7 @@ import React from 'react';
 
 class ToggleButton extends React.Component {
   render() {
-    let {
+    const {
       checkboxClassName,
       checked,
       children,
