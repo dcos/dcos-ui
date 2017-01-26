@@ -29,7 +29,7 @@ import Util from '../utils/Util';
  *
  */
 
-let fluidContainerCount = 0;
+let componentMountCount = 0;
 let stylesheetRef = null;
 
 class FluidGeminiScrollbar extends React.Component {
@@ -43,7 +43,7 @@ class FluidGeminiScrollbar extends React.Component {
     // If the browser's scrollbar width is larger than zero and this is the
     // first instance of the component, then add the stylesheet to the
     // document's head.
-    if (fluidContainerCount === 0) {
+    if (componentMountCount === 0) {
       const scrollbarWidth = ScrollbarUtil.getScrollbarWidth();
 
       if (scrollbarWidth > 0) {
@@ -70,14 +70,14 @@ class FluidGeminiScrollbar extends React.Component {
     }
 
     // Keep track of the number of mounted instances.
-    fluidContainerCount++;
+    componentMountCount++;
   }
 
   componentWillUnmount() {
-    fluidContainerCount--;
+    componentMountCount--;
 
     // If this is the last mounted instance, remove the stylesheet.
-    if (fluidContainerCount === 0 && stylesheetRef != null) {
+    if (componentMountCount === 0 && stylesheetRef != null) {
       stylesheetRef.remove();
     }
   }
