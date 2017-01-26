@@ -179,6 +179,7 @@ class NewServiceFormModal extends Component {
 
       case 'app':
         this.setState({
+          activeTab: null,
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new Application(
@@ -192,6 +193,7 @@ class NewServiceFormModal extends Component {
 
       case 'pod':
         this.setState({
+          activeTab: null,
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new PodSpec(
@@ -205,6 +207,7 @@ class NewServiceFormModal extends Component {
 
       case 'json':
         this.setState({
+          activeTab: null,
           servicePickerActive: false,
           serviceJsonActive: true,
           serviceConfig: this.props.service
