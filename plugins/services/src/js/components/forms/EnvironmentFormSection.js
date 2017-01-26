@@ -52,7 +52,9 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'env'})}/>
+              onClick={this.props.onRemoveItem.bind(
+                this, {value: key, path: 'env'}
+              )} />
           </FormGroup>
         </FormRow>
       );
@@ -94,7 +96,9 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'labels'})}/>
+              onClick={this.props.onRemoveItem.bind(
+                this, {value: key, path: 'labels'}
+              )} />
           </FormGroup>
         </FormRow>
       );
@@ -145,7 +149,9 @@ class EnvironmentFormSection extends Component {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
-              onClick={this.props.onAddItem.bind(this, {value: data.env.length, path: 'env'})}>
+              onClick={this.props.onAddItem.bind(
+                this, {value: data.env.length, path: 'env'}
+              )}>
               Add Environment Variable
             </AddButton>
           </FormGroup>
@@ -168,7 +174,9 @@ class EnvironmentFormSection extends Component {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
-              onClick={this.props.onAddItem.bind(this, {value: data.labels.length, path: 'labels'})}>
+              onClick={this.props.onAddItem.bind(
+                this, {value: data.labels.length, path: 'labels'}
+              )}>
               Add Label
             </AddButton>
           </FormGroup>

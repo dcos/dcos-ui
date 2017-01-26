@@ -21,8 +21,9 @@ const errorsLens = Objektiv.attr('healthChecks', []);
 
 class HealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, key) {
-    if (healthCheck.protocol !== COMMAND && healthCheck.protocol !== MESOS_HTTP &&
-      healthCheck.protocol !== MESOS_HTTPS) {
+    if (healthCheck.protocol !== COMMAND
+      && healthCheck.protocol !== MESOS_HTTP
+      && healthCheck.protocol !== MESOS_HTTPS) {
       return null;
     }
 
@@ -120,7 +121,8 @@ class HealthChecksFormSection extends Component {
   }
 
   getHTTPFields(healthCheck, key) {
-    if (healthCheck.protocol !== MESOS_HTTP && healthCheck.protocol !== MESOS_HTTPS) {
+    if (healthCheck.protocol !== MESOS_HTTP
+      && healthCheck.protocol !== MESOS_HTTPS) {
       return null;
     }
 
@@ -232,7 +234,9 @@ class HealthChecksFormSection extends Component {
         {this.getHealthChecksLines(data.healthChecks)}
         <FormRow>
           <FormGroup className="column-12">
-            <AddButton onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
+            <AddButton onClick={this.props.onAddItem.bind(
+                this, {value: data.healthChecks.length, path: 'healthChecks'}
+              )}>
               Add Health Check
             </AddButton>
           </FormGroup>

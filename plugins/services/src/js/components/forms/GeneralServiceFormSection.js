@@ -482,7 +482,9 @@ class GeneralServiceFormSection extends Component {
             {this.getPlacementConstraints(data.constraints)}
             <FormRow>
               <FormGroup className="column-12">
-                <AddButton onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                <AddButton onClick={this.props.onAddItem.bind(
+                    this, {value: data.constraints.length, path: 'constraints'}
+                  )}>
                   Add Placement Constraint
                 </AddButton>
               </FormGroup>
@@ -507,7 +509,10 @@ class GeneralServiceFormSection extends Component {
           showHeader={true}>
           <p>
             {'Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. '}
-            <a href={MetadataStore.buildDocsURI('/usage/pods/')} target="_blank">More information</a>.
+            <a href={MetadataStore.buildDocsURI('/usage/pods/')}
+              target="_blank">
+              More information
+            </a>.
           </p>
           <p>Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost.</p>
         </Confirm>

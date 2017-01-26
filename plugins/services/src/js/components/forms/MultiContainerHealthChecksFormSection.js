@@ -258,8 +258,13 @@ class MultiContainerHealthChecksFormSection extends Component {
           <h2 className="flush-top short-bottom">
             Health Checks
           </h2>
-          <p className="flush-bottom">
-            Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring health checks.
+          <p>
+            {'Please '}
+            <a onClick={handleTabChange.bind(null, 'services')}
+              className="clickable">
+              add a container
+            </a>
+            {' before configuring health checks.'}
           </p>
         </div>
       );

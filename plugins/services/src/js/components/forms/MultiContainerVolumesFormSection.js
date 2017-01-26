@@ -126,7 +126,12 @@ class MultiContainerVolumesFormSection extends Component {
         <div>
           {this.getHeadline()}
           <p>
-            Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring Volumes.
+            {'Please '}
+            <a onClick={handleTabChange.bind(null, 'services')}
+              className="clickable">
+              add a container
+            </a>
+            {' before configuring Volumes.'}
           </p>
         </div>
       );
