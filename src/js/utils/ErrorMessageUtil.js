@@ -17,7 +17,6 @@ const ErrorMessageUtil = {
       return rule.match.exec(pathString);
     });
 
-    // If no translation found, prefix with the path ID
     if (!rule && !pathString) {
       return error.message;
     }
@@ -25,7 +24,8 @@ const ErrorMessageUtil = {
       return `${pathString}: ${error.message}`;
     }
 
-    // Otherwise prefix with the name from the rule
+    // We need to make the first letter of the error message lowercase
+    // in order to compose a proper sentence with the resolved path name.
     const errorMessage = error.message[0].toLowerCase() +
       error.message.substr(1);
 
