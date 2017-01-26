@@ -163,7 +163,14 @@ class CliInstallModal extends React.Component {
     return (
       <div className="install-cli-modal-content">
         <h4 className="flush-top">Installation</h4>
-        <p>Choose your operating system and follow the instructions. For any issues or questions, please refer to our <a href={MetadataStore.buildDocsURI('/usage/cli/install')} target="_blank">documentation</a>.</p>
+        <p>
+          {'Choose your operating system and follow the instructions. For any issues or questions, please refer to our '}
+          <a
+            href={MetadataStore.buildDocsURI('/usage/cli/install')}
+            target="_blank">
+            documentation
+          </a>.
+        </p>
         <div className="button-group">
           {this.getOSButtons()}
         </div>

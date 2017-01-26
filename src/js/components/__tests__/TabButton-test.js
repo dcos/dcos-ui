@@ -25,7 +25,11 @@ describe('TabButton', function () {
 
   it('should clone nested TabButton instances with onClick and activeTab props', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabButton activeTab="foo" label="foo" onClick={this.clickHandler} id="foo">
+      <TabButton
+        activeTab="foo"
+        label="foo"
+        onClick={this.clickHandler}
+        id="foo">
         <TabButton label="bar" id="bar" />
       </TabButton>
     );
@@ -38,7 +42,11 @@ describe('TabButton', function () {
 
   it('should call the parent onClick when clicking a nested TabButton', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabButton activeTab="foo" label="foo" onClick={this.clickHandler} id="foo">
+      <TabButton
+        activeTab="foo"
+        label="foo"
+        onClick={this.clickHandler}
+        id="foo">
         <TabButton label="bar" id="bar" />
       </TabButton>
     );

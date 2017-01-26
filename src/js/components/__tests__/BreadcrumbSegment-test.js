@@ -19,7 +19,10 @@ describe('BreadcrumbSegment', function () {
 
   it('renders the label', function () {
     const instance = TestUtils.renderIntoDocument(
-      <BreadcrumbSegment routePath="foo/:bar" routes={this.routes} params={this.params} />
+      <BreadcrumbSegment
+        routePath="foo/:bar"
+        routes={this.routes}
+        params={this.params} />
     );
 
     expect(instance.getBackupCrumbLabel()).toEqual('baz');
@@ -27,7 +30,10 @@ describe('BreadcrumbSegment', function () {
 
   it('renders the link', function () {
     const instance = TestUtils.renderIntoDocument(
-      <BreadcrumbSegment routePath="foo" routes={this.routes} params={this.params} />
+      <BreadcrumbSegment
+        routePath="foo"
+        routes={this.routes}
+        params={this.params} />
     );
 
     const node = TestUtils.findRenderedComponentWithType(

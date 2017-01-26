@@ -19,7 +19,9 @@ const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
 
   if (overlay) {
     const name = overlay.getName();
-    crumbs.push(<Link to={`/networking/networks/${name}`} key={0}>{name}</Link>);
+    crumbs.push(
+      <Link to={`/networking/networks/${name}`} key={0}>{name}</Link>
+    );
   } else {
     crumbs.push(<span>{overlayID}</span>);
   }
@@ -87,18 +89,26 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   getErrorScreen() {
+    const breadcrumbs = (
+      <NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />
+    );
+
     return (
       <Page>
-        <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
+        <Page.Header breadcrumbs={breadcrumbs} />
         <RequestErrorMsg />
       </Page>
     );
   }
 
   getLoadingScreen() {
+    const breadcrumbs = (
+      <NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />
+    );
+
     return (
       <Page>
-        <Page.Header breadcrumbs={<NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />} />
+        <Page.Header breadcrumbs={breadcrumbs} />
         <Loader />
       </Page>
     );

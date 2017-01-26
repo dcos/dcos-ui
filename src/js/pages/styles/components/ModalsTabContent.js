@@ -166,7 +166,12 @@ class ModalsTabContent extends React.Component {
 
             <div className="panel-cell">
 
-              <button className="button" data-toggle="modal" data-target="#myModal">Show Modal</button>
+              <button
+                className="button"
+                data-toggle="modal"
+                data-target="#myModal">
+                Show Modal
+              </button>
 
               <div className="modal fade" id="myModal">
 
@@ -240,7 +245,9 @@ class ModalsTabContent extends React.Component {
 
                     </button>
 
-                    <button className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium" data-dismiss="modal">
+                    <button
+                      className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium"
+                      data-dismiss="modal">
 
                       Close
 

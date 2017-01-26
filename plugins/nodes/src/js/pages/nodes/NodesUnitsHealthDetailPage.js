@@ -32,10 +32,11 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
 
   render() {
     const {unitID, nodeID} = this.props.params;
+    const breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} unitID={unitID} />;
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs nodeID={nodeID} unitID={unitID} />} />
+        <Page.Header breadcrumbs={breadcrumbs} />
         <UnitsHealthNodeDetail params={this.props.params} />
       </Page>
     );

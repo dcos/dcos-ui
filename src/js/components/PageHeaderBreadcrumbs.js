@@ -17,7 +17,9 @@ class PageHeaderBreadcrumbs extends React.Component {
     const {props: {iconID, breadcrumbs}} = this;
 
     const containerIcon = (
-      <li className="page-header-breadcrumb page-header-breadcrumb-icon" key="-1">
+      <li
+        className="page-header-breadcrumb page-header-breadcrumb-icon"
+        key="-1">
         <Icon family="product" id={iconID} size="small" />
       </li>
     );

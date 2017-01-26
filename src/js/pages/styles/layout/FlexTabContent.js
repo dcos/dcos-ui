@@ -1379,10 +1379,14 @@ class FlexTabContent extends React.Component {
               <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-shrink flex flex-direction-left-to-right">
-                  <div className="example-flex-item example-flex-item-1 flex-item-shrink-2" style={{flexBasis: 1000 + 'px'}}>
+                  <div
+                    className="example-flex-item example-flex-item-1 flex-item-shrink-2"
+                    style={{flexBasis: 1000 + 'px'}}>
                     1
                   </div>
-                  <div className="example-flex-item example-flex-item-2 flex-item-shrink-1" style={{flexBasis: 1000 + 'px'}}>
+                  <div
+                    className="example-flex-item example-flex-item-2 flex-item-shrink-1"
+                    style={{flexBasis: 1000 + 'px'}}>
                     2
                   </div>
                 </div>
@@ -1510,16 +1514,22 @@ class FlexTabContent extends React.Component {
               <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-basis flex flex-direction-left-to-right">
-                  <div className="example-flex-item example-flex-item-1" style={{flexBasis: 100 + 'px'}}>
+                  <div
+                    className="example-flex-item example-flex-item-1"
+                    style={{flexBasis: 100 + 'px'}}>
                     1
                   </div>
-                  <div className="example-flex-item example-flex-item-2" style={{flexBasis: 50 + 'px'}}>
+                  <div
+                    className="example-flex-item example-flex-item-2"
+                    style={{flexBasis: 50 + 'px'}}>
                     2
                   </div>
                   <div className="example-flex-item example-flex-item-3 flex-item-grow-1">
                     3
                   </div>
-                  <div className="example-flex-item example-flex-item-4" style={{flexBasis: 100 + 'px'}}>
+                  <div
+                    className="example-flex-item example-flex-item-4"
+                    style={{flexBasis: 100 + 'px'}}>
                     4
                   </div>
                 </div>

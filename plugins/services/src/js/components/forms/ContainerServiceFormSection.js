@@ -391,7 +391,9 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <FormRow>
-        <FormGroup className="column-6" showError={Boolean(containerNameErrors)}>
+        <FormGroup
+          className="column-6"
+          showError={Boolean(containerNameErrors)}>
           <FieldLabel>Container Name</FieldLabel>
           <FieldInput
             name={containerNamePath}

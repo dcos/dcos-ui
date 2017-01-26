@@ -37,7 +37,9 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
     const unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Link to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get('id')}`} key={-1}>
+      <Link
+        to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get('id')}`}
+        key={-1}>
         {`${unitTitle} `}
         <span className={healthStatus.classNames}>
           ({healthStatus.title})

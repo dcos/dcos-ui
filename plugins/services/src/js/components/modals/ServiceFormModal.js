@@ -435,7 +435,9 @@ class ServiceFormModal extends React.Component {
         <div>
           Use the JSON editor to enter Marathon Application definitions manually.
           {' '}
-          <a href={`${Config.marathonDocsURI}generated/api.html#v2_apps_post`} target="_blank">
+          <a
+            href={`${Config.marathonDocsURI}generated/api.html#v2_apps_post`}
+            target="_blank">
             View API docs.
           </a>
         </div>

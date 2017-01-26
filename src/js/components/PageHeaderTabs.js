@@ -24,7 +24,10 @@ class PageHeaderTabs extends React.Component {
 
       if (tab.callback == null) {
         link = (
-          <Link className={linkClasses} to={tab.routePath} activeClassName="active">
+          <Link
+            className={linkClasses}
+            to={tab.routePath}
+            activeClassName="active">
             {innerLinkSpan}
           </Link>
         );

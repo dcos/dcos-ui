@@ -219,7 +219,10 @@ class FormTabContent extends React.Component {
 
                     </label>
 
-                    <input type="text" className="form-control" placeholder="" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="" />
 
                   </div>
 
@@ -235,7 +238,10 @@ class FormTabContent extends React.Component {
 
                     </label>
 
-                    <input type="text" className="form-control" placeholder="" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="" />
 
                   </div>
 
@@ -251,7 +257,10 @@ class FormTabContent extends React.Component {
 
                     </label>
 
-                    <input type="email" className="form-control" placeholder="email@domain.com" />
+                    <input
+                      type="email"
+                      className="form-control"
+                      placeholder="email@domain.com" />
 
                     <p className="small flush-bottom">
 
@@ -273,7 +282,10 @@ class FormTabContent extends React.Component {
 
                     </label>
 
-                    <input type="password" className="form-control" placeholder="" />
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="" />
 
                     <p className="small flush-bottom">
 
@@ -315,7 +327,10 @@ class FormTabContent extends React.Component {
 
                       <label>
 
-                        <input type="radio" name="radio-group-a" checked="checked" />
+                        <input
+                          type="radio"
+                          name="radio-group-a"
+                          checked="checked" />
 
                         Man
 
@@ -413,7 +428,10 @@ class FormTabContent extends React.Component {
 
                       <div className="form-group flush-bottom">
 
-                        <input type="text" className="form-control" placeholder="Placeholder Text" />
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Placeholder Text" />
 
                       </div>
 
@@ -465,7 +483,11 @@ class FormTabContent extends React.Component {
 
                       <div className="form-group flush-bottom">
 
-                        <textarea className="form-control" placeholder="Placeholder Text" rows="4"></textarea>
+                        <textarea
+                          className="form-control"
+                          placeholder="Placeholder Text"
+                          rows="4">
+                        </textarea>
 
                       </div>
 
@@ -561,7 +583,10 @@ class FormTabContent extends React.Component {
 
                           <label>
 
-                            <input type="radio" name="sample-radio-group" checked="" />
+                            <input
+                              type="radio"
+                              name="sample-radio-group"
+                              checked="" />
 
                             First Option
 
@@ -585,7 +610,10 @@ class FormTabContent extends React.Component {
 
                           <label>
 
-                            <input type="radio" name="sample-radio-group" disabled="" />
+                            <input
+                              type="radio"
+                              name="sample-radio-group"
+                              disabled="" />
 
                             Third Option (Disabled)
 
@@ -729,7 +757,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control form-control-mini" placeholder="Input (Mini)" />
+                  <input
+                    type="text"
+                    className="form-control form-control-mini"
+                    placeholder="Input (Mini)" />
 
                 </div>
 
@@ -741,7 +772,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control form-control-small" placeholder="Input (Small)" />
+                  <input
+                    type="text"
+                    className="form-control form-control-small"
+                    placeholder="Input (Small)" />
 
                 </div>
 
@@ -753,7 +787,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control" placeholder="Input (Default)" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Input (Default)" />
 
                 </div>
 
@@ -765,7 +802,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control form-control-large" placeholder="Input (Large)" />
+                  <input
+                    type="text"
+                    className="form-control form-control-large"
+                    placeholder="Input (Large)" />
 
                 </div>
 
@@ -777,7 +817,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control form-control-jumbo" placeholder="Input (Jumbo)" />
+                  <input
+                    type="text"
+                    className="form-control form-control-jumbo"
+                    placeholder="Input (Jumbo)" />
 
                 </div>
 
@@ -833,7 +876,11 @@ class FormTabContent extends React.Component {
 
                       <div className="form-group flush-bottom">
 
-                        <input type="text" className="form-control focus" id="form-control-focus" placeholder="Placeholder Text" />
+                        <input
+                          type="text"
+                          className="form-control focus"
+                          id="form-control-focus"
+                          placeholder="Placeholder Text" />
 
                       </div>
 
@@ -875,7 +922,11 @@ class FormTabContent extends React.Component {
 
                       <div className="form-group flush-bottom">
 
-                        <input type="text" className="form-control" placeholder="Placeholder Text" disabled />
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Placeholder Text"
+                          disabled />
 
                       </div>
 
@@ -923,7 +974,10 @@ class FormTabContent extends React.Component {
 
                         </label>
 
-                        <input type="text" className="form-control" placeholder="Placeholder" />
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Placeholder" />
 
                         <p className="small flush-bottom">
 
@@ -977,7 +1031,10 @@ class FormTabContent extends React.Component {
 
                         </label>
 
-                        <input type="text" className="form-control form-control-success" placeholder="Placeholder" />
+                        <input
+                          type="text"
+                          className="form-control form-control-success"
+                          placeholder="Placeholder" />
 
                         <p className="small flush-bottom">
 
@@ -1031,7 +1088,10 @@ class FormTabContent extends React.Component {
 
                         </label>
 
-                        <input type="text" className="form-control form-control-error" placeholder="Input (Error)" />
+                        <input
+                          type="text"
+                          className="form-control form-control-error"
+                          placeholder="Input (Error)" />
 
                         <p className="small flush-bottom">
 
@@ -1125,7 +1185,10 @@ class FormTabContent extends React.Component {
 
                       </label>
 
-                      <input type="text" className="form-control form-control-inverse" placeholder="" />
+                      <input
+                        type="text"
+                        className="form-control form-control-inverse"
+                        placeholder="" />
 
                     </div>
 
@@ -1141,7 +1204,10 @@ class FormTabContent extends React.Component {
 
                       </label>
 
-                      <input type="text" className="form-control form-control-inverse" placeholder="" />
+                      <input
+                        type="text"
+                        className="form-control form-control-inverse"
+                        placeholder="" />
 
                     </div>
 
@@ -1161,7 +1227,10 @@ class FormTabContent extends React.Component {
 
                       </label>
 
-                      <input type="email" className="form-control form-control-inverse" placeholder="email@domain.com" />
+                      <input
+                        type="email"
+                        className="form-control form-control-inverse"
+                        placeholder="email@domain.com" />
 
                       <p className="small flush-bottom inverse">
 
@@ -1183,7 +1252,10 @@ class FormTabContent extends React.Component {
 
                       </label>
 
-                      <input type="password" className="form-control form-control-inverse" placeholder="" />
+                      <input
+                        type="password"
+                        className="form-control form-control-inverse"
+                        placeholder="" />
 
                       <p className="small flush-bottom inverse">
 
@@ -1219,7 +1291,9 @@ class FormTabContent extends React.Component {
 
                 <div className="button-collection flush-bottom">
 
-                  <button type="submit" className="button button-primary button-stroke button-inverse">
+                  <button
+                    type="submit"
+                    className="button button-primary button-stroke button-inverse">
 
                     Submit
 
@@ -1273,7 +1347,10 @@ class FormTabContent extends React.Component {
 
                   </label>
 
-                  <input type="text" className="form-control" placeholder="Placeholder" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Placeholder" />
 
                   <p className="small flush-bottom">
 
@@ -1341,7 +1418,10 @@ class FormTabContent extends React.Component {
 
                     </div>
 
-                    <input type="text" className="form-control" placeholder="Placeholder" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Placeholder" />
 
                   </div>
 
@@ -1357,7 +1437,10 @@ class FormTabContent extends React.Component {
 
                   <div className="form-control-group">
 
-                    <input type="text" className="form-control" placeholder="Placeholder" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Placeholder" />
 
                     <div className="form-control-group-add-on">
 
@@ -1389,7 +1472,10 @@ class FormTabContent extends React.Component {
 
                     </span>
 
-                    <input type="text" className="form-control" placeholder="Placeholder" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Placeholder" />
 
                   </div>
 
@@ -1405,7 +1491,10 @@ class FormTabContent extends React.Component {
 
                   <div className="form-control-group form-control">
 
-                    <input type="text" className="form-control" placeholder="Placeholder" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Placeholder" />
 
                     <span className="form-control-group-add-on form-control-group-add-on-append">
 
@@ -1433,7 +1522,10 @@ class FormTabContent extends React.Component {
 
                     </span>
 
-                    <input type="text" className="form-control" placeholder="Placeholder" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Placeholder" />
 
                     <span className="form-control-group-add-on form-control-group-add-on-append">
 

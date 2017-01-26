@@ -22,7 +22,12 @@ const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
 
   const crumbs = [
     <Link to="/universe/packages" key={-1}>Packages</Link>,
-    <Link to={`/universe/packages/${name}`} query={{version}} key={0}>{name}</Link>
+    <Link
+      to={`/universe/packages/${name}`}
+      query={{version}}
+      key={0}>
+      {name}
+    </Link>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
@@ -187,7 +192,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
       return (
         <div>
           <p>CLI Only Package</p>
-          <p>This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.</p>
+          <p>
+            {'This package can only be installed using the CLI. See the '}
+            <a
+              href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')}
+              target="_blank">
+              documentation
+            </a>.
+          </p>
         </div>
       );
     }

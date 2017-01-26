@@ -191,7 +191,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
     const deleteButton = (
-      <div key={`${prop}${id}-remove`} className="form-row-element form-row-remove-button form-row-element-mixed-label-presence">
+      <div
+        key={`${prop}${id}-remove`}
+        className="form-row-element form-row-remove-button form-row-element-mixed-label-presence">
         <button
           className="button button-narrow button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
@@ -205,7 +207,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     }
 
     return (
-      <div key={`${prop}${id}-title`} className="form-row-element duplicable-row-title-wrapper">
+      <div
+        key={`${prop}${id}-title`}
+        className="form-row-element duplicable-row-title-wrapper">
         <div className="duplicable-row-title-container">
           <div className="duplicable-row-title">
             {title}
@@ -286,7 +290,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           content={description}
           wrapperClassName="tooltip-wrapper flush-bottom short-top media-object-item"
           wrapText={true}
-          maxWidth={300} scrollContainer=".gm-scroll-view">
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view">
           <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       );
@@ -318,8 +323,11 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   getLabel(description, label, fieldType) {
     const tooltip = (
-      <Tooltip content={description} wrapperClassName="tooltip-wrapper
-        media-object-item" wrapText={true} maxWidth={300}
+      <Tooltip
+        content={description}
+        wrapperClassName="tooltip-wrapper media-object-item"
+        wrapText={true}
+        maxWidth={300}
         interactive={true}
         scrollContainer=".gm-scroll-view">
         <Icon color="grey" id="circle-question" size="mini" />

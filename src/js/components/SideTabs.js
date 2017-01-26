@@ -73,7 +73,9 @@ class SideTabs extends React.Component {
 
     return (
       <div className={className}>
-        <span className="multiple-form-modal-sidebar-menu-item multiple-form-modal-sidebar-collapsed-header clickable visible-mini" onClick={this.handleTabClick.bind(this, selectedTab)}>
+        <span
+          className="multiple-form-modal-sidebar-menu-item multiple-form-modal-sidebar-collapsed-header clickable visible-mini"
+          onClick={this.handleTabClick.bind(this, selectedTab)}>
           {this.getSelectedTabTitle(selectedTab, tabs)}
           <span className={caretClasses} />
         </span>
