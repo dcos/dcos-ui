@@ -30,7 +30,7 @@ import Util from '../utils/Util';
  */
 
 let componentMountCount = 0;
-let stylesheetRef = null;
+let styleElement = null;
 
 class FluidGeminiScrollbar extends React.Component {
   constructor() {
@@ -56,16 +56,16 @@ class FluidGeminiScrollbar extends React.Component {
           }
         `;
 
-        stylesheetRef = global.document.createElement('style');
-        stylesheetRef.type = 'text/css';
+        styleElement = global.document.createElement('style');
+        styleElement.type = 'text/css';
 
-        if (stylesheetRef.styleSheet) {
-          stylesheetRef.styleSheet.cssText = cssString;
+        if (styleElement.styleSheet) {
+          styleElement.styleSheet.cssText = cssString;
         } else {
-          stylesheetRef.appendChild(global.document.createTextNode(cssString));
+          styleElement.appendChild(global.document.createTextNode(cssString));
         }
 
-        head.appendChild(stylesheetRef);
+        head.appendChild(styleElement);
       }
     }
 
@@ -77,8 +77,8 @@ class FluidGeminiScrollbar extends React.Component {
     componentMountCount--;
 
     // If this is the last mounted instance, remove the stylesheet.
-    if (componentMountCount === 0 && stylesheetRef != null) {
-      stylesheetRef.remove();
+    if (componentMountCount === 0 && styleElement != null) {
+      styleElement.remove();
     }
   }
 
