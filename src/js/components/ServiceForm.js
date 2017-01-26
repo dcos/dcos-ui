@@ -373,6 +373,19 @@ class ServiceForm extends SchemaForm {
           return port;
         });
       }
+
+      let previousNetworkType = this.props.model.networking.networkType;
+      // When switching a container network from anything to HOST
+      // we want to keep portDefinitions[*].port which is equal to servicePort
+      if (model.networking.networkType === 'host'
+        && previousNetworkType !== 'host') {
+        model.networking.ports.map(function (port) {
+          port.lbPort = port.servicePort;
+
+          return port;
+        });
+      }
+
       let {dockerVolumesDefinition = null} = this.internalStorage_get();
       this.internalStorage_set({model, dockerVolumesDefinition});
 
