@@ -234,10 +234,16 @@ class NewCreateServiceModalForm extends Component {
     const path = fieldName.split('.');
     batch = batch.add(new Transaction(path, value));
 
-    this.setState({
+    const newState = {
       batch,
       editingFieldPath: fieldName
-    });
+    };
+
+    if (event.target.type === 'checkbox') {
+      newState.appConfig = this.getAppConfig(batch);
+    }
+
+    this.setState(newState);
   }
 
   handleAddItem({value, path}) {
