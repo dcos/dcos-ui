@@ -260,7 +260,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           </h2>
           <p>
             {'Please '}
-            <a onClick={handleTabChange.bind(null, 'services')}
+            <a
+              onClick={handleTabChange.bind(null, 'services')}
               className="clickable">
               add a container
             </a>

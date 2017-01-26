@@ -66,7 +66,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent = (
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html"
+        <a
+          href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
           More information
         </a>
@@ -482,7 +483,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html"
+        <a
+          href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
           ports documentation
         </a> for more information.

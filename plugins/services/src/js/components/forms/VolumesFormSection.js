@@ -93,7 +93,8 @@ class VolumesFormSection extends Component {
     const tooltipContent = (
       <span>
         {'If you are using the Mesos containerizer, this must be a single-level path relative to the container. '}
-        <a href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')}
+        <a
+          href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')}
           target="_blank">
           More information
         </a>.
@@ -189,7 +190,8 @@ class VolumesFormSection extends Component {
               required={false}
               showError={Boolean(typeError)}>
               <FieldLabel>Volume Type</FieldLabel>
-              <FieldSelect name={`localVolumes.${key}.type`}
+              <FieldSelect
+                name={`localVolumes.${key}.type`}
                 value={volume.type}>
                 <option>Select...</option>
                 {this.getHostOption(dockerImage)}
