@@ -197,6 +197,8 @@ class NewCreateServiceModal extends Component {
       MARATHON_SERVICE_EDIT_SUCCESS,
       this.onMarathonStoreServiceEditSuccess
     );
+
+    // Also remove DCOS change listener, if still subscribed
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
   }
 

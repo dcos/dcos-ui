@@ -45,9 +45,7 @@ class DCOSStore extends EventEmitter {
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      events: {
-        change: DCOS_CHANGE
-      },
+      events: this.getEvents(),
       unmountWhen() {
         return true;
       },
@@ -74,6 +72,16 @@ class DCOSStore extends EventEmitter {
     };
 
     this.debouncedEvents = new Map();
+  }
+
+  getEvents() {
+    return {change: DCOS_CHANGE};
+  }
+
+  getTotalListenerCount() {
+    return Object.values(this.getEvents()).reduce((memo, name) => {
+      return memo + this.listeners(name).length;
+    }, 0);
   }
 
   getProxyListeners() {
@@ -340,7 +348,7 @@ class DCOSStore extends EventEmitter {
    */
   on(eventName, callback) {
     // Only add proxy listeners if not already listening
-    if (this.listeners().length === 0) {
+    if (this.getTotalListenerCount() === 0) {
       this.addProxyListeners();
     }
 
@@ -357,7 +365,7 @@ class DCOSStore extends EventEmitter {
   removeListener(eventName, callback) {
     super.removeListener(eventName, callback);
     // Remove proxy listeners if no one is listening
-    if (this.listeners().length === 0) {
+    if (this.getTotalListenerCount() === 0) {
       this.removeProxyListeners();
     }
 
