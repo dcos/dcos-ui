@@ -73,12 +73,19 @@ class FluidGeminiScrollbar extends React.Component {
     componentMountCount++;
   }
 
+  /**
+   * Handle component will unmount and remove the gemini style sheet if it's the
+   * last mounted {FluidGeminiScrollbar} instance.
+   */
   componentWillUnmount() {
-    componentMountCount--;
+    if (--componentMountCount === 0) {
+      return;
+    }
 
-    // If this is the last mounted instance, remove the stylesheet.
-    if (componentMountCount === 0 && styleElement != null) {
-      styleElement.remove();
+    if (styleElement instanceof Element &&
+        styleElement.parentNode instanceof Node) {
+
+      styleElement.parentNode.removeChild(styleElement);
     }
   }
 
