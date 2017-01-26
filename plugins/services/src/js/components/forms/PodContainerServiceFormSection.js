@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Tooltip} from 'reactjs-components';
 
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
 import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
@@ -32,16 +31,8 @@ class PodContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {'Artifact URI '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        Artifact URI
       </FieldLabel>
     );
   }
@@ -152,16 +143,8 @@ class PodContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {'Command '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        Command
       </FieldLabel>
     );
   }
@@ -183,16 +166,8 @@ class PodContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {'Container Image '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        Container Image
       </FieldLabel>
     );
   }

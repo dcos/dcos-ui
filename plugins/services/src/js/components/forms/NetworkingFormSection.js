@@ -76,16 +76,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         className="column-3"
         key="host-port"
         showError={Boolean(hostPortError)}>
-        <FieldLabel>
-          {'Host Port '}
-          <Tooltip
-            content={tooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+        <FieldLabel tooltipContent={tooltipContent}>
+          Host Port
         </FieldLabel>
         <FieldInput
           disabled={portDefinition.automaticPort}
@@ -140,7 +132,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return [
       <FormRow key="title">
         <FormGroup className="column-9">
-          <FieldLabel>
+          <FieldLabel wordWrap>
             Load Balanced Service Address
             <FieldHelp>
               Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
@@ -482,16 +474,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </p>
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
-            <FieldLabel>
-              {'Network Type '}
-              <Tooltip
-                content={tooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
+            <FieldLabel tooltipContent={tooltipContent}>
+              Network Type
             </FieldLabel>
             {this.getTypeSelections()}
             <FieldError>{networkError}</FieldError>
