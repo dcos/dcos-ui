@@ -406,9 +406,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isMesosRuntime = !type || type === NONE;
     const isUniversalContainerizer = !type || type === MESOS;
     const isUserNetwork = networkType && networkType.startsWith(USER);
+    const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if ((isMesosRuntime || isUniversalContainerizer) && isUserNetwork) {
+    if ((isMesosRuntime || isUniversalContainerizer) &&
+        (isUserNetwork || isBridgeNetwork)) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (
