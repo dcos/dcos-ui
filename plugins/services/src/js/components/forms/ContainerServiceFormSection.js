@@ -510,9 +510,9 @@ ContainerServiceFormSection.defaultProps = {
 ContainerServiceFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
-  path: React.PropTypes.string,
   onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  onRemoveItem: React.PropTypes.func,
+  path: React.PropTypes.string
 };
 
 ContainerServiceFormSection.configReducers = {
