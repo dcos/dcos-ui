@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import React, {Component, PropTypes} from 'react';
+import {Confirm} from 'reactjs-components';
 import {Hooks} from 'PluginSDK';
 import {routerShape} from 'react-router';
 
@@ -45,29 +46,33 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONParser from '../../reducers/JSONParser';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
-import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
 import ServiceErrorTypes from '../../constants/ServiceErrorTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import VipLabelsValidators from '../../validators/VipLabelsValidators';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
-  'handleGoBack',
   'handleClearError',
   'handleClose',
+  'handleCloseConfirmModal',
+  'handleConfirmGoBack',
   'handleConvertToPod',
+  'handleGoBack',
   'handleJSONToggle',
+  'handleRouterWillLeave',
   'handleServiceChange',
   'handleServiceErrorsChange',
   'handleServiceReview',
   'handleServiceRun',
   'handleServiceSelection',
-  'handleTabChange',
   'handleStoreChange',
+  'handleTabChange',
   'onMarathonStoreServiceCreateError',
   'onMarathonStoreServiceCreateSuccess',
   'onMarathonStoreServiceEditError',
@@ -90,6 +95,9 @@ const POD_VALIDATORS = [
 class NewCreateServiceModal extends Component {
   constructor() {
     super(...arguments);
+
+    const {route} = this.props;
+    const {router} = this.context;
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -115,6 +123,8 @@ class NewCreateServiceModal extends Component {
       MARATHON_SERVICE_EDIT_SUCCESS,
       this.onMarathonStoreServiceEditSuccess
     );
+
+    router.setRouteLeaveHook(route, this.handleRouterWillLeave);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -187,6 +197,56 @@ class NewCreateServiceModal extends Component {
     });
   }
 
+  handleRouterWillLeave() {
+    const {isOpen, hasChangesApplied, serviceReviewActive} = this.state;
+    // If we are not about to close the modal and not on the review screen,
+    // confirm before navigating away
+    if (isOpen && hasChangesApplied && !serviceReviewActive) {
+      this.handleClose(true);
+
+      // Cancel route change, if it is already open
+      return false;
+    }
+
+    return true;
+  }
+
+  handleCloseConfirmModal() {
+    this.setState({isConfirmOpen: false});
+  }
+
+  handleConfirmGoBack() {
+    const {location} = this.props;
+    const {serviceFormActive, serviceJsonActive} = this.state;
+
+    // Close if editing a service in the form
+    if (serviceFormActive && this.isLocationEdit(location)) {
+      this.handleClose();
+
+      return;
+    }
+
+    // Switch back from form to picker
+    if (serviceFormActive) {
+      this.setState({
+        isConfirmOpen: false,
+        servicePickerActive: true,
+        serviceFormActive: false
+      });
+
+      return;
+    }
+
+    // Switch back from JSON to picker
+    if (serviceJsonActive) {
+      this.setState({
+        isConfirmOpen: false,
+        servicePickerActive: true,
+        serviceJsonActive: false
+      });
+    }
+  }
+
   handleStoreChange() {
     // Unsubscribe from further events
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
@@ -202,8 +262,8 @@ class NewCreateServiceModal extends Component {
     const {tabViewID} = event;
     const {location} = this.props;
     const {
+      hasChangesApplied,
       serviceFormActive,
-      serviceJsonActive,
       servicePickerActive,
       serviceReviewActive
     } = this.state;
@@ -227,32 +287,22 @@ class NewCreateServiceModal extends Component {
       return;
     }
 
-    // Close if picker is open, or if editing a service in the form
-    if (servicePickerActive ||
-      (!serviceReviewActive && this.isLocationEdit(location))) {
+    // Close if picker is open
+    if (servicePickerActive && !serviceFormActive) {
       this.handleClose();
 
       return;
     }
 
-    if (serviceFormActive) {
-      // Switch back from form to picker
-      this.setState({
-        servicePickerActive: true,
-        serviceFormActive: false
-      });
+    // Close if editing a service in the form, but confirm before
+    // if changes has been applied to the form
+    if (serviceFormActive && hasChangesApplied) {
+      this.handleClose(true);
 
       return;
     }
 
-    if (serviceJsonActive) {
-      // Switch back from JSON to picker
-      this.setState({
-        servicePickerActive: true,
-        serviceJsonActive: false
-      });
-
-    }
+    this.handleConfirmGoBack();
   }
 
   handleTabChange(activeTab) {
@@ -266,13 +316,17 @@ class NewCreateServiceModal extends Component {
     });
   }
 
-  handleClose() {
-    // Start the animation of the modal by setting isOpen to false
-    this.setState({isOpen: false}, () => {
-      // Once state is set, start a timer for the length of the animation and
-      // navigate away once the animation is over.
-      setTimeout(this.context.router.goBack, 300);
-    });
+  handleClose(showConfirm = false) {
+    if (showConfirm) {
+      this.setState({isConfirmOpen: true});
+    } else {
+      // Start the animation of the modal by setting isOpen to false
+      this.setState({isConfirmOpen: false, isOpen: false}, () => {
+        // Once state is set, start a timer for the length of the animation and
+        // navigate away once the animation is over.
+        setTimeout(this.context.router.goBack, 300);
+      });
+    }
   }
 
   handleConvertToPod() {
@@ -284,9 +338,7 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceChange(newService) {
-    this.setState({
-      serviceSpec: newService
-    });
+    this.setState({serviceSpec: newService, hasChangesApplied: true});
   }
 
   handleServiceErrorsChange(errors) {
@@ -661,6 +713,8 @@ class NewCreateServiceModal extends Component {
     const newState = {
       activeTab: null,
       apiErrors: [],
+      hasChangesApplied: false,
+      isConfirmOpen: false,
       isJSONModeActive: false,
       isOpen: true,
       isPending: false,
@@ -706,7 +760,12 @@ class NewCreateServiceModal extends Component {
 
   render() {
     const {props} = this;
-    const {isOpen, servicePickerActive, serviceReviewActive} = this.state;
+    const {
+      hasChangesApplied,
+      isOpen,
+      servicePickerActive,
+      serviceReviewActive
+    } = this.state;
     let useGemini = false;
 
     if (servicePickerActive || serviceReviewActive) {
@@ -716,11 +775,26 @@ class NewCreateServiceModal extends Component {
     return (
       <FullScreenModal
         header={this.getHeader()}
-        onClose={this.handleClose}
+        onClose={this.handleClose.bind(this, hasChangesApplied)}
         useGemini={useGemini}
         open={isOpen}
         {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}>
         {this.getModalContent()}
+        <Confirm
+          closeByBackdropClick={true}
+          header={<ModalHeading>Discard Current Changes</ModalHeading>}
+          open={this.state.isConfirmOpen}
+          onClose={this.handleCloseConfirmModal}
+          leftButtonText="Cancel"
+          leftButtonCallback={this.handleCloseConfirmModal}
+          rightButtonText="Continue"
+          rightButtonClassName="button button-danger"
+          rightButtonCallback={this.handleConfirmGoBack}
+          showHeader={true}>
+          <p>
+            Are you sure you want to leave this page? Any data you entered will be lost.
+          </p>
+        </Confirm>
       </FullScreenModal>
     );
   }
