@@ -29,8 +29,8 @@ import Util from '../utils/Util';
  *
  */
 
-let fluidContainerCount = 0;
-let stylesheetRef = null;
+let componentMountCount = 0;
+let styleElement = null;
 
 class FluidGeminiScrollbar extends React.Component {
   constructor() {
@@ -43,8 +43,11 @@ class FluidGeminiScrollbar extends React.Component {
     // If the browser's scrollbar width is larger than zero and this is the
     // first instance of the component, then add the stylesheet to the
     // document's head.
-    if (fluidContainerCount === 0) {
+    if (componentMountCount <= 0) {
       const scrollbarWidth = ScrollbarUtil.getScrollbarWidth();
+
+      // Reset component mount counter
+      componentMountCount = 0;
 
       if (scrollbarWidth > 0) {
         const head = global.document.head
@@ -56,29 +59,36 @@ class FluidGeminiScrollbar extends React.Component {
           }
         `;
 
-        stylesheetRef = global.document.createElement('style');
-        stylesheetRef.type = 'text/css';
+        styleElement = global.document.createElement('style');
+        styleElement.type = 'text/css';
 
-        if (stylesheetRef.styleSheet) {
-          stylesheetRef.styleSheet.cssText = cssString;
+        if (styleElement.styleSheet) {
+          styleElement.styleSheet.cssText = cssString;
         } else {
-          stylesheetRef.appendChild(global.document.createTextNode(cssString));
+          styleElement.appendChild(global.document.createTextNode(cssString));
         }
 
-        head.appendChild(stylesheetRef);
+        head.appendChild(styleElement);
       }
     }
 
     // Keep track of the number of mounted instances.
-    fluidContainerCount++;
+    componentMountCount++;
   }
 
+  /**
+   * Handle component will unmount and remove the gemini style sheet if it's the
+   * last mounted {FluidGeminiScrollbar} instance.
+   */
   componentWillUnmount() {
-    fluidContainerCount--;
+    if (--componentMountCount > 0) {
+      return;
+    }
 
-    // If this is the last mounted instance, remove the stylesheet.
-    if (fluidContainerCount === 0 && stylesheetRef != null) {
-      stylesheetRef.remove();
+    if (styleElement instanceof Element &&
+        styleElement.parentNode instanceof Node) {
+
+      styleElement.parentNode.removeChild(styleElement);
     }
   }
 
