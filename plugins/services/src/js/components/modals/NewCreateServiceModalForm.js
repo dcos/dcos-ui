@@ -53,6 +53,7 @@ const APP_ERROR_VALIDATORS = [
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules,
+  MarathonAppValidators.mustContainImageOnDocker,
   MarathonAppValidators.mustNotContainUris
 ];
 
