@@ -71,7 +71,7 @@ class NewCreateServiceModal extends Component {
     super(...arguments);
 
     const {location, params} = this.props;
-    const isEdit = location.pathname.includes('/edit');
+    const isEdit = this.isLocationEdit(location);
     const serviceID = decodeURIComponent(params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
     const isSpecificVersion = service instanceof Application && params.version;
@@ -139,7 +139,7 @@ class NewCreateServiceModal extends Component {
       return;
     }
 
-    const isEdit = nextProps.location.pathname.includes('/edit');
+    const isEdit = this.isLocationEdit(nextProps.location);
     const serviceID = decodeURIComponent(nextProps.params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
     let serviceConfig = new Application(
@@ -261,7 +261,7 @@ class NewCreateServiceModal extends Component {
 
     // Close if picker is open, or if editing a service in the form
     if (servicePickerActive ||
-      (!serviceReviewActive && location.pathname.includes('/edit'))) {
+      (!serviceReviewActive && this.isLocationEdit(location))) {
       this.handleClose();
 
       return;
@@ -374,13 +374,17 @@ class NewCreateServiceModal extends Component {
     const {location} = this.props;
     const {service, serviceConfig} = this.state;
     const force = this.shouldForceSubmit();
-    if (location.pathname.includes('/edit') && service instanceof Service) {
+    if (this.isLocationEdit(location) && service instanceof Service) {
       MarathonActions.editService(service, serviceConfig, force);
     } else {
       MarathonActions.createService(serviceConfig, force);
     }
 
     this.setState({isPending: true});
+  }
+
+  isLocationEdit(location) {
+    return location.pathname.includes('/edit');
   }
 
   getHeader() {
@@ -406,7 +410,7 @@ class NewCreateServiceModal extends Component {
     const {service} = this.state;
     const serviceName = service ? `"${service.getName()}"` : 'Service';
 
-    if (location.pathname.includes('/edit')) {
+    if (this.isLocationEdit(location)) {
       title = `Edit ${serviceName}`;
     }
 
@@ -535,7 +539,7 @@ class NewCreateServiceModal extends Component {
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorStateChange={this.handleServiceErrorChange}
-          isEdit={location.pathname.includes('/edit')} />
+          isEdit={this.isLocationEdit(location)} />
       );
     }
 
@@ -631,7 +635,7 @@ class NewCreateServiceModal extends Component {
     } = this.state;
     let label = 'Back';
 
-    if (servicePickerActive || (location.pathname.includes('/edit') && !serviceReviewActive)) {
+    if (servicePickerActive || (this.isLocationEdit(location) && !serviceReviewActive)) {
       label = 'Cancel';
     }
 
