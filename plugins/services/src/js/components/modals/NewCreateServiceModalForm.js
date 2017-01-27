@@ -9,6 +9,8 @@ import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSe
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ArtifactsSection from '../forms/ArtifactsSection';
+import Alert from '../../../../../../src/js/components/Alert';
+import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
@@ -20,14 +22,17 @@ import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGemin
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
+import PageHeaderNavigationDropdown from '../../../../../../src/js/components/PageHeaderNavigationDropdown';
+import PodSpec from '../../structs/PodSpec';
+import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
 import ServiceErrorPathMapping from '../../constants/ServiceErrorPathMapping';
 import ServiceUtil from '../../utils/ServiceUtil';
-import PodSpec from '../../structs/PodSpec';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -38,14 +43,15 @@ import TransactionTypes from '../../../../../../src/js/constants/TransactionType
 import VolumesFormSection from '../forms/VolumesFormSection';
 
 const METHODS_TO_BIND = [
+  'getNewStateForJSON',
+  'handleAddItem',
   'handleConvertToPod',
-  'handleFormChange',
+  'handleDropdownNavigationSelection',
   'handleFormBlur',
+  'handleFormChange',
   'handleJSONChange',
   'handleJSONPropertyChange',
-  'handleAddItem',
-  'handleRemoveItem',
-  'getNewStateForJSON'
+  'handleRemoveItem'
 ];
 
 const KEY_VALUE_FIELDS = [
@@ -113,10 +119,6 @@ class NewCreateServiceModalForm extends Component {
       !deepEqual(this.props.errors, nextProps.errors))) {
       this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
     }
-  }
-
-  handleConvertToPod() {
-    this.props.onConvertToPod(this.getAppConfig());
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -189,6 +191,14 @@ class NewCreateServiceModalForm extends Component {
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
 
     return newState;
+  }
+
+  handleConvertToPod() {
+    this.props.onConvertToPod(this.getAppConfig());
+  }
+
+  handleDropdownNavigationSelection(item) {
+    this.props.handleTabChange(item.id);
   }
 
   handleJSONChange(jsonObject) {
@@ -296,13 +306,11 @@ class NewCreateServiceModalForm extends Component {
       return data.containers.map((item, index) => {
         const fakeContainer = {name: item.name || `container-${index + 1}`};
 
-        return (
-          <TabButton
-            labelClassName="text-overflow"
-            key={index}
-            id={`container${index}`}
-            label={getContainerNameWithIcon(fakeContainer)} />
-        );
+        return {
+          className: 'text-overflow',
+          id: `container${index}`,
+          label: getContainerNameWithIcon(fakeContainer)
+        };
       });
     }
 
@@ -367,28 +375,76 @@ class NewCreateServiceModalForm extends Component {
     });
   }
 
-  getSectionList() {
+  getFormDropdownList(navigationItems, activeTab, options = {}) {
+    const {isNested} = options;
+
+    return navigationItems.reduce((accumulator, item, index) => {
+      accumulator.push({
+        className: classNames({'page-header-menu-item-nested': isNested}),
+        id: item.id,
+        isActive: activeTab === item.id || (activeTab == null && index === 0),
+        label: item.label
+      });
+
+      if (item.children) {
+        accumulator = accumulator.concat(
+          this.getFormDropdownList(item.children, activeTab, {isNested: true})
+        );
+      }
+
+      return accumulator;
+    }, []);
+  }
+
+  getFormNavigationItems(appConfig, data) {
+    const serviceLabel = pluralize('Service', findNestedPropertyInObject(
+      appConfig,
+      'containers.length'
+    ) || 1);
+
+    const tabList = [
+      {
+        id: 'services',
+        label: serviceLabel,
+        children: this.getContainerList(data)
+      }
+    ];
+
     if (this.state.isPod) {
-      return [
-        <TabButton id="networking" label="Networking" key="multinetworking" />,
-        <TabButton id="volumes" label="Volumes" key="multivolumes" />,
-        <TabButton
-          id="healthChecks"
-          label="Health Checks"
-          key="multihealthChecks" />,
-        <TabButton
-          id="environment"
-          label="Environment"
-          key="multienvironment" />
-      ];
+      tabList.push(
+        {id: 'networking', key: 'multinetworking', label: 'Networking'},
+        {id: 'volumes', key: 'multivolumes', label: 'Volumes'},
+        {id: 'healthChecks', key: 'multihealthChecks', label: 'Health Checks'},
+        {id: 'environment', key: 'multienvironment', label: 'Environment'}
+      );
+    } else {
+      tabList.push(
+        {id: 'networking', key: 'networking', label: 'Networking'},
+        {id: 'volumes', key: 'volumes', label: 'Volumes'},
+        {id: 'healthChecks', key: 'healthChecks', label: 'Health Checks'},
+        {id: 'environment', key: 'environment', label: 'Environment'}
+      );
     }
 
-    return [
-      <TabButton id="networking" label="Networking" key="networking" />,
-      <TabButton id="volumes" label="Volumes" key="volumes" />,
-      <TabButton id="healthChecks" label="Health Checks" key="healthChecks" />,
-      <TabButton id="environment" label="Environment" key="environment" />
-    ];
+    return tabList;
+  }
+
+  getFormTabList(navigationItems) {
+    if (navigationItems == null) {
+      return null;
+    }
+
+    return navigationItems.map((item) => {
+      return (
+        <TabButton
+          className={item.className}
+          id={item.id}
+          label={item.label}
+          key={item.key || item.id}>
+          {this.getFormTabList(item.children)}
+        </TabButton>
+      );
+    });
   }
 
   getSectionContent(data, errorMap) {
@@ -552,9 +608,20 @@ class NewCreateServiceModalForm extends Component {
       'containers.length'
     ) || 1);
 
+    const navigationItems = this.getFormNavigationItems(appConfig, data);
+    const tabButtonListItems = this.getFormTabList(navigationItems);
+    const navigationDropdownItems = this.getFormDropdownList(
+      navigationItems, activeTab
+    );
+
     return (
       <div className="flex flex-item-grow-1">
         <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
+          <PageHeaderNavigationDropdown
+            handleNavigationItemSelection={
+              this.handleDropdownNavigationSelection
+            }
+            items={navigationDropdownItems} />
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
               <form
@@ -563,16 +630,10 @@ class NewCreateServiceModalForm extends Component {
                 onBlur={this.handleFormBlur}>
                 <Tabs
                   activeTab={activeTab}
-                  vertical={true}
-                  handleTabChange={handleTabChange}>
-                  <TabButtonList className="form-tabs-list">
-                    <TabButton
-                      id="services"
-                      label={serviceLabel}
-                      key="services">
-                      {this.getContainerList(data)}
-                    </TabButton>
-                    {this.getSectionList()}
+                  handleTabChange={handleTabChange}
+                  vertical={true}>
+                  <TabButtonList>
+                    {tabButtonListItems}
                   </TabButtonList>
                   <TabViewList>
                     <TabView id="services">
