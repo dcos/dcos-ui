@@ -17,6 +17,13 @@
       padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
       transition: translateZ(0);
 
+      // Provides an extra level of specificity to override cnvs defaults
+      &,
+      p {
+        color: @white;
+        font-size: @tooltip-font-size;
+      }
+
       &:after {
         border-color: @tooltip-background-color;
       }
