@@ -8,6 +8,7 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
+import ContainerServiceFormAdvancedSection from './ContainerServiceFormAdvancedSection';
 import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -36,7 +37,7 @@ const METHODS_TO_BIND = [
 
 const containerRuntimes = {
   [DOCKER]: {
-    label: <span>{labelMap[DOCKER]} <em>(recommended for Docker)</em></span>,
+    label: <span>{labelMap[DOCKER]}</span>,
     helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   },
   [NONE]: {
@@ -52,7 +53,7 @@ const containerRuntimes = {
     )
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]} <em>(experimental)</em></span>,
+    label: <span>{labelMap[MESOS]} <span className="badge badge-rounded badge-success">Experimental</span></span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   }
 };
@@ -95,6 +96,52 @@ class GeneralServiceFormSection extends Component {
       );
     }
 
+    return null;
+  }
+
+  getContainerAdvancedSection() {
+    let {data = {}, errors} = this.props;
+
+    if (!(this.props.service instanceof PodSpec)) {
+      return (
+        <ContainerServiceFormAdvancedSection
+          path="container"
+          data={data}
+          errors={errors}
+          onAddItem={this.props.onAddItem}
+          onRemoveItem={this.props.onRemoveItem} />
+      );
+    }
+
+    return null;
+  }
+
+  getConvertToPodAction() {
+    const {service, isEdit} = this.props;
+
+    if (isEdit || service instanceof PodSpec) {
+      return null;
+    }
+
+    return (
+      <div className="pod pod-narrow pod-short">
+        <em>
+          {'Need to run a service with multiple containers? '}
+          <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
+            Add another container
+          </a>.
+        </em>
+      </div>
+    );
+  }
+
+  getMultiContainerSection() {
+    const {data = {}, service} = this.props;
+
+    if (!(service instanceof PodSpec)) {
+      return null;
+    }
+
     const {containers = []} = data;
     const containerElements = containers.map((item, index) => {
       return (
@@ -110,39 +157,10 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom">
+        <h2 className="short-bottom short-top">
           Containers
         </h2>
         {containerElements}
-      </div>
-    );
-  }
-
-  getConvertToPodAction() {
-    const {service, isEdit} = this.props;
-
-    if (isEdit || service instanceof PodSpec) {
-      return null;
-    }
-
-    return (
-      <p>
-        {'Need to run a service with multiple containers? '}
-        <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
-          Add another container
-        </a>.
-      </p>
-    );
-  }
-
-  getMultiContainerSection() {
-    const {service} = this.props;
-    if (!(service instanceof PodSpec)) {
-      return null;
-    }
-
-    return (
-      <div>
         <a
           className="button button-primary-link button-flush"
           onClick={this.props.onAddItem.bind(
@@ -308,7 +326,7 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h3 className="short-bottom">
+        <h3 className="short-bottom short-top">
           {'Container Runtime '}
           <Tooltip
             content={runtimeTooltipContent}
@@ -460,14 +478,15 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
         </FormRow>
 
-        {this.getRuntimeSection()}
+        {this.getContainerSection()}
 
         <AdvancedSection>
           <AdvancedSectionLabel>
             Advanced Service Settings
           </AdvancedSectionLabel>
           <AdvancedSectionContent>
-            <h3 className="short-top short-bottom">
+            {this.getRuntimeSection()}
+            <h3 className="short-bottom">
               {'Placement Constraints '}
               <Tooltip
                 content={placementTooltipContent}
@@ -489,10 +508,10 @@ class GeneralServiceFormSection extends Component {
                 </a>
               </FormGroup>
             </FormRow>
+            {this.getContainerAdvancedSection()}
           </AdvancedSectionContent>
         </AdvancedSection>
 
-        {this.getContainerSection()}
         {this.getMultiContainerSection()}
         {this.getConvertToPodAction()}
 
