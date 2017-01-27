@@ -48,6 +48,12 @@ const DataValidatorUtil = {
    */
   errorArrayToMap(errors) {
     return errors.reduce(function (errorMap, error) {
+
+      // We cannot place root errors in the map
+      if (error.path.length === 0) {
+        return errorMap;
+      }
+
       const lens = path2lens(error.path);
       let message = error.message;
       const prevMessage = lens.get(errorMap);

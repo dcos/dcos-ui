@@ -40,6 +40,14 @@ describe('DataValidatorUtil', function () {
       expect(obj).toEqual({a: {b: 'Foo, Bar'}});
     });
 
+    it('should correctly handle errors with empty paths', function () {
+      var obj = DataValidatorUtil.errorArrayToMap([
+        {path: [], message: 'Foo'},
+        {path: ['a', 'b'], message: 'Bar'}
+      ]);
+      expect(obj).toEqual({a: {b: 'Bar'}});
+    });
+
   });
 
   describe('#updateOnlyOnPath', function () {
