@@ -395,13 +395,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       <div className="modal-footer">
         <div className="button-collection flush-bottom">
           <button
-            className="button button-large"
+            className="button"
             onClick={this.handleChangeTab.bind(this, 'defaultInstall')}>
             Back
           </button>
           <button
             disabled={!cosmosPackage || pendingRequest || hasFormErrors}
-            className="button button-large button-success"
+            className="button button-success"
             onClick={this.handleChangeTab.bind(this, 'reviewAdvancedConfig')}>
             Review and Install
           </button>
@@ -432,13 +432,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-footer">
           <div className="button-collection flush-bottom">
             <button
-              className="button button-large"
+              className="button"
               onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
               Back
             </button>
             <button
               disabled={!cosmosPackage || pendingRequest}
-              className="button button-success button-large"
+              className="button button-success"
               onClick={this.handleInstallPackage}>
               {buttonText}
             </button>

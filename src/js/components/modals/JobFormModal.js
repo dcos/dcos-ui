@@ -400,12 +400,12 @@ class JobFormModal extends mixin(StoreMixin) {
     return (
       <div className="button-collection flush-bottom">
         <button
-          className="button button-large"
+          className="button"
           onClick={this.handleCancel}>
           Cancel
         </button>
         <button
-          className="button button-large button-success"
+          className="button button-success"
           onClick={this.handleSubmit}>
           {submitLabel}
         </button>
