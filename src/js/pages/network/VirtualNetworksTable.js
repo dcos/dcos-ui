@@ -7,7 +7,7 @@ import OverlayList from '../../structs/OverlayList';
 
 const headerMapping = {
   name: 'Name',
-  subnet: 'Subnet',
+  subnet: 'IP Subnet',
   prefix: 'Agent Prefix Length'
 };
 
