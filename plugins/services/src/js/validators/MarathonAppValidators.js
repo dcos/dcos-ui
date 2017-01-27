@@ -1,5 +1,6 @@
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
 
 const MarathonAppValidators = {
 
@@ -22,10 +23,15 @@ const MarathonAppValidators = {
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
       const notBothMessage = 'Please specify only one of `cmd` or `args`';
+      const type = PROP_CONFLICT;
+      const variables = {
+        feature1: 'cmd',
+        feature2: 'args'
+      };
 
       return [
-        {path: ['cmd'], message: notBothMessage},
-        {path: ['args'], message: notBothMessage}
+        {path: ['cmd'], message: notBothMessage, type, variables},
+        {path: ['args'], message: notBothMessage, type, variables}
       ];
     }
 
@@ -53,7 +59,11 @@ const MarathonAppValidators = {
           return [
             {
               path: ['container', 'appc', 'id'],
-              message: 'AppContainer id should start with \'sha512-\''
+              message: 'AppContainer id should start with \'sha512-\'',
+              type: 'STRING_PATTERN',
+              variables: {
+                pattern: '^sha512-'
+              }
             }
           ];
         }
@@ -66,11 +76,15 @@ const MarathonAppValidators = {
     // Create one error for every field, instead of showing the error
     // to the root.
     const message = 'You must specify a command, an argument or a container';
+    const type = PROP_MISSING_ONE;
+    const variables = {
+      names: 'cmd, args, container.docker.image'
+    };
 
     return [
-      {path: ['cmd'], message},
-      {path: ['args'], message},
-      {path: ['container', 'docker', 'image'], message}
+      {path: ['cmd'], message, type, variables},
+      {path: ['args'], message, type, variables},
+      {path: ['container', 'docker', 'image'], message, type, variables}
     ];
   },
 
@@ -91,10 +105,14 @@ const MarathonAppValidators = {
     if (hasAppResidency !== hasPersistentVolumes) {
       const message = 'AppDefinition must contain persistent volumes and ' +
         'define residency';
+      const type = PROP_MISSING_ALL;
+      const variables = {
+        names: 'residency, container.volumes'
+      };
 
       return [
-        {path: ['residency'], message},
-        {path: ['container', 'volumes'], message}
+        {path: ['residency'], message, type, variables},
+        {path: ['container', 'volumes'], message, type, variables}
       ];
     }
 
@@ -127,11 +145,16 @@ const MarathonAppValidators = {
     if (/^(BRIDGE|USER)$/.exec(app.container.docker.network)) {
       const message = 'ipAddress/discovery is not allowed for Docker ' +
         'containers using BRIDGE or USER networks';
+      const type = PROP_CONFLICT;
+      const variables = {
+        feature1: 'ipAddress or discoveryInfo',
+        feature2: 'container.docker.network'
+      };
 
       return [
-        {path: ['ipAddress'], message},
-        {path: ['discoveryInfo'], message},
-        {path: ['container', 'docker', 'network'], message}
+        {path: ['ipAddress'], message, type, variables},
+        {path: ['discoveryInfo'], message, type, variables},
+        {path: ['container', 'docker', 'network'], message, type, variables}
       ];
     }
 
@@ -147,9 +170,13 @@ const MarathonAppValidators = {
     if (ValidatorUtil.isDefined(app.uris) &&
         ValidatorUtil.isDefined(app.fetch)) {
       const message = '`uris` are deprecated. Please use `fetch` instead';
+      const type = PROP_DEPRECATED;
+      const variables = {
+        name: 'uris'
+      };
 
       return [
-        {path: ['uris'], message}
+        {path: ['uris'], message, type, variables}
       ];
     }
 

@@ -1,44 +1,110 @@
 jest.unmock('../MarathonAppValidators');
 const MarathonAppValidators = require('../MarathonAppValidators');
 
+const APPCONTAINERID_ERRORS = [
+  {
+    path: ['container', 'appc', 'id'],
+    message: 'AppContainer id should start with \'sha512-\'',
+    type: 'STRING_PATTERN',
+    variables: {
+      pattern: '^sha512-'
+    }
+  }
+];
 const CMDORDOCKERIMAGE_ERRORS = [
   {
     path: ['cmd'],
-    message: 'You must specify a command, an argument or a container'
+    message: 'You must specify a command, an argument or a container',
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   },
   {
     path: ['args'],
-    message: 'You must specify a command, an argument or a container'
+    message: 'You must specify a command, an argument or a container',
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   },
   {
     path: ['container', 'docker', 'image'],
-    message: 'You must specify a command, an argument or a container'
+    message: 'You must specify a command, an argument or a container',
+    type: 'PROP_MISSING_ONE',
+    variables: {
+      names: 'cmd, args, container.docker.image'
+    }
   }
 ];
 
 const COMPLYWITHRESIDENCY_ERRORS = [
   {
     path: ['residency'],
-    message: 'AppDefinition must contain persistent volumes and define residency'
+    message: 'AppDefinition must contain persistent volumes and define residency',
+    type: 'PROP_MISSING_ALL',
+    variables: {
+      names: 'residency, container.volumes'
+    }
   },
   {
     path: ['container', 'volumes'],
-    message: 'AppDefinition must contain persistent volumes and define residency'
+    message: 'AppDefinition must contain persistent volumes and define residency',
+    type: 'PROP_MISSING_ALL',
+    variables: {
+      names: 'residency, container.volumes'
+    }
   }
 ];
 
 const COMPLYWITHIPADDRESS_ERRORS = [
   {
     path: ['ipAddress'],
-    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks'
+    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
   },
   {
     path: ['discoveryInfo'],
-    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks'
+    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
   },
   {
     path: ['container', 'docker', 'network'],
-    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks'
+    message: 'ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks',
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'ipAddress or discoveryInfo',
+      feature2: 'container.docker.network'
+    }
+  }
+];
+
+const NOTBOTHCMDARGS_ERRORS = [
+  {
+    path: ['cmd'],
+    message: 'Please specify only one of `cmd` or `args`',
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'cmd',
+      feature2: 'args'
+    }
+  },
+  {
+    path: ['args'],
+    message: 'Please specify only one of `cmd` or `args`',
+    type: 'PROP_CONFLICT',
+    variables: {
+      feature1: 'cmd',
+      feature2: 'args'
+    }
   }
 ];
 
@@ -68,10 +134,7 @@ describe('MarathonAppValidators', function () {
     it('should return error if both `args` and `cmd` are defined', function () {
       const spec = {args: ['foo'], cmd: 'bar'};
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec))
-        .toEqual([
-          {path: ['cmd'], message: 'Please specify only one of `cmd` or `args`'},
-          {path: ['args'], message: 'Please specify only one of `cmd` or `args`'}
-        ]);
+        .toEqual(NOTBOTHCMDARGS_ERRORS);
     });
 
     it('should return all errors if neither is defined', function () {
@@ -125,12 +188,7 @@ describe('MarathonAppValidators', function () {
     it('should return errors if `container.appc.id` does not start with "sha512-"', function () {
       const spec = {container: {appc: {image: 'foo', id: 'sha256-test'}}};
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec))
-        .toEqual([
-          {
-            path: ['container', 'appc', 'id'],
-            message: 'AppContainer id should start with \'sha512-\''
-          }
-        ]);
+        .toEqual(APPCONTAINERID_ERRORS);
     });
 
     it('should not return errors if `container.appc` correctly defined', function () {
