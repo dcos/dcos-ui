@@ -1,5 +1,7 @@
 import mixin from 'reactjs-mixin';
+import {Hooks} from 'PluginSDK';
 import {Link, routerShape} from 'react-router';
+import {MountService} from 'foundation-ui';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -7,6 +9,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import CreateServiceModalUniversePanelOption from '../../components/CreateServiceModalUniversePanelOption';
 import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-medium@2x.png';
 import DisplayPackagesTable from '../../components/DisplayPackagesTable';
 import FilterInputText from '../../components/FilterInputText';
@@ -29,6 +32,18 @@ const METHODS_TO_BIND = [
   'handleInstallModalClose',
   'handleSearchStringChange'
 ];
+
+const shouldRenderUniverseOption = Hooks.applyFilter(
+  'hasCapability', false, 'packageAPI'
+);
+
+if (shouldRenderUniverseOption) {
+  MountService.MountService.registerComponent(
+    CreateServiceModalUniversePanelOption,
+    'CreateService:ServicePicker:GridOptions',
+    0
+  );
+}
 
 class PackagesTab extends mixin(StoreMixin) {
   constructor() {
