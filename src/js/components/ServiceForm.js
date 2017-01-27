@@ -40,6 +40,8 @@ const FIELDS_TO_WATCH = {
   }
 };
 
+let networkTypeChanged = false;
+
 class ServiceForm extends SchemaForm {
   constructor() {
     super(...arguments);
@@ -97,6 +99,8 @@ class ServiceForm extends SchemaForm {
     let shouldUpdateDefinition = this.shouldUpdateDefinition(
       changes, eventType, fieldName
     );
+
+    networkTypeChanged = eventType === 'change' && fieldName === 'networkType';
 
     if (eventType === 'change' || shouldUpdateDefinition) {
       this.recalculateFormModelAndRender(shouldUpdateDefinition);
@@ -374,17 +378,16 @@ class ServiceForm extends SchemaForm {
         });
       }
 
-      let previousNetworkType = this.props.model.networking.networkType;
       // When switching a container network from anything to HOST
       // we want to keep portDefinitions[*].port which is equal to servicePort
-      if (model.networking.networkType === 'host'
-        && previousNetworkType !== 'host') {
+      if (model.networking.networkType === 'host' && networkTypeChanged) {
         model.networking.ports.map(function (port) {
-          port.lbPort = port.servicePort;
+          port.lbPort = port.servicePort || 0;
 
           return port;
         });
       }
+      networkTypeChanged = false;
 
       let {dockerVolumesDefinition = null} = this.internalStorage_get();
       this.internalStorage_set({model, dockerVolumesDefinition});
