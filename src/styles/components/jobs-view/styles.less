@@ -5,6 +5,27 @@
     font-weight: 700;
     margin-right: @base-spacing-unit * 1/2;
   }
+
+  .job-run-history-table-column {
+
+    &-finished,
+    &-started {
+      display: none;
+      width: 140px;
+    }
+
+    &-checkbox {
+      width: 30px;
+    }
+
+    &-status {
+      width: 120px;
+    }
+
+    &-run-time {
+      width: 100px;
+    }
+  }
 }
 
 & when (@layout-screen-small-enabled) {
@@ -24,6 +45,17 @@
     .job-details-header-status {
       margin-right: @base-spacing-unit-screen-medium * 1/2;
     }
+
+    .job-run-history-table-column {
+
+      &-finished {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
+    }
   }
 }
 
@@ -33,6 +65,17 @@
 
     .job-details-header-status {
       margin-right: @base-spacing-unit-screen-large * 1/2;
+    }
+
+    .job-run-history-table-column {
+
+      &-started {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
     }
   }
 }
