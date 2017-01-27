@@ -46,22 +46,24 @@ class ClipboardTrigger extends React.Component {
   getTriggerContent() {
     const {children, className} = this.props;
 
+    let childNode = (
+      <Icon
+        id="clipboard"
+        size="mini"
+        className={`clickable icon-clipboard ${className}`}
+        color="purple" />
+    );
+
     if (children != null) {
-      return (
-        <span className={className} onMouseEnter={this.handleCopyIconMouseEnter}
-          ref="copyButton">
-          {children}
-        </span>
-      );
+      childNode = children;
     }
 
     return (
-      <span onMouseEnter={this.handleCopyIconMouseEnter} ref="copyButton">
-        <Icon
-          id="clipboard"
-          size="mini"
-          className={`clickable icon-clipboard ${className}`}
-          color="purple" />
+      <span
+        className={className}
+        onMouseEnter={this.handleCopyIconMouseEnter}
+        ref="copyButton">
+        {childNode}
       </span>
     );
   }
@@ -80,13 +82,10 @@ class ClipboardTrigger extends React.Component {
 
   render() {
     const {copiedText, tooltipContent, useTooltip} = this.props;
+    const {hasCopiedToClipboard} = this.state;
 
     if (useTooltip) {
-      let text = tooltipContent;
-
-      if (this.state.hasCopiedToClipboard) {
-        text = copiedText;
-      }
+      const text = hasCopiedToClipboard ? copiedText : tooltipContent;
 
       return (
         <Tooltip position="bottom" content={text}>
