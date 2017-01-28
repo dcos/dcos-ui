@@ -8,6 +8,7 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -28,13 +29,13 @@ class MultiContainerVolumesFormSection extends Component {
       }
 
       return (
-        <div className="flex row" key={containerIndex}>
-          <div className="column-3">
+        <FormRow key={containerIndex}>
+          <FormGroup className="column-3">
             {containersLabel}
             <div className="form-control-input-height">
               {getContainerNameWithIcon(container)}
             </div>
-          </div>
+          </FormGroup>
           <FormGroup
             className="column-9"
             required={false}>
@@ -44,7 +45,7 @@ class MultiContainerVolumesFormSection extends Component {
               type="text"
               value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}/>
           </FormGroup>
-        </div>
+        </FormRow>
       );
     });
   }
@@ -72,7 +73,7 @@ class MultiContainerVolumesFormSection extends Component {
 
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-6"
               required={false}
@@ -84,7 +85,7 @@ class MultiContainerVolumesFormSection extends Component {
                 value={volumes.name}/>
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
           {this.getContainerMounts(containers, key)}
         </FormGroupContainer>
       );

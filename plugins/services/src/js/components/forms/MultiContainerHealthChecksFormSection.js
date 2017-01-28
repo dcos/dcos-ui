@@ -26,7 +26,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           Advanced Health Check Settings
         </AdvancedSectionLabel>
         <AdvancedSectionContent>
-          <div className="flex row">
+          <FormRow>
             <FormGroup
               className="column-3"
               showError={Boolean(errors.gracePeriodSeconds)}>
@@ -71,7 +71,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                 value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
-          </div>
+          </FormRow>
         </AdvancedSectionContent>
       </AdvancedSection>
     );
@@ -89,7 +89,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       .get(this.props.errors);
 
     return (
-      <div className="flex row">
+      <FormRow>
         <FormGroup
           className="column-12"
           showError={Boolean(errors.shell || errors.argv)}>
@@ -100,7 +100,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             value={exec && exec.command.value}/>
           <FieldError>{errors.shell || errors.argv}</FieldError>
         </FormGroup>
-      </div>
+      </FormRow>
     );
   }
 
