@@ -52,6 +52,17 @@ var Sidebar = React.createClass({
     return {expandedItems: []};
   },
 
+  componentWillMount() {
+    const {pathname} = this.props.location;
+    const pathnameSegments = pathname.split('/');
+
+    // If the user loaded the UI from a route other than `/`, we want to display
+    // it in its expanded state.
+    if (pathnameSegments.length > 1) {
+      this.setState({expandedItems: [`/${pathnameSegments[1]}`]});
+    }
+  },
+
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
