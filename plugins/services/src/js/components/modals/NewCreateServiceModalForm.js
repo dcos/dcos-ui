@@ -282,7 +282,7 @@ class NewCreateServiceModalForm extends Component {
       return null;
     }
 
-    const errorItems = errors.map((error, index) => {
+    const errorItems = showErrors.map((error, index) => {
       const prefix = error.path.length ? `${error.path.join('.')}:` : '';
 
       return (
