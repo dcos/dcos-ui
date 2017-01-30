@@ -118,7 +118,7 @@ class ServiceDebugContainer extends React.Component {
       } else {
         introText = 'Rejected offer analysis is not currently supported.';
       }
-    } else if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+    } else if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
       || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
@@ -159,7 +159,7 @@ class ServiceDebugContainer extends React.Component {
 
     const queue = service.getQueue();
 
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
       || queue.declinedOffers.offers == null) {
       return null;
     }

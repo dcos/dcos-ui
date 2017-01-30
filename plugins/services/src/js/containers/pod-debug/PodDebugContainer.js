@@ -39,7 +39,7 @@ class PodDebugTabView extends React.Component {
     const {pod} = this.props;
     const queue = pod.getQueue();
 
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
       || queue.declinedOffers.offers == null) {
       return null;
     }
@@ -142,12 +142,13 @@ class PodDebugTabView extends React.Component {
   }
 
   getRecentOfferSummary() {
-    const queue = this.props.pod.getQueue();
+    const {pod} = this.props;
+    const queue = pod.getQueue();
     let introText = null;
     let mainContent = null;
     let offerCount = null;
 
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(queue)
+    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
       || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
