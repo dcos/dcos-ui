@@ -46,6 +46,20 @@ const KEY_VALUE_FIELDS = [
   'labels'
 ];
 
+/**
+ * Since the form input fields operate on a different path than the one in the
+ * data, it's not always possible to figure out which error paths to unmute when
+ * the field is edited. Therefore, form fields that do not map 1:1 with the data
+ * are opted out from the error muting feature.
+ *
+ * TODO: This should be removed when DCOS-13524 is completed
+ */
+const CONSTANTLY_UNMUTED_ERRORS = [
+  /^constraints\.[0-9]+\./,
+  /^portDefinitions\.[0-9]+\./,
+  /^localVolumes\.[0-9]+\./
+];
+
 class NewCreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
@@ -455,7 +469,12 @@ class NewCreateServiceModalForm extends Component {
         return false;
       }
 
-      return showAllErrors || editedFieldPaths.includes(errorPath);
+      // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function (rule) {
+        return rule.exec(errorPath);
+      });
+
+      return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
     });
   }
 
@@ -479,10 +498,6 @@ class NewCreateServiceModalForm extends Component {
       appConfig,
       'containers.length'
     ) || 1);
-
-    console.log('errorMap=', errorMap);
-    console.log('unmutedErrors=', unmutedErrors);
-    console.log('errors=', errors);
 
     return (
       <div className="flex flex-item-grow-1">
