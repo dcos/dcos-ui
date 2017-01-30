@@ -129,7 +129,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'udp,tcp'}
+          {name: null, port: 0, protocol: 'udp,tcp', labels: null}
         ]);
     });
 
