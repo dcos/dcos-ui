@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
@@ -234,17 +233,15 @@ class MultiContainerHealthChecksFormSection extends Component {
 
   getContainerHealthChecks(containers) {
     return containers.map((container, index) => {
-      const classes = classNames('short-bottom', {'flush-top': index === 0});
 
       return (
         <div key={container.name}>
-          <h2 className={classes}>
-            Health Checks {container.name}
-          </h2>
-          <p>
-            Health checks may be specified per application to be run against
-            the application{'\''}s tasks.
-          </p>
+          <div className="form-row-element">
+            <h3 className="form-header short-bottom">
+              <Icon id="container" size="mini" color="purple" />
+              {` ${container.name}`}
+            </h3>
+          </div>
           {this.getHealthChecksBody(container, index)}
         </div>
       );
@@ -260,7 +257,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <h2 className="flush-top short-bottom">
             Health Checks
           </h2>
-          <p>
+          <p className="flush-bottom">
             Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring health checks.
           </p>
         </div>
@@ -268,7 +265,14 @@ class MultiContainerHealthChecksFormSection extends Component {
     }
 
     return (
-      <div>
+      <div className="form flush-bottom">
+        <h2 className="form-header flush-top short-bottom">
+          Health Checks
+        </h2>
+        <p>
+          Health checks may be specified per application to be run against
+          the application{'\''}s tasks.
+        </p>
         {this.getContainerHealthChecks(data.containers)}
       </div>
     );
