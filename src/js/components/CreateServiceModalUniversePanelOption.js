@@ -26,4 +26,9 @@ class CreateServicePickerUniverseOption extends React.Component {
   }
 }
 
+CreateServicePickerUniverseOption.propTypes = {
+  columnClasses: React.PropTypes.string,
+  onOptionSelect: React.PropTypes.func
+};
+
 module.exports = CreateServicePickerUniverseOption;
