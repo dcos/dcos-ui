@@ -331,19 +331,23 @@ class NewCreateServiceModalForm extends Component {
     if (this.state.isPod) {
       return [
         <TabButton id="networking" label="Networking" key="multinetworking" />,
-        <TabButton id="environment" label="Environment"
-          key="multienvironment" />,
-        <TabButton id="healthChecks" label="Health Checks"
+        <TabButton id="volumes" label="Volumes" key="multivolumes" />,
+        <TabButton
+          id="healthChecks"
+          label="Health Checks"
           key="multihealthChecks" />,
-        <TabButton id="volumes" label="Volumes" key="multivolumes" />
+        <TabButton
+          id="environment"
+          label="Environment"
+          key="multienvironment" />
       ];
     }
 
     return [
       <TabButton id="networking" label="Networking" key="networking" />,
-      <TabButton id="environment" label="Environment" key="environment" />,
+      <TabButton id="volumes" label="Volumes" key="volumes" />,
       <TabButton id="healthChecks" label="Health Checks" key="healthChecks" />,
-      <TabButton id="volumes" label="Volumes" key="volumes" />
+      <TabButton id="environment" label="Environment" key="environment" />
     ];
   }
 
@@ -360,12 +364,12 @@ class NewCreateServiceModalForm extends Component {
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="environment" key="multienvironment">
+        <TabView id="volumes" key="multivolumes">
           {rootErrorComponent}
-          <EnvironmentFormSection
-            mountType="CreateService:MultiContainerEnvironmentFormSection"
+          <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
+            handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>,
@@ -378,12 +382,12 @@ class NewCreateServiceModalForm extends Component {
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>,
-        <TabView id="volumes" key="multivolumes">
+        <TabView id="environment" key="multienvironment">
           {rootErrorComponent}
-          <MultiContainerVolumesFormSection
+          <EnvironmentFormSection
+            mountType="CreateService:MultiContainerEnvironmentFormSection"
             data={data}
             errors={errorMap}
-            handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem} />
         </TabView>
