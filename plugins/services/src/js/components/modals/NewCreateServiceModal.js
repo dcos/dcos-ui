@@ -216,7 +216,8 @@ class NewCreateServiceModal extends Component {
       this.setState({
         activeTab: tabViewID,
         apiErrors,
-        serviceReviewActive: false
+        serviceReviewActive: false,
+        showAllErrors: false
       });
 
       return;
@@ -280,9 +281,7 @@ class NewCreateServiceModal extends Component {
 
   handleServiceChange(newService) {
     this.setState({
-      apiErrors: [],
-      serviceConfig: newService,
-      showAllErrors: false
+      serviceConfig: newService
     });
   }
 
@@ -298,33 +297,42 @@ class NewCreateServiceModal extends Component {
       case 'app':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
       case 'pod':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new PodSpec(
             Object.assign({id: baseID}, DEFAULT_POD_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
       case 'json':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,
           serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
@@ -335,11 +343,16 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceReview() {
-    const errors = this.getAllErrors();
+    const errors = this.getFormErrors();
     if (errors.length === 0) {
-      this.setState({serviceReviewActive: true});
+      this.setState({
+        apiErrors: [],
+        serviceReviewActive: true
+      });
     } else {
-      this.setState({showAllErrors: true});
+      this.setState({
+        showAllErrors: true
+      });
     }
   }
 
@@ -366,8 +379,8 @@ class NewCreateServiceModal extends Component {
    *
    * @returns {Array} - An array of error objects
    */
-  getAllErrors() {
-    const {apiErrors, serviceFormErrors, serviceConfig} = this.state;
+  getFormErrors() {
+    const {serviceFormErrors, serviceConfig} = this.state;
     let validationErrors = [];
 
     // Validate Application or Pod according to the contents
@@ -387,11 +400,19 @@ class NewCreateServiceModal extends Component {
       );
     }
 
-    // Combine all errors
-    return apiErrors.concat(
-      serviceFormErrors,
-      validationErrors
-    );
+    return validationErrors.concat(serviceFormErrors);
+  }
+
+  /**
+   * This function combines the errors received from marathon and the errors
+   * produced by the form into a unified error array
+   *
+   * @returns {Array} - An array of error objects
+   */
+  getAllErrors() {
+    const {apiErrors} = this.state;
+
+    return apiErrors.concat(this.getFormErrors());
   }
 
   getHeader() {
@@ -574,8 +595,6 @@ class NewCreateServiceModal extends Component {
     }
 
     if (serviceFormActive) {
-      // const errors = this.getAllErrors();
-
       return [
         {
           node: (
@@ -593,21 +612,17 @@ class NewCreateServiceModal extends Component {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
           disabled: false,
-          // disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
     }
 
     if (serviceJsonActive) {
-      // const errors = this.getAllErrors();
-
       return [
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
           disabled: false,
-          // disabled: errors.length !== 0,
           label: 'Review & Run'
         }
       ];
