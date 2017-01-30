@@ -132,13 +132,16 @@
     position: absolute;
     right: @modal-full-screen-side-panel-width * -1;
     top: 0;
-    transition: right 0.35s;
+    transition: right 0.35s, visibility 0.35s;
+    visibility: hidden;
     width: @modal-full-screen-side-panel-width;
     will-change: right;
     z-index: @z-index-modal-side-panel;
 
     &.is-visible {
       right: 0;
+      transition: right 0.35s;
+      visibility: visible;
     }
   }
 

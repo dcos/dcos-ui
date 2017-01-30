@@ -325,7 +325,7 @@ class NewServiceFormModal extends Component {
     if (serviceReviewActive) {
       return (
         <div className="flex-item-grow-1">
-          <div className="container">
+          <div className="container container-wide">
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
               appConfig={serviceConfig}
