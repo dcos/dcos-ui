@@ -173,16 +173,8 @@ class GeneralServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {`${name} `}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        {name}
       </FieldLabel>
     );
   }
@@ -351,16 +343,22 @@ class GeneralServiceFormSection extends Component {
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
       const {helpText, label} = containerRuntimes[runtimeName];
       let field = (
-        <FieldLabel className="text-align-left" key={index}>
-          <FieldInput
-            checked={Boolean(type === runtimeName)}
-            disabled={isDisabled[runtimeName]}
-            name="container.type"
-            type="radio"
-            value={runtimeName} />
-          {label}
-          <FieldHelp>{helpText}</FieldHelp>
-        </FieldLabel>
+        <FormRow>
+          <FormGroup className="column-12">
+            <FieldLabel className="text-align-left" key={index} wordWrap>
+              <FieldInput
+                checked={Boolean(type === runtimeName)}
+                disabled={isDisabled[runtimeName]}
+                name="container.type"
+                type="radio"
+                value={runtimeName} />
+              <FieldLabel>
+                {label}
+              </FieldLabel>
+              <FieldHelp>{helpText}</FieldHelp>
+            </FieldLabel>
+          </FormGroup>
+        </FormRow>
       );
 
       // Wrap field in tooltip if disabled and content populated
@@ -424,16 +422,8 @@ class GeneralServiceFormSection extends Component {
             className="column-9"
             required={true}
             showError={Boolean(errors.id)}>
-            <FieldLabel>
-              {'Service ID '}
-              <Tooltip
-                content={idTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
+            <FieldLabel tooltipContent={idTooltipContent}>
+              Service ID
             </FieldLabel>
             <FieldInput
               name="id"

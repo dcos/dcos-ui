@@ -38,6 +38,50 @@
     }
   }
 
+  .form-control-label {
+
+    &-content {
+      margin-right: @base-spacing-unit * 1/4;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &-primary {
+        flex: 1 1 auto;
+      }
+
+      &-secondary {
+        flex: 0 0 auto;
+      }
+
+      &-wrapper {
+
+        &-no-wrap {
+          display: inline-flex;
+          max-width: 100%;
+
+          .form-control-label {
+
+            &-content {
+
+              &-primary {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Remove bottom margin on labels.
+    .form-control-label {
+      margin-bottom: 0;
+    }
+  }
+
   // TODO: Remove this when the full screen Create Service is implemented.
   .form-control-force-narrow {
 
@@ -72,6 +116,13 @@
         margin-left: @base-spacing-unit-screen-small * 1/2;
       }
     }
+
+    .form-control-label {
+
+      &-content {
+        margin-right: @base-spacing-unit-screen-small * 1/4;
+      }
+    }
   }
 }
 
@@ -83,6 +134,13 @@
 
       & + .form-control-inline {
         margin-left: @base-spacing-unit-screen-medium * 1/2;
+      }
+    }
+
+    .form-control-label {
+
+      &-content {
+        margin-right: @base-spacing-unit-screen-medium * 1/4;
       }
     }
   }
@@ -102,6 +160,13 @@
         margin-left: @base-spacing-unit-screen-large * 1/2;
       }
     }
+
+    .form-control-label {
+
+      &-content {
+        margin-right: @base-spacing-unit-screen-large * 1/4;
+      }
+    }
   }
 }
 
@@ -113,6 +178,13 @@
 
       & + .form-control-inline {
         margin-left: @base-spacing-unit-screen-jumbo * 1/2;
+      }
+    }
+
+    .form-control-label {
+
+      &-content {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/4;
       }
     }
   }

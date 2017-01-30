@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Tooltip} from 'reactjs-components';
 
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
 import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
@@ -48,16 +47,8 @@ class ContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {'Artifact URI '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        Artifact URI
       </FieldLabel>
     );
   }
@@ -116,16 +107,12 @@ class ContainerServiceFormSection extends Component {
 
     if (disabled) {
       return (
-        <FieldLabel className="text-no-transform">
-          {'GPUs '}
-          <Tooltip
-            content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="lock" size="mini" />
-          </Tooltip>
+        <FieldLabel
+          className="text-no-transform"
+          key="gpus-input-tooltip"
+          tooltipContent="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
+          tooltipIconID="lock">
+          GPUs
         </FieldLabel>
       );
     }
@@ -134,23 +121,6 @@ class ContainerServiceFormSection extends Component {
       <FieldLabel className="text-no-transform">
         GPUs
       </FieldLabel>
-    );
-  }
-
-  getTooltipIfContent(content) {
-    if (!content) {
-      return null;
-    }
-
-    return (
-      <Tooltip
-        content={content}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon color="grey" id="lock" size="mini" />
-      </Tooltip>
     );
   }
 
@@ -169,23 +139,28 @@ class ContainerServiceFormSection extends Component {
       );
 
       if (containerType === DOCKER) {
-        dockerOnly = '';
-      } else {
-        label = label + ' ';
+        dockerOnly = null;
       }
 
       return (
-        <FieldLabel key={index}>
-          <FieldInput
-            checked={containerType === DOCKER && Boolean(checked)}
-            name={`${path}.docker.${settingName}`}
-            type="checkbox"
-            disabled={containerType !== DOCKER}
-            value={settingName} />
-          {label}
-          {this.getTooltipIfContent(dockerOnly)}
-          <FieldHelp>{helpText}</FieldHelp>
-        </FieldLabel>
+        <FormRow>
+          <FormGroup className="column-12">
+            <FieldLabel key={index} wordWrap>
+              <FieldInput
+                checked={containerType === DOCKER && Boolean(checked)}
+                name={`${path}.docker.${settingName}`}
+                type="checkbox"
+                disabled={containerType !== DOCKER}
+                value={settingName} />
+              <FieldLabel
+                tooltipContent={dockerOnly}
+                tooltipIconID="lock">
+                {label}
+              </FieldLabel>
+              <FieldHelp>{helpText}</FieldHelp>
+            </FieldLabel>
+          </FormGroup>
+        </FormRow>
       );
     });
 
@@ -251,16 +226,8 @@ class ContainerServiceFormSection extends Component {
     );
 
     return (
-      <FieldLabel>
-        {'Command '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent}>
+        Command
       </FieldLabel>
     );
   }
@@ -290,16 +257,8 @@ class ContainerServiceFormSection extends Component {
     }
 
     return (
-      <FieldLabel>
-        {'Container Image '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id={iconID} size="mini" />
-        </Tooltip>
+      <FieldLabel tooltipContent={tooltipContent} tooltipIconID={iconID} key="image-label">
+        Container Image
       </FieldLabel>
     );
   }
