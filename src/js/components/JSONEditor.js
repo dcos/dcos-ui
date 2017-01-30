@@ -84,7 +84,7 @@ class JSONEditor extends React.Component {
     this.externalErrors = (this.props.errors || []).slice();
     this.jsonError = null;
     this.jsonMeta = [];
-    this.jsonText = '{}';
+    this.jsonText = null;
     this.jsonValue = {};
 
     //
@@ -96,7 +96,7 @@ class JSONEditor extends React.Component {
     this.timerIsTyping = null;
 
     // Initial state synchronization
-    this.updateLocalJsonState(initialText);
+    this.updateLocalJsonState(this.getNewJsonState(initialText));
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
