@@ -12,8 +12,10 @@ cd /usr/src/dcos-ui
 git pull
 git checkout $APPLICATION_CHECKOUT
 
+npm set progress=false
 npm run --unsafe-perm preinstall
 npm i
+npm run scaffold
 
 echo "module.exports = {'*': '$CLUSTER_ADDRESS'};" >> webpack/proxy.dev.js
 
