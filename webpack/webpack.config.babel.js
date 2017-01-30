@@ -171,10 +171,7 @@ module.exports = {
   },
 
   resolveLoader: {
-    root: absPath('node_modules'),
-    alias: {
-      'raml-validator-loader': absPath('webpack', 'modules', 'raml-validator-loader', 'lib', 'raml-validator-loader.js')
-    }
+    root: absPath('node_modules')
   }
 
 };
