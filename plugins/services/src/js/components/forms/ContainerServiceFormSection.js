@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
@@ -18,6 +19,7 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
+import PodSpec from '../../structs/PodSpec';
 
 const {DOCKER, NONE, MESOS} = ContainerConstants.type;
 
@@ -34,7 +36,43 @@ const containerSettings = {
   }
 };
 
+const appPaths = {
+  artifacts: 'fetch',
+  cmd: 'cmd',
+  containerName: '',
+  cpus: 'cpus',
+  disk: 'disk',
+  forcePullImage: '{basePath}.docker.forcePullImage',
+  gpus: 'gpus',
+  image: '{basePath}.docker.image',
+  mem: 'mem',
+  privileged: '{basePath}.docker.privileged',
+  type: '{basePath}.type'
+};
+
+const podPaths = {
+  artifacts: '{basePath}.artifacts',
+  cmd: '{basePath}.exec.command.shell',
+  containerName: '{basePath}.name',
+  cpus: '{basePath}.resources.cpus',
+  disk: '{basePath}.resources.disk',
+  forcePullImage: '',
+  gpus: '',
+  image: '{basePath}.image.id',
+  mem: '{basePath}.resources.mem',
+  privileged: '',
+  type: '{basePath}.type'
+};
+
 class ContainerServiceFormSection extends Component {
+  getFieldPath(basePath, fieldName) {
+    if (this.props.service instanceof PodSpec) {
+      return podPaths[fieldName].replace('{basePath}', basePath);
+    }
+
+    return appPaths[fieldName].replace('{basePath}', basePath);
+  }
+
   getArtifactsLabel() {
     const tooltipContent = (
       <span>
@@ -64,10 +102,11 @@ class ContainerServiceFormSection extends Component {
 
   getArtifactsInputs() {
     const {data, errors, path} = this.props;
-    const artifacts = findNestedPropertyInObject(data, 'fetch') || [];
+    const artifactsPath = this.getFieldPath(path, 'artifacts');
+    const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
     const artifactErrors = findNestedPropertyInObject(
       errors,
-      `${path}.fetch`
+      artifactsPath
     ) || [];
 
     if (artifacts.length === 0) {
@@ -81,28 +120,29 @@ class ContainerServiceFormSection extends Component {
     }
 
     return artifacts.map((item, index) => {
+      const error = findNestedPropertyInObject(artifactErrors, `${index}.uri`);
       let label = null;
       if (index === 0) {
         label = this.getArtifactsLabel();
       }
 
       return (
-        <FormRow key={`${path}.artifacts.${index}`}>
+        <FormRow key={`${artifactsPath}.${index}`}>
           <FormGroup
             className="column-10"
-            showError={Boolean(artifactErrors[index])}>
+            showError={Boolean(error)}>
             {label}
             <FieldInput
-              name={`fetch.${index}.uri`}
+              name={`${artifactsPath}.${index}.uri`}
               placeholder="http://example.com"
               value={item.uri}/>
-            <FieldError>{artifactErrors[index]}</FieldError>
+            <FieldError>{error}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,
-                {value: index, path: 'fetch'}
+                {value: index, path: artifactsPath}
               )} />
           </FormGroup>
         </FormRow>
@@ -112,7 +152,8 @@ class ContainerServiceFormSection extends Component {
 
   getGPUSLabel() {
     const {data, path} = this.props;
-    const disabled = findNestedPropertyInObject(data, `${path}.type`) !== MESOS;
+    const typePath = this.getFieldPath(path, 'type');
+    const disabled = findNestedPropertyInObject(data, typePath) !== MESOS;
 
     if (disabled) {
       return (
@@ -137,6 +178,35 @@ class ContainerServiceFormSection extends Component {
     );
   }
 
+  getGPUSField() {
+    const {data, errors, path, service} = this.props;
+    if (service instanceof PodSpec) {
+      return null;
+    }
+
+    const typePath = this.getFieldPath(path, 'type');
+    const containerType = findNestedPropertyInObject(data, typePath);
+    const gpusPath = this.getFieldPath(path, 'gpus');
+    const gpusErrors = findNestedPropertyInObject(errors, gpusPath);
+    const gpusDisabled = containerType !== MESOS;
+
+    return (
+      <FormGroup
+        className="column-4"
+        showError={Boolean(!gpusDisabled && gpusErrors)}>
+        {this.getGPUSLabel()}
+        <FieldInput
+          disabled={gpusDisabled}
+          min="0"
+          name={gpusPath}
+          step="any"
+          type="number"
+          value={findNestedPropertyInObject(data, gpusPath)} />
+        <FieldError>{gpusErrors}</FieldError>
+      </FormGroup>
+    );
+  }
+
   getTooltipIfContent(content) {
     if (!content) {
       return null;
@@ -154,19 +224,19 @@ class ContainerServiceFormSection extends Component {
     );
   }
 
-  getAdvancedSettings() {
-    const {data, errors, path} = this.props;
-    const container = findNestedPropertyInObject(data, path) || {};
-    const artifactIndex = findNestedPropertyInObject(data, 'fetch.length');
-    const containerType = container.type;
-    const gpuDisabled = containerType !== MESOS;
-    const typeErrors = findNestedPropertyInObject(errors, `${path}.type`);
+  getContainerSettings() {
+    const {data, errors, path, service} = this.props;
+    if (service instanceof PodSpec) {
+      return null;
+    }
+
+    const typePath = this.getFieldPath(path, 'type');
+    const containerType = findNestedPropertyInObject(data, typePath);
+    const typeErrors = findNestedPropertyInObject(errors, typePath);
     const selections = Object.keys(containerSettings).map((settingName, index) => {
       let {helpText, label, dockerOnly} = containerSettings[settingName];
-      const checked = findNestedPropertyInObject(
-        container,
-        `docker.${settingName}`
-      );
+      const settingsPath = this.getFieldPath(path, settingName);
+      const checked = findNestedPropertyInObject(data, settingsPath);
 
       if (containerType === DOCKER) {
         dockerOnly = '';
@@ -178,7 +248,7 @@ class ContainerServiceFormSection extends Component {
         <FieldLabel key={index}>
           <FieldInput
             checked={containerType === DOCKER && Boolean(checked)}
-            name={`${path}.docker.${settingName}`}
+            name={settingsPath}
             type="checkbox"
             disabled={containerType !== DOCKER}
             value={settingName} />
@@ -190,35 +260,34 @@ class ContainerServiceFormSection extends Component {
     });
 
     return (
-      <AdvancedSectionContent>
-        <FormGroup showError={Boolean(typeErrors)}>
-          {selections}
-          <FieldError>{typeErrors}</FieldError>
-        </FormGroup>
+      <FormGroup showError={Boolean(typeErrors)}>
+        {selections}
+        <FieldError>{typeErrors}</FieldError>
+      </FormGroup>
+    );
+  }
 
+  getAdvancedSettings() {
+    const {data, errors, path} = this.props;
+    const artifactsPath = this.getFieldPath(path, 'artifacts');
+    const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
+    const diskPath = this.getFieldPath(path, 'disk');
+    const diskErrors = findNestedPropertyInObject(errors, diskPath);
+
+    return (
+      <AdvancedSectionContent>
+        {this.getContainerSettings()}
         <FormRow>
-          <FormGroup
-            className="column-4"
-            showError={Boolean(!gpuDisabled && errors.gpus)}>
-            {this.getGPUSLabel()}
-            <FieldInput
-              disabled={gpuDisabled}
-              min="0"
-              name="gpus"
-              step="any"
-              type="number"
-              value={data.gpus} />
-            <FieldError>{errors.gpus}</FieldError>
-          </FormGroup>
-          <FormGroup className="column-4" showError={Boolean(errors.disk)}>
+          {this.getGPUSField()}
+          <FormGroup className="column-4" showError={Boolean(diskErrors)}>
             <FieldLabel className="text-no-transform">DISK (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
-              name="disk"
+              name={diskPath}
               step="any"
               type="number"
-              value={data.disk} />
-            <FieldError>{errors.disk}</FieldError>
+              value={findNestedPropertyInObject(data, diskPath)} />
+            <FieldError>{diskErrors}</FieldError>
           </FormGroup>
         </FormRow>
         {this.getArtifactsInputs()}
@@ -228,7 +297,7 @@ class ContainerServiceFormSection extends Component {
               className="button button-primary-link button-flush"
               onClick={this.props.onAddItem.bind(
                 this,
-                {value: artifactIndex, path: 'fetch'}
+                {value: artifacts.length, path: artifactsPath}
               )}>
               <Icon color="purple" id="plus" size="tiny" /> Add Artifact
             </a>
@@ -266,8 +335,11 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    const {data, path} = this.props;
-    const containerType = findNestedPropertyInObject(data, `${path}.type`);
+    const {data, path, service} = this.props;
+    const typePath = this.getFieldPath(path, 'type');
+    const containerType = findNestedPropertyInObject(data, typePath);
+    const imageDisabled = (containerType == null || containerType === NONE) &&
+      !(service instanceof PodSpec);
     let iconID = 'circle-question';
     let tooltipContent = (
       <span>
@@ -284,7 +356,7 @@ class ContainerServiceFormSection extends Component {
       </span>
     );
 
-    if (containerType == null || containerType === NONE) {
+    if (imageDisabled) {
       tooltipContent = 'Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images.';
       iconID = 'lock';
     }
@@ -304,31 +376,68 @@ class ContainerServiceFormSection extends Component {
     );
   }
 
-  render() {
-    const {data, errors, path} = this.props;
-    const containerType = findNestedPropertyInObject(data, `${path}.type`);
-    const image = findNestedPropertyInObject(data, `${path}.docker.image`);
-    const imageDisabled = containerType == null || containerType === NONE;
-    const imageErrors = findNestedPropertyInObject(
+  getContainerNameField() {
+    const {data, errors, path, service} = this.props;
+    if (!(service instanceof PodSpec)) {
+      return null;
+    }
+
+    const containerNamePath = this.getFieldPath(path, 'containerName');
+    const containerName = findNestedPropertyInObject(data, containerNamePath);
+    const containerNameErrors = findNestedPropertyInObject(
       errors,
-      `${path}.docker.image`
+      containerNamePath
+    );
+
+    return (
+      <FormRow>
+        <FormGroup className="column-6" showError={Boolean(containerNameErrors)}>
+          <FieldLabel>Container Name</FieldLabel>
+          <FieldInput
+            name={containerNamePath}
+            value={containerName} />
+          <FieldError>{containerNameErrors}</FieldError>
+        </FormGroup>
+      </FormRow>
+    );
+  }
+
+  render() {
+    const {data, errors, path, service} = this.props;
+    const typePath = this.getFieldPath(path, 'type');
+    const containerType = findNestedPropertyInObject(data, typePath);
+    const imagePath = this.getFieldPath(path, 'image');
+    const image = findNestedPropertyInObject(data, imagePath);
+    const imageDisabled = (containerType == null || containerType === NONE) &&
+      !(service instanceof PodSpec);
+    const imageErrors = findNestedPropertyInObject(errors, imagePath);
+    const cpusPath = this.getFieldPath(path, 'cpus');
+    const cpusErrors = findNestedPropertyInObject(errors, cpusPath);
+    const memPath = this.getFieldPath(path, 'mem');
+    const memErrors = findNestedPropertyInObject(errors, memPath);
+    const cmdPath = this.getFieldPath(path, 'cmd');
+    const cmdErrors = findNestedPropertyInObject(errors, cmdPath);
+    const classes = classNames(
+      'short-bottom',
+      {'flush-top': path !== 'container'}
     );
 
     return (
       <div>
-        <h2 className="short-bottom">
+        <h2 className={classes}>
           Container
         </h2>
         <p>
           Configure your container below. Enter a container image or command you want to run.
         </p>
+        {this.getContainerNameField()}
         <FormRow>
           <FormGroup
             className="column-6"
             showError={Boolean(!imageDisabled && imageErrors)}>
             {this.getImageLabel()}
             <FieldInput
-              name={`${path}.docker.image`}
+              name={imagePath}
               disabled={imageDisabled}
               value={image} />
             <FieldHelp>
@@ -340,40 +449,42 @@ class ContainerServiceFormSection extends Component {
           <FormGroup
             className="column-3"
             required={true}
-            showError={Boolean(errors.cpus)}>
+            showError={Boolean(cpusErrors)}>
             <FieldLabel className="text-no-transform">CPUs</FieldLabel>
             <FieldInput
               min="0.001"
-              name="cpus"
+              name={cpusPath}
               step="any"
               type="number"
-              value={data.cpus} />
-            <FieldError>{errors.cpus}</FieldError>
+              value={findNestedPropertyInObject(data, cpusPath)} />
+            <FieldError>{cpusErrors}</FieldError>
           </FormGroup>
 
           <FormGroup
             className="column-3"
             required={true}
-            showError={Boolean(errors.mem)}>
+            showError={Boolean(memErrors)}>
             <FieldLabel className="text-no-transform">MEMORY (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
-              name="mem"
+              name={memPath}
               step="any"
               type="number"
-              value={data.mem} />
-            <FieldError>{errors.mem}</FieldError>
+              value={findNestedPropertyInObject(data, memPath)} />
+            <FieldError>{memErrors}</FieldError>
           </FormGroup>
         </FormRow>
 
         <FormRow>
-          <FormGroup className="column-12" showError={Boolean(errors.cmd)}>
+          <FormGroup className="column-12" showError={Boolean(cmdErrors)}>
             {this.getCMDLabel()}
-            <FieldTextarea name="cmd" value={data.cmd} />
+            <FieldTextarea
+              name={cmdPath}
+              value={findNestedPropertyInObject(data, cmdPath)} />
             <FieldHelp>
               A shell command for your container to execute.
             </FieldHelp>
-            <FieldError>{errors.cmd}</FieldError>
+            <FieldError>{cmdErrors}</FieldError>
           </FormGroup>
         </FormRow>
 
@@ -400,7 +511,8 @@ ContainerServiceFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  onRemoveItem: React.PropTypes.func,
+  path: React.PropTypes.string
 };
 
 ContainerServiceFormSection.configReducers = {

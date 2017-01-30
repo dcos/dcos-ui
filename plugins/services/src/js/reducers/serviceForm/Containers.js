@@ -9,15 +9,16 @@ import {
   simpleFloatReducer,
   simpleReducer
 } from '../../../../../../src/js/utils/ReducerUtil';
+import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
   JSONSegmentParser as multiContainerHealthCheckParser,
   FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import Networking from '../../../../../../src/js/constants/Networking';
-import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
-import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
+import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
 const containerReducer = combineReducers({
   cpus: simpleReducer('resources.cpus'),
@@ -98,9 +99,12 @@ function containersParser(state) {
     if (item.name) {
       memo.push(new Transaction(['containers', index, 'name'], item.name));
     }
-    // TODO DCOS-12665 make the transaction path consistent with the app config
+
     if (item.image && item.image.id) {
-      memo.push(new Transaction(['containers', index, 'image'], item.image.id));
+      memo.push(new Transaction(
+        ['containers', index, 'image', 'id'],
+        item.image.id
+      ));
     }
     if (item.resources != null) {
       const {resources} = item;
@@ -153,7 +157,11 @@ function containersParser(state) {
             'artifacts'
           ], artifactIndex, ADD_ITEM)
         );
-        memo.push(...Object.keys(artifact).map((key) => {
+        if (artifact == null || typeof artifact !== 'object') {
+          return;
+        }
+
+        memo = memo.concat(Object.keys(artifact).map((key) => {
           return new Transaction([
             'containers',
             index,
@@ -162,7 +170,6 @@ function containersParser(state) {
             key
           ], artifact[key]);
         }));
-
       });
     }
 
@@ -424,26 +431,33 @@ module.exports = {
     }
 
     if (field === 'artifacts') {
-      if (newState[index].artifacts == null) {
-        newState[index].artifacts = [];
+      // Create a local cache of artifacts so we can filter the display values
+      if (this.artifactState == null) {
+        this.artifactState = [];
+      }
+      if (this.artifactState[index] == null) {
+        this.artifactState[index] = [];
       }
 
       switch (type) {
         case ADD_ITEM:
-          newState[index].artifacts.push({uri: ''});
+          this.artifactState[index].push({uri: null});
           break;
         case REMOVE_ITEM:
-          newState[index].artifacts =
-            newState[index].artifacts.filter((item, index) => {
+          this.artifactState[index] =
+            this.artifactState[index].filter((item, index) => {
               return index !== value;
             });
           break;
         case SET:
-          newState[index].artifacts[secondIndex][name] = value;
+          this.artifactState[index][secondIndex][name] = value;
           break;
       }
 
-      return newState;
+      // Filter empty values and assign to state
+      this.artifactState.forEach((item, index) => {
+        newState[index].artifacts = item.filter(({uri}) => !isEmpty(uri));
+      });
     }
 
     if (type === SET && joinedPath === `containers.${index}.name`) {
@@ -468,8 +482,7 @@ module.exports = {
       );
     }
 
-    // TODO DCOS-12665 make the transaction path consistent with the app config
-    if (type === SET && joinedPath === `containers.${index}.image`) {
+    if (type === SET && joinedPath === `containers.${index}.image.id`) {
       newState[index] =
         Object.assign({},
           newState[index],
@@ -579,7 +592,7 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          newState[index].artifacts.push('');
+          newState[index].artifacts.push({uri: null});
           break;
         case REMOVE_ITEM:
           newState[index].artifacts =
@@ -588,13 +601,9 @@ module.exports = {
             });
           break;
         case SET:
-          if (name === 'uri') {
-            newState[index].artifacts[secondIndex] = value;
-          }
+          newState[index].artifacts[secondIndex][name] = value;
           break;
       }
-
-      return newState;
     }
 
     if (type === SET && joinedPath === `containers.${index}.name`) {
@@ -621,9 +630,12 @@ module.exports = {
       );
     }
 
-    // TODO DCOS-12665 make the transaction path consistent with the app config
-    if (type === SET && joinedPath === `containers.${index}.image`) {
-      newState[index] = Object.assign({}, newState[index], {image: value});
+    if (type === SET && joinedPath === `containers.${index}.image.id`) {
+      newState[index] = Object.assign(
+        {},
+        newState[index],
+        {image: {id: value}}
+      );
     }
 
     return newState;

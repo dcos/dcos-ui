@@ -1,7 +1,7 @@
 const Containers = require('../Containers');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {ADD_ITEM} = require('../../../../../../../src/js/constants/TransactionTypes');
+const {ADD_ITEM, SET} = require('../../../../../../../src/js/constants/TransactionTypes');
 const {DEFAULT_POD_CONTAINER} = require('../../../constants/DefaultPod');
 
 describe('Containers', function () {
@@ -795,7 +795,64 @@ describe('Containers', function () {
         });
 
       });
+
     });
+
+    describe('artifacts', function () {
+
+      it('omits artifacts with empty uris', function () {
+        const batch = new Batch([
+          new Transaction(['containers'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 0, 'uri'], 'http://mesosphere.io', SET),
+          new Transaction(['containers', 0, 'artifacts'], 1, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 2, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 2, 'uri'], 'http://mesosphere.com', SET),
+          new Transaction(['containers', 0, 'artifacts'], 3, ADD_ITEM)
+        ]);
+
+        expect(batch.reduce(Containers.JSONReducer.bind({})))
+          .toEqual([{
+            artifacts: [
+              {uri: 'http://mesosphere.io'},
+              {uri: 'http://mesosphere.com'}
+            ],
+            endpoints: [],
+            name: 'container-1',
+            resources: {
+              cpus: 1,
+              mem: 128
+            }
+          }]);
+      });
+
+    });
+
+  });
+
+  describe('#JSONParser', function () {
+
+    describe('artifacts', function () {
+
+      it('parses JSON correctly', function () {
+        expect(Containers.JSONParser({containers: [{
+          artifacts: [
+            {uri: 'http://mesosphere.io'},
+            null,
+            {uri: 'http://mesosphere.com'}
+          ]
+        }]})).toEqual([
+          new Transaction(['containers'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 0, 'uri'], 'http://mesosphere.io', SET),
+          new Transaction(['containers', 0, 'artifacts'], 1, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 2, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 2, 'uri'], 'http://mesosphere.com', SET)
+        ]);
+      });
+
+    });
+
   });
 
   describe('#FormReducer', function () {
@@ -1602,6 +1659,40 @@ describe('Containers', function () {
         });
 
       });
+
     });
+
+    describe('artifacts', function () {
+
+      it('emits correct form data', function () {
+        const batch = new Batch([
+          new Transaction(['containers'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 0, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 0, 'uri'], 'http://mesosphere.io', SET),
+          new Transaction(['containers', 0, 'artifacts'], 1, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts', 1, 'uri'], 'http://mesosphere.com', SET),
+          new Transaction(['containers', 0, 'artifacts'], 2, ADD_ITEM),
+          new Transaction(['containers', 0, 'artifacts'], 3, ADD_ITEM)
+        ]);
+
+        expect(batch.reduce(Containers.FormReducer.bind({})))
+          .toEqual([{
+            artifacts: [
+              {uri: 'http://mesosphere.io'},
+              {uri: 'http://mesosphere.com'},
+              {uri: null},
+              {uri: null}
+            ],
+            name: 'container-1',
+            resources: {
+              cpus: 1,
+              mem: 128
+            }
+          }]);
+      });
+
+    });
+
   });
+
 });
