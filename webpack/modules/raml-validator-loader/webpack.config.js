@@ -1,15 +1,14 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  entry: './src/raml-validator-loader.js',
-  output: {
+  entry: './src/raml-validator-loader.js',
+  output: {
     path: path.join(__dirname, 'lib'),
     filename: 'raml-validator-loader.js',
     libraryTarget: 'commonjs2'
   },
-  module: {
-    loaders: [
+  module: {
+    loaders: [
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
@@ -19,7 +18,7 @@ module.exports = {
         }
       }
     ]
-  },
+  },
   externals: [
     'crypto',
     'fs',
@@ -28,6 +27,6 @@ module.exports = {
     'raml-typesystem',
     'raml-definition-system',
     'raml-json-validation',
-    'raml-xml-validation',
+    'raml-xml-validation'
   ]
 };

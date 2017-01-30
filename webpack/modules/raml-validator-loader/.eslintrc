@@ -1,0 +1,149 @@
+{
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true,
+    "sourceType": "module"
+  },
+
+  "env": {
+    "browser": true,
+    "jasmine": true,
+    "node": true,
+    "es6": true
+  },
+
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+
+  "globals": {
+    "cy": true,
+    "Cypress": true,
+    "context": true,
+    "xcontext": true,
+    "xit": true,
+    "it": true,
+    "expect": true,
+    "jest": true,
+    "ActiveXObject": true,
+    "Dygraph": true,
+    "d3": true
+  },
+
+  "extends": "airbnb",
+
+  "rules": {
+    "arrow-parens": ["error", "always"],
+    "eqeqeq": ["error", "smart"],
+    "quotes": ["error", "single"],
+    "camelcase": ["off", {"properties": "never"}],
+    // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
+    "comma-dangle": ["error", "never"],
+    "strict": ["error", "never"], // <-- fix
+    "newline-before-return": "error",
+    "no-mixed-operators": [2, {
+      "groups": [
+        ["+", "-", "*", "/", "%", "**"],
+        ["&", "|", "^", "~", "<<", ">>", ">>>"],
+        ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+        ["&&", "||"],
+        ["in", "instanceof"]
+      ],
+      "allowSamePrecedence": true
+    }],
+    "no-mixed-spaces-and-tabs": "error",
+    "no-new": "off",
+    "no-trailing-spaces": ["error", { "skipBlankLines": false }],
+    "no-underscore-dangle": "off",
+    "no-unused-vars": ["error", {
+      "args": "after-used",
+      "argsIgnorePattern": "PluginSDK|^_",
+      "varsIgnorePattern": "^_"
+    }],
+    "no-use-before-define": "off",
+    "no-multiple-empty-lines": ["error", {"max": 1}],
+    // Ternary
+    "no-nested-ternary": ["error"],
+    "no-unneeded-ternary": ["error"],
+    "multiline-ternary": "off", // allow both multiline and single line
+    "keyword-spacing": ["error"],
+    "semi": ["error"],
+    "space-before-blocks": ["error", "always"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always", "named": "never"
+    }],
+    "spaced-comment": ["error", "always"],
+    // "max-len": ["error", 80, 4], TODO: DCOS-914
+    "valid-jsdoc": ["error", {
+      "requireReturn": false,
+      "requireParamDescription": false
+    }],
+
+    // Airbnb overwrites
+    "import/no-extraneous-dependencies": "off",
+    "prefer-spread": "off",
+    "space-unary-ops": "off",
+    "operator-assignment": "off",
+    "object-property-newline": "off",
+    "jsx-a11y/label-has-for": "off",
+    "no-void": "off",
+    "no-extra-boolean-cast": "off",
+    "no-var": "off",
+    "arrow-body-style": "off",
+    "object-curly-spacing": "off",
+    "prefer-rest-params": "off",
+    "prefer-arrow-callback": "off",
+    "no-param-reassign": "off",
+    "prefer-const": ["error", {
+      "destructuring": "all",
+      "ignoreReadBeforeAssign": false
+    }],
+    "vars-on-top": "off",
+    "prefer-template": "off",
+    "no-else-return": "off",
+    "space-infix-ops": "off",
+    "array-callback-return": "off",
+    "consistent-return": "off",
+    "quote-props": "off",
+    "no-restricted-syntax": "off",
+    "padded-blocks": "off",
+    "import/no-unresolved": "off",
+    "no-dupe-keys": "off",
+    "newline-per-chained-call": "off",
+    "one-var-declaration-per-line": "off",
+    "one-var": "off",
+    "no-shadow": "off",
+    "key-spacing": "off",
+    "no-dupe-class-members": "off",
+    "radix": "off",
+    "no-throw-literal": "off",
+    "wrap-iife": "off",
+    "no-extra-semi": "off",
+    "yoda": "off",
+    "default-case": "off",
+    "global-require": "off",
+    "no-case-declarations": "off",
+    "max-len": "off",
+    "no-useless-constructor": "off",
+    "no-return-assign": "off",
+    "arrow-spacing": "off",
+    "no-empty": "off",
+    "no-new-wrappers": "off",
+    "jsx-a11y/img-has-alt": "off",
+    "space-in-parens": "off",
+    "new-cap": "off",
+    "no-extra-label": "off",
+    "no-labels": "off",
+    "func-names": "off",
+    "no-console": "off",
+    "no-inner-declarations": "off",
+    "dot-notation": "off",
+    "no-undef": "error",
+    "no-floating-decimal": "off",
+    "no-unreachable": "off",
+  }
+}
