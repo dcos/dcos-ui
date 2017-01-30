@@ -55,6 +55,8 @@ class ServiceForm extends SchemaForm {
         suppressUpdate: true
       }
     ]);
+
+    this.networkTypeChanged = false;
   }
 
   componentWillMount() {
@@ -97,6 +99,8 @@ class ServiceForm extends SchemaForm {
     let shouldUpdateDefinition = this.shouldUpdateDefinition(
       changes, eventType, fieldName
     );
+
+    this.networkTypeChanged = eventType === 'change' && fieldName === 'networkType';
 
     if (eventType === 'change' || shouldUpdateDefinition) {
       this.recalculateFormModelAndRender(shouldUpdateDefinition);
@@ -373,6 +377,18 @@ class ServiceForm extends SchemaForm {
           return port;
         });
       }
+
+      // When switching a container network from anything to HOST
+      // we want to keep portDefinitions[*].port which is equal to servicePort
+      if (model.networking.networkType === 'host' && this.networkTypeChanged) {
+        model.networking.ports.map(function (port) {
+          port.lbPort = port.servicePort || 0;
+
+          return port;
+        });
+      }
+      this.networkTypeChanged = false;
+
       let {dockerVolumesDefinition = null} = this.internalStorage_get();
       this.internalStorage_set({model, dockerVolumesDefinition});
 
