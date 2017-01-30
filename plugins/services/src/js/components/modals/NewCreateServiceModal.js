@@ -202,17 +202,13 @@ class NewCreateServiceModal extends Component {
     // If we are not about to close the modal and not on the review screen,
     // confirm before navigating away
     if (isOpen && hasChangesApplied && !serviceReviewActive) {
-      this.handleClose(true);
+      this.handleOpenConfirm();
 
       // Cancel route change, if it is already open
       return false;
     }
 
     return true;
-  }
-
-  handleCloseConfirmModal() {
-    this.setState({isConfirmOpen: false});
   }
 
   handleConfirmGoBack() {
@@ -297,7 +293,7 @@ class NewCreateServiceModal extends Component {
     // Close if editing a service in the form, but confirm before
     // if changes has been applied to the form
     if (serviceFormActive && hasChangesApplied) {
-      this.handleClose(true);
+      this.handleOpenConfirm();
 
       return;
     }
@@ -316,17 +312,21 @@ class NewCreateServiceModal extends Component {
     });
   }
 
-  handleClose(showConfirm = false) {
-    if (showConfirm) {
-      this.setState({isConfirmOpen: true});
-    } else {
-      // Start the animation of the modal by setting isOpen to false
-      this.setState({isConfirmOpen: false, isOpen: false}, () => {
-        // Once state is set, start a timer for the length of the animation and
-        // navigate away once the animation is over.
-        setTimeout(this.context.router.goBack, 300);
-      });
-    }
+  handleOpenConfirm() {
+    this.setState({isConfirmOpen: true});
+  }
+
+  handleCloseConfirmModal() {
+    this.setState({isConfirmOpen: false});
+  }
+
+  handleClose() {
+    // Start the animation of the modal by setting isOpen to false
+    this.setState({isConfirmOpen: false, isOpen: false}, () => {
+      // Once state is set, start a timer for the length of the animation and
+      // navigate away once the animation is over.
+      setTimeout(this.context.router.goBack, 300);
+    });
   }
 
   handleConvertToPod() {
@@ -767,15 +767,19 @@ class NewCreateServiceModal extends Component {
       serviceReviewActive
     } = this.state;
     let useGemini = false;
-
     if (servicePickerActive || serviceReviewActive) {
       useGemini = true;
+    }
+
+    let closeAction = this.handleClose;
+    if (hasChangesApplied) {
+      closeAction = this.handleOpenConfirm;
     }
 
     return (
       <FullScreenModal
         header={this.getHeader()}
-        onClose={this.handleClose.bind(this, hasChangesApplied)}
+        onClose={closeAction}
         useGemini={useGemini}
         open={isOpen}
         {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}>
