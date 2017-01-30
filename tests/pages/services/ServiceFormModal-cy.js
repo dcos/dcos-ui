@@ -118,7 +118,7 @@ describe('Service Form Modal', function () {
 
     it('contains right cpus default value', function () {
       getFormValue('cpus')
-        .should('to.have.value', '1');
+        .should('to.have.value', '0.1');
     });
 
     it('contains right mem default value', function () {
@@ -135,7 +135,7 @@ describe('Service Form Modal', function () {
       openServiceModal();
       openServiceJSON();
       cy.get('.ace_content').should(function (nodeList) {
-        expect(nodeList[0].textContent).to.contain('"cpus": 1');
+        expect(nodeList[0].textContent).to.contain('"cpus": 0.1');
         expect(nodeList[0].textContent).to.contain('"instances": 1');
         expect(nodeList[0].textContent).to.contain('"mem": 128');
       });
