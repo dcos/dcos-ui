@@ -240,22 +240,24 @@ function containersParser(state) {
               'labels'
             ], item.labels));
           }
-          endpoint.protocol.forEach(function (protocol) {
-            memo.push(new Transaction(
-              [
-                'containers',
-                index,
-                'endpoints',
-                endpointIndex,
-                'protocol',
-                protocol
-              ],
-              true
-            ));
-          });
+          if (endpoint.protocol) {
+            endpoint.protocol.forEach(function (protocol) {
+              memo.push(new Transaction(
+                [
+                  'containers',
+                  index,
+                  'endpoints',
+                  endpointIndex,
+                  'protocol',
+                  protocol
+                ],
+                true
+              ));
+            });
+          }
         }
 
-        if (networkMode === HOST.toLowerCase()) {
+        if (networkMode === HOST.toLowerCase() && endpoint.protocol) {
           endpoint.protocol.forEach(function (protocol) {
             memo.push(new Transaction(
               [
