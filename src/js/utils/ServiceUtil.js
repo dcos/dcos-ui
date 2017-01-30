@@ -280,8 +280,8 @@ const ServiceUtil = {
               value = '';
             }
 
-            // Pass it through the registered plugins, with key upper cased
-            variableMap[variable.key.toUpperCase()] = Hooks.applyFilter(
+            // Pass it through the registered plugins
+            variableMap[variable.key] = Hooks.applyFilter(
               'serviceVariableValue',
               value,
               variable,
