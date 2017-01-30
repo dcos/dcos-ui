@@ -21,6 +21,11 @@ describe('Service Actions', function () {
       clickHeaderAction('Edit');
     });
 
+    it('navigates to the correct route', function () {
+      cy.location().its('hash')
+        .should('include', '#/services/overview/%2Fcassandra-healthy/edit');
+    });
+
     it('opens the correct service edit modal', function () {
       cy.get('.modal .menu-tabbed-view input[name="id"]')
         .should('to.have.value', '/cassandra-healthy');
@@ -47,6 +52,44 @@ describe('Service Actions', function () {
         .contains('Cancel')
         .click();
       cy.get('.modal').should('to.have.length', 0);
+    });
+
+    it('opens confirm after edits', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 1);
+    });
+
+    it('closes both confirm and edit modal after confirmation', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+      cy.get('.confirm-modal .button')
+        .contains('Continue')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 0);
+      cy.get('.modal').should('to.have.length', 0);
+    });
+
+    it('it stays in the edit modal after cancelling confirmation', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+      cy.get('.confirm-modal .button')
+        .contains('Cancel')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 0);
+      cy.get('.modal').should('to.have.length', 1);
     });
   });
 
