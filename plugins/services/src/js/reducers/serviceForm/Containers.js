@@ -21,6 +21,8 @@ import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 import Networking from '../../../../../../src/js/constants/Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
 
+const {CONTAINER, HOST} = Networking.type;
+
 const containerReducer = combineReducers({
   cpus: simpleReducer('resources.cpus'),
   mem: simpleReducer('resources.mem'),
@@ -67,7 +69,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       hostPort = 0;
     }
 
-    if (networkType === Networking.type.CONTAINER) {
+    if (networkType === CONTAINER) {
       const vipLabel = `VIP_${index}`;
 
       labels = VipLabelUtil.generateVipLabel(
@@ -209,7 +211,7 @@ function containersParser(state) {
           )
         ]);
 
-        if (networkMode === Networking.type.CONTAINER.toLowerCase()) {
+        if (networkMode === CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
             endpoint.containerPort
@@ -253,7 +255,7 @@ function containersParser(state) {
           });
         }
 
-        if (networkMode === Networking.type.HOST.toLowerCase()) {
+        if (networkMode === HOST.toLowerCase()) {
           endpoint.protocol.forEach(function (protocol) {
             memo.push(new Transaction(
               [
@@ -299,7 +301,7 @@ module.exports = {
     const [base, index, field, secondIndex, name, subField] = path;
 
     if (this.networkType == null) {
-      this.networkType = Networking.type.HOST;
+      this.networkType = HOST;
     }
 
     if (this.appState == null) {
