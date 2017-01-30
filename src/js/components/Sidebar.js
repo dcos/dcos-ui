@@ -53,8 +53,7 @@ var Sidebar = React.createClass({
   },
 
   componentWillMount() {
-    const {pathname} = this.props.location;
-    const pathnameSegments = pathname.split('/');
+    const pathnameSegments = this.props.location.pathname.split('/');
 
     // If the user loaded the UI from a route other than `/`, we want to display
     // it in its expanded state.
