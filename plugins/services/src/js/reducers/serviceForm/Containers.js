@@ -180,6 +180,11 @@ function containersParser(state) {
 
     if (item.endpoints != null && item.endpoints.length !== 0) {
       item.endpoints.forEach((endpoint, endpointIndex) => {
+        const networkMode = findNestedPropertyInObject(
+          state,
+          'state.networks.0.mode'
+        );
+
         memo = memo.concat([
           new Transaction(
             ['containers', index, 'endpoints'],
@@ -204,8 +209,7 @@ function containersParser(state) {
           )
         ]);
 
-        if (state.networks && state.networks[0] &&
-          state.networks[0].mode === Networking.type.CONTAINER.toLowerCase()) {
+        if (networkMode === Networking.type.CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
             endpoint.containerPort
@@ -249,8 +253,7 @@ function containersParser(state) {
           });
         }
 
-        if (state.networks && state.networks[0] &&
-          state.networks[0].mode === Networking.type.HOST.toLowerCase()) {
+        if (networkMode === Networking.type.HOST.toLowerCase()) {
           endpoint.protocol.forEach(function (protocol) {
             memo.push(new Transaction(
               [
