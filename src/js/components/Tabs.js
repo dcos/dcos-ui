@@ -20,7 +20,7 @@ class Tabs extends React.Component {
   }
 
   render() {
-    let classes = classNames('menu-tabbed-container', this.props.className, {
+    const classes = classNames('menu-tabbed-container', this.props.className, {
       'menu-tabbed-container-vertical': this.props.vertical
     });
 

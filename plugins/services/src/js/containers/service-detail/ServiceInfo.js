@@ -69,7 +69,7 @@ class ServiceInfo extends React.Component {
         transitionName="dropdown-menu" />
     ];
 
-    let webURL = service.getWebURL();
+    const webURL = service.getWebURL();
     if (webURL) {
       actionButtons.unshift(
         <a className="button button-primary flush-bottom"
@@ -88,20 +88,20 @@ class ServiceInfo extends React.Component {
   getSubHeader(service) {
     const serviceHealth = service.getHealth();
     const serviceStatus = service.getStatus();
-    let tasksSummary = service.getTasksSummary();
+    const tasksSummary = service.getTasksSummary();
     const serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     const runningTasksCount = tasksSummary.tasksRunning;
-    let instancesCount = service.getInstancesCount();
+    const instancesCount = service.getInstancesCount();
     const runningTasksSubHeader = StringUtil.pluralize('Instance', runningTasksCount);
     let overCapacity = '';
-    let isDeploying = serviceStatus === 'Deploying';
+    const isDeploying = serviceStatus === 'Deploying';
 
     if (tasksSummary.tasksOverCapacity > 0) {
       overCapacity =
           ` (over capacity by ${tasksSummary.tasksOverCapacity} tasks)`;
     }
 
-    let subHeaderItems = [
+    const subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
         label: serviceStatus,

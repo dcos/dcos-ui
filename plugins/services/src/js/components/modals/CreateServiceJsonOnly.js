@@ -112,7 +112,7 @@ class CreateServiceJsonOnly extends React.Component {
   }
 
   render() {
-    let {appConfig, errorList} = this.state;
+    const {appConfig, errorList} = this.state;
 
     return (
       <div className="create-service-modal-json-only container container-wide">

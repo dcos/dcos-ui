@@ -30,7 +30,7 @@ class FilterByTaskState extends React.Component {
     }].concat(this.props.statuses);
 
     return items.map(function (status) {
-      let selectedHtml = this.getItemHtml(status);
+      const selectedHtml = this.getItemHtml(status);
       const dropdownHtml = (<a>{selectedHtml}</a>);
 
       const item = {
@@ -54,7 +54,7 @@ class FilterByTaskState extends React.Component {
   }
 
   render() {
-    let {className, currentStatus, dropdownMenuClassName} = this.props;
+    const {className, currentStatus, dropdownMenuClassName} = this.props;
 
     return (
       <Dropdown

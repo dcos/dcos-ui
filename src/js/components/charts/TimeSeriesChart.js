@@ -130,11 +130,11 @@ var TimeSeriesChart = React.createClass({
     const transitionTime = this.getTransitionTime(data);
     const nextY = this.getNextXPosition(data, xTimeScale, transitionTime);
     const props = this.props;
-    let width = props.width / data.length;
+    const width = props.width / data.length;
 
     return data.map(function (obj) {
       if (obj[props.y] == null) {
-        let x = xTimeScale(obj.date - props.refreshRate);
+        const x = xTimeScale(obj.date - props.refreshRate);
         const uniqueMaskID = Util.uniqueID('singleMask');
 
         return (

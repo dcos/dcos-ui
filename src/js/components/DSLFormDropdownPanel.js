@@ -62,10 +62,10 @@ class DSLFormDropdownPanel extends React.Component {
    * @override
    */
   render() {
-    let {expression} = this.state;
-    let {sections, isVisible} = this.props;
+    const {expression} = this.state;
+    const {sections, isVisible} = this.props;
 
-    let dropdownPanelClasses = classNames({
+    const dropdownPanelClasses = classNames({
       'dsl-dropdown-panel dropdown-panel dropdown-panel-animated panel': true,
       'is-visible': isVisible
     });

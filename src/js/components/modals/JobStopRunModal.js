@@ -90,7 +90,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {onClose, open, selectedItems} = this.props;
+    const {onClose, open, selectedItems} = this.props;
     let rightButtonText = 'Stop Job Run';
     const selectedItemsLength = selectedItems.length;
 

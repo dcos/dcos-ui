@@ -105,7 +105,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getContent() {
-    let {errorCount, searchString} = this.state;
+    const {errorCount, searchString} = this.state;
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
@@ -115,7 +115,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     }
 
     const overlayList = VirtualNetworksStore.getOverlays();
-    let filteredOverlayList = this.getFilteredOverlayList(overlayList, searchString);
+    const filteredOverlayList = this.getFilteredOverlayList(overlayList, searchString);
     if (filteredOverlayList.length === 0) {
       return this.getEmptyScreen();
     }

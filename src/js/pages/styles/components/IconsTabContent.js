@@ -9,7 +9,7 @@ class IconsTabContent extends React.Component {
 
   render() {
 
-    let codeBlockIcons =
+    const codeBlockIcons =
 `<i class='icon icon-medium'>
 </i>`;
 

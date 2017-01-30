@@ -62,7 +62,7 @@ const TabsMixin = {
    */
   tabs_getUnroutedItem(props = {}, tab) {
     const attributes = Util.omit(props, ['classNames']);
-    let tabLabelClass = classNames('menu-tabbed-item-label', props.classNames);
+    const tabLabelClass = classNames('menu-tabbed-item-label', props.classNames);
 
     return (
       <span
@@ -101,14 +101,14 @@ const TabsMixin = {
   tabs_getRoutedItem(props = {}, tab) {
     const attributes = Util.omit(props, ['classNames']);
     let badge = null;
-    let notificationCount = NotificationStore.getNotificationCount(tab);
+    const notificationCount = NotificationStore.getNotificationCount(tab);
     const hasNotification = notificationCount > 0;
-    let tabLabelClasses = classNames(
+    const tabLabelClasses = classNames(
       'menu-tabbed-item-label',
       {'badge-container': hasNotification},
       props.classNames
     );
-    let textClasses = classNames(
+    const textClasses = classNames(
       'menu-tabbed-item-label-text',
       {'badge-container-text': hasNotification}
     );

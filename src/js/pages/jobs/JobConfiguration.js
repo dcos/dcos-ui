@@ -17,7 +17,7 @@ class JobConfiguration extends React.Component {
   }
 
   getGeneralSection(job) {
-    let headerValueMapping = {
+    const headerValueMapping = {
       'ID': job.getId(),
       'Description': job.getDescription(),
       'CPUs': job.getCpus(),
@@ -39,7 +39,7 @@ class JobConfiguration extends React.Component {
       return null;
     }
 
-    let headerValueMapping = {
+    const headerValueMapping = {
       'ID': schedule.id,
       'Enabled': schedule.enabled,
       'CRON Schedule': schedule.cron,
@@ -60,7 +60,7 @@ class JobConfiguration extends React.Component {
       return null;
     }
 
-    let headerValueMapping = {
+    const headerValueMapping = {
       'Image': docker.image
     };
 

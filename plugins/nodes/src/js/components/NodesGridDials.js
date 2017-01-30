@@ -119,7 +119,7 @@ var NodesGridDials = React.createClass({
 
   getDialConfig(node) {
     const {selectedResource} = this.props;
-    let resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
+    const resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
     if (node.isActive()) {
       var sliceData = this.getActiveSliceData(node);

@@ -92,7 +92,7 @@ class UsersPage extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let items = UsersStore.getUsers().getItems();
+    const items = UsersStore.getUsers().getItems();
 
     return Hooks.applyFilter('usersPageContent',
       <OrganizationTab

@@ -103,7 +103,7 @@ class PackagesTable extends React.Component {
 
   getHeadline(prop, cosmosPackage) {
     const packageImages = cosmosPackage.getIcons();
-    let name = cosmosPackage.getAppIdName();
+    const name = cosmosPackage.getAppIdName();
 
     return (
       <div className="package-table-heading table-cell-emphasized flex-box flex-box-align-vertical-center table-cell-flex-box">
@@ -130,8 +130,8 @@ class PackagesTable extends React.Component {
   }
 
   render() {
-    let {packageToUninstall} = this.state;
-    let isUninstallModalOpen = !!packageToUninstall;
+    const {packageToUninstall} = this.state;
+    const isUninstallModalOpen = !!packageToUninstall;
 
     return (
       <div>

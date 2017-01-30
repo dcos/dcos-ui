@@ -9,7 +9,7 @@ const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 // The 'marathon-' prefix is used for task launched because of an AppDefinition.
 //
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
-const POD_TASK_REGEX = /^(.+)\.instance-([^_\.]+)[\._]([^_\.]+)$/;
+const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {

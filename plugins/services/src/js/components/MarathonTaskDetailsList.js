@@ -40,7 +40,7 @@ class MarathonTaskDetailsList extends React.Component {
       return null;
     }
 
-    let headerValueMapping = {
+    const headerValueMapping = {
       'Host': task.host,
       'Ports': this.getTaskPorts(task),
       'Status': this.getTaskStatus(task),

@@ -190,7 +190,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
-    let deleteButton = (
+    const deleteButton = (
       <div key={`${prop}${id}-remove`} className="form-row-element form-row-remove-button form-row-element-mixed-label-presence">
         <button
           className="button button-narrow button-link"
@@ -294,7 +294,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       subtitle = <p>{description}</p>;
     }
 
-    let subheaderClasses = classNames({
+    const subheaderClasses = classNames({
       h3: levelsDeep === 0,
       h4: levelsDeep === 1,
       h5: levelsDeep >= 2
@@ -317,7 +317,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getLabel(description, label, fieldType) {
-    let tooltip = (
+    const tooltip = (
       <Tooltip content={description} wrapperClassName="tooltip-wrapper
         media-object-item" wrapText={true} maxWidth={300}
         interactive={true}
@@ -354,7 +354,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getFormHeader() {
-    let {packageIcon, packageName, packageVersion} = this.props;
+    const {packageIcon, packageName, packageVersion} = this.props;
 
     if (!packageName || !packageIcon) {
       return null;

@@ -48,7 +48,7 @@ class NodeDetailTaskTab extends React.Component {
 
   render() {
     const {nodeID} = this.props.params;
-    let tasks = MesosStateStore.getTasksFromNodeID(nodeID);
+    const tasks = MesosStateStore.getTasksFromNodeID(nodeID);
 
     return (
       <TasksContainer

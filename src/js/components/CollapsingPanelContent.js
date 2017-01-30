@@ -3,7 +3,7 @@ import React from 'react';
 
 class CollapsingPanelContent extends React.Component {
   render() {
-    let classes = classNames(
+    const classes = classNames(
       'panel-cell panel-cell-content',
       this.props.className
     );

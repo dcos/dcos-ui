@@ -31,7 +31,7 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
   }
 
   render() {
-    let {unitID, nodeID} = this.props.params;
+    const {unitID, nodeID} = this.props.params;
 
     return (
       <Page>

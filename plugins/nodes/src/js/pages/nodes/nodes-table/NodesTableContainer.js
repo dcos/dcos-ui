@@ -57,7 +57,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   render() {
-    let {receivedNodeHealthResponse, filteredNodes} = this.state;
+    const {receivedNodeHealthResponse, filteredNodes} = this.state;
 
     return (
       <NodesTable

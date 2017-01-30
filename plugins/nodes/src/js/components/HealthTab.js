@@ -109,7 +109,7 @@ class HealthTab extends React.Component {
   }
 
   renderUnitHealthCheck(prop, unit) {
-    let healthCheckName = unit.getTitle();
+    const healthCheckName = unit.getTitle();
     const {nodeID} = this.props.params;
     const unitNodeID = this.props.node.get('hostname');
     const unitID = unit.get('id');
@@ -125,9 +125,9 @@ class HealthTab extends React.Component {
   }
 
   render() {
-    let {healthFilter, searchString} = this.state;
+    const {healthFilter, searchString} = this.state;
     const units = this.props.units;
-    let visibleData = this.getVisibleData(units, searchString, healthFilter);
+    const visibleData = this.getVisibleData(units, searchString, healthFilter);
 
     return (
       <div>

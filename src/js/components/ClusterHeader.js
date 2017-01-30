@@ -52,7 +52,7 @@ class ClusterHeader extends mixin(StoreMixin) {
 
   getHostName() {
     let flashButton = null;
-    let ip = this.getPublicIP();
+    const ip = this.getPublicIP();
 
     if (this.props.useClipboard) {
       flashButton = (

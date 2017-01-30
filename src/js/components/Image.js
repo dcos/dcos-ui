@@ -51,7 +51,7 @@ class Image extends React.Component {
 
   render() {
     const {props, state: {imageErrorCount}} = this;
-    let classes = classNames(
+    const classes = classNames(
       {'hidden': imageErrorCount > 1},
       props.className
     );

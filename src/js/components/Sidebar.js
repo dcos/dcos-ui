@@ -129,7 +129,7 @@ var Sidebar = React.createClass({
 
     return definition.map((group, index) => {
       let heading = null;
-      let menuItems = this.getNavigationGroup(group);
+      const menuItems = this.getNavigationGroup(group);
 
       if (menuItems == null) {
         return null;
@@ -161,11 +161,11 @@ var Sidebar = React.createClass({
     const filteredItems = group.children
      .filter((route) => menuItems.has(route.path));
 
-    let groupMenuItems = filteredItems.map((element, index) => {
+    const groupMenuItems = filteredItems.map((element, index) => {
       const {pathname} = this.props.location;
 
-      let hasChildren = element.children && element.children.length !== 0;
-      let isExpanded = this.state.expandedItems.includes(element.path);
+      const hasChildren = element.children && element.children.length !== 0;
+      const isExpanded = this.state.expandedItems.includes(element.path);
       const isParentActive = pathname.startsWith(element.path);
 
       let submenu;
@@ -190,7 +190,7 @@ var Sidebar = React.createClass({
         );
       }
 
-      let itemClassSet = classNames('sidebar-menu-item', {
+      const itemClassSet = classNames('sidebar-menu-item', {
         selected: isParentActive && !isChildActive,
         open: isExpanded
       });
@@ -225,11 +225,11 @@ var Sidebar = React.createClass({
     const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
-    let menuItems = filteredChildRoutes.reduce(
+    const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
         const isActive = pathname.startsWith(currentChild.path);
 
-        let menuItemClasses = classNames({selected: isActive});
+        const menuItemClasses = classNames({selected: isActive});
 
         // First matched active child wins,
         // ie in /path/child and /path/child-path without this conditional /path/child-path

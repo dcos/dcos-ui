@@ -15,7 +15,7 @@ class TabViewList extends React.Component {
   }
 
   render() {
-    let classes = classNames('menu-tabbed-view-container', this.props.classNames);
+    const classes = classNames('menu-tabbed-view-container', this.props.classNames);
 
     return (
       <div className={classes}>

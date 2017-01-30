@@ -37,13 +37,13 @@ var Panel = React.createClass({
 
   getNode(nodeName) {
     const {props} = this;
-    let node = props[nodeName];
+    const node = props[nodeName];
 
     if (!node) {
       return null;
     }
 
-    let classes = classNames(
+    const classes = classNames(
       defaultClasses[nodeName],
       props[nodeName + 'Class']
     );
@@ -57,8 +57,8 @@ var Panel = React.createClass({
 
   render() {
     const {props} = this;
-    let contentClasses = classNames(defaultClasses.content, props.contentClass);
-    let panelClasses = classNames(defaultClasses.panel, props.className);
+    const contentClasses = classNames(defaultClasses.content, props.contentClass);
+    const panelClasses = classNames(defaultClasses.panel, props.className);
 
     return (
       <div className={panelClasses} onClick={this.props.onClick}>

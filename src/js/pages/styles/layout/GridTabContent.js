@@ -6,7 +6,7 @@ class GridTabContent extends React.Component {
 
   render() {
 
-    let codeBlockGrid =
+    const codeBlockGrid =
 `<div class="row">
   <div class="column-*">
   </div>

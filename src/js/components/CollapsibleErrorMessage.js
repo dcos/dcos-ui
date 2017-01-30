@@ -107,7 +107,7 @@ class CollapsibleErrorMessage extends React.Component {
     const {details} = this.props;
 
     return details.map(function (message, i) {
-      let msg = message.toString();
+      const msg = message.toString();
 
       return <li key={i}>{msg}</li>;
     });
@@ -119,7 +119,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getFixedMessagePart() {
-    let {message} = this.props;
+    const {message} = this.props;
 
     // If not visible, just exit
     if (!message) {
@@ -181,7 +181,7 @@ class CollapsibleErrorMessage extends React.Component {
     }
 
     // Compile classes
-    let className = classNames(
+    const className = classNames(
       'collapsible-error-message',
       {'expanded': this.state.expanded},
       this.props.className

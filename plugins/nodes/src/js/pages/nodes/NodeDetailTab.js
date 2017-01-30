@@ -17,7 +17,7 @@ class NodeDetailTab extends React.Component {
   render() {
     const {node} = this.props;
 
-    let headerValueMapping = {
+    const headerValueMapping = {
       ID: node.id,
       Active: StringUtil.capitalize(node.active.toString().toLowerCase()),
       Registered: DateUtil.msToDateStr(

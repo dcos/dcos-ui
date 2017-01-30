@@ -178,7 +178,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   getRemoveModalContent() {
-    let {repositoryRemoveError, repositoryToRemove} = this.state;
+    const {repositoryRemoveError, repositoryToRemove} = this.state;
     let repositoryLabel = 'This repository';
     if (repositoryToRemove && repositoryToRemove.get('name')) {
       repositoryLabel = repositoryToRemove.get('name');
@@ -204,7 +204,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   render() {
     const {props, state} = this;
-    let heading = (
+    const heading = (
       <ModalHeading>
         Are you sure?
       </ModalHeading>

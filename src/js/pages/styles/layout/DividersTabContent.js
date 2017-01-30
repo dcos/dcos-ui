@@ -6,20 +6,20 @@ class DividersTabContent extends React.Component {
 
   render() {
 
-    let codeBlockDivider =
+    const codeBlockDivider =
 `<!-- Alternatively, use <hr> -->
 <div class="divider">
   …
 </div>`;
-    let codeBlockDividerInverse =
+    const codeBlockDividerInverse =
 `<div class="divider-inverse">
   …
 </div>`;
-    let codeBlockDividerLayoutModifier =
+    const codeBlockDividerLayoutModifier =
 `<div class="divider divider-short">
   …
 </div>`;
-    let codeBlockDividerDirectionModifier =
+    const codeBlockDividerDirectionModifier =
 `<div class="divider divider-short-top divider-taller-bottom">
   …
 </div>`;

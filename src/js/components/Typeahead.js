@@ -33,7 +33,7 @@ class Typeahead extends FilterInputText {
       selected = [];
     }
 
-    let classSet = classNames('typeahead', {
+    const classSet = classNames('typeahead', {
       'inverse': inverseStyle
     });
 

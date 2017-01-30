@@ -39,14 +39,14 @@ class TaskDetailsTab extends React.Component {
       return null;
     }
 
-    let headerValueMapping = {'Task ID': mesosTask.id};
+    const headerValueMapping = {'Task ID': mesosTask.id};
     const services = CompositeState.getServiceList();
     const service = services.filter({ids: [mesosTask.framework_id]}).last();
     if (service != null) {
       headerValueMapping['Service'] = `${service.name} (${service.id})`;
     }
 
-    let node = CompositeState.getNodesList()
+    const node = CompositeState.getNodesList()
       .filter({ids: [mesosTask.slave_id]}).last();
     if (node != null) {
       headerValueMapping['Node'] = `${node.getHostName()} (${node.getID()})`;
@@ -85,7 +85,7 @@ class TaskDetailsTab extends React.Component {
       return null;
     }
 
-    let labelMapping = {};
+    const labelMapping = {};
     if (mesosTask.labels) {
       mesosTask.labels.forEach(function (label) {
         labelMapping[label.key] = label.value;

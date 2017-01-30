@@ -42,8 +42,8 @@ class UnitHealthDropdown extends React.Component {
   }
 
   render() {
-    let {className, dropdownMenuClassName, initialID, onHealthSelection} = this.props;
-    let {dropdownItems} = this.state;
+    const {className, dropdownMenuClassName, initialID, onHealthSelection} = this.props;
+    const {dropdownItems} = this.state;
 
     return (
       <Dropdown

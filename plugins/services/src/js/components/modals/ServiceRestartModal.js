@@ -90,7 +90,7 @@ class ServiceRestartModal extends React.Component {
       restartService
     } = this.props;
 
-    let heading = (
+    const heading = (
       <ModalHeading>
         Restart Service
       </ModalHeading>

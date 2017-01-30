@@ -6,7 +6,7 @@ class ButtonCollectionsTabContent extends React.Component {
 
   render() {
 
-    let codeBlockButtonCollection =
+    const codeBlockButtonCollection =
 `<!-- Button: Collection -->
 <div class="button-collection">
   <button class="button button-primary">
@@ -16,7 +16,7 @@ class ButtonCollectionsTabContent extends React.Component {
     Button
   </button>
 </div>`;
-    let codeBlockButtonCollectionVerticalAlignment =
+    const codeBlockButtonCollectionVerticalAlignment =
 `<!-- Button Collection: Align Top-->
 <div class="button-collection button-collection-align-vertical-top">
   …

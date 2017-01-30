@@ -6,14 +6,14 @@ class ModalsTabContent extends React.Component {
 
   render() {
 
-    let codeBlockModalExample =
+    const codeBlockModalExample =
 `<button className="button" data-toggle="modal" data-target="#myModal">Show Modal</button>
 
 <div className="modal fade" id="myModal">
   …
 </div>`;
 
-    let codeBlockModalStructure =
+    const codeBlockModalStructure =
 `<div className="modal">
   <div className="modal-header">
     …
@@ -26,12 +26,12 @@ class ModalsTabContent extends React.Component {
   </div>
 </div>`;
 
-    let codeBlockModalSizesSmall =
+    const codeBlockModalSizesSmall =
 `<div className="modal modal-small modal-inline">
   …
 </div>`;
 
-    let codeBlockModalSizesLarge =
+    const codeBlockModalSizesLarge =
 `<div className="modal modal-large modal-inline">
   …
 </div>`;

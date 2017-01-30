@@ -6,7 +6,7 @@ class ButtonGroupsTabContent extends React.Component {
 
   render() {
 
-    let codeBlockButtonGroup =
+    const codeBlockButtonGroup =
 `<div class="button-group" role="group">
   <button type="button" class="button button-default">
     Left
@@ -18,7 +18,7 @@ class ButtonGroupsTabContent extends React.Component {
     Right
   </button>
 </div>`;
-    let codeBlockButtonGroupOutline =
+    const codeBlockButtonGroupOutline =
 `<div class="button-group" role="group">
   <button type="button" class="button button-outline active">
     Left
@@ -30,7 +30,7 @@ class ButtonGroupsTabContent extends React.Component {
     Right
   </button>
 </div>`;
-    let codeBlockButtonGroupRounded =
+    const codeBlockButtonGroupRounded =
 `<div class="button-group" role="group">
   <button type="button" class="button button-rounded active">
     Left
@@ -42,7 +42,7 @@ class ButtonGroupsTabContent extends React.Component {
     Right
   </button>
 </div>`;
-    let codeBlockButtonGroupCombined =
+    const codeBlockButtonGroupCombined =
 `<div class="button-group" role="group">
   <button type="button" class="button button-outline button-rounded active">
     Left
@@ -54,7 +54,7 @@ class ButtonGroupsTabContent extends React.Component {
     Right
   </button>
 </div>`;
-    let codeBlockButtonGroupInverse =
+    const codeBlockButtonGroupInverse =
 `<div class="button-group" role="group">
   <button type="button" class="button button-outline button-inverse">
     Left

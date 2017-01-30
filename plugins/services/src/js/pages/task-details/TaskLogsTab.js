@@ -215,9 +215,9 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
   getLogSelectionAsButtons() {
     const {streams, selectedStream} = this.state;
-    let buttons = streams.map((name, index) => {
+    const buttons = streams.map((name, index) => {
 
-      let classes = classNames({
+      const classes = classNames({
         'button button-stroke': true,
         'active': name === selectedStream
       });
@@ -245,7 +245,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
   getDropdownItems() {
     return this.state.streams.map(function (name) {
-      let selectedHtml = <span className="flush dropdown-header">{name}</span>;
+      const selectedHtml = <span className="flush dropdown-header">{name}</span>;
       const dropdownHtml = <a>{selectedHtml}</a>;
 
       return {
@@ -259,7 +259,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   getActions() {
-    let {streams, selectedStream} = this.state;
+    const {streams, selectedStream} = this.state;
     if (streams.length < 3) {
       return this.getLogSelectionAsButtons();
     }
@@ -304,7 +304,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   getLogView() {
-    let {
+    const {
       hasError,
       direction,
       fullLog,
@@ -333,7 +333,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let actions = [this.getActions(), this.getDownloadButton()];
+    const actions = [this.getActions(), this.getDownloadButton()];
 
     return (
       <SearchLog actions={actions}>

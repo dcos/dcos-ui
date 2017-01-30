@@ -15,7 +15,7 @@ class CollapsingPanelHeader extends React.Component {
   }
 
   render() {
-    let classes = classNames(
+    const classes = classNames(
       'panel-cell panel-cell-header panel-cell-short clickable',
       this.props.className
     );

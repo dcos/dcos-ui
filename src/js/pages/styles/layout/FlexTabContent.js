@@ -6,27 +6,27 @@ class FlexTabContent extends React.Component {
 
   render() {
 
-    let codeBlockFlexOptionsDirection =
+    const codeBlockFlexOptionsDirection =
 `<div class="flex flex-direction-left-to-right">
   …
 </div>`;
-    let codeBlockFlexOptionsWrapItems =
+    const codeBlockFlexOptionsWrapItems =
 `<div class="flex flex-wrap-items">
   …
 </div>`;
-    let codeBlockFlexOptionsAlignItems =
+    const codeBlockFlexOptionsAlignItems =
 `<div class="flex flex-align-items-end">
   …
 </div>`;
-    let codeBlockFlexOptionsJustifyItems =
+    const codeBlockFlexOptionsJustifyItems =
 `<div class="flex flex-justify-items-space-around">
   …
 </div>`;
-    let codeBlockFlexOptionsAlignContent =
+    const codeBlockFlexOptionsAlignContent =
 `<div class="flex flex-wrap-items flex-align-content-space-between">
   …
 </div>`;
-    let codeBlockFlexItemAlign =
+    const codeBlockFlexItemAlign =
 `<div class="flex flex-align-items-end">
   …
   <div class="flex-item-align-start">
@@ -34,7 +34,7 @@ class FlexTabContent extends React.Component {
   </div>
   …
 </div>`;
-    let codeBlockFlexItemOrder =
+    const codeBlockFlexItemOrder =
 `<div class="flex flex-direction-left-to-right">
   <div class="flex-item-order-3">
     1
@@ -49,7 +49,7 @@ class FlexTabContent extends React.Component {
     4
   </div>
 </div>`;
-    let codeBlockFlexItemGrow =
+    const codeBlockFlexItemGrow =
 `<div class="flex">
   <div class="flex-item-grow-2">
     1
@@ -58,7 +58,7 @@ class FlexTabContent extends React.Component {
     2
   </div>
 </div>`;
-    let codeBlockFlexItemShrink =
+    const codeBlockFlexItemShrink =
 `<div class="flex">
   <div class="flex-item-shrink-2" style="width: 1000px;">
     1
@@ -67,7 +67,7 @@ class FlexTabContent extends React.Component {
     2
   </div>
 </div>`;
-    let codeBlockFlexItemBasis =
+    const codeBlockFlexItemBasis =
 `<div class="flex flex-direction-left-to-right">
   <div style="flex-basis: 100px;">
     1
@@ -82,7 +82,7 @@ class FlexTabContent extends React.Component {
     4
   </div>
 </div>`;
-    let codeBlockFlexResponsive =
+    const codeBlockFlexResponsive =
 `<div class="flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-medium flex-align-items-stretch">
   <div class="flex-item-grow-3-screen-medium flex-item-order-3-screen-medium">
     1

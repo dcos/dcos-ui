@@ -49,7 +49,7 @@ class FilterBar extends React.Component {
   }
 
   render() {
-    let {className, rightAlignLastNChildren} = this.props;
+    const {className, rightAlignLastNChildren} = this.props;
     const filterItems = React.Children.toArray(this.props.children);
 
     return (

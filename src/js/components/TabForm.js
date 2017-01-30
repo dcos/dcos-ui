@@ -137,8 +137,8 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   getSideContent(multipleDefinition) {
-    let {currentTab} = this.state;
-    let classes = classNames(
+    const {currentTab} = this.state;
+    const classes = classNames(
       'multiple-form-left-column',
       this.props.navigationContentClassNames
     );
@@ -156,23 +156,23 @@ class TabForm extends mixin(InternalStorageMixin) {
   getFormPanels() {
     const currentTab = this.state.currentTab;
     const multipleDefinition = this.props.definition;
-    let multipleDefinitionClasses = classNames(
+    const multipleDefinitionClasses = classNames(
       'multiple-form-right-column',
       this.props.formContentClassNames
     );
     const formRowClass = this.props.formRowClass;
 
-    let panels = Object.keys(multipleDefinition).map((formKey, i) => {
-      let formPanelClassSet = classNames('form-panel', {
+    const panels = Object.keys(multipleDefinition).map((formKey, i) => {
+      const formPanelClassSet = classNames('form-panel', {
         'hidden': currentTab !== formKey
       });
 
       const {definition, description, title} = multipleDefinition[formKey];
-      let formDefinition = [{
+      const formDefinition = [{
         render: this.getHeader.bind(this, title, description)
       }].concat(definition);
 
-      let formRowClassSet = classNames('row', formRowClass, formKey);
+      const formRowClassSet = classNames('row', formRowClass, formKey);
 
       return (
         <div key={i} className={formPanelClassSet}>
@@ -210,7 +210,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   render() {
-    let classNameSet = classNames('multiple-form', this.props.className);
+    const classNameSet = classNames('multiple-form', this.props.className);
 
     return (
       <div className={classNameSet}>

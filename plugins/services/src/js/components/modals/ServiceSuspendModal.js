@@ -106,7 +106,7 @@ class ServiceSuspendModal extends React.Component {
       serviceName = service.getId();
     }
 
-    let heading = (
+    const heading = (
       <ModalHeading>
         Suspend {itemText}
       </ModalHeading>

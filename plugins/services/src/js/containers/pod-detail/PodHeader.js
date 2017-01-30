@@ -91,13 +91,13 @@ class PodHeader extends React.Component {
   getSubHeader(pod) {
     const serviceHealth = pod.getHealth();
     const serviceStatus = pod.getServiceStatus();
-    let tasksSummary = pod.getTasksSummary();
+    const tasksSummary = pod.getTasksSummary();
     const serviceStatusClassSet = StatusMapping[serviceStatus.displayName] || '';
     const runningTasksCount = tasksSummary.tasksRunning;
-    let instancesCount = pod.getInstancesCount();
+    const instancesCount = pod.getInstancesCount();
     const runningTasksSubHeader = StringUtil.pluralize('Instance',
       runningTasksCount);
-    let subHeaderItems = [
+    const subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
         label: serviceStatus.displayName,

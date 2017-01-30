@@ -88,7 +88,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   }
 
   getButtonContent(filterName, count) {
-    let dotClassSet = classNames({
+    const dotClassSet = classNames({
       'dot': filterName !== 'all',
       'danger': filterName === 'unhealthy',
       'success': filterName === 'healthy'
@@ -158,9 +158,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   render() {
     const data = UnitHealthStore.getUnits();
     const dataItems = data.getItems();
-    let {healthFilter, searchString} = this.state;
-    let visibleData = this.getVisibleData(data, searchString, healthFilter);
-    let dataHealth = dataItems.map(function (unit) {
+    const {healthFilter, searchString} = this.state;
+    const visibleData = this.getVisibleData(data, searchString, healthFilter);
+    const dataHealth = dataItems.map(function (unit) {
       return unit.getHealth();
     });
 

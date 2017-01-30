@@ -44,7 +44,7 @@ class CollapsingPanel extends React.Component {
   }
 
   render() {
-    let classes = classNames('panel panel-collapsing', this.props.className);
+    const classes = classNames('panel panel-collapsing', this.props.className);
 
     return (
       <div className={classes}>

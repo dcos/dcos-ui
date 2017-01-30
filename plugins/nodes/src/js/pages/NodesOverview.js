@@ -182,7 +182,7 @@ var NodesOverview = React.createClass({
   },
 
   getButtonContent(filterName, count) {
-    let dotClassSet = classNames({
+    const dotClassSet = classNames({
       'dot': filterName !== 'all',
       'danger': filterName === 'unhealthy',
       'success': filterName === 'healthy'
@@ -234,16 +234,16 @@ var NodesOverview = React.createClass({
   },
 
   getHostsPageContent() {
-    let {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
+    const {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
     var data = this.internalStorage_get();
     const nodes = data.nodes || [];
-    let nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
-    let nodesHealth = CompositeState.getNodesList().getItems().map(
+    const nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
+    const nodesHealth = CompositeState.getNodesList().getItems().map(
       function (node) {
         return node.getHealth();
       }
     );
-    let isFiltering = byServiceFilter !== null ||
+    const isFiltering = byServiceFilter !== null ||
       healthFilter !== 'all' ||
       searchString !== '';
 

@@ -82,7 +82,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   getContainerSection() {
-    let {data = {}, errors, service} = this.props;
+    const {data = {}, errors, service} = this.props;
 
     if (!(service instanceof PodSpec)) {
       return (
@@ -296,8 +296,8 @@ class GeneralServiceFormSection extends Component {
       return null;
     }
 
-    let typeErrors = findNestedPropertyInObject(errors, 'container.type');
-    let runtimeTooltipContent = (
+    const typeErrors = findNestedPropertyInObject(errors, 'container.type');
+    const runtimeTooltipContent = (
       <span>
         {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
         <a href={MetadataStore.buildDocsURI('/usage/containerizers/')}

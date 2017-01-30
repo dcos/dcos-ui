@@ -21,7 +21,7 @@ class TaskFileBrowser extends React.Component {
   }
 
   render() {
-    let {directory, onOpenLogClick, task} = this.props;
+    const {directory, onOpenLogClick, task} = this.props;
 
     return (
       <TaskDirectoryTable

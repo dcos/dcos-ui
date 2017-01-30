@@ -8,7 +8,7 @@ class VirtualNetworkDetailsTab extends React.Component {
   render() {
     const {overlay} = this.props;
 
-    let details = {
+    const details = {
       Name: overlay.getName(),
       'IP Subnet': overlay.getSubnet()
     };

@@ -153,7 +153,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   getContent() {
-    let {
+    const {
       healthFilter,
       searchString,
       hasError,

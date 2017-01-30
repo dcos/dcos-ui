@@ -26,7 +26,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
   render() {
     const {onEditClick} = this.props;
-    let constraints = findNestedPropertyInObject(
+    const constraints = findNestedPropertyInObject(
       this.props.appConfig,
       'scheduling.placement.constraints'
     );

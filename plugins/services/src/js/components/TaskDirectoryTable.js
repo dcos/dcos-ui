@@ -24,7 +24,7 @@ class TaskDirectoryTable extends React.Component {
     const {nodeID} = this.props;
     const filePath = directoryItem.get('path');
     let iconID = 'page';
-    let value = directoryItem.getName();
+    const value = directoryItem.getName();
 
     if (directoryItem.isDirectory()) {
       iconID = 'folder';
@@ -84,7 +84,7 @@ class TaskDirectoryTable extends React.Component {
   }
 
   renderDate(prop, directoryItem) {
-    let ms = directoryItem.get(prop) * 1000;
+    const ms = directoryItem.get(prop) * 1000;
 
     return (
       <TimeAgo time={ms} autoUpdate={false} />

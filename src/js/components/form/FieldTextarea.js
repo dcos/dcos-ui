@@ -5,7 +5,7 @@ import {omit} from '../../utils/Util';
 
 const FieldTextarea = (props) => {
   const {className} = props;
-  let classes = classNames('form-control', className);
+  const classes = classNames('form-control', className);
 
   return (
     <textarea className={classes} {...omit(props, ['className'])} />

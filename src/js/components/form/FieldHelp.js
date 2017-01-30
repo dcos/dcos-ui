@@ -5,7 +5,7 @@ import {omit} from '../../utils/Util';
 
 const FieldHelp = (props) => {
   const {className, textTransform} = props;
-  let classes = classNames(
+  const classes = classNames(
     'form-control-feedback',
     className,
     {

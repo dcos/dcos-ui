@@ -73,7 +73,7 @@ const ServiceList = React.createClass({
         healthLabel = <Loader size="small" type="ballBeat" />;
       }
 
-      let classSet = classNames('tooltip-wrapper', state.classNames);
+      const classSet = classNames('tooltip-wrapper', state.classNames);
 
       return {
         content: [

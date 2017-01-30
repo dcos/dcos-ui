@@ -36,7 +36,7 @@ class SideTabs extends React.Component {
     const {selectedTab, tabs} = this.props;
 
     return tabs.map((tab, index) => {
-      let {title, selectValue, definition} = tab;
+      const {title, selectValue, definition} = tab;
 
       // Check if at least one field has errors
       const hasErrors = definition && definition.reduce(function (lastErrors, field) {
@@ -44,7 +44,7 @@ class SideTabs extends React.Component {
       }, false);
 
       // Prepare classes
-      let classes = classNames('multiple-form-modal-sidebar-menu-item clickable visible-block', {
+      const classes = classNames('multiple-form-modal-sidebar-menu-item clickable visible-block', {
         'selected': selectValue === selectedTab || title === selectedTab,
         'has-errors': hasErrors
       });
@@ -63,11 +63,11 @@ class SideTabs extends React.Component {
   render() {
     const {props: {className, selectedTab, tabs}, state: {dropdownOpen}} = this;
 
-    let classes = classNames('list-unstyled multiple-form-modal-sidebar-menu', {
+    const classes = classNames('list-unstyled multiple-form-modal-sidebar-menu', {
       'is-hidden': !dropdownOpen
     });
 
-    let caretClasses = classNames('caret caret--desc caret--visible', {
+    const caretClasses = classNames('caret caret--desc caret--visible', {
       'dropup': dropdownOpen
     });
 

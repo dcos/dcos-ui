@@ -56,8 +56,8 @@ class ImageViewer extends React.Component {
   }
 
   render() {
-    let {images} = this.props;
-    let {selectedImage} = this.state;
+    const {images} = this.props;
+    const {selectedImage} = this.state;
 
     if (!images || !images.length) {
       return null;

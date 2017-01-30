@@ -454,8 +454,8 @@ class JSONEditor extends React.Component {
    * @override
    */
   render() {
-    let {width, height, editorProps} = this.props;
-    let {initialText} = this.state;
+    const {width, height, editorProps} = this.props;
+    const {initialText} = this.state;
 
     const omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
 

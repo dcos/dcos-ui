@@ -154,7 +154,7 @@ class TasksContainer extends React.Component {
   }
 
   getModals() {
-    let modalProps = Object.assign({}, this.state.modal);
+    const modalProps = Object.assign({}, this.state.modal);
 
     return (
       <TaskModals

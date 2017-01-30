@@ -98,7 +98,7 @@ const ResourceBarChart = React.createClass({
 
   getHeadline(resource) {
     const label = ResourcesUtil.getResourceLabel(resource);
-    let headline = `${label} Allocation Rate`;
+    const headline = `${label} Allocation Rate`;
 
     return (
       <div>

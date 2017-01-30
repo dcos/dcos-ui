@@ -3,8 +3,8 @@ import React from 'react';
 
 class FullScreenModalHeaderTitle extends React.Component {
   render() {
-    let {children, className} = this.props;
-    let classes = classNames(
+    const {children, className} = this.props;
+    const classes = classNames(
       'modal-full-screen-header-title',
       className
     );

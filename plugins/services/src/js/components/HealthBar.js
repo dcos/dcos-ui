@@ -24,7 +24,7 @@ class HealthBar extends React.Component {
     }).map(function (task, index) {
       const percentage = parseInt(tasksSummary[task] / instancesCount * 100, 10);
 
-      let classSet = classNames(HealthBarStates[task].className, 'dot icon');
+      const classSet = classNames(HealthBarStates[task].className, 'dot icon');
 
       return (
         <div key={index} className="tooltip-line-item">

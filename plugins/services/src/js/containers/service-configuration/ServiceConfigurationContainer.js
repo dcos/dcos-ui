@@ -22,7 +22,7 @@ class ServiceConfigurationContainer extends React.Component {
   }
 
   render() {
-    let {actions, service} = this.props;
+    const {actions, service} = this.props;
 
     // Wait till we've loaded the versions
     if (!service.getVersions().size) {

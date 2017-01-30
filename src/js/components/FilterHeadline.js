@@ -30,22 +30,22 @@ class FilterHeadline extends React.Component {
       (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
-    let filteredClassSet = classNames('flush', {
+    const filteredClassSet = classNames('flush', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let unfilteredClassSet = classNames('flush', {
+    const unfilteredClassSet = classNames('flush', {
       'inverse': inverseStyle,
       'hidden': !hideFilteredClasses
     });
 
-    let anchorClassSet = classNames('clickable flush-top', {
+    const anchorClassSet = classNames('clickable flush-top', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let listClassSet = classNames('filter-headline list list-unstyled list-inline h4 flush-left flush-top', {
+    const listClassSet = classNames('filter-headline list list-unstyled list-inline h4 flush-left flush-top', {
       'inverse': inverseStyle
     }, className);
 

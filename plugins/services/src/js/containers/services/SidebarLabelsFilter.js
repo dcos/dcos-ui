@@ -67,7 +67,7 @@ class SidebarLabelsFilters extends React.Component {
   getLabelsDropdown() {
     const {state} = this;
     const availableLabels = state.availableLabels.map(function (label, i) {
-      let labelText = `${label.key} : ${label.value}`;
+      const labelText = `${label.key} : ${label.value}`;
 
       return Object.assign({}, label, {
         id: `filter-label-${i}`,
@@ -82,7 +82,7 @@ class SidebarLabelsFilters extends React.Component {
       });
     });
 
-    let labelOptions = [{
+    const labelOptions = [{
       className: 'hidden',
       id: '0',
       html: (
@@ -127,8 +127,8 @@ class SidebarLabelsFilters extends React.Component {
       'text-muted clickable text-align-center remove-filter'
     );
 
-    let labelNodes = selectedLabels.map(({key, value}, i) => {
-      let labelText = `${key} : ${value}`;
+    const labelNodes = selectedLabels.map(({key, value}, i) => {
+      const labelText = `${key} : ${value}`;
 
       return (
         <li className={labelClassName} key={i} title={labelText}>

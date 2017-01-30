@@ -80,8 +80,8 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   getContent() {
     const {errors} = this.state;
     const lastErrorIndex = errors.length - 1;
-    let errorMessages = errors.map(function (error, index) {
-      let errorMessageClass = classNames('text-align-center', {
+    const errorMessages = errors.map(function (error, index) {
+      const errorMessageClass = classNames('text-align-center', {
         // Last error message doesn't have margin bottom.
         'flush-bottom': index === lastErrorIndex
       });
@@ -101,7 +101,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let header = (
+    const header = (
       <ModalHeading level={5}>
         An error has occurred
       </ModalHeading>

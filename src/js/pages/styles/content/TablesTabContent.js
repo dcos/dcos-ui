@@ -6,7 +6,7 @@ class TablesTabContent extends React.Component {
 
   render() {
 
-    let codeBlockTable =
+    const codeBlockTable =
 `<table class="table">
 
   <!--Table Head-->
@@ -33,27 +33,27 @@ class TablesTabContent extends React.Component {
   </tbody>
 
 </table>`;
-    let codeBlockTableHoverRows =
+    const codeBlockTableHoverRows =
 `<table class="table table-hover">
   …
 </table>`;
-    let codeBlockTableBorderless =
+    const codeBlockTableBorderless =
 `<table class="table table-borderless-outer table-borderless-inner-columns">
   …
 </table>`;
-    let codeBlockTableConditionalRowStates =
+    const codeBlockTableConditionalRowStates =
 `<table class="table table-hover">
   …
 </table>`;
-    let codeBlockTableInverse =
+    const codeBlockTableInverse =
 `<table class="table table-inverse table-borderless-outer table-borderless-inner-columns">
   …
 </table>`;
-    let codeBlockTableSizesSmall =
+    const codeBlockTableSizesSmall =
 `<table class="table table-small">
   …
 </table>`;
-    let codeBlockTableSizesLarge =
+    const codeBlockTableSizesLarge =
 `<table class="table table-large">
   …
 </table>`;

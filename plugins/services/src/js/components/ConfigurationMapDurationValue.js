@@ -18,7 +18,7 @@ const MULTIPLICANTS = {
  */
 class ConfigurationMapDurationValue extends React.Component {
   render() {
-    let {defaultValue, multiplicants, units, value} = this.props;
+    const {defaultValue, multiplicants, units, value} = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {

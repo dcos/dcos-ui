@@ -153,7 +153,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       title = taskID;
     }
 
-    let classes = classNames({
+    const classes = classNames({
       'table-cell-link-primary': hierarchy.primary,
       'table-cell-link-secondary': hierarchy.secondary
     });
@@ -263,7 +263,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {errorMessage, searchString} = this.state;
+    const {errorMessage, searchString} = this.state;
     if (this.isLoading()) {
       return this.getLoadingScreen();
     }
@@ -280,7 +280,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     const tasks = MesosStateStore.getTasksFromVirtualNetworkName(
       overlay.getName()
     );
-    let filteredTasks = this.getFilteredTasks(tasks, searchString);
+    const filteredTasks = this.getFilteredTasks(tasks, searchString);
 
     return (
       <div>

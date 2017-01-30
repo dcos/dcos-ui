@@ -71,9 +71,9 @@ class PodDebugTabView extends React.Component {
 
     return history.reduce(function (acc, item, index) {
       let headline;
-      let startedAt = item.getStartedAt();
-      let terminatedAt = item.getTerminatedAt();
-      let terminationValueMapping = {
+      const startedAt = item.getStartedAt();
+      const terminatedAt = item.getTerminatedAt();
+      const terminationValueMapping = {
         'Instance ID': item.getId(),
         'Message': item.getMessage(),
         'Started At': (
@@ -116,14 +116,14 @@ class PodDebugTabView extends React.Component {
 
   getLastVersionChange() {
     const {pod} = this.props;
-    let lastUpdated = pod.getLastUpdated();
+    const lastUpdated = pod.getLastUpdated();
 
     // Note to reader: `getLastChanged` refers to the last changes that happened
     // to the pod (such as state changes or instance changes), but we are
     // interested in the last configuration update, for which we are using the
     // `getLastUpdate` function.
 
-    let LastVersionChangeValueMapping = {
+    const LastVersionChangeValueMapping = {
       'Configuration': (
         <span>
           {lastUpdated.toString()} (<TimeAgo time={lastUpdated} />)

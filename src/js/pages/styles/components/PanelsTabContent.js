@@ -6,12 +6,12 @@ class PanelsTabContent extends React.Component {
 
   render() {
 
-    let codeBlockPanelsOverview =
+    const codeBlockPanelsOverview =
 `<div class="panel">
 …
 </div>`;
 
-    let codeBlockPanelCells =
+    const codeBlockPanelCells =
 `<div class="panel">
   <div class="panel-cell">
     …
@@ -24,7 +24,7 @@ class PanelsTabContent extends React.Component {
   </div>
 </div>`;
 
-    let codeBlockPanelCellsSizeModifiers =
+    const codeBlockPanelCellsSizeModifiers =
 `<div class="panel">
   <div class="panel-cell">
     …
@@ -34,19 +34,19 @@ class PanelsTabContent extends React.Component {
   </div>
 </div>`;
 
-    let codeBlockPanelCellsSizeDirectionModifiers =
+    const codeBlockPanelCellsSizeDirectionModifiers =
 `<div class="panel">
   <div class="panel-cell panel-cell-taller-bottom panel-cell-wider-right">
     …
   </div>
 </div>`;
 
-    let codeBlockPanelStylingInverse =
+    const codeBlockPanelStylingInverse =
 `<div class="panel panel-inverse">
   …
 </div>`;
 
-    let codeBlockPanelCellStyling =
+    const codeBlockPanelCellStyling =
 `<div class="panel">
   <div class="panel-cell panel-cell-borderless panel-cell-short-bottom">
     …
