@@ -21,7 +21,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import PodSpec from '../../structs/PodSpec';
 
-const {DOCKER, NONE, MESOS} = ContainerConstants.type;
+const {DOCKER, NONE} = ContainerConstants.type;
 
 const containerSettings = {
   privileged: {
@@ -71,6 +71,13 @@ class ContainerServiceFormSection extends Component {
     }
 
     return appPaths[fieldName].replace('{basePath}', basePath);
+  }
+
+  isGpusDisabled() {
+    const {data, path} = this.props;
+    const typePath = this.getFieldPath(path, 'type');
+
+    return findNestedPropertyInObject(data, typePath) === DOCKER;
   }
 
   getArtifactsLabel() {
@@ -151,11 +158,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getGPUSLabel() {
-    const {data, path} = this.props;
-    const typePath = this.getFieldPath(path, 'type');
-    const disabled = findNestedPropertyInObject(data, typePath) !== MESOS;
-
-    if (disabled) {
+    if (this.isGpusDisabled()) {
       return (
         <FieldLabel className="text-no-transform">
           {'GPUs '}
@@ -184,11 +187,9 @@ class ContainerServiceFormSection extends Component {
       return null;
     }
 
-    const typePath = this.getFieldPath(path, 'type');
-    const containerType = findNestedPropertyInObject(data, typePath);
     const gpusPath = this.getFieldPath(path, 'gpus');
     const gpusErrors = findNestedPropertyInObject(errors, gpusPath);
-    const gpusDisabled = containerType !== MESOS;
+    const gpusDisabled = this.isGpusDisabled();
 
     return (
       <FormGroup
