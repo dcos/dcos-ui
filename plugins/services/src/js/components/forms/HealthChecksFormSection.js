@@ -18,6 +18,7 @@ import FormGroupHeadingContent from '../../../../../../src/js/components/form/Fo
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealthCheckUtil';
+import Icon from '../../../../../../src/js/components/Icon';
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
 const errorsLens = Objektiv.attr('healthChecks', []);
@@ -344,7 +345,9 @@ class HealthChecksFormSection extends Component {
       const tooltipContent = (
         <span>
           {'You have several protocol options. '}
-          <a href="https://mesosphere.github.io/marathon/docs/health-checks.html" target="_blank">
+          <a
+            href="https://mesosphere.github.io/marathon/docs/health-checks.html"
+            target="_blank">
             More Information
           </a>.
         </span>
@@ -379,7 +382,9 @@ class HealthChecksFormSection extends Component {
               </FieldLabel>
               <p>
                 {'Protocol of the requests to be performed. '}
-                <a href="https://mesosphere.github.io/marathon/docs/health-checks.html" target="_blank">
+                <a
+                  href="https://mesosphere.github.io/marathon/docs/health-checks.html"
+                  target="_blank">
                   More Information
                 </a>.
               </p>
@@ -408,7 +413,9 @@ class HealthChecksFormSection extends Component {
         {`A health check passes if (1) its HTTP response code is between 200
         and 399 inclusive, and (2) its response is received within the
         timeoutSeconds period. `}
-        <a href="https://mesosphere.github.io/marathon/docs/health-checks.html" target="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/health-checks.html"
+          target="_blank">
           More Information
         </a>.
       </span>

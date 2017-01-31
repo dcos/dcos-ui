@@ -196,7 +196,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         {`Load balance the service internally (layer 4), and create a service
         address. For external (layer 7) load balancing, create an external
         load balancer and attach this service. `}
-        <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/"
+        <a href="https://docs.mesosphere.com/usage/service-discovery/load-balancing-vips/"
           target="_blank">
           More Information
         </a>
@@ -519,7 +519,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
     const serviceEndpointsTooltipContent = (
-      <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+      <a href="https://docs.mesosphere.com/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
         target="_blank">
         More Information
       </a>

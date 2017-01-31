@@ -32,7 +32,7 @@ const FieldLabel = (props) => {
         interactive={true}
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
-        wrapperClassName={"tooltip-wrapper text-align-center inline-tooltip-wrapper"}
+        wrapperClassName="tooltip-wrapper text-align-center inline-tooltip-wrapper"
         wrapText={true}>
         <Icon color="grey" id="circle-question" size="mini" />
       </Tooltip>
