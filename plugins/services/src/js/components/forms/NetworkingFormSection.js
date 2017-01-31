@@ -3,21 +3,21 @@ import {Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
+import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import ContainerConstants from '../../constants/ContainerConstants';
+import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
-import HostUtil from '../../utils/HostUtil';
+import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
-import ContainerConstants from '../../constants/ContainerConstants';
+import ServiceConfigUtil from '../../utils/ServiceConfigUtil';
 import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
 const {BRIDGE, HOST, USER} = Networking.type;
@@ -125,16 +125,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     let address = vip;
     if (address == null) {
-      const hostname = HostUtil.stringToHostname(this.props.data.id);
       let port = '';
       if (hostPort != null && hostPort !== '') {
-        port = `:${hostPort}`;
+        port = hostPort;
       }
       if (containerPort != null && containerPort !== '') {
-        port = `:${containerPort}`;
+        port = containerPort;
       }
+      port = port || 0;
 
-      address = `${hostname}${Networking.L4LB_ADDRESS}${port}`;
+      address = `${this.props.data.id}:${port}`;
     }
 
     return [
@@ -163,7 +163,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </FormGroup>
         <FormGroup className="column-auto flush-left">
           <span>
-            {address}
+            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
           </span>
         </FormGroup>
       </FormRow>

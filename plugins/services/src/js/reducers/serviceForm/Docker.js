@@ -4,6 +4,7 @@ import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import ContainerConstants from '../../constants/ContainerConstants';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
+import VipLabelUtil from '../../utils/VipLabelUtil';
 
 const {DOCKER} = ContainerConstants.type;
 
@@ -73,7 +74,6 @@ module.exports = combineReducers({
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       let hostPort = Number(portDefinition.hostPort) || 0;
-      let labels = portDefinition.labels;
       let protocol = PROTOCOLS.filter(function (protocol) {
         return portDefinition.protocol[protocol];
       }).join(',');
@@ -84,22 +84,15 @@ module.exports = combineReducers({
         protocol = null;
       }
 
-      // Only set VIP labels if port mapping is load balanced
-      if (portDefinition.loadBalanced) {
-        let vipValue = portDefinition.vip;
-
-        if (vipValue == null) {
-          // Prefer container port
-          // because this is what a user would expect to get load balanced
-          const labelPort = containerPort || hostPort || 0;
-
-          vipValue = `${this.appState.id}:${labelPort}`;
-        }
-
-        labels = Object.assign({}, labels, {[vipLabel]: vipValue});
-      } else if (labels) {
-        delete labels[vipLabel];
-      }
+      // Prefer container port
+      // because this is what a user would expect to get load balanced
+      const vipPort = containerPort || hostPort || 0;
+      const labels = VipLabelUtil.generateVipLabel(
+        this.appState.id,
+        portDefinition,
+        vipLabel,
+        vipPort
+      );
 
       return {
         containerPort,

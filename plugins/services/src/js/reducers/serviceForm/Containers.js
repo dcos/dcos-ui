@@ -17,8 +17,9 @@ import {
   JSONSegmentParser as multiContainerHealthCheckParser,
   FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
-import Networking from '../../../../../../src/js/constants/Networking';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+import Networking from '../../../../../../src/js/constants/Networking';
+import VipLabelUtil from '../../utils/VipLabelUtil';
 
 const containerReducer = combineReducers({
   cpus: simpleReducer('resources.cpus'),
@@ -52,9 +53,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       containerPort,
       automaticPort,
       protocol,
-      vip,
-      labels,
-      loadBalanced
+      labels
     } = endpoint;
 
     if (automaticPort) {
@@ -62,15 +61,14 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     }
 
     if (networkType === Networking.type.CONTAINER) {
-      if (loadBalanced) {
-        if (vip == null) {
-          vip = `${appState.id}:${containerPort}`;
-        }
+      const vipLabel = `VIP_${index}`;
 
-        labels = Object.assign({}, labels, {
-          [`VIP_${index}`]: vip
-        });
-      }
+      labels = VipLabelUtil.generateVipLabel(
+        appState.id,
+        endpoint,
+        vipLabel,
+        containerPort
+      );
 
       return {
         name,
@@ -215,7 +213,7 @@ function containersParser(state) {
               'loadBalanced'
             ], true));
 
-            if (!vip.startsWith(state.id)) {
+            if (!vip.startsWith(`${state.id}:`)) {
               memo.push(new Transaction([
                 'containers', index, 'endpoints', endpointIndex,
                 'vip'

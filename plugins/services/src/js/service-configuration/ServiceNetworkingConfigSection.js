@@ -132,15 +132,12 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: '',
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  const portKey = networkType === Networking.type.HOST ?
-                    'port' :
-                    'containerPort';
+                  const {port, labels} = row;
+                  const vipLabel = ServiceConfigUtil.findVIPLabel(labels);
 
-                  const {[portKey]: port, labels} = row;
-
-                  if (labels && ServiceConfigUtil.hasVIPLabel(labels)) {
-                    return ServiceConfigUtil.buildHostName(
-                      appDefinition.id,
+                  if (vipLabel) {
+                    return ServiceConfigUtil.buildHostNameFromVipLabel(
+                      labels[vipLabel],
                       port
                     );
                   }

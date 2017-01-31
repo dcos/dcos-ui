@@ -12,7 +12,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}),
           {}))
-      .toEqual([{name: null, port: 0, protocol: 'tcp'}]);
+      .toEqual([{name: null, port: 0, protocol: 'tcp', labels: null}]);
     });
 
     it('Should return null if networkType is not HOST', function () {
@@ -40,7 +40,7 @@ describe('PortDefinitions', function () {
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
-        .toEqual([{name: null, port: 0, protocol: 'tcp'}]);
+        .toEqual([{name: null, port: 0, protocol: 'tcp', labels: null}]);
     });
 
     it('should create default portDefinition configurations for BRIDGE network', function () {
@@ -68,8 +68,8 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp'},
-          {name: null, port: 0, protocol: 'tcp'}
+          {name: null, port: 0, protocol: 'tcp', labels: null},
+          {name: null, port: 0, protocol: 'tcp', labels: null}
         ]);
     });
 
@@ -80,7 +80,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: 'foo', port: 0, protocol: 'tcp'}
+          {name: 'foo', port: 0, protocol: 'tcp', labels: null}
         ]);
     });
 
@@ -92,7 +92,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 100, protocol: 'tcp'}
+          {name: null, port: 100, protocol: 'tcp', labels: null}
         ]);
     });
 
@@ -105,7 +105,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp'}
+          {name: null, port: 0, protocol: 'tcp', labels: null}
         ]);
     });
 
@@ -117,7 +117,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'udp'}
+          {name: null, port: 0, protocol: 'udp', labels: null}
         ]);
     });
 
@@ -129,7 +129,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'udp,tcp'}
+          {name: null, port: 0, protocol: 'udp,tcp', labels: null}
         ]);
     });
 
@@ -141,7 +141,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp'},
+          {name: null, port: 0, protocol: 'tcp', labels: null},
           {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': ':0'}}
         ]);
     });
@@ -171,7 +171,7 @@ describe('PortDefinitions', function () {
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 300, protocol: 'tcp', labels: {VIP_0: ':300'}},
-          {name: null, port: 0, protocol: 'tcp'}
+          {name: null, port: 0, protocol: 'tcp', labels: null}
         ]);
     });
 
@@ -185,7 +185,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp'},
+          {name: null, port: 0, protocol: 'tcp', labels: null},
           {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
         ]);
     });
@@ -202,7 +202,7 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp'},
+          {name: null, port: 0, protocol: 'tcp', labels: null},
           {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
         ]);
     });

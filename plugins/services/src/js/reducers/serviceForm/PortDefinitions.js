@@ -7,6 +7,7 @@ import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
+import VipLabelUtil from '../../utils/VipLabelUtil';
 
 const {HOST} = Networking.type;
 
@@ -55,30 +56,26 @@ module.exports = {
 
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
+      const {name} = portDefinition;
+      const vipLabel = `VIP_${index}`;
       const hostPort = Number(portDefinition.hostPort) || 0;
       const protocol = PROTOCOLS.filter(function (protocol) {
         return portDefinition.protocol[protocol];
       }).join(',');
-      const newPortDefinition = {
+
+      const labels = VipLabelUtil.generateVipLabel(
+        this.appState.id,
+        portDefinition,
+        vipLabel,
+        hostPort
+      );
+
+      return {
+        labels,
+        name,
         protocol,
-        name: portDefinition.name,
         port: hostPort
       };
-
-      // Only set labels if port mapping is load balanced
-      if (portDefinition.loadBalanced) {
-        let vip = portDefinition.vip;
-
-        if (portDefinition.vip == null) {
-          vip = `${this.appState.id}:${hostPort}`;
-        }
-
-        newPortDefinition.labels = Object.assign({}, newPortDefinition.labels, {
-          [`VIP_${index}`]: vip
-        });
-      }
-
-      return newPortDefinition;
     });
   },
 
@@ -152,7 +149,7 @@ module.exports = {
           'loadBalanced'
         ], true, SET));
 
-        if (!vip.startsWith(state.id)) {
+        if (!vip.startsWith(`${state.id}:`)) {
           memo.push(new Transaction([
             'portDefinitions',
             index,
