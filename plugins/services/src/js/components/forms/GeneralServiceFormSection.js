@@ -124,7 +124,7 @@ class GeneralServiceFormSection extends Component {
     }
 
     return (
-      <div className="pod pod-narrow pod-short">
+      <div className="pod pod-short flush-horizontal flush-bottom">
         <em>
           {'Need to run a service with multiple containers? '}
           <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
