@@ -9,7 +9,6 @@ const FormGroupContainer = (props) => {
     removeButton = (
       <div className="form-group-container-action-button-group">
         <Tooltip content="Delete"
-          interactive={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view"
           wrapText={true}>
