@@ -208,24 +208,22 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           Protocol
         </FieldLabel>
         <FormRow>
-          <FormGroup className="column-auto" key="protocol-tcp">
-            <FieldLabel matchInputHeight={true}>
-              <FieldInput
-                checked={endpoint.protocol === 'tcp'}
-                name={`containers.${containerIndex}.endpoints.${index}.protocol`}
-                type="radio"
-                value="tcp" />
-              TCP
-            </FieldLabel>
-          </FormGroup>
           <FormGroup className="column-auto" key="protocol-udp">
             <FieldLabel matchInputHeight={true}>
               <FieldInput
-                checked={endpoint.protocol === 'udp'}
-                name={`containers.${containerIndex}.endpoints.${index}.protocol`}
-                type="radio"
-                value="udp" />
+                checked={endpoint.protocol.udp}
+                name={`containers.${containerIndex}.endpoints.${index}.protocol.udp`}
+                type="checkbox" />
               UDP
+            </FieldLabel>
+          </FormGroup>
+          <FormGroup className="column-auto" key="protocol-tcp">
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput
+                checked={endpoint.protocol.tcp}
+                name={`containers.${containerIndex}.endpoints.${index}.protocol.tcp`}
+                type="checkbox" />
+              TCP
             </FieldLabel>
           </FormGroup>
         </FormRow>

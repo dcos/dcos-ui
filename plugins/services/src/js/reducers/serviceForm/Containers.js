@@ -18,8 +18,11 @@ import {
   FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 import Networking from '../../../../../../src/js/constants/Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
+
+const {CONTAINER, HOST} = Networking.type;
 
 const containerReducer = combineReducers({
   cpus: simpleReducer('resources.cpus'),
@@ -40,7 +43,10 @@ const defaultEndpointsFieldValues = {
   labels: null,
   loadBalanced: false,
   name: null,
-  protocol: 'tcp',
+  protocol: {
+    tcp: true,
+    udp: false
+  },
   servicePort: null,
   vip: null
 };
@@ -56,11 +62,15 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       labels
     } = endpoint;
 
+    protocol = Object.keys(protocol).filter(function (key) {
+      return protocol[key];
+    });
+
     if (automaticPort) {
       hostPort = 0;
     }
 
-    if (networkType === Networking.type.CONTAINER) {
+    if (networkType === CONTAINER) {
       const vipLabel = `VIP_${index}`;
 
       labels = VipLabelUtil.generateVipLabel(
@@ -74,7 +84,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         name,
         containerPort,
         hostPort,
-        protocol: [protocol],
+        protocol,
         labels
       };
     }
@@ -82,7 +92,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     return {
       name,
       hostPort,
-      protocol: [protocol]
+      protocol
     };
   });
 }
@@ -173,6 +183,11 @@ function containersParser(state) {
 
     if (item.endpoints != null && item.endpoints.length !== 0) {
       item.endpoints.forEach((endpoint, endpointIndex) => {
+        const networkMode = findNestedPropertyInObject(
+          state,
+          'state.networks.0.mode'
+        );
+
         memo = memo.concat([
           new Transaction(
             ['containers', index, 'endpoints'],
@@ -197,8 +212,7 @@ function containersParser(state) {
           )
         ]);
 
-        if (state.networks && state.networks[0] &&
-          state.networks[0].mode === Networking.type.CONTAINER.toLowerCase()) {
+        if (networkMode === CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
             endpoint.containerPort
@@ -227,19 +241,22 @@ function containersParser(state) {
               'labels'
             ], item.labels));
           }
-          memo.push(new Transaction(
-            ['containers', index, 'endpoints', endpointIndex, 'protocol'],
-            endpoint.protocol.join()
-          ));
         }
 
-        if (state.networks && state.networks[0] &&
-          state.networks[0].mode === Networking.type.HOST.toLowerCase()) {
+        const protocols = endpoint.protocol || [];
+        PROTOCOLS.forEach((protocol) => {
           memo.push(new Transaction(
-            ['containers', index, 'endpoints', endpointIndex, 'protocol'],
-            endpoint.protocol.join()
+            [
+              'containers',
+              index,
+              'endpoints',
+              endpointIndex,
+              'protocol',
+              protocol
+            ],
+            protocols.includes(protocol), SET
           ));
-        }
+        });
       });
     }
 
@@ -268,10 +285,10 @@ function containersParser(state) {
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
-    const [base, index, field, secondIndex, name] = path;
+    const [base, index, field, secondIndex, name, subField] = path;
 
     if (this.networkType == null) {
-      this.networkType = Networking.type.HOST;
+      this.networkType = HOST;
     }
 
     if (this.appState == null) {
@@ -374,10 +391,11 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          this.endpoints[index].endpoints.push(Object.assign(
-            {},
-            defaultEndpointsFieldValues
-          ));
+          const endpointDefinition = Object.assign(
+            {}, defaultEndpointsFieldValues);
+          endpointDefinition.protocol = Object.assign(
+            {}, defaultEndpointsFieldValues.protocol);
+          this.endpoints[index].endpoints.push(endpointDefinition);
           break;
         case REMOVE_ITEM:
           this.endpoints[index].endpoints =
@@ -389,13 +407,15 @@ module.exports = {
 
       const fieldNames = [
         'name',
-        'protocol',
         'automaticPort',
         'loadBalanced',
         'vip'
       ];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
+      if (type === SET && name === 'protocol') {
+        this.endpoints[index].endpoints[secondIndex].protocol[subField] = value;
+      }
       if (type === SET && fieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = value;
       }
@@ -492,7 +512,7 @@ module.exports = {
 
   FormReducer(state, {type, path = [], value}) {
     // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name] = path;
+    const [_, index, field, secondIndex, name, subField] = path;
 
     if (!path.includes('containers')) {
       return state;
@@ -541,10 +561,11 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          newState[index].endpoints.push(Object.assign(
-            {},
-            defaultEndpointsFieldValues
-          ));
+          const endpointDefinition = Object.assign(
+            {}, defaultEndpointsFieldValues);
+          endpointDefinition.protocol = Object.assign(
+            {}, defaultEndpointsFieldValues.protocol);
+          newState[index].endpoints.push(endpointDefinition);
           break;
         case REMOVE_ITEM:
           newState[index].endpoints =
@@ -556,13 +577,15 @@ module.exports = {
 
       const fieldNames = [
         'name',
-        'protocol',
         'automaticPort',
         'loadBalanced',
         'vip'
       ];
       const numericalFiledNames = ['containerPort', 'hostPort'];
 
+      if (type === SET && name === 'protocol') {
+        newState[index].endpoints[secondIndex].protocol[subField] = value;
+      }
       if (type === SET && fieldNames.includes(name)) {
         newState[index].endpoints[secondIndex][name] = value;
       }
