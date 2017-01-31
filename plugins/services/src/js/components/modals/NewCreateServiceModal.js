@@ -124,7 +124,10 @@ class NewCreateServiceModal extends Component {
       this.onMarathonStoreServiceEditSuccess
     );
 
-    router.setRouteLeaveHook(route, this.handleRouterWillLeave);
+    this.unregisterLeaveHook = router.setRouteLeaveHook(
+      route,
+      this.handleRouterWillLeave
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -164,6 +167,9 @@ class NewCreateServiceModal extends Component {
       MARATHON_SERVICE_EDIT_SUCCESS,
       this.onMarathonStoreServiceEditSuccess
     );
+
+    // Clean up router leave hook
+    this.unregisterLeaveHook();
 
     // Also remove DCOS change listener, if still subscribed
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
