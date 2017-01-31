@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {Component} from 'react';
 import {Confirm, Tooltip} from 'reactjs-components';
 
@@ -220,6 +221,11 @@ class GeneralServiceFormSection extends Component {
         );
       }
 
+      const deleteRowButtonClassNames = classNames(
+        'column-2 flush-left',
+        {'form-group-without-top-label': padDeleteButton}
+      );
+
       return (
         <FormRow key={index}>
           <FormGroup
@@ -276,10 +282,7 @@ class GeneralServiceFormSection extends Component {
             </FieldError>
           </FormGroup>
 
-          <FormGroup className={{
-            'column-2 flush-left': true,
-            'form-group-without-top-label': padDeleteButton
-          }}>
+          <FormGroup className={deleteRowButtonClassNames}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this,
                 {value: index, path: 'constraints'})} />
