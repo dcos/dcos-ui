@@ -1,18 +1,15 @@
 import React, {PropTypes} from 'react';
 
 import ActionKeys from '../../constants/ActionKeys';
-import Application from '../../structs/Application';
 import ServiceTree from '../../structs/ServiceTree';
 
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
-import NewCreateServiceModal from './NewCreateServiceModal';
 import ServiceGroupFormModal from './ServiceGroupFormModal';
 import ServiceRestartModal from './ServiceRestartModal';
 import ServiceScaleFormModal from './ServiceScaleFormModal';
 import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 import ServiceSuspendModal from './ServiceSuspendModal';
-import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
 
 class ServiceModals extends React.Component {
   getGroupModal() {
@@ -36,87 +33,6 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         parentGroupId={service.getId()}
         open={modalProps.id === ServiceActionItem.CREATE_GROUP}
-        onClose={() => onClose(key)} />
-    );
-  }
-
-  getCreateModal() {
-    const {
-      actionErrors,
-      clearError,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
-
-    // The regular expression `/^(\/.+)$/` is looking for the beginning of the
-    // string and matches if the string starts with a `/` and does contain more
-    // characters after the slash. This is combined into a group and then
-    // replaced with the first group which is the complete string and a `/` is
-    // appended. This is needed because in most case a path like
-    // `/group/another-group` will be given by `getId` except on root then the
-    // return value of `getId` would be `/` so in most cases we want to append a
-    // `/` so that the user can begin typing the `id` of their application.
-    const {service} = modalProps;
-    const baseId = service.getId().replace(/^(\/.+)$/, '$1/');
-    const key = ActionKeys.SERVICE_CREATE;
-    const createService = (_, serviceSpec, force) => {
-      this.props.actions.createService(serviceSpec, force);
-    };
-
-    const newApp = new Application(
-      Object.assign(
-        {id: baseId},
-        DEFAULT_APP_SPEC
-      )
-    );
-
-    return (
-      <NewCreateServiceModal
-        clearError={() => clearError(key)}
-        errors={actionErrors[key]}
-        isEdit={false}
-        isPending={!!pendingActions[key]}
-        marathonAction={createService}
-        open={modalProps.id === ServiceActionItem.CREATE}
-        service={newApp}
-        onClose={() => onClose(key)} />
-    );
-  }
-
-  getEditModal() {
-    const {
-      actionErrors,
-      clearError,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
-
-    const {service} = modalProps;
-    const isGroup = service instanceof ServiceTree;
-    const key = ActionKeys.SERVICE_EDIT;
-    const editService = (updatedService, serviceSpec, force) => {
-      this.props.actions.editService(updatedService, serviceSpec, force);
-    };
-
-    let serviceToEdit = service;
-
-    // Pass in a fake Application to keep the PropTypes happy when
-    // this modal isn't active.
-    if (isGroup && modalProps.id !== ServiceActionItem.EDIT) {
-      serviceToEdit = new Application({id: '/'});
-    }
-
-    return (
-      <NewCreateServiceModal
-        clearError={() => clearError(key)}
-        errors={actionErrors[key]}
-        isEdit={true}
-        isPending={!!pendingActions[key]}
-        marathonAction={editService}
-        open={modalProps.id === ServiceActionItem.EDIT}
-        service={serviceToEdit}
         onClose={() => onClose(key)} />
     );
   }
@@ -259,8 +175,6 @@ class ServiceModals extends React.Component {
     return (
       <div>
         {this.getGroupModal()}
-        {this.getCreateModal()}
-        {this.getEditModal()}
         {this.getDestroyModal()}
         {this.getRestartModal()}
         {this.getScaleModal()}
@@ -275,9 +189,7 @@ const actionPropTypes = PropTypes.shape({
   createGroup: PropTypes.func,
   deleteGroup: PropTypes.func,
   editGroup: PropTypes.func,
-  createService: PropTypes.func,
   deleteService: PropTypes.func,
-  editService: PropTypes.func,
   restartService: PropTypes.func
 }).isRequired;
 

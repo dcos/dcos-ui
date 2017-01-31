@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
+import {routerShape} from 'react-router';
 
 import Page from '../../../../../../src/js/components/Page';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
@@ -45,12 +46,14 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   onActionsItemSelection(actionItem) {
-    const {modalHandlers} = this.context;
+    const {modalHandlers, router} = this.context;
     const {service} = this.props;
 
     switch (actionItem.id) {
       case ServiceActionItem.EDIT:
-        modalHandlers.editService({service});
+        router.push(
+          `/services/overview/${encodeURIComponent(service.getId())}/edit/`
+        );
         break;
       case ServiceActionItem.SCALE:
         modalHandlers.scaleService({service});
@@ -82,10 +85,12 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   renderConfigurationTabView() {
+    const {actions, service} = this.props;
+
     return (
       <ServiceConfigurationContainer
-        actions={this.props.actions}
-        service={this.props.service} />
+        onEditClick={actions.editService}
+        service={service} />
     );
   }
 
@@ -115,14 +120,18 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   getActions() {
     const {service} = this.props;
-    const {modalHandlers} = this.context;
+    const {modalHandlers, router} = this.context;
     const instanceCount = service.getInstancesCount();
 
     const actions = [];
 
     actions.push({
       label: 'Edit',
-      onItemSelect: modalHandlers.editService
+      onItemSelect() {
+        router.push(
+          `/services/overview/${encodeURIComponent(service.getId())}/edit/`
+        );
+      }
     });
 
     if (instanceCount > 0) {
@@ -199,7 +208,7 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const {modals, service:{id}} = this.props;
+    const {children, service:{id}} = this.props;
     const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
 
     return (
@@ -209,7 +218,7 @@ class ServiceDetail extends mixin(TabsMixin) {
           breadcrumbs={breadcrumbs}
           iconID="services" />
         {this.tabs_getTabView()}
-        {modals}
+        {children}
       </Page>
     );
   }
@@ -217,19 +226,19 @@ class ServiceDetail extends mixin(TabsMixin) {
 
 ServiceDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
-    editService: PropTypes.func,
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     suspendService: PropTypes.func,
     deleteService: PropTypes.func
-  }).isRequired
+  }).isRequired,
+  router: routerShape
 };
 
 ServiceDetail.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   service: PropTypes.instanceOf(Service),
-  modals: PropTypes.node
+  children: PropTypes.node
 };
 
 module.exports = ServiceDetail;

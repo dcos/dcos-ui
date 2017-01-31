@@ -90,9 +90,11 @@ class ServiceConfigDisplay extends React.Component {
       );
     }
 
-    return messages.length > 0
-      ? <Alert>{messages}</Alert>
-      : null;
+    if (!messages.length) {
+      return null;
+    }
+
+    return <Alert>{messages}</Alert>;
   }
 
   render() {

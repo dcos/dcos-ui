@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import React, {PropTypes, Component} from 'react';
 import deepEqual from 'deep-equal';
+import React, {PropTypes, Component} from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
@@ -89,9 +89,6 @@ class NewCreateServiceModalForm extends Component {
     });
   }
 
-  /**
-   * @override
-   */
   componentWillReceiveProps(nextProps) {
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
@@ -110,17 +107,11 @@ class NewCreateServiceModalForm extends Component {
     this.props.onConvertToPod(this.getAppConfig());
   }
 
-  /**
-   * @override
-   */
   componentDidUpdate() {
     this.props.onChange(new this.props.service.constructor(this.state.appConfig));
     this.props.onErrorStateChange(this.state.errorList.length !== 0);
   }
 
-  /**
-   * @override
-   */
   shouldComponentUpdate(nextProps, nextState) {
     // Update if json state changed
     if (this.props.isJSONModeActive !== nextProps.isJSONModeActive) {

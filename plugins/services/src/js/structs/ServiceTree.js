@@ -104,6 +104,10 @@ module.exports = class ServiceTree extends Tree {
    * @return {Service|ServiceTree} matching item
    */
   findItemById(id) {
+    if (this.getId() === id) {
+      return this;
+    }
+
     return this.findItem(function (item) {
       return item.getId() === id;
     });

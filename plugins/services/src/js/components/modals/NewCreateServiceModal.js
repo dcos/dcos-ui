@@ -1,42 +1,55 @@
 import classNames from 'classnames';
-import {Hooks} from 'PluginSDK';
+import deepEqual from 'deep-equal';
 import React, {Component, PropTypes} from 'react';
+import {Hooks} from 'PluginSDK';
 import {routerShape} from 'react-router';
 
 import Application from '../../structs/Application';
 import PodSpec from '../../structs/PodSpec';
+import Service from '../../structs/Service';
+
+import DCOSStore from '../../../../../../foundation-ui/stores/DCOSStore';
+import MarathonActions from '../../events/MarathonActions';
+import MarathonStore from '../../stores/MarathonStore';
+import {
+  MARATHON_SERVICE_CREATE_ERROR,
+  MARATHON_SERVICE_CREATE_SUCCESS,
+  MARATHON_SERVICE_EDIT_ERROR,
+  MARATHON_SERVICE_EDIT_SUCCESS
+} from '../../constants/EventTypes';
+import {DCOS_CHANGE} from '../../../../../../src/js/constants/EventTypes';
 
 import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
 import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
 
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
+import CreateServiceJsonOnly from './CreateServiceJsonOnly';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
 import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
 import FullScreenModalHeaderActions from '../../../../../../src/js/components/modals/FullScreenModalHeaderActions';
 import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
-import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
-import NewCreateServiceModalForm from './NewCreateServiceModalForm';
-import CreateServiceJsonOnly from './CreateServiceJsonOnly';
-import Service from '../../structs/Service';
-import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
-import ServiceUtil from '../../utils/ServiceUtil';
-import ToggleButton from '../../../../../../src/js/components/ToggleButton';
-import Util from '../../../../../../src/js/utils/Util';
-import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
-import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import NetworkingFormSection from '../forms/NetworkingFormSection';
-import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
-import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
-import VolumesFormSection from '../forms/VolumesFormSection';
-import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
-import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONParser from '../../reducers/JSONParser';
+import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
+import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
+import NetworkingFormSection from '../forms/NetworkingFormSection';
+import NewCreateServiceModalForm from './NewCreateServiceModalForm';
+import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
+import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
+import {getBaseID} from '../../utils/ServiceUtil';
+import ToggleButton from '../../../../../../src/js/components/ToggleButton';
+import Util from '../../../../../../src/js/utils/Util';
+import VolumesFormSection from '../forms/VolumesFormSection';
+import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
+import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
+  'handleClearError',
   'handleClose',
   'handleConvertToPod',
   'handleJSONToggle',
@@ -45,56 +58,168 @@ const METHODS_TO_BIND = [
   'handleServiceReview',
   'handleServiceRun',
   'handleServiceSelection',
-  'handleTabChange'
+  'handleTabChange',
+  'handleStoreChange',
+  'onMarathonStoreServiceCreateError',
+  'onMarathonStoreServiceCreateSuccess',
+  'onMarathonStoreServiceEditError',
+  'onMarathonStoreServiceEditSuccess'
 ];
 
-class NewServiceFormModal extends Component {
+class NewCreateServiceModal extends Component {
   constructor() {
     super(...arguments);
 
-    this.state = this.getResetState();
+    const {location, params} = this.props;
+    const isEdit = this.isLocationEdit(location);
+    const serviceID = decodeURIComponent(params.id || '/');
+    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
+    const isSpecificVersion = service instanceof Application && params.version;
+    let serviceConfig = new Application(
+      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
+    );
+
+    if (isEdit && service instanceof Service && !isSpecificVersion) {
+      serviceConfig = service.getSpec();
+    }
+
+    if (isEdit && isSpecificVersion) {
+      serviceConfig = service.getVersions().get(params.version);
+    }
+
+    this.state = {
+      activeTab: null,
+      errors: null,
+      isJSONModeActive: false,
+      isOpen: true,
+      isPending: false,
+      service,
+      serviceConfig,
+      serviceFormActive: isEdit, // Switch directly to form/json if edit
+      serviceJsonActive: false,
+      servicePickerActive: !isEdit, // Switch directly to form/json if edit
+      serviceReviewActive: false,
+      serviceFormHasErrors: false
+    };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    // Add store change listeners the traditional way as React Router is
+    // not able to pass down correct props if we are using StoreMixin
+    MarathonStore.addChangeListener(
+      MARATHON_SERVICE_CREATE_ERROR,
+      this.onMarathonStoreServiceCreateError
+    );
+    MarathonStore.addChangeListener(
+      MARATHON_SERVICE_CREATE_SUCCESS,
+      this.onMarathonStoreServiceCreateSuccess
+    );
+    MarathonStore.addChangeListener(
+      MARATHON_SERVICE_EDIT_ERROR,
+      this.onMarathonStoreServiceEditError
+    );
+    MarathonStore.addChangeListener(
+      MARATHON_SERVICE_EDIT_SUCCESS,
+      this.onMarathonStoreServiceEditSuccess
+    );
+
+    // Only add change listener if we didn't receive our service in first try
+    if (!service && isEdit) {
+      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
+    }
   }
 
-  /**
-   * @override
-   */
-  componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending && !nextProps.isPending;
-    const shouldClose = requestCompleted && !nextProps.errors;
+  componentWillReceiveProps(nextProps) {
+    const {location, params} = this.props;
+    // Skip update if there was no change to props
+    if (nextProps.location.pathname === location.pathname &&
+      deepEqual(nextProps.params, params)) {
+      return;
+    }
+
+    const isEdit = this.isLocationEdit(nextProps.location);
+    const serviceID = decodeURIComponent(nextProps.params.id || '/');
+    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
+    let serviceConfig = new Application(
+      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
+    );
+
+    if (isEdit && service instanceof Service) {
+      serviceConfig = service.getSpec();
+    }
+
+    this.setState({
+      activeTab: null,
+      errors: null,
+      isJSONModeActive: false,
+      isOpen: true,
+      isPending: false,
+      service,
+      serviceConfig,
+      serviceFormActive: isEdit, // Switch directly to form/json if edit
+      serviceJsonActive: false,
+      servicePickerActive: !isEdit, // Switch directly to form/json if edit
+      serviceReviewActive: false,
+      serviceFormHasErrors: false
+    });
+
+    // Only add change listener if we didn't receive our service in first try
+    if (!service && isEdit) {
+      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const requestCompleted = this.state.isPending && !nextState.isPending;
+    const shouldClose = requestCompleted && !nextState.errors;
 
     if (shouldClose) {
-      this.handleClose();
+      this.context.router.push(`/services/overview/${encodeURIComponent(nextProps.params.id)}`);
     }
   }
 
-  /**
-   * @override
-   */
-  componentWillReceiveProps(nextProps) {
-    if (!ServiceUtil.isEqual(this.props.service, nextProps.service)) {
-      const newState = {serviceConfig: nextProps.service.getSpec()};
+  componentWillUnmount() {
+    MarathonStore.removeChangeListener(
+      MARATHON_SERVICE_CREATE_ERROR,
+      this.onMarathonStoreServiceCreateError
+    );
+    MarathonStore.removeChangeListener(
+      MARATHON_SERVICE_CREATE_SUCCESS,
+      this.onMarathonStoreServiceCreateSuccess
+    );
+    MarathonStore.removeChangeListener(
+      MARATHON_SERVICE_EDIT_ERROR,
+      this.onMarathonStoreServiceEditError
+    );
+    MarathonStore.removeChangeListener(
+      MARATHON_SERVICE_EDIT_SUCCESS,
+      this.onMarathonStoreServiceEditSuccess
+    );
 
-      if (nextProps.isEdit) {
-        newState.servicePickerActive = false;
-        newState.serviceJsonActive = false;
-        newState.serviceFormActive = true;
+    // Also remove DCOS change listener, if still subscribed
+    DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
+  }
 
-        if (nextProps.service instanceof PodSpec) {
-          newState.serviceJsonActive = true;
-          newState.serviceFormActive = false;
-        }
-      }
+  onMarathonStoreServiceCreateError(errors) {
+    this.setState({errors, isPending: false});
+  }
 
-      this.setState(newState);
-    }
+  onMarathonStoreServiceCreateSuccess() {
+    this.setState({errors: null, isPending: false});
+  }
+
+  onMarathonStoreServiceEditError(errors) {
+    this.setState({errors, isPending: false});
+  }
+
+  onMarathonStoreServiceEditSuccess() {
+    this.setState({errors: null, isPending: false});
   }
 
   shouldForceSubmit() {
-    const {errors} = this.props;
+    const {errors} = this.state;
 
     if (errors && errors.message) {
       return /force=true/.test(errors.message);
@@ -103,7 +228,19 @@ class NewServiceFormModal extends Component {
     return false;
   }
 
+  handleStoreChange() {
+    // Unsubscribe from further events
+    DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
+
+    const {params} = this.props;
+    const serviceID = decodeURIComponent(params.id || '/');
+    const service = DCOSStore.serviceTree.findItemById(serviceID);
+
+    this.setState({service, serviceConfig: service.getSpec()});
+  }
+
   handleGoBack({tabViewID}) {
+    const {location} = this.props;
     const {
       serviceFormActive,
       serviceJsonActive,
@@ -123,7 +260,8 @@ class NewServiceFormModal extends Component {
     }
 
     // Close if picker is open, or if editing a service in the form
-    if (servicePickerActive || (!serviceReviewActive && this.props.isEdit)) {
+    if (servicePickerActive ||
+      (!serviceReviewActive && this.isLocationEdit(location))) {
       this.handleClose();
 
       return;
@@ -153,9 +291,17 @@ class NewServiceFormModal extends Component {
     this.setState({activeTab});
   }
 
+  handleClearError() {
+    this.setState({errors: null});
+  }
+
   handleClose() {
-    this.props.onClose();
-    this.setState(this.getResetState());
+    // Start the animation of the modal by setting isOpen to false
+    this.setState({isOpen: false}, () => {
+      // Once state is set, start a timer for the length of the animation and
+      // navigate away once the animation is over.
+      setTimeout(this.context.router.goBack, 300);
+    });
   }
 
   handleConvertToPod() {
@@ -175,18 +321,17 @@ class NewServiceFormModal extends Component {
   }
 
   handleServiceSelection({route, type}) {
-    switch (type) {
+    const {params} = this.props;
+    const baseID = getBaseID(decodeURIComponent(params.id || '/'));
 
+    switch (type) {
       case 'app':
         this.setState({
           activeTab: null,
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new Application(
-            Object.assign(
-              {id: this.props.service.getId()},
-              DEFAULT_APP_SPEC
-            )
+            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           )
         });
         break;
@@ -197,10 +342,7 @@ class NewServiceFormModal extends Component {
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new PodSpec(
-            Object.assign(
-              {id: this.props.service.getId()},
-              DEFAULT_POD_SPEC
-            )
+            Object.assign({id: baseID}, DEFAULT_POD_SPEC)
           )
         });
         break;
@@ -210,14 +352,15 @@ class NewServiceFormModal extends Component {
           activeTab: null,
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceConfig: this.props.service
+          serviceConfig: new Application(
+            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
+          )
         });
         break;
 
       case 'redirect':
         this.context.router.push(route);
         break;
-
     };
   }
 
@@ -230,16 +373,23 @@ class NewServiceFormModal extends Component {
   }
 
   handleServiceRun() {
-    const {marathonAction, service} = this.props;
-    marathonAction(
-      service,
-      this.state.serviceConfig,
-      this.shouldForceSubmit()
-    );
+    const {location} = this.props;
+    const {service, serviceConfig} = this.state;
+    const force = this.shouldForceSubmit();
+    if (this.isLocationEdit(location) && service instanceof Service) {
+      MarathonActions.editService(service, serviceConfig, force);
+    } else {
+      MarathonActions.createService(serviceConfig, force);
+    }
+
+    this.setState({isPending: true});
+  }
+
+  isLocationEdit(location) {
+    return location.pathname.includes('/edit');
   }
 
   getHeader() {
-
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
       return (
@@ -258,15 +408,11 @@ class NewServiceFormModal extends Component {
     }
 
     let title = 'Run a Service';
-    const {isEdit, service} = this.props;
-    let serviceName = service.getName();
-    if (serviceName) {
-      serviceName = `"${serviceName}"`;
-    } else {
-      serviceName = 'Service';
-    }
+    const {location} = this.props;
+    const {service} = this.state;
+    const serviceName = service ? `"${service.getName()}"` : 'Service';
 
-    if (isEdit) {
+    if (this.isLocationEdit(location)) {
       title = `Edit ${serviceName}`;
     }
 
@@ -287,6 +433,7 @@ class NewServiceFormModal extends Component {
 
   getModalContent() {
     const {
+      errors,
       isJSONModeActive,
       serviceConfig,
       serviceFormActive,
@@ -296,8 +443,8 @@ class NewServiceFormModal extends Component {
     } = this.state;
 
     const errorsMap = new Map();
-    if (this.props.errors) {
-      let message = this.props.errors.message;
+    if (errors) {
+      let message = errors.message;
 
       if (this.shouldForceSubmit()) {
         message = `App is currently locked by one or more deployments.
@@ -306,17 +453,17 @@ class NewServiceFormModal extends Component {
       }
       errorsMap.set('/', [message]);
 
-      if (this.props.errors.details) {
-        this.props.errors.details.forEach(function ({errors, path}) {
-          const existingMessages = errorsMap.get(path);
+      if (errors.details) {
+        errors.details.forEach(function (item) {
+          const existingMessages = errorsMap.get(item.path);
 
-          let messages = errors;
+          let messages = item.errors;
 
           if (existingMessages) {
             messages = messages.concat(existingMessages);
           }
 
-          errorsMap.set(path, messages);
+          errorsMap.set(item.path, messages);
         });
       }
     }
@@ -329,7 +476,7 @@ class NewServiceFormModal extends Component {
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
               appConfig={serviceConfig}
-              clearError={this.props.clearError}
+              clearError={this.handleClearError}
               errors={errorsMap} />
           </div>
         </div>
@@ -344,7 +491,7 @@ class NewServiceFormModal extends Component {
     }
 
     if (serviceFormActive) {
-      const {isEdit} = this.props;
+      const {location} = this.props;
 
       const SECTIONS = [
         ContainerServiceFormSection,
@@ -394,11 +541,13 @@ class NewServiceFormModal extends Component {
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorStateChange={this.handleServiceErrorChange}
-          isEdit={isEdit} />
+          isEdit={this.isLocationEdit(location)} />
       );
     }
 
     if (serviceJsonActive) {
+      // TODO (DCOS-13561): serviceConfig should be service
+
       return (
         <CreateServiceJsonOnly
           ref={(ref) => {
@@ -480,40 +629,15 @@ class NewServiceFormModal extends Component {
     return [];
   }
 
-  getResetState(nextProps = this.props) {
-    const newState = {
-      activeTab: null,
-      isJSONModeActive: false,
-      serviceConfig: nextProps.service.getSpec(),
-      serviceFormActive: false,
-      serviceJsonActive: false,
-      servicePickerActive: true,
-      serviceReviewActive: false,
-      serviceFormHasErrors: false
-    };
-
-    // Switch directly to form/json if edit
-    if (nextProps.isEdit) {
-      newState.servicePickerActive = false;
-
-      if (nextProps.service instanceof PodSpec) {
-        newState.serviceJsonActive = true;
-      } else {
-        newState.serviceFormActive = true;
-      }
-    }
-
-    return newState;
-  }
-
   getSecondaryActions() {
+    const {location} = this.props;
     const {
       servicePickerActive,
       serviceReviewActive
     } = this.state;
     let label = 'Back';
 
-    if (servicePickerActive || (this.props.isEdit && !serviceReviewActive)) {
+    if (servicePickerActive || (this.isLocationEdit(location) && !serviceReviewActive)) {
       label = 'Cancel';
     }
 
@@ -527,7 +651,8 @@ class NewServiceFormModal extends Component {
   }
 
   render() {
-    const {props, state: {servicePickerActive, serviceReviewActive}} = this;
+    const {props} = this;
+    const {isOpen, servicePickerActive, serviceReviewActive} = this.state;
     let useGemini = false;
 
     if (servicePickerActive || serviceReviewActive) {
@@ -535,34 +660,25 @@ class NewServiceFormModal extends Component {
     }
 
     return (
-      <div>
-        <FullScreenModal
-          header={this.getHeader()}
-          onClose={this.handleClose}
-          useGemini={useGemini}
-          {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
-          {this.getModalContent()}
-        </FullScreenModal>
-      </div>
+      <FullScreenModal
+        header={this.getHeader()}
+        onClose={this.handleClose}
+        useGemini={useGemini}
+        open={isOpen}
+        {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}>
+        {this.getModalContent()}
+      </FullScreenModal>
     );
   }
 }
 
-NewServiceFormModal.contextTypes = {
+NewCreateServiceModal.contextTypes = {
   router: routerShape
 };
 
-NewServiceFormModal.propTypes = {
-  clearError: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  isEdit: PropTypes.bool,
-  isPending: PropTypes.bool.isRequired,
-  marathonAction: PropTypes.func.isRequired,
-  onClose: PropTypes.func,
-  service: PropTypes.instanceOf(Service).isRequired
+NewCreateServiceModal.propTypes = {
+  params: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-module.exports = NewServiceFormModal;
+module.exports = NewCreateServiceModal;
