@@ -786,12 +786,12 @@ class NewCreateServiceModal extends Component {
         {this.getModalContent()}
         <Confirm
           closeByBackdropClick={true}
-          header={<ModalHeading>Discard Current Changes</ModalHeading>}
+          header={<ModalHeading>Discard Changes?</ModalHeading>}
           open={this.state.isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
           leftButtonText="Cancel"
           leftButtonCallback={this.handleCloseConfirmModal}
-          rightButtonText="Continue"
+          rightButtonText="Discard"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}>
