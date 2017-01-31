@@ -452,8 +452,8 @@ class ContainerServiceFormSection extends Component {
             <FieldLabel className="text-no-transform">CPUs</FieldLabel>
             <FieldInput
               min="0.001"
-              name={cpusPath}
-              step="any"
+              name="cpus"
+              step="0.1"
               type="number"
               value={findNestedPropertyInObject(data, cpusPath)} />
             <FieldError>{cpusErrors}</FieldError>

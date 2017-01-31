@@ -43,7 +43,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -85,7 +85,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -147,7 +147,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -192,7 +192,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -238,7 +238,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -278,7 +278,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -324,7 +324,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -388,7 +388,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -435,7 +435,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -483,7 +483,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -530,7 +530,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -586,7 +586,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -653,7 +653,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -713,7 +713,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -782,7 +782,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -884,7 +884,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -933,7 +933,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1000,7 +1000,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1052,7 +1052,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1104,7 +1104,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1151,7 +1151,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1202,7 +1202,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1271,7 +1271,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1324,7 +1324,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1376,7 +1376,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1428,7 +1428,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1489,7 +1489,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1559,7 +1559,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1622,7 +1622,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
@@ -1694,7 +1694,7 @@ describe('Containers', function () {
             {
               name: 'container-1',
               resources: {
-                cpus: 1,
+                cpus: 0.1,
                 mem: 128
               },
               endpoints: [
