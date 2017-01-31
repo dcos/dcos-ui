@@ -4,6 +4,7 @@ import Objektiv from 'objektiv';
 
 import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
@@ -34,7 +35,9 @@ class VolumesFormSection extends Component {
     const tooltipContent = (
       <span>
         {'The path where your application will read and write data. This must be a single-level path relative to the container. '}
-        <a href={MetadataStore.buildDocsURI('/usage/storage/persistent-volume/')} target="_blank">
+        <a
+          href={MetadataStore.buildDocsURI('/usage/storage/persistent-volume/')}
+          target="_blank">
           More information
         </a>.
       </span>
@@ -90,7 +93,9 @@ class VolumesFormSection extends Component {
     const tooltipContent = (
       <span>
         {'If you are using the Mesos containerizer, this must be a single-level path relative to the container. '}
-        <a href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')} target="_blank">
+        <a
+          href={MetadataStore.buildDocsURI('/usage/storage/external-storage/')}
+          target="_blank">
           More information
         </a>.
       </span>
@@ -185,7 +190,9 @@ class VolumesFormSection extends Component {
               required={false}
               showError={Boolean(typeError)}>
               <FieldLabel>Volume Type</FieldLabel>
-              <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
+              <FieldSelect
+                name={`localVolumes.${key}.type`}
+                value={volume.type}>
                 <option>Select...</option>
                 {this.getHostOption(dockerImage)}
                 <option value="PERSISTENT">Persistent Volume</option>
@@ -203,7 +210,8 @@ class VolumesFormSection extends Component {
    * getExternalVolumesLines
    *
    * @param  {Object} data
-   * @param  {Number} offset as we have two independent sections that are 0 based we need to add an offset to the second one
+   * @param  {Number} offset as we have two independent sections that are 0
+   *                  based we need to add an offset to the second one
    * @return {Array} elements
    */
   getExternalVolumesLines(data, offset) {
@@ -315,11 +323,11 @@ class VolumesFormSection extends Component {
         </p>
         {this.getLocalVolumesLines(data.localVolumes)}
         <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'localVolumes'})}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Local Volume
-          </a>
+          <AddButton onClick={this.props.onAddItem.bind(
+              this, {value: data.localVolumes.length, path: 'localVolumes'}
+            )}>
+            Add Local Volume
+          </AddButton>
         </div>
         <h3 className="short-bottom">
           External Volumes Variables
@@ -332,14 +340,17 @@ class VolumesFormSection extends Component {
             More information
           </a>.
         </p>
-        {this.getExternalVolumesLines(data.externalVolumes, data.localVolumes.length)}
+        {this.getExternalVolumesLines(
+          data.externalVolumes,
+          data.localVolumes.length
+        )}
         <FormRow>
           <FormGroup className="column-12">
-            <a
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(this, {value: data.localVolumes.length, path: 'externalVolumes'})}>
-              <Icon color="purple" id="plus" size="tiny" /> Add External Volume
-            </a>
+            <AddButton onClick={this.props.onAddItem.bind(
+                this, {value: data.localVolumes.length, path: 'externalVolumes'}
+              )}>
+              Add External Volume
+            </AddButton>
           </FormGroup>
         </FormRow>
       </div>

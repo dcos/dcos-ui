@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import ContainerConstants from '../../constants/ContainerConstants';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -65,7 +66,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent = (
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html" about="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          target="_blank">
           More information
         </a>
       </span>
@@ -113,7 +116,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced, vip}, index) {
+  getLoadBalancedServiceAddressField(
+      {
+        containerPort,
+        hostPort,
+        loadBalanced,
+        vip
+      },
+      index
+    ) {
     const {errors} = this.props;
     const loadBalancedError = findNestedPropertyInObject(
       errors,
@@ -302,7 +313,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             {value: index, path: 'portDefinitions'}
           )}>
           <FormRow>
-            {this.getContainerPortField(portDefinition, networkType, errors, index)}
+            {this.getContainerPortField(
+              portDefinition,
+              networkType,
+              errors,
+              index
+            )}
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
@@ -443,19 +459,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
           <FormGroup className="column-12">
-            <button
-              type="button"
-              onBlur={(event) => { event.stopPropagation(); }}
-              className="button button-primary-link button-flush"
-              onClick={this.props.onAddItem.bind(
-                this,
-                {
-                  value: portDefinitions.length,
-                  path: 'portDefinitions'
-                }
-              )}>
-              <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
-            </button>
+            <AddButton onClick={this.props.onAddItem.bind(
+              this,
+              {
+                value: portDefinitions.length,
+                path: 'portDefinitions'
+              }
+            )}>
+              Add Service Endpoint
+            </AddButton>
           </FormGroup>
         </FormRow>
       </div>
@@ -471,7 +483,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html" target="_blank">
+        <a
+          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          target="_blank">
           ports documentation
         </a> for more information.
       </span>

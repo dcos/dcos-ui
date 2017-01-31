@@ -3,15 +3,16 @@ import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
+import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
-import Icon from '../../../../../../src/js/components/Icon';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -125,7 +126,13 @@ class MultiContainerVolumesFormSection extends Component {
         <div>
           {this.getHeadline()}
           <p>
-            Please <a onClick={handleTabChange.bind(null, 'services')} className="clickable">add a container</a> before configuring Volumes.
+            {'Please '}
+            <a
+              onClick={handleTabChange.bind(null, 'services')}
+              className="clickable">
+              add a container
+            </a>
+            {' before configuring Volumes.'}
           </p>
         </div>
       );
@@ -145,12 +152,11 @@ class MultiContainerVolumesFormSection extends Component {
         </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>
-          <a
-            className="button button-primary-link button-flush"
-            onClick={this.props.onAddItem.bind(this,
-              {value: data.volumeMounts.length, path: 'volumeMounts'})}>
-            <Icon color="purple" id="plus" size="tiny" /> Add Ephemeral Volume
-          </a>
+          <AddButton onClick={this.props.onAddItem.bind(
+              this, {value: data.volumeMounts.length, path: 'volumeMounts'}
+            )}>
+            Add Ephemeral Volume
+          </AddButton>
         </div>
       </div>
     );

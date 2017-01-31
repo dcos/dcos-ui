@@ -3,6 +3,7 @@ import {Confirm, Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {pluralize} from '../../../../../../src/js/utils/StringUtil';
+import AddButton from '../../../../../../src/js/components/form/AddButton';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -144,14 +145,12 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <a
-          className="button button-primary-link button-flush"
-          onClick={this.props.onAddItem.bind(
+        <AddButton onClick={this.props.onAddItem.bind(
             this,
             {value: 0, path: 'containers'}
           )}>
-          <Icon color="purple" id="plus" size="tiny" /> Add Container
-        </a>
+          Add Container
+        </AddButton>
       </div>
     );
   }
@@ -483,11 +482,11 @@ class GeneralServiceFormSection extends Component {
             {this.getPlacementConstraints(data.constraints)}
             <FormRow>
               <FormGroup className="column-12">
-                <a
-                  className="button button-primary-link button-flush"
-                  onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                  <Icon color="purple" id="plus" size="tiny" /> Add Placement Constraint
-                </a>
+                <AddButton onClick={this.props.onAddItem.bind(
+                    this, {value: data.constraints.length, path: 'constraints'}
+                  )}>
+                  Add Placement Constraint
+                </AddButton>
               </FormGroup>
             </FormRow>
           </AdvancedSectionContent>
@@ -510,7 +509,11 @@ class GeneralServiceFormSection extends Component {
           showHeader={true}>
           <p>
             {'Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. '}
-            <a href={MetadataStore.buildDocsURI('/usage/pods/')} target="_blank">More information</a>.
+            <a
+              href={MetadataStore.buildDocsURI('/usage/pods/')}
+              target="_blank">
+              More information
+            </a>.
           </p>
           <p>Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost.</p>
         </Confirm>

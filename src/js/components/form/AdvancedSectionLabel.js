@@ -14,7 +14,10 @@ function getStateIndicator(isExpanded) {
 }
 
 const AdvancedSectionLabel = ({className, children, isExpanded, onClick}) => {
-  const classes = classNames('advanced-section-label clickable', className);
+  const classes = classNames(
+    'advanced-section-label clickable button button-primary-link button-flush',
+    className
+  );
 
   return (
     <a className={classes} onClick={onClick}>

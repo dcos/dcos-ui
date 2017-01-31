@@ -1,3 +1,4 @@
+import AddButton from './AddButton';
 import AdvancedSection from './AdvancedSection';
 import AdvancedSectionContainer from './AdvancedSectionContent';
 import AdvancedSectionLabel from './AdvancedSectionLabel';
@@ -13,6 +14,7 @@ import FormGroupContainer from './FormGroupContainer';
 import FormRow from './FormRow';
 
 module.exports = {
+  AddButton,
   AdvancedSection,
   AdvancedSectionContainer,
   AdvancedSectionLabel,
