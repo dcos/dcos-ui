@@ -18,6 +18,7 @@ import {
   FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 import Networking from '../../../../../../src/js/constants/Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
 
@@ -240,38 +241,22 @@ function containersParser(state) {
               'labels'
             ], item.labels));
           }
-          if (endpoint.protocol) {
-            endpoint.protocol.forEach(function (protocol) {
-              memo.push(new Transaction(
-                [
-                  'containers',
-                  index,
-                  'endpoints',
-                  endpointIndex,
-                  'protocol',
-                  protocol
-                ],
-                true
-              ));
-            });
-          }
         }
 
-        if (networkMode === HOST.toLowerCase() && endpoint.protocol) {
-          endpoint.protocol.forEach(function (protocol) {
-            memo.push(new Transaction(
-              [
-                'containers',
-                index,
-                'endpoints',
-                endpointIndex,
-                'protocol',
-                protocol
-              ],
-              true
-            ));
-          });
-        }
+        const protocols = endpoint.protocol || [];
+        PROTOCOLS.forEach((protocol) => {
+          memo.push(new Transaction(
+            [
+              'containers',
+              index,
+              'endpoints',
+              endpointIndex,
+              'protocol',
+              protocol
+            ],
+            protocols.includes(protocol), SET
+          ));
+        });
       });
     }
 
