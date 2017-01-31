@@ -544,7 +544,7 @@ class NewCreateServiceModal extends Component {
     }
 
     if (serviceJsonActive) {
-      // serviceConfig should be service
+      // TODO (DCOS-13561): serviceConfig should be service
 
       return (
         <CreateServiceJsonOnly
