@@ -296,9 +296,11 @@ class NewCreateServiceModal extends Component {
   }
 
   handleClose() {
+    // Start the animation of the modal by setting isOpen to false
     this.setState({isOpen: false}, () => {
-      // Navigate to parent after setState, so we get modal animation
-      this.context.router.goBack();
+      // Once state is set, start a timer for the length of the animation and
+      // navigate away once the animation is over.
+      setTimeout(this.context.router.goBack, 300);
     });
   }
 
