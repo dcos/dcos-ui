@@ -1,0 +1,47 @@
+# This is a container to run the cypress product from cypress.io.
+# It includes openjdk8 because the intention is to be run as a
+# Jenkins process.
+FROM node:4.4.4
+LABEL node-version="4.4.4"
+
+ARG PLUGINS_REPO
+EXPOSE 4200
+WORKDIR /usr/src
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
+# Basic dependencies
+RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+
+# Insert this line before "RUN apt-get update" to dynamically
+# replace httpredir.debian.org with a single working domain
+# in attempt to "prevent" the "Error reading from server" error.
+# https://github.com/rgeissert/http-redirector/issues/74#issuecomment-241682578
+RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
+RUN apt-get update           \
+  && apt-get install -y xvfb \
+    libgtk2.0-0 libnotify4   \
+    libgconf-2-4 libnss3     \
+    openjdk-8-jre-headless   \
+    ca-certificates-java     \
+    libxss1                  \
+    jq
+RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
+
+# Update npm
+RUN npm install -g npm@3.9.0
+
+# Install cypress.
+RUN npm install -g cypress-cli \
+   && cypress install
+
+# Clone repos
+RUN git clone https://github.com/dcos/dcos-ui.git /usr/src/dcos-ui
+RUN if ! [ -z "$PLUGINS_REPO" ]; then git clone $PLUGINS_REPO /usr/src/dcos-ui-plugins; fi
+RUN if ! [ -z "$PLUGINS_REPO" ]; then cd /usr/src/dcos-ui && npm config set externalplugins ../dcos-ui-plugins; fi
+
+COPY docker/integration-tests/dcos-ui-proxy.js /usr/src/dcos-ui
+COPY docker/integration-tests/run-integration /usr/src
+RUN chmod +x /usr/src/run-integration
+
+CMD ./run-integration
