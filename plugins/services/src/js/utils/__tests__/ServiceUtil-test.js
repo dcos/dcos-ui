@@ -63,7 +63,7 @@ describe('ServiceUtil', function () {
         }
       };
 
-      const expectedService = new Application({
+      const expectedService = new ApplicationSpec({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
@@ -79,7 +79,7 @@ describe('ServiceUtil', function () {
     it('should return empty service if null is provided', function () {
       const model = null;
 
-      const expectedService = new Application({});
+      const expectedService = new ApplicationSpec({});
 
       expect(ServiceUtil.createSpecFromFormModel(model))
         .toEqual(expectedService);
@@ -88,7 +88,7 @@ describe('ServiceUtil', function () {
     it('should return empty service if empty object is provided', function () {
       const model = {};
 
-      const expectedService = new Application({});
+      const expectedService = new ApplicationSpec({});
 
       expect(ServiceUtil.createSpecFromFormModel(model))
         .toEqual(expectedService);
@@ -717,7 +717,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        const expectedService = new Application({
+        const expectedService = new ApplicationSpec({
           container: {
             type: 'MESOS',
             volumes: [{
@@ -757,7 +757,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        const expectedService = new Application({
+        const expectedService = new ApplicationSpec({
           container: {
             type: 'DOCKER',
             docker: {
@@ -803,7 +803,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        const expectedService = new Application({
+        const expectedService = new ApplicationSpec({
           container: {
             type: 'DOCKER',
             docker: {
@@ -833,7 +833,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        const expectedService = new Application({
+        const expectedService = new ApplicationSpec({
           container: {
             type: 'MESOS',
             volumes: [

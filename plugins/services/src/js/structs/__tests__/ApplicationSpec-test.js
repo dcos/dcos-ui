@@ -305,6 +305,26 @@ describe('ApplicationSpec', function () {
     });
   });
 
+  describe('#getResources', function () {
+
+    it('returns correct resource data', function () {
+      const service = new ApplicationSpec({
+        cpus: 1,
+        mem: 2048,
+        gpus: 0,
+        disk: 0
+      });
+
+      expect(service.getResources()).toEqual({
+        cpus: 1,
+        mem: 2048,
+        gpus: 0,
+        disk: 0
+      });
+    });
+
+  });
+
   describe('#getUpdateStrategy', function () {
     it('should return the right updateStrategy value', function () {
       const service = new ApplicationSpec({

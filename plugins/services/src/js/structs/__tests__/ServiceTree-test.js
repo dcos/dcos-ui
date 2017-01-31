@@ -569,12 +569,14 @@ describe('ServiceTree', function () {
       this.instance.add(new Application({
         cpus: 1,
         mem: 2048,
-        disk: 0
+        disk: 0,
+        instances:1
       }));
       this.instance.add(new Application({
         cpus: 6,
         mem: 1024,
-        disk: 6
+        disk: 6,
+        instances:1
       }));
 
       expect(this.instance.getResources()).toEqual({

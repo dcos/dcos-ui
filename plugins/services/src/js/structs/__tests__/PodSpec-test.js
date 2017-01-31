@@ -72,12 +72,12 @@ describe('PodSpec', function () {
 
   });
 
-  describe('#getResourcesSummary', function () {
+  describe('#getResources', function () {
 
     it('should return the correct value', function () {
       const podSpec = new PodSpec(PodFixture.spec);
 
-      expect(podSpec.getResourcesSummary()).toEqual({
+      expect(podSpec.getResources()).toEqual({
         cpus: 1,
         mem: 128,
         gpus: 0,
@@ -87,7 +87,7 @@ describe('PodSpec', function () {
 
     it('should return the correct default value', function () {
       const podSpec = new PodSpec();
-      expect(podSpec.getResourcesSummary()).toEqual({
+      expect(podSpec.getResources()).toEqual({
         cpus: 0,
         mem: 0,
         gpus: 0,

@@ -29,7 +29,7 @@ module.exports = class PodSpec extends ServiceSpec {
     return this.get('networks') || [];
   }
 
-  getResourcesSummary() {
+  getResources() {
     return this.getContainers().reduce(function (resources, container) {
 
       Object.keys(container.resources).forEach(function (key) {
