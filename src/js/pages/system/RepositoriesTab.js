@@ -106,7 +106,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <FilterBar rightAlignLastNChildren={1}>
+        <FilterBar>
           <FilterInputText
             className="flush-bottom"
             placeholder="Search"
