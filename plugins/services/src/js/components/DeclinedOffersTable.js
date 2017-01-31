@@ -298,7 +298,7 @@ class RejectedOffersTable extends React.Component {
           colGroup={this.getColGroup()}
           columns={this.getColumns()}
           data={offers}
-          sortBy={{prop: 'timestamp', order: 'desc'}} />
+          sortBy={{prop: 'hostname', order: 'asc'}} />
       </MountService.Mount>
     );
   }
