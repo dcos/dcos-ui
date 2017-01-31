@@ -48,6 +48,16 @@
     }
   }
 
+  // TODO: Remove this when the fix hits CNVS:
+  // https://github.com/mesosphere/cnvs/issues/76
+  .form-control {
+
+    &:disabled,
+    &.disabled {
+      color: color-lighten(@neutral, 50);
+    }
+  }
+
   .form-colon {
     bottom: 0.8rem;
     left: 100%;
