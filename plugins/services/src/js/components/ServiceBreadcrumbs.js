@@ -56,6 +56,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
 
   if (serviceID != null && trimmedServiceID.length > 0) {
     const serviceCrumbs = ids.map(function (id, index) {
+      let serviceIDNode = id;
       let breadcrumbHealth = null;
       let serviceImage = null;
 
@@ -67,7 +68,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       }
 
       if (serviceImage != null) {
-        id = (
+        serviceIDNode = (
           <span className="page-header-breadcrumb-item-icon-container">
             {serviceImage}
             {id}
@@ -80,7 +81,7 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       return (
         <div>
           <Link to={`/services/overview/${aggregateIDs}`} key={index}>
-            {id}
+            {serviceIDNode}
           </Link>
           {breadcrumbHealth}
         </div>
