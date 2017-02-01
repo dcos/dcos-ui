@@ -26,10 +26,11 @@
   }
 
   .menu-tabbed-vertical {
-    flex: 0 0 @menu-tabbed-vertical-width;
+    flex: 0 0 auto;
     margin-bottom: @menu-tabbed-vertical-margin-bottom;
     margin-right: @menu-tabbed-vertical-margin-right;
     position: relative;
+    width: @menu-tabbed-vertical-width;
 
     &:after {
       background: @menu-tabbed-border;
@@ -107,9 +108,11 @@
     cursor: pointer;
     display: block;
     font-weight: @menu-tabbed-item-link-font-weight;
+    overflow: hidden;
     padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom;
     position: relative;
     text-decoration: @menu-tabbed-item-link-text-decoration;
+    text-overflow: ellipsis;
 
     &:hover {
       color: @menu-tabbed-item-link-hover-color;
@@ -173,9 +176,9 @@
     }
 
     .menu-tabbed-vertical {
-      flex-basis: @menu-tabbed-vertical-width-screen-small;
       margin-bottom: @menu-tabbed-vertical-margin-bottom-screen-small;
       margin-right: @menu-tabbed-vertical-margin-right-screen-small;
+      width: @menu-tabbed-vertical-width-screen-small;
 
       .menu-tabbed-item {
 
@@ -226,9 +229,9 @@
     }
 
     .menu-tabbed-vertical {
-      flex-basis: @menu-tabbed-vertical-width-screen-medium;
       margin-bottom: @menu-tabbed-vertical-margin-bottom-screen-medium;
       margin-right: @menu-tabbed-vertical-margin-right-screen-medium;
+      width: @menu-tabbed-vertical-width-screen-medium;
 
       .menu-tabbed-item {
 
@@ -279,9 +282,9 @@
     }
 
     .menu-tabbed-vertical {
-      flex-basis: @menu-tabbed-vertical-width-screen-large;
       margin-bottom: @menu-tabbed-vertical-margin-bottom-screen-large;
       margin-right: @menu-tabbed-vertical-margin-right-screen-large;
+      width: @menu-tabbed-vertical-width-screen-large;
 
       .menu-tabbed-item {
 
@@ -332,9 +335,9 @@
     }
 
     .menu-tabbed-vertical {
-      flex-basis: @menu-tabbed-vertical-width-screen-jumbo;
       margin-bottom: @menu-tabbed-vertical-margin-bottom-screen-jumbo;
       margin-right: @menu-tabbed-vertical-margin-right-screen-jumbo;
+      width: @menu-tabbed-vertical-width-screen-jumbo;
 
       .menu-tabbed-item {
 
