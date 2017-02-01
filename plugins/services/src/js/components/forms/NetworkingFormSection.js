@@ -18,6 +18,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
@@ -83,15 +85,21 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         key="host-port"
         showError={Boolean(hostPortError)}>
         <FieldLabel>
-          {'Host Port '}
-          <Tooltip
-            content={tooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Host Port
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FieldInput
           disabled={portDefinition.automaticPort}
@@ -168,7 +176,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <FormRow key="title">
         <FormGroup className="column-9">
           <FieldLabel>
-            Load Balanced Service Address
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Load Balanced Service Address
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
             <FieldHelp>
               Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
             </FieldHelp>
@@ -211,7 +223,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return (
       <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
-          Protocol
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Protocol
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FormRow>
           <FormGroup className="column-auto">
@@ -286,7 +302,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return (
       <FormGroup className="column-3">
         <FieldLabel>
-          Port Mapping
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Port Mapping
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
@@ -338,7 +358,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             )}
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
-                Service Endpoint Name
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Service Endpoint Name
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
               </FieldLabel>
               <FieldInput
                 name={`portDefinitions.${index}.name`}
@@ -454,7 +478,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
           wrapText={true}>
           <h3 className="short-bottom muted" key="service-endpoints-header">
-            Service Endpoints
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Service Endpoints
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
           </h3>
           <p key="service-endpoints-description" className="muted">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
@@ -517,15 +545,21 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
-              {'Network Type '}
-              <Tooltip
-                content={tooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Network Type
+                </FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Tooltip
+                    content={tooltipContent}
+                    interactive={true}
+                    maxWidth={300}
+                    scrollContainer=".gm-scroll-view"
+                    wrapText={true}>
+                    <Icon color="grey" id="circle-question" size="mini" />
+                  </Tooltip>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
             </FieldLabel>
             {this.getTypeSelections()}
             <FieldError>{networkError}</FieldError>

@@ -7,11 +7,13 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
+import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import {HTTP, TCP, COMMAND} from '../../constants/HealthCheckProtocols';
@@ -30,7 +32,13 @@ class MultiContainerHealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.gracePeriodSeconds)}>
-              <FieldLabel>Grace Period (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Grace Period (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`${path}.gracePeriodSeconds`}
                 type="number"
@@ -42,7 +50,13 @@ class MultiContainerHealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.intervalSeconds)}>
-              <FieldLabel>Interval (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Interval (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`${path}.intervalSeconds`}
                 type="number"
@@ -54,7 +68,13 @@ class MultiContainerHealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.timeoutSeconds)}>
-              <FieldLabel>Timeout (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Timeout (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`${path}.timeoutSeconds`}
                 type="number"
@@ -66,7 +86,13 @@ class MultiContainerHealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.maxConsecutiveFailures)}>
-              <FieldLabel>Max Failures</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Max Failures
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`${path}.maxConsecutiveFailures`}
                 type="number"
@@ -97,7 +123,13 @@ class MultiContainerHealthChecksFormSection extends Component {
         <FormGroup
           className="column-12"
           showError={Boolean(errors.shell || errors.argv)}>
-          <FieldLabel>Command</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Command
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldTextarea
             name={`${path}.exec.command.value`}
             type="text"
@@ -136,7 +168,13 @@ class MultiContainerHealthChecksFormSection extends Component {
         <FormGroup
           className="column-6"
           showError={false}>
-          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Service Endpoint
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldSelect
             name={`${path}.http.endpoint`}
             value={String(healthCheck.http.endpoint)}>
@@ -147,7 +185,13 @@ class MultiContainerHealthChecksFormSection extends Component {
         <FormGroup
           className="column-6"
           showError={Boolean(errors.path)}>
-          <FieldLabel>Path</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Path
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldInput
             name={`${path}.http.path`}
             type="text"
@@ -182,7 +226,13 @@ class MultiContainerHealthChecksFormSection extends Component {
         <FormGroup
           className="column-12"
           showError={false}>
-          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Service Endpoint
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldSelect
             name={`${path}.tcp.endpoint`}
             value={String(healthCheck.tcp.endpoint)}>
@@ -218,7 +268,13 @@ class MultiContainerHealthChecksFormSection extends Component {
         onRemove={this.props.onRemoveItem.bind(this, {path})}>
         <FormRow>
           <FormGroup className="column-6">
-            <FieldLabel>Protocol</FieldLabel>
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Protocol
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
             <FieldSelect name={`${path}.protocol`}
               value={healthCheck.protocol}>
               <option value="">Select Protocol</option>

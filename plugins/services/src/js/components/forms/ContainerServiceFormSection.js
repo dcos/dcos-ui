@@ -11,6 +11,8 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -59,15 +61,21 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <FieldLabel>
-        {'Command '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+        <FormGroupHeading>
+          <FormGroupHeadingContent primary={true}>
+            Command
+          </FormGroupHeadingContent>
+          <FormGroupHeadingContent>
+            <Tooltip
+              content={tooltipContent}
+              interactive={true}
+              wrapText={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view">
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FormGroupHeadingContent>
+        </FormGroupHeading>
       </FieldLabel>
     );
   }
@@ -90,15 +98,21 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <FieldLabel>
-        {'Container Image '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+        <FormGroupHeading>
+          <FormGroupHeadingContent primary={true}>
+            Container Image
+          </FormGroupHeadingContent>
+          <FormGroupHeadingContent>
+            <Tooltip
+              content={tooltipContent}
+              interactive={true}
+              wrapText={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view">
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FormGroupHeadingContent>
+        </FormGroupHeading>
       </FieldLabel>
     );
   }
@@ -181,9 +195,14 @@ class ContainerServiceFormSection extends Component {
 
           <FormGroup
             className="column-3"
-            required={true}
             showError={Boolean(cpusErrors)}>
-            <FieldLabel className="text-no-transform">CPUs</FieldLabel>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeading required={true}>
+                <FormGroupHeadingContent>
+                  CPUs
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
             <FieldInput
               min="0.001"
               name={cpusPath}
@@ -195,9 +214,14 @@ class ContainerServiceFormSection extends Component {
 
           <FormGroup
             className="column-3"
-            required={true}
             showError={Boolean(memErrors)}>
-            <FieldLabel className="text-no-transform">Memory (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeading required={true}>
+                <FormGroupHeadingContent primary={true}>
+                  Memory (MiB)
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
             <FieldInput
               min="0.001"
               name={memPath}

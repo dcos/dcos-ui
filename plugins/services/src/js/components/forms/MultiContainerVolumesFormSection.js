@@ -9,6 +9,8 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -25,8 +27,24 @@ class MultiContainerVolumesFormSection extends Component {
       let containersLabel = null;
       let pathLabel = null;
       if (containerIndex === 0) {
-        containersLabel = <FieldLabel>Containers</FieldLabel>;
-        pathLabel = <FieldLabel>Container Path</FieldLabel>;
+        containersLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Containers
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
+        pathLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Container Path
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
       }
 
       return (
@@ -37,9 +55,7 @@ class MultiContainerVolumesFormSection extends Component {
               {getContainerNameWithIcon(container)}
             </div>
           </FormGroup>
-          <FormGroup
-            className="column-9"
-            required={false}>
+          <FormGroup className="column-9">
             {pathLabel}
             <FieldInput
               name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
@@ -75,11 +91,14 @@ class MultiContainerVolumesFormSection extends Component {
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>
-            <FormGroup
-              className="column-6"
-              required={false}
-              showError={Boolean(nameError)}>
-              <FieldLabel>Name</FieldLabel>
+            <FormGroup className="column-6" showError={Boolean(nameError)}>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Name
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`volumeMounts.${key}.name`}
                 type="text"
@@ -105,15 +124,21 @@ class MultiContainerVolumesFormSection extends Component {
 
     return (
       <h2 className="flush-top short-bottom">
-        {'Volumes '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
+        <FormGroupHeading>
+          <FormGroupHeadingContent primary={true}>
+            Volumes
+          </FormGroupHeadingContent>
+          <FormGroupHeadingContent>
+            <Tooltip
+              content={tooltipContent}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+              <Icon color="grey" id="circle-question" size="mini" />
+            </Tooltip>
+          </FormGroupHeadingContent>
+        </FormGroupHeading>
       </h2>
     );
   }

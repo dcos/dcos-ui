@@ -16,6 +16,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
@@ -62,7 +64,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         key="container-port"
         showError={Boolean(containerPortError)}>
         <FieldLabel>
-          Container Port
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Container Port
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FieldInput
           min="0"
@@ -105,15 +111,21 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         key="host-port"
         showError={Boolean(hostPortError)}>
         <FieldLabel>
-          {'Host Port '}
-          <Tooltip
-            content={tooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Host Port
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FieldInput
           disabled={endpoint.automaticPort}
@@ -175,7 +187,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <FormRow key="title">
         <FormGroup className="column-9">
           <FieldLabel>
-            Load Balanced Service Address
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Load Balanced Service Address
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
             <FieldHelp>
               Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
             </FieldHelp>
@@ -215,7 +231,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     return (
       <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
-          Protocol
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Protocol
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </FieldLabel>
         <FormRow>
           <FormGroup className="column-auto" key="protocol-udp">
@@ -275,7 +295,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               key="endpoint-name"
               showError={Boolean(nameError)}>
               <FieldLabel>
-                Service Endpoint Name
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Service Endpoint Name
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
               </FieldLabel>
               <FieldInput
                 name={`containers.${containerIndex}.endpoints.${index}.name`}
@@ -399,15 +423,21 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
-              {'Network Type '}
-              <Tooltip
-                content={tooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Network Type
+                </FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Tooltip
+                    content={tooltipContent}
+                    interactive={true}
+                    maxWidth={300}
+                    scrollContainer=".gm-scroll-view"
+                    wrapText={true}>
+                    <Icon color="grey" id="circle-question" size="mini" />
+                  </Tooltip>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
             </FieldLabel>
             {this.getTypeSelections()}
             <FieldError>{networkError}</FieldError>

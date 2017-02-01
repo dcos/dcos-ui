@@ -10,6 +10,8 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -25,8 +27,24 @@ class EnvironmentFormSection extends Component {
       let keyLabel = null;
       let valueLabel = null;
       if (key === 0) {
-        keyLabel = <FieldLabel>Key</FieldLabel>;
-        valueLabel = <FieldLabel>Value</FieldLabel>;
+        keyLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Key
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
+        valueLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Value
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
       }
 
       return (
@@ -70,8 +88,24 @@ class EnvironmentFormSection extends Component {
       let keyLabel = null;
       let valueLabel = null;
       if (key === 0) {
-        keyLabel = <FieldLabel>Key</FieldLabel>;
-        valueLabel = <FieldLabel>Value</FieldLabel>;
+        keyLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Key
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
+        valueLabel = (
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Value
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+        );
       }
 
       return (
@@ -134,15 +168,21 @@ class EnvironmentFormSection extends Component {
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          {'Environment Variables '}
-          <Tooltip
-            content={envTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Environment Variables
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={envTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h2>
         <p>
           Set up environment variables for each instance your service launches.
@@ -159,15 +199,21 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
         </FormRow>
         <h2 className="short-bottom">
-          {'Labels '}
-          <Tooltip
-            content={labelsTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Labels
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={labelsTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h2>
         <p>
           Attach metadata to expose additional information to other services.
