@@ -158,30 +158,6 @@ class ContainerServiceFormSection extends Component {
     });
   }
 
-  getGPUSLabel() {
-    if (this.isGpusDisabled()) {
-      return (
-        <FieldLabel className="text-no-transform">
-          {'GPUs '}
-          <Tooltip
-            content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="lock" size="mini" />
-          </Tooltip>
-        </FieldLabel>
-      );
-    }
-
-    return (
-      <FieldLabel className="text-no-transform">
-        GPUs
-      </FieldLabel>
-    );
-  }
-
   getGPUSField() {
     const {data, errors, path, service} = this.props;
     if (service instanceof PodSpec) {
@@ -192,37 +168,40 @@ class ContainerServiceFormSection extends Component {
     const gpusErrors = findNestedPropertyInObject(errors, gpusPath);
     const gpusDisabled = this.isGpusDisabled();
 
+    let inputNode = (
+      <FieldInput
+        disabled={gpusDisabled}
+        min="0"
+        name={gpusPath}
+        step="any"
+        type="number"
+        value={findNestedPropertyInObject(data, gpusPath)} />
+    );
+
+    if (gpusDisabled) {
+      inputNode = (
+        <Tooltip
+          content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper">
+          {inputNode}
+        </Tooltip>
+      );
+    }
+
     return (
       <FormGroup
         className="column-4"
         showError={Boolean(!gpusDisabled && gpusErrors)}>
-        {this.getGPUSLabel()}
-        <FieldInput
-          disabled={gpusDisabled}
-          min="0"
-          name={gpusPath}
-          step="any"
-          type="number"
-          value={findNestedPropertyInObject(data, gpusPath)} />
+        <FieldLabel className="text-no-transform">
+          GPUs
+        </FieldLabel>
+        {inputNode}
         <FieldError>{gpusErrors}</FieldError>
       </FormGroup>
-    );
-  }
-
-  getTooltipIfContent(content) {
-    if (!content) {
-      return null;
-    }
-
-    return (
-      <Tooltip
-        content={content}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon color="grey" id="lock" size="mini" />
-      </Tooltip>
     );
   }
 
@@ -236,29 +215,43 @@ class ContainerServiceFormSection extends Component {
     const containerType = findNestedPropertyInObject(data, typePath);
     const typeErrors = findNestedPropertyInObject(errors, typePath);
     const selections = Object.keys(containerSettings).map((settingName, index) => {
-      let {helpText, label, dockerOnly} = containerSettings[settingName];
+      const {helpText, label, dockerOnly} = containerSettings[settingName];
       const settingsPath = this.getFieldPath(path, settingName);
       const checked = findNestedPropertyInObject(data, settingsPath);
+      const isDisabled = containerType !== DOCKER;
+      const labelNodeClasses = classNames({
+        'disabled muted': isDisabled
+      });
 
-      if (containerType === DOCKER) {
-        dockerOnly = '';
-      } else {
-        label = label + ' ';
-      }
-
-      return (
-        <FieldLabel key={index}>
+      let labelNode = (
+        <FieldLabel key={`label.${index}`} className={labelNodeClasses}>
           <FieldInput
-            checked={containerType === DOCKER && Boolean(checked)}
+            checked={!isDisabled && Boolean(checked)}
             name={settingsPath}
             type="checkbox"
-            disabled={containerType !== DOCKER}
+            disabled={isDisabled}
             value={settingName} />
           {label}
-          {this.getTooltipIfContent(dockerOnly)}
           <FieldHelp>{helpText}</FieldHelp>
         </FieldLabel>
       );
+
+      if (isDisabled) {
+        labelNode = (
+          <Tooltip
+            content={dockerOnly}
+            key={`tooltip.${index}`}
+            position="top"
+            scrollContainer=".gm-scroll-view"
+            width={300}
+            wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
+            wrapText={true}>
+            {labelNode}
+          </Tooltip>
+        );
+      }
+
+      return labelNode;
     });
 
     return (
@@ -336,13 +329,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getImageLabel() {
-    const {data, path, service} = this.props;
-    const typePath = this.getFieldPath(path, 'type');
-    const containerType = findNestedPropertyInObject(data, typePath);
-    const imageDisabled = (containerType == null || containerType === NONE) &&
-      !(service instanceof PodSpec);
-    let iconID = 'circle-question';
-    let tooltipContent = (
+    const tooltipContent = (
       <span>
         {'Enter a Docker image or browse '}
         <a href="https://hub.docker.com/explore/" target="_blank">
@@ -357,11 +344,6 @@ class ContainerServiceFormSection extends Component {
       </span>
     );
 
-    if (imageDisabled) {
-      tooltipContent = 'Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images.';
-      iconID = 'lock';
-    }
-
     return (
       <FieldLabel>
         {'Container Image '}
@@ -371,7 +353,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-          <Icon color="grey" id={iconID} size="mini" />
+          <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       </FieldLabel>
     );
@@ -425,6 +407,23 @@ class ContainerServiceFormSection extends Component {
       {'flush-top': path !== 'container'}
     );
 
+    let inputNode = (
+      <FieldInput name={imagePath} disabled={imageDisabled} value={image} />
+    );
+
+    if (imageDisabled) {
+      inputNode = (
+        <Tooltip
+          content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
+          width={300}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+          wrapText={true}>
+          {inputNode}
+        </Tooltip>
+      );
+    }
+
     return (
       <div>
         <h2 className={classes}>
@@ -439,10 +438,7 @@ class ContainerServiceFormSection extends Component {
             className="column-6"
             showError={Boolean(!imageDisabled && imageErrors)}>
             {this.getImageLabel()}
-            <FieldInput
-              name={imagePath}
-              disabled={imageDisabled}
-              value={image} />
+            {inputNode}
             <FieldHelp>
               Enter a Docker image you want to run, e.g. nginx.
             </FieldHelp>
