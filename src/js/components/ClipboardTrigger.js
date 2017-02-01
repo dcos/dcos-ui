@@ -48,7 +48,9 @@ class ClipboardTrigger extends React.Component {
 
     if (children != null) {
       return (
-        <span className={className} onMouseEnter={this.handleCopyIconMouseEnter}
+        <span
+          className={className}
+          onMouseEnter={this.handleCopyIconMouseEnter}
           ref="copyButton">
           {children}
         </span>
