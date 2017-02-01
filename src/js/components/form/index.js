@@ -11,6 +11,8 @@ import FieldSelect from './FieldSelect';
 import FieldTextarea from './FieldTextarea';
 import FormGroup from './FormGroup';
 import FormGroupContainer from './FormGroupContainer';
+import FormGroupHeading from './FormGroupHeading';
+import FormGroupHeadingContent from './FormGroupHeadingContent';
 import FormRow from './FormRow';
 
 module.exports = {
@@ -27,5 +29,7 @@ module.exports = {
   FieldTextarea,
   FormGroup,
   FormGroupContainer,
+  FormGroupHeading,
+  FormGroupHeadingContent,
   FormRow
 };

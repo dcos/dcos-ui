@@ -5,14 +5,14 @@ import FieldError from './FieldError';
 import {omit} from '../../utils/Util';
 
 const FormGroup = (props) => {
-  const {children, className, errorClassName, showError, required} = props;
+  const {children, className, errorClassName, showError} = props;
 
   const clonedChildren = React.Children.map(children, (child) => {
-    if (child == null || (!showError && child.type === FieldError)) {
+    if (child != null && !showError && child.type === FieldError) {
       return null;
     }
 
-    return React.cloneElement(child, {required});
+    return child;
   });
 
   const classes = classNames(
@@ -44,9 +44,6 @@ FormGroup.propTypes = {
   children: React.PropTypes.node,
   // Optional boolean to display error
   showError: React.PropTypes.bool,
-
-  // Optional boolean to make field required
-  required: React.PropTypes.bool,
 
   // Classes
   className: classPropType,
