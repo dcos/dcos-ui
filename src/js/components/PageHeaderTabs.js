@@ -85,8 +85,7 @@ class PageHeaderTabs extends React.Component {
       return {
         label,
         id,
-        isActive: isActive || (routePath != null
-          && this.isRouteActive(routePath)),
+        isActive: isActive || this.isRouteActive(routePath),
         callback,
         routePath
       };
@@ -94,7 +93,7 @@ class PageHeaderTabs extends React.Component {
   }
 
   isRouteActive(route) {
-    return this.context.router.isActive(route);
+    return route != null && this.context.router.isActive(route);
   }
 
   render() {
