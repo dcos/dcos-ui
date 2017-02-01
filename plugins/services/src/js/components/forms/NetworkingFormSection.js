@@ -116,15 +116,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField(
-      {
-        containerPort,
-        hostPort,
-        loadBalanced,
-        vip
-      },
-      index
-    ) {
+  getLoadBalancedServiceAddressField(portDefinition, index) {
+    const {containerPort, hostPort, loadBalanced, vip} = portDefinition;
     const {errors} = this.props;
     const loadBalancedError = findNestedPropertyInObject(
       errors,
