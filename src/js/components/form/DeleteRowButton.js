@@ -10,7 +10,7 @@ const DeleteRowButton = ({onClick}) => {
       maxWidth={300}
       scrollContainer=".gm-scroll-view"
       wrapText={true}>
-      <a className="button button-link button-flush"
+      <a className="button button-link"
         onClick={onClick}>
         <Icon id="close" family="tiny" size="tiny" />
       </a>
