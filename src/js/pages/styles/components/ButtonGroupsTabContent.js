@@ -253,7 +253,9 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-outline active">
+                  <button
+                    type="button"
+                    className="button button-outline active">
 
                     Left
 
@@ -279,19 +281,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-primary-outline active">
+                  <button
+                    type="button"
+                    className="button button-primary-outline active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-primary-outline">
+                  <button
+                    type="button"
+                    className="button button-primary-outline">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-primary-outline">
+                  <button
+                    type="button"
+                    className="button button-primary-outline">
 
                     Right
 
@@ -305,19 +313,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-success-outline active">
+                  <button
+                    type="button"
+                    className="button button-success-outline active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-success-outline">
+                  <button
+                    type="button"
+                    className="button button-success-outline">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-success-outline">
+                  <button
+                    type="button"
+                    className="button button-success-outline">
 
                     Right
 
@@ -331,19 +345,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-warning-outline active">
+                  <button
+                    type="button"
+                    className="button button-warning-outline active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-warning-outline">
+                  <button
+                    type="button"
+                    className="button button-warning-outline">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-warning-outline">
+                  <button
+                    type="button"
+                    className="button button-warning-outline">
 
                     Right
 
@@ -357,19 +377,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-danger-outline active">
+                  <button
+                    type="button"
+                    className="button button-danger-outline active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-danger-outline">
+                  <button
+                    type="button"
+                    className="button button-danger-outline">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-danger-outline">
+                  <button
+                    type="button"
+                    className="button button-danger-outline">
 
                     Right
 
@@ -451,19 +477,25 @@ class ButtonGroupsTabContent extends React.Component {
 
               <div className="button-group" role="group">
 
-                <button type="button" className="button button-outline button-rounded active">
+                <button
+                  type="button"
+                  className="button button-outline button-rounded active">
 
                   Left
 
                 </button>
 
-                <button type="button" className="button button-outline button-rounded">
+                <button
+                  type="button"
+                  className="button button-outline button-rounded">
 
                   Middle
 
                 </button>
 
-                <button type="button" className="button button-outline button-rounded">
+                <button
+                  type="button"
+                  className="button button-outline button-rounded">
 
                   Right
 
@@ -499,19 +531,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-outline button-inverse active">
+                  <button
+                    type="button"
+                    className="button button-outline button-inverse active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-outline button-inverse">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-outline button-inverse">
 
                     Right
 
@@ -525,19 +563,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-primary-outline button-inverse active">
+                  <button
+                    type="button"
+                    className="button button-primary-outline button-inverse active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-primary-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-primary-outline button-inverse">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-primary-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-primary-outline button-inverse">
 
                     Right
 
@@ -551,19 +595,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-success-outline button-inverse active">
+                  <button
+                    type="button"
+                    className="button button-success-outline button-inverse active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-success-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-success-outline button-inverse">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-success-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-success-outline button-inverse">
 
                     Right
 
@@ -577,19 +627,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-warning-outline button-inverse active">
+                  <button
+                    type="button"
+                    className="button button-warning-outline button-inverse active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-warning-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-warning-outline button-inverse">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-warning-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-warning-outline button-inverse">
 
                     Right
 
@@ -603,19 +659,25 @@ class ButtonGroupsTabContent extends React.Component {
 
                 <div className="button-group" role="group">
 
-                  <button type="button" className="button button-danger-outline button-inverse active">
+                  <button
+                    type="button"
+                    className="button button-danger-outline button-inverse active">
 
                     Left
 
                   </button>
 
-                  <button type="button" className="button button-danger-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-danger-outline button-inverse">
 
                     Middle
 
                   </button>
 
-                  <button type="button" className="button button-danger-outline button-inverse">
+                  <button
+                    type="button"
+                    className="button button-danger-outline button-inverse">
 
                     Right
 

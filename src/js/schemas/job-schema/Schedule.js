@@ -26,7 +26,12 @@ const Schedule = {
       title: 'CRON Schedule',
       helpBlock: (
         <span>
-          Use cron format to set your schedule, e.g. <i>0 0 20 * *</i>. <a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
+          Use cron format to set your schedule, e.g. <i>0 0 20 * *</i>{'. '}
+          <a
+            href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')}
+            target="_blank">
+            View documentation
+          </a>.
         </span>
       ),
       type: 'string',
@@ -54,7 +59,12 @@ const Schedule = {
       title: 'Time Zone',
       description: (
         <span>
-          Enter time zone in <a href="http://www.timezoneconverter.com/cgi-bin/zonehelp" target="_blank">TZ format</a>, e.g. America/New_York.
+          {'Enter time zone in '}
+          <a
+            href="http://www.timezoneconverter.com/cgi-bin/zonehelp"
+            target="_blank">
+            TZ format
+          </a>, e.g. America/New_York.
         </span>
       ),
       type: 'string',

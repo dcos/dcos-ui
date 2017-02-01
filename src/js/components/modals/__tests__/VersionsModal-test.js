@@ -42,7 +42,10 @@ describe('VersionsModal', function () {
       var data = {foo: 'bar'};
       this.container = global.document.createElement('div');
       this.instance = ReactDOM.render(
-        <VersionsModal onClose={function () {}} versionDump={data} open={true}/>,
+        <VersionsModal
+          onClose={function () {}}
+          versionDump={data}
+          open={true} />,
         this.container
       );
     });

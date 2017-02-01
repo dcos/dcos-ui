@@ -92,8 +92,13 @@ const ServiceList = React.createClass({
           {
             className: 'dashboard-health-list-health-label',
             content: (
-              <Tooltip anchor="end" content={tooltipContent} key="health"
-                wrapperClassName={classSet} wrapText={true} width={200}>
+              <Tooltip
+                anchor="end"
+                content={tooltipContent}
+                key="health"
+                wrapperClassName={classSet}
+                wrapText={true}
+                width={200}>
                 {healthLabel}
               </Tooltip>
             ),

@@ -448,12 +448,19 @@ class NewCreateServiceModalForm extends Component {
           className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <form className="create-service-modal-form container container-wide"
+              <form
+                className="create-service-modal-form container container-wide"
                 onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}>
-                <Tabs activeTab={activeTab} vertical={true} handleTabChange={handleTabChange}>
+                <Tabs
+                  activeTab={activeTab}
+                  vertical={true}
+                  handleTabChange={handleTabChange}>
                   <TabButtonList className="form-tabs-list">
-                    <TabButton id="services" label={serviceLabel} key="services">
+                    <TabButton
+                      id="services"
+                      label={serviceLabel}
+                      key="services">
                       {this.getContainerList(data)}
                     </TabButton>
                     {this.getSectionList()}

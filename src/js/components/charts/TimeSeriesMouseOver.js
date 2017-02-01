@@ -133,23 +133,31 @@ var TimeSeriesMouseOver = React.createClass({
     return (
       <g>
         <g className="x axis">
-          <text className="current-value shadow" ref="xAxisCurrent"
+          <text
+            className="current-value shadow"
+            ref="xAxisCurrent"
             dy=".71em"
             y="9"
             transform={'translate(0,' + height + ')'}>
           </text>
         </g>
         <g className="y axis">
-          <text className="current-value shadow" ref="yAxisCurrent"
+          <text
+            className="current-value shadow"
+            ref="yAxisCurrent"
             style={{textAnchor: 'end'}}
             dy=".32em"
             x="-9">
           </text>
         </g>
-        <line className="chart-cursor-position-marker" ref="xMousePosition"
+        <line
+          className="chart-cursor-position-marker"
+          ref="xMousePosition"
           y1={0}
           y2={height} />
-        <line className="chart-cursor-position-marker" ref="yMousePosition"
+        <line
+          className="chart-cursor-position-marker"
+          ref="yMousePosition"
           x1={0}
           x2={this.props.width} />
       </g>

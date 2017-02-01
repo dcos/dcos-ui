@@ -93,7 +93,11 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   if (taskID != null && taskName != null) {
     const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
-      <Link to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`} index={taskID}>{taskName}</Link>
+      <Link
+        to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
+        index={taskID}>
+        {taskName}
+      </Link>
     );
   }
 

@@ -227,8 +227,18 @@ var NodesOverview = React.createClass({
 
     return (
       <div className="button-group flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="/nodes">List</Link>
-        <Link className={gridClassSet} onClick={resetFilter} to="/nodes/grid">Grid</Link>
+        <Link
+          className={listClassSet}
+          onClick={resetFilter}
+          to="/nodes">
+          List
+        </Link>
+        <Link
+          className={gridClassSet}
+          onClick={resetFilter}
+          to="/nodes/grid">
+          Grid
+        </Link>
       </div>
     );
   },

@@ -534,7 +534,12 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             </p>
             <p>CLI Only Package</p>
             <p className="flush-bottom">
-              This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.
+              {'This package can only be installed using the CLI. See the '}
+              <a
+                href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')}
+                target="_blank">
+                documentation
+              </a>.
             </p>
           </div>
         </div>

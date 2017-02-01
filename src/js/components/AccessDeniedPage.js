@@ -40,7 +40,14 @@ module.exports = class AccessDeniedPage extends React.Component {
           <div className="page-body-content vertical-center flex-item-grow-1">
             <AlertPanel title="Access denied">
               <p className="tall">
-                You do not have access to this service. Please contact your {Config.productName} administrator or see <a href={MetadataStore.buildDocsURI('/administration/id-and-access-mgt/')} target="_blank">security documentation</a> for more information.
+                {'You do not have access to this service. Please contact your '}
+                {Config.productName}
+                {' administrator or see '}
+                <a
+                  href={MetadataStore.buildDocsURI('/administration/id-and-access-mgt/')}
+                  target="_blank">
+                  security documentation
+                </a> for more information.
               </p>
               {this.getFooter()}
             </AlertPanel>

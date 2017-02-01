@@ -20,7 +20,10 @@ describe('Tabs', function () {
     this.handleTabChange = jest.fn();
     this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
-      <Tabs vertical={true} handleTabChange={this.handleTabChange} activeTab="foo">
+      <Tabs
+        vertical={true}
+        handleTabChange={this.handleTabChange}
+        activeTab="foo">
         <TabButtonList>
           <TabButton id="foo" label="Foo">
             <TabButton id="bar" label="Bar" />
@@ -64,7 +67,10 @@ describe('Tabs', function () {
     expect(activeTab.textContent).toEqual('Foo');
 
     this.instance = ReactDOM.render(
-      <Tabs vertical={true} activeTab="qux" handleTabChange={this.handleTabChange}>
+      <Tabs
+        vertical={true}
+        activeTab="qux"
+        handleTabChange={this.handleTabChange}>
         <TabButtonList>
           <TabButton id="foo" label="Foo">
             <TabButton id="bar" label="Bar" />

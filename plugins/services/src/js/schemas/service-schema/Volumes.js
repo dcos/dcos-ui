@@ -10,7 +10,12 @@ const Volumes = {
       title: 'Persistent Local Volumes',
       description: (
         <span>
-          Specify a local volume or volumes to “pin” tasks and their associated data to the node they are first launched on. Tasks will be relaunched on that node if they terminate. <a href="https://dcos.io/docs/1.7/usage/storage/persistent-volume/" target="_blank">Learn more about creating stateful tasks with persistent volumes</a>.
+          {'Specify a local volume or volumes to “pin” tasks and their associated data to the node they are first launched on. Tasks will be relaunched on that node if they terminate. '}
+          <a
+            href="https://dcos.io/docs/1.7/usage/storage/persistent-volume/"
+            target="_blank">
+            Learn more about creating stateful tasks with persistent volumes
+          </a>.
         </span>
       ),
       type: 'array',
@@ -49,7 +54,12 @@ const Volumes = {
       title: 'Docker Container Volumes',
       description: (
         <span>
-          Create a stateful application using Docker volumes. <a href="https://docs.docker.com/engine/tutorials/dockervolumes/" target="_blank">Learn more about Docker volumes.</a>
+          {'Create a stateful application using Docker volumes. '}
+          <a
+            href="https://docs.docker.com/engine/tutorials/dockervolumes/"
+            target="_blank">
+            Learn more about Docker volumes
+          </a>.
         </span>
       ),
       type: 'array',
@@ -98,7 +108,12 @@ const Volumes = {
       title: 'External Volumes',
       description: (
         <span>
-          Create a stateful, fault-tolerant application with external volumes. <a href="https://docs.mesosphere.com/1.7/usage/storage/external-storage/" target="_blank">Learn more about external volumes.</a>
+          {'Create a stateful, fault-tolerant application with external volumes. '}
+          <a
+            href="https://docs.mesosphere.com/1.7/usage/storage/external-storage/"
+            target="_blank">
+            Learn more about external volumes
+          </a>.
         </span>
       ),
       type: 'array',

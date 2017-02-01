@@ -14,7 +14,10 @@ const ContainerSettings = {
         image: {
           description: (
             <span>
-              Configure your Docker container. Use <a href="https://hub.docker.com/explore/" target="_blank">DockerHub</a> to find popular repositories.
+              {'Configure your Docker container. Use '}
+              <a href="https://hub.docker.com/explore/" target="_blank">
+                DockerHub
+              </a> to find popular repositories.
             </span>
           ),
           title: 'Container Image',
@@ -84,7 +87,12 @@ const ContainerSettings = {
       title: 'Docker Parameters',
       description: (
         <span>
-          Supply options for the <a href="https://docs.docker.com/engine/reference/commandline/run/" target="_blank">docker run</a> command executed by the Mesos containerizer.
+          {'Supply options for the '}
+          <a
+            href="https://docs.docker.com/engine/reference/commandline/run/"
+            target="_blank">
+            docker run
+          </a> command executed by the Mesos containerizer.
         </span>
       ),
       type: 'array',

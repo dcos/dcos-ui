@@ -19,14 +19,22 @@ const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
   let overlayName = overlayID;
   if (overlay) {
     overlayName = overlay.getName();
-    crumbs.push(<Link to={`/networking/networks/${overlayName}`} key={0}>{overlayName}</Link>);
+    crumbs.push(
+      <Link to={`/networking/networks/${overlayName}`} key={0}>
+        {overlayName}
+      </Link>
+    );
   } else {
     crumbs.push(<span>{overlayID}</span>);
   }
 
   if (task) {
     const taskName = task.getName();
-    crumbs.push(<Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>{taskName}</Link>);
+    crumbs.push(
+      <Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>
+        {taskName}
+      </Link>
+    );
   } else {
     crumbs.push(<span>{taskID}</span>);
   }

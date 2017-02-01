@@ -2456,6 +2456,11 @@
         }
       }
     },
+    "eslint-plugin-jsx-max-len": {
+      "version": "1.0.0",
+      "from": "eslint-plugin-jsx-max-len@latest",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsx-max-len/-/eslint-plugin-jsx-max-len-1.0.0.tgz"
+    },
     "eslint-plugin-react": {
       "version": "6.9.0",
       "from": "eslint-plugin-react@latest",

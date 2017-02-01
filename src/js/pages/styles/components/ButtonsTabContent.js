@@ -1084,7 +1084,11 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-group">
 
-                  <button type="button" className="button dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <button
+                    type="button"
+                    className="button dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false">
 
                     Toggle Button
 
@@ -1168,7 +1172,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-jumbo dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-jumbo dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Jumbo
 
@@ -1216,7 +1224,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-large dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-large dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Large
 
@@ -1264,7 +1276,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Medium
 
@@ -1312,7 +1328,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-small dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-small dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Small
 
@@ -1360,7 +1380,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-mini dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Mini
 
@@ -1446,7 +1470,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1494,7 +1522,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-stroke dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-stroke dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1542,7 +1574,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-rounded dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-rounded dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1590,7 +1626,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-stroke button-rounded dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-stroke button-rounded dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1638,7 +1678,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-primary dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1686,7 +1730,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-success button-rounded dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-success button-rounded dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1734,7 +1782,11 @@ class ButtonTabContent extends React.Component {
 
                   <div className="button-group">
 
-                    <button type="button" className="button button-danger button-rounded button-stroke dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button
+                      type="button"
+                      className="button button-danger button-rounded button-stroke dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
 
                       Button
 
@@ -1822,7 +1874,12 @@ class ButtonTabContent extends React.Component {
 
               <div className="panel-cell">
 
-                <button type="button" className="button button-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
+                <button
+                  type="button"
+                  className="button button-primary"
+                  data-toggle="button"
+                  aria-pressed="false"
+                  autoComplete="off">
 
                   Toggle Button
 
@@ -1872,7 +1929,10 @@ class ButtonTabContent extends React.Component {
 
                   <label className="button button-primary active">
 
-                    <input type="checkbox" autoComplete="off" checked /> Checkbox 1
+                    <input
+                      type="checkbox"
+                      autoComplete="off"
+                      checked /> Checkbox 1
 
                   </label>
 
@@ -1918,19 +1978,32 @@ class ButtonTabContent extends React.Component {
 
                   <label className="button button-primary active">
 
-                    <input type="radio" name="options" id="option1" autoComplete="off" checked /> Radio 1
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option1"
+                      autoComplete="off"
+                      checked /> Radio 1
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="radio" name="options" id="option1" autoComplete="off" /> Radio 2
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option1"
+                      autoComplete="off" /> Radio 2
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="radio" name="options" id="option1" autoComplete="off" /> Radio 3
+                    <input
+                      type="radio"
+                      name="options"
+                      id="option1"
+                      autoComplete="off" /> Radio 3
 
                   </label>
 

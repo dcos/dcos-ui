@@ -19,7 +19,12 @@ const RepositoriesBreadcrumbs = (addButton) => {
     <Link to="/settings/repositories" key={-1}>Repositories</Link>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="gear" breadcrumbs={crumbs} addButton={addButton} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID="gear"
+      breadcrumbs={crumbs}
+      addButton={addButton} />
+  );
 };
 
 const METHODS_TO_BIND = [

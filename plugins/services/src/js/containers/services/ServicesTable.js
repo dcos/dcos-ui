@@ -55,7 +55,8 @@ class ServicesTable extends React.Component {
     }
 
     return (
-      <a className="table-cell-icon table-display-on-row-hover"
+      <a
+        className="table-cell-icon table-display-on-row-hover"
         href={service.getWebURL()}
         target="_blank"
         title="Open in a new window">
@@ -292,7 +293,8 @@ class ServicesTable extends React.Component {
           <span>
             {'At-a-glance overview of the global application or group state. '}
             <a
-              href={Links.statusHelpLink} target="_blank">
+              href={Links.statusHelpLink}
+              target="_blank">
               Read more
             </a>.
           </span>

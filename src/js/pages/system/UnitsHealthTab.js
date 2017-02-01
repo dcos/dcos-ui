@@ -187,8 +187,10 @@ class UnitsHealthTab extends mixin(StoreMixin) {
                 onFilterChange={this.handleHealthFilterChange}
                 itemList={dataHealth}
                 selectedFilter={healthFilter} />
-              <a href={UnitHealthStore.getDownloadURL()}
-                className="button button-primary" target="_blank">
+              <a
+                href={UnitHealthStore.getDownloadURL()}
+                className="button button-primary"
+                target="_blank">
                 Download Snapshot
               </a>
             </FilterBar>
