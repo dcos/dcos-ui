@@ -3,7 +3,10 @@ import {Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {
+  findNestedPropertyInObject,
+  isObject
+} from '../../../../../../src/js/utils/Util';
 import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
@@ -119,13 +122,17 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getLoadBalancedServiceAddressField(portDefinition, index) {
     const {containerPort, hostPort, loadBalanced, vip} = portDefinition;
     const {errors} = this.props;
-    const loadBalancedError = findNestedPropertyInObject(
+    let loadBalancedError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.labels`
     ) || findNestedPropertyInObject(
       errors,
       `container.docker.portMappings.${index}.labels`
     );
+
+    if (isObject(loadBalancedError)) {
+      loadBalancedError = null;
+    }
 
     let address = vip;
     if (address == null) {

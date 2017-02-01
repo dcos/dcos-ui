@@ -3,7 +3,10 @@ import {Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {
+  findNestedPropertyInObject,
+  isObject
+} from '../../../../../../src/js/utils/Util';
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
@@ -145,10 +148,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     const {containerPort, hostPort, loadBalanced, vip} = endpoint;
     const {errors} = this.props;
-    const loadBalancedError = findNestedPropertyInObject(
+    let loadBalancedError = findNestedPropertyInObject(
       errors,
       `containers.${containerIndex}.endpoints.${index}.labels`
     );
+
+    if (isObject(loadBalancedError)) {
+      loadBalancedError = null;
+    }
 
     let address = vip;
     if (address == null) {
