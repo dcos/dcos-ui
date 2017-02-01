@@ -38,9 +38,10 @@
     &-action,
     &-label,
     &-value {
+      overflow-wrap: break-word;
       padding: @configuration-map-item-padding-vertical 0;
       vertical-align: middle;
-      word-break: break-word;
+      word-wrap: break-word;
     }
 
     // We need specificity here to override table styles
@@ -62,7 +63,7 @@
         &,
         & > * {
           overflow-wrap: break-word;
-          word-break: break-all;
+          word-wrap: break-word;
         }
 
         code,
