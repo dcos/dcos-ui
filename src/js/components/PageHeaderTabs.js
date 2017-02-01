@@ -15,6 +15,16 @@ class PageHeaderTabs extends React.Component {
     });
   }
 
+  handleNavigationItemSelection({callback, routePath}) {
+    if (callback != null) {
+      callback();
+    }
+
+    if (routePath != null) {
+      this.context.router.push(routePath);
+    }
+  }
+
   getTabs() {
     const {props: {tabs}} = this;
 
@@ -81,16 +91,6 @@ class PageHeaderTabs extends React.Component {
         routePath
       };
     });
-  }
-
-  handleNavigationItemSelection({callback, routePath}) {
-    if (callback != null) {
-      callback();
-    }
-
-    if (routePath != null) {
-      this.context.router.push(routePath);
-    }
   }
 
   isRouteActive(route) {
