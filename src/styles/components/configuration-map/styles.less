@@ -44,6 +44,11 @@
       word-wrap: break-word;
     }
 
+    &-label,
+    &-value {
+      overflow: hidden;
+    }
+
     // We need specificity here to override table styles
     &-action,
     td&-action {
@@ -69,6 +74,7 @@
         code,
         pre {
           white-space: pre-wrap;
+          word-break: break-all;
         }
       }
     }
