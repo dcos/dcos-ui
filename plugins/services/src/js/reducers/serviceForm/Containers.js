@@ -77,7 +77,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         appState.id,
         endpoint,
         vipLabel,
-        containerPort
+        containerPort || hostPort
       );
 
       return {
