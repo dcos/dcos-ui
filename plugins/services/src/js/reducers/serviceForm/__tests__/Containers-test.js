@@ -828,7 +828,7 @@ describe('Containers', function () {
             endpoints: [],
             name: 'container-1',
             resources: {
-              cpus: 1,
+              cpus: 0.1,
               mem: 128
             }
           }]);
@@ -1744,7 +1744,7 @@ describe('Containers', function () {
             ],
             name: 'container-1',
             resources: {
-              cpus: 1,
+              cpus: 0.1,
               mem: 128
             }
           }]);
