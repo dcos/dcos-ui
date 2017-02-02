@@ -38,24 +38,24 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   handleActionDestroy() {
-    const {pod} = this.props.pod;
+    const {pod} = this.props;
     this.context.modalHandlers.deleteService({pod});
   }
 
   handleActionEdit() {
-    const {pod} = this.props.pod;
+    const {pod} = this.props;
     this.context.router.push(
       `/services/overview/${encodeURIComponent(pod.getId())}/edit/`
     );
   }
 
   handleActionScale() {
-    const {pod} = this.props.pod;
+    const {pod} = this.props;
     this.context.modalHandlers.scaleService({pod});
   }
 
   handleActionSuspend() {
-    const {pod} = this.props.pod;
+    const {pod} = this.props;
     this.context.modalHandlers.suspendService({pod});
   }
 
