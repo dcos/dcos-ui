@@ -88,11 +88,11 @@ class NewCreateServiceModal extends Component {
   constructor() {
     super(...arguments);
 
-    this.state = this.getResetState(this.props);
-
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.state = this.getResetState(this.props);
 
     // Add store change listeners the traditional way as React Router is
     // not able to pass down correct props if we are using StoreMixin
