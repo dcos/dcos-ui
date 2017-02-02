@@ -3,30 +3,17 @@ import React from 'react';
 
 import FormGroupHeadingContent from './FormGroupHeadingContent';
 
-function getChildren(children, required) {
-  if (!required) {
-    return children;
-  }
-
-  // We add the required field indicator after the first child.
-  return React.Children.toArray(children).reduce(
-    function (accumulator, child, index) {
-      accumulator.push(child);
-
-      if (index === 0) {
-        accumulator.push(
-          <FormGroupHeadingContent
-            className="text-danger"
-            key={`${index}-asterisk`}>
-            *
-          </FormGroupHeadingContent>
-        );
-      }
-
-      return accumulator;
-    },
-    []
+function getModifiedChildren(children) {
+  const asteriskNode = (
+    <FormGroupHeadingContent className="text-danger" key="asterisk">
+      *
+    </FormGroupHeadingContent>
   );
+  const nextChildren = React.Children.toArray(children);
+
+  nextChildren.splice(1, 0, asteriskNode);
+
+  return nextChildren;
 }
 
 function FormGroupHeading({className, children, required}) {
@@ -34,7 +21,7 @@ function FormGroupHeading({className, children, required}) {
 
   return (
     <div className={classes}>
-      {getChildren(children, required)}
+      {required ? getModifiedChildren(children) : children}
     </div>
   );
 }
