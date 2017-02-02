@@ -130,4 +130,81 @@ describe('JSONEditor', function () {
 
   });
 
+  describe('#updateLocalJsonState', function () {
+    it('should accept `null` as an argument', function () {
+      const instance = ReactDOM.render((
+        <JSONEditor value={{}} />
+      ), this.container);
+
+      instance.updateLocalJsonState(null);
+
+      expect(instance.jsonText).toEqual('{}');
+      expect(instance.jsonValue).toEqual({});
+      expect(instance.jsonMeta).toEqual([]);
+      expect(instance.jsonError).toEqual(null);
+    });
+
+    it('should update all properties as given', function () {
+      const instance = ReactDOM.render((
+        <JSONEditor value={{}} />
+      ), this.container);
+
+      instance.updateLocalJsonState({
+        jsonText  : '[]',
+        jsonError : [{path: 'id', message: 'Required'}],
+        jsonValue : [],
+        jsonMeta  : [{path: 'id', line: 1}]
+      });
+
+      expect(instance.jsonText).toEqual('[]');
+      expect(instance.jsonValue).toEqual([]);
+      expect(instance.jsonMeta).toEqual([{path: 'id', line: 1}]);
+      expect(instance.jsonError).toEqual([{path: 'id', message: 'Required'}]);
+    });
+  });
+
+  describe('#getNewJsonState', function () {
+    it('should return `null` if the text has not changed', function () {
+      const instance = ReactDOM.render((
+        <JSONEditor value={{}} />
+      ), this.container);
+
+      expect(instance.getNewJsonState('{}')).toEqual(null);
+    });
+
+    it('should return errors if JSON is invalid', function () {
+      const instance = ReactDOM.render((
+        <JSONEditor value={{}} />
+      ), this.container);
+
+      expect(instance.getNewJsonState('{')).toEqual({
+        jsonError: 'SyntaxError: Unexpected end of input',
+        jsonMeta: [],
+        jsonText: '{',
+        jsonValue: {}
+      });
+    });
+
+    it('should return the correct state on new JSON', function () {
+      const instance = ReactDOM.render((
+        <JSONEditor value={{}} />
+      ), this.container);
+
+      expect(instance.getNewJsonState('[\n"foo"\n]')).toEqual({
+        jsonError: null,
+        jsonMeta: [
+          {
+            line: 2,
+            path: [0],
+            position: [2, 7],
+            type: 'literal',
+            value: 'foo'
+          }
+        ],
+        jsonText: '[\n"foo"\n]',
+        jsonValue: ['foo']
+      });
+    });
+  });
+
 });
