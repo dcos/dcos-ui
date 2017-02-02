@@ -448,7 +448,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       'container.docker.network'
     );
 
-    const tooltipContent = (
+    const networkTypeTooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
         <a
@@ -483,7 +483,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip
-                    content={tooltipContent}
+                    content={networkTypeTooltipContent}
                     interactive={true}
                     maxWidth={300}
                     scrollContainer=".gm-scroll-view"
