@@ -96,15 +96,17 @@ class NewCreateServiceModal extends Component {
   constructor() {
     super(...arguments);
 
-    const {route} = this.props;
-    const {router} = this.context;
+    this.state = this.getResetState(this.props);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
 
-    this.state = this.getResetState(this.props);
-
+  componentDidMount() {
+    const {location, route} = this.props;
+    const {service} = this.state;
+    const {router} = this.context;
     // Add store change listeners the traditional way as React Router is
     // not able to pass down correct props if we are using StoreMixin
     MarathonStore.addChangeListener(
@@ -128,6 +130,11 @@ class NewCreateServiceModal extends Component {
       route,
       this.handleRouterWillLeave
     );
+
+    // Only add change listener if we didn't receive our service in first try
+    if (!service && this.isLocationEdit(location)) {
+      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -262,7 +269,6 @@ class NewCreateServiceModal extends Component {
 
   handleGoBack(event) {
     const {tabViewID} = event;
-    const {location} = this.props;
     const {
       hasChangesApplied,
       serviceFormActive,
@@ -734,11 +740,6 @@ class NewCreateServiceModal extends Component {
       serviceFormHasErrors: false,
       showAllErrors: false
     };
-
-    // Only add change listener if we didn't receive our service in first try
-    if (!service && isEdit) {
-      DCOSStore.addChangeListener(DCOS_CHANGE, this.handleStoreChange);
-    }
 
     return newState;
   }
