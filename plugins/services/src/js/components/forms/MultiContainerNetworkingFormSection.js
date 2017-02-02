@@ -20,6 +20,7 @@ import FormGroupHeadingContent from '../../../../../../src/js/components/form/Fo
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ServiceConfigUtil from '../../utils/ServiceConfigUtil';
 import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
@@ -207,12 +208,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       address = `${this.props.data.id}:${port}`;
     }
 
+    const loadBalancerDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips');
     const loadBalancerTooltipContent = (
       <span>
         {`Load balance the service internally (layer 4), and create a service
         address. For external (layer 7) load balancing, create an external
         load balancer and attach this service. `}
-        <a href="https://docs.mesosphere.com/usage/service-discovery/load-balancing-vips/"
+        <a href={loadBalancerDocsURI}
           target="_blank">
           More Information
         </a>
@@ -459,8 +461,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
+    const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
-      <a href="https://docs.mesosphere.com/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+      <a href={serviceEndpointsDocsURI}
         target="_blank">
         More Information
       </a>
