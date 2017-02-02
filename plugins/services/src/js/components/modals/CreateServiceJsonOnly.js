@@ -4,6 +4,7 @@ import deepEqual from 'deep-equal';
 import ApplicationSpec from '../../structs/ApplicationSpec';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import {SYNTAX_ERROR} from '../../constants/ServiceErrorTypes';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import PodSpec from '../../structs/PodSpec';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -67,7 +68,7 @@ class CreateServiceJsonOnly extends React.Component {
   handleJSONErrorStateChange(errorState) {
     const {errors, onErrorsChange} = this.props;
     const hasJsonError = errors.some(function (error) {
-      return error.type === 'JSON_ERROR';
+      return error.type === SYNTAX_ERROR;
     });
 
     // Produce a JSON error if we have errors
@@ -75,7 +76,7 @@ class CreateServiceJsonOnly extends React.Component {
       onErrorsChange([
         {
           path: [],
-          type: 'JSON_ERROR',
+          type: SYNTAX_ERROR,
           variables: {},
           message: 'The input entered is not a valid JSON string'
         }

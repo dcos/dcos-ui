@@ -372,8 +372,7 @@ class NewCreateServiceModal extends Component {
     }
 
     // Combine all errors
-    return [].concat(
-      apiErrors,
+    return apiErrors.concat(
       serviceFormErrors,
       validationErrors
     );

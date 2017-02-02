@@ -83,20 +83,22 @@ class ServiceConfigDisplay extends React.Component {
       return null;
     }
 
+    const errorItems = errors.map((error, index) => {
+      const prefix = error.path.length ? `${error.path.join('.')}:` : '';
+
+      return (
+        <li key={index} className="short">
+          {`\u2022 ${prefix} ${error.message}`}
+        </li>
+      );
+    });
+
     return (
       <Alert>
         <strong>There is an error with your configuration</strong>
         <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
           <ul className="list-unstyled short flush-bottom">
-            {errors.map((error, index) => {
-              const prefix = error.path.length ? `${error.path.join('.')}:` : '';
-
-              return (
-                <li key={index} className="short">
-                  {`\u2022 ${prefix} ${error.message}`}
-                </li>
-              );
-            })}
+            {errorItems}
           </ul>
         </div>
       </Alert>

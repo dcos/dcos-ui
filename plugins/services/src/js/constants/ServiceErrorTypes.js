@@ -47,10 +47,19 @@ const ServiceErrorTypes = {
    */
   PROP_MISSING_ONE: 'PROP_MISSING_ONE',
 
-  /**
+  /*
    * Service is locked for deployment
    */
-  SERVICE_DEPLOYING: 'SERVICE_DEPLOYING'
+  SERVICE_DEPLOYING: 'SERVICE_DEPLOYING',
+
+  /**
+   * The user input is syntactically incorrect and cannot be parsed
+   *
+   * Expected variables:
+   * {
+   * }
+   */
+  SYNTAX_ERROR: 'SYNTAX_ERROR'
 
 };
 

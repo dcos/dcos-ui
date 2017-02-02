@@ -92,7 +92,6 @@ class NewCreateServiceModalForm extends Component {
 
   componentDidUpdate() {
     this.props.onChange(new this.props.service.constructor(this.state.appConfig));
-    // this.props.onErrorStateChange(this.state.errorList.length !== 0);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -157,9 +156,6 @@ class NewCreateServiceModalForm extends Component {
     if (!fieldName) {
       return;
     }
-
-    // Run data validation on the raw data
-    // this.validateCurrentState();
   }
 
   handleFormChange(event) {
@@ -180,11 +176,6 @@ class NewCreateServiceModalForm extends Component {
       // Render the new appconfig
       appConfig: this.getAppConfig(batch),
       batch
-      // // [Case F1] Reset errors only on the current field
-      // errorList: DataValidatorUtil.stripErrorsOnPath(
-      //   this.state.errorList,
-      //   path
-      // )
     });
   }
 
@@ -208,14 +199,6 @@ class NewCreateServiceModalForm extends Component {
     this.setState({batch, appConfig: this.getAppConfig(batch)});
   }
 
-  // validateCurrentState() {
-  //   const {errorList} = this.getNewStateForJSON(this.getAppConfig());
-
-  //   this.setState({errorList});
-
-  //   return Boolean(errorList.length);
-  // }
-
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
     // Delete all key:value fields
     // Otherwise applyPatch will duplicate keys we're changing via the form
@@ -236,20 +219,22 @@ class NewCreateServiceModalForm extends Component {
       return null;
     }
 
+    const errorItems = errors.map((error, index) => {
+      const prefix = error.path.length ? `${error.path.join('.')}:` : '';
+
+      return (
+        <li key={index} className="short">
+          {`\u2022 ${prefix} ${error.message}`}
+        </li>
+      );
+    });
+
     return (
       <Alert>
         <strong>There is an error with your configuration</strong>
         <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
           <ul className="list-unstyled short flush-bottom">
-            {errors.map((error, index) => {
-              const prefix = error.path.length ? `${error.path.join('.')}:` : '';
-
-              return (
-                <li key={index} className="short">
-                  {`\u2022 ${prefix} ${error.message}`}
-                </li>
-              );
-            })}
+            {errorItems}
           </ul>
         </div>
       </Alert>
