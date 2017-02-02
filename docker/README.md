@@ -26,7 +26,7 @@ You'll only need to run the build once. If you change the path to your plugins r
 
   **Option 2**. Build with a plugins repo
 
-    If you have a repository of plugins to enhance DC/OS UI, you may configure this by passing a URL to the git repo. For example: `https://{AUTH_TOKEN}:x-oauth-basic@github.com/my-company/dcos-ui-plugins.git`, where `{AUTH_TOKEN}` would be your generated token from, e.g. https://github.com/settings/tokens.
+    If you have a repository of plugins to enhance DC/OS UI, you may configure this by passing a URL to the git repo. You must ensure that the docker container will have access to clone your repo. As an example, if you had a private repository of plugins in GitHub you would want to construct this URL: `https://{AUTH_TOKEN}:x-oauth-basic@github.com/{organization}/{repository}.git`, where `{AUTH_TOKEN}` would be your generated token from, e.g. https://github.com/settings/tokens.
 
     ```sh
     docker build \

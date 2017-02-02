@@ -1,5 +1,4 @@
 FROM node:4.4.4
-LABEL node-version="4.4.4"
 
 ARG PLUGINS_REPO
 EXPOSE 4200
