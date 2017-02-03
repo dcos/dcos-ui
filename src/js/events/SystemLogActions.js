@@ -184,6 +184,7 @@ const SystemLogActions = {
       source.removeEventListener('message', messageListener);
       source.removeEventListener('error', errorListener);
       source.close();
+      delete sources[subscriptionID];
     }
 
     source.addEventListener('message', messageListener, false);
