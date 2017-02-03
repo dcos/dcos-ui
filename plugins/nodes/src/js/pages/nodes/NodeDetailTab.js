@@ -2,6 +2,10 @@ import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
@@ -17,19 +21,45 @@ class NodeDetailTab extends React.Component {
   render() {
     const {node} = this.props;
 
-    const headerValueMapping = {
-      ID: node.id,
-      Active: StringUtil.capitalize(node.active.toString().toLowerCase()),
-      Registered: DateUtil.msToDateStr(
-        node.registered_time.toFixed(3) * 1000
-      ),
-      'Master Version': MesosStateStore.get('lastMesosState').version
-    };
-
     return (
       <div className="container">
         <ConfigurationMap>
-          <HashMapDisplay hash={headerValueMapping} />
+          <ConfigurationMapSection>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                ID
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {node.id}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Active
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {StringUtil.capitalize(node.active.toString().toLowerCase())}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Registered
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {DateUtil.msToDateStr(
+                  node.registered_time.toFixed(3) * 1000
+                )}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Master Version
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {MesosStateStore.get('lastMesosState').version}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
         </ConfigurationMap>
       </div>
