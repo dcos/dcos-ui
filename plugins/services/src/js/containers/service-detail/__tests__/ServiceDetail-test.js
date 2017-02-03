@@ -2,6 +2,7 @@ jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMapLabel');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMapValue');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMapHeading');
+jest.dontMock('../../../../../../../src/js/components/ConfigurationMapRow');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMapSection');
 jest.dontMock('../../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../../../../../../../src/js/components/DetailViewSectionHeading');

@@ -4,12 +4,14 @@ import {routerShape} from 'react-router';
 import Alert from '../../../../../../src/js/components/Alert';
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
 import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
 import DeclinedOffersUtil from '../../utils/DeclinedOffersUtil';
-import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MarathonStore from '../../stores/MarathonStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
 import Service from '../../structs/Service';
@@ -56,20 +58,59 @@ class ServiceDebugContainer extends React.Component {
     }
 
     const {version, timestamp, taskId, state, message, host} = lastTaskFailure;
-    const taskFailureValueMapping = {
-      'Task ID': this.getValueText(taskId),
-      'State': this.getValueText(state),
-      'Message': this.getValueText(message),
-      'Host': this.getValueText(host),
-      'Timestamp': (
-        <span>
-          {timestamp} (<TimeAgo time={new Date(timestamp)} />)
-        </span>
-      ),
-      'Version': <span>{version} (<TimeAgo time={new Date(version)} />)</span>
-    };
 
-    return <HashMapDisplay hash={taskFailureValueMapping} />;
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Task ID
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getValueText(taskId)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            State
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getValueText(state)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Message
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getValueText(message)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Host
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getValueText(host)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Timestamp
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {timestamp} (<TimeAgo time={new Date(timestamp)} />
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Version
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {version} (<TimeAgo time={new Date(version)} />)
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    );
   }
 
   getLastVersionChange() {
@@ -90,16 +131,27 @@ class ServiceDebugContainer extends React.Component {
       );
     }
 
-    const LastVersionChangeValueMapping = {
-      'Scale or Restart': lastScaling,
-      'Configuration': (
-        <span>
-          {lastConfigChangeAt} (<TimeAgo time={new Date(lastConfigChangeAt)} />)
-        </span>
-      )
-    };
-
-    return <HashMapDisplay hash={LastVersionChangeValueMapping} />;
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Scale or Restart
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {lastScaling}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Configuration
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {`${lastConfigChangeAt} `}
+            (<TimeAgo time={new Date(lastConfigChangeAt)} />)
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    );
   }
 
   getRecentOfferSummary() {
