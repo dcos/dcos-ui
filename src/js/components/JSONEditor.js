@@ -278,7 +278,7 @@ class JSONEditor extends React.Component {
    * Get new JSON state (parsed value and meta data) from json text.
    *
    * @param {String} jsonText - The JSON buffer to extract metadata from
-   * @return {{
+   * @return {null | {
    *      jsonValue:object,
    *      jsonText:string,
    *      jsonMeta:object,
@@ -289,7 +289,7 @@ class JSONEditor extends React.Component {
     // Do not perform heavyweight calculations, such as `getObjectInformation`
     // if the json text hasn't really changed.
     if (this.jsonText === jsonText) {
-      return;
+      return null;
     }
 
     // Reset some properties
@@ -328,17 +328,21 @@ class JSONEditor extends React.Component {
    * want to re-do the processing when this will eventually trigger an update
    * to the `value` property with the same data.
    *
-   * @param {object} jsonSate
-   * @param {object} jsonSate.jsonValue
-   * @param {string} jsonSate.jsonText
-   * @param {object} jsonSate.jsonMeta
-   * @param {string} jsonSate.jsonError
+   * @param {object|null} jsonState
+   * @param {object} jsonState.jsonValue
+   * @param {string} jsonState.jsonText
+   * @param {object} jsonState.jsonMeta
+   * @param {string} jsonState.jsonError
    */
-  updateLocalJsonState(jsonSate) {
-    this.jsonText = jsonSate.jsonText;
-    this.jsonError = jsonSate.jsonError;
-    this.jsonValue = jsonSate.jsonValue;
-    this.jsonMeta = jsonSate.jsonMeta;
+  updateLocalJsonState(jsonState) {
+    if (jsonState == null) {
+      return;
+    }
+
+    this.jsonText = jsonState.jsonText;
+    this.jsonError = jsonState.jsonError;
+    this.jsonValue = jsonState.jsonValue;
+    this.jsonMeta = jsonState.jsonMeta;
 
     // Sync editor without a render cycle
     this.updateEditorState();
