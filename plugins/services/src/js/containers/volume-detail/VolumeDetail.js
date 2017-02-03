@@ -1,8 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
-import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import Page from '../../../../../../src/js/components/Page';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import VolumeStatus from '../../constants/VolumeStatus';
@@ -23,15 +27,6 @@ class VolumeDetail extends React.Component {
   render() {
     const {service, volume} = this.props;
 
-    const detailsHash = {
-      'Container Path': volume.getContainerPath(),
-      'Mode': volume.getMode(),
-      'Size (MiB)': volume.getSize(),
-      'Application': service.getId(),
-      'Task ID': volume.getTaskID(),
-      'Host': volume.getHost()
-    };
-
     return (
       <Page>
         <Page.Header
@@ -39,7 +34,58 @@ class VolumeDetail extends React.Component {
         <DetailViewHeader
           subTitle={this.renderSubHeader()}
           title={volume.getId()} />
-        <HashMapDisplay hash={detailsHash} />
+        <ConfigurationMap>
+          <ConfigurationMapSection>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Container Path
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {volume.getContainerPath()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Mode
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {volume.getMode()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Size (MiB)
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {volume.getSize()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Application
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {service.getId()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Task ID
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {volume.getTaskID()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Host
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {volume.getHost()}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          </ConfigurationMapSection>
+        </ConfigurationMap>
       </Page>
     );
   }
