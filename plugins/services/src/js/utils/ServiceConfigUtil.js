@@ -22,7 +22,7 @@ const ServiceConfigUtil = {
   },
 
   buildHostNameFromVipLabel(label, port) {
-    const [ipOrName, labelPort] = label.split(':');
+    const [ipOrName, labelPort = ''] = label.split(':');
 
     // Sometimes we don't know the port yet
     port = port || '<assigned port>';

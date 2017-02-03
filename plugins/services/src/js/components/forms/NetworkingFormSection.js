@@ -122,6 +122,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getLoadBalancedServiceAddressField(portDefinition, index) {
     const {containerPort, hostPort, loadBalanced, vip} = portDefinition;
     const {errors} = this.props;
+    let vipPortError = null;
     let loadBalancedError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.labels`
@@ -131,6 +132,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (isObject(loadBalancedError)) {
+      vipPortError = loadBalancedError[`VIP_${index}`];
       loadBalancedError = null;
     }
 
@@ -146,6 +148,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       port = port || 0;
 
       address = `${this.props.data.id}:${port}`;
+    }
+
+    let hostName = null;
+    if (!Boolean(vipPortError)) {
+      hostName = (
+        <span>
+          {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
+        </span>
+      );
     }
 
     return [
@@ -172,10 +183,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-auto flush-left">
-          <span>
-            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-          </span>
+        <FormGroup
+          className="column-auto flush-left"
+          showError={Boolean(vipPortError)}>
+          {hostName}
+          <FieldError>{vipPortError}</FieldError>
         </FormGroup>
       </FormRow>
     ];
