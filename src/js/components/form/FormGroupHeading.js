@@ -3,7 +3,7 @@ import React from 'react';
 
 import FormGroupHeadingContent from './FormGroupHeadingContent';
 
-function getModifiedChildren(children) {
+function injectAsteriskNode(children) {
   const asteriskNode = (
     <FormGroupHeadingContent className="text-danger" key="asterisk">
       *
@@ -21,7 +21,7 @@ function FormGroupHeading({className, children, required}) {
 
   return (
     <div className={classes}>
-      {required ? getModifiedChildren(children) : children}
+      {required ? injectAsteriskNode(children) : children}
     </div>
   );
 }
