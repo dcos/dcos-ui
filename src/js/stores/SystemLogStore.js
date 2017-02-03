@@ -148,6 +148,7 @@ class SystemLogStore extends BaseStore {
       options = Object.assign({}, options, {cursor});
     }
 
+    // Will return unchanged subscriptionID if provided in the options
     subscriptionID = SystemLogActions.subscribe(nodeID, options);
 
     // Start a timer to notify view if we have received nothing
@@ -180,7 +181,7 @@ class SystemLogStore extends BaseStore {
       this.logs[subscriptionID],
       'entries.0.cursor'
     );
-    if (!cursor || this.hasLoadedTop(subscriptionID)) {
+    if ((!cursor && !options.cursor) || this.hasLoadedTop(subscriptionID)) {
       return false;
     }
 
