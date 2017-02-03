@@ -43,12 +43,6 @@ class LogView extends React.Component {
 
   componentDidMount() {
     global.addEventListener('resize', this.handleWindowResize);
-
-    const {logContainer} = this;
-    if (logContainer) {
-      // Make sure to check if we are at the top on mount
-      this.checkIfCloseToTop(logContainer);
-    }
   }
 
   componentWillReceiveProps(nextProps) {

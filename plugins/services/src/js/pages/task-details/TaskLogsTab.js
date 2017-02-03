@@ -21,7 +21,7 @@ const METHODS_TO_BIND = [
   'handleItemSelection'
 ];
 
-const PAGE_ENTRY_COUNT = 200;
+const PAGE_ENTRY_COUNT = 400;
 
 function getLogParameters(task, options) {
   let {framework_id:frameworkID, executor_id:executorID, id} = task;
@@ -123,6 +123,12 @@ class TaskLogsTab extends mixin(StoreMixin) {
       return;
     }
 
+    // Because we don't know if we are at the top when file loads, it will also
+    // fire on file load to check whether we are at the top
+    if (this.state.isLoading) {
+      this.handleFetchPreviousLog();
+    }
+
     this.setState({
       hasError: false,
       direction,
@@ -159,6 +165,10 @@ class TaskLogsTab extends mixin(StoreMixin) {
     this.setState({hasError: false, streams, selectedStream, subscriptionID});
   }
 
+  /**
+   * Will fetch previous logs, but is also used to check whether we are at the
+   * top of the file.
+   */
   handleFetchPreviousLog() {
     // Ongoing previous log fetch, wait for that to complete
     if (this.state.isFetchingPrevious) {
@@ -168,13 +178,11 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const {task} = this.props;
     const {subscriptionID} = this.state;
 
-    // Stop tailing before fetching preiovus logs
-    SystemLogStore.stopTailing(this.state.subscriptionID);
-    // Fetch two pages previous log entries to gain more leverage to explore
+    // Fetch a full page previous log entries to gain more leverage to explore
     // previous logs
     const params = getLogParameters(task, {
       filter: {STREAM: this.state.selectedStream},
-      limit: 2 * PAGE_ENTRY_COUNT,
+      limit: PAGE_ENTRY_COUNT,
       subscriptionID
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);
@@ -297,7 +305,8 @@ class TaskLogsTab extends mixin(StoreMixin) {
       <a
         className="button button-stroke"
         disabled={!task}
-        href={SystemLogUtil.getUrl(task.slave_id, params, false, '/download')}>
+        href={SystemLogUtil.getUrl(task.slave_id, params, false, '/download')}
+        key="download">
         <Icon id="download" size="mini" />
       </a>
     );
