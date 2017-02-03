@@ -3,9 +3,10 @@ import React from 'react';
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
 import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
-import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
+import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
 import Loader from '../../../../../../src/js/components/Loader';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
@@ -34,68 +35,138 @@ class TaskDetailsTab extends React.Component {
     );
   }
 
-  getMesosTaskDetailsHashMapDisplay(mesosTask) {
+  getMesosTaskDetails(mesosTask) {
     if (mesosTask == null) {
       return null;
     }
 
-    const headerValueMapping = {'Task ID': mesosTask.id};
     const services = CompositeState.getServiceList();
     const service = services.filter({ids: [mesosTask.framework_id]}).last();
-    if (service != null) {
-      headerValueMapping['Service'] = `${service.name} (${service.id})`;
-    }
-
     const node = CompositeState.getNodesList()
       .filter({ids: [mesosTask.slave_id]}).last();
-    if (node != null) {
-      headerValueMapping['Node'] = `${node.getHostName()} (${node.getID()})`;
-    }
-
     const sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
-    if (sandBoxPath) {
-      headerValueMapping['Sandbox Path'] = sandBoxPath;
-    }
 
-    headerValueMapping['Endpoints'] = (
-      <TaskEndpointsList task={mesosTask} node={node} />
-    );
+    let serviceRow = null;
+    let nodeRow = null;
+    let sandBoxRow = null;
+    let resourceRows = null;
 
     if (mesosTask.resources != null) {
       const resourceLabels = ResourcesUtil.getResourceLabels();
 
-      ResourcesUtil.getDefaultResources().forEach(function (resource) {
-        const resourceLabel = resourceLabels[resource];
+      resourceRows = ResourcesUtil.getDefaultResources().map(
+        function (resource, index) {
+          return (
+            <ConfigurationMapRow key={index}>
+              <ConfigurationMapLabel>
+                {resourceLabels[resource]}
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {Units.formatResource(resource, mesosTask.resources[resource])}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          );
+        }
+      );
+    }
 
-        headerValueMapping[resourceLabel] = Units.formatResource(
-          resource, mesosTask.resources[resource]
+    if (service != null) {
+      serviceRow = (
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Service
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {service.name} ({service.id})
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      );
+    }
+
+    if (node != null) {
+      nodeRow = (
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Node
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {node.getHostName()} ({node.getID()})
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      );
+    }
+
+    if (sandBoxPath) {
+      sandBoxRow = (
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Sandbox Path
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {sandBoxPath}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      );
+    }
+
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
+          Configuration
+        </ConfigurationMapHeading>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Task ID
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {mesosTask.id}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        {serviceRow}
+        {nodeRow}
+        {sandBoxRow}
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Endpoints
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            <TaskEndpointsList task={mesosTask} node={node} />
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        {resourceRows}
+      </ConfigurationMapSection>
+    );
+  }
+
+  getMesosTaskLabels(mesosTask) {
+    if (mesosTask == null) {
+      return null;
+    }
+
+    let labelRows = null;
+
+    if (mesosTask.labels) {
+      labelRows = mesosTask.labels.map(function ({key, value}) {
+        return (
+          <ConfigurationMapRow key={key}>
+            <ConfigurationMapLabel>
+              {key}
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {value}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
         );
       });
     }
 
     return (
-      <HashMapDisplay
-        hash={headerValueMapping}
-        headline="Configuration" />
-    );
-  }
-
-  getMesosTaskLabelHashMapDisplay(mesosTask) {
-    if (mesosTask == null) {
-      return null;
-    }
-
-    const labelMapping = {};
-    if (mesosTask.labels) {
-      mesosTask.labels.forEach(function (label) {
-        labelMapping[label.key] = label.value;
-      });
-    }
-
-    return (
-      <HashMapDisplay
-        hash={labelMapping}
-        headline="Labels" />
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
+          Labels
+        </ConfigurationMapHeading>
+        {labelRows}
+      </ConfigurationMapSection>
     );
   }
 
@@ -109,8 +180,8 @@ class TaskDetailsTab extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          {this.getMesosTaskDetailsHashMapDisplay(task)}
-          {this.getMesosTaskLabelHashMapDisplay(task)}
+          {this.getMesosTaskDetails(task)}
+          {this.getMesosTaskLabels(task)}
           <MarathonTaskDetailsList taskID={task.id} />
           {this.getContainerInfo(task)}
         </ConfigurationMap>
