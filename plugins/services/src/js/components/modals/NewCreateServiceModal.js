@@ -44,6 +44,7 @@ import Util from '../../../../../../src/js/utils/Util';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
+import JSONMultiContainerParser from '../../reducers/JSONMultiContainerParser';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONParser from '../../reducers/JSONParser';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
@@ -85,6 +86,9 @@ const APP_VALIDATORS = [
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules,
   MarathonAppValidators.mustContainImageOnDocker,
+  MarathonAppValidators.validateConstraints,
+  MarathonAppValidators.containerVolmesPath,
+  MarathonAppValidators.mustNotContainUris,
   VipLabelsValidators.mustContainPort
 ];
 
@@ -579,11 +583,20 @@ class NewCreateServiceModal extends Component {
         MultiContainerNetworkingFormSection
       ];
 
-      const jsonParserReducers = combineParsers(
+      const isPod = serviceSpec instanceof PodSpec;
+
+      let jsonParserReducers = combineParsers(
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
 
-      const isPod = serviceSpec instanceof PodSpec;
+      if (isPod) {
+        jsonParserReducers = combineParsers(
+          Hooks.applyFilter(
+            'serviceCreateJsonParserReducers',
+            JSONMultiContainerParser
+          )
+        );
+      }
 
       let jsonConfigReducers = combineReducers(
         Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
@@ -591,7 +604,10 @@ class NewCreateServiceModal extends Component {
 
       if (isPod) {
         jsonConfigReducers = combineReducers(
-          Hooks.applyFilter('serviceJsonConfigReducers', JSONMultiContainerReducers)
+          Hooks.applyFilter(
+            'serviceJsonConfigReducers',
+            JSONMultiContainerReducers
+          )
         );
       }
 

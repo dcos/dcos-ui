@@ -1,109 +1,74 @@
 import React from 'react';
-import {Table} from 'reactjs-components';
 
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+import {hasThirdField} from '../constants/OperatorTypes';
 
-class ServicePlacementConstraintsConfigSection extends ServiceConfigBaseSectionDisplay {
-  /**
-  * @override
-  */
-  shouldExcludeItem() {
-    return this.props.appConfig.constraints == null ||
-      this.props.appConfig.constraints.length === 0;
+class ServicePlacementConstraintsConfigSection extends React.Component {
+  getColumns() {
+    return [
+      {
+        heading: 'Field Name',
+        prop: 'fieldName'
+      },
+      {
+        heading: 'Operator',
+        prop: 'operator'
+      },
+      {
+        heading: 'Value',
+        prop: 'value'
+      }
+    ];
   }
 
-  /**
-   * @override
-   */
-  getDefinition() {
+  getConstraints() {
+    const {constraints = []} = this.props.appConfig;
+
+    return constraints.map(function ([fieldName, operator, value]) {
+      if (!hasThirdField[operator]) {
+        value = <em>Not Applicable</em>;
+      }
+
+      return {fieldName, operator, value};
+    });
+  }
+
+  render() {
     const {onEditClick} = this.props;
+    const constraints = this.getConstraints();
 
-    return {
-      tabViewID: 'services',
-      values: [
-        {
-          key: 'constraints',
-          heading: 'Placement Constraints',
-          headingLevel: 2
-        },
-        {
-          key: 'constraints',
-          render(data) {
-            const columns = [
-              {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Field Name'),
-                prop: 'field',
-                render(prop, row) {
-                  const value = row[prop];
+    // Since we are stateless component we will need to return something for react
+    // so we are using the `<noscript>` tag as placeholder.
+    if (!constraints.length) {
+      return <noscript />;
+    }
 
-                  return ServiceConfigDisplayUtil.getDisplayValue(value);
-                },
-                className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-label'
-                ),
-                sortable: true
-              },
-              {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Operator'),
-                prop: 'operator',
-                render(prop, row) {
-                  const value = row[prop];
-
-                  return ServiceConfigDisplayUtil.getDisplayValue(value);
-                },
-                className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-value'
-                ),
-                sortable: true
-              },
-              {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Value'),
-                prop: 'value',
-                render(prop, row) {
-                  const value = row[prop];
-
-                  return ServiceConfigDisplayUtil.getDisplayValue(value);
-                },
-                className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-value'
-                ),
-                sortable: true
-              }
-            ];
-
-            if (onEditClick) {
-              columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
-                render() {
-                  return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="services" />
-                  );
-                }
-              });
-            }
-
-            const mappedData = data.map((item) => {
-              return {field: item[0], operator: item[1], value: item[2]};
-            });
-
-            return (
-              <Table
-                key="constraints-table"
-                className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
-                columns={columns}
-                data={mappedData} />
-            );
-          }
-        }
-      ]
-    };
+    return (
+      <div>
+        <ConfigurationMapHeading level={3}>
+          Placement Constraints
+        </ConfigurationMapHeading>
+        <ConfigurationMapSection>
+          <ConfigurationMapTable
+            columns={this.getColumns()}
+            data={constraints}
+            onEditClick={onEditClick}
+            tabViewID="services" />
+        </ConfigurationMapSection>
+      </div>
+    );
   }
-}
+};
+
+ServicePlacementConstraintsConfigSection.defaultProps = {
+  appConfig: {}
+};
+
+ServicePlacementConstraintsConfigSection.propTypes = {
+  appConfig: React.PropTypes.object,
+  onEditClick: React.PropTypes.func
+};
 
 module.exports = ServicePlacementConstraintsConfigSection;

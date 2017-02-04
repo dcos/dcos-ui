@@ -28,7 +28,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
-const {GROUP_BY, LIKE, MAX_PER_OPERATOR, UNIQUE} = OperatorTypes;
+const {hasThirdField, isRequired} = OperatorTypes;
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
 const METHODS_TO_BIND = [
@@ -167,7 +167,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   getOperatorTypes() {
-    return Object.keys(OperatorTypes).map((type, index) => {
+    return Object.keys(OperatorTypes.types).map((type, index) => {
       return (<option key={index} value={type}>{type}</option>);
     });
   }
@@ -240,23 +240,36 @@ class GeneralServiceFormSection extends Component {
   }
 
   getPlacementConstraintsFields(data = []) {
-    const errors = this.props.errors || [];
-    const showParameterLabel = data.some((constraint) => {
-      return ![GROUP_BY, UNIQUE].includes(constraint.operator);
+    const constraintsErrors = findNestedPropertyInObject(
+      this.props.errors,
+      'constraints'
+    );
+    const showValueLabel = data.some((constraint) => {
+      return hasThirdField[constraint.operator];
     });
     const showRequiredLabel = data.some((constraint) => {
-      return [LIKE, MAX_PER_OPERATOR].includes(constraint.operator);
+      return isRequired[constraint.operator];
     });
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
       let operatorLabel = null;
-      let parameterLabel = null;
+      let valueLabel = null;
       let padDeleteButton = false;
-      const showParameterField = ![GROUP_BY, UNIQUE]
-        .includes(constraint.operator);
-      const paramterIsRequired = [LIKE, MAX_PER_OPERATOR]
-        .includes(constraint.operator);
+      const showValueField = hasThirdField[constraint.operator];
+      const valueIsRequired = isRequired[constraint.operator];
+      const fieldNameError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.fieldName`
+      );
+      const operatorError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.operator`
+      );
+      const valueError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.value`
+      );
 
       if (index === 0) {
         fieldLabel = this.getConstraintField(
@@ -269,10 +282,10 @@ class GeneralServiceFormSection extends Component {
         );
         padDeleteButton = true;
       }
-      if (index === 0 && showParameterLabel) {
-        parameterLabel = this.getConstraintField(
-          'Parameter',
-          'Parameters allow you to further specify your constraint.',
+      if (index === 0 && showValueLabel) {
+        valueLabel = this.getConstraintField(
+          'Value',
+          'Values allow you to further specify your constraint.',
           'Learn more'
         );
       }
@@ -286,26 +299,26 @@ class GeneralServiceFormSection extends Component {
         <FormRow key={index}>
           <FormGroup
             className={{
-              'column-4': showParameterLabel,
-              'column-6': !showParameterLabel
+              'column-4': showValueLabel,
+              'column-6': !showValueLabel
             }}
             required={true}
-            showError={Boolean(errors[index])}>
+            showError={Boolean(fieldNameError)}>
             {fieldLabel}
             <FieldInput
-              name={`constraints.${index}.field`}
+              name={`constraints.${index}.fieldName`}
               type="text"
               placeholer="hostname"
-              value={constraint.field} />
-            <FieldError>{errors[index]}</FieldError>
+              value={constraint.fieldName} />
+            <FieldError>{fieldNameError}</FieldError>
           </FormGroup>
           <FormGroup
             className={{
-              'column-4': showParameterLabel,
-              'column-6': !showParameterLabel
+              'column-4': showValueLabel,
+              'column-6': !showValueLabel
             }}
             required={true}
-            showError={Boolean(errors[index])}>
+            showError={Boolean(operatorError)}>
             {operatorLabel}
             <FieldSelect
               name={`constraints.${index}.operator`}
@@ -314,34 +327,39 @@ class GeneralServiceFormSection extends Component {
               <option value="">Select</option>
               {this.getOperatorTypes()}
             </FieldSelect>
-            <FieldError>{errors[index]}</FieldError>
+            <FieldError>{operatorError}</FieldError>
           </FormGroup>
           <FormGroup
             className={{
-              'column-4': showParameterLabel,
-              hidden: !showParameterLabel
+              'column-4': showValueLabel,
+              hidden: !showValueLabel
             }}
             required={showRequiredLabel}
-            showError={Boolean(errors[index])}>
-            {parameterLabel}
+            showError={Boolean(valueError)}>
+            {valueLabel}
             <FieldInput
-              className={{hidden:!showParameterField}}
+              className={{hidden:!showValueField}}
               name={`constraints.${index}.value`}
               type="text"
               value={constraint.value} />
             <FieldHelp
-              className={{hidden: paramterIsRequired || !showParameterField}}>
+              className={{hidden: valueIsRequired || !showValueField}}>
               This field is optional.
             </FieldHelp>
-            <FieldError className={{hidden: !showParameterField}}>
-              {errors[index]}
+            <FieldError className={{hidden: !showValueField}}>
+              {valueError}
             </FieldError>
           </FormGroup>
 
-          <FormGroup className={deleteRowButtonClassNames}>
+          <FormGroup
+            className={deleteRowButtonClassNames}
+            showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this,
                 {value: index, path: 'constraints'})} />
+            <FieldError>
+              {constraintsErrors}
+            </FieldError>
           </FormGroup>
         </FormRow>
       );

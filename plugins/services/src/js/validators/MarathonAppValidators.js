@@ -2,6 +2,7 @@ import ContainerConstants from '../constants/ContainerConstants';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
+import OperatorTypes from '../constants/OperatorTypes';
 
 const {DOCKER} = ContainerConstants.type;
 
@@ -235,6 +236,34 @@ const MarathonAppValidators = {
 
     // No errors
     return [];
+  },
+
+  validateConstraints(app) {
+    const constraints = findNestedPropertyInObject(app, 'constraints');
+    if (constraints != null && !Array.isArray(constraints)) {
+      // No errors
+      return [{
+        path: ['constraints'],
+        message: 'constrains needs to be an array of 2 or 3 element arrays'
+      }];
+    }
+
+    const message = 'You must specify a value for operator {{operator}}';
+    const type = PROP_MISSING_ONE;
+    const variables = {name: 'value'};
+
+    return constraints.reduce((errors, [fieldName, operator, value], index) => {
+      if (OperatorTypes.isRequired[operator] && ValidatorUtil.isEmpty(value)) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: message.replace('{{operator}}', operator),
+          type,
+          variables
+        });
+      }
+
+      return errors;
+    }, []);
   }
 };
 

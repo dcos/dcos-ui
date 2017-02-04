@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {hasThirdField} from '../../constants/OperatorTypes';
@@ -16,10 +17,10 @@ function getJson(constraints) {
     const normalizedOperator = operator.toUpperCase();
 
     if (!isEmpty(value)) {
-      return [fieldName, normalizedOperator, value];
+      return {fieldName, operator: normalizedOperator, value};
     }
 
-    return [fieldName, normalizedOperator];
+    return {fieldName, operator: normalizedOperator};
   });
 }
 
@@ -65,20 +66,25 @@ module.exports = {
       {type, path, value}
     );
 
-    return getJson(this.constraints);
+    // Will be applied in the `scheduling` object
+    return {placement: {constraints: getJson(this.constraints)}};
   },
 
   JSONParser(state) {
-    if (state.constraints == null) {
+    const constraints = findNestedPropertyInObject(
+      state,
+      'scheduling.placement.constraints'
+    );
+    if (constraints == null) {
       return [];
     }
 
-    return state.constraints.reduce(function (memo, item, index) {
-      if (!Array.isArray(item)) {
+    return constraints.reduce(function (memo, item, index) {
+      if (typeof item !== 'object') {
         return memo;
       }
 
-      const [fieldName, operator, value] = item;
+      const {fieldName, operator, value} = item;
       memo.push(new Transaction(['constraints'], index, ADD_ITEM));
       memo.push(new Transaction([
         'constraints',
