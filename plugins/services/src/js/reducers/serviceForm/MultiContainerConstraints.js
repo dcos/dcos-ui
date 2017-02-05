@@ -75,7 +75,8 @@ module.exports = {
       state,
       'scheduling.placement.constraints'
     );
-    if (constraints == null) {
+    // Ignore non-array constraints
+    if (!Array.isArray(constraints)) {
       return [];
     }
 
@@ -96,11 +97,15 @@ module.exports = {
         index,
         'operator'
       ], operator, SET));
-      memo.push(new Transaction([
-        'constraints',
-        index,
-        'value'
-      ], value, SET));
+
+      // Skip if value is not set
+      if (value != null) {
+        memo.push(new Transaction([
+          'constraints',
+          index,
+          'value'
+        ], value, SET));
+      }
 
       return memo;
     }, []);
@@ -111,8 +116,6 @@ module.exports = {
       return state;
     }
 
-    state = processTransaction(state, {type, path, value});
-
-    return state;
+    return processTransaction(state, {type, path, value});
   }
 };

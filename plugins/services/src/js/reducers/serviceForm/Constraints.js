@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {hasThirdField} from '../../constants/OperatorTypes';
@@ -69,7 +70,10 @@ module.exports = {
   },
 
   JSONParser(state) {
-    if (state.constraints == null) {
+    const constraints = findNestedPropertyInObject(state, 'constraints');
+
+    // Ignore non-array constraints
+    if (!Array.isArray(constraints)) {
       return [];
     }
 
@@ -90,23 +94,25 @@ module.exports = {
         index,
         'operator'
       ], operator, SET));
-      memo.push(new Transaction([
-        'constraints',
-        index,
-        'value'
-      ], value, SET));
+
+      // Skip if value is not set
+      if (value != null) {
+        memo.push(new Transaction([
+          'constraints',
+          index,
+          'value'
+        ], value, SET));
+      }
 
       return memo;
     }, []);
   },
 
   FormReducer(state = [], {type, path, value}) {
-    if (path == null) {
+    if (path == null || !Array.isArray(state)) {
       return state;
     }
 
-    state = processTransaction(state, {type, path, value});
-
-    return state;
+    return processTransaction(state, {type, path, value});
   }
 };
