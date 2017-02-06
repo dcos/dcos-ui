@@ -471,7 +471,7 @@ class NewCreateServiceModalForm extends Component {
 
       // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
       const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function (rule) {
-        return rule.exec(errorPath);
+        return rule.test(errorPath);
       });
 
       return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
