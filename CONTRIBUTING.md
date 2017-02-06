@@ -1,75 +1,77 @@
+# Contributing
+
 ## Commits
 
-Please commit your changes frequently in small logical chunks that are 
-consistent, work independently of any later commits, and pass the linter as well 
-as the test suite. Doing so eases rollback and rebase operations. 
+Please commit your changes frequently in small logical chunks that are
+consistent, work independently of any later commits, and pass the linter as well
+as the test suite. Doing so eases rollback and rebase operations.
 
-You should also follow our commit message formatting rules, as they provide a 
-framework to write explicit messages that are easy to comprehend when looking 
+You should also follow our commit message formatting rules, as they provide a
+framework to write explicit messages that are easy to comprehend when looking
 through the project history and enable automatic change log generation.
 
-These Guidelines were written based on 
+These Guidelines were written based on
 [AngularJS Git Commit Message Conventions](https://goo.gl/27wkkO).
 
 ### Commit-Message
 
-Each commit message should consist of a header (type, scope, subject), a body 
+Each commit message should consist of a header (type, scope, subject), a body
 and a footer separated by empty lines:
 
 ```
 <type>(<scope>): <subject>
-    
+
 <message>
 
 <footer>
-``` 
+```
 
-Any line of the commit message must not be longer than 100 characters to ensure 
+Any line of the commit message must not be longer than 100 characters to ensure
 that the messages are easy to read.
 
-### Subject
+#### Subject
 
-The subject contains a succinct description of the change. It should use the 
-imperative and present tense; “change” not “changed” nor “changes”. 
+The subject contains a succinct description of the change. It should use the
+imperative and present tense; “change” not “changed” nor “changes”.
 Don't capitalize the first letter, and don't end it with a dot.
 
-### Type
+#### Type
 
 The following commit types are allowed:
 
-* **feat** - 
+* **feat** -
   use this type for commits that introduce a new features or capabilities
 * **fix** - use this one for bug fixes
 * **perf** - use this type for performance improvements
-* **docs** - use this one to indicate documentation adjustments and improvements 
-* **chore** - use this type for _maintainance_ commits e.g. removing old files 
+* **docs** - use this one to indicate documentation adjustments and improvements
+* **chore** - use this type for _maintainance_ commits e.g. removing old files
 * **style** - use this one for commits that fix formatting and linting errors
-* **refactor** - 
+* **refactor** -
   use this type for adjustments to improve maintainability or performance
 * **test** - use this one for commits that add new tests
 
-### Scope
+#### Scope
 
-The scope should specify the place of the committed change. 
-Use the _class_, component, or filename if you only touched one "file", 
-otherwise use the page, module or package name. 
-Please don't list changed files and be as specific as possible. 
+The scope should specify the place of the committed change.
+Use the _class_, component, or filename if you only touched one "file",
+otherwise use the page, module or package name.
+Please don't list changed files and be as specific as possible.
 
-### Message
+#### Message
 
-The message includes motivation for the change and contrasts with previous 
-behavior. It should use the imperative and present tense. 
+The message includes motivation for the change and contrasts with previous
+behavior. It should use the imperative and present tense.
 
-### Referencing Issues 
+#### Referencing Issues
 
-Closed issues should be listed on a separate line in the footer prefixed with 
+Closed issues should be listed on a separate line in the footer prefixed with
 "Closes" keyword.
 
-### Breaking Changes
+#### Breaking Changes
 
-All breaking changes have to be mentioned in the footer with the description of 
-the change, justification and migration notes. Start the block explaining the 
-breaking changes with the words `BREAKING CHANGE:` followed by a space. 
+All breaking changes have to be mentioned in the footer with the description of
+the change, justification and migration notes. Start the block explaining the
+breaking changes with the words `BREAKING CHANGE:` followed by a space.
 
 ### Examples
 
@@ -110,7 +112,32 @@ After:
 VideoPlayer.prototype.pause()
 ```
 
-### Working with ReactJS Components
+## Adding npm Package Dependencies
+
+If you want to add a new npm package to 'node_modules':
+
+1. Install the new package
+  * Install and save dependencies in `package.json`
+
+    ```
+    npm install [your package] --save
+    ```
+
+  * Then, add the package to devDependencies
+
+    ```
+    npm install [your package] --save-dev
+    ```
+
+2. Create a synced npm-shrinkwrap.json with devDependencies included by running
+
+    ```
+    npm shrinkwrap --dev
+    ```
+
+3. Commit to repository
+
+## Working with ReactJS Components
 
 To develop ReactJS Components and see the implications immediately in DC/OS UI, it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 
@@ -119,3 +146,45 @@ To develop ReactJS Components and see the implications immediately in DC/OS UI, 
 3. Run `npm link reactjs-components` in your `dcos-ui` directory.
 4. Run `export REACTJS_COMPONENTS_LOCAL=true; npm start` to start the Webpack dev server with the proper configuration variable.
 5. After any changes are made to `reactjs-components`, run `npm run dist-src` in the `reactjs-components` directory.
+
+## Development Setup (Sublime Text Only)
+
+1. Add the following to your Sublime Text User Settings:
+
+  ```json
+  {
+    ...
+    "rulers": [80], // lines no longer than 80 chars
+    "tab_size": 2, // use two spaces for indentation
+    "translate_tabs_to_spaces": true, // use spaces for indentation
+    "ensure_newline_at_eof_on_save": true, // add newline on save
+    "trim_trailing_white_space_on_save": true, // trim trailing white space on save
+    "default_line_ending": "unix"
+  }
+  ```
+
+2. Add Sublime-linter with jshint & jsxhint:
+
+  * Installing SublimeLinter is straightforward using Sublime Package Manager, see [instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html#installing-via-pc)
+  * SublimeLinter-eslint needs a global eslint in your system, see [instructions](https://github.com/roadhump/SublimeLinter-eslint#sublimelinter-eslint)
+
+3. Syntax Highlihgting for files containing JSX
+
+  * Install Babel using Sublime Package Manager, see [instructions](https://github.com/babel/babel-sublime). From here you can decide to use Babel for all .js files. See their docs for that. If you don't want to do that, continue reading.
+  * Installing ApplySyntax using Sublime Package Manager, see [instructions](https://github.com/facelessuser/ApplySyntax)
+  * Open up the user configuration file for ApplySyntax: `Sublime Text` -> `Preferences` -> `Package Settings` -> `ApplySyntax` -> `Settings - User`
+  * Replace the contents with this:
+
+    ```json
+    {
+      // Put your custom syntax rules here:
+      "syntaxes": [
+        {
+          "name": "Babel/JavaScript (Babel)",
+          "rules": [
+            {"first_line": "^\\/\\*\\*\\s@jsx\\sReact\\.DOM\\s\\*\\/"}
+          ]
+        }
+      ]
+    }
+    ```
