@@ -44,6 +44,7 @@ class HealthChecksFormSection extends Component {
                 name={`healthChecks.${key}.gracePeriodSeconds`}
                 type="number"
                 min="0"
+                placeholder="300"
                 value={healthCheck.gracePeriodSeconds}/>
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
@@ -55,6 +56,7 @@ class HealthChecksFormSection extends Component {
                 name={`healthChecks.${key}.intervalSeconds`}
                 type="number"
                 min="0"
+                placeholder="60"
                 value={healthCheck.intervalSeconds}/>
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
@@ -66,6 +68,7 @@ class HealthChecksFormSection extends Component {
                 name={`healthChecks.${key}.timeoutSeconds`}
                 type="number"
                 min="0"
+                placeholder="20"
                 value={healthCheck.timeoutSeconds}/>
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
@@ -77,6 +80,7 @@ class HealthChecksFormSection extends Component {
                 name={`healthChecks.${key}.maxConsecutiveFailures`}
                 type="number"
                 min="0"
+                placeholder="3"
                 value={healthCheck.maxConsecutiveFailures}/>
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
