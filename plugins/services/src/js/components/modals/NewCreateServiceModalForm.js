@@ -224,7 +224,7 @@ class NewCreateServiceModalForm extends Component {
 
       return (
         <li key={index} className="short">
-          {`\u2022 ${prefix} ${error.message}`}
+          {`${prefix} ${error.message}`}
         </li>
       );
     });
@@ -233,7 +233,7 @@ class NewCreateServiceModalForm extends Component {
       <Alert>
         <strong>There is an error with your configuration</strong>
         <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-          <ul className="list-unstyled short flush-bottom">
+          <ul className="short flush-bottom">
             {errorItems}
           </ul>
         </div>
