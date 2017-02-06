@@ -13,7 +13,7 @@ const MarathonErrorUtil = {
   getErrorType(message) {
 
     // Check for 'service is deploying' error messages
-    if (/force=true/.exec(message)) {
+    if (/force=true/.test(message)) {
       return ServiceErrorTypes.SERVICE_DEPLOYING;
     }
 
