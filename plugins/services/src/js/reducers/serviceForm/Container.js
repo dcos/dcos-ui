@@ -210,7 +210,7 @@ module.exports = {
       let value = findNestedPropertyInObject(state, 'container.type');
 
       if (value == null) {
-        value = 'NONE';
+        value = NONE;
       }
 
       return new Transaction(['container', 'type'], value);
