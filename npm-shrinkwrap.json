@@ -2185,6 +2185,11 @@
       "from": "ee-first@1.1.1",
       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
     },
+    "electron-to-chromium": {
+      "version": "1.2.1",
+      "from": "electron-to-chromium@>=1.2.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.2.1.tgz"
+    },
     "elliptic": {
       "version": "6.2.3",
       "from": "elliptic@>=6.0.0 <7.0.0",
@@ -2429,6 +2434,38 @@
           "version": "4.1.1",
           "from": "object-assign@>=4.0.1 <5.0.0",
           "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        }
+      }
+    },
+    "eslint-plugin-compat": {
+      "version": "1.0.1",
+      "from": "eslint-plugin-compat@latest",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-compat/-/eslint-plugin-compat-1.0.1.tgz",
+      "dependencies": {
+        "babel-runtime": {
+          "version": "6.22.0",
+          "from": "babel-runtime@>=6.22.0 <7.0.0",
+          "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.22.0.tgz"
+        },
+        "browserslist": {
+          "version": "1.7.1",
+          "from": "browserslist@>=1.6.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-1.7.1.tgz"
+        },
+        "caniuse-db": {
+          "version": "1.0.30000621",
+          "from": "caniuse-db@>=1.0.30000617 <2.0.0",
+          "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000621.tgz"
+        },
+        "core-js": {
+          "version": "2.4.1",
+          "from": "core-js@>=2.4.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.4.1.tgz"
+        },
+        "regenerator-runtime": {
+          "version": "0.10.1",
+          "from": "regenerator-runtime@>=0.10.0 <0.11.0",
+          "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.10.1.tgz"
         }
       }
     },
@@ -7011,6 +7048,11 @@
       "version": "1.0.3",
       "from": "require-uncached@>=1.0.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/require-uncached/-/require-uncached-1.0.3.tgz"
+    },
+    "requireindex": {
+      "version": "1.1.0",
+      "from": "requireindex@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/requireindex/-/requireindex-1.1.0.tgz"
     },
     "requires-port": {
       "version": "1.0.0",
