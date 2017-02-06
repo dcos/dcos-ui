@@ -1,4 +1,5 @@
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ServiceErrorTypes from '../constants/ServiceErrorTypes';
 
 const MarathonErrorUtil = {
 
@@ -11,9 +12,12 @@ const MarathonErrorUtil = {
   // eslint-disable-next-line no-unused-vars
   getErrorType(message) {
 
-    // TODO: This will be implemented on the next PR
-    return 'MARATHON_ERROR';
+    // Check for 'service is deploying' error messages
+    if (/force=true/.test(message)) {
+      return ServiceErrorTypes.SERVICE_DEPLOYING;
+    }
 
+    return ServiceErrorTypes.GENERIC;
   },
 
   /**
