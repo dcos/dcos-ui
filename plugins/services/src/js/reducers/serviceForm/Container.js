@@ -207,7 +207,12 @@ module.exports = {
 
   JSONParser: combineParsers([
     function (state) {
+      const image = findNestedPropertyInObject(state, 'container.docker.image');
       let value = findNestedPropertyInObject(state, 'container.type');
+
+      if (value === MESOS && !image) {
+        value = NONE;
+      }
 
       if (value == null) {
         value = NONE;
