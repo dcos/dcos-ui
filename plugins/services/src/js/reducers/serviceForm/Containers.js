@@ -77,7 +77,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         appState.id,
         endpoint,
         vipLabel,
-        containerPort
+        containerPort || hostPort
       );
 
       return {
@@ -185,7 +185,7 @@ function containersParser(state) {
       item.endpoints.forEach((endpoint, endpointIndex) => {
         const networkMode = findNestedPropertyInObject(
           state,
-          'state.networks.0.mode'
+          'networks.0.mode'
         );
 
         memo = memo.concat([
