@@ -3,6 +3,7 @@ import {MountService} from 'foundation-ui';
 
 import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
+import ErrorMessageUtil from '../../../../../src/js/utils/ErrorMessageUtil';
 import PodContainersConfigSection from './PodContainersConfigSection';
 import PodEnvironmentVariablesConfigSection from './PodEnvironmentVariablesConfigSection';
 import PodGeneralConfigSection from './PodGeneralConfigSection';
@@ -13,6 +14,7 @@ import PodPlacementConstraintsConfigSection from './PodPlacementConstraintsConfi
 import PodSpec from '../structs/PodSpec';
 import PodStorageConfigSection from './PodStorageConfigSection';
 import ServiceEnvironmentVariablesConfigSection from './ServiceEnvironmentVariablesConfigSection';
+import ServiceErrorMessages from '../constants/ServiceErrorMessages';
 import ServiceGeneralConfigSection from './ServiceGeneralConfigSection';
 import ServiceHealthChecksConfigSection from './ServiceHealthChecksConfigSection';
 import ServiceLabelsConfigSection from './ServiceLabelsConfigSection';
@@ -72,8 +74,14 @@ class ServiceConfigDisplay extends React.Component {
     return 'CreateService:ServiceConfigDisplay:App';
   }
 
+  getErrors() {
+    return ErrorMessageUtil.translateErrorMessages(
+      this.props.errors, ServiceErrorMessages
+    );
+  }
+
   getRootErrors() {
-    const {errors} = this.props;
+    const errors = this.getErrors();
 
     if (errors.length === 0) {
       return null;
@@ -102,14 +110,14 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   render() {
-    const {appConfig, errors, onEditClick} = this.props;
+    const {appConfig, onEditClick} = this.props;
 
     return (
       <ConfigurationMap>
         {this.getRootErrors()}
         <MountService.Mount
           appConfig={appConfig}
-          errors={errors}
+          errors={this.getRootErrors()}
           onEditClick={onEditClick}
           type={this.getMountType()} />
       </ConfigurationMap>
