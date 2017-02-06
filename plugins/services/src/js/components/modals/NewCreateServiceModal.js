@@ -195,7 +195,7 @@ class NewCreateServiceModal extends Component {
     const serviceID = decodeURIComponent(params.id || '/');
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    this.setState({service, serviceConfig: service.getSpec()});
+    this.setState({service, serviceSpec: service.getSpec()});
   }
 
   handleGoBack(event) {
@@ -285,7 +285,7 @@ class NewCreateServiceModal extends Component {
 
   handleServiceChange(newService) {
     this.setState({
-      serviceConfig: newService
+      serviceSpec: newService
     });
   }
 
@@ -306,7 +306,7 @@ class NewCreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceConfig: new ApplicationSpec(
+          serviceSpec: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           ),
           showAllErrors: false
@@ -320,7 +320,7 @@ class NewCreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceConfig: new PodSpec(
+          serviceSpec: new PodSpec(
             Object.assign({id: baseID}, DEFAULT_POD_SPEC)
           ),
           showAllErrors: false
@@ -334,7 +334,7 @@ class NewCreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceConfig: new ApplicationSpec(
+          serviceSpec: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
           ),
           showAllErrors: false
@@ -363,12 +363,12 @@ class NewCreateServiceModal extends Component {
 
   handleServiceRun() {
     const {location} = this.props;
-    const {service, serviceConfig} = this.state;
+    const {service, serviceSpec} = this.state;
     const force = this.shouldForceSubmit();
     if (this.isLocationEdit(location) && service instanceof Service) {
-      MarathonActions.editService(service, serviceConfig, force);
+      MarathonActions.editService(service, serviceSpec, force);
     } else {
-      MarathonActions.createService(serviceConfig, force);
+      MarathonActions.createService(serviceSpec, force);
     }
 
     this.setState({isPending: true});
@@ -385,22 +385,22 @@ class NewCreateServiceModal extends Component {
    * @returns {Array} - An array of error objects
    */
   getFormErrors() {
-    const {serviceFormErrors, serviceConfig} = this.state;
+    const {serviceFormErrors, serviceSpec} = this.state;
     let validationErrors = [];
 
     // Validate Application or Pod according to the contents
-    // of the serviceConfig property.
+    // of the serviceSpec property.
 
-    if (serviceConfig instanceof ApplicationSpec) {
+    if (serviceSpec instanceof ApplicationSpec) {
       validationErrors = DataValidatorUtil.validate(
-        getServiceJSON(serviceConfig),
+        getServiceJSON(serviceSpec),
         APP_VALIDATORS
       );
     }
 
-    if (serviceConfig instanceof PodSpec) {
+    if (serviceSpec instanceof PodSpec) {
       validationErrors = DataValidatorUtil.validate(
-        getServiceJSON(serviceConfig),
+        getServiceJSON(serviceSpec),
         POD_VALIDATORS
       );
     }
@@ -463,7 +463,7 @@ class NewCreateServiceModal extends Component {
   getModalContent() {
     const {
       isJSONModeActive,
-      serviceConfig,
+      serviceSpec,
       serviceFormActive,
       serviceJsonActive,
       servicePickerActive,
@@ -477,7 +477,7 @@ class NewCreateServiceModal extends Component {
           <div className="container container-wide">
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
-              appConfig={serviceConfig}
+              appConfig={serviceSpec}
               errors={this.getAllErrors()} />
           </div>
         </div>
@@ -510,7 +510,7 @@ class NewCreateServiceModal extends Component {
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
 
-      const isPod = serviceConfig instanceof PodSpec;
+      const isPod = serviceSpec instanceof PodSpec;
 
       let jsonConfigReducers = combineReducers(
         Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
@@ -544,13 +544,13 @@ class NewCreateServiceModal extends Component {
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
-          service={serviceConfig}
+          service={serviceSpec}
           showAllErrors={showAllErrors} />
       );
     }
 
     if (serviceJsonActive) {
-      // TODO (DCOS-13561): serviceConfig should be service
+      // TODO (DCOS-13561): serviceSpec should be service
 
       return (
         <CreateServiceJsonOnly
@@ -560,7 +560,7 @@ class NewCreateServiceModal extends Component {
           ref={(ref) => {
             return this.createComponent = ref;
           }}
-          service={serviceConfig} />
+          service={serviceSpec} />
       );
     }
 
@@ -614,7 +614,6 @@ class NewCreateServiceModal extends Component {
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: false,
           label: 'Review & Run'
         }
       ];
@@ -625,7 +624,6 @@ class NewCreateServiceModal extends Component {
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: false,
           label: 'Review & Run'
         }
       ];
@@ -640,16 +638,16 @@ class NewCreateServiceModal extends Component {
     const serviceID = decodeURIComponent(params.id || '/');
     const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
     const isSpecificVersion = service instanceof Application && params.version;
-    let serviceConfig = new Application(
+    let serviceSpec = new ApplicationSpec(
       Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
     );
 
     if (isEdit && service instanceof Service && !isSpecificVersion) {
-      serviceConfig = service.getSpec();
+      serviceSpec = service.getSpec();
     }
 
     if (isEdit && isSpecificVersion) {
-      serviceConfig = service.getVersions().get(params.version);
+      serviceSpec = service.getVersions().get(params.version);
     }
 
     const newState = {
@@ -659,7 +657,7 @@ class NewCreateServiceModal extends Component {
       isOpen: true,
       isPending: false,
       service,
-      serviceConfig,
+      serviceSpec,
       serviceFormActive: isEdit, // Switch directly to form/json if edit
       serviceFormErrors: [],
       serviceJsonActive: false,
