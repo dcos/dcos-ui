@@ -73,14 +73,14 @@ const METHODS_TO_BIND = [
   'onMarathonStoreServiceEditSuccess'
 ];
 
-const APP_ERROR_VALIDATORS = [
+const APP_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.complyWithIpAddressRules
 ];
 
-const POD_ERROR_VALIDATORS = [
+const POD_VALIDATORS = [
   PodValidators.Pod
 ];
 
@@ -360,14 +360,14 @@ class NewCreateServiceModal extends Component {
     if (serviceConfig instanceof ApplicationSpec) {
       validationErrors = DataValidatorUtil.validate(
         getServiceJSON(serviceConfig),
-        APP_ERROR_VALIDATORS
+        APP_VALIDATORS
       );
     }
 
     if (serviceConfig instanceof PodSpec) {
       validationErrors = DataValidatorUtil.validate(
         getServiceJSON(serviceConfig),
-        POD_ERROR_VALIDATORS
+        POD_VALIDATORS
       );
     }
 
