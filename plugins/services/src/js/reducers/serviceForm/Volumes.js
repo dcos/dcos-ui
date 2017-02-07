@@ -1,3 +1,4 @@
+import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import {
   ADD_ITEM,
   REMOVE_ITEM,
@@ -51,10 +52,7 @@ module.exports = {
     const joinedPath = path.join('.');
 
     // Make sure to parse as integer when possible
-    const parsedValue = parseInt(value);
-    if (!isNaN(parsedValue)) {
-      value = parsedValue;
-    }
+    value = parseIntValue(value);
 
     if (joinedPath === 'container.docker.image') {
       this.docker = value !== '';
@@ -118,7 +116,7 @@ module.exports = {
         this.externalVolumes[index].containerPath = value;
       }
       if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
-        this.externalVolumes[index].external.size = parseInt(value, 10);
+        this.externalVolumes[index].external.size = parseIntValue(value);
       }
       if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
         this.externalVolumes[index].mode = value;

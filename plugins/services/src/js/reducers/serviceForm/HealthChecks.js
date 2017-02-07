@@ -4,6 +4,7 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
+import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
@@ -84,7 +85,7 @@ module.exports = {
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
-          this.healthChecks[index].portIndex = parseInt(value, 10);
+          this.healthChecks[index].portIndex = parseIntValue(value);
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           this.healthChecks[index].command = value;
@@ -93,16 +94,16 @@ module.exports = {
           this.healthChecks[index].path = value;
         }
         if (`healthChecks.${index}.gracePeriodSeconds` === joinedPath) {
-          this.healthChecks[index].gracePeriodSeconds = parseInt(value, 10);
+          this.healthChecks[index].gracePeriodSeconds = parseIntValue(value);
         }
         if (`healthChecks.${index}.intervalSeconds` === joinedPath) {
-          this.healthChecks[index].intervalSeconds = parseInt(value, 10);
+          this.healthChecks[index].intervalSeconds = parseIntValue(value);
         }
         if (`healthChecks.${index}.timeoutSeconds` === joinedPath) {
-          this.healthChecks[index].timeoutSeconds = parseInt(value, 10);
+          this.healthChecks[index].timeoutSeconds = parseIntValue(value);
         }
         if (`healthChecks.${index}.maxConsecutiveFailures` === joinedPath) {
-          this.healthChecks[index].maxConsecutiveFailures = parseInt(value, 10);
+          this.healthChecks[index].maxConsecutiveFailures = parseIntValue(value);
         }
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
@@ -221,7 +222,7 @@ module.exports = {
           }
         }
         if (`healthChecks.${index}.portIndex` === joinedPath) {
-          state[index].portIndex = parseInt(value, 10);
+          state[index].portIndex = parseIntValue(value);
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           state[index].command = value;
