@@ -410,9 +410,7 @@ class NewCreateServiceModal extends Component {
    * @returns {Array} - An array of error objects
    */
   getAllErrors() {
-    const {apiErrors} = this.state;
-
-    return apiErrors.concat(this.getFormErrors());
+    return this.state.apiErrors.concat(this.getFormErrors());
   }
 
   getHeader() {
