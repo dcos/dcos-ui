@@ -21,10 +21,10 @@ const CreateServiceModalFormUtil = {
     }
 
     return Object.keys(object).reduce(function (memo, key) {
-      if (!ValidatorUtil.isEmpty(object[key])) {
+      if (!ValidatorUtil.isEmpty(object[key]) && !Number.isNaN(object[key])) {
         // Apply the strip function recursively and keep only non-empty values
         const value = CreateServiceModalFormUtil.stripEmptyProperties(object[key]);
-        if (!ValidatorUtil.isEmpty(value)) {
+        if (!ValidatorUtil.isEmpty(value) && !Number.isNaN(value)) {
           memo[key] = value;
         }
       }
@@ -54,8 +54,8 @@ const CreateServiceModalFormUtil = {
 
       // If the patch value becomes empty, we should remove the item from
       // the data object, but only if it does not already have an empty value
-      if (ValidatorUtil.isEmpty(patchValue)) {
-        if (!ValidatorUtil.isEmpty(dataValue)) {
+      if (ValidatorUtil.isEmpty(patchValue) || Number.isNaN(patchValue)) {
+        if (!ValidatorUtil.isEmpty(dataValue) && !Number.isNaN(dataValue)) {
           delete memo[key];
 
           return memo;
@@ -66,8 +66,8 @@ const CreateServiceModalFormUtil = {
 
       // Repeat the same check like before, since the patched structure
       // might have been emptied
-      if (ValidatorUtil.isEmpty(value)) {
-        if (ValidatorUtil.isEmpty(dataValue)) {
+      if (ValidatorUtil.isEmpty(value) || Number.isNaN(value)) {
+        if (ValidatorUtil.isEmpty(dataValue) || Number.isNaN(dataValue)) {
           return memo;
         }
 
@@ -105,11 +105,11 @@ const CreateServiceModalFormUtil = {
       // If we have exhausted patching entries and we are now
       // adding new ones, process them in priority.
       if (i >= data.length) {
-        if (!ValidatorUtil.isEmpty(patchValue)) {
+        if (!ValidatorUtil.isEmpty(patchValue) && !Number.isNaN(patchValue)) {
           const value = CreateServiceModalFormUtil
             .stripEmptyProperties(patchValue);
 
-          if (!ValidatorUtil.isEmpty(value)) {
+          if (!ValidatorUtil.isEmpty(value) && !Number.isNaN(value)) {
             result.push(value);
           }
         }
@@ -122,8 +122,8 @@ const CreateServiceModalFormUtil = {
       // If the patch value becomes empty, we should remove the item from
       // the array. Effectively, this means that we should not push the item
       // in the next step and therefore we must continue the loop;
-      if (ValidatorUtil.isEmpty(patchValue)) {
-        if (!ValidatorUtil.isEmpty(dataValue)) {
+      if (ValidatorUtil.isEmpty(patchValue) || Number.isNaN(patchValue)) {
+        if (!ValidatorUtil.isEmpty(dataValue) && !Number.isNaN(dataValue)) {
           /* eslint-disable no-continue */
           continue;
           /* eslint-enable no-continue */
@@ -136,8 +136,8 @@ const CreateServiceModalFormUtil = {
       );
 
       // Push value only if the value is not empty
-      if (ValidatorUtil.isEmpty(value)) {
-        if (!ValidatorUtil.isEmpty(dataValue)) {
+      if (ValidatorUtil.isEmpty(value) || Number.isNaN(value)) {
+        if (!ValidatorUtil.isEmpty(dataValue) && !Number.isNaN(dataValue)) {
           /* eslint-disable no-continue */
           continue;
           /* eslint-enable no-continue */
