@@ -1,14 +1,22 @@
 const CreateServiceModalFormUtil = require('../CreateServiceModalFormUtil');
 
-const EMPTY_TYPES = [null, undefined, {}, [], ''];
+const EMPTY_TYPES = [null, undefined, {}, [], '', NaN];
 const NUMERICAL_VALUE_TYPES = [0, 1234];
 const NON_NUMERICAL_VALUE_TYPES = ['foo', {a: 'b'}, ['a']];
 const VALUE_TYPES = [].concat(NUMERICAL_VALUE_TYPES, NON_NUMERICAL_VALUE_TYPES);
 
+function getTypeName(type) {
+  if (Number.isNaN(type)) {
+    return 'NaN';
+  }
+
+  return JSON.stringify(type);
+}
+
 describe('CreateServiceModalFormUtil', function () {
   describe('#stripEmptyProperties', function () {
     EMPTY_TYPES.forEach(function (emptyType) {
-      const emptyTypeStr = JSON.stringify(emptyType);
+      const emptyTypeStr = getTypeName(emptyType);
 
       it(`should remove ${emptyTypeStr} object properties`, function () {
         const data = {a: 'foo', b: emptyType};
@@ -49,7 +57,7 @@ describe('CreateServiceModalFormUtil', function () {
 
     describe('Array Clean-ups', function () {
       EMPTY_TYPES.forEach(function (emptyType) {
-        const emptyTypeStr = JSON.stringify(emptyType);
+        const emptyTypeStr = getTypeName(emptyType);
 
         //
         // Empty values are removed from patched arrays
@@ -154,10 +162,10 @@ describe('CreateServiceModalFormUtil', function () {
       //
 
       [undefined, null].forEach(function (nullType) {
-        const nullTypeStr = JSON.stringify(nullType);
+        const nullTypeStr = getTypeName(nullType);
 
         VALUE_TYPES.forEach(function (valueType) {
-          const valueTypeStr = JSON.stringify(valueType);
+          const valueTypeStr = getTypeName(valueType);
 
           it(`should prefer ${valueTypeStr} if source value is ${nullTypeStr}`,
             function () {
@@ -175,10 +183,10 @@ describe('CreateServiceModalFormUtil', function () {
       //
 
       VALUE_TYPES.forEach(function (typeA) {
-        const typeAStr = JSON.stringify(typeA);
+        const typeAStr = getTypeName(typeA);
 
         VALUE_TYPES.reverse().forEach(function (typeB) {
-          const typeBStr = JSON.stringify(typeB);
+          const typeBStr = getTypeName(typeB);
 
           it(`should replace source type [${typeAStr}] with [${typeBStr}]`,
             function () {
@@ -208,7 +216,7 @@ describe('CreateServiceModalFormUtil', function () {
 
     describe('Value Removal', function () {
       EMPTY_TYPES.forEach(function (emptyType) {
-        const emptyTypeStr = JSON.stringify(emptyType);
+        const emptyTypeStr = getTypeName(emptyType);
 
         //
         // Empty properties and empty objects should be removed
@@ -248,7 +256,7 @@ describe('CreateServiceModalFormUtil', function () {
         //
 
         VALUE_TYPES.forEach(function (valueType) {
-          const valueTypeStr = JSON.stringify(valueType);
+          const valueTypeStr = getTypeName(valueType);
 
           it(`should remove ${valueTypeStr} if patched with ${emptyTypeStr}`,
             function () {
@@ -303,7 +311,7 @@ describe('CreateServiceModalFormUtil', function () {
       //
 
       NON_NUMERICAL_VALUE_TYPES.forEach(function (valueType) {
-        const valueTypeStr = JSON.stringify(valueType);
+        const valueTypeStr = getTypeName(valueType);
 
         it(`should not remove ${valueTypeStr} if patched with 0`,
           function () {
@@ -357,7 +365,7 @@ describe('CreateServiceModalFormUtil', function () {
       //
 
       NUMERICAL_VALUE_TYPES.forEach(function (valueType) {
-        const valueTypeStr = JSON.stringify(valueType);
+        const valueTypeStr = getTypeName(valueType);
 
         it(`should not remove ${valueTypeStr} if patched with 0`,
           function () {
