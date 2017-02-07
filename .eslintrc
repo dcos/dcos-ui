@@ -22,7 +22,8 @@
 
   "plugins": [
     "jsx-max-len",
-    "react"
+    "react",
+    "compat"
   ],
 
   "globals": {
@@ -42,6 +43,7 @@
   "extends": "airbnb",
 
   "rules": {
+    "compat/compat": "error",
     "arrow-parens": ["error", "always"],
     "eqeqeq": ["error", "smart"],
     "quotes": ["error", "single"],
