@@ -1,7 +1,7 @@
 const Container = require('../Container');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {ADD_ITEM, SET} =
+const {ADD_ITEM, SET, REMOVE_ITEM} =
   require('../../../../../../../src/js/constants/TransactionTypes');
 const {type: {BRIDGE, HOST, USER}} =
   require('../../../../../../../src/js/constants/Networking');
@@ -21,7 +21,8 @@ describe('Container', function () {
             privileged: null,
             network: null,
             portMappings: null
-          }
+          },
+          volumes: []
         });
     });
 
@@ -41,7 +42,8 @@ describe('Container', function () {
             network: undefined,
             portMappings: null
           },
-          type: 'DOCKER'
+          type: 'DOCKER',
+          volumes: []
         });
     });
 
@@ -64,7 +66,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -86,7 +89,8 @@ describe('Container', function () {
           network: null,
           portMappings: null
         },
-        type: 'MESOS'
+        type: 'MESOS',
+        volumes: []
       });
     });
 
@@ -111,7 +115,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -136,7 +141,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -161,7 +167,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -186,7 +193,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -211,7 +219,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -231,7 +240,8 @@ describe('Container', function () {
           privileged: null,
           network: null,
           portMappings: null
-        }
+        },
+        volumes: []
       });
     });
 
@@ -257,7 +267,8 @@ describe('Container', function () {
           portMappings: null,
           privileged: null
         },
-        type: 'MESOS'
+        type: 'MESOS',
+        volumes: []
       });
     });
 
@@ -284,7 +295,8 @@ describe('Container', function () {
           portMappings: null,
           privileged: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -306,7 +318,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -328,7 +341,8 @@ describe('Container', function () {
           network: undefined,
           portMappings: null
         },
-        type: 'DOCKER'
+        type: 'DOCKER',
+        volumes: []
       });
     });
 
@@ -348,7 +362,8 @@ describe('Container', function () {
           privileged: null,
           network: null,
           portMappings: null
-        }
+        },
+        volumes: []
       });
     });
 
@@ -385,7 +400,8 @@ describe('Container', function () {
                 }
               ]
             },
-            type: 'DOCKER'
+            type: 'DOCKER',
+            volumes: []
           });
       });
 
@@ -428,7 +444,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         }
       );
@@ -478,7 +495,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         }
       );
@@ -514,7 +532,8 @@ describe('Container', function () {
                 }
               ]
             },
-            type: 'DOCKER'
+            type: 'DOCKER',
+            volumes: []
           });
 
         it('shouldn\'t create portMappings by default', function () {
@@ -529,7 +548,8 @@ describe('Container', function () {
                 privileged: null,
                 network: null,
                 portMappings: null
-              }
+              },
+              volumes: []
             });
         });
 
@@ -557,7 +577,8 @@ describe('Container', function () {
                 privileged: null,
                 portMappings: null
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -609,7 +630,8 @@ describe('Container', function () {
                     }
                   ]
                 },
-                type: 'DOCKER'
+                type: 'DOCKER',
+                volumes: []
               });
           }
         );
@@ -650,7 +672,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -693,7 +716,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -736,7 +760,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -779,7 +804,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -834,7 +860,8 @@ describe('Container', function () {
                     }
                   ]
                 },
-                type: 'DOCKER'
+                type: 'DOCKER',
+                volumes: []
               });
           }
         );
@@ -893,7 +920,8 @@ describe('Container', function () {
                     }
                   ]
                 },
-                type: 'DOCKER'
+                type: 'DOCKER',
+                volumes: []
               });
           }
         );
@@ -954,7 +982,8 @@ describe('Container', function () {
                   }
                 ]
               },
-              type: 'DOCKER'
+              type: 'DOCKER',
+              volumes: []
             });
         });
 
@@ -1015,7 +1044,8 @@ describe('Container', function () {
                     }
                   ]
                 },
-                type: 'DOCKER'
+                type: 'DOCKER',
+                volumes: []
               });
           }
         );
@@ -1077,7 +1107,8 @@ describe('Container', function () {
                     }
                   ]
                 },
-                type: 'DOCKER'
+                type: 'DOCKER',
+                volumes: []
               });
           }
         );
@@ -1107,12 +1138,158 @@ describe('Container', function () {
                   network: null,
                   portMappings: null
                 },
-                type: 'MESOS'
+                type: 'MESOS',
+                volumes: []
               });
           }
         );
 
       });
+
+    });
+
+    describe('Volumes', function () {
+
+      it('should return an empty array if no volumes are set', function () {
+        const batch = new Batch();
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
+              network: null,
+              portMappings: null
+            },
+            volumes: []
+          });
+      });
+
+      it('should return a local volume', function () {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
+              network: null,
+              portMappings: null
+            },
+            type: 'MESOS',
+            volumes: [{
+              containerPath: null,
+              persistent: {
+                size: null
+              },
+              mode: 'RW'
+            }]
+          });
+      });
+
+      it('should return an external volume', function () {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
+              network: null,
+              portMappings: null
+            },
+            type: 'MESOS',
+            volumes: [{
+              containerPath: null,
+              external: {
+                name: null,
+                provider: 'dvdi',
+                options: {
+                  'dvdi/driver': 'rexray'
+                }
+              },
+              mode: 'RW'
+            }]
+          });
+      });
+
+      it('should return a local and an external volume', function () {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              forcePullImage: null,
+              image: '',
+              privileged: null,
+              network: null,
+              portMappings: null
+            },
+            type: 'MESOS',
+            volumes: [
+              {
+                containerPath: null,
+                persistent: {
+                  size: null
+                },
+                mode: 'RW'
+              },
+              {
+                containerPath: null,
+                external: {
+                  name: null,
+                  provider: 'dvdi',
+                  options: {
+                    'dvdi/driver': 'rexray'
+                  }
+                },
+                mode: 'RW'
+              }
+            ]
+          });
+      });
+
+      it('should return an empty array if all volumes have been removed',
+        function () {
+          let batch = new Batch();
+
+          batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET)
+          );
+          batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(['externalVolumes'], 0, REMOVE_ITEM)
+          );
+          batch = batch.add(new Transaction(['localVolumes'], 0, REMOVE_ITEM));
+
+          expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+            .toEqual({
+              docker: {
+                forcePullImage: null,
+                image: '',
+                privileged: null,
+                network: null,
+                portMappings: null
+              },
+              volumes: []
+            });
+        }
+      );
 
     });
 

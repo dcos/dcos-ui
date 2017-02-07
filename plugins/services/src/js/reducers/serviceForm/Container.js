@@ -154,10 +154,6 @@ module.exports = {
       delete newState.docker;
     }
 
-    if (ValidatorUtil.isEmpty(newState.volumes)) {
-      delete newState.volumes;
-    }
-
     if (ValidatorUtil.isEmpty(newState.type)) {
       delete newState.type;
     }
