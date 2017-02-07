@@ -4,19 +4,10 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealthCheckProtocols';
+import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import MesosCommandTypes from '../../constants/MesosCommandTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
-
-function parseIntOrNull(value) {
-  const intValue = parseInt(value);
-
-  if (Number.isNaN(intValue)) {
-    return null;
-  }
-
-  return intValue;
-}
 
 /**
  * JSON Parser Fragment for `HttpHealthCheck` type
@@ -307,23 +298,23 @@ const MultiContainerHealthChecks = {
         return reduceTcpHealthCheck(newState, field, value);
 
       case 'gracePeriodSeconds':
-        newState.gracePeriodSeconds = parseIntOrNull(value);
+        newState.gracePeriodSeconds = parseIntValue(value);
         break;
 
       case 'intervalSeconds':
-        newState.intervalSeconds = parseIntOrNull(value);
+        newState.intervalSeconds = parseIntValue(value);
         break;
 
       case 'maxConsecutiveFailures':
-        newState.maxConsecutiveFailures = parseIntOrNull(value);
+        newState.maxConsecutiveFailures = parseIntValue(value);
         break;
 
       case 'timeoutSeconds':
-        newState.timeoutSeconds = parseIntOrNull(value);
+        newState.timeoutSeconds = parseIntValue(value);
         break;
 
       case 'delaySeconds':
-        newState.delaySeconds = parseIntOrNull(value);
+        newState.delaySeconds = parseIntValue(value);
         break;
     }
 
@@ -366,35 +357,35 @@ const MultiContainerHealthChecks = {
     if (healthCheck.gracePeriodSeconds != null) {
       memo.push(new Transaction(
         path.concat(['gracePeriodSeconds']),
-        parseInt(healthCheck.gracePeriodSeconds),
+        parseIntValue(healthCheck.gracePeriodSeconds),
         SET
       ));
     }
     if (healthCheck.intervalSeconds != null) {
       memo.push(new Transaction(
         path.concat(['intervalSeconds']),
-        parseInt(healthCheck.intervalSeconds),
+        parseIntValue(healthCheck.intervalSeconds),
         SET
       ));
     }
     if (healthCheck.maxConsecutiveFailures != null) {
       memo.push(new Transaction(
         path.concat(['maxConsecutiveFailures']),
-        parseInt(healthCheck.maxConsecutiveFailures),
+        parseIntValue(healthCheck.maxConsecutiveFailures),
         SET
       ));
     }
     if (healthCheck.timeoutSeconds != null) {
       memo.push(new Transaction(
         path.concat(['timeoutSeconds']),
-        parseInt(healthCheck.timeoutSeconds),
+        parseIntValue(healthCheck.timeoutSeconds),
         SET
       ));
     }
     if (healthCheck.delaySeconds != null) {
       memo.push(new Transaction(
         path.concat(['delaySeconds']),
-        parseInt(healthCheck.delaySeconds),
+        parseIntValue(healthCheck.delaySeconds),
         SET
       ));
     }

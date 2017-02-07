@@ -63,6 +63,21 @@ module.exports = {
     };
   },
 
+  /**
+   * Parse only integer values and passes-through any other types
+   *
+   * @param {any} value - The source value
+   * @returns {Number|any} - Returns a numerical value or the value itself
+   */
+  parseIntValue(value) {
+    const parsedValue = parseInt(value);
+    if (!isNaN(parsedValue)) {
+      return parsedValue;
+    }
+
+    return value;
+  },
+
   simpleReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       if (type === TransactionTypes.SET && path.join('.') === needle) {

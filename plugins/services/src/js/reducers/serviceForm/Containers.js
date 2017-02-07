@@ -6,6 +6,7 @@ import {
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {
   combineReducers,
+  parseIntValue,
   simpleFloatReducer,
   simpleReducer
 } from '../../../../../../src/js/utils/ReducerUtil';
@@ -420,9 +421,8 @@ module.exports = {
         this.endpoints[index].endpoints[secondIndex][name] = value;
       }
       if (type === SET && numericalFiledNames.includes(name)) {
-        this.endpoints[index].endpoints[secondIndex][name] = parseInt(
-          value,
-          10
+        this.endpoints[index].endpoints[secondIndex][name] = parseIntValue(
+          value
         );
       }
     }
@@ -590,7 +590,7 @@ module.exports = {
         newState[index].endpoints[secondIndex][name] = value;
       }
       if (type === SET && numericalFiledNames.includes(name)) {
-        newState[index].endpoints[secondIndex][name] = parseInt(value, 10);
+        newState[index].endpoints[secondIndex][name] = parseIntValue(value);
       }
     }
 
