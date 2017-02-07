@@ -35,6 +35,8 @@ module.exports = {
           relaunchEscalationTimeoutSeconds: 10,
           taskLostBehavior: 'WAIT_FOREVER'
         };
+      } else if (!hasLocalVolumes) {
+        return;
       } else {
         return this.residency;
       }
