@@ -234,6 +234,24 @@ describe('ReducerUtil', function () {
     });
   });
 
+  describe('#parseIntValue', function () {
+    it('should return the integer value parsed', function () {
+      expect(ReducerUtil.parseIntValue('10')).toEqual(10);
+    });
+
+    it('should return empty string as-is', function () {
+      expect(ReducerUtil.parseIntValue('')).toEqual('');
+    });
+
+    it('should return unparsable number string as-is', function () {
+      expect(ReducerUtil.parseIntValue('foo')).toEqual('foo');
+    });
+
+    it('should return numbers as-is', function () {
+      expect(ReducerUtil.parseIntValue(123)).toEqual(123);
+    });
+  });
+
   describe('#simpleReducer', function () {
     it('should return a function', function () {
       expect(typeof ReducerUtil.simpleReducer()).toBe('function');
