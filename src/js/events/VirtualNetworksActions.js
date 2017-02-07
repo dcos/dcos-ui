@@ -26,7 +26,8 @@ const VirtualNetworksActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });

@@ -25,7 +25,8 @@ const UsersActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -77,7 +78,8 @@ const UsersActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
+          xhr
         });
       }
     });

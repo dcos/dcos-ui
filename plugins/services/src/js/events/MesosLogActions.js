@@ -22,7 +22,8 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
-          slaveID
+          slaveID,
+          xhr
         });
       }
     });
@@ -44,7 +45,8 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_MESOS_LOG_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
-          slaveID
+          slaveID,
+          xhr
         });
       }
     });
@@ -66,7 +68,8 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
-          slaveID
+          slaveID,
+          xhr
         });
       }
     });

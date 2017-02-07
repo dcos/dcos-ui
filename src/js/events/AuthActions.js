@@ -46,7 +46,8 @@ const AuthActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGOUT_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });

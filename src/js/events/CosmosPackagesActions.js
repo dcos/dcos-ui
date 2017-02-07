@@ -60,7 +60,8 @@ const CosmosPackagesActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_SEARCH_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          query
+          query,
+          xhr
         });
       }
     });
@@ -112,7 +113,8 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGES_LIST_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
-          appId
+          appId,
+          xhr
         });
       }
     });
@@ -142,7 +144,8 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
-          packageVersion
+          packageVersion,
+          xhr
         });
       }
     });
@@ -168,7 +171,8 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_INSTALL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
-          packageVersion
+          packageVersion,
+          xhr
         });
       }
     });
@@ -196,7 +200,8 @@ const CosmosPackagesActions = {
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
           packageVersion,
-          appId
+          appId,
+          xhr
         });
       }
     });
@@ -218,7 +223,8 @@ const CosmosPackagesActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -244,7 +250,8 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           name,
-          uri
+          uri,
+          xhr
         });
       }
     });
@@ -270,7 +277,8 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           name,
-          uri
+          uri,
+          xhr
         });
       }
     });

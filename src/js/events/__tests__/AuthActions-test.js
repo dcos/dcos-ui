@@ -135,6 +135,22 @@ describe('AuthActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
 });

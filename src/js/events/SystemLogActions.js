@@ -202,7 +202,8 @@ const SystemLogActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
