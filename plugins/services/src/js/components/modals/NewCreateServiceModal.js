@@ -205,11 +205,19 @@ class NewCreateServiceModal extends Component {
     } = this.state;
 
     if (serviceReviewActive) {
+      // Remove the 'Application is deploying' error when we havigate back
+      // since it's not related to the form
+      const apiErrors = this.state.apiErrors.filter(function (error) {
+        return error.type !== ServiceErrorTypes.SERVICE_DEPLOYING;
+      });
+
       // Just hide review screen. Form or JSON mode will be
       // activated automatically depending on their last state
       this.setState({
+        activeTab: tabViewID,
+        apiErrors,
         serviceReviewActive: false,
-        activeTab: tabViewID
+        showAllErrors: false
       });
 
       return;
@@ -248,7 +256,10 @@ class NewCreateServiceModal extends Component {
   }
 
   handleClearError() {
-    this.setState({apiErrors: []});
+    this.setState({
+      apiErrors: [],
+      showAllErrors: false
+    });
   }
 
   handleClose() {
@@ -269,7 +280,9 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceChange(newService) {
-    this.setState({serviceConfig: newService});
+    this.setState({
+      serviceConfig: newService
+    });
   }
 
   handleServiceErrorsChange(errors) {
@@ -284,33 +297,42 @@ class NewCreateServiceModal extends Component {
       case 'app':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
       case 'pod':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
           serviceConfig: new PodSpec(
             Object.assign({id: baseID}, DEFAULT_POD_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
       case 'json':
         this.setState({
           activeTab: null,
+          apiErrors: [],
+          serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,
           serviceConfig: new ApplicationSpec(
             Object.assign({id: baseID}, DEFAULT_APP_SPEC)
-          )
+          ),
+          showAllErrors: false
         });
         break;
 
@@ -321,9 +343,16 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceReview() {
-    const errors = this.getAllErrors();
+    const errors = this.getFormErrors();
     if (errors.length === 0) {
-      this.setState({serviceReviewActive: true});
+      this.setState({
+        apiErrors: [],
+        serviceReviewActive: true
+      });
+    } else {
+      this.setState({
+        showAllErrors: true
+      });
     }
   }
 
@@ -350,8 +379,8 @@ class NewCreateServiceModal extends Component {
    *
    * @returns {Array} - An array of error objects
    */
-  getAllErrors() {
-    const {apiErrors, serviceFormErrors, serviceConfig} = this.state;
+  getFormErrors() {
+    const {serviceFormErrors, serviceConfig} = this.state;
     let validationErrors = [];
 
     // Validate Application or Pod according to the contents
@@ -371,11 +400,17 @@ class NewCreateServiceModal extends Component {
       );
     }
 
-    // Combine all errors
-    return apiErrors.concat(
-      serviceFormErrors,
-      validationErrors
-    );
+    return validationErrors.concat(serviceFormErrors);
+  }
+
+  /**
+   * This function combines the errors received from marathon and the errors
+   * produced by the form into a unified error array
+   *
+   * @returns {Array} - An array of error objects
+   */
+  getAllErrors() {
+    return this.state.apiErrors.concat(this.getFormErrors());
   }
 
   getHeader() {
@@ -438,7 +473,6 @@ class NewCreateServiceModal extends Component {
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
               appConfig={serviceConfig}
-              clearError={this.handleClearError}
               errors={this.getAllErrors()} />
           </div>
         </div>
@@ -454,6 +488,7 @@ class NewCreateServiceModal extends Component {
 
     if (serviceFormActive) {
       const {location} = this.props;
+      const {showAllErrors} = this.state;
 
       const SECTIONS = [
         ContainerServiceFormSection,
@@ -496,15 +531,16 @@ class NewCreateServiceModal extends Component {
           jsonConfigReducers={jsonConfigReducers}
           handleTabChange={this.handleTabChange}
           inputConfigReducers={inputConfigReducers}
+          isEdit={this.isLocationEdit(location)}
           isJSONModeActive={isJSONModeActive}
           ref={(ref) => {
             return this.createComponent = ref;
           }}
-          service={serviceConfig}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
-          isEdit={this.isLocationEdit(location)} />
+          service={serviceConfig}
+          showAllErrors={showAllErrors} />
       );
     }
 
@@ -557,8 +593,6 @@ class NewCreateServiceModal extends Component {
     }
 
     if (serviceFormActive) {
-      const errors = this.getAllErrors();
-
       return [
         {
           node: (
@@ -575,20 +609,18 @@ class NewCreateServiceModal extends Component {
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: errors.length !== 0,
+          disabled: false,
           label: 'Review & Run'
         }
       ];
     }
 
     if (serviceJsonActive) {
-      const errors = this.getAllErrors();
-
       return [
         {
           className: 'button-primary flush-vertical',
           clickHandler: this.handleServiceReview,
-          disabled: errors.length !== 0,
+          disabled: false,
           label: 'Review & Run'
         }
       ];
@@ -628,7 +660,8 @@ class NewCreateServiceModal extends Component {
       serviceJsonActive: false,
       servicePickerActive: !isEdit, // Switch directly to form/json if edit
       serviceReviewActive: false,
-      serviceFormHasErrors: false
+      serviceFormHasErrors: false,
+      showAllErrors: false
     };
 
     // Only add change listener if we didn't receive our service in first try

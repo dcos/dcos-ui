@@ -35,6 +35,7 @@ const METHODS_TO_BIND = [
   'handleFormChange',
   'handleFormBlur',
   'handleJSONChange',
+  'handleJSONPropertyChange',
   'handleAddItem',
   'handleRemoveItem',
   'getNewStateForJSON'
@@ -45,15 +46,35 @@ const KEY_VALUE_FIELDS = [
   'labels'
 ];
 
+/**
+ * Since the form input fields operate on a different path than the one in the
+ * data, it's not always possible to figure out which error paths to unmute when
+ * the field is edited. Therefore, form fields that do not map 1:1 with the data
+ * are opted out from the error muting feature.
+ *
+ * TODO: This should be removed when DCOS-13524 is completed
+ */
+const CONSTANTLY_UNMUTED_ERRORS = [
+  /^constraints\.[0-9]+\./,
+  /^portDefinitions\.[0-9]+\./,
+  /^localVolumes\.[0-9]+\./
+];
+
 class NewCreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
+
+    // Hint: When you add something to the state, make sure to update the
+    //       shouldComponentUpdate function, since we are trying to reduce
+    //       the number of updates as much as possible.
 
     this.state = Object.assign(
       {
         appConfig: null,
         batch: new Batch(),
         baseConfig: {},
+        editedFieldPaths: [],
+        editingFieldPath: null,
         isPod: false,
         jsonReducer() {},
         jsonParser() {}
@@ -90,13 +111,23 @@ class NewCreateServiceModalForm extends Component {
     this.props.onConvertToPod(this.getAppConfig());
   }
 
-  componentDidUpdate() {
-    this.props.onChange(new this.props.service.constructor(this.state.appConfig));
+  componentDidUpdate(prevProps, prevState) {
+    const {editingFieldPath, appConfig} = this.state;
+
+    if ((editingFieldPath === null) &&
+       !deepEqual(appConfig, prevState.appConfig)) {
+      this.props.onChange(new this.props.service.constructor(appConfig));
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     // Update if json state changed
     if (this.props.isJSONModeActive !== nextProps.isJSONModeActive) {
+      return true;
+    }
+
+    // Update if showAllErrors changed
+    if (this.props.showAllErrors !== nextProps.showAllErrors) {
       return true;
     }
 
@@ -121,6 +152,7 @@ class NewCreateServiceModalForm extends Component {
     // Otherwise update if the state has changed
     return (this.state.baseConfig !== nextState.baseConfig) ||
       (this.state.batch !== nextState.batch) ||
+      (this.state.editingFieldPath !== nextState.editingFieldPath) ||
       (this.props.activeTab !== nextProps.activeTab) ||
       (!deepEqual(this.props.errors, nextProps.errors));
   }
@@ -151,11 +183,38 @@ class NewCreateServiceModalForm extends Component {
     this.setState(this.getNewStateForJSON(jsonObject));
   }
 
+  handleJSONPropertyChange(path) {
+    const {editedFieldPaths} = this.state;
+    const pathStr = path.join('.');
+    if (path.length === 0) {
+      return;
+    }
+
+    if (!editedFieldPaths.includes(pathStr)) {
+      this.setState({
+        editedFieldPaths: editedFieldPaths.concat([pathStr])
+      });
+    }
+  }
+
   handleFormBlur(event) {
+    const {editedFieldPaths, batch} = this.state;
     const fieldName = event.target.getAttribute('name');
+    const newState = {
+      editingFieldPath: null,
+      appConfig: this.getAppConfig(batch)
+    };
+
     if (!fieldName) {
       return;
     }
+
+    // Keep track of which fields have changed
+    if (!editedFieldPaths.includes(fieldName)) {
+      newState.editedFieldPaths = editedFieldPaths.concat([fieldName]);
+    }
+
+    this.setState(newState);
   }
 
   handleFormChange(event) {
@@ -173,9 +232,8 @@ class NewCreateServiceModalForm extends Component {
     batch = batch.add(new Transaction(path, value));
 
     this.setState({
-      // Render the new appconfig
-      appConfig: this.getAppConfig(batch),
-      batch
+      batch,
+      editingFieldPath: fieldName
     });
   }
 
@@ -210,16 +268,21 @@ class NewCreateServiceModalForm extends Component {
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
-  getRootErrors() {
-    const errors = this.props.errors.filter(function (error) {
-      return error.path.length === 0;
-    });
+  getErrorsAlertComponent() {
+    const {errors, showAllErrors} = this.props;
+    let showErrors = errors;
 
-    if (errors.length === 0) {
+    if (!showAllErrors) {
+      showErrors = showErrors.filter(function (error) {
+        return error.path.length === 0;
+      });
+    }
+
+    if (showErrors.length === 0) {
       return null;
     }
 
-    const errorItems = errors.map((error, index) => {
+    const errorItems = showErrors.map((error, index) => {
       const prefix = error.path.length ? `${error.path.join('.')}:` : '';
 
       return (
@@ -262,7 +325,7 @@ class NewCreateServiceModalForm extends Component {
   getContainerContent(data, errors) {
     const {service} = this.props;
     const {containers} = data;
-    const rootErrorComponent = this.getRootErrors();
+    const errorsAlertComponent = this.getErrorsAlertComponent();
 
     if (containers == null) {
       return [];
@@ -271,7 +334,7 @@ class NewCreateServiceModalForm extends Component {
     return containers.map((item, index) => {
       return (
         <TabView key={index} id={`container${index}`}>
-          {rootErrorComponent}
+          {errorsAlertComponent}
           <ContainerServiceFormSection
             data={data}
             errors={errors}
@@ -309,12 +372,12 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getSectionContent(data, errorMap) {
-    const rootErrorComponent = this.getRootErrors();
+    const errorsAlertComponent = this.getErrorsAlertComponent();
 
     if (this.state.isPod) {
       return [
         <TabView id="networking" key="multinetworking">
-          {rootErrorComponent}
+          {errorsAlertComponent}
           <MultiContainerNetworkingFormSection
             data={data}
             errors={errorMap}
@@ -322,7 +385,7 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
-          {rootErrorComponent}
+          {errorsAlertComponent}
           <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
@@ -331,7 +394,7 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
-          {rootErrorComponent}
+          {errorsAlertComponent}
           <MultiContainerHealthChecksFormSection
             data={data}
             errors={errorMap}
@@ -340,7 +403,7 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="environment" key="multienvironment">
-          {rootErrorComponent}
+          {errorsAlertComponent}
           <EnvironmentFormSection
             mountType="CreateService:MultiContainerEnvironmentFormSection"
             data={data}
@@ -353,7 +416,7 @@ class NewCreateServiceModalForm extends Component {
 
     return [
       <TabView id="networking" key="networking">
-        {rootErrorComponent}
+        {errorsAlertComponent}
         <NetworkingFormSection
           data={data}
           errors={errorMap}
@@ -361,7 +424,7 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="volumes" key="volumes">
-        {rootErrorComponent}
+        {errorsAlertComponent}
         <VolumesFormSection
           data={data}
           errors={errorMap}
@@ -369,7 +432,7 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="healthChecks" key="healthChecks">
-        {rootErrorComponent}
+        {errorsAlertComponent}
         <HealthChecksFormSection
           data={data}
           errors={errorMap}
@@ -377,7 +440,7 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="environment" key="environment">
-        {rootErrorComponent}
+        {errorsAlertComponent}
         <EnvironmentFormSection
           mountType="CreateService:EnvironmentFormSection"
           data={data}
@@ -388,10 +451,38 @@ class NewCreateServiceModalForm extends Component {
     ];
   }
 
+  /**
+   * This function filters the error list in order to keep only the
+   * errors that should be displayed to the UI.
+   *
+   * @returns {Array} - Returns an array of errors that passed the filter
+   */
+  getUnmutedErrors() {
+    const {errors, showAllErrors} = this.props;
+    const {editedFieldPaths, editingFieldPath} = this.state;
+
+    return errors.filter(function (error) {
+      const errorPath = error.path.join('.');
+
+      // Always mute the error on the field we are editing
+      if ((editingFieldPath != null) && (errorPath === editingFieldPath)) {
+        return false;
+      }
+
+      // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function (rule) {
+        return rule.test(errorPath);
+      });
+
+      return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
+    });
+  }
+
   render() {
     const {appConfig, batch} = this.state;
     const {activeTab, errors, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
     const data = batch.reduce(this.props.inputConfigReducers, {});
+    const unmutedErrors = this.getUnmutedErrors();
 
     const jsonEditorPlaceholderClasses = classNames(
       'modal-full-screen-side-panel-placeholder',
@@ -401,8 +492,8 @@ class NewCreateServiceModalForm extends Component {
       'is-visible': isJSONModeActive
     });
 
-    const errorMap = DataValidatorUtil.errorArrayToMap(errors);
-    const rootErrorComponent = this.getRootErrors();
+    const errorMap = DataValidatorUtil.errorArrayToMap(unmutedErrors);
+    const errorsAlertComponent = this.getErrorsAlertComponent();
     const serviceLabel = pluralize('Service', findNestedPropertyInObject(
       appConfig,
       'containers.length'
@@ -433,7 +524,7 @@ class NewCreateServiceModalForm extends Component {
                   </TabButtonList>
                   <TabViewList>
                     <TabView id="services">
-                      {rootErrorComponent}
+                      {errorsAlertComponent}
                       <GeneralServiceFormSection
                         errors={errorMap}
                         data={data}
@@ -457,6 +548,7 @@ class NewCreateServiceModalForm extends Component {
           <JSONEditor
             errors={errors}
             onChange={this.handleJSONChange}
+            onPropertyChange={this.handleJSONPropertyChange}
             showGutter={true}
             showPrintMargin={false}
             theme="monokai"
@@ -474,7 +566,8 @@ NewCreateServiceModalForm.defaultProps = {
   handleTabChange() {},
   isJSONModeActive: false,
   onChange() {},
-  onErrorStateChange() {}
+  onErrorStateChange() {},
+  showAllErrors: false
 };
 
 NewCreateServiceModalForm.propTypes = {
@@ -484,7 +577,8 @@ NewCreateServiceModalForm.propTypes = {
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
   onErrorStateChange: PropTypes.func,
-  service: PropTypes.object
+  service: PropTypes.object,
+  showAllErrors: PropTypes.bool
 };
 
 module.exports = NewCreateServiceModalForm;
