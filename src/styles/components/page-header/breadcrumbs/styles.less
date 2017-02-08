@@ -23,6 +23,7 @@
       // Increase the shrink factor for all breadcrumbs (except the last one).
       // The last breadcrumb should shrink only when earlier breadcrumbs have
       // already shrunk.
+      display: none;
       flex: 0 5 auto;
       line-height: normal;
       margin: 0 @page-header-breadcrumbs-margin-right 0 0;
@@ -33,6 +34,7 @@
       white-space: nowrap;
 
       &:last-child {
+        display: block;
         flex: 1 1 auto;
         margin-right: 0;
         min-width: 0;
@@ -51,6 +53,7 @@
       }
 
       &-icon {
+        display: block;
         flex: 0 0 auto;
         margin-left: 0;
         margin-top: 0;
@@ -189,6 +192,7 @@
         }
 
         &-breadcrumb {
+          display: block;
           margin-right: @page-header-breadcrumbs-margin-right-screen-medium;
 
           &-content-secondary {
