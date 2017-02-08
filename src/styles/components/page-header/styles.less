@@ -76,24 +76,34 @@
     }
 
     &-breadcrumb {
-      flex: 0 1 auto;
+      // Increase the shrink factor for all breadcrumbs (except the last one).
+      // The last breadcrumb should shrink only when earlier breadcrumbs have
+      // already shrunk.
+      flex: 0 5 auto;
       line-height: normal;
       margin: 0 @page-header-breadcrumbs-margin-right 0 0;
-      min-width: 0;
+      min-width: 1.2rem;
       overflow: hidden;
       padding: 0;
       text-overflow: ellipsis;
       white-space: nowrap;
 
       &:last-child {
-        flex: 0 0 auto;
+        flex: 1 1 auto;
         margin-right: 0;
-        min-width: auto;
-        overflow: visible;
+        min-width: 0;
       }
 
       &:before {
         display: none;
+      }
+
+      &--force-ellipsis {
+        width: 1.2rem;
+      }
+
+      &--has-status-bar {
+        display: flex;
       }
 
       &-icon {
@@ -122,6 +132,10 @@
         }
       }
 
+      .text-overflow {
+        display: block;
+      }
+
       /* Styling Variants */
 
       .emphasis {
@@ -148,6 +162,31 @@
 
       &-content-secondary {
         margin-left: @page-header-breadcrumbs-margin-right;
+      }
+    }
+
+    &__breadcrumb-status {
+      display: flex;
+      flex: 1 1 auto;
+      min-width: 0;
+
+      &__copy {
+        flex: 0 1 auto;
+      }
+
+      .tooltip-wrapper {
+        align-items: center;
+        display: flex;
+        flex: 0 1 @page-header-breadcrumb-status-bar-width;
+        margin-left: @page-header-breadcrumb-status-bar-margin-left;
+        min-width: @page-header-breadcrumb-status-bar-min-width;
+      }
+
+      .status-bar {
+        flex: 1 1 auto;
+        height: @page-header-breadcrumb-status-bar-height;
+        vertical-align: middle;
+        width: auto;
       }
     }
 
@@ -181,6 +220,13 @@
     & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
 
       .page-header {
+
+        &__breadcrumb-status {
+
+          .tooltip-wrapper {
+            margin-left: @page-header-breadcrumb-status-bar-margin-left-screen-small;
+          }
+        }
 
         &-content-section {
 
@@ -234,6 +280,13 @@
     & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
 
       .page-header {
+
+        &__breadcrumb-status {
+
+          .tooltip-wrapper {
+            margin-left: @page-header-breadcrumb-status-bar-margin-left-screen-medium;
+          }
+        }
 
         &-content-section {
 
@@ -296,6 +349,13 @@
 
       .page-header {
 
+        &__breadcrumb-status {
+
+          .tooltip-wrapper {
+            margin-left: @page-header-breadcrumb-status-bar-margin-left-screen-large;
+          }
+        }
+
         &-content-section {
 
           &-primary {
@@ -349,6 +409,13 @@
     & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
 
       .page-header {
+
+        &__breadcrumb-status {
+
+          .tooltip-wrapper {
+            margin-left: @page-header-breadcrumb-status-bar-margin-left-screen-jumbo;
+          }
+        }
 
         &-content-section {
 

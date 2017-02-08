@@ -65,23 +65,6 @@
       align-items: center;
     }
   }
-
-  .service-page-header {
-
-    &-status {
-      display: inline-block;
-
-      .tooltip-wrapper {
-        margin-left: @services-page-header-status-margin-left;
-      }
-
-      .status-bar {
-        height: @services-page-header-status-height;
-        vertical-align: middle;
-        width: @services-page-header-status-width;
-      }
-    }
-  }
 }
 
 & when (@services-view-enabled) and (@layout-screen-small-enabled) {
@@ -92,16 +75,6 @@
 
       &-icon {
         margin-right: @base-spacing-unit-screen-small * 1/4;
-      }
-    }
-
-    .service-page-header {
-
-      &-status {
-
-        .tooltip-wrapper {
-          margin-left: @services-page-header-status-margin-left-screen-small;
-        }
       }
     }
   }
@@ -115,16 +88,6 @@
 
       &-icon {
         margin-right: @base-spacing-unit-screen-medium * 1/4;
-      }
-    }
-
-    .service-page-header {
-
-      &-status {
-
-        .tooltip-wrapper {
-          margin-left: @services-page-header-status-margin-left-screen-medium;
-        }
       }
     }
   }
@@ -144,16 +107,6 @@
         margin-right: @base-spacing-unit-screen-large * 1/4;
       }
     }
-
-    .service-page-header {
-
-      &-status {
-
-        .tooltip-wrapper {
-          margin-left: @services-page-header-status-margin-left-screen-large;
-        }
-      }
-    }
   }
 }
 
@@ -169,16 +122,6 @@
 
       &-icon {
         margin-right: @base-spacing-unit-screen-jumbo * 1/4;
-      }
-    }
-
-    .service-page-header {
-
-      &-status {
-
-        .tooltip-wrapper {
-          margin-left: @services-page-header-status-margin-left-screen-jumbo;
-        }
       }
     }
   }

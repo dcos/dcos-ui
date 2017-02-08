@@ -1,30 +1,53 @@
+import {Link} from 'react-router';
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import Icon from './Icon';
 
 class PageHeaderBreadcrumbs extends React.Component {
-
-  getCaret(index) {
+  getCaret(key) {
     return (
       <li className="page-header-breadcrumb page-header-breadcrumb-caret"
-        key={`caret-${index}`}>
+        key={`caret-${key}`}>
         <Icon color="light-grey" id="caret-right" size="mini" />
       </li>
     );
   }
 
   render() {
-    const {props: {iconID, breadcrumbs}} = this;
-
+    const {props: {breadcrumbs, iconID, iconRoute}} = this;
+    const breadcrumbCount = breadcrumbs.length;
     const containerIcon = (
       <li
         className="page-header-breadcrumb page-header-breadcrumb-icon"
         key="-1">
-        <Icon family="product" id={iconID} size="small" />
+        <Link to={iconRoute}>
+          <Icon family="product" id={iconID} size="small" />
+        </Link>
       </li>
     );
+    const shouldTruncateBreadcrumbs = breadcrumbCount > 3;
 
     const breadcrumbElements = breadcrumbs.reduce((memo, breadcrumb, index) => {
+      if (shouldTruncateBreadcrumbs && index === breadcrumbCount - 3) {
+        memo.push(
+          this.getCaret('first-caret'),
+          (
+            <Tooltip
+              content={breadcrumb.props.dataTitle}
+              key="breadcrumb-ellipsis"
+              wrapperClassName="page-header-breadcrumb page-header-breadcrumb--force-ellipsis h3">
+              {breadcrumb}
+            </Tooltip>
+          ),
+          this.getCaret(index)
+        );
+      }
+
+      if (shouldTruncateBreadcrumbs && index < breadcrumbCount - 2) {
+        return memo;
+      }
+
       memo.push(
         <li className="page-header-breadcrumb h3" key={index}>
           {breadcrumb}

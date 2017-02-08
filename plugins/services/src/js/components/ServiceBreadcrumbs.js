@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
 
@@ -35,9 +36,11 @@ function getHealthStatus(service) {
   }
 
   return (
-    <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
-      {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
-      <ServiceStatusWarningWithDebugInformation item={service} />
+    <div className="page-header__breadcrumb-status page-header-breadcrumb-content-secondary muted">
+      <span className="page-header__breadcrumb-status__copy">
+        {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
+        <ServiceStatusWarningWithDebugInformation item={service} />
+      </span>
       <HealthBar isDeploying={isDeploying}
         tasksSummary={tasksSummary}
         instancesCount={instancesCount}/>
@@ -57,10 +60,15 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   if (serviceID != null && trimmedServiceID.length > 0) {
     const serviceCrumbs = ids.map(function (id, index) {
       let serviceIDNode = id;
+      const shouldShowStatusBar = index === ids.length - 1;
+      const linkClasses = classNames({'text-overflow': !shouldShowStatusBar});
+      const wrapperClasses = classNames({
+        'page-header-breadcrumb--has-status-bar': shouldShowStatusBar
+      });
       let breadcrumbHealth = null;
       let serviceImage = null;
 
-      if (index === ids.length - 1) {
+      if (shouldShowStatusBar) {
         const service = DCOSStore.serviceTree.findItemById(serviceID);
 
         breadcrumbHealth = getHealthStatus(service);
@@ -79,8 +87,13 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       aggregateIDs += encodeURIComponent(`/${id}`);
 
       return (
-        <div>
-          <Link to={`/services/overview/${aggregateIDs}`} key={index}>
+        <div
+          className={wrapperClasses}
+          key={index}
+          dataTitle={decodeURIComponent(aggregateIDs)}>
+          <Link
+            className={linkClasses}
+            to={`/services/overview/${aggregateIDs}`}>
             {serviceIDNode}
           </Link>
           {breadcrumbHealth}
@@ -102,8 +115,12 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
     );
   }
 
-  return <PageHeaderBreadcrumbs iconID="services" breadcrumbs={crumbs} />;
-
+  return (
+    <PageHeaderBreadcrumbs
+      iconID="services"
+      iconRoute="/services"
+      breadcrumbs={crumbs} />
+  );
 };
 
 module.exports = ServiceBreadcrumbs;
