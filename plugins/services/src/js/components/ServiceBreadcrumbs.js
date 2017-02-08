@@ -3,6 +3,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import {DCOSStore} from 'foundation-ui';
+import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
 import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
@@ -54,7 +55,9 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   let aggregateIDs = '';
 
   const crumbs = [
-    <Link to="/services" key={-1}>Services</Link>
+    <Breadcrumb key={-1} title="Services">
+      <Link to="/services">Services</Link>
+    </Breadcrumb>
   ];
 
   if (serviceID != null && trimmedServiceID.length > 0) {
@@ -87,17 +90,16 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       aggregateIDs += encodeURIComponent(`/${id}`);
 
       return (
-        <div
-          className={wrapperClasses}
-          key={index}
-          dataTitle={decodeURIComponent(aggregateIDs)}>
-          <Link
-            className={linkClasses}
-            to={`/services/overview/${aggregateIDs}`}>
-            {serviceIDNode}
-          </Link>
-          {breadcrumbHealth}
-        </div>
+        <Breadcrumb key={index} title={ids.slice(0, index + 1).join('/')}>
+          <div className={wrapperClasses}>
+            <Link
+              className={linkClasses}
+              to={`/services/overview/${aggregateIDs}`}>
+              {serviceIDNode}
+            </Link>
+            {breadcrumbHealth}
+          </div>
+        </Breadcrumb>
       );
     });
 
@@ -107,11 +109,15 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   if (taskID != null && taskName != null) {
     const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
-      <Link
-        to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
-        index={taskID}>
-        {taskName}
-      </Link>
+      <Breadcrumb
+        key={trimmedServiceID.length + 1}
+        title={taskID}>
+        <Link
+          to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
+          index={taskID}>
+          {taskName}
+        </Link>
+      </Breadcrumb>
     );
   }
 

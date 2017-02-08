@@ -34,7 +34,7 @@ class PageHeaderBreadcrumbs extends React.Component {
           this.getCaret('first-caret'),
           (
             <Tooltip
-              content={breadcrumb.props.dataTitle}
+              content={breadcrumb.props.title}
               key="breadcrumb-ellipsis"
               wrapperClassName="page-header-breadcrumb page-header-breadcrumb--force-ellipsis h3">
               {breadcrumb}
