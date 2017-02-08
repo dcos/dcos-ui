@@ -217,7 +217,8 @@ class JobsTable extends React.Component {
     );
   }
 
-  renderStatusColumn(prop, {[prop]:statusKey, isGroup}) {
+  renderStatusColumn(prop, col) {
+    const {[prop]:statusKey, isGroup} = col;
     if (isGroup) {
       return null;
     }

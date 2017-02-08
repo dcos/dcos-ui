@@ -32,7 +32,8 @@ class FuzzyTextDSLSection extends React.Component {
     });
   }
 
-  componentWillReceiveProps({expression}) {
+  componentWillReceiveProps(nextProps) {
+    const {expression} = nextProps;
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
     this.setState({data});
   }

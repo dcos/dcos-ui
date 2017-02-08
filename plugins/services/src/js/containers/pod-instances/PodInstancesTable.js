@@ -302,7 +302,8 @@ class PodInstancesTable extends React.Component {
     );
   }
 
-  renderColumnID(prop, {id: taskID, name: taskName}, rowOptions = {}) {
+  renderColumnID(prop, col, rowOptions = {}) {
+    const {id: taskID, name: taskName} = col;
     if (!rowOptions.isParent) {
       const id = encodeURIComponent(this.props.pod.getId());
 

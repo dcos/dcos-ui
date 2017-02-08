@@ -273,7 +273,8 @@ class DCOSStore extends EventEmitter {
     this.emit(DCOS_CHANGE);
   }
 
-  onMarathonServiceVersionChange({serviceID, versionID, version}) {
+  onMarathonServiceVersionChange(event) {
+    const {serviceID, versionID, version} = event;
     const {marathon:{versions}} = this.data;
     let currentVersions = versions.get(serviceID);
 
@@ -287,7 +288,8 @@ class DCOSStore extends EventEmitter {
     this.emit(DCOS_CHANGE);
   }
 
-  onMarathonServiceVersionsChange({serviceID, versions:nextVersions}) {
+  onMarathonServiceVersionsChange(event) {
+    let {serviceID, versions:nextVersions} = event;
     const {marathon:{versions}} = this.data;
     const currentVersions = versions.get(serviceID);
 

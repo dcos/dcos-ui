@@ -90,7 +90,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.stopJobDetailMonitor(this.props.params.id);
   }
 
-  onMetronomeStoreJobDeleteError(id, {message:errorMsg}) {
+  onMetronomeStoreJobDeleteError(id, error) {
+    const {message:errorMsg} = error;
     if (id !== this.props.params.id || errorMsg == null) {
       return;
     }

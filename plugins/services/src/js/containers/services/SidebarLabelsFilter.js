@@ -158,7 +158,8 @@ class SidebarLabelsFilters extends React.Component {
     );
   }
 
-  handleActionSelection({key, value}) {
+  handleActionSelection(event) {
+    const {key, value} = event;
     const {selectedLabels} = this.state;
     const nextSelectedLabels = selectedLabels.slice();
 
