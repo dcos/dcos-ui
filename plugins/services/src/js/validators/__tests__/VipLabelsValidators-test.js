@@ -2,9 +2,7 @@ jest.unmock('../VipLabelsValidators');
 const VipLabelsValidators = require('../VipLabelsValidators');
 
 describe('VipLabelsValidators', function () {
-
   describe('#mustContainPort', function () {
-
     describe('with a Single container app', function () {
       it('returns no errors if portDefinitions is empty', function () {
         const spec = {portDefinitions: []};
@@ -18,9 +16,7 @@ describe('VipLabelsValidators', function () {
 
       it('returns no errors if VIP label is correct', function () {
         const spec = {
-          portDefinitions: [
-            {labels: {VIP_0: 'endpoint-name:1000'}}
-          ]
+          portDefinitions: [{labels: {VIP_0: 'endpoint-name:1000'}}]
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
@@ -29,39 +25,76 @@ describe('VipLabelsValidators', function () {
         const spec = {
           container: {
             docker: {
-              portMappings: [
-                {labels: {VIP_0: '0.0.0.0:1000'}}
-              ]
+              portMappings: [{labels: {VIP_0: '0.0.0.0:1000'}}]
             }
           }
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it('returns an error if VIP label is incorrect', function () {
+      it('returns an error if VIP label contains no port', function () {
         const spec = {
-          portDefinitions: [
-            {labels: {VIP_0: 'endpoint-name'}}
-          ]
+          portDefinitions: [{labels: {VIP_0: 'endpoint-name'}}]
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
             path: ['portDefinitions', 0, 'labels', 'VIP_0']
-          },
-          {
-            message: 'Port should be an integrer less than or equal to 65535',
-            path: ['portDefinitions', 0, 'labels', 'VIP_0']
           }
         ]);
       });
 
-      it('returns an error if VIP label is incorrect', function () {
+      it('returns an error if VIP label contains non-integer port', function () {
+        const spec = {
+          container: {
+            docker: {
+              portMappings: [{labels: {VIP_0: '0.0.0.0:port'}}]
+            }
+          }
+        };
+        expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
+          {
+            message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
+            path: ['container', 'docker', 'portMappings', 0, 'labels', 'VIP_0']
+          }
+        ]);
+      });
+
+      it(
+        'returns an error if VIP label contains an integer port that exceeds the max',
+        function () {
+          const spec = {
+            container: {
+              docker: {
+                portMappings: [{labels: {VIP_0: '0.0.0.0:10000000'}}]
+              }
+            }
+          };
+          expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
+            {
+              message: 'Port should be an integrer less than or equal to 65535',
+              path: [
+                'container',
+                'docker',
+                'portMappings',
+                0,
+                'labels',
+                'VIP_0'
+              ]
+            }
+          ]);
+        }
+      );
+
+      it('validates multiple ports', function () {
         const spec = {
           container: {
             docker: {
               portMappings: [
-                {labels: {VIP_0: '0.0.0.0:port'}}
+                {labels: {VIP_0: '0.0.0.0:port'}},
+                {labels: {VIP_1: '0.0.0.0:65000'}},
+                {labels: {VIP_2: '0.0.0.0:9090'}},
+                {labels: {VIP_3: ':9090'}}
               ]
             }
           }
@@ -72,12 +105,11 @@ describe('VipLabelsValidators', function () {
             path: ['container', 'docker', 'portMappings', 0, 'labels', 'VIP_0']
           },
           {
-            message: 'Port should be an integrer less than or equal to 65535',
-            path: ['container', 'docker', 'portMappings', 0, 'labels', 'VIP_0']
+            message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
+            path: ['container', 'docker', 'portMappings', 3, 'labels', 'VIP_3']
           }
         ]);
       });
-
     });
 
     describe('with a Multi container app', function () {
@@ -97,13 +129,11 @@ describe('VipLabelsValidators', function () {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it('returns an error if VIP label is incorrect', function () {
+      it('returns an error if VIP label contains no address', function () {
         const spec = {
           containers: [
             {
-              endpoints: [
-                {labels: {VIP_0: ':9090'}}
-              ]
+              endpoints: [{labels: {VIP_0: ':9090'}}]
             }
           ]
         };
@@ -114,9 +144,6 @@ describe('VipLabelsValidators', function () {
           }
         ]);
       });
-
     });
-
   });
-
 });
