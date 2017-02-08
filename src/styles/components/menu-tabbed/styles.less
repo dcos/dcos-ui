@@ -62,8 +62,10 @@
     }
 
     .menu-tabbed-item-label {
+      overflow: hidden;
       padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom;
       padding-top: @menu-tabbed-vertical-item-link-padding-top;
+      text-overflow: ellipsis;
 
       &:after {
         bottom: 0;
@@ -108,11 +110,9 @@
     cursor: pointer;
     display: block;
     font-weight: @menu-tabbed-item-link-font-weight;
-    overflow: hidden;
     padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom;
     position: relative;
     text-decoration: @menu-tabbed-item-link-text-decoration;
-    text-overflow: ellipsis;
 
     &:hover {
       color: @menu-tabbed-item-link-hover-color;
