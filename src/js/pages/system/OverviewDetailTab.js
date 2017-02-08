@@ -10,6 +10,10 @@ import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
 import ConfigurationMap from '../../components/ConfigurationMap';
 import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../components/ConfigurationMapValue';
 import {findNestedPropertyInObject} from '../../utils/Util';
 import HashMapDisplay from '../../components/HashMapDisplay';
 import Loader from '../../components/Loader';
@@ -79,7 +83,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     return <Loader size="small" type="ballBeat" />;
   }
 
-  getClusterDetailsHash() {
+  getClusterDetails() {
     let ccid = ConfigStore.get('ccid');
     let publicIP = this.getPublicIP();
     let productVersion = MetadataStore.version;
@@ -98,11 +102,34 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       publicIP = this.getLoading();
     }
 
-    return {
-      [`${Config.productName} Version`]: productVersion,
-      'Cryptographic Cluster ID': ccid,
-      'Public IP': publicIP
-    };
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapRow key="version">
+          <ConfigurationMapLabel>
+            {Config.productName} Version
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {productVersion}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="ccid">
+          <ConfigurationMapLabel>
+            Cryptographic Cluster ID
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {ccid}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="publicIP">
+          <ConfigurationMapLabel>
+            Public IP
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {publicIP}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    );
   }
 
   getMarathonDetailsHash() {
@@ -172,7 +199,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <ConfigurationMapHeading level={2}>
               General
             </ConfigurationMapHeading>
-            <HashMapDisplay hash={this.getClusterDetailsHash()} />
+            {this.getClusterDetails()}
             {marathonDetails}
             <MountService.Mount
               type="OverviewDetailTab:AdditionalClusterDetails" />
