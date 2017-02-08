@@ -51,6 +51,7 @@ import NetworkingFormSection from '../forms/NetworkingFormSection';
 import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
 import ServiceErrorTypes from '../../constants/ServiceErrorTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
+import VipLabelsValidators from '../../validators/VipLabelsValidators';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 
@@ -77,11 +78,13 @@ const APP_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
   MarathonAppValidators.complyWithResidencyRules,
-  MarathonAppValidators.complyWithIpAddressRules
+  MarathonAppValidators.complyWithIpAddressRules,
+  VipLabelsValidators.mustContainPort
 ];
 
 const POD_VALIDATORS = [
-  PodValidators.Pod
+  PodValidators.Pod,
+  VipLabelsValidators.mustContainPort
 ];
 
 class NewCreateServiceModal extends Component {

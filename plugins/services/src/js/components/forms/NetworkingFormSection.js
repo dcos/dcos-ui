@@ -3,7 +3,10 @@ import {Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {
+  findNestedPropertyInObject,
+  isObject
+} from '../../../../../../src/js/utils/Util';
 import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
@@ -116,23 +119,22 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField(
-      {
-        containerPort,
-        hostPort,
-        loadBalanced,
-        vip
-      },
-      index
-    ) {
+  getLoadBalancedServiceAddressField(portDefinition, index) {
+    const {containerPort, hostPort, loadBalanced, vip} = portDefinition;
     const {errors} = this.props;
-    const loadBalancedError = findNestedPropertyInObject(
+    let vipPortError = null;
+    let loadBalancedError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.labels`
     ) || findNestedPropertyInObject(
       errors,
       `container.docker.portMappings.${index}.labels`
     );
+
+    if (isObject(loadBalancedError)) {
+      vipPortError = loadBalancedError[`VIP_${index}`];
+      loadBalancedError = null;
+    }
 
     let address = vip;
     if (address == null) {
@@ -146,6 +148,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       port = port || 0;
 
       address = `${this.props.data.id}:${port}`;
+    }
+
+    let hostName = null;
+    if (!Boolean(vipPortError)) {
+      hostName = (
+        <span>
+          {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
+        </span>
+      );
     }
 
     return [
@@ -172,10 +183,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-auto flush-left">
-          <span>
-            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-          </span>
+        <FormGroup
+          className="column-auto flush-left"
+          showError={Boolean(vipPortError)}>
+          {hostName}
+          <FieldError>{vipPortError}</FieldError>
         </FormGroup>
       </FormRow>
     ];
