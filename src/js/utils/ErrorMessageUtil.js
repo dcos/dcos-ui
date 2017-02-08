@@ -1,4 +1,4 @@
-const MESSAGE_VARIABLE = /\{\{([^}]+)\}\}/g;
+const MESSAGE_VARIABLE = /\{\{([^{}]+)\}\}/g;
 
 const ErrorMessageUtil = {
 
@@ -26,9 +26,11 @@ const ErrorMessageUtil = {
 
       // Return the translated message
       return {
-        message: rule.message.replace(MESSAGE_VARIABLE, function (match) {
-          return ''+variables[match.slice(2, -2)] || '';
-        }),
+        message: rule.message.replace(MESSAGE_VARIABLE,
+          function (match, variable) {
+            return ''+variables[variable] || '';
+          }
+        ),
         path,
         type,
         variables
