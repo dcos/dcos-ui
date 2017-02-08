@@ -1,8 +1,6 @@
 jest.unmock('../VipLabelsValidators');
 const VipLabelsValidators = require('../VipLabelsValidators');
 
-const message = 'VIP label should be in the following format: <ip-address|name>:<port>';
-
 describe('VipLabelsValidators', function () {
 
   describe('#mustContainPort', function () {
@@ -48,7 +46,11 @@ describe('VipLabelsValidators', function () {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message,
+            message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
+            path: ['portDefinitions', 0, 'labels', 'VIP_0']
+          },
+          {
+            message: 'Port should be an integrer less than or equal to 65535',
             path: ['portDefinitions', 0, 'labels', 'VIP_0']
           }
         ]);
@@ -66,7 +68,11 @@ describe('VipLabelsValidators', function () {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message,
+            message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
+            path: ['container', 'docker', 'portMappings', 0, 'labels', 'VIP_0']
+          },
+          {
+            message: 'Port should be an integrer less than or equal to 65535',
             path: ['container', 'docker', 'portMappings', 0, 'labels', 'VIP_0']
           }
         ]);
@@ -103,7 +109,7 @@ describe('VipLabelsValidators', function () {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message,
+            message: 'VIP label must be in the following format: <ip-addres|name>:<port>',
             path: ['containers', 0, 'endpoints', 0, 'labels', 'VIP_0']
           }
         ]);

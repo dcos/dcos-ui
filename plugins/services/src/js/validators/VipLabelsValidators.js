@@ -1,5 +1,6 @@
 import {isEmpty} from '../../../../../src/js/utils/ValidatorUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
+import NetworkValidatorUtil from '../../../../../src/js/utils/NetworkValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {VIP_LABEL_VALUE_REGEX} from '../../../../../src/js/constants/Networking';
 
@@ -10,10 +11,18 @@ function checkServiceEndpoints(ports, pathPrefix) {
       .filter(ServiceConfigUtil.matchVIPLabel);
 
     vipLabels.forEach(function (label) {
+      const [_address, vipPort] = labels[label].split(':');
+
       if (!VIP_LABEL_VALUE_REGEX.test(labels[label])) {
         memo.push({
           path: pathPrefix.concat([index, 'labels', label]),
-          message: 'VIP label should be in the following format: <ip-address|name>:<port>'
+          message: 'VIP label must be in the following format: <ip-addres|name>:<port>'
+        });
+      }
+      if (!NetworkValidatorUtil.isValidPort(vipPort)) {
+        memo.push({
+          path: pathPrefix.concat([index, 'labels', label]),
+          message: 'Port should be an integrer less than or equal to 65535'
         });
       }
     });
