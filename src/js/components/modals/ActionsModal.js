@@ -186,16 +186,41 @@ class ActionsModal extends mixin(StoreMixin) {
 
   getRequestErrorMessage(errors) {
     if (errors.length > 0) {
-      // Only show 5 first errors
-      const errorMessages = errors.slice(0, 5).map(function (error, index) {
-        return (
-          <p className="text-error-state" key={index}>{error}</p>
-        );
+      const errorMap = errors.reduce(function (memo, error) {
+        if (memo[error] == null) {
+          memo[error] = 0;
+        }
+        memo[error]++;
+
+        return memo;
+      }, {});
+
+      // Compose error messages
+      const errorMessages = Object.keys(errorMap).map(function (error, index) {
+        const repeatTimes = errorMap[error];
+
+        if (repeatTimes === 1) {
+          return (
+            <p className="text-error-state" key={index}>{error}</p>
+          );
+
+        } else {
+          return (
+            <p className="text-error-state" key={index}>
+              <span className="badge badge-danger badge-rounded">
+                {`${repeatTimes}x`}
+              </span>
+              {` ${error}`}
+            </p>
+          );
+
+        }
       });
 
+      // Only show 5 first errors
       return (
-        <div>
-          {errorMessages}
+        <div className="pod pod-short flush-left flush-right">
+          {errorMessages.slice(0, 5)}
         </div>
       );
     }
