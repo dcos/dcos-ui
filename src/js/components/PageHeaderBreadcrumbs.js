@@ -29,12 +29,17 @@ class PageHeaderBreadcrumbs extends React.Component {
     const shouldTruncateBreadcrumbs = breadcrumbCount > 3;
 
     const breadcrumbElements = breadcrumbs.reduce((memo, breadcrumb, index) => {
+      if (index === 0) {
+        memo.push(this.getCaret('first-caret'));
+      }
+
       if (shouldTruncateBreadcrumbs && index === breadcrumbCount - 3) {
         memo.push(
-          this.getCaret('first-caret'),
+          this.getCaret('first-caret-forreal'),
           (
             <Tooltip
               content={breadcrumb.props.title}
+              elementTag="li"
               key="breadcrumb-ellipsis"
               wrapperClassName="page-header-breadcrumb page-header-breadcrumb--force-ellipsis h3">
               {breadcrumb}

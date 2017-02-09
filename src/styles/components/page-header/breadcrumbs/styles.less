@@ -33,6 +33,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
 
+      &:first-child {
+
+        & + .page-header-breadcrumb-caret {
+          display: block;
+        }
+      }
+
       &:last-child {
         display: block;
         flex: 1 1 auto;
@@ -194,6 +201,13 @@
         &-breadcrumb {
           display: block;
           margin-right: @page-header-breadcrumbs-margin-right-screen-medium;
+
+          &:first-child {
+
+            & + .page-header-breadcrumb-caret {
+              display: none;
+            }
+          }
 
           &-content-secondary {
             margin-left: @page-header-breadcrumbs-margin-right-screen-medium;
