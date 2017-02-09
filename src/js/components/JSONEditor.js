@@ -65,7 +65,7 @@ class JSONEditor extends React.Component {
   constructor() {
     super(...arguments);
     // Clone the given initial value
-    const initialText = JSON.stringify(this.props.value || {}, null, 2);
+    const jsonText = JSON.stringify(this.props.value || {}, null, 2);
 
     // We are using the react-way of updating the component **only** when we
     // need to define a new text to work upon (ex. when the owner component has
@@ -74,7 +74,9 @@ class JSONEditor extends React.Component {
     // Updating the AceEditor on every render cycle seems to cause some trouble
     // to it's internals, that I couldn't pinpoint yet.
     this.state = {
-      initialText
+      aceEditorState: {
+        jsonText
+      }
     };
 
     //
@@ -96,7 +98,7 @@ class JSONEditor extends React.Component {
     this.timerIsTyping = null;
 
     // Initial state synchronization
-    this.updateLocalJsonState(this.getNewJsonState(initialText));
+    this.updateLocalJsonState(this.getNewJsonState(jsonText));
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -140,11 +142,11 @@ class JSONEditor extends React.Component {
       this.jsonValue,
       nextProps.value
     );
-    const composedText = JSON.stringify(value, null, 2);
+    const jsonText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
-    this.updateLocalJsonState(this.getNewJsonState(composedText));
-    this.setState({initialText: composedText});
+    this.updateLocalJsonState(this.getNewJsonState(jsonText));
+    this.setState({aceEditorState: {jsonText}});
   }
 
   /**
@@ -168,7 +170,7 @@ class JSONEditor extends React.Component {
     }
 
     // Otherwise update ONLY when initial value changes in state
-    return nextState.initialText !== this.state.initialText;
+    return nextState.aceEditorState !== this.state.aceEditorState;
   }
 
   /**
@@ -467,7 +469,7 @@ class JSONEditor extends React.Component {
    */
   render() {
     const {width, height, editorProps} = this.props;
-    const {initialText} = this.state;
+    const {aceEditorState} = this.state;
 
     const omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
 
@@ -482,7 +484,7 @@ class JSONEditor extends React.Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onLoad={this.handleEditorLoad}
-        value={initialText}
+        value={aceEditorState.jsonText}
       />
     );
   }

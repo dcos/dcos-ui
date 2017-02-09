@@ -14,6 +14,56 @@ describe('JSONEditor', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
+  describe('#shouldComponentUpdate', function () {
+    const initialValue = {
+      id: '/',
+      instances: 1,
+      cpus: 1,
+      mem: 128
+    };
+    const updatedValue = {
+      id: '/test',
+      instances: 1,
+      cpus: 1,
+      mem: 128,
+      cmd: 'while true; do sleep 10; done'
+    };
+
+    it('should prevent unnecessary component updates', function () {
+      const instance = ReactDOM.render(
+        <JSONEditor value={initialValue} />,
+        this.container
+      );
+
+      const nextProps = Object.assign({}, instance.props, {
+        value: updatedValue
+      });
+      const nextState = instance.state;
+
+      instance.handleChange(JSON.stringify(updatedValue));
+
+      expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(false);
+    });
+
+    it('should update the component if the internal data has changed',
+      function () {
+        const instance = ReactDOM.render(
+          <JSONEditor value={initialValue} />,
+          this.container
+        );
+
+        const nextProps = instance.props;
+        const nextState = instance.state;
+
+        instance.handleChange(JSON.stringify(updatedValue));
+        instance.componentWillReceiveProps(nextProps);
+
+        expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(true);
+      }
+    );
+
+  });
+
   describe('#handleChange', function () {
     const initialJSONText = `{
           "id": "/",
