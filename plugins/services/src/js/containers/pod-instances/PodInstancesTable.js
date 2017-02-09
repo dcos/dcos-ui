@@ -356,7 +356,9 @@ class PodInstancesTable extends React.Component {
       if (!agent) {
         return this.renderWithClickHandler(rowOptions, (
           <CollapsingString string={address} />
-        ));
+          ),
+          'collapsing-string-vertically-centered-wrapper'
+        );
       }
 
       return this.renderWithClickHandler(rowOptions, (
@@ -366,10 +368,12 @@ class PodInstancesTable extends React.Component {
           title={address}>
           <CollapsingString string={address} />
         </Link>
-        ));
+        ),
+        'collapsing-string-vertically-centered-wrapper'
+      );
     }
 
-    return this.renderWithClickHandler(rowOptions, address);
+    return this.renderWithClickHandler(rowOptions, address, 'collapsing-string-vertically-centered-wrapper');
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
