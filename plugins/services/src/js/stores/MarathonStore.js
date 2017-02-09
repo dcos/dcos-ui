@@ -551,7 +551,8 @@ class MarathonStore extends GetSetBaseStore {
     // Handle ongoing request here.
   }
 
-  processMarathonServiceVersions({serviceID, versions}) {
+  processMarathonServiceVersions(service) {
+    let {serviceID, versions} = service;
     versions = versions.reduce(function (map, version) {
       return map.set(version);
     }, new Map());
@@ -563,7 +564,8 @@ class MarathonStore extends GetSetBaseStore {
     this.emit(MARATHON_SERVICE_VERSIONS_ERROR);
   }
 
-  processMarathonServiceVersion({serviceID, version, versionID}) {
+  processMarathonServiceVersion(service) {
+    const {serviceID, version, versionID} = service;
     // TODO (orlandohohmeier): Convert version into typed version struct
     this.emit(MARATHON_SERVICE_VERSION_CHANGE, {serviceID, versionID, version});
   }

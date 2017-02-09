@@ -95,9 +95,9 @@ class DSLInputField extends React.Component {
    *
    * @param {SyntheticEvent} event - The change event
    */
-  handleChange({target}) {
+  handleChange(event) {
     this.setState({
-      expression: new DSLExpression(target.value)
+      expression: new DSLExpression(event.target.value)
     });
 
     this.handleDebounceUpdate();

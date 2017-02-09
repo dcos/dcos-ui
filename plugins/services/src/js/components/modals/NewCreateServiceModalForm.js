@@ -237,7 +237,8 @@ class NewCreateServiceModalForm extends Component {
     });
   }
 
-  handleAddItem({value, path}) {
+  handleAddItem(event) {
+    const {value, path} = event;
     let {batch} = this.state;
 
     batch = batch.add(
@@ -247,7 +248,8 @@ class NewCreateServiceModalForm extends Component {
     this.setState({batch, appConfig: this.getAppConfig(batch)});
   }
 
-  handleRemoveItem({value, path}) {
+  handleRemoveItem(event) {
+    const {value, path} = event;
     let {batch} = this.state;
 
     batch = batch.add(

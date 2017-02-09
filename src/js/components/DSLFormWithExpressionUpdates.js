@@ -29,7 +29,8 @@ class DSLFormWithExpressionUpdates extends React.Component {
     });
   }
 
-  handleFormBlur({target}) {
+  handleFormBlur(event) {
+    const {target} = event;
     const {onChange, parts} = this.props;
     let {value} = target;
 
@@ -59,8 +60,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
 
   /**
    * Handle a change to the form
+   *
+   * @param {Object} event
    */
-  handleFormChange({target}) {
+  handleFormChange(event) {
+    const {target} = event;
     const {onChange, parts} = this.props;
     let {value} = target;
 

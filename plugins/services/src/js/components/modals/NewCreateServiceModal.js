@@ -198,7 +198,8 @@ class NewCreateServiceModal extends Component {
     this.setState({service, serviceConfig: service.getSpec()});
   }
 
-  handleGoBack({tabViewID}) {
+  handleGoBack(event) {
+    const {tabViewID} = event;
     const {location} = this.props;
     const {
       serviceFormActive,
@@ -292,7 +293,8 @@ class NewCreateServiceModal extends Component {
     this.setState({serviceFormErrors: errors});
   }
 
-  handleServiceSelection({route, type}) {
+  handleServiceSelection(event) {
+    const {route, type} = event;
     const {params} = this.props;
     const baseID = getBaseID(decodeURIComponent(params.id || '/'));
 

@@ -40,7 +40,9 @@ class Mount extends React.Component {
     MountService.addListener(CHANGE, this.onMountServiceChange);
   }
 
-  componentWillReceiveProps({type}) {
+  componentWillReceiveProps(nextProps) {
+    const {type} = nextProps;
+
     if (this.props.type === type) {
       return;
     }

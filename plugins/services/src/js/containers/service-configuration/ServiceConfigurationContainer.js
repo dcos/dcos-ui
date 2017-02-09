@@ -13,7 +13,8 @@ class ServiceConfigurationContainer extends React.Component {
     DCOSStore.fetchServiceVersions(service.getId());
   }
 
-  componentWillReceiveProps({service:nextService}) {
+  componentWillReceiveProps(nextProps) {
+    const {service:nextService} = nextProps;
     const {service} = this.props;
 
     if (service.getVersion() !== nextService.getVersion()) {

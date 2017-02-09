@@ -23,7 +23,8 @@
   "plugins": [
     "jsx-max-len",
     "react",
-    "compat"
+    "compat",
+    "destructuring"
   ],
 
   "globals": {
@@ -40,9 +41,14 @@
     "d3": true
   },
 
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:destructuring/recommended"
+  ],
 
   "rules": {
+    "destructuring/no-rename": "off",
+    "destructuring/in-params": "off",
     "compat/compat": "error",
     "arrow-parens": ["error", "always"],
     "eqeqeq": ["error", "smart"],

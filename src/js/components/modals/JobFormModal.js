@@ -267,8 +267,8 @@ class JobFormModal extends mixin(StoreMixin) {
     }
   }
 
-  handleFormChange({model}) {
-    if (!model) {
+  handleFormChange(event) {
+    if (!event.model) {
       return;
     }
 
