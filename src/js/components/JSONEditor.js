@@ -19,7 +19,7 @@ const METHODS_TO_BIND = [
  *
  * @const {number}
  */
-const ISTYPING_TIMEOUT = 2000;
+const IS_TYPING_TIMEOUT = 2000;
 
 /**
  * This is a high-order component on top of `AceEditor` that abstracts the JSON
@@ -136,8 +136,10 @@ class JSONEditor extends React.Component {
     // arrangement.
 
     // Align the order the properties appear & calculate new JSON text
-    const value = JSONEditorUtil.sortObjectKeys(this.jsonValue,
-      nextProps.value);
+    const value = JSONEditorUtil.sortObjectKeys(
+      this.jsonValue,
+      nextProps.value
+    );
     const composedText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
@@ -218,7 +220,7 @@ class JSONEditor extends React.Component {
 
     // Update the `isTyping` flag
     this.isTyping = true;
-    this.scheduleIsTypingReset(ISTYPING_TIMEOUT);
+    this.scheduleIsTypingReset(IS_TYPING_TIMEOUT);
 
     // Handle errors
     if (lastError !== jsonError) {
@@ -230,6 +232,7 @@ class JSONEditor extends React.Component {
       // Calculate differences in the JSON and trigger `onPropertyChange`
       // event for every property that changed in the JSON
       const diff = JSONEditorUtil.deepObjectDiff(lastValue, jsonValue);
+
       diff.forEach(({path, value}) => {
         this.props.onPropertyChange(path, value, jsonValue);
       });
@@ -305,7 +308,7 @@ class JSONEditor extends React.Component {
       // just keeping the offset in the string
       const errorStr = e.toString();
       jsonError = errorStr.replace(/at position (\d+)/g,
-        (match, offset) => {
+        function (match, offset) {
           const cursor = JSONEditorUtil.cursorFromOffset(
             parseInt(offset),
             jsonText
@@ -314,7 +317,7 @@ class JSONEditor extends React.Component {
           return `at line ${cursor.row}:${cursor.column}`;
         }
       );
-    };
+    }
 
     return {jsonValue, jsonText, jsonMeta, jsonError};
   }
@@ -359,6 +362,7 @@ class JSONEditor extends React.Component {
     if (this.timerIsTyping) {
       clearTimeout(this.timerIsTyping);
     }
+
     this.timerIsTyping = setTimeout(() => {
       this.isTyping = false;
     }, timeout);
@@ -378,18 +382,21 @@ class JSONEditor extends React.Component {
 
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      const errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, (m, line) => {
-        errorLine = parseInt(line.split(':')[0]);
+      const errorMsg =
+        this.jsonError.replace(/at line ([\d:]+)/g, function (m, line) {
+          errorLine = parseInt(line.split(':')[0]);
 
-        return '';
-      });
+          return '';
+        });
 
       // Return error marker
-      return [{
-        row: errorLine,
-        text: errorMsg,
-        type: 'error'
-      }];
+      return [
+        {
+          row: errorLine,
+          text: errorMsg,
+          type: 'error'
+        }
+      ];
     }
 
     return this.externalErrors.map((error) => {
@@ -423,8 +430,8 @@ class JSONEditor extends React.Component {
       //
       // If nothing is found, default to root ([])
       //
-      const candidates = this.jsonMeta.reduce((memo, token) => {
-        const isMatch = token.path.every((component, i) => {
+      const candidates = this.jsonMeta.reduce(function (memo, token) {
+        const isMatch = token.path.every(function (component, i) {
           return path[i] === component;
         });
 
@@ -439,8 +446,9 @@ class JSONEditor extends React.Component {
       }, [{path: [], row: 0}]);
 
       // Find the most specific token line
-      const candidate = candidates
-        .sort((a, b) => b.path.length - a.path.length)[0];
+      const candidate = candidates.sort(function (a, b) {
+        return b.path.length - a.path.length;
+      })[0];
 
       // Keep the difference between the original and the new path and display
       // it as prefix in the error message:
@@ -474,10 +482,11 @@ class JSONEditor extends React.Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onLoad={this.handleEditorLoad}
-        value={initialText} />
+        value={initialText}
+      />
     );
   }
-};
+}
 
 JSONEditor.defaultProps = {
   errors: [],
