@@ -98,7 +98,7 @@ class ServiceDebugContainer extends React.Component {
             Timestamp
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {timestamp} (<TimeAgo time={new Date(timestamp)} />
+            {timestamp} (<TimeAgo time={new Date(timestamp)} />)
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
