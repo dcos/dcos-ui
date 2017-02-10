@@ -60,8 +60,12 @@ class NodeDetailTab extends React.Component {
               </ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>
-          <HashMapDisplay hash={node.attributes} headline="Attributes" />
-          <HashMapDisplay hash={node.getFormattedResources()} headline="Resources" />
+          <HashMapDisplay
+            hash={node.attributes}
+            headline="Attributes" />
+          <HashMapDisplay
+            hash={node.getFormattedResources()}
+            headline="Resources" />
         </ConfigurationMap>
       </div>
     );
