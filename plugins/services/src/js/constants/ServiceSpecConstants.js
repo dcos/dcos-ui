@@ -1,4 +1,4 @@
-const ServiceConfig = {
+const ServiceSpecConstants = {
   BLACKLIST: [
     'uris',
     'ports',
@@ -35,4 +35,4 @@ const ServiceConfig = {
   ]
 };
 
-module.exports = ServiceConfig;
+module.exports = ServiceSpecConstants;
