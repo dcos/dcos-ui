@@ -1,4 +1,11 @@
 const ServiceSpecConstants = {
+  /**
+   *  List of service `_itemData` keys that don't belong to a service spec
+   *  as the data is either describing the service state or from sources
+   *  other than Marathon.
+   *
+   * @type {array.<string>}
+   */
   BLACKLIST: [
     'uris',
     'ports',
