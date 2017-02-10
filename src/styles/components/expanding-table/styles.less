@@ -5,6 +5,13 @@
     td {
       line-height: 1.8rem;
       white-space: nowrap;
+
+      // All children in an expanding table's cell needs to have the same
+      // line-height to maintain the illusion of expanding one table row into
+      // many.
+      * {
+        line-height: inherit;
+      }
     }
   }
 
