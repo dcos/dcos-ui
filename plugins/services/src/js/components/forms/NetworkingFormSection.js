@@ -447,21 +447,19 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (
-        <div>
+        <Tooltip
+          content={tooltipMessage}
+          maxWidth={500}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
+          wrapText={true}>
           <h3 className="short-bottom muted" key="service-endpoints-header">
-            {'Service Endpoints '}
-            <Tooltip
-              content={tooltipMessage}
-              maxWidth={500}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="lock" size="mini" />
-            </Tooltip>
+            Service Endpoints
           </h3>
           <p key="service-endpoints-description" className="muted">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
           </p>
-        </div>
+        </Tooltip>
       );
     }
 
