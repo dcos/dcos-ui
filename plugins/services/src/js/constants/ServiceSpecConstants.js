@@ -38,7 +38,8 @@ const ServiceSpecConstants = {
     'TASK_FAILED',
     'TASK_LOST',
     'TASK_ERROR',
-    'slave_ids'
+    'slave_ids',
+    'volumes'
   ]
 };
 
