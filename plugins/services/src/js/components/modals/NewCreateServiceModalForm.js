@@ -21,6 +21,7 @@ import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealth
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
+import ServiceErrorPathMapping from '../../constants/ServiceErrorPathMapping';
 import ServiceUtil from '../../utils/ServiceUtil';
 import PodSpec from '../../structs/PodSpec';
 import TabButton from '../../../../../../src/js/components/TabButton';
@@ -233,10 +234,16 @@ class NewCreateServiceModalForm extends Component {
     const path = fieldName.split('.');
     batch = batch.add(new Transaction(path, value));
 
-    this.setState({
+    const newState = {
       batch,
       editingFieldPath: fieldName
-    });
+    };
+
+    if (event.target.type === 'checkbox') {
+      newState.appConfig = this.getAppConfig(batch);
+    }
+
+    this.setState(newState);
   }
 
   handleAddItem(event) {
@@ -293,11 +300,12 @@ class NewCreateServiceModalForm extends Component {
     }
 
     const errorItems = showErrors.map((error, index) => {
-      const prefix = error.path.length ? `${error.path.join('.')}:` : '';
+      const message = ErrorMessageUtil.getUnanchoredErrorMessage(
+        error, ServiceErrorPathMapping);
 
       return (
         <li key={index} className="short">
-          {`${prefix} ${error.message}`}
+          {message}
         </li>
       );
     });
