@@ -108,7 +108,8 @@ describe('MarathonUtil', function () {
               containerPath: 'path',
               mode: 'RW',
               persistent: {
-                size: 2048
+                size: 2048,
+                type: 'root'
               }
             }]
           },
@@ -147,7 +148,8 @@ describe('MarathonUtil', function () {
               containerPath: 'path',
               mode: 'RW',
               persistent: {
-                size: 2048
+                size: 2048,
+                type: 'root'
               }
             }]
           },
