@@ -24,11 +24,11 @@ describe('Volumes', function () {
     it('renders the correct IDs in the table', function () {
       cy.get('.table tbody tr').should(function ($rows) {
         var children = $rows[1].children;
-        expect(children[0].textContent).to.equal('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d');
-        expect(children[1].textContent).to.equal('10.0.1.117');
+        expect(children[0].textContent).to.equal('sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201');
+        expect(children[1].textContent).to.equal('10.0.2.93');
         expect(children[2].textContent).to.equal('Persistent');
         expect(children[3].textContent).to.equal('data-1');
-        expect(children[4].textContent).to.equal('100');
+        expect(children[4].textContent).to.equal('1');
         expect(children[5].textContent).to.equal('RW');
         expect(children[6].textContent).to.equal('Attached');
       });
@@ -41,11 +41,11 @@ describe('Volumes', function () {
     beforeEach(function () {
       cy.visitUrl({url: '/services/overview/%2Fsleep'});
       cy.get('.menu-tabbed-item').contains('Volumes').click();
-      cy.get('.table tbody tr a').contains('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d').click();
+      cy.get('.table tbody tr a').contains('sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201').click();
     });
 
     it('routes to the volume details by id', function () {
-      cy.hash().should('match', new RegExp(encodeURIComponent('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d')));
+      cy.hash().should('match', new RegExp(encodeURIComponent('sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201')));
     });
 
     it('displays the correct status in the header', function () {
@@ -56,10 +56,10 @@ describe('Volumes', function () {
       cy.get('.configuration-map-row .configuration-map-value').should(function ($descriptionListEls) {
         expect($descriptionListEls[0].textContent).to.equal('data-1');
         expect($descriptionListEls[1].textContent).to.equal('RW');
-        expect($descriptionListEls[2].textContent).to.equal('100');
+        expect($descriptionListEls[2].textContent).to.equal('1');
         expect($descriptionListEls[3].textContent).to.equal('/sleep');
-        expect($descriptionListEls[4].textContent).to.equal('foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d');
-        expect($descriptionListEls[5].textContent).to.equal('10.0.1.117');
+        expect($descriptionListEls[4].textContent).to.equal('sleep.c1fc196a-efb2-11e6-a361-5edc614b8201');
+        expect($descriptionListEls[5].textContent).to.equal('10.0.2.93');
       });
     });
 

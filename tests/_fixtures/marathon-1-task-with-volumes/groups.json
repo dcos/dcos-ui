@@ -9,9 +9,10 @@
         
       },
       "instances": 1,
-      "cpus": 0.1,
-      "mem": 16,
+      "cpus": 1,
+      "mem": 128,
       "disk": 0,
+      "gpus": 0,
       "executor": "",
       "constraints": [
         
@@ -19,13 +20,12 @@
       "uris": [
         
       ],
+      "fetch": [
+        
+      ],
       "storeUrls": [
         
       ],
-      "ports": [
-        10000
-      ],
-      "requirePorts": false,
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
@@ -36,21 +36,24 @@
             "containerPath": "data-1",
             "mode": "RW",
             "persistent": {
-              "size": 100
+              "size": 1,
+              "type": "root"
             }
           },
           {
             "containerPath": "data-2",
             "mode": "RW",
             "persistent": {
-              "size": 200
+              "size": 2,
+              "type": "root"
             }
           },
           {
             "containerPath": "data-3",
             "mode": "RW",
             "persistent": {
-              "size": 300
+              "size": 3,
+              "type": "root"
             }
           }
         ]
@@ -58,18 +61,51 @@
       "healthChecks": [
         
       ],
+      "readinessChecks": [
+        
+      ],
       "dependencies": [
         
       ],
       "upgradeStrategy": {
-        "minimumHealthCapacity": 1,
-        "maximumOverCapacity": 1
+        "minimumHealthCapacity": 0.5,
+        "maximumOverCapacity": 0
       },
       "labels": {
         
       },
-      "acceptedResourceRoles": null,
-      "version": "2015-08-28T01:26:14.620Z",
+      "ipAddress": null,
+      "version": "2017-02-10T17:02:51.890Z",
+      "residency": {
+        "relaunchEscalationTimeoutSeconds": 10,
+        "taskLostBehavior": "WAIT_FOREVER"
+      },
+      "secrets": {
+        
+      },
+      "taskKillGracePeriodSeconds": null,
+      "unreachableStrategy": {
+        "inactiveAfterSeconds": 3600,
+        "expungeAfterSeconds": 604800
+      },
+      "killSelection": "YOUNGEST_FIRST",
+      "ports": [
+        10000
+      ],
+      "portDefinitions": [
+        {
+          "port": 10000,
+          "protocol": "tcp",
+          "labels": {
+            
+          }
+        }
+      ],
+      "requirePorts": false,
+      "versionInfo": {
+        "lastScalingAt": "2017-02-10T17:02:51.890Z",
+        "lastConfigChangeAt": "2017-02-10T17:02:51.890Z"
+      },
       "tasksStaged": 0,
       "tasksRunning": 1,
       "tasksHealthy": 0,
@@ -79,38 +115,83 @@
       ],
       "tasks": [
         {
-          "id": "foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d",
-          "slaveId": "7a1c7cc0-0274-416a-a30c-0b970e3d7fdf-S1",
-          "host": "10.0.1.117",
-          "startedAt": "2016-06-09T16:22:40.478Z",
-          "stagedAt": "2016-06-09T16:22:40.341Z",
-          "ports": [
-            12280
-          ],
-          "version": "2016-06-09T16:22:39.008Z",
-          "ipAddresses": [
-            {
-              "ipAddress": "10.0.1.117",
-              "protocol": "IPv4"
-            }
-          ],
           "localVolumes": [
             {
+              "runSpecId": "/sleep",
               "containerPath": "data-1",
-              "persistenceId": "foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d"
+              "uuid": "c1fbf257-efb2-11e6-a361-5edc614b8201",
+              "persistenceId": "sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201"
             },
             {
+              "runSpecId": "/sleep",
               "containerPath": "data-2",
-              "persistenceId": "foo-bar#data-2#624f5b53-2e5e-11e6-8e49-a6a5a4687c4d"
+              "uuid": "c1fbf258-efb2-11e6-a361-5edc614b8201",
+              "persistenceId": "sleep#data-2#c1fbf258-efb2-11e6-a361-5edc614b8201"
             },
             {
+              "runSpecId": "/sleep",
               "containerPath": "data-3",
-              "persistenceId": "foo-bar#data-3#624f5b54-2e5e-11e6-8e49-a6a5a4687c4d"
+              "uuid": "c1fbf259-efb2-11e6-a361-5edc614b8201",
+              "persistenceId": "sleep#data-3#c1fbf259-efb2-11e6-a361-5edc614b8201"
             }
           ],
-          "appId": "/foo-bar"
+          "stagedAt": "2017-02-10T17:02:52.369Z",
+          "state": "TASK_RUNNING",
+          "ports": [
+            27676
+          ],
+          "startedAt": "2017-02-10T17:02:52.515Z",
+          "version": "2017-02-10T17:02:51.890Z",
+          "id": "sleep.c1fc196a-efb2-11e6-a361-5edc614b8201",
+          "appId": "/sleep",
+          "slaveId": "5c827527-43a3-48a2-bb27-0840f47d4920-S1",
+          "host": "10.0.2.93"
         }
-      ]
+      ],
+      "taskStats": {
+        "startedAfterLastScaling": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 13.728,
+              "medianSeconds": 13.728
+            }
+          }
+        },
+        "withLatestConfig": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 13.728,
+              "medianSeconds": 13.728
+            }
+          }
+        },
+        "totalSummary": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 13.728,
+              "medianSeconds": 13.728
+            }
+          }
+        }
+      }
     }
   ],
   "groups": [
