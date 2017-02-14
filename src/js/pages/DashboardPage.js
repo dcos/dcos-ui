@@ -3,6 +3,8 @@ import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../components/Breadcrumb';
+import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
 import ComponentList from '../components/ComponentList';
 import Config from '../config/Config';
 import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
@@ -35,7 +37,11 @@ function getMesosState() {
 
 const DashboardBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/dashboard" key={-1}>Dashboard</Link>
+    <Breadcrumb key={0} title="Dashboard">
+      <BreadcrumbTextContent>
+        <Link to="/dashboard">Dashboard</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="graph" breadcrumbs={crumbs} />;

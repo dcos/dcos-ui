@@ -9,6 +9,8 @@ import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import BulkOptions from '../../constants/BulkOptions';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
@@ -44,7 +46,11 @@ const METHODS_TO_BIND = [
 
 const UsersBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/organization/users" key={-1}>Users</Link>
+    <Breadcrumb key={0} title="Users">
+      <BreadcrumbTextContent>
+        <Link to="/organization/users">Users</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;

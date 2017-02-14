@@ -8,6 +8,8 @@ import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table} from 'reactjs-components';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterButtons from '../../components/FilterButtons';
@@ -20,7 +22,11 @@ import UnitHealthUtil from '../../utils/UnitHealthUtil';
 
 const UnitHealthBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/components" key={-1}>Components</Link>
+    <Breadcrumb key={0} title="Components">
+      <BreadcrumbTextContent>
+        <Link to="/components">Components</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;

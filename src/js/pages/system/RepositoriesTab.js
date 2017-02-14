@@ -6,6 +6,8 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AddRepositoryFormModal from '../../components/modals/AddRepositoryFormModal';
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
@@ -16,7 +18,11 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 
 const RepositoriesBreadcrumbs = (addButton) => {
   const crumbs = [
-    <Link to="/settings/repositories" key={-1}>Repositories</Link>
+    <Breadcrumb key={-1} title="Repositories">
+      <BreadcrumbTextContent>
+        <Link to="/settings/repositories">Repositories</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return (

@@ -5,6 +5,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
 
+import Breadcrumb from '../components/Breadcrumb';
+import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
 import Icon from '../components/Icon';
 import Loader from '../components/Loader';
 import Page from '../components/Page';
@@ -13,7 +15,11 @@ import TabsMixin from '../mixins/TabsMixin';
 
 const NetworkingBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/networking" key="networks">Networks</Link>
+    <Breadcrumb key={0} title="Networks">
+      <BreadcrumbTextContent>
+        <Link to="/networking">Networks</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;

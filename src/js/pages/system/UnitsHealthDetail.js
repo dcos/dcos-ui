@@ -5,6 +5,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
@@ -17,7 +19,11 @@ import UnitHealthStore from '../../stores/UnitHealthStore';
 
 const UnitHealthDetailBreadcrumbs = ({unit}) => {
   const crumbs = [
-    <Link to="/components" key={-1}>Components</Link>
+    <Breadcrumb key={0} title="Components">
+      <BreadcrumbTextContent>
+        <Link to="/components">Components</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   if (unit != null) {
@@ -25,12 +31,16 @@ const UnitHealthDetailBreadcrumbs = ({unit}) => {
     const unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Link to={`/components/${unit.get('id')}`} key={0}>
-        {`${unitTitle} `}
-        <span className={healthStatus.classNames}>
-          ({healthStatus.title})
-        </span>
-      </Link>
+      <Breadcrumb key={0} title="Components">
+        <BreadcrumbTextContent>
+          <Link to={`/components/${unit.get('id')}`}>
+            {`${unitTitle} `}
+            <span className={healthStatus.classNames}>
+              ({healthStatus.title})
+            </span>
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   }
 

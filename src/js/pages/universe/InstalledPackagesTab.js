@@ -5,6 +5,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterInputText from '../../components/FilterInputText';
 import Loader from '../../components/Loader';
@@ -14,7 +16,11 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 
 const InstalledPackagesBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/universe/installed-packages" key={-1}>Installed</Link>
+    <Breadcrumb key={0} title="Installed">
+      <BreadcrumbTextContent>
+        <Link to="/universe/installed-packages">Installed</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;

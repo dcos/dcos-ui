@@ -6,6 +6,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import Config from '../../config/Config';
 import ConfigStore from '../../stores/ConfigStore';
 import ConfigurationMap from '../../components/ConfigurationMap';
@@ -29,7 +31,11 @@ const METHODS_TO_BIND = [
 
 const ClusterDetailsBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/cluster" key={-1}>Cluster</Link>
+    <Breadcrumb key={0} title="Cluster">
+      <BreadcrumbTextContent>
+        <Link to="/cluster">Cluster</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
