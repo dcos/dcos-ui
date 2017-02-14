@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
 import React from 'react';
-import {routerShape} from 'react-router';
+import {Link, routerShape} from 'react-router';
 
 import HealthLabels from '../constants/HealthLabels';
 import HealthStatus from '../constants/HealthStatus';
@@ -112,7 +112,11 @@ const ServiceList = React.createClass({
     return (
       <div>
         <h3 className="flush-top text-align-center">No Services Running</h3>
-        <p className="flush text-align-center">Click the Services tab to install services.</p>
+        <p className="flush text-align-center">
+          {'Click the '}
+          <Link to="/services">Services tab</Link>
+          {' to install services.'}
+        </p>
       </div>
     );
   },
