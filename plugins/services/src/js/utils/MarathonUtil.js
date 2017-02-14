@@ -31,8 +31,10 @@ function parseApp(app) {
       }
 
       if (persistent != null) {
+        const {size} = persistent;
+
         volumeDefinitionMap.set(containerPath,
-          Object.assign({type: VolumeTypes.PERSISTENT, mode}, persistent)
+          {type: VolumeTypes.PERSISTENT, mode, size}
         );
       }
     }
