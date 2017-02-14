@@ -105,7 +105,8 @@ class NewCreateServiceModalForm extends Component {
     // handler. In that case the contents of nextJSON would be the same
     // as the contents of the last rendered appConfig in the state.
     if ((this.state.isPod !== isPod) || (!deepEqual(prevJSON, nextJSON) &&
-      !deepEqual(this.state.appConfig, nextJSON))) {
+      !deepEqual(this.state.appConfig, nextJSON) &&
+      !deepEqual(this.props.errors, nextProps.errors))) {
       this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
     }
   }
@@ -117,8 +118,7 @@ class NewCreateServiceModalForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     const {editingFieldPath, appConfig} = this.state;
 
-    if ((editingFieldPath === null) &&
-       !deepEqual(appConfig, prevState.appConfig)) {
+    if ((editingFieldPath === null) && (prevState.editingFieldPath !== null)) {
       this.props.onChange(new this.props.service.constructor(appConfig));
     }
   }
@@ -201,11 +201,10 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormBlur(event) {
-    const {editedFieldPaths, batch} = this.state;
+    const {editedFieldPaths} = this.state;
     const fieldName = event.target.getAttribute('name');
     const newState = {
-      editingFieldPath: null,
-      appConfig: this.getAppConfig(batch)
+      editingFieldPath: null
     };
 
     if (!fieldName) {
@@ -235,13 +234,10 @@ class NewCreateServiceModalForm extends Component {
     batch = batch.add(new Transaction(path, value));
 
     const newState = {
+      appConfig: this.getAppConfig(batch),
       batch,
       editingFieldPath: fieldName
     };
-
-    if (event.target.type === 'checkbox') {
-      newState.appConfig = this.getAppConfig(batch);
-    }
 
     this.setState(newState);
   }
