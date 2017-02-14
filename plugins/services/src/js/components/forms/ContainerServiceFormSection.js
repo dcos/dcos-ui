@@ -156,10 +156,6 @@ class ContainerServiceFormSection extends Component {
     const memErrors = findNestedPropertyInObject(errors, memPath);
     const cmdPath = this.getFieldPath(path, 'cmd');
     const cmdErrors = findNestedPropertyInObject(errors, cmdPath);
-    // const classes = classNames(
-    //   'short-bottom',
-    //   {'flush-top': path !== 'container'}
-    // );
 
     let inputNode = (
       <FieldInput name={imagePath} disabled={imageDisabled} value={image} />
@@ -179,7 +175,7 @@ class ContainerServiceFormSection extends Component {
     }
 
     return (
-      <div>
+      <div className="pod pod-short flush-horizontal flush-bottom">
         {this.getContainerNameField()}
         <FormRow>
           <FormGroup
