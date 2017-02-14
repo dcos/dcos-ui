@@ -10,6 +10,7 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
+import ContainerServiceFormAdvancedSection from './ContainerServiceFormAdvancedSection';
 import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -38,7 +39,7 @@ const METHODS_TO_BIND = [
 
 const containerRuntimes = {
   [DOCKER]: {
-    label: <span>{labelMap[DOCKER]} <em>(recommended for Docker)</em></span>,
+    label: <span>{labelMap[DOCKER]}</span>,
     helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   },
   [NONE]: {
@@ -56,7 +57,7 @@ const containerRuntimes = {
     )
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]} <em>(experimental)</em></span>,
+    label: <span>{labelMap[MESOS]} <span className="badge badge-rounded badge-warning">Experimental</span></span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   }
 };
@@ -85,19 +86,65 @@ class GeneralServiceFormSection extends Component {
     this.setState({convertToPodModalOpen: true});
   }
 
+  getAdvancedContainerSection() {
+    const {data = {}, errors, service} = this.props;
+
+    if (service instanceof PodSpec) {
+      return null;
+    }
+
+    return (
+      <ContainerServiceFormAdvancedSection
+        data={data}
+        errors={errors}
+        onAddItem={this.props.onAddItem}
+        onRemoveItem={this.props.onRemoveItem}
+        path="container"
+        service={service} />
+    );
+  }
+
   getContainerSection() {
     const {data = {}, errors, service} = this.props;
 
+    if (service instanceof PodSpec) {
+      return null;
+    }
+
+    return (
+      <ContainerServiceFormSection
+        data={data}
+        errors={errors}
+        onAddItem={this.props.onAddItem}
+        onRemoveItem={this.props.onRemoveItem}
+        path="container"
+        service={service} />
+    );
+  }
+
+  getConvertToPodAction() {
+    const {service, isEdit} = this.props;
+
+    if (isEdit || service instanceof PodSpec) {
+      return null;
+    }
+
+    return (
+      <div className="pod pod-short flush-horizontal flush-bottom">
+        <em>
+          {'Need to run a service with multiple containers? '}
+          <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
+            Add another container
+          </a>.
+        </em>
+      </div>
+    );
+  }
+
+  getMultiContainerSection() {
+    const {data = {}, service} = this.props;
     if (!(service instanceof PodSpec)) {
-      return (
-        <ContainerServiceFormSection
-          data={data}
-          errors={errors}
-          onAddItem={this.props.onAddItem}
-          onRemoveItem={this.props.onRemoveItem}
-          path="container"
-          service={service} />
-      );
+      return null;
     }
 
     const {containers = []} = data;
@@ -115,39 +162,10 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom">
+        <h2 className="short-bottom short-top">
           Containers
         </h2>
         {containerElements}
-      </div>
-    );
-  }
-
-  getConvertToPodAction() {
-    const {service, isEdit} = this.props;
-
-    if (isEdit || service instanceof PodSpec) {
-      return null;
-    }
-
-    return (
-      <p>
-        {'Need to run a service with multiple containers? '}
-        <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
-          Add another container
-        </a>.
-      </p>
-    );
-  }
-
-  getMultiContainerSection() {
-    const {service} = this.props;
-    if (!(service instanceof PodSpec)) {
-      return null;
-    }
-
-    return (
-      <div>
         <AddButton onClick={this.props.onAddItem.bind(
             this,
             {value: 0, path: 'containers'}
@@ -190,7 +208,48 @@ class GeneralServiceFormSection extends Component {
     );
   }
 
-  getPlacementConstraints(data = []) {
+  getPlacementconstraints() {
+    const {data = {}} = this.props;
+    const placementTooltipContent = (
+      <span>
+        {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
+        <a
+          href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+
+    return (
+      <div>
+        <h3 className="short-top short-bottom">
+          {'Placement Constraints '}
+          <Tooltip
+            content={placementTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
+        </h3>
+        <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
+        {this.getPlacementConstraintsFields(data.constraints)}
+        <FormRow>
+          <FormGroup className="column-12">
+            <AddButton onClick={this.props.onAddItem.bind(
+                this, {value: data.constraints.length, path: 'constraints'}
+              )}>
+              Add Placement Constraint
+            </AddButton>
+          </FormGroup>
+        </FormRow>
+      </div>
+    );
+  }
+
+  getPlacementConstraintsFields(data = []) {
     const errors = this.props.errors || [];
     const showParameterLabel = data.some((constraint) => {
       return ![GROUP_BY, UNIQUE].includes(constraint.operator);
@@ -409,16 +468,6 @@ class GeneralServiceFormSection extends Component {
         </a>.
       </span>
     );
-    const placementTooltipContent = (
-      <span>
-        {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
-        <a
-          href="https://mesosphere.github.io/marathon/docs/constraints.html"
-          target="_blank">
-          More information
-        </a>.
-      </span>
-    );
 
     return (
       <div>
@@ -470,39 +519,19 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
         </FormRow>
 
-        {this.getRuntimeSection()}
+        {this.getContainerSection()}
 
         <AdvancedSection>
           <AdvancedSectionLabel>
-            Advanced Service Settings
+            More Settings
           </AdvancedSectionLabel>
           <AdvancedSectionContent>
-            <h3 className="short-top short-bottom">
-              {'Placement Constraints '}
-              <Tooltip
-                content={placementTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
-            </h3>
-            <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
-            {this.getPlacementConstraints(data.constraints)}
-            <FormRow>
-              <FormGroup className="column-12">
-                <AddButton onClick={this.props.onAddItem.bind(
-                    this, {value: data.constraints.length, path: 'constraints'}
-                  )}>
-                  Add Placement Constraint
-                </AddButton>
-              </FormGroup>
-            </FormRow>
+            {this.getRuntimeSection()}
+            {this.getPlacementconstraints()}
+            {this.getAdvancedContainerSection()}
           </AdvancedSectionContent>
         </AdvancedSection>
 
-        {this.getContainerSection()}
         {this.getMultiContainerSection()}
         {this.getConvertToPodAction()}
 
