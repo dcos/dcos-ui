@@ -1,12 +1,12 @@
 import {Route, IndexRoute} from 'react-router';
 
-import ClusterPage from '../pages/ClusterPage';
+import SystemOverviewPage from '../pages/SystemOverviewPage';
 import OverviewDetailTab from '../pages/system/OverviewDetailTab';
 
-const clusterRoutes = {
+const systemOverviewRoutes = {
   type: Route,
-  path: 'cluster',
-  component: ClusterPage,
+  path: 'system-overview',
+  component: SystemOverviewPage,
   category: 'system',
   isInSidebar: true,
   children: [
@@ -17,4 +17,4 @@ const clusterRoutes = {
   ]
 };
 
-module.exports = clusterRoutes;
+module.exports = systemOverviewRoutes;
