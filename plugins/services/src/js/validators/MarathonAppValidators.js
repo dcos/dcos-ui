@@ -1,6 +1,9 @@
+import ContainerConstants from '../constants/ContainerConstants';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
+
+const {DOCKER} = ContainerConstants.type;
 
 const MarathonAppValidators = {
 
@@ -188,6 +191,28 @@ const MarathonAppValidators = {
 
       return memo;
     }, []);
+  },
+
+  /**
+   * @param {Object} app - The data to validate
+   * @returns {Array} Returns an array with validation errors
+   */
+  mustContainImageOnDocker(app) {
+    const type = findNestedPropertyInObject(app, 'container.type');
+    const image = findNestedPropertyInObject(app, 'container.docker.image');
+
+    if ((type === DOCKER) && ValidatorUtil.isEmpty(image)) {
+      return [
+        {
+          path: ['container', 'docker', 'image'],
+          message: 'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
+          type: 'PROP_IS_MISSING',
+          variables: {}
+        }
+      ];
+    }
+
+    return [];
   },
 
   /**

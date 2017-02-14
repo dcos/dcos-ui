@@ -87,6 +87,15 @@ const COMPLYWITHIPADDRESS_ERRORS = [
   }
 ];
 
+const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
+  {
+    path: ['container', 'docker', 'image'],
+    message: 'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
+    type: 'PROP_IS_MISSING',
+    variables: {}
+  }
+];
+
 const NOTBOTHCMDARGS_ERRORS = [
   {
     path: ['cmd'],
@@ -311,5 +320,40 @@ describe('MarathonAppValidators', function () {
       };
       expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
     });
+  });
+
+  describe('#mustContainImageOnDocker', function () {
+
+    it('should return error if runtime is docker but image is missing', function () {
+      const spec = {
+        container: {
+          type: 'DOCKER'
+        }
+      };
+      expect(MarathonAppValidators.mustContainImageOnDocker(spec))
+        .toEqual(MUSTCONTAINIMAGEONDOCKER_ERRORS);
+    });
+
+    it('should not return error if runtime is not docker and image is missing', function () {
+      const spec = {
+        container: {
+          type: 'MESOS'
+        }
+      };
+      expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
+    });
+
+    it('should not return error if runtime docker and image is specified', function () {
+      const spec = {
+        container: {
+          type: 'DOCKER',
+          docker: {
+            image: 'foo'
+          }
+        }
+      };
+      expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
+    });
+
   });
 });
