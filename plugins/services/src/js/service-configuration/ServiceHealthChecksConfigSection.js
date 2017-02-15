@@ -15,18 +15,11 @@ import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../constants/HealthCheckProtocol
 import Util from '../../../../../src/js/utils/Util';
 
 function renderDuration(prop, row) {
-  const value = row[prop];
-
-  if (!value || value === 0) {
-    return (
-      <ConfigurationMapValue>
-        {getDisplayValue(value)}
-      </ConfigurationMapValue>
-    );
-  }
+  const value = row[prop] || null;
 
   return (
     <ConfigurationMapDurationValue
+      defaultValue={<em>Not Configured</em>}
       units="sec"
       value={value} />
   );
