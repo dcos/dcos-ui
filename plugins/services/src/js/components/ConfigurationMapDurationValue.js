@@ -29,11 +29,15 @@ class ConfigurationMapDurationValue extends React.Component {
     const valueInMs = value * multiplicants[units];
     const components = DateUtil.msToMultiplicants(valueInMs, multiplicants);
 
+    const hasNoComponents = components.length === 0;
+    const hasOnlyUnitComponent = (components.length === 1)
+      && (components[0].split(' ')[1] === units);
+
     // Check if components are redundant
-    if ((components.length === 1) && (components[0].split(' ')[1] === units)) {
+    if (hasNoComponents || hasOnlyUnitComponent) {
       return (
         <ConfigurationMapValue>
-          {`${value} ${units}`}
+          {value} {units}
         </ConfigurationMapValue>
       );
     }
@@ -41,7 +45,7 @@ class ConfigurationMapDurationValue extends React.Component {
     // Otherwise show the value and it's components
     return (
       <ConfigurationMapValue>
-        {`${value} ${units} (${components.join(', ')})`}
+        {value} {units} ({components.join(', ')})
       </ConfigurationMapValue>
     );
   }

@@ -6,11 +6,24 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
+import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../constants/HealthCheckProtocols';
 import Util from '../../../../../src/js/utils/Util';
+
+function renderDuration(prop, row) {
+  const value = row[prop] || null;
+
+  return (
+    <ConfigurationMapDurationValue
+      defaultValue={<em>Not Configured</em>}
+      units="sec"
+      value={value} />
+  );
+}
 
 class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
@@ -33,20 +46,27 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
       values: [
         {
           key: 'healthChecks',
-          heading: 'Health Checks',
-          headingLevel: 1
-        },
-        {
-          key: 'healthChecks',
-          heading: 'Service Endpoint Health Checks',
-          headingLevel: 2
+          render(healthChecks) {
+            if (healthChecks.length === 0) {
+              return null;
+            }
+
+            return (
+              <ConfigurationMapHeading
+                key="service-health-checks-heading"
+                level={1}>
+
+                Health Checks
+              </ConfigurationMapHeading>
+            );
+          }
         },
         {
           key: 'healthChecks',
           render(healthChecks) {
             const serviceEndpointHealthChecks = healthChecks.filter(
               (healthCheck) => {
-                return [MESOS_HTTP, MESOS_HTTPS, COMMAND].includes(healthCheck.protocol);
+                return [MESOS_HTTP, MESOS_HTTPS].includes(healthCheck.protocol);
               }
             );
 
@@ -55,7 +75,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Protocol'),
                 prop: 'protocol',
                 render(prop, row) {
-                  return getDisplayValue(row[prop]);
+                  return (
+                    <ConfigurationMapValue>
+                      {getDisplayValue(row[prop])}
+                    </ConfigurationMapValue>
+                  );
                 },
                 className: getColumnClassNameFn(),
                 sortable: true
@@ -65,7 +89,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: 'path',
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  return getDisplayValue(row[prop]);
+                  return (
+                    <ConfigurationMapValue>
+                      {getDisplayValue(row[prop])}
+                    </ConfigurationMapValue>
+                  );
                 },
                 sortable: true
               },
@@ -73,39 +101,21 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Grace Period'),
                 prop: 'gracePeriodSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Interval'),
                 prop: 'intervalSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Timeout'),
                 prop: 'timeoutSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
@@ -113,7 +123,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Max Failures'),
                 prop: 'maxConsecutiveFailures',
                 render(prop, row) {
-                  return getDisplayValue(row[prop]);
+                  return (
+                    <ConfigurationMapValue>
+                      {getDisplayValue(row[prop])}
+                    </ConfigurationMapValue>
+                  );
                 },
                 sortable: true
               }
@@ -134,18 +148,24 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               });
             }
 
-            return (
+            if (serviceEndpointHealthChecks.length === 0) {
+              return null;
+            }
+
+            return [
+              <ConfigurationMapHeading
+                key="service-endpoint-health-checks-heading"
+                level={2}>
+
+                Service Endpoint Health Checks
+              </ConfigurationMapHeading>,
               <Table
                 key="service-endpoint-health-checks"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={serviceEndpointHealthChecks} />
-            );
+            ];
           }
-        },
-        {
-          heading: 'Command Health Checks',
-          headingLevel: 2
         },
         {
           key: 'healthChecks',
@@ -166,9 +186,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                   }
 
                   return (
-                    <pre className="flush transparent wrap">
-                      {value}
-                    </pre>
+                    <ConfigurationMapValue>
+                      <pre className="flush transparent wrap">
+                        {value}
+                      </pre>
+                    </ConfigurationMapValue>
                   );
                 },
                 className: getColumnClassNameFn(),
@@ -178,39 +200,21 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Grace Period'),
                 prop: 'gracePeriodSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Interval'),
                 prop: 'intervalSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
                 heading: getColumnHeadingFn('Timeout'),
                 prop: 'timeoutSeconds',
                 className: getColumnClassNameFn(),
-                render(prop, row) {
-                  return (
-                    <ConfigurationMapDurationValue
-                      units="sec"
-                      value={row[prop]} />
-                  );
-                },
+                render: renderDuration,
                 sortable: true
               },
               {
@@ -218,7 +222,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Max Failures'),
                 prop: 'maxConsecutiveFailures',
                 render(prop, row) {
-                  return getDisplayValue(row[prop]);
+                  return (
+                    <ConfigurationMapValue>
+                      {getDisplayValue(row[prop])}
+                    </ConfigurationMapValue>
+                  );
                 },
                 sortable: true
               }
@@ -239,13 +247,24 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               });
             }
 
-            return (
+            if (commandHealthChecks.length === 0) {
+              return null;
+            }
+
+            return [
+              <ConfigurationMapHeading
+                key="command-health-checks-heading"
+                level={2}>
+
+                Command Health Checks
+              </ConfigurationMapHeading>,
               <Table
                 key="command-health-checks"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={commandHealthChecks} />
-            );
+                data={commandHealthChecks}
+              />
+            ];
           }
         }
       ]
