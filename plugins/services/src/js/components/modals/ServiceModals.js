@@ -7,6 +7,7 @@ import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
 import ServiceGroupFormModal from './ServiceGroupFormModal';
 import ServiceRestartModal from './ServiceRestartModal';
+import ServiceResumeModal from './ServiceResumeModal';
 import ServiceScaleFormModal from './ServiceScaleFormModal';
 import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 import ServiceSuspendModal from './ServiceSuspendModal';
@@ -96,6 +97,36 @@ class ServiceModals extends React.Component {
     );
   }
 
+  getResumeModal() {
+    const {
+      actions,
+      actionErrors,
+      onClose,
+      modalProps,
+      pendingActions
+    } = this.props;
+
+    const key = ActionKeys.SERVICE_EDIT;
+    const {service} = modalProps;
+
+    const resumeService = (instances, force) => actions.editService(
+      service,
+      ServiceSpecUtil.setServiceInstances(
+        service.getSpec(),
+        parseInt(instances, 10)
+      ), force);
+
+    return (
+      <ServiceResumeModal
+        resumeService={resumeService}
+        isPending={!!pendingActions[key]}
+        errors={actionErrors[key]}
+        open={modalProps.id === ServiceActionItem.RESUME}
+        onClose={() => onClose(key)}
+        service={service} />
+    );
+  }
+
   getScaleModal() {
     const {
       actionErrors,
@@ -177,6 +208,7 @@ class ServiceModals extends React.Component {
         {this.getGroupModal()}
         {this.getDestroyModal()}
         {this.getRestartModal()}
+        {this.getResumeModal()}
         {this.getScaleModal()}
         {this.getSuspendModal()}
       </div>

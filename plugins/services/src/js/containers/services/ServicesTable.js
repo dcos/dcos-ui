@@ -79,6 +79,9 @@ class ServicesTable extends React.Component {
       case ServiceActionItem.RESTART:
         modalHandlers.restartService({service});
         break;
+      case ServiceActionItem.RESUME:
+        modalHandlers.resumeService({service});
+        break;
       case ServiceActionItem.SUSPEND:
         modalHandlers.suspendService({service});
         break;
@@ -192,6 +195,13 @@ class ServicesTable extends React.Component {
         }),
         id: ServiceActionItem.SUSPEND,
         html: 'Suspend'
+      },
+      {
+        className: classNames({
+          hidden: isGroup || instancesCount > 0
+        }),
+        id: ServiceActionItem.RESUME,
+        html: 'Resume'
       },
       {
         id: ServiceActionItem.DESTROY,
@@ -365,6 +375,7 @@ ServicesTable.contextTypes = {
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
+    resumeService: PropTypes.func,
     suspendService: PropTypes.func,
     deleteService: PropTypes.func
   }).isRequired
