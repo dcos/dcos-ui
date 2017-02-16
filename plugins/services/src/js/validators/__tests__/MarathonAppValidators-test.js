@@ -1,5 +1,6 @@
 jest.unmock('../MarathonAppValidators');
 const MarathonAppValidators = require('../MarathonAppValidators');
+const {PROP_MISSING_ONE} = require('../../constants/ServiceErrorTypes');
 
 const APPCONTAINERID_ERRORS = [
   {
@@ -354,6 +355,60 @@ describe('MarathonAppValidators', function () {
       };
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
+  });
 
+  describe('#validateConstraints', function () {
+    it('returns no errors when there is no constraints', function () {
+      expect(MarathonAppValidators.validateConstraints({})).toEqual([]);
+    });
+
+    it('returns no errors when all constraints are correctly defined', function () {
+      const spec = {
+        constraints: [
+          ['hostname', 'UNIQUE'],
+          ['CPUS', 'MAX_PER', '123']
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
+    });
+
+    it('returns an error when constraints is not an array', function () {
+      const spec = {
+        constraints: ':)'
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints'],
+        message: 'constrains needs to be an array of 2 or 3 element arrays'
+      }]);
+    });
+
+    it('returns an error when a constraint is not an array', function () {
+      const spec = {
+        constraints: [
+          ':)'
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0],
+        message: 'Must be an array'
+      }]);
+    });
+
+    it('returns an error when a constraint definition is wrong', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'MAX_PER'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'You must specify a value for operator MAX_PER',
+        type: PROP_MISSING_ONE,
+        variables: {name: 'value'}
+      }]);
+    });
   });
 });
