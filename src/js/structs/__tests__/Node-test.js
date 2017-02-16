@@ -66,24 +66,4 @@ describe('Node', function () {
 
   });
 
-  describe('#getFormattedResources', function () {
-
-    beforeEach(function () {
-      const node = new Node({
-        resources: {cpus: 4, gpus: 0, mem: 14018, disk: 35577, ports: ['1024-65535']}
-      });
-      this.resources = node.getFormattedResources();
-    });
-
-    it('does not return value besides disk, mem and cpus', function () {
-      expect(Object.keys(this.resources)).toEqual(['disk', 'mem', 'cpus']);
-    });
-
-    it('formats the resources appropriately', function () {
-      expect(this.resources.mem).toEqual('13.7 GiB');
-      expect(this.resources.cpus).toEqual(4);
-    });
-
-  });
-
 });

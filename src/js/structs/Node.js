@@ -1,7 +1,6 @@
 import Item from './Item';
 import TaskStates from '../../../plugins/services/src/js/constants/TaskStates';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
-import Units from '../utils/Units';
 
 class Node extends Item {
   getID() {
@@ -40,16 +39,6 @@ class Node extends Item {
     }
 
     return this.get('output') || 'OK';
-  }
-
-  getFormattedResources() {
-    const resources = this.get('resources');
-
-    return ['disk', 'mem', 'cpus'].reduce(function (memo, key) {
-      memo[key] = Units.formatResource(key, resources[key]);
-
-      return memo;
-    }, {});
   }
 
   sumTaskTypesByState(state) {

@@ -2,6 +2,7 @@ import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
+import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
 import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
@@ -11,6 +12,7 @@ import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import Node from '../../../../../../src/js/structs/Node';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import Units from '../../../../../../src/js/utils/Units';
 
 class NodeDetailTab extends React.Component {
   constructor() {
@@ -20,6 +22,7 @@ class NodeDetailTab extends React.Component {
 
   render() {
     const {node} = this.props;
+    const resources = node.get('resources');
 
     return (
       <div className="container">
@@ -63,9 +66,35 @@ class NodeDetailTab extends React.Component {
           <HashMapDisplay
             hash={node.attributes}
             headline="Attributes" />
-          <HashMapDisplay
-            hash={node.getFormattedResources()}
-            headline="Resources" />
+          <ConfigurationMapSection>
+            <ConfigurationMapHeading>
+              Resources
+            </ConfigurationMapHeading>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Disk
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {Units.formatResource('disk', resources.disk)}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Mem
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {Units.formatResource('mem', resources.mem)}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                CPUs
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {Units.formatResource('cpus', resources.cpus)}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          </ConfigurationMapSection>
         </ConfigurationMap>
       </div>
     );
