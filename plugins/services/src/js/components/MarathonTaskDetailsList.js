@@ -1,7 +1,11 @@
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
 
-import HashMapDisplay from '../../../../../src/js/components/HashMapDisplay';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
@@ -35,24 +39,65 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 
-  getMarathonTaskDetailsHashMapDisplay(task) {
+  getMarathonTaskDetails(task) {
     if (task == null) {
       return null;
     }
 
-    const headerValueMapping = {
-      'Host': task.host,
-      'Ports': this.getTaskPorts(task),
-      'Status': this.getTaskStatus(task),
-      'Staged at': this.getTimeField(task.stagedAt),
-      'Started at': this.getTimeField(task.startedAt),
-      'Version': task.version
-    };
-
     return (
-      <HashMapDisplay
-        hash={headerValueMapping}
-        headline="Marathon Task Configuration" />
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
+          Marathon Task Configuration
+        </ConfigurationMapHeading>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Host
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {task.host}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Ports
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getTaskPorts(task)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Status
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getTaskStatus(task)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Staged at
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getTimeField(task.stagedAt)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Started at
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {this.getTimeField(task.startedAt)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Version
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {task.version}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
     );
   }
 
@@ -73,35 +118,67 @@ class MarathonTaskDetailsList extends React.Component {
         alive = 'No';
       }
 
-      const headerValueMapping = {
-        'First success': this.getTimeField(result.firstSuccess),
-        'Last success': this.getTimeField(result.lastSuccess),
-        'Last failure': this.getTimeField(result.lastFailure),
-        'Consecutive failures': consecutiveFailures,
-        'Alive': alive
-      };
-
       return (
-        <HashMapDisplay
-          key={i}
-          hash={headerValueMapping}
-          headline={`Health Check Result ${i+1}`} />
+        <ConfigurationMapSection key={i}>
+          <ConfigurationMapHeading>
+            Health Check Result {i + 1}
+          </ConfigurationMapHeading>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              First success
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {this.getTimeField(result.firstSuccess)}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Last success
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {this.getTimeField(result.lastSuccess)}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Last failure
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {this.getTimeField(result.lastFailure)}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Consecutive failures
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {consecutiveFailures}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Alive
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {alive}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+        </ConfigurationMapSection>
       );
     });
   }
 
   render() {
     const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(this.props.taskID);
-    const taskConfiguration =
-      this.getMarathonTaskDetailsHashMapDisplay(marathonTask);
+    const taskConfiguration = this.getMarathonTaskDetails(marathonTask);
     const healthCheckResults =
       this.getMarathonTaskHealthCheckResults(marathonTask);
 
     return (
-      <div>
+      <ConfigurationMapSection>
         {taskConfiguration}
         {healthCheckResults}
-      </div>
+      </ConfigurationMapSection>
     );
   }
 };
