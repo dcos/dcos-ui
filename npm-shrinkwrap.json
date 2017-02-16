@@ -6612,41 +6612,43 @@
       "resolved": "https://registry.npmjs.org/querystringify/-/querystringify-0.0.3.tgz"
     },
     "raml-1-parser": {
-      "version": "1.1.13",
+      "version": "1.1.12",
       "from": "raml-1-parser@>=1.1.6 <2.0.0",
-      "resolved": "https://registry.npmjs.org/raml-1-parser/-/raml-1-parser-1.1.13.tgz"
-    },
-    "raml-definition-system": {
-      "version": "0.0.55",
-      "from": "raml-definition-system@0.0.55",
-      "resolved": "https://registry.npmjs.org/raml-definition-system/-/raml-definition-system-0.0.55.tgz"
+      "resolved": "https://registry.npmjs.org/raml-1-parser/-/raml-1-parser-1.1.12.tgz",
+      "dependencies": {
+        "raml-definition-system": {
+          "version": "0.0.54",
+          "from": "raml-definition-system@0.0.54",
+          "resolved": "https://registry.npmjs.org/raml-definition-system/-/raml-definition-system-0.0.54.tgz"
+        },
+        "raml-typesystem": {
+          "version": "0.0.60",
+          "from": "raml-typesystem@0.0.60",
+          "resolved": "https://registry.npmjs.org/raml-typesystem/-/raml-typesystem-0.0.60.tgz",
+          "dependencies": {
+            "lrucache": {
+              "version": "1.0.2",
+              "from": "lrucache@>=1.0.0 <2.0.0",
+              "resolved": "https://registry.npmjs.org/lrucache/-/lrucache-1.0.2.tgz"
+            }
+          }
+        },
+        "raml-xml-validation": {
+          "version": "0.0.9",
+          "from": "raml-xml-validation@0.0.9",
+          "resolved": "https://registry.npmjs.org/raml-xml-validation/-/raml-xml-validation-0.0.9.tgz"
+        }
+      }
     },
     "raml-json-validation": {
       "version": "0.0.11",
       "from": "raml-json-validation@0.0.11",
       "resolved": "https://registry.npmjs.org/raml-json-validation/-/raml-json-validation-0.0.11.tgz"
     },
-    "raml-typesystem": {
-      "version": "0.0.61",
-      "from": "raml-typesystem@0.0.61",
-      "resolved": "https://registry.npmjs.org/raml-typesystem/-/raml-typesystem-0.0.61.tgz",
-      "dependencies": {
-        "lrucache": {
-          "version": "1.0.2",
-          "from": "lrucache@>=1.0.0 <2.0.0",
-          "resolved": "https://registry.npmjs.org/lrucache/-/lrucache-1.0.2.tgz"
-        }
-      }
-    },
     "raml-validator-loader": {
-      "version": "0.1.8",
+      "version": "0.1.10",
       "from": "raml-validator-loader@latest",
-      "resolved": "https://registry.npmjs.org/raml-validator-loader/-/raml-validator-loader-0.1.8.tgz"
-    },
-    "raml-xml-validation": {
-      "version": "0.0.10",
-      "from": "raml-xml-validation@0.0.10",
-      "resolved": "https://registry.npmjs.org/raml-xml-validation/-/raml-xml-validation-0.0.10.tgz"
+      "resolved": "https://registry.npmjs.org/raml-validator-loader/-/raml-validator-loader-0.1.10.tgz"
     },
     "random-bytes": {
       "version": "1.0.0",
