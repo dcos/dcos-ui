@@ -44,20 +44,10 @@ const containerRuntimes = {
   },
   [NONE]: {
     label: <span>{labelMap[NONE]}</span>,
-    helpText: (
-      <span>
-        {'The default Mesos containerizer. '}
-        <a
-          tabIndex="-1"
-          href="https://mesos.apache.org/documentation/latest/containerizer/#Mesos"
-          target="_blank">
-          More information
-        </a>.
-      </span>
-    )
+    helpText: 'The default Mesos containerizer'
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]} <span className="badge badge-rounded badge-warning">Experimental</span></span>,
+    label: <span>{labelMap[MESOS]} <span className="badge badge-rounded badge-info">Experimental</span></span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   }
 };
