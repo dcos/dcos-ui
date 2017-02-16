@@ -388,20 +388,28 @@ class NewCreateServiceModal extends Component {
     const {serviceFormErrors, serviceSpec} = this.state;
     let validationErrors = [];
 
+    const appValidators = APP_VALIDATORS.concat(
+      Hooks.applyFilter('appValidators', [])
+    );
+
+    const podValidators = POD_VALIDATORS.concat(
+      Hooks.applyFilter('podValidators', [])
+    );
+
     // Validate Application or Pod according to the contents
     // of the serviceSpec property.
 
     if (serviceSpec instanceof ApplicationSpec) {
       validationErrors = DataValidatorUtil.validate(
         getServiceJSON(serviceSpec),
-        APP_VALIDATORS
+        appValidators
       );
     }
 
     if (serviceSpec instanceof PodSpec) {
       validationErrors = DataValidatorUtil.validate(
         getServiceJSON(serviceSpec),
-        POD_VALIDATORS
+        podValidators
       );
     }
 
