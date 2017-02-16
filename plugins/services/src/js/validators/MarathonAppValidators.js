@@ -239,7 +239,7 @@ const MarathonAppValidators = {
   },
 
   validateConstraints(app) {
-    const constraints = findNestedPropertyInObject(app, 'constraints');
+    const constraints = findNestedPropertyInObject(app, 'constraints') || [];
     if (constraints != null && !Array.isArray(constraints)) {
       // No errors
       return [{
