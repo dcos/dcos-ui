@@ -15,7 +15,9 @@ class PageHeaderTabs extends React.Component {
     });
   }
 
-  handleNavigationItemSelection({callback, routePath}) {
+  handleNavigationItemSelection(navItem) {
+    const {callback, routePath} = navItem;
+
     if (callback != null) {
       callback();
     }
