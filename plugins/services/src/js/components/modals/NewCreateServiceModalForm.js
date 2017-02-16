@@ -10,7 +10,6 @@ import AdvancedSectionContent from '../../../../../../src/js/components/form/Adv
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ArtifactsSection from '../forms/ArtifactsSection';
 import Alert from '../../../../../../src/js/components/Alert';
-import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
@@ -22,14 +21,12 @@ import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGemin
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import PageHeaderNavigationDropdown from '../../../../../../src/js/components/PageHeaderNavigationDropdown';
 import PodSpec from '../../structs/PodSpec';
-import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
 import ServiceErrorPathMapping from '../../constants/ServiceErrorPathMapping';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -603,11 +600,6 @@ class NewCreateServiceModalForm extends Component {
     });
 
     const errorMap = DataValidatorUtil.errorArrayToMap(unmutedErrors);
-    const serviceLabel = pluralize('Service', findNestedPropertyInObject(
-      appConfig,
-      'containers.length'
-    ) || 1);
-
     const navigationItems = this.getFormNavigationItems(appConfig, data);
     const tabButtonListItems = this.getFormTabList(navigationItems);
     const navigationDropdownItems = this.getFormDropdownList(
