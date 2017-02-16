@@ -1,5 +1,6 @@
 import DateUtil from '../../../../../src/js/utils/DateUtil';
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
+import ServiceStatus from '../constants/ServiceStatus';
 import Util from '../../../../../src/js/utils/Util';
 
 const DEPLOYMENT_WARNING_DELAY_MS = 1000 * 60 * 5;
@@ -220,8 +221,25 @@ const DeclinedOffersUtil = {
       ) || queue.since;
   },
 
-  shouldDisplayDeclinedOffersWarning(queue) {
-    if (queue == null) {
+  shouldDisplayDeclinedOffersWarning(item) {
+    const queue = item.getQueue();
+    const lastUsedOffer = DateUtil.strToMs(
+      Util.findNestedPropertyInObject(
+        queue, 'processedOffersSummary.lastUsedOfferAt'
+      ) || 0
+    );
+    const lastUnusedOffer = DateUtil.strToMs(
+      Util.findNestedPropertyInObject(
+        queue, 'processedOffersSummary.lastUnusedOfferAt'
+      ) || 0
+    );
+
+    // We don't display the declined offers debug info if the app is not in the
+    // deployment queue, or if the app's status is delayed, or if the app has
+    // matched an offer more recently than unmatched.
+    if (queue == null
+      || item.getServiceStatus() === ServiceStatus.DELAYED
+      || lastUsedOffer >= lastUnusedOffer) {
       return false;
     }
 
