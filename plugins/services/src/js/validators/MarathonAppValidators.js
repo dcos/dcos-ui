@@ -252,7 +252,18 @@ const MarathonAppValidators = {
     const type = PROP_MISSING_ONE;
     const variables = {name: 'value'};
 
-    return constraints.reduce((errors, [fieldName, operator, value], index) => {
+    return constraints.reduce((errors, constraint, index) => {
+      if (!Array.isArray(constraint)) {
+        errors.push({
+          path: ['constraints', index],
+          message: 'Must be an array'
+        });
+
+        return errors;
+      }
+
+      const [_fieldName, operator, value] = constraint;
+
       if (OperatorTypes.isRequired[operator] && ValidatorUtil.isEmpty(value)) {
         errors.push({
           path: ['constraints', index, 'value'],
