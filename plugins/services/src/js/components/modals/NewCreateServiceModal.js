@@ -583,26 +583,22 @@ class NewCreateServiceModal extends Component {
         MultiContainerNetworkingFormSection
       ];
 
-      const isPod = serviceSpec instanceof PodSpec;
-
       let jsonParserReducers = combineParsers(
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
       );
 
-      if (isPod) {
+      let jsonConfigReducers = combineReducers(
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
+      );
+
+      if (serviceSpec instanceof PodSpec) {
         jsonParserReducers = combineParsers(
           Hooks.applyFilter(
             'serviceCreateJsonParserReducers',
             JSONMultiContainerParser
           )
         );
-      }
 
-      let jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
-      );
-
-      if (isPod) {
         jsonConfigReducers = combineReducers(
           Hooks.applyFilter(
             'serviceJsonConfigReducers',
