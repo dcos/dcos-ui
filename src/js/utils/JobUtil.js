@@ -77,6 +77,9 @@ const JobUtil = {
       Object.assign(spec.run, {docker});
     }
 
+    // Reset schedules
+    spec.schedules = [];
+
     // Only transfer schedule if checkbox is set, and create job with reasonable
     // defaults
     if (!schedule || schedule.runOnSchedule) {
@@ -89,14 +92,14 @@ const JobUtil = {
         startingDeadlineSeconds
       } = schedule || {};
 
-      spec.schedules = [{
+      spec.schedules.push({
         id,
         enabled,
         cron,
         timezone,
         concurrencyPolicy,
         startingDeadlineSeconds
-      }];
+      });
     }
 
     return new Job(spec);
