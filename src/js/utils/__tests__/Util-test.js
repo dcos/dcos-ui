@@ -400,4 +400,24 @@ describe('Util', function () {
 
   });
 
+  describe('#objectToGetParams', function () {
+    it('returns empty string when no params has been provided', function () {
+      expect(Util.objectToGetParams({})).toEqual('');
+    });
+
+    it('returns filters out null value params', function () {
+      expect(Util.objectToGetParams({force: null, use: undefined})).toEqual('');
+    });
+
+    it('returns correct query string', function () {
+      expect(Util.objectToGetParams({name: 'DCOS', patchUpdate: true}))
+        .toEqual('?name=DCOS&patchUpdate=true');
+    });
+
+    it('escapes both param and its value', function () {
+      expect(Util.objectToGetParams({'es%cape': '/some/param'}))
+        .toEqual('?es%25cape=%2Fsome%2Fparam');
+    });
+  });
+
 });
