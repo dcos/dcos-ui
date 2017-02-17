@@ -72,10 +72,11 @@ class ServiceResumeModal extends React.Component {
   }
 
   handleConfirmation() {
-    this.props.resumeService(
-      this.state.instancesFieldValue || 0,
-      this.shouldForceUpdate()
-    );
+    const instances = this.state.instancesFieldValue == null
+      ? 1
+      : this.state.instancesFieldValue;
+
+    this.props.resumeService(instances, this.shouldForceUpdate());
   }
 
   handleInstancesFieldChange(event) {
