@@ -207,7 +207,7 @@ class ContainerServiceFormSection extends Component {
             className="column-3"
             required={true}
             showError={Boolean(memErrors)}>
-            <FieldLabel className="text-no-transform">MEMORY (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">Memory (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name={memPath}

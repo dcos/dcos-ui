@@ -276,7 +276,7 @@ class ContainerServiceFormAdvancedSection extends Component {
         <FormRow>
           {this.getGPUSField()}
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
-            <FieldLabel className="text-no-transform">DISK (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">Disk (MiB)</FieldLabel>
             <FieldInput
               min="0.001"
               name={diskPath}
