@@ -244,7 +244,8 @@ const MarathonAppValidators = {
       // No errors
       return [{
         path: ['constraints'],
-        message: 'constrains needs to be an array of 2 or 3 element arrays'
+        message: 'constrains needs to be an array of 2 or 3 element arrays',
+        type: 'TYPE_NOT_ARRAY'
       }];
     }
 
@@ -256,7 +257,8 @@ const MarathonAppValidators = {
       if (!Array.isArray(constraint)) {
         errors.push({
           path: ['constraints', index],
-          message: 'Must be an array'
+          message: 'Must be an array',
+          type: 'TYPE_NOT_ARRAY'
         });
 
         return errors;

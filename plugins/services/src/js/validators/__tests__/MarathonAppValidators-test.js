@@ -378,7 +378,8 @@ describe('MarathonAppValidators', function () {
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
         path: ['constraints'],
-        message: 'constrains needs to be an array of 2 or 3 element arrays'
+        message: 'constrains needs to be an array of 2 or 3 element arrays',
+        type: 'TYPE_NOT_ARRAY'
       }]);
     });
 
@@ -390,7 +391,8 @@ describe('MarathonAppValidators', function () {
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
         path: ['constraints', 0],
-        message: 'Must be an array'
+        message: 'Must be an array',
+        type: 'TYPE_NOT_ARRAY'
       }]);
     });
 
