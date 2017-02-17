@@ -6,12 +6,12 @@ import {routerShape, formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import ContextualXHRError from '../../../../../../src/js/components/ContextualXHRError';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import InternalStorageMixin from '../../../../../../src/js/mixins/InternalStorageMixin';
 import Loader from '../../../../../../src/js/components/Loader';
 import ManualBreadcrumbs from '../../../../../../src/js/components/ManualBreadcrumbs';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
@@ -58,7 +58,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       directory: null,
       expandClass: 'large',
       selectedLogFile: null,
-      taskDirectoryErrorCount: 0
+      taskDirectoryXHRError: null
     };
 
     this.store_listeners = [
@@ -140,9 +140,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.handleFetchDirectory();
   }
 
-  onTaskDirectoryStoreError() {
+  onTaskDirectoryStoreError(id, xhr) {
     this.setState({
-      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
+      taskDirectoryXHRError: xhr
     });
   }
 
@@ -154,7 +154,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     const directory = TaskDirectoryStore.get('directory');
-    this.setState({directory, taskDirectoryErrorCount: 0});
+    this.setState({directory, taskDirectoryXHRError: null});
   }
 
   handleFetchDirectory() {
@@ -184,7 +184,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   getErrorScreen() {
     return (
       <div className="pod">
-        <RequestErrorMsg />
+        <ContextualXHRError xhr={this.state.taskDirectoryXHRError} />
       </div>
     );
   }
@@ -195,10 +195,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   hasVolumes(service) {
     return !!service && service.getVolumes().getItems().length > 0;
-  }
-
-  hasLoadingError() {
-    return this.state.taskDirectoryErrorCount >= 3;
   }
 
   handleOpenLogClick(selectedLogFile) {
@@ -321,8 +317,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   getSubView() {
     const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
     const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
-    const {directory, selectedLogFile} = this.state;
-    if (this.hasLoadingError()) {
+    const {directory, selectedLogFile, taskDirectoryXHRError} = this.state;
+
+    if (taskDirectoryXHRError) {
       return this.getErrorScreen();
     }
 

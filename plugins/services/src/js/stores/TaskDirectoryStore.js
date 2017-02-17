@@ -68,16 +68,16 @@ class TaskDirectoryStore extends GetSetBaseStore {
         return false;
       }
 
-      const {data, innerPath, task, type} = payload.action;
+      const {data, innerPath, task, type, xhr = null} = payload.action;
       switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:
           this.processStateSuccess(data, innerPath, task.id);
           break;
         case REQUEST_TASK_DIRECTORY_ERROR:
-          this.emit(TASK_DIRECTORY_ERROR, task.id);
+          this.emit(TASK_DIRECTORY_ERROR, task.id, xhr);
           break;
         case REQUEST_NODE_STATE_ERROR:
-          this.emit(NODE_STATE_ERROR, task.id);
+          this.emit(NODE_STATE_ERROR, task.id, xhr);
           break;
         case REQUEST_NODE_STATE_SUCCESS:
           activeXHR = TaskDirectoryActions

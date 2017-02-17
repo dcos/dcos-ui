@@ -1,11 +1,10 @@
 import mixin from 'reactjs-mixin';
-import {MountService} from 'foundation-ui';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import ContextualXHRError from '../../../../../../src/js/components/ContextualXHRError';
 import Service from '../../structs/Service';
 import TasksContainer from './TasksContainer';
 
@@ -21,7 +20,7 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
 
     this.state = {
       lastUpdate: 0,
-      mesosStateErrorCount: 0
+      mesosXHRError: null
     };
 
     this.store_listeners = [
@@ -36,35 +35,36 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
   onStateStoreSuccess() {
     // Throttle updates
     if (Date.now() - this.state.lastUpdate > 1000
-      || this.state.mesosStateErrorCount !== 0) {
+      || this.state.mesosXHRError) {
 
       this.setState({
         lastUpdate: Date.now(),
-        mesosStateErrorCount: 0
+        mesosXHRError: null
       });
     }
   }
 
-  onStateStoreError() {
+  onStateStoreError(xhr) {
     this.setState({
-      mesosStateErrorCount: this.state.mesosStateErrorCount + 1
+      mesosXHRError: xhr
     });
   }
 
-  getContents() {
+  render() {
+    const {
+      mesosXHRError
+    } = this.state;
+
     const isLoading = Object.keys(
       MesosStateStore.get('lastMesosState')
     ).length === 0;
 
-    const hasError = this.state.mesosStateErrorCount > 3;
+    if (mesosXHRError) {
+      return <ContextualXHRError xhr={mesosXHRError} />;
+    }
 
     if (isLoading) {
       return <Loader />;
-    }
-
-    // General Error
-    if (hasError) {
-      return <RequestErrorMsg />;
     }
 
     const {service} = this.props;
@@ -74,14 +74,6 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       <TasksContainer params={this.props.params}
         service={service}
         tasks={tasks} />
-    );
-  }
-
-  render() {
-    return (
-      <MountService.Mount type="ServiceTasksContainer:TasksContainer">
-        {this.getContents()}
-      </MountService.Mount>
     );
   }
 }

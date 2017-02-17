@@ -154,19 +154,11 @@ describe('MesosLogContainer', function () {
   describe('#render', function () {
 
     it('should call getErrorScreen when error occurred', function () {
-      this.instance.state.hasLoadingError = 3;
+      this.instance.state.mesosLogXHRError = {status: 400};
       this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
 
       this.instance.render();
       expect(this.instance.getErrorScreen).toHaveBeenCalled();
-    });
-
-    it('ignores getErrorScreen when error has not occurred', function () {
-      this.instance.state.hasLoadingError = 2;
-      this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
-
-      this.instance.render();
-      expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
     it('shouldn\'t call getLoadingScreen when fullLog is empty', function () {

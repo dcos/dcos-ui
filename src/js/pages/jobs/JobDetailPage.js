@@ -9,6 +9,7 @@ import {routerShape} from 'react-router';
 
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import ContextualXHRError from '../../components/ContextualXHRError';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
@@ -17,7 +18,6 @@ import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
 import Loader from '../../components/Loader';
 import MetronomeStore from '../../stores/MetronomeStore';
 import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 import TimeAgo from '../../components/TimeAgo';
@@ -71,7 +71,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       disabledDialog: null,
       jobActionDialog: null,
       errorMsg: null,
-      errorCount: 0,
+      jobDetailXHRError: null,
       isJobFormModalOpen: false,
       isLoading: true
     };
@@ -109,12 +109,12 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     this.context.router.push('/jobs');
   }
 
-  onMetronomeStoreJobDetailError() {
-    this.setState({errorCount: this.state.errorCount + 1});
+  onMetronomeStoreJobDetailError(xhr) {
+    this.setState({jobDetailXHRError: xhr});
   }
 
   onMetronomeStoreJobDetailChange() {
-    this.setState({errorCount: 0, isLoading: false});
+    this.setState({jobDetailXHRError: null, isLoading: false});
   }
 
   handleEditButtonClick() {
@@ -210,7 +210,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <Page>
         <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
-        <RequestErrorMsg />
+        <ContextualXHRError xhr={this.state.jobDetailXHRError} />
       </Page>
     );
   }
@@ -391,7 +391,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    if (this.state.errorCount > 3) {
+    if (this.state.jobDetailXHRError) {
       return this.getErrorScreen();
     }
 

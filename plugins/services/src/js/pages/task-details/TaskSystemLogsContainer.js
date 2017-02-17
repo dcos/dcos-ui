@@ -6,11 +6,11 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPEND, PREPEND} from '../../../../../../src/js/constants/SystemLogTypes';
+import ContextualXHRError from '../../../../../../src/js/components/ContextualXHRError';
 import LogView from '../../components/LogView';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
 import Icon from '../../../../../../src/js/components/Icon';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 import SearchLog from '../../components/SearchLog';
 import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
 import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
@@ -22,6 +22,8 @@ const METHODS_TO_BIND = [
 
 // Number of lines (entries) we asses to be a page
 const PAGE_ENTRY_COUNT = 400;
+
+const EVENT_STREAM_ERROR = {status: 400, message: 'EventStream Error'};
 
 function getLogParameters(task, options) {
   let {framework_id:frameworkID, executor_id:executorID, id} = task;
@@ -43,7 +45,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     this.state = {
       direction: APPEND,
       fullLog: null,
-      hasError: false,
+      hasXHRError: false,
       streams: [],
       isFetchingPrevious: false,
       isLoading: true
@@ -82,7 +84,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const {
       direction,
       fullLog,
-      hasError,
+      hasXHRError,
       streams,
       isFetchingPrevious,
       isLoading
@@ -99,8 +101,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       (direction !== nextState.direction) ||
       // Check fullLog
       (fullLog !== nextState.fullLog) ||
-      // Check hasError
-      (hasError !== nextState.hasError) ||
+      // Check hasXHRError
+      (hasXHRError !== nextState.hasXHRError) ||
       // Check streams
       (!deepEqual(streams, nextState.streams)) ||
       // Check isFetchingPrevious
@@ -116,7 +118,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     }
 
     const newState = {
-      hasError: true,
+      hasXHRError: EVENT_STREAM_ERROR,
       isLoading: false
     };
 
@@ -140,7 +142,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     }
 
     const newState = {
-      hasError: false,
+      hasXHRError: false,
       direction,
       isLoading: false,
       fullLog: SystemLogStore.getFullLog(subscriptionID)
@@ -154,13 +156,13 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     this.setState(newState);
   }
 
-  onSystemLogStoreStreamError() {
-    this.setState({hasError: true, isLoading: false});
+  onSystemLogStoreStreamError(data, xhr) {
+    this.setState({hasXHRError: xhr, isLoading: false});
   }
 
   onSystemLogStoreStreamSuccess(streams) {
     if (!Array.isArray(streams) || !streams.length) {
-      this.setState({hasError: true, isLoading: false});
+      this.setState({hasXHRError: EVENT_STREAM_ERROR, isLoading: false});
 
       return false;
     }
@@ -178,7 +180,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     });
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
 
-    this.setState({hasError: false, streams, selectedStream, subscriptionID});
+    this.setState({hasXHRError: false, streams, selectedStream, subscriptionID});
   }
 
   /**
@@ -317,17 +319,12 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   getLogView() {
     const {highlightText, onCountChange, watching} = this.props;
     const {
-      hasError,
       direction,
       fullLog,
       isLoading,
       selectedStream,
       subscriptionID
     } = this.state;
-
-    if (hasError) {
-      return <RequestErrorMsg />;
-    }
 
     if (isLoading) {
       return <Loader />;
@@ -348,6 +345,10 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
 
   render() {
     const actions = [this.getActions(), this.getDownloadButton()];
+
+    if (this.state.hasXHRError) {
+      return <ContextualXHRError xhr={this.state.hasXHRError} />;
+    }
 
     return (
       <SearchLog actions={actions}>
