@@ -22,7 +22,7 @@ const METHODS_TO_BIND = [
 
 // Number of lines (entries) we asses to be a page
 const PAGE_ENTRY_COUNT = 400;
-
+// Server send events doesn't bubble an appropriate event so we use this
 const EVENT_STREAM_ERROR = {status: 400, message: 'EventStream Error'};
 
 function getLogParameters(task, options) {
