@@ -10,6 +10,10 @@ const ServiceErrorPathMapping = [
   {
     match: /^cpus$/,
     name: 'The number of CPUs'
+  },
+  {
+    match: /^env\.\*$/,
+    name: 'An environment variable'
   }
 ];
 
