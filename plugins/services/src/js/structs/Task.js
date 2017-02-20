@@ -6,12 +6,11 @@ module.exports = class Task extends Item {
     return this.get('id');
   }
 
-  getName() {
-    return this.get('name');
-  }
-
   getImages() {
     return ServiceImages.NA_IMAGES;
   }
 
+  getName() {
+    return this.get('name');
+  }
 };

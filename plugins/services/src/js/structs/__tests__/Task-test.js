@@ -15,6 +15,16 @@ describe('Task', function () {
 
   });
 
+  describe('#getImages', function () {
+
+    it('defaults to NA images', function () {
+      const task = new Task({});
+
+      expect(task.getImages()).toEqual(ServiceImages.NA_IMAGES);
+    });
+
+  });
+
   describe('#geName', function () {
 
     it('returns correct name', function () {
@@ -24,16 +34,6 @@ describe('Task', function () {
       });
 
       expect(task.getName()).toEqual('foo.bar.baz');
-    });
-
-  });
-
-  describe('#getImages', function () {
-
-    it('defaults to NA images', function () {
-      const task = new Task({});
-
-      expect(task.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
 
   });
