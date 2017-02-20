@@ -13,6 +13,12 @@ describe('Task', function () {
       expect(task.getId()).toEqual('test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76');
     });
 
+    it('returns empty string if id is undefined', function () {
+      const task = new Task({});
+
+      expect(task.getId()).toEqual('');
+    });
+
   });
 
   describe('#getImages', function () {
