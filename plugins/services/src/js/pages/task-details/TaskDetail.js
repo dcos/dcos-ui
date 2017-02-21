@@ -180,16 +180,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return <Loader />;
   }
 
-  getService() {
-    let {params, service = null} = this.props;
-    // Get the service from the taskID if it wasn't explicitly passed.
-    if (!!params.taskID && service === null) {
-      service = DCOSStore.serviceTree.getServiceFromTaskID(params.taskID);
-    }
-
-    return service;
-  }
-
   hasVolumes(service) {
     return !!service && service.getVolumes().getItems().length > 0;
   }
@@ -221,7 +211,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    const service = this.getService();
+    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
     const taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
@@ -317,6 +307,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getSubView() {
     const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
     const {directory, selectedLogFile} = this.state;
     if (this.hasLoadingError()) {
       return this.getErrorScreen();
@@ -333,7 +324,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           selectedLogFile,
           task,
           onOpenLogClick: this.handleOpenLogClick,
-          service: this.getService()
+          service
         })}
       </div>
     );

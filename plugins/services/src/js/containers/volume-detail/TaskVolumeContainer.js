@@ -1,6 +1,7 @@
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
 
+import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import VolumeDetail from './VolumeDetail';
 import Loader from '../../../../../../src/js/components/Loader';
@@ -47,8 +48,8 @@ class TaskVolumeContainer extends React.Component {
 
   render() {
     const {taskID, volumeID} = this.props.params;
-    const taskId = decodeURIComponent(taskID);
-    const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+    const task = MesosStateStore.getTaskFromTaskID(taskID);
+    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
     const volumeId = decodeURIComponent(volumeID);
 
     if (this.state.isLoading) {

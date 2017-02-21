@@ -1,3 +1,5 @@
+jest.dontMock('foundation-ui');
+jest.dontMock('foundation-ui/stores/DCOSStore');
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
 jest.dontMock('../../../stores/MarathonStore');
