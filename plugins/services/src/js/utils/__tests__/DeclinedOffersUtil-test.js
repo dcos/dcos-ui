@@ -149,7 +149,10 @@ describe('DeclinedOffersUtil', function () {
           scheduling: {
             placement: {
               acceptedResourceRoles: ['foo', 'bar'],
-              constraints: [['foo.constraint.1', 'foo.constraint.2', 'foo.constraint.3']]
+              constraints: [
+                {fieldName: 'hostname', operator: 'LIKE', value: 'hostname'},
+                {fieldName: 'hostname', operator: 'UNIQUE'}
+              ]
             }
           }
         },
@@ -213,7 +216,7 @@ describe('DeclinedOffersUtil', function () {
           matched: 123
         },
         constraints: {
-          requested: 'foo.constraint.1:foo.constraint.2:foo.constraint.3',
+          requested: 'hostname:LIKE:hostname, hostname:UNIQUE',
           offers: 123,
           matched: 123
         },
