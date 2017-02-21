@@ -15,6 +15,7 @@ describe('Environment Variables', function () {
       expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
         .toEqual({key: 'value'});
     });
+
     it('should keep the last value if they have the same key', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
@@ -27,6 +28,7 @@ describe('Environment Variables', function () {
       expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
         .toEqual({key: 'value2'});
     });
+
     it('should keep remove the first item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
@@ -42,6 +44,7 @@ describe('Environment Variables', function () {
     });
 
   });
+
   describe('#FormReducer', function () {
     it('should return a array containing key value objects', function () {
       let batch = new Batch();
@@ -52,6 +55,7 @@ describe('Environment Variables', function () {
       expect(batch.reduce(EnvironmentVariables.FormReducer.bind({}), []))
         .toEqual([{key: 'key', value: 'value'}]);
     });
+
     it('should multiple items if they have the same key', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
@@ -67,6 +71,7 @@ describe('Environment Variables', function () {
           {key: 'key', value: 'value2'}
         ]);
     });
+
     it('should keep remove the first item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
@@ -81,15 +86,25 @@ describe('Environment Variables', function () {
         .toEqual([{key: 'second', value: 'value'}]);
     });
   });
+
   describe('#JSONParser', function () {
     it('should return an empty array', function () {
       expect(EnvironmentVariables.JSONParser({})).toEqual([]);
     });
+
     it('should return an array of transactions', function () {
       expect(EnvironmentVariables.JSONParser({env: {key: 'value'}})).toEqual([
         {type: ADD_ITEM, value: 0, path: ['env']},
         {type: SET, value: 'key', path: ['env', 0, 'key']},
         {type: SET, value: 'value', path: ['env', 0, 'value']}
+      ]);
+    });
+
+    it('should keep complex values', function () {
+      expect(EnvironmentVariables.JSONParser({env: {foo: {secret: 'value'}}})).toEqual([
+        {type: ADD_ITEM, value: 0, path: ['env']},
+        {type: SET, value: 'foo', path: ['env', 0, 'key']},
+        {type: SET, value: {secret: 'value'}, path: ['env', 0, 'value']}
       ]);
     });
   });

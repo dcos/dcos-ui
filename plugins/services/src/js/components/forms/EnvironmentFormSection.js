@@ -19,7 +19,9 @@ class EnvironmentFormSection extends Component {
   getEnvironmentLines(data) {
     const errors = this.props.errors.env || {};
 
-    return data.map((env, key) => {
+    return data.filter(function (item) {
+      return item.value == null || typeof item.value === 'string';
+    }).map((env, key) => {
       let keyLabel = null;
       let valueLabel = null;
       if (key === 0) {

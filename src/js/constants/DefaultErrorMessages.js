@@ -168,6 +168,19 @@ const DefaultErrorMessages = [
     path: /.*/,
     type: 'ALREADY_EXISTS',
     message: 'Already Exists'
+  },
+
+  //
+  // [C] Custom Error Messages
+  //
+
+  /**
+   * Value of a certain shape
+   */
+  {
+    path: /.*/,
+    type: 'VALUE_SHAPE',
+    message: 'Must be a certain shape: {{shape}}'
   }
 
 ];
