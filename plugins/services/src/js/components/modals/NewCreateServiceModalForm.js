@@ -349,6 +349,12 @@ class NewCreateServiceModalForm extends Component {
       return (
         <TabView key={index} id={`container${index}`}>
           {errorsAlertComponent}
+          <h2 className="flush-top short-bottom">
+            Container
+          </h2>
+          <p>
+            Configure your container below. Enter a container image or command you want to run.
+          </p>
           <ContainerServiceFormSection
             data={data}
             errors={errors}
