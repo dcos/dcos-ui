@@ -183,8 +183,9 @@ const SystemLogActions = {
       // Clean up event listeners
       source.removeEventListener('message', messageListener);
       source.removeEventListener('error', errorListener);
+      // Close connection,
+      // no need to delete source as the reference is not stored
       source.close();
-      delete sources[subscriptionID];
     }
 
     source.addEventListener('message', messageListener, false);
