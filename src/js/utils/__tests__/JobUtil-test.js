@@ -30,6 +30,42 @@ describe('JobUtil', function () {
       expect(job.getCommand()).toEqual('sleep 1000;');
     });
 
+    it('should return job with schedule if actiavted', function () {
+      const job = JobUtil.createJobFromFormModel({
+        general: { id: 'test', cmd: 'sleep 1000;' },
+        schedule: {
+          id: 'default',
+          cron: '* * * * *',
+          enabled: true,
+          concurrencyPolicy: 'ALLOW',
+          runOnSchedule: true
+        }
+      });
+
+      expect(job.getSchedules()).toEqual([
+        {
+          id: 'default',
+          cron: '* * * * *',
+          enabled: true,
+          concurrencyPolicy: 'ALLOW'
+        }
+      ]);
+    });
+
+    it('should remove schedule if deactivated', function () {
+      const job = JobUtil.createJobFromFormModel({
+        general: { id: 'test', cmd: 'sleep 1000;' },
+        schedule: {
+          id: 'default',
+          cron: '* * * * *',
+          enabled: true,
+          concurrencyPolicy: 'ALLOW',
+          runOnSchedule: false
+        }
+      });
+
+      expect(job.getSchedules()).toEqual([]);
+    });
   });
 
   describe('#createFormModelFromSchema', function () {
