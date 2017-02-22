@@ -5,21 +5,21 @@ import React, {PropTypes, Component} from 'react';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
 import {pluralize} from '../../../../../../src/js/utils/StringUtil';
-import Alert from '../../../../../../src/js/components/Alert';
 import Batch from '../../../../../../src/js/structs/Batch';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import ErrorMessageUtil from '../../../../../../src/js/utils/ErrorMessageUtil';
+import ErrorsAlert from '../../../../../../src/js/components/ErrorsAlert';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import NetworkingFormSection from '../forms/NetworkingFormSection';
 import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
+import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
 import ServiceErrorPathMapping from '../../constants/ServiceErrorPathMapping';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -277,44 +277,8 @@ class NewCreateServiceModalForm extends Component {
 
   getErrors() {
     return ErrorMessageUtil.translateErrorMessages(
-      this.props.errors, ServiceErrorMessages
-    );
-  }
-
-  getErrorsAlertComponent() {
-    const {showAllErrors} = this.props;
-    let showErrors = this.getErrors();
-
-    if (!showAllErrors) {
-      showErrors = showErrors.filter(function (error) {
-        return error.path.length === 0;
-      });
-    }
-
-    if (showErrors.length === 0) {
-      return null;
-    }
-
-    const errorItems = showErrors.map((error, index) => {
-      const message = ErrorMessageUtil.getUnanchoredErrorMessage(
-        error, ServiceErrorPathMapping);
-
-      return (
-        <li key={index} className="short">
-          {message}
-        </li>
-      );
-    });
-
-    return (
-      <Alert>
-        <strong>There is an error with your configuration</strong>
-        <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-          <ul className="short flush-bottom">
-            {errorItems}
-          </ul>
-        </div>
-      </Alert>
+      this.props.errors,
+      ServiceErrorMessages
     );
   }
 
@@ -337,9 +301,8 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getContainerContent(data, errors) {
-    const {service} = this.props;
+    const {service, showAllErrors} = this.props;
     const {containers} = data;
-    const errorsAlertComponent = this.getErrorsAlertComponent();
 
     if (containers == null) {
       return [];
@@ -348,7 +311,10 @@ class NewCreateServiceModalForm extends Component {
     return containers.map((item, index) => {
       return (
         <TabView key={index} id={`container${index}`}>
-          {errorsAlertComponent}
+          <ErrorsAlert
+            errors={this.getErrors()}
+            pathMapping={ServiceErrorPathMapping}
+            showAllErrors={showAllErrors} />
           <h2 className="flush-top short-bottom">
             Container
           </h2>
@@ -392,12 +358,16 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getSectionContent(data, errorMap) {
-    const errorsAlertComponent = this.getErrorsAlertComponent();
+    const {showAllErrors} = this.props;
+    const errors = this.getErrors();
 
     if (this.state.isPod) {
       return [
         <TabView id="networking" key="multinetworking">
-          {errorsAlertComponent}
+          <ErrorsAlert
+            errors={errors}
+            pathMapping={ServiceErrorPathMapping}
+            showAllErrors={showAllErrors} />
           <MultiContainerNetworkingFormSection
             data={data}
             errors={errorMap}
@@ -405,7 +375,10 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
-          {errorsAlertComponent}
+          <ErrorsAlert
+            errors={errors}
+            pathMapping={ServiceErrorPathMapping}
+            showAllErrors={showAllErrors} />
           <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
@@ -414,7 +387,10 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
-          {errorsAlertComponent}
+          <ErrorsAlert
+            errors={errors}
+            pathMapping={ServiceErrorPathMapping}
+            showAllErrors={showAllErrors} />
           <MultiContainerHealthChecksFormSection
             data={data}
             errors={errorMap}
@@ -423,7 +399,10 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem} />
         </TabView>,
         <TabView id="environment" key="multienvironment">
-          {errorsAlertComponent}
+          <ErrorsAlert
+            errors={errors}
+            pathMapping={ServiceErrorPathMapping}
+            showAllErrors={showAllErrors} />
           <EnvironmentFormSection
             mountType="CreateService:MultiContainerEnvironmentFormSection"
             data={data}
@@ -436,7 +415,10 @@ class NewCreateServiceModalForm extends Component {
 
     return [
       <TabView id="networking" key="networking">
-        {errorsAlertComponent}
+        <ErrorsAlert
+          errors={errors}
+          pathMapping={ServiceErrorPathMapping}
+          showAllErrors={showAllErrors} />
         <NetworkingFormSection
           data={data}
           errors={errorMap}
@@ -444,7 +426,10 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="volumes" key="volumes">
-        {errorsAlertComponent}
+        <ErrorsAlert
+          errors={errors}
+          pathMapping={ServiceErrorPathMapping}
+          showAllErrors={showAllErrors} />
         <VolumesFormSection
           data={data}
           errors={errorMap}
@@ -452,7 +437,10 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="healthChecks" key="healthChecks">
-        {errorsAlertComponent}
+        <ErrorsAlert
+          errors={errors}
+          pathMapping={ServiceErrorPathMapping}
+          showAllErrors={showAllErrors} />
         <HealthChecksFormSection
           data={data}
           errors={errorMap}
@@ -460,7 +448,10 @@ class NewCreateServiceModalForm extends Component {
           onAddItem={this.handleAddItem} />
       </TabView>,
       <TabView id="environment" key="environment">
-        {errorsAlertComponent}
+        <ErrorsAlert
+          errors={errors}
+          pathMapping={ServiceErrorPathMapping}
+          showAllErrors={showAllErrors} />
         <EnvironmentFormSection
           mountType="CreateService:EnvironmentFormSection"
           data={data}
@@ -500,7 +491,15 @@ class NewCreateServiceModalForm extends Component {
 
   render() {
     const {appConfig, batch} = this.state;
-    const {activeTab, handleTabChange, isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
+    const {
+      activeTab,
+      handleTabChange,
+      isEdit,
+      isJSONModeActive,
+      onConvertToPod,
+      service,
+      showAllErrors
+    } = this.props;
     const data = batch.reduce(this.props.inputConfigReducers, {});
     const unmutedErrors = this.getUnmutedErrors();
     const errors = this.getErrors();
@@ -514,7 +513,6 @@ class NewCreateServiceModalForm extends Component {
     });
 
     const errorMap = DataValidatorUtil.errorArrayToMap(unmutedErrors);
-    const errorsAlertComponent = this.getErrorsAlertComponent();
     const serviceLabel = pluralize('Service', findNestedPropertyInObject(
       appConfig,
       'containers.length'
@@ -545,7 +543,10 @@ class NewCreateServiceModalForm extends Component {
                   </TabButtonList>
                   <TabViewList>
                     <TabView id="services">
-                      {errorsAlertComponent}
+                      <ErrorsAlert
+                        errors={errors}
+                        pathMapping={ServiceErrorPathMapping}
+                        showAllErrors={showAllErrors} />
                       <GeneralServiceFormSection
                         errors={errorMap}
                         data={data}

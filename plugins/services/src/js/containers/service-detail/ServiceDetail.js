@@ -4,6 +4,7 @@ import {routerShape} from 'react-router';
 
 import ActionKeys from '../../constants/ActionKeys';
 import Page from '../../../../../../src/js/components/Page';
+import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
@@ -95,7 +96,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     return (
       <ServiceConfigurationContainer
-        errors={errors[ActionKeys.SERVICE_EDIT]}
+        errors={MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT])}
         onClearError={this.handleEditClearError}
         onEditClick={actions.editService}
         service={service} />

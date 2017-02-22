@@ -50,12 +50,14 @@ const MarathonErrorUtil = {
     }
 
     // Both `details` and `errors` can be missing
-    if (!error.details && !error.message) {
+    if (ValidatorUtil.isEmpty(error.details) &&
+      ValidatorUtil.isEmpty(error.message)) {
       return [];
     }
 
     // Only `details` can be missing
-    if (!error.details && error.message) {
+    if (ValidatorUtil.isEmpty(error.details) &&
+      !ValidatorUtil.isEmpty(error.message)) {
       return [
         {
           path: [],
@@ -76,7 +78,10 @@ const MarathonErrorUtil = {
           variables: {}
         }
       ];
+    }
 
+    if (!Array.isArray(error.details)) {
+      return [];
     }
 
     // `details` can be an array of errors

@@ -486,30 +486,6 @@ const ServiceUtil = {
     return serviceID.replace(/^(\/.+)$/, '$1/');
   },
 
-  getErrorsMap(errors) {
-    const errorsMap = new Map();
-    if (errors) {
-      const {message} = errors;
-      errorsMap.set('/', [message]);
-
-      if (errors.details) {
-        errors.details.forEach(function (item) {
-          const existingMessages = errorsMap.get(item.path);
-
-          let messages = item.errors;
-
-          if (existingMessages) {
-            messages = messages.concat(existingMessages);
-          }
-
-          errorsMap.set(item.path, messages);
-        });
-      }
-    }
-
-    return errorsMap;
-  },
-
   getDefinitionFromSpec(spec) {
     const definition = spec.toJSON();
 

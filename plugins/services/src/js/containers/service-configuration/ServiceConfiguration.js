@@ -11,10 +11,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import Service from '../../structs/Service';
-import {
-  getDefinitionFromSpec,
-  getErrorsMap
-} from '../../utils/ServiceUtil';
+import {getDefinitionFromSpec} from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
   'handleApplyButtonClick',
@@ -200,7 +197,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         <ServiceConfigDisplay
           appConfig={config}
           clearError={onClearError}
-          errors={getErrorsMap(errors)} />
+          errors={errors} />
       );
     }
 
@@ -221,7 +218,7 @@ ServiceConfiguration.contextTypes = {
 ServiceConfiguration.propTypes = {
   onClearError: React.PropTypes.func,
   onEditClick: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.object,
+  errors: React.PropTypes.array,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 

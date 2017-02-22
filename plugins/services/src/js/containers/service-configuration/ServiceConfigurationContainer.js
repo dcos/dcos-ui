@@ -43,7 +43,7 @@ class ServiceConfigurationContainer extends React.Component {
 ServiceConfigurationContainer.propTypes = {
   onClearError: React.PropTypes.func,
   onEditClick: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.object,
+  errors: React.PropTypes.array,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 
