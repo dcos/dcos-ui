@@ -267,7 +267,7 @@ describe('Service Form Modal', function () {
 
   });
 
-  context.only('Create Layout (Single Container)', function () {
+  context('Create Layout (Single Container)', function () {
 
     beforeEach(function () {
       cy.configureCluster({
