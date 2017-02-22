@@ -73,6 +73,7 @@ module.exports = {
     CreateServiceModalServicePickerOptionImage:
       'CreateServiceModalServicePickerOptionImage',
     DetailViewHeader: 'DetailViewHeader',
+    DetailViewSectionHeading: 'DetailViewSectionHeading',
     DCOSLogo: 'DCOSLogo',
     FilterBar: 'FilterBar',
     FilterButtons: 'FilterButtons',
