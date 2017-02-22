@@ -3,9 +3,9 @@
 
   // Sidebar Wrapper
   .sidebar-wrapper {
-    flex: 1 1 100%;
-    max-width: 0;
-    transition: max-width 0.25s;
+    flex: 0 0 auto;
+    transition: width 0.25s;
+    width: 0;
   }
 
   // Sidebar
@@ -368,7 +368,7 @@
       .sidebar-wrapper {
 
         .sidebar-docked & {
-          max-width: @sidebar-width-screen-medium;
+          width: @sidebar-width-screen-medium;
         }
       }
 
@@ -468,7 +468,7 @@
       .sidebar-wrapper {
 
         .sidebar-docked & {
-          max-width: @sidebar-width-screen-large;
+          width: @sidebar-width-screen-large;
         }
       }
 
@@ -553,7 +553,7 @@
       .sidebar-wrapper {
 
         .sidebar-docked & {
-          max-width: @sidebar-width-screen-jumbo;
+          width: @sidebar-width-screen-jumbo;
         }
       }
 
