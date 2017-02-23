@@ -18,9 +18,9 @@ describe('MultiContainerConstraints', function () {
       // Doesn't expect 'scheduling' in the beginning as this object is passed
       // to the 'scheduling' key on the appConfig
       expect(batch.reduce(MultiContainerConstraints.JSONReducer.bind({}), []))
-        .toEqual({placement: {constraints: [
+        .toEqual([
           {fieldName: 'hostname', operator: 'JOIN', value: 'param'}
-        ]}});
+        ]);
     });
 
     it('skips optional value', function () {
@@ -33,9 +33,9 @@ describe('MultiContainerConstraints', function () {
       // Doesn't expect 'scheduling' in the beginning as this object is passed
       // to the 'scheduling' key on the appConfig
       expect(batch.reduce(MultiContainerConstraints.JSONReducer.bind({}), []))
-        .toEqual({placement: {constraints: [
+        .toEqual([
           {fieldName: 'hostname', operator: 'JOIN'}
-        ]}});
+        ]);
     });
 
   });

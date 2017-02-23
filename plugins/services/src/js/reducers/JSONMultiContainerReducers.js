@@ -1,4 +1,4 @@
-import {JSONReducer as scheduling} from './serviceForm/MultiContainerConstraints';
+import {JSONReducer as constraints} from './serviceForm/MultiContainerConstraints';
 import {JSONReducer as containers} from './serviceForm/Containers';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/Artifacts';
@@ -17,7 +17,13 @@ module.exports = {
   env,
   scaling,
   labels,
-  scheduling,
+  scheduling(state, transaction) {
+    return {
+      placement: {
+        constraints: constraints.bind(this)(state, transaction)
+      }
+    };
+  },
   fetch,
   volumes,
   networks,
