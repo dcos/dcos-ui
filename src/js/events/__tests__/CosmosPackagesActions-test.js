@@ -61,6 +61,22 @@ describe('CosmosPackagesActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
     it('calls #json from the RequestUtil', function () {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
@@ -154,6 +170,22 @@ describe('CosmosPackagesActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
     it('calls #json from the RequestUtil', function () {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
@@ -229,6 +261,22 @@ describe('CosmosPackagesActions', function () {
       });
 
       this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -315,6 +363,22 @@ describe('CosmosPackagesActions', function () {
       this.configuration.error({responseJSON: 'bar'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
     it('calls #json from the RequestUtil', function () {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
@@ -395,6 +459,22 @@ describe('CosmosPackagesActions', function () {
       });
 
       this.configuration.error({responseJSON: 'bar'});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -478,6 +558,22 @@ describe('CosmosPackagesActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
     it('calls #json from the RequestUtil', function () {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
@@ -543,6 +639,22 @@ describe('CosmosPackagesActions', function () {
       });
 
       this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -618,6 +730,22 @@ describe('CosmosPackagesActions', function () {
       });
 
       this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
     it('calls #json from the RequestUtil', function () {

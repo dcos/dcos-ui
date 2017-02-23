@@ -48,6 +48,22 @@ describe('NodeHealthActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchNode', function () {
@@ -87,6 +103,22 @@ describe('NodeHealthActions', function () {
       });
 
       this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });
@@ -132,6 +164,22 @@ describe('NodeHealthActions', function () {
       this.configuration.error({responseJSON: {description: 'bar'}});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchNodeUnit', function () {
@@ -174,6 +222,22 @@ describe('NodeHealthActions', function () {
       });
 
       this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });

@@ -303,10 +303,11 @@ var MarathonActions = {
               });
               resolve();
             },
-            error(e) {
+            error(xhr) {
               AppDispatcher.handleServerAction({
                 type: REQUEST_MARATHON_GROUPS_ERROR,
-                data: e.message
+                data: xhr.message,
+                xhr
               });
               reject();
             },
@@ -334,10 +335,11 @@ var MarathonActions = {
               });
               resolve();
             },
-            error(e) {
+            error(xhr) {
               AppDispatcher.handleServerAction({
                 type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-                data: e.message
+                data: xhr.message,
+                xhr
               });
               reject();
             },
@@ -364,7 +366,8 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -383,7 +386,8 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -401,7 +405,8 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -422,10 +427,11 @@ var MarathonActions = {
               });
               resolve();
             },
-            error(e) {
+            error(xhr) {
               AppDispatcher.handleServerAction({
                 type: REQUEST_MARATHON_QUEUE_ERROR,
-                data: e.message
+                data: xhr.message,
+                xhr
               });
               reject();
             },
@@ -456,7 +462,8 @@ var MarathonActions = {
           data: {
             originalDeploymentID: deploymentID,
             error: RequestUtil.parseResponseBody(xhr)
-          }
+          },
+          xhr
         });
       }
     });
@@ -487,7 +494,8 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_ERROR,
-          data: RequestUtil.parseResponseBody(xhr)
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
         });
       }
     });
@@ -513,7 +521,8 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
-          data: RequestUtil.parseResponseBody(xhr)
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
         });
       }
     });

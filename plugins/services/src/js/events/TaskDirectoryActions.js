@@ -57,7 +57,8 @@ var TaskDirectoryActions = {
               type: REQUEST_NODE_STATE_ERROR,
               data: xhr.message,
               task,
-              node
+              node,
+              xhr
             });
             reject();
           }
@@ -97,7 +98,8 @@ var TaskDirectoryActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_TASK_DIRECTORY_ERROR,
           data: xhr.message,
-          task
+          task,
+          xhr
         });
       }
     });

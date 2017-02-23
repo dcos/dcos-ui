@@ -77,6 +77,22 @@ describe('TaskDirectoryActions', function () {
       this.configuration.error({message: 'foo'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchDirectory', function () {
@@ -128,6 +144,22 @@ describe('TaskDirectoryActions', function () {
       });
 
       this.configuration.error({message: 'foo'});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });

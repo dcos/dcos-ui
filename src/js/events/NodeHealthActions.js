@@ -27,7 +27,8 @@ const NodeHealthActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODES_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
         });
       }
     });
@@ -47,7 +48,8 @@ const NodeHealthActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          nodeID
+          nodeID,
+          xhr
         });
       }
     });
@@ -67,7 +69,8 @@ const NodeHealthActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_UNITS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          nodeID
+          nodeID,
+          xhr
         });
       }
     });
@@ -89,7 +92,8 @@ const NodeHealthActions = {
           type: REQUEST_HEALTH_NODE_UNIT_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           nodeID,
-          unitID
+          unitID,
+          xhr
         });
       }
     });

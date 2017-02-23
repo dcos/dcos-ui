@@ -85,10 +85,11 @@ function requestFromMesos(resolve, reject) {
       });
       resolve();
     },
-    error(e) {
+    error(xhr) {
       AppDispatcher.handleServerAction({
         type: REQUEST_SUMMARY_ERROR,
-        data: e.message
+        data: xhr.message,
+        xhr
       });
       reject();
     },

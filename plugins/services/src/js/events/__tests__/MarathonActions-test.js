@@ -66,6 +66,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#deleteGroup', function () {
@@ -115,6 +131,22 @@ describe('MarathonActions', function () {
       });
 
       this.configuration.error({message: 'error', response: '{}'});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });
@@ -177,6 +209,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error', response: '{}'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#createService', function () {
@@ -235,6 +283,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
 
     describe('pod', function () {
@@ -291,6 +355,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
 
   });
@@ -343,6 +423,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
 
     describe('pod', function () {
@@ -389,6 +485,22 @@ describe('MarathonActions', function () {
         });
 
         this.configuration.error({message: 'error', response: '{}'});
+      });
+
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
       });
 
     });
@@ -455,6 +567,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
 
     describe('pods', function () {
@@ -512,6 +640,22 @@ describe('MarathonActions', function () {
         });
 
         this.configuration.error({message: 'error', response: '{}'});
+      });
+
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
       });
 
     });
@@ -573,6 +717,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
 
     describe('pods', function () {
@@ -628,6 +788,22 @@ describe('MarathonActions', function () {
         this.configuration.error({message: 'error', response: '{}'});
       });
 
+      it('dispatches the xhr when unsuccessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: 'bar',
+            responseJSON: {description: 'baz'}
+          });
+        });
+
+        this.configuration.error({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
     });
   });
 
@@ -674,6 +850,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchGroups', function () {
@@ -717,6 +909,22 @@ describe('MarathonActions', function () {
       });
 
       this.configuration.error({message: 'error'});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });
@@ -770,6 +978,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchServiceVersion', function () {
@@ -821,6 +1045,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchServiceVersions', function () {
@@ -869,6 +1109,22 @@ describe('MarathonActions', function () {
       this.configuration.error({message: 'error'});
     });
 
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#fetchMarathonInstanceInfo', function () {
@@ -913,6 +1169,22 @@ describe('MarathonActions', function () {
       });
 
       this.configuration.error({message: 'error'});
+    });
+
+    it('dispatches the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });
@@ -1003,6 +1275,22 @@ describe('MarathonActions', function () {
       });
     });
 
+    it('emits the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
+    });
+
   });
 
   describe('#killTasks', function () {
@@ -1074,6 +1362,22 @@ describe('MarathonActions', function () {
 
       this.configuration.error({
         responseText: JSON.stringify({message: 'A helpful error message.'})
+      });
+    });
+
+    it('emits the xhr when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: 'bar',
+          responseJSON: {description: 'baz'}
+        });
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
       });
     });
 

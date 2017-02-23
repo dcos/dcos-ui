@@ -19,10 +19,11 @@ var MetadataActions = {
           data: response
         });
       },
-      error(e) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_DCOS_BUILD_INFO_ERROR,
-          data: e.message
+          data: xhr.message,
+          xhr
         });
       }
     });

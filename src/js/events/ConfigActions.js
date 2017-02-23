@@ -21,10 +21,11 @@ const ConfigActions = {
           data: response
         });
       },
-      error(e) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CONFIG_ERROR,
-          data: e.message
+          data: xhr.message,
+          xhr
         });
       }
     });
@@ -39,9 +40,10 @@ const ConfigActions = {
           data: response
         });
       },
-      error() {
+      error(xhr) {
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR
+          type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR,
+          xhr
         });
       }
     });
