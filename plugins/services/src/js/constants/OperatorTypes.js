@@ -1,27 +1,21 @@
 const OperatorTypes = {
-  types: {
-    UNIQUE: 'UNIQUE',
-    CLUSTER: 'CLUSTER',
-    GROUP_BY: 'GROUP_BY',
-    LIKE: 'LIKE',
-    UNLIKE: 'UNLIKE',
-    MAX_PER: 'MAX_PER'
+  UNIQUE: {
+    requiresValue: false
   },
-  isRequired: {
-    UNIQUE: false,
-    CLUSTER: true,
-    GROUP_BY: false,
-    LIKE: true,
-    UNLIKE: true,
-    MAX_PER: true
+  CLUSTER: {
+    requiresValue: true
   },
-  hasThirdField: {
-    UNIQUE: false,
-    CLUSTER: true,
-    GROUP_BY: false,
-    LIKE: true,
-    UNLIKE: true,
-    MAX_PER: true
+  GROUP_BY: {
+    requiresValue: false
+  },
+  LIKE: {
+    requiresValue: true
+  },
+  UNLIKE: {
+    requiresValue: true
+  },
+  MAX_PER: {
+    requiresValue: true
   }
 };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import {hasThirdField} from '../constants/OperatorTypes';
+import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 class ServicePlacementConstraintsConfigSection extends React.Component {
   getColumns() {
@@ -27,7 +27,7 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
     const {constraints = []} = this.props.appConfig;
 
     return constraints.map(function ([fieldName, operator, value]) {
-      if (!hasThirdField[operator]) {
+      if (!PlacementConstraintsUtil.requiresValue(operator)) {
         value = <em>Not Applicable</em>;
       }
 

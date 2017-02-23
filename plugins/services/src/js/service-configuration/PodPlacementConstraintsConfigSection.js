@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import {hasThirdField} from '../constants/OperatorTypes';
+import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
@@ -31,7 +31,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
     ) || [];
 
     return constraints.map(function ({fieldName, operator, value}) {
-      if (!hasThirdField[operator]) {
+      if (!PlacementConstraintsUtil.requiresValue(operator)) {
         value = <em>Not Applicable</em>;
       }
 

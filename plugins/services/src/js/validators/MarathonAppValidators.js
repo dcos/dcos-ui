@@ -2,7 +2,7 @@ import ContainerConstants from '../constants/ContainerConstants';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
-import OperatorTypes from '../constants/OperatorTypes';
+import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 const {DOCKER} = ContainerConstants.type;
 
@@ -265,8 +265,11 @@ const MarathonAppValidators = {
       }
 
       const [_fieldName, operator, value] = constraint;
+      const isValueRequiredAndEmpty =
+        PlacementConstraintsUtil.requiresValue(operator) &&
+        ValidatorUtil.isEmpty(value);
 
-      if (OperatorTypes.isRequired[operator] && ValidatorUtil.isEmpty(value)) {
+      if (isValueRequiredAndEmpty) {
         errors.push({
           path: ['constraints', index, 'value'],
           message: message.replace('{{operator}}', operator),

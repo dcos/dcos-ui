@@ -4,7 +4,7 @@ import {
   SET
 } from '../../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../../src/js/structs/Transaction';
-import {hasThirdField} from '../../../constants/OperatorTypes';
+import PlacementConstraintsUtil from '../../../utils/PlacementConstraintsUtil';
 import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
 
 const CONSTRAINT_FIELDS = ['fieldName', 'operator', 'value'];
@@ -30,7 +30,7 @@ function processTransaction(state, {type, path, value}) {
     newState[index][name] = value;
   }
 
-  if (name === 'operator' && !hasThirdField[value]) {
+  if (name === 'operator' && !PlacementConstraintsUtil.requiresValue(value)) {
     newState[index].value = null;
   }
 
