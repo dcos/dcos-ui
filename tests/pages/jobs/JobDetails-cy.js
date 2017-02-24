@@ -9,6 +9,14 @@ describe('Job Details', function () {
     cy.visitUrl({url: '/jobs/foo'});
   });
 
+  context('Job Details Header', function () {
+
+    it('renders the proper job name', function () {
+      cy.get('.page-header-breadcrumb').should('contain', 'foo');
+    });
+
+  });
+
   context('Run History Tab', function () {
 
     it('shows the correct number of jobs in the filter header', function () {
@@ -62,9 +70,7 @@ describe('Job Details', function () {
 
       cy.get('.page table .expanding-table-child')
         .should(function ($children) {
-          // Four table columns, two table rows, each with two children.
-          // 4 * 2 * 2 = 16
-          expect($children.length).to.equal(16);
+          expect($children.length).to.equal(20);
         }
       );
     });
@@ -74,17 +80,20 @@ describe('Job Details', function () {
   context('Configuration Tab', function () {
     it('renders the correct amount of job configuration details', function () {
       cy.get('.menu-tabbed-item').contains('Configuration').click();
-      cy.get('.page-body-content dl').should(function ($elements) {
-        expect($elements.length).to.equal(15);
-      });
+      cy.get('.page-body-content .configuration-map-row')
+        .should(function ($elements) {
+          expect($elements.length).to.equal(15);
+        });
     });
 
     it('renders the job configuration data', function () {
       cy.get('.menu-tabbed-item').contains('Configuration').click();
-      cy.get('.page-body-content dl').should('contain', 'Command');
-      cy.get('.page-body-content dl').should('contain', '/foo');
-      cy.get('.page-body-content dl').should('contain', 'Schedule');
-      cy.get('.page-body-content dl').should('contain', '0 1 6 9 *');
+      cy.get('.page-body-content .configuration-map-row').as('configRow');
+
+      cy.get('@configRow').should('contain', 'Command');
+      cy.get('@configRow').should('contain', '/foo');
+      cy.get('@configRow').should('contain', 'Schedule');
+      cy.get('@configRow').should('contain', '0 1 6 9 *');
     });
 
   });
