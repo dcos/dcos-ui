@@ -234,6 +234,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 }
 
 ServiceDetail.contextTypes = {
+  clearError() {},
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
