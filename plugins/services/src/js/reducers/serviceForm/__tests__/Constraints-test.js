@@ -47,7 +47,13 @@ describe('Constraints', function () {
 
     it('ignores non-array constraints', function () {
       expect(Constraints.JSONParser({
-        constraints: {}
+        constraints: {fieldName: 'hostname', operator: 'JOIN', value: 'param'}
+      })).toEqual([]);
+    });
+
+    it('ignores non-array constraint items', function () {
+      expect(Constraints.JSONParser({
+        constraints: [{fieldName: 'hostname', operator: 'JOIN', value: 'param'}]
       })).toEqual([]);
     });
 

@@ -31,9 +31,15 @@ module.exports = {
     }
 
     return JSONParser(
-      constraints.map(function ([fieldName, operator, value]) {
-        return {fieldName, operator, value};
-      })
+      constraints.reduce(function (memo, constraint) {
+        if (!Array.isArray(constraint)) {
+          return memo;
+        }
+        const [fieldName, operator, value] = constraint;
+        memo.push({fieldName, operator, value});
+
+        return memo;
+      }, [])
     );
   }
 };
