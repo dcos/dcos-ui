@@ -4,10 +4,10 @@ import Alert from './Alert';
 import {getUnanchoredErrorMessage} from '../utils/ErrorMessageUtil';
 
 const ErrorsAlert = function (props) {
-  const {errors, showAllErrors, pathMapping} = props;
+  const {errors, hideTopLevelErrors, pathMapping} = props;
   let showErrors = errors;
 
-  if (!showAllErrors) {
+  if (hideTopLevelErrors) {
     showErrors = showErrors.filter(function (error) {
       return error.path.length === 0;
     });
@@ -41,13 +41,13 @@ const ErrorsAlert = function (props) {
 
 ErrorsAlert.defaultProps = {
   errors: [],
-  showAllErrors: true,
+  hideTopLevelErrors: false,
   pathMapping: []
 };
 
 ErrorsAlert.propTypes = {
   errors: React.PropTypes.array,
-  showAllErrors: React.PropTypes.bool,
+  hideTopLevelErrors: React.PropTypes.bool,
   pathMapping: React.PropTypes.array
 };
 
