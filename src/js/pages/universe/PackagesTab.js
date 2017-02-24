@@ -34,7 +34,7 @@ const METHODS_TO_BIND = [
 ];
 
 const shouldRenderUniverseOption = Hooks.applyFilter(
-  'hasCapability', false, 'packageAPI'
+  'hasCapability', true, 'packageAPI'
 );
 
 if (shouldRenderUniverseOption) {
