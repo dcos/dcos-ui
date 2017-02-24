@@ -104,10 +104,16 @@ const responseAttributePathToFieldIdMap = Object.assign({
   '/user': 'user'
 }, ErrorPaths);
 
+const VIP_LABEL_REGEX = /^VIP_\d+/;
+
 function didMessageChange(prevMessage, newMessage) {
   return (typeof prevMessage !== typeof newMessage) ||
          ((typeof prevMessage === 'object') &&
           !deepEqual(prevMessage, newMessage));
+}
+
+function isVipLabel(label) {
+  return VIP_LABEL_REGEX.test(label);
 }
 
 class ServiceFormModal extends mixin(StoreMixin) {
@@ -280,30 +286,34 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let portDefinitions = service.getPortDefinitions();
 
     if (portDefinitions) {
-      let invalidVIP = !portDefinitions.some(function (port) {
+      let validVIP = portDefinitions.every(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
-        return Object.keys(port.labels).some(function (key) {
-          return port.labels[key] === `${service.getId()}:${port.port}`;
-        });
+        return Object.keys(port.labels)
+          .filter(isVipLabel)
+          .every(function (key) {
+            return port.labels[key] === `${service.getId()}:${port.port}`;
+          });
       });
-      if (invalidVIP) {
+      if (!validVIP) {
         return true;
       }
     }
 
     if (containerSettings && containerSettings.docker && containerSettings.docker.portMappings) {
-      let invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
+      let validVIPPortMappings = containerSettings.docker.portMappings.every(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
-        return Object.keys(port.labels).some(function (key) {
-          return port.labels[key] === `${service.getId()}:` +
-              `${port.containerPort}`;
-        });
+        return Object.keys(port.labels)
+          .filter(isVipLabel)
+          .every(function (key) {
+            return port.labels[key] === `${service.getId()}:` +
+                `${port.containerPort}`;
+          });
       });
-      if (invalidVIPPortMappings) {
+      if (!validVIPPortMappings) {
         return true;
       }
     }
