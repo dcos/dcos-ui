@@ -21,6 +21,11 @@ describe('Service Actions', function () {
       clickHeaderAction('Edit');
     });
 
+    it('navigates to the correct route', function () {
+      cy.location().its('hash')
+        .should('include', '#/services/overview/%2Fcassandra-healthy/edit');
+    });
+
     it('opens the correct service edit modal', function () {
       cy.get('.modal .menu-tabbed-view input[name="id"]')
         .should('to.have.value', '/cassandra-healthy');
@@ -30,7 +35,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: []
         });
       cy.get('.modal .modal-header .button')
@@ -47,6 +52,44 @@ describe('Service Actions', function () {
         .contains('Cancel')
         .click();
       cy.get('.modal').should('to.have.length', 0);
+    });
+
+    it('opens confirm after edits', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 1);
+    });
+
+    it('closes both confirm and edit modal after confirmation', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+      cy.get('.confirm-modal .button')
+        .contains('Discard')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 0);
+      cy.get('.modal').should('to.have.length', 0);
+    });
+
+    it('it stays in the edit modal after cancelling confirmation', function () {
+      cy.get('.modal .menu-tabbed-view input[name="cpus"]')
+        .type('5'); // Edit the cpus field
+      cy.get('.modal .modal-header .button')
+        .contains('Cancel')
+        .click();
+      cy.get('.confirm-modal .button')
+        .contains('Cancel')
+        .click();
+
+      cy.get('.confirm-modal').should('to.have.length', 0);
+      cy.get('.modal').should('to.have.length', 1);
     });
   });
 
@@ -160,7 +203,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: []
         });
       cy.get('.modal-footer .button-collection .button-primary')
@@ -172,7 +215,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: []
         });
       cy.get('.modal-footer .button-collection .button-primary').click();
@@ -184,7 +227,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           status: 409,
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: {
             message: 'App is locked by one or more deployments.'
           }
@@ -199,7 +242,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           status: 403,
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: {
             message: 'Not Authorized to perform this action!'
           }
@@ -213,7 +256,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: [],
           delay: SERVER_RESPONSE_DELAY
         });
@@ -244,7 +287,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: []
         });
       cy.get('.confirm-modal .button-collection .button-primary')
@@ -256,7 +299,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: []
         });
       cy.get('.confirm-modal .button-collection .button-primary').click();
@@ -268,7 +311,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           status: 409,
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: {
             message: 'App is locked by one or more deployments.'
           }
@@ -283,7 +326,7 @@ describe('Service Actions', function () {
         .route({
           method: 'PUT',
           status: 403,
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: {
             message: 'Not Authorized to perform this action!'
           }
@@ -297,7 +340,7 @@ describe('Service Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
+          url: /marathon\/v2\/apps\/\/cassandra-healthy/,
           response: [],
           delay: SERVER_RESPONSE_DELAY
         });
