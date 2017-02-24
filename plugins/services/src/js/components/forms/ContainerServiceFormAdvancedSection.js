@@ -12,6 +12,7 @@ import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import PodSpec from '../../structs/PodSpec';
 
@@ -113,7 +114,9 @@ class ContainerServiceFormAdvancedSection extends Component {
         className="column-4"
         showError={Boolean(!gpusDisabled && gpusErrors)}>
         <FieldLabel className="text-no-transform">
-          GPUs
+          <FormGroupHeadingContent primary={true}>
+            GPUs
+          </FormGroupHeadingContent>
         </FieldLabel>
         {inputNode}
         <FieldError>{gpusErrors}</FieldError>
@@ -201,7 +204,11 @@ class ContainerServiceFormAdvancedSection extends Component {
         <FormRow>
           {this.getGPUSField()}
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
-            <FieldLabel className="text-no-transform">Disk (MiB)</FieldLabel>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeadingContent primary={true}>
+                Disk (MiB)
+              </FormGroupHeadingContent>
+            </FieldLabel>
             <FieldInput
               min="0.001"
               name={diskPath}
