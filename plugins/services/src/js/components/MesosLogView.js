@@ -329,7 +329,7 @@ class MesosLogView extends mixin(StoreMixin) {
     const logBuffer = MesosLogStore.get(this.props.filePath);
     if (!logBuffer || logBuffer.hasLoadedTop()) {
       return (
-        <div className="text-align-center">
+        <div className="text-muted">
           (AT BEGINNING OF FILE)
         </div>
       );
@@ -337,10 +337,11 @@ class MesosLogView extends mixin(StoreMixin) {
 
     // Show loader since we will start a request for more logs
     return (
-      <Loader
-        className="pod pod-tall-bottom flush-right flush-left"
-        size="small"
-        type="ballSpinFadeLoader" />
+      <div className="pod flush-top">
+        <Loader
+          innerClassName="loader-small"
+          type="ballSpinFadeLoader" />
+      </div>
     );
   }
 
