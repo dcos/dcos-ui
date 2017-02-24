@@ -21,6 +21,7 @@ const METHODS_TO_BIND = [
   'handleItemSelection'
 ];
 
+// Number of lines (entries) we asses to be a page
 const PAGE_ENTRY_COUNT = 400;
 
 function getLogParameters(task, options) {
