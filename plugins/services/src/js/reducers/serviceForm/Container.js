@@ -155,7 +155,7 @@ module.exports = {
     }
 
     if (ValidatorUtil.isEmpty(newState.type)) {
-      delete newState.type;
+      newState.type = null;
     }
 
     if (ValidatorUtil.isEmpty(newState)) {
