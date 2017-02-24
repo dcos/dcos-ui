@@ -40,7 +40,7 @@ class MesosLogView extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
 
-    this.handleLogContainerScroll = Util.throttleScroll(
+    this.handleLogContainerScroll = Util.throttle(
       this.handleLogContainerScroll, 500
     );
 

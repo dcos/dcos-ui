@@ -28,7 +28,8 @@ const SystemLogActions = {
    * @param {String} [options.cursor] ID of the cursor to request entries from
    * @param {String} [options.subscriptionID] ID to emit events to,
    *   if omitted a new one will be created
-   * @param {Number} [options.skip_prev] how many entries backwards to look
+   * @param {Number} [options.skip_prev] how many entries backwards to look.
+   * NB: This _needs_ to be present to start streaming from the bottom!!
    * @param {Number} [options.skip_next] how many entries to look ahead
    * @param {Number} [options.limit] limit how many entries to receive
    * @param {Object} [options.filter] filter parameters to add to URL

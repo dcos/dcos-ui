@@ -158,7 +158,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: {STREAM: selectedStream},
       limit: 0,
-      skip_prev: PAGE_ENTRY_COUNT
+      skip_prev: 1
     });
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
 
@@ -212,7 +212,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: {STREAM: selectedStream},
       limit: 0,
-      skip_prev: PAGE_ENTRY_COUNT
+      skip_prev: 1
     });
 
     // Unsubscribe and clean up stored log lines
