@@ -52,6 +52,19 @@ const MarathonErrorUtil = {
     // Both `details` and `errors` can be missing
     if (ValidatorUtil.isEmpty(error.details) &&
       ValidatorUtil.isEmpty(error.message)) {
+
+      // `null` is a special case
+      if (error.message === null) {
+        return [
+          {
+            path: [],
+            message: 'An unknown error occurred (Marathon did not provide any description)',
+            type: ServiceErrorTypes.GENERIC,
+            variables: {}
+          }
+        ];
+      }
+
       return [];
     }
 
