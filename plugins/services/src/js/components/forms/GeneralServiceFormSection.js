@@ -232,15 +232,11 @@ class GeneralServiceFormSection extends Component {
         </h3>
         <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
         {this.getPlacementConstraintsFields(data.constraints)}
-        <FormRow>
-          <FormGroup
-            className="column-12"
-            showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
-            <FieldError>
-              {constraintsErrors}
-            </FieldError>
-          </FormGroup>
-        </FormRow>
+        <FormGroup showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
+          <FieldError>
+            {constraintsErrors}
+          </FieldError>
+        </FormGroup>
         <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={this.props.onAddItem.bind(
