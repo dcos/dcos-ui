@@ -1,6 +1,6 @@
 jest.unmock('../MarathonAppValidators');
 const MarathonAppValidators = require('../MarathonAppValidators');
-const {PROP_MISSING_ONE} = require('../../constants/ServiceErrorTypes');
+const {PROP_MISSING_ONE, SYNTAX_ERROR} = require('../../constants/ServiceErrorTypes');
 
 const APPCONTAINERID_ERRORS = [
   {
@@ -411,6 +411,37 @@ describe('MarathonAppValidators', function () {
         type: PROP_MISSING_ONE,
         variables: {name: 'value'}
       }]);
+    });
+
+    it('returns an error when wrong characters are applied', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'MAX_PER',
+            'foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Must only contain characters between 0-9 for operator MAX_PER',
+        type: SYNTAX_ERROR,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('accepts number strings for number-string fields', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'MAX_PER',
+            '2'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
   });
 });

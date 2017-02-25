@@ -294,7 +294,7 @@ class NewCreateServiceModal extends Component {
         activeTab: tabViewID,
         apiErrors,
         serviceReviewActive: false,
-        showAllErrors: false
+        showAllErrors: true
       });
 
       return;

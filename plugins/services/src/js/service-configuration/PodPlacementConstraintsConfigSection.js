@@ -31,7 +31,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
     ) || [];
 
     return constraints.map(function ({fieldName, operator, value}) {
-      if (!PlacementConstraintsUtil.requiresValue(operator)) {
+      if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
         value = <em>Not Applicable</em>;
       }
 

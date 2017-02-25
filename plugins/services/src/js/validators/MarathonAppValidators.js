@@ -1,7 +1,7 @@
 import ContainerConstants from '../constants/ContainerConstants';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
+import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE, SYNTAX_ERROR} from '../constants/ServiceErrorTypes';
 import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 const {DOCKER} = ContainerConstants.type;
@@ -241,7 +241,6 @@ const MarathonAppValidators = {
   validateConstraints(app) {
     const constraints = findNestedPropertyInObject(app, 'constraints') || [];
     if (constraints != null && !Array.isArray(constraints)) {
-      // No errors
       return [{
         path: ['constraints'],
         message: 'constrains needs to be an array of 2 or 3 element arrays',
@@ -249,8 +248,8 @@ const MarathonAppValidators = {
       }];
     }
 
-    const message = 'You must specify a value for operator {{operator}}';
-    const type = PROP_MISSING_ONE;
+    const isRequiredMessage = 'You must specify a value for operator {{operator}}';
+    const isStringNumberMessage = 'Must only contain characters between 0-9 for operator {{operator}}';
     const variables = {name: 'value'};
 
     return constraints.reduce((errors, constraint, index) => {
@@ -265,15 +264,30 @@ const MarathonAppValidators = {
       }
 
       const [_fieldName, operator, value] = constraint;
-      const isValueRequiredAndEmpty =
+      const isValueRequiredAndEmpty = (
         PlacementConstraintsUtil.requiresValue(operator) &&
-        ValidatorUtil.isEmpty(value);
+        ValidatorUtil.isEmpty(value)
+      );
 
       if (isValueRequiredAndEmpty) {
         errors.push({
           path: ['constraints', index, 'value'],
-          message: message.replace('{{operator}}', operator),
-          type,
+          message: isRequiredMessage.replace('{{operator}}', operator),
+          type: PROP_MISSING_ONE,
+          variables
+        });
+      }
+      const isValueNotAStringNumberWhenRequired = (
+        PlacementConstraintsUtil.stringNumberValue(operator) &&
+        typeof value === 'string' &&
+        isNaN(parseInt(value, 10))
+      );
+
+      if (isValueNotAStringNumberWhenRequired) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: isStringNumberMessage.replace('{{operator}}', operator),
+          type: SYNTAX_ERROR,
           variables
         });
       }

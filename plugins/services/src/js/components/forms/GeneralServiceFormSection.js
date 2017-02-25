@@ -27,7 +27,7 @@ import PlacementConstraintsUtil from '../../utils/PlacementConstraintsUtil';
 import PodSpec from '../../structs/PodSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
+import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
@@ -52,7 +52,9 @@ const containerRuntimes = {
   }
 };
 
-function placementConstraintLabel(name, tooltipText, linkText = 'More information') {
+function placementConstraintLabel(name, tooltipText, options = {}) {
+  const {isRequired = false, linkText = 'More information'} = options;
+
   const tooltipContent = (
     <span>
       {`${tooltipText} `}
@@ -64,7 +66,7 @@ function placementConstraintLabel(name, tooltipText, linkText = 'More informatio
   );
 
   return (
-    <FieldLabel>
+    <FieldLabel required={isRequired}>
       {`${name} `}
       <Tooltip
         content={tooltipContent}
@@ -200,6 +202,10 @@ class GeneralServiceFormSection extends Component {
 
   getPlacementconstraints() {
     const {data = {}} = this.props;
+    const constraintsErrors = findNestedPropertyInObject(
+      this.props.errors,
+      'constraints'
+    );
     const placementTooltipContent = (
       <span>
         {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
@@ -227,6 +233,15 @@ class GeneralServiceFormSection extends Component {
         <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
         {this.getPlacementConstraintsFields(data.constraints)}
         <FormRow>
+          <FormGroup
+            className="column-12"
+            showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
+            <FieldError>
+              {constraintsErrors}
+            </FieldError>
+          </FormGroup>
+        </FormRow>
+        <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={this.props.onAddItem.bind(
                 this, {value: data.constraints.length, path: 'constraints'}
@@ -244,17 +259,21 @@ class GeneralServiceFormSection extends Component {
       this.props.errors,
       'constraints'
     );
-    const showValueColumn = data.some(function (constraint) {
+    const hasOneRequiredValue = data.some(function (constraint) {
       return PlacementConstraintsUtil.requiresValue(constraint.operator);
+    });
+    const hideValueColumn = data.every(function (constraint) {
+      return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
     });
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
       let operatorLabel = null;
       let valueLabel = null;
-      let padDeleteButton = false;
       const valueIsRequired =
         PlacementConstraintsUtil.requiresValue(constraint.operator);
+      const valueIsRequiredEmpty =
+        PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
       const fieldNameError = findNestedPropertyInObject(
         constraintsErrors,
         `${index}.fieldName`
@@ -268,12 +287,12 @@ class GeneralServiceFormSection extends Component {
         `${index}.value`
       );
       const commonFieldsClassNames = {
-        'column-4': showValueColumn,
-        'column-6': !showValueColumn
+        'column-4': !hideValueColumn,
+        'column-6': hideValueColumn
       };
       const deleteRowButtonClassNames = classNames(
         'column-2 flush-left',
-        {'form-group-without-top-label': padDeleteButton}
+        {'form-group-without-top-label': index === 0}
       );
 
       if (index === 0) {
@@ -285,13 +304,12 @@ class GeneralServiceFormSection extends Component {
           'Operator',
           'Operators specify where your app will run.'
         );
-        padDeleteButton = true;
       }
-      if (index === 0 && showValueColumn) {
+      if (index === 0 && !hideValueColumn) {
         valueLabel = placementConstraintLabel(
           'Value',
           'Values allow you to further specify your constraint.',
-          'Learn more'
+          {linkText: 'Learn more', isRequired: hasOneRequiredValue}
         );
       }
 
@@ -325,31 +343,31 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
           <FormGroup
             className={{
-              'column-4': showValueColumn,
-              hidden: !showValueColumn
+              'column-4': !hideValueColumn,
+              hidden: hideValueColumn
             }}
             required={valueIsRequired}
             showError={Boolean(valueError)}>
             {valueLabel}
             <FieldInput
-              className={{hidden: !valueIsRequired}}
+              className={{hidden: valueIsRequiredEmpty}}
               name={`constraints.${index}.value`}
               type="text"
               value={constraint.value} />
-            <FieldError className={{hidden: !valueIsRequired}}>
+            <FieldHelp className={{hidden: valueIsRequired || valueIsRequiredEmpty}}>
+              This field is optional
+            </FieldHelp>
+            <FieldError className={{hidden: hideValueColumn}}>
               {valueError}
             </FieldError>
           </FormGroup>
 
-          <FormGroup
-            className={deleteRowButtonClassNames}
-            showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
+          <FormGroup className={deleteRowButtonClassNames}>
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this,
-                {value: index, path: 'constraints'})} />
-            <FieldError>
-              {constraintsErrors}
-            </FieldError>
+              onClick={this.props.onRemoveItem.bind(
+                this,
+                {value: index, path: 'constraints'}
+              )} />
           </FormGroup>
         </FormRow>
       );
@@ -409,7 +427,7 @@ class GeneralServiceFormSection extends Component {
       type = container.type;
     }
 
-    if (!ValidatorUtil.isEmpty(gpus) && gpus !== 0) {
+    if (!isEmpty(gpus) && gpus !== 0) {
       isDisabled[DOCKER] = true;
       disabledTooltipContent =
         'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
@@ -449,8 +467,24 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
+  shouldShowAdvancedOptions() {
+    const {data, data: {container}} = this.props;
+    const {docker} = container || {};
+
+    return (
+      !isEmpty(data.disk) ||
+      !isEmpty(data.gpus) ||
+      !isEmpty(data.constraints) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'forcePullImage')) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'image')) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'privileged')) ||
+      findNestedPropertyInObject(container, 'type') !== DOCKER
+    );
+  }
+
   render() {
     const {data, errors} = this.props;
+    const initialIsExpanded = this.shouldShowAdvancedOptions();
     const title = pluralize('Service', findNestedPropertyInObject(
       data,
       'containers.length'
@@ -519,7 +553,7 @@ class GeneralServiceFormSection extends Component {
 
         {this.getContainerSection()}
 
-        <AdvancedSection>
+        <AdvancedSection initialIsExpanded={initialIsExpanded}>
           <AdvancedSectionLabel>
             More Settings
           </AdvancedSectionLabel>

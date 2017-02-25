@@ -7,12 +7,10 @@ import AdvancedSectionLabel from './AdvancedSectionLabel';
 const METHODS_TO_BIND = ['handleHeadingClick'];
 
 class AdvancedSection extends React.Component {
-  constructor() {
+  constructor(props) {
     super(...arguments);
 
-    this.state = {
-      isExpanded: false
-    };
+    this.state = {isExpanded: props.initialIsExpanded === true};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -55,6 +53,7 @@ class AdvancedSection extends React.Component {
 }
 
 AdvancedSection.propTypes = {
+  initialIsExpanded: React.PropTypes.bool,
   children: React.PropTypes.node,
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,

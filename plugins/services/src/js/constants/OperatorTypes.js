@@ -1,21 +1,33 @@
 const OperatorTypes = {
   UNIQUE: {
-    requiresValue: false
+    requiresValue: false,
+    requiresEmptyValue: true,
+    stringNumberValue: false
   },
   CLUSTER: {
-    requiresValue: true
+    requiresValue: true,
+    requiresEmptyValue: false,
+    stringNumberValue: false
   },
   GROUP_BY: {
-    requiresValue: false
+    requiresValue: false,
+    requiresEmptyValue: false,
+    stringNumberValue: true
   },
   LIKE: {
-    requiresValue: true
+    requiresValue: true,
+    requiresEmptyValue: false,
+    stringNumberValue: false
   },
   UNLIKE: {
-    requiresValue: true
+    requiresValue: true,
+    requiresEmptyValue: false,
+    stringNumberValue: false
   },
   MAX_PER: {
-    requiresValue: true
+    requiresValue: true,
+    requiresEmptyValue: false,
+    stringNumberValue: true
   }
 };
 
