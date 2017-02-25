@@ -401,14 +401,32 @@ describe('MarathonAppValidators', function () {
         constraints: [
           [
             'CPUS',
-            'MAX_PER'
+            'LIKE'
           ]
         ]
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
         path: ['constraints', 0, 'value'],
-        message: 'You must specify a value for operator MAX_PER',
+        message: 'You must specify a value for operator LIKE',
         type: PROP_MISSING_ONE,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('returns an error when wrong characters are applied', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'GROUP_BY',
+            '2foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Must only contain characters between 0-9 for operator GROUP_BY',
+        type: SYNTAX_ERROR,
         variables: {name: 'value'}
       }]);
     });

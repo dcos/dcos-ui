@@ -279,8 +279,7 @@ const MarathonAppValidators = {
       }
       const isValueNotAStringNumberWhenRequired = (
         PlacementConstraintsUtil.stringNumberValue(operator) &&
-        typeof value === 'string' &&
-        isNaN(parseInt(value, 10))
+        !ValidatorUtil.isStringInteger(value)
       );
 
       if (isValueNotAStringNumberWhenRequired) {

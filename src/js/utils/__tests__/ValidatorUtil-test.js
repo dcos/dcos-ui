@@ -270,4 +270,47 @@ describe('ValidatorUtil', function () {
 
   });
 
+  describe('#isStringInteger', function () {
+    it('should properly handle empty strings', function () {
+      expect(ValidatorUtil.isStringInteger('')).toBe(false);
+    });
+
+    it('should properly handle undefined values', function () {
+      expect(ValidatorUtil.isStringInteger()).toBe(false);
+    });
+
+    it('should properly handle null values', function () {
+      expect(ValidatorUtil.isStringInteger(null)).toBe(false);
+    });
+
+    it('should properly handle wrong value types', function () {
+      expect(ValidatorUtil.isStringInteger('not a number 666')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('2a+1')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('2a1')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('0.0001')).toBe(false);
+      expect(ValidatorUtil.isStringInteger(-.1)).toBe(false);
+      expect(ValidatorUtil.isStringInteger('-.1')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('2e+1')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('2e1')).toBe(false);
+      expect(ValidatorUtil.isStringInteger('1.23')).toBe(false);
+    });
+
+    it('should handle integer string inputs', function () {
+      expect(ValidatorUtil.isStringInteger('2')).toBe(true);
+      expect(ValidatorUtil.isStringInteger('123')).toBe(true);
+    });
+
+    it('should disregard any value is in a number', function () {
+      expect(ValidatorUtil.isStringInteger(0.1)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(2.2)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(-.3)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(0)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(1)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(2)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(2e+1)).toBe(false);
+      expect(ValidatorUtil.isStringInteger(2e1)).toBe(false);
+    });
+
+  });
+
 });

@@ -4,7 +4,7 @@ import {
   SET
 } from '../../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../../src/js/structs/Transaction';
-import PlacementConstraintsUtil from '../../../utils/PlacementConstraintsUtil';
+import {requiresEmptyValue} from '../../../utils/PlacementConstraintsUtil';
 import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
 
 const CONSTRAINT_FIELDS = ['fieldName', 'operator', 'value'];
@@ -26,11 +26,12 @@ function processTransaction(state, {type, path, value}) {
       return index !== value;
     });
   }
-  if (type === SET && CONSTRAINT_FIELDS.includes(name)) {
+  if (type === SET && CONSTRAINT_FIELDS.includes(name) &&
+    !requiresEmptyValue(newState[index].operator)) {
     newState[index][name] = value;
   }
 
-  if (name === 'operator' && !PlacementConstraintsUtil.requiresValue(value)) {
+  if (name === 'operator' && requiresEmptyValue(value)) {
     newState[index].value = null;
   }
 
