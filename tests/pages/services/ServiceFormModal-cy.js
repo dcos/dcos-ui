@@ -250,7 +250,7 @@ describe('Service Form Modal', function () {
       cy.visitUrl({url: '/services/overview/%2F/create'});
     });
 
-    it('should have three options to choose from', function () {
+    it('should have four options to choose from', function () {
       cy.get('.panel-grid h5')
         .should(function (items) {
           const texts = items.map(function (i, el) {
@@ -260,7 +260,8 @@ describe('Service Form Modal', function () {
           expect(texts).to.deep.eq([
             'Single Container',
             'Multi-container (Pod)',
-            'JSON Configuration'
+            'JSON Configuration',
+            'Install a Package'
           ]);
         });
     });
