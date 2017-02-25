@@ -2,7 +2,9 @@ import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
+import ActionKeys from '../../constants/ActionKeys';
 import Page from '../../../../../../src/js/components/Page';
+import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
@@ -13,6 +15,7 @@ import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import VolumeTable from '../../components/VolumeTable';
 
 const METHODS_TO_BIND = [
+  'handleEditClearError',
   'onActionsItemSelection'
 ];
 
@@ -43,6 +46,10 @@ class ServiceDetail extends mixin(TabsMixin) {
   componentWillUpdate() {
     super.componentWillUpdate(...arguments);
     this.checkForVolumes();
+  }
+
+  handleEditClearError() {
+    this.props.clearError(ActionKeys.SERVICE_EDIT);
   }
 
   onActionsItemSelection(actionItem) {
@@ -85,10 +92,12 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   renderConfigurationTabView() {
-    const {actions, service} = this.props;
+    const {actions, errors, service} = this.props;
 
     return (
       <ServiceConfigurationContainer
+        errors={MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT])}
+        onClearError={this.handleEditClearError}
         onEditClick={actions.editService}
         service={service} />
     );
@@ -225,6 +234,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 }
 
 ServiceDetail.contextTypes = {
+  clearError() {},
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
@@ -236,6 +246,8 @@ ServiceDetail.contextTypes = {
 
 ServiceDetail.propTypes = {
   actions: PropTypes.object.isRequired,
+  clearError: PropTypes.func,
+  errors: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   service: PropTypes.instanceOf(Service),
   children: PropTypes.node

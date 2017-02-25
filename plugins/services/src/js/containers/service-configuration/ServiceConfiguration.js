@@ -11,7 +11,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import Service from '../../structs/Service';
-import ServiceUtil from '../../utils/ServiceUtil';
+import {getDefinitionFromSpec} from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
   'handleApplyButtonClick',
@@ -64,11 +64,9 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     const serviceConfiguration = service.getVersions().get(selectedVersionID);
 
-    onEditClick(service,
-      ServiceUtil.getDefinitionFromSpec(
-          new ApplicationSpec(serviceConfiguration)
-      )
-    );
+    onEditClick(service, getDefinitionFromSpec(
+      new ApplicationSpec(serviceConfiguration)
+    ));
   }
 
   handleEditButtonClick() {
@@ -187,7 +185,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   render() {
-    const {service} = this.props;
+    const {errors, service} = this.props;
     const {selectedVersionID} = this.state;
     const config = service.getVersions().get(selectedVersionID);
     let content = null;
@@ -195,9 +193,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     if (config == null) {
       content = <Loader />;
     } else {
-      content = (
-        <ServiceConfigDisplay appConfig={config} />
-      );
+      content = <ServiceConfigDisplay appConfig={config} errors={errors} />;
     }
 
     return (
@@ -214,8 +210,13 @@ ServiceConfiguration.contextTypes = {
   router: routerShape
 };
 
+ServiceConfiguration.defaultProps = {
+  errors: []
+};
+
 ServiceConfiguration.propTypes = {
   onEditClick: React.PropTypes.func.isRequired,
+  errors: React.PropTypes.array,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 

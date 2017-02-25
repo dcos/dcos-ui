@@ -469,9 +469,9 @@ const ServiceUtil = {
 
     // Only compare the service specs as everything else is status data
     return deepEqual(
-        serviceA.getSpec(),
-        serviceB.getSpec()
-      );
+      serviceA.getSpec(),
+      serviceB.getSpec()
+    );
   },
 
   getBaseID(serviceID) {

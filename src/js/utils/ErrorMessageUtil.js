@@ -12,22 +12,22 @@ const ErrorMessageUtil = {
    * @returns {String} Returns the composed error string
    */
   getUnanchoredErrorMessage(error, pathTranslationRules) {
-    const pathString = error.path.join('.');
+    const {message, path = []} = error;
+    const pathString = path.join('.');
     const rule = pathTranslationRules.find(function (rule) {
       return rule.match.exec(pathString);
     });
 
     if (!rule && !pathString) {
-      return error.message;
+      return message;
     }
     if (!rule) {
-      return `${pathString}: ${error.message}`;
+      return `${pathString}: ${message}`;
     }
 
     // We need to make the first letter of the error message lowercase
     // in order to compose a proper sentence with the resolved path name.
-    const errorMessage = error.message[0].toLowerCase() +
-      error.message.substr(1);
+    const errorMessage = message[0].toLowerCase() + message.substr(1);
 
     return `${rule.name} ${errorMessage}`;
   },
@@ -42,7 +42,7 @@ const ErrorMessageUtil = {
    */
   translateErrorMessages(errors, translationRules) {
     return errors.map(function (error) {
-      const {path, type, variables} = error;
+      const {path = [], type, variables} = error;
       const pathString = path.join('.');
 
       const rule = translationRules.find(function (rule) {
@@ -67,7 +67,6 @@ const ErrorMessageUtil = {
       };
     });
   }
-
 };
 
 module.exports = ErrorMessageUtil;

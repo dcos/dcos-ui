@@ -1,5 +1,6 @@
 jest.dontMock('../ServiceConfigurationContainer');
 jest.dontMock('../../../service-configuration/ServiceConfigDisplay');
+jest.dontMock('../../../../../../../src/js/components/ErrorsAlert');
 jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
 
 /* eslint-disable no-unused-vars */

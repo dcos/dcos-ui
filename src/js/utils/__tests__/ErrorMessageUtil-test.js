@@ -176,7 +176,6 @@ describe('ErrorMessageUtil', function () {
             variables: {}
           }
         ]);
-
     });
 
     it('should correctly replace variables', function () {
@@ -209,6 +208,28 @@ describe('ErrorMessageUtil', function () {
             }
           }
         ]);
+    });
+
+    it('should be able to handle errors with no path', function () {
+      const errorInput = [{message: 'message'}];
+      const translationRules = [];
+
+      const translatedErrors = ErrorMessageUtil.translateErrorMessages(
+        errorInput,
+        translationRules
+      );
+      expect(translatedErrors).toEqual([{message: 'message'}]);
+    });
+
+    it('should be able to handle errors with null messages', function () {
+      const errorInput = [{message: null}];
+      const translationRules = [];
+
+      const translatedErrors = ErrorMessageUtil.translateErrorMessages(
+        errorInput,
+        translationRules
+      );
+      expect(translatedErrors).toEqual([{message: null}]);
     });
   });
 });

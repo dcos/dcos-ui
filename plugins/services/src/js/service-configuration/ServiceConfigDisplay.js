@@ -1,9 +1,9 @@
 import React from 'react';
 import {MountService} from 'foundation-ui';
 
-import Alert from '../../../../../src/js/components/Alert';
+import ErrorsAlert from '../../../../../src/js/components/ErrorsAlert';
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
-import ErrorMessageUtil from '../../../../../src/js/utils/ErrorMessageUtil';
+import {translateErrorMessages} from '../../../../../src/js/utils/ErrorMessageUtil';
 import PodContainersConfigSection from './PodContainersConfigSection';
 import PodEnvironmentVariablesConfigSection from './PodEnvironmentVariablesConfigSection';
 import PodGeneralConfigSection from './PodGeneralConfigSection';
@@ -15,6 +15,7 @@ import PodSpec from '../structs/PodSpec';
 import PodStorageConfigSection from './PodStorageConfigSection';
 import ServiceEnvironmentVariablesConfigSection from './ServiceEnvironmentVariablesConfigSection';
 import ServiceErrorMessages from '../constants/ServiceErrorMessages';
+import ServiceErrorPathMapping from '../constants/ServiceErrorPathMapping';
 import ServiceGeneralConfigSection from './ServiceGeneralConfigSection';
 import ServiceHealthChecksConfigSection from './ServiceHealthChecksConfigSection';
 import ServiceLabelsConfigSection from './ServiceLabelsConfigSection';
@@ -75,49 +76,23 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   getErrors() {
-    return ErrorMessageUtil.translateErrorMessages(
-      this.props.errors, ServiceErrorMessages
-    );
-  }
-
-  getRootErrors() {
-    const errors = this.getErrors();
-
-    if (errors.length === 0) {
-      return null;
-    }
-
-    const errorItems = errors.map((error, index) => {
-      const prefix = error.path.length ? `${error.path.join('.')}:` : '';
-
-      return (
-        <li key={index} className="short">
-          {`${prefix} ${error.message}`}
-        </li>
-      );
-    });
-
-    return (
-      <Alert>
-        <strong>There is an error with your configuration</strong>
-        <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-          <ul className="short flush-bottom">
-            {errorItems}
-          </ul>
-        </div>
-      </Alert>
-    );
+    return translateErrorMessages(this.props.errors, ServiceErrorMessages);
   }
 
   render() {
     const {appConfig, onEditClick} = this.props;
+    const errorsAlert = (
+      <ErrorsAlert
+        errors={this.getErrors()}
+        pathMapping={ServiceErrorPathMapping} />
+    );
 
     return (
       <ConfigurationMap>
-        {this.getRootErrors()}
+        {errorsAlert}
         <MountService.Mount
           appConfig={appConfig}
-          errors={this.getRootErrors()}
+          errors={errorsAlert}
           onEditClick={onEditClick}
           type={this.getMountType()} />
       </ConfigurationMap>
@@ -132,7 +107,7 @@ ServiceConfigDisplay.defaultProps = {
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
   errors: React.PropTypes.array,
-  onEditClick: React.PropTypes.func
+  onEditClick: React.PropTypes.func.isRequired
 };
 
 module.exports = ServiceConfigDisplay;
