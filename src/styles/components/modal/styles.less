@@ -12,6 +12,33 @@
     flex: 1 1 auto;
   }
 
+  .modal-body {
+
+    & > p {
+
+      // Remove bottom margins on the last paragraph tag when they are a direct
+      // descendent of .modal-body.
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    & > div {
+
+      &:last-child {
+
+        & > p {
+
+          // In some cases we wrap paragraph tags in divs, so we select the
+          // last descending div, and then its last descending paragraph tag.
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
   .modal-close {
     appearance: none;
     background: transparent;
