@@ -46,7 +46,7 @@ class PageHeaderTabs extends React.Component {
         </a>
       );
 
-      if (callback == null) {
+      if (callback == null && routePath != null) {
         link = (
           <Link
             className={linkClasses}
