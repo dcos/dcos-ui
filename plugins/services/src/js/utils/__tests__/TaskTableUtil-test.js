@@ -1,11 +1,11 @@
-jest.dontMock('../../../plugins/services/src/js/constants/HealthSorting');
-jest.dontMock('../ResourceTableUtil');
+jest.dontMock('../../constants/HealthSorting');
+jest.dontMock('../TaskTableUtil');
 
-const MarathonStore = require('../../../plugins/services/src/js/stores/MarathonStore');
-const ResourceTableUtil = require('../ResourceTableUtil');
-const Service = require('../../../plugins/services/src/js/structs/Service');
+const MarathonStore = require('../../stores/MarathonStore');
+const Service = require('../../structs/Service');
+const TaskTableUtil = require('../TaskTableUtil');
 
-describe('ResourceTableUtil', function () {
+describe('TaskTableUtil', function () {
   beforeEach(function () {
     this.getServiceHealth = MarathonStore.getServiceHealth;
     MarathonStore.getServiceHealth = function (prop) {
@@ -52,7 +52,7 @@ describe('ResourceTableUtil', function () {
       }
     });
 
-    this.sortFunction = ResourceTableUtil.getSortFunction('name');
+    this.sortFunction = TaskTableUtil.getSortFunction('name');
   });
 
   afterEach(function () {

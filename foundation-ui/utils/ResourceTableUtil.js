@@ -4,11 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Tooltip} from 'reactjs-components';
 
-import HealthSorting from '../../plugins/services/src/js/constants/HealthSorting';
 import Icon from '../../src/js/components/Icon';
-import MarathonStore from '../../plugins/services/src/js/stores/MarathonStore';
-import TableUtil from '../../src/js/utils/TableUtil';
-import TaskStatusSorting from '../../plugins/services/src/js/constants/TaskStatusSorting';
 import TimeAgo from '../../src/js/components/TimeAgo';
 import Util from '../../src/js/utils/Util';
 
@@ -41,56 +37,6 @@ var ResourceTableUtil = {
       'hidden-small-down': leftAlignCaret(prop),
       'active': prop === sortBy.prop,
       'clickable': row == null // this is a header
-    });
-  },
-
-  getSortFunction(tieBreakerProp) {
-    return TableUtil.getSortFunction(tieBreakerProp, function (item, prop) {
-      const hasGetter = typeof item.get === 'function';
-
-      if (prop === 'updated') {
-        return getUpdatedTimestamp(item) || 0;
-      }
-
-      if (prop === 'health') {
-        return HealthSorting[
-          MarathonStore.getServiceHealth(item.get('name')).key
-        ];
-      }
-
-      if (prop === 'status' && !hasGetter) {
-        return TaskStatusSorting[item.state];
-      }
-
-      if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
-        // This is necessary for tasks, since they are not structs
-        let value = item[prop];
-
-        if (!value && hasGetter) {
-          value = item.get(prop);
-        }
-
-        if (item.getUsageStats) {
-          value = item.getUsageStats(prop).value;
-        }
-
-        if (Util.findNestedPropertyInObject(item, `resources.${prop}`)) {
-          value = item.resources[prop];
-        }
-
-        if (Array.isArray(value)) {
-          return Util.last(value).value;
-        }
-
-        return value;
-      }
-
-      // This is necessary for tasks, since they are not structs
-      if (!hasGetter) {
-        return item[prop];
-      }
-
-      return item.get(prop);
     });
   },
 
