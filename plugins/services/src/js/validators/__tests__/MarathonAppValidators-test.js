@@ -413,6 +413,24 @@ describe('MarathonAppValidators', function () {
       }]);
     });
 
+    it('returns an error when empty parameter is required', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'UNIQUE',
+            'foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Value must be empty for operator UNIQUE',
+        type: SYNTAX_ERROR,
+        variables: {name: 'value'}
+      }]);
+    });
+
     it('returns an error when wrong characters are applied', function () {
       const spec = {
         constraints: [

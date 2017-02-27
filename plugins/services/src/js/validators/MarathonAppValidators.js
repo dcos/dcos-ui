@@ -249,6 +249,7 @@ const MarathonAppValidators = {
     }
 
     const isRequiredMessage = 'You must specify a value for operator {{operator}}';
+    const isRequiredEmptyMessage = 'Value must be empty for operator {{operator}}';
     const isStringNumberMessage = 'Must only contain characters between 0-9 for operator {{operator}}';
     const variables = {name: 'value'};
 
@@ -274,6 +275,19 @@ const MarathonAppValidators = {
           path: ['constraints', index, 'value'],
           message: isRequiredMessage.replace('{{operator}}', operator),
           type: PROP_MISSING_ONE,
+          variables
+        });
+      }
+      const isValueDefinedAndRequiredEmpty = (
+        PlacementConstraintsUtil.requiresEmptyValue(operator) &&
+        value != null
+      );
+
+      if (isValueDefinedAndRequiredEmpty) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: isRequiredEmptyMessage.replace('{{operator}}', operator),
+          type: SYNTAX_ERROR,
           variables
         });
       }
