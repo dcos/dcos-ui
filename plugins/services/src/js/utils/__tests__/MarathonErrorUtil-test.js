@@ -51,6 +51,21 @@ describe('MarathonErrorUtil', function () {
       ]);
     });
 
+    it('should properly handle object errors with null message', function () {
+      const marathonError = {
+        message: null
+      };
+
+      expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
+        {
+          path: [],
+          message: 'An unknown error occurred (Marathon did not provide any description)',
+          type: ServiceErrorTypes.GENERIC,
+          variables: {}
+        }
+      ]);
+    });
+
     it('should properly handle object errors with array details', function () {
       const marathonError = {
         message: 'Some error',
@@ -131,13 +146,6 @@ describe('MarathonErrorUtil', function () {
           variables: {}
         }
       ]);
-    });
-
-    it('should handle a message value of null as empty', function () {
-      // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
-      const marathonError = {message: null};
-
-      expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([]);
     });
 
     it('should handle a message value of empty object as empty', function () {
