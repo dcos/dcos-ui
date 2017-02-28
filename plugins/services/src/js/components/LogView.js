@@ -152,6 +152,8 @@ class LogView extends React.Component {
   }
 
   checkIfCloseToTop(container) {
+    // This number has been determined by trail and error to be a good
+    // measurement for close to the top
     if (container.scrollTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {

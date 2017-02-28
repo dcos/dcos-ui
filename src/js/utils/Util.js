@@ -97,8 +97,14 @@ const Util = {
    * @param {Function} func A callback function to be called
    * @param {Number} wait How long to wait
    * @param {Object} [options]
-   * @param {Object} [options.leading = false]
-   * @param {Object} [options.trailing = true]
+   * @param {Object} [options.leading = false] Run function execution on the
+   * leading edge of, i.e. before, each wait:
+   * | wait | wait | wait |
+   *  ^      ^      ^
+   * @param {Object} [options.trailing = true] Run function execution on the
+   * trailing edge of, i.e. after, each wait:
+   * | wait | wait | wait |
+   *       ^      ^      ^
    * @returns {Function} A function, that, when invoked, will only be triggered
    * at most once during a given window of time. Normally, the throttled
    * function will run as much as it can, without ever going more than once per
@@ -107,16 +113,16 @@ const Util = {
    * ditto.
    */
   throttle(func, wait, options) {
-    var context;
-    var args;
-    var result;
-    var timeout = null;
-    var previous = 0;
+    let context;
+    let args;
+    let result;
+    let timeout = null;
+    let previous = 0;
     if (!options) {
       options = {};
     }
 
-    var later = function () {
+    const later = function () {
       previous = Date.now();
       if (options.leading === false) {
         previous = 0;
@@ -129,11 +135,11 @@ const Util = {
     };
 
     return function () {
-      var now = Date.now();
+      const now = Date.now();
       if (!previous && options.leading === false) {
         previous = now;
       }
-      var remaining = wait - (now - previous);
+      const remaining = wait - (now - previous);
       context = this;
       args = arguments;
       if (remaining <= 0 || remaining > wait) {
