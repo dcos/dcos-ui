@@ -11,6 +11,9 @@ var ConfigDev = {
         banner: {
           enabled: false
         },
+        mesos: {
+          'logging-strategy': 'logrotate'
+        },
         oauth: {
           enabled: true,
           authHost: 'https://dcos.auth0.com'
