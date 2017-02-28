@@ -28,8 +28,17 @@ const METHODS_TO_BIND = [
 // TODO remove
 const HIDE_BREADCRUMBS = [
   '/jobs/:id/tasks/:taskID/details',
+  '/jobs/:id/tasks/:taskID/logs(/:filePath)',
+  '/jobs/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+
   '/networking/networks/:overlayName/tasks/:taskID/details',
+  '/networking/networks/:overlayName/tasks/:taskID/logs(/:filePath)',
+  '/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+
   '/nodes/:nodeID/tasks/:taskID/details',
+  '/nodes/:nodeID/tasks/:taskID/logs(/:filePath)',
+  '/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+
   '/services/overview/:id/tasks/:taskID/details',
   '/services/overview/:id/tasks/:taskID/logs(/:filePath)',
   '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))'
