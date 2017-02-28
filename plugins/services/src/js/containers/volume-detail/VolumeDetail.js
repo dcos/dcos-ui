@@ -1,6 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import {Link} from 'react-router';
 
+import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
+import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
 import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
 import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
@@ -27,13 +30,37 @@ class VolumeDetail extends React.Component {
   render() {
     const {service, volume} = this.props;
 
+    const serviceID = service.getId();
+    const encodedServiceId = encodeURIComponent(serviceID);
+    const volumeId = volume.getId();
+
+    const extraCrumbs = [
+      <Breadcrumb key={-1} title="Services">
+        <BreadcrumbTextContent>
+          <Link
+            to={`/services/overview/${encodedServiceId}/volumes/${volumeId}`}
+            key="volume">
+
+            {volumeId}
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    ];
+
+    const breadcrumbs = (
+      <ServiceBreadcrumbs
+        serviceID={serviceID}
+        extra={extraCrumbs}
+      />
+    );
+
     return (
       <Page>
         <Page.Header
-          breadcrumbs={<ServiceBreadcrumbs serviceID={service.id} />} />
+          breadcrumbs={breadcrumbs} />
         <DetailViewHeader
           subTitle={this.renderSubHeader()}
-          title={volume.getId()} />
+          title={volumeId} />
         <ConfigurationMap>
           <ConfigurationMapSection>
             <ConfigurationMapRow>
@@ -65,7 +92,7 @@ class VolumeDetail extends React.Component {
                 Application
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {service.getId()}
+                {serviceID}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
