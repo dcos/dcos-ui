@@ -22,6 +22,7 @@ describe('Container', function () {
             network: null,
             portMappings: null
           },
+          type: null,
           volumes: []
         });
     });
@@ -241,6 +242,7 @@ describe('Container', function () {
           network: null,
           portMappings: null
         },
+        type: null,
         volumes: []
       });
     });
@@ -363,6 +365,7 @@ describe('Container', function () {
           network: null,
           portMappings: null
         },
+        type: null,
         volumes: []
       });
     });
@@ -549,6 +552,7 @@ describe('Container', function () {
                 network: null,
                 portMappings: null
               },
+              type: null,
               volumes: []
             });
         });
@@ -1162,6 +1166,7 @@ describe('Container', function () {
               network: null,
               portMappings: null
             },
+            type: null,
             volumes: []
           });
       });
@@ -1286,6 +1291,7 @@ describe('Container', function () {
                 network: null,
                 portMappings: null
               },
+              type: null,
               volumes: []
             });
         }

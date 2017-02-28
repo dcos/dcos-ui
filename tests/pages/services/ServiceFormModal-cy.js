@@ -133,6 +133,14 @@ describe('Service Form Modal', function () {
           .should('to.have.value', '1');
       });
 
+      it('uses Docker by default', function () {
+        openServiceModal();
+        openServiceJSON();
+        cy.get('.ace_content').should(function (nodeList) {
+          expect(nodeList[0].textContent).to.contain('"type": "DOCKER"');
+        });
+      });
+
       it('contains the right JSON in the JSON editor', function () {
         openServiceModal();
         openServiceJSON();
@@ -421,6 +429,18 @@ describe('Service Form Modal', function () {
       it('Should have a "Add Artifact" link', function () {
         cy.get('.menu-tabbed-view .button.button-primary-link')
           .contains('Add Artifact');
+      });
+
+      context('Switching runtime', function () {
+        it('switches from Docker to Mesos correctly', function () {
+          cy.get('label')
+            .contains('Mesos Runtime')
+            .click();
+
+          cy.get('.ace_content').should(function (nodeList) {
+            expect(nodeList[0].textContent).not.to.contain('"container": {');
+          });
+        });
       });
 
     });
