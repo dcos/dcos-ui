@@ -183,11 +183,11 @@ describe('Util', function () {
 
   });
 
-  describe('#throttleScroll', function () {
+  describe('#throttle', function () {
 
     beforeEach(function () {
       this.func = jest.genMockFunction();
-      this.throttled = Util.throttleScroll(
+      this.throttled = Util.throttle(
         this.func, 200
       ).bind(this, {nativeEvent: {}});
     });
@@ -209,7 +209,7 @@ describe('Util', function () {
       throttled();
       jest.runAllTimers();
 
-      // The calls should be two because #throttleScroll will remember if it
+      // The calls should be two because #throttle will remember if it
       // was called during the wait and will invoke itself immediately once the
       // wait is over.
       expect(func.mock.calls.length).toBe(2);

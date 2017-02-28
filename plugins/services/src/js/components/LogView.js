@@ -26,29 +26,27 @@ class LogView extends React.Component {
       this[method] = this[method].bind(this);
     });
 
-    this.handleLogContainerScroll = Util.throttleScroll(
-      this.handleLogContainerScroll, 50
+    // Make sure to run this on the leading edge to capture this event as soon
+    // as possible. This has impact on both checkIfCloseToTop and
+    // checkIfAwayFromBottom. Trailing edge will call them too late, i.e. when
+    // the data is out of data and possibly scrolled passed the trigger range.
+    // We need them to be called as soon as we hit the range wherein these will
+    // trigger handlers.
+    this.handleLogContainerScroll = Util.throttle(
+      this.handleLogContainerScroll,
+      50,
+      {leading: true, trailing: false}
     );
 
-    this.handleWindowResize = Util.debounce(
-      this.handleWindowResize.bind(this), 100
-    );
-
-    // Since we can receive a lot of updates (from a stream potentially),
-    // let's debounce this function to not call it too often
-    this.componentDidUpdate = Util.debounce(
-      this.componentDidUpdate.bind(this), 100
+    this.handleWindowResize = Util.throttle(
+      this.handleWindowResize.bind(this),
+      50,
+      {leading: true, trailing: false}
     );
   }
 
   componentDidMount() {
     global.addEventListener('resize', this.handleWindowResize);
-
-    const {logContainer} = this;
-    if (logContainer) {
-      // Make sure to check if we are at the top on mount
-      this.checkIfCloseToTop(logContainer);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,11 +61,11 @@ class LogView extends React.Component {
 
     // Prevent updates to fullLog, if it has not changed
     if (this.state.fullLog !== nextProps.fullLog) {
-      this.setState({fullLog: nextProps.fullLog}, function () {
+      this.setState({fullLog: nextProps.fullLog}, () => {
         // This allows the user to stay at the place of the log they were at
         // before the prepend.
         if (nextProps.direction === PREPEND && previousScrollHeight
-          && logContainer) {
+          && logContainer && !this.state.isAtBottom) {
           const currentScrollHeight = logContainer.scrollHeight;
           const heightDifference = currentScrollHeight - previousScrollHeight;
           logContainer.scrollTop = previousScrollTop + heightDifference;
@@ -138,13 +136,8 @@ class LogView extends React.Component {
     }
 
     // Cap animation time between 500 and 3000
-    const animationTime = Math.max(
-      Math.min(
-        logContainer.scrollHeight - DOMUtils.getDistanceFromTop(logContainer),
-        3000
-      ),
-      500
-    );
+    const scrollDistance = logContainer.scrollHeight - logContainer.scrollTop;
+    const animationTime = Math.max(500, Math.min(scrollDistance, 3000));
 
     DOMUtils.scrollTo(
       logContainer,
@@ -159,8 +152,9 @@ class LogView extends React.Component {
   }
 
   checkIfCloseToTop(container) {
-    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    if (distanceFromTop < 2000) {
+    // This number has been determined by trail and error to be a good
+    // measurement for close to the top
+    if (container.scrollTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
@@ -169,8 +163,7 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
-    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    const isAtBottom = container.offsetHeight + distanceFromTop
+    const isAtBottom = container.offsetHeight + container.scrollTop
       >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
