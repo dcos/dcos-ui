@@ -93,6 +93,46 @@ describe('TaskFileViewer', function () {
         .toHaveBeenCalledWith('foo', '/stderr');
     });
 
+    it('limits files to stdout and stderr when provided', function () {
+      this.instance = ReactDOM.render(
+        <TaskFileViewer
+          directory={new TaskDirectory({items: [
+            {nlink: 1, path: '/foo'},
+            {nlink: 1, path: '/stdout'},
+            {nlink: 1, path: '/stderr'}
+          ]})}
+          params={{}}
+          limitLogFiles={['stdout', 'stderr']}
+          task={{slave_id: 'foo'}} />,
+        this.container
+      );
+
+      expect(this.instance.getLogFiles()).toEqual([
+        new DirectoryItem({nlink: 1, path: '/stdout'}),
+        new DirectoryItem({nlink: 1, path: '/stderr'})
+      ]);
+    });
+
+    it('includes all files when limit is not provided', function () {
+      this.instance = ReactDOM.render(
+        <TaskFileViewer
+          directory={new TaskDirectory({items: [
+            {nlink: 1, path: '/foo'},
+            {nlink: 1, path: '/stdout'},
+            {nlink: 1, path: '/stderr'}
+          ]})}
+          params={{}}
+          task={{slave_id: 'foo'}} />,
+        this.container
+      );
+
+      expect(this.instance.getLogFiles()).toEqual([
+        new DirectoryItem({nlink: 1, path: '/foo'}),
+        new DirectoryItem({nlink: 1, path: '/stdout'}),
+        new DirectoryItem({nlink: 1, path: '/stderr'})
+      ]);
+    });
+
   });
 
 });

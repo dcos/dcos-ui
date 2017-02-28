@@ -61,7 +61,7 @@ class TaskLogsAPIContainer extends mixin(StoreMixin) {
       return <TaskSystemLogsContainer {...props} />;
     }
 
-    return <TaskFileViewer {...props} />;
+    return <TaskFileViewer limitLogFiles={['stdout', 'stderr']} {...props} />;
   }
 }
 
