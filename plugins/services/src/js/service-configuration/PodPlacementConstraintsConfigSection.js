@@ -1,15 +1,16 @@
 import React from 'react';
 
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: 'Label',
+        heading: 'Field Name',
         prop: 'fieldName'
       },
       {
@@ -18,22 +19,32 @@ class PodPlacementConstraintsConfigSection extends React.Component {
       },
       {
         heading: 'Value',
-        prop: 'value',
-        hideIfempty: true
+        prop: 'value'
       }
     ];
   }
 
-  render() {
-    const {onEditClick} = this.props;
+  getConstraints() {
     const constraints = findNestedPropertyInObject(
       this.props.appConfig,
       'scheduling.placement.constraints'
-    );
+    ) || [];
 
+    return constraints.map(function ({fieldName, operator, value}) {
+      if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
+        value = <em>Not Applicable</em>;
+      }
+
+      return {fieldName, operator, value};
+    });
+  }
+
+  render() {
+    const {onEditClick} = this.props;
+    const constraints = this.getConstraints();
     // Since we are stateless component we will need to return something for react
     // so we are using the `<noscript>` tag as placeholder.
-    if (!constraints || !constraints.length) {
+    if (!constraints.length) {
       return <noscript />;
     }
 
@@ -45,7 +56,6 @@ class PodPlacementConstraintsConfigSection extends React.Component {
         <ConfigurationMapSection>
           <ConfigurationMapTable
             columns={this.getColumns()}
-            columnDefaults={{hideIfempty: true}}
             data={constraints}
             onEditClick={onEditClick}
             tabViewID="services" />

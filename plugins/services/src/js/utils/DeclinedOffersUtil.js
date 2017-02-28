@@ -138,7 +138,16 @@ const DeclinedOffersUtil = {
       },
       constraints: {
         requested: requestedResources.constraints.map((constraint = []) => {
-          return constraint.join(':');
+          if (Array.isArray(constraint)) {
+            return constraint.join(':');
+          }
+
+          // pod
+          const {fieldName, operator, value} = constraint;
+
+          return [fieldName, operator, value].filter(function (value) {
+            return value && value !== '';
+          }).join(':');
         }).join(', ') || UNAVAILABLE_TEXT,
         offers: constraintOfferSummary.processed,
         matched: constraintOfferSummary.processed

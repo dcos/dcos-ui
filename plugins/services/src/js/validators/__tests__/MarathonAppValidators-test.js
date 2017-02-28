@@ -1,5 +1,6 @@
 jest.unmock('../MarathonAppValidators');
 const MarathonAppValidators = require('../MarathonAppValidators');
+const {PROP_MISSING_ONE, SYNTAX_ERROR} = require('../../constants/ServiceErrorTypes');
 
 const APPCONTAINERID_ERRORS = [
   {
@@ -354,6 +355,129 @@ describe('MarathonAppValidators', function () {
       };
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
+  });
 
+  describe('#validateConstraints', function () {
+    it('returns no errors when there is no constraints', function () {
+      expect(MarathonAppValidators.validateConstraints({})).toEqual([]);
+    });
+
+    it('returns no errors when all constraints are correctly defined', function () {
+      const spec = {
+        constraints: [
+          ['hostname', 'UNIQUE'],
+          ['CPUS', 'MAX_PER', '123']
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
+    });
+
+    it('returns an error when constraints is not an array', function () {
+      const spec = {
+        constraints: ':)'
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints'],
+        message: 'constrains needs to be an array of 2 or 3 element arrays',
+        type: 'TYPE_NOT_ARRAY'
+      }]);
+    });
+
+    it('returns an error when a constraint is not an array', function () {
+      const spec = {
+        constraints: [
+          ':)'
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0],
+        message: 'Must be an array',
+        type: 'TYPE_NOT_ARRAY'
+      }]);
+    });
+
+    it('returns an error when a constraint definition is wrong', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'LIKE'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'You must specify a value for operator LIKE',
+        type: PROP_MISSING_ONE,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('returns an error when empty parameter is required', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'UNIQUE',
+            'foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Value must be empty for operator UNIQUE',
+        type: SYNTAX_ERROR,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('returns an error when wrong characters are applied', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'GROUP_BY',
+            '2foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Must only contain characters between 0-9 for operator GROUP_BY',
+        type: SYNTAX_ERROR,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('returns an error when wrong characters are applied', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'MAX_PER',
+            'foo'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([{
+        path: ['constraints', 0, 'value'],
+        message: 'Must only contain characters between 0-9 for operator MAX_PER',
+        type: SYNTAX_ERROR,
+        variables: {name: 'value'}
+      }]);
+    });
+
+    it('accepts number strings for number-string fields', function () {
+      const spec = {
+        constraints: [
+          [
+            'CPUS',
+            'MAX_PER',
+            '2'
+          ]
+        ]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
+    });
   });
 });

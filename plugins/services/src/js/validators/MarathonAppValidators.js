@@ -1,7 +1,8 @@
 import ContainerConstants from '../constants/ContainerConstants';
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE} from '../constants/ServiceErrorTypes';
+import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE, SYNTAX_ERROR} from '../constants/ServiceErrorTypes';
+import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 const {DOCKER} = ContainerConstants.type;
 
@@ -235,6 +236,77 @@ const MarathonAppValidators = {
 
     // No errors
     return [];
+  },
+
+  validateConstraints(app) {
+    const constraints = findNestedPropertyInObject(app, 'constraints') || [];
+    if (constraints != null && !Array.isArray(constraints)) {
+      return [{
+        path: ['constraints'],
+        message: 'constrains needs to be an array of 2 or 3 element arrays',
+        type: 'TYPE_NOT_ARRAY'
+      }];
+    }
+
+    const isRequiredMessage = 'You must specify a value for operator {{operator}}';
+    const isRequiredEmptyMessage = 'Value must be empty for operator {{operator}}';
+    const isStringNumberMessage = 'Must only contain characters between 0-9 for operator {{operator}}';
+    const variables = {name: 'value'};
+
+    return constraints.reduce((errors, constraint, index) => {
+      if (!Array.isArray(constraint)) {
+        errors.push({
+          path: ['constraints', index],
+          message: 'Must be an array',
+          type: 'TYPE_NOT_ARRAY'
+        });
+
+        return errors;
+      }
+
+      const [_fieldName, operator, value] = constraint;
+      const isValueRequiredAndEmpty = (
+        PlacementConstraintsUtil.requiresValue(operator) &&
+        ValidatorUtil.isEmpty(value)
+      );
+
+      if (isValueRequiredAndEmpty) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: isRequiredMessage.replace('{{operator}}', operator),
+          type: PROP_MISSING_ONE,
+          variables
+        });
+      }
+      const isValueDefinedAndRequiredEmpty = (
+        PlacementConstraintsUtil.requiresEmptyValue(operator) &&
+        value != null
+      );
+
+      if (isValueDefinedAndRequiredEmpty) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: isRequiredEmptyMessage.replace('{{operator}}', operator),
+          type: SYNTAX_ERROR,
+          variables
+        });
+      }
+      const isValueNotAStringNumberWhenRequired = (
+        PlacementConstraintsUtil.stringNumberValue(operator) &&
+        !ValidatorUtil.isStringInteger(value)
+      );
+
+      if (isValueNotAStringNumberWhenRequired) {
+        errors.push({
+          path: ['constraints', index, 'value'],
+          message: isStringNumberMessage.replace('{{operator}}', operator),
+          type: SYNTAX_ERROR,
+          variables
+        });
+      }
+
+      return errors;
+    }, []);
   }
 };
 

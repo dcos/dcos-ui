@@ -50,6 +50,10 @@ var ValidatorUtil = {
     const number = parseFloat(value);
 
     return ValidatorUtil.isNumber(value) && number >= min && number <= max;
+  },
+
+  isStringInteger(value) {
+    return typeof value === 'string' && /^([0-9]+)$/.test(value);
   }
 };
 

@@ -23,12 +23,12 @@ import FormGroupContainer from '../../../../../../src/js/components/form/FormGro
 import General from '../../reducers/serviceForm/General';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import OperatorTypes from '../../constants/OperatorTypes';
+import PlacementConstraintsUtil from '../../utils/PlacementConstraintsUtil';
 import PodSpec from '../../structs/PodSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
+import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
-const {GROUP_BY, LIKE, MAX_PER_OPERATOR, UNIQUE} = OperatorTypes;
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 
 const METHODS_TO_BIND = [
@@ -51,6 +51,34 @@ const containerRuntimes = {
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   }
 };
+
+function placementConstraintLabel(name, tooltipText, options = {}) {
+  const {isRequired = false, linkText = 'More information'} = options;
+
+  const tooltipContent = (
+    <span>
+      {`${tooltipText} `}
+      <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
+        target="_blank">
+        {linkText}
+      </a>.
+    </span>
+  );
+
+  return (
+    <FieldLabel required={isRequired}>
+      {`${name} `}
+      <Tooltip
+        content={tooltipContent}
+        interactive={true}
+        maxWidth={300}
+        scrollContainer=".gm-scroll-view"
+        wrapText={true}>
+        <Icon color="grey" id="circle-question" size="mini" />
+      </Tooltip>
+    </FieldLabel>
+  );
+}
 
 class GeneralServiceFormSection extends Component {
   constructor() {
@@ -172,34 +200,12 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
-  getConstraintField(name, tooltipText, linkText = 'More information') {
-    const tooltipContent = (
-      <span>
-        {`${tooltipText} `}
-        <a href="https://mesosphere.github.io/marathon/docs/constraints.html"
-          target="_blank">
-          {linkText}
-        </a>.
-      </span>
-    );
-
-    return (
-      <FieldLabel>
-        {`${name} `}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
-      </FieldLabel>
-    );
-  }
-
   getPlacementconstraints() {
     const {data = {}} = this.props;
+    const constraintsErrors = findNestedPropertyInObject(
+      this.props.errors,
+      'constraints'
+    );
     const placementTooltipContent = (
       <span>
         {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
@@ -226,6 +232,11 @@ class GeneralServiceFormSection extends Component {
         </h3>
         <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
         {this.getPlacementConstraintsFields(data.constraints)}
+        <FormGroup showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
+          <FieldError>
+            {constraintsErrors}
+          </FieldError>
+        </FormGroup>
         <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={this.props.onAddItem.bind(
@@ -240,72 +251,82 @@ class GeneralServiceFormSection extends Component {
   }
 
   getPlacementConstraintsFields(data = []) {
-    const errors = this.props.errors || [];
-    const showParameterLabel = data.some((constraint) => {
-      return ![GROUP_BY, UNIQUE].includes(constraint.operator);
+    const constraintsErrors = findNestedPropertyInObject(
+      this.props.errors,
+      'constraints'
+    );
+    const hasOneRequiredValue = data.some(function (constraint) {
+      return PlacementConstraintsUtil.requiresValue(constraint.operator);
     });
-    const showRequiredLabel = data.some((constraint) => {
-      return [LIKE, MAX_PER_OPERATOR].includes(constraint.operator);
+    const hideValueColumn = data.every(function (constraint) {
+      return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
     });
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
       let operatorLabel = null;
-      let parameterLabel = null;
-      let padDeleteButton = false;
-      const showParameterField = ![GROUP_BY, UNIQUE]
-        .includes(constraint.operator);
-      const paramterIsRequired = [LIKE, MAX_PER_OPERATOR]
-        .includes(constraint.operator);
+      let valueLabel = null;
+      const valueIsRequired =
+        PlacementConstraintsUtil.requiresValue(constraint.operator);
+      const valueIsRequiredEmpty =
+        PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
+      const fieldNameError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.fieldName`
+      );
+      const operatorError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.operator`
+      );
+      const valueError = findNestedPropertyInObject(
+        constraintsErrors,
+        `${index}.value`
+      );
+      const commonFieldsClassNames = {
+        'column-4': !hideValueColumn,
+        'column-6': hideValueColumn
+      };
+      const deleteRowButtonClassNames = classNames(
+        'column-2 flush-left',
+        {'form-group-without-top-label': index === 0}
+      );
 
       if (index === 0) {
-        fieldLabel = this.getConstraintField(
+        fieldLabel = placementConstraintLabel(
           'Field',
           'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.'
         );
-        operatorLabel = this.getConstraintField(
+        operatorLabel = placementConstraintLabel(
           'Operator',
           'Operators specify where your app will run.'
         );
-        padDeleteButton = true;
       }
-      if (index === 0 && showParameterLabel) {
-        parameterLabel = this.getConstraintField(
-          'Parameter',
-          'Parameters allow you to further specify your constraint.',
-          'Learn more'
+      if (index === 0 && !hideValueColumn) {
+        valueLabel = placementConstraintLabel(
+          'Value',
+          'Values allow you to further specify your constraint.',
+          {linkText: 'Learn more', isRequired: hasOneRequiredValue}
         );
       }
-
-      const deleteRowButtonClassNames = classNames(
-        'column-2 flush-left',
-        {'form-group-without-top-label': padDeleteButton}
-      );
 
       return (
         <FormRow key={index}>
           <FormGroup
-            className={{
-              'column-4': showParameterLabel,
-              'column-6': !showParameterLabel
-            }}
+            className={commonFieldsClassNames}
             required={true}
-            showError={Boolean(errors[index])}>
+            showError={Boolean(fieldNameError)}>
             {fieldLabel}
             <FieldInput
-              name={`constraints.${index}.field`}
+              name={`constraints.${index}.fieldName`}
               type="text"
               placeholer="hostname"
-              value={constraint.field} />
-            <FieldError>{errors[index]}</FieldError>
+              value={constraint.fieldName} />
+            <FieldError>{fieldNameError}</FieldError>
           </FormGroup>
           <FormGroup
-            className={{
-              'column-4': showParameterLabel,
-              'column-6': !showParameterLabel
-            }}
+            className={commonFieldsClassNames}
             required={true}
-            showError={Boolean(errors[index])}>
+            showError={Boolean(operatorError)}>
             {operatorLabel}
             <FieldSelect
               name={`constraints.${index}.operator`}
@@ -314,34 +335,35 @@ class GeneralServiceFormSection extends Component {
               <option value="">Select</option>
               {this.getOperatorTypes()}
             </FieldSelect>
-            <FieldError>{errors[index]}</FieldError>
+            <FieldError>{operatorError}</FieldError>
           </FormGroup>
           <FormGroup
             className={{
-              'column-4': showParameterLabel,
-              hidden: !showParameterLabel
+              'column-4': !hideValueColumn,
+              hidden: hideValueColumn
             }}
-            required={showRequiredLabel}
-            showError={Boolean(errors[index])}>
-            {parameterLabel}
+            required={valueIsRequired}
+            showError={Boolean(valueError)}>
+            {valueLabel}
             <FieldInput
-              className={{hidden:!showParameterField}}
+              className={{hidden: valueIsRequiredEmpty}}
               name={`constraints.${index}.value`}
               type="text"
               value={constraint.value} />
-            <FieldHelp
-              className={{hidden: paramterIsRequired || !showParameterField}}>
-              This field is optional.
+            <FieldHelp className={{hidden: valueIsRequired || valueIsRequiredEmpty}}>
+              This field is optional
             </FieldHelp>
-            <FieldError className={{hidden: !showParameterField}}>
-              {errors[index]}
+            <FieldError className={{hidden: hideValueColumn}}>
+              {valueError}
             </FieldError>
           </FormGroup>
 
           <FormGroup className={deleteRowButtonClassNames}>
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(this,
-                {value: index, path: 'constraints'})} />
+              onClick={this.props.onRemoveItem.bind(
+                this,
+                {value: index, path: 'constraints'}
+              )} />
           </FormGroup>
         </FormRow>
       );
@@ -401,7 +423,7 @@ class GeneralServiceFormSection extends Component {
       type = container.type;
     }
 
-    if (!ValidatorUtil.isEmpty(gpus) && gpus !== 0) {
+    if (!isEmpty(gpus) && gpus !== 0) {
       isDisabled[DOCKER] = true;
       disabledTooltipContent =
         'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
@@ -441,8 +463,24 @@ class GeneralServiceFormSection extends Component {
     });
   }
 
+  shouldShowAdvancedOptions() {
+    const {data, data: {container}} = this.props;
+    const {docker} = container || {};
+
+    return (
+      !isEmpty(data.disk) ||
+      !isEmpty(data.gpus) ||
+      !isEmpty(data.constraints) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'forcePullImage')) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'image')) ||
+      !isEmpty(findNestedPropertyInObject(docker, 'privileged')) ||
+      findNestedPropertyInObject(container, 'type') !== DOCKER
+    );
+  }
+
   render() {
     const {data, errors} = this.props;
+    const initialIsExpanded = this.shouldShowAdvancedOptions();
     const title = pluralize('Service', findNestedPropertyInObject(
       data,
       'containers.length'
@@ -511,7 +549,7 @@ class GeneralServiceFormSection extends Component {
 
         {this.getContainerSection()}
 
-        <AdvancedSection>
+        <AdvancedSection initialIsExpanded={initialIsExpanded}>
           <AdvancedSectionLabel>
             More Settings
           </AdvancedSectionLabel>

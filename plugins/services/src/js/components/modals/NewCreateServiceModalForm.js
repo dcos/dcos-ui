@@ -117,9 +117,14 @@ class NewCreateServiceModalForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const {editingFieldPath, appConfig} = this.state;
+    const {onChange, service} = this.props;
 
-    if ((editingFieldPath === null) && (prevState.editingFieldPath !== null)) {
-      this.props.onChange(new this.props.service.constructor(appConfig));
+    const shouldUpdate = (editingFieldPath === null) && (
+      prevState.editingFieldPath !== null ||
+      !deepEqual(appConfig, prevState.appConfig)
+    );
+    if (shouldUpdate) {
+      onChange(new service.constructor(appConfig));
     }
   }
 
