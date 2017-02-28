@@ -148,13 +148,6 @@ describe('MarathonErrorUtil', function () {
       ]);
     });
 
-    it('should handle a message value of null as empty', function () {
-      // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
-      const marathonError = {message: null};
-
-      expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([]);
-    });
-
     it('should handle a message value of empty object as empty', function () {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = {message: {}};
