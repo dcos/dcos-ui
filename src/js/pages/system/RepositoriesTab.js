@@ -20,7 +20,7 @@ const RepositoriesBreadcrumbs = (addButton) => {
   const crumbs = [
     <Breadcrumb key={-1} title="Repositories">
       <BreadcrumbTextContent>
-        <Link to="/settings/repositories">Repositories</Link>
+        <Link to="/settings/repositories">Package Repositories</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -149,7 +149,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
 }
 
 RepositoriesTab.routeConfig = {
-  label: 'Repositories',
+  label: 'Package Repositories',
   matches: /^\/settings\/repositories/
 };
 
