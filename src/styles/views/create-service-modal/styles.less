@@ -23,9 +23,24 @@
 
       &-container {
         display: flex;
-        flex: 1 1 auto;
+        flex: 1 0 auto;
         flex-direction: row;
-        min-height: 100%;
+      }
+
+      &__scrollbar-container {
+        display: flex;
+        flex: 1 0 auto;
+
+        // We need these specific flex properties to fix an IE11 bug.
+        // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+        & > .gm-scrollbar-container,
+        & > .gm-prevented {
+
+          & > .gm-scroll-view {
+            display: flex;
+            flex-direction: column;
+          }
+        }
       }
 
       .menu-tabbed-container {
