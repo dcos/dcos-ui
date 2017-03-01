@@ -235,7 +235,7 @@ class ServiceBreadcrumbs extends React.Component {
 }
 
 ServiceBreadcrumbs.propTypes = {
-  extra: React.PropTypes.node,
+  extra: React.PropTypes.arrayOf(React.PropTypes.node),
   serviceID: React.PropTypes.string.isRequired,
   taskID: React.PropTypes.string,
   taskName: React.PropTypes.string
