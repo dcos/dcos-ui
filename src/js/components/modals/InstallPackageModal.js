@@ -4,6 +4,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import CosmosErrorHeader from '../CosmosErrorHeader';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
@@ -26,8 +27,6 @@ const METHODS_TO_BIND = [
   'handleInstallPackage',
   'handleAdvancedFormChange',
   'handleModalClose',
-  'handleModalRef',
-  'handleModalUpdateRequest',
   'handlePreinstallNotesToggle'
 ];
 
@@ -69,8 +68,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-
-    this.modalRef = undefined;
   }
 
   componentDidMount() {
@@ -200,16 +197,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     this.setState({truncatedPreInstallNotes});
   }
 
-  handleModalRef(modal) {
-    this.modalRef = modal;
-  }
-
-  handleModalUpdateRequest() {
-    if (this.modalRef) {
-      this.modalRef.forceUpdate();
-    }
-  }
-
   getAdvancedSubmit(triggerSubmit) {
     this.triggerAdvancedSubmit = triggerSubmit;
   }
@@ -252,11 +239,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     return (
       <div>
         <div className="modal-body">
-          <CosmosErrorMessage
-            onResized={this.handleModalUpdateRequest}
-            className="text-error-state text-overflow-break-word"
-            error={installError}
-            wrapperClass="" />
+          <CosmosErrorHeader>
+            An Error Occurred
+          </CosmosErrorHeader>
+          <CosmosErrorMessage error={installError} />
         </div>
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked">
@@ -618,7 +604,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <Modal
-        ref={this.handleModalRef}
         backdropClass={backdropClasses}
         closeByBackdropClick={!isAdvanced}
         modalClass={modalClasses}
