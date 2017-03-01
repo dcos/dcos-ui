@@ -74,6 +74,7 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-register": "6.9.0",
     "babel-runtime": "6.9.2",
+    "colors": "1.1.2",
     "css-loader": "0.23.1",
     "eslint": "3.14.1",
     "eslint-config-airbnb": "10.0.1",
@@ -143,7 +144,7 @@
     "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --port $npm_package_config_port",
-    "validate-build": "node scripts/validate-build.js dist/*.js"
+    "validate-build": "scripts/validate-build dist/*.js"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.test.js"

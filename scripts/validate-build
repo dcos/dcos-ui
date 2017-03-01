@@ -2,10 +2,10 @@
 // eslint-disable-next-line strict
 'use strict';
 
-const fs = require('fs');
-const esprima = require('esprima');
-const walk = require('esprima-walk');
 const colors = require('colors');
+const esprima = require('esprima');
+const fs = require('fs');
+const walk = require('esprima-walk');
 
 /**
  * Load the Abstract Syntax Tree from the javascript file given
@@ -97,7 +97,7 @@ process.exit(
   process.argv.slice(2).reduce(function (code, file) {
     const isOk = isMinified(file);
     if (isOk) {
-      console.error(
+      console.log(
         colors.green('PASS') + ': ' + colors.bold(file) + ' is minified'
       );
     } else {
