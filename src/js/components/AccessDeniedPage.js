@@ -2,6 +2,7 @@ import React from 'react';
 
 import AuthStore from '../stores/AuthStore';
 import AlertPanel from './AlertPanel';
+import AlertPanelHeader from './AlertPanelHeader';
 import Config from '../config/Config';
 import MetadataStore from '../stores/MetadataStore';
 
@@ -38,7 +39,8 @@ module.exports = class AccessDeniedPage extends React.Component {
       <div className="application-wrapper">
         <div className="page">
           <div className="page-body-content vertical-center flex-item-grow-1">
-            <AlertPanel title="Access denied">
+            <AlertPanel>
+              <AlertPanelHeader>Access denied</AlertPanelHeader>
               <p className="tall">
                 {'You do not have access to this service. Please contact your '}
                 {Config.productName}

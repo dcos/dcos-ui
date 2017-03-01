@@ -9,6 +9,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
+import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHeader';
 import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
 import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
@@ -326,8 +327,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <Page>
         <Page.Header breadcrumbs={<DeploymentsBreadcrumbs/>} />
-        <AlertPanel
-          title="No active deployments">
+        <AlertPanel>
+          <AlertPanelHeader>No active deployments</AlertPanelHeader>
           <p className="flush">Active deployments will be shown here.</p>
         </AlertPanel>
       </Page>

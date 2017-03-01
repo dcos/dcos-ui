@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
+import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHeader';
 
 const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
 
@@ -18,8 +19,8 @@ const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
   );
 
   return (
-    <AlertPanel
-      title="No running services">
+    <AlertPanel>
+      <AlertPanelHeader>No running services</AlertPanelHeader>
       <p className="tall">
         Run a new service or create a new group to help organize your services.
       </p>
