@@ -2,6 +2,7 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
+import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Networking from '../../../../../src/js/constants/Networking';
 import {
   getColumnClassNameFn,
@@ -11,6 +12,7 @@ import {
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 
 function getNetworkType(networkType, appDefinition) {
   networkType = networkType || Networking.type.HOST;
@@ -60,10 +62,6 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: 'ipAddress.networkName',
           label: 'Network Name'
-        },
-        {
-          heading: 'Service Endpoints',
-          headingLevel: 2
         },
         {
           key: 'portDefinitions',
@@ -181,13 +179,23 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               });
             }
 
-            return (
+            if (ValidatorUtil.isEmpty(portDefinitions)) {
+              return;
+            }
+
+            return [
+              <ConfigurationMapHeading
+                key="service-endpoints-heading"
+                level={2}>
+
+                Service Endpoints
+              </ConfigurationMapHeading>,
               <Table
                 key="service-endpoints"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={portDefinitions} />
-            );
+            ];
           }
         }
       ]
