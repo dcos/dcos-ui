@@ -423,7 +423,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     }
 
     return (
-      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+      <div className="modal--install-package__review__wrapper">
         <ReviewConfig
           packageIcon={cosmosPackage.getIcons()['icon-small']}
           packageName={name}

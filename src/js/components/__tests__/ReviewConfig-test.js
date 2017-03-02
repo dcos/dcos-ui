@@ -1,3 +1,9 @@
+jest.dontMock('../ConfigurationMap');
+jest.dontMock('../ConfigurationMapRow');
+jest.dontMock('../ConfigurationMapHeading');
+jest.dontMock('../ConfigurationMapLabel');
+jest.dontMock('../ConfigurationMapValue');
+jest.dontMock('../HashMapDisplay');
 jest.dontMock('../ReviewConfig');
 
 /* eslint-disable no-unused-vars */
@@ -5,6 +11,7 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
+const ConfigurationMap = require('../ConfigurationMap');
 const ReviewConfig = require('../ReviewConfig');
 
 describe('ReviewConfig', function () {
@@ -17,40 +24,23 @@ describe('ReviewConfig', function () {
   });
 
   describe('#getDefinitionReview', function () {
-    it('renders a subheader for a nested document', function () {
-      var normalDocument = {
-        'application': {
-          'normal': 'value',
-          'normal2': 'value2',
-          'normal3': 'value3'
+    it('renders a configuration map', function () {
+      var configuration = {
+        'foo': {
+          'bar': 'baz',
+          'qux': 'quux',
+          'corgly': 'grault'
         }
       };
 
       var instance = ReactDOM.render(
-        <ReviewConfig configuration={normalDocument} />,
+        <ReviewConfig configuration={configuration} />,
         this.container
       );
 
       var result = instance.getDefinitionReview();
-      expect(result.length).toEqual(4);
-    });
 
-    it('renders a subheader for a nested document', function () {
-      var nestedDocument = {
-        'application': {
-          'nested': {
-            'name': 'trueValue'
-          }
-        }
-      };
-
-      var instance = ReactDOM.render(
-        <ReviewConfig configuration={nestedDocument} />,
-        this.container
-      );
-
-      var result = instance.getDefinitionReview();
-      expect(result.length).toEqual(3);
+      expect(result.type instanceof ConfigurationMap.constructor).toBeTruthy();
     });
   });
 });
