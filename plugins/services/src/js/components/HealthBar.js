@@ -81,7 +81,7 @@ class HealthBar extends React.Component {
     return (
       <Tooltip interactive={true} content={this.renderToolTip()}>
         <StatusBar
-          className="status-bar-large"
+          className="status-bar--large"
           data={this.getMappedTasksSummary(tasksSummary)}
           scale={instancesCount}/>
       </Tooltip>

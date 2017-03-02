@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
 
 import {DCOSStore} from 'foundation-ui';
+import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
 import HealthBar from './HealthBar';
 import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
@@ -35,9 +37,11 @@ function getHealthStatus(service) {
   }
 
   return (
-    <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
-      {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
-      <ServiceStatusWarningWithDebugInformation item={service} />
+    <div className="page-header__breadcrumb-status page-header-breadcrumb-content-secondary muted">
+      <span className="page-header__breadcrumb-status__copy">
+        {`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
+        <ServiceStatusWarningWithDebugInformation item={service} />
+      </span>
       <HealthBar isDeploying={isDeploying}
         tasksSummary={tasksSummary}
         instancesCount={instancesCount}/>
@@ -51,16 +55,23 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   let aggregateIDs = '';
 
   const crumbs = [
-    <Link to="/services" key={-1}>Services</Link>
+    <Breadcrumb key={-1} title="Services">
+      <Link to="/services">Services</Link>
+    </Breadcrumb>
   ];
 
   if (serviceID != null && trimmedServiceID.length > 0) {
     const serviceCrumbs = ids.map(function (id, index) {
       let serviceIDNode = id;
+      const shouldShowStatusBar = index === ids.length - 1;
+      const linkClasses = classNames({'text-overflow': !shouldShowStatusBar});
+      const wrapperClasses = classNames({
+        'page-header-breadcrumb--has-status-bar': shouldShowStatusBar
+      });
       let breadcrumbHealth = null;
       let serviceImage = null;
 
-      if (index === ids.length - 1) {
+      if (shouldShowStatusBar) {
         const service = DCOSStore.serviceTree.findItemById(serviceID);
 
         breadcrumbHealth = getHealthStatus(service);
@@ -79,12 +90,16 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
       aggregateIDs += encodeURIComponent(`/${id}`);
 
       return (
-        <div>
-          <Link to={`/services/overview/${aggregateIDs}`} key={index}>
-            {serviceIDNode}
-          </Link>
-          {breadcrumbHealth}
-        </div>
+        <Breadcrumb key={index} title={ids.slice(0, index + 1).join('/')}>
+          <div className={wrapperClasses}>
+            <Link
+              className={linkClasses}
+              to={`/services/overview/${aggregateIDs}`}>
+              {serviceIDNode}
+            </Link>
+            {breadcrumbHealth}
+          </div>
+        </Breadcrumb>
       );
     });
 
@@ -94,16 +109,24 @@ const ServiceBreadcrumbs = ({serviceID, taskID, taskName}) => {
   if (taskID != null && taskName != null) {
     const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
-      <Link
-        to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
-        index={taskID}>
-        {taskName}
-      </Link>
+      <Breadcrumb
+        key={trimmedServiceID.length + 1}
+        title={taskID}>
+        <Link
+          to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
+          index={taskID}>
+          {taskName}
+        </Link>
+      </Breadcrumb>
     );
   }
 
-  return <PageHeaderBreadcrumbs iconID="services" breadcrumbs={crumbs} />;
-
+  return (
+    <PageHeaderBreadcrumbs
+      iconID="services"
+      iconRoute="/services"
+      breadcrumbs={crumbs} />
+  );
 };
 
 module.exports = ServiceBreadcrumbs;

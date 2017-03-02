@@ -1,0 +1,256 @@
+& when (@page-header-enabled) {
+
+  .breadcrumbs {
+    align-items: center;
+    color: @page-header-breadcrumbs-color;
+    display: flex;
+    flex: 1 1 auto;
+    font-size: @page-header-breadcrumbs-font-size;
+    font-weight: @page-header-breadcrumbs-font-weight;
+    list-style: none;
+    margin-bottom: 0;
+    min-width: 0;
+
+    a {
+      color: @page-header-breadcrumbs-link-color;
+      text-decoration: none;
+
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .breadcrumb {
+    // Hide all breadcrumbs on mobile devices, except the first last.
+    display: none;
+    flex: 0 1 auto;
+    line-height: normal;
+    margin: 0 @page-header-breadcrumbs-margin-right 0 0;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+
+    &:first-child,
+    &:last-child {
+      display: flex;
+    }
+
+    &:first-child {
+
+      & + .breadcrumb {
+
+        &--is-caret {
+          display: flex;
+        }
+      }
+    }
+
+    &:last-child {
+      margin-right: 0;
+      min-width: 0;
+    }
+
+    &--is-caret,
+    &--is-icon {
+      flex: 0 0 auto;
+    }
+
+    &--force-ellipsis {
+      min-width: 1.2rem;
+      position: relative;
+      width: 1.2rem;
+
+      .breadcrumb {
+        margin-right: 0;
+
+        &__content {
+
+          &--text {
+
+            // When we force an ellipsis, we still want the native click
+            // behavior, so we stretch the anchor tag to fill the breadcrumb
+            // and display the ellipsis in its place.
+            &:after {
+              content: '...';
+              display: block;
+              position: relative;
+              z-index: 1;
+            }
+
+            a {
+              bottom: 0;
+              left: 0;
+              opacity: 0;
+              position: absolute;
+              right: 0;
+              top: 0;
+              z-index: 2;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      display: block;
+      flex: 0 0 auto;
+      margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal;
+      min-width: 1.2rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &--text {
+        flex: 0 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &--supplemental {
+        align-items: center;
+        display: flex;
+      }
+
+      &--has-status-bar {
+        color: @page-header-breadcrumbs-muted-color;
+        display: flex;
+        flex: 1 1 auto;
+        font-weight: @page-header-breadcrumbs-muted-font-weight;
+        min-width: 0;
+
+        .tooltip-wrapper {
+          align-items: center;
+          display: flex;
+          flex: 0 1 @page-header-breadcrumb-status-bar-width;
+          padding: @base-spacing-unit * 1/4 0;
+          width: @page-header-breadcrumb-status-bar-width;
+        }
+
+        .status-bar {
+          flex: 1 1 auto;
+          height: @page-header-breadcrumb-status-bar-height;
+          vertical-align: middle;
+          width: auto;
+        }
+      }
+    }
+
+    .emphasis {
+      color: @page-header-breadcrumbs-emphasis-color;
+      font-weight: @page-header-breadcrumbs-emphasis-font-weight;
+    }
+
+    &.inverse {
+      color: @page-header-breadcrumbs-inverse-color;
+
+      .emphasis {
+        color: @page-header-breadcrumbs-inverse-emphasis-color;
+      }
+
+      .muted {
+        color: @page-header-breadcrumbs-inverse-muted-color;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
+
+      .breadcrumb {
+        margin-right: @page-header-breadcrumbs-margin-right-screen-small;
+
+        &__content {
+          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-small;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
+
+      .breadcrumbs {
+
+        &--is-truncated {
+
+          .breadcrumb {
+
+            &:first-child {
+
+              & + .breadcrumb {
+
+                &--is-caret {
+                  display: flex;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .breadcrumb {
+        display: flex;
+        margin-right: @page-header-breadcrumbs-margin-right-screen-medium;
+
+        &:first-child {
+
+          & + .breadcrumb {
+
+            &--is-caret {
+              display: none;
+            }
+          }
+        }
+
+        &__content {
+          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-medium;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
+
+      .breadcrumb {
+        margin-right: @page-header-breadcrumbs-margin-right-screen-large;
+
+        &__content {
+          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-large;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
+
+      .breadcrumb {
+        margin-right: @page-header-breadcrumbs-margin-right-screen-jumbo;
+
+        &__content {
+          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-jumbo;
+        }
+      }
+    }
+  }
+}
