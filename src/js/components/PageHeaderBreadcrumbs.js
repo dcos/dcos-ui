@@ -33,7 +33,6 @@ class PageHeaderBreadcrumbs extends React.Component {
 
       if (shouldTruncateBreadcrumbs && index === breadcrumbCount - 3) {
         memo.push(
-          this.getCaret('first-caret--truncated'),
           (
             <Tooltip
               content={breadcrumb.props.title}
