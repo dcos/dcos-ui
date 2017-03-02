@@ -117,7 +117,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <AlertPanel title="An Error Occurred">
-        <CosmosErrorMessage error={errorMessage} />
+        <CosmosErrorMessage error={errorMessage} flushBottom={true} />
       </AlertPanel>
     );
   }

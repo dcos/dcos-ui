@@ -97,7 +97,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     return (
       <CosmosErrorMessage
         error={packageUninstallError}
-        flushBottom={false} />
+        flushBottom={true} />
     );
   }
 
