@@ -148,7 +148,7 @@ class ServiceBreadcrumbs extends React.Component {
     return (
       <BreadcrumbSupplementalContent>
         <Link to={`/services/overview/${serviceLink}`}>
-          <span className="icon icon-small icon-image-container icon-app-container page-header-breadcrumb-item-icon">
+          <span className="icon icon-small icon-image-container icon-app-container">
             <img src={service.getImages()['icon-small']}/>
           </span>
         </Link>
