@@ -525,8 +525,7 @@ class NewCreateServiceModalForm extends Component {
 
     return (
       <div className="flex flex-item-grow-1">
-        <div
-          className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
+        <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
               <form
