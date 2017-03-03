@@ -1,20 +1,30 @@
 import {Link} from 'react-router';
 import React from 'react';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import Page from '../../components/Page';
 import UnitsHealthNodeDetail from '../../components/UnitsHealthNodeDetail';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 
 const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
   const crumbs = [
-    <Link to="/components" key={-1}>Components</Link>
+    <Breadcrumb key={0} title="Components">
+      <BreadcrumbTextContent>
+        <Link to="/components">Components</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   if (unit != null) {
     const unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Link to={`/components/${unit.get('id')}`} key={-1}>{unitTitle}</Link>
+      <Breadcrumb key={1} title={unitTitle}>
+        <BreadcrumbTextContent>
+          <Link to={`/components/${unit.get('id')}`}>{unitTitle}</Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   }
 
@@ -23,12 +33,16 @@ const UnitHealthNodeDetailBreadcrumbs = ({node, unit}) => {
     const healthStatus = node.getHealth();
 
     crumbs.push(
-      <Link to={`/components/${unit.get('id')}/${nodeIP}`} key={1}>
-        {`${nodeIP} `}
-        <span className={healthStatus.classNames}>
-          ({healthStatus.title})
-        </span>
-      </Link>
+      <Breadcrumb key={2} title={nodeIP}>
+        <BreadcrumbTextContent>
+          <Link to={`/components/${unit.get('id')}/${nodeIP}`}>
+            {`${nodeIP} `}
+            <span className={healthStatus.classNames}>
+              ({healthStatus.title})
+            </span>
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   }
 

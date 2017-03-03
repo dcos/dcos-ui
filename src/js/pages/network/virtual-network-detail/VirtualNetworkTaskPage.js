@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import Breadcrumb from '../../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../../components/BreadcrumbTextContent';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Page from '../../../components/Page';
 import TaskDetail from '../../../../../plugins/services/src/js/pages/task-details/TaskDetail';
@@ -13,30 +15,54 @@ const dontScrollRoutes = [
 
 const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
   const crumbs = [
-    <Link to="/networking/networks" key={-1}>Networks</Link>
+    <Breadcrumb key={0} title="Networks">
+      <BreadcrumbTextContent>
+        <Link to="/networking/networks">Networks</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   let overlayName = overlayID;
   if (overlay) {
     overlayName = overlay.getName();
     crumbs.push(
-      <Link to={`/networking/networks/${overlayName}`} key={0}>
-        {overlayName}
-      </Link>
+      <Breadcrumb key={1} title={overlayName}>
+        <BreadcrumbTextContent>
+          <Link to={`/networking/networks/${overlayName}`}>
+            {overlayName}
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   } else {
-    crumbs.push(<span>{overlayID}</span>);
+    crumbs.push(
+      <Breadcrumb key={1} title={overlayID}>
+        <BreadcrumbTextContent>
+          {overlayID}
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    );
   }
 
   if (task) {
     const taskName = task.getName();
     crumbs.push(
-      <Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>
-        {taskName}
-      </Link>
+      <Breadcrumb key={2} title={taskName}>
+        <BreadcrumbTextContent>
+          <Link to={`/networking/networks/${overlayName}/tasks/${taskName}`}>
+            {taskName}
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   } else {
-    crumbs.push(<span>{taskID}</span>);
+    crumbs.push(
+      <Breadcrumb key={2} title={taskID}>
+        <BreadcrumbTextContent>
+          {taskID}
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    );
   }
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;

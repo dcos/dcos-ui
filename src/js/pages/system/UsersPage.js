@@ -6,6 +6,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import Loader from '../../components/Loader';
 import OrganizationTab from './OrganizationTab';
 import Page from '../../components/Page';
@@ -19,7 +21,11 @@ const METHODS_TO_BIND = [
 
 const UsersBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/organization/users" key={-1}>Users</Link>
+    <Breadcrumb key={0} title="Users">
+      <BreadcrumbTextContent>
+        <Link to="/organization/users">Users</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;

@@ -5,6 +5,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
 import Image from '../../components/Image';
@@ -21,13 +23,21 @@ const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
   const version = cosmosPackage.getCurrentVersion();
 
   const crumbs = [
-    <Link to="/universe/packages" key={-1}>Packages</Link>,
-    <Link
-      to={`/universe/packages/${name}`}
-      query={{version}}
-      key={0}>
-      {name}
-    </Link>
+    <Breadcrumb key={0} title="Packages">
+      <BreadcrumbTextContent>
+        <Link to="/universe/packages">Packages</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>,
+    <Breadcrumb key={1} title={name}>
+      <BreadcrumbTextContent>
+        <Link
+          to={`/universe/packages/${name}`}
+          query={{version}}
+          key={0}>
+          {name}
+        </Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;

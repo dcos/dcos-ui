@@ -6,6 +6,8 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
@@ -17,7 +19,11 @@ import VirtualNetworksTable from './VirtualNetworksTable';
 
 const NetworksBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/networking/networks" key={-1}>Networks</Link>
+    <Breadcrumb key={0} title="Networks">
+      <BreadcrumbTextContent>
+        <Link to="/networking/networks">Networks</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;

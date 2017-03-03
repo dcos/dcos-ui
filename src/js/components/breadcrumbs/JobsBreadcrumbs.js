@@ -3,15 +3,20 @@ import prettycron from 'prettycron';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbSupplementalContent from '../../components/BreadcrumbSupplementalContent';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import Icon from '../Icon';
 import PageHeaderBreadcrumbs from '../../components/PageHeaderBreadcrumbs';
 
 function getJobStatus(jobStatus) {
   if (jobStatus != null) {
     return (
-      <div className="service-page-header-status page-header-breadcrumb-content-secondary muted">
-        {`(${jobStatus})`}
-      </div>
+      <BreadcrumbSupplementalContent>
+        <div className="service-page-header-status muted">
+          ({jobStatus})
+        </div>
+      </BreadcrumbSupplementalContent>
     );
   }
 
@@ -24,16 +29,17 @@ function getJobSchedule(jobSchedules) {
 
     if (schedule.enabled) {
       return (
-        <Tooltip
-          wrapperClassName="tooltip-wrapper icon icon-margin-left"
-          content={prettycron.toString(schedule.cron)}
-          maxWidth={250}
-          wrapText={true}>
-          <Icon
-            color="grey"
-            id="repeat"
-            size="mini" />
-        </Tooltip>
+        <BreadcrumbSupplementalContent>
+          <Tooltip
+            content={prettycron.toString(schedule.cron)}
+            maxWidth={250}
+            wrapText={true}>
+            <Icon
+              color="grey"
+              id="repeat"
+              size="mini" />
+          </Tooltip>
+        </BreadcrumbSupplementalContent>
       );
     }
   }
@@ -45,7 +51,11 @@ const JobsBreadcrumbs = (props) => {
   const {jobID, taskID, taskName, jobSchedules, jobStatus} = props;
   let aggregateIDs = '';
   const crumbs = [
-    <Link to="/jobs">Jobs</Link>
+    <Breadcrumb key={0} title="Jobs">
+      <BreadcrumbTextContent>
+        <Link to="/jobs">Jobs</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   if (jobID != null && jobID.length > 0) {
@@ -66,11 +76,13 @@ const JobsBreadcrumbs = (props) => {
       }
 
       return (
-        <div>
-          <Link to={`/jobs/${aggregateIDs}`} key={index}>{id}</Link>
+        <Breadcrumb key={index + 1} title="Identity Providers">
+          <BreadcrumbTextContent>
+            <Link to={`/jobs/${aggregateIDs}`} key={index}>{id}</Link>
+          </BreadcrumbTextContent>
           {scheduleIcon}
           {status}
-        </div>
+        </Breadcrumb>
       );
     });
     crumbs.push(...jobsCrumbs);
@@ -79,9 +91,13 @@ const JobsBreadcrumbs = (props) => {
   if (taskID != null && taskName != null) {
     const encodedTaskID = encodeURIComponent(taskID);
     crumbs.push(
-      <Link to={`/jobs/${aggregateIDs}/tasks/${encodedTaskID}`}>
-        {taskName}
-      </Link>
+      <Breadcrumb key="task-name" title={taskName}>
+        <BreadcrumbTextContent>
+          <Link to={`/jobs/${aggregateIDs}/tasks/${encodedTaskID}`}>
+            {taskName}
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   }
 

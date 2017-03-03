@@ -1,30 +1,28 @@
+import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import Breadcrumb from './Breadcrumb';
+import BreadcrumbCaret from './BreadcrumbCaret';
 import Icon from './Icon';
 
 class PageHeaderBreadcrumbs extends React.Component {
   getCaret(key) {
     return (
-      <li className="page-header-breadcrumb page-header-breadcrumb-caret"
-        key={`caret-${key}`}>
-        <Icon color="light-grey" id="caret-right" size="mini" />
-      </li>
+      <BreadcrumbCaret key={`caret-${key}`} />
     );
   }
 
   render() {
     const {props: {breadcrumbs, iconID, iconRoute}} = this;
     const breadcrumbCount = breadcrumbs.length;
-    const containerIcon = (
-      <li
-        className="page-header-breadcrumb page-header-breadcrumb-icon"
-        key="-1">
+    const sectionIcon = (
+      <Breadcrumb key={-1} isIcon={true} title="Section Icon">
         <Link to={iconRoute}>
           <Icon family="product" id={iconID} size="small" />
         </Link>
-      </li>
+      </Breadcrumb>
     );
     const shouldTruncateBreadcrumbs = breadcrumbCount > 3;
 
@@ -35,13 +33,11 @@ class PageHeaderBreadcrumbs extends React.Component {
 
       if (shouldTruncateBreadcrumbs && index === breadcrumbCount - 3) {
         memo.push(
-          this.getCaret('first-caret--truncated'),
           (
             <Tooltip
               content={breadcrumb.props.title}
-              elementTag="li"
               key="breadcrumb-ellipsis"
-              wrapperClassName="page-header-breadcrumb page-header-breadcrumb--force-ellipsis h3">
+              wrapperClassName="breadcrumb breadcrumb--force-ellipsis">
               {breadcrumb}
             </Tooltip>
           ),
@@ -53,23 +49,24 @@ class PageHeaderBreadcrumbs extends React.Component {
         return memo;
       }
 
-      memo.push(
-        <li className="page-header-breadcrumb h3" key={index}>
-          {breadcrumb}
-        </li>
-      );
+      memo.push(React.cloneElement(breadcrumb, {key: index}));
 
       if (index !== breadcrumbs.length - 1) {
         memo.push(this.getCaret(index));
       }
 
       return memo;
-    }, [containerIcon]);
+    }, [sectionIcon]);
+
+    const breadcrumbClasses = classNames(
+      'breadcrumbs',
+      {'breadcrumbs--is-truncated': shouldTruncateBreadcrumbs}
+    );
 
     return (
-      <ul className="page-header-breadcrumbs">
+      <div className={breadcrumbClasses}>
         {breadcrumbElements}
-      </ul>
+      </div>
     );
   }
 }

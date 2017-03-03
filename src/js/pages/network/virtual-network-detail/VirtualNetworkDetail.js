@@ -5,6 +5,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../../components/BreadcrumbTextContent';
 import Loader from '../../../components/Loader';
 import Page from '../../../components/Page';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
@@ -14,16 +16,30 @@ import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 
 const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
   const crumbs = [
-    <Link to="/networking/networks" key={-1}>Networks</Link>
+    <Breadcrumb key={0} title="Networks">
+      <BreadcrumbTextContent>
+        <Link to="/networking/networks">Networks</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   if (overlay) {
     const name = overlay.getName();
     crumbs.push(
-      <Link to={`/networking/networks/${name}`} key={0}>{name}</Link>
+      <Breadcrumb key={1} title={name}>
+        <BreadcrumbTextContent>
+          <Link to={`/networking/networks/${name}`}>{name}</Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
     );
   } else {
-    crumbs.push(<span>{overlayID}</span>);
+    crumbs.push(
+      <Breadcrumb key={1} title={overlayID}>
+        <BreadcrumbTextContent>
+          {overlayID}
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    );
   }
 
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;

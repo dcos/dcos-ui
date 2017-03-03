@@ -7,6 +7,8 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumb from '../../components/Breadcrumb';
+import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import CreateServiceModalUniversePanelOption from '../../components/CreateServiceModalUniversePanelOption';
@@ -22,7 +24,11 @@ import StringUtil from '../../utils/StringUtil';
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/universe/packages" key={-1}>Packages</Link>
+    <Breadcrumb key={0} title="Packages">
+      <BreadcrumbTextContent>
+        <Link to="/universe/packages">Packages</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;

@@ -9,6 +9,8 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
+import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
+import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
 import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
 import Loader from '../../../../../../src/js/components/Loader';
@@ -55,7 +57,11 @@ function columnClassNameGetter(prop, sortBy, row) {
 
 const DeploymentsBreadcrumbs = () => {
   const crumbs = [
-    <Link to="/services/deployments" key={0}>Deployments</Link>
+    <Breadcrumb key={0} title="Deployments">
+      <BreadcrumbTextContent>
+        <Link to="/services/deployments">Deployments</Link>
+      </BreadcrumbTextContent>
+    </Breadcrumb>
   ];
 
   return <Page.Header.Breadcrumbs iconID="services" breadcrumbs={crumbs} />;
