@@ -92,7 +92,7 @@ class CreateServiceJsonOnly extends React.Component {
 
   render() {
     const {appConfig} = this.state;
-    const {errors} = this.props;
+    const {errors, onPropertyChange} = this.props;
 
     return (
       <div className="create-service-modal-json-only container container-wide">
@@ -108,6 +108,7 @@ class CreateServiceJsonOnly extends React.Component {
             errors={errors}
             onChange={this.handleJSONChange}
             onErrorStateChange={this.handleJSONErrorStateChange}
+            onPropertyChange={onPropertyChange}
             showGutter={true}
             showPrintMargin={false}
             theme="monokai"
@@ -120,13 +121,15 @@ class CreateServiceJsonOnly extends React.Component {
 
 CreateServiceJsonOnly.defaultProps = {
   onChange() {},
-  onErrorsChange() {}
+  onErrorsChange() {},
+  onPropertyChange() {}
 };
 
 CreateServiceJsonOnly.propTypes = {
   errors: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   onErrorsChange: PropTypes.func,
+  onPropertyChange: PropTypes.func,
   service: PropTypes.object
 };
 
