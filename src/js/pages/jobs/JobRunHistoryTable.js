@@ -386,7 +386,8 @@ class JobRunHistoryTable extends React.Component {
           checkedItemsMap={this.state.checkedItems}
           disabledItemsMap={disabledItems}
           onCheckboxChange={this.handleItemCheck}
-          sortBy={{prop: 'startedAt', order: 'desc'}}
+          sortOrder="desc"
+          sortProp="startedAt"
           tableComponent={CheckboxTable} />
         {this.getStopRunModal(checkedItems, hasCheckedTasks)}
       </div>
