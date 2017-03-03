@@ -282,7 +282,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     }
 
     return (
-      <p className="small flush-bottom">
+      <p className="small text-align-left flush-bottom">
         {notes}{this.getPreInstallNotesToggle(truncated, notes)}
       </p>
     );
@@ -353,7 +353,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     return (
       <div>
         <div className="modal-body">
-          <div className="horizontal-center">
+          <div className="text-align-center">
             <div className="icon icon-jumbo icon-image-container icon-app-container">
               <Image
                 fallbackSrc={defaultServiceImage}
