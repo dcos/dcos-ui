@@ -1,9 +1,4 @@
 jest.dontMock('../ConfigurationMap');
-jest.dontMock('../ConfigurationMapRow');
-jest.dontMock('../ConfigurationMapHeading');
-jest.dontMock('../ConfigurationMapLabel');
-jest.dontMock('../ConfigurationMapValue');
-jest.dontMock('../HashMapDisplay');
 jest.dontMock('../ReviewConfig');
 
 /* eslint-disable no-unused-vars */
