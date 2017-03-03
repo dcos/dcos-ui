@@ -55,6 +55,13 @@ describe('CreateServiceModalFormUtil', function () {
       expect(patched).toEqual({a: 'foo', b: 'bar'});
     });
 
+    it('should replace with `null` if given as patch', function () {
+      const data = {a: 'foo'};
+      const patch = null;
+      const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual(null);
+    });
+
     describe('Array Clean-ups', function () {
       EMPTY_TYPES.forEach(function (emptyType) {
         const emptyTypeStr = getTypeName(emptyType);
