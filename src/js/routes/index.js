@@ -1,7 +1,6 @@
 import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
-import cluster from './cluster';
 import components from './components';
 import dashboard from './dashboard';
 import Index from '../pages/Index';
@@ -14,6 +13,7 @@ import {RoutingService} from '../../../foundation-ui/routing';
 import services from '../../../plugins/services/src/js/routes/services';
 import settings from './settings';
 import styles from './styles'; // eslint-disable-line
+import systemOverview from './system-overview';
 import universe from './universe';
 
 // Modules that produce routes
@@ -32,7 +32,7 @@ function getApplicationRoutes() {
     jobs,
     nodes,
     universe,
-    cluster,
+    systemOverview,
     components,
     settings
     // Plugins routes will be appended to this array

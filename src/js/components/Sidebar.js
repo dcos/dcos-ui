@@ -29,7 +29,7 @@ const defaultMenuItems = [
   '/nodes',
   '/networking',
   '/security',
-  '/cluster',
+  '/system-overview',
   '/components',
   '/settings',
   '/organization'

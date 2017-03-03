@@ -2,16 +2,16 @@ import React from 'react';
 
 import Icon from '../components/Icon';
 
-class ClusterPage extends React.Component {
+class SystemOverviewPage extends React.Component {
   render() {
     return this.props.children;
   }
 }
 
-ClusterPage.routeConfig = {
-  label: 'Cluster',
+SystemOverviewPage.routeConfig = {
+  label: 'System Overview',
   icon: <Icon id="cluster-inverse" size="small" family="product" />,
-  matches: /^\/cluster/
+  matches: /^\/system-overview/
 };
 
-module.exports = ClusterPage;
+module.exports = SystemOverviewPage;
