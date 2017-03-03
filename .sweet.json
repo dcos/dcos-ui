@@ -1,0 +1,48 @@
+{
+  "name": "dcos-ui",
+  "title": "DC/OS User Interface",
+
+  "isolation": {
+    "type": "none",
+    "scripts": {
+      "setup": "bash si-tests/setup.sh"
+    },
+    "none": {
+      "wrapper": "(source .env/bin/activate; {})"
+    },
+    "files": [
+      "si-tests"
+    ]
+  },
+
+  "scripts": {
+    "setup": "dcos config set core.dcos_url $CLUSTER_URL; dcos config set core.ssl_verify False; echo dcos_acs_token = \\\"$CLUSTER_AUTH_TOKEN\\\" >> ~/.dcos/dcos.toml"
+  },
+
+  "components": [
+    {
+      "name": "ui.services"
+    },
+    {
+      "name": "ui.services.apps"
+    }
+  ],
+
+  "tests": [
+    {
+      "name": "marathon.services.apps",
+      "component": "ui.services.apps",
+      "cluster": "ee",
+      "report": "si-tests/cypress/results.xml",
+      "run": "cd si-tests && cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --reporter junit --reporter-options \"mochaFile=cypress/results.xml\" --spec marathon/services/apps.js",
+      "output": [
+        "si-tests/cypress"
+      ],
+      "scripts": {
+        "setup": "echo \"{\\\"id\\\": \\\"/$TEST_UUID\\\"}\" | dcos marathon group add",
+        "teardown": "dcos marathon group remove --force /$TEST_UUID"
+      }
+    }
+  ]
+
+}
