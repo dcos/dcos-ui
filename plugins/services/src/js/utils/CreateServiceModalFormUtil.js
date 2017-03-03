@@ -184,7 +184,7 @@ const CreateServiceModalFormUtil = {
     }
 
     // Non-object types just pass through
-    if (typeof patch !== 'object') {
+    if (typeof patch !== 'object' || patch === null) {
       return patch;
     }
 
