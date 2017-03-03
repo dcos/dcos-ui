@@ -1,7 +1,7 @@
-import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
+import ConfigurationMap from './ConfigurationMap';
 import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import HashMapDisplay from './HashMapDisplay';
 import Icon from './Icon';
@@ -71,54 +71,12 @@ class ReviewConfig extends React.Component {
     );
   }
 
-  getFieldTitle(title, index) {
-    const classes = classNames({'flush-top': index === 0});
-
-    return <h3 className={classes} key={`${title}-header`}>{title}</h3>;
-  }
-
-  getFieldSubheader(title) {
-    return (<h5 key={`${title}-subheader`}>{title}</h5>);
-  }
-
   getDefinitionReview() {
-    var elementsToRender = [];
-    const {configuration} = this.props;
-    const fields = Object.keys(configuration);
-
-    fields.forEach((field, i) => {
-      var fieldObj = configuration[field];
-      elementsToRender.push(this.getFieldTitle(field, i));
-
-      Object.keys(fieldObj).forEach((fieldKey) => {
-        let fieldValue = fieldObj[fieldKey];
-        const uniqueKey = `${i}${fieldKey}`;
-
-        if (typeof fieldValue === 'object' && !Array.isArray(fieldValue)
-          && fieldValue !== null) {
-          elementsToRender.push(
-            this.getFieldSubheader(fieldKey),
-            this.renderHashMapDisplay(fieldValue, uniqueKey)
-          );
-
-          return;
-        }
-
-        if (Array.isArray(fieldValue)) {
-          fieldValue = fieldValue.join(' ');
-        }
-
-        elementsToRender.push(
-          this.renderHashMapDisplay({[fieldKey]: fieldValue}, uniqueKey)
-        );
-      });
-    });
-
-    return elementsToRender;
-  }
-
-  renderHashMapDisplay(hash, key) {
-    return <HashMapDisplay hash={hash} key={key} />;
+    return (
+      <ConfigurationMap>
+        <HashMapDisplay hash={this.props.configuration} />
+      </ConfigurationMap>
+    );
   }
 
   render() {
