@@ -2542,11 +2542,6 @@
       "from": "esprima-fb@13001.1001.0-dev-harmony-fb",
       "resolved": "https://registry.npmjs.org/esprima-fb/-/esprima-fb-13001.1001.0-dev-harmony-fb.tgz"
     },
-    "esprima-walk": {
-      "version": "0.1.0",
-      "from": "esprima-walk@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/esprima-walk/-/esprima-walk-0.1.0.tgz"
-    },
     "esrecurse": {
       "version": "4.1.0",
       "from": "esrecurse@>=4.1.0 <5.0.0",

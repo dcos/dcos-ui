@@ -5,7 +5,6 @@
 const colors = require('colors');
 const esprima = require('esprima');
 const fs = require('fs');
-const walk = require('esprima-walk');
 
 /**
  * Load the Abstract Syntax Tree from the javascript file given
@@ -25,24 +24,6 @@ function loadAST(file) {
 
     return false;
   }
-}
-
-/**
- * Collect all comments from the AST
- *
- * @param {ASTTree} ast - The AST tree
- * @returns {Array<ASTNode>} Returns the comment AST nodes
- */
-function loadComments(ast) {
-  let comments = [];
-
-  walk(ast, function (node) {
-    if (node && node.comments) {
-      comments = comments.concat(node.comments);
-    }
-  });
-
-  return comments;
 }
 
 /**
@@ -81,7 +62,7 @@ function isMinified(file) {
     return false;
   }
 
-  const comments = loadComments(ast);
+  const comments = ast.comments;
   if (comments.length === 0) {
     return true;
   }
