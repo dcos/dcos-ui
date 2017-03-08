@@ -232,6 +232,18 @@ const Util = {
 
       return memo;
     }, {});
+  },
+
+  objectToGetParams(obj) {
+    const queryString = Object.keys(obj).filter(function (param) {
+      return obj[param] != null;
+    }).map(function (param) {
+      return `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`;
+    }).join('&');
+
+    return queryString
+      ? `?${queryString}`
+      : '';
   }
 };
 

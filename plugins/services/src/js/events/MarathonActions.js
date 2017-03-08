@@ -211,19 +211,21 @@ var MarathonActions = {
     }
 
     let url = buildURI(`/apps/${service.getId()}`);
+    const params = {
+      force,
+      patchUpdate: false // Switching Marathon edit endpoint into proper PUT
+    };
 
     if (service instanceof Pod) {
       url = buildURI(`/pods/${service.getId()}`);
     }
 
-    if (force === true) {
-      url += '?force=true';
-    }
+    url = url + Util.objectToGetParams(params);
 
     RequestUtil.json({
       url,
       method: 'PUT',
-      data:spec,
+      data: spec,
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
