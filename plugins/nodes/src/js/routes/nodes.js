@@ -208,7 +208,7 @@ const nodesRoutes = {
           component: TaskLogsContainer,
           hideHeaderNavigation: true,
           isTab: true,
-          path: 'logs(/:filePath)',
+          path: 'logs',
           title: 'Logs',
           type: Route,
           buildBreadCrumb() {
@@ -216,7 +216,13 @@ const nodesRoutes = {
               parentCrumb: '/nodes/:nodeID/tasks/:taskID',
               getCrumbs() { return []; }
             };
-          }
+          },
+          children: [
+            {
+              path: ':filePath',
+              type: Route
+            }
+          ]
         },
         {
           component: VolumeTable,
