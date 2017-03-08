@@ -37,7 +37,7 @@ function getLogParameters(task, options) {
   }, options);
 }
 
-class TaskLogsTab extends mixin(StoreMixin) {
+class TaskSystemLogsContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -353,10 +353,10 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 }
 
-TaskLogsTab.propTypes = {
+TaskSystemLogsContainer.propTypes = {
   task: React.PropTypes.shape({
     slave_id: React.PropTypes.string
   })
 };
 
-module.exports = TaskLogsTab;
+module.exports = TaskSystemLogsContainer;

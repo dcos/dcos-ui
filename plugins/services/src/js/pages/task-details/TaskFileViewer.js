@@ -52,14 +52,18 @@ class TaskFileViewer extends React.Component {
   }
 
   getLogFiles() {
-    const {directory} = this.props;
+    const {directory, limitLogFiles} = this.props;
     const logViews = [];
     if (!directory) {
       return logViews;
     }
 
     directory.getItems().forEach((item) => {
-      if (!item.isLogFile()) {
+      const excludeFile = (
+        limitLogFiles.length > 0 &&
+        !limitLogFiles.includes(item.getName())
+      );
+      if (!item.isLogFile() || excludeFile) {
         return;
       }
 
@@ -202,11 +206,13 @@ TaskFileViewer.contextTypes = {
 };
 
 TaskFileViewer.defaultProps = {
+  limitLogFiles: [],
   task: {}
 };
 
 TaskFileViewer.propTypes = {
   directory: React.PropTypes.object,
+  limitLogFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
 };
