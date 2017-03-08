@@ -1,0 +1,56 @@
+{
+  "name": "dcos-ui",
+  "title": "DC/OS User Interface",
+
+  "isolation": {
+    "type": "shell",
+    "scripts": {
+      "setup": "bash si-tests/setup.sh"
+    },
+    "shell": {
+      "wrapper": "(source .env/bin/activate; {})"
+    },
+    "files": [
+      "si-tests"
+    ]
+  },
+
+  "components": [
+    {
+      "name": "dcos-ui.services"
+    },
+    {
+      "name": "dcos-ui.services.apps",
+      "depends": [
+        "adminrouter.services.apps"
+      ]
+    },
+    {
+      "name": "dcos-ui.services.pods",
+      "depends": [
+        "adminrouter.services.pods"
+      ]
+    }
+  ],
+
+  "tests": [
+    {
+      "name": "services.apps",
+      "cluster": {
+        "features": []
+      },
+      "results": {
+        "junit": "si-tests/cypress/results.xml",
+        "assets": [
+          "si-tests/cypress"
+        ]
+      },
+      "scripts": {
+        "setup": "bash si-tests/services/setup.sh",
+        "run": "cd si-tests && cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --reporter junit --reporter-options \"mochaFile=cypress/results.xml\" --spec services/test-*.js",
+        "teardown": "bash si-tests/services/teardown.sh"
+      }
+    }
+  ]
+
+}

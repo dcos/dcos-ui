@@ -39,6 +39,27 @@ Cypress.addChildCommand('configurationSection', function (elements, title, headi
 });
 
 /**
+ * Locate the input element in the form group that contains the string given
+ */
+Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
+  const compareLabel = label.toLowerCase();
+  const formGroup = elements.find('.form-group').filter(function (index, group) {
+    const groupLabel = Cypress.$(group).find('label');
+    if (groupLabel.length === 0) {
+      return false;
+    }
+
+    return groupLabel[0].innerText.trim().toLowerCase() === compareLabel;
+  });
+
+  // If nothing found, return empty selection
+  expect(formGroup).not.to.equal(null);
+
+  // If we found a form group, return the input element within
+  return formGroup.find('textarea, input, select');
+});
+
+/**
  * Return the value of the configuration row with the given name
  */
 Cypress.addChildCommand('configurationMapValue', function (elements, label) {
@@ -61,6 +82,9 @@ Cypress.addChildCommand('configurationMapValue', function (elements, label) {
   return Cypress.$(foundElements);
 });
 
+/**
+ * Locate a table row that contains the given string and return the entire row
+ */
 Cypress.addChildCommand('getTableRowThatContains', function (elements, tdContains) {
   let matchedRows = elements.find('tr');
 
@@ -73,6 +97,9 @@ Cypress.addChildCommand('getTableRowThatContains', function (elements, tdContain
   return Cypress.$(matchedRows);
 });
 
+/**
+ * Return all the <td> cells for the given column of the selected table
+ */
 Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) {
   const matchedRows = elements.find('tr');
   const headings = matchedRows.eq(0).find('th');
@@ -101,10 +128,17 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
     });
 });
 
+/**
+ * Return the text contents of all the selected elements
+ */
 Cypress.addChildCommand('contents', function (elements) {
   return elements.map((index, element) => element.innerText).get();
 });
 
+/**
+ * Extract the string from the given element (including ACE editor) and
+ * check if the parsed JSON equals to the given JSON object.
+ */
 Cypress.addChildCommand('shouldJsonMatch', function (elements, json) {
   cy.window().then(function (window) {
     elements.each(function (index, element) {
@@ -123,6 +157,9 @@ Cypress.addChildCommand('shouldJsonMatch', function (elements, json) {
   });
 });
 
+/**
+ * Trigger mouse over event on the selected elements
+ */
 Cypress.addChildCommand('triggerHover', function (elements) {
   elements.each(function (index, element) {
     fireEvent(element, 'mouseover');
