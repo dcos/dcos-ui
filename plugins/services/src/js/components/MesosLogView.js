@@ -1,22 +1,18 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import ReactDOM from 'react-dom';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DOMUtils from '../../../../../src/js/utils/DOMUtils';
-import EmptyLogScreen from './EmptyLogScreen';
-import Highlight from './Highlight';
+import LogView from './LogView';
 import Loader from '../../../../../src/js/components/Loader';
 import MesosLogStore from '../stores/MesosLogStore';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
-import Util from '../../../../../src/js/utils/Util';
+import {APPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const METHODS_TO_BIND = [
-  'handleGoToBottom',
+  'handleAtBottomChange',
   'handleGoToWorkingDirectory',
-  'handleLogContainerScroll',
+  'handleFetchPreviousLog',
   'onMesosLogStoreError',
   'onMesosLogStoreSuccess'
 ];
@@ -26,9 +22,11 @@ class MesosLogView extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
+      direction: APPEND,
       fullLog: null,
-      hasLoadingError: 0,
-      isAtBottom: true
+      isFetchingPrevious: false,
+      isLoading: true,
+      hasLoadingError: 0
     };
 
     this.store_listeners = [{
@@ -40,23 +38,16 @@ class MesosLogView extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-
-    this.handleLogContainerScroll = Util.throttle(
-      this.handleLogContainerScroll, 500
-    );
-
-    this.handleWindowResize = Util.debounce(
-      this.handleWindowResize.bind(this), 100
-    );
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    const {props} = this;
-    if (props.filePath) {
-      MesosLogStore.startTailing(props.task.slave_id, props.filePath);
+    const {filePath, task} = this.props;
+    if (!filePath) {
+      return;
     }
-    global.addEventListener('resize', this.handleWindowResize);
+
+    MesosLogStore.startTailing(task.slave_id, filePath);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,90 +58,68 @@ class MesosLogView extends mixin(StoreMixin) {
     }
 
     // Change to filePath has happened
-    this.setState({fullLog: null});
+    this.setState({
+      direction: APPEND,
+      fullLog: null,
+      isFetchingPrevious: false,
+      isLoading: true,
+      hasLoadingError: 0
+    });
     if (props.filePath) {
-      MesosLogStore.stopTailing(props.filePath);
+      // Clean up data as well
+      MesosLogStore.stopTailing(props.filePath, true);
     }
     if (nextProps.filePath) {
       MesosLogStore.startTailing(nextProps.task.slave_id, nextProps.filePath);
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    super.componentDidUpdate(...arguments);
-
-    const logContainerNode = this.getLogContainerNode();
-    if (logContainerNode == null) {
-      return;
-    }
-
-    if (!prevState.fullLog && this.state.fullLog) {
-      logContainerNode.scrollTop = logContainerNode.scrollHeight;
-
-      return;
-    }
-
-    if (prevProps.watching !== this.props.watching ||
-      prevProps.highlightText !== this.props.highlightText) {
-      this.goToNewHighlightedSearch();
-    }
-
-    this.checkIfAwayFromBottom(logContainerNode);
-  }
-
   componentWillUnmount() {
     super.componentWillUnmount(...arguments);
-    MesosLogStore.stopTailing(this.props.filePath);
-    global.removeEventListener('resize', this.handleWindowResize);
+    MesosLogStore.stopTailing(this.props.filePath, true);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {props, state} = this;
+    const {
+      filePath,
+      highlightText,
+      logName,
+      onCountChange,
+      task,
+      watching
+    } = this.props;
+    const {
+      direction,
+      fullLog,
+      hasLoadingError,
+      isFetchingPrevious,
+      isLoading
+    } = this.state;
 
     return (
-      // Check highlightText
-      (props.highlightText !== nextProps.highlightText) ||
       // Check filePath
-      (props.filePath !== nextProps.filePath) ||
+      (filePath !== nextProps.filePath) ||
       // Check logName
-      (props.logName !== nextProps.logName) ||
-      // Check task (slave_id is the only property being used)
-      (props.task.slave_id !== nextProps.task.slave_id) ||
-      // Check hasLoadingError
-      (state.hasLoadingError !== nextState.hasLoadingError) ||
-      // Check fullLog
-      (state.fullLog !== nextState.fullLog) ||
-      // Check isAtBottom
-      (state.isAtBottom !== nextState.isAtBottom) ||
+      (logName !== nextProps.logName) ||
+      // Check highlightText
+      (highlightText !== nextProps.highlightText) ||
       // Check watching
-      (props.watching !== nextProps.watching)
+      (watching !== nextProps.watching) ||
+      // Check watching
+      (onCountChange !== nextProps.onCountChange) ||
+      // Check task (slave_id is the only property being used)
+      (task.slave_id !== nextProps.task.slave_id) ||
+      // Check direction
+      (direction !== nextState.direction) ||
+      // Check fullLog
+      (fullLog !== nextState.fullLog) ||
+      // Check hasLoadingError
+      (hasLoadingError !== nextState.hasLoadingError) ||
+      // Check isFetchingPrevious
+      (isFetchingPrevious !== nextState.isFetchingPrevious) ||
+      // Check isLoading
+      (isLoading !== nextState.isLoading)
     );
-  }
-
-  handleLogContainerScroll() {
-    this.checkIfCloseToTop(this.refs.logContainer);
-    this.checkIfAwayFromBottom(this.refs.logContainer);
-  }
-
-  handleGoToBottom() {
-    const logContainerNode = this.getLogContainerNode();
-    if (logContainerNode == null) {
-      return;
-    }
-
-    DOMUtils.scrollTo(
-      logContainerNode,
-      3000,
-      logContainerNode.scrollHeight - logContainerNode.clientHeight
-    );
-  }
-
-  handleGoToWorkingDirectory() {
-    TaskDirectoryStore.setPath(this.props.task, '');
-  }
-
-  handleWindowResize() {
-    this.checkIfAwayFromBottom(this.refs.logContainer);
   }
 
   onMesosLogStoreError(path) {
@@ -160,7 +129,10 @@ class MesosLogView extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({hasLoadingError: this.state.hasLoadingError + 1});
+    this.setState({
+      hasLoadingError: this.state.hasLoadingError + 1,
+      isFetchingPrevious: false
+    });
   }
 
   onMesosLogStoreSuccess(path, direction) {
@@ -171,82 +143,78 @@ class MesosLogView extends mixin(StoreMixin) {
       return;
     }
 
-    const logContainer = ReactDOM.findDOMNode(this.refs.logContainer);
-    let previousScrollTop;
-    let previousScrollHeight;
+    const logBuffer = MesosLogStore.getLogBuffer(filePath);
+    const fullLog = logBuffer.getFullLog();
 
-    if (logContainer) {
-      previousScrollTop = logContainer.scrollTop;
-      previousScrollHeight = logContainer.scrollHeight;
-    }
-
-    const fullLog = MesosLogStore.get(filePath).getFullLog();
-    this.setState({fullLog}, () => {
-      // This allows the user to stay at the place of the log they were at
-      // before the prepend.
-      if (direction === 'prepend' && previousScrollHeight) {
-        const currentScrollHeight = logContainer.scrollHeight;
-        const heightDifference = currentScrollHeight - previousScrollHeight;
-        this.setScrollTop(previousScrollTop + heightDifference);
-      }
+    this.setState({
+      direction,
+      hasLoadingError: 0,
+      isFetchingPrevious: false,
+      isLoading: !filePath,
+      fullLog
     });
   }
 
-  setScrollTop(scrollTop) {
-    ReactDOM.findDOMNode(this.refs.logContainer).scrollTop = scrollTop;
+  handleGoToWorkingDirectory() {
+    TaskDirectoryStore.setPath(this.props.task, '');
   }
 
-  checkIfCloseToTop(container) {
-    if (!container) {
+  handleAtBottomChange(isAtBottom) {
+    const {task, filePath} = this.props;
+    if (isAtBottom) {
+      // Do not request anymore backwards, but continue stream where we left off
+      MesosLogStore.startTailing(task.slave_id, filePath);
+    } else {
+      MesosLogStore.stopTailing(filePath);
+    }
+  }
+
+  handleFetchPreviousLog(props = this.props) {
+    const {isFetchingPrevious} = this.state;
+    const {task, filePath} = props;
+    // Ongoing previous log fetch, wait for that to complete
+    if (isFetchingPrevious) {
       return;
     }
 
-    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    const logBuffer = MesosLogStore.get(this.props.filePath);
-    if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
-      const {props} = this;
-      MesosLogStore.getPreviousLogs(props.task.slave_id, props.filePath);
-    }
+    MesosLogStore.getPreviousLogs(task.slave_id, filePath);
+    this.setState({isFetchingPrevious: true});
   }
 
-  checkIfAwayFromBottom(container) {
-    if (!container) {
-      return;
-    }
-
-    const distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    const isAtBottom = container.offsetHeight + distanceFromTop
-      >= container.scrollHeight;
-
-    if (isAtBottom !== this.state.isAtBottom) {
-      this.setState({isAtBottom});
-    }
+  getErrorScreen() {
+    return <RequestErrorMsg />;
   }
 
-  goToNewHighlightedSearch() {
-    const logContainer = this.getLogContainerNode();
-    const node = logContainer.querySelector('.highlight.selected');
-    if (!node) {
-      return;
+  getLog() {
+    const {
+      filePath,
+      highlightText,
+      logName,
+      onCountChange,
+      watching
+    } = this.props;
+    const {direction, fullLog} = this.state;
+
+    if (!logName) {
+      return this.getEmptyDirectoryScreen();
     }
 
-    const containerHeight = logContainer.clientHeight;
-    const containerScrollTop = logContainer.scrollTop;
-    const nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
-
-    if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
-      nodeDistanceFromTop < containerScrollTop) {
-      logContainer.scrollTop = nodeDistanceFromTop - (containerHeight / 2);
-    }
+    return (
+      <LogView
+        direction={direction}
+        fetchPreviousLogs={this.handleFetchPreviousLog}
+        fullLog={fullLog}
+        hasLoadedTop={MesosLogStore.hasLoadedTop(filePath)}
+        highlightText={highlightText}
+        logName={logName}
+        onAtBottomChange={this.handleAtBottomChange}
+        onCountChange={onCountChange}
+        watching={watching} />
+    );
   }
 
-  getLogContainerNode() {
-    const logContainer = this.refs.logContainer;
-    if (!logContainer) {
-      return null;
-    }
-
-    return ReactDOM.findDOMNode(logContainer);
+  getLoadingScreen() {
+    return <Loader />;
   }
 
   getEmptyDirectoryScreen() {
@@ -259,98 +227,14 @@ class MesosLogView extends mixin(StoreMixin) {
     );
   }
 
-  getErrorScreen() {
-    return <RequestErrorMsg />;
-  }
-
-  getLog() {
-    const {props, state} = this;
-
-    if (!props.logName) {
-      return this.getEmptyDirectoryScreen();
-    }
-    const fullLog = state.fullLog;
-    if (fullLog === '') {
-      return <EmptyLogScreen logName={this.props.logName} />;
-    }
-
-    return [
-      <pre
-        key="log-container"
-        className="flex-item-grow-1 flush-bottom prettyprint"
-        ref="logContainer"
-        onScroll={this.handleLogContainerScroll}>
-        {this.getLogPrepend()}
-        <Highlight
-          matchClass="highlight"
-          matchElement="span"
-          onCountChange={props.onCountChange}
-          search={props.highlightText}
-          watching={props.watching}>
-          {fullLog}
-        </Highlight>
-      </pre>,
-      <ReactCSSTransitionGroup
-        key="log-go-down-button"
-        transitionAppear={true}
-        transitionName="button"
-        transitionAppearTimeout={350}
-        transitionEnterTimeout={350}
-        transitionLeaveTimeout={350}
-        component="div">
-        {this.getGoToBottomButton()}
-      </ReactCSSTransitionGroup>
-    ];
-  }
-
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
-  getGoToBottomButton() {
-    const isAtBottom = this.state.isAtBottom;
-
-    if (isAtBottom) {
-      return null;
-    }
-
-    return (
-      <button
-        onClick={this.handleGoToBottom}
-        className="button go-to-bottom-button">
-        Go to bottom
-      </button>
-    );
-  }
-
-  getLogPrepend() {
-    const logBuffer = MesosLogStore.get(this.props.filePath);
-    if (!logBuffer || logBuffer.hasLoadedTop()) {
-      return (
-        <div className="text-muted">
-          (AT BEGINNING OF FILE)
-        </div>
-      );
-    }
-
-    // Show loader since we will start a request for more logs
-    return (
-      <div className="pod flush-top">
-        <Loader
-          innerClassName="loader-small"
-          type="ballSpinFadeLoader" />
-      </div>
-    );
-  }
-
   render() {
-    const {props, state} = this;
+    const {hasLoadingError, isLoading} = this.state;
 
-    if (state.hasLoadingError >= 3) {
+    if (hasLoadingError >= 3) {
       return this.getErrorScreen();
     }
 
-    if (props.filePath && props.logName && state.fullLog == null) {
+    if (isLoading) {
       return this.getLoadingScreen();
     }
 

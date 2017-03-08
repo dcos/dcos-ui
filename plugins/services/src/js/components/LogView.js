@@ -120,14 +120,9 @@ class LogView extends React.Component {
     global.removeEventListener('resize', this.handleWindowResize);
   }
 
-  handleLogContainerScroll(event) {
-    const {target} = event;
-    if (!target) {
-      return;
-    }
-
-    this.checkIfCloseToTop(target);
-    this.checkIfAwayFromBottom(target);
+  handleLogContainerScroll() {
+    this.checkIfCloseToTop(this.logContainer);
+    this.checkIfAwayFromBottom(this.logContainer);
   }
 
   handleGoToBottom() {
@@ -155,9 +150,13 @@ class LogView extends React.Component {
   }
 
   checkIfCloseToTop(container) {
+    if (!container) {
+      return;
+    }
+
     // This number has been determined by trail and error to be a good
     // measurement for close to the top
-    if (container && container.scrollTop < 2000) {
+    if (container.scrollTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
