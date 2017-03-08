@@ -19,16 +19,19 @@ import {
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR
 } from '../constants/EventTypes';
-import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
+import BaseStore from '../../../../../src/js/stores/BaseStore';
 import Item from '../../../../../src/js/structs/Item';
 import LogBuffer from '../structs/LogBuffer';
 import MesosLogActions from '../events/MesosLogActions';
+import {APPEND, PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const MAX_FILE_SIZE = 50000;
 
-class MesosLogStore extends GetSetBaseStore {
+class MesosLogStore extends BaseStore {
   constructor() {
     super(...arguments);
+
+    this.logs = {};
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -86,9 +89,13 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   getPreviousLogs(slaveID, path) {
-    const logBuffer = this.get(path);
+    const logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
+      return;
+    }
+
+    // Already at the top.
+    if (logBuffer.hasLoadedTop()) {
       return;
     }
 
@@ -97,50 +104,57 @@ class MesosLogStore extends GetSetBaseStore {
       startOffset = 0;
     }
 
-    if (startOffset === 0 && logBuffer.getStart() === 0) {
-      // Already at the top.
-      return;
-    }
-
     MesosLogActions.fetchPreviousLog(
-      slaveID, path, startOffset, MAX_FILE_SIZE
+      slaveID,
+      path,
+      startOffset,
+      MAX_FILE_SIZE
     );
   }
 
   startTailing(slaveID, path) {
-    const logBuffer = new LogBuffer();
-    this.set({[path]: logBuffer});
-    // Request offset to initialize logBuffer
-    MesosLogActions.requestOffset(slaveID, path);
+    let logBuffer = this.getLogBuffer(path);
+    if (!logBuffer) {
+      logBuffer = new LogBuffer();
+      this.logs[path] = {logBuffer, isTailing: true};
+      // Request offset to initialize logBuffer
+      MesosLogActions.requestOffset(slaveID, path);
+    } else {
+      // Continue tailing, whereever we left off
+      MesosLogActions.fetchLog(
+        slaveID,
+        path,
+        logBuffer.getEnd(),
+        MAX_FILE_SIZE
+      );
+    }
   }
 
-  stopTailing(path) {
+  stopTailing(path, shouldClearData = false) {
     // As soon as any request responds (success or error) the tailing will stop
-    this.set({[path]: undefined});
+    if (this.logs[path]) {
+      this.logs[path].isTailing = false;
+    }
+
+    if (shouldClearData) {
+      this.logs[path] = null;
+    }
   }
 
   processOffset(slaveID, path, entry) {
-    const logBuffer = this.get(path);
-    if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
+    const logBuffer = this.getLogBuffer(path);
+    if (!logBuffer || !this.logs[path].isTailing) {
       return;
     }
+
+    // Initialize and start tailing
     logBuffer.initialize(entry.offset);
-    // Start tailing
-    MesosLogActions
-      .fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
+    MesosLogActions.fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
 
     this.emit(MESOS_INITIALIZE_LOG_CHANGE, path);
   }
 
   processOffsetError(slaveID, path) {
-    const logBuffer = this.get(path);
-    if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
-      // even if the initial offset request fails
-      return;
-    }
-
     // Try to re-initialize from where we left off
     setTimeout(function () {
       MesosLogActions.requestOffset(slaveID, path);
@@ -150,12 +164,12 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogEntry(slaveID, path, entry) {
-    const logBuffer = this.get(path);
-    if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
+    // We've stopped tailing, don't append more data
+    if (!this.logs[path] || !this.logs[path].isTailing) {
       return;
     }
 
+    const logBuffer = this.getLogBuffer(path);
     const data = entry.data;
     if (data.length > 0) {
       logBuffer.add(new Item(entry));
@@ -163,7 +177,7 @@ class MesosLogStore extends GetSetBaseStore {
 
     // Fire event always, so listener knows that we have received data
     // This way it is easier to tell whether we are for data or it was empty
-    this.emit(MESOS_LOG_CHANGE, path, 'append');
+    this.emit(MESOS_LOG_CHANGE, path, APPEND);
 
     const end = logBuffer.getEnd();
     if (data.length === MAX_FILE_SIZE) {
@@ -178,9 +192,8 @@ class MesosLogStore extends GetSetBaseStore {
   }
 
   processLogPrepend(slaveID, path, entry) {
-    const logBuffer = this.get(path);
+    const logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
       return;
     }
 
@@ -189,38 +202,57 @@ class MesosLogStore extends GetSetBaseStore {
       logBuffer.prepend(new Item(entry));
     }
 
-    this.emit(MESOS_LOG_CHANGE, path, 'prepend');
+    this.emit(MESOS_LOG_CHANGE, path, PREPEND);
   }
 
   processLogError(slaveID, path) {
-    const logBuffer = this.get(path);
+    const logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
       return;
     }
 
     // Try to re-start from where we left off
     setTimeout(function () {
-      MesosLogActions
-        .fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
+      MesosLogActions.fetchLog(
+        slaveID,
+        path,
+        logBuffer.getEnd(),
+        MAX_FILE_SIZE
+      );
     }, Config.tailRefresh);
 
     this.emit(MESOS_LOG_REQUEST_ERROR, path);
   }
 
   processLogPrependError(slaveID, path) {
-    const logBuffer = this.get(path);
+    const logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
-      // Stop tailing immediately if listener decided to call stopTailing
       return;
     }
 
     // Try request again immediately.
     MesosLogActions.fetchLog(
-      slaveID, path, logBuffer.getStart() - MAX_FILE_SIZE, MAX_FILE_SIZE
+      slaveID,
+      path,
+      logBuffer.getStart() - MAX_FILE_SIZE, MAX_FILE_SIZE
     );
 
     this.emit(MESOS_LOG_REQUEST_ERROR, path);
+  }
+
+  getLogBuffer(path) {
+    const {logBuffer} = this.logs[path] || {};
+
+    return logBuffer;
+  }
+
+  hasLoadedTop(path) {
+    const logBuffer = this.getLogBuffer(path);
+    if (!logBuffer) {
+      return false;
+    }
+
+    return logBuffer.hasLoadedTop();
   }
 
   get storeID() {
