@@ -12,7 +12,6 @@ import Organization from './factories/organization';
 import {RoutingService} from '../../../foundation-ui/routing';
 import services from '../../../plugins/services/src/js/routes/services';
 import settings from './settings';
-import styles from './styles'; // eslint-disable-line
 import systemOverview from './system-overview';
 import universe from './universe';
 
