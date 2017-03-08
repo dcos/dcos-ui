@@ -14,7 +14,7 @@ import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFileBrowser from '../pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
-import TaskLogsAPIContainer from '../pages/task-details/TaskLogsAPIContainer';
+import TaskLogsContainer from '../pages/task-details/TaskLogsContainer';
 import TaskVolumeContainer from '../containers/volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
 
@@ -207,7 +207,7 @@ const serviceRoutes = [
                         ]
                       },
                       {
-                        component: TaskLogsAPIContainer,
+                        component: TaskLogsContainer,
                         hideHeaderNavigation: true,
                         isTab: true,
                         path: 'logs(/:filePath)',

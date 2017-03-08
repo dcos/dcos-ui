@@ -9,7 +9,7 @@ import TaskDetailsTab from '../../../../plugins/services/src/js/pages/task-detai
 import TaskFileBrowser from '../../../../plugins/services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
-import TaskLogsAPIContainer from '../../../../plugins/services/src/js/pages/task-details/TaskLogsAPIContainer';
+import TaskLogsContainer from '../../../../plugins/services/src/js/pages/task-details/TaskLogsContainer';
 import VirtualNetworkDetail from '../../pages/network/virtual-network-detail/VirtualNetworkDetail';
 import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab';
 import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
@@ -153,7 +153,7 @@ const RouteFactory = {
             ]
           },
           {
-            component: TaskLogsAPIContainer,
+            component: TaskLogsContainer,
             hideHeaderNavigation: true,
             isTab: true,
             path: 'logs(/:filePath)',

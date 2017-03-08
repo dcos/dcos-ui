@@ -12,7 +12,7 @@ import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/
 import TaskFileBrowser from '../../../plugins/services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
-import TaskLogsAPIContainer from '../../../plugins/services/src/js/pages/task-details/TaskLogsAPIContainer';
+import TaskLogsContainer from '../../../plugins/services/src/js/pages/task-details/TaskLogsContainer';
 
 function buildJobCrumbs({id}) {
   const ids = id.split('.');
@@ -142,7 +142,7 @@ const jobsRoutes = {
                   ]
                 },
                 {
-                  component: TaskLogsAPIContainer,
+                  component: TaskLogsContainer,
                   hideHeaderNavigation: true,
                   isTab: true,
                   path: 'logs(/:filePath)',

@@ -18,7 +18,7 @@ import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskD
 import TaskFileBrowser from '../../../../services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
-import TaskLogsAPIContainer from '../../../../services/src/js/pages/task-details/TaskLogsAPIContainer';
+import TaskLogsContainer from '../../../../services/src/js/pages/task-details/TaskLogsContainer';
 import TaskVolumeContainer from '../../../../services/src/js/containers/volume-detail/TaskVolumeContainer';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import NodesUnitsHealthDetailPage from '../pages/nodes/NodesUnitsHealthDetailPage';
@@ -205,7 +205,7 @@ const nodesRoutes = {
           ]
         },
         {
-          component: TaskLogsAPIContainer,
+          component: TaskLogsContainer,
           hideHeaderNavigation: true,
           isTab: true,
           path: 'logs(/:filePath)',

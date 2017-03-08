@@ -9,7 +9,7 @@ import TaskSystemLogsContainer from './TaskSystemLogsContainer';
 import TaskFileViewer from './TaskFileViewer';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 
-class TaskLogsAPIContainer extends mixin(StoreMixin) {
+class TaskLogsContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
     this.state = {
@@ -52,12 +52,12 @@ class TaskLogsAPIContainer extends mixin(StoreMixin) {
 
     const {props} = this;
     const config = ConfigStore.get('config');
-    const useSystemLogsAPI = findNestedPropertyInObject(
+    const loggingStrategy = findNestedPropertyInObject(
       config,
       'uiConfiguration.plugins.mesos.logging-strategy'
-    ) === SYSTEM_LOGS;
+    );
 
-    if (useSystemLogsAPI) {
+    if (loggingStrategy === SYSTEM_LOGS) {
       return <TaskSystemLogsContainer {...props} />;
     }
 
@@ -65,4 +65,4 @@ class TaskLogsAPIContainer extends mixin(StoreMixin) {
   }
 }
 
-module.exports = TaskLogsAPIContainer;
+module.exports = TaskLogsContainer;
