@@ -245,6 +245,7 @@ class NewCreateServiceModal extends Component {
     if (serviceFormActive) {
       this.setState({
         isConfirmOpen: false,
+        hasChangesApplied: false,
         servicePickerActive: true,
         serviceFormActive: false
       });
@@ -256,6 +257,7 @@ class NewCreateServiceModal extends Component {
     if (serviceJsonActive) {
       this.setState({
         isConfirmOpen: false,
+        hasChangesApplied: false,
         servicePickerActive: true,
         serviceJsonActive: false
       });
