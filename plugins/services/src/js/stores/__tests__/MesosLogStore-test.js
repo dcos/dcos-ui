@@ -14,6 +14,9 @@ const EventTypes = require('../../constants/EventTypes');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogActions = require('../../events/MesosLogActions');
 const MesosLogStore = require('../MesosLogStore');
+const SystemLogTypes = require('../../../../../../src/js/constants/SystemLogTypes');
+
+const PREPEND = SystemLogTypes.PREPEND;
 
 describe('MesosLogStore', function () {
 
@@ -24,13 +27,14 @@ describe('MesosLogStore', function () {
   });
 
   afterEach(function () {
+    MesosLogStore.stopTailing('/bar', true);
     RequestUtil.json = this.requestFn;
   });
 
   describe('#startTailing', function () {
 
     it('should return an instance of LogBuffer', function () {
-      var logBuffer = MesosLogStore.get('/bar');
+      var logBuffer = MesosLogStore.getLogBuffer('/bar');
       expect(logBuffer instanceof LogBuffer).toBeTruthy();
     });
 
@@ -38,9 +42,9 @@ describe('MesosLogStore', function () {
 
   describe('#stopTailing', function () {
 
-    it('should return an instance of LogBuffer', function () {
-      MesosLogStore.stopTailing('/bar');
-      var logBuffer = MesosLogStore.get('/bar');
+    it('shouldn\'t return an instance of LogBuffer', function () {
+      MesosLogStore.stopTailing('/bar', true);
+      var logBuffer = MesosLogStore.getLogBuffer('/bar');
       expect(logBuffer).toEqual(undefined);
     });
 
@@ -50,10 +54,11 @@ describe('MesosLogStore', function () {
 
     beforeEach(function () {
       this.MockMesosLogStore = {
-        get(key) {
+        getLogBuffer(key) {
           if (key === 'exists') {
             return {
-              getStart() { return 100; }
+              hasLoadedTop() { return true; },
+              getStart() { return 0; }
             };
           }
         }
@@ -71,11 +76,20 @@ describe('MesosLogStore', function () {
     });
 
     it('does nothing if already at the beginning of history', function () {
+      MesosLogStore.getPreviousLogs.call(
+        this.MockMesosLogStore, 'slaveID', 'exists'
+      );
+
+      expect(MesosLogActions.fetchPreviousLog).not.toHaveBeenCalled();
+    });
+
+    it('calls #fetchPreviousLog with the correct args', function () {
       var MockMesosLogStore = {
-        get(key) {
+        getLogBuffer(key) {
           if (key === 'exists') {
             return {
-              getStart() { return 0; }
+              hasLoadedTop() { return false; },
+              getStart() { return 100; }
             };
           }
         }
@@ -83,14 +97,6 @@ describe('MesosLogStore', function () {
 
       MesosLogStore.getPreviousLogs.call(
         MockMesosLogStore, 'slaveID', 'exists'
-      );
-
-      expect(MesosLogActions.fetchPreviousLog).not.toHaveBeenCalled();
-    });
-
-    it('calls #fetchPreviousLog with the correct args', function () {
-      MesosLogStore.getPreviousLogs.call(
-        this.MockMesosLogStore, 'slaveID', 'exists'
       );
 
       expect(MesosLogActions.fetchPreviousLog).toHaveBeenCalledWith(
@@ -108,7 +114,7 @@ describe('MesosLogStore', function () {
       // Two next processes will be stored
       MesosLogStore.processLogEntry('foo', '/bar', {data: 'foo', offset: 100});
       MesosLogStore.processLogEntry('foo', '/bar', {data: 'bar', offset: 103});
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
     });
 
     it('should return all of the log items it was given', function () {
@@ -140,7 +146,7 @@ describe('MesosLogStore', function () {
       MesosLogStore.processLogPrepend('foo', '/bar', {data: 'foo', offset: 100});
       MesosLogStore.processLogPrepend('foo', '/bar', {data: 'bar', offset: 103});
 
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
     });
 
     afterEach(function () {
@@ -163,7 +169,7 @@ describe('MesosLogStore', function () {
 
     it('should call emit with the correct event', function () {
       expect(MesosLogStore.emit).toHaveBeenCalledWith(
-        EventTypes.MESOS_LOG_CHANGE, '/bar', 'prepend'
+        EventTypes.MESOS_LOG_CHANGE, '/bar', PREPEND
       );
     });
 
@@ -177,7 +183,7 @@ describe('MesosLogStore', function () {
   describe('#processLogError', function () {
 
     beforeEach(function () {
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
     });
 
     it('should try to restart the tailing after error', function () {
@@ -193,7 +199,7 @@ describe('MesosLogStore', function () {
     beforeEach(function () {
       this.previousEmit = MesosLogStore.emit;
       MesosLogStore.emit = jasmine.createSpy();
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
       MesosLogStore.processLogPrependError(
         'foo', '/bar', {data: 'bar', offset: 103}
       );
@@ -225,7 +231,7 @@ describe('MesosLogStore', function () {
   describe('#processOffsetError', function () {
 
     beforeEach(function () {
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
     });
 
     it('should not be initialized after error', function () {
@@ -238,7 +244,7 @@ describe('MesosLogStore', function () {
   describe('#processOffset', function () {
 
     beforeEach(function () {
-      this.logBuffer = MesosLogStore.get('/bar');
+      this.logBuffer = MesosLogStore.getLogBuffer('/bar');
     });
 
     it('should be initialized after initialize and before error', function () {
@@ -267,7 +273,7 @@ describe('MesosLogStore', function () {
         slaveID: 'foo'
       });
 
-      var log = MesosLogStore.get('/bar').getFullLog();
+      var log = MesosLogStore.getLogBuffer('/bar').getFullLog();
       expect(log).toEqual('foo');
     });
 
