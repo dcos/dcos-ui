@@ -163,7 +163,9 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
-    const isAtBottom = container.offsetHeight + container.scrollTop
+    // The 200px is to give the checker a little bit of breating room to
+    // determine when we are at the bottom
+    const isAtBottom = container.offsetHeight + container.scrollTop + 200
       >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
