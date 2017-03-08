@@ -1,0 +1,18 @@
+{
+  "id": "/app-with-artifacts",
+  "cmd": "while true; do echo 'test' ; sleep 100 ; done",
+  "cpus": 0.1,
+  "mem": 10,
+  "instances": 1,
+  "fetch": [
+    {
+      "uri": "http://lorempicsum.com/simpsons/600/400/1"
+    },
+    {
+      "uri": "http://lorempicsum.com/simpsons/600/400/2"
+    },
+    {
+      "uri": "http://lorempicsum.com/simpsons/600/400/3"
+    }
+  ]
+}

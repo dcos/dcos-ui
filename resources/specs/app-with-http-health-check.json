@@ -1,0 +1,28 @@
+{
+  "id": "/app-with-http-health-check",
+  "cpus": 1,
+  "mem": 32,
+  "instances": 1,
+  "healthChecks": [
+    {
+      "portIndex": 0,
+      "protocol": "HTTP",
+      "path": "/"
+    }
+  ],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "nginx",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "name": "http",
+          "hostPort": 0,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  }
+}

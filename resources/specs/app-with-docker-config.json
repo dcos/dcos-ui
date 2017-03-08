@@ -1,0 +1,21 @@
+{
+  "id": "/app-with-docker-config",
+  "cmd": "python3 -m http.server 8080",
+  "cpus": 0.5,
+  "mem": 32,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "python:3",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "name": "http",
+          "hostPort": 0,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  }
+}

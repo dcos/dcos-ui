@@ -1,0 +1,13 @@
+{
+  "id": "/app-with-environment-variables",
+  "cmd": "while true ; do echo 'test' ; sleep 100 ; done",
+  "cpus": 0.1,
+  "mem": 10,
+  "instances": 1,
+  "env": {
+    "camelCase": "test",
+    "snake_case": "test",
+    "lowercase": "test",
+    "UPPERCASE": "test"
+  }
+}

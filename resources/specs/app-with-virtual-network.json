@@ -1,0 +1,29 @@
+{
+  "id": "/app-with-virtual-network",
+  "cmd": "python3 -m http.server 8080",
+  "cpus": 0.5,
+  "mem": 32,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "python:3",
+      "network": "USER",
+      "portMappings": [
+        {
+          "name": "http",
+          "containerPort": 8080
+        },
+        {
+          "name": "mapped",
+          "hostPort": 4200,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "ipAddress": {
+    "networkName": "dcos"
+  },
+  "requirePorts": true
+}
