@@ -13,6 +13,7 @@ const CONTAINER_OFFSET_HEIGHT = 200;
 const METHODS_TO_BIND = [
   'handleGoToBottom',
   'handleLogContainerScroll',
+  'handleUpdateScrollPosition',
   'handleWindowResize'
 ];
 
@@ -20,10 +21,7 @@ class LogView extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      isAtBottom: true,
-      fullLog: this.props.fullLog
-    };
+    this.state = {isAtBottom: true};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -50,50 +48,32 @@ class LogView extends React.Component {
 
   componentDidMount() {
     global.addEventListener('resize', this.handleWindowResize);
+    // Make sure to update scroll position on load. Needs to be did mount for
+    // logContainer to be defined
+    this.handleUpdateScrollPosition();
   }
 
   componentWillReceiveProps(nextProps) {
-    const {logContainer} = this;
-    let previousScrollTop;
-    let previousScrollHeight;
-
-    if (logContainer) {
-      previousScrollTop = logContainer.scrollTop;
-      previousScrollHeight = logContainer.scrollHeight;
-    }
-
-    // Prevent updates to fullLog, if it has not changed
-    if (this.state.fullLog !== nextProps.fullLog) {
-      this.setState({fullLog: nextProps.fullLog}, () => {
-        // This allows the user to stay at the place of the log they were at
-        // before the prepend.
-        if (nextProps.direction === PREPEND && previousScrollHeight
-          && logContainer && !this.state.isAtBottom) {
-          const currentScrollHeight = logContainer.scrollHeight;
-          const heightDifference = currentScrollHeight - previousScrollHeight;
-          logContainer.scrollTop = previousScrollTop + heightDifference;
-        }
-      });
-    }
+    this.handleUpdateScrollPosition(nextProps);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     const {hasLoadedTop, highlightText, logName, watching} = this.props;
     const {fullLog, isAtBottom} = this.state;
 
-    return Boolean(
+    return (
       // Check hasLoadedTop
       (hasLoadedTop !== nextProps.hasLoadedTop) ||
       // Check highlightText
       (highlightText !== nextProps.highlightText) ||
       // Check logName
       (logName !== nextProps.logName) ||
-      // Check fullLog
-      (fullLog !== nextState.fullLog) ||
       // Check watching
       (watching !== nextProps.watching) ||
       // Check isAtBottom
-      (isAtBottom !== nextState.isAtBottom)
+      (isAtBottom !== nextState.isAtBottom) ||
+      // Check fullLog at the end, as this could be a long string
+      (fullLog !== nextState.fullLog)
     );
   }
 
@@ -118,6 +98,31 @@ class LogView extends React.Component {
 
   componentWillUnmount() {
     global.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  handleUpdateScrollPosition(props = this.props) {
+    const {logContainer} = this;
+    let previousScrollTop;
+    let previousScrollHeight;
+
+    if (logContainer) {
+      previousScrollTop = logContainer.scrollTop;
+      previousScrollHeight = logContainer.scrollHeight;
+    }
+
+    // Prevent updates to fullLog, if it has not changed
+    if (this.state.fullLog !== props.fullLog) {
+      this.setState({fullLog: props.fullLog}, () => {
+        // This allows the user to stay at the place of the log they were at
+        // before the prepend.
+        if (props.direction === PREPEND && previousScrollHeight
+          && logContainer && !this.state.isAtBottom) {
+          const currentScrollHeight = logContainer.scrollHeight;
+          const heightDifference = currentScrollHeight - previousScrollHeight;
+          logContainer.scrollTop = previousScrollTop + heightDifference;
+        }
+      });
+    }
   }
 
   handleLogContainerScroll() {
