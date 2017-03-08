@@ -3,5 +3,11 @@
   "fixturesFolder": "_fixtures",
   "integrationFolder": ".",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
-  "supportFile": "_support"
+  "supportFile": "_support",
+  "environmentVariables": {
+    "TEST_UUID": "foobar",
+    "CLUSTER_URL": "http://127.0.0.1:4200",
+    "CLUSTER_AUTH_INFO": "eyJ1aWQiOiAiYm9vdHN0cmFwdXNlciIsICJkZXNjcmlwdGlvbiI6ICJCb290c3RyYXAgc3VwZXJ1c2VyIn0=",
+    "CLUSTER_AUTH_TOKEN": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODk0MTIxMjMsInVpZCI6ImJvb3RzdHJhcHVzZXIifQ.Tw234ZDOckWBHyfMySCgYCEVc6T44O-PnW6ttSC-U_sRdVQNJayOI0Ryd6_N-XNHuZWMF-ynxJWFkzBBlSPcYqaonfwClUPd0rRYhRXoQcGgRhIPTm3DpSJzuJiDlBJBmQ0rEx7VAuJtCt8Jh8HvKQFrTeZA6JCPSJwnCqU7niHxR_msNh3Z53VC-UL_xFS7ecy80KVlEv5_5krGzeQLUZ8fZQn1GdNzdi4SU9LYnfrOQmbuoe7D_xysA9ZXvgPSg2G91w_tm7Yvbr4CC04XHbfxNGsTmWpueiVgMDKevQ7S1RrZMQrzr4GxTZw46NyNK4Olmgou9Vu1ESUb2Q9FDA"
+  }
 }
