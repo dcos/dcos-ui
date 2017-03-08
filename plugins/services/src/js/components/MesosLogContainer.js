@@ -111,14 +111,14 @@ class MesosLogContainer extends mixin(StoreMixin) {
       (task.slave_id !== nextProps.task.slave_id) ||
       // Check direction
       (direction !== nextState.direction) ||
-      // Check fullLog
-      (fullLog !== nextState.fullLog) ||
       // Check hasLoadingError
       (hasLoadingError !== nextState.hasLoadingError) ||
       // Check isFetchingPrevious
       (isFetchingPrevious !== nextState.isFetchingPrevious) ||
       // Check isLoading
-      (isLoading !== nextState.isLoading)
+      (isLoading !== nextState.isLoading) ||
+      // Check fullLog at the end, as this could be a long string
+      (fullLog !== nextState.fullLog)
     );
   }
 
