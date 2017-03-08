@@ -142,7 +142,7 @@ describe('MesosLogView', function () {
 
   });
 
-  describe('#handleLogContainerScroll', function () {
+  describe('#checkIfCloseToTop', function () {
     beforeEach(function () {
       this.previousGetPrevious = MesosLogStore.getPreviousLogs;
       this.previousGetComputed = DOMUtil.getComputedDimensions;
@@ -160,15 +160,15 @@ describe('MesosLogView', function () {
     });
 
     it('should not call getPreviousLogs if past 2000 pixels', function () {
-      var event = {target: {scrollTop: 4000}};
-      this.instance.handleLogContainerScroll(event);
+      var container = {scrollTop: 4000};
+      this.instance.checkIfCloseToTop(container);
 
       expect(MesosLogStore.getPreviousLogs).not.toHaveBeenCalled();
     });
 
     it('should not call getPreviousLogs if below 2000 pixels', function () {
-      var event = {target: {scrollTop: 1000}};
-      this.instance.handleLogContainerScroll(event);
+      var container = {scrollTop: 1000};
+      this.instance.checkIfCloseToTop(container);
 
       expect(MesosLogStore.getPreviousLogs).toHaveBeenCalled();
     });
