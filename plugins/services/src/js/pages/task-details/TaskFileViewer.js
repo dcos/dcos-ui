@@ -44,7 +44,14 @@ class TaskFileViewer extends React.Component {
       return;
     }
 
-    const routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    let routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    const hasFilePathParam = routePath.endsWith(':filePath');
+    if (!hasFilePathParam && routePath.endsWith('/')) {
+      routePath += ':filePath';
+    }
+    if (!hasFilePathParam && !routePath.endsWith('/')) {
+      routePath += '/:filePath';
+    }
     this.context.router.push(formatPattern(
       routePath,
       Object.assign({}, params, {filePath: encodeURIComponent(path)})
