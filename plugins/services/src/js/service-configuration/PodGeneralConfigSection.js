@@ -28,7 +28,6 @@ function getContainerResourceSummary(resource, {containers = []}) {
         `${Units.formatResource(resource, value)} ${name}`
       );
     }
-    memo.value += resources[resource] || 0;
 
     return memo;
   }, {value: 0, parts: []});
