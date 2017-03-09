@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 function EmptyLogScreen({logName}) {
   // Append space if logName is defined
@@ -14,6 +14,10 @@ function EmptyLogScreen({logName}) {
       </p>
     </div>
   );
+};
+
+EmptyLogScreen.propTypes = {
+  logName: PropTypes.string
 };
 
 module.exports = EmptyLogScreen;
