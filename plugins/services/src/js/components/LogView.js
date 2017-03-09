@@ -21,6 +21,9 @@ class LogView extends React.Component {
   constructor() {
     super(...arguments);
 
+    // Using variable on component to avoid the asynchronous `setState`
+    this.updatingScrollPosition = false;
+
     this.state = {isAtBottom: true};
 
     METHODS_TO_BIND.forEach((method) => {
@@ -85,7 +88,11 @@ class LogView extends React.Component {
 
     // Make sure to go to bottom if we are tailing
     if (this.state.isAtBottom) {
+      // Set `updatingScrollPosition` guard to avoid 'at top' and
+      // 'at bottom' checks when computationally setting the `scrollTop`
+      this.updatingScrollPosition = true;
       logContainer.scrollTop = logContainer.scrollHeight;
+      this.updatingScrollPosition = false;
 
       return;
     }
@@ -119,7 +126,11 @@ class LogView extends React.Component {
           && logContainer && !this.state.isAtBottom) {
           const currentScrollHeight = logContainer.scrollHeight;
           const heightDifference = currentScrollHeight - previousScrollHeight;
+          // Set `updatingScrollPosition` guard to avoid 'at top' and
+          // 'at bottom' checks when computationally setting the `scrollTop`
+          this.updatingScrollPosition = true;
           logContainer.scrollTop = previousScrollTop + heightDifference;
+          this.updatingScrollPosition = false;
         }
       });
     }
@@ -142,6 +153,8 @@ class LogView extends React.Component {
     const scrollDistance = logContainer.scrollHeight - logContainer.scrollTop;
     const animationTime = Math.max(500, Math.min(scrollDistance, 3000));
 
+    // Do not set `updatingScrollPosition` during animation as the user could
+    // decide to scroll away while we are animating
     DOMUtils.scrollTo(
       logContainer,
       animationTime,
@@ -155,7 +168,8 @@ class LogView extends React.Component {
   }
 
   checkIfCloseToTop(container) {
-    if (!container) {
+    // Cancel check if we are changing the scroll position computationally
+    if (!container || this.updatingScrollPosition) {
       return;
     }
 
@@ -170,12 +184,13 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
-    if (!container) {
+    // Cancel check if we are changing the scroll position computationally
+    if (!container || this.updatingScrollPosition) {
       return;
     }
 
-    // The CONTAINER_OFFSET_HEIGHT is to give the checker a little bit of breathing room to
-    // determine when we are at the bottom
+    // The CONTAINER_OFFSET_HEIGHT is to give the checker a little bit of
+    // breathing room to determine when we are at the bottom
     const isAtBottom = container.offsetHeight + container.scrollTop +
       CONTAINER_OFFSET_HEIGHT >= container.scrollHeight;
 
@@ -199,7 +214,11 @@ class LogView extends React.Component {
 
     if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
       nodeDistanceFromTop < containerScrollTop) {
+      // Set `updatingScrollPosition` guard to avoid 'at top' and
+      // 'at bottom' checks when computationally setting the `scrollTop`
+      this.updatingScrollPosition = true;
       logContainer.scrollTop = nodeDistanceFromTop - (containerHeight / 2);
+      this.updatingScrollPosition = false;
     }
   }
 
