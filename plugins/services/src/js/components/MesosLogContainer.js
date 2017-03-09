@@ -17,7 +17,7 @@ const METHODS_TO_BIND = [
   'onMesosLogStoreSuccess'
 ];
 
-class MesosLogView extends mixin(StoreMixin) {
+class MesosLogContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -246,11 +246,11 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 }
 
-MesosLogView.defaultProps = {
+MesosLogContainer.defaultProps = {
   highlightText: ''
 };
 
-MesosLogView.propTypes = {
+MesosLogContainer.propTypes = {
   filePath: React.PropTypes.string,
   highlightText: React.PropTypes.string,
   logName: React.PropTypes.string,
@@ -258,4 +258,4 @@ MesosLogView.propTypes = {
   watching: React.PropTypes.number
 };
 
-module.exports = MesosLogView;
+module.exports = MesosLogContainer;
