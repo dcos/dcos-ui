@@ -34,12 +34,15 @@ class LogView extends React.Component {
     // as possible. This has impact on both checkIfCloseToTop and
     // checkIfAwayFromBottom. Trailing edge will call them too late, i.e. when
     // the data is out of data and possibly scrolled passed the trigger range.
+    // We also want it at the trailing end because if a user scrolls too fast
+    // there's a chance that the callback will get fired but not where the
+    // scrolling position has ended.
     // We need them to be called as soon as we hit the range wherein these will
     // trigger handlers.
     this.handleLogContainerScroll = Util.throttle(
       this.handleLogContainerScroll,
       50,
-      {leading: true, trailing: false}
+      {leading: true, trailing: true}
     );
 
     this.handleWindowResize = Util.throttle(
