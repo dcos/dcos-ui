@@ -42,7 +42,7 @@ describe('MesosLogStore', function () {
 
   describe('#stopTailing', function () {
 
-    it('shouldn\'t return an instance of LogBuffer', function () {
+    it('should clear the log buffer if configured', function () {
       MesosLogStore.stopTailing('/bar', true);
       var logBuffer = MesosLogStore.getLogBuffer('/bar');
       expect(logBuffer).toEqual(undefined);
