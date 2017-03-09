@@ -2,12 +2,13 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {SYSTEM_LOGS} from '../../../../../../src/js/constants/MesosLoggingStrategy';
 import ConfigStore from '../../../../../../src/js/stores/ConfigStore';
 import Loader from '../../../../../../src/js/components/Loader';
+import Task from '../../structs/Task';
 import TaskFileViewer from './TaskFileViewer';
 import TaskSystemLogsContainer from './TaskSystemLogsContainer';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {SYSTEM_LOGS} from '../../../../../../src/js/constants/MesosLoggingStrategy';
 
 class TaskLogsContainer extends mixin(StoreMixin) {
   constructor() {
@@ -79,10 +80,12 @@ class TaskLogsContainer extends mixin(StoreMixin) {
   }
 }
 
-TaskFileViewer.propTypes = {
+TaskLogsContainer.propTypes = {
   directory: React.PropTypes.object,
+  params: React.PropTypes.object,
+  routes: React.PropTypes.array,
   selectedLogFile: React.PropTypes.object,
-  task: React.PropTypes.object
+  task: React.PropTypes.instanceOf(Task)
 };
 
 module.exports = TaskLogsContainer;
