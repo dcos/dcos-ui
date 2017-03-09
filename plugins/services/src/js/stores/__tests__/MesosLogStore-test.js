@@ -42,6 +42,12 @@ describe('MesosLogStore', function () {
 
   describe('#stopTailing', function () {
 
+    it('should not clear the log buffer by default', function () {
+      MesosLogStore.stopTailing('/bar');
+
+      expect(MesosLogStore.getLogBuffer('/bar')).toBeInstanceOf(LogBuffer);
+    });
+
     it('should clear the log buffer if configured', function () {
       MesosLogStore.stopTailing('/bar', true);
 
