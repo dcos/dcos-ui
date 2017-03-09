@@ -279,7 +279,11 @@ class HealthChecksFormSection extends Component {
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Health Checks
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Health Checks
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h2>
         <p>
           Health checks may be specified per application to be run against

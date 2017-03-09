@@ -364,7 +364,11 @@ class VolumesFormSection extends Component {
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
         <h3 className="short-bottom">
-          Local Volumes
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Local Volumes
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
           {'Choose a local persistent volume if you need quick access to stored data. '}
@@ -383,7 +387,11 @@ class VolumesFormSection extends Component {
           </AddButton>
         </div>
         <h3 className="short-bottom">
-          External Volumes
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              External Volumes
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
           {'Choose an external persistent volume if fault-tolerance is crucial for your service. '}
