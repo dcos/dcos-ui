@@ -180,7 +180,6 @@ describe('MesosLogView', function () {
     it('should show empty log when fullLog is empty string', function () {
       this.instance.state.fullLog = '';
       var res = this.instance.getLog();
-      console.log(res);
       expect(TestUtils.isElementOfType(res, EmptyLogScreen)).toEqual(true);
     });
 
