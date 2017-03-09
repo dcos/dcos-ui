@@ -1,6 +1,7 @@
 import React from 'react';
+
+import Alert from './Alert';
 import ErrorPaths from '../../../plugins/services/src/js/constants/ErrorPaths';
-import CollapsibleErrorMessage from './CollapsibleErrorMessage';
 
 const REPOSITORY_ERRORS = [
   'EmptyPackageImport',
@@ -14,19 +15,6 @@ const REPOSITORY_ERRORS = [
 ];
 
 class CosmosErrorMessage extends React.Component {
-  getHeader() {
-    const {header, headerClass} = this.props;
-    if (!header) {
-      return null;
-    }
-
-    return (
-      <span className={headerClass}>
-        {header}
-      </span>
-    );
-  }
-
   getMessage() {
     const {error} = this.props;
     if (!error) {
@@ -97,48 +85,40 @@ class CosmosErrorMessage extends React.Component {
   appendRepositoryLink(message) {
     return (
       <span>
-        {`${message} You can go to the `}
-        <a href="/#/system/overview/repositories/">Repositories Settings</a>
+        <strong>{`${message}. `}</strong><br />
+        {'You can go to the '}
+        <a href="/#/settings/repositories/">Repositories Settings</a>
         {' page to change installed repositories.'}
       </span>
     );
   }
 
   render() {
-    const {className, onResized, wrapperClass} = this.props;
-
     return (
-      <div className={wrapperClass}>
-        {this.getHeader()}
-        <CollapsibleErrorMessage
-          className={className}
-          onToggle={onResized}
-          message={this.getMessage()}
-          details={this.getDetails()} />
-      </div>
+      <Alert flushBottom={this.props.flushBottom}>
+        {this.getMessage()}
+        <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
+          <ul className="short flush-bottom">
+            {this.getDetails()}
+          </ul>
+        </div>
+      </Alert>
     );
   }
 };
 
 CosmosErrorMessage.defaultProps = {
-  className: 'text-overflow-break-word column-small-8 column-small-offset-2 column-medium-6 column-medium-offset-3',
   error: {message: 'Please try again.'},
-  header: 'An Error Occurred',
-  headerClass: 'h3 text-align-center flush-top',
-  wrapperClass: 'row'
+  flushBottom: false
 };
 
 CosmosErrorMessage.propTypes = {
-  className: React.PropTypes.string,
   error: React.PropTypes.shape({
     message: React.PropTypes.node,
     type: React.PropTypes.string,
     data: React.PropTypes.object
   }),
-  header: React.PropTypes.string,
-  headerClass: React.PropTypes.string,
-  wrapperClass: React.PropTypes.string,
-  onResized: React.PropTypes.func
+  flushBottom: React.PropTypes.bool
 };
 
 module.exports = CosmosErrorMessage;

@@ -13,12 +13,12 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'RepositoryUriSyntax', name: 'Invalid', message: 'The url for Invalid does not have correct syntax.'}
+        response: {type: 'RepositoryUriSyntax', name: 'Invalid', message: 'The url for Invalid does not have correct syntax'}
       })
       .visitUrl({url: '/universe/packages', logIn: true});
 
     cy
-      .get('.page-body-content .text-overflow-break-word')
+      .get('.page-body-content .alert-content')
       .should('contain', 'The url for Invalid does not have correct syntax. You can go to the Repositories Settings page to change installed repositories.');
   });
 
@@ -28,12 +28,12 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'IndexNotFound', name: 'Invalid', message: 'The index file is missing in Invalid.'}
+        response: {type: 'IndexNotFound', name: 'Invalid', message: 'The index file is missing in Invalid'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-body-content .text-overflow-break-word')
+      .get('.page-body-content .alert-content')
       .should('contain', 'The index file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories.');
   });
 
@@ -43,12 +43,12 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'PackageFileMissing', name: 'Invalid', message: 'The package file is missing in Invalid.'}
+        response: {type: 'PackageFileMissing', name: 'Invalid', message: 'The package file is missing in Invalid'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-body-content .text-overflow-break-word')
+      .get('.page-body-content .alert-content')
       .should('contain', 'The package file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories.');
   });
 
@@ -58,12 +58,12 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'PackageFileMissing', message: 'The package file is missing in a repository.'}
+        response: {type: 'PackageFileMissing', message: 'The package file is missing in a repository'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-body-content .text-overflow-break-word')
+      .get('.page-body-content .alert-content')
       .should('contain', 'The package file is missing in a repository. You can go to the Repositories Settings page to change installed repositories.');
   });
 
@@ -78,7 +78,7 @@ describe('Packages Tab', function () {
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-body-content .h3.text-align-center')
+      .get('.panel-content h3')
       .should('contain', 'An Error Occurred');
   });
 

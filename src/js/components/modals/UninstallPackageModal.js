@@ -96,9 +96,8 @@ class UninstallPackageModal extends mixin(StoreMixin) {
 
     return (
       <CosmosErrorMessage
-        className="text-error-state text-overflow-break-word"
         error={packageUninstallError}
-        header="" />
+        flushBottom={true} />
     );
   }
 
@@ -144,10 +143,10 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     return (
       <div className="text-align-center">
         <h3 className="flush-top">Are you sure?</h3>
+        {errorMessage}
         <p className={paragraphTagClasses}>
           {`${cosmosPackage.getAppIdName()} will be uninstalled from ${Config.productName}. All tasks belonging to this package will be killed.`}
         </p>
-        {errorMessage}
       </div>
     );
   }

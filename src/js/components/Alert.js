@@ -3,9 +3,10 @@ import React from 'react';
 
 import Icon from './Icon';
 
-const Alert = ({children, showIcon, type}) => {
+const Alert = ({children, flushBottom, showIcon, type}) => {
   const classes = classNames('alert', {
-    [`alert-${type}`]: type != null
+    [`alert-${type}`]: type != null,
+    'flush-bottom': flushBottom === true
   });
   let icon = null;
 
@@ -31,12 +32,14 @@ const Alert = ({children, showIcon, type}) => {
 };
 
 Alert.defaultProps = {
+  flushBottom: false,
   showIcon: true,
   type: 'danger'
 };
 
 Alert.propTypes = {
   children: React.PropTypes.node.isRequired,
+  flushBottom: React.PropTypes.bool,
   showIcon: React.PropTypes.bool,
   type: React.PropTypes.oneOf(['danger', 'success'])
 };

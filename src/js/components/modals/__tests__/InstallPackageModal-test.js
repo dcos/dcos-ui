@@ -1,4 +1,6 @@
 jest.dontMock('../InstallPackageModal');
+jest.dontMock('../../Alert');
+jest.dontMock('../../CosmosErrorHeader');
 jest.dontMock('../../CosmosErrorMessage');
 jest.dontMock('../../Loader');
 jest.dontMock('../../ReviewConfig');
@@ -109,7 +111,7 @@ describe('InstallPackageModal', function () {
         this.container
       ));
 
-      var result = node.querySelector('.h3.text-align-center.flush-top');
+      var result = node.querySelector('h3.text-align-center.flush-top');
       expect(result.textContent).toEqual('An Error Occurred');
     });
 
