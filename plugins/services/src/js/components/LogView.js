@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
+import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import Util from '../../../../../src/js/utils/Util';
-import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const CONTAINER_OFFSET_HEIGHT = 200;
 
@@ -156,7 +157,7 @@ class LogView extends React.Component {
   checkIfCloseToTop(container) {
     // This number has been determined by trail and error to be a good
     // measurement for close to the top
-    if (container.scrollTop < 2000) {
+    if (container && container.scrollTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
@@ -165,7 +166,11 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
-    // The 200px is to give the checker a little bit of breathing room to
+    if (!container) {
+      return;
+    }
+
+    // The CONTAINER_OFFSET_HEIGHT is to give the checker a little bit of breathing room to
     // determine when we are at the bottom
     const isAtBottom = container.offsetHeight + container.scrollTop +
       CONTAINER_OFFSET_HEIGHT >= container.scrollHeight;
@@ -180,7 +185,7 @@ class LogView extends React.Component {
   goToNewHighlightedSearch() {
     const {logContainer} = this;
     const node = logContainer.querySelector('.highlight.selected');
-    if (!node) {
+    if (!node || !logContainer) {
       return;
     }
 
@@ -194,33 +199,17 @@ class LogView extends React.Component {
     }
   }
 
-  getEmptyLogScreen() {
-    let {logName} = this.props;
-    // Append space if logName is defined
-    logName = logName && (logName + ' ');
-
-    return (
-      <div className="flex-grow horizontal-center vertical-center">
-        <h3 className="text-align-center flush-top">
-          {`${logName} Log is Currently Empty`}
-        </h3>
-        <p className="text-align-center flush-bottom">
-          Please try again later.
-        </p>
-      </div>
-    );
-  }
-
   getLog() {
-    const {highlightText, onCountChange, watching} = this.props;
+    const {highlightText, logName, onCountChange, watching} = this.props;
     const {fullLog} = this.state;
 
     if (fullLog === '') {
-      return this.getEmptyLogScreen();
+      return <EmptyLogScreen logName={logName} />;
     }
 
-    return (
+    return [
       <pre
+        key="log-container"
         className="flex-item-grow-1 flush-bottom prettyprint"
         ref={(ref) => { this.logContainer = ref; }}
         onScroll={this.handleLogContainerScroll}>
@@ -233,8 +222,18 @@ class LogView extends React.Component {
           watching={watching}>
           {fullLog}
         </Highlight>
-      </pre>
-    );
+      </pre>,
+      <ReactCSSTransitionGroup
+        key="log-go-down-button"
+        transitionAppear={true}
+        transitionName="button"
+        transitionAppearTimeout={350}
+        transitionEnterTimeout={350}
+        transitionLeaveTimeout={350}
+        component="div">
+        {this.getGoToBottomButton()}
+      </ReactCSSTransitionGroup>
+    ];
   }
 
   getGoToBottomButton() {
@@ -279,15 +278,6 @@ class LogView extends React.Component {
     return (
       <div className="log-view flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
-        <ReactCSSTransitionGroup
-          transitionAppear={true}
-          transitionName="button"
-          transitionAppearTimeout={350}
-          transitionEnterTimeout={350}
-          transitionLeaveTimeout={350}
-          component="div">
-          {this.getGoToBottomButton()}
-        </ReactCSSTransitionGroup>
       </div>
     );
   }

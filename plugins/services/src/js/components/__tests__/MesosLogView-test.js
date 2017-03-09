@@ -13,6 +13,7 @@ const Item = require('../../../../../../src/js/structs/Item');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
 const MesosLogView = require('../MesosLogView');
+const EmptyLogScreen = require('../EmptyLogScreen');
 const DOMUtil = require('../../../../../../src/js/utils/DOMUtils');
 
 describe('MesosLogView', function () {
@@ -178,14 +179,14 @@ describe('MesosLogView', function () {
 
     it('should show empty log when fullLog is empty string', function () {
       this.instance.state.fullLog = '';
-      var div = this.instance.getLog();
-      expect(TestUtils.isElementOfType(div, 'div')).toEqual(true);
+      var res = this.instance.getLog();
+      expect(TestUtils.isElementOfType(res, EmptyLogScreen)).toEqual(true);
     });
 
     it('should not show empty log when fullLog is populated', function () {
       this.instance.state.fullLog = 'foo';
-      var pre = this.instance.getLog();
-      expect(TestUtils.isElementOfType(pre, 'pre')).toEqual(true);
+      var res = this.instance.getLog();
+      expect(Array.isArray(res)).toEqual(true);
     });
 
     it('shouldn\'t call getLog when log is null', function () {

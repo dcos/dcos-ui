@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
+import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import MesosLogStore from '../stores/MesosLogStore';
@@ -196,6 +197,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfCloseToTop(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const logBuffer = MesosLogStore.get(this.props.filePath);
     if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
@@ -205,6 +210,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfAwayFromBottom(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const isAtBottom = container.offsetHeight + distanceFromTop
       >= container.scrollHeight;
@@ -250,23 +259,6 @@ class MesosLogView extends mixin(StoreMixin) {
     );
   }
 
-  getEmptyLogScreen() {
-    let {logName} = this.props;
-    // Append space if logName is defined
-    logName = logName && (logName + ' ');
-
-    return (
-      <div className="flex-grow horizontal-center vertical-center">
-        <h3 className="text-align-center flush-top">
-          {`${logName} Log is Currently Empty`}
-        </h3>
-        <p className="text-align-center flush-bottom">
-          Please try again later.
-        </p>
-      </div>
-    );
-  }
-
   getErrorScreen() {
     return <RequestErrorMsg />;
   }
@@ -279,11 +271,12 @@ class MesosLogView extends mixin(StoreMixin) {
     }
     const fullLog = state.fullLog;
     if (fullLog === '') {
-      return this.getEmptyLogScreen();
+      return <EmptyLogScreen logName={this.props.logName} />;
     }
 
-    return (
+    return [
       <pre
+        key="log-container"
         className="flex-item-grow-1 flush-bottom prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
@@ -296,8 +289,18 @@ class MesosLogView extends mixin(StoreMixin) {
           watching={props.watching}>
           {fullLog}
         </Highlight>
-      </pre>
-    );
+      </pre>,
+      <ReactCSSTransitionGroup
+        key="log-go-down-button"
+        transitionAppear={true}
+        transitionName="button"
+        transitionAppearTimeout={350}
+        transitionEnterTimeout={350}
+        transitionLeaveTimeout={350}
+        component="div">
+        {this.getGoToBottomButton()}
+      </ReactCSSTransitionGroup>
+    ];
   }
 
   getLoadingScreen() {
@@ -354,15 +357,6 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <div className="log-view flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
-        <ReactCSSTransitionGroup
-          transitionAppear={true}
-          transitionName="button"
-          transitionAppearTimeout={350}
-          transitionEnterTimeout={350}
-          transitionLeaveTimeout={350}
-          component="div">
-          {this.getGoToBottomButton()}
-        </ReactCSSTransitionGroup>
       </div>
     );
   }
