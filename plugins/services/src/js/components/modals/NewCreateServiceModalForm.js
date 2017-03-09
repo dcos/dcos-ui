@@ -353,6 +353,7 @@ class NewCreateServiceModalForm extends Component {
               <h3 className="short-top short-bottom">
                 Advanced Settings
               </h3>
+              <p>Advanced settings of the container</p>
               <ArtifactsSection
                 data={artifacts}
                 path={artifactsPath}
