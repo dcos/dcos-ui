@@ -184,8 +184,8 @@ describe('MesosLogView', function () {
 
     it('should not show empty log when fullLog is populated', function () {
       this.instance.state.fullLog = 'foo';
-      var pre = this.instance.getLog();
-      expect(TestUtils.isElementOfType(pre, 'pre')).toEqual(true);
+      var res = this.instance.getLog();
+      expect(Array.isArray(res)).toEqual(true);
     });
 
     it('shouldn\'t call getLog when log is null', function () {

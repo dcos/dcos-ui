@@ -201,6 +201,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfCloseToTop(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const logBuffer = MesosLogStore.get(this.props.filePath);
     if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
@@ -210,6 +214,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfAwayFromBottom(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const isAtBottom = container.offsetHeight + distanceFromTop
       >= container.scrollHeight;

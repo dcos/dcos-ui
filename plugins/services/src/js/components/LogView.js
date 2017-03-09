@@ -154,7 +154,7 @@ class LogView extends React.Component {
   checkIfCloseToTop(container) {
     // This number has been determined by trail and error to be a good
     // measurement for close to the top
-    if (container.scrollTop < 2000) {
+    if (container && container.scrollTop < 2000) {
       const {hasLoadedTop, fetchPreviousLogs} = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
@@ -163,6 +163,10 @@ class LogView extends React.Component {
   }
 
   checkIfAwayFromBottom(container) {
+    if (!container) {
+      return;
+    }
+
     const isAtBottom = container.offsetHeight + container.scrollTop
       >= container.scrollHeight;
 
@@ -176,7 +180,7 @@ class LogView extends React.Component {
   goToNewHighlightedSearch() {
     const {logContainer} = this;
     const node = logContainer.querySelector('.highlight.selected');
-    if (!node) {
+    if (!node || !logContainer) {
       return;
     }
 
