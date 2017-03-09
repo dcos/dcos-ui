@@ -10,6 +10,7 @@ import TableUtil from '../../../../../../src/js/utils/TableUtil';
 import TaskStates from '../../constants/TaskStates';
 import TaskHealthStates from '../../constants/TaskHealthStates';
 import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
+import TaskTableUtil from '../../utils/TaskTableUtil';
 import TaskUtil from '../../utils/TaskUtil';
 import Units from '../../../../../../src/js/utils/Units';
 
@@ -68,7 +69,7 @@ class TaskTable extends React.Component {
   getColumns() {
     var className = this.getClassName;
     var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
-    const sortFunction = ResourceTableUtil.getSortFunction('id');
+    const sortFunction = TaskTableUtil.getSortFunction('id');
 
     return [
       {
