@@ -1,5 +1,5 @@
 jest.dontMock('../Highlight');
-jest.dontMock('../MesosLogView');
+jest.dontMock('../MesosLogContainer');
 jest.dontMock('../LogView');
 jest.dontMock('../../../../../../src/js/structs/Item');
 jest.dontMock('../../../../../../src/js/components/Loader');
@@ -13,12 +13,12 @@ const ReactDOM = require('react-dom');
 const Item = require('../../../../../../src/js/structs/Item');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
-const MesosLogView = require('../MesosLogView');
+const MesosLogContainer = require('../MesosLogContainer');
 const SystemLogTypes = require('../../../../../../src/js/constants/SystemLogTypes');
 
 const APPEND = SystemLogTypes.APPEND;
 
-describe('MesosLogView', function () {
+describe('MesosLogContainer', function () {
   beforeEach(function () {
 
     // Store original versions
@@ -32,7 +32,7 @@ describe('MesosLogView', function () {
 
     this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
-      <MesosLogView
+      <MesosLogContainer
         filePath="/some/file/path"
         logName="bar"
         task={{slave_id: 'foo'}} />,
@@ -184,7 +184,7 @@ describe('MesosLogView', function () {
 
     it('calls getLoadingScreen when filePath is null', function () {
       this.instance = ReactDOM.render(
-        <MesosLogView
+        <MesosLogContainer
           filePath={null}
           logName="foo"
           task={{slave_id: 'foo'}} />,
@@ -199,7 +199,7 @@ describe('MesosLogView', function () {
 
     it('calls getEmptyDirectoryScreen when fullLog has data', function () {
       this.instance = ReactDOM.render(
-        <MesosLogView
+        <MesosLogContainer
           filePath="/some/file/path"
           logName={null}
           task={{slave_id: 'foo'}} />,
@@ -222,7 +222,7 @@ describe('MesosLogView', function () {
 
     it('shows empty directory screen when logName is empty', function () {
       this.instance = ReactDOM.render(
-        <MesosLogView
+        <MesosLogContainer
           filePath="/some/file/path"
           logName={null}
           task={{slave_id: 'foo'}} />,
