@@ -127,14 +127,9 @@ class MesosLogView extends mixin(StoreMixin) {
     );
   }
 
-  handleLogContainerScroll(e) {
-    const container = e.target;
-    if (!container) {
-      return;
-    }
-
-    this.checkIfCloseToTop(container);
-    this.checkIfAwayFromBottom(container);
+  handleLogContainerScroll() {
+    this.checkIfCloseToTop(this.refs.logContainer);
+    this.checkIfAwayFromBottom(this.refs.logContainer);
   }
 
   handleGoToBottom() {

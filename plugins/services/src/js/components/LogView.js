@@ -8,6 +8,8 @@ import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import Util from '../../../../../src/js/utils/Util';
 
+const CONTAINER_OFFSET_HEIGHT = 200;
+
 const METHODS_TO_BIND = [
   'handleGoToBottom',
   'handleLogContainerScroll',
@@ -168,8 +170,10 @@ class LogView extends React.Component {
       return;
     }
 
-    const isAtBottom = container.offsetHeight + container.scrollTop
-      >= container.scrollHeight;
+    // The CONTAINER_OFFSET_HEIGHT is to give the checker a little bit of breathing room to
+    // determine when we are at the bottom
+    const isAtBottom = container.offsetHeight + container.scrollTop +
+      CONTAINER_OFFSET_HEIGHT >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
       this.setState({isAtBottom});
