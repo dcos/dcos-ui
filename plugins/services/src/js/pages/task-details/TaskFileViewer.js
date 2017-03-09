@@ -65,11 +65,14 @@ class TaskFileViewer extends React.Component {
       return logViews;
     }
 
+    const limitLogFilesIsNotEmpty = limitLogFiles.length > 0;
+
     directory.getItems().forEach((item) => {
       const excludeFile = (
-        limitLogFiles.length > 0 &&
+        limitLogFilesIsNotEmpty &&
         !limitLogFiles.includes(item.getName())
       );
+
       if (!item.isLogFile() || excludeFile) {
         return;
       }
