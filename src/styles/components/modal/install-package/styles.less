@@ -28,7 +28,8 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        min-height: 0;
+        // IE11 requires a minimum height of at least one pixel.
+        min-height: 1px;
         position: relative;
 
         .tab-form-wrapper {
@@ -45,13 +46,15 @@
           display: flex;
           flex: 1 1 auto;
           height: auto;
-          min-height: 0;
+          // IE11 requires a minimum height of at least one pixel.
+          min-height: 1px;
         }
 
         .multiple-form-left-column,
         .multiple-form-right-column {
           height: auto;
-          min-height: 0;
+          // IE11 requires a minimum height of at least one pixel.
+          min-height: 1px;
         }
 
         .multiple-form-left-column {
@@ -68,6 +71,7 @@
       }
 
       .review-config {
+        flex: 1 1 auto;
 
         .configuration-map {
 
