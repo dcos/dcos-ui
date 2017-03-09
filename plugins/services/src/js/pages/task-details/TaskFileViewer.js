@@ -7,6 +7,7 @@ import DirectoryItem from '../../structs/DirectoryItem';
 import Icon from '../../../../../../src/js/components/Icon';
 import MesosLogContainer from '../../components/MesosLogContainer';
 import SearchLog from '../../components/SearchLog';
+import TaskDirectory from '../../structs/TaskDirectory';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
@@ -221,7 +222,7 @@ TaskFileViewer.defaultProps = {
 };
 
 TaskFileViewer.propTypes = {
-  directory: React.PropTypes.object,
+  directory: React.PropTypes.instanceOf(TaskDirectory),
   limitLogFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
