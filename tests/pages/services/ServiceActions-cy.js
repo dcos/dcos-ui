@@ -372,16 +372,17 @@ describe('Service Actions', function () {
         .click();
     }
 
-    beforeEach(function () {
+    function configureClusterWithSuspendedServiceAndVisitServices() {
       cy.configureCluster({
         mesos: '1-service-suspended',
         nodeHealth: true
       });
 
       cy.visitUrl({url: '/services/overview'});
-    });
+    }
 
     it('hides the suspend option in the service action dropdown', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
       cy.get('.dropdown-menu-items')
@@ -391,6 +392,7 @@ describe('Service Actions', function () {
     });
 
     it('shows the resume option in the service action dropdown', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
       cy.get('.dropdown-menu-items')
@@ -400,6 +402,7 @@ describe('Service Actions', function () {
     });
 
     it('opens the resume dialog', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
       clickResume();
 
@@ -409,6 +412,7 @@ describe('Service Actions', function () {
     });
 
     it('opens the resume dialog with the instances textbox if the single app instance label does not exist', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
       clickResume();
 
@@ -432,6 +436,8 @@ describe('Service Actions', function () {
     });
 
     it('disables button during API request', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
+
       cy.route({
         method: 'PUT',
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -447,6 +453,8 @@ describe('Service Actions', function () {
     });
 
     it('closes dialog on successful API request', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
+
       cy
         .route({
           method: 'PUT',
@@ -462,6 +470,8 @@ describe('Service Actions', function () {
     });
 
     it('shows error message on conflict', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
+
       cy
         .route({
           method: 'PUT',
@@ -481,6 +491,8 @@ describe('Service Actions', function () {
     });
 
     it('shows error message on not authorized', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
+
       cy
         .route({
           method: 'PUT',
@@ -500,6 +512,8 @@ describe('Service Actions', function () {
     });
 
     it('reenables button after faulty request', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
+
       cy
         .route({
           method: 'PUT',
@@ -518,6 +532,7 @@ describe('Service Actions', function () {
     });
 
     it('closes dialog on secondary button click', function () {
+      configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
       clickResume();
 
