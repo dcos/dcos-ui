@@ -8,7 +8,7 @@ import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import Util from '../../../../../src/js/utils/Util';
 
-const CONTAINER_OFFSET_HEIGHT = 200;
+const CONTAINER_OFFSET_HEIGHT = 25;
 
 const METHODS_TO_BIND = [
   'handleGoToBottom',
