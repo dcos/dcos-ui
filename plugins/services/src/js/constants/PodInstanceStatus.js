@@ -29,6 +29,12 @@ const POD_INSTANCE_STATUS = {
     displayName: 'Killed',
     healthStatus: 'NA'
   },
+  FINISHED: {
+    dotClassName: 'dot inactive danger',
+    textClassName: '',
+    displayName: 'Completed',
+    healthStatus: 'NA'
+  },
   NA: {
     dotClassName: 'dot inactive unknown',
     textClassName: '',

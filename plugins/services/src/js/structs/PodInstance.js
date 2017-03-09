@@ -1,5 +1,6 @@
 import Item from '../../../../../src/js/structs/Item';
 import PodContainer from './PodContainer';
+import PodContainerStatus from '../constants/PodContainerStatus';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodInstanceState from '../constants/PodInstanceState';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
@@ -53,6 +54,19 @@ module.exports = class PodInstance extends Item {
         return PodInstanceStatus.UNHEALTHY;
 
       case PodInstanceState.TERMINAL:
+
+        // If all containers are in completed state, mark us as completed
+        const containers = this.getContainers();
+        const isFinished = (containers.length > 0) && containers.every(
+          function (container) {
+            return container.getContainerStatus() === PodContainerStatus.FINISHED;
+          }
+        );
+
+        if (isFinished) {
+          return PodInstanceStatus.FINISHED;
+        }
+
         return PodInstanceStatus.KILLED;
 
       default:
