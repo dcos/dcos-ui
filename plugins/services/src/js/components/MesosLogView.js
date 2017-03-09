@@ -11,6 +11,7 @@ import MesosLogStore from '../stores/MesosLogStore';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import Util from '../../../../../src/js/utils/Util';
+import EmptyLogScreen from './EmptyLogScreen';
 
 const METHODS_TO_BIND = [
   'handleGoToBottom',
@@ -196,6 +197,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfCloseToTop(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const logBuffer = MesosLogStore.get(this.props.filePath);
     if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
@@ -205,6 +210,10 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   checkIfAwayFromBottom(container) {
+    if (!container) {
+      return;
+    }
+
     const distanceFromTop = DOMUtils.getDistanceFromTop(container);
     const isAtBottom = container.offsetHeight + distanceFromTop
       >= container.scrollHeight;
@@ -250,23 +259,6 @@ class MesosLogView extends mixin(StoreMixin) {
     );
   }
 
-  getEmptyLogScreen() {
-    let {logName} = this.props;
-    // Append space if logName is defined
-    logName = logName && (logName + ' ');
-
-    return (
-      <div className="flex-grow horizontal-center vertical-center">
-        <h3 className="text-align-center flush-top">
-          {`${logName} Log is Currently Empty`}
-        </h3>
-        <p className="text-align-center flush-bottom">
-          Please try again later.
-        </p>
-      </div>
-    );
-  }
-
   getErrorScreen() {
     return <RequestErrorMsg />;
   }
@@ -279,7 +271,7 @@ class MesosLogView extends mixin(StoreMixin) {
     }
     const fullLog = state.fullLog;
     if (fullLog === '') {
-      return this.getEmptyLogScreen();
+      return <EmptyLogScreen logName={this.props.logName} />;
     }
 
     return (
