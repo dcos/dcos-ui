@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
+import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import Util from '../../../../../src/js/utils/Util';
-import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const CONTAINER_OFFSET_HEIGHT = 200;
 
@@ -198,29 +199,12 @@ class LogView extends React.Component {
     }
   }
 
-  getEmptyLogScreen() {
-    let {logName} = this.props;
-    // Append space if logName is defined
-    logName = logName && (logName + ' ');
-
-    return (
-      <div className="flex-grow horizontal-center vertical-center">
-        <h3 className="text-align-center flush-top">
-          {`${logName} Log is Currently Empty`}
-        </h3>
-        <p className="text-align-center flush-bottom">
-          Please try again later.
-        </p>
-      </div>
-    );
-  }
-
   getLog() {
-    const {highlightText, onCountChange, watching} = this.props;
+    const {highlightText, logName, onCountChange, watching} = this.props;
     const {fullLog} = this.state;
 
     if (fullLog === '') {
-      return this.getEmptyLogScreen();
+      return <EmptyLogScreen logName={logName} />;
     }
 
     return [
