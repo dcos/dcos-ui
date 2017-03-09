@@ -145,7 +145,7 @@ const jobsRoutes = {
                   component: TaskLogsContainer,
                   hideHeaderNavigation: true,
                   isTab: true,
-                  path: 'logs(/:filePath)',
+                  path: 'logs',
                   title: 'Logs',
                   type: Route,
                   buildBreadCrumb() {
@@ -153,7 +153,13 @@ const jobsRoutes = {
                       parentCrumb: '/jobs/:id/tasks/:taskID',
                       getCrumbs() { return []; }
                     };
-                  }
+                  },
+                  children: [
+                    {
+                      path: ':filePath',
+                      type: Route
+                    }
+                  ]
                 }
               ]
             }

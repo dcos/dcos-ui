@@ -210,7 +210,7 @@ const serviceRoutes = [
                         component: TaskLogsContainer,
                         hideHeaderNavigation: true,
                         isTab: true,
-                        path: 'logs(/:filePath)',
+                        path: 'logs',
                         title: 'Logs',
                         type: Route,
                         buildBreadCrumb() {
@@ -218,7 +218,13 @@ const serviceRoutes = [
                             parentCrumb: '/services/overview/:id/tasks/:taskID',
                             getCrumbs() { return []; }
                           };
-                        }
+                        },
+                        children: [
+                          {
+                            path: ':filePath',
+                            type: Route
+                          }
+                        ]
                       },
                       {
                         component: VolumeTable,
