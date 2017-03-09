@@ -35,9 +35,9 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/service\/marathon\/v2\/apps/, 'fx:marathon-1-task/app')
       .route(/service\/marathon\/v2\/apps\/\/sleep\/versions/,
         'fx:marathon-1-task/versions')
-      .route(/service\/marathon\/v2\/apps\/\/sleep\/versions\/2015\-08\-28T01:26:14\.620Z/,
+      .route(/service\/marathon\/v2\/apps\/\/sleep\/versions\/2015-08-28T01:26:14\.620Z/,
         'fx:marathon-1-task/app-version-1')
-      .route(/service\/marathon\/v2\/apps\/\/sleep\/versions\/2015\-02\-28T05:12:12\.221Z/,
+      .route(/service\/marathon\/v2\/apps\/\/sleep\/versions\/2015-02-28T05:12:12\.221Z/,
         'fx:marathon-1-task/app-version-2')
       .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-task/groups')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
@@ -49,6 +49,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/state/, 'fx:marathon-1-task/state')
       .route(/overlay-master\/state/, 'fx:mesos/overlay-master');
   }
+
   if (configuration.mesos === '1-empty-group') {
     cy
       .route(/marathon\/v2\/groups/, 'fx:marathon-1-group/groups');
@@ -106,6 +107,28 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
     cy
       .route(/marathon\/v2\/deployments/, 'fx:deployments/one-deployment')
       .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-group/kafka');
+  }
+
+  if (configuration.mesos === '1-service-suspended') {
+    cy
+      .route(/service\/marathon\/v2\/apps/, 'fx:marathon-1-task/app-suspended')
+      .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-task/groups-suspended')
+      .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
+      .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
+      .route(/history\/last/, 'fx:marathon-1-task/summary')
+      .route(/state-summary/, 'fx:marathon-1-task/summary')
+      .route(/state/, 'fx:marathon-1-task/state');
+  }
+
+  if (configuration.mesos === '1-service-suspended-single-instance') {
+    cy
+      .route(/service\/marathon\/v2\/apps/, 'fx:marathon-1-task/app-suspended-single-instance')
+      .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-task/groups-suspended-single-instance')
+      .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
+      .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
+      .route(/history\/last/, 'fx:marathon-1-task/summary')
+      .route(/state-summary/, 'fx:marathon-1-task/summary')
+      .route(/state/, 'fx:marathon-1-task/state');
   }
 
   if (configuration.networkVIPSummaries) {

@@ -4,6 +4,7 @@ const ServiceActionItem = {
   EDIT: 'edit',
   DESTROY: 'destroy',
   RESTART: 'restart',
+  RESUME: 'resume',
   SCALE: 'scale',
   SUSPEND: 'suspend',
   MORE: 'more',

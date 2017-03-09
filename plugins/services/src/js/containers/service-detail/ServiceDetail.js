@@ -163,6 +163,13 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
+    if (instanceCount === 0) {
+      actions.push({
+        label: 'Resume',
+        onItemSelect: modalHandlers.resumeService
+      });
+    }
+
     actions.push({
       className: 'text-danger',
       label: 'Destroy',
