@@ -105,4 +105,13 @@ class ArtifactsSection extends Component {
   }
 }
 
+ArtifactsSection.propTypes = {
+  data: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      uri: React.PropTypes.string
+    })
+  ),
+  path: React.PropTypes.string
+};
+
 module.exports = ArtifactsSection;
