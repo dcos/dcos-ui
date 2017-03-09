@@ -130,13 +130,13 @@ class MesosLogStore extends BaseStore {
     }
   }
 
-  stopTailing(path, shouldClearData = false) {
+  stopTailing(path, clearLogBuffer = false) {
     // As soon as any request responds (success or error) the tailing will stop
     if (this.logs[path]) {
       this.logs[path].isTailing = false;
     }
 
-    if (shouldClearData) {
+    if (clearLogBuffer) {
       this.logs[path] = null;
     }
   }
