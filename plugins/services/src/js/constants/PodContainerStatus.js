@@ -68,7 +68,7 @@ const POD_CONTAINER_STATUS = {
   FINISHED: {
     dotClassName: 'dot inactive danger',
     textClassName: '',
-    displayName: 'Killed',
+    displayName: 'Completed',
     healthStatus: 'NA'
   },
   LOST: {

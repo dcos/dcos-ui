@@ -63,6 +63,26 @@ describe('PodInstance', function () {
 
   });
 
+  describe('#getStatus', function () {
+
+    it('should return FINISHED when all containers are FINISHED', function () {
+      const podInstance = new PodInstance({
+        status: 'terminal',
+        containers: [
+          {
+            status: 'TASK_FINISHED'
+          }
+        ]
+      });
+
+      // when we are in TERMINAL state, but all containers are FINISHED, then
+      // we should be considered FINISHED too.
+      expect(podInstance.getInstanceStatus())
+        .toEqual(PodInstanceStatus.FINISHED);
+    });
+
+  });
+
   describe('#getInstanceStatus', function () {
 
     it('should correctly detect container in PENDING state', function () {
