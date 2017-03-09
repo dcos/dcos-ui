@@ -5,7 +5,7 @@ import {routerShape, formatPattern} from 'react-router';
 
 import DirectoryItem from '../../structs/DirectoryItem';
 import Icon from '../../../../../../src/js/components/Icon';
-import MesosLogView from '../../components/MesosLogView';
+import MesosLogContainer from '../../components/MesosLogContainer';
 import SearchLog from '../../components/SearchLog';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
@@ -202,7 +202,7 @@ class TaskFileViewer extends React.Component {
 
     return (
       <SearchLog actions={this.getActions(selectedLogFile, filePath)}>
-        <MesosLogView
+        <MesosLogContainer
           filePath={filePath}
           task={task}
           logName={selectedName} />
