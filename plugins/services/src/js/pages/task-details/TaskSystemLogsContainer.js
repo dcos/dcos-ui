@@ -79,7 +79,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {task = {}} = this.props;
+    const {highlightText, task = {}, watching} = this.props;
     const {
       direction,
       fullLog,
@@ -90,6 +90,10 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     } = this.state;
 
     return Boolean(
+      // Check highlightText
+      (highlightText !== nextProps.highlightText) ||
+      // Check watching
+      (watching !== nextProps.watching) ||
       // Check task
       (nextProps.task && task.slave_id !== nextProps.task.slave_id) ||
       // Check direction
