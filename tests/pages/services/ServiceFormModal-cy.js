@@ -447,4 +447,58 @@ describe('Service Form Modal', function () {
 
   });
 
+  context('Create Layout (Multi Container)', function () {
+
+    beforeEach(function () {
+      cy.configureCluster({
+        mesos: '1-task-healthy'
+      });
+
+      cy.visitUrl({url: '/services/overview/%2F/create'});
+      cy.get('.create-service-modal-service-picker-option')
+        .contains('Multi-container (Pod)')
+        .click();
+
+    });
+
+    context('Service: General', function () {
+
+      it('Should have a "Service ID" field', function () {
+        cy.get('.form-group')
+          .contains('Service ID');
+      });
+
+      it('Should have a "Instances" field', function () {
+        cy.get('.form-group')
+          .contains('Instances');
+      });
+
+    });
+
+    context('Service: container settings', function () {
+      beforeEach(function () {
+        cy.get('.menu-tabbed-item')
+          .contains('container-1')
+          .click();
+      });
+
+      context('Service: More Settings', function () {
+
+        beforeEach(function () {
+          cy.get('a.clickable')
+            .contains('More Settings')
+            .click();
+        });
+
+        it('Should have a "Add Artifact" link', function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add Artifact');
+        });
+
+      });
+
+    });
+
+  });
+
 });

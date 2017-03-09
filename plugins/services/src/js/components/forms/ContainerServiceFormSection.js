@@ -19,30 +19,20 @@ import PodSpec from '../../structs/PodSpec';
 const {NONE} = ContainerConstants.type;
 
 const appPaths = {
-  artifacts: 'fetch',
   cmd: 'cmd',
   containerName: '',
   cpus: 'cpus',
-  disk: 'disk',
-  forcePullImage: '{basePath}.docker.forcePullImage',
-  gpus: 'gpus',
   image: '{basePath}.docker.image',
   mem: 'mem',
-  privileged: '{basePath}.docker.privileged',
   type: '{basePath}.type'
 };
 
 const podPaths = {
-  artifacts: '{basePath}.artifacts',
   cmd: '{basePath}.exec.command.shell',
   containerName: '{basePath}.name',
   cpus: '{basePath}.resources.cpus',
-  disk: '{basePath}.resources.disk',
-  forcePullImage: '',
-  gpus: '',
   image: '{basePath}.image.id',
   mem: '{basePath}.resources.mem',
-  privileged: '',
   type: '{basePath}.type'
 };
 

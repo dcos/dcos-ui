@@ -5,6 +5,10 @@ import React, {PropTypes, Component} from 'react';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
 import {pluralize} from '../../../../../../src/js/utils/StringUtil';
+import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
+import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
+import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
+import ArtifactsSection from '../forms/ArtifactsSection';
 import Batch from '../../../../../../src/js/structs/Batch';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
@@ -314,6 +318,13 @@ class NewCreateServiceModalForm extends Component {
     }
 
     return containers.map((item, index) => {
+      const artifactsPath = `containers.${index}.artifacts`;
+      const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
+      const artifactErrors = findNestedPropertyInObject(
+        errors,
+        artifactsPath
+      ) || [];
+
       return (
         <TabView key={index} id={`container${index}`}>
           <ErrorsAlert
@@ -333,6 +344,23 @@ class NewCreateServiceModalForm extends Component {
             onRemoveItem={this.handleRemoveItem}
             path={`containers.${index}`}
             service={service} />
+
+          <AdvancedSection>
+            <AdvancedSectionLabel>
+              More Settings
+            </AdvancedSectionLabel>
+            <AdvancedSectionContent>
+              <h3 className="short-top short-bottom">
+                Advanced Settings
+              </h3>
+              <ArtifactsSection
+                data={artifacts}
+                path={artifactsPath}
+                errors={artifactErrors}
+                onRemoveItem={this.handleRemoveItem}
+                onAddItem={this.handleAddItem} />
+            </AdvancedSectionContent>
+          </AdvancedSection>
         </TabView>
       );
     });
