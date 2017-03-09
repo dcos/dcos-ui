@@ -1,6 +1,5 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
@@ -53,7 +52,6 @@ class TaskLogsContainer extends mixin(StoreMixin) {
 
     const {
       directory,
-      limitLogFiles,
       params,
       routes,
       selectedLogFile,
@@ -71,9 +69,8 @@ class TaskLogsContainer extends mixin(StoreMixin) {
 
     return (
       <TaskFileViewer
-        limitLogFiles={['stdout', 'stderr']}
         directory={directory}
-        limitLogFiles={limitLogFiles}
+        limitLogFiles={['stdout', 'stderr']}
         params={params}
         routes={routes}
         selectedLogFile={selectedLogFile}
@@ -82,8 +79,10 @@ class TaskLogsContainer extends mixin(StoreMixin) {
   }
 }
 
-TaskFileViewer.contextTypes = {
-  router: routerShape
+TaskFileViewer.propTypes = {
+  directory: React.PropTypes.object,
+  selectedLogFile: React.PropTypes.object,
+  task: React.PropTypes.object
 };
 
 module.exports = TaskLogsContainer;
