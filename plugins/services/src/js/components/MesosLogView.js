@@ -274,8 +274,9 @@ class MesosLogView extends mixin(StoreMixin) {
       return <EmptyLogScreen logName={this.props.logName} />;
     }
 
-    return (
+    return [
       <pre
+        key="log-container"
         className="flex-item-grow-1 flush-bottom prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
@@ -288,8 +289,18 @@ class MesosLogView extends mixin(StoreMixin) {
           watching={props.watching}>
           {fullLog}
         </Highlight>
-      </pre>
-    );
+      </pre>,
+      <ReactCSSTransitionGroup
+        key="log-go-down-button"
+        transitionAppear={true}
+        transitionName="button"
+        transitionAppearTimeout={350}
+        transitionEnterTimeout={350}
+        transitionLeaveTimeout={350}
+        component="div">
+        {this.getGoToBottomButton()}
+      </ReactCSSTransitionGroup>
+    ];
   }
 
   getLoadingScreen() {
@@ -346,15 +357,6 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <div className="log-view flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
-        <ReactCSSTransitionGroup
-          transitionAppear={true}
-          transitionName="button"
-          transitionAppearTimeout={350}
-          transitionEnterTimeout={350}
-          transitionLeaveTimeout={350}
-          component="div">
-          {this.getGoToBottomButton()}
-        </ReactCSSTransitionGroup>
       </div>
     );
   }
