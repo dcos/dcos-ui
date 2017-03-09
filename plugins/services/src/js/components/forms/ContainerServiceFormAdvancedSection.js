@@ -5,16 +5,14 @@ import {Tooltip} from 'reactjs-components';
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
 import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
+import ArtifactsSection from './ArtifactsSection';
 import ContainerConstants from '../../constants/ContainerConstants';
-import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
 import PodSpec from '../../structs/PodSpec';
 
 const {DOCKER} = ContainerConstants.type;
@@ -74,83 +72,6 @@ class ContainerServiceFormAdvancedSection extends Component {
     const typePath = this.getFieldPath(path, 'type');
 
     return findNestedPropertyInObject(data, typePath) === DOCKER;
-  }
-
-  getArtifactsLabel() {
-    const tooltipContent = (
-      <span>
-        {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
-        <a
-          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
-          target="_blank">
-          More information
-        </a>.
-      </span>
-    );
-
-    return (
-      <FieldLabel>
-        {'Artifact URI '}
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
-      </FieldLabel>
-    );
-  }
-
-  getArtifactsInputs() {
-    const {data, errors, path} = this.props;
-    const artifactsPath = this.getFieldPath(path, 'artifacts');
-    const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
-    const artifactErrors = findNestedPropertyInObject(
-      errors,
-      artifactsPath
-    ) || [];
-
-    if (artifacts.length === 0) {
-      return (
-        <FormRow>
-          <FormGroup className="column-10">
-            {this.getArtifactsLabel()}
-          </FormGroup>
-        </FormRow>
-      );
-    }
-
-    return artifacts.map((item, index) => {
-      const error = findNestedPropertyInObject(artifactErrors, `${index}.uri`);
-      let label = null;
-      if (index === 0) {
-        label = this.getArtifactsLabel();
-      }
-
-      return (
-        <FormRow key={`${artifactsPath}.${index}`}>
-          <FormGroup
-            className="column-10"
-            showError={Boolean(error)}>
-            {label}
-            <FieldInput
-              name={`${artifactsPath}.${index}.uri`}
-              placeholder="http://example.com"
-              value={item.uri}/>
-            <FieldError>{error}</FieldError>
-          </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2 flush-left">
-            <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(
-                this,
-                {value: index, path: artifactsPath}
-              )} />
-          </FormGroup>
-        </FormRow>
-      );
-    });
   }
 
   getGPUSField() {
@@ -263,6 +184,10 @@ class ContainerServiceFormAdvancedSection extends Component {
     const {data, errors, path} = this.props;
     const artifactsPath = this.getFieldPath(path, 'artifacts');
     const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
+    const artifactErrors = findNestedPropertyInObject(
+      errors,
+      artifactsPath
+    ) || [];
     const diskPath = this.getFieldPath(path, 'disk');
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
 
@@ -286,18 +211,12 @@ class ContainerServiceFormAdvancedSection extends Component {
             <FieldError>{diskErrors}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.getArtifactsInputs()}
-        <FormRow>
-          <FormGroup className="column-12">
-            <AddButton
-              onClick={this.props.onAddItem.bind(
-                this,
-                {value: artifacts.length, path: artifactsPath}
-              )}>
-              Add Artifact
-            </AddButton>
-          </FormGroup>
-        </FormRow>
+        <ArtifactsSection
+          data={artifacts}
+          path={artifactsPath}
+          errors={artifactErrors}
+          onRemoveItem={this.props.onRemoveItem}
+          onAddItem={this.props.onAddItem} />
       </div>
     );
   }
