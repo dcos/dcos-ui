@@ -5,6 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ConfigStore from '../../../../../../src/js/stores/ConfigStore';
 import Loader from '../../../../../../src/js/components/Loader';
 import Task from '../../structs/Task';
+import TaskDirectory from '../../structs/TaskDirectory';
 import TaskFileViewer from './TaskFileViewer';
 import TaskSystemLogsContainer from './TaskSystemLogsContainer';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
@@ -51,13 +52,7 @@ class TaskLogsContainer extends mixin(StoreMixin) {
       return <Loader />;
     }
 
-    const {
-      directory,
-      params,
-      routes,
-      selectedLogFile,
-      task
-    } = this.props;
+    const {directory, params, routes, selectedLogFile, task} = this.props;
     const config = ConfigStore.get('config');
     const loggingStrategy = findNestedPropertyInObject(
       config,
@@ -81,7 +76,7 @@ class TaskLogsContainer extends mixin(StoreMixin) {
 }
 
 TaskLogsContainer.propTypes = {
-  directory: React.PropTypes.object,
+  directory: React.PropTypes.instanceOf(TaskDirectory),
   params: React.PropTypes.object,
   routes: React.PropTypes.array,
   selectedLogFile: React.PropTypes.object,

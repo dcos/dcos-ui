@@ -318,6 +318,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   }
 
   getLogView() {
+    const {highlightText, onCountChange, watching} = this.props;
     const {
       hasError,
       direction,
@@ -337,12 +338,15 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
 
     return (
       <LogView
-        logName={selectedStream}
         direction={direction}
-        fullLog={fullLog}
         fetchPreviousLogs={this.handleFetchPreviousLog}
+        fullLog={fullLog}
+        hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)}
+        highlightText={highlightText}
+        logName={selectedStream}
         onAtBottomChange={this.handleAtBottomChange}
-        hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)} />
+        onCountChange={onCountChange}
+        watching={watching} />
     );
   }
 
@@ -361,6 +365,19 @@ TaskSystemLogsContainer.propTypes = {
   task: React.PropTypes.shape({
     slave_id: React.PropTypes.string
   })
+};
+
+TaskSystemLogsContainer.defaultProps = {
+  highlightText: ''
+};
+
+TaskSystemLogsContainer.propTypes = {
+  filePath: React.PropTypes.string,
+  highlightText: React.PropTypes.string,
+  logName: React.PropTypes.string,
+  onCountChange: React.PropTypes.func,
+  task: React.PropTypes.object.isRequired,
+  watching: React.PropTypes.number
 };
 
 module.exports = TaskSystemLogsContainer;
