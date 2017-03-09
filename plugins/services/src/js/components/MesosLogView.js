@@ -5,13 +5,13 @@ import ReactDOM from 'react-dom';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
+import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import MesosLogStore from '../stores/MesosLogStore';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import Util from '../../../../../src/js/utils/Util';
-import EmptyLogScreen from './EmptyLogScreen';
 
 const METHODS_TO_BIND = [
   'handleGoToBottom',
