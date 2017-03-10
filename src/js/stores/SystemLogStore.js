@@ -212,7 +212,7 @@ class SystemLogStore extends BaseStore {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
-    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
+    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, APPEND, data);
   }
 
   processLogPrepend(subscriptionID, firstEntry, entries = []) {
@@ -235,7 +235,7 @@ class SystemLogStore extends BaseStore {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
-    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
+    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, PREPEND, data);
   }
 
   get storeID() {
