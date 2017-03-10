@@ -161,11 +161,9 @@ const SystemLogActions = {
       false
     );
     subscriptionID = subscriptionID || Symbol(url + Date.now());
-    const source = new EventSource(url, {
-      withCredentials: Boolean(CookieUtils.getUserMetadata())
-    });
 
     const items = [];
+
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
         // Ignore events that are not from this origin
@@ -205,16 +203,11 @@ const SystemLogActions = {
           subscriptionID
         });
       }
-      // Clean up event listeners
-      source.removeEventListener('message', messageListener);
-      source.removeEventListener('error', errorListener);
-      // Close connection,
-      // no need to delete source as the reference is not stored
-      source.close();
+
+      unsubscribe(subscriptionID);
     }
 
-    source.addEventListener('message', messageListener, false);
-    source.addEventListener('error', errorListener, false);
+    subscribe(url, subscriptionID, messageListener, errorListener);
   },
 
   fetchStreamTypes(nodeID) {
