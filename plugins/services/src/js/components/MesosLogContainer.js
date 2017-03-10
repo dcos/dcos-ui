@@ -10,7 +10,6 @@ import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import {APPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const METHODS_TO_BIND = [
-  'handleAtBottomChange',
   'handleGoToWorkingDirectory',
   'handleFetchPreviousLog',
   'onMesosLogStoreError',
@@ -159,16 +158,6 @@ class MesosLogContainer extends mixin(StoreMixin) {
     TaskDirectoryStore.setPath(this.props.task, '');
   }
 
-  handleAtBottomChange(isAtBottom) {
-    const {task, filePath} = this.props;
-    if (isAtBottom) {
-      // Do not request anymore backwards, but continue stream where we left off
-      MesosLogStore.startTailing(task.slave_id, filePath);
-    } else {
-      MesosLogStore.stopTailing(filePath);
-    }
-  }
-
   handleFetchPreviousLog(props = this.props) {
     const {isFetchingPrevious} = this.state;
     const {task, filePath} = props;
@@ -207,7 +196,6 @@ class MesosLogContainer extends mixin(StoreMixin) {
         hasLoadedTop={MesosLogStore.hasLoadedTop(filePath)}
         highlightText={highlightText}
         logName={logName}
-        onAtBottomChange={this.handleAtBottomChange}
         onCountChange={onCountChange}
         watching={watching} />
     );

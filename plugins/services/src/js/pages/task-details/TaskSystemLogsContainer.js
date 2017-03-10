@@ -16,7 +16,6 @@ import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
 import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 
 const METHODS_TO_BIND = [
-  'handleAtBottomChange',
   'handleFetchPreviousLog',
   'handleItemSelection'
 ];
@@ -194,22 +193,6 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     this.setState({isFetchingPrevious: true});
   }
 
-  handleAtBottomChange(isAtBottom) {
-    const {task} = this.props;
-    const {subscriptionID} = this.state;
-    if (isAtBottom) {
-      // Do not request anymore backwards, but continue stream where we left off
-      const params = getLogParameters(task, {
-        filter: {STREAM: this.state.selectedStream},
-        limit: 0,
-        subscriptionID
-      });
-      SystemLogStore.startTailing(this.props.task.slave_id, params);
-    } else {
-      SystemLogStore.stopTailing(this.state.subscriptionID);
-    }
-  }
-
   handleViewChange(selectedStream) {
     const {task} = this.props;
     // Limit 0 means continuous stream
@@ -344,7 +327,6 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
         hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)}
         highlightText={highlightText}
         logName={selectedStream}
-        onAtBottomChange={this.handleAtBottomChange}
         onCountChange={onCountChange}
         watching={watching} />
     );
