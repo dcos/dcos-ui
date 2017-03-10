@@ -65,38 +65,6 @@ describe('PackagesTab', function () {
 
   });
 
-  describe('#handleInstallModalOpen', function () {
-
-    beforeEach(function () {
-      this.instance.handleInstallModalOpen =
-        jasmine.createSpy('handleInstallModalOpen');
-      this.instance.context = {
-        router: {
-          push: jasmine.createSpy()
-        }
-      };
-      jest.runAllTimers();
-    });
-
-    it('should call handler when panel button is clicked', function () {
-      var panelButton = ReactDOM.findDOMNode(this.instance)
-        .querySelector('.panel .button');
-      TestUtils.Simulate.click(panelButton);
-      expect(
-        this.instance.handleInstallModalOpen.calls.mostRecent().args[0].get('name')
-      ).toEqual('arangodb');
-    });
-
-    it('shouldn\'t call handler when panel is clicked', function () {
-      var panel = ReactDOM.findDOMNode(this.instance)
-        .querySelector('.panel.clickable');
-      TestUtils.Simulate.click(panel);
-
-      expect(this.instance.handleInstallModalOpen).not.toHaveBeenCalled();
-    });
-
-  });
-
   describe('#getSelectedPackages', function () {
 
     beforeEach(function () {
