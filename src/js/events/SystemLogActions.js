@@ -20,6 +20,43 @@ import SystemLogUtil from '../utils/SystemLogUtil';
 
 // Store of current open connections
 const sources = {};
+
+function subscribe(url, subscriptionID, onMessage, onError) {
+  // Unsubscribe if any open connection exists with the same ID
+  unsubscribe(subscriptionID);
+
+  const source = new EventSource(url, {
+    withCredentials: Boolean(CookieUtils.getUserMetadata())
+  });
+
+  source.addEventListener('message', onMessage, false);
+  source.addEventListener('error', onError, false);
+
+  // Store listeners along with EventSource reference, so we can clean up
+  sources[subscriptionID] = {
+    errorListener: onError,
+    messageListener: onMessage,
+    source
+  };
+
+  return subscriptionID;
+}
+
+function unsubscribe(subscriptionID) {
+  if (!sources[subscriptionID]) {
+    return;
+  }
+
+  const { errorListener, messageListener, source } = sources[subscriptionID];
+
+  source.removeEventListener('message', messageListener);
+  source.removeEventListener('error', errorListener);
+
+  source.close();
+
+  delete sources[subscriptionID];
+}
+
 const SystemLogActions = {
   /**
    * Subscribes to the events stream for logs given the parameters provided
@@ -47,9 +84,6 @@ const SystemLogActions = {
 
     const url = SystemLogUtil.getUrl(nodeID, options);
     subscriptionID = subscriptionID || Symbol(url + Date.now());
-    const source = new EventSource(url, {
-      withCredentials: Boolean(CookieUtils.getUserMetadata())
-    });
 
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
@@ -89,10 +123,7 @@ const SystemLogActions = {
       });
     }
 
-    source.addEventListener('message', messageListener, false);
-    source.addEventListener('error', errorListener, false);
-    // Store listeners along with EventSource reference, so we can clean up
-    sources[subscriptionID] = {errorListener, messageListener, source};
+    subscribe(url, subscriptionID, messageListener, errorListener);
 
     return subscriptionID;
   },
@@ -102,14 +133,7 @@ const SystemLogActions = {
    * @param {String} subscriptionID ID returned from subscribe function
    */
   stopTail(subscriptionID) {
-    if (sources[subscriptionID]) {
-      // Clean up event listeners
-      const {errorListener, messageListener, source} = sources[subscriptionID];
-      source.removeEventListener('message', messageListener);
-      source.removeEventListener('error', errorListener);
-      source.close();
-      delete sources[subscriptionID];
-    }
+    unsubscribe(subscriptionID);
   },
 
   /**
