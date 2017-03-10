@@ -39,7 +39,7 @@ const SystemLogActions = {
    * @param {String} [options.read_reverse] will read events in reverse order if set to true
    * @return {Symbol} subscriptionID to unsubscribe or resubscribe with
    */
-  subscribe(nodeID, options = {}) {
+  startTail(nodeID, options = {}) {
     let {subscriptionID, cursor, skip_prev} = options;
 
     // Unsubscribe if any open connection exists with the same ID

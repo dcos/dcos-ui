@@ -149,7 +149,7 @@ class SystemLogStore extends BaseStore {
     }
 
     // Will return unchanged subscriptionID if provided in the options
-    subscriptionID = SystemLogActions.subscribe(nodeID, options);
+    subscriptionID = SystemLogActions.startTail(nodeID, options);
 
     // Start a timer to notify view if we have received nothing
     // within reasonable time

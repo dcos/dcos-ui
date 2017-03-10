@@ -36,15 +36,15 @@ describe('SystemLogActions', function () {
     this.eventSource.close();
   });
 
-  describe('#subscribe', function () {
+  describe('#startTail', function () {
 
     beforeEach(function () {
-      SystemLogActions.subscribe('foo', {cursor: 'bar', subscriptionID: 'subscriptionID'});
+      SystemLogActions.startTail('foo', {cursor: 'bar', subscriptionID: 'subscriptionID'});
     });
 
     it('calls #addEventListener from the global.EventSource', function () {
       this.eventSource.addEventListener = jasmine.createSpy('addEventListener').and.callThrough();
-      SystemLogActions.subscribe('foo', {cursor: 'bar'});
+      SystemLogActions.startTail('foo', {cursor: 'bar'});
       expect(this.eventSource.addEventListener).toHaveBeenCalled();
     });
 
@@ -63,7 +63,7 @@ describe('SystemLogActions', function () {
         return cookieObj;
       };
 
-      SystemLogActions.subscribe('foo', {cursor: 'bar'});
+      SystemLogActions.startTail('foo', {cursor: 'bar'});
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
@@ -127,7 +127,7 @@ describe('SystemLogActions', function () {
   describe('#unsubscribe', function () {
 
     beforeEach(function () {
-      SystemLogActions.subscribe('foo', {cursor: 'bar', subscriptionID: 'subscriptionID'});
+      SystemLogActions.startTail('foo', {cursor: 'bar', subscriptionID: 'subscriptionID'});
     });
 
     it('calls #close on the EventSource', function () {
