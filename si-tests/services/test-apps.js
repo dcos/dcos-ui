@@ -827,7 +827,7 @@ describe('Services', function () {
       // Select mesos runtime
       selectMesosRuntime();
 
-      // Select Networking section
+      // Select Volumes section
       cy
         .root()
         .get('.menu-tabbed-item')
@@ -970,6 +970,216 @@ describe('Services', function () {
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
         .contains('Running', {timeout: 30000})
+        .should('exist');
+
+    });
+
+    it('Create an app with HTTP health check', function () {
+      const serviceName = 'app-with-http-health-check';
+
+      // Select 'Single Container'
+      cy
+        .contains('Single Container')
+        .click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor('Service ID *')
+        .type(`{selectall}{rightarrow}${serviceName}`);
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor('Memory (MiB) *')
+        .type('{selectall}32');
+      cy
+        .root()
+        .getFormGroupInputFor('Container Image')
+        .type('nginx');
+
+      // Select Networking section
+      cy
+        .root()
+        .get('.menu-tabbed-item')
+        .contains('Networking')
+        .click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor('Network Type')
+        .select('Bridge');
+
+      // Click "Add Service Endpoint"
+      cy
+        .contains('Add Service Endpoint')
+        .click();
+
+      // Setup HTTP endpoint
+      cy
+        .root()
+        .getFormGroupInputFor('Container Port')
+        .type('80');
+      cy
+        .root()
+        .getFormGroupInputFor('Service Endpoint Name')
+        .type('http');
+
+      // Switch to health checks
+      cy
+        .contains('Health Checks')
+        .click();
+
+      // Add a health check
+      cy
+        .contains('Add Health Check')
+        .click();
+      cy
+        .root()
+        .getFormGroupInputFor('Protocol')
+        .select('HTTP');
+      cy
+        .root()
+        .getFormGroupInputFor('Service Endpoint')
+        .select('http');
+      cy
+        .root()
+        .getFormGroupInputFor('Path')
+        .type('/');
+
+      // Check JSON view
+      cy
+        .contains('JSON Editor')
+        .click();
+
+      // Check contents of the JSON editor
+      cy
+        .get('#brace-editor')
+        .shouldJsonMatch({
+          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
+          'cpus': 0.1,
+          'mem': 32,
+          'instances': 1,
+          'healthChecks': [
+            {
+              'portIndex': 0,
+              'protocol': 'MESOS_HTTP',
+              'path': '/'
+            }
+          ],
+          'container': {
+            'type': 'DOCKER',
+            'docker': {
+              'image': 'nginx',
+              'network': 'BRIDGE',
+              'portMappings': [
+                {
+                  'name': 'http',
+                  'hostPort': 0,
+                  'containerPort': 80,
+                  'protocol': 'tcp'
+                }
+              ]
+            }
+          }
+        });
+
+      // Click Review and Run
+      cy
+        .contains('Review & Run')
+        .click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Service ID')
+        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Container Runtime')
+        .contains('Docker Engine');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('CPU')
+        .contains('0.1');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Memory')
+        .contains('32 MiB');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Disk')
+        .contains('Not Configured');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Container Image')
+        .contains('nginx');
+
+      cy
+        .root()
+        .configurationSection('Service Endpoints')
+        .children('table')
+        .getTableColumn('Name')
+        .contents()
+        .should('deep.equal', [
+          'http'
+        ]);
+      cy
+        .root()
+        .configurationSection('Service Endpoints')
+        .children('table')
+        .getTableColumn('Protocol')
+        .contents()
+        .should('deep.equal', [
+          'tcp'
+        ]);
+      cy
+        .root()
+        .configurationSection('Service Endpoints')
+        .children('table')
+        .getTableColumn('Container Port')
+        .contents()
+        .should('deep.equal', [
+          '80'
+        ]);
+      cy
+        .root()
+        .configurationSection('Service Endpoints')
+        .children('table')
+        .getTableColumn('Host Port')
+        .contents()
+        .should('deep.equal', [
+          '0'
+        ]);
+
+      // Run service
+      cy
+        .get('button.button-primary')
+        .contains('Run Service')
+        .click();
+
+      // Wait for the table and the service to appear
+      cy
+        .get('.page-body-content table')
+        .contains(serviceName)
+        .should('exist');
+
+      // Get the table row and look for health
+      cy
+        .get('.page-body-content table')
+        .getTableRowThatContains(serviceName)
+        .get('.bar.healthy', {timeout: 30000})
         .should('exist');
 
     });
