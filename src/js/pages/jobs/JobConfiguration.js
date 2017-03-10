@@ -72,7 +72,9 @@ class JobConfiguration extends React.Component {
             Command
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {job.getCommand()}
+            <pre className="flush transparent wrap">
+              {job.getCommand()}
+            </pre>
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
