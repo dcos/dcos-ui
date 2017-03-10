@@ -6,6 +6,7 @@ import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import AlertPanelHeader from '../../components/AlertPanelHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
@@ -205,8 +206,8 @@ class JobsTab extends mixin(StoreMixin) {
     return (
       <Page>
         <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
-        <AlertPanel
-          title="No active jobs">
+        <AlertPanel>
+          <AlertPanelHeader>No active jobs</AlertPanelHeader>
           <p className="tall">
             Create both one-off or scheduled jobs to perform tasks at a predefined interval.
           </p>

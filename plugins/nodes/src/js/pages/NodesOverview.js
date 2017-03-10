@@ -4,6 +4,7 @@ import {Link, routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
+import AlertPanelHeader from '../../../../../src/js/components/AlertPanelHeader';
 import CompositeState from '../../../../../src/js/structs/CompositeState';
 import Config from '../../../../../src/js/config/Config';
 import EventTypes from '../../../../../src/js/constants/EventTypes';
@@ -290,8 +291,8 @@ var NodesOverview = React.createClass({
   getEmptyHostsPageContent() {
     return (
       <Page>
-        <AlertPanel
-          title="No nodes detected">
+        <AlertPanel>
+          <AlertPanelHeader>No nodes detected</AlertPanelHeader>
           <p className="flush-bottom">
             There a currently no other nodes in your datacenter other than your DC/OS master node.
           </p>

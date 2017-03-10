@@ -2,6 +2,7 @@ import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
+import AlertPanelHeader from '../../../../../src/js/components/AlertPanelHeader';
 
 const ServiceItemNotFound = function ({ message }) {
 
@@ -14,8 +15,8 @@ const ServiceItemNotFound = function ({ message }) {
   );
 
   return (
-    <AlertPanel
-      title="Service not found">
+    <AlertPanel>
+      <AlertPanelHeader>Service not found</AlertPanelHeader>
       <p className="tall">
         {message}
       </p>

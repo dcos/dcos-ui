@@ -8,6 +8,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import AlertPanelHeader from '../../components/AlertPanelHeader';
 import Breadcrumb from '../../components/Breadcrumb';
 import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
@@ -116,7 +117,8 @@ class PackagesTab extends mixin(StoreMixin) {
     const {errorMessage} = this.state;
 
     return (
-      <AlertPanel title="An Error Occurred">
+      <AlertPanel>
+        <AlertPanelHeader>An Error Occurred</AlertPanelHeader>
         <CosmosErrorMessage error={errorMessage} flushBottom={true} />
       </AlertPanel>
     );

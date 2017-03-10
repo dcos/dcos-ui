@@ -6,6 +6,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import AlertPanelHeader from '../../components/AlertPanelHeader';
 import Breadcrumb from '../../components/Breadcrumb';
 import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
 import FilterBar from '../../components/FilterBar';
@@ -82,8 +83,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   getEmptyScreen() {
     return (
-      <AlertPanel
-        title="No virtual networks detected">
+      <AlertPanel>
+        <AlertPanelHeader>No virtual networks detected</AlertPanelHeader>
         <p className="flush">
           There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.
         </p>

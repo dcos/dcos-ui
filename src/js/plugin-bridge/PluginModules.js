@@ -53,6 +53,7 @@ module.exports = {
     AccessDeniedPage: 'AccessDeniedPage',
     ActionsModal: 'modals/ActionsModal',
     AlertPanel: 'AlertPanel',
+    AlertPanelHeader: 'AlertPanelHeader',
     Authenticated: 'Authenticated',
     Breadcrumbs: 'Breadcrumbs',
     Breadcrumb: 'Breadcrumb',

@@ -12,17 +12,8 @@ var AlertPanel = React.createClass({
   },
 
   propTypes: {
-    title: React.PropTypes.string,
     icon: React.PropTypes.node,
     iconClassName: React.PropTypes.string
-  },
-
-  getTitle() {
-    return (
-      <h3 className="flush-top" key="heading">
-        {this.props.title}
-      </h3>
-    );
   },
 
   // TODO: Use iconIDs instead of icon classes.
@@ -75,7 +66,6 @@ var AlertPanel = React.createClass({
             'panel-cell-light': false
           }
         ]}>
-        {this.getTitle()}
         {this.props.children}
       </Panel>
     );
