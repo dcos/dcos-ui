@@ -1,3 +1,5 @@
+require('../_support/utils/ServicesUtil');
+
 describe('Services', function () {
 
   const SECRET_NAME = `${Cypress.env('TEST_UUID')}-secret`;
