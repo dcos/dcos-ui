@@ -1184,7 +1184,7 @@ describe('Services', function () {
 
     });
 
-    it.only('Create an app with labels', function () {
+    it('Create an app with labels', function () {
       const serviceName = 'app-with-labels';
       const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
 
@@ -1362,6 +1362,184 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
+        .should('exist');
+
+    });
+
+    it.only('Create an app with persistent volume', function () {
+      const serviceName = 'app-with-persistent-volume';
+      const cmdline = 'while true ; do echo \'test\' > test/echo ; sleep 100 ; done';
+
+      // Select 'Single Container'
+      cy
+        .contains('Single Container')
+        .click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor('Service ID *')
+        .type(`{selectall}{rightarrow}${serviceName}`);
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor('Memory (MiB) *')
+        .type('{selectall}10');
+      cy
+        .root()
+        .getFormGroupInputFor('Command')
+        .type(cmdline);
+
+      // Select mesos runtime
+      selectMesosRuntime();
+
+      // Select Volumes section
+      cy
+        .root()
+        .get('.menu-tabbed-item')
+        .contains('Volumes')
+        .click();
+
+      // Add an environment variable
+      cy
+        .contains('Add Local Volume')
+        .click();
+      cy
+        .root()
+        .getFormGroupInputFor('Volume Type')
+        .select('Persistent Volume');
+      cy
+        .root()
+        .getFormGroupInputFor('Size (MiB)')
+        .type('128');
+      cy
+        .root()
+        .getFormGroupInputFor('Container Path')
+        .type('test');
+
+      // Check JSON view
+      cy
+        .contains('JSON Editor')
+        .click();
+
+      // Check contents of the JSON editor
+      cy
+        .get('#brace-editor')
+        .shouldJsonMatch({
+          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
+          'cmd': cmdline,
+          'cpus': 0.1,
+          'mem': 10,
+          'instances': 1,
+          'container': {
+            'volumes': [
+              {
+                'persistent': {
+                  'size': 128
+                },
+                'mode': 'RW',
+                'containerPath': 'test'
+              }
+            ],
+            'type': 'MESOS'
+          },
+          'residency': {
+            'relaunchEscalationTimeoutSeconds': 10,
+            'taskLostBehavior': 'WAIT_FOREVER'
+          }
+        });
+
+      // Click Review and Run
+      cy
+        .contains('Review & Run')
+        .click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Service ID')
+        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Container Runtime')
+        .contains('Universal Container Runtime');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('CPU')
+        .contains('0.1');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Memory')
+        .contains('10 MiB');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Disk')
+        .contains('Not Configured');
+
+      cy
+        .root()
+        .configurationSection('Storage')
+        .children('table')
+        .getTableColumn('Volume')
+        .contents()
+        .should('deep.equal', [
+          'Persistent Local'
+        ]);
+      cy
+        .root()
+        .configurationSection('Storage')
+        .children('table')
+        .getTableColumn('Size')
+        .contents()
+        .should('deep.equal', [
+          '128 MiB'
+        ]);
+      cy
+        .root()
+        .configurationSection('Storage')
+        .children('table')
+        .getTableColumn('Mode')
+        .contents()
+        .should('deep.equal', [
+          'RW'
+        ]);
+      cy
+        .root()
+        .configurationSection('Storage')
+        .children('table')
+        .getTableColumn('Container Mount Path')
+        .contents()
+        .should('deep.equal', [
+          'test'
+        ]);
+
+      // Run service
+      cy
+        .get('button.button-primary')
+        .contains('Run Service')
+        .click();
+
+      // Wait for the table and the service to appear
+      cy
+        .get('.page-body-content table')
+        .contains(serviceName)
+        .should('exist');
+
+      // Get the table row and wait until it's Running
+      cy
+        .get('.page-body-content table')
+        .getTableRowThatContains(serviceName)
+        .contains('Running', {timeout: 30000})
         .should('exist');
 
     });
