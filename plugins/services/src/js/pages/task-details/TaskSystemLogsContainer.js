@@ -189,7 +189,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       limit: PAGE_ENTRY_COUNT,
       subscriptionID
     });
-    SystemLogStore.fetchLogRange(task.slave_id, params);
+    SystemLogStore.fetchRange(task.slave_id, params);
     this.setState({isFetchingPrevious: true});
   }
 

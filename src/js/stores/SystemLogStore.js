@@ -175,7 +175,7 @@ class SystemLogStore extends BaseStore {
     SystemLogActions.stopTail(subscriptionID);
   }
 
-  fetchLogRange(nodeID, options) {
+  fetchRange(nodeID, options) {
     const {subscriptionID} = options;
     const cursor = findNestedPropertyInObject(
       this.logs[subscriptionID],
@@ -185,7 +185,7 @@ class SystemLogStore extends BaseStore {
       return false;
     }
 
-    SystemLogActions.fetchLogRange(
+    SystemLogActions.fetchRange(
       nodeID,
       Object.assign({cursor}, options)
     );

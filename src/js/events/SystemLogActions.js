@@ -151,7 +151,7 @@ const SystemLogActions = {
    * @param {String} [options.executorID] ID for executor to retrieve logs from
    * @param {String} [options.containerID] ID for container to retrieve logs from
    */
-  fetchLogRange(nodeID, options = {}) {
+  fetchRange(nodeID, options = {}) {
     let {limit, subscriptionID} = options;
     const url = SystemLogUtil.getUrl(
       nodeID,

@@ -153,10 +153,10 @@ describe('SystemLogActions', function () {
 
   });
 
-  describe('#fetchLogRange', function () {
+  describe('#fetchRange', function () {
 
     beforeEach(function () {
-      SystemLogActions.fetchLogRange(
+      SystemLogActions.fetchRange(
         'foo',
         {cursor: 'bar', limit: 3, subscriptionID: 'subscriptionID'}
       );
@@ -165,7 +165,7 @@ describe('SystemLogActions', function () {
     it('calls #addEventListener from the EventSource', function () {
       this.eventSource.addEventListener = jasmine.createSpy('addEventListener')
         .and.callThrough();
-      SystemLogActions.fetchLogRange('foo', {cursor: 'bar'});
+      SystemLogActions.fetchRange('foo', {cursor: 'bar'});
       expect(this.eventSource.addEventListener).toHaveBeenCalled();
     });
 
@@ -184,7 +184,7 @@ describe('SystemLogActions', function () {
         return cookieObj;
       };
 
-      SystemLogActions.fetchLogRange('foo', {cursor: 'bar'});
+      SystemLogActions.fetchRange('foo', {cursor: 'bar'});
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
