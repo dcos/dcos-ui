@@ -612,6 +612,189 @@ describe('Services', function () {
 
     });
 
+    it('Create an app with environment variables', function () {
+      const serviceName = 'app-with-environment-variables';
+      const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
+
+      // Select 'Single Container'
+      cy
+        .contains('Single Container')
+        .click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor('Service ID *')
+        .type(`{selectall}{rightarrow}${serviceName}`);
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor('Memory (MiB) *')
+        .type('{selectall}10');
+      cy
+        .root()
+        .getFormGroupInputFor('Command')
+        .type(cmdline);
+
+      // Select mesos runtime
+      selectMesosRuntime();
+
+      // Select Networking section
+      cy
+        .root()
+        .get('.menu-tabbed-item')
+        .contains('Environment')
+        .click();
+
+      // Add an environment variable
+      cy
+        .contains('Add Environment Variable')
+        .click();
+      cy
+        .get('input[name="env.0.key"]')
+        .type('camelCase');
+      cy
+        .get('input[name="env.0.value"]')
+        .type('test');
+
+      // Add an environment variable
+      cy
+        .contains('Add Environment Variable')
+        .click();
+      cy
+        .get('input[name="env.1.key"]')
+        .type('snake_case');
+      cy
+        .get('input[name="env.1.value"]')
+        .type('test');
+
+      // Add an environment variable
+      cy
+        .contains('Add Environment Variable')
+        .click();
+      cy
+        .get('input[name="env.2.key"]')
+        .type('lowercase');
+      cy
+        .get('input[name="env.2.value"]')
+        .type('test');
+
+      // Add an environment variable
+      cy
+        .contains('Add Environment Variable')
+        .click();
+      cy
+        .get('input[name="env.3.key"]')
+        .type('UPPERCASE');
+      cy
+        .get('input[name="env.3.value"]')
+        .type('test');
+
+      // Check JSON view
+      cy
+        .contains('JSON Editor')
+        .click();
+
+      // Check contents of the JSON editor
+      cy
+        .get('#brace-editor')
+        .shouldJsonMatch({
+          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
+          'cmd': cmdline,
+          'cpus': 0.1,
+          'mem': 10,
+          'instances': 1,
+          'env': {
+            'camelCase': 'test',
+            'snake_case': 'test',
+            'lowercase': 'test',
+            'UPPERCASE': 'test'
+          }
+        });
+
+      // Click Review and Run
+      cy
+        .contains('Review & Run')
+        .click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Service ID')
+        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Container Runtime')
+        .contains('Mesos Runtime');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('CPU')
+        .contains('0.1');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Memory')
+        .contains('10 MiB');
+      cy
+        .root()
+        .configurationSection('General')
+        .configurationMapValue('Disk')
+        .contains('Not Configured');
+
+      cy
+        .root()
+        .configurationSection('Environment Variables')
+        .children('table')
+        .getTableColumn('Key')
+        .contents()
+        .should('deep.equal', [
+          'camelCase',
+          'snake_case',
+          'lowercase',
+          'UPPERCASE'
+        ]);
+      cy
+        .root()
+        .configurationSection('Environment Variables')
+        .children('table')
+        .getTableColumn('Value')
+        .contents()
+        .should('deep.equal', [
+          'test',
+          'test',
+          'test',
+          'test'
+        ]);
+
+      // Run service
+      cy
+        .get('button.button-primary')
+        .contains('Run Service')
+        .click();
+
+      // Wait for the table and the service to appear
+      cy
+        .get('.page-body-content table')
+        .contains(serviceName)
+        .should('exist');
+
+      // Get the table row and wait until it's Running
+      cy
+        .get('.page-body-content table')
+        .getTableRowThatContains(serviceName)
+        .contains('Running', {timeout: 30000})
+        .should('exist');
+
+    });
+
   });
 
 });
