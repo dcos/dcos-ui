@@ -11,6 +11,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
@@ -47,9 +49,14 @@ class VolumesFormSection extends Component {
       <FormRow>
         <FormGroup
           className="column-3"
-          required={false}
           showError={Boolean(sizeError)}>
-          <FieldLabel className="text-no-transform">SIZE (MiB)</FieldLabel>
+          <FieldLabel className="text-no-transform">
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                SIZE (MiB)
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.size`}
             type="number"
@@ -58,18 +65,23 @@ class VolumesFormSection extends Component {
         </FormGroup>
         <FormGroup
           className="column-6"
-          required={false}
           showError={Boolean(containerPathError)}>
           <FieldLabel>
-            {'Container Path '}
-            <Tooltip
-              content={tooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Container Path
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={tooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
           </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
@@ -105,9 +117,14 @@ class VolumesFormSection extends Component {
       <FormRow>
         <FormGroup
           className="column-4"
-          required={false}
           showError={Boolean(hostPathError)}>
-          <FieldLabel>Host Path</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Host Path
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.hostPath`}
             value={volume.hostPath} />
@@ -115,18 +132,23 @@ class VolumesFormSection extends Component {
         </FormGroup>
         <FormGroup
           className="column-4"
-          required={false}
           showError={Boolean(containerPathError)}>
           <FieldLabel>
-            {'Container Path '}
-            <Tooltip
-              content={tooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Container Path
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={tooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
           </FieldLabel>
           <FieldInput
             name={`localVolumes.${key}.containerPath`}
@@ -136,9 +158,14 @@ class VolumesFormSection extends Component {
         </FormGroup>
         <FormGroup
           className="column-4"
-          required={false}
           showError={Boolean(modeError)}>
-          <FieldLabel>Mode</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Mode
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldSelect name={`localVolumes.${key}.mode`} value={volume.mode}>
             <option value="RW">Read and Write</option>
             <option value="RO">Read Only</option>
@@ -187,9 +214,14 @@ class VolumesFormSection extends Component {
           <FormRow>
             <FormGroup
               className="column-6"
-              required={false}
               showError={Boolean(typeError)}>
-              <FieldLabel>Volume Type</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Volume Type
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldSelect
                 name={`localVolumes.${key}.type`}
                 value={volume.type}>
@@ -243,9 +275,14 @@ class VolumesFormSection extends Component {
           <FormRow>
             <FormGroup
               className="column-6"
-              required={false}
               showError={Boolean(nameError)}>
-              <FieldLabel>Name</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Name
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`externalVolumes.${key}.name`}
                 type="text"
@@ -256,9 +293,14 @@ class VolumesFormSection extends Component {
           <FormRow>
             <FormGroup
               className="column-3"
-              required={false}
               showError={Boolean(sizeError)}>
-              <FieldLabel className="text-no-transform">SIZE (MiB)</FieldLabel>
+              <FieldLabel className="text-no-transform">
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    SIZE (MiB)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`externalVolumes.${key}.size`}
                 type="number"
@@ -267,9 +309,14 @@ class VolumesFormSection extends Component {
             </FormGroup>
             <FormGroup
               className="column-9"
-              required={false}
               showError={Boolean(containerPathError)}>
-              <FieldLabel>Container Path</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Container Path
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`externalVolumes.${key}.containerPath`}
                 type="text"
@@ -297,21 +344,31 @@ class VolumesFormSection extends Component {
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          {'Volumes '}
-          <Tooltip
-            content={tooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Volumes
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h2>
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
         <h3 className="short-bottom">
-          Local Volumes
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Local Volumes
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
           {'Choose a local persistent volume if you need quick access to stored data. '}
@@ -330,7 +387,11 @@ class VolumesFormSection extends Component {
           </AddButton>
         </div>
         <h3 className="short-bottom">
-          External Volumes
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              External Volumes
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
           {'Choose an external persistent volume if fault-tolerance is crucial for your service. '}

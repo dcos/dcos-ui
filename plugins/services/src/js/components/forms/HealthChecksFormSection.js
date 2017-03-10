@@ -12,6 +12,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealthCheckUtil';
@@ -39,7 +41,13 @@ class HealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.gracePeriodSeconds)}>
-              <FieldLabel>Grace Period (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Grace Period (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`healthChecks.${key}.gracePeriodSeconds`}
                 type="number"
@@ -51,7 +59,13 @@ class HealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.intervalSeconds)}>
-              <FieldLabel>Interval (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Interval (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`healthChecks.${key}.intervalSeconds`}
                 type="number"
@@ -63,7 +77,13 @@ class HealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.timeoutSeconds)}>
-              <FieldLabel>Timeout (s)</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Timeout (s)
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`healthChecks.${key}.timeoutSeconds`}
                 type="number"
@@ -75,7 +95,13 @@ class HealthChecksFormSection extends Component {
             <FormGroup
               className="column-3"
               showError={Boolean(errors.maxConsecutiveFailures)}>
-              <FieldLabel>Max Failures</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Max Failures
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldInput
                 name={`healthChecks.${key}.maxConsecutiveFailures`}
                 type="number"
@@ -105,7 +131,13 @@ class HealthChecksFormSection extends Component {
         <FormGroup
           className="column-12"
           showError={Boolean(errors.value)}>
-          <FieldLabel>Command</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Command
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldTextarea
             name={`healthChecks.${key}.command`}
             type="text"
@@ -137,7 +169,13 @@ class HealthChecksFormSection extends Component {
         <FormGroup
           className="column-6"
           showError={false}>
-          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Service Endpoint
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldSelect
             name={`healthChecks.${key}.portIndex`}
             value={String(healthCheck.portIndex)}>
@@ -148,7 +186,13 @@ class HealthChecksFormSection extends Component {
         <FormGroup
           className="column-6"
           showError={Boolean(errors.path)}>
-          <FieldLabel>Path</FieldLabel>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Path
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
           <FieldInput
             name={`healthChecks.${key}.path`}
             type="text"
@@ -204,7 +248,13 @@ class HealthChecksFormSection extends Component {
             <FormGroup
               className="column-6"
               showError={Boolean(errors.protocol)}>
-              <FieldLabel>Protocol</FieldLabel>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Protocol
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
               <FieldSelect name={`healthChecks.${key}.protocol`}
                 value={healthCheck.protocol &&
                 healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
@@ -229,7 +279,11 @@ class HealthChecksFormSection extends Component {
     return (
       <div>
         <h2 className="flush-top short-bottom">
-          Health Checks
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Health Checks
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h2>
         <p>
           Health checks may be specified per application to be run against

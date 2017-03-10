@@ -18,6 +18,8 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import General from '../../reducers/serviceForm/General';
@@ -66,16 +68,22 @@ function placementConstraintLabel(name, tooltipText, options = {}) {
   );
 
   return (
-    <FieldLabel required={isRequired}>
-      {`${name} `}
-      <Tooltip
-        content={tooltipContent}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapText={true}>
-        <Icon color="grey" id="circle-question" size="mini" />
-      </Tooltip>
+    <FieldLabel>
+      <FormGroupHeading required={isRequired}>
+        <FormGroupHeadingContent primary={true}>
+          {name}
+        </FormGroupHeadingContent>
+        <FormGroupHeadingContent>
+          <Tooltip
+            content={tooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
+        </FormGroupHeadingContent>
+      </FormGroupHeading>
     </FieldLabel>
   );
 }
@@ -219,16 +227,22 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h3 className="short-top short-bottom">
-          {'Placement Constraints '}
-          <Tooltip
-            content={placementTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+        <h3 className="short-bottom">
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Placement Constraints
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={placementTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
         {this.getPlacementConstraintsFields(data.constraints)}
@@ -294,11 +308,17 @@ class GeneralServiceFormSection extends Component {
       if (index === 0) {
         fieldLabel = placementConstraintLabel(
           'Field',
-          'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.'
+          {
+            tooltipText: 'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.',
+            required: true
+          }
         );
         operatorLabel = placementConstraintLabel(
           'Operator',
-          'Operators specify where your app will run.'
+          {
+            tooltipText: 'Operators specify where your app will run.',
+            required: true
+          }
         );
       }
       if (index === 0 && !hideValueColumn) {
@@ -390,15 +410,21 @@ class GeneralServiceFormSection extends Component {
     return (
       <div>
         <h3 className="short-bottom">
-          {'Container Runtime '}
-          <Tooltip
-            content={runtimeTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Container Runtime
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={runtimeTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
           The container runtime is responsible for running your service. We
@@ -509,18 +535,23 @@ class GeneralServiceFormSection extends Component {
         <FormRow>
           <FormGroup
             className="column-9"
-            required={true}
             showError={Boolean(errors.id)}>
             <FieldLabel>
-              {'Service ID '}
-              <Tooltip
-                content={idTooltipContent}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
+              <FormGroupHeading required={true}>
+                <FormGroupHeadingContent primary={true}>
+                  Service ID
+                </FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Tooltip
+                    content={idTooltipContent}
+                    interactive={true}
+                    maxWidth={300}
+                    scrollContainer=".gm-scroll-view"
+                    wrapText={true}>
+                    <Icon color="grey" id="circle-question" size="mini" />
+                  </Tooltip>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
             </FieldLabel>
             <FieldInput
               name="id"
@@ -536,7 +567,11 @@ class GeneralServiceFormSection extends Component {
             className="column-3"
             showError={Boolean(errors.instances)}>
             <FieldLabel>
-              Instances
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Instances
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
             </FieldLabel>
             <FieldInput
               name="instances"
