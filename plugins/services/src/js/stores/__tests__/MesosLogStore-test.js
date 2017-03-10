@@ -89,7 +89,7 @@ describe('MesosLogStore', function () {
       expect(MesosLogActions.fetchPreviousLog).not.toHaveBeenCalled();
     });
 
-    it('calls #fetchPreviousLog with the correct args', function () {
+    it('adjusts length when reaching the top', function () {
       var MockMesosLogStore = {
         getLogBuffer(key) {
           if (key === 'exists') {
@@ -106,7 +106,28 @@ describe('MesosLogStore', function () {
       );
 
       expect(MesosLogActions.fetchPreviousLog).toHaveBeenCalledWith(
-        'slaveID', 'exists', 0, 50000
+        'slaveID', 'exists', 0, 100
+      );
+    });
+
+    it('requests full page when below top', function () {
+      var MockMesosLogStore = {
+        getLogBuffer(key) {
+          if (key === 'exists') {
+            return {
+              hasLoadedTop() { return false; },
+              getStart() { return 50100; }
+            };
+          }
+        }
+      };
+
+      MesosLogStore.getPreviousLogs.call(
+        MockMesosLogStore, 'slaveID', 'exists'
+      );
+
+      expect(MesosLogActions.fetchPreviousLog).toHaveBeenCalledWith(
+        'slaveID', 'exists', 100, 50000
       );
     });
 

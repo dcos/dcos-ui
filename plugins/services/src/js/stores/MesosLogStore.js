@@ -100,15 +100,17 @@ class MesosLogStore extends BaseStore {
     }
 
     let startOffset = logBuffer.getStart() - MAX_FILE_SIZE;
+    let length = MAX_FILE_SIZE;
     if (startOffset < 0) {
       startOffset = 0;
+      length = logBuffer.getStart();
     }
 
     MesosLogActions.fetchPreviousLog(
       slaveID,
       path,
       startOffset,
-      MAX_FILE_SIZE
+      length
     );
   }
 
