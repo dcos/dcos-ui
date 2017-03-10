@@ -20,10 +20,11 @@ import SystemLogUtil from '../utils/SystemLogUtil';
 
 // Store of current open connections
 const sources = {};
+const tails = {};
 
-function subscribe(url, subscriptionID, onMessage, onError) {
+function subscribe(url, onMessage, onError) {
   // Unsubscribe if any open connection exists with the same ID
-  unsubscribe(subscriptionID);
+  unsubscribe(url);
 
   const source = new EventSource(url, {
     withCredentials: Boolean(CookieUtils.getUserMetadata())
@@ -33,28 +34,28 @@ function subscribe(url, subscriptionID, onMessage, onError) {
   source.addEventListener('error', onError, false);
 
   // Store listeners along with EventSource reference, so we can clean up
-  sources[subscriptionID] = {
+  sources[url] = {
     errorListener: onError,
     messageListener: onMessage,
     source
   };
 
-  return subscriptionID;
+  return url;
 }
 
-function unsubscribe(subscriptionID) {
-  if (!sources[subscriptionID]) {
+function unsubscribe(url) {
+  if (!sources[url]) {
     return;
   }
 
-  const { errorListener, messageListener, source } = sources[subscriptionID];
+  const { errorListener, messageListener, source } = sources[url];
 
   source.removeEventListener('message', messageListener);
   source.removeEventListener('error', errorListener);
 
   source.close();
 
-  delete sources[subscriptionID];
+  delete sources[url];
 }
 
 const SystemLogActions = {
@@ -123,7 +124,9 @@ const SystemLogActions = {
       });
     }
 
-    subscribe(url, subscriptionID, messageListener, errorListener);
+    tails[subscriptionID] = url;
+
+    subscribe(url, messageListener, errorListener);
 
     return subscriptionID;
   },
@@ -133,7 +136,12 @@ const SystemLogActions = {
    * @param {String} subscriptionID ID returned from subscribe function
    */
   stopTail(subscriptionID) {
-    unsubscribe(subscriptionID);
+    if (!tails[subscriptionID]) {
+      return;
+    }
+
+    unsubscribe(tails[subscriptionID]);
+    delete tails[subscriptionID];
   },
 
   /**
@@ -204,10 +212,10 @@ const SystemLogActions = {
         });
       }
 
-      unsubscribe(subscriptionID);
+      unsubscribe(url);
     }
 
-    subscribe(url, subscriptionID, messageListener, errorListener);
+    subscribe(url, messageListener, errorListener);
   },
 
   fetchStreamTypes(nodeID) {
