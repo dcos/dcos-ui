@@ -111,7 +111,7 @@ describe('Services', function () {
         .contains(serviceName)
         .should('exist');
 
-      // Get the table row and look for health
+      // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
@@ -644,7 +644,7 @@ describe('Services', function () {
       // Select mesos runtime
       selectMesosRuntime();
 
-      // Select Networking section
+      // Select Environment section
       cy
         .root()
         .get('.menu-tabbed-item')
@@ -1216,7 +1216,7 @@ describe('Services', function () {
       // Select mesos runtime
       selectMesosRuntime();
 
-      // Select Networking section
+      // Select Environment section
       cy
         .root()
         .get('.menu-tabbed-item')
@@ -1366,7 +1366,7 @@ describe('Services', function () {
 
     });
 
-    it.only('Create an app with persistent volume', function () {
+    it('Create an app with persistent volume', function () {
       const serviceName = 'app-with-persistent-volume';
       const cmdline = 'while true ; do echo \'test\' > test/echo ; sleep 100 ; done';
 
