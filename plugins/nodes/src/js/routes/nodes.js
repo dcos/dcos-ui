@@ -18,7 +18,7 @@ import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskD
 import TaskFileBrowser from '../../../../services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
-import TaskLogsTab from '../../../../services/src/js/pages/task-details/TaskLogsTab';
+import TaskLogsContainer from '../../../../services/src/js/pages/task-details/TaskLogsContainer';
 import TaskVolumeContainer from '../../../../services/src/js/containers/volume-detail/TaskVolumeContainer';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import NodesUnitsHealthDetailPage from '../pages/nodes/NodesUnitsHealthDetailPage';
@@ -205,10 +205,10 @@ const nodesRoutes = {
           ]
         },
         {
-          component: TaskLogsTab,
+          component: TaskLogsContainer,
           hideHeaderNavigation: true,
           isTab: true,
-          path: 'logs(/:fileName)',
+          path: 'logs',
           title: 'Logs',
           type: Route,
           buildBreadCrumb() {
@@ -216,7 +216,13 @@ const nodesRoutes = {
               parentCrumb: '/nodes/:nodeID/tasks/:taskID',
               getCrumbs() { return []; }
             };
-          }
+          },
+          children: [
+            {
+              path: ':filePath',
+              type: Route
+            }
+          ]
         },
         {
           component: VolumeTable,

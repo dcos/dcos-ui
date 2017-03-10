@@ -1,21 +1,24 @@
 jest.dontMock('../Highlight');
-jest.dontMock('../MesosLogView');
+jest.dontMock('../MesosLogContainer');
+jest.dontMock('../LogView');
 jest.dontMock('../../../../../../src/js/structs/Item');
+jest.dontMock('../../../../../../src/js/components/Loader');
 jest.dontMock('../../structs/LogBuffer');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
 
 const Item = require('../../../../../../src/js/structs/Item');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
-const MesosLogView = require('../MesosLogView');
-const DOMUtil = require('../../../../../../src/js/utils/DOMUtils');
+const MesosLogContainer = require('../MesosLogContainer');
+const SystemLogTypes = require('../../../../../../src/js/constants/SystemLogTypes');
 
-describe('MesosLogView', function () {
+const APPEND = SystemLogTypes.APPEND;
+
+describe('MesosLogContainer', function () {
   beforeEach(function () {
 
     // Store original versions
@@ -29,18 +32,16 @@ describe('MesosLogView', function () {
 
     this.container = global.document.createElement('div');
     this.instance = ReactDOM.render(
-      <MesosLogView
+      <MesosLogContainer
         filePath="/some/file/path"
         logName="bar"
         task={{slave_id: 'foo'}} />,
       this.container
     );
 
-    this.instance.setState = jasmine.createSpy('setState');
-
     var logBuffer = new LogBuffer();
     logBuffer.add(new Item({data: 'foo', offset: 100}));
-    MesosLogStore.get = jasmine.createSpy('MesosLogStore#get')
+    MesosLogStore.getLogBuffer = jasmine.createSpy('MesosLogStore#getLogBuffer')
       .and.returnValue(logBuffer);
   });
 
@@ -48,7 +49,7 @@ describe('MesosLogView', function () {
     // Restore original functions
     MesosLogStore.startTailing = this.storeStartTailing;
     MesosLogStore.stopTailing = this.storeStopTailing;
-    MesosLogStore.get = this.mesosLogStoreGet;
+    MesosLogStore.getLogBuffer = this.mesosLogStoreGetLogBuffer;
 
     ReactDOM.unmountComponentAtNode(this.container);
   });
@@ -116,6 +117,10 @@ describe('MesosLogView', function () {
 
   describe('#onMesosLogStoreError', function () {
 
+    beforeEach(function () {
+      this.instance.setState = jasmine.createSpy('setState');
+    });
+
     it('should setState when path matches', function () {
       this.instance.onMesosLogStoreError('/some/file/path');
       expect(this.instance.setState).toHaveBeenCalled();
@@ -130,99 +135,18 @@ describe('MesosLogView', function () {
 
   describe('#onMesosLogStoreSuccess', function () {
 
+    beforeEach(function () {
+      this.instance.setState = jasmine.createSpy('setState');
+    });
+
     it('should setState when path matches', function () {
-      this.instance.onMesosLogStoreSuccess('/some/file/path');
+      this.instance.onMesosLogStoreSuccess('/some/file/path', APPEND);
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
     it('shouldn\'t setState when path doesn\'t match', function () {
-      this.instance.onMesosLogStoreSuccess('/other/file/path');
+      this.instance.onMesosLogStoreSuccess('/other/file/path', APPEND);
       expect(this.instance.setState).not.toHaveBeenCalled();
-    });
-
-  });
-
-  describe('#handleLogContainerScroll', function () {
-    beforeEach(function () {
-      this.previousGetPrevious = MesosLogStore.getPreviousLogs;
-      this.previousGetComputed = DOMUtil.getComputedDimensions;
-
-      DOMUtil.getComputedDimensions = function () {
-        return {height: 100};
-      };
-
-      MesosLogStore.getPreviousLogs = jasmine.createSpy();
-    });
-
-    afterEach(function () {
-      DOMUtil.getComputedDimensions = this.previousGetComputed;
-      MesosLogStore.getPreviousLogs = this.previousGetPrevious;
-    });
-
-    it('should not call getPreviousLogs if past 2000 pixels', function () {
-      var event = {target: {scrollTop: 4000}};
-      this.instance.handleLogContainerScroll(event);
-
-      expect(MesosLogStore.getPreviousLogs).not.toHaveBeenCalled();
-    });
-
-    it('should not call getPreviousLogs if below 2000 pixels', function () {
-      var event = {target: {scrollTop: 1000}};
-      this.instance.handleLogContainerScroll(event);
-
-      expect(MesosLogStore.getPreviousLogs).toHaveBeenCalled();
-    });
-  });
-
-  describe('#getLog', function () {
-
-    it('should show empty log when fullLog is empty string', function () {
-      this.instance.state.fullLog = '';
-      var div = this.instance.getLog();
-      expect(TestUtils.isElementOfType(div, 'div')).toEqual(true);
-    });
-
-    it('should not show empty log when fullLog is populated', function () {
-      this.instance.state.fullLog = 'foo';
-      var pre = this.instance.getLog();
-      expect(TestUtils.isElementOfType(pre, 'pre')).toEqual(true);
-    });
-
-    it('shouldn\'t call getLog when log is null', function () {
-      this.instance.state.fullLog = null;
-      this.instance.getLog = jasmine.createSpy('getLog');
-      this.instance.render();
-      expect(this.instance.getLog).not.toHaveBeenCalled();
-    });
-
-    it('should call getLog when log is empty', function () {
-      this.instance.state.fullLog = '';
-      this.instance.getLog = jasmine.createSpy('getLog');
-      this.instance.render();
-      expect(this.instance.getLog).toHaveBeenCalled();
-    });
-
-    it('should call getLog when log is populated', function () {
-      this.instance.state.fullLog = 'foo';
-      this.instance.getLog = jasmine.createSpy('getLog');
-      this.instance.render();
-      expect(this.instance.getLog).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('#getGoToBottomButton', function () {
-
-    it('should not return a button if currently at the bottom', function () {
-      this.instance.state.isAtBottom = true;
-      var button = this.instance.getGoToBottomButton();
-      expect(button).toEqual(null);
-    });
-
-    it('should return a button if not at bottom', function () {
-      this.instance.state.isAtBottom = false;
-      var button = this.instance.getGoToBottomButton();
-      expect(TestUtils.isElementOfType(button, 'button')).toEqual(true);
     });
 
   });
@@ -246,40 +170,74 @@ describe('MesosLogView', function () {
     });
 
     it('shouldn\'t call getLoadingScreen when fullLog is empty', function () {
-      this.instance.state.fullLog = '';
-      MesosLogStore.get = jasmine.createSpy('MesosLogStore#get');
+      var logBuffer = new LogBuffer();
+      logBuffer.add(new Item({data: '', offset: 100}));
+      MesosLogStore.getLogBuffer = jasmine
+        .createSpy('MesosLogStore#getLogBuffer')
+        .and.returnValue(logBuffer);
       this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');
 
+      this.instance.onMesosLogStoreSuccess('/some/file/path', APPEND);
       this.instance.render();
       expect(this.instance.getLoadingScreen).not.toHaveBeenCalled();
     });
 
-    it('should call getLoadingScreen when fullLog is null', function () {
-      this.instance.state.fullLog = null;
-      MesosLogStore.get = jasmine.createSpy('MesosLogStore#get');
-      this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');
-
+    it('calls getLoadingScreen when filePath is null', function () {
+      this.instance = ReactDOM.render(
+        <MesosLogContainer
+          filePath={null}
+          logName="foo"
+          task={{slave_id: 'foo'}} />,
+        this.container
+      );
+      this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen')
+        .and.returnValue(<noscript />);
+      this.instance.onMesosLogStoreSuccess(null, APPEND);
       this.instance.render();
       expect(this.instance.getLoadingScreen).toHaveBeenCalled();
     });
 
-    it('ignores getLoadingScreen if fullLog has data', function () {
-      this.instance.state.fullLog = 'foo';
-      MesosLogStore.get = jasmine.createSpy('MesosLogStore#get');
-      this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');
+    it('calls getEmptyDirectoryScreen when fullLog has data', function () {
+      this.instance = ReactDOM.render(
+        <MesosLogContainer
+          filePath="/some/file/path"
+          logName={null}
+          task={{slave_id: 'foo'}} />,
+        this.container
+      );
 
+      var logBuffer = new LogBuffer();
+      logBuffer.add(new Item({data: '', offset: 100}));
+      MesosLogStore.getLogBuffer = jasmine
+        .createSpy('MesosLogStore#getLogBuffer')
+        .and.returnValue(logBuffer);
+      this.instance.getEmptyDirectoryScreen =
+        jasmine.createSpy('getEmptyDirectoryScreen')
+        .and.returnValue(<noscript />);
+
+      this.instance.onMesosLogStoreSuccess('/some/file/path', APPEND);
       this.instance.render();
-      expect(this.instance.getLoadingScreen).not.toHaveBeenCalled();
+      expect(this.instance.getEmptyDirectoryScreen).toHaveBeenCalled();
     });
 
     it('shows empty directory screen when logName is empty', function () {
       this.instance = ReactDOM.render(
-        <MesosLogView filePath="/some/file/path" task={{slave_id: 'foo'}} />,
+        <MesosLogContainer
+          filePath="/some/file/path"
+          logName={null}
+          task={{slave_id: 'foo'}} />,
         this.container
       );
 
-      this.instance.getEmptyDirectoryScreen = jasmine.createSpy('getEmptyDirectoryScreen');
+      var logBuffer = new LogBuffer();
+      MesosLogStore.getLogBuffer = jasmine
+        .createSpy('MesosLogStore#getLogBuffer')
+        .and.returnValue(logBuffer);
+      this.instance.getEmptyDirectoryScreen =
+        jasmine.createSpy('getEmptyDirectoryScreen')
+        .and.returnValue(<noscript />);
 
+      this.instance.onMesosLogStoreSuccess('/some/file/path', APPEND);
       this.instance.render();
       expect(this.instance.getEmptyDirectoryScreen).toHaveBeenCalled();
     });

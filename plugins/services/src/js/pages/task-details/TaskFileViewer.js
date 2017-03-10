@@ -5,8 +5,9 @@ import {routerShape, formatPattern} from 'react-router';
 
 import DirectoryItem from '../../structs/DirectoryItem';
 import Icon from '../../../../../../src/js/components/Icon';
-import MesosLogView from '../../components/MesosLogView';
+import MesosLogContainer from '../../components/MesosLogContainer';
 import SearchLog from '../../components/SearchLog';
+import TaskDirectory from '../../structs/TaskDirectory';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
 import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
@@ -44,7 +45,14 @@ class TaskFileViewer extends React.Component {
       return;
     }
 
-    const routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    let routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    const hasFilePathParam = routePath.endsWith(':filePath');
+    if (!hasFilePathParam && routePath.endsWith('/')) {
+      routePath += ':filePath';
+    }
+    if (!hasFilePathParam && !routePath.endsWith('/')) {
+      routePath += '/:filePath';
+    }
     this.context.router.push(formatPattern(
       routePath,
       Object.assign({}, params, {filePath: encodeURIComponent(path)})
@@ -52,14 +60,21 @@ class TaskFileViewer extends React.Component {
   }
 
   getLogFiles() {
-    const {directory} = this.props;
+    const {directory, limitLogFiles} = this.props;
     const logViews = [];
     if (!directory) {
       return logViews;
     }
 
+    const limitLogFilesIsNotEmpty = limitLogFiles.length > 0;
+
     directory.getItems().forEach((item) => {
-      if (!item.isLogFile()) {
+      const excludeFile = (
+        limitLogFilesIsNotEmpty &&
+        !limitLogFiles.includes(item.getName())
+      );
+
+      if (!item.isLogFile() || excludeFile) {
         return;
       }
 
@@ -188,7 +203,7 @@ class TaskFileViewer extends React.Component {
 
     return (
       <SearchLog actions={this.getActions(selectedLogFile, filePath)}>
-        <MesosLogView
+        <MesosLogContainer
           filePath={filePath}
           task={task}
           logName={selectedName} />
@@ -202,11 +217,13 @@ TaskFileViewer.contextTypes = {
 };
 
 TaskFileViewer.defaultProps = {
+  limitLogFiles: [],
   task: {}
 };
 
 TaskFileViewer.propTypes = {
-  directory: React.PropTypes.object,
+  directory: React.PropTypes.instanceOf(TaskDirectory),
+  limitLogFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
 };

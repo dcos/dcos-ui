@@ -16,7 +16,6 @@ import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
 import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 
 const METHODS_TO_BIND = [
-  'handleAtBottomChange',
   'handleFetchPreviousLog',
   'handleItemSelection'
 ];
@@ -37,7 +36,7 @@ function getLogParameters(task, options) {
   }, options);
 }
 
-class TaskLogsTab extends mixin(StoreMixin) {
+class TaskSystemLogsContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -79,7 +78,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {task = {}} = this.props;
+    const {highlightText, task = {}, watching} = this.props;
     const {
       direction,
       fullLog,
@@ -90,6 +89,10 @@ class TaskLogsTab extends mixin(StoreMixin) {
     } = this.state;
 
     return Boolean(
+      // Check highlightText
+      (highlightText !== nextProps.highlightText) ||
+      // Check watching
+      (watching !== nextProps.watching) ||
       // Check task
       (nextProps.task && task.slave_id !== nextProps.task.slave_id) ||
       // Check direction
@@ -188,22 +191,6 @@ class TaskLogsTab extends mixin(StoreMixin) {
     });
     SystemLogStore.fetchLogRange(task.slave_id, params);
     this.setState({isFetchingPrevious: true});
-  }
-
-  handleAtBottomChange(isAtBottom) {
-    const {task} = this.props;
-    const {subscriptionID} = this.state;
-    if (isAtBottom) {
-      // Do not request anymore backwards, but continue stream where we left off
-      const params = getLogParameters(task, {
-        filter: {STREAM: this.state.selectedStream},
-        limit: 0,
-        subscriptionID
-      });
-      SystemLogStore.startTailing(this.props.task.slave_id, params);
-    } else {
-      SystemLogStore.stopTailing(this.state.subscriptionID);
-    }
   }
 
   handleViewChange(selectedStream) {
@@ -314,6 +301,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   getLogView() {
+    const {highlightText, onCountChange, watching} = this.props;
     const {
       hasError,
       direction,
@@ -333,12 +321,14 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
     return (
       <LogView
-        logName={selectedStream}
         direction={direction}
-        fullLog={fullLog}
         fetchPreviousLogs={this.handleFetchPreviousLog}
-        onAtBottomChange={this.handleAtBottomChange}
-        hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)} />
+        fullLog={fullLog}
+        hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)}
+        highlightText={highlightText}
+        logName={selectedStream}
+        onCountChange={onCountChange}
+        watching={watching} />
     );
   }
 
@@ -353,10 +343,23 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 }
 
-TaskLogsTab.propTypes = {
+TaskSystemLogsContainer.propTypes = {
   task: React.PropTypes.shape({
     slave_id: React.PropTypes.string
   })
 };
 
-module.exports = TaskLogsTab;
+TaskSystemLogsContainer.defaultProps = {
+  highlightText: ''
+};
+
+TaskSystemLogsContainer.propTypes = {
+  filePath: React.PropTypes.string,
+  highlightText: React.PropTypes.string,
+  logName: React.PropTypes.string,
+  onCountChange: React.PropTypes.func,
+  task: React.PropTypes.object.isRequired,
+  watching: React.PropTypes.number
+};
+
+module.exports = TaskSystemLogsContainer;

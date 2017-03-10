@@ -9,7 +9,7 @@ import TaskDetailsTab from '../../../../plugins/services/src/js/pages/task-detai
 import TaskFileBrowser from '../../../../plugins/services/src/js/pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
-import TaskLogsTab from '../../../../plugins/services/src/js/pages/task-details/TaskLogsTab';
+import TaskLogsContainer from '../../../../plugins/services/src/js/pages/task-details/TaskLogsContainer';
 import VirtualNetworkDetail from '../../pages/network/virtual-network-detail/VirtualNetworkDetail';
 import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab';
 import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
@@ -153,10 +153,10 @@ const RouteFactory = {
             ]
           },
           {
-            component: TaskLogsTab,
+            component: TaskLogsContainer,
             hideHeaderNavigation: true,
             isTab: true,
-            path: 'logs(/:fileName)',
+            path: 'logs',
             title: 'Logs',
             type: Route,
             buildBreadCrumb() {
@@ -164,7 +164,13 @@ const RouteFactory = {
                 parentCrumb: '/networking/networks/:overlayName/tasks/:taskID',
                 getCrumbs() { return []; }
               };
-            }
+            },
+            children: [
+              {
+                path: ':filePath',
+                type: Route
+              }
+            ]
           }
         ]
       }

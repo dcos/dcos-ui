@@ -14,7 +14,7 @@ import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFileBrowser from '../pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
+import TaskLogsContainer from '../pages/task-details/TaskLogsContainer';
 import TaskVolumeContainer from '../containers/volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
 
@@ -207,10 +207,10 @@ const serviceRoutes = [
                         ]
                       },
                       {
-                        component: TaskLogsTab,
+                        component: TaskLogsContainer,
                         hideHeaderNavigation: true,
                         isTab: true,
-                        path: 'logs(/:fileName)',
+                        path: 'logs',
                         title: 'Logs',
                         type: Route,
                         buildBreadCrumb() {
@@ -218,7 +218,13 @@ const serviceRoutes = [
                             parentCrumb: '/services/overview/:id/tasks/:taskID',
                             getCrumbs() { return []; }
                           };
-                        }
+                        },
+                        children: [
+                          {
+                            path: ':filePath',
+                            type: Route
+                          }
+                        ]
                       },
                       {
                         component: VolumeTable,
