@@ -58,7 +58,7 @@ Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
   expect(formGroup).not.to.equal(null);
 
   // If we found a form group, return the input element within
-  return formGroup.find('textarea, input, select, .form-control');
+  return formGroup.find('textarea, input, select, *:not(span).form-control');
 });
 
 /**

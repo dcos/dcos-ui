@@ -21,19 +21,23 @@ describe('Services', function () {
 
       // Fill-in the input elements
       cy
-        .get('input[name=id]')
+        .root()
+        .getFormGroupInputFor('Service ID *')
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
       // cy
-      //   .get('input[name=cpus]')
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
       //   .type('{selectall}0.1');
       //
       cy
-        .get('input[name=mem]')
+        .root()
+        .getFormGroupInputFor('Memory (MiB) *')
         .type('{selectall}10');
       cy
-        .get('textarea[name=cmd]')
+        .root()
+        .getFormGroupInputFor('Command')
         .type(cmdline);
 
       // More settings
@@ -170,10 +174,12 @@ describe('Services', function () {
 
       // Fill-in the input elements
       cy
-        .get('input[name=id]')
+        .root()
+        .getFormGroupInputFor('Service ID *')
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy
-        .get('input[name="container.docker.image"]')
+        .root()
+        .getFormGroupInputFor('Container Image')
         .type('nginx');
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -182,7 +188,8 @@ describe('Services', function () {
       //   .type('{selectall}0.5');
       //
       cy
-        .get('input[name=mem]')
+        .root()
+        .getFormGroupInputFor('Memory (MiB) *')
         .type('{selectall}32');
 
       // Select Networking section
@@ -194,7 +201,8 @@ describe('Services', function () {
 
       // Select "Bridge"
       cy
-        .get('select[name="container.docker.network"]')
+        .root()
+        .getFormGroupInputFor('Network Type')
         .select('Bridge');
 
       // Click "Add Service Endpoint"
@@ -202,7 +210,8 @@ describe('Services', function () {
         .contains('Add Service Endpoint')
         .click();
       cy
-        .get('input[name="portDefinitions.0.containerPort"]')
+        .root()
+        .getFormGroupInputFor('Container Port')
         .type('80');
 
       // Switch to health checks
@@ -215,10 +224,12 @@ describe('Services', function () {
         .contains('Add Health Check')
         .click();
       cy
-        .get('select[name="healthChecks.0.protocol"]')
+        .root()
+        .getFormGroupInputFor('Protocol')
         .select('Command');
       cy
-        .get('textarea[name="healthChecks.0.command"]')
+        .root()
+        .getFormGroupInputFor('Command')
         .type('sleep 5; exit 0');
 
       // Check JSON view
