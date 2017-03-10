@@ -1,3 +1,5 @@
+const StringUtil = require('./utils/StringUtil');
+
 Cypress.addParentCommand('visitUrl', function (options) {
   var clusterDomain = new URL(Cypress.env('CLUSTER_URL')).host.split(':')[0];
   var url = Cypress.env('CLUSTER_URL') + '/#' + options.url;
@@ -49,7 +51,7 @@ Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
       return false;
     }
 
-    return groupLabel[0].innerText.trim().toLowerCase() === compareLabel;
+    return StringUtil.getNormalizedContents(groupLabel[0]) === compareLabel;
   });
 
   // If nothing found, return empty selection
@@ -72,7 +74,7 @@ Cypress.addChildCommand('configurationMapValue', function (elements, label) {
       return;
     }
 
-    if (labelElement.innerText.trim().toLowerCase() === compareLabel) {
+    if (StringUtil.getNormalizedContents(labelElement) === compareLabel) {
       const valueElement = element.querySelector('.configuration-map-value');
       expect(valueElement).not.to.equal(null);
       foundElements.push(valueElement);
@@ -111,7 +113,7 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
     // Fallback to first column
     columnIndex = 0;
     headings.each(function (index, th) {
-      if (th.innerText.trim().toLowerCase() === compareName) {
+      if (StringUtil.getNormalizedContents(th) === compareName) {
         columnIndex = index;
       }
     });
