@@ -19,8 +19,8 @@ import SystemLogUtil from '../utils/SystemLogUtil';
  */
 
 // Store of current open connections
-const sources = {};
-const tails = {};
+const URLToEventSourceMap = {};
+const subscriptionIDtoURLMap = {};
 
 function subscribe(url, onMessage, onError) {
   // Unsubscribe if any open connection exists with the same ID
@@ -34,7 +34,7 @@ function subscribe(url, onMessage, onError) {
   source.addEventListener('error', onError, false);
 
   // Store listeners along with EventSource reference, so we can clean up
-  sources[url] = {
+  URLToEventSourceMap[url] = {
     errorListener: onError,
     messageListener: onMessage,
     source
@@ -44,18 +44,18 @@ function subscribe(url, onMessage, onError) {
 }
 
 function unsubscribe(url) {
-  if (!sources[url]) {
+  if (!URLToEventSourceMap[url]) {
     return;
   }
 
-  const { errorListener, messageListener, source } = sources[url];
+  const { errorListener, messageListener, source } = URLToEventSourceMap[url];
 
   source.removeEventListener('message', messageListener);
   source.removeEventListener('error', errorListener);
 
   source.close();
 
-  delete sources[url];
+  delete URLToEventSourceMap[url];
 }
 
 const SystemLogActions = {
@@ -124,7 +124,7 @@ const SystemLogActions = {
       });
     }
 
-    tails[subscriptionID] = url;
+    subscriptionIDtoURLMap[subscriptionID] = url;
 
     subscribe(url, messageListener, errorListener);
 
@@ -136,12 +136,12 @@ const SystemLogActions = {
    * @param {String} subscriptionID ID returned from subscribe function
    */
   stopTail(subscriptionID) {
-    if (!tails[subscriptionID]) {
+    if (!subscriptionIDtoURLMap[subscriptionID]) {
       return;
     }
 
-    unsubscribe(tails[subscriptionID]);
-    delete tails[subscriptionID];
+    unsubscribe(subscriptionIDtoURLMap[subscriptionID]);
+    delete subscriptionIDtoURLMap[subscriptionID];
   },
 
   /**
