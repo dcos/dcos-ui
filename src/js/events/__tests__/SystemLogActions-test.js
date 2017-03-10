@@ -124,7 +124,7 @@ describe('SystemLogActions', function () {
 
   });
 
-  describe('#unsubscribe', function () {
+  describe('#stopTail', function () {
 
     beforeEach(function () {
       SystemLogActions.startTail('foo', {cursor: 'bar', subscriptionID: 'subscriptionID'});
@@ -132,14 +132,14 @@ describe('SystemLogActions', function () {
 
     it('calls #close on the EventSource', function () {
       this.eventSource.close = jasmine.createSpy('close');
-      SystemLogActions.unsubscribe('subscriptionID');
+      SystemLogActions.stopTail('subscriptionID');
       expect(this.eventSource.close).toHaveBeenCalled();
     });
 
     it('unsubscribes event listeners on message', function () {
       this.messageSpy = jasmine.createSpy('message');
       this.eventSource.addEventListener('message', this.messageSpy);
-      SystemLogActions.unsubscribe('subscriptionID');
+      SystemLogActions.stopTail('subscriptionID');
 
       const event = {
         data: '{}',

@@ -172,7 +172,7 @@ class SystemLogStore extends BaseStore {
       delete this.logs[subscriptionID];
     }
 
-    SystemLogActions.unsubscribe(subscriptionID);
+    SystemLogActions.stopTail(subscriptionID);
   }
 
   fetchLogRange(nodeID, options) {

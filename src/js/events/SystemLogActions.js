@@ -43,7 +43,7 @@ const SystemLogActions = {
     let {subscriptionID, cursor, skip_prev} = options;
 
     // Unsubscribe if any open connection exists with the same ID
-    this.unsubscribe(subscriptionID);
+    this.stopTail(subscriptionID);
 
     const url = SystemLogUtil.getUrl(nodeID, options);
     subscriptionID = subscriptionID || Symbol(url + Date.now());
@@ -101,7 +101,7 @@ const SystemLogActions = {
    * Unsubscribes from the event stream from the given subscriptionID
    * @param {String} subscriptionID ID returned from subscribe function
    */
-  unsubscribe(subscriptionID) {
+  stopTail(subscriptionID) {
     if (sources[subscriptionID]) {
       // Clean up event listeners
       const {errorListener, messageListener, source} = sources[subscriptionID];
