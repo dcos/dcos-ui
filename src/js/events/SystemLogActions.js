@@ -83,7 +83,7 @@ const SystemLogActions = {
     this.stopTail(subscriptionID);
 
     const url = SystemLogUtil.getUrl(nodeID, options);
-    subscriptionID = subscriptionID || Symbol(url + Date.now());
+    subscriptionID = subscriptionID || Symbol.for(url);
 
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
@@ -160,7 +160,7 @@ const SystemLogActions = {
       Object.assign(options, {read_reverse: true}),
       false
     );
-    subscriptionID = subscriptionID || Symbol(url + Date.now());
+    subscriptionID = subscriptionID || Symbol.for(url);
 
     const items = [];
 
