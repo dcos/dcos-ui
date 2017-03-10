@@ -199,7 +199,6 @@ class LogView extends React.Component {
 
     if (isAtBottom !== this.state.isAtBottom) {
       this.setState({isAtBottom});
-      this.props.onAtBottomChange(isAtBottom);
     }
 
   }
@@ -313,7 +312,6 @@ LogView.defaultProps = {
   hasLoadedTop: false,
   highlightText: '',
   fetchPreviousLogs() {},
-  onAtBottomChange() {},
   onCountChange() {}
 };
 
@@ -321,7 +319,6 @@ LogView.propTypes = {
   hasLoadedTop: React.PropTypes.bool,
   highlightText: React.PropTypes.string,
   fetchPreviousLogs: React.PropTypes.func,
-  onAtBottomChange: React.PropTypes.func,
   onCountChange: React.PropTypes.func,
   logName: React.PropTypes.string,
   watching: React.PropTypes.number
