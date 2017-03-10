@@ -114,4 +114,28 @@ describe('Packages Tab', function () {
     });
   });
 
+  context('package panels', function () {
+    beforeEach(function () {
+      cy.visitUrl({url: '/universe', logIn: true});
+      cy.get('.panel').as('panels');
+    });
+
+    it('should open the modal when the panel button is clicked', function () {
+      cy.get('.panel .button').click();
+
+      cy.get('.modal').should(function ($modal) {
+        expect($modal.length).to.equal(1);
+      });
+    });
+
+    it('shouldn\'t open the modal when the panel is clicked', function () {
+      cy.get('.panel').click();
+
+      cy.get('.modal').should(function ($modal) {
+        expect($modal.length).to.equal(0);
+      });
+    });
+
+  });
+
 });
