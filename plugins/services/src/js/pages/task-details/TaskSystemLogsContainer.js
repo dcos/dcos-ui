@@ -5,7 +5,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {APPEND} from '../../../../../../src/js/constants/SystemLogTypes';
+import {APPEND, PREPEND} from '../../../../../../src/js/constants/SystemLogTypes';
 import LogView from '../../components/LogView';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
@@ -110,16 +110,22 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     );
   }
 
-  onSystemLogStoreError(subscriptionID) {
+  onSystemLogStoreError(subscriptionID, direction) {
     if (subscriptionID !== this.state.subscriptionID) {
       return;
     }
 
-    this.setState({
+    const newState = {
       hasError: true,
-      isFetchingPrevious: false,
       isLoading: false
-    });
+    };
+
+    // Only set isFetchingPrevious when we receive prepending log event
+    if (this.state.isFetchingPrevious && direction === PREPEND) {
+      newState.isFetchingPrevious = false;
+    }
+
+    this.setState(newState);
   }
 
   onSystemLogStoreSuccess(subscriptionID, direction) {
@@ -133,13 +139,19 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       this.handleFetchPreviousLog();
     }
 
-    this.setState({
+    const newState = {
       hasError: false,
       direction,
-      isFetchingPrevious: false,
       isLoading: false,
       fullLog: SystemLogStore.getFullLog(subscriptionID)
-    });
+    };
+
+    // Only set isFetchingPrevious when we receive prepending log event
+    if (this.state.isFetchingPrevious && direction === PREPEND) {
+      newState.isFetchingPrevious = false;
+    }
+
+    this.setState(newState);
   }
 
   onSystemLogStoreStreamError() {
@@ -179,6 +191,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       return;
     }
 
+    this.setState({isFetchingPrevious: true});
+
     const {task} = this.props;
     const {subscriptionID} = this.state;
 
@@ -189,8 +203,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       limit: PAGE_ENTRY_COUNT,
       subscriptionID
     });
-    SystemLogStore.fetchLogRange(task.slave_id, params);
-    this.setState({isFetchingPrevious: true});
+
+    SystemLogStore.fetchRange(task.slave_id, params);
   }
 
   handleViewChange(selectedStream) {

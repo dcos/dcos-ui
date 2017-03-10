@@ -149,7 +149,7 @@ class SystemLogStore extends BaseStore {
     }
 
     // Will return unchanged subscriptionID if provided in the options
-    subscriptionID = SystemLogActions.subscribe(nodeID, options);
+    subscriptionID = SystemLogActions.startTail(nodeID, options);
 
     // Start a timer to notify view if we have received nothing
     // within reasonable time
@@ -172,10 +172,10 @@ class SystemLogStore extends BaseStore {
       delete this.logs[subscriptionID];
     }
 
-    SystemLogActions.unsubscribe(subscriptionID);
+    SystemLogActions.stopTail(subscriptionID);
   }
 
-  fetchLogRange(nodeID, options) {
+  fetchRange(nodeID, options) {
     const {subscriptionID} = options;
     const cursor = findNestedPropertyInObject(
       this.logs[subscriptionID],
@@ -185,7 +185,7 @@ class SystemLogStore extends BaseStore {
       return false;
     }
 
-    SystemLogActions.fetchLogRange(
+    SystemLogActions.fetchRange(
       nodeID,
       Object.assign({cursor}, options)
     );
@@ -212,7 +212,7 @@ class SystemLogStore extends BaseStore {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
-    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
+    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, APPEND, data);
   }
 
   processLogPrepend(subscriptionID, firstEntry, entries = []) {
@@ -235,7 +235,7 @@ class SystemLogStore extends BaseStore {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
-    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
+    this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, PREPEND, data);
   }
 
   get storeID() {

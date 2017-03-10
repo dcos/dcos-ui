@@ -316,6 +316,7 @@ describe('SystemLogStore', function () {
 
       expect(changeHandler).toHaveBeenCalledWith(
         'subscriptionID',
+        SystemLogTypes.APPEND,
         {error: 'foo'}
       );
     });
@@ -353,6 +354,7 @@ describe('SystemLogStore', function () {
 
       expect(changeHandler).toHaveBeenCalledWith(
         'subscriptionID',
+        SystemLogTypes.APPEND,
         {error: 'foo'}
       );
     });

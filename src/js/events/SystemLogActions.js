@@ -19,7 +19,45 @@ import SystemLogUtil from '../utils/SystemLogUtil';
  */
 
 // Store of current open connections
-const sources = {};
+const urlToEventSourceMap = {};
+const subscriptionIDtoURLMap = {};
+
+function subscribe(url, onMessage, onError) {
+  // Unsubscribe if any open connection exists with the same ID
+  unsubscribe(url);
+
+  const source = new EventSource(url, {
+    withCredentials: Boolean(CookieUtils.getUserMetadata())
+  });
+
+  source.addEventListener('message', onMessage, false);
+  source.addEventListener('error', onError, false);
+
+  // Store listeners along with EventSource reference, so we can clean up
+  urlToEventSourceMap[url] = {
+    errorListener: onError,
+    messageListener: onMessage,
+    source
+  };
+
+  return url;
+}
+
+function unsubscribe(url) {
+  if (!urlToEventSourceMap[url]) {
+    return;
+  }
+
+  const {errorListener, messageListener, source} = urlToEventSourceMap[url];
+
+  source.removeEventListener('message', messageListener, false);
+  source.removeEventListener('error', errorListener, false);
+
+  source.close();
+
+  delete urlToEventSourceMap[url];
+}
+
 const SystemLogActions = {
   /**
    * Subscribes to the events stream for logs given the parameters provided
@@ -39,17 +77,17 @@ const SystemLogActions = {
    * @param {String} [options.read_reverse] will read events in reverse order if set to true
    * @return {Symbol} subscriptionID to unsubscribe or resubscribe with
    */
-  subscribe(nodeID, options = {}) {
+  startTail(nodeID, options = {}) {
     let {subscriptionID, cursor, skip_prev} = options;
 
-    // Unsubscribe if any open connection exists with the same ID
-    this.unsubscribe(subscriptionID);
+    // NB: When subscriptionID is passed from the store and an ongoing stream
+    // is open, it will close the connection before opening a new one
+    this.stopTail(subscriptionID);
 
     const url = SystemLogUtil.getUrl(nodeID, options);
-    subscriptionID = subscriptionID || Symbol(url + Date.now());
-    const source = new EventSource(url, {
-      withCredentials: Boolean(CookieUtils.getUserMetadata())
-    });
+    // NB: User can pass `subscriptionID` to associate it with their local data
+    // accumulation
+    subscriptionID = subscriptionID || Symbol.for(url);
 
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
@@ -89,10 +127,9 @@ const SystemLogActions = {
       });
     }
 
-    source.addEventListener('message', messageListener, false);
-    source.addEventListener('error', errorListener, false);
-    // Store listeners along with EventSource reference, so we can clean up
-    sources[subscriptionID] = {errorListener, messageListener, source};
+    subscriptionIDtoURLMap[subscriptionID] = url;
+
+    subscribe(url, messageListener, errorListener);
 
     return subscriptionID;
   },
@@ -101,15 +138,13 @@ const SystemLogActions = {
    * Unsubscribes from the event stream from the given subscriptionID
    * @param {String} subscriptionID ID returned from subscribe function
    */
-  unsubscribe(subscriptionID) {
-    if (sources[subscriptionID]) {
-      // Clean up event listeners
-      const {errorListener, messageListener, source} = sources[subscriptionID];
-      source.removeEventListener('message', messageListener);
-      source.removeEventListener('error', errorListener);
-      source.close();
-      delete sources[subscriptionID];
+  stopTail(subscriptionID) {
+    if (!subscriptionIDtoURLMap[subscriptionID]) {
+      return;
     }
+
+    unsubscribe(subscriptionIDtoURLMap[subscriptionID]);
+    delete subscriptionIDtoURLMap[subscriptionID];
   },
 
   /**
@@ -127,7 +162,7 @@ const SystemLogActions = {
    * @param {String} [options.executorID] ID for executor to retrieve logs from
    * @param {String} [options.containerID] ID for container to retrieve logs from
    */
-  fetchLogRange(nodeID, options = {}) {
+  fetchRange(nodeID, options = {}) {
     let {limit, subscriptionID} = options;
     const url = SystemLogUtil.getUrl(
       nodeID,
@@ -136,12 +171,12 @@ const SystemLogActions = {
       Object.assign(options, {read_reverse: true}),
       false
     );
-    subscriptionID = subscriptionID || Symbol(url + Date.now());
-    const source = new EventSource(url, {
-      withCredentials: Boolean(CookieUtils.getUserMetadata())
-    });
+    // NB: User can pass `subscriptionID` to associate it with their local data
+    // accumulation
+    subscriptionID = subscriptionID || Symbol.for(url);
 
     const items = [];
+
     function messageListener({data, origin} = {}) {
       if (origin !== global.location.origin) {
         // Ignore events that are not from this origin
@@ -181,16 +216,11 @@ const SystemLogActions = {
           subscriptionID
         });
       }
-      // Clean up event listeners
-      source.removeEventListener('message', messageListener);
-      source.removeEventListener('error', errorListener);
-      // Close connection,
-      // no need to delete source as the reference is not stored
-      source.close();
+
+      unsubscribe(url);
     }
 
-    source.addEventListener('message', messageListener, false);
-    source.addEventListener('error', errorListener, false);
+    subscribe(url, messageListener, errorListener);
   },
 
   fetchStreamTypes(nodeID) {
