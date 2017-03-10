@@ -19,7 +19,7 @@ import SystemLogUtil from '../utils/SystemLogUtil';
  */
 
 // Store of current open connections
-const URLToEventSourceMap = {};
+const urlToEventSourceMap = {};
 const subscriptionIDtoURLMap = {};
 
 function subscribe(url, onMessage, onError) {
@@ -34,7 +34,7 @@ function subscribe(url, onMessage, onError) {
   source.addEventListener('error', onError, false);
 
   // Store listeners along with EventSource reference, so we can clean up
-  URLToEventSourceMap[url] = {
+  urlToEventSourceMap[url] = {
     errorListener: onError,
     messageListener: onMessage,
     source
@@ -44,18 +44,18 @@ function subscribe(url, onMessage, onError) {
 }
 
 function unsubscribe(url) {
-  if (!URLToEventSourceMap[url]) {
+  if (!urlToEventSourceMap[url]) {
     return;
   }
 
-  const { errorListener, messageListener, source } = URLToEventSourceMap[url];
+  const {errorListener, messageListener, source} = urlToEventSourceMap[url];
 
-  source.removeEventListener('message', messageListener);
-  source.removeEventListener('error', errorListener);
+  source.removeEventListener('message', messageListener, false);
+  source.removeEventListener('error', errorListener, false);
 
   source.close();
 
-  delete URLToEventSourceMap[url];
+  delete urlToEventSourceMap[url];
 }
 
 const SystemLogActions = {
@@ -80,10 +80,13 @@ const SystemLogActions = {
   startTail(nodeID, options = {}) {
     let {subscriptionID, cursor, skip_prev} = options;
 
-    // Unsubscribe if any open connection exists with the same ID
+    // NB: When subscriptionID is passed from the store and an ongoing stream
+    // is open, it will close the connection before opening a new one
     this.stopTail(subscriptionID);
 
     const url = SystemLogUtil.getUrl(nodeID, options);
+    // NB: User can pass `subscriptionID` to associate it with their local data
+    // accumulation
     subscriptionID = subscriptionID || Symbol.for(url);
 
     function messageListener({data, origin} = {}) {
@@ -168,6 +171,8 @@ const SystemLogActions = {
       Object.assign(options, {read_reverse: true}),
       false
     );
+    // NB: User can pass `subscriptionID` to associate it with their local data
+    // accumulation
     subscriptionID = subscriptionID || Symbol.for(url);
 
     const items = [];
