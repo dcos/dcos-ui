@@ -1,5 +1,7 @@
 @page-header-enabled: true;
 
+@page-header-border-color: color-lighten(@neutral, 80);
+
 /*
  * Responsive Scaling
  */
@@ -127,3 +129,31 @@
 @page-header-breadcrumb-item-icon-container-padding-left-screen-medium: @icon-small-width + @base-spacing-unit-screen-medium * 1/4;
 @page-header-breadcrumb-item-icon-container-padding-left-screen-large: @icon-small-width + @base-spacing-unit-screen-large * 1/4;
 @page-header-breadcrumb-item-icon-container-padding-left-screen-jumbo: @icon-small-width + @base-spacing-unit-screen-jumbo * 1/4;
+
+/* Page Header Navigation Dropdown */
+
+@page-header-dropdown-menu-button-height: @button-height + @base-spacing-unit / 3;
+@page-header-dropdown-menu-button-height-screen-small: @button-height + @base-spacing-unit-screen-small / 3;
+
+@page-header-navigation-dropdown-border-color: color-lighten(@page-header-border-color, 40);
+@page-header-navigation-dropdown-item-active-color: @purple;
+
+@page-header-navigation-dropdown-margin-left: @pod-margin-left * -1;
+@page-header-navigation-dropdown-margin-left-screen-small: @pod-margin-left-screen-small * -1;
+
+@page-header-navigation-dropdown-margin-right: @pod-margin-right * -1;
+@page-header-navigation-dropdown-margin-right-screen-small: @pod-margin-right-screen-small * -1;
+
+@page-header-navigation-dropdown-padding-top: 0;
+@page-header-navigation-dropdown-padding-top-screen-small: 0;
+
+@page-header-navigation-dropdown-padding-right: @page-header-navigation-dropdown-margin-right * -1;
+@page-header-navigation-dropdown-padding-right-screen-small: @page-header-navigation-dropdown-margin-right-screen-small * -1;
+
+@page-header-navigation-dropdown-padding-bottom: 0;
+@page-header-navigation-dropdown-padding-bottom-screen-small: 0;
+
+@page-header-navigation-dropdown-padding-left: @page-header-navigation-dropdown-margin-left * -1;
+@page-header-navigation-dropdown-padding-left-screen-small: @page-header-navigation-dropdown-margin-left-screen-small * -1;
+
+@page-header-navigation-dropdown-menu-border-color: fade(@neutral, 20%);
