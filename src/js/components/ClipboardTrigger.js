@@ -1,3 +1,4 @@
+import classNames from 'classnames/dedupe';
 import Clipboard from 'clipboard';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
@@ -61,7 +62,7 @@ class ClipboardTrigger extends React.Component {
       <Icon
         id="clipboard"
         size="mini"
-        className={`clickable icon-clipboard ${className}`}
+        className={classNames('clickable icon-clipboard', className)}
         color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter}
         ref="copyButton" />
@@ -105,7 +106,11 @@ ClipboardTrigger.defaultProps = {
 
 ClipboardTrigger.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
   copiedText: PropTypes.node,
   copyText: PropTypes.node,
   onTextCopy: PropTypes.func,
