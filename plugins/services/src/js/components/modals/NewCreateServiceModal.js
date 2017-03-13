@@ -88,7 +88,6 @@ const APP_VALIDATORS = [
   MarathonAppValidators.complyWithIpAddressRules,
   MarathonAppValidators.mustContainImageOnDocker,
   MarathonAppValidators.validateConstraints,
-  MarathonAppValidators.containerVolmesPath,
   MarathonAppValidators.mustNotContainUris,
   VipLabelsValidators.mustContainPort
 ];
