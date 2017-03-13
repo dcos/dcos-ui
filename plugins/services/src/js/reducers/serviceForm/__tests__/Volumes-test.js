@@ -29,6 +29,45 @@ describe('Volumes', function () {
       ]);
     });
 
+    it('should parse wrong values in local volume', function () {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'size'], '123', SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 123, SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], 123, SET));
+
+      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        {
+          containerPath: '123',
+          persistent: {
+            size: 123
+          },
+          mode: '123'
+        }
+      ]);
+    });
+
+    it('should parse wrong values in local volume', function () {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      // Ignores wrong type
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 123, SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 123, SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'hostPath'], 123, SET));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], 123, SET));
+
+      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        {
+          hostPath: '123',
+          containerPath: '123',
+          mode: '123'
+        }
+      ]);
+    });
+
     it('should return an external volume', function () {
       let batch = new Batch();
 
@@ -46,6 +85,32 @@ describe('Volumes', function () {
           },
           mode: 'RW'
 
+        }
+      ]);
+    });
+
+    it('should parse wrong values in external volume', function () {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 123, SET));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 123, SET));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], 123, SET));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'size'], '123', SET));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'mode'], 123, SET));
+
+      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        {
+          containerPath: '123',
+          external: {
+            name: '123',
+            provider: '123',
+            size: 123,
+            options: {
+              'dvdi/driver': 'rexray'
+            }
+          },
+          mode: '123'
         }
       ]);
     });
@@ -245,4 +310,5 @@ describe('Volumes', function () {
       ]);
     });
   });
+  // FormReducer is equal to JSONReducer
 });
