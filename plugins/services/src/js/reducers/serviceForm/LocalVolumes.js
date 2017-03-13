@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
@@ -101,19 +102,19 @@ module.exports = {
 
       const index = joinedPath.match(/\d+/)[0];
       if (type === SET && `localVolumes.${index}.type` === joinedPath) {
-        state[index].type = value;
+        state[index].type = String(value);
       }
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
-        state[index].size = value;
+        state[index].size = parseIntValue(value);
       }
       if (type === SET && `localVolumes.${index}.mode` === joinedPath) {
-        state[index].mode = value;
+        state[index].mode = String(value);
       }
       if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
-        state[index].containerPath = value;
+        state[index].containerPath = String(value);
       }
       if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
-        state[index].hostPath = value;
+        state[index].hostPath = String(value);
       }
     }
 

@@ -22,6 +22,23 @@ describe('LocalVolumes', function () {
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: 1024, containerPath: '/dev/null', mode: 'RW', type: 'PERSISTENT'}]);
     });
 
+    it('should parse wrong typed values correctly', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 123));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'hostPath'], 123));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], 123));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'size'], '1024'));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 123));
+      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{
+        size: 1024,
+        hostPath: '123',
+        containerPath: '123',
+        mode: '123',
+        type: '123'
+      }]);
+    });
+
     it('should contain two full local Volumes items', function () {
       const batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))

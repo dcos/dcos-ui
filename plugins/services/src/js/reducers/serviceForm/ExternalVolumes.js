@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
+import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
@@ -116,22 +117,23 @@ module.exports = {
 
       const index = path[1];
       if (type === SET && `externalVolumes.${index}.provider` === joinedPath) {
-        state[index].provider = value;
+        state[index].provider = String(value);
       }
       if (type === SET && `externalVolumes.${index}.options` === joinedPath) {
+        // Options is of type object, so we are not processing it
         state[index].options = value;
       }
       if (type === SET && `externalVolumes.${index}.name` === joinedPath) {
-        state[index].name = value;
+        state[index].name = String(value);
       }
       if (type === SET && `externalVolumes.${index}.containerPath` === joinedPath) {
-        state[index].containerPath = value;
+        state[index].containerPath = String(value);
       }
       if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
-        state[index].size = value;
+        state[index].size = parseIntValue(value);
       }
       if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
-        state[index].mode = value;
+        state[index].mode = String(value);
       }
     }
 

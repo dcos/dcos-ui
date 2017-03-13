@@ -33,6 +33,23 @@ describe('Labels', function () {
       }]);
     });
 
+    it('should parse wrong typed values correctly', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 123));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 123));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], 123));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'size'], '1024'));
+      batch = batch.add(new Transaction(['externalVolumes', 0, 'mode'], 123));
+      expect(batch.reduce(ExternalVolumes.FormReducer, [])).toEqual([{
+        containerPath: '123', name: '123', provider: '123', size: 1024,
+        options: {
+          'dvdi/driver': 'rexray'
+        },
+        mode: '123'
+      }]);
+    });
+
     it('should contain two full external Volumes items', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));

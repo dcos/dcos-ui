@@ -136,10 +136,10 @@ module.exports = {
     }
 
     if (name === 'name') {
-      newState[index].name = value;
+      newState[index].name = String(value);
     }
     if (name === 'mountPath') {
-      newState[index].mountPath[secondIndex] = value;
+      newState[index].mountPath[secondIndex] = String(value);
     }
 
     return newState;
