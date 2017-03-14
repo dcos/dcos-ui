@@ -1,7 +1,10 @@
 {
   "defaultCommandTimeout": 6000,
-  "fixturesFolder": "_fixtures",
   "integrationFolder": ".",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
-  "supportFile": "_support"
+  "supportFile": "_support",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress/results.xml"
+  }
 }

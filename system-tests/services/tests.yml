@@ -8,5 +8,5 @@
         - cypress
     scripts:
       setup: ./services/_scripts/setup
-      run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --reporter junit --reporter-options "mochaFile=cypress/results.xml" --spec services/test-environment.js
+      run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec services/test-environment.js
       teardown: ./services/_scripts/teardown

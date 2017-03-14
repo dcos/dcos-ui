@@ -52,7 +52,7 @@ Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
       return false;
     }
 
-    return StringUtil.getNormalizedContents(groupLabel[0]) === compareLabel;
+    return StringUtil.getContents(groupLabel[0]).toLowerCase() === compareLabel;
   });
 
   // If nothing found, return empty selection
@@ -105,7 +105,7 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
     // Fallback to first column
     columnIndex = 0;
     headings.each(function (index, th) {
-      if (StringUtil.getNormalizedContents(th) === compareName) {
+      if (StringUtil.getContents(th).toLowerCase() === compareName) {
         columnIndex = index;
       }
     });
@@ -135,19 +135,18 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
 Cypress.addChildCommand('contents', function (elements) {
-  cy.chain()
-    .window()
-    .then(function (window) {
-      return elements.map(function (index, element) {
-        if (element.classList.contains('ace_editor')) {
-          return window.ace.edit(element.id).getValue();
-        } else if (element.value !== undefined) {
-          return element.value;
-        } else {
-          return element.innerText;
-        }
-      });
-    });
+  return elements.map(function (index, element) {
+    const doc = element.ownerDocument;
+    const win = doc.defaultView || doc.parentWindow;
+
+    if (element.classList.contains('ace_editor')) {
+      return win.ace.edit(element.id).getValue();
+    } else if (element.value !== undefined) {
+      return element.value;
+    } else {
+      return element.innerText;
+    }
+  }).get();
 });
 
 /**
@@ -156,7 +155,7 @@ Cypress.addChildCommand('contents', function (elements) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
 Cypress.addChildCommand('asJson', function (contents) {
-  if (Array.isArray(contents)) {
+  if (contents.length != null) {
     return contents.map(function (content) {
       return JSON.parse(content);
     });
@@ -164,29 +163,6 @@ Cypress.addChildCommand('asJson', function (contents) {
     return JSON.parse(contents);
   }
 });
-
-/**
- * Extract the string from the given element (including ACE editor) and
- * check if the parsed JSON equals to the given JSON object.
- *
- */
-// Cypress.addChildCommand('shouldJsonMatch', function (elements, json) {
-//   cy.window().then(function (window) {
-//     elements.each(function (index, element) {
-//       let value = '';
-
-//       if (element.classList.contains('ace_editor')) {
-//         value = window.ace.edit(element.id).getValue();
-//       } else if (element.value !== undefined) {
-//         value = element.value;
-//       } else {
-//         value = element.innerText;
-//       }
-
-//       expect(JSON.parse(value)).to.deep.equal(json);
-//     });
-//   });
-// });
 
 /**
  * Trigger mouse over event on the selected elements

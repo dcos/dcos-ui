@@ -17,6 +17,6 @@ dcos config set core.ssl_verify False
 echo dcos_acs_token = \"$CLUSTER_AUTH_TOKEN\" >> ~/.dcos/dcos.toml
 
 # Install cypress if missing
-if ! hash czypress 2>/dev/null; then
+if ! hash cypress 2>/dev/null; then
   npm install -g cypress-cli
 fi
