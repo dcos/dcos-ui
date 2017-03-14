@@ -1,7 +1,5 @@
 #!/bin/bash
-pushd `dirname $0` > /dev/null
-SCRIPTPATH=`pwd`
-popd > /dev/null
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # This is the entry point file for the system tests
 # It generates the YAML specifications of the tests we have to run
