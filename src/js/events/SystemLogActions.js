@@ -224,15 +224,14 @@ const SystemLogActions = {
         });
       }
 
-      items.push(parsedData);
+      // Unshift items as the come in opposite order
+      items.unshift(parsedData);
     }
 
     function errorListener(event = {}) {
       const {eventPhase} = event;
 
       if (eventPhase === EventSource.CLOSED) {
-        // Reverse the items, as the come in opposite order
-        items.reverse();
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
           data: items,
