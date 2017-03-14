@@ -11,13 +11,14 @@ import {
 import AppDispatcher from './AppDispatcher';
 import CookieUtils from '../utils/CookieUtils';
 import Config from '../config/Config';
-import SystemLogUtil from '../utils/SystemLogUtil';
+import {accumulatedThrottle, getUrl} from '../utils/SystemLogUtil';
 
 /**
  * Implementation of server sent event handling for
  * https://github.com/dcos/dcos-log
  */
 
+const eventThroughPutTime = 500;
 // Store of current open connections
 const urlToEventSourceMap = {};
 const subscriptionIDtoURLMap = {};
@@ -58,6 +59,30 @@ function unsubscribe(url) {
   delete urlToEventSourceMap[url];
 }
 
+function parseEvents(eventData) {
+  const globalOrigin = global.location.origin;
+
+  return eventData.reduce(function (memo, event) {
+    // Only take first argument, which holds the event
+    const {data, origin} = event[0] || {};
+    if (origin !== globalOrigin) {
+      // Ignore events that are not from this origin
+      return memo;
+    }
+
+    try {
+      // Attempt parsing
+      const parsedEvent = JSON.parse(data);
+      // Append when regular reverse order
+      memo.events.push(parsedEvent);
+    } catch (error) {
+      memo.errors.push(error);
+    }
+
+    return memo;
+  }, {events: [], errors: []});
+}
+
 const SystemLogActions = {
   /**
    * Subscribes to the events stream for logs given the parameters provided
@@ -84,40 +109,45 @@ const SystemLogActions = {
     // is open, it will close the connection before opening a new one
     this.stopTail(subscriptionID);
 
-    const url = SystemLogUtil.getUrl(nodeID, options);
+    const url = getUrl(nodeID, options);
     // NB: User can pass `subscriptionID` to associate it with their local data
     // accumulation
     subscriptionID = subscriptionID || Symbol.for(url);
 
-    function messageListener({data, origin} = {}) {
-      if (origin !== global.location.origin) {
-        // Ignore events that are not from this origin
-        return false;
-      }
-
-      let parsedData;
-      try {
-        parsedData = JSON.parse(data);
-      } catch (error) {
+    // Will receive an array of events through the accumulatedThrottle function
+    function messageListener(eventData) {
+      const {events, errors} = parseEvents(eventData);
+      if (errors.length > 0) {
+        // Some data was corrupt and could not be parsed
         AppDispatcher.handleServerAction({
           type: REQUEST_SYSTEM_LOG_ERROR,
-          data: error,
+          data: errors,
           subscriptionID
         });
       }
 
       // Skip if we are hitting the same cursor as we requested with and we are
-      // not looking backwards
-      if (parsedData.cursor === cursor && !skip_prev) {
-        return false;
+      // not looking backwards. This is only relevant for the first item we hit
+      if (!skip_prev && events[0] && events[0].cursor === cursor) {
+        events.shift();
+      }
+
+      // No data to emit
+      if (events.length <= 0) {
+        return;
       }
 
       AppDispatcher.handleServerAction({
         type: REQUEST_SYSTEM_LOG_SUCCESS,
-        data: parsedData,
+        data: events,
         subscriptionID
       });
     }
+
+    const throttledMessageListener = accumulatedThrottle(
+      messageListener,
+      eventThroughPutTime
+    );
 
     function errorListener(event = {}) {
       AppDispatcher.handleServerAction({
@@ -129,7 +159,7 @@ const SystemLogActions = {
 
     subscriptionIDtoURLMap[subscriptionID] = url;
 
-    subscribe(url, messageListener, errorListener);
+    subscribe(url, throttledMessageListener, errorListener);
 
     return subscriptionID;
   },
@@ -164,7 +194,7 @@ const SystemLogActions = {
    */
   fetchRange(nodeID, options = {}) {
     let {limit, subscriptionID} = options;
-    const url = SystemLogUtil.getUrl(
+    const url = getUrl(
       nodeID,
       // Avoiding duplicate events by using read reverse (stream backwards).
       // Connection will close all events are received or have reached the top
