@@ -15,7 +15,7 @@ class PageHeaderNavigationDropdown extends React.Component {
     }
 
     if (items.length > 0) {
-      return activeTab[0].id;
+      return items[0].id;
     }
   }
 
