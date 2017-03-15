@@ -20,12 +20,6 @@ describe('Services', function () {
       cy
         .get('.page-body-content .button-success')
         .contains('Run a Service')
-        .click();
-
-      // That wen clicked, opens the 'Create Service' modal
-      cy
-        .get('.modal-full-screen-header-title')
-        .contains('Run a Service')
         .should('exist');
     });
 
