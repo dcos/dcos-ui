@@ -15,6 +15,7 @@ import ServiceModals from '../../components/modals/ServiceModals';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceTreeView from './ServiceTreeView';
 
+import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
 import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -34,7 +35,8 @@ import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUn
 import ServiceAttributeHasVolumesFilter from '../../filters/ServiceAttributeHasVolumesFilter';
 
 import {
-  DCOS_CHANGE
+  DCOS_CHANGE,
+  MESOS_STATE_CHANGE
 } from '../../../../../../src/js/constants/EventTypes';
 
 import {
@@ -150,6 +152,10 @@ class ServicesContainer extends React.Component {
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
+
+    // Don't block the whole screen if Mesos state is not there
+    // Mesos state is needed to aggregate frameworks resources correctly
+    MesosStateStore.addChangeListener(MESOS_STATE_CHANGE, function () {});
 
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.

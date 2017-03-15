@@ -1,4 +1,13 @@
+jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
+
+const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+
+JestUtil.unMockStores(['MesosStateStore']);
+
+const MesosStateStore = require('../../../../../../src/js/stores/MesosStateStore');
+
 const Framework = require('../Framework');
+const Task = require('../Task');
 
 describe('Framework', function () {
 
@@ -142,7 +151,42 @@ describe('Framework', function () {
         TASK_RUNNING: 1
       });
 
-      expect(service.getInstancesCount()).toEqual(2);
+      expect(service.getInstancesCount()).toEqual(1);
+    });
+
+  });
+
+  describe('#getResources', function () {
+
+    it('aggregates child task resources properly', function () {
+      MesosStateStore.getTasksByService = function () {
+        return [
+          new Task({
+            id: '/fake_1',
+            isStartedByMarathon: true,
+            state: 'TASK_RUNNING',
+            resources: {cpus: 0.2, mem: 300, gpus: 0, disk: 0}
+          }),
+          new Task({
+            id: '/fake_2',
+            state: 'TASK_RUNNING',
+            resources: {cpus: 0.8, mem: 700, gpus: 0, disk: 0}
+          })
+        ];
+      };
+
+      const service = new Framework({
+        instances: 1,
+        cpus: 1,
+        mem: 1000
+      });
+
+      expect(service.getResources()).toEqual({
+        cpus: 1.8,
+        mem: 1700,
+        gpus: 0,
+        disk: 0
+      });
     });
 
   });
