@@ -43,7 +43,7 @@ import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import JSONAppReducers from '../../reducers/JSONAppReducers';
+import JSONSingleContainerReducers from '../../reducers/JSONSingleContainerReducers';
 import JSONMultiContainerParser from '../../reducers/JSONMultiContainerParser';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONParser from '../../reducers/JSONParser';
@@ -609,7 +609,7 @@ class NewCreateServiceModal extends Component {
       );
 
       let jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONAppReducers)
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONSingleContainerReducers)
       );
 
       if (serviceSpec instanceof PodSpec) {

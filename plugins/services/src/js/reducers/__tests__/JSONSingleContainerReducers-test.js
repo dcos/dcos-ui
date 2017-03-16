@@ -1,10 +1,10 @@
-const JSONReducers = require('../JSONAppReducers');
+const JSONSingleContainerReducers = require('../JSONSingleContainerReducers');
 const Batch = require('../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../src/js/structs/Transaction');
 const {SET} = require('../../../../../../src/js/constants/TransactionTypes');
 const {combineReducers} = require('../../../../../../src/js/utils/ReducerUtil');
 
-describe('JSONReducers', function () {
+describe('JSONSingleContainerReducers', function () {
 
   describe('#cmd', function () {
 
@@ -12,7 +12,7 @@ describe('JSONReducers', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['cmd'], 'sleep 999', SET));
 
-      expect(batch.reduce(combineReducers({cmd: JSONReducers.cmd}).bind({}), {}))
+      expect(batch.reduce(combineReducers({cmd: JSONSingleContainerReducers.cmd}).bind({}), {}))
         .toEqual({cmd: 'sleep 999'});
     });
 
