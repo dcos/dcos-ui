@@ -188,9 +188,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom short-top">
+        <h3 className="short-bottom">
           Containers
-        </h2>
+        </h3>
         {containerElements}
         <AddButton onClick={this.props.onAddItem.bind(
             this,
