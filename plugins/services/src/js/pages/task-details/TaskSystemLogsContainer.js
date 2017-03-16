@@ -78,36 +78,29 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const curState = this.state;
     const {highlightText, task = {}, watching} = this.props;
-    const {
-      direction,
-      fullLog,
-      hasError,
-      streams,
-      isFetchingPrevious,
-      isLoading
-    } = this.state;
+    const stateToCheck = [
+      'direction',
+      'fullLog',
+      'hasError',
+      'isFetchingPrevious',
+      'isLoading'
+    ];
 
-    return Boolean(
-      // Check highlightText
-      (highlightText !== nextProps.highlightText) ||
-      // Check watching
-      (watching !== nextProps.watching) ||
-      // Check task
-      (nextProps.task && task.slave_id !== nextProps.task.slave_id) ||
-      // Check direction
-      (direction !== nextState.direction) ||
-      // Check fullLog
-      (fullLog !== nextState.fullLog) ||
-      // Check hasError
-      (hasError !== nextState.hasError) ||
-      // Check streams
-      (!deepEqual(streams, nextState.streams)) ||
-      // Check isFetchingPrevious
-      (isFetchingPrevious !== nextState.isFetchingPrevious) ||
-      // Check isLoading
-      (isLoading !== nextState.isLoading)
-    );
+    const isHighlightTextChanged = highlightText !== nextProps.highlightText;
+    const isWatchingChanged = watching !== nextProps.watching;
+
+    const isSlaveIdChanged = nextProps.task &&
+      task.slave_id !== nextProps.task.slave_id;
+
+    return isHighlightTextChanged ||
+      isWatchingChanged ||
+      isSlaveIdChanged ||
+      stateToCheck.some(function (key) {
+        return curState[key] !== nextState[key];
+      }) ||
+      !deepEqual(curState.streams, nextState.streams);
   }
 
   onSystemLogStoreError(subscriptionID, direction) {

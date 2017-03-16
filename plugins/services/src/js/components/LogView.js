@@ -64,23 +64,25 @@ class LogView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {hasLoadedTop, highlightText, logName, watching} = this.props;
-    const {fullLog, isAtBottom} = this.state;
+    const curState = this.state;
+    const curProps = this.props;
+    const propsToCheck = [
+      'hasLoadedTop',
+      'highlightText',
+      'logName',
+      'watching'
+    ];
 
-    return (
-      // Check hasLoadedTop
-      (hasLoadedTop !== nextProps.hasLoadedTop) ||
-      // Check highlightText
-      (highlightText !== nextProps.highlightText) ||
-      // Check logName
-      (logName !== nextProps.logName) ||
-      // Check watching
-      (watching !== nextProps.watching) ||
-      // Check isAtBottom
-      (isAtBottom !== nextState.isAtBottom) ||
-      // Check fullLog at the end, as this could be a long string
-      (fullLog !== nextState.fullLog)
-    );
+    const stateToCheck = [
+      'isAtBottom',
+      'fullLog' // Check fullLog at the end, as this could be a long string
+    ];
+
+    return propsToCheck.some(function (key) {
+      return curProps[key] !== nextProps[key];
+    }) || stateToCheck.some(function (key) {
+      return curState[key] !== nextState[key];
+    });
   }
 
   componentDidUpdate(prevProps) {

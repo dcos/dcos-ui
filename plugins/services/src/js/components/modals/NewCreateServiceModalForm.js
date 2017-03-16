@@ -159,12 +159,17 @@ class NewCreateServiceModalForm extends Component {
       return true;
     }
 
+    const isBaseConfigChanged = this.state.baseConfig !== nextState.baseConfig;
+    const isBatchChanged = this.state.batch !== nextState.batch;
+    const isEditingFieldPathChanged = this.state.editingFieldPath !== nextState.editingFieldPath;
+    const isActiveTabChanged = this.props.activeTab !== nextProps.activeTab;
+
     // Otherwise update if the state has changed
-    return (this.state.baseConfig !== nextState.baseConfig) ||
-      (this.state.batch !== nextState.batch) ||
-      (this.state.editingFieldPath !== nextState.editingFieldPath) ||
-      (this.props.activeTab !== nextProps.activeTab) ||
-      (!deepEqual(this.props.errors, nextProps.errors));
+    return isBaseConfigChanged ||
+      isBatchChanged ||
+      isEditingFieldPathChanged ||
+      isActiveTabChanged ||
+      !deepEqual(this.props.errors, nextProps.errors);
   }
 
   getNewStateForJSON(baseConfig = {}, isPod = this.state.isPod) {

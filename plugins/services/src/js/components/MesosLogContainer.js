@@ -79,46 +79,35 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {
-      filePath,
-      highlightText,
-      logName,
-      onCountChange,
-      task,
-      watching
-    } = this.props;
-    const {
-      direction,
-      fullLog,
-      hasLoadingError,
-      isFetchingPrevious,
-      isLoading
-    } = this.state;
+    const curProps = this.props;
+    const curState = this.state;
 
-    return (
-      // Check filePath
-      (filePath !== nextProps.filePath) ||
-      // Check logName
-      (logName !== nextProps.logName) ||
-      // Check highlightText
-      (highlightText !== nextProps.highlightText) ||
-      // Check watching
-      (watching !== nextProps.watching) ||
-      // Check watching
-      (onCountChange !== nextProps.onCountChange) ||
-      // Check task (slave_id is the only property being used)
-      (task.slave_id !== nextProps.task.slave_id) ||
-      // Check direction
-      (direction !== nextState.direction) ||
-      // Check hasLoadingError
-      (hasLoadingError !== nextState.hasLoadingError) ||
-      // Check isFetchingPrevious
-      (isFetchingPrevious !== nextState.isFetchingPrevious) ||
-      // Check isLoading
-      (isLoading !== nextState.isLoading) ||
-      // Check fullLog at the end, as this could be a long string
-      (fullLog !== nextState.fullLog)
-    );
+    const propsToCheck = [
+      'filePath',
+      'logName',
+      'highlightText',
+      'watching',
+      'onCountChange'
+    ];
+
+    const stateToCheck = [
+      'direction',
+      'hasLoadingError',
+      'isFetchingPrevious',
+      'isLoading',
+      'fullLog' // Check fullLog at the end, as this could be a long string
+    ];
+
+    // Check task (slave_id is the only property being used)
+    if (curProps.task.slave_id !== nextProps.task.slave_id) {
+      return true;
+    }
+
+    return propsToCheck.some(function (key) {
+      return curProps[key] !== nextProps[key];
+    }) || stateToCheck.some(function (key) {
+      return curState[key] !== nextState[key];
+    });
   }
 
   onMesosLogStoreError(path) {
