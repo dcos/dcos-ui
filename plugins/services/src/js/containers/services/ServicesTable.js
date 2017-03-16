@@ -213,7 +213,7 @@ class ServicesTable extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-mini dropdown-toggle button-link table-display-on-row-hover"
+        buttonClassName="button button-mini dropdown-toggle button-link"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
