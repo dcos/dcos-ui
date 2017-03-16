@@ -171,7 +171,7 @@ class ServicesTable extends React.Component {
         selectedHtml: (
           <Icon className="icon-alert"
             color="neutral"
-            id="gear"
+            id="ellipsis-vertical"
             size="mini" />
         )
       },
@@ -213,7 +213,7 @@ class ServicesTable extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-mini dropdown-toggle button-link"
+        buttonClassName="button button-mini button-link"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
