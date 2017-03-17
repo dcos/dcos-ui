@@ -5,7 +5,14 @@ import FieldError from './FieldError';
 import {omit} from '../../utils/Util';
 
 const FormGroup = (props) => {
-  const {children, className, errorClassName, showError} = props;
+  const {
+    children,
+    className,
+    errorClassName,
+    isDeleteButton,
+    applyLabelOffset,
+    showError
+  } = props;
 
   const clonedChildren = React.Children.map(children, (child) => {
     if (child != null && !showError && child.type === FieldError) {
@@ -16,7 +23,12 @@ const FormGroup = (props) => {
   });
 
   const classes = classNames(
-    {[errorClassName]: showError},
+    {
+      [errorClassName]: showError,
+      'form-group-without-top-label': applyLabelOffset,
+      // 'flex-item-align-end': applyLabelOffset && isDeleteButton,
+      'column-auto flush-left flush-right': isDeleteButton
+    },
     'form-group',
     className
   );
@@ -31,7 +43,9 @@ const FormGroup = (props) => {
 };
 
 FormGroup.defaultProps = {
-  errorClassName: 'form-group-danger'
+  errorClassName: 'form-group-danger',
+  applyLabelOffset: false,
+  isDeleteButton: false
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -48,7 +62,9 @@ FormGroup.propTypes = {
   // Classes
   className: classPropType,
   // Class to be toggled, can be overridden by className
-  errorClassName: React.PropTypes.string
+  errorClassName: React.PropTypes.string,
+  applyLabelOffset: React.PropTypes.bool,
+  isDeleteButton: React.PropTypes.bool
 };
 
 module.exports = FormGroup;

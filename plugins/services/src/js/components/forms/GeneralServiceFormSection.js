@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, {Component} from 'react';
 import {Confirm, Tooltip} from 'reactjs-components';
 
@@ -300,10 +299,6 @@ class GeneralServiceFormSection extends Component {
         'column-4': !hideValueColumn,
         'column-6': hideValueColumn
       };
-      const deleteRowButtonClassNames = classNames(
-        'column-2 flush-left',
-        {'form-group-without-top-label': index === 0}
-      );
 
       if (index === 0) {
         fieldLabel = placementConstraintLabel(
@@ -378,7 +373,7 @@ class GeneralServiceFormSection extends Component {
             </FieldError>
           </FormGroup>
 
-          <FormGroup className={deleteRowButtonClassNames}>
+          <FormGroup applyLabelOffset={index === 0} isDeleteButton={true}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,
