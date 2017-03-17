@@ -1,5 +1,18 @@
 import React from 'react';
 
+function getUnwrappedElements(elements) {
+  if (Array.isArray(elements) && elements.length === 1
+    && React.isValidElement(elements[0])) {
+    return elements[0];
+  }
+
+  return elements;
+}
+
+function shouldWrapElements(elements, alwaysWrap) {
+  return alwaysWrap || (Array.isArray(elements) && elements.length > 1);
+}
+
 const ReactUtil = {
   /**
    * Wrap React elements
@@ -18,16 +31,11 @@ const ReactUtil = {
       return null;
     }
 
-    if (Array.isArray(elements) && elements.length === 1
-      && React.isValidElement(elements[0]) && !alwaysWrap) {
-      return elements[0];
+    if (shouldWrapElements(elements, alwaysWrap)) {
+      return React.createElement(wrapper, null, elements);
     }
 
-    if (React.isValidElement(elements) && !alwaysWrap) {
-      return elements;
-    }
-
-    return React.createElement(wrapper, null, elements);
+    return getUnwrappedElements(elements, alwaysWrap);
   }
 };
 
