@@ -161,14 +161,12 @@ class PodDebugTabView extends React.Component {
   getRecentOfferSummary() {
     const {pod} = this.props;
     const queue = pod.getQueue();
-    let introText = null;
+    let introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     let mainContent = null;
     let offerCount = null;
 
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
-      || queue.declinedOffers.summary == null) {
-      introText = 'Offers will appear here when your service is deploying or waiting for resources.';
-    } else {
+    if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
+      && queue.declinedOffers.summary != null) {
       const {declinedOffers: {summary}} = queue;
       const {roles: {offers = 0}} = summary;
 
