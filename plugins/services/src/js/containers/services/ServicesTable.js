@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Dropdown, Table} from 'reactjs-components';
+import {Dropdown, Table, Tooltip} from 'reactjs-components';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
@@ -28,14 +28,16 @@ const columnClasses = {
   status: 'service-table-column-status',
   cpus: 'service-table-column-cpus',
   mem: 'service-table-column-mem',
-  disk: 'service-table-column-disk'
+  disk: 'service-table-column-disk',
+  actions: 'service-table-column-actions'
 };
 
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
   'renderHeadline',
   'renderStats',
-  'renderStatus'
+  'renderStatus',
+  'renderServiceActions'
 ];
 
 class ServicesTable extends React.Component {
@@ -148,12 +150,11 @@ class ServicesTable extends React.Component {
           {this.getServiceLink(service)}
           {this.getOpenInNewWindowLink(service)}
         </span>
-        {this.renderServiceActions(service)}
       </div>
     );
   }
 
-  renderServiceActions(service) {
+  renderServiceActions(prop, service) {
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
     const isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
@@ -170,7 +171,6 @@ class ServicesTable extends React.Component {
         html: '',
         selectedHtml: (
           <Icon className="icon-alert"
-            color="neutral"
             id="ellipsis-vertical"
             size="mini" />
         )
@@ -210,21 +210,24 @@ class ServicesTable extends React.Component {
     ];
 
     return (
-      <Dropdown
-        key="actions-dropdown"
-        anchorRight={true}
-        buttonClassName="button button-mini button-link"
-        dropdownMenuClassName="dropdown-menu"
-        dropdownMenuListClassName="dropdown-menu-list"
-        dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown flush-bottom table-cell-icon"
-        items={dropdownItems}
-        persistentID={ServiceActionItem.MORE}
-        onItemSelection={this.onActionsItemSelection.bind(this, service)}
-        scrollContainer=".gm-scroll-view"
-        scrollContainerParentSelector=".gm-prevented"
-        transition={true}
-        transitionName="dropdown-menu" />
+      <Tooltip interactive={true} content={'More actions'}>
+        <Dropdown
+          key="actions-dropdown"
+          anchorRight={true}
+          buttonClassName="button button-mini button-link"
+          dropdownMenuClassName="dropdown-menu"
+          dropdownMenuListClassName="dropdown-menu-list"
+          dropdownMenuListItemClassName="clickable"
+          wrapperClassName="dropdown flush-bottom table-cell-icon"
+          items={dropdownItems}
+          persistentID={ServiceActionItem.MORE}
+          onItemSelection={this.onActionsItemSelection.bind(this, service)}
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
+          title="More actions"
+          transition={true}
+          transitionName="dropdown-menu" />
+      </Tooltip>
     );
   }
 
@@ -340,6 +343,16 @@ class ServicesTable extends React.Component {
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
+      },
+      {
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
+        prop: 'actions',
+        render: this.renderServiceActions,
+        sortable: false,
+        heading() {
+          return null;
+        }
       }
     ];
   }
@@ -352,6 +365,7 @@ class ServicesTable extends React.Component {
         <col className={columnClasses.cpus} />
         <col className={columnClasses.mem} />
         <col className={columnClasses.disk} />
+        <col className={columnClasses.actions} />
       </colgroup>
     );
   }
