@@ -1,11 +1,11 @@
-const Volumes = require("../Volumes");
-const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
 } = require("#SRC/js/constants/TransactionTypes");
+const Batch = require("#SRC/js/structs/Batch");
+const Transaction = require("#SRC/js/structs/Transaction");
+const Volumes = require("../JSONReducers/Volumes");
 
 describe("Volumes", function() {
   describe("#JSONReducer", function() {
@@ -432,5 +432,4 @@ describe("Volumes", function() {
       ]);
     });
   });
-  // FormReducer is equal to JSONReducer
 });

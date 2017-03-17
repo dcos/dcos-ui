@@ -18,10 +18,10 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import {
   FormReducer as externalVolumes
-} from "../../reducers/serviceForm/ExternalVolumes";
+} from "../../reducers/serviceForm/FormReducers/ExternalVolumes";
 import {
   FormReducer as localVolumes
-} from "../../reducers/serviceForm/LocalVolumes";
+} from "../../reducers/serviceForm/FormReducers/LocalVolumes";
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 

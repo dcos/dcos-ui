@@ -5,10 +5,7 @@ import { simpleParser, combineParsers } from "#SRC/js/utils/ParserUtil";
 import Transaction from "#SRC/js/structs/Transaction";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
-import {
-  FormReducer as volumesFormReducer,
-  JSONReducer as volumesJSONReducer
-} from "./Volumes";
+import { JSONReducer as volumesJSONReducer } from "./JSONReducers/Volumes";
 import ContainerConstants from "../../constants/ContainerConstants";
 import docker from "./Docker";
 
@@ -141,8 +138,7 @@ const containerReducer = combineReducers({
 
       return newState;
     }
-  },
-  volumes: volumesFormReducer
+  }
 });
 
 module.exports = {
