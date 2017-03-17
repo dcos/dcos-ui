@@ -63,7 +63,11 @@ FormGroup.propTypes = {
   className: classPropType,
   // Class to be toggled, can be overridden by className
   errorClassName: React.PropTypes.string,
+  // When true, will add padding to the top of the form group to vertically
+  // align it with its siblings that have labels.
   applyLabelOffset: React.PropTypes.bool,
+  // When true, the component will apply specific styles for use with the delete
+  // row button
   isDeleteButton: React.PropTypes.bool
 };
 
