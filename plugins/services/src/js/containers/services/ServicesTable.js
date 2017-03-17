@@ -210,9 +210,8 @@ class ServicesTable extends React.Component {
     ];
 
     return (
-      <Tooltip interactive={true} content={'More actions'}>
+      <Tooltip content={'More actions'}>
         <Dropdown
-          key="actions-dropdown"
           anchorRight={true}
           buttonClassName="button button-mini button-link"
           dropdownMenuClassName="dropdown-menu"
