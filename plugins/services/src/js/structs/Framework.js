@@ -7,12 +7,6 @@ import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import FrameworkSpec from './FrameworkSpec';
 
 module.exports = class Framework extends Application {
-  getInstancesCount() {
-    const tasksRunning = this.get('TASK_RUNNING') || 0;
-
-    return super.getInstancesCount() + tasksRunning;
-  }
-
   getName() {
     const labels = this.getLabels();
     if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
@@ -51,4 +45,40 @@ module.exports = class Framework extends Application {
 
     return {value};
   }
+
+  getResources() {
+    // TODO: Circular reference workaround DCOS_OSS-783
+    const MesosStateStore = require('../../../../../src/js/stores/MesosStateStore');
+
+    const tasks = MesosStateStore.getTasksByService(this) || [];
+
+    const instances = this.getInstancesCount();
+    const {cpus = 0, mem = 0, gpus = 0, disk = 0} =
+      this.getSpec().getResources();
+
+    const frameworkResources = {
+      cpus: cpus * instances,
+      mem: mem * instances,
+      gpus: gpus * instances,
+      disk: disk * instances
+    };
+
+    // Aggregate all the child tasks resources
+    // resources of child frameworks won't be aggregated
+    return tasks
+      .filter(function (task) {
+        return !task.isStartedByMarathon;
+      })
+      .reduce(function (memo, task) {
+        const {cpus, mem, gpus, disk} = task.resources;
+
+        return {
+          cpus: memo.cpus + cpus,
+          mem: memo.mem + mem,
+          gpus: memo.gpus + gpus,
+          disk: memo.disk + disk
+        };
+      }, frameworkResources);
+  }
+
 };
