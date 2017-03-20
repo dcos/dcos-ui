@@ -158,10 +158,6 @@ class ServiceBreadcrumbs extends React.Component {
 
   render() {
     const {serviceID, taskID, taskName, extra} = this.props;
-    const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
-    const ids = trimmedServiceID.split('/');
-
-    let aggregateIDs = '';
 
     let crumbs = [
       <Breadcrumb key={-1} title="Services">
@@ -170,6 +166,10 @@ class ServiceBreadcrumbs extends React.Component {
         </BreadcrumbTextContent>
       </Breadcrumb>
     ];
+
+    let aggregateIDs = '';
+    const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
+    const ids = trimmedServiceID.split('/');
 
     if (serviceID != null && trimmedServiceID.length > 0) {
       const serviceCrumbs = ids.map((id, index) => {
@@ -234,9 +234,13 @@ class ServiceBreadcrumbs extends React.Component {
   }
 }
 
+ServiceBreadcrumbs.defaultProps = {
+  serviceID: ''
+};
+
 ServiceBreadcrumbs.propTypes = {
   extra: React.PropTypes.arrayOf(React.PropTypes.node),
-  serviceID: React.PropTypes.string.isRequired,
+  serviceID: React.PropTypes.string,
   taskID: React.PropTypes.string,
   taskName: React.PropTypes.string
 };
