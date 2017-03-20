@@ -170,8 +170,7 @@ class ServicesTable extends React.Component {
         id: ServiceActionItem.MORE,
         html: '',
         selectedHtml: (
-          <Icon className="icon-alert"
-            id="ellipsis-vertical"
+          <Icon id="ellipsis-vertical"
             size="mini" />
         )
       },
