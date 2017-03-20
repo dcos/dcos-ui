@@ -14,7 +14,7 @@ function AddButton({children, className, icon, onClick}) {
       {children}
     </a>
   );
-};
+}
 
 AddButton.defaultProps = {
   icon: <Icon color="purple" id="plus" size="tiny" />

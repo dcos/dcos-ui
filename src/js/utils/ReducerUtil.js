@@ -70,7 +70,7 @@ module.exports = {
    * @returns {Number|any} - Returns a numerical value or the value itself
    */
   parseIntValue(value) {
-    const parsedValue = parseInt(value);
+    const parsedValue = parseInt(value, 10);
     if (!isNaN(parsedValue)) {
       return parsedValue;
     }
@@ -90,7 +90,7 @@ module.exports = {
 
   simpleIntReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
-      const parsedValue = parseInt(value);
+      const parsedValue = parseInt(value, 10);
       if (type === TransactionTypes.SET && path.join('.') === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;

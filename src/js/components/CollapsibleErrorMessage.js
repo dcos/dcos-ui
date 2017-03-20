@@ -194,9 +194,9 @@ class CollapsibleErrorMessage extends React.Component {
         {this.getCollapsibleMessagePart()}
       </div>
     );
-  };
+  }
 
-};
+}
 
 CollapsibleErrorMessage.defaultProps = {
   className: '',

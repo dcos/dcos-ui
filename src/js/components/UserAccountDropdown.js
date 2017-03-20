@@ -35,6 +35,6 @@ class UserAccountDropdown extends React.Component {
         wrapperClassName="user-account-dropdown dropdown header flex-item-shrink-0" />
     );
   }
-};
+}
 
 module.exports = UserAccountDropdown;

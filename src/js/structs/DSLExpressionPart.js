@@ -56,6 +56,6 @@ class DSLExpressionPart {
     return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {});
   }
 
-};
+}
 
 module.exports = DSLExpressionPart;

@@ -17,7 +17,6 @@ describe('ServicesTable', function () {
     instances: 1,
     mem: 2048,
     disk: 0,
-    instances: 1,
     tasksStaged: 0,
     tasksRunning: 2,
     tasksHealthy: 2,

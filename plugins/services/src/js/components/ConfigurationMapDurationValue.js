@@ -49,7 +49,7 @@ class ConfigurationMapDurationValue extends React.Component {
       </ConfigurationMapValue>
     );
   }
-};
+}
 
 ConfigurationMapDurationValue.defaultProps = {
   defaultValue: <em>Not Configured</em>,

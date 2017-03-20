@@ -164,7 +164,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     let hostName = null;
-    if (!Boolean(vipPortError)) {
+    if (!vipPortError) {
       hostName = (
         <span>
           {ServiceConfigUtil.buildHostNameFromVipLabel(address)}

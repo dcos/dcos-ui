@@ -70,7 +70,7 @@ class ServiceOtherDSLSection extends React.Component {
       </DSLFormWithExpressionUpdates>
     );
   }
-};
+}
 
 ServiceOtherDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,

@@ -14,10 +14,6 @@ function getLocalStorageObject() {
 }
 
 class UserSettingsStore extends EventEmitter {
-  constructor() {
-    super(...arguments);
-  }
-
   getKey(key) {
     const localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {

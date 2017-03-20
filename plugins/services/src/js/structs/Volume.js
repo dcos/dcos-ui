@@ -35,6 +35,6 @@ class Volume extends Item {
     return this.get('type');
   }
 
-};
+}
 
 module.exports = Volume;

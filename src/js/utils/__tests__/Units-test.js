@@ -242,7 +242,7 @@ describe('Units', function () {
     });
 
     return it('should return "undefined" given no input', function () {
-      return expect(Units.contractNumber()).toEqual(void 0);
+      return expect(Units.contractNumber()).toEqual(undefined);
     });
 
   });

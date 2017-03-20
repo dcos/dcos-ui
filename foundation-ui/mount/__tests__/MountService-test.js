@@ -11,7 +11,7 @@ describe('MountService', function () {
   const REGISTRATION_ERROR_MESSAGE = 'Provided component/type combination ' +
       'is already registered';
 
-  class ReactComponent extends React.Component {};
+  class ReactComponent extends React.Component {}
   const FunctionalComponent = function () {};
 
   beforeEach(function () {

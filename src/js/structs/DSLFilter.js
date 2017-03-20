@@ -45,6 +45,6 @@ class DSLFilter {
   }
 
   /* eslint-enable no-unused-vars */
-};
+}
 
 module.exports = DSLFilter;

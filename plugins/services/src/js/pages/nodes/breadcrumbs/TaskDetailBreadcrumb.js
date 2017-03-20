@@ -43,6 +43,6 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   getCrumbLabel() {
     return this.getTaskName();
   }
-};
+}
 
 module.exports = TaskDetailBreadcrumb;

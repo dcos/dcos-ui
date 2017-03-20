@@ -115,7 +115,7 @@ class Breadcrumbs extends React.Component {
       <ManualBreadcrumbs crumbs={crumbs} />
     );
   }
-};
+}
 
 Breadcrumbs.defaultProps = {
   // Remove root '/' by default

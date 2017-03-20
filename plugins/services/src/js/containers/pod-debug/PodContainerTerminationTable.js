@@ -119,8 +119,8 @@ class PodContainerTerminationTable extends React.Component {
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{prop: 'ID', order: 'desc'}} />
     );
-  };
-};
+  }
+}
 
 PodContainerTerminationTable.defaultProps = {
   className: 'table table-borderless-outer table-borderless-inner-columns flush-bottom',

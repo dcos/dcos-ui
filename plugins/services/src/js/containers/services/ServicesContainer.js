@@ -115,7 +115,7 @@ function countFetchErrors(fetchErrors, action) {
     default:
       return false;
   }
-};
+}
 
 const METHODS_TO_BIND = [
   'handleServerAction',

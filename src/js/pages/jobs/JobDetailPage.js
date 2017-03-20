@@ -128,15 +128,15 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   handleDisableScheduleButtonClick() {
     MetronomeStore.toggleSchedule(this.props.params.id, false);
-  };
+  }
 
   handleEnableScheduleButtonClick() {
     MetronomeStore.toggleSchedule(this.props.params.id, true);
-  };
+  }
 
   handleDestroyButtonClick() {
     this.setState({jobActionDialog: DIALOGS.DESTROY});
-  };
+  }
 
   handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
     this.setState({disabledDialog: DIALOGS.DESTROY}, () => {

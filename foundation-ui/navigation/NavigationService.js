@@ -155,6 +155,6 @@ class NavigationService extends EventEmitter {
 
     this.instance.emit(NAVIGATION_CHANGE);
   }
-};
+}
 
 module.exports = NavigationService;

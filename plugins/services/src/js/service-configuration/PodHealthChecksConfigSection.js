@@ -166,7 +166,7 @@ class PodHealthChecksConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodHealthChecksConfigSection.defaultProps = {
   appConfig: {}

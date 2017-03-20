@@ -68,7 +68,7 @@ class ServiceHealthDSLSection extends React.Component {
       </DSLFormWithExpressionUpdates>
     );
   }
-};
+}
 
 ServiceHealthDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,

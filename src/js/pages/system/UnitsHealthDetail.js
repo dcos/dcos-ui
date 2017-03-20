@@ -221,6 +221,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       </Page>
     );
   }
-};
+}
 
 module.exports = UnitsHealthDetail;

@@ -85,7 +85,7 @@ class ServiceStatusWarning extends Component {
       || this.getUnableToLaunchWarning(item)
       || <noscript />;
   }
-};
+}
 
 ServiceStatusWarning.propTypes = {
   item: React.PropTypes.oneOfType([

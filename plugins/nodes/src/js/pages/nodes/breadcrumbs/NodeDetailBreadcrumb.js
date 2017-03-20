@@ -30,6 +30,6 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
   getCrumbLabel() {
     return this.getHostname();
   }
-};
+}
 
 module.exports = NodeDetailBreadCrumb;

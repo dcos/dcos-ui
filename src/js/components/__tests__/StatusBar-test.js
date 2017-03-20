@@ -188,7 +188,7 @@ describe('#StatusBar', function () {
           );
           const percentages = [];
           [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
-            percentages.push(parseInt(el.style.width.replace('%', '')));
+            percentages.push(parseInt(el.style.width.replace('%', ''), 10));
           });
           expect(percentages.length).toBe(2);
           expect(percentages.filter((percent) => percent < 7).length).toBe(0);
@@ -217,7 +217,7 @@ describe('#StatusBar', function () {
           );
           const percentages = [];
           [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
-            percentages.push(parseInt(el.style.width.replace('%', '')));
+            percentages.push(parseInt(el.style.width.replace('%', ''), 10));
           });
           expect(percentages.length).toBe(3);
           expect(percentages.filter((percent) => percent < 7).length).toBe(0);

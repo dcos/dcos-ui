@@ -24,7 +24,7 @@ function getNetworkType(networkType, appDefinition) {
   return networkName != null ?
     Networking.type.USER :
     networkType;
-};
+}
 
 class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**

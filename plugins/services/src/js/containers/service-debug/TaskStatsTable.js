@@ -130,7 +130,7 @@ class TaskStatsTable extends React.Component {
     timeValue = new Number(parseFloat(timeValue).toFixed())
       .toLocaleString();
 
-    const humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds));
+    const humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds, 10));
 
     return `${timeValue} ${label} (${humanReadable})`;
   }

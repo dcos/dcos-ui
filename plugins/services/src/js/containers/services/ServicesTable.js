@@ -88,7 +88,7 @@ class ServicesTable extends React.Component {
       case ServiceActionItem.DESTROY:
         modalHandlers.deleteService({service});
         break;
-    };
+    }
   }
 
   getServiceLink(service) {
@@ -369,7 +369,7 @@ class ServicesTable extends React.Component {
         sortBy={{prop: 'name', order: 'asc'}} />
     );
   }
-};
+}
 
 ServicesTable.contextTypes = {
   modalHandlers: PropTypes.shape({

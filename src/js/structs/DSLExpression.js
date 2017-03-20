@@ -59,6 +59,6 @@ class DSLExpression {
     });
   }
 
-};
+}
 
 module.exports = DSLExpression;

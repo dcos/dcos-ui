@@ -143,7 +143,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
     if (!Object.keys(marathonDetails).length) {
       return null;
-    };
+    }
 
     return {
       'Marathon Details': {
@@ -215,7 +215,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       </Page>
     );
   }
-};
+}
 
 OverviewDetailTab.routeConfig = {
   label: 'Overview',

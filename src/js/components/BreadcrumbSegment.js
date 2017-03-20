@@ -66,7 +66,7 @@ class BreadcrumbSegment extends React.Component {
       <BreadcrumbSegmentLink label={label} route={route} />
     );
   }
-};
+}
 
 BreadcrumbSegment.propTypes = {
   params: PropTypes.object.isRequired,

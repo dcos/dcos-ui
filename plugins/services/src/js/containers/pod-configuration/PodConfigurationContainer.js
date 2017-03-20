@@ -17,7 +17,7 @@ class PodConfigurationTabView extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodConfigurationTabView.propTypes = {
   pod: React.PropTypes.instanceOf(Pod)

@@ -74,7 +74,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       case ServiceActionItem.DESTROY:
         modalHandlers.deleteService({service});
         break;
-    };
+    }
   }
 
   hasVolumes() {

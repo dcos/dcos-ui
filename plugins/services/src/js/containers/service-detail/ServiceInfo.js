@@ -10,10 +10,6 @@ import StatusMapping from '../../constants/StatusMapping';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 class ServiceInfo extends React.Component {
-  constructor() {
-    super();
-  }
-
   getActionButtons() {
     const {service} = this.props;
 

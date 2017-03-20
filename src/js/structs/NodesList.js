@@ -58,7 +58,7 @@ class NodesList extends List {
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }
-};
+}
 
 NodesList.type = Node;
 
