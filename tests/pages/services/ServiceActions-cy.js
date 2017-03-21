@@ -359,9 +359,7 @@ describe('Service Actions', function () {
 
   context('Resume Action', function () {
     function openDropdown() {
-      cy.get('.service-table-column-name')
-        .contains('sleep')
-        .get('.dropdown-toggle')
+      cy.get('.service-table-column-actions .dropdown .button')
         .click({force: true});
     }
 
