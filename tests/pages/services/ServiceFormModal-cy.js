@@ -401,7 +401,7 @@ describe('Service Form Modal', function () {
           .contains('Add Placement Constraint');
       });
 
-      it.only('Should vertically align the placement constraint delete row button', function () {
+      it('Should vertically align the placement constraint delete row button', function () {
         // We'll consider the two elements to be centered with one another if
         // their midpoints are within 5 pixels of one another.
         const alignmentThreshold = 5;
