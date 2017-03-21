@@ -1,6 +1,7 @@
 import CompressionPlugin from 'compression-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
 import webpack from 'webpack';
 import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
@@ -85,7 +86,7 @@ module.exports = Object.assign({}, webpackConfig, {
         // Exclude all node_modules except dcos-dygraphs
         exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
         loader: 'babel?' + JSON.stringify({
-          cacheDirectory: true,
+          cacheDirectory: '/tmp',
           // Map through resolve to fix preset loading problem
           presets: [
             'babel-preset-es2015',
