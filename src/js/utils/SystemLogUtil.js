@@ -67,6 +67,44 @@ const SystemLogUtil = {
     }, []);
 
     return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join('/')}${endpoint}?${paramsArray.join('&')}`;
+  },
+
+  /**
+   * A throttle function that will make sure callback is not called more than
+   * once per `wait` miliseconds. It will accumulate arguments and pass it to
+   * the callback as an array (Arguments[]).
+   * @param  {Function} callback to be throttled
+   * @param  {Number} wait miliseconds to wait before attemting next execution
+   * @return {Function} throttled function, which can be called extensively
+   */
+  accumulatedThrottle(callback, wait) {
+    let timeoutID;
+    let accumulatedData = [];
+
+    return function () {
+      // Gather data for each call
+      accumulatedData.push(arguments);
+
+      if (!timeoutID) {
+        const context = this;
+
+        // Call callback immediately with accumulatedData
+        callback.call(context, accumulatedData);
+        // Clear the accumulated data array
+        accumulatedData = [];
+
+        timeoutID = setTimeout(function () {
+          // Call callback after wait with accumulatedData
+          callback.call(context, accumulatedData);
+          // Clear the accumulated data array
+          accumulatedData = [];
+
+          // Clean up our timeoutID
+          clearTimeout(timeoutID);
+          timeoutID = undefined;
+        }, wait);
+      }
+    };
   }
 };
 

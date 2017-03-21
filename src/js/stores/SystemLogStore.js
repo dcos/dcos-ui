@@ -56,7 +56,7 @@ class SystemLogStore extends BaseStore {
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
-          this.processLogEntry(subscriptionID, data);
+          this.processLogAppend(subscriptionID, data);
           break;
         case REQUEST_SYSTEM_LOG_ERROR:
           this.processLogError(subscriptionID, data);
@@ -195,14 +195,14 @@ class SystemLogStore extends BaseStore {
     SystemLogActions.fetchStreamTypes(nodeID);
   }
 
-  processLogEntry(subscriptionID, entry = {}) {
+  processLogAppend(subscriptionID, entries) {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
 
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
-      [entry],
+      entries,
       APPEND
     );
     this.emit(SYSTEM_LOG_CHANGE, subscriptionID, APPEND);

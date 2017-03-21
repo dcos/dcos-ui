@@ -94,6 +94,7 @@ class LogView extends React.Component {
       // Set `updatingScrollPosition` guard to avoid 'at top' and
       // 'at bottom' checks when computationally setting the `scrollTop`
       this.updatingScrollPosition = true;
+      // Warning: Causes reflow!
       logContainer.scrollTop = logContainer.scrollHeight;
       this.updatingScrollPosition = false;
 
@@ -111,27 +112,27 @@ class LogView extends React.Component {
   }
 
   handleUpdateScrollPosition(props = this.props) {
-    const {logContainer} = this;
-    let previousScrollTop;
-    let previousScrollHeight;
-
-    if (logContainer) {
-      previousScrollTop = logContainer.scrollTop;
-      previousScrollHeight = logContainer.scrollHeight;
-    }
-
+    const {direction, fullLog} = props;
     // Prevent updates to fullLog, if it has not changed
-    if (this.state.fullLog !== props.fullLog) {
-      this.setState({fullLog: props.fullLog}, () => {
+    if (this.state.fullLog !== fullLog) {
+      const {logContainer} = this;
+      let previousScrollTop;
+      let previousScrollHeight;
+      if (logContainer && direction === PREPEND && !this.state.isAtBottom) {
+        // Warning: Causes reflow!
+        previousScrollTop = logContainer.scrollTop;
+        previousScrollHeight = logContainer.scrollHeight;
+      }
+      this.setState({fullLog}, () => {
         // This allows the user to stay at the place of the log they were at
         // before the prepend.
-        if (props.direction === PREPEND && previousScrollHeight
-          && logContainer && !this.state.isAtBottom) {
+        if (previousScrollHeight) {
           const currentScrollHeight = logContainer.scrollHeight;
           const heightDifference = currentScrollHeight - previousScrollHeight;
           // Set `updatingScrollPosition` guard to avoid 'at top' and
           // 'at bottom' checks when computationally setting the `scrollTop`
           this.updatingScrollPosition = true;
+          // Warning: Causes reflow!
           logContainer.scrollTop = previousScrollTop + heightDifference;
           this.updatingScrollPosition = false;
         }
@@ -210,6 +211,7 @@ class LogView extends React.Component {
       return;
     }
 
+    // Warning: Causes reflow!
     const containerHeight = logContainer.clientHeight;
     const containerScrollTop = logContainer.scrollTop;
     const nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
@@ -219,6 +221,7 @@ class LogView extends React.Component {
       // Set `updatingScrollPosition` guard to avoid 'at top' and
       // 'at bottom' checks when computationally setting the `scrollTop`
       this.updatingScrollPosition = true;
+      // Warning: Causes reflow!
       logContainer.scrollTop = nodeDistanceFromTop - (containerHeight / 2);
       this.updatingScrollPosition = false;
     }

@@ -16,7 +16,7 @@ function resetLogData(subscriptionID, newLogData) {
   // Overload addEntries to clear out log data for 'subscriptionID'
   SystemLogStore.addEntries =
     jasmine.createSpy('#addEntries').and.returnValue(newLogData);
-  SystemLogStore.processLogEntry(subscriptionID);
+  SystemLogStore.processLogAppend(subscriptionID);
   // Reset addEntries to it's original functionality
   SystemLogStore.addEntries = originalAddEntries;
 }
@@ -137,7 +137,7 @@ describe('SystemLogStore', function () {
 
   });
 
-  describe('#processLogEntry', function () {
+  describe('#processLogAppend', function () {
 
     it('appends data to existing data', function () {
       resetLogData('subscriptionID', {
@@ -147,17 +147,17 @@ describe('SystemLogStore', function () {
         ],
         totalSize: 6
       });
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'foo'}}
+        [{fields: {MESSAGE: 'foo'}}]
       );
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'bar'}}
+        [{fields: {MESSAGE: 'bar'}}]
       );
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'baz'}}
+        [{fields: {MESSAGE: 'baz'}}]
       );
 
       expect(SystemLogStore.getFullLog('subscriptionID'))
@@ -174,9 +174,9 @@ describe('SystemLogStore', function () {
         totalSize: 500000
       });
 
-      SystemLogStore.processLogEntry('subscriptionID', {fields: {MESSAGE: ''}});
-      SystemLogStore.processLogEntry('subscriptionID', {fields: {MESSAGE: ''}});
-      SystemLogStore.processLogEntry('subscriptionID', {fields: {MESSAGE: ''}});
+      SystemLogStore.processLogAppend('subscriptionID', [{fields: {MESSAGE: ''}}]);
+      SystemLogStore.processLogAppend('subscriptionID', [{fields: {MESSAGE: ''}}]);
+      SystemLogStore.processLogAppend('subscriptionID', [{fields: {MESSAGE: ''}}]);
 
       expect(SystemLogStore.getFullLog('subscriptionID'))
         .toEqual('one\ntwo');
@@ -231,17 +231,17 @@ describe('SystemLogStore', function () {
 
     it('returns full log', function () {
 
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'foo'}}
+        [{fields: {MESSAGE: 'foo'}}]
       );
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'bar'}}
+        [{fields: {MESSAGE: 'bar'}}]
       );
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'baz'}}
+        [{fields: {MESSAGE: 'baz'}}]
       );
 
       const result = SystemLogStore.getFullLog('subscriptionID');
@@ -251,13 +251,13 @@ describe('SystemLogStore', function () {
 
     it('returns correct format', function () {
 
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'foo'}, realtime_timestamp: 10000000}
+        [{fields: {MESSAGE: 'foo'}, realtime_timestamp: 10000000}]
       );
-      SystemLogStore.processLogEntry(
+      SystemLogStore.processLogAppend(
         'subscriptionID',
-        {fields: {MESSAGE: 'bar'}}
+        [{fields: {MESSAGE: 'bar'}}]
       );
 
       const result = SystemLogStore.getFullLog('subscriptionID');
@@ -284,7 +284,7 @@ describe('SystemLogStore', function () {
 
   describe('dispatcher', function () {
 
-    it('emits event after #processLogEntry event is dispatched', function () {
+    it('emits event after #processLogAppend event is dispatched', function () {
       const changeHandler = jasmine.createSpy('changeHandler');
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_CHANGE,
@@ -293,7 +293,7 @@ describe('SystemLogStore', function () {
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS,
-        data: {fields: {MESSAGE: 'foo'}},
+        data: [{fields: {MESSAGE: 'foo'}}],
         subscriptionID: 'subscriptionID'
       });
 
