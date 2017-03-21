@@ -71,7 +71,7 @@ class ArtifactsSection extends Component {
               value={item.uri}/>
             <FieldError>{error}</FieldError>
           </FormGroup>
-          <FormGroup isDeleteButton={true} applyLabelOffset={index === 0}>
+          <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,

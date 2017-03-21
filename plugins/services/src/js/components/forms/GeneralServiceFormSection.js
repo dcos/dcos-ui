@@ -373,7 +373,7 @@ class GeneralServiceFormSection extends Component {
             </FieldError>
           </FormGroup>
 
-          <FormGroup applyLabelOffset={index === 0} isDeleteButton={true}>
+          <FormGroup applyLabelOffset={index === 0} hasNarrowMargins={true}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,

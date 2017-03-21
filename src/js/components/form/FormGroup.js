@@ -9,7 +9,7 @@ const FormGroup = (props) => {
     children,
     className,
     errorClassName,
-    isDeleteButton,
+    hasNarrowMargins,
     applyLabelOffset,
     showError
   } = props;
@@ -26,8 +26,8 @@ const FormGroup = (props) => {
     {
       [errorClassName]: showError,
       'form-group-without-top-label': applyLabelOffset,
-      // 'flex-item-align-end': applyLabelOffset && isDeleteButton,
-      'column-auto flush-left flush-right': isDeleteButton
+      // 'flex-item-align-end': applyLabelOffset && hasNarrowMargins,
+      'column-auto flush-left flush-right': hasNarrowMargins
     },
     'form-group',
     className
@@ -45,7 +45,7 @@ const FormGroup = (props) => {
 FormGroup.defaultProps = {
   errorClassName: 'form-group-danger',
   applyLabelOffset: false,
-  isDeleteButton: false
+  hasNarrowMargins: false
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -68,7 +68,7 @@ FormGroup.propTypes = {
   applyLabelOffset: React.PropTypes.bool,
   // When true, the component will apply specific styles for use with the delete
   // row button
-  isDeleteButton: React.PropTypes.bool
+  hasNarrowMargins: React.PropTypes.bool
 };
 
 module.exports = FormGroup;

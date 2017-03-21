@@ -70,7 +70,7 @@ class EnvironmentFormSection extends Component {
               value={env.value}/>
             <FieldError>{errors[env.key]}</FieldError>
           </FormGroup>
-          <FormGroup isDeleteButton={true}>
+          <FormGroup hasNarrowMargins={true}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this, {value: key, path: 'env'}
@@ -130,7 +130,7 @@ class EnvironmentFormSection extends Component {
               value={label.value}/>
             <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
-          <FormGroup isDeleteButton={true}>
+          <FormGroup hasNarrowMargins={true}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this, {value: key, path: 'labels'}
