@@ -1,5 +1,5 @@
 import {simpleReducer, simpleIntReducer} from '../../../../../../src/js/utils/ReducerUtil';
-import {FormReducer as constraints} from './Constraints';
+import {FormReducer as constraints} from './FormReducers/Constraints';
 import {FormReducer as fetch} from './FormReducers/Artifacts';
 
 module.exports = {
