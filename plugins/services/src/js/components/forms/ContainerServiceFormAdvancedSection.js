@@ -196,7 +196,7 @@ class ContainerServiceFormAdvancedSection extends Component {
 
     return (
       <div>
-        <h3 className="short-top short-bottom">
+        <h3 className="short-bottom">
           Advanced Settings
         </h3>
         <p>Advanced settings related to the runtime you have selected above.</p>

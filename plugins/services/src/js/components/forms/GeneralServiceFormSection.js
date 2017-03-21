@@ -188,9 +188,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom short-top">
+        <h3 className="short-bottom">
           Containers
-        </h2>
+        </h3>
         {containerElements}
         <AddButton onClick={this.props.onAddItem.bind(
             this,
@@ -214,6 +214,7 @@ class GeneralServiceFormSection extends Component {
       this.props.errors,
       'constraints'
     );
+    let errorNode = null;
     const placementTooltipContent = (
       <span>
         {'Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. '}
@@ -224,6 +225,19 @@ class GeneralServiceFormSection extends Component {
         </a>.
       </span>
     );
+    const hasErrors = (
+      constraintsErrors != null && !Array.isArray(constraintsErrors)
+    );
+
+    if (hasErrors) {
+      errorNode = (
+        <FormGroup showError={hasErrors}>
+          <FieldError>
+            {constraintsErrors}
+          </FieldError>
+        </FormGroup>
+      );
+    }
 
     return (
       <div>
@@ -246,11 +260,7 @@ class GeneralServiceFormSection extends Component {
         </h3>
         <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
         {this.getPlacementConstraintsFields(data.constraints)}
-        <FormGroup showError={constraintsErrors != null && !Array.isArray(constraintsErrors)}>
-          <FieldError>
-            {constraintsErrors}
-          </FieldError>
-        </FormGroup>
+        {errorNode}
         <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={this.props.onAddItem.bind(

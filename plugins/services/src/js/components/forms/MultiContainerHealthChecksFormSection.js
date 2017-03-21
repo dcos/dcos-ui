@@ -298,10 +298,10 @@ class MultiContainerHealthChecksFormSection extends Component {
       return (
         <div key={container.name}>
           <div className="form-row-element">
-            <h3 className="form-header short-bottom">
+            <h4 className="form-header short-bottom">
               <Icon id="container" size="mini" color="purple" />
               {` ${container.name}`}
-            </h3>
+            </h4>
           </div>
           {this.getHealthChecksBody(container, index)}
         </div>

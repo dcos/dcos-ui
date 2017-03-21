@@ -169,7 +169,7 @@ class MultiContainerVolumesFormSection extends Component {
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        <h3 className="flush-top">
+        <h3 className="short-bottom">
           Ephemeral Volumes
         </h3>
         <p>
