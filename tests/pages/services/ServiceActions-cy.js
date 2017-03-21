@@ -364,8 +364,7 @@ describe('Service Actions', function () {
     }
 
     function clickResume() {
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Resume')
         .click();
     }
