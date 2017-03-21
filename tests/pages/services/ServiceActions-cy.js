@@ -382,8 +382,7 @@ describe('Service Actions', function () {
       configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Suspend')
         .should('have.class', 'hidden');
     });
@@ -392,8 +391,7 @@ describe('Service Actions', function () {
       configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Resume')
         .should('not.have.class', 'hidden');
     });
