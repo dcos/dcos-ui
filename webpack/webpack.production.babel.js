@@ -85,7 +85,7 @@ module.exports = Object.assign({}, webpackConfig, {
         // Exclude all node_modules except dcos-dygraphs
         exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
         loader: 'babel?' + JSON.stringify({
-          cacheDirectory: true,
+          cacheDirectory: '/tmp',
           // Map through resolve to fix preset loading problem
           presets: [
             'babel-preset-es2015',
