@@ -40,16 +40,12 @@ class ServiceDebugContainer extends React.Component {
   getDeclinedOffersTable() {
     const {service} = this.props;
 
-    if (this.isFramework(service)) {
+    if (this.isFramework(service)
+      || !this.shouldShowDeclinedOfferSummary(service)) {
       return null;
     }
 
     const queue = service.getQueue();
-
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
-      || queue.declinedOffers.offers == null) {
-      return null;
-    }
 
     return (
       <div>
