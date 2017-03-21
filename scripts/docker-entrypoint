@@ -1,0 +1,54 @@
+#!/bin/bash
+# This script is executed in the development docker image when the user
+# runs any command within it. It's purpose is to check the if scaffolding
+# is needed and apply it.
+
+# The docker file has a cached version of the dependencies in a node_modules
+# folder in /var/lib. In oder to speed things up don't copy, just sym-link to
+# the user's mountpoint
+if [[ -a node_modules ]]; then
+  mv node_modules _node_modules
+fi
+ln -s /var/lib/node_modules
+
+# If the package.json has changed re-run npm install
+if ! sha512sum -c /var/lib/package.json.sha512 2>/dev/null >/dev/null; then
+  npm install
+  sha512sum package.json > /var/lib/package.json.sha512
+fi
+
+#
+# Define externalplugins if we have mounted such directory
+#
+if [[ -d /dcos-ui-plugins ]]; then
+  npm config set externalplugins ../dcos-ui-plugins
+fi
+
+#
+# Run preinstall if pre-install dependencies are missing. These are:
+#
+# - Marathon RAM Files
+#
+if [[ ! -d src/resources/raml/marathon ]]; then
+  ./scripts/pre-install
+fi
+
+#
+# Run scaffold if some files are missing:
+#
+# - src/js/config/Config.dev.js
+# - webpack/proxy.dev.js
+#
+if [[ ! -f ./src/js/config/Config.dev.js || ! -f ./webpack/proxy.dev.js ]]; then
+  npm run scaffold
+fi
+
+# Pass through everything else
+$*
+
+# Recover user's version of node_modules at exit
+rm node_modules
+if [[ -a _node_modules ]]; then
+  mv _node_modules node_modules
+fi
+
