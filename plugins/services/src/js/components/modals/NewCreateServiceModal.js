@@ -46,7 +46,7 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONAppReducers from '../../reducers/JSONAppReducers';
 import JSONMultiContainerParser from '../../reducers/JSONMultiContainerParser';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
-import JSONParser from '../../reducers/JSONParser';
+import JSONSingleContainerParser from '../../reducers/JSONSingleContainerParser';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
@@ -605,7 +605,7 @@ class NewCreateServiceModal extends Component {
       ];
 
       let jsonParserReducers = combineParsers(
-        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParser)
+        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONSingleContainerParser)
       );
 
       let jsonConfigReducers = combineReducers(
