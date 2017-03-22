@@ -318,17 +318,13 @@ class GeneralServiceFormSection extends Component {
       if (index === 0) {
         fieldLabel = placementConstraintLabel(
           'Field',
-          {
-            tooltipText: 'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.',
-            required: true
-          }
+          'If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.',
+          {isRequired: true}
         );
         operatorLabel = placementConstraintLabel(
           'Operator',
-          {
-            tooltipText: 'Operators specify where your app will run.',
-            required: true
-          }
+          'Operators specify where your app will run.',
+          {isRequired: true}
         );
       }
       if (index === 0 && !hideValueColumn) {
