@@ -1,12 +1,7 @@
+import PluginSDK from 'PluginSDK';
+
 import BaseStore from './BaseStore';
-
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
-
-// Hack until we fix circular dependency - DCOS-5040
-let PluginSDK;
-if (global.__DEV__) {
-  PluginSDK = require('PluginSDK');
-}
 
 // TODO: DCOS-6404, remove getters and setters from stores
 class GetSetBaseStore extends BaseStore {
@@ -30,10 +25,6 @@ class GetSetBaseStore extends BaseStore {
     }
 
     Object.assign(this.getSet_data, data);
-
-    if (!global.__DEV__) {
-      PluginSDK = require('PluginSDK');
-    }
 
     // Dispatch new Store data
     PluginSDK.dispatch({
