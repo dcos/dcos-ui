@@ -2,7 +2,7 @@ import {Tooltip} from 'reactjs-components';
 import React, {Component} from 'react';
 import Objektiv from 'objektiv';
 
-import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
+import {FormReducer as externalVolumes} from '../../reducers/serviceForm/FormReducers/ExternalVolumes';
 import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
