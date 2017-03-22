@@ -2,7 +2,7 @@ import {JSONParser as container} from './serviceForm/Container';
 import {JSONParser as constraints} from './serviceForm/MultiContainerConstraints';
 import {JSONParser as fetch} from './serviceForm/JSONReducers/Artifacts';
 import {JSONParser as environmentVariables} from './serviceForm/EnvironmentVariables';
-import {JSONParser as externalVolumes} from './serviceForm/ExternalVolumes';
+import {JSONParser as externalVolumes} from './serviceForm/JSONReducers/ExternalVolumes';
 import {JSONParser as healthChecks} from './serviceForm/HealthChecks';
 import {JSONParser as labels} from './serviceForm/Labels';
 import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
