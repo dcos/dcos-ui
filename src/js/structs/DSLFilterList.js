@@ -38,6 +38,6 @@ class DSLFilterList {
     });
   }
 
-};
+}
 
 module.exports = DSLFilterList;

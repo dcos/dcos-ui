@@ -14,7 +14,7 @@ function EmptyLogScreen({logName}) {
       </p>
     </div>
   );
-};
+}
 
 EmptyLogScreen.propTypes = {
   logName: PropTypes.string

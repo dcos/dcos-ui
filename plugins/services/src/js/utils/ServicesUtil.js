@@ -55,7 +55,7 @@ function getCountByType(services) {
 
     return memo;
   }, {filterHealth: {}, filterStatus: {}, filterOther: {}});
-};
+}
 
 module.exports = {
   getCountByType

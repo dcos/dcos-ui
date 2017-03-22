@@ -77,7 +77,7 @@ class FuzzyTextDSLSection extends React.Component {
       </DSLFormWithExpressionUpdates>
     );
   }
-};
+}
 
 FuzzyTextDSLSection.propTypes = {
   onApply: PropTypes.func,

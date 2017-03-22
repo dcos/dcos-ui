@@ -68,7 +68,7 @@ class ServicesList extends List {
 
     return tasks;
   }
-};
+}
 
 ServicesList.type = Framework;
 

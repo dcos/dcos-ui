@@ -29,7 +29,7 @@ class BreadcrumbSegmentLink extends React.Component {
       );
     }
   }
-};
+}
 
 BreadcrumbSegmentLink.propTypes = {
   label: PropTypes.string.isRequired,

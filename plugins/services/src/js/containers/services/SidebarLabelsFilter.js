@@ -50,7 +50,7 @@ class SidebarLabelsFilters extends React.Component {
             return label.key === key && label.value === value;
           });
 
-          if (0 > index) {
+          if (index < 0) {
             memo = memo.concat([{key, value}]);
           }
         });

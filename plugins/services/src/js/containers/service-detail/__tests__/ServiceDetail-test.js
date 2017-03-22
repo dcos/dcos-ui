@@ -39,7 +39,6 @@ describe('ServiceDetail', function () {
     cpus: 1,
     mem: 2048,
     disk: 0,
-    deployments: [],
     instances: 1,
     tasksStaged: 0,
     tasksRunning: 2,

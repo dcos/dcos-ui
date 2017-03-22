@@ -30,7 +30,7 @@ class ConfigurationMapSizeValue extends React.Component {
       </ConfigurationMapValue>
     );
   }
-};
+}
 
 ConfigurationMapSizeValue.defaultProps = {
   decimals: 2,

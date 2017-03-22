@@ -161,7 +161,7 @@ const FormUtil = {
 
     const value = key.split('[');
 
-    return parseInt(value[1].split(']')[0]);
+    return parseInt(value[1].split(']')[0], 10);
   },
 
   /**

@@ -68,7 +68,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
 
         return intermediateResultset.combine(rightFilterFn(filters, resultset));
       };
-  };
+  }
 }
 
 /**
@@ -122,7 +122,7 @@ function filterFunctionFactory(ast) {
     );
   };
 
-};
+}
 
 /**
  * The following functions are used by the JISON parser in order to parse

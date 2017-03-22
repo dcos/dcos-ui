@@ -107,7 +107,7 @@ class PodStorageConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodStorageConfigSection.defaultProps = {
   appConfig: {}

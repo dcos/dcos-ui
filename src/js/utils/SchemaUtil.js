@@ -294,7 +294,6 @@ const SchemaUtil = {
             fieldName: secondLevelProp,
             fieldProps: secondLevelObject.itemShape,
             renderLabel,
-            renderLabel,
             filterProperties: secondLevelObject.filterProperties
           });
 

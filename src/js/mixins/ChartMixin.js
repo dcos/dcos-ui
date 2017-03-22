@@ -35,7 +35,7 @@ var ChartMixin = {
       return '';
     }
 
-    if (parseInt(Math.abs(d)) > 0) {
+    if (parseInt(Math.abs(d), 10) > 0) {
       return `${d}s`;
     }
 

@@ -36,6 +36,6 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
 
     return node.get('host_ip');
   }
-};
+}
 
 module.exports = UnitsHealthNodeDetailBreadcrumb;

@@ -70,6 +70,6 @@ function reducer(portDefinitions = [], {type, path = [], value}) {
   }
 
   return portDefinitions;
-};
+}
 
 module.exports = reducer;

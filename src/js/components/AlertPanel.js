@@ -20,7 +20,7 @@ var AlertPanel = React.createClass({
   getIcon() {
     const {icon, iconClassName} = this.props;
 
-    if (!!icon) {
+    if (icon) {
       return icon;
     }
 

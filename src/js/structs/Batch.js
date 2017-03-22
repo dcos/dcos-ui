@@ -72,7 +72,7 @@ class Batch {
 
     // Create new batch
     return new Batch(batch);
-  };
+  }
 
   /**
    * Apply the given reducer function to the batch containing the provided data.
@@ -91,7 +91,7 @@ class Batch {
     }
 
     return this.reduce(callback, data);
-  };
+  }
 
 }
 

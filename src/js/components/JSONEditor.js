@@ -312,7 +312,7 @@ class JSONEditor extends React.Component {
       jsonError = errorStr.replace(/at position (\d+)/g,
         function (match, offset) {
           const cursor = JSONEditorUtil.cursorFromOffset(
-            parseInt(offset),
+            parseInt(offset, 10),
             jsonText
           );
 
@@ -386,7 +386,7 @@ class JSONEditor extends React.Component {
       let errorLine = 0;
       const errorMsg =
         this.jsonError.replace(/at line ([\d:]+)/g, function (m, line) {
-          errorLine = parseInt(line.split(':')[0]);
+          errorLine = parseInt(line.split(':')[0], 10);
 
           return '';
         });

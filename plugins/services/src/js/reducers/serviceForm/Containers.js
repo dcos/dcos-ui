@@ -282,7 +282,7 @@ function containersParser(state) {
 
     return memo;
   }, []);
-};
+}
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
@@ -304,7 +304,7 @@ module.exports = {
       this.appState.id = value;
     }
 
-    if (base === 'networks' && parseInt(index) === 0 && type === SET) {
+    if (base === 'networks' && parseInt(index, 10) === 0 && type === SET) {
       const valueSplit = value.split('.');
 
       this.networkType = valueSplit[0];

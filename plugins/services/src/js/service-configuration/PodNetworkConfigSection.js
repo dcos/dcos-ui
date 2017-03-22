@@ -78,8 +78,6 @@ class PodNetworkConfigSection extends React.Component {
           };
         })
       );
-
-      return memo;
     }, []);
 
     if (!endpoints.length) {
@@ -116,7 +114,7 @@ class PodNetworkConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodNetworkConfigSection.defaultProps = {
   appConfig: {}

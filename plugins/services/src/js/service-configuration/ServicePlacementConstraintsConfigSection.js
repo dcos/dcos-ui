@@ -60,7 +60,7 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 ServicePlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}

@@ -67,6 +67,6 @@ class ComponentsUnitHealthDetailPage extends React.Component {
     );
   }
 
-};
+}
 
 module.exports = ComponentsUnitHealthDetailPage;

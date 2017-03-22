@@ -181,7 +181,7 @@ class MarathonTaskDetailsList extends React.Component {
       </ConfigurationMapSection>
     );
   }
-};
+}
 
 MarathonTaskDetailsList.propTypes = {
   taskID: React.PropTypes.string.isRequired

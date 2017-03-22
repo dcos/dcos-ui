@@ -16,7 +16,7 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === 'instances') {
-      this.internalState.instances = parseInt(value);
+      this.internalState.instances = parseInt(value, 10);
       if (!this.internalState.instances) {
         return null;
       }

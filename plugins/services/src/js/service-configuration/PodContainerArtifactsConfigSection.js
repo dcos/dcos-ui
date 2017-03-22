@@ -81,7 +81,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodContainerArtifactsConfigSection.defaultProps = {
   artifacts: []

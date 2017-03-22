@@ -105,7 +105,7 @@ class CosmosErrorMessage extends React.Component {
       </Alert>
     );
   }
-};
+}
 
 CosmosErrorMessage.defaultProps = {
   error: {message: 'Please try again.'},

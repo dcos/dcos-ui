@@ -42,6 +42,6 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
     );
   }
 
-};
+}
 
 module.exports = NodesUnitsHealthDetailPage;

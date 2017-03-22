@@ -138,10 +138,6 @@ class ServiceForm extends SchemaForm {
     return this.validateForm();
   }
 
-  onVirtualNetworksStoreSuccess() {
-    this.updateDefinitions();
-  }
-
   getNetworkingDescriptionDefinition(model) {
     return {
       name: 'ports-description',
@@ -164,7 +160,7 @@ class ServiceForm extends SchemaForm {
         }
 
         // Build out the Host ports that get dynamically created
-        if ('host' === networkType) {
+        if (networkType === 'host') {
           let portMapping = ports.map(function (port, index) {
             return `$PORT${index}`;
           });

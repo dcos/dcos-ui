@@ -148,7 +148,7 @@ class ConfigurationMapTable extends React.Component {
         {...Object.assign({}, this.props, {columns})} />
     );
   }
-};
+}
 
 ConfigurationMapTable.propTypes = {
   onEditClick: React.PropTypes.func,

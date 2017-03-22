@@ -36,6 +36,6 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
 
     return unit.getTitle();
   }
-};
+}
 
 module.exports = UnitsHealthDetailBreadcrumb;

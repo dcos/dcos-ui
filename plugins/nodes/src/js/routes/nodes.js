@@ -162,7 +162,6 @@ const nodesRoutes = {
           title: 'Details',
           path: 'details',
           isTab: true,
-          hideHeaderNavigation: true,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes/:nodeID/tasks/:taskID',

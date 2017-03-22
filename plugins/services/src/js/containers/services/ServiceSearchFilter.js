@@ -24,7 +24,7 @@ class ServiceSearchFilter extends React.Component {
         searchString={searchString} />
     );
   }
-};
+}
 
 ServiceSearchFilter.propTypes = {
   filters: PropTypes.object,

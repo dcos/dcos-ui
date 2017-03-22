@@ -86,6 +86,6 @@ class SummaryList extends List {
     return MesosSummaryUtil.stateResourcesToResourceStates(stateResources);
   }
 
-};
+}
 
 module.exports = SummaryList;

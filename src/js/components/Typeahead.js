@@ -14,7 +14,7 @@ class Typeahead extends FilterInputText {
     if (this.typeahead) {
       this.typeahead.clear();
       this.typeahead.focus();
-    };
+    }
   }
 
   getInputField() {

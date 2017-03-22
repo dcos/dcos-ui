@@ -434,7 +434,7 @@ class NewCreateServiceModal extends Component {
       case 'redirect':
         this.context.router.push(route);
         break;
-    };
+    }
   }
 
   handleServiceReview() {

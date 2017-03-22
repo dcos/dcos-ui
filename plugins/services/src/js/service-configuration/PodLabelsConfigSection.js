@@ -80,7 +80,7 @@ class PodLabelsConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodLabelsConfigSection.defaultProps = {
   appConfig: {}

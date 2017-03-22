@@ -13,7 +13,7 @@ class JobSearchFilter extends React.Component {
         searchString={this.props.value} />
     );
   }
-};
+}
 
 JobSearchFilter.propTypes = {
   onChange: React.PropTypes.func.isRequired,

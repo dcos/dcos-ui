@@ -22,7 +22,7 @@ class ExpandingTable extends React.Component {
     const rowID = this.getRowID(row);
 
     // If the selected row is already expanded, then we want to collapse it.
-    if (!!expandedRows[rowID]) {
+    if (expandedRows[rowID]) {
       delete expandedRows[rowID];
     } else {
       expandedRows[rowID] = true;

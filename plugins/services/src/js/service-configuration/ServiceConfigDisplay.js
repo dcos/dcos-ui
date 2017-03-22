@@ -97,7 +97,7 @@ class ServiceConfigDisplay extends React.Component {
           type={this.getMountType()} />
       </ConfigurationMap>
     );
-  };
+  }
 }
 
 ServiceConfigDisplay.defaultProps = {

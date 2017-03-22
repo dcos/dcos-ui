@@ -63,7 +63,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
       </div>
     );
   }
-};
+}
 
 PodPlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}

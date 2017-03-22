@@ -391,9 +391,9 @@ module.exports = class ServiceTree extends Tree {
     return this.reduceItems(function (serviceTreeLabels, item) {
       ServiceUtil.convertServiceLabelsToArray(item)
         .forEach(function ({key, value}) {
-          if (0 > serviceTreeLabels.findIndex(function (label) {
+          if (serviceTreeLabels.findIndex(function (label) {
             return label.key === key && label.value === value;
-          })) {
+          }) < 0) {
             serviceTreeLabels = serviceTreeLabels.concat([{key, value}]);
           }
         });
