@@ -32,7 +32,7 @@ RUN set -x \
   # Install npm dependencies
   && cd /dcos-ui \
   && npm install \
-  && npm install -g cypress-cli http-server compression-webpack-plugin \
+  && npm install -g cypress-cli git://github.com/johntron/http-server.git#proxy-secure-flag \
 
   # Install cypress
   && cypress install --cypress-version ${CYPRESS_VERSION} \
