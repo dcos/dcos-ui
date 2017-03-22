@@ -17,7 +17,7 @@ import FormGroupHeadingContent from '../../../../../../src/js/components/form/Fo
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
 import HealthCheckUtil from '../../utils/HealthCheckUtil';
-import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
+import {FormReducer as healthChecks} from '../../reducers/serviceForm/FormReducers/HealthChecks';
 
 const errorsLens = Objektiv.attr('healthChecks', []);
 
