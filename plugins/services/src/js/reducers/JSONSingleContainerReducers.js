@@ -7,7 +7,7 @@ import {JSONReducer as labels} from './serviceForm/JSONReducers/Labels';
 import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONReducer as residency} from './serviceForm/Residency';
 import {JSONReducer as ipAddress} from './serviceForm/JSONReducers/IpAddress';
-import {JSONReducer as requirePorts} from './serviceForm/RequirePorts';
+import {JSONReducer as requirePorts} from './serviceForm/JSONReducers/RequirePorts';
 import {
   simpleFloatReducer,
   simpleIntReducer,
