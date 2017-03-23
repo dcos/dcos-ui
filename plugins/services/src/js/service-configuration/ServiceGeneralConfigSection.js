@@ -210,9 +210,11 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
               return getDisplayValue(null);
             }
 
-            return value.map((arg, index) => (
+            const args = value.map((arg, index) => (
               <pre key={index} className="flush transparent wrap">{arg}</pre>
             ));
+
+            return <div>{args}</div>;
           }
         },
         {
