@@ -49,7 +49,7 @@ const containerRuntimes = {
     helpText: 'The default Mesos containerizer'
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]} <span className="badge badge-rounded badge-info">Preview</span></span>,
+    label: <span>{labelMap[MESOS]}</span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports Docker file format, multiple containers (Pods) and GPU resources.'
   }
 };
