@@ -1,9 +1,8 @@
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {
-  FormReducer as volumesFormReducer,
   JSONReducer as volumesJSONReducer
-} from './Volumes';
+} from './JSONReducers/Volumes';
 import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import {simpleParser, combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import ContainerConstants from '../../constants/ContainerConstants';
@@ -127,8 +126,7 @@ const containerReducer = combineReducers({
 
       return newState;
     }
-  },
-  volumes: volumesFormReducer
+  }
 });
 
 module.exports = {

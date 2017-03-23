@@ -1,9 +1,9 @@
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
+import {parseIntValue} from '../../../../../../../src/js/utils/ReducerUtil';
 import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from '../../../../../../../src/js/constants/TransactionTypes';
 
 const mapLocalVolumes = function (volume) {
   if (volume.type === 'PERSISTENT') {
@@ -171,6 +171,5 @@ function reduceVolumes(state, {type, path, value}) {
 }
 
 module.exports = {
-  JSONReducer: reduceVolumes,
-  FormReducer: reduceVolumes
+  JSONReducer: reduceVolumes
 };
