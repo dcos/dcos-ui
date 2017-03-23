@@ -9,10 +9,24 @@ Think of a `sum` function. When called as `sum(1)` we may expect a return value 
 
 ### Running Unit Tests
 
-Make sure your packages are up to date by running `npm install`, and then run tests with:
+Make sure you have Node 4.4.x and NPM 3.9.x and your packages are up to date by running `npm install`, and then run tests with:
 
 ```sh
 npm test
+```
+
+To watch for changes while still working on code:
+
+```sh
+npm run test:watch
+```
+
+You can also run specific files:
+
+```sh
+npm test fileName
+# or
+npm run test:watch fileName
 ```
 
 ## Integration Tests
