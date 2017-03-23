@@ -3,7 +3,6 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import HealthSorting from '../constants/HealthSorting';
-import MarathonStore from '../stores/MarathonStore';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
 import TaskStatusSortingOrder from '../constants/TaskStatusSortingOrder';
 import Util from '../../../../../src/js/utils/Util';
@@ -15,18 +14,72 @@ function getUpdatedTimestamp(model) {
 }
 
 const TaskTableUtil = {
+  /**
+   * Normalize param received and try mapping to HealthSorting
+   * if not able to mapping default to HealthSorting.NA
+   *
+   * @param {String} name
+   * @returns {Number} HealthSorting value
+   */
+  getHealthValueByName(name) {
+    let match;
+    name = Util.toUpperCaseIfString(name);
+    match = HealthSorting[name];
+
+    // defaults to NA if can't map to a HealthTypes key
+    if ( typeof match !== 'number' ) {
+      match = HealthSorting.NA;
+    }
+
+    return match;
+  },
+
+  /**
+   * Order health status
+   * based on HealthSorting mapping value
+   * where lowest (0) (top of the list) is most important for visibility
+   * and highest (3) (bottom of the list) 3 is least important for visibility
+   *
+   * @param {Object} a
+   * @param {Object} b
+   * @returns {Number} item position
+   */
+  sortHealthValues(a, b) {
+    const aTieBreaker = Util.toLowerCaseIfString(a.id);
+    const bTieBreaker = Util.toLowerCaseIfString(b.id);
+
+    a = TaskTableUtil.getHealthValueByName(a.health);
+    b = TaskTableUtil.getHealthValueByName(b.health);
+
+    if (a === b) {
+      a = aTieBreaker;
+      b = bTieBreaker;
+    }
+
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+
+    return 0;
+  },
+
+/**
+ *
+ * @returns {Function} sortHealthValues
+ */
+  getHealthSorting() {
+    return TaskTableUtil.sortHealthValues;
+  },
+
   getSortFunction(tieBreakerProp) {
     return TableUtil.getSortFunction(tieBreakerProp, function (item, prop) {
       const hasGetter = typeof item.get === 'function';
 
       if (prop === 'updated') {
         return getUpdatedTimestamp(item) || 0;
-      }
-
-      if (prop === 'health') {
-        return HealthSorting[
-          MarathonStore.getServiceHealth(item.get('name')).key
-        ];
       }
 
       if (prop === 'status' && !hasGetter) {

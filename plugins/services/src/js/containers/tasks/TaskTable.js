@@ -70,6 +70,7 @@ class TaskTable extends React.Component {
     var className = this.getClassName;
     var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
     const sortFunction = TaskTableUtil.getSortFunction('id');
+    const getHealthSorting = TaskTableUtil.getHealthSorting;
 
     return [
       {
@@ -119,7 +120,7 @@ class TaskTable extends React.Component {
         prop: 'health',
         render: this.renderHealth,
         sortable: true,
-        sortFunction
+        sortFunction: getHealthSorting
       },
       {
         cacheCell: false,

@@ -1,5 +1,5 @@
 import Framework from './Framework';
-import HealthSorting from '../constants/HealthSorting';
+import HealthTypes from '../constants/HealthTypes';
 import HealthStatus from '../constants/HealthStatus';
 import List from '../../../../../src/js/structs/List';
 import Pod from './Pod';
@@ -70,7 +70,7 @@ module.exports = class ServiceTree extends Tree {
     return this.reduceItems(function (aggregatedHealth, item) {
       if (item instanceof Service) {
         const health = item.getHealth();
-        if (HealthSorting[aggregatedHealth.key] > HealthSorting[health.key]) {
+        if (HealthTypes[aggregatedHealth.key] > HealthTypes[health.key]) {
           aggregatedHealth = health;
         }
       }
