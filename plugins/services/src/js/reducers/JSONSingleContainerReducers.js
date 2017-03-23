@@ -3,7 +3,7 @@ import {JSONReducer as container} from './serviceForm/Container';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/JSONReducers/Artifacts';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
-import {JSONReducer as labels} from './serviceForm/Labels';
+import {JSONReducer as labels} from './serviceForm/JSONReducers/Labels';
 import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONReducer as residency} from './serviceForm/Residency';
 import {JSONReducer as ipAddress} from './serviceForm/JSONReducers/IpAddress';
