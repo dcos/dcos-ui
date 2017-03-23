@@ -5,7 +5,7 @@ import {JSONParser as environmentVariables} from './serviceForm/EnvironmentVaria
 import {JSONParser as externalVolumes} from './serviceForm/JSONReducers/ExternalVolumes';
 import {JSONParser as healthChecks} from './serviceForm/JSONReducers/HealthChecks';
 import {JSONParser as labels} from './serviceForm/JSONReducers/Labels';
-import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
+import {JSONParser as localVolumes} from './serviceForm/JSONReducers/LocalVolumes';
 import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {JSONParser as residency} from './serviceForm/JSONReducers/Residency';
