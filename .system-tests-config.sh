@@ -37,7 +37,7 @@ cat <<EOF
       PROXIED_CLUSTER_URL: http://127.0.0.1:4201
 
     scripts:
-      proxy: http-server -p 4201 -P \$CLUSTER_URL dist
+      proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL dist
       auth: ./system-tests/_scripts/auth-open.py
 
 secrets:
@@ -59,7 +59,7 @@ cat <<EOF
       PROXIED_CLUSTER_URL: http://127.0.0.1:4201
 
     scripts:
-      proxy: http-server -p 4201 -P \$CLUSTER_URL dist
+      proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL dist
       auth: ./system-tests/_scripts/auth-open.py
 EOF
 fi
