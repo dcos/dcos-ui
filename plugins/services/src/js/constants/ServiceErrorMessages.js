@@ -22,6 +22,12 @@ const ServiceErrorMessages = [
     type: 'SERVICE_DEPLOYING',
     message: 'The service is currently locked by one or more deployments. ' +
       'Press again to force this operation.'
+  },
+  {
+    path: /^container\.docker\.portMappings\.[0-9]+\.name$|^portDefinitions\.[0-9]+\.name$/,
+    type: 'STRING_PATTERN',
+    message: 'May only contain digits (0-9), dashes (-) and ' +
+      'lowercase letters (a-z) e.g. web-server'
   }
 ].concat(DefaultErrorMessages);
 
