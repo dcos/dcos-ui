@@ -9,6 +9,7 @@ module.exports = {
     SidebarActions: 'SidebarActions'
   },
   stores: {
+    DCOSStore: 'DCOSStore',
     AuthStore: 'AuthStore',
     BaseStore: 'BaseStore',
     ConfigStore: 'ConfigStore',
@@ -36,9 +37,10 @@ module.exports = {
     FormUtil: 'FormUtil',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
-    RouterUtil: 'RouterUtil',
-    ReducerUtil: 'ReducerUtil',
     ParserUtil: 'ParserUtil',
+    ReducerUtil: 'ReducerUtil',
+    ResourceTableUtil: 'ResourceTableUtil',
+    RouterUtil: 'RouterUtil',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
     TabsUtil: 'TabsUtil',
@@ -118,9 +120,6 @@ module.exports = {
   },
   'foundation-ui': {
     'foundation-ui': 'index'
-  },
-  'foundation-utils': {
-    ResourceTableUtil: 'ResourceTableUtil'
   },
   internalPlugin: {
     services: 'services/index'

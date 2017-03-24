@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
-import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
 import Icon from '../../../../../src/js/components/Icon';
+import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
-import TaskDirectoryHeaderLabels from '../constants/TaskDirectoryHeaderLabels';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
+import TaskDirectoryHeaderLabels from '../constants/TaskDirectoryHeaderLabels';
 import TimeAgo from '../../../../../src/js/components/TimeAgo';
 import Units from '../../../../../src/js/utils/Units';
 

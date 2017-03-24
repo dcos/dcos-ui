@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
-import {ResourceTableUtil} from 'foundation-ui';
 import {Table, Tooltip} from 'reactjs-components';
 
 import Icon from '../../../../../src/js/components/Icon';
 import Loader from '../../../../../src/js/components/Loader';
 import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
+import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
 import StatusBar from '../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 import TableUtil from '../../../../../src/js/utils/TableUtil';

@@ -1,6 +1,6 @@
-import {DCOSStore} from 'foundation-ui';
 import React from 'react';
 
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import VolumeDetail from './VolumeDetail';

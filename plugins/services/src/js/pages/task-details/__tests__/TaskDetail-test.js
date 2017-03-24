@@ -1,8 +1,8 @@
 jest.dontMock('foundation-ui');
-jest.dontMock('foundation-ui/stores/DCOSStore');
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
 jest.dontMock('../../../stores/MarathonStore');
+jest.dontMock('../../../../../../../src/js/stores/DCOSStore');
 jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
 jest.dontMock('../../../../../../../src/js/stores/MesosSummaryStore');
 jest.dontMock('../../../../../../../src/js/components/Page');
