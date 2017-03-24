@@ -43,7 +43,7 @@ class MountService extends EventEmitter {
     let {components, instance, rank} = this;
 
     if (typeof component !== 'function') {
-      if (global.__DEV__) {
+      if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('Provided component must be a ' +
             'React.Component constructor or a stateless functional component');
       }
@@ -52,7 +52,7 @@ class MountService extends EventEmitter {
     }
 
     if (typeof type !== 'string' || type === '') {
-      if (global.__DEV__) {
+      if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('Provided type must be a none empty string');
       }
 
@@ -62,7 +62,7 @@ class MountService extends EventEmitter {
     if (components.find((descriptor) =>
         descriptor.component === component &&
         descriptor.type === type)) {
-      if (global.__DEV__) {
+      if (process.env.NODE_ENV !== 'production') {
         throw new Error('Provided component/type combination ' +
             'is already registered');
       }

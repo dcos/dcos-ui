@@ -4,7 +4,7 @@ import {EventEmitter} from 'events';
 import {ROUTING_CHANGE} from './EventTypes';
 
 function throwError(error) {
-  if (global.__DEV__) {
+  if (process.env.NODE_ENV !== 'production') {
     throw error;
   }
 }

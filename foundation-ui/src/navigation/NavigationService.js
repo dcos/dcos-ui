@@ -91,7 +91,7 @@ class NavigationService extends EventEmitter {
     });
 
     if (existingElement) {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV !== 'production') {
         console.warn(`Primary nav with the path ${path} already exists!`);
       }
 
@@ -136,7 +136,7 @@ class NavigationService extends EventEmitter {
     });
 
     if (existingElement) {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV !== 'production') {
         console.warn(`
           Secondary nav with the path ${parentPath}/${path} already exists!
         `);

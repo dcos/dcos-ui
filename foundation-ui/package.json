@@ -2,12 +2,19 @@
   "name": "foundation-ui",
   "main": "index.js",
   "version": "0.1.0",
-  "dependencies": {
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "peerDependencies": {
     "react": "0.14.7",
     "react-router": "2.8.1"
   },
   "devDependencies": {
-    "react-addons-test-utils": "0.14.7",
-    "jest-cli": "16.0.2"
+    "jest": "^19.0.2",
+    "jest-cli": "^16.0.2",
+    "react": "0.14.7",
+    "react-addons-test-utils": "^0.14.7",
+    "react-router": "2.8.1"
   }
 }
