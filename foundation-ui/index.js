@@ -1,7 +1,7 @@
-import RoutingService from './routing';
-import NavigationService from './navigation';
-import {MountService} from './mount';
-import Mount from './mount/Mount';
+import RoutingService from './src/routing';
+import NavigationService from './src/navigation';
+import {MountService} from './src/mount';
+import Mount from './src/mount/Mount';
 
 module.exports = {
   MountService: {
