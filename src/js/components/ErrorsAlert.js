@@ -17,9 +17,19 @@ const ErrorsAlert = function (props) {
     return <noscript />;
   }
 
-  const errorItems = showErrors.map((error, index) => {
+  // De-duplicate error messages that have exactly the same translated output
+  const errorMessages = showErrors.reduce(function (messages, error) {
     const message = getUnanchoredErrorMessage(error, pathMapping);
+    if (messages.indexOf(message) !== -1) {
+      return messages;
+    }
 
+    messages.push(message);
+
+    return messages;
+  }, []);
+
+  const errorItems = errorMessages.map((message, index) => {
     return (
       <li key={index} className="short">
         {message}
