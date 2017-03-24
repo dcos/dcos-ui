@@ -9,7 +9,6 @@ import {
   REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
-import CookieUtils from '../utils/CookieUtils';
 import Config from '../config/Config';
 import {accumulatedThrottle, getUrl} from '../utils/SystemLogUtil';
 
@@ -27,9 +26,7 @@ function subscribe(url, onMessage, onError) {
   // Unsubscribe if any open connection exists with the same ID
   unsubscribe(url);
 
-  const source = new EventSource(url, {
-    withCredentials: Boolean(CookieUtils.getUserMetadata())
-  });
+  const source = new EventSource(url);
 
   source.addEventListener('message', onMessage, false);
   source.addEventListener('error', onError, false);

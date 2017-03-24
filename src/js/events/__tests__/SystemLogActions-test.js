@@ -2,9 +2,7 @@ jest.dontMock('../SystemLogActions');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../../constants/ActionTypes');
 jest.dontMock('../../utils/SystemLogUtil');
-jest.dontMock('../../utils/CookieUtils');
 
-const cookie = require('cookie');
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 const ActionTypes = require('../../constants/ActionTypes');
@@ -12,27 +10,15 @@ const AppDispatcher = require('../../events/AppDispatcher');
 const Config = require('../../config/Config');
 const SystemLogActions = require('../SystemLogActions');
 
-const USER_COOKIE_KEY = 'dcos-acs-info-cookie';
-
 describe('SystemLogActions', function () {
 
   beforeEach(function () {
-    // Mock cookie
-    this.cookieParse = cookie.parse;
-    cookie.parse = function () {
-      var cookieObj = {};
-      cookieObj[USER_COOKIE_KEY] = 'aRandomCode';
-
-      return cookieObj;
-    };
-
     // Mock EventSource
     this.eventSource = new global.EventSource();
     spyOn(global, 'EventSource').and.returnValue(this.eventSource);
   });
 
   afterEach(function () {
-    cookie.parse = this.cookieParse;
     this.eventSource.close();
   });
 
@@ -52,20 +38,6 @@ describe('SystemLogActions', function () {
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0])
         .toEqual('/system/v1/agent/foo/logs/v1/stream/?cursor=bar');
-      expect(mostRecent.args[1]).toEqual({withCredentials: true});
-    });
-
-    it('sends without credentials when not available', function () {
-      cookie.parse = function () {
-        var cookieObj = {};
-        cookieObj[USER_COOKIE_KEY] = null;
-
-        return cookieObj;
-      };
-
-      SystemLogActions.startTail('foo', {cursor: 'bar'});
-      const mostRecent = global.EventSource.calls.mostRecent();
-      expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
 
     it('dispatches the correct action when successful', function () {
@@ -173,20 +145,6 @@ describe('SystemLogActions', function () {
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0])
         .toEqual('/system/v1/agent/foo/logs/v1/range/?cursor=bar&limit=3&read_reverse=true');
-      expect(mostRecent.args[1]).toEqual({withCredentials: true});
-    });
-
-    it('sends without credentials when not available', function () {
-      cookie.parse = function () {
-        var cookieObj = {};
-        cookieObj[USER_COOKIE_KEY] = null;
-
-        return cookieObj;
-      };
-
-      SystemLogActions.fetchRange('foo', {cursor: 'bar'});
-      const mostRecent = global.EventSource.calls.mostRecent();
-      expect(mostRecent.args[1]).toEqual({withCredentials: false});
     });
 
     it('dispatches the correct action when closing connection', function () {
