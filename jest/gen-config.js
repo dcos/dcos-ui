@@ -11,7 +11,6 @@ if (process.env.npm_config_externalplugins) {
 
 var config = {
   'automock': true,
-  'name': '', // https://github.com/facebook/jest/issues/955
   'testPathDirs': testPaths,
   'globals': {
     '__DEV__': true
