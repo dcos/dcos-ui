@@ -1,11 +1,10 @@
-
-import {DCOSStore} from 'foundation-ui';
 import {Dropdown, Tooltip} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import ApplicationSpec from '../../structs/ApplicationSpec';
 import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';

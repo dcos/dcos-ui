@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import {DCOSStore, ResourceTableUtil} from 'foundation-ui';
 import {Confirm, Table} from 'reactjs-components';
 import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
@@ -13,12 +12,14 @@ import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHead
 import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
 import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
 import Loader from '../../../../../../src/js/components/Loader';
 import MarathonActions from '../../events/MarathonActions';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
 import Page from '../../../../../../src/js/components/Page';
+import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
 import StatusBar from '../../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';

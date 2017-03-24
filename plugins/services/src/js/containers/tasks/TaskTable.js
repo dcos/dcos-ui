@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import {ResourceTableUtil} from 'foundation-ui';
 import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
 import Icon from '../../../../../../src/js/components/Icon';
+import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
 import TableUtil from '../../../../../../src/js/utils/TableUtil';
-import TaskStates from '../../constants/TaskStates';
 import TaskHealthStates from '../../constants/TaskHealthStates';
+import TaskStates from '../../constants/TaskStates';
 import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
 import TaskTableUtil from '../../utils/TaskTableUtil';
 import TaskUtil from '../../utils/TaskUtil';

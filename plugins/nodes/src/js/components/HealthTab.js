@@ -1,12 +1,12 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {hashHistory} from 'react-router';
-import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
 import FilterBar from '../../../../../src/js/components/FilterBar';
 import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
 import FilterInputText from '../../../../../src/js/components/FilterInputText';
+import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
 import UnitHealthDropdown from '../../../../../src/js/components/UnitHealthDropdown';

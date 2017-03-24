@@ -11,7 +11,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
 
-const DCOSStore = require('foundation-ui').DCOSStore;
+const DCOSStore = require('../../../../../../../src/js/stores/DCOSStore');
 const MesosStateStore = require('../../../../../../../src/js/stores/MesosStateStore');
 const TaskTable = require('../TaskTable');
 const Tasks = require('./fixtures/MockTasks.json').tasks;

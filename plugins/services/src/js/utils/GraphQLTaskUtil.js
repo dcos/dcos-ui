@@ -1,6 +1,5 @@
-import {DCOSStore} from 'foundation-ui';
-
 import CompositeState from '../../../../../src/js/structs/CompositeState';
+import DCOSStore from '../../../../../src/js/stores/DCOSStore';
 import TaskHealthStates from '../constants/TaskHealthStates';
 
 function getTaskHealthFromMesos(task) {

@@ -4,7 +4,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CollapsingString from './CollapsingString';
@@ -12,6 +11,7 @@ import Config from '../config/Config';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import List from '../structs/List';
 import ModalHeading from './modals/ModalHeading';
+import ResourceTableUtil from '../utils/ResourceTableUtil';
 import RepositoriesTableHeaderLabels from '../constants/RepositoriesTableHeaderLabels';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';

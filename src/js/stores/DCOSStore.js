@@ -5,26 +5,26 @@ import {
   METRONOME_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE
-} from '../../src/js/constants/EventTypes';
+} from '../constants/EventTypes';
 import {
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_GROUPS_CHANGE,
   MARATHON_QUEUE_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
-} from '../../plugins/services/src/js/constants/EventTypes';
+} from '../../../plugins/services/src/js/constants/EventTypes';
 
-import DeclinedOffersUtil from '../../plugins/services/src/js/utils/DeclinedOffersUtil';
-import DeploymentsList from '../../plugins/services/src/js/structs/DeploymentsList';
-import Item from '../../src/js/structs/Item';
-import Framework from '../../plugins/services/src/js/structs/Framework';
-import JobTree from '../../src/js/structs/JobTree';
-import MarathonStore from '../../plugins/services/src/js/stores/MarathonStore';
-import MesosSummaryStore from '../../src/js/stores/MesosSummaryStore';
-import MetronomeStore from '../../src/js/stores/MetronomeStore';
-import NotificationStore from '../../src/js/stores/NotificationStore';
-import ServiceTree from '../../plugins/services/src/js/structs/ServiceTree';
-import SummaryList from '../../src/js/structs/SummaryList';
+import DeclinedOffersUtil from '../../../plugins/services/src/js/utils/DeclinedOffersUtil';
+import DeploymentsList from '../../../plugins/services/src/js/structs/DeploymentsList';
+import Item from '../structs/Item';
+import Framework from '../../../plugins/services/src/js/structs/Framework';
+import JobTree from '../structs/JobTree';
+import MarathonStore from '../../../plugins/services/src/js/stores/MarathonStore';
+import MesosSummaryStore from './MesosSummaryStore';
+import MetronomeStore from './MetronomeStore';
+import NotificationStore from './NotificationStore';
+import ServiceTree from '../../../plugins/services/src/js/structs/ServiceTree';
+import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
   'onMetronomeChange',

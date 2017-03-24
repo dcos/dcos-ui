@@ -1,18 +1,18 @@
-jest.mock('../../../plugins/services/src/js/stores/MarathonStore');
-jest.mock('../../../src/js/stores/MesosSummaryStore');
+jest.mock('../../../../plugins/services/src/js/stores/MarathonStore');
+jest.mock('../MesosSummaryStore');
 jest.dontMock('../DCOSStore');
-jest.dontMock('../../../src/js/structs/SummaryList');
-jest.dontMock('../../../src/js/structs/StateSummary');
+jest.dontMock('../../structs/SummaryList');
+jest.dontMock('../../structs/StateSummary');
 
 const DCOSStore = require('../DCOSStore');
-const EventTypes = require('../../../src/js/constants/EventTypes');
-const MarathonStore = require('../../../plugins/services/src/js/stores/MarathonStore');
-const MesosSummaryStore = require('../../../src/js/stores/MesosSummaryStore');
-const NotificationStore = require('../../../src/js/stores/NotificationStore');
-const DeploymentsList = require('../../../plugins/services/src/js/structs/DeploymentsList');
-const ServiceTree = require('../../../plugins/services/src/js/structs/ServiceTree');
-const SummaryList = require('../../../src/js/structs/SummaryList');
-const StateSummary = require('../../../src/js/structs/StateSummary');
+const EventTypes = require('../../constants/EventTypes');
+const MarathonStore = require('../../../../plugins/services/src/js/stores/MarathonStore');
+const MesosSummaryStore = require('../MesosSummaryStore');
+const NotificationStore = require('../NotificationStore');
+const DeploymentsList = require('../../../../plugins/services/src/js/structs/DeploymentsList');
+const ServiceTree = require('../../../../plugins/services/src/js/structs/ServiceTree');
+const SummaryList = require('../../structs/SummaryList');
+const StateSummary = require('../../structs/StateSummary');
 
 describe('DCOSStore', function () {
 

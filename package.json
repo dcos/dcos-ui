@@ -29,6 +29,7 @@
     "externalplugins": ""
   },
   "dependencies": {
+    "foundation-ui": "file:./foundation-ui",
     "babel-polyfill": "6.9.1",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",

@@ -5,7 +5,7 @@ jest.dontMock('../../structs/Service');
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
-const DCOSStore = require('foundation-ui').DCOSStore;
+const DCOSStore = require('../../../../../../src/js/stores/DCOSStore');
 const ServiceBreadcrumbs = require('../ServiceBreadcrumbs');
 const Service = require('../../structs/Service');
 
