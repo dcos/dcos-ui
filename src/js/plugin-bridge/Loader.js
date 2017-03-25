@@ -15,10 +15,7 @@ const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
 const requireModals = require.context('../components/modals', false);
 const requireForm = require.context('../components/form', false);
-// Foundation
-const requireRouting = require.context('../../../foundation-ui/src/routing', false);
-const requireNavigation = require.context('../../../foundation-ui/src/navigation', false);
-const requireFoundation = require.context('../../../foundation-ui', false);
+
 let requireExternalPlugin = function () {
   return {};
 };
@@ -100,10 +97,6 @@ function requireModule(dir, name) {
       return requireConstants(path);
     case 'events':
       return requireEvents(path);
-    case 'routing':
-      return requireRouting(path);
-    case 'foundation-ui':
-      return requireFoundation(path);
     case 'systemPages':
       return requireSystemPages(path);
     case 'stores':
@@ -114,8 +107,6 @@ function requireModule(dir, name) {
       return requireUtils(path);
     case 'mixins':
       return requireMixins(path);
-    case 'navigation':
-      return requireNavigation(path);
     case 'components':
       return pluckComponent(path);
     case 'externalPlugin':
