@@ -25,7 +25,14 @@ gulp.task('ensureDevProxy', function () {
 
 function buildDependenciesArray(dependencies) {
   return Object.keys(dependencies).map(function (dependency) {
-    return dependency + '@' + dependencies[dependency];
+    var version = dependencies[dependency];
+
+    if (version.startsWith('./')) {
+      var json = JSON.parse(fs.readFileSync(version + '/package.json', 'utf8'));
+      version = json.version;
+    }
+
+    return dependency + '@' + version;
   });
 }
 
