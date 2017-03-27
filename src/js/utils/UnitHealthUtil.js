@@ -1,9 +1,11 @@
 import UnitHealthStatus from '../constants/UnitHealthStatus';
 import TableUtil from '../utils/TableUtil';
+import Util from '../utils/Util';
 
 const UnitHealthUtil = {
   getHealthSortFunction(...args) {
     return TableUtil.getSortFunction('id', function (item, prop) {
+      // TODO: Deprecate sorting conditions by prop
       if (prop === 'health') {
         return UnitHealthUtil.getHealthSorting(item);
       }
@@ -50,6 +52,61 @@ const UnitHealthUtil = {
     return items.filter(function (datum) {
       return datum.getHealth().title.toLowerCase() === health;
     });
+  },
+
+  /**
+   * Map original health status to sorting health value
+   * or return default NA
+   *
+   * @param {Number} healthValue
+   * @returns {Number} Health Sorting value
+   */
+  getSortingValueByhealthValue(healthValue) {
+    if (typeof healthValue !== 'number') {
+      return UnitHealthStatus.NA.sortingValue;
+    }
+
+    return UnitHealthStatus[healthValue].sortingValue;
+  },
+
+  /**
+   * Order health status
+   * based on HealthSorting mapping value
+   * where lowest (0) (top of the list) is most important for visibility
+   * and highest (3) (bottom of the list) 3 is least important for visibility
+   *
+   * @param {Object} a
+   * @param {Object} b
+   * @returns {Number} item position
+   */
+  sortHealthValues(a, b) {
+    const aTieBreaker = Util.toLowerCaseIfString(a.id);
+    const bTieBreaker = Util.toLowerCaseIfString(b.id);
+
+    a = UnitHealthUtil.getSortingValueByhealthValue(a.health);
+    b = UnitHealthUtil.getSortingValueByhealthValue(b.health);
+
+    if (a === b) {
+      a = aTieBreaker;
+      b = bTieBreaker;
+    }
+
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+
+    return 0;
+  },
+
+/**
+ *
+ * @returns {Function} sortHealthValues
+ */
+  getHealthSortingOrder() {
+    return UnitHealthUtil.sortHealthValues;
   }
 
 };
