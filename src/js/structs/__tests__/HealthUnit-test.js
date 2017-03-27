@@ -15,7 +15,9 @@ describe('HealthUnit', function () {
       });
 
       expect(healthItem.getHealth()).toEqual({
+        key: 'UNHEALTHY',
         title: 'Unhealthy',
+        sortingValue: 0,
         value: 1,
         classNames: 'text-danger'
       });

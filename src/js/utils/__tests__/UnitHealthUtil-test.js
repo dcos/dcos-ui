@@ -16,7 +16,6 @@ describe('UnitHealthUnit', function () {
     it('should return a number', function () {
       expect(typeof this.healthWeight).toEqual('number');
     });
-
   });
 
   describe('#getHealth', function () {
@@ -25,7 +24,9 @@ describe('UnitHealthUnit', function () {
       var health = 1;
 
       expect(UnitHealthUtil.getHealth(health)).toEqual({
+        key: 'UNHEALTHY',
         title: 'Unhealthy',
+        sortingValue: 0,
         value: 1,
         classNames: 'text-danger'
       });
@@ -35,7 +36,6 @@ describe('UnitHealthUnit', function () {
       var health = 'wtf';
       expect(UnitHealthUtil.getHealth(health)).toEqual(UnitHealthStatus.NA);
     });
-
   });
 
   describe('#filterByHealth', function () {
