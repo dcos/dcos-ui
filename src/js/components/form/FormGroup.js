@@ -5,7 +5,14 @@ import FieldError from './FieldError';
 import {omit} from '../../utils/Util';
 
 const FormGroup = (props) => {
-  const {children, className, errorClassName, showError} = props;
+  const {
+    children,
+    className,
+    errorClassName,
+    hasNarrowMargins,
+    applyLabelOffset,
+    showError
+  } = props;
 
   const clonedChildren = React.Children.map(children, (child) => {
     if (child != null && !showError && child.type === FieldError) {
@@ -16,7 +23,12 @@ const FormGroup = (props) => {
   });
 
   const classes = classNames(
-    {[errorClassName]: showError},
+    {
+      [errorClassName]: showError,
+      'form-group-without-top-label': applyLabelOffset,
+      // 'flex-item-align-end': applyLabelOffset && hasNarrowMargins,
+      'column-auto flush-left flush-right': hasNarrowMargins
+    },
     'form-group',
     className
   );
@@ -31,7 +43,9 @@ const FormGroup = (props) => {
 };
 
 FormGroup.defaultProps = {
-  errorClassName: 'form-group-danger'
+  errorClassName: 'form-group-danger',
+  applyLabelOffset: false,
+  hasNarrowMargins: false
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -48,7 +62,13 @@ FormGroup.propTypes = {
   // Classes
   className: classPropType,
   // Class to be toggled, can be overridden by className
-  errorClassName: React.PropTypes.string
+  errorClassName: React.PropTypes.string,
+  // When true, will add padding to the top of the form group to vertically
+  // align it with its siblings that have labels.
+  applyLabelOffset: React.PropTypes.bool,
+  // When true, the component will apply specific styles for use with the delete
+  // row button
+  hasNarrowMargins: React.PropTypes.bool
 };
 
 module.exports = FormGroup;

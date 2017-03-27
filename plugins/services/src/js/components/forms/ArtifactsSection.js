@@ -62,7 +62,7 @@ class ArtifactsSection extends Component {
       return (
         <FormRow key={`${path}.${index}`}>
           <FormGroup
-            className="column-10"
+            className="column-12"
             showError={Boolean(error)}>
             {label}
             <FieldInput
@@ -71,7 +71,7 @@ class ArtifactsSection extends Component {
               value={item.uri}/>
             <FieldError>{error}</FieldError>
           </FormGroup>
-          <FormGroup className="flex flex-item-align-end column-2 flush-left">
+          <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(
                 this,

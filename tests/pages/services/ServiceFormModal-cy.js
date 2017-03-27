@@ -401,6 +401,30 @@ describe('Service Form Modal', function () {
           .contains('Add Placement Constraint');
       });
 
+      it('Should vertically align the placement constraint delete row button', function () {
+        // We'll consider the two elements to be centered with one another if
+        // their midpoints are within 5 pixels of one another.
+        const alignmentThreshold = 5;
+
+        cy.get('.menu-tabbed-view .button.button-primary-link')
+          .contains('Add Placement Constraint').click();
+
+        cy.get('.menu-tabbed-view input[name="constraints.0.fieldName"').should(function ($inputElement) {
+          const $wrappingLabel = $inputElement.closest('.form-group');
+          const $deleteButtonFormGroup = $wrappingLabel.siblings('.form-group-without-top-label');
+
+          const inputClientRect = $inputElement.get(0).getBoundingClientRect();
+          const inputMidpoint = inputClientRect.top + (inputClientRect.height / 2);
+
+          const deleteButtonClientRect = $deleteButtonFormGroup.find('.button').get(0).getBoundingClientRect();
+          const deleteButtonMidpoint = deleteButtonClientRect.top + (deleteButtonClientRect.height / 2);
+
+          const midpointDifference = Math.abs(inputMidpoint - deleteButtonMidpoint);
+
+          expect(midpointDifference <= alignmentThreshold).to.equal(true);
+        });
+      });
+
       it('Should have a "Advanced Settings" section', function () {
         cy.get('.menu-tabbed-view')
           .contains('Advanced Settings');
