@@ -40,7 +40,7 @@ class LogView extends React.Component {
     // We need them to be called as soon as we hit the range wherein these will
     // trigger handlers.
     this.handleLogContainerScroll = Util.throttle(
-      this.handleLogContainerScroll,
+      this.handleLogContainerScroll.bind(this),
       50,
       {leading: true, trailing: true}
     );
