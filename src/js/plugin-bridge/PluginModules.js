@@ -119,6 +119,9 @@ module.exports = {
   'foundation-ui': {
     'foundation-ui': 'index'
   },
+  'foundation-utils': {
+    ResourceTableUtil: 'ResourceTableUtil'
+  },
   internalPlugin: {
     services: 'services/index'
   }
