@@ -244,7 +244,40 @@ const Util = {
     return queryString
       ? `?${queryString}`
       : '';
+  },
+
+  /**
+   * Transform param to lower case
+   * if param is string otherwise
+   * return unchanged param
+   *
+   * @param {String} item
+   * @returns {String} item param lowercased
+   */
+  toLowerCaseIfString(item) {
+    if (typeof item === 'string') {
+      return item.toLowerCase();
+    }
+
+    return item;
+  },
+
+  /**
+   * Transform param to upper case
+   * if param is string otherwise
+   * return unchanged param
+   *
+   * @param {String} item
+   * @returns {String} item param lowercased
+   */
+  toUpperCaseIfString(item) {
+    if (typeof item === 'string') {
+      return item.toUpperCase();
+    }
+
+    return item;
   }
+
 };
 
 module.exports = Util;

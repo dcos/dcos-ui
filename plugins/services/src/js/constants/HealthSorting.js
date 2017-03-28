@@ -1,9 +1,15 @@
+/**
+ * Order health types by it's label and number value
+ * This will depend on the sorting method/function
+ * suggested use is ascending 0 meaning ((top of the list)) more important
+ * visibility and 3 meaning least important (bottom of the order)
+ */
 var HealthSorting = {
   UNHEALTHY: 0,
-  HEALTHY: 1,
+  HEALTHY: 3,
   IDLE: 2,
-  WARN: 2,
-  NA: 3
+  NA: 1,
+  WARN: 2
 };
 
 module.exports = HealthSorting;

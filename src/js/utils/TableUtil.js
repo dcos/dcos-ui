@@ -1,13 +1,7 @@
-function toLowerCaseIfString(item) {
-  if (typeof item === 'string') {
-    return item.toLowerCase();
-  }
-
-  return item;
-}
+import Util from './Util';
 
 var TableUtil = {
-  /**
+    /**
    * WARNING: When removing/modifying this function be aware of comments/sizes
    * in variables-layout.less
    * Returns an integer of what the expected height of a
@@ -36,10 +30,10 @@ var TableUtil = {
   },
 
   compareValues(a, b, aTieBreaker, bTieBreaker) {
-    a = toLowerCaseIfString(a);
-    b = toLowerCaseIfString(b);
-    aTieBreaker = toLowerCaseIfString(aTieBreaker);
-    bTieBreaker = toLowerCaseIfString(bTieBreaker);
+    a = Util.toLowerCaseIfString(a);
+    b = Util.toLowerCaseIfString(b);
+    aTieBreaker = Util.toLowerCaseIfString(aTieBreaker);
+    bTieBreaker = Util.toLowerCaseIfString(bTieBreaker);
     if (a === b || a == null || b == null) {
       a = aTieBreaker;
       b = bTieBreaker;

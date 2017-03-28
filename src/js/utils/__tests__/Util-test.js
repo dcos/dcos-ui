@@ -420,4 +420,28 @@ describe('Util', function () {
     });
   });
 
+  describe('#toLowerCaseIfString', function () {
+    it('should lower case string', function () {
+      expect(Util.toLowerCaseIfString('Name')).toEqual('name');
+    });
+
+    it('should return original param', function () {
+      const value = 10;
+
+      expect(Util.toLowerCaseIfString(value)).toEqual(value);
+    });
+  });
+
+  describe('#toUpperCaseIfString', function () {
+    it('should upper case string', function () {
+      expect(Util.toUpperCaseIfString('Name')).toEqual('NAME');
+    });
+
+    it('should return original param', function () {
+      const value = 10;
+
+      expect(Util.toUpperCaseIfString(value)).toEqual(value);
+    });
+  });
+
 });
