@@ -1,4 +1,4 @@
-import {JSONParser as container} from './serviceForm/Container';
+import {JSONParser as container} from './serviceForm/JSONReducers/Container';
 import {JSONParser as constraints} from './serviceForm/JSONReducers/Constraints';
 import {JSONParser as fetch} from './serviceForm/JSONReducers/Artifacts';
 import {JSONParser as environmentVariables} from './serviceForm/JSONReducers/EnvironmentVariables';

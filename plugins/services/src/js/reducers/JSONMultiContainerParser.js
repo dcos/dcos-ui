@@ -1,4 +1,3 @@
-import {JSONParser as container} from './serviceForm/Container';
 import {JSONParser as constraints} from './serviceForm/MultiContainerConstraints';
 import {JSONParser as fetch} from './serviceForm/JSONReducers/Artifacts';
 import {JSONParser as environmentVariables} from './serviceForm/JSONReducers/EnvironmentVariables';
@@ -24,7 +23,6 @@ module.exports = [
   simpleParser(['disk']),
   simpleParser(['gpus']),
   simpleParser(['cmd']),
-  container,
   containers,
   network,
   multiContainerNetwork,

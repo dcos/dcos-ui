@@ -1,10 +1,10 @@
 const Container = require('../Container');
-const Batch = require('../../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
+const Batch = require('../../../../../../../../src/js/structs/Batch');
+const Transaction = require('../../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, SET, REMOVE_ITEM} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+  require('../../../../../../../../src/js/constants/TransactionTypes');
 const {type: {BRIDGE, HOST, USER}} =
-  require('../../../../../../../src/js/constants/Networking');
+  require('../../../../../../../../src/js/constants/Networking');
 
 describe('Container', function () {
 
