@@ -15,6 +15,15 @@ import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import VolumeStatus from '../../constants/VolumeStatus';
 
 class VolumeDetail extends React.Component {
+
+  getSizeLabel() {
+    if (this.props.volume.type === 'External') {
+      return 'Size (GiB)';
+    }
+
+    return 'Size (MiB)';
+  }
+
   renderSubHeader() {
     const {volume} = this.props;
 
@@ -81,7 +90,7 @@ class VolumeDetail extends React.Component {
             </ConfigurationMapRow>
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
-                Size (MiB)
+                {this.getSizeLabel()}
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {volume.getSize()}
