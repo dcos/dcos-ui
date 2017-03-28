@@ -3,6 +3,7 @@ jest.dontMock('../TableUtil');
 const MarathonStore = require('../../../../plugins/services/src/js/stores/MarathonStore');
 const TableUtil = require('../TableUtil');
 const Util = require('../Util');
+const HealthSorting = require('../../../../plugins/services/src/js/constants/HealthSorting');
 
 describe('TableUtil', function () {
   beforeEach(function () {
@@ -25,7 +26,6 @@ describe('TableUtil', function () {
   });
 
   describe('#getSortFunction', function () {
-
     beforeEach(function () {
       this.getProp = function (obj, prop) {
         if (prop === 'timestamp') {
@@ -75,4 +75,39 @@ describe('TableUtil', function () {
 
   });
 
+  describe('#getHealthSortingOrder', function () {
+    it('should return a function', function () {
+      expect(typeof TableUtil.getHealthSortingOrder()).toEqual('function');
+    });
+  });
+
+  describe('#getHealthValueByName', function () {
+    it('should return sorting value for health status', function () {
+      const healthStatus = 'Unhealthy';
+
+      expect(TableUtil.getHealthValueByName(healthStatus)).toEqual(HealthSorting.UNHEALTHY);
+    });
+  });
+
+  describe('#sortHealthValues', function () {
+   /**
+   * sort health status by visibility importance order top to bottom
+   * unhealthy > NA > warn/idle > healthy
+   */
+    it('should return health sorted by visibility importance', function () {
+      const units = [
+        { id: 'aa', health: 'NA' },
+        { id: 'bb', health: 'Healthy' },
+        { id: 'cc', health: 'Unhealthy' }
+      ];
+      const expectedResult = [
+        { id: 'cc', health: 'Unhealthy' },
+        { id: 'aa', health: 'NA' },
+        { id: 'bb', health: 'Healthy' }
+      ];
+      const sortingResult = units.sort(TableUtil.sortHealthValues);
+
+      expect(sortingResult).toEqual(expectedResult);
+    });
+  });
 });
