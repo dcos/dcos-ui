@@ -64,10 +64,15 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 heading: getColumnHeadingFn('Size'),
                 prop: 'size',
                 render(prop, row) {
-                  const value = row[prop];
+                  let value = row[prop];
 
                   if (value == null) {
                     return getDisplayValue(value, row.isHostVolume);
+                  }
+
+                  if (row.type.join(' ') === 'External' && !row.isHostVolume) {
+                    // External volumes specify size in GiB
+                    value = value * 1024;
                   }
 
                   return formatResource('disk', value);
