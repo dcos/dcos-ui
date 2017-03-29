@@ -2,26 +2,26 @@ import {
   SET,
   ADD_ITEM,
   REMOVE_ITEM
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from '../../../../../../../src/js/constants/TransactionTypes';
+import Transaction from '../../../../../../../src/js/structs/Transaction';
 import {
   combineReducers,
   parseIntValue,
   simpleFloatReducer,
   simpleReducer
-} from '../../../../../../src/js/utils/ReducerUtil';
-import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
+} from '../../../../../../../src/js/utils/ReducerUtil';
+import {DEFAULT_POD_CONTAINER} from '../../../constants/DefaultPod';
+import {findNestedPropertyInObject} from '../../../../../../../src/js/utils/Util';
+import {FormReducer as volumeMountsReducer} from '../MultiContainerVolumes';
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
   JSONSegmentParser as multiContainerHealthCheckParser,
   FormReducer as multiContainerHealthFormReducer
-} from './MultiContainerHealthChecks';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
-import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
-import Networking from '../../../../../../src/js/constants/Networking';
-import VipLabelUtil from '../../utils/VipLabelUtil';
+} from '../MultiContainerHealthChecks';
+import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
+import {PROTOCOLS} from '../../../constants/PortDefinitionConstants';
+import Networking from '../../../../../../../src/js/constants/Networking';
+import VipLabelUtil from '../../../utils/VipLabelUtil';
 
 const {CONTAINER, HOST} = Networking.type;
 
