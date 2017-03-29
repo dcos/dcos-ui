@@ -13,6 +13,7 @@ import {
 import {DEFAULT_POD_CONTAINER} from '../../../constants/DefaultPod';
 import {findNestedPropertyInObject} from '../../../../../../../src/js/utils/Util';
 import {FormReducer as volumeMountsReducer} from '../MultiContainerVolumes';
+import {JSONReducer as endpointsJSONReducer} from './Endpoints';
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
   JSONSegmentParser as multiContainerHealthCheckParser,
@@ -560,39 +561,8 @@ module.exports = {
         newState[index].endpoints = [];
       }
 
-      switch (type) {
-        case ADD_ITEM:
-          const endpointDefinition = Object.assign(
-            {}, defaultEndpointsFieldValues);
-          endpointDefinition.protocol = Object.assign(
-            {}, defaultEndpointsFieldValues.protocol);
-          newState[index].endpoints.push(endpointDefinition);
-          break;
-        case REMOVE_ITEM:
-          newState[index].endpoints =
-            newState[index].endpoints.filter((item, index) => {
-              return index !== value;
-            });
-          break;
-      }
-
-      const fieldNames = [
-        'name',
-        'automaticPort',
-        'loadBalanced',
-        'vip'
-      ];
-      const numericalFieldNames = ['containerPort', 'hostPort'];
-
-      if (type === SET && name === 'protocol') {
-        newState[index].endpoints[secondIndex].protocol[subField] = value;
-      }
-      if (type === SET && fieldNames.includes(name)) {
-        newState[index].endpoints[secondIndex][name] = value;
-      }
-      if (type === SET && numericalFieldNames.includes(name)) {
-        newState[index].endpoints[secondIndex][name] = parseIntValue(value);
-      }
+      newState[index].endpoints =
+        endpointsJSONReducer(newState[index].endpoints, {type, path, value});
     }
 
     if (field === 'healthCheck') {

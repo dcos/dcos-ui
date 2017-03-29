@@ -24,7 +24,7 @@ const defaultEndpointsFieldValues = {
 };
 
 module.exports = {
-  FormReducer(state = [], {type, path = [], value}) {
+  JSONReducer(state = [], {type, path = [], value}) {
     let newState = [].concat(state);
 
     // eslint-disable-next-line no-unused-vars
