@@ -1,5 +1,6 @@
 import UnitHealthStatus from '../constants/UnitHealthStatus';
 import TableUtil from '../utils/TableUtil';
+import Util from '../utils/Util';
 
 const UnitHealthUtil = {
   getHealthSortFunction(...args) {
@@ -42,14 +43,18 @@ const UnitHealthUtil = {
    * @return {Array}        - Array of filtered objects.
    */
   filterByHealth(items, health) {
-    health = health.toLowerCase();
+    health = Util.toLowerCaseIfString(health);
 
     if (health === 'all') {
       return items;
     }
 
     return items.filter(function (datum) {
-      return datum.getHealth().title.toLowerCase() === health;
+      if (health.length > 1) {
+        return Util.toLowerCaseIfString(datum.getHealth().title) === health;
+      }
+
+      return datum.getHealth().value === +health;
     });
   }
 
