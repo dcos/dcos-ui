@@ -1,4 +1,5 @@
 import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
+import UnitHealthStatus from '../constants/UnitHealthStatus';
 import Util from './Util';
 
 var TableUtil = {
@@ -78,16 +79,23 @@ var TableUtil = {
    * Normalize param received and try mapping to HealthSorting
    * if not able to mapping default to HealthSorting.NA
    *
-   * @param {String} name
+   * @param {String|Number} healthValue
    * @returns {Number} HealthSorting value
    */
-  getHealthValueByName(name) {
+  getHealthSortingValue(healthValue) {
     let match;
-    name = Util.toUpperCaseIfString(name);
-    match = HealthSorting[name];
 
-    // defaults to NA if can't map to a HealthTypes key
-    if ( typeof match !== 'number' ) {
+    if (typeof healthValue == 'number') {
+      match = UnitHealthStatus[healthValue].sortingValue;
+    }
+
+    if ( typeof healthValue == 'string' ) {
+      healthValue = Util.toUpperCaseIfString(healthValue);
+      match = HealthSorting[healthValue];
+    }
+
+    // defaults to NA if can't map to a health sorting value
+    if (typeof match === 'undefined') {
       match = HealthSorting.NA;
     }
 
@@ -108,8 +116,8 @@ var TableUtil = {
     const aTieBreaker = Util.toLowerCaseIfString(a.id);
     const bTieBreaker = Util.toLowerCaseIfString(b.id);
 
-    a = TableUtil.getHealthValueByName(a.health);
-    b = TableUtil.getHealthValueByName(b.health);
+    a = TableUtil.getHealthSortingValue(a.health);
+    b = TableUtil.getHealthSortingValue(b.health);
 
     if (a === b) {
       a = aTieBreaker;

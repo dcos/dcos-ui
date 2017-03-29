@@ -60,6 +60,7 @@ class HealthTab extends React.Component {
       role: 'ROLE'
     });
     const sortFunction = UnitHealthUtil.getHealthSortFunction;
+    const getHealthSorting = TableUtil.getHealthSortingOrder;
 
     return [
       {
@@ -69,7 +70,7 @@ class HealthTab extends React.Component {
         prop: 'health',
         render: this.renderHealth,
         sortable: true,
-        sortFunction
+        sortFunction: getHealthSorting
       },
       {
         className: classNameFn,

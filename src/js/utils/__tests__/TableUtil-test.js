@@ -81,20 +81,34 @@ describe('TableUtil', function () {
     });
   });
 
-  describe('#getHealthValueByName', function () {
-    it('should return sorting value for health status', function () {
+  describe('#getHealthSortingValue', function () {
+    it('should return sorting value when receives string value', function () {
       const healthStatus = 'Unhealthy';
 
-      expect(TableUtil.getHealthValueByName(healthStatus)).toEqual(HealthSorting.UNHEALTHY);
+      expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(HealthSorting.UNHEALTHY);
+    });
+
+    it('should return sorting value when receives number value', function () {
+      const expectedSortingValue = 0;
+      const healthStatus = 1;
+      const getHealthSortingValueResult = TableUtil.getHealthSortingValue(healthStatus);
+
+      expect(getHealthSortingValueResult).toEqual(expectedSortingValue);
+    });
+
+    it('should return default sorting value', function () {
+      const healthStatus = 'nada';
+
+      expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(HealthSorting.NA);
     });
   });
 
-  describe('#sortHealthValues', function () {
-   /**
+  /**
    * sort health status by visibility importance order top to bottom
    * unhealthy > NA > warn/idle > healthy
    */
-    it('should return health sorted by visibility importance', function () {
+  describe('#sortHealthValues', function () {
+    it('should return health sorted by visibility importance when health is string', function () {
       const units = [
         { id: 'aa', health: 'NA' },
         { id: 'bb', health: 'Healthy' },
@@ -104,6 +118,22 @@ describe('TableUtil', function () {
         { id: 'cc', health: 'Unhealthy' },
         { id: 'aa', health: 'NA' },
         { id: 'bb', health: 'Healthy' }
+      ];
+      const sortingResult = units.sort(TableUtil.sortHealthValues);
+
+      expect(sortingResult).toEqual(expectedResult);
+    });
+
+    it('should return health sorted by visibility importance when health is number', function () {
+      const units = [
+        { id: 'aa', health: 3 },
+        { id: 'bb', health: 0 },
+        { id: 'cc', health: 1 }
+      ];
+      const expectedResult = [
+        { id: 'cc', health: 1 },
+        { id: 'aa', health: 3 },
+        { id: 'bb', health: 0 }
       ];
       const sortingResult = units.sort(TableUtil.sortHealthValues);
 
