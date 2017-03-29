@@ -71,7 +71,7 @@ If you want to add a new npm package to 'node_modules':
 
 1. Add the following to your Sublime Text User Settings:
 
-  ```json
+  ```js
   {
     ...
     "rulers": [80], // lines no longer than 80 chars
@@ -95,7 +95,7 @@ If you want to add a new npm package to 'node_modules':
   * Open up the user configuration file for ApplySyntax: `Sublime Text` -> `Preferences` -> `Package Settings` -> `ApplySyntax` -> `Settings - User`
   * Replace the contents with this:
 
-    ```
+    ```js
     {
       // Put your custom syntax rules here:
       "syntaxes": [
