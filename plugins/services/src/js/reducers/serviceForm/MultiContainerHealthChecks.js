@@ -63,7 +63,7 @@ function reduceHttpHealthCheck(state, field, value) {
       if (value) {
         newState.http.scheme = HTTPS;
       } else {
-        newState.http.scheme = null;
+        newState.http.scheme = HTTP;
       }
       break;
   }
