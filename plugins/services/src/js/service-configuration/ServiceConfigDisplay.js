@@ -107,7 +107,7 @@ ServiceConfigDisplay.defaultProps = {
 ServiceConfigDisplay.propTypes = {
   appConfig: React.PropTypes.object.isRequired,
   errors: React.PropTypes.array,
-  onEditClick: React.PropTypes.func.isRequired
+  onEditClick: React.PropTypes.func
 };
 
 module.exports = ServiceConfigDisplay;
