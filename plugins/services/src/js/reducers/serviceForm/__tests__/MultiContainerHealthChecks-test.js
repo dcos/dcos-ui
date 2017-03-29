@@ -226,6 +226,23 @@ describe('MultiContainerHealthChecks', function () {
             }
           });
       });
+
+      it('Should populate http scheme on http', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction([], {}));
+        batch = batch.add(new Transaction(['protocol'], HTTP));
+        batch = batch.add(new Transaction(['http', 'https'], false));
+
+        const state = {};
+        expect(batch.reduce(
+            MultiContainerHealthChecks.JSONSegmentReducer.bind({}), state
+          ))
+          .toEqual({
+            'http': {
+              'scheme': HTTP
+            }
+          });
+      });
     });
 
     describe('TCP', function () {
