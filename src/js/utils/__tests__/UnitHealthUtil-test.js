@@ -39,7 +39,6 @@ describe('UnitHealthUnit', function () {
   });
 
   describe('#filterByHealth', function () {
-
     it('filters by unit health title', function () {
       const items = [
         {id: 'food', health: 0},
@@ -53,46 +52,4 @@ describe('UnitHealthUnit', function () {
       expect(filteredList[1].get('id')).toEqual('bard');
     });
   });
-
-  describe('#getSortingValueByhealthValue', function () {
-    it('should get sorting value by health value', function () {
-      /**
-       * health status visibility importance order top to bottom
-       * unhealthy > NA > warn/idle > healthy
-       */
-      const originalUnhealthyValue = 1;
-      const sortingValue = 0;
-
-      expect(UnitHealthUtil.getSortingValueByhealthValue(originalUnhealthyValue)).toEqual(sortingValue);
-    });
-  });
-
-  describe('#sortHealthValues', function () {
-    it('should sort health status by order of importance', function () {
-      const units = [
-        { id: 'aa', health: 0 },
-        { id: 'bb', health: 1 },
-        { id: 'cc', health: 3 }
-      ];
-      const expectedResult = [
-        { id: 'bb', health: 1 },
-        { id: 'cc', health: 3 },
-        { id: 'aa', health: 0 }
-      ];
-      const sortingResult = units.sort(UnitHealthUtil.sortHealthValues);
-
-      expect(sortingResult).toEqual(expectedResult);
-    });
-  });
-
-  describe('#getHealthSortingOrder', function () {
-    beforeEach(function () {
-      this.healthSorting = UnitHealthUtil.getHealthSortingOrder();
-    });
-
-    it('should return a function', function () {
-      expect(typeof this.healthSorting).toEqual('function');
-    });
-  });
-
 });

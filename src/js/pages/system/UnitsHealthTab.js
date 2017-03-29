@@ -123,7 +123,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   getColumns() {
     const classNameFn = ResourceTableUtil.getClassName;
     const sortFunction = UnitHealthUtil.getHealthSortFunction;
-    const getHealthSortingOrder = UnitHealthUtil.getHealthSortingOrder;
+    const getHealthSortingOrder = TableUtil.getHealthSortingOrder;
 
     return [
       {
