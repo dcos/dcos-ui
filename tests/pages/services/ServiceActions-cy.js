@@ -359,15 +359,12 @@ describe('Service Actions', function () {
 
   context('Resume Action', function () {
     function openDropdown() {
-      cy.get('.service-table-column-name')
-        .contains('sleep')
-        .get('.dropdown-toggle')
+      cy.get('.service-table-column-actions .dropdown .button')
         .click({force: true});
     }
 
     function clickResume() {
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Resume')
         .click();
     }
@@ -385,8 +382,7 @@ describe('Service Actions', function () {
       configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Suspend')
         .should('have.class', 'hidden');
     });
@@ -395,8 +391,7 @@ describe('Service Actions', function () {
       configureClusterWithSuspendedServiceAndVisitServices();
       openDropdown();
 
-      cy.get('.dropdown-menu-items')
-        .get('li')
+      cy.get('.dropdown-menu-items li')
         .contains('Resume')
         .should('not.have.class', 'hidden');
     });
