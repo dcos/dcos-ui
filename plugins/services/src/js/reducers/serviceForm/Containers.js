@@ -412,7 +412,7 @@ module.exports = {
         'loadBalanced',
         'vip'
       ];
-      const numericalFiledNames = ['containerPort', 'hostPort'];
+      const numericalFieldNames = ['containerPort', 'hostPort'];
 
       if (type === SET && name === 'protocol') {
         this.endpoints[index].endpoints[secondIndex].protocol[subField] = value;
@@ -420,7 +420,7 @@ module.exports = {
       if (type === SET && fieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = value;
       }
-      if (type === SET && numericalFiledNames.includes(name)) {
+      if (type === SET && numericalFieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = parseIntValue(
           value
         );
@@ -581,7 +581,7 @@ module.exports = {
         'loadBalanced',
         'vip'
       ];
-      const numericalFiledNames = ['containerPort', 'hostPort'];
+      const numericalFieldNames = ['containerPort', 'hostPort'];
 
       if (type === SET && name === 'protocol') {
         newState[index].endpoints[secondIndex].protocol[subField] = value;
@@ -589,7 +589,7 @@ module.exports = {
       if (type === SET && fieldNames.includes(name)) {
         newState[index].endpoints[secondIndex][name] = value;
       }
-      if (type === SET && numericalFiledNames.includes(name)) {
+      if (type === SET && numericalFieldNames.includes(name)) {
         newState[index].endpoints[secondIndex][name] = parseIntValue(value);
       }
     }
