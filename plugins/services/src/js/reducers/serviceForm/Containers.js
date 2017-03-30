@@ -183,12 +183,12 @@ function containersParser(state) {
     }
 
     if (item.endpoints != null && item.endpoints.length !== 0) {
-      item.endpoints.forEach((endpoint, endpointIndex) => {
-        const networkMode = findNestedPropertyInObject(
-          state,
-          'networks.0.mode'
-        );
+      const networkMode = findNestedPropertyInObject(
+        state,
+        'networks.0.mode'
+      );
 
+      item.endpoints.forEach((endpoint, endpointIndex) => {
         memo = memo.concat([
           new Transaction(
             ['containers', index, 'endpoints'],
