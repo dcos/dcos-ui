@@ -24,20 +24,22 @@ describe('Endpoints', function () {
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual(
           [
-            {
-              automaticPort: true,
-              hostPort: null,
-              labels: null,
-              name: null,
-              loadBalanced: false,
-              vip: null,
-              protocol: {
-                tcp: true,
-                udp: false
-              },
-              servicePort: null,
-              containerPort: null
-            }
+            [
+              {
+                automaticPort: true,
+                hostPort: null,
+                labels: null,
+                name: null,
+                loadBalanced: false,
+                vip: null,
+                protocol: {
+                  tcp: true,
+                  udp: false
+                },
+                servicePort: null,
+                containerPort: null
+              }
+            ]
           ]);
       });
 
@@ -64,20 +66,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: 'foo',
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: 'foo',
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -122,20 +126,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: false,
-            hostPort: 8080,
-            labels: null,
-            name: 'foo',
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: false,
+              hostPort: 8080,
+              labels: null,
+              name: 'foo',
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -165,20 +171,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: true
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: true
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -208,21 +216,23 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false,
-              foo: true
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false,
+                foo: true
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -246,20 +256,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -288,20 +300,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: 'foo',
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: 'foo',
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -348,20 +362,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: false,
-            hostPort: 8080,
-            labels: null,
-            name: 'foo',
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: false,
+              hostPort: 8080,
+              labels: null,
+              name: 'foo',
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -391,20 +407,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: true
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: true
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -434,21 +452,23 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              foo: true,
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                foo: true,
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: null
+            }
+          ]
         ]);
       });
 
@@ -477,20 +497,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: false,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: 8080
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: false,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: 8080
+            }
+          ]
         ]);
       });
 
@@ -529,20 +551,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: true,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: 8080
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: true,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: 8080
+            }
+          ]
         ]);
       });
 
@@ -590,20 +614,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: true,
-            vip: '1.3.3.7:8080',
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: 8080
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: true,
+              vip: '1.3.3.7:8080',
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: 8080
+            }
+          ]
         ]);
       });
 
@@ -644,20 +670,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: true,
-            vip: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            containerPort: 8080
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: true,
+              vip: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              containerPort: 8080
+            }
+          ]
         ]);
       });
 
@@ -707,20 +735,22 @@ describe('Endpoints', function () {
 
         expect(batch.reduce(Endpoints.JSONReducer.bind({})))
         .toEqual([
-          {
-            automaticPort: true,
-            hostPort: null,
-            labels: null,
-            name: null,
-            loadBalanced: true,
-            containerPort: 8080,
-            vip: '1.3.3.7:8080',
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null
-          }
+          [
+            {
+              automaticPort: true,
+              hostPort: null,
+              labels: null,
+              name: null,
+              loadBalanced: true,
+              containerPort: 8080,
+              vip: '1.3.3.7:8080',
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null
+            }
+          ]
         ]);
       });
 

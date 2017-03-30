@@ -9,6 +9,7 @@ import {
 } from '../../../../../../../src/js/utils/ReducerUtil';
 import {DEFAULT_POD_CONTAINER} from '../../../constants/DefaultPod';
 import {FormReducer as endpointsFormReducer} from './Endpoints';
+import {FormReducer as multiContainerArtifacts} from './MultiContainerArtifacts';
 import {
   FormReducer as multiContainerHealthFormReducer
 } from '../MultiContainerHealthChecks';
@@ -85,26 +86,13 @@ module.exports = {
       );
     }
 
-    // TODO: PULL out to own file
     if (field === 'artifacts') {
       if (newState[index].artifacts == null) {
         newState[index].artifacts = [];
       }
 
-      switch (type) {
-        case ADD_ITEM:
-          newState[index].artifacts.push({uri: null});
-          break;
-        case REMOVE_ITEM:
-          newState[index].artifacts =
-            newState[index].artifacts.filter((item, index) => {
-              return index !== value;
-            });
-          break;
-        case SET:
-          newState[index].artifacts[secondIndex][name] = value;
-          break;
-      }
+      newState[index].artifacts =
+        multiContainerArtifacts(newState[index].artifacts, {type, path, value});
     }
 
     if (type === SET && joinedPath === `containers.${index}.name`) {

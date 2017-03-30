@@ -25,7 +25,7 @@ const defaultEndpointsFieldValues = {
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
-    let newState = [].concat(state);
+    const newState = [].concat(state);
 
     // eslint-disable-next-line no-unused-vars
     const [_, index, field, secondIndex, name, subField] = path;
@@ -34,17 +34,21 @@ module.exports = {
       return state;
     }
 
+    if (newState[index] == null) {
+      newState[index] = [];
+    }
+
     switch (type) {
       case ADD_ITEM:
         const endpointDefinition = Object.assign(
           {}, defaultEndpointsFieldValues);
         endpointDefinition.protocol = Object.assign(
           {}, defaultEndpointsFieldValues.protocol);
-        newState.push(endpointDefinition);
+        newState[index].push(endpointDefinition);
         break;
       case REMOVE_ITEM:
-        newState =
-          newState.filter((item, index) => {
+        newState[index] =
+          newState[index].filter((item, index) => {
             return index !== value;
           });
         break;
@@ -54,18 +58,21 @@ module.exports = {
       'name',
       'automaticPort',
       'loadBalanced',
+      'labels',
       'vip'
     ];
     const numericalFiledNames = ['containerPort', 'hostPort'];
 
     if (type === SET && name === 'protocol') {
-      newState[secondIndex].protocol[subField] = value;
+      newState[index][secondIndex].protocol[subField] = value;
     }
     if (type === SET && fieldNames.includes(name)) {
-      newState[secondIndex][name] = value;
+      newState[index][secondIndex][name] = value;
     }
     if (type === SET && numericalFiledNames.includes(name)) {
-      newState[secondIndex][name] = parseIntValue(value);
+      newState[index][secondIndex][name] = parseIntValue(
+        value
+      );
     }
 
     return newState;

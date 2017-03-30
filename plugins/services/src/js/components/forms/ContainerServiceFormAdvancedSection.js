@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
-import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/JSONReducers/Containers';
+import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/FormReducers/Containers';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import ArtifactsSection from './ArtifactsSection';
 import ContainerConstants from '../../constants/ContainerConstants';
