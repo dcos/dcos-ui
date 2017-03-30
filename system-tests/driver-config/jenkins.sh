@@ -26,10 +26,11 @@ targets:
 
     env:
       PROXIED_CLUSTER_URL: http://127.0.0.1:4201
+      PATH: "/usr/local/bin:$PATH"
 
     scripts:
       proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL dist
-      auth: /usr/bin/python3 ../_scripts/auth-open.py
+      auth: ../_scripts/auth-open.py
 
 secrets:
   ccm_auth_token: $CCM_AUTH_TOKEN
