@@ -93,7 +93,8 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     return {
       name,
       hostPort,
-      protocol
+      protocol,
+      labels
     };
   });
 }
@@ -213,6 +214,12 @@ function containersParser(state) {
           )
         ]);
 
+        if (endpoint.labels != null) {
+          memo.push(new Transaction([
+            'containers', index, 'endpoints', endpointIndex, 'labels'
+          ], endpoint.labels));
+        }
+
         if (networkMode === CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
@@ -234,13 +241,6 @@ function containersParser(state) {
                 'vip'
               ], vip));
             }
-          }
-
-          if (item.labels != null) {
-            memo.push(new Transaction([
-              'containers', index, 'endpoints', endpointIndex,
-              'labels'
-            ], item.labels));
           }
         }
 
@@ -410,6 +410,7 @@ module.exports = {
         'name',
         'automaticPort',
         'loadBalanced',
+        'labels',
         'vip'
       ];
       const numericalFieldNames = ['containerPort', 'hostPort'];
