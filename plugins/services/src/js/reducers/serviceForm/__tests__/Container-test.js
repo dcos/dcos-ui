@@ -247,7 +247,7 @@ describe('Container', function () {
       });
     });
 
-    it('removes forcePullImage when runtime is changed', function () {
+    it('should not removes forcePullImage when runtime is changed', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
@@ -263,7 +263,7 @@ describe('Container', function () {
         {}
       )).toEqual({
         docker: {
-          forcePullImage: null,
+          forcePullImage: true,
           image: 'foo',
           network: null,
           portMappings: null,
