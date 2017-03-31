@@ -18,6 +18,7 @@ const requireForm = require.context('../components/form', false);
 // Foundation
 const requireRouting = require.context('../../../foundation-ui/routing', false);
 const requireNavigation = require.context('../../../foundation-ui/navigation', false);
+const requireFoundationUtils = require.context('../../../foundation-ui/utils', false);
 const requireFoundation = require.context('../../../foundation-ui', false);
 let requireExternalPlugin = function () {
   return {};
@@ -102,6 +103,8 @@ function requireModule(dir, name) {
       return requireEvents(path);
     case 'routing':
       return requireRouting(path);
+    case 'foundation-utils':
+      return requireFoundationUtils(path);
     case 'foundation-ui':
       return requireFoundation(path);
     case 'systemPages':
