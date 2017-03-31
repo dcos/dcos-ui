@@ -17,10 +17,6 @@ const mapLocalVolumes = function(volume) {
   };
 };
 
-const filterHostVolumes = function(volume) {
-  return volume.type !== "HOST" || this.docker;
-};
-
 // NB: This is being used as FormReducer and JSONReducer
 function reduceVolumes(state, { type, path, value }) {
   if (path == null) {
@@ -88,9 +84,7 @@ function reduceVolumes(state, { type, path, value }) {
        * mapping them to the common structure
        */
       return [].concat(
-        this.localVolumes
-          .filter(filterHostVolumes.bind(this))
-          .map(mapLocalVolumes),
+        this.localVolumes.map(mapLocalVolumes),
         this.externalVolumes
       );
     }
@@ -138,9 +132,7 @@ function reduceVolumes(state, { type, path, value }) {
       }
 
       return [].concat(
-        this.localVolumes
-          .filter(filterHostVolumes.bind(this))
-          .map(mapLocalVolumes),
+        this.localVolumes.map(mapLocalVolumes),
         this.externalVolumes
       );
     }
@@ -164,7 +156,7 @@ function reduceVolumes(state, { type, path, value }) {
   }
 
   return [].concat(
-    this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes),
+    this.localVolumes.map(mapLocalVolumes),
     this.externalVolumes
   );
 }

@@ -178,33 +178,8 @@ class VolumesFormSection extends Component {
     );
   }
 
-  getHostOption(dockerImage) {
-    if (dockerImage == null || dockerImage === "") {
-      return null;
-    }
-
-    return (
-      <option value="HOST">
-        Host Volume
-
-      </option>
-    );
-  }
-
   getLocalVolumesLines(data) {
-    const dockerImage =
-      this.props.data.container &&
-      this.props.data.container.docker &&
-      this.props.data.container.docker.image;
-
     return data.map((volume, key) => {
-      if (
-        volume.type === "HOST" &&
-        (dockerImage == null || dockerImage === "")
-      ) {
-        return null;
-      }
-
       const typeError = errorsLens.at(key, {}).get(this.props.errors).type;
 
       return (
@@ -229,7 +204,9 @@ class VolumesFormSection extends Component {
                 value={volume.type}
               >
                 <option>Select...</option>
-                {this.getHostOption(dockerImage)}
+                <option value="HOST">
+                  Host Volume
+                </option>
                 <option value="PERSISTENT">Persistent Volume</option>
               </FieldSelect>
             </FormGroup>
