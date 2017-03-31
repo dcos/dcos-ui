@@ -29,7 +29,7 @@ function getContainerSettingsReducer(name) {
 
 module.exports = combineReducers({
   privileged: getContainerSettingsReducer('privileged'),
-  forcePullImage: getContainerSettingsReducer('forcePullImage'),
+  forcePullImage: simpleReducer('container.docker.forcePullImage', null),
   image: simpleReducer('container.docker.image', ''),
   network(state, {type, path = [], value}) {
     if (!this.containerType) {

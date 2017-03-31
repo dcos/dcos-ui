@@ -23,11 +23,6 @@ const containerSettings = {
     label: 'Grant Runtime Privileges',
     helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.',
     dockerOnly: 'Grant runtime privileges is only supported in Docker Runtime.'
-  },
-  forcePullImage: {
-    label: 'Force Pull Image On Launch',
-    helpText: 'Force Docker to pull the image before launching each instance.',
-    dockerOnly: 'Force pull image on launch is only supported in Docker Runtime.'
   }
 };
 
@@ -192,6 +187,7 @@ class ContainerServiceFormAdvancedSection extends Component {
       artifactsPath
     ) || [];
     const diskPath = this.getFieldPath(path, 'disk');
+    const forcePullImagePath = this.getFieldPath(path, 'forcePullImage');
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
 
     return (
@@ -201,6 +197,15 @@ class ContainerServiceFormAdvancedSection extends Component {
         </h3>
         <p>Advanced settings related to the runtime you have selected above.</p>
         {this.getContainerSettings()}
+        <FieldLabel key="label.forcePullImage" className="flush-bottom">
+          <FieldInput
+            checked={findNestedPropertyInObject(data, forcePullImagePath)}
+            name={forcePullImagePath}
+            type="checkbox"
+            value="forcePullImage" />
+          Force Pull Image On Launch
+          <FieldHelp>Force Docker to pull the image before launching each instance.</FieldHelp>
+        </FieldLabel>
         <FormRow>
           {this.getGPUSField()}
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
