@@ -213,7 +213,7 @@ describe("Container", function() {
       });
     });
 
-    it("removes forcePullImage when runtime is changed", function() {
+    it("should not remove forcePullImage when runtime is changed", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -226,9 +226,9 @@ describe("Container", function() {
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         docker: {
-          forcePullImage: null,
-          privileged: null,
-          image: "foo"
+          forcePullImage: true,
+          image: "foo",
+          privileged: null
         },
         portMappings: null,
         type: "MESOS",

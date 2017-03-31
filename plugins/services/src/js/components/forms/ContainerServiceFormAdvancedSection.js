@@ -22,18 +22,20 @@ import ArtifactsSection from "./ArtifactsSection";
 import ContainerConstants from "../../constants/ContainerConstants";
 import PodSpec from "../../structs/PodSpec";
 
-const { DOCKER } = ContainerConstants.type;
+const { DOCKER, MESOS } = ContainerConstants.type;
 
 const containerSettings = {
   privileged: {
+    runtimes: [DOCKER],
     label: "Grant Runtime Privileges",
     helpText: "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.",
-    dockerOnly: "Grant runtime privileges is only supported in Docker Runtime."
+    unavailableText: "Grant runtime privileges option isn't supported by selected runtime."
   },
   forcePullImage: {
+    runtimes: [DOCKER, MESOS],
     label: "Force Pull Image On Launch",
     helpText: "Force Docker to pull the image before launching each instance.",
-    dockerOnly: "Force pull image on launch is only supported in Docker Runtime."
+    unavailableText: "Force pull image on launch option isn't supported by selected runtime."
   }
 };
 
@@ -145,10 +147,12 @@ class ContainerServiceFormAdvancedSection extends Component {
     const selections = Object.keys(
       containerSettings
     ).map((settingName, index) => {
-      const { helpText, label, dockerOnly } = containerSettings[settingName];
+      const { runtimes, helpText, label, unavailableText } = containerSettings[
+        settingName
+      ];
       const settingsPath = this.getFieldPath(path, settingName);
       const checked = findNestedPropertyInObject(data, settingsPath);
-      const isDisabled = containerType !== DOCKER;
+      const isDisabled = !runtimes.includes(containerType);
       const labelNodeClasses = classNames({
         "disabled muted": isDisabled,
         "flush-bottom": index === sectionCount - 1
@@ -171,7 +175,7 @@ class ContainerServiceFormAdvancedSection extends Component {
       if (isDisabled) {
         labelNode = (
           <Tooltip
-            content={dockerOnly}
+            content={unavailableText}
             elementTag="label"
             key={`tooltip.${index}`}
             position="top"
