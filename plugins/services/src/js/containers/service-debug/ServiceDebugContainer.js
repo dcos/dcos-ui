@@ -40,8 +40,7 @@ class ServiceDebugContainer extends React.Component {
   getDeclinedOffersTable() {
     const {service} = this.props;
 
-    if (this.isFramework(service)
-      || !this.shouldShowDeclinedOfferSummary(service)) {
+    if (!this.shouldShowDeclinedOfferTable()) {
       return null;
     }
 
@@ -167,7 +166,7 @@ class ServiceDebugContainer extends React.Component {
   getRecentOfferSummaryContent() {
     const {service} = this.props;
 
-    if (this.isFramework(service) || !this.shouldShowDeclinedOfferSummary()) {
+    if (!this.shouldShowDeclinedOfferSummary()) {
       return null;
     }
 
@@ -184,7 +183,7 @@ class ServiceDebugContainer extends React.Component {
   getRecentOfferSummaryCount() {
     const {service} = this.props;
 
-    if (this.isFramework(service) || !this.shouldShowDeclinedOfferSummary()) {
+    if (!this.shouldShowDeclinedOfferSummary()) {
       return null;
     }
 
@@ -309,8 +308,22 @@ class ServiceDebugContainer extends React.Component {
   shouldShowDeclinedOfferSummary() {
     const {service} = this.props;
 
-    return DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
+    return !this.shouldSuppressDeclinedOfferDetails()
       && service.getQueue().declinedOffers.summary != null;
+  }
+
+  shouldShowDeclinedOfferTable() {
+    const {service} = this.props;
+
+    return !this.shouldSuppressDeclinedOfferDetails()
+      && service.getQueue().declinedOffers.offers != null;
+  }
+
+  shouldSuppressDeclinedOfferDetails() {
+    const {service} = this.props;
+
+    return this.isFramework(service)
+      || !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service);
   }
 
   render() {
