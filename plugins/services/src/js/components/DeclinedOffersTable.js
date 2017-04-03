@@ -12,7 +12,7 @@ import TableUtil from '../../../../../src/js/utils/TableUtil';
 import TimeAgo from '../../../../../src/js/components/TimeAgo';
 import Units from '../../../../../src/js/utils/Units';
 
-class RejectedOffersTable extends React.Component {
+class DeclinedOffersTable extends React.Component {
   areResourcesUnmatched(requestedResource, receivedResource) {
     if (Array.isArray(receivedResource)) {
       return receivedResource.includes(requestedResource);
@@ -304,4 +304,4 @@ class RejectedOffersTable extends React.Component {
   }
 }
 
-module.exports = RejectedOffersTable;
+module.exports = DeclinedOffersTable;
