@@ -188,8 +188,7 @@ describe('Jobs', function () {
     // Click 'Create a job'
     // Note: The current group contains the previous jobs
     cy
-      .contains('Create a Job')
-      // .get('.button.button-link.button-narrow')
+      .get('.button.button-link.button-narrow')
       .click();
 
     // Wait for the 'New Job' dialog to appear
