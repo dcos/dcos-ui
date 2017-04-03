@@ -1,0 +1,32 @@
+{
+  "id": "/pod-with-environment-variables",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 10
+      },
+      "exec": {
+        "command": {
+          "shell": "while true ; do echo 'test' ; sleep 100 ; done"
+        }
+      }
+    }
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "env": {
+    "camelCase": "test",
+    "snake_case": "test",
+    "lowercase": "test",
+    "UPPERCASE": "test"
+  }
+}

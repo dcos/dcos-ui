@@ -1,0 +1,46 @@
+{
+  "id": "/pod-with-virtual-network",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.5,
+        "mem": 32
+      },
+      "endpoints": [
+        {
+          "name": "http",
+          "containerPort": 8080,
+          "hostPort": 0,
+          "protocol": [
+            "tcp"
+          ]
+        }
+      ],
+      "image": {
+        "id": "python:3",
+        "kind": "DOCKER"
+      },
+      "artifacts": [
+        {
+          "uri": "http://lorempicsum.com/simpsons/600/400/1"
+        }
+      ],
+      "exec": {
+        "command": {
+          "shell": "python3 -m http.server 8080"
+        }
+      }
+    }
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "name": "dcos",
+      "mode": "container"
+    }
+  ]
+}

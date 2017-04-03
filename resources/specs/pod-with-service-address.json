@@ -1,0 +1,44 @@
+{
+  "id": "/pod-with-service-address",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.5,
+        "mem": 32
+      },
+      "endpoints": [
+        {
+          "name": "http",
+          "containerPort": 8080,
+          "hostPort": 0,
+          "protocol": [
+            "tcp"
+          ],
+          "labels": {
+            "VIP_0": "/test/pod-with-service-address:8080"
+          }
+        }
+      ],
+      "image": {
+        "id": "python:3",
+        "kind": "DOCKER"
+      },
+      "exec": {
+        "command": {
+          "shell": "python3 -m http.server 8080"
+        }
+      }
+    }
+  ],
+  "scaling": {
+    "kind": "fixed",
+    "instances": 1
+  },
+  "networks": [
+    {
+      "name": "dcos",
+      "mode": "container"
+    }
+  ]
+}
