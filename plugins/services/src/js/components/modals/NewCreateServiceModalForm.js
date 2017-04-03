@@ -9,7 +9,6 @@ import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSe
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ArtifactsSection from '../forms/ArtifactsSection';
-import Alert from '../../../../../../src/js/components/Alert';
 import Batch from '../../../../../../src/js/structs/Batch';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
