@@ -617,7 +617,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .contains('Running')
+        .contains('Running', {timeout: 60000})
         .should('exist');
 
     });
