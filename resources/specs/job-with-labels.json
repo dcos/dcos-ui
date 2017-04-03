@@ -1,0 +1,16 @@
+{
+  "id": "job-with-labels",
+  "run": {
+    "cpus": 0.01,
+    "mem": 32,
+    "disk": 0,
+    "cmd": "echo 'test' ; sleep 100"
+  },
+  "schedules": [],
+  "labels": {
+    "camelCase": "test",
+    "snake_case": "test",
+    "lowercase": "test",
+    "UPPERCASE": "test"
+  }
+}
