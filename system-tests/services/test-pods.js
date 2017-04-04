@@ -1,4 +1,5 @@
 require('../_support/utils/ServicesUtil');
+const {Timeouts} = require('../_support/constants');
 
 describe('Services', function () {
 
@@ -244,7 +245,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });

@@ -1,3 +1,5 @@
+const {Timeouts} = require('../_support/constants');
+
 describe('Jobs', function () {
 
   it('Create a simple job', function () {
@@ -75,7 +77,7 @@ describe('Jobs', function () {
     // Wait for the table and the service to appear
     cy
       .get('.page-body-content table')
-      .contains(jobName)
+      .contains(jobName, {timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT})
       .should('exist');
 
   });
@@ -171,7 +173,7 @@ describe('Jobs', function () {
     // Wait for the table and the service to appear
     cy
       .get('.page-body-content table')
-      .contains(jobName)
+      .contains(jobName, {timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT})
       .should('exist');
 
   });
@@ -331,7 +333,7 @@ describe('Jobs', function () {
     // Wait for the table and the service to appear
     cy
       .get('.page-body-content table')
-      .contains(jobName)
+      .contains(jobName, {timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT})
       .should('exist');
 
   });
@@ -436,7 +438,7 @@ describe('Jobs', function () {
     // Wait for the table and the service to appear
     cy
       .get('.page-body-content table')
-      .contains(jobName)
+      .contains(jobName, {timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT})
       .should('exist');
 
   });

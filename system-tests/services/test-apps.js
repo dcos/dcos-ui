@@ -1,4 +1,5 @@
 require('../_support/utils/ServicesUtil');
+const {Timeouts} = require('../_support/constants');
 
 describe('Services', function () {
 
@@ -449,7 +450,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .get('.bar.healthy', {timeout: 60000})
+        .get('.bar.healthy', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -617,7 +618,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: 60000})
+        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -802,7 +803,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: 60000})
+        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -983,7 +984,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: 60000})
+        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -1195,7 +1196,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .get('.bar.healthy', {timeout: 60000})
+        .get('.bar.healthy', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -1373,7 +1374,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and wait until it's Running
@@ -1559,7 +1560,7 @@ describe('Services', function () {
       cy
         .get('.page-body-content table')
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: 60000})
+        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
