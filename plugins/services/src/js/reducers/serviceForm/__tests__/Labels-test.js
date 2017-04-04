@@ -27,7 +27,7 @@ describe('Labels', function () {
       expect(batch.reduce(Labels.JSONReducer.bind({}), {}))
         .toEqual({key: 'value2'});
     });
-    it('should keep remove the first item', function () {
+    it('should remove the first item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['labels'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['labels', 0, 'key'], 'first'));
@@ -66,7 +66,7 @@ describe('Labels', function () {
         {key: 'key', value: 'value2'}
       ]);
     });
-    it('should keep remove the first item', function () {
+    it('should remove the first item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['labels'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['labels', 0, 'key'], 'first'));

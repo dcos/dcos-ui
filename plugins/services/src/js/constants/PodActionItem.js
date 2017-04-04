@@ -1,6 +1,8 @@
+import UserActions from '../../../../../src/js/constants/UserActions';
+
 const PodActionItem = {
   EDIT: 'edit',
-  DESTROY: 'destroy',
+  DESTROY: UserActions.DELETE,
   SCALE: 'scale',
   SUSPEND: 'suspend'
 };

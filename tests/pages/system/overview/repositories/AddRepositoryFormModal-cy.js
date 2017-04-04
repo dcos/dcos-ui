@@ -72,7 +72,7 @@ describe('Add Repository Form Modal', function () {
         .click({force: true});
       cy
         .get('.modal .modal-footer .button.button-danger')
-        .contains('Remove Repository')
+        .contains('Delete Repository')
         .click();
     });
   });

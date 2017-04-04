@@ -8,6 +8,7 @@ import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import StatusMapping from '../../constants/StatusMapping';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 class ServiceInfo extends React.Component {
   getActionButtons() {
@@ -32,7 +33,11 @@ class ServiceInfo extends React.Component {
       html: 'Suspend'
     }, {
       id: ServiceActionItem.DESTROY,
-      html: <span className="text-danger">Destroy</span>
+      html: (
+        <span className="text-danger">
+          {StringUtil.capitalize(UserActions.DELETE)}
+        </span>
+      )
     }];
 
     const actionButtons = [

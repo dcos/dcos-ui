@@ -9,6 +9,8 @@ import ModalHeading from '../../../../../../src/js/components/modals/ModalHeadin
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;
@@ -91,14 +93,14 @@ class ServiceDestroyModal extends React.Component {
     if (service instanceof Framework) {
       return (
         <p>
-          This will only destroy the package scheduler for <span className="emphasize">{serviceName}</span>. Any tasks that were started by this scheduler will persist in the system. Are you sure you want to continue?
+          This will only {UserActions.DELETE} the package scheduler for <span className="emphasize">{serviceName}</span>. Any tasks that were started by this scheduler will persist in the system. Are you sure you want to continue?
         </p>
       );
     }
 
     return (
       <p>
-        Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
+        {StringUtil.capitalize(UserActions.DELETING)} <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
       </p>
     );
   }
@@ -151,7 +153,7 @@ class ServiceDestroyModal extends React.Component {
 
     const heading = (
       <ModalHeading className="text-danger">
-        Destroy {itemText}
+        {StringUtil.capitalize(UserActions.DELETE)} {itemText}
       </ModalHeading>
     );
 
@@ -163,7 +165,7 @@ class ServiceDestroyModal extends React.Component {
         onClose={onClose}
         leftButtonText="Cancel"
         leftButtonCallback={onClose}
-        rightButtonText={`Destroy ${itemText}`}
+        rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} ${itemText}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}>

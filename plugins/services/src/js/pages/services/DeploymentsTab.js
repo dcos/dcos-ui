@@ -22,6 +22,7 @@ import Page from '../../../../../../src/js/components/Page';
 import StatusBar from '../../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
@@ -244,7 +245,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     if (deployment != null) {
       let linkText = 'Rollback';
       if (deployment.isStarting()) {
-        linkText = linkText + ' & Remove';
+        linkText = `${linkText} & ${StringUtil.capitalize(UserActions.DELETE)}`;
       }
 
       return (
@@ -408,8 +409,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     const version = StringUtil.pluralize('version', serviceCount);
 
     if (deploymentToRollback.isStarting()) {
-      return `This will stop the current deployment of ${listOfServiceNames}
-              and start a new deployment to remove the affected ${service}.`;
+      return `This will stop the current deployment of ${listOfServiceNames} and start a new deployment to ${UserActions.DELETE} the affected ${service}.`;
     }
 
     return `This will stop the current deployment of ${listOfServiceNames} and

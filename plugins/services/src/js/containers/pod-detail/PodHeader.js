@@ -9,6 +9,7 @@ import ServiceStatus from '../../constants/ServiceStatus';
 import StatusMapping from '../../constants/StatusMapping';
 import PodActionItem from '../../constants/PodActionItem';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const METHODS_TO_BIND = [
   'handleDropdownAction'
@@ -43,7 +44,11 @@ class PodHeader extends React.Component {
       },
       {
         id: PodActionItem.DESTROY,
-        html: <span className="text-danger">Destroy</span>
+        html: (
+          <span className="text-danger">
+            {StringUtil.capitalize(UserActions.DELETE)}
+          </span>
+        )
       }
     ];
 

@@ -11,7 +11,9 @@ import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
 import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
 import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 import VolumeTable from '../../components/VolumeTable';
 
 const METHODS_TO_BIND = [
@@ -172,7 +174,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     actions.push({
       className: 'text-danger',
-      label: 'Destroy',
+      label: StringUtil.capitalize(UserActions.DELETE),
       onItemSelect: modalHandlers.deleteService
     });
 

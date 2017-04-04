@@ -69,7 +69,7 @@ describe('DeploymentsTab', function () {
         affectedServices: [new Application({name: 'app1'})],
         steps: [{actions: [{type: 'StartApplication'}]}]
       }));
-      expect(text).toContain('remove the affected service');
+      expect(text).toContain('delete the affected service');
     });
 
     it('should return a revert message when passed a non-starting deployment', function () {
