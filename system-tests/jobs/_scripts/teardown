@@ -8,4 +8,4 @@ jobs = json.loads(check_output('dcos job list --json', shell=True))
 for job in jobs:
   if job['id'].startswith("%s." % os.environ['TEST_UUID']):
     print("Removing job %s" % job['id'])
-    check_output('dcos job remove %s' % job['id'], shell=True)
+    check_output('dcos job remove %s --stop-current-job-runs' % job['id'], shell=True)
