@@ -1,10 +1,24 @@
 const _routes = new Map();
 
 module.exports = {
+  /**
+   * Clears the private routes map of any previous values.
+   *
+   * @return {undefined}
+   */
   clearRoutes() {
     _routes.clear();
   },
 
+  /**
+   * Define a fixture to be returned when the matched route is consumed. This
+   * proxies Cypress' #route method.
+   *
+   * @param  {RegExp} routeRegEx - the regular expresison that Cypress will
+   * use to match the route
+   * @param  {String} fixtureString - the Cypress fixture string
+   * @return {router} router instance
+   */
   route(routeRegEx, fixtureString) {
     _routes.set(routeRegEx, fixtureString);
     cy.route(...arguments);
@@ -12,19 +26,25 @@ module.exports = {
     return this;
   },
 
-  getAPIResponse(routeString, callback) {
-    let selectedFilterString = null;
+  /**
+   * Retrieve the fixture for a given route.
+   *
+   * @param  {String} routeString - the route that should match the desired
+   * fixture
+   * @return {Promise} a Promise from Cypress that will be resolved or rejected
+   * depending on the presence of the fixture.
+   */
+  getAPIResponse(routeString) {
+    let desiredFixtureString = null;
 
     _routes.forEach(function (fixtureString, routeRegEx) {
       if (routeRegEx.test(routeString)) {
-        selectedFilterString = /^fx:(.*)/.exec(fixtureString)[1];
+        // The desired fixture string will be the second element in the returned
+        // array.
+        desiredFixtureString = /^(?:fx|fixture):(.*)/.exec(fixtureString)[1];
       }
     });
 
-    if (selectedFilterString != null) {
-      cy.fixture(selectedFilterString).should(function (fixture) {
-        callback(fixture);
-      });
-    }
+    return cy.fixture(desiredFixtureString);
   }
 };

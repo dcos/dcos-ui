@@ -272,6 +272,6 @@ Cypress.addChildCommand('triggerHover', function (elements) {
   }
 });
 
-Cypress.addParentCommand('getAPIResponse', function (endpoint, callback) {
-  router.getAPIResponse(endpoint, callback);
+Cypress.addParentCommand('getAPIResponse', function (endpoint) {
+  return router.getAPIResponse(endpoint);
 });
