@@ -44,7 +44,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="300"
-                value={healthCheck.gracePeriodSeconds}/>
+                value={healthCheck.gracePeriodSeconds} />
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -62,7 +62,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="60"
-                value={healthCheck.intervalSeconds}/>
+                value={healthCheck.intervalSeconds} />
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -80,7 +80,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="20"
-                value={healthCheck.timeoutSeconds}/>
+                value={healthCheck.timeoutSeconds} />
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -98,7 +98,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="3"
-                value={healthCheck.maxConsecutiveFailures}/>
+                value={healthCheck.maxConsecutiveFailures} />
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </FormRow>
@@ -195,7 +195,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldInput
             name={`${path}.http.path`}
             type="text"
-            value={healthCheck.http.path}/>
+            value={healthCheck.http.path} />
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
       </FormRow>
