@@ -1,0 +1,28 @@
+#!/bin/bash
+# This is the entry point file for the system tests
+# It generates the YAML specifications of the tests we have to run
+
+# The preamble of the configuration contains the title of this project
+cat <<EOF
+name: dcos-ui
+title: DC/OS User Interface
+EOF
+
+# We are using simple shell isolation
+cat <<EOF
+
+isolation:
+  type: shell
+  shell:
+    wrapper: (source .env/bin/activate; {})
+  scripts:
+    setup: ./_scripts/setup.sh
+  files:
+    - .
+
+tests:
+EOF
+
+# Create test specifications from the directories
+cat */tests.yml
+

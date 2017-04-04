@@ -1,0 +1,14 @@
+#!/bin/bash
+# This script is executed in the development docker image when the user
+# runs any command within it. It's purpose is to check the if scaffolding
+# is needed and apply it.
+
+#
+# Define externalplugins if we have mounted such directory
+#
+if [[ -d /dcos-ui-plugins ]]; then
+  npm config set externalplugins ../dcos-ui-plugins
+fi
+
+# Pass through everything else
+eval $*
