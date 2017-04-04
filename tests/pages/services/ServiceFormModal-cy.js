@@ -273,7 +273,7 @@ describe('Service Form Modal', function () {
         });
     });
 
-    it.only('should be horizontally and vertically centered in the modal container', function () {
+    it('should be horizontally and vertically centered in the modal container', function () {
       cy.get('.modal-body-wrapper')
         .should(function ($modalWrapper) {
           const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
@@ -309,7 +309,7 @@ describe('Service Form Modal', function () {
         });
     });
 
-    it('should panes be the same width and height', function () {
+    it('should contain panes with the same width and height', function () {
       var isPanesSameSize = true;
 
       cy.get('.create-service-modal-service-picker-option')
