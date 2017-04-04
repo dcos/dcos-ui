@@ -95,7 +95,7 @@ class HealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="300"
-                value={healthCheck.gracePeriodSeconds}/>
+                value={healthCheck.gracePeriodSeconds} />
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -123,7 +123,7 @@ class HealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="60"
-                value={healthCheck.intervalSeconds}/>
+                value={healthCheck.intervalSeconds} />
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -151,7 +151,7 @@ class HealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="20"
-                value={healthCheck.timeoutSeconds}/>
+                value={healthCheck.timeoutSeconds} />
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -179,7 +179,7 @@ class HealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="3"
-                value={healthCheck.maxConsecutiveFailures}/>
+                value={healthCheck.maxConsecutiveFailures} />
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </FormRow>
@@ -213,7 +213,7 @@ class HealthChecksFormSection extends Component {
           <FieldTextarea
             name={`healthChecks.${key}.command`}
             type="text"
-            value={healthCheck.command}/>
+            value={healthCheck.command} />
           <FieldError>{errors.value}</FieldError>
         </FormGroup>
       </FormRow>
@@ -299,7 +299,7 @@ class HealthChecksFormSection extends Component {
           <FieldInput
             name={`healthChecks.${key}.path`}
             type="text"
-            value={healthCheck.path}/>
+            value={healthCheck.path} />
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
       </FormRow>
@@ -312,7 +312,7 @@ class HealthChecksFormSection extends Component {
               checked={healthCheck.protocol === MESOS_HTTPS}
               name={`healthChecks.${key}.https`}
               type="checkbox"
-              value="HTTPS"/>
+              value="HTTPS" />
             Make HTTPS
           </FieldLabel>
           <FieldError>{errors.protocol}</FieldError>
@@ -373,7 +373,7 @@ class HealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapperClassName={"tooltip-wrapper text-align-center pull-right"}
+                      wrapperClassName="tooltip-wrapper text-align-center pull-right"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
@@ -388,9 +388,9 @@ class HealthChecksFormSection extends Component {
                   More Information
                 </a>.
               </p>
-              <FieldSelect name={`healthChecks.${key}.protocol`}
-                value={healthCheck.protocol &&
-                healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
+              <FieldSelect
+                name={`healthChecks.${key}.protocol`}
+                value={healthCheck.protocol && healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
                 <option value="">Select Protocol</option>
                 <option value={COMMAND}>Command</option>
                 <option value={MESOS_HTTP}>HTTP</option>
