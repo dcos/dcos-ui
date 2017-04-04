@@ -48,8 +48,13 @@ class ComponentList extends React.Component {
  */
   getSortedHealthValues(items) {
     items.sort(function (a, b) {
-      const aHealthScore = a.getHealth().sortingValue;
-      const bHealthScore = b.getHealth().sortingValue;
+      let aHealthScore = a.getHealth().sortingValue;
+      let bHealthScore = b.getHealth().sortingValue;
+
+      if (aHealthScore === bHealthScore) {
+        aHealthScore = a.getTitle();
+        bHealthScore = b.getTitle();
+      }
 
       if (aHealthScore > bHealthScore) {
         return 1;

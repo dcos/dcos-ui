@@ -37,17 +37,17 @@ describe('#ComponentList', function () {
           'id': 'dcos-mesos-dns.service', 'health': 1, 'name': 'Mesos DNS'}
         },
         { 'id': 'log-rotate', 'health': 3, 'name': 'Log Rotate', _itemData: {
-          'id': 'log-rotate', 'health': 3, 'name': 'Log Rotate'
-        } },
-        { 'id': 'dcos-marathon.service', 'health': 0, 'name': 'Marathon', _itemData: {
-          'id': 'dcos-marathon.service', 'health': 0, 'name': 'Marathon'
-        } },
-        { 'id': 'dcos-mesos-master.service', 'health': 0, _itemData: {
-          'id': 'dcos-mesos-master.service', 'health': 0
-        } },
+          'id': 'log-rotate', 'health': 3, 'name': 'Log Rotate'}
+        },
         { 'id': 'dcos-signal.service', 'health': 0, 'name': 'A Signal Service', _itemData: {
-          'id': 'dcos-signal.service', 'health': 0, 'name': 'A Signal Service'
-        } }];
+          'id': 'dcos-signal.service', 'health': 0, 'name': 'A Signal Service'}
+        },
+        { 'id': 'dcos-marathon.service', 'health': 0, 'name': 'Marathon', _itemData: {
+          'id': 'dcos-marathon.service', 'health': 0, 'name': 'Marathon'}
+        },
+        { 'id': 'dcos-mesos-master.service', 'health': 0, _itemData: {
+          'id': 'dcos-mesos-master.service', 'health': 0}
+        }];
 
       expect(sortedUnits).toEqual(expectedResult);
     });
