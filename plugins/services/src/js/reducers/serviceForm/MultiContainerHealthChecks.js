@@ -272,7 +272,9 @@ const MultiContainerHealthChecks = {
 
         case HTTP:
           delete newState.exec;
-          newState.http = {};
+          newState.http = {
+            scheme: HTTP
+          };
           delete newState.tcp;
           break;
 
