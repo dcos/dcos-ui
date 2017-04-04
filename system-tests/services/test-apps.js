@@ -811,6 +811,7 @@ describe('Services', function () {
     it('Create an app with external volume', function () {
       const serviceName = 'app-with-external-volume';
       const cmdline = 'while true ; do echo \'test\' > test/echo ; sleep 100 ; done';
+      const volumeName = `integration-test-dcos-ui-${Cypress.env('TEST_UUID')}`;
 
       // Select 'Single Container'
       cy
@@ -854,11 +855,11 @@ describe('Services', function () {
       cy
         .root()
         .getFormGroupInputFor('Name')
-        .type('test');
+        .type(volumeName);
       cy
         .root()
         .getFormGroupInputFor('Size (MiB)')
-        .type('128');
+        .type('1');
       cy
         .root()
         .getFormGroupInputFor('Container Path')
@@ -885,12 +886,12 @@ describe('Services', function () {
               {
                 'containerPath': 'test',
                 'external': {
-                  'name': 'test',
+                  'name': volumeName,
                   'provider': 'dvdi',
                   'options': {
                     'dvdi/driver': 'rexray'
                   },
-                  'size': 128
+                  'size': 1
                 },
                 'mode': 'RW'
               }
@@ -938,7 +939,7 @@ describe('Services', function () {
         .getTableColumn('Volume')
         .contents()
         .should('deep.equal', [
-          'External (test)'
+          `External (${volumeName})`
         ]);
       cy
         .root()
@@ -947,7 +948,7 @@ describe('Services', function () {
         .getTableColumn('Size')
         .contents()
         .should('deep.equal', [
-          '128 MiB'
+          '1 MiB'
         ]);
       cy
         .root()
