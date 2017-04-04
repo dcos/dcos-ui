@@ -113,8 +113,8 @@ var TableUtil = {
    * @returns {Number} item position
    */
   sortHealthValues(a, b) {
-    const aTieBreaker = Util.toLowerCaseIfString(a.id);
-    const bTieBreaker = Util.toLowerCaseIfString(b.id);
+    const aTieBreaker = Util.toLowerCaseIfString(a.name);
+    const bTieBreaker = Util.toLowerCaseIfString(b.name);
 
     a = TableUtil.getHealthSortingValue(a.health);
     b = TableUtil.getHealthSortingValue(b.health);
