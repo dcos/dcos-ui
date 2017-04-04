@@ -93,7 +93,8 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     return {
       name,
       hostPort,
-      protocol
+      protocol,
+      labels
     };
   });
 }
@@ -183,12 +184,12 @@ function containersParser(state) {
     }
 
     if (item.endpoints != null && item.endpoints.length !== 0) {
-      item.endpoints.forEach((endpoint, endpointIndex) => {
-        const networkMode = findNestedPropertyInObject(
-          state,
-          'networks.0.mode'
-        );
+      const networkMode = findNestedPropertyInObject(
+        state,
+        'networks.0.mode'
+      );
 
+      item.endpoints.forEach((endpoint, endpointIndex) => {
         memo = memo.concat([
           new Transaction(
             ['containers', index, 'endpoints'],
@@ -213,6 +214,12 @@ function containersParser(state) {
           )
         ]);
 
+        if (endpoint.labels != null) {
+          memo.push(new Transaction([
+            'containers', index, 'endpoints', endpointIndex, 'labels'
+          ], endpoint.labels));
+        }
+
         if (networkMode === CONTAINER.toLowerCase()) {
           memo.push(new Transaction(
             ['containers', index, 'endpoints', endpointIndex, 'containerPort'],
@@ -234,13 +241,6 @@ function containersParser(state) {
                 'vip'
               ], vip));
             }
-          }
-
-          if (item.labels != null) {
-            memo.push(new Transaction([
-              'containers', index, 'endpoints', endpointIndex,
-              'labels'
-            ], item.labels));
           }
         }
 
@@ -410,9 +410,10 @@ module.exports = {
         'name',
         'automaticPort',
         'loadBalanced',
+        'labels',
         'vip'
       ];
-      const numericalFiledNames = ['containerPort', 'hostPort'];
+      const numericalFieldNames = ['containerPort', 'hostPort'];
 
       if (type === SET && name === 'protocol') {
         this.endpoints[index].endpoints[secondIndex].protocol[subField] = value;
@@ -420,7 +421,7 @@ module.exports = {
       if (type === SET && fieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = value;
       }
-      if (type === SET && numericalFiledNames.includes(name)) {
+      if (type === SET && numericalFieldNames.includes(name)) {
         this.endpoints[index].endpoints[secondIndex][name] = parseIntValue(
           value
         );
@@ -581,7 +582,7 @@ module.exports = {
         'loadBalanced',
         'vip'
       ];
-      const numericalFiledNames = ['containerPort', 'hostPort'];
+      const numericalFieldNames = ['containerPort', 'hostPort'];
 
       if (type === SET && name === 'protocol') {
         newState[index].endpoints[secondIndex].protocol[subField] = value;
@@ -589,7 +590,7 @@ module.exports = {
       if (type === SET && fieldNames.includes(name)) {
         newState[index].endpoints[secondIndex][name] = value;
       }
-      if (type === SET && numericalFiledNames.includes(name)) {
+      if (type === SET && numericalFieldNames.includes(name)) {
         newState[index].endpoints[secondIndex][name] = parseIntValue(value);
       }
     }

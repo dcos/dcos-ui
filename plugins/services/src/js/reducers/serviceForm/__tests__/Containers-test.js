@@ -50,6 +50,7 @@ describe('Containers', function () {
                 {
                   name: null,
                   hostPort: 0,
+                  labels: null,
                   protocol: [
                     'tcp'
                   ]
@@ -92,6 +93,42 @@ describe('Containers', function () {
                 {
                   name: 'foo',
                   hostPort: 0,
+                  labels: null,
+                  protocol: [
+                    'tcp'
+                  ]
+                }
+              ]
+            }
+          ]);
+        });
+
+        it('should keep custom labels', function () {
+          let batch = new Batch();
+
+          batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(['containers', 0, 'endpoints'], 0, ADD_ITEM)
+          );
+          batch = batch.add(
+            new Transaction(['containers', 0, 'endpoints', 0, 'labels'], {
+              custom: 'label'
+            })
+          );
+
+          expect(batch.reduce(Containers.JSONReducer.bind({})))
+          .toEqual([
+            {
+              name: 'container-1',
+              resources: {
+                cpus: 0.1,
+                mem: 128
+              },
+              endpoints: [
+                {
+                  name: null,
+                  hostPort: 0,
+                  labels: {custom: 'label'},
                   protocol: [
                     'tcp'
                   ]
@@ -154,6 +191,7 @@ describe('Containers', function () {
                 {
                   name: 'foo',
                   hostPort: 8080,
+                  labels: null,
                   protocol: [
                     'tcp'
                   ]
@@ -199,6 +237,7 @@ describe('Containers', function () {
                 {
                   name: null,
                   hostPort: 0,
+                  labels: null,
                   protocol: [
                     'tcp',
                     'udp'
@@ -245,6 +284,7 @@ describe('Containers', function () {
                 {
                   name: null,
                   hostPort: 0,
+                  labels: null,
                   protocol: [
                     'tcp',
                     'foo'
@@ -333,6 +373,43 @@ describe('Containers', function () {
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
+                  protocol: [
+                    'tcp'
+                  ]
+                }
+              ]
+            }
+          ]);
+        });
+
+        it('should keep custom labels', function () {
+          let batch = new Batch();
+
+          batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(['networks', 0], 'CONTAINER.foo'));
+          batch = batch.add(
+            new Transaction(['containers', 0, 'endpoints'], 0, ADD_ITEM)
+          );
+          batch = batch.add(
+            new Transaction(['containers', 0, 'endpoints', 0, 'labels'], {
+              custom: 'label'
+            })
+          );
+
+          expect(batch.reduce(Containers.JSONReducer.bind({})))
+          .toEqual([
+            {
+              name: 'container-1',
+              resources: {
+                cpus: 0.1,
+                mem: 128
+              },
+              endpoints: [
+                {
+                  name: null,
+                  hostPort: 0,
+                  containerPort: null,
+                  labels: {custom: 'label'},
                   protocol: [
                     'tcp'
                   ]
