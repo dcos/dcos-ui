@@ -188,7 +188,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'endpoint': 'test'
+              'endpoint': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
@@ -205,7 +206,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'path': 'test'
+              'path': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
@@ -321,7 +323,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'endpoint': 'test'
+              'endpoint': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
