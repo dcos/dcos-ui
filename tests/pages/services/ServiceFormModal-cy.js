@@ -258,6 +258,41 @@ describe('Service Form Modal', function () {
       cy.visitUrl({url: '/services/overview/%2F/create'});
     });
 
+    it('should fill the entire viewport', function () {
+      var isModalFullScreen = true;
+
+      cy.window()
+        .then(function ($window) {
+          cy.get('.modal-full-screen')
+            .should(function ($element) {
+              if ($element[0].clientHeight !== $window.innerHeight || $element[0].clientWidth !== $window.innerWidth) {
+                isModalFullScreen = false;
+              }
+              expect(isModalFullScreen).to.be.equal(true);
+            });
+        });
+    });
+
+    it.only('should be horizontally and vertically centered in the modal container', function () {
+      cy.get('.modal-body-wrapper')
+        .should(function ($modalWrapper) {
+          const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
+          const modalWrapperTop = Math.floor(modalWrapperRect.top + (modalWrapperRect.height / 2));
+          const modalWrapperLeft = Math.floor(modalWrapperRect.left + (modalWrapperRect.width / 2));
+
+          const $modalContent = $modalWrapper.find('.row.panel-grid');
+          const modalContentRect = $modalContent[0].getBoundingClientRect();
+          const modalContentTop = Math.floor(modalContentRect.top + (modalContentRect.height / 2));
+          const modalContentLeft = Math.floor(modalContentRect.left + (modalContentRect.left / 2));
+
+          const topPosDifference = Math.floor(modalWrapperTop - modalContentTop);
+          const leftPosDifference = Math.floor(modalWrapperLeft - modalContentLeft);
+
+          expect(topPosDifference <= modalContentTop).to.be.equal(true);
+          expect(leftPosDifference <= modalContentTop).to.be.equal(true);
+        });
+    });
+
     it('should have four options to choose from', function () {
       cy.get('.panel-grid h5')
         .should(function (items) {
@@ -271,6 +306,27 @@ describe('Service Form Modal', function () {
             'JSON Configuration',
             'Install a Package'
           ]);
+        });
+    });
+
+    it('should panes be the same width and height', function () {
+      var isPanesSameSize = true;
+
+      cy.get('.create-service-modal-service-picker-option')
+        .should(function ($elements) {
+          const firstElementWidth = $elements[0].clientWidth;
+          const firstElementHeight = $elements[0].clientHeight;
+
+          for (var i = 1; i <= $elements.length -1; i++) {
+            const currentElementWidth = $elements[i].clientWidth;
+            const currentElementHeight = $elements[i].clientHeight;
+
+            if ( currentElementWidth !== firstElementWidth
+              || currentElementHeight !== firstElementHeight) {
+              isPanesSameSize = false;
+            }
+          }
+          expect(isPanesSameSize).to.be.equal(true);
         });
     });
 
@@ -375,7 +431,6 @@ describe('Service Form Modal', function () {
           .contains('Add Artifact')
           .should('to.have.length', 0);
       });
-
     });
 
     context('Service: More Settings', function () {
@@ -409,20 +464,21 @@ describe('Service Form Modal', function () {
         cy.get('.menu-tabbed-view .button.button-primary-link')
           .contains('Add Placement Constraint').click();
 
-        cy.get('.menu-tabbed-view input[name="constraints.0.fieldName"').should(function ($inputElement) {
-          const $wrappingLabel = $inputElement.closest('.form-group');
-          const $deleteButtonFormGroup = $wrappingLabel.siblings('.form-group-without-top-label');
+        cy.get('.menu-tabbed-view input[name="constraints.0.fieldName"')
+          .should(function ($inputElement) {
+            const $wrappingLabel = $inputElement.closest('.form-group');
+            const $deleteButtonFormGroup = $wrappingLabel.siblings('.form-group-without-top-label');
 
-          const inputClientRect = $inputElement.get(0).getBoundingClientRect();
-          const inputMidpoint = inputClientRect.top + (inputClientRect.height / 2);
+            const inputClientRect = $inputElement.get(0).getBoundingClientRect();
+            const inputMidpoint = inputClientRect.top + (inputClientRect.height / 2);
 
-          const deleteButtonClientRect = $deleteButtonFormGroup.find('.button').get(0).getBoundingClientRect();
-          const deleteButtonMidpoint = deleteButtonClientRect.top + (deleteButtonClientRect.height / 2);
+            const deleteButtonClientRect = $deleteButtonFormGroup.find('.button').get(0).getBoundingClientRect();
+            const deleteButtonMidpoint = deleteButtonClientRect.top + (deleteButtonClientRect.height / 2);
 
-          const midpointDifference = Math.abs(inputMidpoint - deleteButtonMidpoint);
+            const midpointDifference = Math.abs(inputMidpoint - deleteButtonMidpoint);
 
-          expect(midpointDifference <= alignmentThreshold).to.equal(true);
-        });
+            expect(midpointDifference <= alignmentThreshold).to.equal(true);
+          });
       });
 
       it('Should have a "Advanced Settings" section', function () {
@@ -468,7 +524,6 @@ describe('Service Form Modal', function () {
       });
 
     });
-
   });
 
   context('Create Layout (Multi Container)', function () {
