@@ -1,12 +1,10 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
-import {Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject, omit} from '../../utils/Util';
-import Icon from '../Icon';
 
 const FieldLabel = (props) => {
-  const {children, className, helpText, matchInputHeight, required} = props;
+  const {children, className, matchInputHeight, required} = props;
   let isToggle = false;
   React.Children.forEach(children, (child) => {
     const type = findNestedPropertyInObject(child, 'props.type');
@@ -24,26 +22,10 @@ const FieldLabel = (props) => {
     requiredNode = <span className="text-danger"> *</span>;
   }
 
-  let helpIcon = null;
-  if (helpText != null) {
-    helpIcon = (
-      <Tooltip
-        content={helpText}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapperClassName="tooltip-wrapper text-align-center inline-tooltip-wrapper"
-        wrapText={true}>
-        <Icon color="grey" id="circle-question" size="mini" />
-      </Tooltip>
-    );
-  }
-
   const label = (
     <label className={classes}
       {...omit(props, Object.keys(FieldLabel.propTypes))}>
       {children}
-      {helpIcon}
       {requiredNode}
     </label>
   );
@@ -61,8 +43,6 @@ const FieldLabel = (props) => {
 
 FieldLabel.propTypes = {
   children: React.PropTypes.node,
-  // Optionally display a helpful tooltip
-  helpText: React.PropTypes.node,
   // Vertically center the element based on the height of input fields
   matchInputHeight: React.PropTypes.bool,
   // Optional boolean to show a required indicator
