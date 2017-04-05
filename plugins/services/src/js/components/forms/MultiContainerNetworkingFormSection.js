@@ -10,6 +10,7 @@ import {
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
@@ -149,22 +150,18 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           &nbsp;
         </FieldLabel>
-        <FieldLabel
-          helpText={assignHelpText}
-          matchInputHeight={true}>
+        <FieldLabel matchInputHeight={true}>
+          <FieldInput
+            checked={endpoint.automaticPort}
+            name={`containers.${containerIndex}.endpoints.${index}.automaticPort`}
+            type="checkbox" />
           <FormGroupHeading>
-            <FormGroupHeadingContent>
-              <FieldInput
-                checked={endpoint.automaticPort}
-                name={`containers.${containerIndex}.endpoints.${index}.automaticPort`}
-                type="checkbox" />
-            </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               Assign Automatically
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
-                content={tooltipContent}
+                content={assignHelpText}
                 interactive={true}
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
@@ -221,9 +218,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
-    return [
-      <FormRow key="title">
-        <FormGroup className="column-9">
+    return (
+      <FormRow>
+        <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -242,32 +239,27 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <p>
+          <div className="flex row">
+            <FormGroup className="column-auto">
+              <FieldLabel>
+                <FieldInput
+                  checked={loadBalanced}
+                  name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
+                  type="checkbox" />
+                Enabled
+              </FieldLabel>
+            </FormGroup>
+            <FormGroup className="column-auto flush-left">
+              {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
+            </FormGroup>
+          </div>
+          <FieldHelp>
             Load balance this service internally.
-          </p>
-        </FormGroup>
-      </FormRow>,
-      <div className="flex flex-align-items-center row" key="toggle">
-        <FormGroup
-          className="column-auto"
-          key="loadbalanced"
-          showError={Boolean(loadBalancedError)}>
-          <FieldLabel>
-            <FieldInput
-              checked={loadBalanced}
-              name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
-              type="checkbox" />
-            Enabled
-          </FieldLabel>
+          </FieldHelp>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-auto flush-left" key="address">
-          <span>
-            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-          </span>
-        </FormGroup>
-      </div>
-    ];
+      </FormRow>
+    );
   }
 
   getProtocolField(endpoint, index, containerIndex) {
@@ -463,10 +455,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
-      <a href={serviceEndpointsDocsURI}
-        target="_blank">
-        More Information
-      </a>
+      <span>
+        {'DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints. '}
+        {'Service endpoints map traffic from a single VIP to multiple IP addresses and ports. '}
+        <a href={serviceEndpointsDocsURI}
+          target="_blank">
+          More Information
+        </a>
+      </span>
     );
 
     return (
@@ -502,21 +498,23 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           </FormGroup>
         </FormRow>
         <h3 className="short-bottom">
-          Service Endpoints
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Service Endpoints
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={serviceEndpointsTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
-        <Tooltip
-          content={serviceEndpointsTooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapperClassName="tooltip-wrapper text-align-center pull-right"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
-        <p>
-          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-          Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
-        </p>
         {this.getServiceEndpoints()}
       </div>
     );

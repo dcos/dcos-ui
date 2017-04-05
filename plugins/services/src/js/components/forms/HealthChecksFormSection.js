@@ -373,21 +373,13 @@ class HealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                      wrapperClassName="tooltip-wrapper text-align-center"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <p>
-                {'Protocol of the requests to be performed. '}
-                <a
-                  href="https://mesosphere.github.io/marathon/docs/health-checks.html"
-                  target="_blank">
-                  More Information
-                </a>.
-              </p>
               <FieldSelect
                 name={`healthChecks.${key}.protocol`}
                 value={healthCheck.protocol && healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)}>
@@ -428,17 +420,19 @@ class HealthChecksFormSection extends Component {
             <FormGroupHeadingContent primary={true}>
               Health Checks
             </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapperClassName="tooltip-wrapper text-align-center pull-right"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
-        <Tooltip
-          content={tooltipContent}
-          interactive={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view"
-          wrapperClassName="tooltip-wrapper text-align-center pull-right"
-          wrapText={true}>
-          <Icon color="grey" id="circle-question" size="mini" />
-        </Tooltip>
         <p>
           Health checks may be specified per application to be run against
           the application{'\''}s instances.
@@ -451,14 +445,6 @@ class HealthChecksFormSection extends Component {
               )}>
               Add Health Check
             </AddButton>
-            <Tooltip
-              content={tooltipContent}
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
           </FormGroup>
         </FormRow>
       </div>
