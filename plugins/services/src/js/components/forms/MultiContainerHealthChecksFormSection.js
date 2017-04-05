@@ -464,7 +464,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             interactive={true}
             maxWidth={300}
             scrollContainer=".gm-scroll-view"
-            wrapperClassName="tooltip-wrapper text-align-center pull-right"
+            wrapperClassName="tooltip-wrapper text-align-center"
             wrapText={true}>
             <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
