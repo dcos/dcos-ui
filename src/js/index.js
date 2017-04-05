@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import ReactDOM from 'react-dom';
+import {IntlProvider} from 'react-intl';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 import {Router, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
@@ -21,6 +22,9 @@ import ConfigStore from './stores/ConfigStore';
 import NavigationServiceUtil from './utils/NavigationServiceUtil';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
+
+// Translations
+import enUS from './translations/en-US.json';
 
 const domElement = global.document.getElementById('application');
 
@@ -87,7 +91,11 @@ RequestUtil.json = function (options = {}) {
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
-            <Router history={hashHistory} routes={routes} />
+            <IntlProvider
+              locale={navigator.language}
+              messages={enUS}>
+              <Router history={hashHistory} routes={routes} />
+            </IntlProvider>
           </Provider>
         );
 

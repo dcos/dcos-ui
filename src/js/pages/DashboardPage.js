@@ -2,6 +2,7 @@ import {DCOSStore} from 'foundation-ui';
 import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
+import {FormattedMessage} from 'react-intl';
 
 import Breadcrumb from '../components/Breadcrumb';
 import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
@@ -136,29 +137,33 @@ var DashboardPage = React.createClass({
   },
 
   getViewAllServicesBtn() {
-    const servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
+    let servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
     if (!servicesCount) {
       return null;
 
     }
-    var textContent = 'View all ';
-    if (servicesCount > this.props.servicesListLength) {
-      textContent += servicesCount + ' ';
+
+    if (servicesCount < this.props.servicesListLength) {
+      servicesCount = null;
     }
-    textContent += 'Services';
 
     return (
       <Link to="/services"
         className="button button-rounded button-stroke">
-        {textContent}
+        <FormattedMessage
+          id="DASHBOARD.VIEW_ALL"
+          values={{
+            servicesCount
+          }}
+          />
       </Link>
     );
   },
 
-  getHeading(title) {
+  getHeading(translationId) {
     return (
       <h6 className="flush text-align-center">
-        {title}
+        <FormattedMessage id={translationId} />
       </h6>
     );
   },
@@ -174,7 +179,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('CPU Allocation')}>
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.CPU')}>
               <ResourceTimeSeriesChart
                 colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
@@ -187,7 +192,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Memory Allocation')}>
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.MEMORY')}>
               <ResourceTimeSeriesChart
                 colorIndex={6}
                 usedResourcesStates={data.usedResourcesStates}
@@ -200,7 +205,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Disk Allocation')}>
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.DISK')}>
               <ResourceTimeSeriesChart
                 colorIndex={3}
                 usedResourcesStates={data.usedResourcesStates}
@@ -213,7 +218,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
-              heading={this.getHeading('Services Health')}
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.SERVICES_HEALTH')}
               footer={this.getViewAllServicesBtn()}
               footerClass="text-align-center">
               <ServiceList
@@ -224,14 +229,14 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart panel"
-              heading={this.getHeading('Tasks')}>
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.TASKS')}>
               <TasksChart tasks={data.tasks} />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-component-health panel"
-              heading={this.getHeading('Component Health')}
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH')}
               footer={this.getViewAllComponentsButton()}
               footerClass="text-align-center">
               <ComponentList
@@ -242,7 +247,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Nodes')}>
+              heading={this.getHeading('DASHBOARD.PANEL_HEADING.NODES')}>
               <HostTimeSeriesChart
                 data={data.activeNodes}
                 currentValue={data.hostCount}
