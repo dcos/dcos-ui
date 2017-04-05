@@ -80,13 +80,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
-    const assignHelpText = (
-      <span>
-        {'Most services will use TCP. '}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
-      </span>
-    );
-
     return [
       <FormGroup
         className="column-3"
@@ -129,21 +122,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             checked={portDefinition.automaticPort}
             name={`portDefinitions.${index}.automaticPort`}
             type="checkbox" />
-          <FormGroupHeading>
-            <FormGroupHeadingContent>
-              Assign Automatically
-            </FormGroupHeadingContent>
-            <FormGroupHeadingContent>
-              <Tooltip
-                content={assignHelpText}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
-            </FormGroupHeadingContent>
-          </FormGroupHeading>
+          Assign Automatically
         </FieldLabel>
       </FormGroup>
     ];
@@ -187,11 +166,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     let hostName = null;
     if (!vipPortError) {
-      hostName = (
-        <span>
-          {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-        </span>
-      );
+      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address);
     }
 
     const loadBalancerDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips');
@@ -209,11 +184,17 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FormRow>
-        <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
+        <FormGroup
+          className="column-12"
+          showError={Boolean(vipPortError || loadBalancedError)}>
           <FieldLabel>
+            <FieldInput
+              checked={loadBalanced}
+              name={`portDefinitions.${index}.loadBalanced`}
+              type="checkbox" />
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Load Balanced Service Address
+                Enable Load Balanced Service Address
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -227,28 +208,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
+            <FieldHelp>
+              Load balance this service internally at {hostName}
+            </FieldHelp>
           </FieldLabel>
-          <div className="flex row">
-            <FormGroup className="column-auto">
-              <FieldLabel>
-                <FieldInput
-                  checked={loadBalanced}
-                  name={`portDefinitions.${index}.loadBalanced`}
-                  type="checkbox" />
-                Enabled
-              </FieldLabel>
-            </FormGroup>
-            <FormGroup
-              className="column-auto flush-left"
-              showError={Boolean(vipPortError)}>
-              {hostName}
-              <FieldError>{vipPortError}</FieldError>
-            </FormGroup>
-          </div>
-          <FieldHelp>
-            Load balance this service internally.
-          </FieldHelp>
-          <FieldError>{loadBalancedError}</FieldError>
+          <FieldError>{vipPortError || loadBalancedError}</FieldError>
         </FormGroup>
       </FormRow>
     );
@@ -264,12 +228,29 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       `container.docker.portMappings.${index}.protocol`
     );
 
+    const assignHelpText = (
+      <span>
+        {'Most services will use TCP. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
+      </span>
+    );
+
     return (
       <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Protocol
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={assignHelpText}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </FieldLabel>
@@ -523,7 +504,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
       <span>
-        {'DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints. '}
         {'Service endpoints map traffic from a single VIP to multiple IP addresses and ports. '}
         <a href={serviceEndpointsDocsURI}
           target="_blank">
@@ -565,9 +545,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <h3 className="short-bottom muted" key="service-endpoints-header">
             {heading}
           </h3>
-          <p key="service-endpoints-description" className="muted">
+          <p key="service-endpoints-description">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-            Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
           </p>
         </Tooltip>
       );
@@ -580,7 +559,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </h3>
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-          Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
         </p>
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">

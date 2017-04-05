@@ -91,25 +91,18 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (endpoint.automaticPort) {
-      placeholder = `$PORT${index}`;
+      placeholder = `$ENDPOINT_${index}`;
       value = null;
     }
 
     const tooltipContent = (
       <span>
-        {`This host port will be accessible as an environment variable called ENDPOINT_${index}'. `}
+        {`This host port will be accessible as an environment variable called $ENDPOINT_${index}'. `}
         <a
           href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
           More information
         </a>
-      </span>
-    );
-
-    const assignHelpText = (
-      <span>
-        {'Most services will use TCP. '}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
       </span>
     );
 
@@ -155,21 +148,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             checked={endpoint.automaticPort}
             name={`containers.${containerIndex}.endpoints.${index}.automaticPort`}
             type="checkbox" />
-          <FormGroupHeading>
-            <FormGroupHeadingContent>
-              Assign Automatically
-            </FormGroupHeadingContent>
-            <FormGroupHeadingContent>
-              <Tooltip
-                content={assignHelpText}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-                <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
-            </FormGroupHeadingContent>
-          </FormGroupHeading>
+          Assign Automatically
         </FieldLabel>
       </FormGroup>
     ];
@@ -222,9 +201,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <FormRow>
         <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
+            <FieldInput
+              checked={loadBalanced}
+              name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
+              type="checkbox" />
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Load Balanced Service Address
+                Enable Load Balanced Service Address
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -238,24 +221,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
+            <FieldHelp>
+              Load balance this service internally at {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
+            </FieldHelp>
           </FieldLabel>
-          <div className="flex row">
-            <FormGroup className="column-auto">
-              <FieldLabel>
-                <FieldInput
-                  checked={loadBalanced}
-                  name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
-                  type="checkbox" />
-                Enabled
-              </FieldLabel>
-            </FormGroup>
-            <FormGroup className="column-auto flush-left">
-              {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-            </FormGroup>
-          </div>
-          <FieldHelp>
-            Load balance this service internally.
-          </FieldHelp>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
       </FormRow>
@@ -269,12 +238,29 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       `containers.${containerIndex}.endpoints.${index}.protocol`
     );
 
+    const assignTooltip = (
+      <span>
+        {'Most services will use TCP. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
+      </span>
+    );
+
     return (
       <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Protocol
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={assignTooltip}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </FieldLabel>
@@ -456,7 +442,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
       <span>
-        {'DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints. '}
         {'Service endpoints map traffic from a single VIP to multiple IP addresses and ports. '}
         <a href={serviceEndpointsDocsURI}
           target="_blank">
@@ -492,8 +477,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
-            <p>The network type will be shared across all your containers.</p>
             {this.getTypeSelections()}
+            <FieldHelp>
+              The network type will be shared across all your containers.
+            </FieldHelp>
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
@@ -515,6 +502,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h3>
+        <p>
+          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints
+        </p>
         {this.getServiceEndpoints()}
       </div>
     );
