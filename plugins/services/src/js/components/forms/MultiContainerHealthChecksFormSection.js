@@ -423,13 +423,15 @@ class MultiContainerHealthChecksFormSection extends Component {
         <div key={container.name}>
           <div className="form-row-element">
             <h4 className="form-header short-bottom">
-              <Icon id="container" size="mini" color="purple" />
-              {` ${container.name}`}
+              <FormGroupHeading>
+                <FormGroupHeadingContent>
+                  <Icon id="container" size="mini" color="purple" />
+                </FormGroupHeadingContent>
+                <FormGroupHeadingContent primary={true}>
+                  {container.name}
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
             </h4>
-            <p>
-              Health checks may be specified per application to be run against
-              the application{'\''}s instances.
-            </p>
           </div>
           {this.getHealthChecksBody(container, index)}
         </div>
@@ -496,7 +498,7 @@ class MultiContainerHealthChecksFormSection extends Component {
         </h2>
         <p>
           Health checks may be specified per application to be run against
-          the application{'\''}s tasks.
+          the application{'\''}s instances.
         </p>
         {this.getContainerHealthChecks(data.containers)}
       </div>
