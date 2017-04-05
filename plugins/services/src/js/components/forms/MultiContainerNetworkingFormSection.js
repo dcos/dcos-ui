@@ -83,6 +83,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(endpoint, index, containerIndex) {
     let placeholder;
+    let environmentVariableName = '$ENDPOINT_{NAME}';
+    if (endpoint.name && typeof endpoint.name === 'string') {
+      environmentVariableName = environmentVariableName.replace('{NAME}', endpoint.name.toUpperCase());
+    }
     let value = endpoint.hostPort;
     const {errors} = this.props;
     const hostPortError = findNestedPropertyInObject(
@@ -91,13 +95,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (endpoint.automaticPort) {
-      placeholder = `$ENDPOINT_${index}`;
+      placeholder = environmentVariableName;
       value = null;
     }
 
     const tooltipContent = (
       <span>
-        {`This host port will be accessible as an environment variable called $ENDPOINT_${index}'. `}
+        {`This host port will be accessible as an environment variable called ${environmentVariableName}'. `}
         <a
           href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
@@ -108,7 +112,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return [
       <FormGroup
-        className="column-3"
+        className="column-4"
         key="host-port"
         showError={Boolean(hostPortError)}>
         <FieldLabel>
