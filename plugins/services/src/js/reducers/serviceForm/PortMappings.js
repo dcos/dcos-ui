@@ -24,13 +24,9 @@ module.exports = {
     // than in portDefinitions
     const length = portMappings.length - portDefinitionsLength;
     const addTransactions = [];
-    Array.from({ length }).forEach((_, index) => {
+    Array.from({ length }).forEach(() => {
       addTransactions.push(
-        new Transaction(
-          ["portDefinitions"],
-          portMappings.length + index - 1,
-          ADD_ITEM
-        )
+        new Transaction(["portDefinitions"], null, ADD_ITEM)
       );
     });
 

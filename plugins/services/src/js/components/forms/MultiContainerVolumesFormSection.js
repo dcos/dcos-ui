@@ -224,7 +224,6 @@ class MultiContainerVolumesFormSection extends Component {
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {
-              value: data.volumeMounts.length,
               path: "volumeMounts"
             })}
           >

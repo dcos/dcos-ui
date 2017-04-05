@@ -25,7 +25,7 @@ module.exports = {
          * 4) Set the mode from `volume.mode` on the path
          *    `localVolumes.${index}.mode`
          */
-        memo.push(new Transaction(["localVolumes"], index, ADD_ITEM));
+        memo.push(new Transaction(["localVolumes"], item, ADD_ITEM));
 
         if (item.persistent != null && item.persistent.size != null) {
           memo.push(
@@ -47,7 +47,7 @@ module.exports = {
           memo.push(
             new Transaction(
               ["localVolumes", index, "hostPath"],
-              item.hostPath,
+              item.hostPath || "",
               SET
             )
           );

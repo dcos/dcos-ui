@@ -42,7 +42,7 @@ module.exports = {
 
         const reducer = reducers[key];
 
-        if (index === 0 || !context.has(reducer)) {
+        if (index === 0 || (reducer && !context.has(reducer))) {
           context.set(reducer, {});
         }
 

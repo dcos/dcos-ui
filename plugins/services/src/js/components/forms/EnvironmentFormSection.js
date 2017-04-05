@@ -217,7 +217,6 @@ class EnvironmentFormSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: data.env.length,
                 path: "env"
               })}
             >

@@ -388,7 +388,6 @@ class VolumesFormSection extends Component {
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {
-              value: data.localVolumes.length,
               path: "localVolumes"
             })}
           >
@@ -423,7 +422,6 @@ class VolumesFormSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: data.localVolumes.length,
                 path: "externalVolumes"
               })}
             >

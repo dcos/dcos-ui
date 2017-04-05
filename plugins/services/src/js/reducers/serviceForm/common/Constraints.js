@@ -51,7 +51,7 @@ module.exports = {
       }
 
       const { fieldName, operator, value } = item;
-      memo.push(new Transaction(["constraints"], index, ADD_ITEM));
+      memo.push(new Transaction(["constraints"], null, ADD_ITEM));
       memo.push(
         new Transaction(["constraints", index, "fieldName"], fieldName, SET)
       );

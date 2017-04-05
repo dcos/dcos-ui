@@ -7,18 +7,18 @@ const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
 const HealthChecks = require("../HealthChecks");
 
-describe("Labels", function() {
+describe("HealthChecks", function() {
   describe("#JSONReducer", function() {
     it("should return an Array", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([{}]);
     });
 
     it("should set the protocol", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "COMMAND")
       );
@@ -32,7 +32,7 @@ describe("Labels", function() {
 
     it("should set the right Command", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "COMMAND")
       );
@@ -52,7 +52,7 @@ describe("Labels", function() {
 
     it("should set the right path", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
@@ -68,7 +68,7 @@ describe("Labels", function() {
 
     it("should have a fully fledged health check object", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
@@ -101,8 +101,8 @@ describe("Labels", function() {
 
     it("should remove the right item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "COMMAND")
       );
@@ -128,7 +128,7 @@ describe("Labels", function() {
         " protocol",
       function() {
         let batch = new Batch();
-        batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTPS")
         );
@@ -181,7 +181,15 @@ describe("Labels", function() {
       ).toEqual([
         {
           type: ADD_ITEM,
-          value: 0,
+          value: {
+            path: "/api/health",
+            portIndex: 0,
+            protocol: "MESOS_HTTP",
+            gracePeriodSeconds: 300,
+            intervalSeconds: 60,
+            timeoutSeconds: 20,
+            maxConsecutiveFailures: 3
+          },
           path: ["healthChecks"]
         },
         {

@@ -10,7 +10,7 @@ function processTransaction(state, { type, path, value }) {
   let newState = state.slice();
 
   if (type === ADD_ITEM) {
-    newState.push({ uri: null });
+    newState.push(value || { uri: null });
   }
 
   if (type === REMOVE_ITEM) {
@@ -19,7 +19,7 @@ function processTransaction(state, { type, path, value }) {
     });
   }
 
-  if (type === SET) {
+  if (type === SET && index != null && name != null) {
     newState[index][name] = value;
   }
 

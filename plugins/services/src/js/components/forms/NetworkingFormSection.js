@@ -574,7 +574,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpointsSection() {
-    const { portDefinitions, container, networkType } = this.props.data;
+    const { container, networkType } = this.props.data;
     const type = findNestedPropertyInObject(container, "type");
     const isMesosRuntime = !type || type === MESOS;
     const isUserNetwork = networkType && networkType.startsWith(USER);
@@ -647,7 +647,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: portDefinitions.length,
                 path: "portDefinitions"
               })}
             >

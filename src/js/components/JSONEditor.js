@@ -143,6 +143,7 @@ class JSONEditor extends React.Component {
       this.jsonValue,
       nextProps.value
     );
+
     const jsonText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text

@@ -38,7 +38,7 @@ module.exports = {
       if (joinedPath === "healthChecks") {
         switch (type) {
           case ADD_ITEM:
-            state.push({});
+            state.push(value || {});
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

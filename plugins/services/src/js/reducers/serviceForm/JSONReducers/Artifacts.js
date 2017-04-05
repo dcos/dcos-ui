@@ -16,7 +16,7 @@ function processTransaction(state, { type, path, value }) {
   let newState = state.slice();
 
   if (type === ADD_ITEM) {
-    newState.push({ uri: null });
+    newState.push(value || { uri: null });
   }
 
   if (type === REMOVE_ITEM) {
@@ -25,7 +25,7 @@ function processTransaction(state, { type, path, value }) {
     });
   }
 
-  if (type === SET) {
+  if (type === SET && index != null && name != null) {
     newState[index][name] = value;
   }
 
@@ -39,7 +39,7 @@ module.exports = {
     }
 
     return state.fetch.reduce(function(memo, item, index) {
-      memo.push(new Transaction(["fetch"], index, ADD_ITEM));
+      memo.push(new Transaction(["fetch"], item, ADD_ITEM));
       Object.keys(item).forEach(function(key) {
         memo.push(new Transaction(["fetch", index, key], item[key], SET));
       });

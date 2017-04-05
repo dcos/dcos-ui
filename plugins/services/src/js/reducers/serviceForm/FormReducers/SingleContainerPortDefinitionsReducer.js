@@ -28,19 +28,21 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
     if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
-          state.push({
-            hostPort: null,
-            labels: null,
-            loadBalanced: false,
-            name: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            vip: null,
-            vipPort: null
-          });
+          state.push(
+            value || {
+              hostPort: null,
+              labels: null,
+              loadBalanced: false,
+              name: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              vip: null,
+              vipPort: null
+            }
+          );
           break;
         case REMOVE_ITEM:
           state = state.filter(function(item, index) {
