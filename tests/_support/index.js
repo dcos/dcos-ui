@@ -1,4 +1,4 @@
-const router = require('./utils/router');
+import router from './utils/router';
 
 Cypress.addParentCommand('configureCluster', function (configuration) {
   if (Object.keys(configuration).length === 0) {
@@ -272,6 +272,6 @@ Cypress.addChildCommand('triggerHover', function (elements) {
   }
 });
 
-Cypress.addParentCommand('getAPIResponse', function (endpoint) {
-  return router.getAPIResponse(endpoint);
+Cypress.addParentCommand('getAPIResponse', function (endpoint, callback) {
+  router.getAPIResponse(endpoint, callback);
 });

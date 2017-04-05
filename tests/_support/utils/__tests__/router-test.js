@@ -21,7 +21,7 @@ describe('router', function () {
     it('should clear previously defined routes', function (done) {
       router.route(/foo/, 'fx:bar');
       router.clearRoutes();
-      router.getAPIResponse('foo').then(function (foundFixture) {
+      router.getAPIResponse('foo', function (foundFixture) {
         expect(foundFixture).toEqual(null);
         done();
       });
@@ -51,14 +51,14 @@ describe('router', function () {
   describe('#getAPIResponse', function () {
     it('should return a promise which resolves with the fixture when found', function (done) {
       router.route(/foo/, 'fx:bar');
-      router.getAPIResponse('foo').then(function (foundFixture) {
+      router.getAPIResponse('foo', function (foundFixture) {
         expect(foundFixture).toEqual('bar');
         done();
       });
     });
 
     it('should return a promise which resovles with null when fixture is not found', function (done) {
-      router.getAPIResponse('baz').then(function (foundFixture) {
+      router.getAPIResponse('baz', function (foundFixture) {
         expect(foundFixture).toEqual(null);
         done();
       });

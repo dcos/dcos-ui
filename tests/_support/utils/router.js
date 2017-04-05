@@ -31,10 +31,10 @@ module.exports = {
    *
    * @param  {String} routeString - the route that should match the desired
    * fixture
-   * @return {Promise} a Promise from Cypress that will be resolved or rejected
-   * depending on the presence of the fixture.
+   * @param  {Function} callback - the callback will receive the fixture
+   * @return {undefined}
    */
-  getAPIResponse(routeString) {
+  getAPIResponse(routeString, callback) {
     let desiredFixtureString = null;
 
     _routes.forEach(function (fixtureString, routeRegEx) {
@@ -45,6 +45,8 @@ module.exports = {
       }
     });
 
-    return cy.fixture(desiredFixtureString);
+    cy.fixture(desiredFixtureString).then(function (desiredFixture) {
+      callback(desiredFixture);
+    });
   }
 };
