@@ -229,7 +229,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
           leftButtonCallback={this.handleDeleteCancel}
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
-          rightButtonText={`${UserActions.DELETE} Repository`}
+          rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}
           showHeader={true}>
           {this.getRemoveModalContent()}
         </Confirm>
