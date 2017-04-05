@@ -12,6 +12,7 @@ import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import AddButton from '../../../../../../src/js/components/form/AddButton';
 import ContainerConstants from '../../constants/ContainerConstants';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
@@ -206,9 +207,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
-    return [
-      <FormRow key="title">
-        <FormGroup className="column-9">
+    return (
+      <FormRow>
+        <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -227,32 +228,30 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <p>
+          <div className="flex row">
+            <FormGroup className="column-auto">
+              <FieldLabel>
+                <FieldInput
+                  checked={loadBalanced}
+                  name={`portDefinitions.${index}.loadBalanced`}
+                  type="checkbox" />
+                Enabled
+              </FieldLabel>
+            </FormGroup>
+            <FormGroup
+              className="column-auto flush-left"
+              showError={Boolean(vipPortError)}>
+              {hostName}
+              <FieldError>{vipPortError}</FieldError>
+            </FormGroup>
+          </div>
+          <FieldHelp>
             Load balance this service internally.
-          </p>
-        </FormGroup>
-      </FormRow>,
-      <FormRow key="toggle">
-        <FormGroup
-          className="column-auto"
-          showError={Boolean(loadBalancedError)}>
-          <FieldLabel>
-            <FieldInput
-              checked={loadBalanced}
-              name={`portDefinitions.${index}.loadBalanced`}
-              type="checkbox" />
-            Enabled
-          </FieldLabel>
+          </FieldHelp>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup
-          className="column-auto flush-left"
-          showError={Boolean(vipPortError)}>
-          {hostName}
-          <FieldError>{vipPortError}</FieldError>
-        </FormGroup>
       </FormRow>
-    ];
+    );
   }
 
   getProtocolField(portDefinition, index) {
@@ -523,21 +522,32 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
-      <a href={serviceEndpointsDocsURI}
-        target="_blank">
-        More Information
-      </a>
+      <span>
+        {'DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints. '}
+        {'Service endpoints map traffic from a single VIP to multiple IP addresses and ports. '}
+        <a href={serviceEndpointsDocsURI}
+          target="_blank">
+          More Information
+        </a>
+      </span>
     );
-    const serviceEndpointsTooltip = (
-      <Tooltip
-        content={serviceEndpointsTooltipContent}
-        interactive={true}
-        maxWidth={300}
-        scrollContainer=".gm-scroll-view"
-        wrapperClassName="tooltip-wrapper text-align-center pull-right"
-        wrapText={true}>
-        <Icon color="grey" id="circle-question" size="mini" />
-      </Tooltip>
+    const heading = (
+      <FormGroupHeading>
+        <FormGroupHeadingContent primary={true}>
+          Service Endpoints
+        </FormGroupHeadingContent>
+        <FormGroupHeadingContent>
+          <Tooltip
+            content={serviceEndpointsTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapperClassName="tooltip-wrapper text-align-center pull-right"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
+        </FormGroupHeadingContent>
+      </FormGroupHeading>
     );
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
@@ -553,13 +563,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
           wrapText={true}>
           <h3 className="short-bottom muted" key="service-endpoints-header">
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                Service Endpoints
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
+            {heading}
           </h3>
-          {serviceEndpointsTooltip}
           <p key="service-endpoints-description" className="muted">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
             Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
@@ -571,9 +576,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return (
       <div>
         <h3 className="short-bottom" key="service-endpoints-header">
-          Service Endpoints
+          {heading}
         </h3>
-        {serviceEndpointsTooltip}
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
           Service endpoints map traffic from a single VIP to multiple IP addresses and ports.
