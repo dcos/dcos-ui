@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import React, {PropTypes, Component} from 'react';
+import jsondiffpatch from 'jsondiffpatch';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
@@ -46,11 +47,6 @@ const METHODS_TO_BIND = [
   'handleAddItem',
   'handleRemoveItem',
   'getNewStateForJSON'
-];
-
-const KEY_VALUE_FIELDS = [
-  'env',
-  'labels'
 ];
 
 /**
@@ -274,14 +270,12 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
-    // Delete all key:value fields
-    // Otherwise applyPatch will duplicate keys we're changing via the form
-    KEY_VALUE_FIELDS.forEach(function (field) {
-      delete baseConfig[field];
-    });
-    const patch = batch.reduce(this.props.jsonConfigReducers, {});
+    const newConfig = batch.reduce(this.props.jsonConfigReducers, {});
+    const delta = jsondiffpatch.diff(baseConfig, newConfig);
 
-    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    return CreateServiceModalFormUtil.stripEmptyProperties(
+      jsondiffpatch.patch(baseConfig, delta)
+    );
   }
 
   getErrors() {
