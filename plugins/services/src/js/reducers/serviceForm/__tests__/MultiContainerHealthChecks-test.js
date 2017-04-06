@@ -188,7 +188,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'endpoint': 'test'
+              'endpoint': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
@@ -205,7 +206,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'path': 'test'
+              'path': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
@@ -223,6 +225,23 @@ describe('MultiContainerHealthChecks', function () {
           .toEqual({
             'http': {
               'scheme': HTTPS
+            }
+          });
+      });
+
+      it('Should populate http scheme on http', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction([], {}));
+        batch = batch.add(new Transaction(['protocol'], HTTP));
+        batch = batch.add(new Transaction(['http', 'https'], false));
+
+        const state = {};
+        expect(batch.reduce(
+            MultiContainerHealthChecks.JSONSegmentReducer.bind({}), state
+          ))
+          .toEqual({
+            'http': {
+              'scheme': HTTP
             }
           });
       });
@@ -304,7 +323,8 @@ describe('MultiContainerHealthChecks', function () {
           ))
           .toEqual({
             'http': {
-              'endpoint': 'test'
+              'endpoint': 'test',
+              'scheme': 'HTTP'
             }
           });
       });
