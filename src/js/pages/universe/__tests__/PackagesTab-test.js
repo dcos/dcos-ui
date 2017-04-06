@@ -48,7 +48,7 @@ describe('PackagesTab', function () {
       TestUtils.Simulate.click(panel);
 
       expect(this.instance.handleDetailOpen.calls.mostRecent().args[0].get('name'))
-        .toEqual('arangodb');
+        .toEqual('arangodb3');
     });
 
     it('shouldn\'t call handler when panel button is clicked', function () {
@@ -107,7 +107,7 @@ describe('PackagesTab', function () {
     });
 
     it('should return packages', function () {
-      expect(this.instance.getSelectedPackages(this.packages).length).toEqual(4);
+      expect(this.instance.getSelectedPackages(this.packages).length).toEqual(97);
     });
 
     it('shouldn\'t return packages', function () {
