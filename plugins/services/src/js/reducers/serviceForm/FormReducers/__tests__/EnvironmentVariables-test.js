@@ -16,7 +16,7 @@ describe('Environment Variables', function () {
         .toEqual([{key: 'key', value: 'value'}]);
     });
 
-    it('should multiple items if they have the same key', function () {
+    it('should return multiple items if they have the same key', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['env', 0, 'key'], 'key'));
@@ -32,7 +32,7 @@ describe('Environment Variables', function () {
         ]);
     });
 
-    it('should keep remove the first item', function () {
+    it('should remove the first item', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['env', 0, 'key'], 'first'));
