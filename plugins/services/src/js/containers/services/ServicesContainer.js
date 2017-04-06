@@ -22,6 +22,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import Page from '../../../../../../src/js/components/Page';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import {reconstructPathFromRoutes} from '../../../../../../src/js/utils/RouterUtil';
 
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
@@ -474,34 +475,21 @@ class ServicesContainer extends React.Component {
       return <RequestErrorMsg />;
     }
 
-    if (item instanceof Pod) {
-      return (
-        <PodDetail
-          actions={this.getActions()}
-          pod={item}>
-          {this.getModals(item)}
-          {children}
-        </PodDetail>
-      );
-    }
-
-    if (item instanceof Service) {
-      return (
-        <ServiceDetail
-          actions={this.getActions()}
-          errors={this.state.actionErrors}
-          clearError={this.clearActionError}
-          params={params}
-          routes={routes}
-          service={item}>
-          {this.getModals(item)}
-          {children}
-        </ServiceDetail>
-      );
-    }
-
     // Show Tree
-    if (item instanceof ServiceTree) {
+    const currentroutePath = reconstructPathFromRoutes(routes);
+    if (currentroutePath.startsWith('/services/overview')) {
+
+      if (!(item instanceof ServiceTree)) {
+        // Not found
+        return (
+          <Page>
+            <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+            <ServiceItemNotFound
+              message={`The group with the ID of "${itemId}" could not be found.`} />
+          </Page>
+        );
+      }
+
       const isEmpty = (item.getItems().length === 0);
       let filteredServices = item;
 
@@ -525,6 +513,32 @@ class ServicesContainer extends React.Component {
           {this.getModals(item)}
           {children}
         </ServiceTreeView>
+      );
+    }
+
+    if (item instanceof Pod) {
+      return (
+        <PodDetail
+          actions={this.getActions()}
+          pod={item}>
+          {this.getModals(item)}
+          {children}
+        </PodDetail>
+      );
+    }
+
+    if (item instanceof Service) {
+      return (
+        <ServiceDetail
+          actions={this.getActions()}
+          errors={this.state.actionErrors}
+          clearError={this.clearActionError}
+          params={params}
+          routes={routes}
+          service={item}>
+          {this.getModals(item)}
+          {children}
+        </ServiceDetail>
       );
     }
 
@@ -565,7 +579,7 @@ ServicesContainer.contextTypes = {
 ServicesContainer.routeConfig = {
   label: 'Services',
   icon: <Icon id="services" size="small" family="product" />,
-  matches: /^\/services\/overview/
+  matches: /^\/services\/(detail|overview)/
 };
 
 module.exports = ServicesContainer;

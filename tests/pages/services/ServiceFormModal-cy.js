@@ -89,7 +89,7 @@ describe('Service Form Modal', function () {
     context('Group level', function () {
 
       beforeEach(function () {
-        cy.visitUrl({url: '/services/overview/%2Fservices'});
+        cy.visitUrl({url: '/services/overview/%2Fmy-group'});
       });
 
       it('Opens the right modal on click', function () {
@@ -101,14 +101,14 @@ describe('Service Form Modal', function () {
         clickRunService();
         openServiceForm();
         cy.get('.modal .menu-tabbed-view input[name="id"]')
-          .should('to.have.value', '/services/');
+          .should('to.have.value', '/my-group/');
       });
 
       it('contains the right JSON in the JSON editor', function () {
         clickRunService();
         openServiceJSON();
         cy.get('.ace_content').should(function (nodeList) {
-          expect(nodeList[0].textContent).to.contain('"id": "/services/"');
+          expect(nodeList[0].textContent).to.contain('"id": "/my-group/"');
         });
       });
     });
@@ -227,7 +227,7 @@ describe('Service Form Modal', function () {
         nodeHealth: true
       });
 
-      cy.visitUrl({url: '/services/overview/%2Fsleep'});
+      cy.visitUrl({url: '/services/detail/%2Fsleep'});
       cy.get('.page-header-actions .dropdown').click();
       cy.get('.dropdown-menu-items').contains('Edit').click();
     });

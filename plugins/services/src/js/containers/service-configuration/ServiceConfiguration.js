@@ -74,7 +74,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const {selectedVersionID} = this.state;
 
     this.context.router.push(
-      `/services/overview/${serviceID}/edit/${selectedVersionID}`
+      `/services/detail/${serviceID}/edit/${selectedVersionID}`
     );
   }
 

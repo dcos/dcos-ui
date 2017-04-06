@@ -9,7 +9,7 @@ describe('Tasks Table', function () {
     });
 
     it('displays task detail page on task click', function () {
-      cy.visitUrl({url: '/services/overview/%2Fcassandra'});
+      cy.visitUrl({url: '/services/detail/%2Fcassandra'});
       cy.get('a[title="server-0_10a"]')
         .click();
       cy.get('.page-header').should('contain', 'server-0');
@@ -19,7 +19,7 @@ describe('Tasks Table', function () {
 
       beforeEach(function () {
         cy.visitUrl({
-          url: '/services/overview/%2Fcassandra/tasks/server-0_10a'
+          url: '/services/detail/%2Fcassandra/tasks/server-0_10a'
         });
         cy.get('.page-header-navigation .menu-tabbed-item').contains('Files').click();
       });
@@ -47,7 +47,7 @@ describe('Tasks Table', function () {
         mesos: 'healthy-tasks-in-mesos-and-marathon'
       });
       cy.viewport('macbook-15');
-      cy.visitUrl({url: '/services/overview/%2Fconfluent-kafka'});
+      cy.visitUrl({url: '/services/detail/%2Fconfluent-kafka'});
     });
 
     context('Running task without healthcheck', function () {

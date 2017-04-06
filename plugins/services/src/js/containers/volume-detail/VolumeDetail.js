@@ -47,7 +47,7 @@ class VolumeDetail extends React.Component {
       <Breadcrumb key={-1} title="Services">
         <BreadcrumbTextContent>
           <Link
-            to={`/services/overview/${encodedServiceId}/volumes/${volumeId}`}
+            to={`/services/detail/${encodedServiceId}/volumes/${volumeId}`}
             key="volume">
 
             {volumeId}

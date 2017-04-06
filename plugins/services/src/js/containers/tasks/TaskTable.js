@@ -236,7 +236,7 @@ class TaskTable extends React.Component {
       const title = task[prop];
       const {id, nodeID} = this.props.params;
 
-      let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}`;
+      let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${task.id}`;
       if (nodeID != null) {
         linkTo = `/nodes/${nodeID}/tasks/${task.id}`;
       }
@@ -261,7 +261,7 @@ class TaskTable extends React.Component {
     const title = task.name || task.id;
     const {id, nodeID} = this.props.params;
 
-    let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
+    let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
     if (nodeID != null) {
       linkTo = `/nodes/${nodeID}/tasks/${task.id}/logs`;
     }

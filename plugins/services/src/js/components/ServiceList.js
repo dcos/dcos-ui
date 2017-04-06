@@ -44,7 +44,7 @@ const ServiceList = React.createClass({
     const id = encodeURIComponent(service.getId());
     // Modifier key not pressed or service didn't have a web URL, open detail
     event.preventDefault();
-    this.context.router.push(`/services/overview/${id}`);
+    this.context.router.push(`/services/detail/${id}`);
   },
 
   getServices(services, healthProcessed) {

@@ -12,7 +12,7 @@ class NestedServiceLinks extends React.Component {
         <div className={minorLinkClasses}>
           <Link
             className={minorLinkAnchorClasses}
-            to={`/services/overview/${params.id}`}
+            to={`/services/detail/${params.id}`}
             title={label}>
             {label}
           </Link>
@@ -86,10 +86,10 @@ class NestedServiceLinks extends React.Component {
 
     if (taskID != null) {
       label = taskID;
-      routePath = `/services/overview/${serviceID}/tasks/${taskID}`;
+      routePath = `/services/detail/${serviceID}/tasks/${taskID}`;
     } else {
       label = this.getServicePathParts().pop();
-      routePath = `/services/overview/${encodeURIComponent(serviceID)}`;
+      routePath = `/services/detail/${encodeURIComponent(serviceID)}`;
     }
 
     return (

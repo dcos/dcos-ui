@@ -13,7 +13,7 @@ describe('Service Actions', function () {
       nodeHealth: true
     });
 
-    cy.visitUrl({url: '/services/overview/%2Fcassandra-healthy'});
+    cy.visitUrl({url: '/services/detail/%2Fcassandra-healthy'});
   });
 
   context('Edit Action', function () {
@@ -23,7 +23,7 @@ describe('Service Actions', function () {
 
     it('navigates to the correct route', function () {
       cy.location().its('hash')
-        .should('include', '#/services/overview/%2Fcassandra-healthy/edit');
+        .should('include', '#/services/detail/%2Fcassandra-healthy/edit');
     });
 
     it('opens the correct service edit modal', function () {
@@ -103,7 +103,7 @@ describe('Service Actions', function () {
           nodeHealth: true
         });
 
-        cy.visitUrl({url: '/services/overview/%2Fsleep'});
+        cy.visitUrl({url: '/services/detail/%2Fsleep'});
         clickHeaderAction('Delete');
       });
 

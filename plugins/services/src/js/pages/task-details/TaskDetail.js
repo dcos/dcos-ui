@@ -42,10 +42,10 @@ const HIDE_BREADCRUMBS = [
   '/nodes/:nodeID/tasks/:taskID/logs/:filePath',
   '/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))',
 
-  '/services/overview/:id/tasks/:taskID/details',
-  '/services/overview/:id/tasks/:taskID/logs',
-  '/services/overview/:id/tasks/:taskID/logs/:filePath',
-  '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))'
+  '/services/detail/:id/tasks/:taskID/details',
+  '/services/detail/:id/tasks/:taskID/logs',
+  '/services/detail/:id/tasks/:taskID/logs/:filePath',
+  '/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -239,7 +239,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     if (!this.hasVolumes(service)) {
       tabsArray = tabsArray.filter(function (tab) {
         if (tab.key === '/nodes/:nodeID/tasks/:taskID/volumes(/:volumeID)'
-          || tab.key === '/services/overview/:id/tasks/:taskID/volumes') {
+          || tab.key === '/services/detail/:id/tasks/:taskID/volumes') {
           return false;
         }
 

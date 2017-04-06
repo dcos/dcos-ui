@@ -37,7 +37,7 @@ describe('TaskDetail', function () {
       TaskDetail,
       {
         params: this.params,
-        routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+        routes: [{path: '/services/detail/:id/tasks/:taskID'}]
       },
       this.container,
       {}
@@ -172,7 +172,7 @@ describe('TaskDetail', function () {
         TaskDetail,
         {
           params: this.params,
-          routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+          routes: [{path: '/services/detail/:id/tasks/:taskID'}]
         },
         this.container,
         {}

@@ -7,7 +7,7 @@ describe('Service Versions', function () {
         nodeHealth: true
       });
 
-      cy.visitUrl({url: '/services/overview/%2Fsleep'});
+      cy.visitUrl({url: '/services/detail/%2Fsleep'});
       cy.get('.page-header-navigation .menu-tabbed-item')
         .contains('Configuration').click();
 

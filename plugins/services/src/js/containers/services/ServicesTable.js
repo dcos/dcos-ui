@@ -96,6 +96,10 @@ class ServicesTable extends React.Component {
 
   getServiceLink(service) {
     const id = encodeURIComponent(service.getId());
+    const isGroup = service instanceof ServiceTree;
+    const serviceLink = isGroup ?
+      `/services/overview/${id}` :
+      `/services/detail/${id}`;
 
     if (this.props.isFiltered) {
       return (
@@ -110,7 +114,7 @@ class ServicesTable extends React.Component {
     return (
       <Link
         className="table-cell-link-primary text-overflow"
-        to={`/services/overview/${id}`}>
+        to={serviceLink}>
         {service.getName()}
       </Link>
     );
@@ -138,13 +142,17 @@ class ServicesTable extends React.Component {
 
   renderHeadline(prop, service) {
     const id = encodeURIComponent(service.getId());
+    const isGroup = service instanceof ServiceTree;
+    const serviceLink = isGroup ?
+      `/services/overview/${id}` :
+      `/services/detail/${id}`;
 
     return (
       <div className="service-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
         <Link
           className="table-cell-icon"
-          to={`/services/overview/${id}`}>
+          to={serviceLink}>
           {this.getImage(service)}
         </Link>
         <span className="table-cell-value table-cell-flex-box">
@@ -160,10 +168,7 @@ class ServicesTable extends React.Component {
     const isPod = service instanceof Pod;
     const isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
     const instancesCount = service.getInstancesCount();
-    let scaleText = 'Scale';
-    if (isGroup) {
-      scaleText = 'Scale By';
-    }
+    const scaleText = isGroup ? 'Scale By' : 'Scale';
 
     const dropdownItems = [
       {

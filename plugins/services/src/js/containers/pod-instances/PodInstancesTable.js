@@ -311,7 +311,7 @@ class PodInstancesTable extends React.Component {
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
             className="table-cell-link-secondary text-overflow"
-            to={`/services/overview/${id}/tasks/${taskID}`}
+            to={`/services/detail/${id}/tasks/${taskID}`}
             title={taskName}>
             <CollapsingString string={taskName} />
           </Link>
@@ -341,7 +341,7 @@ class PodInstancesTable extends React.Component {
 
     return (
       <Link
-        to={`/services/overview/${id}/tasks/${taskID}/logs`}
+        to={`/services/detail/${id}/tasks/${taskID}/logs`}
         title={row.name}>
         <Icon color="grey" id="page-document" size="mini" />
       </Link>

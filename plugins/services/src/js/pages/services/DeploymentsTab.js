@@ -149,7 +149,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       return (
         <dd key={`service_${id}`}>
           <Link
-            to={`/services/overview/${id}`}
+            to={`/services/detail/${id}`}
             className="deployment-service-name table-cell-link-primary">
             <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
               <img src={image} />

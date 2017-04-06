@@ -47,7 +47,7 @@ class PodDetail extends mixin(TabsMixin) {
   handleActionEdit() {
     const {pod} = this.props;
     this.context.router.push(
-      `/services/overview/${encodeURIComponent(pod.getId())}/edit/`
+      `/services/detail/${encodeURIComponent(pod.getId())}/edit/`
     );
   }
 
