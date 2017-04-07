@@ -131,7 +131,8 @@ describe('Service Actions', function () {
             url: /marathon\/v2\/apps\/\/sleep/,
             response: []
           });
-        cy.get('.confirm-modal .button-collection .button-danger').click();
+        cy.get('.confirm-modal .button-collection .button-danger')
+          .click();
         cy.get('.confirm-modal').should('to.have.length', 0);
       });
 
@@ -360,7 +361,8 @@ describe('Service Actions', function () {
   context('Resume Action', function () {
     function openDropdown() {
       cy.get('.service-table-column-actions .dropdown .button')
-        .click({force: true});
+        .eq(0)
+        .click();
     }
 
     function clickResume() {
