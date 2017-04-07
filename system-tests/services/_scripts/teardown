@@ -1,4 +1,11 @@
 #!/bin/bash
 
-# Remove the service group for the test
-dcos marathon group remove --force /$TEST_UUID
+# Retry 3 times to remove the service (for an unknown reason this operation
+# times out some times)
+for I in {1..3}; do
+  dcos marathon group remove --force /$TEST_UUID
+  [ $? -eq 0 ] && exit 0
+done
+
+# Fail
+exit 1
