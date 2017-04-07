@@ -55,7 +55,6 @@ describe('Header Component', function () {
         if ( firstItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1
         && beforeLastItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1
         && lastItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1) {
-          console.log('called');
           isValid = false;
         }
 
