@@ -26,7 +26,6 @@ const FormGroup = (props) => {
     {
       [errorClassName]: showError,
       'form-group-without-top-label': applyLabelOffset,
-      // 'flex-item-align-end': applyLabelOffset && hasNarrowMargins,
       'column-auto flush-left flush-right': hasNarrowMargins
     },
     'form-group',
