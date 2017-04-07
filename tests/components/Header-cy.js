@@ -1,4 +1,4 @@
-describe('Breadcrumb Component', function () {
+describe('Header Component', function () {
   beforeEach(function () {
     cy.configureCluster({
       mesos: '1-task-healthy'
@@ -16,13 +16,8 @@ describe('Breadcrumb Component', function () {
 
     it('doesn\'t ellipsis breadcrumb items', function () {
       cy.get('.breadcrumb')
-        .then(function ($breadcrumbs) {
-          var currentBreadcrumb;
-
-          for (var i = 0; i < $breadcrumbs.length; i++) {
-            currentBreadcrumb = $breadcrumbs[i];
-            expect(currentBreadcrumb.classList.value.indexOf('breadcrumb--is-ellipsis')).to.equal(-1);
-          }
+        .each(function ($currentBreadcrumb) {
+          expect($currentBreadcrumb[0].classList.value.indexOf('breadcrumb--is-ellipsis')).to.equal(-1);
         });
     });
   });
@@ -49,12 +44,23 @@ describe('Breadcrumb Component', function () {
         });
     });
 
-    it.skip('ellipsis breadcrumb in between first breadcrumb and two last breadcrumbs', function () {
+    it('ellipsis breadcrumb in between first breadcrumb and two last breadcrumbs', function () {
       cy.get('.breadcrumb')
-        .then(function ($breadcrumbs) {
-          console.log($breadcrumbs);
-          expect(true).to.equal(true);
-        });
+      .then(function ($breadcrumbs) {
+        const firstItem = $breadcrumbs[0];
+        const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
+        const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
+        var isValid = true;
+
+        if ( firstItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1
+        && beforeLastItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1
+        && lastItem.classList.value.indexOf('breadcrumb--is-ellipsis') !== -1) {
+          console.log('called');
+          isValid = false;
+        }
+
+        expect(isValid).to.equal(true);
+      });
     });
 
     it('display path when hovering ellipsis', function () {
@@ -79,23 +85,13 @@ describe('Breadcrumb Component', function () {
           expect(formattedHash).to.equal('#/services/overview');
         });
     });
-
-    // When greater than 3 items:
-    // X Breadcrumbs should collapse so that only the last two breadcrumb items are visible
-    // An ellipsis should take place of all breadcrumbs except the last two
-    // X Hovering the ellipsis should render a tooltip that displays the path that is hidden
-    // X The Services icon should route back to the services overview
-
-    // X When the viewport is narrow, the breadcrumbs should truncate and not overflow their container
-    // X When the viewport is narrow, the page header actions should always be visible
-    // When a page header's tab is active, its activity indicator should be flush with the bottom of the page header.
-    // The activity indicator may just be a pseudo-element, so it's probably sufficient to test that the tab itself is flush with the bottom of the page header.
-
   });
 
   context('Breadcrumb when viewport is narrow', function () {
     beforeEach(function () {
       cy.viewport('iphone-6');
+      cy.get('.table-cell-link-primary')
+        .click();
     });
 
     it('truncate breadcrumb on smaller screen', function () {
@@ -105,6 +101,25 @@ describe('Breadcrumb Component', function () {
   });
 
   context('Page header', function () {
+    beforeEach(function () {
+      cy.viewport('macbook-15');
+      cy.get('.table-cell-link-primary')
+        .click();
+    });
+
+    it('header tab active indicator is aligned with bottom page header component', function () {
+      cy.get('.page-header')
+        .then(function ($pageHeader) {
+          const pageHeaderBottomPosition = $pageHeader[0].getBoundingClientRect().bottom;
+          const $pageHeaderActiveTab = $pageHeader.find('.menu-tabbed-item-label.active');
+          const pageHeaderActiveTabBottomPosition = $pageHeaderActiveTab[0].getBoundingClientRect().bottom;
+
+          expect(pageHeaderBottomPosition).to.equal(pageHeaderActiveTabBottomPosition);
+        });
+    });
+  });
+
+  context('Page header in narrow screen', function () {
     beforeEach(function () {
       cy.viewport('iphone-6');
     });
