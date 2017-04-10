@@ -2,9 +2,9 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+} from '../../../../../../../src/js/constants/TransactionTypes';
+import Transaction from '../../../../../../../src/js/structs/Transaction';
+import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
 
 function getJson(data) {
   return data
@@ -38,20 +38,6 @@ function processTransaction(state, {type, path, value}) {
 }
 
 module.exports = {
-  JSONReducer(state, {type, path, value}) {
-    if (path == null) {
-      return state;
-    }
-
-    if (this.fetch == null) {
-      this.fetch = [];
-    }
-
-    this.fetch = processTransaction(this.fetch, {type, path, value});
-
-    return getJson(this.fetch);
-  },
-
   JSONParser(state) {
     if (state.fetch == null) {
       return [];
@@ -67,13 +53,17 @@ module.exports = {
     }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  JSONReducer(state, {type, path, value}) {
     if (path == null) {
       return state;
     }
 
-    state = processTransaction(state, {type, path, value});
+    if (this.fetch == null) {
+      this.fetch = [];
+    }
 
-    return state;
+    this.fetch = processTransaction(this.fetch, {type, path, value});
+
+    return getJson(this.fetch);
   }
 };

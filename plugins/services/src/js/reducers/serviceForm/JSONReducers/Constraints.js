@@ -1,13 +1,11 @@
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+import {findNestedPropertyInObject} from '../../../../../../../src/js/utils/Util';
+import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
 import {
-  FormReducer,
   JSONParser,
   JSONReducer
-} from './common/Constraints';
+} from '../common/Constraints';
 
 module.exports = {
-  FormReducer,
   JSONReducer(state, transaction) {
     const constraints = JSONReducer.bind(this)(state, transaction);
 
