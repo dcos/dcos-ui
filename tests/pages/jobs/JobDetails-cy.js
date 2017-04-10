@@ -68,6 +68,8 @@ describe('Job Details', function () {
       cy.get('@tableRowA').click();
       cy.get('@tableRowB').click();
 
+      // 5 table columns (started column is sometimes hidden) each with 4
+      // expanding-table-child cells = 20.
       cy.get('.page table .expanding-table-child')
         .should(function ($children) {
           expect($children.length).to.equal(20);
