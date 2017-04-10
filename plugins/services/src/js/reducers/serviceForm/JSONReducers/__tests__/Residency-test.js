@@ -1,8 +1,8 @@
 const Residency = require('../Residency');
-const Batch = require('../../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
+const Batch = require('../../../../../../../../src/js/structs/Batch');
+const Transaction = require('../../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+  require('../../../../../../../../src/js/constants/TransactionTypes');
 
 describe('Residency', function () {
   describe('#JSONReducer', function () {

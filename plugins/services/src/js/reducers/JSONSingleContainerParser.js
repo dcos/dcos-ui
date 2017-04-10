@@ -8,7 +8,7 @@ import {JSONParser as labels} from './serviceForm/JSONReducers/Labels';
 import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
 import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONParser as portMappings} from './serviceForm/PortMappings';
-import {JSONParser as residency} from './serviceForm/Residency';
+import {JSONParser as residency} from './serviceForm/JSONReducers/Residency';
 import {JSONParser as scaling} from './serviceForm/MultiContainerScaling';
 import {JSONParser as network} from './serviceForm/Network';
 import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
