@@ -1,4 +1,4 @@
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import {SET} from '../../../../../../../src/js/constants/TransactionTypes';
 
 module.exports = {
   JSONReducer(state, {path, type, value}) {
