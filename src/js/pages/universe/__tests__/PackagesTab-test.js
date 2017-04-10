@@ -80,7 +80,7 @@ describe('PackagesTab', function () {
       TestUtils.Simulate.click(panelButton);
       expect(
         this.instance.handleInstallModalOpen.calls.mostRecent().args[0].get('name')
-      ).toEqual('arangodb');
+      ).toEqual('arangodb3');
     });
 
     it('shouldn\'t call handler when panel is clicked', function () {
