@@ -73,7 +73,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       case ServiceActionItem.SUSPEND:
         modalHandlers.suspendService({service});
         break;
-      case ServiceActionItem.DESTROY:
+      case ServiceActionItem.DELETE:
         modalHandlers.deleteService({service});
         break;
     }

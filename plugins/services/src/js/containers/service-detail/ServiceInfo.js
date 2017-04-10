@@ -32,7 +32,7 @@ class ServiceInfo extends React.Component {
       id: ServiceActionItem.SUSPEND,
       html: 'Suspend'
     }, {
-      id: ServiceActionItem.DESTROY,
+      id: ServiceActionItem.DELETE,
       html: (
         <span className="text-danger">
           {StringUtil.capitalize(UserActions.DELETE)}

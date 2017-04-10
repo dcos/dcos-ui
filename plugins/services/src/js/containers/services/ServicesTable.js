@@ -88,7 +88,7 @@ class ServicesTable extends React.Component {
       case ServiceActionItem.SUSPEND:
         modalHandlers.suspendService({service});
         break;
-      case ServiceActionItem.DESTROY:
+      case ServiceActionItem.DELETE:
         modalHandlers.deleteService({service});
         break;
     }
@@ -204,7 +204,7 @@ class ServicesTable extends React.Component {
         html: 'Resume'
       },
       {
-        id: ServiceActionItem.DESTROY,
+        id: ServiceActionItem.DELETE,
         html: (
           <span className="text-danger">
             {StringUtil.capitalize(UserActions.DELETE)}

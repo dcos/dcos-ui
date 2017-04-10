@@ -43,7 +43,7 @@ class PodHeader extends React.Component {
         html: 'Suspend'
       },
       {
-        id: PodActionItem.DESTROY,
+        id: PodActionItem.DELETE,
         html: (
           <span className="text-danger">
             {StringUtil.capitalize(UserActions.DELETE)}
@@ -87,7 +87,7 @@ class PodHeader extends React.Component {
         this.props.onSuspend();
         break;
 
-      case PodActionItem.DESTROY:
+      case PodActionItem.DELETE:
         this.props.onDestroy();
         break;
     }
