@@ -160,15 +160,21 @@ class CheckboxTable extends React.Component {
       uniqueProperty
     } = this.props;
 
+    // Override the key from index to our task ID to help React know, which
+    // row was rendered where and make its optimizations
+    const rowAttributes = {
+      key: row[uniqueProperty]
+    };
+
     if (inactiveItemsMap[row[uniqueProperty]]) {
-      return {className: 'inactive'};
+      return Object.assign(rowAttributes, {className: 'inactive'});
     }
 
     if (checkedItemsMap[row[uniqueProperty]]) {
-      return {className: 'selected'};
+      return Object.assign(rowAttributes, {className: 'selected'});
     }
 
-    return {};
+    return rowAttributes;
   }
 
   getColumns() {
