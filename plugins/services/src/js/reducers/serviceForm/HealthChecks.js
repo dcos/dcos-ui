@@ -64,7 +64,7 @@ module.exports = {
       if (joinedPath === 'healthChecks') {
         switch (type) {
           case ADD_ITEM:
-            this.healthChecks.push({});
+            this.healthChecks.push(value || {});
             break;
           case REMOVE_ITEM:
             this.healthChecks = this.healthChecks.filter((item, index) => {
@@ -127,7 +127,7 @@ module.exports = {
       if (item.protocol == null) {
         return memo;
       }
-      memo.push(new Transaction(['healthChecks'], index, ADD_ITEM));
+      memo.push(new Transaction(['healthChecks'], item, ADD_ITEM));
       memo.push(new Transaction([
         'healthChecks',
         index,

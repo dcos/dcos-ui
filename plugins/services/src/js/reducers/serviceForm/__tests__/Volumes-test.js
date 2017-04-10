@@ -15,7 +15,7 @@ describe('Volumes', function () {
     it('should return a local volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
@@ -32,7 +32,7 @@ describe('Volumes', function () {
     it('should parse wrong values in local volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], '123', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 123, SET));
@@ -52,7 +52,7 @@ describe('Volumes', function () {
     it('should parse wrong values in local volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       // Ignores wrong type
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 123, SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 123, SET));
@@ -71,7 +71,7 @@ describe('Volumes', function () {
     it('should return an external volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -92,7 +92,7 @@ describe('Volumes', function () {
     it('should parse wrong values in external volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 123, SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 123, SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], 123, SET));
@@ -118,8 +118,8 @@ describe('Volumes', function () {
     it('should return a local and an external volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
@@ -148,7 +148,7 @@ describe('Volumes', function () {
     it('should return a fully filled local volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], 1024, SET));
@@ -168,7 +168,7 @@ describe('Volumes', function () {
     it('should return a fully filled external volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 'null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'options'], {someValue: true}, SET));
@@ -194,8 +194,8 @@ describe('Volumes', function () {
     it('should remove the right local volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['localVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
@@ -219,8 +219,8 @@ describe('Volumes', function () {
     it('should remove the right external volume', function () {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['externalVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 'null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'options'], {someValue: true}, SET));
@@ -249,23 +249,23 @@ describe('Volumes', function () {
       let batch = new Batch();
 
       // Add the first external Volume
-      batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'name'], 'null', SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'options'], {someValue: true}, SET));
       batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 'provider', SET));
       // Add the first local Volume
-      batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], 1024, SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 'READ', SET));
       // Add the second external Volume
-      batch = batch.add(new Transaction(['externalVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['externalVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['externalVolumes', 1, 'containerPath'], '/dev/one', SET));
       batch = batch.add(new Transaction(['externalVolumes', 1, 'name'], 'one', SET));
       // Add the second local Volume
-      batch = batch.add(new Transaction(['localVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes'], null, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 1, 'containerPath'], '/dev/one', SET));
       batch = batch.add(new Transaction(['localVolumes', 1, 'size'], 512, SET));

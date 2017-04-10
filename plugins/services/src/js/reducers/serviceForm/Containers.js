@@ -105,7 +105,7 @@ function containersParser(state) {
   }
 
   return state.containers.reduce((memo, item, index) => {
-    memo.push(new Transaction(['containers'], index, ADD_ITEM));
+    memo.push(new Transaction(['containers'], null, ADD_ITEM));
     if (item.name) {
       memo.push(new Transaction(['containers', index, 'name'], item.name));
     }
@@ -165,7 +165,7 @@ function containersParser(state) {
             'containers',
             index,
             'artifacts'
-          ], artifactIndex, ADD_ITEM)
+          ], artifact, ADD_ITEM)
         );
         if (artifact == null || typeof artifact !== 'object') {
           return;
@@ -193,7 +193,7 @@ function containersParser(state) {
         memo = memo.concat([
           new Transaction(
             ['containers', index, 'endpoints'],
-            endpointIndex,
+            null,
             ADD_ITEM
           ),
           new Transaction(
@@ -312,11 +312,13 @@ module.exports = {
 
     if (!path.includes('containers') && !path.includes('volumeMounts')) {
       return state.map((container, index) => {
-        container.endpoints = mapEndpoints(
-          this.endpoints[index].endpoints,
-          this.networkType,
-          this.appState
-        );
+        if (this.endpoints && this.endpoints[index] && this.endpoints[index].endpoints) {
+          container.endpoints = mapEndpoints(
+            this.endpoints[index].endpoints,
+            this.networkType,
+            this.appState
+          );
+        }
 
         return container;
       });
@@ -344,8 +346,9 @@ module.exports = {
       switch (type) {
         case ADD_ITEM:
           const name = `container-${newState.length + 1}`;
+          const newItem = Object.assign({}, DEFAULT_POD_CONTAINER, {name});
 
-          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, {name}));
+          newState.push(value || newItem);
           this.cache.push({});
           this.endpoints.push({});
           break;
@@ -392,11 +395,10 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          const endpointDefinition = Object.assign(
-            {}, defaultEndpointsFieldValues);
-          endpointDefinition.protocol = Object.assign(
-            {}, defaultEndpointsFieldValues.protocol);
-          this.endpoints[index].endpoints.push(endpointDefinition);
+          const newEndpoint =
+            value || Object.assign({}, defaultEndpointsFieldValues);
+          newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
+          this.endpoints[index].endpoints.push(newEndpoint);
           break;
         case REMOVE_ITEM:
           this.endpoints[index].endpoints =
@@ -428,11 +430,13 @@ module.exports = {
       }
     }
     newState = newState.map((container, index) => {
-      container.endpoints = mapEndpoints(
-        this.endpoints[index].endpoints,
-        this.networkType,
-        this.appState
-      );
+      if (this.endpoints && this.endpoints[index] && this.endpoints[index].endpoints) {
+        container.endpoints = mapEndpoints(
+          this.endpoints[index].endpoints,
+          this.networkType,
+          this.appState
+        );
+      }
 
       return container;
     });
@@ -460,7 +464,7 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          this.artifactState[index].push({uri: null});
+          this.artifactState[index].push(Object.assign({}, value || {uri: null}));
           break;
         case REMOVE_ITEM:
           this.artifactState[index] =

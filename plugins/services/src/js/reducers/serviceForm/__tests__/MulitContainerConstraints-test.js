@@ -9,7 +9,7 @@ describe('MultiContainerConstraints', function () {
 
     it('emits correct JSON', function () {
       const batch = new Batch([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET),
         new Transaction(['constraints', 0, 'value'], 'param', SET)
@@ -25,7 +25,7 @@ describe('MultiContainerConstraints', function () {
 
     it('skips optional value', function () {
       const batch = new Batch([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET)
       ]);
@@ -46,7 +46,7 @@ describe('MultiContainerConstraints', function () {
       expect(MultiContainerConstraints.JSONParser({scheduling: {placement: {
         constraints: [{fieldName: 'hostname', operator: 'JOIN', value: 'param'}]
       }}})).toEqual([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET),
         new Transaction(['constraints', 0, 'value'], 'param', SET)
@@ -67,7 +67,7 @@ describe('MultiContainerConstraints', function () {
       expect(MultiContainerConstraints.JSONParser({scheduling: {placement: {
         constraints: [{fieldName: 'hostname', operator: 'JOIN'}]
       }}})).toEqual([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET)
       ]);
@@ -79,7 +79,7 @@ describe('MultiContainerConstraints', function () {
 
     it('creates constraint objects for the form', function () {
       const batch = new Batch([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET),
         new Transaction(['constraints', 0, 'value'], 'param', SET)
@@ -91,7 +91,7 @@ describe('MultiContainerConstraints', function () {
 
     it('includes optional value even if not set', function () {
       const batch = new Batch([
-        new Transaction(['constraints'], 0, ADD_ITEM),
+        new Transaction(['constraints'], null, ADD_ITEM),
         new Transaction(['constraints', 0, 'fieldName'], 'hostname', SET),
         new Transaction(['constraints', 0, 'operator'], 'JOIN', SET)
       ]);

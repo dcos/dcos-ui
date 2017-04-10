@@ -39,8 +39,9 @@ function reducer(portDefinitions = [], {type, path = [], value}) {
     if (joinedPath === 'portDefinitions') {
       switch (type) {
         case ADD_ITEM:
-          const portDefinition = Object.assign({}, defaultFieldValues);
-          portDefinition.protocol = Object.assign({}, defaultFieldValues.protocol);
+          const newDefinition = value || defaultFieldValues;
+          const portDefinition = Object.assign({}, newDefinition);
+          portDefinition.protocol = Object.assign({}, newDefinition.protocol);
           portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:

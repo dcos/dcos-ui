@@ -10,9 +10,9 @@ describe('Artifacts', function () {
 
     it('emits correct JSON', function () {
       const batch = new Batch([
-        new Transaction(['fetch'], 0, ADD_ITEM),
+        new Transaction(['fetch'], {uri: 'http://mesosphere.io'}, ADD_ITEM),
         new Transaction(['fetch', 0, 'uri'], 'http://mesosphere.io', SET),
-        new Transaction(['fetch'], 1, ADD_ITEM),
+        new Transaction(['fetch'], {uri: 'http://mesosphere.com'}, ADD_ITEM),
         new Transaction(['fetch', 1, 'uri'], 'http://mesosphere.com', SET)
       ]);
 
@@ -34,9 +34,9 @@ describe('Artifacts', function () {
           {uri: 'http://mesosphere.com'}
         ]
       })).toEqual([
-        {type: ADD_ITEM, path: ['fetch'], value: 0},
+        {type: ADD_ITEM, path: ['fetch'], value: {uri: 'http://mesosphere.io'}},
         {type: SET, path: ['fetch', 0, 'uri'], value: 'http://mesosphere.io'},
-        {type: ADD_ITEM, path: ['fetch'], value: 1},
+        {type: ADD_ITEM, path: ['fetch'], value: {uri: 'http://mesosphere.com'}},
         {type: SET, path: ['fetch', 1, 'uri'], value: 'http://mesosphere.com'}
       ]);
     });
