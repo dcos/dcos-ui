@@ -525,7 +525,7 @@ describe('MarathonActions', function () {
 
       it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?patchUpdate=false`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?partialUpdate=false`);
       });
 
       it('sends data to the' +
@@ -535,7 +535,7 @@ describe('MarathonActions', function () {
             this.configuration = RequestUtil.json.calls.mostRecent().args[0];
 
             expect(this.configuration.url)
-                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true&patchUpdate=false`);
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true&partialUpdate=false`);
           });
 
       it('uses PUT for the request method', function () {
@@ -601,7 +601,7 @@ describe('MarathonActions', function () {
 
       it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?patchUpdate=false`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?partialUpdate=false`);
       });
 
       it('sends data to the correct URL with the force=true parameter',
@@ -610,7 +610,7 @@ describe('MarathonActions', function () {
             this.configuration = RequestUtil.json.calls.mostRecent().args[0];
 
             expect(this.configuration.url)
-                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?force=true&patchUpdate=false`);
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?force=true&partialUpdate=false`);
           });
 
       it('uses PUT for the request method', function () {

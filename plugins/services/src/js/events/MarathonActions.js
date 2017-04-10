@@ -213,7 +213,7 @@ var MarathonActions = {
     let url = buildURI(`/apps/${service.getId()}`);
     const params = {
       force,
-      patchUpdate: false // Switching Marathon edit endpoint into proper PUT
+      partialUpdate: false // Switching Marathon edit endpoint into proper PUT
     };
 
     if (service instanceof Pod) {
