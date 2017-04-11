@@ -50,7 +50,7 @@ describe('router', function () {
   });
 
   describe('#getAPIResponse', function () {
-    it('should return a promise which resolves with the fixture when found', function (done) {
+    it('should call the callback with the fixture when found', function (done) {
       router.route(/foo/, 'fx:bar');
       router.getAPIResponse('foo', function (foundFixture) {
         expect(foundFixture).to.equal('bar');
@@ -58,7 +58,7 @@ describe('router', function () {
       });
     });
 
-    it('should return a promise which resovles with null when fixture is not found', function (done) {
+    it('should call the callback with null when the fixture is not found', function (done) {
       router.getAPIResponse('baz', function (foundFixture) {
         expect(foundFixture).to.equal(null);
         done();

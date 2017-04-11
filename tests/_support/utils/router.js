@@ -45,8 +45,12 @@ module.exports = {
       }
     });
 
-    cy.fixture(desiredFixtureString).then(function (desiredFixture) {
-      callback(desiredFixture);
-    });
+    if (desiredFixtureString == null) {
+      callback(null);
+
+      return;
+    }
+
+    cy.fixture(desiredFixtureString).then(callback);
   }
 };
