@@ -277,19 +277,19 @@ describe('Service Form Modal', function () {
       cy.get('.modal-body-wrapper')
         .should(function ($modalWrapper) {
           const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
-          const modalWrapperTop = Math.floor(modalWrapperRect.top + (modalWrapperRect.height / 2));
-          const modalWrapperLeft = Math.floor(modalWrapperRect.left + (modalWrapperRect.width / 2));
+          const modalWrapperMidpointY = Math.abs(modalWrapperRect.top + (modalWrapperRect.height / 2));
+          const modalWrapperMidpointX = Math.abs(modalWrapperRect.left + (modalWrapperRect.width / 2));
 
           const $modalContent = $modalWrapper.find('.row.panel-grid');
           const modalContentRect = $modalContent[0].getBoundingClientRect();
-          const modalContentTop = Math.floor(modalContentRect.top + (modalContentRect.height / 2));
-          const modalContentLeft = Math.floor(modalContentRect.left + (modalContentRect.left / 2));
+          const modalContentMidpointY = Math.abs(modalContentRect.top + (modalContentRect.height / 2));
+          const modalContentMidpointX = Math.abs(modalContentRect.left + (modalContentRect.left / 2));
 
-          const topPosDifference = Math.floor(modalWrapperTop - modalContentTop);
-          const leftPosDifference = Math.floor(modalWrapperLeft - modalContentLeft);
+          const topPosDifference = Math.abs(modalWrapperMidpointY - modalContentMidpointY);
+          const leftPosDifference = Math.abs(modalWrapperMidpointX - modalContentMidpointX);
 
-          expect(topPosDifference <= modalContentTop).to.be.equal(true);
-          expect(leftPosDifference <= modalContentTop).to.be.equal(true);
+          expect(topPosDifference <= modalContentMidpointY).to.be.equal(true);
+          expect(leftPosDifference <= modalContentMidpointX).to.be.equal(true);
         });
     });
 
