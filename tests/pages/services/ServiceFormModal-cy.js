@@ -1,4 +1,7 @@
 describe('Service Form Modal', function () {
+  // We'll consider the two elements to be centered with one another if
+  // their midpoints are within 5 pixels of one another.
+  const alignmentThreshold = 5;
 
   context('Create', function () {
 
@@ -276,8 +279,6 @@ describe('Service Form Modal', function () {
     it('should be horizontally and vertically centered in the modal container', function () {
       cy.get('.modal-body-wrapper')
         .should(function ($modalWrapper) {
-          const threshold = 5;
-
           const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
           const modalWrapperMidpointY = Math.abs(modalWrapperRect.top + (modalWrapperRect.height / 2));
           const modalWrapperMidpointX = Math.abs(modalWrapperRect.left + (modalWrapperRect.width / 2));
@@ -290,8 +291,8 @@ describe('Service Form Modal', function () {
           const topPosDifference = Math.abs(modalWrapperMidpointY - modalContentMidpointY);
           const leftPosDifference = Math.abs(modalWrapperMidpointX - modalContentMidpointX);
 
-          expect(topPosDifference <= threshold).to.be.equal(true);
-          expect(leftPosDifference <= threshold).to.be.equal(true);
+          expect(topPosDifference <= alignmentThreshold).to.be.equal(true);
+          expect(leftPosDifference <= alignmentThreshold).to.be.equal(true);
         });
     });
 
@@ -459,10 +460,6 @@ describe('Service Form Modal', function () {
       });
 
       it('Should vertically align the placement constraint delete row button', function () {
-        // We'll consider the two elements to be centered with one another if
-        // their midpoints are within 5 pixels of one another.
-        const alignmentThreshold = 5;
-
         cy.get('.menu-tabbed-view .button.button-primary-link')
           .contains('Add Placement Constraint').click();
 
