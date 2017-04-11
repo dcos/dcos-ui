@@ -17,7 +17,9 @@ const Alert = ({children, flushBottom, showIcon, type}) => {
     };
 
     icon = (
-      <Icon className="alert-icon" id={ids[type]} size="mini" />
+      <div className="alert-icon">
+        <Icon id={ids[type]} size="mini" />
+      </div>
     );
   }
 
