@@ -43,17 +43,11 @@ const NavigationServiceUtil = {
         childRoutes
           .filter(({isInSidebar}) => isInSidebar)
           .forEach((childRoute) => {
-            // TODO: Temporary fix to allow routes to register under a different
-            // path than their path definition. Used only in the service routes.
-            let childPath = childRoute.path;
-            if (childRoute.sidebarPath != null) {
-              childPath = childRoute.sidebarPath;
-            }
-
             NavigationService.registerSecondary(
               primaryPath,
-              childPath,
-              childRoute.component.routeConfig.label
+              childRoute.path,
+              childRoute.component.routeConfig.label,
+              {isActiveRegex: childRoute.sidebarActiveRegex}
             );
           });
       });

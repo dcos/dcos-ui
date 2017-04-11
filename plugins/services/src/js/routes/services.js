@@ -55,9 +55,8 @@ const serviceRoutes = [
         component: ServicesContainer,
         path: 'overview',
         // TODO: Remove this when moving to use NavigationService directly,
-        // where we can register with any path and not only using the `path`
-        // key here in the route defintion
-        sidebarPath: '',
+        // where we can register with sidebarActiveRegex option
+        sidebarActiveRegex: /(overview|detail)/,
         isInSidebar: true,
         buildBreadCrumb() {
           return {

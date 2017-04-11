@@ -231,7 +231,9 @@ var Sidebar = React.createClass({
 
     const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
-        const isActive = pathname.startsWith(currentChild.path);
+        const isActive = currentChild.options.isActiveRegex != null ?
+          currentChild.options.isActiveRegex.test(pathname) :
+          pathname.startsWith(currentChild.path);
 
         const menuItemClasses = classNames({selected: isActive});
 
