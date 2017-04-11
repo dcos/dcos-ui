@@ -276,20 +276,22 @@ describe('Service Form Modal', function () {
     it('should be horizontally and vertically centered in the modal container', function () {
       cy.get('.modal-body-wrapper')
         .should(function ($modalWrapper) {
+          const threshold = 5;
+
           const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
           const modalWrapperMidpointY = Math.abs(modalWrapperRect.top + (modalWrapperRect.height / 2));
           const modalWrapperMidpointX = Math.abs(modalWrapperRect.left + (modalWrapperRect.width / 2));
 
-          const $modalContent = $modalWrapper.find('.row.panel-grid');
+          const $modalContent = $modalWrapper.find('.create-service-modal-service-picker-options');
           const modalContentRect = $modalContent[0].getBoundingClientRect();
           const modalContentMidpointY = Math.abs(modalContentRect.top + (modalContentRect.height / 2));
-          const modalContentMidpointX = Math.abs(modalContentRect.left + (modalContentRect.left / 2));
+          const modalContentMidpointX = Math.abs(modalContentRect.left + (modalContentRect.width / 2));
 
           const topPosDifference = Math.abs(modalWrapperMidpointY - modalContentMidpointY);
           const leftPosDifference = Math.abs(modalWrapperMidpointX - modalContentMidpointX);
 
-          expect(topPosDifference <= modalContentMidpointY).to.be.equal(true);
-          expect(leftPosDifference <= modalContentMidpointX).to.be.equal(true);
+          expect(topPosDifference <= threshold).to.be.equal(true);
+          expect(leftPosDifference <= threshold).to.be.equal(true);
         });
     });
 
