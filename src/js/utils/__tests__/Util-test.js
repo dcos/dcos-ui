@@ -410,8 +410,8 @@ describe('Util', function () {
     });
 
     it('returns correct query string', function () {
-      expect(Util.objectToGetParams({name: 'DCOS', patchUpdate: true}))
-        .toEqual('?name=DCOS&patchUpdate=true');
+      expect(Util.objectToGetParams({name: 'DCOS', partialUpdate: true}))
+        .toEqual('?name=DCOS&partialUpdate=true');
     });
 
     it('escapes both param and its value', function () {
