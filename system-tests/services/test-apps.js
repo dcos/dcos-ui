@@ -858,7 +858,7 @@ describe('Services', function () {
         .type(volumeName);
       cy
         .root()
-        .getFormGroupInputFor('Size (MiB)')
+        .getFormGroupInputFor('Size (GiB)')
         .type('1');
       cy
         .root()
@@ -948,7 +948,7 @@ describe('Services', function () {
         .getTableColumn('Size')
         .contents()
         .should('deep.equal', [
-          '1 MiB'
+          '1 GiB'
         ]);
       cy
         .root()
