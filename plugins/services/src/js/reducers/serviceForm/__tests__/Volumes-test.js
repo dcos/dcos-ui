@@ -1,4 +1,4 @@
-const Volumes = require('../Volumes');
+const Volumes = require('../JSONReducers/Volumes');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
@@ -310,5 +310,4 @@ describe('Volumes', function () {
       ]);
     });
   });
-  // FormReducer is equal to JSONReducer
 });
