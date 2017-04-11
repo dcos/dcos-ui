@@ -2,9 +2,10 @@ const router = require('../router');
 
 describe('router', function () {
   beforeEach(function () {
+    this.originalCy = cy;
 
     global.cy = {
-      route: jasmine.createSpy('cy.route'),
+      route: cy.spy(),
       fixture(fixtureString) {
         return new Promise(function (resolve) {
           resolve(fixtureString);
@@ -14,7 +15,7 @@ describe('router', function () {
   });
 
   afterEach(function () {
-    delete global.cy;
+    global.cy = this.originalCy;
   });
 
   describe('#clearRoutes', function () {
@@ -22,7 +23,7 @@ describe('router', function () {
       router.route(/foo/, 'fx:bar');
       router.clearRoutes();
       router.getAPIResponse('foo', function (foundFixture) {
-        expect(foundFixture).toEqual(null);
+        expect(foundFixture).to.equal(null);
         done();
       });
     });
@@ -40,11 +41,11 @@ describe('router', function () {
     });
 
     it('should call #route on the global cy object with all arguments', function () {
-      expect(global.cy.route).toHaveBeenCalledWith(this.fooRegEx, 'fx:bar');
+      expect(global.cy.route.calledWith(this.fooRegEx, 'fx:bar')).to.equal(true);
     });
 
     it('should return an instance of the router util', function () {
-      expect(this.returnValue).toEqual(router);
+      expect(this.returnValue).to.equal(router);
     });
   });
 
@@ -52,14 +53,14 @@ describe('router', function () {
     it('should return a promise which resolves with the fixture when found', function (done) {
       router.route(/foo/, 'fx:bar');
       router.getAPIResponse('foo', function (foundFixture) {
-        expect(foundFixture).toEqual('bar');
+        expect(foundFixture).to.equal('bar');
         done();
       });
     });
 
     it('should return a promise which resovles with null when fixture is not found', function (done) {
       router.getAPIResponse('baz', function (foundFixture) {
-        expect(foundFixture).toEqual(null);
+        expect(foundFixture).to.equal(null);
         done();
       });
     });
