@@ -37,15 +37,24 @@ class ServiceDebugContainer extends React.Component {
     MarathonStore.setShouldEmbedLastUnusedOffers(false);
   }
 
-  getValueText(value) {
-    if (value == null || value === '') {
-      return (
-        <p>Unspecified</p>
-      );
+  getDeclinedOffersTable() {
+    const {service} = this.props;
+
+    if (!this.shouldShowDeclinedOfferTable()) {
+      return null;
     }
 
+    const queue = service.getQueue();
+
     return (
-      <span>{value}</span>
+      <div>
+        <ConfigurationMapHeading level={2}>
+          Details
+        </ConfigurationMapHeading>
+        <DeclinedOffersTable offers={queue.declinedOffers.offers}
+          service={service}
+          summary={queue.declinedOffers.summary} />
+      </div>
     );
   }
 
@@ -154,42 +163,66 @@ class ServiceDebugContainer extends React.Component {
     );
   }
 
-  getRecentOfferSummary() {
+  getRecentOfferSummaryContent() {
     const {service} = this.props;
+
+    if (!this.shouldShowDeclinedOfferSummary()) {
+      return null;
+    }
+
+    return (
+      <div>
+        <ConfigurationMapHeading level={2}>
+          Summary
+        </ConfigurationMapHeading>
+        <RecentOffersSummary data={service.getQueue().declinedOffers.summary} />
+      </div>
+    );
+  }
+
+  getRecentOfferSummaryCount() {
+    const {service} = this.props;
+
+    if (!this.shouldShowDeclinedOfferSummary()) {
+      return null;
+    }
+
     const queue = service.getQueue();
-    let introText = null;
-    let mainContent = null;
-    let offerCount = null;
+    const {declinedOffers: {summary}} = queue;
+    const {roles: {offers = 0}} = summary;
+
+    return ` (${offers})`;
+  }
+
+  getRecentOfferSummaryDisabledText(frameworkName) {
+    if (frameworkName != null) {
+      return `Rejected offer analysis is not currently supported for ${frameworkName}.`;
+    }
+
+    return 'Rejected offer analysis is not currently supported.';
+  }
+
+  getRecentOfferSummaryIntroText() {
+    const {service} = this.props;
 
     if (this.isFramework(service)) {
       const {labels = {}} = service;
       const frameworkName = labels.DCOS_PACKAGE_FRAMEWORK_NAME;
 
-      if (frameworkName != null) {
-        introText = `Rejected offer analysis is not currently supported for ${frameworkName}.`;
-      } else {
-        introText = 'Rejected offer analysis is not currently supported.';
-      }
-    } else if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
-      || queue.declinedOffers.summary == null) {
-      introText = 'Offers will appear here when your service is deploying or waiting for resources.';
-    } else {
-      const {declinedOffers: {summary}} = queue;
-      const {roles: {offers = 0}} = summary;
-
-      introText = DeclinedOffersHelpText.summaryIntro;
-
-      mainContent = (
-        <div>
-          <ConfigurationMapHeading level={2}>
-            Summary
-          </ConfigurationMapHeading>
-          <RecentOffersSummary data={summary} />
-        </div>
-      );
-
-      offerCount = ` (${offers})`;
+      return this.getRecentOfferSummaryDisabledText(frameworkName);
     }
+
+    if (this.shouldShowDeclinedOfferSummary()) {
+      return DeclinedOffersHelpText.summaryIntro;
+    }
+
+    return 'Offers will appear here when your service is deploying or waiting for resources.';
+  }
+
+  getRecentOfferSummary() {
+    const introText = this.getRecentOfferSummaryIntroText();
+    const mainContent = this.getRecentOfferSummaryContent();
+    const offerCount = this.getRecentOfferSummaryCount();
 
     return (
       <div ref={(ref) => { this.offerSummaryRef = ref; }}>
@@ -198,32 +231,6 @@ class ServiceDebugContainer extends React.Component {
         </ConfigurationMapHeading>
         <p>{introText}</p>
         {mainContent}
-      </div>
-    );
-  }
-
-  getDeclinedOffersTable() {
-    const {service} = this.props;
-
-    if (this.isFramework(service)) {
-      return null;
-    }
-
-    const queue = service.getQueue();
-
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
-      || queue.declinedOffers.offers == null) {
-      return null;
-    }
-
-    return (
-      <div>
-        <ConfigurationMapHeading level={2}>
-          Details
-        </ConfigurationMapHeading>
-        <DeclinedOffersTable offers={queue.declinedOffers.offers}
-          service={service}
-          summary={queue.declinedOffers.summary} />
       </div>
     );
   }
@@ -238,6 +245,18 @@ class ServiceDebugContainer extends React.Component {
     }
 
     return <TaskStatsTable taskStats={taskStats} />;
+  }
+
+  getValueText(value) {
+    if (value == null || value === '') {
+      return (
+        <p>Unspecified</p>
+      );
+    }
+
+    return (
+      <span>{value}</span>
+    );
   }
 
   getWaitingForResourcesNotice() {
@@ -284,6 +303,27 @@ class ServiceDebugContainer extends React.Component {
 
     return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null
       || labels.DCOS_PACKAGE_IS_FRAMEWORK != null;
+  }
+
+  shouldShowDeclinedOfferSummary() {
+    const {service} = this.props;
+
+    return !this.shouldSuppressDeclinedOfferDetails()
+      && service.getQueue().declinedOffers.summary != null;
+  }
+
+  shouldShowDeclinedOfferTable() {
+    const {service} = this.props;
+
+    return !this.shouldSuppressDeclinedOfferDetails()
+      && service.getQueue().declinedOffers.offers != null;
+  }
+
+  shouldSuppressDeclinedOfferDetails() {
+    const {service} = this.props;
+
+    return this.isFramework(service)
+      || !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service);
   }
 
   render() {
