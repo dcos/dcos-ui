@@ -10,6 +10,8 @@ import PodDebugContainer from '../pod-debug/PodDebugContainer';
 import PodHeader from './PodHeader';
 import PodInstancesContainer from '../pod-instances/PodInstancesContainer';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const METHODS_TO_BIND = [
   'handleActionDestroy',
@@ -104,7 +106,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     actions.push({
       className: 'text-danger',
-      label: 'Destroy',
+      label: StringUtil.capitalize(UserActions.DELETE),
       onItemSelect: this.handleActionDestroy
     });
 

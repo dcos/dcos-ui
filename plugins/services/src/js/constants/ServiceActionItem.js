@@ -1,8 +1,10 @@
+import UserActions from '../../../../../src/js/constants/UserActions';
+
 const ServiceActionItem = {
   CREATE: 'create',
   CREATE_GROUP: 'create_group',
   EDIT: 'edit',
-  DESTROY: 'destroy',
+  DELETE: UserActions.DELETE,
   RESTART: 'restart',
   RESUME: 'resume',
   SCALE: 'scale',

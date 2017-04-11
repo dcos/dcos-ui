@@ -3,7 +3,8 @@ module.exports = {
   constants: {
     EventTypes: 'EventTypes',
     HTTPStatusCodes: 'HTTPStatusCodes',
-    TransactionTypes: 'TransactionTypes'
+    TransactionTypes: 'TransactionTypes',
+    UserActions: 'UserActions'
   },
   events: {
     SidebarActions: 'SidebarActions'

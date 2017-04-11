@@ -2,10 +2,12 @@ import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import Icon from '../Icon';
+import StringUtil from '../../utils/StringUtil';
+import UserActions from '../../constants/UserActions';
 
 const DeleteRowButton = ({onClick}) => {
   return (
-    <Tooltip content="Delete"
+    <Tooltip content={StringUtil.capitalize(UserActions.DELETE)}
       interactive={false}
       maxWidth={300}
       scrollContainer=".gm-scroll-view"

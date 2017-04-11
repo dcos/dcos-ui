@@ -104,7 +104,7 @@ describe('Service Actions', function () {
         });
 
         cy.visitUrl({url: '/services/overview/%2Fsleep'});
-        clickHeaderAction('Destroy');
+        clickHeaderAction('Delete');
       });
 
       it('opens the correct service destroy dialog', function () {

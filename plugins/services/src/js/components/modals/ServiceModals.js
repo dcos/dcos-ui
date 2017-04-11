@@ -68,7 +68,7 @@ class ServiceModals extends React.Component {
         deleteItem={deleteItem}
         errors={actionErrors[key]}
         isPending={!!pendingActions[key]}
-        open={modalProps.id === ServiceActionItem.DESTROY}
+        open={modalProps.id === ServiceActionItem.DELETE}
         onClose={() => onClose(key)}
         service={service} />
     );

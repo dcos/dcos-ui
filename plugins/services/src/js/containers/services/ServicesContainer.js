@@ -393,7 +393,7 @@ class ServicesContainer extends React.Component {
     return {
       createGroup: () => set(ServiceActionItem.CREATE_GROUP),
       // All methods below work on ServiceTree and Service types
-      deleteService: (props) => set(ServiceActionItem.DESTROY, props),
+      deleteService: (props) => set(ServiceActionItem.DELETE, props),
       editService: (props) => set(ServiceActionItem.EDIT, props),
       restartService: (props) => set(ServiceActionItem.RESTART, props),
       resumeService: (props) => set(ServiceActionItem.RESUME, props),

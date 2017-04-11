@@ -2,13 +2,15 @@ import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import Icon from '../Icon';
+import StringUtil from '../../utils/StringUtil';
+import UserActions from '../../constants/UserActions';
 
 const FormGroupContainer = (props) => {
   let removeButton = null;
   if (props.onRemove != null) {
     removeButton = (
       <div className="form-group-container-action-button-group">
-        <Tooltip content="Delete"
+        <Tooltip content={StringUtil.capitalize(UserActions.DELETE)}
           maxWidth={300}
           scrollContainer=".gm-scroll-view"
           wrapText={true}>

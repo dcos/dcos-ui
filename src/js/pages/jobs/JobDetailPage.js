@@ -22,6 +22,7 @@ import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 import TimeAgo from '../../components/TimeAgo';
 import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
+import UserActions from '../../constants/UserActions';
 
 const METHODS_TO_BIND = [
   'closeDialog',
@@ -172,21 +173,20 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     const {id} = this.props.params;
     const {disabledDialog, jobActionDialog, errorMsg} = this.state;
     let stopCurrentJobRuns = false;
-    let actionButtonLabel = 'Destroy Job';
-    let message = `Are you sure you want to destroy ${id}? ` +
+    let actionButtonLabel = `${StringUtil.capitalize(UserActions.DELETE)} Job`;
+    let message = `Are you sure you want to ${UserActions.DELETE} ${id}? ` +
       'This action is irreversible.';
 
     if (/stopCurrentJobRuns=true/.test(errorMsg)) {
-      actionButtonLabel = 'Stop Current Runs and Destroy Job';
+      actionButtonLabel = `Stop Current Runs and ${StringUtil.capitalize(UserActions.DELETE)} Job`;
       stopCurrentJobRuns = true;
-      message = `Couldn't destroy ${id} as there are currently active job ` +
-        'runs. Do you want to stop all runs and destroy the job?';
+      message = `Couldn't ${UserActions.DELETE} ${id} as there are currently active job runs. Do you want to stop all runs and ${UserActions.DELETE} the job?`;
     }
 
     const content = (
       <div>
         <h2 className="text-danger text-align-center flush-top">
-          Destroy Job
+          {StringUtil.capitalize(UserActions.DELETE)} Job
         </h2>
         <p>{message}</p>
       </div>
@@ -366,7 +366,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     actions.push({
       className: 'text-danger',
-      label: 'Destroy',
+      label: StringUtil.capitalize(UserActions.DELETE),
       onItemSelect: this.handleDestroyButtonClick
     });
 

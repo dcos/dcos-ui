@@ -18,6 +18,7 @@ import ServiceTree from '../../structs/ServiceTree';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TableUtil from '../../../../../../src/js/utils/TableUtil';
 import Units from '../../../../../../src/js/utils/Units';
+import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const StatusMapping = {
   'Running': 'running-state'
@@ -87,7 +88,7 @@ class ServicesTable extends React.Component {
       case ServiceActionItem.SUSPEND:
         modalHandlers.suspendService({service});
         break;
-      case ServiceActionItem.DESTROY:
+      case ServiceActionItem.DELETE:
         modalHandlers.deleteService({service});
         break;
     }
@@ -203,8 +204,12 @@ class ServicesTable extends React.Component {
         html: 'Resume'
       },
       {
-        id: ServiceActionItem.DESTROY,
-        html: <span className="text-danger">Destroy</span>
+        id: ServiceActionItem.DELETE,
+        html: (
+          <span className="text-danger">
+            {StringUtil.capitalize(UserActions.DELETE)}
+          </span>
+        )
       }
     ];
 

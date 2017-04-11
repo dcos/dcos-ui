@@ -13,7 +13,9 @@ import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import List from '../structs/List';
 import ModalHeading from './modals/ModalHeading';
 import RepositoriesTableHeaderLabels from '../constants/RepositoriesTableHeaderLabels';
+import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
+import UserActions from '../constants/UserActions';
 
 const METHODS_TO_BIND = [
   'getHeadline',
@@ -171,7 +173,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
         <a
           className="button button-link button-danger table-display-on-row-hover"
           onClick={this.handleOpenConfirm.bind(this, repositoryToRemove)}>
-          Remove
+          {StringUtil.capitalize(UserActions.DELETE)}
         </a>
       </div>
     );
@@ -195,7 +197,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div className="text-align-center">
         <p>
-          {`Repository (${repositoryLabel}) will be removed from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
+          {`Repository (${repositoryLabel}) will be ${UserActions.DELETED} from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
         </p>
         {error}
       </div>
@@ -227,7 +229,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
           leftButtonCallback={this.handleDeleteCancel}
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
-          rightButtonText="Remove Repository"
+          rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}
           showHeader={true}>
           {this.getRemoveModalContent()}
         </Confirm>
