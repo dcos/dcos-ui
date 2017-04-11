@@ -4,6 +4,7 @@
 !dist/
 dist/*
 cypress/*
+results/
 build/
 npm-debug.log
 node_modules/
