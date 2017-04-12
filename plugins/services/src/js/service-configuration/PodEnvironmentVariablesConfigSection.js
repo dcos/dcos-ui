@@ -30,15 +30,19 @@ const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
     return <noscript />;
   }
 
-  let combinedEnv = Object.keys(environment).reduce((memo, key) => {
-    memo.push({
-      key: <code>{key}</code>,
-      value: environment[key],
-      container: getSharedIconWithLabel()
-    });
+  let combinedEnv = Object.keys(environment)
+    .filter(function (key) {
+      return typeof environment[key] === 'string';
+    })
+    .reduce((memo, key) => {
+      memo.push({
+        key: <code>{key}</code>,
+        value: environment[key],
+        container: getSharedIconWithLabel()
+      });
 
-    return memo;
-  }, []);
+      return memo;
+    }, []);
 
   combinedEnv = containers.reduce((memo, container) => {
     const {environment = {}} = container;

@@ -50,6 +50,7 @@ const METHODS_TO_BIND = [
 
 const KEY_VALUE_FIELDS = [
   'env',
+  'environment',
   'labels'
 ];
 
