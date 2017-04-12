@@ -11,11 +11,14 @@ describe('Dashboard Time Series Charts [057]', function () {
 
     it('shows a valid percentage [059]', function () {
       cy.get('.dashboard-panel-chart-timeseries').within(function () {
-        cy.get('.unit.unit-primary span').should(function ($percentages) {
-          expect($percentages[0].textContent)
+        cy.get('span.unit.unit-primary').should(function ($percentages) {
+          var percentage1 = parseInt($percentages[0].textContent, 10);
+          var percentage2 = parseInt($percentages[1].textContent, 10);
+
+          expect(percentage1)
             .to.be.at.least(0)
             .and.to.be.lt(100);
-          expect($percentages[1].textContent)
+          expect(percentage2)
             .to.be.at.least(0)
             .and.to.be.lt(100);
         });
