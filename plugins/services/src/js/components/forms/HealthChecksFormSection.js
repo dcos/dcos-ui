@@ -83,7 +83,6 @@ class HealthChecksFormSection extends Component {
                       content={gracePeriodHelpText}
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
@@ -111,7 +110,6 @@ class HealthChecksFormSection extends Component {
                       content={intervalHelpText}
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
@@ -139,7 +137,6 @@ class HealthChecksFormSection extends Component {
                       content={timeoutHelpText}
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
@@ -167,7 +164,6 @@ class HealthChecksFormSection extends Component {
                       content={failuresHelpText}
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
@@ -261,7 +257,6 @@ class HealthChecksFormSection extends Component {
                   content={endpointHelpText}
                   interactive={true}
                   maxWidth={300}
-                  scrollContainer=".gm-scroll-view"
                   wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
                   wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
@@ -289,7 +284,6 @@ class HealthChecksFormSection extends Component {
                   content={pathHelpText}
                   interactive={true}
                   maxWidth={300}
-                  scrollContainer=".gm-scroll-view"
                   wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
                 </Tooltip>
@@ -372,7 +366,6 @@ class HealthChecksFormSection extends Component {
                       content={tooltipContent}
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapperClassName="tooltip-wrapper text-align-center"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
@@ -425,7 +418,6 @@ class HealthChecksFormSection extends Component {
                 content={tooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />

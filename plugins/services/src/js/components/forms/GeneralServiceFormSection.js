@@ -77,7 +77,6 @@ function placementConstraintLabel(name, tooltipText, options = {}) {
             content={tooltipContent}
             interactive={true}
             maxWidth={300}
-            scrollContainer=".gm-scroll-view"
             wrapText={true}>
             <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
@@ -250,7 +249,6 @@ class GeneralServiceFormSection extends Component {
                 content={placementTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -420,7 +418,6 @@ class GeneralServiceFormSection extends Component {
                 content={runtimeTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -479,7 +476,6 @@ class GeneralServiceFormSection extends Component {
             interactive={true}
             key={index}
             maxWidth={300}
-            scrollContainer=".gm-scroll-view"
             wrapText={true}>
             {field}
           </Tooltip>
@@ -547,7 +543,6 @@ class GeneralServiceFormSection extends Component {
                     content={idTooltipContent}
                     interactive={true}
                     maxWidth={300}
-                    scrollContainer=".gm-scroll-view"
                     wrapText={true}>
                     <Icon color="grey" id="circle-question" size="mini" />
                   </Tooltip>

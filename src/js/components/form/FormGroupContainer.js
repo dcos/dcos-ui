@@ -12,7 +12,6 @@ const FormGroupContainer = (props) => {
       <div className="form-group-container-action-button-group">
         <Tooltip content={StringUtil.capitalize(UserActions.DELETE)}
           maxWidth={300}
-          scrollContainer=".gm-scroll-view"
           wrapText={true}>
           <a className="button button-primary-link"
             onClick={props.onRemove}>

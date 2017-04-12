@@ -10,7 +10,6 @@ const DeleteRowButton = ({onClick}) => {
     <Tooltip content={StringUtil.capitalize(UserActions.DELETE)}
       interactive={false}
       maxWidth={300}
-      scrollContainer=".gm-scroll-view"
       wrapText={true}>
       <a className="button button-link button-narrow"
         onClick={onClick}>

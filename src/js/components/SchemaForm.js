@@ -290,8 +290,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           content={description}
           wrapperClassName="tooltip-wrapper flush-bottom short-top media-object-item"
           wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
+          maxWidth={300}>
           <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       );
@@ -328,8 +327,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
         wrapperClassName="tooltip-wrapper media-object-item"
         wrapText={true}
         maxWidth={300}
-        interactive={true}
-        scrollContainer=".gm-scroll-view">
+        interactive={true}>
         <Icon color="grey" id="circle-question" size="mini" />
       </Tooltip>
     );

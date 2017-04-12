@@ -125,7 +125,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 content={tooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -218,7 +217,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                   content={loadBalancerTooltipContent}
                   interactive={true}
                   maxWidth={300}
-                  scrollContainer=".gm-scroll-view"
                   wrapperClassName="tooltip-wrapper text-align-center"
                   wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
@@ -261,7 +259,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 content={assignTooltip}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -474,7 +471,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                     content={networkTypeTooltipContent}
                     interactive={true}
                     maxWidth={300}
-                    scrollContainer=".gm-scroll-view"
                     wrapText={true}>
                     <Icon color="grey" id="circle-question" size="mini" />
                   </Tooltip>
@@ -498,7 +494,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 content={serviceEndpointsTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
