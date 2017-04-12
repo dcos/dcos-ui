@@ -12,7 +12,7 @@ describe('Job Details', function () {
   context('Job Details Header', function () {
 
     it('renders the proper job name', function () {
-      cy.get('.page-header-breadcrumb').should('contain', 'foo');
+      cy.get('.breadcrumbs').should('contain', 'foo');
     });
 
   });
