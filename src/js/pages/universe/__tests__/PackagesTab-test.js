@@ -1,5 +1,6 @@
 jest.mock("../../../utils/ScrollbarUtil");
 jest.dontMock("../PackagesTab");
+jest.dontMock("../UniversePackageOption");
 jest.dontMock("../../../utils/Util");
 jest.dontMock("../../../components/FluidGeminiScrollbar");
 jest.dontMock("../../../components/SchemaForm");
@@ -54,18 +55,9 @@ describe("PackagesTab", function() {
         this.instance.handleDetailOpen.calls.mostRecent().args[0].get("name")
       ).toEqual("arangodb3");
     });
-
-    it("shouldn't call handler when panel button is clicked", function() {
-      var panelButton = ReactDOM.findDOMNode(this.instance).querySelector(
-        ".panel .button"
-      );
-      TestUtils.Simulate.click(panelButton);
-
-      expect(this.instance.handleDetailOpen).not.toHaveBeenCalled();
-    });
   });
 
-  describe("#getSelectedPackages", function() {
+  describe("#getPackageGrid", function() {
     beforeEach(function() {
       this.CosmosPackagesStoreGetAvailablePackages =
         CosmosPackagesStore.getAvailablePackages;
@@ -77,9 +69,7 @@ describe("PackagesTab", function() {
     });
 
     it("should return packages", function() {
-      expect(this.instance.getSelectedPackages(this.packages).length).toEqual(
-        97
-      );
+      expect(this.instance.getPackageGrid(this.packages).length).toEqual(97);
     });
 
     it("shouldn't return packages", function() {
@@ -88,7 +78,7 @@ describe("PackagesTab", function() {
       };
 
       const packages = CosmosPackagesStore.getAvailablePackages();
-      expect(this.instance.getSelectedPackages(packages).length).toEqual(0);
+      expect(this.instance.getPackageGrid(packages).length).toEqual(0);
     });
   });
 });

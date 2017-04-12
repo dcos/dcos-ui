@@ -25,7 +25,7 @@ class UniversePackagesList extends List {
     const nonSelectedPackages = [];
 
     this.getItems().forEach(function(universePackage) {
-      if (universePackage.isSelected()) {
+      if (universePackage.isCertified()) {
         selectedPackages.push(universePackage);
       } else {
         nonSelectedPackages.push(universePackage);

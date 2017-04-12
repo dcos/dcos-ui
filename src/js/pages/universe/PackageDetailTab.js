@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -139,7 +140,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         className="pod pod-shorter flush-top flush-right flush-left"
         key={key}
       >
-        <h5 className="flush-top">{label}</h5>
+        <h5 className="short-bottom">{label}</h5>
         {value}
       </div>
     );
@@ -174,22 +175,21 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  getSelectedBadge(cosmosPackage, version) {
-    const versionTag = <span>{version}</span>;
+  getPackageBadge(cosmosPackage, version) {
+    const isCertified = cosmosPackage.isCertified();
+    const badgeCopy = isCertified ? "Certified" : "Community";
+    const badgeClasses = classNames("badge badge-large badge-rounded", {
+      "badge--primary": isCertified
+    });
 
-    if (cosmosPackage.isSelected()) {
-      // TODO: Convert this to .pill-label.
-      return (
-        <span className="badge-container selected-badge">
-          <span className="badge badge-large">
-            Selected
-          </span>
-          {versionTag}
+    return (
+      <span className="badge-container selected-badge">
+        <span className={badgeClasses}>
+          {badgeCopy}
         </span>
-      );
-    }
-
-    return versionTag;
+        <small>{version}</small>
+      </span>
+    );
   }
 
   getInstallButton(cosmosPackage) {
@@ -217,7 +217,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         className="button button-success"
         onClick={this.handleInstallModalOpen}
       >
-        Install Package
+        Deploy
       </button>
     );
   }
@@ -276,28 +276,32 @@ class PackageDetailTab extends mixin(StoreMixin) {
             <PackageDetailBreadcrumbs cosmosPackage={cosmosPackage} />
           }
         />
-        <div className="media-object-spacing-wrapper">
-          <div className="media-object media-object-align-middle">
-            <div className="media-object-item">
-              <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
-                <Image
-                  fallbackSrc={defaultServiceImage}
-                  src={cosmosPackage.getIcons()["icon-large"]}
-                />
+        <div className="container">
+          <div className="media-object-spacing-wrapper media-object-offset">
+            <div className="media-object media-object-align-top">
+              <div className="media-object-item">
+                <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                  <Image
+                    fallbackSrc={defaultServiceImage}
+                    src={cosmosPackage.getIcons()["icon-large"]}
+                  />
+                </div>
+              </div>
+              <div className="media-object-item media-object-item-grow">
+                <h1 className="short flush-top">
+                  {name}
+                </h1>
+                <p>{this.getPackageBadge(cosmosPackage, version)}</p>
+              </div>
+              <div className="media-object-item">
+                {this.getInstallButton(cosmosPackage)}
               </div>
             </div>
-            <div className="media-object-item">
-              <h1 className="flush">
-                {name}
-              </h1>
-              <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-              {this.getInstallButton(cosmosPackage)}
-            </div>
           </div>
-        </div>
-        <div className="pod pod-short flush-right flush-left">
-          {this.getItems(definition, this.getItem)}
-          <ImageViewer images={cosmosPackage.getScreenshots()} />
+          <div className="pod flush-horizontal flush-bottom">
+            {this.getItems(definition, this.getItem)}
+            <ImageViewer images={cosmosPackage.getScreenshots()} />
+          </div>
         </div>
         <InstallPackageModal
           open={state.openInstallModal}
