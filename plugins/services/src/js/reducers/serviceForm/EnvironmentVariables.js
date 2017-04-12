@@ -36,7 +36,7 @@ module.exports = {
         }
 
         return this.env.reduce((memo, item) => {
-          if (item.key != null || item.value != null) {
+          if (item.key != null && item.value != null) {
             memo[item.key] = item.value;
           }
 
@@ -54,7 +54,7 @@ module.exports = {
     }
 
     return this.env.reduce((memo, item) => {
-      if (item.key != null || item.value != null) {
+      if (item.key != null && item.value != null) {
         memo[item.key] = item.value;
       }
 

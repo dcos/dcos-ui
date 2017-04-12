@@ -43,6 +43,20 @@ describe('Environment Variables', function () {
         .toEqual({second: 'value'});
     });
 
+    it('should only return complete pairs', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'first'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 1, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 2, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 2, 'key'], 'second'));
+
+      expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
+      .toEqual({first: 'value'});
+    });
+
   });
 
   describe('#FormReducer', function () {
