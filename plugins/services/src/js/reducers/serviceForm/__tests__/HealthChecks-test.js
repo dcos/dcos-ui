@@ -180,7 +180,15 @@ describe('Labels', function () {
       })).toEqual([
         {
           type: ADD_ITEM,
-          value: 0,
+          value: {
+            path: '/api/health',
+            portIndex: 0,
+            protocol: 'MESOS_HTTP',
+            gracePeriodSeconds: 300,
+            intervalSeconds: 60,
+            timeoutSeconds: 20,
+            maxConsecutiveFailures: 3
+          },
           path: ['healthChecks']
         },
         {

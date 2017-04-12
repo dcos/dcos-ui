@@ -33,7 +33,7 @@ module.exports = {
        * 6) Set the mode from `volume.mode` on the path
        *    `externalVolumes.${index}.mode`
        */
-      memo.push(new Transaction(['externalVolumes'], index, ADD_ITEM));
+      memo.push(new Transaction(['externalVolumes'], item, ADD_ITEM));
 
       if (item.external.name != null) {
         memo.push(new Transaction([
@@ -97,13 +97,14 @@ module.exports = {
       if (joinedPath === 'externalVolumes') {
         switch (type) {
           case ADD_ITEM:
-            state.push({
+            const defaultVolume = {
               containerPath: null, name: null, provider: 'dvdi',
               options: {
                 'dvdi/driver': 'rexray'
               },
               mode: 'RW'
-            });
+            };
+            state.push(Object.assign({}, value || defaultVolume));
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

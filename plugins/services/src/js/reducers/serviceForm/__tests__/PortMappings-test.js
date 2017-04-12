@@ -25,7 +25,7 @@ describe('#JSONParser', function () {
           }
         }
       })).toEqual([
-        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
@@ -82,7 +82,7 @@ describe('#JSONParser', function () {
           }
         }
       })).toEqual([
-        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'automaticPort'], false),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'hostPort'], 10)
@@ -105,7 +105,7 @@ describe('#JSONParser', function () {
           }
         }
       })).toEqual([
-        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'portMapping'], false),
         new Transaction(['portDefinitions', 0, 'loadBalanced'], true),
         new Transaction(['portDefinitions', 0, 'vip'], '/:0'),
@@ -129,7 +129,7 @@ describe('#JSONParser', function () {
           }
         }
       })).toEqual([
-        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'portMapping'], false),
         new Transaction(['portDefinitions', 0, 'labels'], {VIP_1: '/:0'})
       ]);
@@ -149,7 +149,7 @@ describe('#JSONParser', function () {
           }
         }
       })).toEqual([
-        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'portMapping'], false),
         new Transaction(['portDefinitions', 0, 'protocol', 'udp'], true),
         new Transaction(['portDefinitions', 0, 'protocol', 'tcp'], false)
@@ -189,7 +189,7 @@ describe('#JSONParser', function () {
           }
         ]
       })).toEqual([
-        new Transaction(['portDefinitions'], 1, ADD_ITEM),
+        new Transaction(['portDefinitions'], null, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
         new Transaction(['portDefinitions', 0, 'portMapping'], true),
