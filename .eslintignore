@@ -4,3 +4,4 @@
 /jest/**
 /schema/**
 /webpack/modules/**
+/graphql/**/mock-data/**
