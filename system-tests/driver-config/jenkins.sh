@@ -29,7 +29,7 @@ targets:
       PATH: "/usr/local/bin:$PATH"
 
     scripts:
-      proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL dist
+      proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL ../../dist
       auth: ../_scripts/auth-open.py
 
 secrets:
