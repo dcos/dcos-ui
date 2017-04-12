@@ -14,7 +14,6 @@
 - [i18n](#i18n)
   - [Translation IDs](#translation-ids)
   - [Translation Strings](#translation-strings)
-  - [Translation-ids](#translation-ids)
   - [New Translation files](#new-translation-files)
 
 ## Commits
