@@ -24,29 +24,36 @@ const columns = [
 ];
 
 const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
-  const {env = {}, containers = []} = appConfig;
+  const {environment = {}, containers = []} = appConfig;
 
-  if (!env || !containers) {
+  if (!environment || !containers) {
     return <noscript />;
   }
 
-  let combinedEnv = Object.keys(env).reduce((memo, key) => {
-    memo.push({
-      key: <code>{key}</code>,
-      value: env[key],
-      container: getSharedIconWithLabel()
-    });
+  let combinedEnv = Object.keys(environment)
+    .filter(function (key) {
+      return typeof environment[key] === 'string';
+    })
+    .reduce(
+      (memo, key) => {
+        memo.push({
+          key: <code>{key}</code>,
+          value: environment[key],
+          container: getSharedIconWithLabel()
+        });
 
-    return memo;
-  }, []);
+        return memo;
+      },
+      []
+    );
 
   combinedEnv = containers.reduce((memo, container) => {
-    const {env = {}} = container;
+    const {environment = {}} = container;
 
-    return Object.keys(env).reduce((cvMemo, key) => {
+    return Object.keys(environment).reduce((cvMemo, key) => {
       cvMemo.push({
         key: <code>{key}</code>,
-        value: env[key],
+        value: environment[key],
         container: getContainerNameWithIcon(container)
       });
 
