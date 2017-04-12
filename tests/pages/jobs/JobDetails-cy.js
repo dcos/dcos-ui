@@ -1,4 +1,4 @@
-xdescribe('Job Details', function () {
+describe('Job Details', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -12,21 +12,7 @@ xdescribe('Job Details', function () {
   context('Job Details Header', function () {
 
     it('renders the proper job name', function () {
-      cy.get('.detail-view-header-title').should('contain',
-        'Foo Description');
-    });
-
-    it('renders the proper job status', function () {
-      cy.get('.job-details-header-status').should('contain', 'Failed');
-    });
-
-    it('renders the pretty cron schedule', function () {
-      cy.get('.detail-view-header-sub-heading')
-        .should('contain', 'Scheduled 01:00 on the 6th in Sep');
-    });
-
-    it('renders the relative time of the longest running task', function () {
-      cy.get('.detail-view-header-sub-heading').should('contain', '32 years ago');
+      cy.get('.breadcrumbs').should('contain', 'foo');
     });
 
   });
@@ -82,11 +68,11 @@ xdescribe('Job Details', function () {
       cy.get('@tableRowA').click();
       cy.get('@tableRowB').click();
 
+      // 5 table columns (started column is sometimes hidden) each with 4
+      // expanding-table-child cells = 20.
       cy.get('.page table .expanding-table-child')
         .should(function ($children) {
-          // Four table columns, two table rows, each with two children.
-          // 4 * 2 * 2 = 16
-          expect($children.length).to.equal(16);
+          expect($children.length).to.equal(20);
         }
       );
     });
@@ -95,18 +81,21 @@ xdescribe('Job Details', function () {
 
   context('Configuration Tab', function () {
     it('renders the correct amount of job configuration details', function () {
-      cy.get('.page-body-content .menu-tabbed .menu-tabbed-item').contains('Configuration').click();
-      cy.get('.page-body-content dl').should(function ($elements) {
-        expect($elements.length).to.equal(15);
-      });
+      cy.get('.menu-tabbed-item').contains('Configuration').click();
+      cy.get('.page-body-content .configuration-map-row')
+        .should(function ($elements) {
+          expect($elements.length).to.equal(15);
+        });
     });
 
     it('renders the job configuration data', function () {
-      cy.get('.page-body-content .menu-tabbed .menu-tabbed-item').contains('Configuration').click();
-      cy.get('.page-body-content dl').should('contain', 'Command');
-      cy.get('.page-body-content dl').should('contain', '/foo');
-      cy.get('.page-body-content dl').should('contain', 'Schedule');
-      cy.get('.page-body-content dl').should('contain', '0 1 6 9 *');
+      cy.get('.menu-tabbed-item').contains('Configuration').click();
+      cy.get('.page-body-content .configuration-map-row').as('configRow');
+
+      cy.get('@configRow').should('contain', 'Command');
+      cy.get('@configRow').should('contain', '/foo');
+      cy.get('@configRow').should('contain', 'Schedule');
+      cy.get('@configRow').should('contain', '0 1 6 9 *');
     });
 
   });
