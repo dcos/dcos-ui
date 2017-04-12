@@ -208,16 +208,14 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 
 ## i18n
 
-DCOS UI uses [React-Intl](https://github.com/yahoo/react-intl) to enable i18n to the users so please take a look in the documentation,
-at the moment we are only supporting `en-us` but planning to support more languages/locales in the future.
+DCOS UI uses [React-Intl](https://github.com/yahoo/react-intl) to enable i18n, please look at the documentation. Currently this project is only supporting `en-us` but planning to support more languages/locales in the future.
 
 ### translations ids
 
-When adding a new translation ID make sure there is no existent translation for your need to avoiding duplicated translations,
-if you found a translation that matches what you want to, make sure that the translation is `prepended` with `COMMON`.
-Otherwise you will need to add a new translation ID and translation.
+When adding a new translation ID make sure there's no existent translation with the same ID to avoiding duplicated translations.
+If you find an existing translation ID, make sure that the ID is `prepended` with `COMMON`.
 
-When doing so please follow the convention/pattern bellow for **translation ID**:
+When creating a new **translation ID** please follow the convention/pattern bellow:
 
 - Only uppercase.
 - No special characters **BUT** dot (`.`) and underscore (`_`) to create hierarchy.
@@ -245,4 +243,4 @@ Keep in mind that React-intl follows the React pattern where everything is a com
 
 ### New translation files
 
-When adding a new translation file store in `src/js/translations` directory and give it a name based in the language code e.g `en-us` (United States) `en-ie` (Ireland).
+When adding a new translation file store in `src/js/translations` directory and give it a name based on the language code e.g `en-us` (United States) `en-ie` (Ireland).
