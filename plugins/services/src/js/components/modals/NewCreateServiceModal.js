@@ -604,35 +604,46 @@ class NewCreateServiceModal extends Component {
         MultiContainerNetworkingFormSection
       ];
 
-      let jsonParserReducers = combineParsers(
-        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONSingleContainerParser)
-      );
-
-      let jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONSingleContainerReducers)
-      );
+      let jsonParserReducers;
+      let jsonConfigReducers;
+      let inputConfigReducers;
 
       if (serviceSpec instanceof PodSpec) {
         jsonParserReducers = combineParsers(
           Hooks.applyFilter(
-            'serviceCreateJsonParserReducers',
+            'multiContainerCreateJsonParserReducers',
             JSONMultiContainerParser
           )
         );
 
         jsonConfigReducers = combineReducers(
           Hooks.applyFilter(
-            'serviceJsonConfigReducers',
+            'multiContainerJsonConfigReducers',
             JSONMultiContainerReducers
           )
         );
-      }
 
-      const inputConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceInputConfigReducers',
-          Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
-        )
-      );
+        inputConfigReducers = combineReducers(
+          Hooks.applyFilter(
+            'multiContainerInputConfigReducers',
+            Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+          )
+        );
+      } else {
+        jsonParserReducers = combineParsers(
+          Hooks.applyFilter('serviceCreateJsonParserReducers', JSONSingleContainerParser)
+        );
+
+        jsonConfigReducers = combineReducers(
+          Hooks.applyFilter('serviceJsonConfigReducers', JSONSingleContainerReducers)
+        );
+
+        inputConfigReducers = combineReducers(
+          Hooks.applyFilter('serviceInputConfigReducers',
+            Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+          )
+        );
+      }
 
       return (
         <NewCreateServiceModalForm
