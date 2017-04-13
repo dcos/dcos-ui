@@ -40,6 +40,7 @@
     "deep-equal": "1.0.1",
     "flux": "2.1.1",
     "less-color-lighten": "0.0.1",
+    "lodash.throttle": "4.1.1",
     "md5": "2.1.0",
     "mesosphere-react-typeahead": "0.8.3",
     "mesosphere-shared-reactjs": "0.0.24",
@@ -56,7 +57,7 @@
     "react-gemini-scrollbar": "2.1.5",
     "react-redux": "4.4.6",
     "react-router": "2.8.1",
-    "reactjs-components": "0.16.0-beta.14",
+    "reactjs-components": "0.16.0-beta.17",
     "reactjs-mixin": "0.0.2",
     "redux": "3.3.1",
     "tv4": "1.2.7"

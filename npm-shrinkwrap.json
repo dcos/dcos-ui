@@ -5456,6 +5456,11 @@
       "from": "lodash.templatesettings@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash.templatesettings/-/lodash.templatesettings-3.1.1.tgz"
     },
+    "lodash.throttle": {
+      "version": "4.1.1",
+      "from": "lodash.throttle@4.1.1",
+      "resolved": "http://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
+    },
     "lodash.words": {
       "version": "3.2.0",
       "from": "lodash.words@>=3.0.0 <4.0.0",
@@ -6821,9 +6826,9 @@
       "resolved": "https://registry.npmjs.org/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz"
     },
     "reactjs-components": {
-      "version": "0.16.0-beta.14",
-      "from": "reactjs-components@0.16.0-beta.14",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.14.tgz"
+      "version": "0.16.0-beta.17",
+      "from": "reactjs-components@0.16.0-beta.17",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.17.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
