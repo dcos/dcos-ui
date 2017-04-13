@@ -6,9 +6,12 @@ describe("Install Package Modal", function() {
         universePackages: true
       })
       .visitUrl({ url: "/universe" })
-      .get(".page-body-content .button.button-success")
+      .get(".page-body-content .panel-content .h6")
+      .contains("arangodb")
       .eq(0)
       .click();
+
+    cy.get(".button.button-success").contains("Deploy").click();
   });
 
   it("displays install modal for package", function() {
