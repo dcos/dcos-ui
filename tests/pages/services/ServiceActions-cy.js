@@ -15,6 +15,72 @@ describe("Service Actions", function() {
     cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
   });
 
+  context("Open Service Action", function() {
+    context("Services Table", function() {
+      beforeEach(function() {
+        cy.visitUrl({ url: "/services/overview" });
+      });
+
+      it('displays the "Open Service" option for services that have a web UI', function() {
+        cy
+          .get(".table-cell-link-primary")
+          .contains("cassandra-healthy")
+          .closest("tr")
+          .find(".dropdown .button")
+          .click();
+
+        cy
+          .get(".dropdown-menu-items")
+          .contains("Open Service")
+          .should(function($menuItem) {
+            expect($menuItem.length).to.equal(1);
+          });
+      });
+
+      it('does not display the "Open Service" option for services that have a web UI', function() {
+        cy
+          .get(".table-cell-link-primary")
+          .contains("cassandra-unhealthy")
+          .closest("tr")
+          .find(".dropdown .button")
+          .click();
+
+        cy
+          .get(".dropdown-menu-items")
+          .contains("Open Service")
+          .should(function($menuItem) {
+            expect($menuItem.hasClass("hidden")).to.equal(true);
+          });
+      });
+    });
+
+    context("Service Detail", function() {
+      it('displays the "Open Service" option for services that have a web UI', function() {
+        cy.visitUrl({ url: "/services/overview/%2Fcassandra-healthy" });
+
+        cy.get(".page-header-actions .dropdown").click();
+        cy
+          .get(".dropdown-menu-items")
+          .contains("Open Service")
+          .should(function($menuItem) {
+            expect($menuItem.length).to.equal(1);
+          });
+      });
+
+      it('does not display the "Open Service" option for services that have a web UI', function() {
+        cy.visitUrl({ url: "/services/overview/%2Fcassandra-unhealthy" });
+
+        cy.get(".page-header-actions .dropdown").click();
+        cy
+          .get(".dropdown-menu-items")
+          .contains("Open Service")
+          .should(function($menuItem) {
+            expect($menuItem.length).to.equal(0);
+          });
+      });
+    });
+  });
+
   context("Edit Action", function() {
     beforeEach(function() {
       clickHeaderAction("Edit");

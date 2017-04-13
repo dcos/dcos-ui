@@ -55,7 +55,7 @@ class ServicesTable extends React.Component {
   getOpenInNewWindowLink(service) {
     // This might be a serviceTree and therefore we need this check
     // And getWebURL might therefore not be available
-    if (!(service instanceof Service) || !service.getWebURL()) {
+    if (!this.hasWebUI(service)) {
       return null;
     }
 
@@ -82,6 +82,9 @@ class ServicesTable extends React.Component {
     switch (actionItem.id) {
       case ServiceActionItem.SCALE:
         modalHandlers.scaleService({ service });
+        break;
+      case ServiceActionItem.OPEN:
+        modalHandlers.openServiceUI({service});
         break;
       case ServiceActionItem.RESTART:
         modalHandlers.restartService({ service });
@@ -144,6 +147,14 @@ class ServicesTable extends React.Component {
     );
   }
 
+  hasWebUI(service) {
+    return (
+      service instanceof Service
+      && service.getWebURL() != null
+      && service.getWebURL() !== ''
+    );
+  }
+
   renderHeadline(prop, service) {
     const id = encodeURIComponent(service.getId());
     const isGroup = service instanceof ServiceTree;
@@ -179,6 +190,13 @@ class ServicesTable extends React.Component {
         id: ServiceActionItem.MORE,
         html: "",
         selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+      },
+      {
+        className: classNames({
+          hidden: !this.hasWebUI(service)
+        }),
+        id: ServiceActionItem.OPEN,
+        html: 'Open Service'
       },
       {
         className: classNames({

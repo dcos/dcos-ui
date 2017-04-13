@@ -111,6 +111,17 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     const actions = [];
 
+    if (service instanceof Service
+      && service.getWebURL() != null
+      && service.getWebURL() !== '') {
+      actions.push({
+        label: 'Open Service',
+        onItemSelect() {
+          modalHandlers.openServiceUI({service});
+        }
+      });
+    }
+
     actions.push({
       label: "Edit",
       onItemSelect() {
@@ -219,7 +230,8 @@ ServiceDetail.contextTypes = {
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     suspendService: PropTypes.func,
-    deleteService: PropTypes.func
+    deleteService: PropTypes.func,
+    openService: PropTypes.func
   }).isRequired,
   router: routerShape
 };

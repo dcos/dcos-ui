@@ -5,6 +5,7 @@ const ServiceActionItem = {
   CREATE_GROUP: "create_group",
   EDIT: "edit",
   DELETE: UserActions.DELETE,
+  OPEN: "open",
   RESTART: "restart",
   RESUME: "resume",
   SCALE: "scale",
