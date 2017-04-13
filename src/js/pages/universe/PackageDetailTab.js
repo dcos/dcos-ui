@@ -277,7 +277,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           }
         />
         <div className="container">
-          <div className="media-object-spacing-wrapper media-object-offset">
+          <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
             <div className="media-object media-object-align-top">
               <div className="media-object-item">
                 <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
