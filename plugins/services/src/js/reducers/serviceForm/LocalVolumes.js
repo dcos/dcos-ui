@@ -15,20 +15,20 @@ module.exports = {
       .filter(item => item.external == null)
       .reduce(function(memo, item, index) {
         /**
-       * For the localVolumes we have a special case as all the volumes
-       * are present in the `container.volumes` But in this parser we only
-       * want to parse the local volumes. which means that we first filter
-       * those and only keep local volumes (decision based on if
-       * persistent is set). After that we do get all the values even
-       * stuff which we do not handle in the form yet. These steps are:
-       * 1) Add a new Item to the path with the index equal to index.
-       * 2) Set the size from `volume.persistent.size`on the path
-       *    `localVolumes.${index}.size`.
-       * 3) Set the containerPath from `volume.containerPath on the path
-       *    `localVolumes.${index}.containerPath`
-       * 4) Set the mode from `volume.mode` on the path
-       *    `localVolumes.${index}.mode`
-       */
+         * For the localVolumes we have a special case as all the volumes
+         * are present in the `container.volumes` But in this parser we only
+         * want to parse the local volumes. which means that we first filter
+         * those and only keep local volumes (decision based on if
+         * persistent is set). After that we do get all the values even
+         * stuff which we do not handle in the form yet. These steps are:
+         * 1) Add a new Item to the path with the index equal to index.
+         * 2) Set the size from `volume.persistent.size`on the path
+         *    `localVolumes.${index}.size`.
+         * 3) Set the containerPath from `volume.containerPath on the path
+         *    `localVolumes.${index}.containerPath`
+         * 4) Set the mode from `volume.mode` on the path
+         *    `localVolumes.${index}.mode`
+         */
         memo.push(new Transaction(["localVolumes"], index, ADD_ITEM));
 
         if (item.persistent != null && item.persistent.size != null) {
