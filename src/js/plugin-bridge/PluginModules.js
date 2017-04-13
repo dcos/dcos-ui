@@ -113,15 +113,6 @@ module.exports = {
   systemPages: {
     UsersPage: 'UsersPage'
   },
-  routing: {
-    routing: 'index'
-  },
-  navigation: {
-    navigation: 'index'
-  },
-  'foundation-ui': {
-    'foundation-ui': 'index'
-  },
   internalPlugin: {
     services: 'services/index'
   }

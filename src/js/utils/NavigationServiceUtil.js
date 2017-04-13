@@ -1,4 +1,4 @@
-import {NavigationService} from 'foundation-ui';
+import {navigation} from 'foundation-ui';
 import React from 'react';
 
 import Config from '../config/Config';
@@ -29,14 +29,14 @@ const NavigationServiceUtil = {
         const {path, category, childRoutes = []} = route;
         const primaryPath = `/${path}`;
 
-        NavigationService.NavigationService.registerCategory(category);
+        navigation.NavigationService.registerCategory(category);
 
         const icon = React.cloneElement(
           route.component.routeConfig.icon,
           {className: 'sidebar-menu-item-icon icon icon-small'}
         );
 
-        NavigationService.NavigationService.registerPrimary(
+        navigation.NavigationService.registerPrimary(
           primaryPath,
           route.component.routeConfig.label,
           { category, icon }
@@ -45,7 +45,7 @@ const NavigationServiceUtil = {
         childRoutes
           .filter(({isInSidebar}) => isInSidebar)
           .forEach((childRoute) => {
-            NavigationService.NavigationService.registerSecondary(
+            navigation.NavigationService.registerSecondary(
               primaryPath,
               childRoute.path,
               childRoute.component.routeConfig.label

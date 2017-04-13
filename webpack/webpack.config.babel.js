@@ -166,11 +166,18 @@ module.exports = {
       PLUGINS: absPath('plugins')
     },
     extensions: ['', '.js', '.less', '.css'],
-    root: [absPath(), absPath('node_modules')]
+    root: [absPath(), absPath('node_modules'), absPath('packages')],
+    modulesDirectories: [
+      'node_modules',
+      'packages'
+    ]
   },
 
   resolveLoader: {
-    root: absPath('node_modules')
+    root: [
+      absPath('node_modules'),
+      absPath('packages')
+    ]
   }
 
 };

@@ -1,4 +1,4 @@
-import {RoutingService} from 'foundation-ui';
+import {routing} from 'foundation-ui';
 import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
@@ -92,7 +92,7 @@ function getRoutes() {
 
   // Register packages
   indexRoute.children = indexRoute.children.concat(
-    RoutingService.RoutingService.getDefinition()
+    routing.RoutingService.getDefinition()
   );
 
   return routes;
