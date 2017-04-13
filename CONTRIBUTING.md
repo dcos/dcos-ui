@@ -114,26 +114,29 @@ VideoPlayer.prototype.pause()
 
 ## Adding npm Package Dependencies
 
-If you want to add a new npm package to 'node_modules':
+If you want to add a new npm package to 'node_modules' you will need to `--save-exact`:
 
 1. Install the new package
-  * Install and save dependencies in `package.json`
+  * The command below will install and save dependencies in `package.json`
 
     ```
-    npm install [your package] --save
+    npm install [your package] --save --save-exact
     ```
 
-  * Then, add the package to devDependencies
+  * Then, (if needed) add the package to devDependencies
 
     ```
-    npm install [your package] --save-dev
+    npm install [your package] --save-dev --save-exact
     ```
 
 2. Create a synced npm-shrinkwrap.json with devDependencies included by running
 
     ```
-    npm shrinkwrap --dev
+    npm run shrinkwrap
     ```
+
+We have a fixShrinkwrap script wich runs when you run `npm run shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
+For more info https://github.com/npm/npm/issues/2679
 
 3. Commit to repository
 
