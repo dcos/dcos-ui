@@ -22,8 +22,7 @@ const containerReducer = combineReducers({
 
 module.exports = {
   FormReducer(state, {type, path = [], value}) {
-    // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name, subField] = path;
+    const [_, index, field, _secondIndex, _name, _subField] = path;
 
     if (!path.includes('containers')) {
       return state;
@@ -82,7 +81,7 @@ module.exports = {
       newState[index].healthCheck = multiContainerHealthFormReducer.call(
         this.healthCheckState[index],
         newState[index].healthCheck,
-        {type, path: path.slice(3), value}
+        {type, path, value}
       );
     }
 
@@ -115,7 +114,7 @@ module.exports = {
       newState[index].resources = containerReducer.call(
         this.cache[index],
         newState[index].resources,
-        {type, value, path: path.slice(2)}
+        {type, value, path}
       );
     }
 

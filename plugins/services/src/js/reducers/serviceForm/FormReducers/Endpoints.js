@@ -27,8 +27,7 @@ module.exports = {
   FormReducer(state = [], {type, path = [], value}) {
     let newState = [].concat(state);
 
-    // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name, subField] = path;
+    const [_, _index, field, secondIndex, name, subField] = path;
 
     if (field !== 'endpoints') {
       return state;
@@ -36,10 +35,10 @@ module.exports = {
 
     switch (type) {
       case ADD_ITEM:
-        const endpointDefinition = Object.assign(
-          {}, defaultEndpointsFieldValues);
-        endpointDefinition.protocol = Object.assign(
-          {}, defaultEndpointsFieldValues.protocol);
+        const endpointDefinition =
+          Object.assign({}, defaultEndpointsFieldValues);
+        endpointDefinition.protocol =
+          Object.assign({}, defaultEndpointsFieldValues.protocol);
         newState.push(endpointDefinition);
         break;
       case REMOVE_ITEM:

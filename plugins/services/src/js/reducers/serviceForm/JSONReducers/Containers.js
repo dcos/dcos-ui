@@ -264,8 +264,7 @@ function containersParser(state) {
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
-    // eslint-disable-next-line no-unused-vars
-    const [base, index, field, secondIndex, name, subField] = path;
+    const [base, index, field, _secondIndex, _name, _subField] = path;
 
     if (this.networkType == null) {
       this.networkType = HOST;
@@ -390,7 +389,7 @@ module.exports = {
       newState[index].healthCheck = multiContainerHealthCheckReducer.call(
         this.healthCheckState[index],
         newState[index].healthCheck,
-        {type, path: path.slice(3), value}
+        {type, path, value}
       );
     }
 
@@ -427,7 +426,7 @@ module.exports = {
       newState[index].resources = containerFloatReducer.call(
         this.cache[index],
         newState[index].resources,
-        {type, value, path: path.slice(2)}
+        {type, value, path}
       );
     }
 

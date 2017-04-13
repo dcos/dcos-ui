@@ -7,8 +7,7 @@ import {
 module.exports = {
   JSONReducer(__, {type, path = [], value}) {
 
-    // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name, subField] = path;
+    const [_, index, field, secondIndex, name, _subField] = path;
 
     if (field !== 'artifacts') {
       return;

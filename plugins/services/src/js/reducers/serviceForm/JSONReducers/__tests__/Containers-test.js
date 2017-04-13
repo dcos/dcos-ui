@@ -32,11 +32,11 @@ describe('Containers', function () {
           batch = batch.add(new Transaction(['containers'], 0, ADD_ITEM));
 
           batch =
-              batch.add(new Transaction([
-                'containers',
-                0,
-                'endpoints'
-              ], 0, ADD_ITEM));
+            batch.add(new Transaction([
+              'containers',
+              0,
+              'endpoints'
+            ], 0, ADD_ITEM));
 
           expect(batch.reduce(Containers.JSONReducer.bind({})))
           .toEqual([

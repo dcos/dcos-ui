@@ -27,7 +27,6 @@ module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
     const newState = [].concat(state);
 
-    // eslint-disable-next-line no-unused-vars
     const [_, index, field, secondIndex, name, subField] = path;
 
     if (field !== 'endpoints') {

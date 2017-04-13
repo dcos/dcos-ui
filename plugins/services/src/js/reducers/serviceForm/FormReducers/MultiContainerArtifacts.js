@@ -8,8 +8,7 @@ module.exports = {
   FormReducer(state = [], {type, path = [], value}) {
     let newState = [].concat(state);
 
-    // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name, subField] = path;
+    const [_, _index, field, secondIndex, name, _subField] = path;
 
     if (field !== 'artifacts') {
       return state;
