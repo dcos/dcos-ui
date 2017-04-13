@@ -132,7 +132,7 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
 2. Create a synced npm-shrinkwrap.json with devDependencies included by running
 
     ```
-    npm run shrinkwrap --dev
+    npm run shrinkwrap
     ```
 
 We have a fixShrinkwrap script wich runs when you run `npm run shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
