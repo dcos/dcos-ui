@@ -4,6 +4,12 @@
 # integration tests against the current development environment.
 #
 
+# Ensure CLUSTER_URL is specified
+if [ -z "$CLUSTER_URL" ]; then
+  echo "Error: Please specify the CLUSTER_URL environment variable"
+  exit 1
+fi
+
 cat <<EOF
 criteria: []
 suites:
@@ -11,13 +17,22 @@ suites:
 
 targets:
   - name: dev
-    title: NPM-Served Cluster (Open)
+    title: Development Cluster
     features: []
 
     type: static
     config:
-      url: http://127.0.0.1:4200
+      url: $CLUSTER_URL
+
+    env:
+      PROXIED_CLUSTER_URL: http://127.0.0.1:4200
 
     scripts:
       auth: ../_scripts/auth-open.py
+      proxy: (cd ../..; npm run testing)
+      setup: >
+        mv ../../webpack/proxy.dev.js ../../webpack/proxy.dev.js.bak;
+        echo "module.exports = {'*': '$CLUSTER_URL'};" > ../../webpack/proxy.dev.js
+      teardown: >
+        mv ../../webpack/proxy.dev.js.bak ../../webpack/proxy.dev.js
 EOF
