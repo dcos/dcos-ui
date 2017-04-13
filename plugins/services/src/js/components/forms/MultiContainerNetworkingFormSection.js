@@ -21,6 +21,7 @@ import FormGroupHeadingContent from '../../../../../../src/js/components/form/Fo
 import FormRow from '../../../../../../src/js/components/form/FormRow';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ServiceConfigUtil from '../../utils/ServiceConfigUtil';
 import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
@@ -82,6 +83,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(endpoint, index, containerIndex) {
     let placeholder;
+    let environmentVariableName = '$ENDPOINT_{NAME}';
+    if (endpoint.name && typeof endpoint.name === 'string') {
+      environmentVariableName = environmentVariableName.replace('{NAME}', endpoint.name.toUpperCase());
+    }
     let value = endpoint.hostPort;
     const {errors} = this.props;
     const hostPortError = findNestedPropertyInObject(
@@ -90,13 +95,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (endpoint.automaticPort) {
-      placeholder = `$PORT${index}`;
+      placeholder = environmentVariableName;
       value = null;
     }
 
     const tooltipContent = (
       <span>
-        {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
+        {`This host port will be accessible as an environment variable called ${environmentVariableName}'. `}
         <a
           href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank">
@@ -107,7 +112,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return [
       <FormGroup
-        className="column-3"
+        className="column-4"
         key="host-port"
         showError={Boolean(hostPortError)}>
         <FieldLabel>
@@ -183,42 +188,51 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       address = `${this.props.data.id}:${port}`;
     }
 
-    return [
-      <FormRow key="title">
-        <FormGroup className="column-9">
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                Load Balanced Service Address
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-            <FieldHelp>
-              Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
-            </FieldHelp>
-          </FieldLabel>
-        </FormGroup>
-      </FormRow>,
-      <div className="flex flex-align-items-center row" key="toggle">
-        <FormGroup
-          className="column-auto"
-          key="loadbalanced"
-          showError={Boolean(loadBalancedError)}>
+    const loadBalancerDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips');
+    const loadBalancerTooltipContent = (
+      <span>
+        {`Load balance the service internally (layer 4), and create a service
+        address. For external (layer 7) load balancing, create an external
+        load balancer and attach this service. `}
+        <a href={loadBalancerDocsURI}
+          target="_blank">
+          More Information
+        </a>
+      </span>
+    );
+
+    return (
+      <FormRow>
+        <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FieldInput
               checked={loadBalanced}
               name={`containers.${containerIndex}.endpoints.${index}.loadBalanced`}
               type="checkbox" />
-            Enabled
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Enable Load Balanced Service Address
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={loadBalancerTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapperClassName="tooltip-wrapper text-align-center"
+                  wrapText={true}>
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+            <FieldHelp>
+              Load balance this service internally at {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
+            </FieldHelp>
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-auto flush-left" key="address">
-          <span>
-            {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-          </span>
-        </FormGroup>
-      </div>
-    ];
+      </FormRow>
+    );
   }
 
   getProtocolField(endpoint, index, containerIndex) {
@@ -228,12 +242,29 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       `containers.${containerIndex}.endpoints.${index}.protocol`
     );
 
+    const assignTooltip = (
+      <span>
+        {'Most services will use TCP. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html">More information</a>.
+      </span>
+    );
+
     return (
       <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Protocol
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={assignTooltip}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </FieldLabel>
@@ -401,7 +432,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       'container.docker.network'
     );
 
-    const tooltipContent = (
+    const networkTypeTooltipContent = (
       <span>
         {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
         <a
@@ -409,6 +440,17 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank">
           ports documentation
         </a> for more information.
+      </span>
+    );
+
+    const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
+    const serviceEndpointsTooltipContent = (
+      <span>
+        {'Service endpoints map traffic from a single VIP to multiple IP addresses and ports. '}
+        <a href={serviceEndpointsDocsURI}
+          target="_blank">
+          More Information
+        </a>
       </span>
     );
 
@@ -429,7 +471,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip
-                    content={tooltipContent}
+                    content={networkTypeTooltipContent}
                     interactive={true}
                     maxWidth={300}
                     scrollContainer=".gm-scroll-view"
@@ -440,14 +482,32 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               </FormGroupHeading>
             </FieldLabel>
             {this.getTypeSelections()}
+            <FieldHelp>
+              The network type will be shared across all your containers.
+            </FieldHelp>
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
         <h3 className="short-bottom">
-          Service Endpoints
+          <FormGroupHeading>
+            <FormGroupHeadingContent primary={true}>
+              Service Endpoints
+            </FormGroupHeadingContent>
+            <FormGroupHeadingContent>
+              <Tooltip
+                content={serviceEndpointsTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapperClassName="tooltip-wrapper text-align-center"
+                wrapText={true}>
+                <Icon color="grey" id="circle-question" size="mini" />
+              </Tooltip>
+            </FormGroupHeadingContent>
+          </FormGroupHeading>
         </h3>
         <p>
-          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints
         </p>
         {this.getServiceEndpoints()}
       </div>
