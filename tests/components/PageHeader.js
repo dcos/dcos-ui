@@ -1,4 +1,4 @@
-describe('Header Component', function () {
+describe('Page Header Component', function () {
   beforeEach(function () {
     cy.configureCluster({
       mesos: '1-task-healthy'
