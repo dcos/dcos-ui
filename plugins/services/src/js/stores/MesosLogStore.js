@@ -60,7 +60,7 @@ class MesosLogStore extends BaseStore {
           this.processLogEntry(action.slaveID, action.path, action.data);
           break;
         case REQUEST_MESOS_LOG_ERROR:
-          this.processLogError(action.slaveID, action.path);
+          this.processLogError(action.slaveID, action.path, action.xhr);
           break;
         case REQUEST_PREVIOUS_MESOS_LOG_SUCCESS:
           this.processLogPrepend(action.slaveID, action.path, action.data);
@@ -207,7 +207,7 @@ class MesosLogStore extends BaseStore {
     this.emit(MESOS_LOG_CHANGE, path, PREPEND);
   }
 
-  processLogError(slaveID, path) {
+  processLogError(slaveID, path, xhr) {
     const logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
       return;
@@ -223,7 +223,7 @@ class MesosLogStore extends BaseStore {
       );
     }, Config.tailRefresh);
 
-    this.emit(MESOS_LOG_REQUEST_ERROR, path);
+    this.emit(MESOS_LOG_REQUEST_ERROR, path, xhr);
   }
 
   processLogPrependError(slaveID, path) {

@@ -5,6 +5,7 @@ import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CompositeState from '../../../../../../../src/js/structs/CompositeState';
+import ContextualXHRError from '../../../../../../../src/js/components/ContextualXHRError';
 import MesosStateStore from '../../../../../../../src/js/stores/MesosStateStore';
 import NodesGridView from '../../../components/NodesGridView';
 import QueryParamsMixin from '../../../../../../../src/js/mixins/QueryParamsMixin';
@@ -21,9 +22,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.state = {
       filteredNodes: [],
       filters: {health: 'all', name: '', service: null},
-      hasLoadingError: false,
+      mesosXHRError: null,
       hiddenServices: [],
-      mesosStateErrorCount: 0,
       receivedEmptyMesosState: true,
       receivedNodeHealthResponse: false,
       resourcesByFramework: {},
@@ -114,16 +114,15 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     const {hiddenServices} = this.state;
     const resourcesByFramework = MesosStateStore.getHostResourcesByFramework(hiddenServices);
     const receivedEmptyMesosState = Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
-    this.setState({resourcesByFramework, receivedEmptyMesosState});
+    this.setState({
+      mesosXHRError: null,
+      resourcesByFramework,
+      receivedEmptyMesosState
+    });
   }
 
-  onStateStoreError() {
-    const mesosStateErrorCount = this.state.mesosStateErrorCount + 1;
-    if (mesosStateErrorCount > 3) {
-      this.setState({mesosStateErrorCount, hasLoadingError: true});
-    } else {
-      this.setState({mesosStateErrorCount});
-    }
+  onStateStoreError(xhr) {
+    this.setState({mesosXHRError: xhr});
   }
 
   onNodeHealthStoreSuccess() {
@@ -133,10 +132,18 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     });
   }
 
+  getErrorScreen() {
+    return (
+      <div className="pod">
+        <ContextualXHRError xhr={this.state.mesosXHRError} />
+      </div>
+    );
+  }
+
   render() {
     const {
       filteredNodes,
-      hasLoadingError,
+      mesosXHRError,
       hiddenServices,
       receivedEmptyMesosState,
       receivedNodeHealthResponse,
@@ -147,9 +154,12 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
     const {services, selectedResource} = this.props;
 
+    if (mesosXHRError) {
+      return this.getErrorScreen();
+    }
+
     return (
       <NodesGridView
-        hasLoadingError={hasLoadingError}
         hiddenServices={hiddenServices}
         hosts={filteredNodes}
         receivedEmptyMesosState={receivedEmptyMesosState}

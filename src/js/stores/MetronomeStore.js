@@ -136,7 +136,7 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOB_DETAIL_ONGOING:
           break;
         case REQUEST_METRONOME_JOB_DETAIL_ERROR:
-          this.emit(METRONOME_JOB_DETAIL_ERROR);
+          this.emit(METRONOME_JOB_DETAIL_ERROR, action.xhr);
           break;
         case REQUEST_METRONOME_JOB_UPDATE_SUCCESS:
           this.emit(METRONOME_JOB_UPDATE_SUCCESS);

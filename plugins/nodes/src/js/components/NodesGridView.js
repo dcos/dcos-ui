@@ -5,7 +5,6 @@ import React from 'react';
 
 import Loader from '../../../../../src/js/components/Loader';
 import NodesGridDials from './NodesGridDials';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 
 var MAX_SERVICES_TO_SHOW = 32;
 var OTHER_SERVICES_COLOR = 32;
@@ -17,7 +16,6 @@ var NodesGridView = React.createClass({
   mixins: [PureRender],
 
   propTypes: {
-    hasLoadingError: React.PropTypes.bool,
     hiddenServices: React.PropTypes.array,
     hosts: React.PropTypes.array.isRequired,
     receivedEmptyMesosState: React.PropTypes.bool,
@@ -31,7 +29,6 @@ var NodesGridView = React.createClass({
   },
 
   defaultProps: {
-    hasLoadingError: false,
     hiddenServices: [],
     receivedNodeHealthResponse: false,
     showServices: false
@@ -42,20 +39,9 @@ var NodesGridView = React.createClass({
   },
 
   getLoadingScreen() {
-    var {hasLoadingError} = this.props;
-    var errorMsg = null;
-    if (hasLoadingError) {
-      errorMsg = <RequestErrorMsg />;
-    }
-
-    var loadingClassSet = classNames({
-      hidden: hasLoadingError
-    });
-
     return (
       <div className="pod flush-left flush-right">
-        <Loader className={loadingClassSet} />
-        {errorMsg}
+        <Loader />
       </div>
     );
   },
@@ -146,12 +132,11 @@ var NodesGridView = React.createClass({
 
   render() {
     const {
-      hasLoadingError,
       receivedEmptyMesosState,
       receivedNodeHealthResponse
     } = this.props;
 
-    if (hasLoadingError || receivedEmptyMesosState || !receivedNodeHealthResponse) {
+    if (receivedEmptyMesosState || !receivedNodeHealthResponse) {
       return this.getLoadingScreen();
     } else {
       return this.getNodesGrid();

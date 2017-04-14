@@ -18,10 +18,10 @@ import ServiceTreeView from './ServiceTreeView';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
 import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
+import ContextualXHRError from '../../../../../../src/js/components/ContextualXHRError';
 import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import Page from '../../../../../../src/js/components/Page';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
@@ -40,6 +40,18 @@ import {
 } from '../../../../../../src/js/constants/EventTypes';
 
 import {
+  REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+  REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+
+  REQUEST_MARATHON_GROUPS_SUCCESS,
+  REQUEST_MARATHON_GROUPS_ERROR,
+
+  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+  REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
+
+  REQUEST_MARATHON_QUEUE_ERROR,
+  REQUEST_MARATHON_QUEUE_SUCCESS,
+
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
 
@@ -62,20 +74,6 @@ import {
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from '../../constants/ActionTypes';
 
-import {
-  MARATHON_DEPLOYMENTS_CHANGE,
-  MARATHON_DEPLOYMENTS_ERROR,
-
-  MARATHON_GROUPS_CHANGE,
-  MARATHON_GROUPS_ERROR,
-
-  MARATHON_QUEUE_CHANGE,
-  MARATHON_QUEUE_ERROR,
-
-  MARATHON_SERVICE_VERSIONS_CHANGE,
-  MARATHON_SERVICE_VERSIONS_ERROR
-} from '../../constants/EventTypes';
-
 const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeHealthFilter(),
   new ServiceAttributeHasVolumesFilter(),
@@ -96,19 +94,19 @@ const SERVICE_FILTERS = new DSLFilterList([
 function countFetchErrors(fetchErrors, action) {
 
   switch (action.type) {
-    case MARATHON_DEPLOYMENTS_ERROR:
-    case MARATHON_GROUPS_ERROR:
-    case MARATHON_QUEUE_ERROR:
-    case MARATHON_SERVICE_VERSIONS_ERROR:
-      fetchErrors[action.type] = (fetchErrors[action.type] || 0) + 1;
+    case REQUEST_MARATHON_DEPLOYMENTS_ERROR:
+    case REQUEST_MARATHON_GROUPS_ERROR:
+    case REQUEST_MARATHON_QUEUE_ERROR:
+    case REQUEST_MARATHON_SERVICE_VERSIONS_ERROR:
+      fetchErrors[action.type] = action.xhr;
 
       return fetchErrors;
 
-    case MARATHON_DEPLOYMENTS_CHANGE:
-    case MARATHON_GROUPS_CHANGE:
-    case MARATHON_QUEUE_CHANGE:
-    case MARATHON_SERVICE_VERSIONS_CHANGE:
-      fetchErrors[action.type] = 0;
+    case REQUEST_MARATHON_DEPLOYMENTS_SUCCESS:
+    case REQUEST_MARATHON_GROUPS_SUCCESS:
+    case REQUEST_MARATHON_QUEUE_SUCCESS:
+    case REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS:
+      fetchErrors[action.type] = null;
 
       return fetchErrors;
 
@@ -454,10 +452,20 @@ class ServicesContainer extends React.Component {
       item = DCOSStore.serviceTree.findItemById(itemId);
     }
 
-    // Check if a single endpoint has failed more than 3 times
-    const fetchError = Object.values(fetchErrors).some(function (errorCount) {
-      return errorCount > 3;
+    // If we have XHR errors - find first xhr emitted due to an error
+    const fetchError = Object.values(fetchErrors).find(function (xhr) {
+      return xhr;
     });
+
+    // API Failures
+    if (fetchError) {
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+          <ContextualXHRError xhr={fetchError} />
+        </Page>
+      );
+    }
 
     // Still Loading
     if (isLoading) {
@@ -467,11 +475,6 @@ class ServicesContainer extends React.Component {
           <Loader />
         </Page>
       );
-    }
-
-    // API Failures
-    if (fetchError) {
-      return <RequestErrorMsg />;
     }
 
     if (item instanceof Pod) {

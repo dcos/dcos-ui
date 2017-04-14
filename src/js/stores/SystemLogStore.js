@@ -52,7 +52,7 @@ class SystemLogStore extends BaseStore {
         return false;
       }
 
-      const {data, firstEntry, subscriptionID, type} = payload.action;
+      const {data, firstEntry, subscriptionID, type, xhr = null} = payload.action;
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
@@ -71,7 +71,7 @@ class SystemLogStore extends BaseStore {
           this.emit(SYSTEM_LOG_STREAM_TYPES_SUCCESS, data);
           break;
         case REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR:
-          this.emit(SYSTEM_LOG_STREAM_TYPES_ERROR, data);
+          this.emit(SYSTEM_LOG_STREAM_TYPES_ERROR, data, xhr);
           break;
       }
 

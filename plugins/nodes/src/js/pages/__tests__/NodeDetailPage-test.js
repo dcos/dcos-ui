@@ -3,7 +3,7 @@ jest.dontMock('../../../../../../src/js/mixins/InternalStorageMixin');
 jest.dontMock('../../../../../../src/js/mixins/TabsMixin');
 jest.dontMock('../../../../../../src/js/stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
-jest.dontMock('../../../../../../src/js/components/RequestErrorMsg');
+jest.dontMock('../../../../../../src/js/components/ContextualXHRError');
 jest.dontMock('../../../../../../src/js/structs/CompositeState');
 jest.dontMock('../../../../../../src/js/components/Page');
 

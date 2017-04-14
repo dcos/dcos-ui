@@ -25,7 +25,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       fullLog: null,
       isFetchingPrevious: false,
       isLoading: true,
-      hasLoadingError: 0
+      mesosLogXHRError: null
     };
 
     this.store_listeners = [{
@@ -62,7 +62,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       fullLog: null,
       isFetchingPrevious: false,
       isLoading: true,
-      hasLoadingError: 0
+      mesosLogXHRError: null
     });
     if (props.filePath) {
       // Clean up data as well
@@ -90,7 +90,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
     const {
       direction,
       fullLog,
-      hasLoadingError,
+      mesosLogXHRError,
       isFetchingPrevious,
       isLoading
     } = this.state;
@@ -110,8 +110,8 @@ class MesosLogContainer extends mixin(StoreMixin) {
       (task.slave_id !== nextProps.task.slave_id) ||
       // Check direction
       (direction !== nextState.direction) ||
-      // Check hasLoadingError
-      (hasLoadingError !== nextState.hasLoadingError) ||
+      // Check mesosLogXHRError
+      (mesosLogXHRError !== nextState.mesosLogXHRError) ||
       // Check isFetchingPrevious
       (isFetchingPrevious !== nextState.isFetchingPrevious) ||
       // Check isLoading
@@ -121,7 +121,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
     );
   }
 
-  onMesosLogStoreError(path) {
+  onMesosLogStoreError(path, xhr) {
     // Check the filePath before we reload
     if (path !== this.props.filePath) {
       // This event is not for our filePath
@@ -129,7 +129,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
     }
 
     this.setState({
-      hasLoadingError: this.state.hasLoadingError + 1,
+      mesosLogXHRError: xhr,
       isFetchingPrevious: false
     });
   }
@@ -147,7 +147,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
     this.setState({
       direction,
-      hasLoadingError: 0,
+      mesosLogXHRError: null,
       isFetchingPrevious: false,
       isLoading: !filePath,
       fullLog
@@ -216,9 +216,9 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   render() {
-    const {hasLoadingError, isLoading} = this.state;
+    const {mesosLogXHRError, isLoading} = this.state;
 
-    if (hasLoadingError >= 3) {
+    if (mesosLogXHRError) {
       return this.getErrorScreen();
     }
 

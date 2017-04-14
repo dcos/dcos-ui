@@ -86,15 +86,15 @@ describe('TaskDetail', function () {
   describe('#onTaskDirectoryStoreError', function () {
 
     it('should setState', function () {
-      this.instance.onTaskDirectoryStoreError();
+      this.instance.onTaskDirectoryStoreError({status: 400});
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it('should setState increment taskDirectoryErrorCount', function () {
-      this.instance.state = {taskDirectoryErrorCount: 1};
-      this.instance.onTaskDirectoryStoreError();
+    it('should setState taskDirectoryXHRError', function () {
+      this.instance.state = {taskDirectoryXHRError: null};
+      this.instance.onTaskDirectoryStoreError(null, {status: 400});
       expect(this.instance.setState)
-        .toHaveBeenCalledWith({taskDirectoryErrorCount: 2});
+        .toHaveBeenCalledWith({taskDirectoryXHRError: {status: 400}});
     });
 
   });
@@ -106,7 +106,7 @@ describe('TaskDetail', function () {
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it('should setState increment onTaskDirectoryStoreSuccess', function () {
+    it('should setState on onTaskDirectoryStoreSuccess', function () {
       const directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
       // Let directory return something
       TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
@@ -114,7 +114,7 @@ describe('TaskDetail', function () {
 
       this.instance.onTaskDirectoryStoreSuccess();
       expect(this.instance.setState)
-        .toHaveBeenCalledWith({directory, taskDirectoryErrorCount: 0});
+        .toHaveBeenCalledWith({directory, taskDirectoryXHRError: null});
     });
 
   });
@@ -137,7 +137,7 @@ describe('TaskDetail', function () {
     it('should call getErrorScreen when error occurred', function () {
       this.instance.state = {
         directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
-        taskDirectoryErrorCount: 3
+        taskDirectoryXHRError: {status: 400}
       };
       this.instance.getSubView();
 
