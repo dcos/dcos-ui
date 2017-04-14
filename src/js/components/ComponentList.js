@@ -3,8 +3,6 @@ import {Link} from 'react-router';
 import {List} from 'reactjs-components';
 import React from 'react';
 
-import HealthTypes from '../../../plugins/services/src/js/constants/HealthTypes';
-
 class ComponentList extends React.Component {
 
   getComponentListContent(units) {
@@ -39,30 +37,51 @@ class ComponentList extends React.Component {
     });
   }
 
-  getVisibleComponents(units, displayCount) {
-    // HealthTypes gives the sorting weight.
-    units = units.sort(function (a, b) {
-      const aHealth = a.getHealth().title.toUpperCase();
-      const bHealth = b.getHealth().title.toUpperCase();
-      const comparison = HealthTypes[aHealth] - HealthTypes[bHealth];
+ /**
+ * Order health status
+ * based on HealthSorting mapping value
+ * where lowest (0) (top of the list) is most important for visibility
+ * and highest (3) (bottom of the list) 3 is least important for visibility
+ *
+ * @param {Array} items
+ * @returns {Number} item position
+ */
+  getSortedHealthValues(items) {
+    items.sort(function (a, b) {
+      let aHealthScore = a.getHealth().sortingValue;
+      let bHealthScore = b.getHealth().sortingValue;
 
-      if (comparison === 0) {
-        const aTitle = a.getTitle();
-        const bTitle = b.getTitle();
-
-        if (aTitle > bTitle) {
-          return 1;
-        }
-
-        if (aTitle < bTitle) {
-          return -1;
-        }
-
-        return 0;
+      if (aHealthScore === bHealthScore) {
+        aHealthScore = a.getTitle();
+        bHealthScore = b.getTitle();
       }
 
-      return comparison;
+      if (aHealthScore > bHealthScore) {
+        return 1;
+      }
+
+      if (aHealthScore < bHealthScore) {
+        return -1;
+      }
+
+      return 0;
     });
+
+    return items;
+  }
+
+  /**
+   * Check if the number of units is greater
+   * than the number of possible visible units
+   * return the only what can be visible
+   *
+   * @param {Array} units
+   * @returns {Array} only units visible
+   *
+   * @memberOf ComponentList
+   */
+  getVisibleComponents(units) {
+    const {displayCount} = this.props;
 
     if (units.length > displayCount) {
       return units.slice(0, displayCount);
@@ -81,14 +100,15 @@ class ComponentList extends React.Component {
   }
 
   render() {
-    const units = this.props.units.getItems();
+    let {units} = this.props;
+    units = units.getItems();
+
     if (units.length === 0) {
       return this.getErrorMessage();
     }
 
-    const {displayCount} = this.props;
-    const visibleUnits = this.getVisibleComponents(units, displayCount);
-
+    const sortedUnits = this.getSortedHealthValues(units);
+    const visibleUnits = this.getVisibleComponents(sortedUnits);
     const content = this.getComponentListContent(visibleUnits);
 
     return (

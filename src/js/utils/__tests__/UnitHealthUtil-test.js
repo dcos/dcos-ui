@@ -2,6 +2,7 @@ jest.dontMock('../../constants/UnitHealthStatus');
 
 const HealthUnit = require('../../structs/HealthUnit');
 const UnitHealthStatus = require('../../constants/UnitHealthStatus');
+const UnitHealthTypes = require('../../constants/UnitHealthTypes');
 const UnitHealthUtil = require('../../utils/UnitHealthUtil');
 const NodesList = require('../../structs/NodesList');
 
@@ -16,7 +17,6 @@ describe('UnitHealthUnit', function () {
     it('should return a number', function () {
       expect(typeof this.healthWeight).toEqual('number');
     });
-
   });
 
   describe('#getHealth', function () {
@@ -25,7 +25,9 @@ describe('UnitHealthUnit', function () {
       var health = 1;
 
       expect(UnitHealthUtil.getHealth(health)).toEqual({
+        key: 'UNHEALTHY',
         title: 'Unhealthy',
+        sortingValue: 0,
         value: 1,
         classNames: 'text-danger'
       });
@@ -33,13 +35,11 @@ describe('UnitHealthUnit', function () {
 
     it('returns NA when health not valid', function () {
       var health = 'wtf';
-      expect(UnitHealthUtil.getHealth(health)).toEqual(UnitHealthStatus.NA);
+      expect(UnitHealthUtil.getHealth(health)).toEqual(UnitHealthStatus[UnitHealthTypes.SERVER_NA]);
     });
-
   });
 
   describe('#filterByHealth', function () {
-
     it('filters by unit health title', function () {
       const items = [
         {id: 'food', health: 0},
@@ -53,5 +53,4 @@ describe('UnitHealthUnit', function () {
       expect(filteredList[1].get('id')).toEqual('bard');
     });
   });
-
 });

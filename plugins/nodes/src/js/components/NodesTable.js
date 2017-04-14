@@ -94,6 +94,7 @@ var NodesTable = React.createClass({
   getColumns() {
     const className = ResourceTableUtil.getClassName;
     const heading = ResourceTableUtil.renderHeading(NodesTableHeaderLabels);
+    const getHealthSorting = TableUtil.getHealthSortingOrder;
     const sortFunction = TableUtil.getSortFunction('hostname',
       function (node, prop) {
         if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
@@ -124,7 +125,7 @@ var NodesTable = React.createClass({
         prop: 'health',
         render: this.renderHealth,
         sortable: true,
-        sortFunction,
+        sortFunction: getHealthSorting,
         heading: ResourceTableUtil.renderHeading({health: 'HEALTH'})
       },
       {

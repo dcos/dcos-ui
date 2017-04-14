@@ -1,9 +1,7 @@
-jest.dontMock('../../constants/HealthSorting');
 jest.dontMock('../TaskTableUtil');
 
 const Service = require('../../structs/Service');
 const TaskTableUtil = require('../TaskTableUtil');
-const HealthSorting = require('../../constants/HealthSorting');
 
 describe('TaskTableUtil', function () {
   beforeEach(function () {
@@ -45,50 +43,7 @@ describe('TaskTableUtil', function () {
       }
     });
 
-    this.tasks = [{
-      'id': 'task-healthy.111',
-      'name': 'task-healthy',
-      'state': 'TASK_RUNNING',
-      'health': 'Healthy'
-    },
-    {
-      'id': 'task-unhealthy.222',
-      'name': 'task-unhealthy',
-      'state': 'TASK_STAGING',
-      'health': 'Unhealthy'
-    }];
-
     this.getComparator = TaskTableUtil.getSortFunction('name');
-  });
-
-  describe('#getHealthValueByName', function () {
-    it('should get default health (NA) value when param is not number', function () {
-      expect(TaskTableUtil.getHealthValueByName('invalid')).toEqual(HealthSorting.NA);
-    });
-
-    it('should get health value by type/name', function () {
-      expect(TaskTableUtil.getHealthValueByName('Healthy')).toEqual(HealthSorting.HEALTHY);
-    });
-  });
-
-  describe('#sortHealthValues', function () {
-    it('should order health status by most important visible', function () {
-      const expectedOrder = [{
-        'id': 'task-unhealthy.222',
-        'name': 'task-unhealthy',
-        'state': 'TASK_STAGING',
-        'health': 'Unhealthy'
-      },
-      {
-        'id': 'task-healthy.111',
-        'name': 'task-healthy',
-        'state': 'TASK_RUNNING',
-        'health': 'Healthy'
-      }];
-      const sortingResult = this.tasks.sort(TaskTableUtil.sortHealthValues);
-
-      expect(sortingResult).toEqual(expectedOrder);
-    });
   });
 
   describe('#getSortFunction for regular items', function () {

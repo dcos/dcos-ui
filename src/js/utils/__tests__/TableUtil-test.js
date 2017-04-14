@@ -3,6 +3,7 @@ jest.dontMock('../TableUtil');
 const MarathonStore = require('../../../../plugins/services/src/js/stores/MarathonStore');
 const TableUtil = require('../TableUtil');
 const Util = require('../Util');
+const HealthSorting = require('../../../../plugins/services/src/js/constants/HealthSorting');
 
 describe('TableUtil', function () {
   beforeEach(function () {
@@ -25,7 +26,6 @@ describe('TableUtil', function () {
   });
 
   describe('#getSortFunction', function () {
-
     beforeEach(function () {
       this.getProp = function (obj, prop) {
         if (prop === 'timestamp') {
@@ -75,4 +75,69 @@ describe('TableUtil', function () {
 
   });
 
+  describe('#getHealthSortingOrder', function () {
+    it('should return a function', function () {
+      expect(typeof TableUtil.getHealthSortingOrder()).toEqual('function');
+    });
+  });
+
+  describe('#getHealthSortingValue', function () {
+    it('should return sorting value when receives string value', function () {
+      const healthStatus = 'Unhealthy';
+
+      expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(HealthSorting.UNHEALTHY);
+    });
+
+    it('should return sorting value when receives number value', function () {
+      const expectedSortingValue = 0;
+      const healthStatus = 1;
+      const getHealthSortingValueResult = TableUtil.getHealthSortingValue(healthStatus);
+
+      expect(getHealthSortingValueResult).toEqual(expectedSortingValue);
+    });
+
+    it('should return default sorting value', function () {
+      const healthStatus = 'nada';
+
+      expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(HealthSorting.NA);
+    });
+  });
+
+  /**
+   * sort health status by visibility importance order top to bottom
+   * unhealthy > NA > warn/idle > healthy
+   */
+  describe('#sortHealthValues', function () {
+    it('should return health sorted by visibility importance when health is string', function () {
+      const units = [
+        { id: 'aa', health: 'NA' },
+        { id: 'bb', health: 'Healthy' },
+        { id: 'cc', health: 'Unhealthy' }
+      ];
+      const expectedResult = [
+        { id: 'cc', health: 'Unhealthy' },
+        { id: 'aa', health: 'NA' },
+        { id: 'bb', health: 'Healthy' }
+      ];
+      const sortingResult = units.sort(TableUtil.sortHealthValues);
+
+      expect(sortingResult).toEqual(expectedResult);
+    });
+
+    it('should return health sorted by visibility importance when health is number', function () {
+      const units = [
+        { id: 'aa', health: 3 },
+        { id: 'bb', health: 0 },
+        { id: 'cc', health: 1 }
+      ];
+      const expectedResult = [
+        { id: 'cc', health: 1 },
+        { id: 'aa', health: 3 },
+        { id: 'bb', health: 0 }
+      ];
+      const sortingResult = units.sort(TableUtil.sortHealthValues);
+
+      expect(sortingResult).toEqual(expectedResult);
+    });
+  });
 });

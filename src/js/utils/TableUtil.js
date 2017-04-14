@@ -1,3 +1,5 @@
+import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
+import UnitHealthStatus from '../constants/UnitHealthStatus';
 import Util from './Util';
 
 var TableUtil = {
@@ -71,6 +73,73 @@ var TableUtil = {
         );
       };
     };
+  },
+
+  /**
+   * Normalize param received and try mapping to HealthSorting
+   * if not able to mapping default to HealthSorting.NA
+   *
+   * @param {String|Number} healthValue
+   * @returns {Number} HealthSorting value
+   */
+  getHealthSortingValue(healthValue) {
+    let match;
+
+    if (typeof healthValue == 'number') {
+      match = UnitHealthStatus[healthValue].sortingValue;
+    }
+
+    if (typeof healthValue == 'string') {
+      healthValue = Util.toUpperCaseIfString(healthValue);
+      match = HealthSorting[healthValue];
+    }
+
+    // defaults to NA if can't map to a health sorting value
+    if (typeof match === 'undefined') {
+      match = HealthSorting.NA;
+    }
+
+    return match;
+  },
+
+  /**
+   * Sort health status
+   * based on HealthSorting mapping value
+   * where lowest (0) (top of the list) is most important for visibility
+   * and highest (3) (bottom of the list) 3 is least important for visibility
+   *
+   * @param {Object} a
+   * @param {Object} b
+   * @returns {Number} item position
+   */
+  sortHealthValues(a, b) {
+    const aTieBreaker = Util.toLowerCaseIfString(a.name);
+    const bTieBreaker = Util.toLowerCaseIfString(b.name);
+
+    a = TableUtil.getHealthSortingValue(a.health);
+    b = TableUtil.getHealthSortingValue(b.health);
+
+    if (a === b) {
+      a = aTieBreaker;
+      b = bTieBreaker;
+    }
+
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+
+    return 0;
+  },
+
+/**
+ *
+ * @returns {Function} sortHealthValues
+ */
+  getHealthSortingOrder() {
+    return TableUtil.sortHealthValues;
   }
 };
 
