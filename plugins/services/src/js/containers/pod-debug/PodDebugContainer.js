@@ -15,7 +15,6 @@ import TimeAgo from "#SRC/js/components/TimeAgo";
 
 import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
 import DeclinedOffersTable from "../../components/DeclinedOffersTable";
-import DeclinedOffersUtil from "../../utils/DeclinedOffersUtil";
 import MarathonStore from "../../stores/MarathonStore";
 import Pod from "../../structs/Pod";
 import PodContainerTerminationTable from "./PodContainerTerminationTable";
@@ -44,10 +43,7 @@ class PodDebugTabView extends React.Component {
     const { pod } = this.props;
     const queue = pod.getQueue();
 
-    if (
-      !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod) ||
-      queue.declinedOffers.offers == null
-    ) {
+    if (queue == null || queue.declinedOffers.offers == null) {
       return null;
     }
 
@@ -179,10 +175,7 @@ class PodDebugTabView extends React.Component {
     let mainContent = null;
     let offerCount = null;
 
-    if (
-      DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod) &&
-      queue.declinedOffers.summary != null
-    ) {
+    if (queue != null && queue.declinedOffers.summary != null) {
       const { declinedOffers: { summary } } = queue;
       const { roles: { offers = 0 } } = summary;
 

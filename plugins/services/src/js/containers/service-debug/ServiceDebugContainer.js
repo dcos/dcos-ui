@@ -1,25 +1,27 @@
 import React from "react";
 import { routerShape } from "react-router";
 
-import Alert from "#SRC/js/components/Alert";
-import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import Alert from "../../../../../../src/js/components/Alert";
+import ConfigurationMap
+  from "../../../../../../src/js/components/ConfigurationMap";
 import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
-import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
-import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+  from "../../../../../../src/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel
+  from "../../../../../../src/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow
+  from "../../../../../../src/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
-import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import DateUtil from "#SRC/js/utils/DateUtil";
-import TimeAgo from "#SRC/js/components/TimeAgo";
-
+  from "../../../../../../src/js/components/ConfigurationMapSection";
+import ConfigurationMapValue
+  from "../../../../../../src/js/components/ConfigurationMapValue";
+import DateUtil from "../../../../../../src/js/utils/DateUtil";
 import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
 import DeclinedOffersTable from "../../components/DeclinedOffersTable";
-import DeclinedOffersUtil from "../../utils/DeclinedOffersUtil";
 import MarathonStore from "../../stores/MarathonStore";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 import Service from "../../structs/Service";
 import TaskStatsTable from "./TaskStatsTable";
+import TimeAgo from "../../../../../../src/js/components/TimeAgo";
 
 const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
 
@@ -335,11 +337,9 @@ class ServiceDebugContainer extends React.Component {
 
   shouldSuppressDeclinedOfferDetails() {
     const { service } = this.props;
+    const queue = service.getQueue();
 
-    return (
-      this.isFramework(service) ||
-      !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
-    );
+    return queue == null || this.isFramework(service);
   }
 
   render() {
