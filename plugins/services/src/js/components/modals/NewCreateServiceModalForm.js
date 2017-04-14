@@ -93,7 +93,6 @@ class NewCreateServiceModalForm extends Component {
         CreateServiceModalFormUtil.stripEmptyProperties(
           ServiceUtil.getServiceJSON(this.props.service)
         ),
-        false,
         this.props.service instanceof PodSpec
       )
     );
@@ -114,7 +113,7 @@ class NewCreateServiceModalForm extends Component {
     if ((this.state.isPod !== isPod) || (!deepEqual(prevJSON, nextJSON) &&
       !deepEqual(this.state.appConfig, nextJSON) &&
       !deepEqual(this.props.errors, nextProps.errors))) {
-      this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
+      this.setState(this.getNewStateForJSON(nextJSON, isPod));
     }
   }
 
@@ -168,9 +167,7 @@ class NewCreateServiceModalForm extends Component {
       (!deepEqual(this.props.errors, nextProps.errors));
   }
 
-  getNewStateForJSON(baseConfig = {},
-    shouldValidate = true,
-    isPod = this.state.isPod) {
+  getNewStateForJSON(baseConfig = {}, isPod = this.state.isPod) {
     const newState = {
       baseConfig,
       isPod
