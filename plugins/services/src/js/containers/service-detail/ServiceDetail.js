@@ -3,16 +3,18 @@ import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
 import ActionKeys from '../../constants/ActionKeys';
-import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
 import Page from '../../../../../../src/js/components/Page';
-import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
+import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
-import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import ServiceModals from '../../components/modals/ServiceModals';
+import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
+import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
+import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import UserActions from '../../../../../../src/js/constants/UserActions';
+import VolumeTable from '../../components/VolumeTable';
 
 const METHODS_TO_BIND = [
   'handleEditClearError',
@@ -24,9 +26,9 @@ class ServiceDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      '/services/overview/:id/tasks': 'Instances',
-      '/services/overview/:id/configuration': 'Configuration',
-      '/services/overview/:id/debug': 'Debug'
+      tasks: 'Instances',
+      configuration: 'Configuration',
+      debug: 'Debug'
     };
 
     this.state = {
@@ -38,24 +40,14 @@ class ServiceDetail extends mixin(TabsMixin) {
     });
   }
 
-  componentWillMount() {
-    super.componentWillMount(...arguments);
-    this.updateCurrentTab();
+  componentDidMount() {
+    super.componentDidMount(...arguments);
     this.checkForVolumes();
   }
 
-  componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
-    this.updateCurrentTab(nextProps);
+  componentWillUpdate() {
+    super.componentWillUpdate(...arguments);
     this.checkForVolumes();
-  }
-
-  updateCurrentTab(props = this.props) {
-    const {routes} = props;
-    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
-    if (currentTab != null) {
-      this.setState({currentTab});
-    }
   }
 
   handleEditClearError() {
@@ -95,10 +87,46 @@ class ServiceDetail extends mixin(TabsMixin) {
   checkForVolumes() {
     // Add the Volumes tab if it isn't already there and the service has
     // at least one volume.
-    if (this.tabs_tabs['/services/overview/:id/volumes'] == null && this.hasVolumes()) {
-      this.tabs_tabs['/services/overview/:id/volumes'] = 'Volumes';
+    if (this.tabs_tabs.volumes == null && this.hasVolumes()) {
+      this.tabs_tabs.volumes = 'Volumes';
       this.forceUpdate();
     }
+  }
+
+  renderConfigurationTabView() {
+    const {actions, errors, service} = this.props;
+
+    return (
+      <ServiceConfigurationContainer
+        errors={MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT])}
+        onClearError={this.handleEditClearError}
+        onEditClick={actions.editService}
+        service={service} />
+    );
+  }
+
+  renderDebugTabView() {
+    return (
+      <ServiceDebugContainer service={this.props.service}/>
+    );
+  }
+
+  renderVolumesTabView() {
+    return (
+      <VolumeTable
+        params={this.props.params}
+        routes={this.props.routes}
+        service={this.props.service}
+        volumes={this.props.service.getVolumes().getItems()} />
+    );
+  }
+
+  renderInstancesTabView() {
+    return (
+      <ServiceTasksContainer
+        params={this.props.params}
+        service={this.props.service} />
+    );
   }
 
   getActions() {
@@ -157,16 +185,40 @@ class ServiceDetail extends mixin(TabsMixin) {
     const {service:{id}} = this.props;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
-    const tabs = [
-      {label: 'Instances', routePath: `${routePrefix}/tasks`},
-      {label: 'Configuration', routePath: `${routePrefix}/configuration`},
-      {label: 'Debug', routePath: `${routePrefix}/debug`}
-    ];
+    const tabs = [];
+    const activeTab = this.state.currentTab;
+
+    tabs.push({
+      label: 'Instances',
+      callback: () => {
+        this.setState({currentTab: 'tasks'});
+      },
+      isActive: activeTab === 'tasks'
+    });
+
+    tabs.push({
+      label: 'Configuration',
+      callback: () => {
+        this.setState({currentTab: 'configuration'});
+      },
+      isActive: activeTab === 'configuration'
+    });
+
+    tabs.push({
+      label: 'Debug',
+      callback: () => {
+        this.setState({currentTab: 'debug'});
+      },
+      isActive: activeTab === 'debug'
+    });
 
     if (this.hasVolumes()) {
       tabs.push({
-        label: 'Volumes',
-        routePath: `${routePrefix}/volumes`
+        label: 'Volumes', routePath: routePrefix + '/volumes',
+        callback: () => {
+          this.setState({currentTab: 'volumes'});
+        },
+        isActive: activeTab === 'volumes'
       });
     }
 
@@ -174,35 +226,17 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const {children, actions, errors, params, routes, service} = this.props;
-    const breadcrumbs = <ServiceBreadcrumbs serviceID={service.id} />;
-    const clonedProps = {
-      params,
-      routes,
-      service,
-      errors: MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT]),
-      onClearError: this.handleEditClearError,
-      onEditClick: actions.editService,
-      volumes: service.getVolumes().getItems()
-    };
-
-    const clonedChildren = React.Children.map(children, function (child) {
-      // Only add props to children that are not ServiceModals
-      if (child.type === ServiceModals) {
-        return child;
-      }
-
-      return React.cloneElement(child, clonedProps);
-    });
+    const {children, service:{id}} = this.props;
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
 
     return (
       <Page>
-        <Page.Header
-          actions={this.getActions()}
+        <Page.Header actions={this.getActions()}
           tabs={this.getTabs()}
           breadcrumbs={breadcrumbs}
           iconID="services" />
-        {clonedChildren}
+        {this.tabs_getTabView()}
+        {children}
       </Page>
     );
   }
@@ -224,7 +258,7 @@ ServiceDetail.propTypes = {
   clearError: PropTypes.func,
   errors: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  service: PropTypes.instanceOf(Service).isRequired,
+  service: PropTypes.instanceOf(Service),
   children: PropTypes.node
 };
 

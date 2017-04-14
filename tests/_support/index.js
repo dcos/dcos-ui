@@ -44,7 +44,6 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
         'fx:marathon-1-task/app-version-2')
       .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-task/groups')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
-      .route(/service\/marathon\/v2\/queue/, 'fx:marathon-1-task/empty-queue')
       .route(/metronome\/v1\/jobs/, 'fx:metronome/jobs')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
