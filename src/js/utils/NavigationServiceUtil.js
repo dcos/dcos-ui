@@ -40,14 +40,14 @@ const NavigationServiceUtil = {
           route.component.routeConfig.label,
           { category, icon }
         );
-
         childRoutes
           .filter(({isInSidebar}) => isInSidebar)
           .forEach((childRoute) => {
             NavigationService.registerSecondary(
               primaryPath,
               childRoute.path,
-              childRoute.component.routeConfig.label
+              childRoute.component.routeConfig.label,
+              {isActiveRegex: childRoute.sidebarActiveRegex}
             );
           });
       });

@@ -10,7 +10,7 @@ describe('Volumes', function () {
   context('Volumes Table', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: '/services/overview/%2Fsleep'});
+      cy.visitUrl({url: '/services/detail/%2Fsleep'});
       cy.get('.menu-tabbed-item').contains('Volumes').click();
     });
 
@@ -39,7 +39,7 @@ describe('Volumes', function () {
   context('Volume Details', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: '/services/overview/%2Fsleep'});
+      cy.visitUrl({url: '/services/detail/%2Fsleep'});
       cy.get('.menu-tabbed-item').contains('Volumes').click();
       cy.get('.table tbody tr a').contains('sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201').click();
     });

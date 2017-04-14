@@ -51,6 +51,11 @@ var ServicesPage = React.createClass({
     if (currentTab === '/services/overview/:id' || currentTab == null) {
       currentTab = '/services/overview';
     }
+    // Disguise `/services/detail` tab under `/services/overview`
+    // eventhough it is an actual sibling
+    if (currentTab === '/services/detail/:id' || currentTab == null) {
+      currentTab = '/services/overview';
+    }
 
     if (this.state.currentTab !== currentTab) {
       this.setState({currentTab});

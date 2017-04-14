@@ -61,7 +61,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     switch (actionItem.id) {
       case ServiceActionItem.EDIT:
         router.push(
-          `/services/overview/${encodeURIComponent(service.getId())}/edit/`
+          `/services/detail/${encodeURIComponent(service.getId())}/edit/`
         );
         break;
       case ServiceActionItem.SCALE:
@@ -140,7 +140,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       label: 'Edit',
       onItemSelect() {
         router.push(
-          `/services/overview/${encodeURIComponent(service.getId())}/edit/`
+          `/services/detail/${encodeURIComponent(service.getId())}/edit/`
         );
       }
     });
@@ -183,7 +183,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   getTabs() {
     const {service:{id}} = this.props;
-    const routePrefix = `/services/overview/${encodeURIComponent(id)}`;
+    const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [];
     const activeTab = this.state.currentTab;

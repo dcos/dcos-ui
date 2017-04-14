@@ -158,7 +158,15 @@ class NewCreateServiceModal extends Component {
     const shouldClose = requestCompleted && !nextState.apiErrors.length;
 
     if (shouldClose) {
-      this.context.router.push(`/services/overview/${encodeURIComponent(nextProps.params.id)}`);
+      const {path} = nextProps.route;
+      const routePrefix = path.startsWith('edit') ?
+        // When edit: navigate to the detail of the service which was edited
+        '/services/detail/' :
+        // When create: navigate to the group service was created in
+        '/services/overview/';
+      this.context.router.push(
+        routePrefix + encodeURIComponent(nextProps.params.id)
+      );
     }
   }
 

@@ -147,7 +147,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent>
-        <Link to={`/services/overview/${serviceLink}`}>
+        <Link to={serviceLink}>
           <span className="icon icon-small icon-image-container icon-app-container">
             <img src={service.getImages()['icon-small']}/>
           </span>
@@ -177,12 +177,13 @@ class ServiceBreadcrumbs extends React.Component {
         let serviceImage = null;
 
         aggregateIDs += encodeURIComponent(`/${id}`);
-
+        let routePath = '/services/overview/' + aggregateIDs;
         if (index === ids.length - 1) {
+          routePath = '/services/detail/' + aggregateIDs;
           const service = DCOSStore.serviceTree.findItemById(serviceID);
 
           breadcrumbHealth = this.getHealthStatus(service);
-          serviceImage = this.getServiceImage(service, aggregateIDs);
+          serviceImage = this.getServiceImage(service, routePath);
         }
 
         return (
@@ -192,7 +193,7 @@ class ServiceBreadcrumbs extends React.Component {
             {serviceImage}
             <BreadcrumbTextContent
               ref={(ref) => this.primaryBreadcrumbTextRef = ref}>
-              <Link to={`/services/overview/${aggregateIDs}`}>
+              <Link to={routePath}>
                 {id}
               </Link>
             </BreadcrumbTextContent>
@@ -212,7 +213,7 @@ class ServiceBreadcrumbs extends React.Component {
           title={taskID}>
           <BreadcrumbTextContent>
             <Link
-              to={`/services/overview/${aggregateIDs}/tasks/${encodedTaskID}`}
+              to={`/services/detail/${aggregateIDs}/tasks/${encodedTaskID}`}
               index={taskID}>
               {taskName}
             </Link>

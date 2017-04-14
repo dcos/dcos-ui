@@ -7,7 +7,7 @@ describe('Services', function () {
 
     beforeEach(function () {
       cy
-        .visitUrl(`services/overview/%2F${Cypress.env('TEST_UUID')}`);
+        .visitUrl(`services/detail/%2F${Cypress.env('TEST_UUID')}`);
     });
 
     it('should contain no running services', function () {

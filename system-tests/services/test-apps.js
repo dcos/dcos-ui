@@ -10,7 +10,7 @@ describe('Services', function () {
 
     beforeEach(function () {
       cy
-        .visitUrl(`services/overview/%2F${Cypress.env('TEST_UUID')}/create`);
+        .visitUrl(`services/detail/%2F${Cypress.env('TEST_UUID')}/create`);
     });
 
     function selectMesosRuntime() {

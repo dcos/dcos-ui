@@ -22,6 +22,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import Page from '../../../../../../src/js/components/Page';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import {reconstructPathFromRoutes} from '../../../../../../src/js/utils/RouterUtil';
 
 import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
 import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
@@ -432,26 +433,100 @@ class ServicesContainer extends React.Component {
     );
   }
 
-  render() {
-    // TODO react-router: Temp hack if we are deeper than overview/:id we should render child routes
-    if (Object.keys(this.props.params).length > 1) {
-      return this.props.children;
+  getEmpyPage(itemType) {
+    const {itemId} = this.state;
+
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+        <ServiceItemNotFound
+          message={`The ${itemType} with the ID of "${itemId}" could not be found.`} />
+      </Page>
+    );
+  }
+
+  getLoadingScreen() {
+    const {itemId} = this.state;
+
+    return (
+      <Page>
+        <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={itemId} />} />
+        <Loader />
+      </Page>
+    );
+  }
+
+  getPodDetail(item) {
+    const {children} = this.props;
+
+    return (
+      <PodDetail
+        actions={this.getActions()}
+        pod={item}>
+        {children}
+        {this.getModals(item)}
+      </PodDetail>
+    );
+  }
+
+  getServiceDetail(item) {
+    const {children, params, routes} = this.props;
+
+    return (
+      <ServiceDetail
+        actions={this.getActions()}
+        errors={this.state.actionErrors}
+        clearError={this.clearActionError}
+        params={params}
+        routes={routes}
+        service={item}>
+        {children}
+        {this.getModals(item)}
+      </ServiceDetail>
+    );
+  }
+
+  getServiceTree(item) {
+    const {children, params, routes} = this.props;
+    const {filterExpression} = this.state;
+
+    const isEmpty = (item.getItems().length === 0);
+    let filteredServices = item;
+
+    if (filterExpression.defined) {
+      filteredServices = filterExpression.filter(
+        SERVICE_FILTERS, filteredServices.flattenItems()
+      );
     }
 
-    const {children, params, routes} = this.props;
-    const {
-      fetchErrors,
-      filterExpression,
-      isLoading,
-      itemId
-    } = this.state;
+    // TODO: move modals to Page
+    return (
+      <ServiceTreeView
+        filters={SERVICE_FILTERS}
+        filterExpression={filterExpression}
+        isEmpty={isEmpty}
+        onFilterExpressionChange={this.handleFilterExpressionChange}
+        params={params}
+        routes={routes}
+        services={filteredServices.getItems()}
+        serviceTree={item}>
+        {children}
+        {this.getModals(item)}
+      </ServiceTreeView>
+    );
+  }
 
-    let item;
-    // Find item in root tree
-    if (itemId === '/') {
-      item = DCOSStore.serviceTree;
-    } else {
-      item = DCOSStore.serviceTree.findItemById(itemId);
+  render() {
+    const {children, params, routes} = this.props;
+    const {fetchErrors, isLoading, itemId} = this.state;
+    // TODO react-router: Temp hack if we are deeper than overview/:id we should render child routes
+    if (Object.keys(params).length > 1) {
+      return children;
+    }
+
+    // Still Loading
+    if (isLoading) {
+      return this.getLoadingScreen();
     }
 
     // Check if a single endpoint has failed more than 3 times
@@ -459,83 +534,39 @@ class ServicesContainer extends React.Component {
       return errorCount > 3;
     });
 
-    // Still Loading
-    if (isLoading) {
-      return (
-        <Page>
-          <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
-          <Loader />
-        </Page>
-      );
-    }
-
     // API Failures
     if (fetchError) {
       return <RequestErrorMsg />;
     }
 
+    // Find item in root tree
+    const item = itemId === '/' ?
+      DCOSStore.serviceTree :
+      DCOSStore.serviceTree.findItemById(itemId);
+
+    // Show Tree
+    const currentRoutePath = reconstructPathFromRoutes(routes);
+    if (currentRoutePath.startsWith('/services/overview')) {
+
+      // Not found
+      if (!(item instanceof ServiceTree)) {
+        return this.getEmpyPage('group');
+      }
+
+      // TODO: move modals to Page
+      return this.getServiceTree(item);
+    }
+
     if (item instanceof Pod) {
-      return (
-        <PodDetail
-          actions={this.getActions()}
-          pod={item}>
-          {this.getModals(item)}
-          {children}
-        </PodDetail>
-      );
+      return this.getPodDetail(item);
     }
 
     if (item instanceof Service) {
-      return (
-        <ServiceDetail
-          actions={this.getActions()}
-          errors={this.state.actionErrors}
-          clearError={this.clearActionError}
-          params={params}
-          routes={routes}
-          service={item}>
-          {this.getModals(item)}
-          {children}
-        </ServiceDetail>
-      );
-    }
-
-    // Show Tree
-    if (item instanceof ServiceTree) {
-      const isEmpty = (item.getItems().length === 0);
-      let filteredServices = item;
-
-      if (filterExpression.defined) {
-        filteredServices = filterExpression.filter(
-          SERVICE_FILTERS, filteredServices.flattenItems()
-        );
-      }
-
-      // TODO move modals to Page
-      return (
-        <ServiceTreeView
-          filters={SERVICE_FILTERS}
-          filterExpression={filterExpression}
-          isEmpty={isEmpty}
-          onFilterExpressionChange={this.handleFilterExpressionChange}
-          params={params}
-          routes={routes}
-          services={filteredServices.getItems()}
-          serviceTree={item}>
-          {this.getModals(item)}
-          {children}
-        </ServiceTreeView>
-      );
+      return this.getServiceDetail(item);
     }
 
     // Not found
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
-        <ServiceItemNotFound
-          message={`The service with the ID of "${itemId}" could not be found.`} />
-      </Page>
-    );
+    return this.getEmpyPage('service');
   }
 }
 
@@ -565,7 +596,7 @@ ServicesContainer.contextTypes = {
 ServicesContainer.routeConfig = {
   label: 'Services',
   icon: <Icon id="services" size="small" family="product" />,
-  matches: /^\/services\/overview/
+  matches: /^\/services\/(detail|overview)/
 };
 
 module.exports = ServicesContainer;
