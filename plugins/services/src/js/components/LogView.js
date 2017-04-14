@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import throttle from 'lodash.throttle';
 
 import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
 import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
-import Util from '../../../../../src/js/utils/Util';
 
 const CONTAINER_OFFSET_HEIGHT = 25;
 
@@ -39,14 +39,14 @@ class LogView extends React.Component {
     // scrolling position has ended.
     // We need them to be called as soon as we hit the range wherein these will
     // trigger handlers.
-    this.handleLogContainerScroll = Util.throttle(
+    this.handleLogContainerScroll = throttle(
       this.handleLogContainerScroll,
       50,
       {leading: true, trailing: true}
     );
 
-    this.handleWindowResize = Util.throttle(
-      this.handleWindowResize.bind(this),
+    this.handleWindowResize = throttle(
+      this.handleWindowResize,
       50,
       {leading: true, trailing: false}
     );
