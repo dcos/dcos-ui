@@ -1,10 +1,9 @@
-/**
- * Values for health value defined in the server
- */
-const SERVER_HEALTHY = 0;
-const SERVER_UNHEALTHY = 1;
-const SERVER_WARN = 2;
-const SERVER_NA = 3;
+import {
+  SERVER_HEALTHY,
+  SERVER_NA,
+  SERVER_UNHEALTHY,
+  SERVER_WARN
+} from './UnitHealthTypes';
 
 /**
  * sortingValue = Order health types by it's label and number value
@@ -35,13 +34,6 @@ const UnitHealthStatus = {
     value: SERVER_WARN
   },
   [SERVER_NA]: {
-    title: 'N/A',
-    key: 'NA',
-    classNames: 'text-mute',
-    sortingValue: 1,
-    value: SERVER_NA
-  },
-  NA: {
     title: 'N/A',
     key: 'NA',
     classNames: 'text-mute',

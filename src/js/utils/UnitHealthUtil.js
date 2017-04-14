@@ -1,4 +1,5 @@
 import UnitHealthStatus from '../constants/UnitHealthStatus';
+import UnitHealthTypes from '../constants/UnitHealthTypes';
 import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
 
@@ -33,7 +34,7 @@ const UnitHealthUtil = {
       return (UnitHealthStatus[key].value === health);
     });
 
-    return UnitHealthStatus[healthKey] || UnitHealthStatus.NA;
+    return UnitHealthStatus[healthKey] || UnitHealthStatus[UnitHealthTypes.SERVER_NA];
   },
 
   /**

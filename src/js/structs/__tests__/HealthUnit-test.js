@@ -2,6 +2,7 @@ jest.dontMock('../../constants/UnitHealthStatus');
 
 const HealthUnit = require('../HealthUnit');
 const UnitHealthStatus = require('../../constants/UnitHealthStatus');
+const UnitHealthTypes = require('../../constants/UnitHealthTypes');
 
 describe('HealthUnit', function () {
 
@@ -25,7 +26,7 @@ describe('HealthUnit', function () {
 
     it('returns NA when healthType not found', function () {
       var healthItem = new HealthUnit({});
-      expect(healthItem.getHealth()).toEqual(UnitHealthStatus.NA);
+      expect(healthItem.getHealth()).toEqual(UnitHealthStatus[UnitHealthTypes.SERVER_NA]);
     });
 
   });

@@ -89,7 +89,7 @@ var TableUtil = {
       match = UnitHealthStatus[healthValue].sortingValue;
     }
 
-    if ( typeof healthValue == 'string' ) {
+    if (typeof healthValue == 'string') {
       healthValue = Util.toUpperCaseIfString(healthValue);
       match = HealthSorting[healthValue];
     }

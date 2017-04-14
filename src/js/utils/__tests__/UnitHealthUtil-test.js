@@ -2,6 +2,7 @@ jest.dontMock('../../constants/UnitHealthStatus');
 
 const HealthUnit = require('../../structs/HealthUnit');
 const UnitHealthStatus = require('../../constants/UnitHealthStatus');
+const UnitHealthTypes = require('../../constants/UnitHealthTypes');
 const UnitHealthUtil = require('../../utils/UnitHealthUtil');
 const NodesList = require('../../structs/NodesList');
 
@@ -34,7 +35,7 @@ describe('UnitHealthUnit', function () {
 
     it('returns NA when health not valid', function () {
       var health = 'wtf';
-      expect(UnitHealthUtil.getHealth(health)).toEqual(UnitHealthStatus.NA);
+      expect(UnitHealthUtil.getHealth(health)).toEqual(UnitHealthStatus[UnitHealthTypes.SERVER_NA]);
     });
   });
 
