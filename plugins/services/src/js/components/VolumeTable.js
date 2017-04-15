@@ -137,7 +137,7 @@ class VolumeTable extends React.Component {
     const currentroutePath = reconstructPathFromRoutes(this.props.routes);
     let routePath = null;
 
-    if (currentroutePath === '/services/detail/:id/volumes') {
+    if (currentroutePath === '/services/detail/:id') {
       routePath = `/services/detail/${serviceID}/volumes/${volumeID}`;
     } else if (currentroutePath === '/services/detail/:id/tasks/:taskID/volumes') {
       routePath = `/services/detail/${serviceID}/tasks/${taskID}/volumes/${volumeID}`;
