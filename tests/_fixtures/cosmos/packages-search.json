@@ -1,69 +1,1761 @@
 {
   "packages": [
     {
-      "currentVersion": "0.2.1",
-      "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.",
-      "framework": true,
-      "name": "arangodb",
-      "resource": {
-        "images": {
-          "icon-small": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-small.png",
-          "icon-medium": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-medium.png",
-          "icon-large": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-large.png"
-        }
+      "name": "arangodb3",
+      "currentVersion": "3.1.x",
+      "versions": {
+        "1.0.2": 2,
+        "1.0.3": 3,
+        "3.1.x": 5,
+        "1.0.0": 0,
+        "1.0.4": 4,
+        "1.0.1": 1
       },
-      "selected": true,
+      "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions. Guidance on how to install can be found here: https://github.com/dcos/examples/tree/master/arangodb",
+      "framework": true,
       "tags": [
         "arangodb",
         "NoSQL",
-        "database",
-        "framework"
+        "database"
       ],
-      "versions": {
-        "0.2.1": "0"
-      }
+      "selected": true
     },
     {
-      "currentVersion": "0.2.0-1",
-      "description": "Apache Cassandra running on Apache Mesos",
-      "framework": true,
+      "name": "artifactory",
+      "currentVersion": "5.1.4",
+      "versions": {
+        "5.1.4": 2,
+        "4.14.1": 1,
+        "4.8.2": 0
+      },
+      "description": "As the first, and only, universal Artifact Repository Manager on the market, JFrog Artifactory fully supports software packages created by any language or technology. Documentation is available at: https://github.com/dcos/examples/",
+      "framework": false,
+      "tags": [
+        "framework",
+        "artifacts",
+        "artifactory",
+        "repository"
+      ],
+      "selected": true
+    },
+    {
       "name": "cassandra",
+      "currentVersion": "1.0.25-3.0.10",
+      "versions": {
+        "1.0.11-2.2.5": 11,
+        "1.0.5-2.2.5": 7,
+        "1.0.15-3.0.7": 15,
+        "1.0.20-3.0.10": 20,
+        "1.0.17-3.0.8": 17,
+        "1.0.21-3.0.10": 21,
+        "1.0.22-3.0.10": 22,
+        "1.0.23-3.0.10": 23,
+        "1.0.24-3.0.10": 24,
+        "1.0.13-2.2.5": 13,
+        "1.0.12-2.2.5": 12,
+        "1.0.2-2.2.5": 4,
+        "1.0.18-3.0.9": 18,
+        "0.2.0-2": 1,
+        "1.0.16-3.0.8": 16,
+        "1.0.25-3.0.10": 25,
+        "2.2.5-0.2.0": 3,
+        "1.0.8-2.2.5": 10,
+        "1.0.14-3.0.7": 14,
+        "1.0.6-2.2.5": 8,
+        "1.0.7-2.2.5": 9,
+        "0.2.0-1": 0,
+        "1.0.4-2.2.5": 5
+      },
+      "description": "Apache Cassandra running on DC/OS",
+      "framework": true,
       "tags": [
         "data",
         "database",
         "nosql"
       ],
-      "versions": {
-        "0.2.0-1": "0"
-      }
+      "selected": true
     },
     {
-      "currentVersion": "2.4.0",
+      "name": "confluent-kafka",
+      "currentVersion": "1.1.19-3.2.0e",
+      "versions": {
+        "1.1.10-3.0.0": 6,
+        "1.1.16-3.1.1": 10,
+        "2.0.1-mesos": 0,
+        "1.1.17-3.1.1": 11,
+        "1.1.12-3.0.1": 8,
+        "1.0.3-3.0.0": 3,
+        "1.0.3-2.0.1": 2,
+        "1.1.9-3.0.0": 5,
+        "1.1.18-3.1.2": 13,
+        "1.1.17-3.1.2": 12,
+        "1.1.11-3.0.0": 7,
+        "1.1.4-3.0.0": 4,
+        "1.1.19-3.2.0": 14,
+        "1.1.19-3.2.0e": 15,
+        "1.1.16-3.0.1": 9,
+        "1.0.1-2.0.1": 1
+      },
+      "description": "Apache Kafka by Confluent\n\n\tDocumentation: https://www.confluent.io/whitepaper/deploying-confluent-platform-with-mesosphere",
+      "framework": true,
+      "tags": [
+        "message",
+        "broker",
+        "pubsub",
+        "kafka",
+        "confluent"
+      ],
+      "selected": true
+    },
+    {
+      "name": "elastic",
+      "currentVersion": "1.0.8-5.2.2",
+      "versions": {
+        "1.0.8-5.2.2": 5,
+        "1.0.3-5.1.2": 0,
+        "1.0.7-5.2.2": 4,
+        "1.0.4-5.1.2": 1,
+        "1.0.5-5.2.1": 2,
+        "1.0.6-5.2.2": 3
+      },
+      "description": "Elasticsearch 5, Kibana 5, and X-Pack",
+      "framework": true,
+      "tags": [
+        "kibana",
+        "elasticsearch",
+        "x-pack"
+      ],
+      "selected": true
+    },
+    {
+      "name": "gitlab",
+      "currentVersion": "1.0-9.0.0",
+      "versions": {
+        "1.0-8.11.5": 1,
+        "1.0-9.0.0": 5,
+        "1.0-8.14.1": 3,
+        "1.0-8.10.3": 0,
+        "1.0-8.13.0": 2,
+        "1.0-8.16.2": 4
+      },
+      "description": "Collaboration and source control management: code, test, and deploy together! Installation Guide: https://github.com/dcos/examples/tree/master/1.8/gitlab",
+      "framework": false,
+      "tags": [
+        "continuous-integration",
+        "ci",
+        "vcs",
+        "version-control-software"
+      ],
+      "selected": true
+    },
+    {
+      "name": "jenkins",
+      "currentVersion": "3.0.3-2.32.3",
+      "versions": {
+        "1.0.0-1.651.3": 11,
+        "0.2.1": 4,
+        "2.0.0-2.7.2": 12,
+        "0.1.4": 1,
+        "0.1.3": 0,
+        "0.2.0": 2,
+        "2.0.1-2.7.4": 13,
+        "3.0.2-2.32.2": 16,
+        "2.1.0-2.19.3": 15,
+        "0.2.3": 8,
+        "3.0.3-2.32.3": 17,
+        "0.2.2": 5
+      },
+      "description": "Jenkins is an award-winning, cross-platform, continuous integration and continuous delivery application that increases your productivity. Use Jenkins to build and test your software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build. It also allows you to continuously deliver your software by providing powerful ways to define your build pipelines and integrating with a large number of testing and deployment technologies.",
+      "framework": true,
+      "tags": [
+        "continuous-integration",
+        "ci",
+        "jenkins"
+      ],
+      "selected": true
+    },
+    {
+      "name": "marathon",
+      "currentVersion": "1.4.2",
+      "versions": {
+        "1.3.6": 6,
+        "1.4.2": 9,
+        "1.3.10": 7,
+        "0.15.5": 1,
+        "1.1.5": 5,
+        "1.3.3": 4,
+        "1.4.1": 8,
+        "1.1.1": 3,
+        "0.11.1": 0
+      },
+      "description": "A container orchestration platform for Mesos and DCOS.",
+      "framework": true,
+      "tags": [
+        "init",
+        "long-running"
+      ],
+      "selected": true
+    },
+    {
+      "name": "spark",
+      "currentVersion": "1.0.9-2.1.0-1",
+      "versions": {
+        "1.0.5-1.6.3": 20,
+        "1.6.1-2": 7,
+        "1.6.1-1": 6,
+        "1.0.6-2.0.2": 21,
+        "1.6.1-3": 8,
+        "1.0.9-1.6.3-1": 24,
+        "1.0.3-2.0.1": 18,
+        "1.0.2-2.0.0": 17,
+        "1.6.1-4": 9,
+        "1.6.1": 5,
+        "1.6.0": 4,
+        "1.0.0-1.6.1-2": 13,
+        "1.0.1-2.0.0": 16,
+        "1.6.1-5": 10,
+        "1.0.8-2.1.0-1": 23,
+        "1.0.1-1.6.1-2": 14,
+        "1.0.4-2.0.1": 19,
+        "1.6.1-6": 11,
+        "1.0.1-1.6.2": 15,
+        "1.0.9-2.1.0-1": 25,
+        "1.5.0-multi-roles-v2": 0,
+        "1.0.7-2.1.0": 22
+      },
+      "description": "Spark is a fast and general cluster computing system for Big Data.  Documentation: https://docs.mesosphere.com/current/usage/service-guides/spark/",
+      "framework": false,
+      "tags": [
+        "bigdata",
+        "mapreduce",
+        "batch",
+        "analytics"
+      ],
+      "selected": true
+    },
+    {
+      "name": "alluxio-enterprise",
+      "currentVersion": "1.0.0-1.4.0",
+      "versions": {
+        "1.0.0-1.4.0": 0
+      },
+      "description": "Alluxio Enterprise Edition (AEE). \n\n Alluxio, formerly Tachyon, is the world's first system that unifies disparate storage systems at memory speed. With Alluxio, enterprises can manage data efficiently, accelerate business analytics, and ease the adoption of hybrid cloud. \n\n Please refer to https://alluxio.com/docs/ for a detailed operation guide. \n\n Release Notes:  \n Version 1.0.0 of the DC/OS Service is the first release of this capability. With this integration, you can deploy Alluxio in minutes and realize fast on-demand analytics. Choose between command line and GUI based installation to suit your preferences.",
+      "framework": true,
+      "tags": [
+        "enterprise",
+        "alluxio"
+      ],
+      "selected": false
+    },
+    {
+      "name": "arangodb",
+      "currentVersion": "0.4.0",
+      "versions": {
+        "0.4.0": 2,
+        "0.3.0": 1,
+        "0.2.1": 0
+      },
+      "description": "--- LEGACY VERSION. Please use arangodb3 for new installs -- A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.",
+      "framework": true,
+      "tags": [
+        "arangodb",
+        "NoSQL",
+        "database"
+      ],
+      "selected": false
+    },
+    {
+      "name": "artifactory-lb",
+      "currentVersion": "5.1.4",
+      "versions": {
+        "5.1.4": 2,
+        "4.14.1": 1,
+        "4.8.2": 0
+      },
+      "description": "Load Balancer for JFrog Artifactory. Documentation is available at: https://github.com/dcos/examples/.",
+      "framework": false,
+      "tags": [
+        "mesosphere",
+        "artifacts",
+        "artifactory",
+        "artifactory-lb"
+      ]
+    },
+    {
+      "name": "avi",
+      "currentVersion": "2.0",
+      "versions": {
+        "2.0": 2,
+        "16.2": 1,
+        "16.2-beta": 0
+      },
+      "description": "Avi Vantage ADC",
+      "framework": false,
+      "tags": [
+        "loadbalancer",
+        "service-discovery",
+        "reverse-proxy",
+        "adc",
+        "analytics",
+        "microservices",
+        "gslb"
+      ]
+    },
+    {
+      "name": "bitbucket",
+      "currentVersion": "4.5",
+      "versions": {
+        "4.5": 0
+      },
+      "description": "Bitbucket Server gives you secure, fast, enterprise-grade controls, like fine-grained permissions and powerful management features.",
+      "framework": false,
+      "tags": [
+        "git",
+        "bitbucket",
+        "bit",
+        "bucket",
+        "vcs",
+        "scm"
+      ]
+    },
+    {
+      "name": "bookkeeper",
+      "currentVersion": "4.3.4-0.1",
+      "versions": {
+        "4.3.4-0.1": 0
+      },
+      "description": "BookKeeper is a replicated log service which can be used to build replicated state machines. A log contains a sequence of events which can be applied to a state machine. BookKeeper guarantees that each replica state machine will see all the same entries, in the same order. One bookkeeper instance is called a bookie, By default this package deploy 1 bookie. Usually we should deploy at least 3 bookies to start a bookkeeper cluster. And there is an example included here:https://github.com/dcos/examples",
+      "framework": false,
+      "tags": [
+        "service",
+        "bookkeeper"
+      ]
+    },
+    {
+      "name": "cadvisor",
+      "currentVersion": "0.24.1-0.1",
+      "versions": {
+        "0.24.1-0.1": 0
+      },
+      "description": "cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. It is a running daemon that collects, aggregates, processes, and exports information about running containers. Specifically, for each container it keeps resource isolation parameters, historical resource usage, histograms of complete historical resource usage and network statistics. This data is exported by container and machine-wide.\n\nNOTE: This package will install by default a single instance of cAdvisor in each host of your cluster.\n\nThis package is intended to be used alongside the DC/OS 'influxdb' and 'grafana' packages for a cluster-wide monitoring solution.\n\nInstallation Documentation: https://github.com/dcos/examples/tree/master/cadvisor-influxdb-grafana\n\n",
+      "framework": false,
+      "tags": [
+        "docker",
+        "cadvisor",
+        "monitoring",
+        "metrics"
+      ]
+    },
+    {
+      "name": "calico",
+      "currentVersion": "0.4.0",
+      "versions": {
+        "0.4.0": 3,
+        "0.3.1": 2,
+        "0.2.0": 1,
+        "0.1.0": 0
+      },
+      "description": "Calico networking for DC/OS.  Calico provides IP-per-task functionality with rich policy.  This Universe Package simplifies the installation of Calico and its dependencies on a stock DC/OS cluster. It is configurable such that it assumes Calico's dependencies are installed, and merely serves to ensure calico's core processes are running. By default, it configures Docker with multi-host networking (required to use Calico with the Docker Containerizer), and reboots each Agent to pick up Calico's CNI configuration (required for Calico with Unified tasks). Both of these steps will cause temporary restarts of an Agent causing transient task loss. A more stable approach to Calico in DC/OS will have users performing these steps manually, and disabling them in the Universe Package. At the moment, only a limited set of DC/OS versions and OSes are supported - check the documentation for details.  The framework will still run on unsupported versions, in which case the Agent network hooks will not be installed and Calico networking will only be available with the Docker containerizer.",
+      "framework": true,
+      "tags": [
+        "calico",
+        "networking",
+        "ip-per-container",
+        "ip-per-task",
+        "policy"
+      ]
+    },
+    {
+      "name": "ceph",
+      "currentVersion": "0.2.9-0.2",
+      "versions": {
+        "0.2.9-0.2": 1,
+        "0.2.9-0.1": 0
+      },
+      "description": "Ceph, a free-software storage platform, implements object storage on a single distributed computer cluster, and provides interfaces for object-, block- and file-level storage. Ceph aims primarily for completely distributed operation without a single point of failure, scalable to the exabyte level, and freely available.\n\nCeph replicates data and makes it fault-tolerant, using commodity hardware and requiring no specific hardware support. As a result of its design, the system is both self-healing and self-managing, aiming to minimize administration time and other costs.",
+      "framework": false,
+      "tags": [
+        "ceph",
+        "storage",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "ceph-dash",
+      "currentVersion": "0.1-0.1",
+      "versions": {
+        "0.1-0.1": 0
+      },
+      "description": "Ceph-dash is a small and clean approach of providing the Ceph overall cluster health status via a restful json api as well as via a web GUI. There are no dependecies to the existing ceph-rest-api. This wsgi application talks to the cluster directly via librados.\n\n Please check the installation tutorial at: https://github.com/dcos/examples/tree/master/1.8/ceph#ceph-dashboard",
+      "framework": false,
+      "tags": [
+        "monitoring",
+        "admin",
+        "ceph",
+        "storage"
+      ]
+    },
+    {
+      "name": "chronos",
+      "currentVersion": "3.0.1",
+      "versions": {
+        "3.0.1": 4,
+        "3.0.0": 3,
+        "2.4.0": 1
+      },
       "description": "A fault tolerant job scheduler for Mesos which handles dependencies and ISO8601 based schedules.",
       "framework": true,
-      "name": "chronos",
       "tags": [
         "cron",
         "analytics",
         "batch"
       ],
-      "versions": {
-        "2.4.0": "0"
-      }
+      "selected": false
     },
     {
-      "currentVersion": "0.1.7",
-      "description": "Hadoop Distributed File System (HDFS), Highly Available",
-      "framework": true,
-      "name": "hdfs",
-      "tags": [
-        "filesystem",
-        "hadoop",
-        "analytics"
-      ],
+      "name": "concord",
+      "currentVersion": "0.3.16.4",
       "versions": {
-        "0.1.7": "0"
-      }
+        "0.3.16.4": 0
+      },
+      "description": "High Performance Stream Processing with C++ and Apache Mesos",
+      "framework": true,
+      "tags": [
+        "stream",
+        "framework",
+        "pubsub",
+        "multi-lang"
+      ],
+      "selected": false
+    },
+    {
+      "name": "confluent-connect",
+      "currentVersion": "0.9.8-3.2.0",
+      "versions": {
+        "0.9.2-3.0.1": 2,
+        "0.9.1-3.0.0": 1,
+        "0.9.6-3.1.1": 3,
+        "0.9.8-3.2.0": 5,
+        "0.9.0-3.0.0": 0,
+        "0.9.6-3.1.2": 4
+      },
+      "description": "Confluent Connect worker\n\n\tDocumentation: http://docs.confluent.io/3.2.0/connect/managing.html",
+      "framework": false,
+      "tags": [
+        "kafka",
+        "confluent",
+        "connect"
+      ]
+    },
+    {
+      "name": "confluent-control-center",
+      "currentVersion": "0.9.8-3.2.0",
+      "versions": {
+        "0.9.2-3.0.1": 2,
+        "0.9.1-3.0.0": 1,
+        "0.9.6-3.1.1": 3,
+        "0.9.8-3.2.0": 5,
+        "0.9.0-3.0.0": 0,
+        "0.9.6-3.1.2": 4
+      },
+      "description": "Confluent Control Center service\n\n\tDocumentation: http://docs.confluent.io/3.2.0/control-center/docs/userguide.html\n\tDC/OS Specifics: https://www.confluent.io/whitepaper/deploying-confluent-platform-with-mesosphere",
+      "framework": false,
+      "tags": [
+        "kafka",
+        "confluent",
+        "control",
+        "center"
+      ]
+    },
+    {
+      "name": "confluent-replicator",
+      "currentVersion": "0.9.8-3.2.0",
+      "versions": {
+        "0.9.8-3.2.0": 2,
+        "0.9.6-3.1.2": 1,
+        "0.9.6-3.1.1": 0
+      },
+      "description": "Confluent Enterprise Replicator for multi-data center synchronization of topic data\n\n\tDocumentation: http://docs.confluent.io/3.2.0/connect/connect-replicator/docs/index.html",
+      "framework": false,
+      "tags": [
+        "kafka",
+        "confluent",
+        "connect",
+        "replicator"
+      ]
+    },
+    {
+      "name": "confluent-rest-proxy",
+      "currentVersion": "0.9.8-3.2.0",
+      "versions": {
+        "0.9.2-3.0.1": 2,
+        "0.9.1-3.0.0": 1,
+        "0.9.6-3.1.1": 3,
+        "0.9.8-3.2.0": 5,
+        "0.9.0-3.0.0": 0,
+        "0.9.6-3.1.2": 4
+      },
+      "description": "Confluent REST Proxy service\n\n\tDocumentation: http://docs.confluent.io/3.2.0/kafka-rest/docs/api.html",
+      "framework": false,
+      "tags": [
+        "kafka",
+        "confluent",
+        "proxy",
+        "rest"
+      ]
+    },
+    {
+      "name": "confluent-schema-registry",
+      "currentVersion": "0.9.8-3.2.0",
+      "versions": {
+        "0.9.2-3.0.1": 2,
+        "0.9.1-3.0.0": 1,
+        "0.9.6-3.1.1": 3,
+        "0.9.8-3.2.0": 5,
+        "0.9.0-3.0.0": 0,
+        "0.9.6-3.1.2": 4
+      },
+      "description": "Confluent Schema Registry service\n\n\tDocumentation: http://docs.confluent.io/3.2.0/schema-registry/docs/intro.html",
+      "framework": false,
+      "tags": [
+        "kafka",
+        "confluent",
+        "schema",
+        "registry"
+      ]
+    },
+    {
+      "name": "crate",
+      "currentVersion": "0.1.0",
+      "versions": {
+        "0.1.0": 0
+      },
+      "description": "A Mesos Framework that allows running and resizing one or multiple Crate database clusters.",
+      "framework": true,
+      "tags": [
+        "database",
+        "nosql"
+      ]
+    },
+    {
+      "name": "datadog",
+      "currentVersion": "5.11.2",
+      "versions": {
+        "5.11.2": 2,
+        "5.8.3": 1,
+        "5.4.3": 0
+      },
+      "description": "Datadog is a hosted monitoring service for cloud-scale infrastructure and applications",
+      "framework": false,
+      "tags": [
+        "datadog",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "dcos-enterprise-cli",
+      "currentVersion": "1.0.7",
+      "versions": {
+        "1.0.6": 7,
+        "1.0.2": 2,
+        "1.0.5": 6,
+        "1.0.3": 4,
+        "1.0.0": 0,
+        "1.0.7": 10,
+        "1.0.4": 5,
+        "1.0.1": 1
+      },
+      "description": "Enterprise DC/OS CLI",
+      "framework": false,
+      "tags": [
+        "mesosphere",
+        "enterprise",
+        "subcommand"
+      ]
+    },
+    {
+      "name": "dynatrace",
+      "currentVersion": "latest",
+      "versions": {
+        "latest": 0
+      },
+      "description": "Dynatrace is cloud-native monitoring for highly dynamic container and cluster environments. Dynatrace allows you to better optimize your container deployments and memory allocations by using real-time usage data. Dynatrace is the only solution capable of automatically pinpointing application and infrastructure issues in seconds using artificial intelligence",
+      "framework": false,
+      "tags": [
+        "dynatrace",
+        "apm",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "ecr-login",
+      "currentVersion": "2.0.0",
+      "versions": {
+        "2.0.0": 1,
+        "1.0.0": 0
+      },
+      "description": "AWS ECR login utility",
+      "framework": false,
+      "tags": [
+        "ecr",
+        "aws"
+      ]
+    },
+    {
+      "name": "elasticsearch",
+      "currentVersion": "1.0.1-2",
+      "versions": {
+        "1.0.1-2": 2,
+        "1.0.1": 1,
+        "0.7.0": 0
+      },
+      "description": "DCOS implementation of the Mesos-Elasticsearch framework",
+      "framework": true,
+      "tags": [
+        "elastic",
+        "monitoring",
+        "debug"
+      ]
+    },
+    {
+      "name": "etcd",
+      "currentVersion": "0.0.3",
+      "versions": {
+        "0.0.3": 1,
+        "0.0.2": 0
+      },
+      "description": "A distributed consistent key-value store for shared configuration and service discovery.",
+      "framework": true,
+      "tags": [
+        "consensus",
+        "distributed-coordination",
+        "coordination"
+      ]
+    },
+    {
+      "name": "exhibitor",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 1,
+        "0.8.1": 0
+      },
+      "description": "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization.",
+      "framework": false,
+      "tags": [
+        "zookeeper"
+      ]
+    },
+    {
+      "name": "flink",
+      "currentVersion": "1.2.0-1.0",
+      "versions": {
+        "1.2.0-1.0": 1
+      },
+      "description": "Apache Flink® is an open source platform for distributed stream and batch data processing. Further information can be found here: https://github.com/dcos/examples/tree/master/1.8/flink",
+      "framework": true,
+      "tags": [
+        "stream-processing",
+        "batch"
+      ],
+      "selected": false
+    },
+    {
+      "name": "geoserver",
+      "currentVersion": "2.10.0-1.1.0",
+      "versions": {
+        "2.10.0-1.1.0": 0
+      },
+      "description": "GeoServer is an open source server for sharing geospatial data. GeoServer 2.10.0 implements Open Geospatial Consortium (OGC) Web Map Service (WMS), Web Feature Service (WFS), Web Coverage Service (WCS) and Catalog Serivce for the Web (CSW). The GeoServer project can be found at http://geoserver.org/.",
+      "framework": true,
+      "tags": [
+        "long-running",
+        "mapping",
+        "geospatial",
+        "geoserver",
+        "gis",
+        "ogc",
+        "wms",
+        "wfs",
+        "csw"
+      ],
+      "selected": false
+    },
+    {
+      "name": "gestalt-framework",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 2,
+        "0.2.0": 1,
+        "0.1.0": 0
+      },
+      "description": "The Gestalt Framework is a solution for building enterprise-grade cloud-native applications using containers and lambdas.",
+      "framework": true,
+      "tags": [
+        "gestalt-framework",
+        "orchestration",
+        "lambda",
+        "policy"
+      ],
+      "selected": false
+    },
+    {
+      "name": "grafana",
+      "currentVersion": "3.1.1-0.1",
+      "versions": {
+        "3.1.1-0.1": 0
+      },
+      "description": "Grafana is a leading open source application for visualizing large-scale measurement data. It provides a powerful and elegant way to create, share, and explore data and dashboards from your disparate metric databases, either with your team or the world. Grafana is most commonly used for Internet infrastructure and application analytics, but many use it in other domains including industrial sensors, home automation, weather, and process control. Grafana features pluggable panels and data sources allowing easy extensibility. There is currently rich support for Graphite, InfluxDB and OpenTSDB. There is also experimental support for KairosDB, and SQL is on the roadmap. Grafana has a variety of panels, including a fully featured graph panel with rich visualization options.\n\nThis package can be used alongside the DC/OS 'cadvisor' and 'influxdb' packages for a cluster-wide monitoring solution.\n\nInstallation Documentation: https://github.com/dcos/examples/tree/master/cadvisor-influxdb-grafana\n\n",
+      "framework": false,
+      "tags": [
+        "grafana",
+        "monitoring",
+        "visualization"
+      ]
+    },
+    {
+      "name": "hdfs",
+      "currentVersion": "1.2.0-2.6.0-cdh5.9.1",
+      "versions": {
+        "0.9.1-2.6.0": 6,
+        "0.9.0-2.6.0": 5,
+        "1.0.0-2.6.0": 8,
+        "0.1.7": 0,
+        "0.1.8": 1,
+        "1.2.0-2.6.0-cdh5.9.1": 10,
+        "1.1.0-2.6.0-cdh5.9.1": 9,
+        "0.9.2-2.6.0": 7,
+        "2.5.2-0.1.9": 4
+      },
+      "description": "Apache Hadoop Distributed File System (HDFS)",
+      "framework": true,
+      "tags": [
+        "hdfs",
+        "hadoop"
+      ],
+      "selected": false
+    },
+    {
+      "name": "hello-world",
+      "currentVersion": "1.1.4",
+      "versions": {
+        "1.1.3": 5,
+        "1.1.0": 2,
+        "1.1.4": 6,
+        "1.1.2": 4,
+        "1.1.1": 3,
+        "1.0.0": 1
+      },
+      "description": "An example implementation of a stateful service using the DC/OS SDK",
+      "framework": true,
+      "tags": [
+        "example",
+        "reference",
+        "hello-world"
+      ],
+      "selected": false
+    },
+    {
+      "name": "httpbin",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 0
+      },
+      "description": "httpbin is an HTTP Request & Response Service, written in Python with the Flask framework. Basically, it's an HTTP server that responds in predictable ways to special HTTP requests and echoes back a lot of the data given to it, so that a developer can see what HTTP client code is doing.\n\nInstallation Documentation:\n\nhttps://github.com/dcos/examples/tree/master/1.8/httpbin",
+      "framework": false,
+      "tags": [
+        "httpbin"
+      ],
+      "selected": false
+    },
+    {
+      "name": "hue",
+      "currentVersion": "0.0.1",
+      "versions": {
+        "0.0.1": 0
+      },
+      "description": "Hue Web Interface to Hadoop",
+      "framework": false,
+      "tags": [
+        "hadoop",
+        "filesystem",
+        "hdfs"
+      ]
+    },
+    {
+      "name": "influxdb",
+      "currentVersion": "0.13-0.1",
+      "versions": {
+        "0.13-0.1": 0
+      },
+      "description": "InfluxDB is an open-source time series database developed by InfluxData as part of their time series platform. It is written in Go and optimized for fast, high-availability storage and retrieval of time series data in fields such as operations monitoring, application metrics, Internet of Things sensor data, and real-time analytics.\n\nThis package can be used alongside the DC/OS 'cadvisor' and 'grafana' packages for a cluster-wide monitoring solution.\n\nInstallation Documentation: https://github.com/dcos/examples/tree/master/cadvisor-influxdb-grafana\n\n",
+      "framework": false,
+      "tags": [
+        "docker",
+        "influxdb",
+        "database",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "instana-agent",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 0
+      },
+      "description": "Instana is the next generation Application Performance Management solution that automatically monitors scheduled environments/dynamic modern applications.\nInstana comprehensively manages the quality of service of your microservice applications with zero to absolute minimal configuration effort.",
+      "framework": false,
+      "tags": [
+        "instana",
+        "apm",
+        "monitoring"
+      ],
+      "selected": false
+    },
+    {
+      "name": "kafka",
+      "currentVersion": "1.1.19-0.10.1.0",
+      "versions": {
+        "1.0.0-0.9.0.1": 8,
+        "1.1.5-0.10.0.0": 24,
+        "1.0.5-0.9.0.1": 13,
+        "1.1.15-0.10.0.0": 33,
+        "1.1.16-0.10.0.0": 34,
+        "1.0.7-0.9.0.1": 16,
+        "1.1.13-0.10.0.0": 31,
+        "1.1.9-0.10.0.0": 28,
+        "0.1.0": 4,
+        "1.0.8-0.10.0.0": 17,
+        "1.1.7-0.10.0.0": 26,
+        "1.1.2-0.10.0.0": 21,
+        "1.0.1-0.9.0.1": 9,
+        "1.1.10-0.10.0.0": 29,
+        "0.9.0-0.2.2": 6,
+        "1.0.9-0.10.0.0": 18,
+        "0.2.0": 5,
+        "1.1.17-0.10.1.0": 35,
+        "1.1.19-0.10.1.0": 38,
+        "1.1.4-0.10.0.0": 23,
+        "1.1.6-0.10.0.0": 25,
+        "1.1.14-0.10.0.0": 32,
+        "0.9.2.0": 0,
+        "0.2.4-0.9.0.1": 7,
+        "1.1.8-0.10.0.0": 27,
+        "1.0.3-0.9.0.1": 11,
+        "1.1.3-0.10.0.0": 22,
+        "1.1.18-0.10.1.0": 37,
+        "1.1.11-0.10.0.0": 30,
+        "1.1.17.1-0.10.1.0": 36,
+        "1.0.4-0.9.0.1": 12,
+        "1.0.2-0.9.0.1": 10,
+        "1.1.1-0.10.0.0": 20,
+        "0.9.4.0": 3,
+        "1.0.6-0.9.0.1": 14,
+        "1.1.0-0.10.0.0": 19
+      },
+      "description": "Apache Kafka running on DC/OS",
+      "framework": true,
+      "tags": [
+        "message",
+        "broker",
+        "pubsub"
+      ],
+      "selected": false
+    },
+    {
+      "name": "kafka-manager",
+      "currentVersion": "1.3.0.8",
+      "versions": {
+        "1.3.0.8": 0
+      },
+      "description": "A tool for managing Apache Kafka",
+      "framework": false,
+      "tags": [
+        "message",
+        "broker",
+        "messaging",
+        "management",
+        "kafka"
+      ]
+    },
+    {
+      "name": "kibana",
+      "currentVersion": "4.5.3",
+      "versions": {
+        "4.5.3": 0
+      },
+      "description": "DCOS implementation of the Kibana, running on the Elasticsearch framework.",
+      "framework": false,
+      "tags": [
+        "kibana",
+        "monitoring",
+        "logging"
+      ]
+    },
+    {
+      "name": "koding",
+      "currentVersion": "1.0.0-0.0.1",
+      "versions": {
+        "1.0.0-0.0.1": 0
+      },
+      "description": "Koding is a web based collaborative software development tool. We bring code development off of localhost and into the cloud. Installation documentation: https://github.com/dcos/examples/tree/master/koding",
+      "framework": false,
+      "tags": [
+        "koding",
+        "IDE",
+        "development"
+      ]
+    },
+    {
+      "name": "kong",
+      "currentVersion": "0.9.9",
+      "versions": {
+        "0.9.9": 0
+      },
+      "description": "Kong is a scalable, extensible, open source API gateway that sits in front of any RESTful API.",
+      "framework": false,
+      "tags": [
+        "proxy",
+        "web-server"
+      ]
+    },
+    {
+      "name": "linkerd",
+      "currentVersion": "0.8.6-0.1",
+      "versions": {
+        "0.6.0-0.1": 3,
+        "0.4.0-0.1": 1,
+        "0.3.1-0.1": 0,
+        "0.8.1-0.2": 6,
+        "0.8.3-0.1": 8,
+        "0.8.6-0.1": 9,
+        "0.7.0-0.1": 4,
+        "0.8.1-0.1": 5,
+        "0.5.0-0.1": 2,
+        "0.8.1-0.3": 7
+      },
+      "description": "A dynamic linker for microservices. Install, set your http proxy to $HOST:4140, and connect to your services via app name. linkerd will handle Marathon service discovery for you.",
+      "framework": false,
+      "tags": [
+        "linkerd",
+        "namerd",
+        "buoyant",
+        "loadbalancer",
+        "service-discovery",
+        "proxy",
+        "microservices",
+        "rpc"
+      ]
+    },
+    {
+      "name": "linkerd-viz",
+      "currentVersion": "0.0.7",
+      "versions": {
+        "0.0.7": 2,
+        "0.0.4": 1,
+        "0.0.3": 0
+      },
+      "description": "A visualization dashboard for linkerd.",
+      "framework": false,
+      "tags": [
+        "linkerd",
+        "namerd",
+        "buoyant",
+        "loadbalancer",
+        "service-discovery",
+        "proxy",
+        "microservices",
+        "rpc",
+        "linkerd-viz",
+        "dashboard",
+        "visualization",
+        "metrics"
+      ]
+    },
+    {
+      "name": "logstash",
+      "currentVersion": "2.3.4",
+      "versions": {
+        "2.3.4": 0
+      },
+      "description": "DCOS implementation of the Logstash.",
+      "framework": false,
+      "tags": [
+        "logstash",
+        "monitoring",
+        "logging",
+        "elk"
+      ]
+    },
+    {
+      "name": "marathon-lb",
+      "currentVersion": "1.6.0",
+      "versions": {
+        "1.3.2": 8,
+        "1.4.3": 15,
+        "1.2.1": 4,
+        "1.3.5": 11,
+        "1.3.4": 10,
+        "1.3.1": 7,
+        "1.4.2": 14,
+        "1.5.0": 16,
+        "1.6.0": 18,
+        "1.3.3": 9,
+        "1.2.2": 5,
+        "0.0.5-0.1": 2,
+        "0.0.4-0.1": 1,
+        "0.0.6-0.1": 3,
+        "1.4.1": 13,
+        "1.3.0": 6,
+        "1.5.1": 17,
+        "0.0.3-0.1": 0,
+        "1.4.0": 12
+      },
+      "description": "HAProxy configured using Marathon state",
+      "framework": false,
+      "tags": [
+        "loadbalancer",
+        "service-discovery",
+        "reverse-proxy",
+        "proxy",
+        "haproxy"
+      ]
+    },
+    {
+      "name": "marathon-slack",
+      "currentVersion": "0.2.0",
+      "versions": {
+        "0.2.0": 1,
+        "0.1.3": 0
+      },
+      "description": "Sends events from the Marathon event bus to a Slack WebHook, and get automatically notified about what is happening in your Marathon instance (e.g. deployments, failed heath checks etc.).",
+      "framework": false,
+      "tags": [
+        "slack",
+        "notifier",
+        "marathon",
+        "eventbus",
+        "events",
+        "bot",
+        "notifications"
+      ]
+    },
+    {
+      "name": "mariadb",
+      "currentVersion": "10.1.22",
+      "versions": {
+        "10.1.22": 2,
+        "10.1.18": 1,
+        "10.1.14": 0
+      },
+      "description": "MariaDB is one of the most popular database servers in the world. It's made by the original developers of MySQL and guaranteed to stay open source. Notable users include Wikipedia, Facebook and Google. MariaDB is developed as open source software and as a relational database it provides an SQL interface for accessing data. The latest versions of MariaDB also include GIS and JSON features.",
+      "framework": false,
+      "tags": [
+        "database",
+        "mysql",
+        "mariadb",
+        "sql"
+      ]
+    },
+    {
+      "name": "memsql",
+      "currentVersion": "0.0.1",
+      "versions": {
+        "0.0.1": 0
+      },
+      "description": "MemSQL running on Apache Mesos. This framework provides the ability to create and manage a set of MemSQL clusters, each running with the MemSQL Ops management tool.",
+      "framework": true,
+      "tags": [
+        "mysql",
+        "database",
+        "rdbms"
+      ]
+    },
+    {
+      "name": "minio",
+      "currentVersion": "0.0.4-RELEASE.2017-03-16T21-50-32Z",
+      "versions": {
+        "0.0.4-RELEASE.2017-03-16T21-50-32Z": 3,
+        "0.0.3-RELEASE.2017-02-16T01-47-30Z": 2,
+        "0.0.2-RELEASE.2017-01-25T03-14-52Z": 1,
+        "0.0.1-RELEASE.2016-11-26T02-23-47Z": 0
+      },
+      "description": "Minio is an object storage server compatible with Amazon S3. It is best suited for storing unstructured data such as photos, videos, log files, backups and container / VM images.",
+      "framework": false,
+      "tags": [
+        "data",
+        "storage",
+        "filesystem"
+      ],
+      "selected": false
+    },
+    {
+      "name": "mongodb",
+      "currentVersion": "3.2-0.2",
+      "versions": {
+        "3.2-0.2": 1,
+        "3.2-0.1": 0
+      },
+      "description": "MongoDB is an open-source, document database designed for ease of development and scaling.",
+      "framework": false,
+      "tags": [
+        "database",
+        "mongo",
+        "mongodb",
+        "nosql"
+      ]
+    },
+    {
+      "name": "mongodb-admin",
+      "currentVersion": "0.0.20-0.2",
+      "versions": {
+        "0.0.20-0.2": 1,
+        "0.0.20-0.1": 0
+      },
+      "description": "A Web user interface to administer MongoDB databases built using Express.",
+      "framework": false,
+      "tags": [
+        "admin",
+        "database",
+        "mongoclient",
+        "mongo",
+        "mongodb",
+        "nosql"
+      ]
+    },
+    {
+      "name": "mongodb-replicaset",
+      "currentVersion": "0.1.0",
+      "versions": {
+        "0.1.0": 0
+      },
+      "description": "A MongoDB ReplicaSet service for DC/OS. An example for this package's usage can be found at https://github.com/dcos/examples/tree/master/1.8/mongodb-replicaset",
+      "framework": true,
+      "tags": [
+        "MongoDB",
+        "ReplicaSet",
+        "database",
+        "nosql",
+        "db",
+        "json",
+        "stateful"
+      ],
+      "selected": false
+    },
+    {
+      "name": "mr-redis",
+      "currentVersion": "0.0.1",
+      "versions": {
+        "0.0.1": 0
+      },
+      "description": "Redis is the fastest in-memory KV-Cache and Datatstructure store",
+      "framework": true,
+      "tags": [
+        "inmemory",
+        "redis"
+      ]
+    },
+    {
+      "name": "msoms",
+      "currentVersion": "1.0.1",
+      "versions": {
+        "1.0.1": 1,
+        "1.0.0": 0
+      },
+      "description": "Microsoft Operations Management Suite(MS OMS) – Container Solution provides real-time analytics for operational data (Performance, Inventory) and monitoring for Docker Containers.",
+      "framework": false,
+      "tags": [
+        "msoms",
+        "Microsoft"
+      ]
+    },
+    {
+      "name": "mysql",
+      "currentVersion": "5.7.12-0.3",
+      "versions": {
+        "5.7.12-0.3": 5,
+        "0.2": 4,
+        "5.7.12": 3
+      },
+      "description": "MySQL is the world's most popular open source database. With its proven performance, reliability and ease-of-use, MySQL has become the leading database choice for web-based applications, covering the entire range from personal projects and websites, via e-commerce and information services, all the way to high profile web properties including Facebook, Twitter, YouTube, Yahoo! and many more.",
+      "framework": false,
+      "tags": [
+        "database",
+        "mysql",
+        "sql"
+      ]
+    },
+    {
+      "name": "mysql-admin",
+      "currentVersion": "4.6.4-0.2",
+      "versions": {
+        "4.6.4-0.2": 1,
+        "0.1": 0
+      },
+      "description": "phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. phpMyAdmin supports a wide range of operations on MySQL and MariaDB.\n\nThis DC/OS package is ready to be used alongside the DC/OS `mysql` package. Other MySQL servers may work, but haven't been tested.",
+      "framework": false,
+      "tags": [
+        "mysql",
+        "database",
+        "admin"
+      ]
+    },
+    {
+      "name": "namerd",
+      "currentVersion": "0.7.0-0.1",
+      "versions": {
+        "0.6.0-0.1": 3,
+        "0.4.0-0.1": 1,
+        "0.3.1-0.1": 0,
+        "0.7.0-0.1": 4,
+        "0.5.0-0.1": 2
+      },
+      "description": "A service for managing name delegation for microservices. [DEPRECATED]",
+      "framework": false,
+      "tags": [
+        "linkerd",
+        "namerd",
+        "buoyant",
+        "loadbalancer",
+        "service-discovery",
+        "proxy",
+        "microservices",
+        "rpc"
+      ]
+    },
+    {
+      "name": "neo4j",
+      "currentVersion": "3.1.2-1.0.0",
+      "versions": {
+        "3.1.2-1.0.0": 1,
+        "3.1.0-1.0.0": 0
+      },
+      "description": "Neo4j is an open source Graph Database. It allows you to efficiently manage highly connected data. This DC/OS package is about the Neo4j core cluster servers, core servers' main responsibility is to safeguard data. You can access the cluster via officially supported drivers from most languages. Installation documentation can be found at https://github.com/dcos/examples/tree/master/1.8/neo4j",
+      "framework": false,
+      "tags": [
+        "neo4j",
+        "cypher",
+        "nosql",
+        "database",
+        "graph",
+        "acid",
+        "graphdb",
+        "data"
+      ],
+      "selected": false
+    },
+    {
+      "name": "neo4j-proxy",
+      "currentVersion": "1.0.0-0.0.1",
+      "versions": {
+        "1.0.0-0.0.1": 0
+      },
+      "description": "Neo4j is an open source Graph Database. It allows you to efficiently manage highly connected data. This DC/OS package is about a proxy to access your cluster from outside of DC/OS. You probably want to do this only for debugging purpose. You can access the cluster via officially supported drivers from most languages. Installation documentation can be found at https://github.com/dcos/examples/tree/master/1.8/neo4j",
+      "framework": false,
+      "tags": [
+        "neo4j",
+        "cypher",
+        "nosql",
+        "database",
+        "graph",
+        "acid",
+        "graphdb",
+        "data"
+      ],
+      "selected": false
+    },
+    {
+      "name": "neo4j-replica",
+      "currentVersion": "3.1.2-1.0.0",
+      "versions": {
+        "3.1.2-1.0.0": 1,
+        "3.1.0-1.0.0": 0
+      },
+      "description": "Neo4j is an open source Graph Database. It allows you to efficiently manage highly connected data. This DC/OS package is about the Neo4j read replica servers, read replicas act like caches for the data that the core servers safeguard. You can access the cluster via officially supported drivers from most languages. Installation documentation can be found at https://github.com/dcos/examples/tree/master/1.8/neo4j",
+      "framework": false,
+      "tags": [
+        "neo4j",
+        "cypher",
+        "nosql",
+        "database",
+        "graph",
+        "acid",
+        "graphdb",
+        "data"
+      ],
+      "selected": false
+    },
+    {
+      "name": "netsil",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 1,
+        "0.2.29": 0
+      },
+      "description": "Netsil is the observability and analytics company for modern cloud applications. Netsil’s Application Operations Center (AOC) helps SREs and DevOps improve the resilience and performance of API and microservices driven production applications.\n\n At the heart of the AOC is an auto-discovered service topology, which is rendered from live service interaction analysis. It allows practitioners to visualize their service dependencies and operational metrics and work collaboratively across teams. \n\n This enables effective application monitoring, capacity planning, incident response, and deploy management.",
+      "framework": false,
+      "tags": [
+        "netsil",
+        "monitoring",
+        "microservices"
+      ]
+    },
+    {
+      "name": "netsil-collectors",
+      "currentVersion": "1.0.0",
+      "versions": {
+        "1.0.0": 1,
+        "0.2.29": 0
+      },
+      "description": "The collectors package for Netsil.",
+      "framework": false,
+      "tags": [
+        "netsil",
+        "monitoring",
+        "microservices",
+        "collectors"
+      ]
+    },
+    {
+      "name": "nexus",
+      "currentVersion": "3.2.1",
+      "versions": {
+        "3.2.1": 3,
+        "3.2.0": 1,
+        "1.0-3.1.0": 0
+      },
+      "description": "Nexus Repository Manager is the world's only repository manager with FREE support for popular formats. It supports Bower, Docker, Maven 2, npm, NuGet, PyPI, and Raw site repositories. Installation documentation can be found at https://github.com/dcos/examples/tree/master/1.8/nexus.",
+      "framework": false,
+      "tags": [
+        "artifact",
+        "maven",
+        "npm",
+        "package",
+        "repository",
+        "bower",
+        "nuget",
+        "pypi"
+      ]
+    },
+    {
+      "name": "nginx",
+      "currentVersion": "1.10.3",
+      "versions": {
+        "1.10.3": 6,
+        "1.10.2": 5,
+        "1.10.1": 4,
+        "1.8.1": 1
+      },
+      "description": "nginx is a high performance HTTP and reverse proxy server. An example for this package's usage can be found at https://github.com/dcos/examples/tree/master/1.8/nginx",
+      "framework": false,
+      "tags": [
+        "proxy",
+        "web-server",
+        "cache",
+        "reverse-proxy"
+      ]
+    },
+    {
+      "name": "nifi",
+      "currentVersion": "1.1.1-0.0.1",
+      "versions": {
+        "1.1.1-0.0.1": 0
+      },
+      "description": "Apache NiFi is an integrated data logistics platform for automating the movement of data between disparate systems. It provides real-time control that makes it easy to manage the movement of data between any source and any destination. It is data source agnostic, supporting disparate and distributed sources of differing formats, schemas, protocols, speeds and sizes such as machines, geo location devices, click streams, files, social feeds, log files and videos and more. It is configurable plumbing for moving data around, similar to how Fedex, UPS or other courier delivery services move parcels around. And just like those services, Apache NiFi allows you to trace your data in real time, just like you could trace a delivery. Installation instruction: https://github.com/dcos/examples/tree/master/1.8/nifi",
+      "framework": false,
+      "tags": [
+        "nifi",
+        "dataflow",
+        "apache",
+        "flow",
+        "data"
+      ],
+      "selected": false
+    },
+    {
+      "name": "openldap",
+      "currentVersion": "2.4.40-0.4",
+      "versions": {
+        "2.4.40-0.4": 3,
+        "0.3": 2,
+        "0.2": 1,
+        "0.1": 0
+      },
+      "description": "OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.",
+      "framework": true,
+      "tags": [
+        "ldap",
+        "directory"
+      ]
+    },
+    {
+      "name": "openldap-admin",
+      "currentVersion": "1.2.2-0.4",
+      "versions": {
+        "1.2.2-0.4": 3,
+        "0.3": 2,
+        "0.2": 1,
+        "0.1": 0
+      },
+      "description": "phpLDAPadmin is a web-based LDAP client. It provides easy, anywhere-accessible, multi-language administration for your LDAP server.\n\nThis DC/OS package is ready to be used alongside the DC/OS `openldap` package. Other LDAP servers may work, but haven't been tested.",
+      "framework": false,
+      "tags": [
+        "ldap",
+        "directory"
+      ]
+    },
+    {
+      "name": "openvpn",
+      "currentVersion": "0.0.0-0.1",
+      "versions": {
+        "0.0.0-0.1": 0
+      },
+      "description": "Your private path to access network resources and services securely: Server service",
+      "framework": false,
+      "tags": [
+        "vpn",
+        "remote-access"
+      ]
+    },
+    {
+      "name": "openvpn-admin",
+      "currentVersion": "0.0.0-0.1",
+      "versions": {
+        "0.0.0-0.1": 1
+      },
+      "description": "Your private path to access network resources and services securely: Admin service.",
+      "framework": false,
+      "tags": [
+        "vpn",
+        "remote-access"
+      ]
+    },
+    {
+      "name": "portworx",
+      "currentVersion": "1.1.6-3.0",
+      "versions": {
+        "1.1.6-3.0": 1,
+        "1.1.2-3.0": 0
+      },
+      "description": "Portworx PX provides scheduler integrated data services for containers, such as data persistence, multi-node replication, cloud-agnostic snapshots and data encryption. Portworx itself is deployed as a container and is suitable for both cloud and on-prem deployments.  Portworx enables containerized applications to be persistent, portable and protected.  For DCOS examples of Portworx, please see https://github.com/dcos/examples/tree/master/1.8/portworx and http://docs.portworx.com/run-with-mesosphere.html",
+      "framework": true,
+      "tags": [
+        "portworx",
+        "storage",
+        "data",
+        "cloud",
+        "volume",
+        "encryption",
+        "s3",
+        "database"
+      ]
+    },
+    {
+      "name": "postgresql",
+      "currentVersion": "9.6-0.2",
+      "versions": {
+        "9.6-0.2": 1,
+        "0.1": 0
+      },
+      "description": "PostgreSQL is an object-relational database management system (ORDBMS) with an emphasis on extensibility and standards-compliance.",
+      "framework": true,
+      "tags": [
+        "postgres",
+        "postgresql",
+        "database"
+      ]
+    },
+    {
+      "name": "postgresql-admin",
+      "currentVersion": "5.1-0.2",
+      "versions": {
+        "5.1-0.2": 1,
+        "0.1": 0
+      },
+      "description": "PhpPgAdmin is a web-based administration tool for PostgreSQL. It is perfect for PostgreSQL DBAs, newbies, and hosting services.\n\nThis DC/OS package is ready to be used alongside the DC/OS `postgresql` package. Other PostgreSQL servers may work, but haven't been tested.",
+      "framework": false,
+      "tags": [
+        "postgres",
+        "postgresql",
+        "database",
+        "admin"
+      ]
+    },
+    {
+      "name": "quobyte",
+      "currentVersion": "1.2.1",
+      "versions": {
+        "1.2.1": 1,
+        "1.2": 0
+      },
+      "description": "Quobyte is a software defined and fault tolerant distributed file system running on commodity hardware.",
+      "framework": true,
+      "tags": [
+        "storage",
+        "filesystem",
+        "bigdata"
+      ]
+    },
+    {
+      "name": "redis",
+      "currentVersion": "3.0.7-0.0.1",
+      "versions": {
+        "3.0.7-0.0.1": 0
+      },
+      "description": "This is a single redis container, which is suited for HA setups. Redis is a popular in-memory data structure store, used as database, cache and message broker.. See documentation for more details: https://github.com/dcos/examples/tree/master/redis ",
+      "framework": false,
+      "tags": [
+        "mesosphere",
+        "service",
+        "redis",
+        "storage"
+      ]
+    },
+    {
+      "name": "registry",
+      "currentVersion": "2.5.1-0.1",
+      "versions": {
+        "2.5.1-0.1": 0
+      },
+      "description": "The docker Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images. This DC/OS package provides a private registry that can be made available to any other component in the system through a virtual IP (default: registry.marathon.l4lb.thisdcos.directory:5000).\n\nNOTE: This package requires additional configuration in order to run either in secure or insecure mode. Check the package documentation at https://github.com/dcos/examples/tree/master/registry for details.",
+      "framework": false,
+      "tags": [
+        "docker",
+        "registry"
+      ]
+    },
+    {
+      "name": "riak",
+      "currentVersion": "2.0.0",
+      "versions": {
+        "2.0.0": 1,
+        "0.1.1": 0
+      },
+      "description": "A distributed NoSQL key-value data store that offers high availability, fault tolerance, operational simplicity, and scalability.",
+      "framework": true,
+      "tags": [
+        "basho",
+        "framework",
+        "database",
+        "riak",
+        "riak-kv",
+        "riak-ts"
+      ]
+    },
+    {
+      "name": "scale",
+      "currentVersion": "4.1.0-0.0.2",
+      "versions": {
+        "4.1.0-0.0.2": 1,
+        "4.0.0-0.0.1": 0
+      },
+      "description": "Scale enables on-demand, near real-time, automated processing of large datasets (satellite, medical, audio, video, ...) using a dynamic bank of algorithms. Algorithm execution is seamlessly distributed across thousands of CPU cores. Docker provides algorithm containerization. Apache Mesos enables optimum resource utilization.\n\nRelease Notes: https://github.com/ngageoint/scale/releases/tag/4.1.0\n\nNew User Tutorial: https://github.com/dcos/examples/tree/master/scale",
+      "framework": true,
+      "tags": [
+        "bigdata",
+        "batch",
+        "analytics",
+        "remotesensing",
+        "algorithms",
+        "geospatial"
+      ],
+      "selected": false
+    },
+    {
+      "name": "spark-history",
+      "currentVersion": "2.1.0-1",
+      "versions": {
+        "2.1.0-1": 0
+      },
+      "description": "The Apache Spark History Server allows you to view the state of running and completed Spark jobs.",
+      "framework": false,
+      "tags": [
+        "bigdata",
+        "mapreduce",
+        "batch",
+        "analytics"
+      ]
+    },
+    {
+      "name": "spark-notebook",
+      "currentVersion": "0.1.0",
+      "versions": {
+        "0.1.0": 0
+      },
+      "description": "Spark Notebook package for DCOS",
+      "framework": true,
+      "tags": [
+        "spark",
+        "notebook",
+        "spark-notebook",
+        "interactive",
+        "big-data",
+        "apachespark",
+        "data-fellas"
+      ],
+      "selected": false
+    },
+    {
+      "name": "spark-shuffle",
+      "currentVersion": "0.1-0.1",
+      "versions": {
+        "0.1-0.1": 0
+      },
+      "description": "During large shuffles Spark creates a bunch of temporary shuffle blocks to local directory configured by the spark.local.dir property. When the executor stops, an external shuffle service can keep track of these files locations and makes sure that they are not removed while the driver is still alive, so that they can be retrieved later by other executors.\n\nThis package provides that mapping and shuffling service seamlessly across a DC/OS cluster.\n\nInstallation Documentation: https://github.com/dcos/examples/tree/master/1.8/spark-shuffle",
+      "framework": false,
+      "tags": [
+        "spark",
+        "shuffle",
+        "resource_management",
+        "zeppelin"
+      ]
+    },
+    {
+      "name": "sqlserver",
+      "currentVersion": "2016-13.0.1601.5-0.1",
+      "versions": {
+        "2016-13.0.1601.5-0.1": 0
+      },
+      "description": "Microsoft SQL Server is a relational database management system developed by Microsoft. As a database server, it is a software product with the primary function of storing and retrieving data as requested by other software applications—which may run either on the same computer or on another computer across a network (including the Internet).\n\nMicrosoft SQL Server 2016 delivers breakthrough in-memory performance, unparalleled security, end-to-end mobile BI and advanced analytics.\n\n Check the product documentation at https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview for details.",
+      "framework": false,
+      "tags": [
+        "database",
+        "sqlserver",
+        "sql",
+        "microsoft"
+      ]
+    },
+    {
+      "name": "storm",
+      "currentVersion": "0.1.0",
+      "versions": {
+        "0.1.0": 0
+      },
+      "description": "Apache Storm is a stream processing framework.",
+      "framework": true,
+      "tags": [
+        "streaming"
+      ]
+    },
+    {
+      "name": "sysdig-cloud",
+      "currentVersion": "latest",
+      "versions": {
+        "latest": 0
+      },
+      "description": "Sysdig Cloud is the first and only monitoring, alerting, and troubleshooting solution designed from the ground up to provide unprecedented visibility into containerized infrastructures. Sysdig Cloud comes with built-in, first class support for Mesos, Marathon, and DC/OS.\n\nThis package will automatically deploy the Sysdig Cloud agent container on each Mesos Agent (aka Slave) node in your cluster. Note, for maximum functionality, including full metadata support, you'll still need to manually install the Sysdig Cloud agent container on each of your Mesos Master nodes as well. See the docs for complete instructions: http://support.sysdigcloud.com/hc/en-us/articles/207886103",
+      "framework": false,
+      "tags": [
+        "sysdig",
+        "sysdigcloud",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "tunnel-cli",
+      "currentVersion": "2.0.0",
+      "versions": {
+        "0.1.0": 0,
+        "1.0.2": 7,
+        "0.3.1": 2,
+        "0.3.2": 3,
+        "0.2.0": 1,
+        "2.0.0": 8,
+        "1.0.0": 5,
+        "0.3.3": 4,
+        "1.0.1": 6
+      },
+      "description": "Proxy and VPN access to your DC/OS cluster",
+      "framework": false,
+      "tags": [
+        "mesosphere",
+        "subcommand",
+        "proxy",
+        "vpn",
+        "socks",
+        "http",
+        "cli"
+      ]
+    },
+    {
+      "name": "vamp",
+      "currentVersion": "0.9.3-0.0.2",
+      "versions": {
+        "0.9.3-0.0.2": 3,
+        "0.9.2-0.0.1": 2,
+        "0.9.1-0.0.2": 1,
+        "0.8.5": 0
+      },
+      "description": "Canary test/release and autoscaling platform for DC/OS",
+      "framework": false,
+      "tags": [
+        "vamp",
+        "canary",
+        "testing",
+        "autoscaling"
+      ]
+    },
+    {
+      "name": "weavescope",
+      "currentVersion": "0.15.0",
+      "versions": {
+        "0.15.0": 1,
+        "0.14.0": 0
+      },
+      "description": "Live visualisation, monitoring and management\n\nWeave Scope produces a live interactive map of your containerized services and applications with no coding and no instrumentation",
+      "framework": false,
+      "tags": [
+        "microservices",
+        "visualisation",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "weavescope-probe",
+      "currentVersion": "0.15.0",
+      "versions": {
+        "0.15.0": 1,
+        "0.14.0": 0
+      },
+      "description": "Live visualisation, monitoring and management\n\nWeave Scope produces a live interactive map of your containerized services and applications with no coding and no instrumentation",
+      "framework": false,
+      "tags": [
+        "microservices",
+        "visualisation",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "wordpress",
+      "currentVersion": "1.0.0-4.5.3-apache",
+      "versions": {
+        "1.0.0-4.5.3-apache": 1
+      },
+      "description": "WordPress is a free and open source blogging tool and a content management system (CMS) based on PHP and MySQL.",
+      "framework": true,
+      "tags": [
+        "blog",
+        "cms",
+        "website"
+      ],
+      "selected": false
+    },
+    {
+      "name": "zeppelin",
+      "currentVersion": "0.5.6",
+      "versions": {
+        "0.5.6": 3,
+        "0.6.0": 2
+      },
+      "description": "Zeppelin is a web-based notebook that enables interactive data analytics",
+      "framework": true,
+      "tags": [
+        "nflabs",
+        "framework",
+        "bigdata",
+        "spark",
+        "notebook",
+        "interactive"
+      ]
     }
   ]
 }
