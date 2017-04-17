@@ -542,6 +542,16 @@ const ServiceUtil = {
     }
 
     return Object.keys(labels).map(key => ({ key, value: labels[key] }));
+  },
+
+  isSDKService(service) {
+    if (!(service instanceof Service)) {
+      return false;
+    }
+
+    const labels = service.getLabels();
+
+    return labels.DCOS_COMMONS_API_VERSION != null;
   }
 };
 
