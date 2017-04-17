@@ -5,8 +5,6 @@ import ConfigurationMapHeading
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 
-import ConfigurationMapBooleanValue
-  from "../components/ConfigurationMapBooleanValue";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import VolumeConstants from "../constants/VolumeConstants";
@@ -35,12 +33,11 @@ class PodStorageConfigSection extends React.Component {
         heading: "Read Only",
         prop: "readOnly",
         render(prop, row) {
-          return (
-            <ConfigurationMapBooleanValue
-              options={BOOLEAN_OPTIONS}
-              value={row[prop]}
-            />
-          );
+          if (row[prop]) {
+            return BOOLEAN_OPTIONS.truthy;
+          }
+
+          return BOOLEAN_OPTIONS.falsy;
         }
       },
       {
