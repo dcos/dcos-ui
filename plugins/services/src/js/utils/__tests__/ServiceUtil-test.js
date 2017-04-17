@@ -1023,4 +1023,28 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeTruthy();
     });
   });
+
+  describe("#isSDKService", function() {
+    it("should return true if service does not have the proper label", function() {
+      const service = new Framework({
+        id: "/foo",
+        labels: {
+          DCOS_COMMONS_API_VERSION: "v1"
+        }
+      });
+
+      expect(ServiceUtil.isSDKService(service)).toEqual(true);
+    });
+
+    it("should return false if service does not have the proper label", function() {
+      const service = new Framework({
+        id: "/foo",
+        labels: {
+          FOO_LABEL: "foo value"
+        }
+      });
+
+      expect(ServiceUtil.isSDKService(service)).toEqual(false);
+    });
+  });
 });
