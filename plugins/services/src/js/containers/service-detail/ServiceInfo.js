@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Dropdown } from "reactjs-components";
+import { FormattedMessage } from "react-intl";
 import React from "react";
 
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
@@ -91,7 +92,7 @@ class ServiceInfo extends React.Component {
           target="_blank"
           title="Open in a new window"
         >
-          Open Service
+          <FormattedMessage id="SERVICE_ACTIONS.OPEN_SERVICE" />
         </a>
       );
     }

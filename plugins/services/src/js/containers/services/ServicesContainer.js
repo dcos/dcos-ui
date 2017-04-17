@@ -395,7 +395,7 @@ class ServicesContainer extends React.Component {
     return {
       createGroup: () => set(ServiceActionItem.CREATE_GROUP),
       openServiceUI(props) {
-        global.open(props.service.getWebURL(), '_blank');
+        global.open(props.service.getWebURL(), "_blank");
       },
       // All methods below work on ServiceTree and Service types
       deleteService: props => set(ServiceActionItem.DELETE, props),

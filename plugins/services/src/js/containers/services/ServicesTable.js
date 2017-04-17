@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
+import { injectIntl } from "react-intl";
 import { Link } from "react-router";
 import React, { PropTypes } from "react";
 
@@ -84,7 +85,7 @@ class ServicesTable extends React.Component {
         modalHandlers.scaleService({ service });
         break;
       case ServiceActionItem.OPEN:
-        modalHandlers.openServiceUI({service});
+        modalHandlers.openServiceUI({ service });
         break;
       case ServiceActionItem.RESTART:
         modalHandlers.restartService({ service });
@@ -149,9 +150,9 @@ class ServicesTable extends React.Component {
 
   hasWebUI(service) {
     return (
-      service instanceof Service
-      && service.getWebURL() != null
-      && service.getWebURL() !== ''
+      service instanceof Service &&
+      service.getWebURL() != null &&
+      service.getWebURL() !== ""
     );
   }
 
@@ -196,7 +197,9 @@ class ServicesTable extends React.Component {
           hidden: !this.hasWebUI(service)
         }),
         id: ServiceActionItem.OPEN,
-        html: 'Open Service'
+        html: this.props.intl.formatMessage({
+          id: "SERVICE_ACTIONS.OPEN_SERVICE"
+        })
       },
       {
         className: classNames({
@@ -432,4 +435,4 @@ ServicesTable.propTypes = {
   services: PropTypes.array
 };
 
-module.exports = ServicesTable;
+module.exports = injectIntl(ServicesTable);

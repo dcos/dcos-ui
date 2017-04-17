@@ -56,7 +56,7 @@ describe("Service Actions", function() {
 
     context("Service Detail", function() {
       it('displays the "Open Service" option for services that have a web UI', function() {
-        cy.visitUrl({ url: "/services/overview/%2Fcassandra-healthy" });
+        cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
 
         cy.get(".page-header-actions .dropdown").click();
         cy
@@ -68,7 +68,7 @@ describe("Service Actions", function() {
       });
 
       it('does not display the "Open Service" option for services that have a web UI', function() {
-        cy.visitUrl({ url: "/services/overview/%2Fcassandra-unhealthy" });
+        cy.visitUrl({ url: "/services/detail/%2Fcassandra-unhealthy" });
 
         cy.get(".page-header-actions .dropdown").click();
         cy
