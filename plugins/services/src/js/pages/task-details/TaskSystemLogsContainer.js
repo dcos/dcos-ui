@@ -88,15 +88,15 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       'isLoading'
     ];
 
-    const isHighlightTextChanged = highlightText !== nextProps.highlightText;
-    const isWatchingChanged = watching !== nextProps.watching;
+    const didHighlightTextChange = highlightText !== nextProps.highlightText;
+    const didWatchingChange = watching !== nextProps.watching;
 
-    const isSlaveIdChanged = nextProps.task &&
+    const didSlaveIdChange = nextProps.task &&
       task.slave_id !== nextProps.task.slave_id;
 
-    return isHighlightTextChanged ||
-      isWatchingChanged ||
-      isSlaveIdChanged ||
+    return didHighlightTextChange ||
+      didWatchingChange ||
+      didSlaveIdChange ||
       stateToCheck.some(function (key) {
         return curState[key] !== nextState[key];
       }) ||

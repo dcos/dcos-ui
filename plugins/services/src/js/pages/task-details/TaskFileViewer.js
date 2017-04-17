@@ -24,23 +24,23 @@ class TaskFileViewer extends React.Component {
 
     const task = curState.task;
     const nextTask = nextState.task;
-    const isSlaveIdChanged = task && nextTask &&
+    const didSlaveIdChange = task && nextTask &&
       task.slave_id !== nextTask.slave_id;
 
-    const isTaskChanged = curProps.task !== nextProps.task ||
-      isSlaveIdChanged;
+    const didTaskChange = curProps.task !== nextProps.task ||
+      didSlaveIdChange;
 
     const directory = curProps.directory;
     const nextDirectory = nextProps.directory;
-    const isDirectoryItemsChanged = directory && nextDirectory &&
+    const didDirectoryItemsChange = directory && nextDirectory &&
       directory.getItems().length !== nextDirectory.getItems().length;
 
-    const isDirectoryChanged = directory !== nextDirectory ||
-      isDirectoryItemsChanged;
+    const didDirectoryChange = directory !== nextDirectory ||
+      didDirectoryItemsChange;
 
-    const isCurrentFileChanged = curState.currentFile !== nextState.currentFile;
+    const didCurrentFileChange = curState.currentFile !== nextState.currentFile;
 
-    return isTaskChanged || isCurrentFileChanged || isDirectoryChanged;
+    return didTaskChange || didCurrentFileChange || didDirectoryChange;
   }
 
   handleViewChange(currentFile) {
