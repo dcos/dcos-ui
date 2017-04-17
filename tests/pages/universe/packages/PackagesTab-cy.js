@@ -146,7 +146,7 @@ describe("Packages Tab", function() {
     });
   });
 
-  context.only("package panels", function() {
+  context("package panels", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/universe", logIn: true });
     });
