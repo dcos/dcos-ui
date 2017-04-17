@@ -44,9 +44,9 @@ ServiceConfigurationContainer.defaultProps = {
 };
 
 ServiceConfigurationContainer.propTypes = {
-  onEditClick: React.PropTypes.func.isRequired,
+  onEditClick: React.PropTypes.func,
   errors: React.PropTypes.array,
-  service: React.PropTypes.instanceOf(Service).isRequired
+  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceConfigurationContainer;

@@ -52,6 +52,16 @@ describe('ServiceConfigurationContainer', function () {
       expect(serviceSpecView).toBeDefined();
     });
 
+    it('doesn\'t pass down onEditClick to ServiceConfigDisplay', function () {
+      var serviceSpecView = TestUtils
+        .findRenderedComponentWithType(this.instance, ServiceConfigDisplay);
+
+      // We should not pass down onEditClick as it will make the `EDIT` button
+      // display. We only want this for the service edit/create flow to jump
+      // back to the form
+      expect(serviceSpecView.props.onEditClick).not.toBeDefined();
+    });
+
   });
 
 });

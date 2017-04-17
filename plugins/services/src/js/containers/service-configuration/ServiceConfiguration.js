@@ -185,7 +185,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   render() {
-    const {errors, onEditClick, service} = this.props;
+    const {errors, service} = this.props;
     const {selectedVersionID} = this.state;
     const config = service.getVersions().get(selectedVersionID);
     let content = null;
@@ -193,12 +193,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     if (config == null) {
       content = <Loader />;
     } else {
-      content = (
-        <ServiceConfigDisplay
-          appConfig={config}
-          errors={errors}
-          onEditClick={onEditClick} />
-        );
+      content = <ServiceConfigDisplay appConfig={config} errors={errors} />;
     }
 
     return (
