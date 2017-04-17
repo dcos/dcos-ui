@@ -1,5 +1,21 @@
 # Contributing
 
+## Indice
+- [Commits](#commits)
+  - [Commit Message](#commit-message)
+  - [Subject](#subjet)
+  - [Type](#type)
+  - [Scope](#scope)
+  - [Message](#message)
+  - [Referencing Issues](#referencing-issues)
+  - [Breaking Changes](#breaking-changes)
+  - [Examples](#examples)
+- [ReactJS Components](#reactjs-components)
+- [i18n](#i18n)
+  - [Translation IDs](#translation-ids)
+  - [Translation Strings](#translation-strings)
+  - [New Translation files](#new-translation-files)
+
 ## Commits
 
 Please commit your changes frequently in small logical chunks that are
@@ -140,9 +156,10 @@ For more info https://github.com/npm/npm/issues/2679
 
 3. Commit to repository
 
-## Working with ReactJS Components
+## ReactJS Components
 
-To develop ReactJS Components and see the implications immediately in DC/OS UI, it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
+To develop ReactJS Components and see the implications immediately in DC/OS UI,
+it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 
 1. Run `npm run dist-src` in your `reactjs-components` directory.
 2. Run `npm link` in your `reactjs-components` directory.
@@ -191,3 +208,42 @@ To develop ReactJS Components and see the implications immediately in DC/OS UI, 
       ]
     }
     ```
+
+## i18n
+
+DCOS UI uses [React-Intl](https://github.com/yahoo/react-intl) to enable i18n, please look at the documentation. Currently this project is only supporting `en-us` but planning to support more languages/locales in the future.
+
+### translations ids
+
+When adding a new translation ID make sure there's no existent translation with the same ID to avoiding duplicated translations.
+If you find an existing translation ID, make sure that the ID is `prepended` with `COMMON`.
+
+When creating a new **translation ID** please follow the convention/pattern bellow:
+
+- Only uppercase.
+- No special characters **BUT** dot (`.`) and underscore (`_`) to create hierarchy.
+- No Numbers.
+- Prepend `COMMON` when should be used in more places.
+- Prepend the component name `FAKECOMPONENT` when should be specific translation to a component.
+
+In theory you can add any string as value but avoid using markup at any cost.
+
+A good example of translations:
+```javascript
+{
+  "COMMON.SUMMARY": "Summary":
+  "COMMON.STATUS": "Status",
+  "DASHBOARD.HEALTH_LIST": "Component Health List",
+}
+```
+
+### Translations strings
+
+When formatting a string containing multiple pieces of logic and/or translation IDs you can follow the [documentation here](https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components) where you can also work with plural strings
+but if you are looking to compose a normal string with a plural string you can use the component [formattedPlural](https://github.com/yahoo/react-intl/wiki/Components#formattedplural).
+
+Keep in mind that React-intl follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
+
+### New translation files
+
+When adding a new translation file store in `src/js/translations` directory and give it a name based on the language code e.g `en-us` (United States) `en-ie` (Ireland).
