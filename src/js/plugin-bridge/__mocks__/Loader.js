@@ -14,7 +14,7 @@ const externalPluginsDir = path.resolve(
 );
 
 try {
-  pluginsList = require('PLUGINS');
+  pluginsList = require('#PLUGINS');
 } catch (err) {
   pluginsList = {};
 }
