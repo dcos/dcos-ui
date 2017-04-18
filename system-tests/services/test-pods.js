@@ -197,7 +197,7 @@ describe('Services', function () {
 
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       cy
@@ -674,7 +674,7 @@ describe('Services', function () {
 
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       cy
