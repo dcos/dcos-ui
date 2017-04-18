@@ -101,7 +101,6 @@ class ContainerServiceFormAdvancedSection extends Component {
           content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
           interactive={true}
           maxWidth={300}
-          scrollContainer=".gm-scroll-view"
           wrapText={true}
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper">
           {inputNode}
@@ -163,7 +162,6 @@ class ContainerServiceFormAdvancedSection extends Component {
             content={dockerOnly}
             key={`tooltip.${index}`}
             position="top"
-            scrollContainer=".gm-scroll-view"
             width={300}
             wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
             wrapText={true}>

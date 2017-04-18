@@ -70,8 +70,7 @@ class ContainerServiceFormSection extends Component {
               content={tooltipContent}
               interactive={true}
               wrapText={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view">
+              maxWidth={300}>
               <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
@@ -107,8 +106,7 @@ class ContainerServiceFormSection extends Component {
               content={tooltipContent}
               interactive={true}
               wrapText={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view">
+              maxWidth={300}>
               <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
@@ -170,7 +168,6 @@ class ContainerServiceFormSection extends Component {
         <Tooltip
           content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
           width={300}
-          scrollContainer=".gm-scroll-view"
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
           wrapText={true}>
           {inputNode}

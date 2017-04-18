@@ -95,7 +95,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 content={tooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -201,7 +200,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   content={loadBalancerTooltipContent}
                   interactive={true}
                   maxWidth={300}
-                  scrollContainer=".gm-scroll-view"
                   wrapperClassName="tooltip-wrapper text-align-center"
                   wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
@@ -247,7 +245,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 content={assignHelpText}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -392,7 +389,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                       content="Name your endpoint to search for it by a meaningful name, rather than the port number."
                       interactive={true}
                       maxWidth={300}
-                      scrollContainer=".gm-scroll-view"
                       wrapperClassName="tooltip-wrapper text-align-center"
                       wrapText={true}>
                       <Icon color="grey" id="circle-question" size="mini" />
@@ -485,7 +481,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         content={tooltipContent + '.'}
         interactive={true}
         maxWidth={300}
-        scrollContainer=".gm-scroll-view"
         wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
         wrapText={true}>
         {selections}
@@ -521,7 +516,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             content={serviceEndpointsTooltipContent}
             interactive={true}
             maxWidth={300}
-            scrollContainer=".gm-scroll-view"
             wrapperClassName="tooltip-wrapper text-align-center"
             wrapText={true}>
             <Icon color="grey" id="circle-question" size="mini" />
@@ -539,7 +533,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <Tooltip
           content={tooltipMessage}
           maxWidth={500}
-          scrollContainer=".gm-scroll-view"
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
           wrapText={true}>
           <h3 className="short-bottom muted" key="service-endpoints-header">
@@ -615,7 +608,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                     content={tooltipContent}
                     interactive={true}
                     maxWidth={300}
-                    scrollContainer=".gm-scroll-view"
                     wrapText={true}>
                     <Icon color="grey" id="circle-question" size="mini" />
                   </Tooltip>

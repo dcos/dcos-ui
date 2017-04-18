@@ -187,7 +187,6 @@ class EnvironmentFormSection extends Component {
                 content={envTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
@@ -218,7 +217,6 @@ class EnvironmentFormSection extends Component {
                 content={labelsTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                scrollContainer=".gm-scroll-view"
                 wrapText={true}>
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>

@@ -460,8 +460,7 @@ class ServiceFormModal extends React.Component {
             wrapperClassName="tooltip-wrapper media-object-item json-editor-help"
             wrapText={true}
             maxWidth={300}
-            position="left"
-            scrollContainer=".gm-scroll-view">
+            position="left">
             <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
         </div>
