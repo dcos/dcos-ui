@@ -63,8 +63,8 @@ class MountService extends EventEmitter {
         descriptor.component === component &&
         descriptor.type === type)) {
       if (process.env.NODE_ENV !== 'production') {
-        throw new Error('Provided component/type combination ' +
-            'is already registered');
+        throw new Error(`Provided component/type ${component.name}/${type}` +
+          'combination is already registered');
       }
 
       return;
