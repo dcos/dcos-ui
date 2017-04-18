@@ -19,22 +19,28 @@ class TaskFileViewer extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {props, state} = this;
-    const directory = props.directory;
-    const nextDirectory = nextProps.directory;
-    const task = state.task;
-    const nextTask = nextState.task;
+    const curProps = this.props;
+    const curState = this.state;
 
-    return (
-      // Check task
-      (props.task !== nextProps.task) ||
-      (task && nextTask && task.slave_id !== nextTask.slave_id) ||
-      // Check current view
-      (state.currentFile !== nextState.currentFile) ||
-      // Check directory
-      (directory !== nextDirectory) || (directory && nextDirectory &&
-        directory.getItems().length !== nextDirectory.getItems().length)
-    );
+    const task = curState.task;
+    const nextTask = nextState.task;
+    const didSlaveIdChange = task && nextTask &&
+      task.slave_id !== nextTask.slave_id;
+
+    const didTaskChange = curProps.task !== nextProps.task ||
+      didSlaveIdChange;
+
+    const directory = curProps.directory;
+    const nextDirectory = nextProps.directory;
+    const didDirectoryItemsChange = directory && nextDirectory &&
+      directory.getItems().length !== nextDirectory.getItems().length;
+
+    const didDirectoryChange = directory !== nextDirectory ||
+      didDirectoryItemsChange;
+
+    const didCurrentFileChange = curState.currentFile !== nextState.currentFile;
+
+    return didTaskChange || didCurrentFileChange || didDirectoryChange;
   }
 
   handleViewChange(currentFile) {
