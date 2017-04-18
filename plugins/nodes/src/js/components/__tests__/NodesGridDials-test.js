@@ -1,6 +1,6 @@
-jest.dontMock('../../../../../../src/js/components/CollapsingString');
-jest.dontMock('../../../../../../src/js/utils/Util');
-jest.dontMock('../../../../../../src/js/utils/ResourcesUtil');
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/utils/Util');
+jest.dontMock('#SRC/js/utils/ResourcesUtil');
 jest.dontMock('../NodesGridDials');
 
 const deepEqual = require('deep-equal');
@@ -11,8 +11,8 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const NodesGridDials = require('../NodesGridDials');
-const ResourcesUtil = require('../../../../../../src/js/utils/ResourcesUtil');
-const Node = require('../../../../../../src/js/structs/Node');
+const ResourcesUtil = require('#SRC/js/utils/ResourcesUtil');
+const Node = require('#SRC/js/structs/Node');
 
 var mockHost = {
   id: 'foo',

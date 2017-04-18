@@ -4,18 +4,18 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Tooltip} from 'reactjs-components';
 
-import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
-import CollapsingString from '../../../../../../src/js/components/CollapsingString';
-import ExpandingTable from '../../../../../../src/js/components/ExpandingTable';
-import Icon from '../../../../../../src/js/components/Icon';
+import CheckboxTable from '#SRC/js/components/CheckboxTable';
+import CollapsingString from '#SRC/js/components/CollapsingString';
+import ExpandingTable from '#SRC/js/components/ExpandingTable';
+import Icon from '#SRC/js/components/Icon';
+import TimeAgo from '#SRC/js/components/TimeAgo';
+import Units from '#SRC/js/utils/Units';
 
 import Pod from '../../structs/Pod';
 import PodInstanceList from '../../structs/PodInstanceList';
 import PodInstanceStatus from '../../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../../constants/PodTableHeaderLabels';
 import PodUtil from '../../utils/PodUtil';
-import TimeAgo from '../../../../../../src/js/components/TimeAgo';
-import Units from '../../../../../../src/js/utils/Units';
 
 const tableColumnClasses = {
   checkbox: 'task-table-column-checkbox',

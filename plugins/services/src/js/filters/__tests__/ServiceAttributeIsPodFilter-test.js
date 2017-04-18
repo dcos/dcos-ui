@@ -1,14 +1,14 @@
-jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
-jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
+jest.dontMock('#SRC/js/structs/DSLFilterList');
+jest.dontMock('#SRC/resources/grammar/SearchDSL.jison');
 jest.dontMock('../ServiceAttributeIsPodFilter');
-jest.dontMock('../../../../../../src/js/structs/List');
+jest.dontMock('#SRC/js/structs/List');
 
 var Application = require('../../structs/Application');
-var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
+var DSLFilterList = require('#SRC/js/structs/DSLFilterList');
 var Framework = require('../../structs/Framework');
-var List = require('../../../../../../src/js/structs/List');
+var List = require('#SRC/js/structs/List');
 var Pod = require('../../structs/Pod');
-var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
+var SearchDSL = require('#SRC/resources/grammar/SearchDSL.jison');
 var ServiceAttributeIsPodFilter = require('../ServiceAttributeIsPodFilter');
 
 describe('ServiceAttributeIsPodFilter', function () {

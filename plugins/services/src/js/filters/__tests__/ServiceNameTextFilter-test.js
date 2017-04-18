@@ -1,12 +1,12 @@
-jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
-jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
+jest.dontMock('#SRC/js/structs/DSLFilterList');
+jest.dontMock('#SRC/resources/grammar/SearchDSL.jison');
 jest.dontMock('../ServiceNameTextFilter');
-jest.dontMock('../../../../../../src/js/structs/List');
+jest.dontMock('#SRC/js/structs/List');
 
-var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
-var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
+var DSLFilterList = require('#SRC/js/structs/DSLFilterList');
+var SearchDSL = require('#SRC/resources/grammar/SearchDSL.jison');
 var ServiceNameTextFilter = require('../ServiceNameTextFilter');
-var List = require('../../../../../../src/js/structs/List');
+var List = require('#SRC/js/structs/List');
 
 describe('ServiceNameTextFilter', function () {
 

@@ -3,21 +3,22 @@ import React from 'react';
 import {Link, routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import AlertPanel from '../../../../../src/js/components/AlertPanel';
-import AlertPanelHeader from '../../../../../src/js/components/AlertPanelHeader';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import Config from '../../../../../src/js/config/Config';
-import EventTypes from '../../../../../src/js/constants/EventTypes';
-import FilterInputText from '../../../../../src/js/components/FilterInputText';
+import AlertPanel from '#SRC/js/components/AlertPanel';
+import AlertPanelHeader from '#SRC/js/components/AlertPanelHeader';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import Config from '#SRC/js/config/Config';
+import EventTypes from '#SRC/js/constants/EventTypes';
+import FilterInputText from '#SRC/js/components/FilterInputText';
+import Icon from '#SRC/js/components/Icon';
+import InternalStorageMixin from '#SRC/js/mixins/InternalStorageMixin';
+import MesosSummaryStore from '#SRC/js/stores/MesosSummaryStore';
+import Page from '#SRC/js/components/Page';
+import QueryParamsMixin from '#SRC/js/mixins/QueryParamsMixin';
+import SidebarActions from '#SRC/js/events/SidebarActions';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import HostsPageContent from './nodes-overview/HostsPageContent';
-import Icon from '../../../../../src/js/components/Icon';
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
-import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
 import NodeBreadcrumbs from '../components/NodeBreadcrumbs';
-import Page from '../../../../../src/js/components/Page';
-import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
-import SidebarActions from '../../../../../src/js/events/SidebarActions';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 const NODES_DISPLAY_LIMIT = 300;
 

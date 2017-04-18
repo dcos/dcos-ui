@@ -1,5 +1,10 @@
 import React, {PropTypes} from 'react';
 
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import ContainerUtil from '#SRC/js/utils/ContainerUtil';
+import EventTypes from '#SRC/js/constants/EventTypes';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+
 import ActionKeys from '../../constants/ActionKeys';
 import MarathonActions from '../../events/MarathonActions';
 import Pod from '../../structs/Pod';
@@ -7,11 +12,6 @@ import PodInstancesView from './PodInstancesView';
 import PodUtil from '../../utils/PodUtil';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import TaskModals from '../../components/modals/TaskModals';
-
-import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
-import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
-import EventTypes from '../../../../../../src/js/constants/EventTypes';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 
 import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,

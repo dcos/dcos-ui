@@ -5,12 +5,26 @@ import {Confirm} from 'reactjs-components';
 import {Hooks} from 'PluginSDK';
 import {routerShape} from 'react-router';
 
+import {combineParsers} from '#SRC/js/utils/ParserUtil';
+import {combineReducers} from '#SRC/js/utils/ReducerUtil';
+import {DCOS_CHANGE} from '#SRC/js/constants/EventTypes';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import AppValidators from '#SRC/resources/raml/marathon/v2/types/app.raml';
+import DataValidatorUtil from '#SRC/js/utils/DataValidatorUtil';
+import FullScreenModal from '#SRC/js/components/modals/FullScreenModal';
+import FullScreenModalHeader from '#SRC/js/components/modals/FullScreenModalHeader';
+import FullScreenModalHeaderActions from '#SRC/js/components/modals/FullScreenModalHeaderActions';
+import FullScreenModalHeaderTitle from '#SRC/js/components/modals/FullScreenModalHeaderTitle';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import PodValidators from '#SRC/resources/raml/marathon/v2/types/pod.raml';
+import ToggleButton from '#SRC/js/components/ToggleButton';
+import Util from '#SRC/js/utils/Util';
+
 import Application from '../../structs/Application';
 import ApplicationSpec from '../../structs/ApplicationSpec';
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
 import MarathonStore from '../../stores/MarathonStore';
 import {
@@ -19,7 +33,6 @@ import {
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS
 } from '../../constants/EventTypes';
-import {DCOS_CHANGE} from '../../../../../../src/js/constants/EventTypes';
 
 import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
 import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
@@ -27,35 +40,23 @@ import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
-import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
-import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
-import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
-import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
-import FullScreenModalHeaderActions from '../../../../../../src/js/components/modals/FullScreenModalHeaderActions';
-import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
 import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
-import PodValidators from '../../../../../../src/resources/raml/marathon/v2/types/pod.raml';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
-import ToggleButton from '../../../../../../src/js/components/ToggleButton';
-import Util from '../../../../../../src/js/utils/Util';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONSingleContainerReducers from '../../reducers/JSONSingleContainerReducers';
 import JSONMultiContainerParser from '../../reducers/JSONMultiContainerParser';
 import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
 import JSONSingleContainerParser from '../../reducers/JSONSingleContainerParser';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
 import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceErrorTypes from '../../constants/ServiceErrorTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import VipLabelsValidators from '../../validators/VipLabelsValidators';
-import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
-import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [

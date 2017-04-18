@@ -2,25 +2,26 @@ import {
   SET,
   ADD_ITEM,
   REMOVE_ITEM
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from '#SRC/js/constants/TransactionTypes';
 import {
   combineReducers,
   parseIntValue,
   simpleFloatReducer,
   simpleReducer
-} from '../../../../../../src/js/utils/ReducerUtil';
+} from '#SRC/js/utils/ReducerUtil';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
+import Networking from '#SRC/js/constants/Networking';
+import Transaction from '#SRC/js/structs/Transaction';
+
 import {DEFAULT_POD_CONTAINER} from '../../constants/DefaultPod';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {FormReducer as volumeMountsReducer} from './MultiContainerVolumes';
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
   JSONSegmentParser as multiContainerHealthCheckParser,
   FormReducer as multiContainerHealthFormReducer
 } from './MultiContainerHealthChecks';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
-import Networking from '../../../../../../src/js/constants/Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
 
 const {CONTAINER, HOST} = Networking.type;

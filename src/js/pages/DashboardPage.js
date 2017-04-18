@@ -3,11 +3,12 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {FormattedMessage} from 'react-intl';
 
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+
 import Breadcrumb from '../components/Breadcrumb';
 import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
 import ComponentList from '../components/ComponentList';
 import Config from '../config/Config';
-import DCOSStore from '../stores/DCOSStore';
 import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
 import HostTimeSeriesChart from '../components/charts/HostTimeSeriesChart';
 import Icon from '../components/Icon';

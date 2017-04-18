@@ -1,10 +1,10 @@
-jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
+jest.dontMock('#SRC/js/stores/MesosStateStore');
 
-const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 
 JestUtil.unMockStores(['MesosStateStore']);
 
-const MesosStateStore = require('../../../../../../src/js/stores/MesosStateStore');
+const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
 
 const Framework = require('../Framework');
 

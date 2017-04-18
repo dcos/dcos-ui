@@ -1,4 +1,4 @@
-jest.dontMock('../../../../../../../src/js/components/CollapsingString');
+jest.dontMock('#SRC/js/components/CollapsingString');
 jest.dontMock('../../../constants/HealthStatus');
 jest.dontMock('../ServicesTable');
 

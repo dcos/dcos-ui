@@ -1,10 +1,10 @@
-jest.dontMock('../../../../../../src/js/structs/Item');
-jest.dontMock('../../../../../../src/js/structs/List');
+jest.dontMock('#SRC/js/structs/Item');
+jest.dontMock('#SRC/js/structs/List');
 jest.dontMock('../LogBuffer');
-jest.dontMock('../../../../../../src/js/utils/Util');
+jest.dontMock('#SRC/js/utils/Util');
 
-const Item = require('../../../../../../src/js/structs/Item');
-const List = require('../../../../../../src/js/structs/List');
+const Item = require('#SRC/js/structs/Item');
+const List = require('#SRC/js/structs/List');
 const LogBuffer = require('../LogBuffer');
 
 const PAGE_SIZE = 8 * 4096; // 32kb of data or 8 'pages'

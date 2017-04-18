@@ -2,7 +2,7 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from '#SRC/js/constants/TransactionTypes';
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 
 const defaultFieldValues = {

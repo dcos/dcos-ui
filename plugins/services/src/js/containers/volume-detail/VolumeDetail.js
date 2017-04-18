@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
 
-import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
-import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
-import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
-import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
-import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
-import Page from '../../../../../../src/js/components/Page';
+import Breadcrumb from '#SRC/js/components/Breadcrumb';
+import BreadcrumbTextContent from '#SRC/js/components/BreadcrumbTextContent';
+import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import DetailViewHeader from '#SRC/js/components/DetailViewHeader';
+import Page from '#SRC/js/components/Page';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import VolumeStatus from '../../constants/VolumeStatus';
 

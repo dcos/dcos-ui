@@ -1,5 +1,5 @@
-import BreadcrumbSegment from '../../../../../../../src/js/components/BreadcrumbSegment';
-import MesosStateStore from '../../../../../../../src/js/stores/MesosStateStore';
+import BreadcrumbSegment from '#SRC/js/components/BreadcrumbSegment';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
 
 class TaskDetailBreadcrumb extends BreadcrumbSegment {
   constructor() {

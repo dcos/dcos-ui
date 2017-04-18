@@ -1,44 +1,41 @@
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
+import {
+  DCOS_CHANGE,
+  MESOS_STATE_CHANGE
+} from '#SRC/js/constants/EventTypes';
+import {reconstructPathFromRoutes} from '#SRC/js/utils/RouterUtil';
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import ContainerUtil from '#SRC/js/utils/ContainerUtil';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import DSLExpression from '#SRC/js/structs/DSLExpression';
+import DSLFilterList from '#SRC/js/structs/DSLFilterList';
+import Icon from '#SRC/js/components/Icon';
+import Loader from '#SRC/js/components/Loader';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import Page from '#SRC/js/components/Page';
+import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
+
 import ActionKeys from '../../constants/ActionKeys';
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
 import Pod from '../../structs/Pod';
 import PodDetail from '../pod-detail/PodDetail';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
+import ServiceAttributeHasVolumesFilter from '../../filters/ServiceAttributeHasVolumesFilter';
+import ServiceAttributeHealthFilter from '../../filters/ServiceAttributeHealthFilter';
+import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
+import ServiceAttributeIsPodFilter from '../../filters/ServiceAttributeIsPodFilter';
+import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUniverseFilter';
+import ServiceAttributeNoHealthchecksFilter from '../../filters/ServiceAttributeNoHealthchecksFilter';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import ServiceDetail from '../service-detail/ServiceDetail';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import ServiceModals from '../../components/modals/ServiceModals';
+import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceTreeView from './ServiceTreeView';
-
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
-import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
-import Icon from '../../../../../../src/js/components/Icon';
-import Loader from '../../../../../../src/js/components/Loader';
-import Page from '../../../../../../src/js/components/Page';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
-import {reconstructPathFromRoutes} from '../../../../../../src/js/utils/RouterUtil';
-
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
-import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
-import ServiceAttributeHealthFilter
-  from '../../filters/ServiceAttributeHealthFilter';
-import ServiceAttributeNoHealthchecksFilter from '../../filters/ServiceAttributeNoHealthchecksFilter';
-import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
-import ServiceAttributeIsPodFilter from '../../filters/ServiceAttributeIsPodFilter';
-import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUniverseFilter';
-import ServiceAttributeHasVolumesFilter from '../../filters/ServiceAttributeHasVolumesFilter';
-
-import {
-  DCOS_CHANGE,
-  MESOS_STATE_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,

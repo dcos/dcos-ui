@@ -1,17 +1,17 @@
-jest.dontMock('../../../../../../src/js/components/CollapsingString');
-jest.dontMock('../../../../../../src/js/mixins/InternalStorageMixin');
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
 jest.dontMock('../NodesGridView');
-jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
-jest.dontMock('../../../../../../src/js/utils/Util');
+jest.dontMock('#SRC/js/stores/MesosStateStore');
+jest.dontMock('#SRC/js/utils/Util');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
-var CompositeState = require('../../../../../../src/js/structs/CompositeState');
+var CompositeState = require('#SRC/js/structs/CompositeState');
 var NodesGridView = require('../NodesGridView');
-var MesosStateStore = require('../../../../../../src/js/stores/MesosStateStore');
-var NodesList = require('../../../../../../src/js/structs/NodesList');
+var MesosStateStore = require('#SRC/js/stores/MesosStateStore');
+var NodesList = require('#SRC/js/structs/NodesList');
 
 MesosStateStore.addChangeListener = function () {};
 

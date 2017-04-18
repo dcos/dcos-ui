@@ -1,7 +1,8 @@
-import FormUtil from '../../../../../../src/js/utils/FormUtil';
+import FormUtil from '#SRC/js/utils/FormUtil';
+import NetworkValidatorUtil from '#SRC/js/utils/NetworkValidatorUtil';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+
 import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
-import NetworkValidatorUtil from '../../../../../../src/js/utils/NetworkValidatorUtil';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 const HealthChecks = {
   type: 'object',

@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import Icon from '../../../../../src/js/components/Icon';
-import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
-import TableUtil from '../../../../../src/js/utils/TableUtil';
+import Icon from '#SRC/js/components/Icon';
+import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import TimeAgo from '#SRC/js/components/TimeAgo';
+import Units from '#SRC/js/utils/Units';
+
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 import TaskDirectoryHeaderLabels from '../constants/TaskDirectoryHeaderLabels';
-import TimeAgo from '../../../../../src/js/components/TimeAgo';
-import Units from '../../../../../src/js/utils/Units';
 
 function renderByProperty(prop, directoryItem) {
   return directoryItem.get(prop);

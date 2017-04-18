@@ -1,4 +1,4 @@
-import List from '../../../../../src/js/structs/List';
+import List from '#SRC/js/structs/List';
 import Volume from './Volume';
 
 class VolumeList extends List {}

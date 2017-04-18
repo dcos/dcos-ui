@@ -2,22 +2,20 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
+import DSLExpression from '#SRC/js/structs/DSLExpression';
+import DSLFilterField from '#SRC/js/components/DSLFilterField';
+import DSLFilterList from '#SRC/js/structs/DSLFilterList';
+import Page from '#SRC/js/components/Page';
+
 import EmptyServiceTree from './EmptyServiceTree';
-import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import ServicesTable from './ServicesTable';
-
-import Page from '../../../../../../src/js/components/Page';
+import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
 import Service from '../../structs/Service';
-import ServiceTree from '../../structs/ServiceTree';
-
-import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
-import DSLFilterField from '../../../../../../src/js/components/DSLFilterField';
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
 import ServiceOtherDSLSection from '../../components/dsl/ServiceOtherDSLSection';
+import ServicesTable from './ServicesTable';
 import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
-import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
+import ServiceTree from '../../structs/ServiceTree';
 
 class ServiceTreeView extends React.Component {
   getFilterBar() {

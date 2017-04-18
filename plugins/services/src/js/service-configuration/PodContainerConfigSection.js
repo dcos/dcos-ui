@@ -1,17 +1,18 @@
 import React from 'react';
 
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
 import ConfigurationMapMultilineValue from '../components/ConfigurationMapMultilineValue';
-import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ConfigurationMapSizeValue from '../components/ConfigurationMapSizeValue';
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import PodContainerArtifactsConfigSection from './PodContainerArtifactsConfigSection';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
 
 function getCommand(containerConfig) {

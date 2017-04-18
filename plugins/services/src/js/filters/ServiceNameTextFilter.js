@@ -1,5 +1,5 @@
-import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
-import DSLFilter from '../../../../../src/js/structs/DSLFilter';
+import DSLFilterTypes from '#SRC/js/constants/DSLFilterTypes';
+import DSLFilter from '#SRC/js/structs/DSLFilter';
 
 /**
  * This filter handles the `text` attributes against service's `getName` value

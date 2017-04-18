@@ -1,5 +1,5 @@
-import Item from '../../../../../src/js/structs/Item';
-import List from '../../../../../src/js/structs/List';
+import Item from '#SRC/js/structs/Item';
+import List from '#SRC/js/structs/List';
 import TaskStat from './TaskStat';
 
 const functionMap = {

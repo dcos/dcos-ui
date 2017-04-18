@@ -2,18 +2,19 @@ import classNames from 'classnames';
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldHelp from '#SRC/js/components/form/FieldHelp';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
 import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import ArtifactsSection from './ArtifactsSection';
 import ContainerConstants from '../../constants/ContainerConstants';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
 import PodSpec from '../../structs/PodSpec';
 
 const {DOCKER} = ContainerConstants.type;

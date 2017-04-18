@@ -1,6 +1,7 @@
+import Config from '#SRC/js/config/Config';
+import {cleanServiceJSON} from '#SRC/js/utils/CleanJSONUtil';
+
 import ApplicationSpec from './ApplicationSpec';
-import Config from '../../../../../src/js/config/Config';
-import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';

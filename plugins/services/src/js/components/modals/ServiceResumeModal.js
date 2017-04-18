@@ -2,11 +2,12 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormRow from '#SRC/js/components/form/FormRow';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+
 import AppLockedMessage from './AppLockedMessage';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 

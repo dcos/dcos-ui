@@ -1,5 +1,5 @@
 jest.dontMock('../ConfigurationMapMultilineValue');
-jest.dontMock('../../../../../../src/js/components/ConfigurationMapValue');
+jest.dontMock('#SRC/js/components/ConfigurationMapValue');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 const ReactDOM = require('react-dom');

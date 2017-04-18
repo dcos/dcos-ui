@@ -1,12 +1,12 @@
 jest.dontMock('../MesosLogActions');
-jest.dontMock('../../../../../../src/js/events/AppDispatcher');
+jest.dontMock('#SRC/js/events/AppDispatcher');
 jest.dontMock('../../constants/ActionTypes');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 const MesosLogActions = require('../MesosLogActions');
 const ActionTypes = require('../../constants/ActionTypes');
-const AppDispatcher = require('../../../../../../src/js/events/AppDispatcher');
+const AppDispatcher = require('#SRC/js/events/AppDispatcher');
 
 describe('MesosLogActions', function () {
 

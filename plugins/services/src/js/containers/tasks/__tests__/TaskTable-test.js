@@ -1,18 +1,21 @@
-jest.dontMock('../../../../../../../src/js/components/CollapsingString');
+jest.dontMock('moment');
+
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/stores/MesosStateStore');
+
 jest.dontMock('./fixtures/MockTasks.json');
 jest.dontMock('../../../constants/TaskStates');
-jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
 jest.dontMock('../TaskTable');
-jest.dontMock('moment');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
-const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 
-const DCOSStore = require('../../../../../../../src/js/stores/DCOSStore');
-const MesosStateStore = require('../../../../../../../src/js/stores/MesosStateStore');
+const DCOSStore = require('#SRC/js/stores/DCOSStore');
+const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
+
 const TaskTable = require('../TaskTable');
 const Tasks = require('./fixtures/MockTasks.json').tasks;
 

@@ -2,14 +2,15 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import ConfigStore from '../../../../../../src/js/stores/ConfigStore';
-import Loader from '../../../../../../src/js/components/Loader';
+import ConfigStore from '#SRC/js/stores/ConfigStore';
+import Loader from '#SRC/js/components/Loader';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {SYSTEM_LOGS} from '#SRC/js/constants/MesosLoggingStrategy';
+
 import Task from '../../structs/Task';
 import TaskDirectory from '../../structs/TaskDirectory';
 import TaskFileViewer from './TaskFileViewer';
 import TaskSystemLogsContainer from './TaskSystemLogsContainer';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {SYSTEM_LOGS} from '../../../../../../src/js/constants/MesosLoggingStrategy';
 
 class TaskLogsContainer extends mixin(StoreMixin) {
   constructor() {

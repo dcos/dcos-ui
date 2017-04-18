@@ -2,9 +2,9 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Icon from '../../../../../src/js/components/Icon';
-import RouterUtil from '../../../../../src/js/utils/RouterUtil';
-import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
+import Icon from '#SRC/js/components/Icon';
+import RouterUtil from '#SRC/js/utils/RouterUtil';
+import TabsMixin from '#SRC/js/mixins/TabsMixin';
 
 var ServicesPage = React.createClass({
 

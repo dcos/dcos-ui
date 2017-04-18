@@ -5,15 +5,16 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CompositeState from '../../../../../../src/js/structs/CompositeState';
-import Loader from '../../../../../../src/js/components/Loader';
-import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import Loader from '#SRC/js/components/Loader';
+import MesosSummaryStore from '#SRC/js/stores/MesosSummaryStore';
+import Page from '#SRC/js/components/Page';
+import ResourceChart from '#SRC/js/components/charts/ResourceChart';
+import TabsMixin from '#SRC/js/mixins/TabsMixin';
+import RouterUtil from '#SRC/js/utils/RouterUtil';
+
 import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
 import NodeHealthStore from '../../stores/NodeHealthStore';
-import Page from '../../../../../../src/js/components/Page';
-import ResourceChart from '../../../../../../src/js/components/charts/ResourceChart';
-import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
-import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
 class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   constructor() {

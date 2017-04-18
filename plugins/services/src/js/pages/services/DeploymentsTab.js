@@ -7,23 +7,24 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import AlertPanel from '../../../../../../src/js/components/AlertPanel';
-import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHeader';
-import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
-import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
-import CollapsingString from '../../../../../../src/js/components/CollapsingString';
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
+import AlertPanel from '#SRC/js/components/AlertPanel';
+import AlertPanelHeader from '#SRC/js/components/AlertPanelHeader';
+import Breadcrumb from '#SRC/js/components/Breadcrumb';
+import BreadcrumbTextContent from '#SRC/js/components/BreadcrumbTextContent';
+import CollapsingString from '#SRC/js/components/CollapsingString';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import Loader from '#SRC/js/components/Loader';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import NestedServiceLinks from '#SRC/js/components/NestedServiceLinks';
+import Page from '#SRC/js/components/Page';
+import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import StatusBar from '#SRC/js/components/StatusBar';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import TimeAgo from '#SRC/js/components/TimeAgo';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
-import Loader from '../../../../../../src/js/components/Loader';
 import MarathonActions from '../../events/MarathonActions';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
-import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
-import Page from '../../../../../../src/js/components/Page';
-import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
-import StatusBar from '../../../../../../src/js/components/StatusBar';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import TimeAgo from '../../../../../../src/js/components/TimeAgo';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',

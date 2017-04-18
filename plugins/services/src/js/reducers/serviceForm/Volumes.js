@@ -1,9 +1,9 @@
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
+import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
 import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from '#SRC/js/constants/TransactionTypes';
 
 const mapLocalVolumes = function (volume) {
   if (volume.type === 'PERSISTENT') {

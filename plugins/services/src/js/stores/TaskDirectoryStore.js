@@ -1,4 +1,11 @@
 import PluginSDK from 'PluginSDK';
+
+import {SERVER_ACTION} from '#SRC/js/constants/ActionTypes';
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import Config from '#SRC/js/config/Config';
+import GetSetBaseStore from '#SRC/js/stores/GetSetBaseStore';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+
 import {
   REQUEST_NODE_STATE_ERROR,
   REQUEST_NODE_STATE_SUCCESS,
@@ -6,18 +13,11 @@ import {
   REQUEST_TASK_DIRECTORY_SUCCESS
 } from '../constants/ActionTypes';
 import {
-  SERVER_ACTION
-} from '../../../../../src/js/constants/ActionTypes';
-import {
   NODE_STATE_ERROR,
   NODE_STATE_SUCCESS,
   TASK_DIRECTORY_CHANGE,
   TASK_DIRECTORY_ERROR
 } from '../constants/EventTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import Config from '../../../../../src/js/config/Config';
-import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import TaskDirectory from '../structs/TaskDirectory';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 

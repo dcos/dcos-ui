@@ -2,14 +2,14 @@ jest.dontMock('../../../structs/Pod');
 jest.dontMock('../../../structs/PodInstanceList');
 jest.dontMock('../../../structs/PodInstance');
 jest.dontMock('../../../structs/PodContainer');
-jest.dontMock('../../../../../../../src/js/components/CheckboxTable');
-jest.dontMock('../../../../../../../src/js/components/CollapsingString');
-jest.dontMock('../../../../../../../src/js/components/ExpandingTable');
-jest.dontMock('../../../../../../../src/js/components/TimeAgo');
+jest.dontMock('#SRC/js/components/CheckboxTable');
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/components/ExpandingTable');
+jest.dontMock('#SRC/js/components/TimeAgo');
 jest.dontMock('../PodInstancesTable');
 jest.dontMock('../../../../../../../tests/_fixtures/pods/PodFixture');
 
-const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
@@ -17,7 +17,7 @@ const TestUtils = require('react-addons-test-utils');
 
 const PodInstancesTable = require('../PodInstancesTable');
 const Pod = require('../../../structs/Pod');
-const Util = require('../../../../../../../src/js/utils/Util');
+const Util = require('#SRC/js/utils/Util');
 
 const PodFixture = require('../../../../../../../tests/_fixtures/pods/PodFixture');
 

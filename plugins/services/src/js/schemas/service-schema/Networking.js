@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import FormUtil from '../../../../../../src/js/utils/FormUtil';
-import NetworkValidatorUtil from '../../../../../../src/js/utils/NetworkValidatorUtil';
+import FormUtil from '#SRC/js/utils/FormUtil';
+import NetworkValidatorUtil from '#SRC/js/utils/NetworkValidatorUtil';
 
 const DISABLED_LB_PORT_FIELD_VALUE = 'Not Enabled';
 

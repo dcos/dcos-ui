@@ -3,9 +3,10 @@ import {Form} from 'reactjs-components';
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import Loader from '../../../../../src/js/components/Loader';
+import Loader from '#SRC/js/components/Loader';
+import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
+
 import NodesGridDials from './NodesGridDials';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 
 var MAX_SERVICES_TO_SHOW = 32;
 var OTHER_SERVICES_COLOR = 32;

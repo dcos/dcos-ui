@@ -1,6 +1,15 @@
 import PluginSDK from 'PluginSDK';
 
 import {
+  SERVER_ACTION
+} from '#SRC/js/constants/ActionTypes';
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import Config from '#SRC/js/config/Config';
+import BaseStore from '#SRC/js/stores/BaseStore';
+import Item from '#SRC/js/structs/Item';
+import {APPEND, PREPEND} from '#SRC/js/constants/SystemLogTypes';
+
+import {
   REQUEST_MESOS_LOG_ERROR,
   REQUEST_MESOS_LOG_OFFSET_ERROR,
   REQUEST_MESOS_LOG_OFFSET_SUCCESS,
@@ -9,21 +18,13 @@ import {
   REQUEST_PREVIOUS_MESOS_LOG_SUCCESS
 } from '../constants/ActionTypes';
 import {
-  SERVER_ACTION
-} from '../../../../../src/js/constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import Config from '../../../../../src/js/config/Config';
-import {
   MESOS_INITIALIZE_LOG_CHANGE,
   MESOS_INITIALIZE_LOG_REQUEST_ERROR,
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR
 } from '../constants/EventTypes';
-import BaseStore from '../../../../../src/js/stores/BaseStore';
-import Item from '../../../../../src/js/structs/Item';
 import LogBuffer from '../structs/LogBuffer';
 import MesosLogActions from '../events/MesosLogActions';
-import {APPEND, PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const MAX_FILE_SIZE = 50000;
 

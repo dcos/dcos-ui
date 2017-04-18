@@ -1,7 +1,7 @@
 const MultiContainerNetwork = require('../MultiContainerNetwork');
-const Networking = require('../../../../../../../src/js/constants/Networking');
-const Batch = require('../../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
+const Networking = require('#SRC/js/constants/Networking');
+const Batch = require('#SRC/js/structs/Batch');
+const Transaction = require('#SRC/js/structs/Transaction');
 
 describe('MultiContainerNetwork', function () {
   describe('#JSONReducer', function () {

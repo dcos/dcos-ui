@@ -1,11 +1,11 @@
-jest.dontMock('../../../../../../src/js/structs/DSLFilterList');
-jest.dontMock('../../../../../../src/resources/grammar/SearchDSL.jison');
+jest.dontMock('#SRC/js/structs/DSLFilterList');
+jest.dontMock('#SRC/resources/grammar/SearchDSL.jison');
 jest.dontMock('../ServiceAttributeHasVolumesFilter');
-jest.dontMock('../../../../../../src/js/structs/List');
+jest.dontMock('#SRC/js/structs/List');
 
-var DSLFilterList = require('../../../../../../src/js/structs/DSLFilterList');
-var List = require('../../../../../../src/js/structs/List');
-var SearchDSL = require('../../../../../../src/resources/grammar/SearchDSL.jison');
+var DSLFilterList = require('#SRC/js/structs/DSLFilterList');
+var List = require('#SRC/js/structs/List');
+var SearchDSL = require('#SRC/resources/grammar/SearchDSL.jison');
 var ServiceAttributeHasVolumesFilter = require('../ServiceAttributeHasVolumesFilter');
 var VolumeList = require('../../structs/VolumeList');
 

@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
-import AlertPanel from '../../../../../../src/js/components/AlertPanel';
-import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHeader';
+import AlertPanel from '#SRC/js/components/AlertPanel';
+import AlertPanelHeader from '#SRC/js/components/AlertPanelHeader';
 
 const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
 

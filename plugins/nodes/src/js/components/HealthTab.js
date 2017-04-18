@@ -3,14 +3,14 @@ import React from 'react';
 import {hashHistory} from 'react-router';
 import {Table} from 'reactjs-components';
 
-import FilterBar from '../../../../../src/js/components/FilterBar';
-import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
-import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
-import TableUtil from '../../../../../src/js/utils/TableUtil';
-import UnitHealthDropdown from '../../../../../src/js/components/UnitHealthDropdown';
-import UnitHealthUtil from '../../../../../src/js/utils/UnitHealthUtil';
+import FilterBar from '#SRC/js/components/FilterBar';
+import FilterHeadline from '#SRC/js/components/FilterHeadline';
+import FilterInputText from '#SRC/js/components/FilterInputText';
+import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import UnitHealthDropdown from '#SRC/js/components/UnitHealthDropdown';
+import UnitHealthUtil from '#SRC/js/utils/UnitHealthUtil';
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',

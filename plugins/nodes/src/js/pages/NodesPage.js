@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from '../../../../../src/js/components/Icon';
+import Icon from '#SRC/js/components/Icon';
 
 class NodesPage extends React.Component {
   render() {

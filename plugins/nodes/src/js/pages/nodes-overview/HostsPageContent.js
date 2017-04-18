@@ -1,11 +1,12 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import FilterBar from '../../../../../../src/js/components/FilterBar';
-import FilterButtons from '../../../../../../src/js/components/FilterButtons';
+import FilterBar from '#SRC/js/components/FilterBar';
+import FilterButtons from '#SRC/js/components/FilterButtons';
+import FilterHeadline from '#SRC/js/components/FilterHeadline';
+import ResourceBarChart from '#SRC/js/components/charts/ResourceBarChart';
+
 import FilterByService from '../../../../../services/src/js/components/FilterByService';
-import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
-import ResourceBarChart from '../../../../../../src/js/components/charts/ResourceBarChart';
 
 const HEALTH_FILTER_BUTTONS = ['all', 'healthy', 'unhealthy'];
 

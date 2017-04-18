@@ -3,13 +3,14 @@ import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
 import {routerShape, formatPattern} from 'react-router';
 
+import Icon from '#SRC/js/components/Icon';
+import RouterUtil from '#SRC/js/utils/RouterUtil';
+
 import DirectoryItem from '../../structs/DirectoryItem';
-import Icon from '../../../../../../src/js/components/Icon';
 import MesosLogContainer from '../../components/MesosLogContainer';
 import SearchLog from '../../components/SearchLog';
 import TaskDirectory from '../../structs/TaskDirectory';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
-import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
 class TaskFileViewer extends React.Component {
   constructor() {

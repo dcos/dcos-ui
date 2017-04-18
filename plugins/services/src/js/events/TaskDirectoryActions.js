@@ -1,14 +1,15 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import Config from '#SRC/js/config/Config';
+import MesosStateUtil from '#SRC/js/utils/MesosStateUtil';
+
 import {
   REQUEST_NODE_STATE_ERROR,
   REQUEST_NODE_STATE_SUCCESS,
   REQUEST_TASK_DIRECTORY_ERROR,
   REQUEST_TASK_DIRECTORY_SUCCESS
 } from '../constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import Config from '../../../../../src/js/config/Config';
-import MesosStateUtil from '../../../../../src/js/utils/MesosStateUtil';
 
 function getNodeStateURL(task, node) {
   let pid, nodePID;

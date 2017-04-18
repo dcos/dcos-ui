@@ -1,6 +1,8 @@
 import {Hooks} from 'PluginSDK';
 import deepEqual from 'deep-equal';
 
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+
 import Application from '../structs/Application';
 import ApplicationSpec from '../structs/ApplicationSpec';
 import ContainerConstants from '../constants/ContainerConstants';
@@ -11,7 +13,6 @@ import Pod from '../structs/Pod';
 import PodSpec from '../structs/PodSpec';
 import Service from '../structs/Service';
 import ServiceValidatorUtil from '../utils/ServiceValidatorUtil';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
 const getFindPropertiesRecursive = function (service, item) {

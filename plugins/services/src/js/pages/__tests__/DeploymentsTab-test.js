@@ -1,14 +1,14 @@
 jest.unmock('moment');
-jest.unmock('../../../../../../src/js/components/CollapsingString');
-jest.unmock('../../../../../../src/js/components/FluidGeminiScrollbar');
-jest.unmock('../../../../../../src/js/components/Page');
-jest.unmock('../../../../../../src/js/components/TimeAgo');
-jest.unmock('../../../../../../src/js/mixins/InternalStorageMixin');
+jest.unmock('#SRC/js/components/CollapsingString');
+jest.unmock('#SRC/js/components/FluidGeminiScrollbar');
+jest.unmock('#SRC/js/components/Page');
+jest.unmock('#SRC/js/components/TimeAgo');
+jest.unmock('#SRC/js/mixins/InternalStorageMixin');
 jest.unmock('../services/DeploymentsTab');
 jest.unmock('../../structs/DeploymentsList');
 jest.unmock('../../structs/Deployment');
 
-const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */

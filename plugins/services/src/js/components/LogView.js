@@ -2,11 +2,12 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import throttle from 'lodash.throttle';
 
-import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
-import DOMUtils from '../../../../../src/js/utils/DOMUtils';
+import {PREPEND} from '#SRC/js/constants/SystemLogTypes';
+import DOMUtils from '#SRC/js/utils/DOMUtils';
+import Loader from '#SRC/js/components/Loader';
+
 import EmptyLogScreen from './EmptyLogScreen';
 import Highlight from './Highlight';
-import Loader from '../../../../../src/js/components/Loader';
 
 const CONTAINER_OFFSET_HEIGHT = 25;
 

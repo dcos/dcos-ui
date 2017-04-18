@@ -1,4 +1,4 @@
-jest.dontMock('../../../../../../src/js/mixins/InternalStorageMixin');
+jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
 jest.dontMock('../Highlight');
 jest.dontMock('../LogView');
 
@@ -10,7 +10,7 @@ const TestUtils = require('react-addons-test-utils');
 
 const EmptyLogScreen = require('../EmptyLogScreen');
 const LogView = require('../LogView');
-const DOMUtils = require('../../../../../../src/js/utils/DOMUtils');
+const DOMUtils = require('#SRC/js/utils/DOMUtils');
 
 describe('LogView', function () {
   beforeEach(function () {

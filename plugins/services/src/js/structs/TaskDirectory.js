@@ -1,5 +1,6 @@
+import List from '#SRC/js/structs/List';
+
 import DirectoryItem from './DirectoryItem';
-import List from '../../../../../src/js/structs/List';
 
 class TaskDirectory extends List {
   findFile(name) {

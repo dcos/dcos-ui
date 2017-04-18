@@ -3,10 +3,15 @@ import {Dropdown, Table, Tooltip} from 'reactjs-components';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
+import Links from '#SRC/js/constants/Links';
+import Icon from '#SRC/js/components/Icon';
+import NestedServiceLinks from '#SRC/js/components/NestedServiceLinks';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import Units from '#SRC/js/utils/Units';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import HealthBar from '../../components/HealthBar';
-import Links from '../../../../../../src/js/constants/Links';
-import Icon from '../../../../../../src/js/components/Icon';
-import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
 import Pod from '../../structs/Pod';
 import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
 import Service from '../../structs/Service';
@@ -15,10 +20,6 @@ import ServiceStatusWarning from '../../components/ServiceStatusWarning';
 import ServiceTableHeaderLabels from '../../constants/ServiceTableHeaderLabels';
 import ServiceTableUtil from '../../utils/ServiceTableUtil';
 import ServiceTree from '../../structs/ServiceTree';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import TableUtil from '../../../../../../src/js/utils/TableUtil';
-import Units from '../../../../../../src/js/utils/Units';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const StatusMapping = {
   'Running': 'running-state'

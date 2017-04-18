@@ -1,5 +1,5 @@
 jest.dontMock('../ServiceBreadcrumbs');
-jest.dontMock('../../../../../../src/js/components/PageHeaderBreadcrumbs');
+jest.dontMock('#SRC/js/components/PageHeaderBreadcrumbs');
 jest.dontMock('../../structs/Service');
 /* eslint-disable no-unused-vars */
 const React = require('react');

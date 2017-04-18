@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
 
 /**
  * Render a boolean value as a <ConfigurationMapValue>, with it's values being

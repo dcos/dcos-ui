@@ -6,24 +6,25 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {
   findNestedPropertyInObject,
   isObject
-} from '../../../../../../src/js/utils/Util';
+} from '#SRC/js/utils/Util';
+import AddButton from '#SRC/js/components/form/AddButton';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldHelp from '#SRC/js/components/form/FieldHelp';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FieldSelect from '#SRC/js/components/form/FieldSelect';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupContainer from '#SRC/js/components/form/FormGroupContainer';
+import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+import Icon from '#SRC/js/components/Icon';
+import Networking from '#SRC/js/constants/Networking';
+import MetadataStore from '#SRC/js/stores/MetadataStore';
+import VirtualNetworksStore from '#SRC/js/stores/VirtualNetworksStore';
+
 import {FormReducer as networks} from '../../reducers/serviceForm/MultiContainerNetwork';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
-import Networking from '../../../../../../src/js/constants/Networking';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ServiceConfigUtil from '../../utils/ServiceConfigUtil';
-import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
 const {CONTAINER, HOST} = Networking.type;
 const METHODS_TO_BIND = [

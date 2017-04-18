@@ -1,8 +1,9 @@
-import {combineReducers, simpleReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {combineReducers, simpleReducer} from '#SRC/js/utils/ReducerUtil';
+import {SET} from '#SRC/js/constants/TransactionTypes';
+import Networking from '#SRC/js/constants/Networking';
+
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import ContainerConstants from '../../constants/ContainerConstants';
-import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
 

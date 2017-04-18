@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import StatusBar from '#SRC/js/components/StatusBar';
+
 import HealthBarStates from '../constants/HealthBarStates';
-import StatusBar from '../../../../../src/js/components/StatusBar';
 
 class HealthBar extends React.Component {
 

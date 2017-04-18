@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import ContainerUtil from '#SRC/js/utils/ContainerUtil';
+
 import ActionKeys from '../../constants/ActionKeys';
 import MarathonActions from '../../events/MarathonActions';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import TaskModals from '../../components/modals/TaskModals';
 import TasksView from './TasksView';
-
-import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
-import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
 
 import {
   REQUEST_MARATHON_TASK_KILL_ERROR,

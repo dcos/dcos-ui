@@ -1,15 +1,16 @@
-import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {combineReducers} from '#SRC/js/utils/ReducerUtil';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {SET, ADD_ITEM, REMOVE_ITEM} from '#SRC/js/constants/TransactionTypes';
+import {simpleParser, combineParsers} from '#SRC/js/utils/ParserUtil';
+import Transaction from '#SRC/js/structs/Transaction';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+
 import {
   FormReducer as volumesFormReducer,
   JSONReducer as volumesJSONReducer
 } from './Volumes';
-import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
-import {simpleParser, combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import ContainerConstants from '../../constants/ContainerConstants';
 import docker from './Docker';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 const {DOCKER, MESOS, NONE} = ContainerConstants.type;
 

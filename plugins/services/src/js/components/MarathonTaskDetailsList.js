@@ -1,11 +1,11 @@
 import React from 'react';
 
-import DCOSStore from '../../../../../src/js/stores/DCOSStore';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {

@@ -1,3 +1,9 @@
+import {
+  simpleFloatReducer,
+  simpleIntReducer,
+  simpleReducer
+} from '#SRC/js/utils/ReducerUtil';
+
 import {JSONReducer as constraints} from './serviceForm/Constraints';
 import {JSONReducer as container} from './serviceForm/Container';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
@@ -8,11 +14,6 @@ import {JSONReducer as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONReducer as residency} from './serviceForm/Residency';
 import {JSONReducer as ipAddress} from './serviceForm/IpAddress';
 import {JSONReducer as requirePorts} from './serviceForm/RequirePorts';
-import {
-  simpleFloatReducer,
-  simpleIntReducer,
-  simpleReducer
-} from '../../../../../src/js/utils/ReducerUtil';
 
 module.exports = {
   id: simpleReducer('id'),

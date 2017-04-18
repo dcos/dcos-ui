@@ -1,6 +1,15 @@
 import PluginSDK from 'PluginSDK';
 
 import {
+  SERVER_ACTION
+} from '#SRC/js/constants/ActionTypes';
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import Config from '#SRC/js/config/Config';
+import GetSetBaseStore from '#SRC/js/stores/GetSetBaseStore';
+import VisibilityStore from '#SRC/js/stores/VisibilityStore';
+
+import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
@@ -35,14 +44,7 @@ import {
   REQUEST_MARATHON_TASK_KILL_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS
 } from '../constants/ActionTypes';
-import {
-  SERVER_ACTION
-} from '../../../../../src/js/constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import Config from '../../../../../src/js/config/Config';
 import DeploymentsList from '../structs/DeploymentsList';
-import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
 import HealthStatus from '../constants/HealthStatus';
 import MarathonActions from '../events/MarathonActions';
 import {
@@ -85,7 +87,6 @@ import {
 import Service from '../structs/Service';
 import ServiceImages from '../constants/ServiceImages';
 import ServiceTree from '../structs/ServiceTree';
-import VisibilityStore from '../../../../../src/js/stores/VisibilityStore';
 
 let requestInterval = null;
 let shouldEmbedLastUnusedOffers = false;

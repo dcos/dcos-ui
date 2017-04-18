@@ -1,8 +1,9 @@
 import React from 'react';
 
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+
 import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
 
 const BOOLEAN_OPTIONS = {
   truthy : 'TRUE',

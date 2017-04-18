@@ -1,13 +1,13 @@
 import React from 'react';
 
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
-import ServiceItemNotFound from '../../components/ServiceItemNotFound';
-import VolumeDetail from './VolumeDetail';
-import Loader from '../../../../../../src/js/components/Loader';
-
 import {
   DCOS_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
+} from '#SRC/js/constants/EventTypes';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import Loader from '#SRC/js/components/Loader';
+
+import ServiceItemNotFound from '../../components/ServiceItemNotFound';
+import VolumeDetail from './VolumeDetail';
 
 const METHODS_TO_BIND = ['onStoreChange'];
 

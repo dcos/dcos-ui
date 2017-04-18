@@ -1,8 +1,8 @@
 const JSONSingleContainerReducers = require('../JSONSingleContainerReducers');
-const Batch = require('../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../src/js/structs/Transaction');
-const {SET} = require('../../../../../../src/js/constants/TransactionTypes');
-const {combineReducers} = require('../../../../../../src/js/utils/ReducerUtil');
+const Batch = require('#SRC/js/structs/Batch');
+const Transaction = require('#SRC/js/structs/Transaction');
+const {SET} = require('#SRC/js/constants/TransactionTypes');
+const {combineReducers} = require('#SRC/js/utils/ReducerUtil');
 
 describe('JSONSingleContainerReducers', function () {
 

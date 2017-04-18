@@ -1,11 +1,12 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {formatResource} from '#SRC/js/utils/Units';
+
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ContainerConstants from '../constants/ContainerConstants';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import {formatResource} from '../../../../../src/js/utils/Units';
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,

@@ -1,11 +1,11 @@
-import {isEmpty} from '../../../../../src/js/utils/ValidatorUtil';
-import ServiceConfigUtil from '../utils/ServiceConfigUtil';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
 import NetworkValidatorUtil
-  from '../../../../../src/js/utils/NetworkValidatorUtil';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+  from '#SRC/js/utils/NetworkValidatorUtil';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
 import {
   VIP_LABEL_VALUE_REGEX
-} from '../../../../../src/js/constants/Networking';
+} from '#SRC/js/constants/Networking';
+import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 
 function checkServiceEndpoints(ports, pathPrefix) {
   return ports.reduce(

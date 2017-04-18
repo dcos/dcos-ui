@@ -3,14 +3,15 @@ import {routerShape} from 'react-router';
 import PureRender from 'react-addons-pure-render-mixin';
 import React, {PropTypes} from 'react';
 
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import AppLockedMessage from './AppLockedMessage';
 import Framework from '../../structs/Framework';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;

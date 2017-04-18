@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import Config from '../../../../../src/js/config/Config';
-import Icon from '../../../../../src/js/components/Icon';
-import Units from '../../../../../src/js/utils/Units';
+import Config from '#SRC/js/config/Config';
+import Icon from '#SRC/js/components/Icon';
+import Units from '#SRC/js/utils/Units';
 
 const displayedResourceValues = {
   roles: 'Role',

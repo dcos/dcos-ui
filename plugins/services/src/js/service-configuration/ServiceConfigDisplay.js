@@ -1,9 +1,9 @@
 import React from 'react';
 import {MountService} from 'foundation-ui';
 
-import ErrorsAlert from '../../../../../src/js/components/ErrorsAlert';
-import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
-import {translateErrorMessages} from '../../../../../src/js/utils/ErrorMessageUtil';
+import ErrorsAlert from '#SRC/js/components/ErrorsAlert';
+import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
+import {translateErrorMessages} from '#SRC/js/utils/ErrorMessageUtil';
 import PodContainersConfigSection from './PodContainersConfigSection';
 import PodEnvironmentVariablesConfigSection from './PodEnvironmentVariablesConfigSection';
 import PodGeneralConfigSection from './PodGeneralConfigSection';

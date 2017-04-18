@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import DateUtil from '#SRC/js/utils/DateUtil';
 
 const taskStatus = [
   'getRunningTaskCount',

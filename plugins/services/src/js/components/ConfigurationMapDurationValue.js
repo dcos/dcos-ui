@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import DateUtil from '../../../../../src/js/utils/DateUtil';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import DateUtil from '#SRC/js/utils/DateUtil';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
 
 const MULTIPLICANTS = {
   'ms'  : 1,

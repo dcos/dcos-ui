@@ -1,7 +1,7 @@
 const PortMappings = require('../PortMappings');
-const {ADD_ITEM} = require('../../../../../../../src/js/constants/TransactionTypes');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {type: {BRIDGE}} = require('../../../../../../../src/js/constants/Networking');
+const {ADD_ITEM} = require('#SRC/js/constants/TransactionTypes');
+const Transaction = require('#SRC/js/structs/Transaction');
+const {type: {BRIDGE}} = require('#SRC/js/constants/Networking');
 const {type: {DOCKER}} = require('../../../constants/ContainerConstants');
 
 describe('#JSONParser', function () {

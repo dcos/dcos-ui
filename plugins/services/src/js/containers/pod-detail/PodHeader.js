@@ -2,14 +2,15 @@ import classNames from 'classnames/dedupe';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
-import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
+import DetailViewHeader from '#SRC/js/components/DetailViewHeader';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import HealthBar from '../../components/HealthBar';
 import Pod from '../../structs/Pod';
 import ServiceStatus from '../../constants/ServiceStatus';
 import StatusMapping from '../../constants/StatusMapping';
 import PodActionItem from '../../constants/PodActionItem';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const METHODS_TO_BIND = [
   'handleDropdownAction'

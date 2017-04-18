@@ -1,18 +1,18 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import ConfigurationMap from '../../../../../../src/js/components/ConfigurationMap';
-import ConfigurationMapHeading from '../../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../../../../src/js/components/ConfigurationMapValue';
-import DateUtil from '../../../../../../src/js/utils/DateUtil';
-import HashMapDisplay from '../../../../../../src/js/components/HashMapDisplay';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import Node from '../../../../../../src/js/structs/Node';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import Units from '../../../../../../src/js/utils/Units';
+import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import DateUtil from '#SRC/js/utils/DateUtil';
+import HashMapDisplay from '#SRC/js/components/HashMapDisplay';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import Node from '#SRC/js/structs/Node';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import Units from '#SRC/js/utils/Units';
 
 class NodeDetailTab extends React.Component {
   constructor() {

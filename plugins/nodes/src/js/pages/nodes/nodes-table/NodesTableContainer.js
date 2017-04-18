@@ -2,9 +2,10 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CompositeState from '../../../../../../../src/js/structs/CompositeState';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import QueryParamsMixin from '#SRC/js/mixins/QueryParamsMixin';
+
 import NodesTable from '../../../components/NodesTable';
-import QueryParamsMixin from '../../../../../../../src/js/mixins/QueryParamsMixin';
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 

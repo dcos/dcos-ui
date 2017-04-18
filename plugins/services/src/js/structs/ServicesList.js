@@ -1,7 +1,8 @@
-import List from '../../../../../src/js/structs/List';
-import MesosSummaryUtil from '../../../../../src/js/utils/MesosSummaryUtil';
+import List from '#SRC/js/structs/List';
+import MesosSummaryUtil from '#SRC/js/utils/MesosSummaryUtil';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import Framework from './Framework';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 class ServicesList extends List {
   filter(filters) {

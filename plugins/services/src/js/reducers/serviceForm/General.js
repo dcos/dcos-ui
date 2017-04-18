@@ -1,4 +1,4 @@
-import {simpleReducer, simpleIntReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {simpleReducer, simpleIntReducer} from '#SRC/js/utils/ReducerUtil';
 import {FormReducer as constraints} from './Constraints';
 import {FormReducer as fetch} from './Artifacts';
 

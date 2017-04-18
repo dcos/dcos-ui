@@ -1,5 +1,5 @@
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
 import {
   FormReducer,
   JSONParser,

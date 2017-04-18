@@ -1,13 +1,13 @@
-jest.dontMock('../../../../../../src/js/components/charts/Chart');
-jest.dontMock('../../../../../../src/js/mixins/InternalStorageMixin');
-jest.dontMock('../../../../../../src/js/mixins/TabsMixin');
-jest.dontMock('../../../../../../src/js/stores/MesosSummaryStore');
+jest.dontMock('#SRC/js/components/charts/Chart');
+jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
+jest.dontMock('#SRC/js/mixins/TabsMixin');
+jest.dontMock('#SRC/js/stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
-jest.dontMock('../../../../../../src/js/components/RequestErrorMsg');
-jest.dontMock('../../../../../../src/js/structs/CompositeState');
-jest.dontMock('../../../../../../src/js/components/Page');
+jest.dontMock('#SRC/js/components/RequestErrorMsg');
+jest.dontMock('#SRC/js/structs/CompositeState');
+jest.dontMock('#SRC/js/components/Page');
 
-const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 
 JestUtil.unMockStores(['MesosSummaryStore', 'MesosStateStore']);
 /* eslint-disable no-unused-vars */
@@ -16,12 +16,12 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const CompositeState = require('../../../../../../src/js/structs/CompositeState');
-const MesosStateStore = require('../../../../../../src/js/stores/MesosStateStore');
-const MesosSummaryActions = require('../../../../../../src/js/events/MesosSummaryActions');
-const MesosSummaryStore = require('../../../../../../src/js/stores/MesosSummaryStore');
-const Node = require('../../../../../../src/js/structs/Node');
-const NodesList = require('../../../../../../src/js/structs/NodesList');
+const CompositeState = require('#SRC/js/structs/CompositeState');
+const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
+const MesosSummaryActions = require('#SRC/js/events/MesosSummaryActions');
+const MesosSummaryStore = require('#SRC/js/stores/MesosSummaryStore');
+const Node = require('#SRC/js/structs/Node');
+const NodesList = require('#SRC/js/structs/NodesList');
 const NodeDetailPage = require('../nodes/NodeDetailPage');
 
 describe('NodeDetailPage', function () {

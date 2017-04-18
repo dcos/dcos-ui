@@ -5,7 +5,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
-const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 const ConfigurationMapTable = require('../ConfigurationMapTable');
 
 describe('ConfigurationMapTable', function () {

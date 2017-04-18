@@ -1,8 +1,8 @@
 const EnvironmentVariables = require('../EnvironmentVariables');
-const Batch = require('../../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
+const Batch = require('#SRC/js/structs/Batch');
+const Transaction = require('#SRC/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+  require('#SRC/js/constants/TransactionTypes');
 
 describe('Environment Variables', function () {
   describe('#JSONReducer', function () {

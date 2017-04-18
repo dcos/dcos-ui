@@ -5,16 +5,17 @@ import {routerShape, formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
-import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
-import InternalStorageMixin from '../../../../../../src/js/mixins/InternalStorageMixin';
-import Loader from '../../../../../../src/js/components/Loader';
-import ManualBreadcrumbs from '../../../../../../src/js/components/ManualBreadcrumbs';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
-import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import DetailViewHeader from '#SRC/js/components/DetailViewHeader';
+import InternalStorageMixin from '#SRC/js/mixins/InternalStorageMixin';
+import Loader from '#SRC/js/components/Loader';
+import ManualBreadcrumbs from '#SRC/js/components/ManualBreadcrumbs';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
+import RouterUtil from '#SRC/js/utils/RouterUtil';
+import TabsMixin from '#SRC/js/mixins/TabsMixin';
+
 import StatusMapping from '../../constants/StatusMapping';
-import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
 

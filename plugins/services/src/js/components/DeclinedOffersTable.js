@@ -4,13 +4,14 @@ import {MountService} from 'foundation-ui';
 import React from 'react';
 import {Table, Tooltip} from 'reactjs-components';
 
+import DateUtil from '#SRC/js/utils/DateUtil';
+import Icon from '#SRC/js/components/Icon';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import TimeAgo from '#SRC/js/components/TimeAgo';
+import Units from '#SRC/js/utils/Units';
+
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
-import DateUtil from '../../../../../src/js/utils/DateUtil';
-import Icon from '../../../../../src/js/components/Icon';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
-import TableUtil from '../../../../../src/js/utils/TableUtil';
-import TimeAgo from '../../../../../src/js/components/TimeAgo';
-import Units from '../../../../../src/js/utils/Units';
 
 class DeclinedOffersTable extends React.Component {
   areResourcesUnmatched(requestedResource, receivedResource) {

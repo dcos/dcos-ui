@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import {isObject} from '../../../../../src/js/utils/Util';
-import Icon from '../../../../../src/js/components/Icon';
+import {isObject} from '#SRC/js/utils/Util';
+import Icon from '#SRC/js/components/Icon';
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {

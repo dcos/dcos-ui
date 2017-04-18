@@ -2,11 +2,12 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from '#SRC/js/constants/TransactionTypes';
+import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
+import Util from '#SRC/js/utils/Util';
+import Transaction from '#SRC/js/structs/Transaction';
+
 import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
-import Util from '../../../../../../src/js/utils/Util';
-import Transaction from '../../../../../../src/js/structs/Transaction';
 
 function mapHealthChecks(item) {
   const newItem = Util.omit(item, ['path', 'command', 'protocol', 'https']);

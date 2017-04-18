@@ -1,5 +1,6 @@
+import Networking from '#SRC/js/constants/Networking';
+
 import HostUtil from '../utils/HostUtil';
-import Networking from '../../../../../src/js/constants/Networking';
 
 const ServiceConfigUtil = {
 

@@ -1,4 +1,4 @@
-const List = require('../../../../../../src/js/structs/List');
+const List = require('#SRC/js/structs/List');
 const TaskStats = require('../TaskStats');
 const TaskStat = require('../TaskStat');
 

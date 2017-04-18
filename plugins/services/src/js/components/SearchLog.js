@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import FilterBar from '../../../../../src/js/components/FilterBar';
-import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import KeyboardUtil from '../../../../../src/js/utils/KeyboardUtil';
+import FilterBar from '#SRC/js/components/FilterBar';
+import FilterInputText from '#SRC/js/components/FilterInputText';
+import KeyboardUtil from '#SRC/js/utils/KeyboardUtil';
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',

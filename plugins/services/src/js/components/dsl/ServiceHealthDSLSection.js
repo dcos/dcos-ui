@@ -1,13 +1,13 @@
 import React, {PropTypes} from 'react';
 
-import DSLCombinerTypes from '../../../../../../src/js/constants/DSLCombinerTypes';
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
-import DSLFormWithExpressionUpdates from '../../../../../../src/js/components/DSLFormWithExpressionUpdates';
-import DSLUtil from '../../../../../../src/js/utils/DSLUtil';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import DSLCombinerTypes from '#SRC/js/constants/DSLCombinerTypes';
+import DSLExpression from '#SRC/js/structs/DSLExpression';
+import DSLExpressionPart from '#SRC/js/structs/DSLExpressionPart';
+import DSLFormWithExpressionUpdates from '#SRC/js/components/DSLFormWithExpressionUpdates';
+import DSLUtil from '#SRC/js/utils/DSLUtil';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FormGroup from '#SRC/js/components/form/FormGroup';
 
 const EXPRESSION_PARTS = {
   is_healthy: DSLExpressionPart.attribute('is', 'healthy'),

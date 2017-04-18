@@ -2,19 +2,20 @@ import {Tooltip} from 'reactjs-components';
 import {MountService} from 'foundation-ui';
 import React, {Component} from 'react';
 
+import AddButton from '#SRC/js/components/form/AddButton';
+import DeleteRowButton from '#SRC/js/components/form/DeleteRowButton';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+import Icon from '#SRC/js/components/Icon';
+import MetadataStore from '#SRC/js/stores/MetadataStore';
+
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 
 class EnvironmentFormSection extends Component {
 

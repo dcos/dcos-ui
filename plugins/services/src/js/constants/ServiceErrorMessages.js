@@ -1,4 +1,4 @@
-import DefaultErrorMessages from '../../../../../src/js/constants/DefaultErrorMessages';
+import DefaultErrorMessages from '#SRC/js/constants/DefaultErrorMessages';
 
 const ServiceErrorMessages = [
   {

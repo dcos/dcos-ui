@@ -1,6 +1,6 @@
-jest.dontMock('../../../../../../src/js/events/AppDispatcher');
-jest.dontMock('../../../../../../src/js/events/UnitHealthActions');
-jest.dontMock('../../../../../../src/js/config/Config');
+jest.dontMock('#SRC/js/events/AppDispatcher');
+jest.dontMock('#SRC/js/events/UnitHealthActions');
+jest.dontMock('#SRC/js/config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
 const Hooks = require('PluginSDK').Hooks;
@@ -9,8 +9,8 @@ const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 const ActionTypes = require('../../constants/ActionTypes');
 const Application = require('../../structs/Application');
 const ApplicationSpec = require('../../structs/ApplicationSpec');
-const AppDispatcher = require('../../../../../../src/js/events/AppDispatcher');
-const Config = require('../../../../../../src/js/config/Config');
+const AppDispatcher = require('#SRC/js/events/AppDispatcher');
+const Config = require('#SRC/js/config/Config');
 const MarathonActions = require('../MarathonActions');
 const Pod = require('../../structs/Pod');
 const PodSpec = require('../../structs/PodSpec');

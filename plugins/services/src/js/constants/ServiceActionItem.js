@@ -1,4 +1,4 @@
-import UserActions from '../../../../../src/js/constants/UserActions';
+import UserActions from '#SRC/js/constants/UserActions';
 
 const ServiceActionItem = {
   CREATE: 'create',
