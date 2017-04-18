@@ -49,27 +49,30 @@ function JSONOption({columnClasses, onOptionSelect}) {
   );
 }
 
+const OPTIONS = [
+  JSONOption,
+  MultiContainerOption,
+  SingleContainerOption
+];
+
 class NewCreateServiceModalServicePicker extends React.Component {
-  constructor() {
-    super(...arguments);
+  componentDidMount() {
+    OPTIONS.forEach(function (component, index) {
+      MountService.MountService.registerComponent(
+        component,
+        'CreateService:ServicePicker:GridOptions',
+        index + 1
+      );
+    });
+  }
 
-    MountService.MountService.registerComponent(
-      SingleContainerOption,
-      'CreateService:ServicePicker:GridOptions',
-      3
-    );
-
-    MountService.MountService.registerComponent(
-      MultiContainerOption,
-      'CreateService:ServicePicker:GridOptions',
-      2
-    );
-
-    MountService.MountService.registerComponent(
-      JSONOption,
-      'CreateService:ServicePicker:GridOptions',
-      1
-    );
+  componentWillUnmount() {
+    OPTIONS.forEach(function (component) {
+      MountService.MountService.unregisterComponent(
+        component,
+        'CreateService:ServicePicker:GridOptions'
+      );
+    });
   }
 
   render() {
