@@ -7,9 +7,23 @@ describe("HealthCheckUtil", function() {
       expect(HealthCheckUtil.isKnownProtocol("")).toEqual(true);
     });
 
-    Object.values(HealthCheckProtocols).forEach(protocol => {
+    [
+      HealthCheckProtocols.MESOS_HTTP,
+      HealthCheckProtocols.MESOS_HTTPS,
+      HealthCheckProtocols.COMMAND
+    ].forEach(protocol => {
       it(`should return true for ${protocol}`, function() {
         expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(true);
+      });
+    });
+
+    [
+      HealthCheckProtocols.HTTP,
+      HealthCheckProtocols.HTTPS,
+      HealthCheckProtocols.TCP
+    ].forEach(protocol => {
+      it(`should return false for deprecated ${protocol}`, function() {
+        expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(false);
       });
     });
 
