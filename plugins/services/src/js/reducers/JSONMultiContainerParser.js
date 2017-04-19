@@ -14,7 +14,7 @@ import {JSONParser as network} from './serviceForm/Network';
 import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
 import {JSONParser as volumeMounts} from './serviceForm/MultiContainerVolumes';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
-import {JSONParser as containers} from './serviceForm/Containers';
+import {JSONParser as containers} from './serviceForm/JSONReducers/Containers';
 
 module.exports = [
   simpleParser(['id']),

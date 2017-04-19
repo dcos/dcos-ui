@@ -1,5 +1,5 @@
 import {JSONReducer as constraints} from './serviceForm/MultiContainerConstraints';
-import {JSONReducer as containers} from './serviceForm/Containers';
+import {JSONReducer as containers} from './serviceForm/JSONReducers/Containers';
 import {JSONReducer as env} from './serviceForm/JSONReducers/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/JSONReducers/Artifacts';
 import {JSONReducer as scaling} from './serviceForm/MultiContainerScaling';
