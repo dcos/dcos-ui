@@ -71,14 +71,18 @@ describe('Service Form Modal', function () {
           .should('to.have.text', 'Networking');
 
         // Switch to JSON
-        cy.get('.modal-full-screen-actions label').click();
+        cy.get('.modal-full-screen-actions label')
+          .contains('JSON Editor')
+          .click();
 
         cy.get('.ace_content').should(function (nodeList) {
           expect(nodeList[0].textContent).to.contain('"id": "/"');
         });
 
         // Switch back to form
-        cy.get('.modal-full-screen-actions label').click();
+        cy.get('.modal-full-screen-actions label')
+          .contains('JSON Editor')
+          .click();
 
         cy.get('.menu-tabbed-view-container h2').first()
           .should('to.have.text', 'Networking');
@@ -346,6 +350,171 @@ describe('Service Form Modal', function () {
       cy.get('.create-service-modal-service-picker-option')
         .contains('Single Container')
         .click();
+    });
+
+    context('Form: Tabs', function () {
+
+      it('should have a divider that fills the entire height of parent', function () {
+        cy.get('.menu-tabbed-vertical')
+          .then(function ($divider) {
+            expect($divider.height()).to.equal($divider.parent().height());
+          });
+      });
+
+      it('should change content when different tab is clicked', function () {
+        cy.get('.menu-tabbed-item')
+          .contains('Networking')
+          .click();
+
+        cy.get('.menu-tabbed-view-container h2').first()
+          .should('to.have.text', 'Networking');
+      });
+
+    });
+
+    context('Form: Edit', function () {
+
+      beforeEach(function () {
+        // Edit form
+        cy.contains('.form-group', 'Service ID')
+          .within(function () {
+            cy.get('input.form-control')
+              .clear()
+              .type('/test-back-button-prompt');
+          });
+      });
+
+      context('Back Button: Click', function () {
+
+        beforeEach(function () {
+          // Click back button
+          cy.get('.modal-header button')
+            .contains('Back')
+            .click();
+        });
+
+        it('should prompt when clicking the back button', function () {
+          cy.contains('.modal', 'Discard Changes?');
+        });
+
+        it('should discard changes and navigate back to service picker when clicking "discard"', function () {
+          cy.contains('.modal', 'Discard Changes?')
+            .within(function () {
+              cy.contains('button', 'Discard').click();
+            });
+
+          // Modal should have closed
+          cy.contains('.modal', 'Discard Changes?')
+            .should('not.exist');
+
+          // Service picker options screen should show
+          cy.get('.create-service-modal-service-picker-options')
+            .should('exist');
+        });
+
+        it('should cancel backward navigation when clicking "cancel"', function () {
+          cy.contains('.modal', 'Discard Changes?')
+            .within(function () {
+              cy.contains('button', 'Cancel').click();
+            });
+
+          // Modal should have closed
+          cy.contains('.modal', 'Discard Changes?')
+            .should('not.exist');
+
+          // Service form should show with correct value
+          cy.contains('.form-group', 'Service ID')
+            .within(function () {
+              cy.get('input.form-control')
+                .should('have.value', '/test-back-button-prompt');
+            });
+        });
+
+      });
+
+    });
+
+    context('JSON Editor toggle', function () {
+
+      beforeEach(function () {
+        // Ensure we reset viewport
+        cy.viewport('macbook-15');
+        // Enable JSON Editor
+        cy.get('.modal-full-screen-actions label')
+          .contains('JSON Editor')
+          .click();
+      });
+
+      it('should display JSON editor next to form when screen width >= large', function () {
+        cy.get('.modal-full-screen-side-panel.is-visible')
+          .then(function ($jsonEditor) {
+            expect($jsonEditor.width()).to.equal(500);
+
+            expect($jsonEditor.parents('.modal-full-screen').width())
+              .to.be.above($jsonEditor.width());
+          });
+      });
+
+      it('should display JSON editor only when screen width < large', function () {
+        cy.viewport('iphone-6+');
+
+        cy.get('.modal-full-screen-side-panel.is-visible')
+          .then(function ($jsonEditor) {
+            expect($jsonEditor.parents('.modal-full-screen').width())
+              .to.equal($jsonEditor.width());
+          });
+      });
+
+      it('should hide JSON editor when toggle once more', function () {
+        // Disable JSON Editor
+        cy.get('.modal-full-screen-actions label')
+          .contains('JSON Editor')
+          .click();
+
+        // Side panel with is-visible class should no longer exist
+        cy.get('.modal-full-screen-side-panel.is-visible')
+          .should('not.exist');
+      });
+
+      it('should update JSON when editing form', function () {
+        // Edit form
+        cy.contains('.form-group', 'Service ID')
+          .within(function () {
+            cy.get('input.form-control')
+              .clear()
+              .type('/test-json-update');
+          });
+
+        cy.get('.ace_content').should(function (nodeList) {
+          expect(nodeList[0].textContent).to.contain('"id": "/test-json-update"');
+        });
+      });
+
+      it('should update form when editing JSON content', function () {
+        // Get Ace Editor instance from DOM as `textContent` only includes parts
+        // of the JSON due to the Ace Editor rending optimizations.
+        cy.window().then(function (window) {
+          const editor = window.ace.edit('brace-editor');
+
+          editor.setValue(`
+            {
+              "id": "/test-form-update",
+              "instances": 1,
+              "container": {
+                "type": "DOCKER"
+              },
+              "cpus": 0.1,
+              "mem": 128
+            }`);
+        });
+
+        cy.contains('.form-group', 'Service ID')
+          .within(function () {
+            cy.get('input.form-control')
+              .should('to.have.value', '/test-form-update');
+          });
+
+      });
 
     });
 
@@ -510,16 +679,865 @@ describe('Service Form Modal', function () {
           .contains('Add Artifact');
       });
 
-      context('Switching runtime', function () {
-        it('switches from Docker to Mesos correctly', function () {
+      context('Add Placement Constraint', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add Placement Constraint')
+            .click();
+
+          cy.get('.menu-tabbed-view').as('tabView');
+        });
+
+        it('Should add rows when "Add Placement Constraint" link clicked', function () {
+          // Field
+          cy.get('@tabView')
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should('exist');
+
+          // operator
+          cy.get('@tabView')
+            .find('select[name="constraints.0.operator"]')
+            .should('exist');
+
+          // value
+          cy.get('@tabView')
+            .find('.form-control[name="constraints.0.value"]')
+            .should('exist');
+        });
+
+        it('Should remove rows when remove button clicked', function () {
+          cy.contains('.form-row', 'Operator')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          // Field
+          cy.get('@tabView')
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should('not.exist');
+
+          // operator
+          cy.get('@tabView')
+            .find('select[name="constraints.0.operator"]')
+            .should('not.exist');
+
+          // value
+          cy.get('@tabView')
+            .find('.form-control[name="constraints.0.value"]')
+            .should('not.exist');
+        });
+
+        it('Should hide the "value" when "Unique" is selected in operator dropdown', function () {
+          cy.get('@tabView')
+            .find('select[name="constraints.0.operator"]')
+            .select('UNIQUE');
+
+          // value
+          cy.get('@tabView')
+            .find('select[name="constraints.0.operator"]')
+            .parents('.form-group')
+            .next()
+            .should('have.class', 'hidden');
+        });
+
+      });
+
+      context('Add Artifact', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add Artifact')
+            .click();
+
+          cy.get('.menu-tabbed-view').as('tabView');
+        });
+
+        it('Should add row with an input when "Add Artifact" link clicked', function () {
+          // artifact uri
+          cy.get('@tabView')
+            .find('.form-control[name="fetch.0.uri"]')
+            .should('exist');
+        });
+
+        it('Should remove row when remove button clicked', function () {
+          cy.get('@tabView')
+            .find('.form-control[name="fetch.0.uri"]')
+            .parents('.form-row')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          // artifact uri
+          cy.get('@tabView')
+            .find('.form-control[name="fetch.0.uri"]')
+            .should('not.exist');
+        });
+
+      });
+
+      context('Switching to Mesos Runtime', function () {
+
+        beforeEach(function () {
+          // Set viewport so we have side-by-side JSON editor
+          cy.viewport('macbook-15');
+          // Enable JSON Editor
+          cy.get('.modal-full-screen-actions label')
+            .contains('JSON Editor')
+            .click();
+
           cy.get('label')
             .contains('Mesos Runtime')
             .click();
+        });
 
+        it('should switch from Docker to Mesos correctly', function () {
           cy.get('.ace_content').should(function (nodeList) {
             expect(nodeList[0].textContent).not.to.contain('"container": {');
           });
         });
+
+        it('should disable the "Advanced Settings" section', function () {
+          cy.contains('Advanced Settings')
+            .parent()
+            .within(function () {
+              cy.get('label.form-control-toggle.disabled')
+                .should('have.length', 2);
+            });
+
+        });
+
+      });
+
+    });
+
+    context('Service: Networking', function () {
+      /**
+       * Clicks the runtime option under more settings
+       * @param {String} runtimeText one of ['Docker Engine', 'Mesos Runtime', 'Universal Container Runtime']
+       */
+      function setRuntime(runtimeText) {
+        cy.get('a.clickable')
+          .contains('More Settings')
+          .click();
+
+        cy.get('label')
+          .contains(runtimeText)
+          .click();
+      }
+
+      function clickNetworkingTab() {
+        cy.get('.menu-tabbed-item')
+          .contains('Networking')
+          .click();
+      }
+
+      context('Network Type', function () {
+
+        it('should have all available types when "Docker Engine" selected', function () {
+          setRuntime('Docker Engine');
+          clickNetworkingTab();
+
+          cy.get('select[name="container.docker.network"]')
+            .as('containerDockerNetwork');
+
+          // HOST
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(0)')
+            .should('have.value', 'HOST')
+            .should('not.have.attr', 'disabled');
+
+          // BRIDGE
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(1)')
+            .should('have.value', 'BRIDGE')
+            .should('not.have.attr', 'disabled');
+
+          // USER.dcos-1
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(2)')
+            .should('have.value', 'USER.dcos-1')
+            .should('not.have.attr', 'disabled');
+
+          // User.dcos-2
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(3)')
+            .should('have.value', 'USER.dcos-2')
+            .should('not.have.attr', 'disabled');
+        });
+
+        it('should disable bridge networking when "Mesos Runtime" selected', function () {
+          setRuntime('Mesos Runtime');
+          clickNetworkingTab();
+
+          cy.get('select[name="container.docker.network"]')
+            .as('containerDockerNetwork');
+
+          // HOST
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(0)')
+            .should('have.value', 'HOST')
+            .should('not.have.attr', 'disabled');
+
+          // BRIDGE - disabled
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(1)')
+            .should('have.value', 'BRIDGE')
+            .should('have.attr', 'disabled');
+
+          // USER.dcos-1
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(2)')
+            .should('have.value', 'USER.dcos-1')
+            .should('not.have.attr', 'disabled');
+
+          // User.dcos-2
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(3)')
+            .should('have.value', 'USER.dcos-2')
+            .should('not.have.attr', 'disabled');
+        });
+
+        it('should disable bridge networking when Universal Container Runtime selected', function () {
+          setRuntime('Universal Container Runtime');
+          clickNetworkingTab();
+
+          cy.get('select[name="container.docker.network"]')
+            .as('containerDockerNetwork');
+
+          // HOST
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(0)')
+            .should('have.value', 'HOST')
+            .should('not.have.attr', 'disabled');
+
+          // BRIDGE - disabled
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(1)')
+            .should('have.value', 'BRIDGE')
+            .should('have.attr', 'disabled');
+
+          // USER.dcos-1
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(2)')
+            .should('have.value', 'USER.dcos-1')
+            .should('not.have.attr', 'disabled');
+
+          // User.dcos-2
+          cy.get('@containerDockerNetwork')
+            .children('option:eq(3)')
+            .should('have.value', 'USER.dcos-2')
+            .should('not.have.attr', 'disabled');
+        });
+
+      });
+
+      context('Add Service Endpoint', function () {
+
+        function addServiceEndpoint() {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add Service Endpoint')
+            .click();
+        }
+
+        beforeEach(function () {
+          clickNetworkingTab();
+          addServiceEndpoint();
+          // Alias tab view for cached lookups
+          cy.get('.menu-tabbed-view').as('tabView');
+        });
+
+        it('Should add new set of form fields when "Add Service Endpoint" link clicked', function () {
+          cy.get('@tabView')
+            .find('.form-control[name="portDefinitions.0.name"]')
+            .should('exist');
+        });
+
+        it('Should remove "Service Endpoint" form fields when remove button clicked', function () {
+          cy.get('@tabView')
+            .find('.form-control[name="portDefinitions.0.name"]')
+            .parents('.panel')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          cy.get('@tabView')
+            .find('.form-control[name="portDefinitions.0.name"]')
+            .should('not.exist');
+        });
+
+        context('Assign Automatically', function () {
+
+          it('should disable "Host Port" text field when "Assign Automatically" is checked', function () {
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.automaticPort"]')
+              .check();
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .should('have.attr', 'disabled');
+          });
+
+          it('should append "<assigned port>" to service address when "Assign Automatically" is checked', function () {
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.automaticPort"]')
+              .check();
+
+            cy.contains('.marathon.l4lb.thisdcos.directory:<assigned port>');
+          });
+
+          it('should append value for "Host Port" to service address when "Assign Automatically" is not checked', function () {
+            // Set checked, then have to click parent
+            // element as we cannot use cy.uncheck() because element is covered
+            // by .form-control-toggle-indicator
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.automaticPort"]')
+              .check();
+
+            // Uncheck it
+            cy.contains('label', 'Assign Automatically')
+              .click();
+
+            // Set value for host port
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .type(7);
+
+            cy.contains('.marathon.l4lb.thisdcos.directory:7');
+
+          });
+
+        });
+
+        context('type: HOST', function () {
+
+          it('should hide "Container Port"', function () {
+            cy.get('select[name="container.docker.network"]')
+              .select('HOST');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.containerPort"]')
+              .should('not.exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.name"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
+              .should('exist');
+
+            cy.get('@tabView').should('contain', '.marathon.l4lb.thisdcos.directory:<assigned port>');
+            // For some reason we can't do a regular "contains" (doesn't find it)
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
+              .should('exist');
+          });
+
+        });
+
+        context('type: BRIDGE', function () {
+
+          it('should show "Container Port" and "Protocol"', function () {
+            cy.get('select[name="container.docker.network"]')
+              .select('BRIDGE');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.containerPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.name"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
+              .should('exist');
+
+            cy.get('@tabView').should('contain', '.marathon.l4lb.thisdcos.directory:<assigned port>');
+            // For some reason we can't do a regular "contains" (doesn't find it)
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
+              .should('exist');
+          });
+
+        });
+
+        context('type: USER (Virtual Network: dcos)', function () {
+
+          it('should hide "Host Port" and "Protocol"', function () {
+            cy.get('select[name="container.docker.network"]')
+              .select('USER.dcos-1');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.containerPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.name"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .should('not.exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
+              .should('not.exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
+              .should('not.exist');
+
+            cy.get('@tabView').should('contain', '.marathon.l4lb.thisdcos.directory:<assigned port>');
+            // For some reason we can't do a regular "contains" (doesn't find it)
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
+              .should('exist');
+          });
+
+          it('should not hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function () {
+            cy.get('select[name="container.docker.network"]')
+              .select('USER.dcos-1');
+
+            // Enable port mapping
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.portMapping"]')
+              .parents('label')
+              .click();
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.containerPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.name"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.hostPort"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
+              .should('exist');
+
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
+              .should('exist');
+
+            cy.get('@tabView').should('contain', '.marathon.l4lb.thisdcos.directory:<assigned port>');
+            // For some reason we can't do a regular "contains" (doesn't find it)
+            cy.get('@tabView')
+              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
+              .should('exist');
+          });
+
+        });
+
+      });
+
+    });
+
+    context('Service: Volumes', function () {
+
+      beforeEach(function () {
+        cy.get('.menu-tabbed-item')
+          .contains('Volumes')
+          .click();
+
+        // Alias tab view for cached lookups
+        cy.get('.menu-tabbed-view').as('tabView');
+      });
+
+      context('Local Volumes', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add Local Volume')
+            .click();
+        });
+
+        it('Should add new set of form fields when "Add Local Volume" link clicked', function () {
+          cy.get('@tabView')
+            .contains('.form-group', 'Volume Type')
+            .within(function () {
+              cy.get('select')
+                .should('have.attr', 'name', 'localVolumes.0.type');
+            });
+        });
+
+        it('Should add new set of form fields when "Persistent Volume" is selected as volume type', function () {
+          cy.get('@tabView')
+            .find('select[name="localVolumes.0.type"]')
+            .select('PERSISTENT');
+
+          // Size input
+          cy.get('@tabView')
+            .find('.form-control[name="localVolumes.0.size"]')
+            .should('exist');
+
+          // Container Path input
+          cy.get('@tabView')
+            .find('.form-control[name="localVolumes.0.containerPath"]')
+            .should('exist');
+        });
+
+        it('Should remove "Volume" form fields when remove button clicked', function () {
+          cy.get('@tabView')
+            .find('select[name="localVolumes.0.type"]')
+            .parents('.panel')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          cy.get('@tabView')
+            .find('.form-control[name="localVolumes.0.type"]')
+            .should('not.exist');
+        });
+
+      });
+
+      context('External Volumes', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Add External Volume')
+            .click();
+        });
+
+        it('Should add new set of form fields when "Add External Volume" link clicked', function () {
+          // Name input
+          cy.get('@tabView')
+            .find('.form-control[name="externalVolumes.0.name"]')
+            .should('exist');
+
+          // Size input
+          cy.get('@tabView')
+            .find('.form-control[name="externalVolumes.0.size"]')
+            .should('exist');
+
+          // Container Path input
+          cy.get('@tabView')
+            .find('.form-control[name="externalVolumes.0.containerPath"]')
+            .should('exist');
+        });
+
+        it('Should remove "Volume" form fields when remove button clicked', function () {
+          cy.contains('.panel', 'Name')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          cy.should('not.contain', '.form-control[name="externalVolumes.0.name"]');
+        });
+
+      });
+
+    });
+
+    context('Service: Health Checks', function () {
+
+      beforeEach(function () {
+        cy.get('.menu-tabbed-item')
+          .contains('Health Checks')
+          .click();
+
+        cy.get('.menu-tabbed-view .button.button-primary-link')
+          .contains('Add Health Check')
+          .click();
+
+        // Alias tab view for cached lookups
+        cy.get('.menu-tabbed-view').as('tabView');
+      });
+
+      it('Should add new set of form fields when "Add Health Check" link clicked', function () {
+        cy.get('@tabView')
+            .contains('.form-group', 'Protocol')
+            .within(function () {
+              cy.get('select')
+                .should('have.attr', 'name', 'healthChecks.0.protocol');
+            });
+      });
+
+      it('Should remove "Health Check" form fields when remove button clicked', function () {
+        cy.contains('.panel', 'Protocol')
+          .within(function () {
+            // Click delete button
+            cy.get('a.button').click();
+          });
+
+        cy.should('not.contain', '.form-control[name="healthChecks.0.protocol"]');
+      });
+
+      it('Should display textarea when selected Protocol is "Command"', function () {
+        cy.get('@tabView')
+          .contains('.form-group', 'Protocol')
+          .within(function () {
+            cy.get('select')
+              .select('COMMAND');
+          });
+
+        // Command input
+        cy.get('@tabView')
+          .find('.form-control[name="healthChecks.0.command"]')
+          .should('exist');
+      });
+
+      it('Should display row of fields when selected Protocol is "HTTP"', function () {
+        cy.get('@tabView')
+          .contains('.form-group', 'Protocol')
+          .within(function () {
+            cy.get('select')
+              .select('HTTP');
+          });
+
+        // Service Endpoint Select
+        cy.get('@tabView')
+          .find('select[name="healthChecks.0.portIndex"]')
+          .should('exist');
+
+        // Path input
+        cy.get('@tabView')
+          .find('.form-control[name="healthChecks.0.path"]')
+          .should('exist');
+
+        // Https input
+        cy.get('@tabView')
+          .find('.form-control[name="healthChecks.0.https"]')
+          .should('exist');
+      });
+
+      context('Advanced Health Check Section', function () {
+
+        function toggleAdvancedHealthCheckSettings() {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+            .contains('Advanced Health Check Settings')
+            .click();
+        }
+
+        it('Should add new set of form fields when "Advanced Health Check Settings" link clicked', function () {
+          cy.get('@tabView')
+            .contains('.form-group', 'Protocol')
+            .within(function () {
+              cy.get('select')
+                .select('HTTP');
+            });
+
+          toggleAdvancedHealthCheckSettings();
+
+          // Grace Period
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.gracePeriodSeconds"]')
+            .should('exist');
+
+          // Interval
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.intervalSeconds"]')
+            .should('exist');
+
+          // Timeout
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.timeoutSeconds"]')
+            .should('exist');
+
+          // Max Failures
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.maxConsecutiveFailures"]')
+            .should('exist');
+        });
+
+        it('Should remove new set of form fields when "Advanced Health Check Settings" link clicked again', function () {
+          cy.get('@tabView')
+            .contains('.form-group', 'Protocol')
+            .within(function () {
+              cy.get('select')
+                .select('HTTP');
+            });
+
+          // Toggle open
+          toggleAdvancedHealthCheckSettings();
+          // Toggle closed
+          toggleAdvancedHealthCheckSettings();
+
+          // Grace Period
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.gracePeriodSeconds"]')
+            .should('not.exist');
+
+          // Interval
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.intervalSeconds"]')
+            .should('not.exist');
+
+          // Timeout
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.timeoutSeconds"]')
+            .should('not.exist');
+
+          // Max Failures
+          cy.get('@tabView')
+            .find('.form-control[name="healthChecks.0.maxConsecutiveFailures"]')
+            .should('not.exist');
+        });
+
+      });
+
+    });
+
+    context('Service: Environment', function () {
+
+      beforeEach(function () {
+        cy.get('.menu-tabbed-item')
+          .contains('Environment')
+          .click();
+
+        // Alias tab view for cached lookups
+        cy.get('.menu-tabbed-view').as('tabView');
+      });
+
+      context('Environment', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+          .contains('Add Environment Variable')
+          .click();
+        });
+
+        it('Should add new set of form fields when "Add Environment Variable" link clicked', function () {
+          // Key
+          cy.get('@tabView')
+            .find('.form-control[name="env.0.key"]')
+            .should('exist');
+
+          // Value
+          cy.get('@tabView')
+            .find('.form-control[name="env.0.value"]')
+            .should('exist');
+        });
+
+        it('Should remove "Environment Variable" form fields when remove button clicked', function () {
+          cy.contains('.form-row', 'Key')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          cy.should('not.contain', '.form-control[name="env.0.key"]');
+        });
+
+      });
+
+      context('Labels', function () {
+
+        beforeEach(function () {
+          cy.get('.menu-tabbed-view .button.button-primary-link')
+          .contains('Add Label')
+          .click();
+        });
+
+        it('Should add new set of form fields when "Add Label" link clicked', function () {
+          // Key
+          cy.get('@tabView')
+            .find('.form-control[name="labels.0.key"]')
+            .should('exist');
+
+          // Value
+          cy.get('@tabView')
+            .find('.form-control[name="labels.0.value"]')
+            .should('exist');
+        });
+
+        it('Should remove "Label" form fields when remove button clicked', function () {
+          cy.contains('.form-row', 'Key')
+            .within(function () {
+              // Click delete button
+              cy.get('a.button').click();
+            });
+
+          cy.should('not.contain', '.form-control[name="labels.0.key"]');
+        });
+
+      });
+
+    });
+
+    context('Review and Run Service', function () {
+
+      beforeEach(function () {
+        // Fill in SERVICE ID
+        cy.get('.form-control[name="id"]')
+          .clear()
+          .type('/test-review-and-run');
+
+        // Fill in CONTAINER IMAGE
+        cy.get('.form-control[name="container.docker.image"]')
+          .clear()
+          .type('nginx');
+
+        // Click review and run
+        cy.get('.modal-full-screen-actions')
+          .contains('button', 'Review & Run')
+          .click();
+      });
+
+      it('should not show non configured fields', function () {
+        // Fields that should not appear:
+        //  - Service Endpoints
+        //  - Volumes
+        //  - Health Checks
+        //  - Environment Variables
+        //  - Labels
+        //
+        // To test this, we filter for H1's and assert that only 2 exist - one
+        // for General field and one for Network field
+        cy.get('h1.configuration-map-heading')
+          .should(function ($h1) {
+            // Should have found 2 elements
+            expect($h1).to.have.length(2);
+
+            // First should be General
+            expect($h1.eq(0)).to.contain('General');
+
+            // Second should be Network
+            expect($h1.eq(1)).to.contain('Network');
+          });
+      });
+
+      it('should navigate back to the form when "edit" button is clicked', function () {
+        // Click back
+        cy.get('.modal-full-screen-actions')
+          .contains('button', 'Back')
+          .click();
+
+        // Verify form has correct Service ID
+        cy.get('.form-control[name="id"]')
+          .should('to.have.value', '/test-review-and-run');
+
+        // Verify form has correct container image
+        cy.get('.form-control[name="container.docker.image"]')
+          .should('to.have.value', 'nginx');
       });
 
     });
