@@ -22,7 +22,7 @@ const containerReducer = combineReducers({
 
 module.exports = {
   FormReducer(state, {type, path = [], value}) {
-    const [_, index, field, _secondIndex, _name, _subField] = path;
+    const [_, index, field, subField] = path;
 
     if (!path.includes('containers')) {
       return state;
@@ -81,7 +81,7 @@ module.exports = {
       newState[index].healthCheck = multiContainerHealthFormReducer.call(
         this.healthCheckState[index],
         newState[index].healthCheck,
-        {type, path, value}
+        {type, path: path.slice(3), value}
       );
     }
 
@@ -114,7 +114,7 @@ module.exports = {
       newState[index].resources = containerReducer.call(
         this.cache[index],
         newState[index].resources,
-        {type, value, path}
+        {type, value, path: [field, subField]}
       );
     }
 

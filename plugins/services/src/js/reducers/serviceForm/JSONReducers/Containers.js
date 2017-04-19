@@ -264,7 +264,7 @@ function containersParser(state) {
 
 module.exports = {
   JSONReducer(state = [], {type, path = [], value}) {
-    const [base, index, field, _secondIndex, _name, _subField] = path;
+    const [base, index, field, subField] = path;
 
     if (this.networkType == null) {
       this.networkType = HOST;
@@ -389,7 +389,7 @@ module.exports = {
       newState[index].healthCheck = multiContainerHealthCheckReducer.call(
         this.healthCheckState[index],
         newState[index].healthCheck,
-        {type, path, value}
+        {type, path: path.slice(3), value}
       );
     }
 
@@ -426,7 +426,7 @@ module.exports = {
       newState[index].resources = containerFloatReducer.call(
         this.cache[index],
         newState[index].resources,
-        {type, value, path}
+        {type, value, path: [field, subField]}
       );
     }
 
