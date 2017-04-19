@@ -67,6 +67,9 @@ module.exports = class Framework extends Application {
     // resources of child frameworks won't be aggregated
     return tasks
       .filter(function (task) {
+        return task.state === 'TASK_RUNNING';
+      })
+      .filter(function (task) {
         return !task.isStartedByMarathon;
       })
       .reduce(function (memo, task) {
