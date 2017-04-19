@@ -809,12 +809,10 @@ describe("Service Form Modal", function() {
           });
         });
 
-        it('should disable the "Advanced Settings" section', function() {
-          cy.contains("Advanced Settings").parent().within(function() {
-            cy
-              .get("label.form-control-toggle.disabled")
-              .should("have.length", 2);
-          });
+        it('should disable the "Grant Runtime Privileges" checkbox', function() {
+          cy
+            .contains("Grant Runtime Privileges")
+            .should("have.class", "disabled");
         });
       });
     });
@@ -872,7 +870,7 @@ describe("Service Form Modal", function() {
             .should("not.have.attr", "disabled");
         });
 
-        it('should disable bridge networking when "Mesos Runtime" selected', function() {
+        it('should have all available types when "Mesos Runtime" selected', function() {
           setRuntime("Mesos Runtime");
           clickNetworkingTab();
 
@@ -887,12 +885,12 @@ describe("Service Form Modal", function() {
             .should("have.value", "HOST")
             .should("not.have.attr", "disabled");
 
-          // BRIDGE - disabled
+          // BRIDGE
           cy
             .get("@containerDockerNetwork")
             .children("option:eq(1)")
             .should("have.value", "BRIDGE")
-            .should("have.attr", "disabled");
+            .should("not.have.attr", "disabled");
 
           // CONTAINER.dcos-1
           cy

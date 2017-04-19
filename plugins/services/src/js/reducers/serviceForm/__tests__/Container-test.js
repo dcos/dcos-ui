@@ -1,4 +1,3 @@
-const Container = require("../Container");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
 const {
@@ -9,6 +8,8 @@ const {
 const {
   type: { BRIDGE, HOST, CONTAINER }
 } = require("#SRC/js/constants/Networking");
+
+const Container = require("../Container");
 
 describe("Container", function() {
   describe("#JSONReducer", function() {
@@ -471,63 +472,551 @@ describe("Container", function() {
           type: "DOCKER",
           volumes: []
         });
+      });
 
-        it("shouldn't create portMappings by default", function() {
-          let batch = new Batch();
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+      it("shouldn't create portMappings by default", function() {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
 
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: null,
-            type: null,
-            volumes: []
-          });
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: null,
+          type: null,
+          volumes: []
         });
+      });
 
-        it("shouldn't create portMappings for HOST", function() {
+      it("shouldn't create portMappings for HOST", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(new Transaction(["networks", 0, "mode"], HOST, SET));
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: null,
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should create two default portDefinition configurations", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should set the name value", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "name"], "foo")
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: "foo",
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should set the port value", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "automaticPort"], false)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "hostPort"], 100)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 100,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should default port value to 0 if automaticPort", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        // This is default behavior
+        // batch = batch.add(
+        //  new Transaction(['portDefinitions', 0, 'automaticPort'], true)
+        // );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "hostPort"], 100)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should set the protocol value", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "protocol", "udp"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "udp,tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should add the labels key if the portDefinition is load balanced", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "loadBalanced"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: { VIP_1: ":0" },
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should add the index of the portDefinition to the VIP keys", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "loadBalanced"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "loadBalanced"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              name: null,
+              protocol: "tcp",
+              labels: { VIP_0: ":0" },
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              name: null,
+              protocol: "tcp",
+              labels: { VIP_1: ":0" },
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should add the port to the VIP string", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "automaticPort"], false)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "hostPort"], 300)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "containerPort"], 8080)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "loadBalanced"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 8080,
+              hostPort: 300,
+              name: null,
+              protocol: "tcp",
+              labels: { VIP_0: ":8080" },
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should add the app ID to the VIP string when it is defined", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "automaticPort"], false)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "loadBalanced"], true)
+        );
+        batch = batch.add(new Transaction(["id"], "foo"));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              name: null,
+              protocol: "tcp",
+              labels: { VIP_1: "foo:0" },
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should store portDefinitions even if network is HOST when recorded", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["container", "type"], "DOCKER", SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "portMapping"], true)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "automaticPort"], false)
+        );
+        batch = batch.add(
+          new Transaction(["portDefinitions", 1, "loadBalanced"], true)
+        );
+        batch = batch.add(new Transaction(["id"], "foo"));
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            },
+            {
+              containerPort: 0,
+              hostPort: 0,
+              name: null,
+              protocol: "tcp",
+              labels: { VIP_1: "foo:0" },
+              servicePort: null
+            }
+          ],
+          type: "DOCKER",
+          volumes: []
+        });
+      });
+
+      it("should't create portMappings when container.type is MESOS", function() {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(["container", "type"], "MESOS", SET));
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
+        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["portDefinitions", 0, "portMapping"], true)
+        );
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+          docker: {
+            forcePullImage: null,
+            image: "",
+            privileged: null
+          },
+          portMappings: null,
+          type: "MESOS",
+          volumes: []
+        });
+      });
+
+      describe("UCR - BRDIGE", function() {
+        it("should create portMappings when container.type is MESOS", function() {
           let batch = new Batch();
           batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
+            new Transaction(["container", "type"], "MESOS", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], HOST, SET)
+            new Transaction(["networks", 0, "mode"], BRIDGE, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
             new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: null,
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should create two default portDefinition configurations", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -544,69 +1033,31 @@ describe("Container", function() {
                 name: null,
                 protocol: "tcp",
                 servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
               }
             ],
-            type: "DOCKER",
+            type: "MESOS",
             volumes: []
           });
         });
 
-        it("should set the name value", function() {
+        it("should include hostPort or protocol when not enabled for BRIDGE", function() {
           let batch = new Batch();
           batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
+            new Transaction(["container", "type"], "MESOS", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+            new Transaction(["networks", 0, "mode"], BRIDGE, SET)
           );
+          // This is default
+          // batch = batch.add(
+          //   new Transaction(['portDefinitions',0,'portMapping'], false)
+          // );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
+            new Transaction(["portDefinitions", 0, "protocol", "tcp"], false)
           );
           batch = batch.add(
-            new Transaction(["portDefinitions", 0, "name"], "foo")
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: "foo",
-                protocol: "tcp",
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should set the port value", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
+            new Transaction(["portDefinitions", 0, "protocol", "udp"], true)
           );
           batch = batch.add(
             new Transaction(["portDefinitions", 0, "automaticPort"], false)
@@ -627,368 +1078,22 @@ describe("Container", function() {
                 hostPort: 100,
                 labels: null,
                 name: null,
-                protocol: "tcp",
+                protocol: "udp",
                 servicePort: null
               }
             ],
-            type: "DOCKER",
+            type: "MESOS",
             volumes: []
           });
         });
 
-        it("should default port value to 0 if automaticPort", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          // This is default behavior
-          // batch = batch.add(
-          //  new Transaction(['portDefinitions', 0, 'automaticPort'], true)
-          // );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "hostPort"], 100)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should set the protocol value", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "protocol", "udp"], true)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "udp,tcp",
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should add the labels key if the portDefinition is load balanced", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "loadBalanced"], true)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: { VIP_1: ":0" },
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should add the index of the portDefinition to the VIP keys", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "loadBalanced"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "loadBalanced"], true)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                name: null,
-                protocol: "tcp",
-                labels: { VIP_0: ":0" },
-                servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                name: null,
-                protocol: "tcp",
-                labels: { VIP_1: ":0" },
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should add the port to the VIP string", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "automaticPort"], false)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "hostPort"], 300)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "containerPort"], 8080)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "loadBalanced"], true)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 8080,
-                hostPort: 300,
-                name: null,
-                protocol: "tcp",
-                labels: { VIP_0: ":8080" },
-                servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should add the app ID to the VIP string when it is defined", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "automaticPort"], false)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "loadBalanced"], true)
-          );
-          batch = batch.add(new Transaction(["id"], "foo"));
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                name: null,
-                protocol: "tcp",
-                labels: { VIP_1: "foo:0" },
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should store portDefinitions even if network is HOST when recorded", function() {
-          let batch = new Batch();
-          batch = batch.add(
-            new Transaction(["container", "type"], "DOCKER", SET)
-          );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "portMapping"], true)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 0, "automaticPort"], false)
-          );
-          batch = batch.add(
-            new Transaction(["portDefinitions", 1, "loadBalanced"], true)
-          );
-          batch = batch.add(new Transaction(["id"], "foo"));
-          batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
-          );
-
-          expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              },
-              {
-                containerPort: 0,
-                hostPort: 0,
-                name: null,
-                protocol: "tcp",
-                labels: { VIP_1: "foo:0" },
-                servicePort: null
-              }
-            ],
-            type: "DOCKER",
-            volumes: []
-          });
-        });
-
-        it("should't create portMappings when container.type is MESOS", function() {
+        it("should create default portDefinition configurations", function() {
           let batch = new Batch();
           batch = batch.add(
             new Transaction(["container", "type"], "MESOS", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+            new Transaction(["networks", 0, "mode"], BRIDGE, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -1001,148 +1106,157 @@ describe("Container", function() {
               image: "",
               privileged: null
             },
-            portMappings: null,
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "MESOS",
             volumes: []
           });
         });
       });
     });
+  });
 
-    describe("Volumes", function() {
-      it("should return an empty array if no volumes are set", function() {
-        const batch = new Batch();
+  describe("Volumes", function() {
+    it("should return an empty array if no volumes are set", function() {
+      const batch = new Batch();
 
-        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
-          portMappings: null,
-          type: null,
-          volumes: []
-        });
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: "",
+          privileged: null
+        },
+        portMappings: null,
+        type: null,
+        volumes: []
       });
+    });
 
-      it("should return a local volume", function() {
-        let batch = new Batch();
+    it("should return a local volume", function() {
+      let batch = new Batch();
 
-        batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
-        );
+      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+      );
 
-        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
-          portMappings: null,
-          type: "MESOS",
-          volumes: [
-            {
-              containerPath: null,
-              persistent: {
-                size: null
-              },
-              mode: "RW"
-            }
-          ]
-        });
-      });
-
-      it("should return an external volume", function() {
-        let batch = new Batch();
-
-        batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-
-        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
-          portMappings: null,
-          type: "MESOS",
-          volumes: [
-            {
-              containerPath: null,
-              external: {
-                name: null,
-                provider: "dvdi",
-                options: {
-                  "dvdi/driver": "rexray"
-                }
-              },
-              mode: "RW"
-            }
-          ]
-        });
-      });
-
-      it("should return a local and an external volume", function() {
-        let batch = new Batch();
-
-        batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
-        );
-
-        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
-          portMappings: null,
-          type: "MESOS",
-          volumes: [
-            {
-              containerPath: null,
-              persistent: {
-                size: null
-              },
-              mode: "RW"
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: "",
+          privileged: null
+        },
+        portMappings: null,
+        type: "MESOS",
+        volumes: [
+          {
+            containerPath: null,
+            persistent: {
+              size: null
             },
-            {
-              containerPath: null,
-              external: {
-                name: null,
-                provider: "dvdi",
-                options: {
-                  "dvdi/driver": "rexray"
-                }
-              },
-              mode: "RW"
-            }
-          ]
-        });
+            mode: "RW"
+          }
+        ]
       });
+    });
 
-      it("should return an empty array if all volumes have been removed", function() {
-        let batch = new Batch();
+    it("should return an external volume", function() {
+      let batch = new Batch();
 
-        batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
-        );
-        batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["externalVolumes"], 0, REMOVE_ITEM));
-        batch = batch.add(new Transaction(["localVolumes"], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
 
-        expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: "",
+          privileged: null
+        },
+        portMappings: null,
+        type: "MESOS",
+        volumes: [
+          {
+            containerPath: null,
+            external: {
+              name: null,
+              provider: "dvdi",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          }
+        ]
+      });
+    });
+
+    it("should return a local and an external volume", function() {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+      );
+
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: "",
+          privileged: null
+        },
+        portMappings: null,
+        type: "MESOS",
+        volumes: [
+          {
+            containerPath: null,
+            persistent: {
+              size: null
+            },
+            mode: "RW"
           },
-          portMappings: null,
-          type: null,
-          volumes: []
-        });
+          {
+            containerPath: null,
+            external: {
+              name: null,
+              provider: "dvdi",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          }
+        ]
+      });
+    });
+
+    it("should return an empty array if all volumes have been removed", function() {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+      );
+      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], 0, REMOVE_ITEM));
+
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        docker: {
+          forcePullImage: null,
+          image: "",
+          privileged: null
+        },
+        portMappings: null,
+        type: null,
+        volumes: []
       });
     });
   });

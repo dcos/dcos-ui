@@ -504,7 +504,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     });
   }
 
-  getVirtualNetworks(disabledMap) {
+  getVirtualNetworks() {
     return VirtualNetworksStore.getOverlays()
       .mapItems(overlay => {
         const name = overlay.getName();
@@ -517,11 +517,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       .getItems()
       .map((virtualNetwork, index) => {
         return (
-          <option
-            key={index}
-            disabled={Boolean(disabledMap[CONTAINER])}
-            value={virtualNetwork.value}
-          >
+          <option key={index} value={virtualNetwork.value}>
             {virtualNetwork.text}
           </option>
         );
@@ -541,44 +537,19 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       ? `${networkMode}.${networkName}`
       : networkMode;
 
-    const disabledMap = {};
-
-    const tooltipContent = Object.keys(disabledMap)
-      .filter(function(key) {
-        return disabledMap[key];
-      })
-      .map(function(key) {
-        return disabledMap[key];
-      })
-      .join(", ");
-
     const selections = (
       <FieldSelect name="networks.0.network" value={selectedValue}>
-        <option disabled={Boolean(disabledMap[HOST])} value={HOST}>
+        <option value={HOST}>
           Host
         </option>
-        <option disabled={Boolean(disabledMap[BRIDGE])} value={BRIDGE}>
+        <option value={BRIDGE}>
           Bridge
         </option>
-        {this.getVirtualNetworks(disabledMap)}
+        {this.getVirtualNetworks()}
       </FieldSelect>
     );
 
-    if (!tooltipContent) {
-      return selections;
-    }
-
-    return (
-      <Tooltip
-        content={tooltipContent + "."}
-        interactive={true}
-        maxWidth={300}
-        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-        wrapText={true}
-      >
-        {selections}
-      </Tooltip>
-    );
+    return selections;
   }
 
   getServiceEndpointsSection() {
@@ -587,7 +558,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const type = findNestedPropertyInObject(container, "type");
     const isMesosRuntime = !type || type === MESOS;
     const isVirtualNetwork = networkType && networkType.startsWith(CONTAINER);
-    const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
       "/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
@@ -622,7 +592,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if (isMesosRuntime && (isVirtualNetwork || isBridgeNetwork)) {
+    if (isMesosRuntime && isVirtualNetwork) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (
