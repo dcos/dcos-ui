@@ -446,11 +446,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       disabledMap[BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime';
     }
 
-    // Runtime is Universal Container Runtime
-    if (type === MESOS) {
-      disabledMap[BRIDGE] = 'BRIDGE networking is not compatible with the Universal Container Runtime';
-    }
-
     const tooltipContent = Object.keys(disabledMap).filter(function (key) {
       return disabledMap[key];
     })
@@ -499,7 +494,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isMesosRuntime = !type || type === NONE;
     const isUniversalContainerizer = !type || type === MESOS;
     const isUserNetwork = networkType && networkType.startsWith(USER);
-    const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI('/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/');
     const serviceEndpointsTooltipContent = (
@@ -532,7 +526,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
     if ((isMesosRuntime || isUniversalContainerizer) &&
-        (isUserNetwork || isBridgeNetwork)) {
+        (isUserNetwork)) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (

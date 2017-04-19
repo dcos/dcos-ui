@@ -31,9 +31,16 @@ module.exports = combineReducers({
   privileged: getContainerSettingsReducer('privileged'),
   forcePullImage: getContainerSettingsReducer('forcePullImage'),
   image: simpleReducer('container.docker.image', ''),
-  network(state, {type, path = [], value}) {
+  network(state = null, {type, path = [], value}) {
     if (!this.containerType) {
       this.containerType = NONE;
+    }
+
+    if (!this.appState) {
+      this.appState = {
+        id: '',
+        networkType: HOST
+      };
     }
 
     const joinedPath = path.join('.');
@@ -41,8 +48,12 @@ module.exports = combineReducers({
       this.containerType = value;
     }
 
-    // Universal containerizer does not support network
-    if (this.containerType !== DOCKER) {
+    if (joinedPath === 'container.docker.network' && Boolean(value)) {
+      this.appState.networkType = value.split('.')[0];
+    }
+
+    // Universal containerizer does not support network for USER network
+    if (this.containerType !== DOCKER && this.appState.networkType === USER) {
       return null;
     }
 
@@ -81,8 +92,8 @@ module.exports = combineReducers({
     // Store the change no matter what network type we have
     this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
-    // Universal containerizer does not support portMappings
-    if (this.containerType !== DOCKER) {
+    // Universal containerizer does not support portMappings for USER
+    if (this.containerType !== DOCKER && this.appState.networkType === USER) {
       return null;
     }
 
