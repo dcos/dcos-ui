@@ -131,12 +131,15 @@ const containerJSONReducer = combineReducers({
     // Store the change no matter what network type we have
     this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
-    // Universal containerizer does not support portMappings
-    if (this.containerType !== DOCKER) {
+    // Universal containerizer does not support portMappings for CONTAINER
+    if (
+      this.containerType !== DOCKER &&
+      this.appState.networkType === CONTAINER
+    ) {
       return null;
     }
 
-    // We only want portMappings for networks of type BRIDGE or USER
+    // We only want portMappings for networks of type BRIDGE or CONTAINER
     if (
       this.appState.networkType !== BRIDGE &&
       this.appState.networkType !== CONTAINER
