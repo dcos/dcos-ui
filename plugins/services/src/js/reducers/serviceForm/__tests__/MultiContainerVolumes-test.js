@@ -40,7 +40,7 @@ describe('Volumes', function () {
           .toEqual([{name: 'foo'}]);
         });
 
-    it('should have to items with names', function () {
+    it('should have two items with names', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['volumeMounts'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['volumeMounts'], 1, ADD_ITEM));
@@ -61,6 +61,17 @@ describe('Volumes', function () {
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), []))
       .toEqual([{name: 'bar'}]);
+    });
+
+    it('handles HOST type', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['volumeMounts'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['volumeMounts', 0, 'name'], 'foo'));
+      batch = batch.add(new Transaction(['volumeMounts', 0, 'type'], 'HOST'));
+      batch = batch.add(new Transaction(['volumeMounts', 0, 'hostPath'], 'hostpath'));
+
+      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), []))
+      .toEqual([{name: 'foo', host: 'hostpath'}]);
     });
   });
 
@@ -143,7 +154,8 @@ describe('Volumes', function () {
     it('should parse a simple config', function () {
       const expectedObject = [
         {type: ADD_ITEM, value: 0, path: ['volumeMounts']},
-        {type: SET, value: 'foo', path: ['volumeMounts', 0, 'name']}
+        {type: SET, value: 'foo', path: ['volumeMounts', 0, 'name']},
+        {type: SET, value: 'EPHEMERAL', path: ['volumeMounts', 0, 'type']}
       ];
 
       expect(VolumeMounts.JSONParser({
@@ -160,6 +172,7 @@ describe('Volumes', function () {
       const expectedObject = [
         {type: ADD_ITEM, value: 0, path: ['volumeMounts']},
         {type: SET, value: 'foo', path: ['volumeMounts', 0, 'name']},
+        {type: SET, value: 'EPHEMERAL', path: ['volumeMounts', 0, 'type']},
         {type: SET, value: 'bar', path: ['volumeMounts', 0, 'mountPath', 0]}
       ];
 
@@ -186,8 +199,11 @@ describe('Volumes', function () {
       const expectedObject = [
         {type: ADD_ITEM, value: 0, path: ['volumeMounts']},
         {type: SET, value: 'foobar', path: ['volumeMounts', 0, 'name']},
+        {type: SET, value: 'EPHEMERAL', path: ['volumeMounts', 0, 'type']},
         {type: ADD_ITEM, value: 1, path: ['volumeMounts']},
         {type: SET, value: 'foo', path: ['volumeMounts', 1, 'name']},
+        {type: SET, value: 'HOST', path: ['volumeMounts', 1, 'type']},
+        {type: SET, value: 'foopath', path: ['volumeMounts', 1, 'hostPath']},
         {type: SET, value: 'bar', path: ['volumeMounts', 1, 'mountPath', 0]},
         {type: SET, value: 'fooBar', path: ['volumeMounts', 1, 'mountPath', 1]}
       ];
@@ -216,7 +232,8 @@ describe('Volumes', function () {
             'name': 'foobar'
           },
           {
-            'name': 'foo'
+            'name': 'foo',
+            'host': 'foopath'
           }
         ]
       })).toEqual(expectedObject);

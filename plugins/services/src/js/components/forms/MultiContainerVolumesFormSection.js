@@ -6,6 +6,7 @@ import AddButton from '#SRC/js/components/form/AddButton';
 import FieldError from '#SRC/js/components/form/FieldError';
 import FieldInput from '#SRC/js/components/form/FieldInput';
 import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FieldSelect from '#SRC/js/components/form/FieldSelect';
 import FormGroup from '#SRC/js/components/form/FormGroup';
 import FormGroupContainer from '#SRC/js/components/form/FormGroupContainer';
 import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
@@ -16,6 +17,7 @@ import MetadataStore from '#SRC/js/stores/MetadataStore';
 
 import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
 import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
+import VolumeConstants from '../../constants/VolumeConstants';
 
 const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
 
@@ -92,6 +94,24 @@ class MultiContainerVolumesFormSection extends Component {
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>
+            <FormGroup
+              className="column-6"
+              showError={false}>
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    Volume Type
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+              <FieldSelect
+                name={`volumeMounts.${key}.type`}
+                value={volumes.type}>
+                <option>Select...</option>
+                <option value={VolumeConstants.type.host}>Host Volume</option>
+                <option value={VolumeConstants.type.ephemeral}>Ephemeral Volume</option>
+              </FieldSelect>
+            </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 <FormGroupHeading>
@@ -107,10 +127,33 @@ class MultiContainerVolumesFormSection extends Component {
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </FormRow>
+          {this.getHostPathInput(volumes, key)}
           {this.getContainerMounts(containers, key)}
         </FormGroupContainer>
       );
     });
+  }
+
+  getHostPathInput(volumes, key) {
+    if (volumes.type === VolumeConstants.type.host) {
+      return (
+        <FormRow>
+          <FormGroup className="column-12">
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Host Path
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput
+              name={`volumeMounts.${key}.hostPath`}
+              type="text"
+              value={volumes.hostPath}/>
+          </FormGroup>
+        </FormRow>
+      );
+    }
   }
 
   getHeadline() {
@@ -169,18 +212,12 @@ class MultiContainerVolumesFormSection extends Component {
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        <h3 className="short-bottom">
-          Ephemeral Volumes
-        </h3>
-        <p>
-          Choose a place in your container as the destination.
-        </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>
           <AddButton onClick={this.props.onAddItem.bind(
               this, {value: data.volumeMounts.length, path: 'volumeMounts'}
             )}>
-            Add Ephemeral Volume
+            Add Volume
           </AddButton>
         </div>
       </div>

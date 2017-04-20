@@ -6,6 +6,7 @@ import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection'
 import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import VolumeConstants from '../constants/VolumeConstants';
 
 const BOOLEAN_OPTIONS = {
   truthy : 'TRUE',
@@ -18,6 +19,10 @@ class PodStorageConfigSection extends React.Component {
       {
         heading: 'Volume',
         prop: 'volume'
+      },
+      {
+        heading: 'Type',
+        prop: 'type'
       },
       {
         heading: 'Size',
@@ -39,6 +44,10 @@ class PodStorageConfigSection extends React.Component {
         prop: 'mountPath'
       },
       {
+        heading: 'Host Path',
+        prop: 'hostPath'
+      },
+      {
         heading: 'Container',
         prop: 'container'
       }
@@ -49,9 +58,14 @@ class PodStorageConfigSection extends React.Component {
     const {onEditClick} = this.props;
     const {volumes = [], containers = []} = this.props.appConfig;
     const volumeSummary = volumes.reduce((memo, volume) => {
+      const type = volume.host == null
+        ? VolumeConstants.type.ephemeral
+        : VolumeConstants.type.host;
+
       const volumeInfo = {
+        type,
         volume: volume.name,
-        host: volume.host
+        hostPath: volume.host
       };
 
       // Fetch all mounts for this volume in the containers
