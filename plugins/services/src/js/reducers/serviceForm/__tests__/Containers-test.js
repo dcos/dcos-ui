@@ -1,7 +1,11 @@
 const Containers = require("../Containers");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
-const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
+const {
+  ADD_ITEM,
+  SET,
+  REMOVE_ITEM
+} = require("#SRC/js/constants/TransactionTypes");
 const { DEFAULT_POD_CONTAINER } = require("../../../constants/DefaultPod");
 
 describe("Containers", function() {
@@ -740,6 +744,31 @@ describe("Containers", function() {
               cpus: 0.1,
               mem: 128
             }
+          }
+        ]);
+      });
+    });
+
+    describe("volumes", function() {
+      it("removes volumeMounts when there's no volumes left", function() {
+        const batch = new Batch([
+          new Transaction(["containers"], 0, ADD_ITEM),
+          new Transaction(["volumeMounts"], 0, ADD_ITEM),
+          new Transaction(["volumeMounts", 0, "name"], "extvol", SET),
+          new Transaction(["volumeMounts", 0, "mountPath"], 0, ADD_ITEM),
+          new Transaction(["volumeMounts", 0, "mountPath", 0], "mount", SET),
+          new Transaction(["volumeMounts"], 0, REMOVE_ITEM)
+        ]);
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            endpoints: [],
+            name: "container-1",
+            resources: {
+              cpus: 0.1,
+              mem: 128
+            },
+            volumeMounts: []
           }
         ]);
       });
