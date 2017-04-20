@@ -168,28 +168,4 @@ describe("Packages Tab", function() {
       });
     });
   });
-
-  context("package table", function() {
-    beforeEach(function() {
-      cy.visitUrl({ url: "/universe", logIn: true });
-    });
-
-    it("should show the very last item in the table", function() {
-      // Ensure table has rendered before beginning
-      cy.get("table").get(".page-body").then(function($pageBodyResults) {
-        const $pageBody = $pageBodyResults.get(0);
-        // Adjust page-body for option (Mac OS)
-        // 'Show scroll bars: Automatically based on mouse or trackpad'
-        $pageBody.scrollTop = $pageBody.scrollHeight - $pageBody.clientHeight;
-        cy.get(".page-body .gm-scroll-view").then(function($scrolViewResults) {
-          const $gmScrolView = $scrolViewResults.get(0);
-          // Adjust page-body for option (Mac OS)
-          // 'Show scroll bars: Always'
-          $gmScrolView.scrollTop =
-            $gmScrolView.scrollHeight - $gmScrolView.clientHeight;
-          cy.get("table").contains("zeppelin");
-        });
-      });
-    });
-  });
 });
