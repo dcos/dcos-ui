@@ -11,7 +11,12 @@ const VipLabelUtil = {
       }
 
       return Object.assign({}, labels, {[vipLabel]: vipValue});
-    } else if (labels) {
+    }
+
+    const labelsHadVip =
+      labels && Object.prototype.hasOwnProperty.call(labels, vipLabel);
+
+    if (labelsHadVip) {
       return Object.assign({}, labels, {[vipLabel]: undefined});
     }
 
