@@ -67,7 +67,7 @@ module.exports = class Framework extends Application {
     // resources of child frameworks won't be aggregated
     return tasks
       .filter(function (task) {
-        return !task.isStartedByMarathon;
+        return task.state === 'TASK_RUNNING' && !task.isStartedByMarathon;
       })
       .reduce(function (memo, task) {
         const {cpus, mem, gpus, disk} = task.resources;
