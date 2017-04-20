@@ -1,6 +1,6 @@
-import {DCOSStore} from 'foundation-ui';
 import React from 'react';
 
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import ServiceItemNotFound from '../../components/ServiceItemNotFound';
 import VolumeDetail from './VolumeDetail';
 import Loader from '../../../../../../src/js/components/Loader';

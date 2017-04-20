@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import {Dropdown, Table, Tooltip} from 'reactjs-components';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
-import {ResourceTableUtil} from 'foundation-ui';
 
 import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
 import Icon from '../../../../../../src/js/components/Icon';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
 import Pod from '../../structs/Pod';
+import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceStatusWarning from '../../components/ServiceStatusWarning';

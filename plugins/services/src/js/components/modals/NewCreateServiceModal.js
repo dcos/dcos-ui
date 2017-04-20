@@ -10,7 +10,7 @@ import ApplicationSpec from '../../structs/ApplicationSpec';
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 
-import DCOSStore from '../../../../../../foundation-ui/stores/DCOSStore';
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
 import MarathonStore from '../../stores/MarathonStore';
 import {

@@ -4,9 +4,9 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Tooltip} from 'reactjs-components';
 
-import Icon from '../../src/js/components/Icon';
-import TimeAgo from '../../src/js/components/TimeAgo';
-import Util from '../../src/js/utils/Util';
+import Icon from '../components/Icon';
+import TimeAgo from '../components/TimeAgo';
+import Util from './Util';
 
 const LEFT_ALIGN_PROPS = [
   'cpus',
@@ -29,7 +29,7 @@ function getUpdatedTimestamp(model) {
   return (lastStatus && lastStatus.timestamp) || null;
 }
 
-var ResourceTableUtil = {
+const ResourceTableUtil = {
   getClassName(prop, sortBy, row) {
     return classNames({
       'text-align-right': leftAlignCaret(prop)

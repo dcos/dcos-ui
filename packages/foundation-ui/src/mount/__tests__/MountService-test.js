@@ -8,8 +8,8 @@ describe('MountService', function () {
   const COMPONENT_ERROR_MESSAGE = 'Provided component must be a ' +
       'React.Component constructor or a stateless functional component';
   const TYPE_ERROR_MESSAGE = 'Provided type must be a none empty string';
-  const REGISTRATION_ERROR_MESSAGE = 'Provided component/type combination ' +
-      'is already registered';
+  const REGISTRATION_ERROR_MESSAGE = 'Provided component/type ReactComponent/type' +
+    'combination is already registered';
 
   class ReactComponent extends React.Component {}
   const FunctionalComponent = function () {};

@@ -54,14 +54,6 @@ function __requireModule(dir, name) {
     return Mocks[name];
   }
 
-  if (dir === 'navigation' || dir === 'routing') {
-    return require(path.resolve('./foundation-ui', `${dir}/${name}`));
-  }
-
-  if (dir === 'foundation-utils') {
-    return require(path.resolve('./foundation-ui/utils', name));
-  }
-
   if (dir === 'internalPlugin') {
     return require(path.resolve(pluginsDir, name));
   }

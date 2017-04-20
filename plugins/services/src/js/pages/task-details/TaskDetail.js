@@ -1,4 +1,3 @@
-import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -6,6 +5,7 @@ import {routerShape, formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
 import InternalStorageMixin from '../../../../../../src/js/mixins/InternalStorageMixin';
 import Loader from '../../../../../../src/js/components/Loader';

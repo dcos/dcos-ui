@@ -1,8 +1,8 @@
-import {DCOSStore} from 'foundation-ui';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
 import ActionKeys from '../../constants/ActionKeys';
+import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
 import Pod from '../../structs/Pod';
 import PodDetail from '../pod-detail/PodDetail';

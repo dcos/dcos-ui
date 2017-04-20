@@ -4,6 +4,7 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import {Link, routerShape} from 'react-router';
 import React from 'react';
 import PluginSDK from 'PluginSDK';
+import {navigation} from 'foundation-ui';
 
 import {keyCodes} from '../utils/KeyboardUtil';
 import EventTypes from '../constants/EventTypes';
@@ -19,7 +20,7 @@ import SidebarStore from '../stores/SidebarStore';
 
 const {
   NavigationService,
-  EventTypes: {NAVIGATION_CHANGE}} = PluginSDK.get('navigation');
+  EventTypes: {NAVIGATION_CHANGE}} = navigation;
 
 const defaultMenuItems = [
   '/dashboard',

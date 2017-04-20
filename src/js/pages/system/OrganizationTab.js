@@ -6,7 +6,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumb from '../../components/Breadcrumb';
@@ -17,6 +16,7 @@ import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Page from '../../components/Page';
+import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import StringUtil from '../../utils/StringUtil';
 import TableUtil from '../../utils/TableUtil';
 import UsersActionsModal from '../../components/modals/UsersActionsModal';

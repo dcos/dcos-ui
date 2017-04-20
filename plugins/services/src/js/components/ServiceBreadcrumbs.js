@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import {Link} from 'react-router';
 
-import {DCOSStore} from 'foundation-ui';
+import DCOSStore from '../../../../../src/js/stores/DCOSStore';
 import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
 import BreadcrumbSupplementalContent from '../../../../../src/js/components/BreadcrumbSupplementalContent';
 import BreadcrumbTextContent from '../../../../../src/js/components/BreadcrumbTextContent';

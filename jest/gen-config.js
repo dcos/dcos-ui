@@ -3,7 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path');
-var testPaths = ['src', 'plugins', 'foundation-ui', 'tests'];
+var testPaths = ['src', 'plugins', 'tests', 'packages'];
 
 if (process.env.npm_config_externalplugins) {
   testPaths.push(process.env.npm_config_externalplugins);
@@ -11,7 +11,6 @@ if (process.env.npm_config_externalplugins) {
 
 var config = {
   'automock': true,
-  'name': '', // https://github.com/facebook/jest/issues/955
   'testPathDirs': testPaths,
   'globals': {
     '__DEV__': true

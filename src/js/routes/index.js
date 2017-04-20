@@ -1,3 +1,4 @@
+import {routing} from 'foundation-ui';
 import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
@@ -9,7 +10,6 @@ import Network from './factories/network';
 import nodes from '../../../plugins/nodes/src/js/routes/nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import Organization from './factories/organization';
-import {RoutingService} from '../../../foundation-ui/routing';
 import services from '../../../plugins/services/src/js/routes/services';
 import settings from './settings';
 import systemOverview from './system-overview';
@@ -92,7 +92,7 @@ function getRoutes() {
 
   // Register packages
   indexRoute.children = indexRoute.children.concat(
-    RoutingService.getDefinition()
+    routing.RoutingService.getDefinition()
   );
 
   return routes;
