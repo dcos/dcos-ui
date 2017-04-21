@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
 import deepEqual from 'deep-equal';
 
-import ApplicationSpec from '../../structs/ApplicationSpec';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldHelp from '#SRC/js/components/form/FieldHelp';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import JSONEditor from '#SRC/js/components/JSONEditor';
+
 import {SYNTAX_ERROR} from '../../constants/ServiceErrorTypes';
-import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import ApplicationSpec from '../../structs/ApplicationSpec';
 import PodSpec from '../../structs/PodSpec';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';

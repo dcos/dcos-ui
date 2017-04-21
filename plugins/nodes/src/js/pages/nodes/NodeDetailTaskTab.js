@@ -3,10 +3,10 @@ import {routerShape} from 'react-router';
 
 import {
   DCOS_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
+} from '#SRC/js/constants/EventTypes';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
 
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import TasksContainer from '../../../../../services/src/js/containers/tasks/TasksContainer';
 
 const METHODS_TO_BIND = [

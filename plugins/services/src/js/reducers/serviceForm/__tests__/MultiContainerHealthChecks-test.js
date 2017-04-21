@@ -1,11 +1,11 @@
-const Batch = require('../../../../../../../src/js/structs/Batch');
+const Batch = require('#SRC/js/structs/Batch');
 const {COMMAND, HTTP, HTTPS, TCP} =
   require('../../../constants/HealthCheckProtocols');
 const MultiContainerHealthChecks = require('../MultiContainerHealthChecks');
 const MesosCommandTypes = require('../../../constants/MesosCommandTypes');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
+const Transaction = require('#SRC/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+  require('#SRC/js/constants/TransactionTypes');
 
 describe('MultiContainerHealthChecks', function () {
   describe('#JSONSegmentReducer', function () {

@@ -1,9 +1,10 @@
+import {cleanServiceJSON} from '#SRC/js/utils/CleanJSONUtil';
+
 import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
 import Application from './Application';
-import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import FrameworkSpec from './FrameworkSpec';
 
 module.exports = class Framework extends Application {
@@ -48,7 +49,7 @@ module.exports = class Framework extends Application {
 
   getResources() {
     // TODO: Circular reference workaround DCOS_OSS-783
-    const MesosStateStore = require('../../../../../src/js/stores/MesosStateStore');
+    const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
 
     const tasks = MesosStateStore.getTasksByService(this) || [];
 

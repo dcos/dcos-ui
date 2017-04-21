@@ -1,8 +1,9 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import Config from '#SRC/js/config/Config';
+
 import ActionTypes from '../constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import Config from '../../../../../src/js/config/Config';
 
 const MesosLogActions = {
 

@@ -1,9 +1,10 @@
 import React from 'react';
 
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import Page from '#SRC/js/components/Page';
+
 import TaskDetail from './TaskDetail';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import Page from '../../../../../../src/js/components/Page';
 
 const dontScrollRoutes = [
   /\/files\/view.*$/,

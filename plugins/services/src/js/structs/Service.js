@@ -1,6 +1,6 @@
-import HealthStatus from '../constants/HealthStatus';
-import Item from '../../../../../src/js/structs/Item';
+import Item from '#SRC/js/structs/Item';
 
+import HealthStatus from '../constants/HealthStatus';
 import ServiceImages from '../constants/ServiceImages';
 import ServiceStatus from '../constants/ServiceStatus';
 import ServiceSpec from './ServiceSpec';

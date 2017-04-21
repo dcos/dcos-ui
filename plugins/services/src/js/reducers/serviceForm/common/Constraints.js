@@ -2,10 +2,11 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../../src/js/structs/Transaction';
+} from '#SRC/js/constants/TransactionTypes';
+import Transaction from '#SRC/js/structs/Transaction';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
+
 import {requiresEmptyValue} from '../../../utils/PlacementConstraintsUtil';
-import {isEmpty} from '../../../../../../../src/js/utils/ValidatorUtil';
 
 const CONSTRAINT_FIELDS = ['fieldName', 'operator', 'value'];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Alert from '../../../../../src/js/components/Alert';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
+import Alert from '#SRC/js/components/Alert';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
 
 function renderContainers(appConfig, handleEditClick) {

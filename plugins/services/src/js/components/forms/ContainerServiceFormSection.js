@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldHelp from '#SRC/js/components/form/FieldHelp';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FieldTextarea from '#SRC/js/components/form/FieldTextarea';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+import Icon from '#SRC/js/components/Icon';
+import MetadataStore from '#SRC/js/stores/MetadataStore';
+
 import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
 import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import ContainerConstants from '../../constants/ContainerConstants';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import PodSpec from '../../structs/PodSpec';
 
 const {NONE} = ContainerConstants.type;

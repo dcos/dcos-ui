@@ -2,12 +2,13 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from '#SRC/js/constants/TransactionTypes';
+import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
+import Transaction from '#SRC/js/structs/Transaction';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+
 import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealthCheckProtocols';
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
 import MesosCommandTypes from '../../constants/MesosCommandTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 /**
  * JSON Parser Fragment for `HttpHealthCheck` type

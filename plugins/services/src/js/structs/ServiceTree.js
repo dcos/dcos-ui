@@ -1,13 +1,14 @@
+import List from '#SRC/js/structs/List';
+import Tree from '#SRC/js/structs/Tree';
+
 import Framework from './Framework';
 import HealthTypes from '../constants/HealthTypes';
 import HealthStatus from '../constants/HealthStatus';
-import List from '../../../../../src/js/structs/List';
 import Pod from './Pod';
 import Service from './Service';
 import ServiceOther from '../constants/ServiceOther';
 import ServiceStatus from '../constants/ServiceStatus';
 import ServiceUtil from '../utils/ServiceUtil';
-import Tree from '../../../../../src/js/structs/Tree';
 import VolumeList from '../structs/VolumeList';
 
 module.exports = class ServiceTree extends Tree {

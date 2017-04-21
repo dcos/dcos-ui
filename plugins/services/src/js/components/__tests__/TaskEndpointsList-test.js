@@ -5,7 +5,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const Node = require('../../../../../../src/js/structs/Node');
+const Node = require('#SRC/js/structs/Node');
 const TaskEndpointsList = require('../TaskEndpointsList');
 
 describe('TaskEndpointsList', function () {

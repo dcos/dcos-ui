@@ -9,17 +9,18 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import Config from '../../../../../../src/js/config/Config';
-import Icon from '../../../../../../src/js/components/Icon';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
+import Config from '#SRC/js/config/Config';
+import Icon from '#SRC/js/components/Icon';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import ToggleButton from '#SRC/js/components/ToggleButton';
+import CollapsibleErrorMessage from '#SRC/js/components/CollapsibleErrorMessage';
+
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 import ServiceForm from '../ServiceForm';
 import ServiceSchema from '../../schemas/ServiceSchema';
 import ServiceUtil from '../../utils/ServiceUtil';
-import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import ErrorPaths from '../../constants/ErrorPaths';
-import CollapsibleErrorMessage from '../../../../../../src/js/components/CollapsibleErrorMessage';
 
 const SUPPORTED_ONLY_IN_JSON_TEXT = 'Your config contains attributes we currently only support in the JSON mode.';
 

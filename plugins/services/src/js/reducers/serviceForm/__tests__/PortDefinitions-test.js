@@ -1,8 +1,8 @@
 const PortDefinitions = require('../PortDefinitions');
-const Batch = require('../../../../../../../src/js/structs/Batch');
-const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {ADD_ITEM, SET} = require('../../../../../../../src/js/constants/TransactionTypes');
-const {type: {BRIDGE, HOST, USER}} = require('../../../../../../../src/js/constants/Networking');
+const Batch = require('#SRC/js/structs/Batch');
+const Transaction = require('#SRC/js/structs/Transaction');
+const {ADD_ITEM, SET} = require('#SRC/js/constants/TransactionTypes');
+const {type: {BRIDGE, HOST, USER}} = require('#SRC/js/constants/Networking');
 
 describe('PortDefinitions', function () {
   describe('#JSONReducer', function () {

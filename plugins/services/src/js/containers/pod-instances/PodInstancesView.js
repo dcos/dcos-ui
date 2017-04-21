@@ -1,8 +1,8 @@
 import React from 'react';
 import {routerShape} from 'react-router';
 
-import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
-import Icon from '../../../../../../src/js/components/Icon';
+import FilterHeadline from '#SRC/js/components/FilterHeadline';
+import Icon from '#SRC/js/components/Icon';
 import Pod from '../../structs/Pod';
 import PodInstanceList from '../../structs/PodInstanceList';
 import PodInstancesTable from './PodInstancesTable';

@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import {reconstructPathFromRoutes} from '../../../../../src/js/utils/RouterUtil';
+import {reconstructPathFromRoutes} from '#SRC/js/utils/RouterUtil';
 import Volume from '../structs/Volume';
 import VolumeStatus from '../constants/VolumeStatus';
 

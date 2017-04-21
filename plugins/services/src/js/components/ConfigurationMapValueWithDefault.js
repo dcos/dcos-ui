@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil.js';
 
 /**
  * Render a defaultValue value if the value is empty or falsy.

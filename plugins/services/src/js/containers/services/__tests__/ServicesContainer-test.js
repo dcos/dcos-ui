@@ -6,10 +6,11 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
-const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
+
+const JestUtil = require('#SRC/js/utils/JestUtil');
+const DSLExpression = require('#SRC/js/structs/DSLExpression');
 
 const ServicesContainer = require('../ServicesContainer');
-const DSLExpression = require('../../../../../../../src/js/structs/DSLExpression');
 
 describe('ServicesContainer', function () {
 

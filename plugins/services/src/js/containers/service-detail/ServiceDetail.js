@@ -2,8 +2,12 @@ import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
+import Page from '#SRC/js/components/Page';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import TabsMixin from '#SRC/js/mixins/TabsMixin';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import ActionKeys from '../../constants/ActionKeys';
-import Page from '../../../../../../src/js/components/Page';
 import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
@@ -11,9 +15,6 @@ import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
 import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
 import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 import VolumeTable from '../../components/VolumeTable';
 
 const METHODS_TO_BIND = [

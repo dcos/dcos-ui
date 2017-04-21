@@ -4,10 +4,11 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DCOSStore from '../../../../../../src/js/stores/DCOSStore';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import Icon from '#SRC/js/components/Icon';
+import Loader from '#SRC/js/components/Loader';
+
 import ApplicationSpec from '../../structs/ApplicationSpec';
-import Icon from '../../../../../../src/js/components/Icon';
-import Loader from '../../../../../../src/js/components/Loader';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import Service from '../../structs/Service';
 import {getDefinitionFromSpec} from '../../utils/ServiceUtil';

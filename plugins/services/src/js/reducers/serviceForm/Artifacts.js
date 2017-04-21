@@ -2,9 +2,9 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+} from '#SRC/js/constants/TransactionTypes';
+import Transaction from '#SRC/js/structs/Transaction';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
 
 function getJson(data) {
   return data

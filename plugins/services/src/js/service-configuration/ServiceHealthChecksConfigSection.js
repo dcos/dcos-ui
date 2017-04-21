@@ -1,6 +1,10 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import Util from '#SRC/js/utils/Util';
+
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
@@ -8,11 +12,8 @@ import {
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../constants/HealthCheckProtocols';
-import Util from '../../../../../src/js/utils/Util';
 
 function renderDuration(prop, row) {
   const value = row[prop] || null;

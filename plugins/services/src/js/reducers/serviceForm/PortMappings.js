@@ -1,9 +1,9 @@
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
 import {
   ADD_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from '#SRC/js/constants/TransactionTypes';
+import Transaction from '#SRC/js/structs/Transaction';
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
 
 module.exports = {

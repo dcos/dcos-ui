@@ -1,12 +1,13 @@
 import React from 'react';
 
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+
 import {
   getSharedIconWithLabel,
   getContainerNameWithIcon
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 
 class PodLabelsConfigSection extends React.Component {
   getColumns() {

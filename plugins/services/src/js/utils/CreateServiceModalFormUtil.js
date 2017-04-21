@@ -1,4 +1,4 @@
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
 
 const CreateServiceModalFormUtil = {
 

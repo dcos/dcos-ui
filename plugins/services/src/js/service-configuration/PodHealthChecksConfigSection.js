@@ -1,9 +1,10 @@
 import React from 'react';
 
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 

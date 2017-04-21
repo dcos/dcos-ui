@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import FormModal from '#SRC/js/components/FormModal';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+
 import AppLockedMessage from './AppLockedMessage';
-import FormModal from '../../../../../../src/js/components/FormModal';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';

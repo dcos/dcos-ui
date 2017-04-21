@@ -2,7 +2,7 @@ import deepEqual from 'deep-equal';
 import md5 from 'md5';
 import {hashHistory, match} from 'react-router';
 
-import RouterUtil from '../../../src/js/utils/RouterUtil';
+import RouterUtil from '#SRC/js/utils/RouterUtil';
 
 const SDK = require('../SDK').getSDK();
 

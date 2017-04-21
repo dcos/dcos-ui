@@ -1,6 +1,6 @@
 jest.dontMock('../FilterByService');
 jest.dontMock('./fixtures/MockFrameworks');
-jest.dontMock('../../../../../../src/js/utils/Util');
+jest.dontMock('#SRC/js/utils/Util');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */

@@ -2,24 +2,25 @@ import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 import Objektiv from 'objektiv';
 
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
-import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
-import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
+import AddButton from '#SRC/js/components/form/AddButton';
+import AdvancedSection from '#SRC/js/components/form/AdvancedSection';
+import AdvancedSectionContent from '#SRC/js/components/form/AdvancedSectionContent';
+import AdvancedSectionLabel from '#SRC/js/components/form/AdvancedSectionLabel';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldTextarea from '#SRC/js/components/form/FieldTextarea';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FieldSelect from '#SRC/js/components/form/FieldSelect';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupContainer from '#SRC/js/components/form/FormGroupContainer';
+import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+import Icon from '#SRC/js/components/Icon';
+
 import {MESOS_HTTP, MESOS_HTTPS, COMMAND} from '../../constants/HealthCheckProtocols';
-import HealthCheckUtil from '../../utils/HealthCheckUtil';
-import Icon from '../../../../../../src/js/components/Icon';
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
+import HealthCheckUtil from '../../utils/HealthCheckUtil';
 
 const errorsLens = Objektiv.attr('healthChecks', []);
 

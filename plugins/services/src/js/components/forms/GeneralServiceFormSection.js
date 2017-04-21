@@ -1,34 +1,35 @@
 import React, {Component} from 'react';
 import {Confirm, Tooltip} from 'reactjs-components';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {pluralize} from '../../../../../../src/js/utils/StringUtil';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
-import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
-import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
+import {pluralize} from '#SRC/js/utils/StringUtil';
+import AddButton from '#SRC/js/components/form/AddButton';
+import AdvancedSection from '#SRC/js/components/form/AdvancedSection';
+import AdvancedSectionContent from '#SRC/js/components/form/AdvancedSectionContent';
+import AdvancedSectionLabel from '#SRC/js/components/form/AdvancedSectionLabel';
+import DeleteRowButton from '#SRC/js/components/form/DeleteRowButton';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldHelp from '#SRC/js/components/form/FieldHelp';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FieldSelect from '#SRC/js/components/form/FieldSelect';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormGroupContainer from '#SRC/js/components/form/FormGroupContainer';
+import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
+import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
+import FormRow from '#SRC/js/components/form/FormRow';
+import Icon from '#SRC/js/components/Icon';
+import MetadataStore from '#SRC/js/stores/MetadataStore';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+
 import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
 import ContainerServiceFormAdvancedSection from './ContainerServiceFormAdvancedSection';
-import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import General from '../../reducers/serviceForm/General';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import OperatorTypes from '../../constants/OperatorTypes';
 import PlacementConstraintsUtil from '../../utils/PlacementConstraintsUtil';
 import PodSpec from '../../structs/PodSpec';
-import Icon from '../../../../../../src/js/components/Icon';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
-import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
 

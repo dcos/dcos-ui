@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 class PodPlacementConstraintsConfigSection extends React.Component {

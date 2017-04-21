@@ -1,15 +1,15 @@
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMapLabel');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMapValue');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMapHeading');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMapRow');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMapSection');
-jest.dontMock('../../../../../../../src/js/components/CollapsingString');
-jest.dontMock('../../../../../../../src/js/components/DetailViewSectionHeading');
-jest.dontMock('../../../../../../../src/js/components/DetailViewHeader');
-jest.dontMock('../../../../../../../src/js/stores/MesosStateStore');
-jest.dontMock('../../../../../../../src/js/components/Page');
-jest.dontMock('../../../../../../../src/js/mixins/InternalStorageMixin');
+jest.dontMock('#SRC/js/components/ConfigurationMap');
+jest.dontMock('#SRC/js/components/ConfigurationMapLabel');
+jest.dontMock('#SRC/js/components/ConfigurationMapValue');
+jest.dontMock('#SRC/js/components/ConfigurationMapHeading');
+jest.dontMock('#SRC/js/components/ConfigurationMapRow');
+jest.dontMock('#SRC/js/components/ConfigurationMapSection');
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/components/DetailViewSectionHeading');
+jest.dontMock('#SRC/js/components/DetailViewHeader');
+jest.dontMock('#SRC/js/stores/MesosStateStore');
+jest.dontMock('#SRC/js/components/Page');
+jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../../service-debug/ServiceDebugContainer');
 jest.dontMock('../../service-configuration/ServiceConfigurationContainer');
@@ -22,7 +22,7 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
-const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 
 const Application = require('../../../structs/Application');
 const ServiceDetail = require('../ServiceDetail');

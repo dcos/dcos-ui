@@ -1,15 +1,16 @@
 import {Hooks} from 'PluginSDK';
 import React from 'react';
 
-import FormUtil from '../../../../../src/js/utils/FormUtil';
+import FormUtil from '#SRC/js/utils/FormUtil';
+import Networking from '#SRC/js/constants/Networking';
+import Icon from '#SRC/js/components/Icon';
+import SchemaForm from '#SRC/js/components/SchemaForm';
+import SchemaFormUtil from '#SRC/js/utils/SchemaFormUtil';
+import SchemaUtil from '#SRC/js/utils/SchemaUtil';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import VirtualNetworksStore from '#SRC/js/stores/VirtualNetworksStore';
+
 import HostUtil from '../utils/HostUtil';
-import Networking from '../../../../../src/js/constants/Networking';
-import Icon from '../../../../../src/js/components/Icon';
-import SchemaForm from '../../../../../src/js/components/SchemaForm';
-import SchemaFormUtil from '../../../../../src/js/utils/SchemaFormUtil';
-import SchemaUtil from '../../../../../src/js/utils/SchemaUtil';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
-import VirtualNetworksStore from '../../../../../src/js/stores/VirtualNetworksStore';
 
 const METHODS_TO_BIND = [
   'handleFormChange',

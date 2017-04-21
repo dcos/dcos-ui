@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
-import FormModal from '../../../../../../src/js/components/FormModal';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
+import FormModal from '#SRC/js/components/FormModal';
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 const METHODS_TO_BIND = [

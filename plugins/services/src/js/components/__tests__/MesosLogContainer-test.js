@@ -1,8 +1,8 @@
 jest.dontMock('../Highlight');
 jest.dontMock('../MesosLogContainer');
 jest.dontMock('../LogView');
-jest.dontMock('../../../../../../src/js/structs/Item');
-jest.dontMock('../../../../../../src/js/components/Loader');
+jest.dontMock('#SRC/js/structs/Item');
+jest.dontMock('#SRC/js/components/Loader');
 jest.dontMock('../../structs/LogBuffer');
 
 /* eslint-disable no-unused-vars */
@@ -10,11 +10,11 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
-const Item = require('../../../../../../src/js/structs/Item');
+const Item = require('#SRC/js/structs/Item');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
 const MesosLogContainer = require('../MesosLogContainer');
-const SystemLogTypes = require('../../../../../../src/js/constants/SystemLogTypes');
+const SystemLogTypes = require('#SRC/js/constants/SystemLogTypes');
 
 const APPEND = SystemLogTypes.APPEND;
 

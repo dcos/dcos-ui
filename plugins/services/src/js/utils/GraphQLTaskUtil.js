@@ -1,5 +1,6 @@
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import DCOSStore from '../../../../../src/js/stores/DCOSStore';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import CompositeState from '#SRC/js/structs/CompositeState';
+
 import TaskHealthStates from '../constants/TaskHealthStates';
 
 function getTaskHealthFromMesos(task) {

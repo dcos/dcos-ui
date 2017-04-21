@@ -3,16 +3,17 @@ import mixin from 'reactjs-mixin';
 import {Tooltip} from 'reactjs-components';
 import React from 'react';
 
-import FilterBar from '../../../../../../src/js/components/FilterBar';
-import FilterButtons from '../../../../../../src/js/components/FilterButtons';
-import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
-import FilterInputText from '../../../../../../src/js/components/FilterInputText';
-import GraphQLTaskUtil from '../../utils/GraphQLTaskUtil';
-import Icon from '../../../../../../src/js/components/Icon';
-import SaveStateMixin from '../../../../../../src/js/mixins/SaveStateMixin';
+import FilterBar from '#SRC/js/components/FilterBar';
+import FilterButtons from '#SRC/js/components/FilterButtons';
+import FilterHeadline from '#SRC/js/components/FilterHeadline';
+import FilterInputText from '#SRC/js/components/FilterInputText';
+import Icon from '#SRC/js/components/Icon';
+import SaveStateMixin from '#SRC/js/mixins/SaveStateMixin';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import Service from '../../structs/Service';
 import ServiceStatusTypes from '../../constants/ServiceStatusTypes';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import GraphQLTaskUtil from '../../utils/GraphQLTaskUtil';
 import TaskStates from '../../constants/TaskStates';
 import TaskTable from './TaskTable';
 

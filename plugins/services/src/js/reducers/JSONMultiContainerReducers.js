@@ -1,3 +1,7 @@
+import {
+  simpleReducer
+} from '#SRC/js/utils/ReducerUtil';
+
 import {JSONReducer as constraints} from './serviceForm/MultiContainerConstraints';
 import {JSONReducer as containers} from './serviceForm/Containers';
 import {JSONReducer as environment} from './serviceForm/EnvironmentVariables';
@@ -7,9 +11,6 @@ import {JSONReducer as labels} from './serviceForm/Labels';
 import {JSONReducer as volumes} from './serviceForm/MultiContainerVolumes';
 import {JSONReducer as networks} from './serviceForm/MultiContainerNetwork';
 import {JSONReducer as ipAddress} from './serviceForm/IpAddress';
-import {
-  simpleReducer
-} from '../../../../../src/js/utils/ReducerUtil';
 
 module.exports = {
   id: simpleReducer('id'),

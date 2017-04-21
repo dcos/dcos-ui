@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import DeleteRowButton from '../../../../../../src/js/components/form/DeleteRowButton';
-import Icon from '../../../../../../src/js/components/Icon';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import AddButton from '#SRC/js/components/form/AddButton';
+import DeleteRowButton from '#SRC/js/components/form/DeleteRowButton';
+import Icon from '#SRC/js/components/Icon';
+import FieldError from '#SRC/js/components/form/FieldError';
+import FieldInput from '#SRC/js/components/form/FieldInput';
+import FieldLabel from '#SRC/js/components/form/FieldLabel';
+import FormGroup from '#SRC/js/components/form/FormGroup';
+import FormRow from '#SRC/js/components/form/FormRow';
 
 class ArtifactsSection extends Component {
   getArtifactsLabel() {

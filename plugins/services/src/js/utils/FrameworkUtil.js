@@ -1,5 +1,6 @@
+import Util from '#SRC/js/utils/Util';
+
 import ServiceImages from '../constants/ServiceImages';
-import Util from '../../../../../src/js/utils/Util';
 
 // You might be tempted to merge FrameworkUtil into ServiceUtil, but that will
 // cause a circular dependency with ServiceUtil and struct/Service.

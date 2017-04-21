@@ -1,7 +1,9 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import {formatResource} from '../../../../../src/js/utils/Units';
+import {formatResource} from '#SRC/js/utils/Units';
+import Util from '#SRC/js/utils/Util';
+
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
@@ -9,7 +11,6 @@ import {
 } from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
-import Util from '../../../../../src/js/utils/Util';
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   /**

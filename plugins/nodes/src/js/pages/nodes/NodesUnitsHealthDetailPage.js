@@ -4,10 +4,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Page from '#SRC/js/components/Page';
+import UnitsHealthNodeDetail from '#SRC/js/components/UnitsHealthNodeDetail';
+import UnitHealthStore from '#SRC/js/stores/UnitHealthStore';
+
 import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
-import Page from '../../../../../../src/js/components/Page';
-import UnitsHealthNodeDetail from '../../../../../../src/js/components/UnitsHealthNodeDetail';
-import UnitHealthStore from '../../../../../../src/js/stores/UnitHealthStore';
 
 class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
 

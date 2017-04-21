@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
-import BreadcrumbTextContent from '../../../../../src/js/components/BreadcrumbTextContent';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
-import UnitHealthStore from '../../../../../src/js/stores/UnitHealthStore';
+import Breadcrumb from '#SRC/js/components/Breadcrumb';
+import BreadcrumbTextContent from '#SRC/js/components/BreadcrumbTextContent';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import PageHeaderBreadcrumbs from '#SRC/js/components/PageHeaderBreadcrumbs';
+import UnitHealthStore from '#SRC/js/stores/UnitHealthStore';
 
 const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
   const trimmedNodeID = decodeURIComponent(nodeID).replace(/^\//, '');

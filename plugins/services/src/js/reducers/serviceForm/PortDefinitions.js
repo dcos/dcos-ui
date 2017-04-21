@@ -1,12 +1,15 @@
 import {
   ADD_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import Networking from '../../../../../../src/js/constants/Networking';
-import networkingReducer from './Networking';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+} from '#SRC/js/constants/TransactionTypes';
+import {
+  findNestedPropertyInObject
+} from '#SRC/js/utils/Util';
+import Transaction from '#SRC/js/structs/Transaction';
+import Networking from '#SRC/js/constants/Networking';
+
 import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
+import networkingReducer from './Networking';
 import VipLabelUtil from '../../utils/VipLabelUtil';
 
 const {HOST} = Networking.type;

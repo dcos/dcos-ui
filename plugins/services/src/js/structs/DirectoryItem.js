@@ -1,5 +1,5 @@
-import Item from '../../../../../src/js/structs/Item';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
+import Item from '#SRC/js/structs/Item';
+import StringUtil from '#SRC/js/utils/StringUtil';
 
 const DISPLAY_NAMES = {
   'stdout': 'Output (stdout)',

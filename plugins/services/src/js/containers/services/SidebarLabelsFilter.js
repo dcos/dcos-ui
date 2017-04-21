@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
-import Icon from '../../../../../../src/js/components/Icon';
+import Icon from '#SRC/js/components/Icon';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceUtil from '../../utils/ServiceUtil';

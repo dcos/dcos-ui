@@ -2,9 +2,9 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from '#SRC/js/constants/TransactionTypes';
+import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
+import Transaction from '#SRC/js/structs/Transaction';
 
 module.exports = {
   JSONParser(state) {

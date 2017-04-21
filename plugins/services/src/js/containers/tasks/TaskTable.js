@@ -3,16 +3,17 @@ import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
-import Icon from '../../../../../../src/js/components/Icon';
-import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
-import TableUtil from '../../../../../../src/js/utils/TableUtil';
+import CheckboxTable from '#SRC/js/components/CheckboxTable';
+import Icon from '#SRC/js/components/Icon';
+import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import Units from '#SRC/js/utils/Units';
+
 import TaskHealthStates from '../../constants/TaskHealthStates';
 import TaskStates from '../../constants/TaskStates';
 import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
 import TaskTableUtil from '../../utils/TaskTableUtil';
 import TaskUtil from '../../utils/TaskUtil';
-import Units from '../../../../../../src/js/utils/Units';
 
 const tableColumnClasses = {
   checkbox: 'task-table-column-checkbox',

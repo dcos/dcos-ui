@@ -1,20 +1,20 @@
 jest.dontMock('../MesosLogStore');
-jest.dontMock('../../../../../../src/js/config/Config');
+jest.dontMock('#SRC/js/config/Config');
 jest.dontMock('../../events/MesosLogActions');
 jest.dontMock('../../structs/LogBuffer');
-jest.dontMock('../../../../../../src/js/structs/Item');
-jest.dontMock('../../../../../../src/js/structs/List');
-jest.dontMock('../../../../../../src/js/utils/Util');
+jest.dontMock('#SRC/js/structs/Item');
+jest.dontMock('#SRC/js/structs/List');
+jest.dontMock('#SRC/js/utils/Util');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 const ActionTypes = require('../../constants/ActionTypes');
-const AppDispatcher = require('../../../../../../src/js/events/AppDispatcher');
+const AppDispatcher = require('#SRC/js/events/AppDispatcher');
 const EventTypes = require('../../constants/EventTypes');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogActions = require('../../events/MesosLogActions');
 const MesosLogStore = require('../MesosLogStore');
-const SystemLogTypes = require('../../../../../../src/js/constants/SystemLogTypes');
+const SystemLogTypes = require('#SRC/js/constants/SystemLogTypes');
 
 const PREPEND = SystemLogTypes.PREPEND;
 

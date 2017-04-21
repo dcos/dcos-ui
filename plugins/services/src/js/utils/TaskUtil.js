@@ -2,8 +2,8 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import Node from '../../../../../src/js/structs/Node';
-import Util from '../../../../../src/js/utils/Util';
+import Node from '#SRC/js/structs/Node';
+import Util from '#SRC/js/utils/Util';
 
 const TaskUtil = {
   /**

@@ -1,5 +1,9 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
+import AppDispatcher from '#SRC/js/events/AppDispatcher';
+import Config from '#SRC/js/config/Config';
+import Util from '#SRC/js/utils/Util';
+
 import {
   REQUEST_MARATHON_GROUP_CREATE_ERROR,
   REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
@@ -37,13 +41,10 @@ import {
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR
 } from '../constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import Config from '../../../../../src/js/config/Config';
 import MarathonUtil from '../utils/MarathonUtil';
 import Pod from '../structs/Pod';
 import PodSpec from '../structs/PodSpec';
 import Service from '../structs/Service';
-import Util from '../../../../../src/js/utils/Util';
 
 function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;

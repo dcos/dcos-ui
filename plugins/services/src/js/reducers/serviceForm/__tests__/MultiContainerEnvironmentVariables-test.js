@@ -1,6 +1,6 @@
 const MultiContainerEnvironmentVariables = require('../MultiContainerEnvironmentVariables');
 const {ADD_ITEM, SET} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+  require('#SRC/js/constants/TransactionTypes');
 
 describe('Environment Variables', function () {
   describe('#JSONParser', function () {

@@ -1,4 +1,4 @@
-import Item from '../../../../../src/js/structs/Item';
+import Item from '#SRC/js/structs/Item';
 import ServiceImages from '../constants/ServiceImages';
 
 module.exports = class Task extends Item {

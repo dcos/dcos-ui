@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import TableUtil from '../../../../../src/js/utils/TableUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import Util from '#SRC/js/utils/Util';
 import TaskStatusSortingOrder from '../constants/TaskStatusSortingOrder';
-import Util from '../../../../../src/js/utils/Util';
 
 function getUpdatedTimestamp(model) {
   const lastStatus = Util.last(model.statuses);

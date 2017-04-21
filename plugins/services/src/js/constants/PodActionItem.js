@@ -1,4 +1,4 @@
-import UserActions from '../../../../../src/js/constants/UserActions';
+import UserActions from '#SRC/js/constants/UserActions';
 
 const PodActionItem = {
   EDIT: 'edit',

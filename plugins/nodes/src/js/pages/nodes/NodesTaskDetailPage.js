@@ -4,10 +4,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import Page from '#SRC/js/components/Page';
+
 import TaskDetail from '../../../../../services/src/js/pages/task-details/TaskDetail';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
-import Page from '../../../../../../src/js/components/Page';
 
 const dontScrollRoutes = [
   /\/files\/view.*$/,

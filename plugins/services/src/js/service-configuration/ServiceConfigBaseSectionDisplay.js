@@ -1,13 +1,14 @@
 import React from 'react';
 
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+
 import {getDisplayValue} from '../utils/ServiceConfigDisplayUtil';
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
 
 class ServiceConfigBaseSectionDisplay extends React.Component {
 

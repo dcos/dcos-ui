@@ -1,4 +1,4 @@
-import DateUtil from '../../../../../src/js/utils/DateUtil';
+import DateUtil from '#SRC/js/utils/DateUtil';
 import ServiceStatusWarning from './ServiceStatusWarning';
 
 class ServiceStatusWarningWithDebugInstruction extends ServiceStatusWarning {

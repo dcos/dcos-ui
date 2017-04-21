@@ -1,5 +1,5 @@
-import List from '../../../../../src/js/structs/List';
-import Item from '../../../../../src/js/structs/Item';
+import List from '#SRC/js/structs/List';
+import Item from '#SRC/js/structs/Item';
 
 const PAGE_SIZE = 8 * 4096;  // 32kb of data or 8 'pages'
 const DEFAULT_OPTIONS = {

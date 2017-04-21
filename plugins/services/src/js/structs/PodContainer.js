@@ -1,4 +1,4 @@
-import Item from '../../../../../src/js/structs/Item';
+import Item from '#SRC/js/structs/Item';
 import PodContainerStatus from '../constants/PodContainerStatus';
 import PodContainerState from '../constants/PodContainerState';
 

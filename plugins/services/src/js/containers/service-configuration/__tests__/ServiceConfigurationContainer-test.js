@@ -1,7 +1,7 @@
 jest.dontMock('../ServiceConfigurationContainer');
 jest.dontMock('../../../service-configuration/ServiceConfigDisplay');
-jest.dontMock('../../../../../../../src/js/components/ErrorsAlert');
-jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
+jest.dontMock('#SRC/js/components/ErrorsAlert');
+jest.dontMock('#SRC/js/components/ConfigurationMap');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');

@@ -1,13 +1,13 @@
 jest.dontMock('../TaskDirectoryActions');
-jest.dontMock('../../../../../../src/js/events/AppDispatcher');
-jest.dontMock('../../../../../../src/js/config/Config');
+jest.dontMock('#SRC/js/events/AppDispatcher');
+jest.dontMock('#SRC/js/config/Config');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 const ActionTypes = require('../../constants/ActionTypes');
-const AppDispatcher = require('../../../../../../src/js/events/AppDispatcher');
+const AppDispatcher = require('#SRC/js/events/AppDispatcher');
 const TaskDirectoryActions = require('../TaskDirectoryActions');
-const Config = require('../../../../../../src/js/config/Config');
+const Config = require('#SRC/js/config/Config');
 
 describe('TaskDirectoryActions', function () {
 

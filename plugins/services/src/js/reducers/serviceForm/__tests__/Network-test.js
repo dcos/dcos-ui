@@ -1,5 +1,5 @@
 const Network = require('../Network');
-const {SET} = require('../../../../../../../src/js/constants/TransactionTypes');
+const {SET} = require('#SRC/js/constants/TransactionTypes');
 
 describe('Network', function () {
   describe('#JSONParser', function () {

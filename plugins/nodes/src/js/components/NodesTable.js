@@ -4,14 +4,14 @@ import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {Table, Tooltip} from 'reactjs-components';
 
-import Icon from '../../../../../src/js/components/Icon';
-import Loader from '../../../../../src/js/components/Loader';
-import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
-import ResourceTableUtil from '../../../../../src/js/utils/ResourceTableUtil';
-import StatusBar from '../../../../../src/js/components/StatusBar';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
-import TableUtil from '../../../../../src/js/utils/TableUtil';
-import UnitHealthUtil from '../../../../../src/js/utils/UnitHealthUtil';
+import Icon from '#SRC/js/components/Icon';
+import Loader from '#SRC/js/components/Loader';
+import NodesTableHeaderLabels from '#SRC/js/constants/NodesTableHeaderLabels';
+import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import StatusBar from '#SRC/js/components/StatusBar';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import TableUtil from '#SRC/js/utils/TableUtil';
+import UnitHealthUtil from '#SRC/js/utils/UnitHealthUtil';
 
 const COLOR_CLASSNAMES = {
   cpus: 'color-1',

@@ -1,7 +1,7 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
+import InternalStorageMixin from '#SRC/js/mixins/InternalStorageMixin';
 
 const MATCH_OPERATOR_RE = /[|\\{}()[\]^$+*?.]/g;
 

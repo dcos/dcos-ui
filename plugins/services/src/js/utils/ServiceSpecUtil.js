@@ -1,7 +1,8 @@
+import Util from '#SRC/js/utils/Util';
+
 import PodSpec from '../structs/PodSpec';
 import ApplicationSpec from '../structs/ApplicationSpec';
 import FrameworkSpec from '../structs/FrameworkSpec';
-import Util from '../../../../../src/js/utils/Util';
 
 var ServiceSpecUtil = {
 

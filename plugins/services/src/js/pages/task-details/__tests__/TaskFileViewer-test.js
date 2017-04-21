@@ -1,10 +1,10 @@
-jest.dontMock('../../../../../../../src/js/components/Icon');
+jest.dontMock('#SRC/js/components/Icon');
 jest.dontMock('../../../components/MesosLogContainer');
-jest.dontMock('../../../../../../../src/js/components/RequestErrorMsg');
+jest.dontMock('#SRC/js/components/RequestErrorMsg');
 jest.dontMock('../TaskFileViewer');
-jest.dontMock('../../../../../../../src/js/components/FilterBar');
+jest.dontMock('#SRC/js/components/FilterBar');
 
-const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
+const JestUtil = require('#SRC/js/utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
 

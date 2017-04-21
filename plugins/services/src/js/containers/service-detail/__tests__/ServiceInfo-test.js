@@ -1,5 +1,5 @@
-jest.dontMock('../../../../../../../src/js/components/CollapsingString');
-jest.dontMock('../../../../../../../src/js/components/DetailViewHeader');
+jest.dontMock('#SRC/js/components/CollapsingString');
+jest.dontMock('#SRC/js/components/DetailViewHeader');
 jest.dontMock('../ServiceInfo');
 
 /* eslint-disable no-unused-vars */

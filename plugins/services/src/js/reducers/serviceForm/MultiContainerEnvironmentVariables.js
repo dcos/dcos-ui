@@ -1,8 +1,8 @@
 import {
   ADD_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from '#SRC/js/constants/TransactionTypes';
+import Transaction from '#SRC/js/structs/Transaction';
 
 module.exports = {
   JSONParser(state) {

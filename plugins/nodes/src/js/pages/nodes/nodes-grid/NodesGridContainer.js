@@ -4,10 +4,11 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CompositeState from '../../../../../../../src/js/structs/CompositeState';
-import MesosStateStore from '../../../../../../../src/js/stores/MesosStateStore';
+import CompositeState from '#SRC/js/structs/CompositeState';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import QueryParamsMixin from '#SRC/js/mixins/QueryParamsMixin';
+
 import NodesGridView from '../../../components/NodesGridView';
-import QueryParamsMixin from '../../../../../../../src/js/mixins/QueryParamsMixin';
 
 const MAX_SERVICES_TO_SHOW = 32;
 const METHODS_TO_BIND=['handleShowServices'];

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import DateUtil from '../../../../../src/js/utils/DateUtil';
+import DateUtil from '#SRC/js/utils/DateUtil';
+import Icon from '#SRC/js/components/Icon';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import DeclinedOffersUtil from '../utils/DeclinedOffersUtil';
-import Icon from '../../../../../src/js/components/Icon';
 import Pod from '../structs/Pod';
 import Service from '../structs/Service';
 import ServiceTree from '../structs/ServiceTree';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 const UNABLE_TO_LAUNCH_TIMEOUT = 1000 * 60 * 30; // 30 minutes
 

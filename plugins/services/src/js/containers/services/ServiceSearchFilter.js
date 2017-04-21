@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import FilterInputText from '../../../../../../src/js/components/FilterInputText';
+import FilterInputText from '#SRC/js/components/FilterInputText';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 
 class ServiceSearchFilter extends React.Component {

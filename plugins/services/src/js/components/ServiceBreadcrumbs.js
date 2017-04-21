@@ -2,15 +2,16 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import {Link} from 'react-router';
 
-import DCOSStore from '../../../../../src/js/stores/DCOSStore';
-import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
-import BreadcrumbSupplementalContent from '../../../../../src/js/components/BreadcrumbSupplementalContent';
-import BreadcrumbTextContent from '../../../../../src/js/components/BreadcrumbTextContent';
+import DCOSStore from '#SRC/js/stores/DCOSStore';
+import Breadcrumb from '#SRC/js/components/Breadcrumb';
+import BreadcrumbSupplementalContent from '#SRC/js/components/BreadcrumbSupplementalContent';
+import BreadcrumbTextContent from '#SRC/js/components/BreadcrumbTextContent';
+import PageHeaderBreadcrumbs from '#SRC/js/components/PageHeaderBreadcrumbs';
+import Util from '#SRC/js/utils/Util';
+
 import HealthBar from './HealthBar';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
 import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
 import ServiceTree from '../structs/ServiceTree';
-import Util from '../../../../../src/js/utils/Util';
 
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MetadataStore from '../../../../../src/js/stores/MetadataStore';
+import MetadataStore from '#SRC/js/stores/MetadataStore';
 
 const summaryDocsURL = MetadataStore.buildDocsURI(
   '/overview/concepts/#mesos-resource-offer'

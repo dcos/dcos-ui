@@ -2,10 +2,11 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import AppLockedMessage from './AppLockedMessage';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
   restart: 'Restart',

@@ -2,16 +2,17 @@ import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
+import Page from '#SRC/js/components/Page';
+import TabsMixin from '#SRC/js/mixins/TabsMixin';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import Page from '../../../../../../src/js/components/Page';
 import Pod from '../../structs/Pod';
 import PodConfigurationContainer from '../pod-configuration/PodConfigurationContainer';
 import PodDebugContainer from '../pod-debug/PodDebugContainer';
 import PodHeader from './PodHeader';
 import PodInstancesContainer from '../pod-instances/PodInstancesContainer';
-import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 const METHODS_TO_BIND = [
   'handleActionDestroy',

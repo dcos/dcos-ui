@@ -2,10 +2,10 @@ import React from 'react';
 import {routerShape} from 'react-router';
 import {Tooltip} from 'reactjs-components';
 
-import Chart from '../../../../../src/js/components/charts/Chart';
-import DialChart from '../../../../../src/js/components/charts/DialChart';
-import Icon from '../../../../../src/js/components/Icon';
-import ResourcesUtil from '../../../../../src/js/utils/ResourcesUtil';
+import Chart from '#SRC/js/components/charts/Chart';
+import DialChart from '#SRC/js/components/charts/DialChart';
+import Icon from '#SRC/js/components/Icon';
+import ResourcesUtil from '#SRC/js/utils/ResourcesUtil';
 
 var colors = {
   error: 2,

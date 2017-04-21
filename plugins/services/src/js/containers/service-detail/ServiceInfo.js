@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
-import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
+import DetailViewHeader from '#SRC/js/components/DetailViewHeader';
+import StringUtil from '#SRC/js/utils/StringUtil';
+import UserActions from '#SRC/js/constants/UserActions';
+
 import HealthBar from '../../components/HealthBar';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import StatusMapping from '../../constants/StatusMapping';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import UserActions from '../../../../../../src/js/constants/UserActions';
 
 class ServiceInfo extends React.Component {
   getActionButtons() {

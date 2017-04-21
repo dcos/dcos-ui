@@ -1,4 +1,4 @@
-import Item from '../../../../../src/js/structs/Item';
+import Item from '#SRC/js/structs/Item';
 
 class TaskStat extends Item {
 

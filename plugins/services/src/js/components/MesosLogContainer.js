@@ -2,12 +2,13 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import {APPEND} from '#SRC/js/constants/SystemLogTypes';
+import Loader from '#SRC/js/components/Loader';
+import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
+
 import LogView from './LogView';
-import Loader from '../../../../../src/js/components/Loader';
 import MesosLogStore from '../stores/MesosLogStore';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
-import {APPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const METHODS_TO_BIND = [
   'handleGoToWorkingDirectory',

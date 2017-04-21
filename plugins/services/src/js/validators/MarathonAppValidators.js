@@ -1,7 +1,7 @@
-import ContainerConstants from '../constants/ContainerConstants';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
 import {PROP_CONFLICT, PROP_DEPRECATED, PROP_MISSING_ALL, PROP_MISSING_ONE, SYNTAX_ERROR} from '../constants/ServiceErrorTypes';
+import ContainerConstants from '../constants/ContainerConstants';
 import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
 
 const {DOCKER} = ContainerConstants.type;

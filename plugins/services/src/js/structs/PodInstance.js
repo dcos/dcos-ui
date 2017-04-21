@@ -1,9 +1,10 @@
-import Item from '../../../../../src/js/structs/Item';
+import Item from '#SRC/js/structs/Item';
+import StringUtil from '#SRC/js/utils/StringUtil';
+
 import PodContainer from './PodContainer';
 import PodContainerStatus from '../constants/PodContainerStatus';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodInstanceState from '../constants/PodInstanceState';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 module.exports = class PodInstance extends Item {
   getAgentAddress() {

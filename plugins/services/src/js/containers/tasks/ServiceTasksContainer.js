@@ -3,9 +3,9 @@ import {MountService} from 'foundation-ui';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Loader from '../../../../../../src/js/components/Loader';
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import Loader from '#SRC/js/components/Loader';
+import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
 import Service from '../../structs/Service';
 import TasksContainer from './TasksContainer';
 

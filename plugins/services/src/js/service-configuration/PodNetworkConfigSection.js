@@ -1,11 +1,12 @@
 import React from 'react';
 
+import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
+import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
+import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
+import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+
 import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
