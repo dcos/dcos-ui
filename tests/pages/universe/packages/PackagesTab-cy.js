@@ -107,11 +107,58 @@ describe('Packages Tab', function () {
       cy.get('.panel').as('panels');
     });
 
-    it('should have the first package as selected', function () {
+    it('should have the first 9 packages as selected', function () {
       cy.get('@panels').should(function ($panels) {
-        expect($panels.length).to.equal(1);
+        expect($panels.length).to.equal(9);
       });
     });
+  });
+
+  context('package panels', function () {
+    beforeEach(function () {
+      cy.visitUrl({url: '/universe', logIn: true});
+    });
+
+    it('should open the modal when the panel button is clicked', function () {
+      cy.get('.panel:first .button').click();
+
+      cy.get('.modal').should(function ($modal) {
+        expect($modal.length).to.equal(1);
+      });
+    });
+
+    it('shouldn\'t open the modal when the panel is clicked', function () {
+      cy.get('.panel:first').click();
+
+      cy.get('.modal').should(function ($modal) {
+        expect($modal.length).to.equal(0);
+      });
+    });
+
+  });
+
+  context('package table', function () {
+    beforeEach(function () {
+      cy.visitUrl({url: '/universe', logIn: true});
+    });
+
+    it('should show the very last item in the table', function () {
+      // Ensure table has rendered before beginning
+      cy.get('table').get('.page-body').then(function ($pageBodyResults) {
+        const $pageBody = $pageBodyResults.get(0);
+        // Adjust page-body for option (Mac OS)
+        // 'Show scroll bars: Automatically based on mouse or trackpad'
+        $pageBody.scrollTop = $pageBody.scrollHeight - $pageBody.clientHeight;
+        cy.get('.page-body .gm-scroll-view').then(function ($scrolViewResults) {
+          const $gmScrolView = $scrolViewResults.get(0);
+          // Adjust page-body for option (Mac OS)
+          // 'Show scroll bars: Always'
+          $gmScrolView.scrollTop = $gmScrolView.scrollHeight - $gmScrolView.clientHeight;
+          cy.get('table').contains('zeppelin');
+        });
+      });
+    });
+
   });
 
 });

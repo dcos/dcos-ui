@@ -147,12 +147,20 @@ class CheckboxTable extends React.Component {
   }
 
   getTableRowOptions(row) {
-    let {checkedItemsMap, uniqueProperty} = this.props;
-    if (checkedItemsMap[row[uniqueProperty]]) {
-      return {className: 'selected'};
+    const {checkedItemsMap, uniqueProperty} = this.props;
+
+    const rowAttributes = {};
+    // Override the key from index to our task ID to help React know, which
+    // row was rendered where and make its optimizations
+    if (row[uniqueProperty]) {
+      rowAttributes.key = row[uniqueProperty];
     }
 
-    return {};
+    if (checkedItemsMap[row[uniqueProperty]]) {
+      return Object.assign(rowAttributes, {className: 'selected'});
+    }
+
+    return rowAttributes;
   }
 
   getColumns() {
