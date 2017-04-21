@@ -1,8 +1,8 @@
-import DSLFilterTypes from '../constants/DSLFilterTypes';
-import DSLCombinerTypes from '../constants/DSLCombinerTypes';
-import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
+import DSLFilterTypes from "../constants/DSLFilterTypes";
+import DSLCombinerTypes from "../constants/DSLCombinerTypes";
+import { FilterNode, CombinerNode } from "../structs/DSLASTNodes";
 
-import DSLFilterList from '../structs/DSLFilterList';
+import DSLFilterList from "../structs/DSLFilterList";
 
 /**
  * Factory for filter-combining functions (operators)
@@ -28,7 +28,6 @@ import DSLFilterList from '../structs/DSLFilterList';
 function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
   switch (ast.combinerType) {
     case DSLCombinerTypes.AND:
-
       /**
        * This function calculates the intersection of the resultsets of the two
        * filter functions, effectively implementing the `AND` operator.
@@ -41,7 +40,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        * @param {List} resultset - An instance of List or Tree containing the items to filter
        * @returns {List} resultset - A new instance of a List, containing the results
        */
-      return function (filters, resultset) {
+      return function(filters, resultset) {
         // We are interested in the intersection of the results of the two filters
         const intermediateResultset = leftFilterFn(filters, resultset);
 
@@ -49,7 +48,6 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
       };
 
     case DSLCombinerTypes.OR:
-
       /**
        * This function calculates the union of the resultsets of the two filter
        * functions, effectively implementing the `OR` operator.
@@ -62,7 +60,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        * @param {List} resultset - An instance of List or Tree containing the items to filter
        * @returns {List} resultset - A new instance of a List, containing the results
        */
-      return function (filters, resultset) {
+      return function(filters, resultset) {
         // We are interested in the union of the results of the two filters
         const intermediateResultset = leftFilterFn(filters, resultset);
 
@@ -82,7 +80,6 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
  * @returns {function} - Returns the fabricated filter function
  */
 function filterFunctionFactory(ast) {
-
   /**
    * This function is accessible directly to the user, or combined into a chain
    * of filters using combination operators (see the `combineFunctionFactory`
@@ -95,9 +92,11 @@ function filterFunctionFactory(ast) {
    * @param {List} resultset - An instance of List or Tree containing the items to filter
    * @returns {List} resultset - A new instance of a List, containing the results
    */
-  return function (filters, resultset) {
+  return function(filters, resultset) {
     if (!(filters instanceof DSLFilterList)) {
-      throw TypeError('Expecting first argument to be an instance of DSLFilterList');
+      throw TypeError(
+        "Expecting first argument to be an instance of DSLFilterList"
+      );
     }
 
     // Apply matching filters from the filters database to the current
@@ -112,16 +111,14 @@ function filterFunctionFactory(ast) {
     // Services. However, since both are operating on the same `is:XXX` token
     // the will be both fetched from the `getMatchingFilters` function.
     //
-    return filters.getMatchingFilters(ast.filterType, ast.filterParams).reduce(
-      function (currentResultset, filter) {
+    return filters
+      .getMatchingFilters(ast.filterType, ast.filterParams)
+      .reduce(function(currentResultset, filter) {
         return currentResultset.combine(
           filter.filterApply(resultset, ast.filterType, ast.filterParams)
         );
-      },
-      new resultset.constructor()
-    );
+      }, new resultset.constructor());
   };
-
 }
 
 /**
@@ -131,14 +128,12 @@ function filterFunctionFactory(ast) {
  * @name DSLParserUtil
  */
 module.exports = {
-
   /**
    * Namespace for the merge operator
    *
    * @namespace
    */
   Merge: {
-
     /**
      * Combines two filter functions using the AND operator
      *
@@ -172,7 +167,6 @@ module.exports = {
         ast
       };
     }
-
   },
 
   /**
@@ -181,7 +175,6 @@ module.exports = {
    * @namespace
    */
   Operator: {
-
     /**
      * Return filter function for an attribute operator
      *
@@ -195,7 +188,10 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     attribute(label, text, lstart, lend, vstart, vend) {
-      const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
+      const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {
+        text,
+        label
+      });
       ast.position.push([vstart, vend]);
 
       return {
@@ -214,7 +210,7 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     exact(text, start, end) {
-      const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
+      const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, { text });
 
       return {
         filter: filterFunctionFactory(ast),
@@ -232,14 +228,12 @@ module.exports = {
      * @returns {Function} Returns a filter function
      */
     fuzzy(text, start, end) {
-      const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
+      const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, { text });
 
       return {
         filter: filterFunctionFactory(ast),
         ast
       };
     }
-
   }
-
 };

@@ -1,21 +1,21 @@
-import {SET} from '#SRC/js/constants/TransactionTypes';
-import Transaction from '#SRC/js/structs/Transaction';
+import { SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
-  JSONReducer(state = null, {type, path, value}) {
+  JSONReducer(state = null, { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
     if (this.internalState == null) {
       this.internalState = {
         instances: 1,
-        kind: 'fixed'
+        kind: "fixed"
       };
     }
 
-    if (type === SET && joinedPath === 'instances') {
+    if (type === SET && joinedPath === "instances") {
       this.internalState.instances = parseInt(value, 10);
       if (!this.internalState.instances) {
         return null;
@@ -24,7 +24,7 @@ module.exports = {
       return this.internalState;
     }
 
-    if (type === SET && joinedPath === 'scaling.kind') {
+    if (type === SET && joinedPath === "scaling.kind") {
       this.internalState.kind = value;
       if (!this.internalState.instances) {
         return null;
@@ -44,12 +44,12 @@ module.exports = {
     const transactions = [];
     if (state.scaling.instances) {
       transactions.push(
-        new Transaction(['instances'], state.scaling.instances)
+        new Transaction(["instances"], state.scaling.instances)
       );
     }
     if (state.scaling.kind) {
       transactions.push(
-        new Transaction(['scaling', 'kind'], state.scaling.kind)
+        new Transaction(["scaling", "kind"], state.scaling.kind)
       );
     }
 

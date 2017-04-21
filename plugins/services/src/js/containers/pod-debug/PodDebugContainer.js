@@ -1,31 +1,33 @@
-import React from 'react';
-import {routerShape} from 'react-router';
+import React from "react";
+import { routerShape } from "react-router";
 
-import Alert from '#SRC/js/components/Alert';
-import DateUtil from '#SRC/js/utils/DateUtil';
-import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
-import TimeAgo from '#SRC/js/components/TimeAgo';
+import Alert from "#SRC/js/components/Alert";
+import DateUtil from "#SRC/js/utils/DateUtil";
+import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import TimeAgo from "#SRC/js/components/TimeAgo";
 
-import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
-import DeclinedOffersTable from '../../components/DeclinedOffersTable';
-import DeclinedOffersUtil from '../../utils/DeclinedOffersUtil';
-import MarathonStore from '../../stores/MarathonStore';
-import Pod from '../../structs/Pod';
-import PodContainerTerminationTable from './PodContainerTerminationTable';
-import RecentOffersSummary from '../../components/RecentOffersSummary';
+import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
+import DeclinedOffersTable from "../../components/DeclinedOffersTable";
+import DeclinedOffersUtil from "../../utils/DeclinedOffersUtil";
+import MarathonStore from "../../stores/MarathonStore";
+import Pod from "../../structs/Pod";
+import PodContainerTerminationTable from "./PodContainerTerminationTable";
+import RecentOffersSummary from "../../components/RecentOffersSummary";
 
-const METHODS_TO_BIND = ['handleJumpToRecentOffersClick'];
+const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
 
 class PodDebugTabView extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -39,11 +41,13 @@ class PodDebugTabView extends React.Component {
   }
 
   getDeclinedOffersTable() {
-    const {pod} = this.props;
+    const { pod } = this.props;
     const queue = pod.getQueue();
 
-    if (!DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
-      || queue.declinedOffers.offers == null) {
+    if (
+      !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod) ||
+      queue.declinedOffers.offers == null
+    ) {
       return null;
     }
 
@@ -52,9 +56,11 @@ class PodDebugTabView extends React.Component {
         <ConfigurationMapHeading level={2}>
           Details
         </ConfigurationMapHeading>
-        <DeclinedOffersTable offers={queue.declinedOffers.offers}
+        <DeclinedOffersTable
+          offers={queue.declinedOffers.offers}
           service={pod}
-          summary={queue.declinedOffers.summary} />
+          summary={queue.declinedOffers.summary}
+        />
       </div>
     );
   }
@@ -72,7 +78,7 @@ class PodDebugTabView extends React.Component {
       );
     }
 
-    return history.reduce(function (acc, item, index) {
+    return history.reduce(function(acc, item, index) {
       let headline;
       const startedAt = item.getStartedAt();
       const terminatedAt = item.getTerminatedAt();
@@ -86,7 +92,13 @@ class PodDebugTabView extends React.Component {
       } else {
         headline = (
           <ConfigurationMapHeading level={2}>
-            Terminated at {terminatedAt.toString()} (<TimeAgo time={terminatedAt} />)
+            Terminated at
+            {" "}
+            {terminatedAt.toString()}
+            {" "}
+            (
+            <TimeAgo time={terminatedAt} />
+            )
           </ConfigurationMapHeading>
         );
       }
@@ -134,7 +146,7 @@ class PodDebugTabView extends React.Component {
   }
 
   getLastVersionChange() {
-    const {pod} = this.props;
+    const { pod } = this.props;
     const lastUpdated = pod.getLastUpdated();
 
     // Note to reader: `getLastChanged` refers to the last changes that happened
@@ -160,16 +172,19 @@ class PodDebugTabView extends React.Component {
   }
 
   getRecentOfferSummary() {
-    const {pod} = this.props;
+    const { pod } = this.props;
     const queue = pod.getQueue();
-    let introText = 'Offers will appear here when your service is deploying or waiting for resources.';
+    let introText =
+      "Offers will appear here when your service is deploying or waiting for resources.";
     let mainContent = null;
     let offerCount = null;
 
-    if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod)
-      && queue.declinedOffers.summary != null) {
-      const {declinedOffers: {summary}} = queue;
-      const {roles: {offers = 0}} = summary;
+    if (
+      DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(pod) &&
+      queue.declinedOffers.summary != null
+    ) {
+      const { declinedOffers: { summary } } = queue;
+      const { roles: { offers = 0 } } = summary;
 
       introText = DeclinedOffersHelpText.summaryIntro;
 
@@ -186,7 +201,11 @@ class PodDebugTabView extends React.Component {
     }
 
     return (
-      <div ref={(ref) => { this.offerSummaryRef = ref; }}>
+      <div
+        ref={ref => {
+          this.offerSummaryRef = ref;
+        }}
+      >
         <ConfigurationMapHeading>
           Recent Resource Offers{offerCount}
         </ConfigurationMapHeading>
@@ -214,8 +233,10 @@ class PodDebugTabView extends React.Component {
 
     return (
       <Alert>
-        {'DC/OS has been waiting for resources and is unable to complete this deployment for '}
-        {DateUtil.getDuration(timeWaiting, null)}{'. '}
+        {
+          "DC/OS has been waiting for resources and is unable to complete this deployment for "
+        }
+        {DateUtil.getDuration(timeWaiting, null)}{". "}
         <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>
           See recent resource offers
         </a>.

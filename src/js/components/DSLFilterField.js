@@ -1,15 +1,15 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import DSLFilterList from '../structs/DSLFilterList';
-import DSLInputField from './DSLInputField';
-import DSLExpression from '../structs/DSLExpression';
-import DSLFormDropdownPanel from './DSLFormDropdownPanel';
+import DSLFilterList from "../structs/DSLFilterList";
+import DSLInputField from "./DSLInputField";
+import DSLExpression from "../structs/DSLExpression";
+import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
 
 const METHODS_TO_BIND = [
-  'handleDismissClick',
-  'handleDropdownClick',
-  'handleIgnoreClick',
-  'handleDropdownClose'
+  "handleDismissClick",
+  "handleDropdownClick",
+  "handleIgnoreClick",
+  "handleDropdownClose"
 ];
 
 /**
@@ -24,7 +24,7 @@ class DSLFilterField extends React.Component {
       dropdownVisible: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -34,7 +34,7 @@ class DSLFilterField extends React.Component {
    * @override
    */
   componentDidMount() {
-    global.addEventListener('click', this.handleDismissClick, false);
+    global.addEventListener("click", this.handleDismissClick, false);
   }
 
   /**
@@ -42,7 +42,7 @@ class DSLFilterField extends React.Component {
    * @override
    */
   componentWillUnmount() {
-    global.removeEventListener('click', this.handleDismissClick);
+    global.removeEventListener("click", this.handleDismissClick);
   }
 
   /**
@@ -51,9 +51,11 @@ class DSLFilterField extends React.Component {
    * @override
    */
   shouldComponentUpdate(nextProps, nextState) {
-    return (this.props.expression !== nextProps.expression) ||
-     (this.props.filters !== nextProps.filters) ||
-     (this.state.dropdownVisible !== nextState.dropdownVisible);
+    return (
+      this.props.expression !== nextProps.expression ||
+      this.props.filters !== nextProps.filters ||
+      this.state.dropdownVisible !== nextState.dropdownVisible
+    );
   }
 
   /**
@@ -64,21 +66,21 @@ class DSLFilterField extends React.Component {
       return;
     }
 
-    this.setState({dropdownVisible: false});
+    this.setState({ dropdownVisible: false });
   }
 
   /**
    * Handle click on the dropdown button of the input field
    */
   handleDropdownClick() {
-    this.setState({dropdownVisible: !this.state.dropdownVisible});
+    this.setState({ dropdownVisible: !this.state.dropdownVisible });
   }
 
   /**
    * Handle closing of the dropdown
    */
   handleDropdownClose() {
-    this.setState({dropdownVisible: false});
+    this.setState({ dropdownVisible: false });
   }
 
   /**
@@ -92,13 +94,15 @@ class DSLFilterField extends React.Component {
   }
 
   render() {
-    const {expression, formSections, onChange} = this.props;
-    const {dropdownVisible} = this.state;
-    const hasForm = (formSections.length > 0);
+    const { expression, formSections, onChange } = this.props;
+    const { dropdownVisible } = this.state;
+    const hasForm = formSections.length > 0;
 
     return (
-      <div className="form-group dropdown-panel-group"
-        onClick={this.handleIgnoreClick}>
+      <div
+        className="form-group dropdown-panel-group"
+        onClick={this.handleIgnoreClick}
+      >
 
         <DSLInputField
           hasErrors={expression.hasErrors}
@@ -106,14 +110,16 @@ class DSLFilterField extends React.Component {
           dropdownVisible={dropdownVisible}
           onChange={onChange}
           onDropdownClick={this.handleDropdownClick}
-          expression={expression} />
+          expression={expression}
+        />
 
         <DSLFormDropdownPanel
           expression={expression}
           isVisible={dropdownVisible}
           onChange={onChange}
           onClose={this.handleDropdownClose}
-          sections={formSections} />
+          sections={formSections}
+        />
       </div>
     );
   }

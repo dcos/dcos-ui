@@ -1,18 +1,13 @@
-import {
-  ADD_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import {
-  findNestedPropertyInObject
-} from '#SRC/js/utils/Util';
-import Transaction from '#SRC/js/structs/Transaction';
-import Networking from '#SRC/js/constants/Networking';
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import Transaction from "#SRC/js/structs/Transaction";
+import Networking from "#SRC/js/constants/Networking";
 
-import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
-import networkingReducer from './Networking';
-import VipLabelUtil from '../../utils/VipLabelUtil';
+import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
+import networkingReducer from "./Networking";
+import VipLabelUtil from "../../utils/VipLabelUtil";
 
-const {HOST} = Networking.type;
+const { HOST } = Networking.type;
 
 module.exports = {
   /**
@@ -27,24 +22,24 @@ module.exports = {
    * @return {Object[]} new portDefinitions with action performed on it
    */
   JSONReducer(state = [], action) {
-    const {path, value} = action;
+    const { path, value } = action;
     if (path == null) {
       return state;
     }
 
     if (!this.appState) {
       this.appState = {
-        id: '',
+        id: "",
         networkType: HOST
       };
     }
 
-    const joinedPath = path.join('.');
-    if (joinedPath === 'container.docker.network' && Boolean(value)) {
+    const joinedPath = path.join(".");
+    if (joinedPath === "container.docker.network" && Boolean(value)) {
       this.appState.networkType = value;
     }
 
-    if (joinedPath === 'id' && Boolean(value)) {
+    if (joinedPath === "id" && Boolean(value)) {
       this.appState.id = value;
     }
 
@@ -59,12 +54,12 @@ module.exports = {
 
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
-      const {name} = portDefinition;
+      const { name } = portDefinition;
       const vipLabel = `VIP_${index}`;
       const hostPort = Number(portDefinition.hostPort) || 0;
-      const protocol = PROTOCOLS.filter(function (protocol) {
+      const protocol = PROTOCOLS.filter(function(protocol) {
         return portDefinition.protocol[protocol];
-      }).join(',');
+      }).join(",");
 
       const labels = VipLabelUtil.generateVipLabel(
         this.appState.id,
@@ -95,78 +90,77 @@ module.exports = {
     }
 
     // Look at portDefinitions and add accepted fields
-    return state.portDefinitions.reduce(function (memo, item, index) {
-      memo.push(new Transaction(['portDefinitions'], index, ADD_ITEM));
+    return state.portDefinitions.reduce(function(memo, item, index) {
+      memo.push(new Transaction(["portDefinitions"], index, ADD_ITEM));
 
       if (item.name != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'name'
-        ], item.name, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "name"], item.name, SET)
+        );
       }
 
       const port = Number(item.port);
       // If port is a number but not zero, we set automaticPort to false
       // so we can set the port
       if (!isNaN(port) && port !== 0) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'automaticPort'
-        ], false, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "automaticPort"],
+            false,
+            SET
+          )
+        );
 
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'hostPort'
-        ], port, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "hostPort"], port, SET)
+        );
       }
 
       // If port is zero, we set automaticPort to true
       if (!isNaN(port) && port === 0) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'automaticPort'
-        ], true, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "automaticPort"],
+            true,
+            SET
+          )
+        );
       }
 
       if (item.protocol != null) {
-        const protocols = item.protocol.split(',');
-        PROTOCOLS.forEach((protocol) => {
-          memo.push(new Transaction([
-            'portDefinitions',
-            index,
-            'protocol',
-            protocol
-          ], protocols.includes(protocol), SET));
+        const protocols = item.protocol.split(",");
+        PROTOCOLS.forEach(protocol => {
+          memo.push(
+            new Transaction(
+              ["portDefinitions", index, "protocol", protocol],
+              protocols.includes(protocol),
+              SET
+            )
+          );
         });
       }
 
       const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
       if (vip != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'loadBalanced'
-        ], true, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "loadBalanced"], true, SET)
+        );
 
         if (!vip.startsWith(`${state.id}:`)) {
-          memo.push(new Transaction([
-            'portDefinitions',
-            index,
-            'vip'
-          ], vip, SET));
+          memo.push(
+            new Transaction(["portDefinitions", index, "vip"], vip, SET)
+          );
         }
       }
 
       if (item.labels != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'labels'
-        ], item.labels, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "labels"],
+            item.labels,
+            SET
+          )
+        );
       }
 
       return memo;

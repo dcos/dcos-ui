@@ -1,4 +1,4 @@
 module.exports = {
-  APPEND: 'APPEND',
-  PREPEND: 'PREPEND'
+  APPEND: "APPEND",
+  PREPEND: "PREPEND"
 };

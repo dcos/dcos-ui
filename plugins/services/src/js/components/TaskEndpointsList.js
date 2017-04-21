@@ -1,13 +1,13 @@
-import React from 'react';
-import deepEqual from 'deep-equal';
+import React from "react";
+import deepEqual from "deep-equal";
 
-import TaskUtil from '../utils/TaskUtil';
+import TaskUtil from "../utils/TaskUtil";
 
 const METHODS_TO_BIND = [
-  'getEndpointsList',
-  'getPortsList',
-  'getShowHideLink',
-  'handlePortsToggle'
+  "getEndpointsList",
+  "getPortsList",
+  "getShowHideLink",
+  "handlePortsToggle"
 ];
 
 class TaskEndpointsList extends React.Component {
@@ -18,14 +18,16 @@ class TaskEndpointsList extends React.Component {
       expandedHosts: []
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !deepEqual(this.props.task, nextProps.task)
-      || !deepEqual(this.state, nextState);
+    return (
+      !deepEqual(this.props.task, nextProps.task) ||
+      !deepEqual(this.state, nextState)
+    );
   }
 
   getNullList() {
@@ -37,7 +39,7 @@ class TaskEndpointsList extends React.Component {
 
     return hosts.map((host, hostIndex) => {
       const isExpanded = this.state.expandedHosts.includes(host);
-      let {portLimit} = this.props;
+      let { portLimit } = this.props;
       let portsEl = null;
       let showHideLink = null;
 
@@ -78,10 +80,12 @@ class TaskEndpointsList extends React.Component {
 
   getPortsList(ports, host, hostIndex, isExpanded) {
     return ports.map((port, portIndex) => {
-      let separator = ', ';
+      let separator = ", ";
 
-      if (portIndex === ports.length - 1
-        || (portIndex === this.props.portLimit - 1 && !isExpanded)) {
+      if (
+        portIndex === ports.length - 1 ||
+        (portIndex === this.props.portLimit - 1 && !isExpanded)
+      ) {
         separator = null;
       }
 
@@ -98,15 +102,16 @@ class TaskEndpointsList extends React.Component {
     let showHideText = `${remainingPorts} more...`;
 
     if (isExpanded) {
-      showHideText = 'less';
+      showHideText = "less";
     }
 
     return (
       <span>
-        {', '}
+        {", "}
         <a
           className="clickable"
-          onClick={this.handlePortsToggle.bind(this, host)}>
+          onClick={this.handlePortsToggle.bind(this, host)}
+        >
           {showHideText}
         </a>
       </span>
@@ -124,16 +129,16 @@ class TaskEndpointsList extends React.Component {
       expandedHosts.push(host);
     }
 
-    this.setState({expandedHosts});
+    this.setState({ expandedHosts });
   }
 
   render() {
-    const {node, task} = this.props;
+    const { node, task } = this.props;
     if (task == null) {
       return this.getNullList();
     }
 
-    const {hosts, ports} = TaskUtil.getHostAndPortList(task, node);
+    const { hosts, ports } = TaskUtil.getHostAndPortList(task, node);
     const totalPortCount = ports.length;
 
     if (hosts.length === 0 && totalPortCount === 0) {

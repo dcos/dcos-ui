@@ -1,10 +1,6 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
-import Transaction from '#SRC/js/structs/Transaction';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONParser(state) {
@@ -12,8 +8,9 @@ module.exports = {
       return [];
     }
 
-    return state.container.volumes.filter((item) => item.external == null)
-      .reduce(function (memo, item, index) {
+    return state.container.volumes
+      .filter(item => item.external == null)
+      .reduce(function(memo, item, index) {
         /**
          * For the localVolumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only
@@ -29,66 +26,66 @@ module.exports = {
          * 4) Set the mode from `volume.mode` on the path
          *    `localVolumes.${index}.mode`
          */
-        memo.push(new Transaction(['localVolumes'], index, ADD_ITEM));
+        memo.push(new Transaction(["localVolumes"], index, ADD_ITEM));
 
         if (item.persistent != null && item.persistent.size != null) {
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'type'
-          ], 'PERSISTENT', SET));
+          memo.push(
+            new Transaction(["localVolumes", index, "type"], "PERSISTENT", SET)
+          );
 
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'size'
-          ], item.persistent.size, SET));
+          memo.push(
+            new Transaction(
+              ["localVolumes", index, "size"],
+              item.persistent.size,
+              SET
+            )
+          );
         } else {
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'type'
-          ], 'HOST', SET));
+          memo.push(
+            new Transaction(["localVolumes", index, "type"], "HOST", SET)
+          );
 
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'hostPath'
-          ], item.hostPath, SET));
+          memo.push(
+            new Transaction(
+              ["localVolumes", index, "hostPath"],
+              item.hostPath,
+              SET
+            )
+          );
         }
 
         if (item.containerPath != null) {
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'containerPath'
-          ], item.containerPath, SET));
+          memo.push(
+            new Transaction(
+              ["localVolumes", index, "containerPath"],
+              item.containerPath,
+              SET
+            )
+          );
         }
 
         if (item.mode != null) {
-          memo.push(new Transaction([
-            'localVolumes',
-            index,
-            'mode'
-          ], item.mode, SET));
+          memo.push(
+            new Transaction(["localVolumes", index, "mode"], item.mode, SET)
+          );
         }
 
         return memo;
       }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (joinedPath.search('localVolumes') !== -1) {
-      if (joinedPath === 'localVolumes') {
+    if (joinedPath.search("localVolumes") !== -1) {
+      if (joinedPath === "localVolumes") {
         switch (type) {
           case ADD_ITEM:
-            state.push({containerPath: null, size: null, mode: 'RW'});
+            state.push({ containerPath: null, size: null, mode: "RW" });
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {
@@ -110,7 +107,9 @@ module.exports = {
       if (type === SET && `localVolumes.${index}.mode` === joinedPath) {
         state[index].mode = String(value);
       }
-      if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
+      if (
+        type === SET && `localVolumes.${index}.containerPath` === joinedPath
+      ) {
         state[index].containerPath = String(value);
       }
       if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {

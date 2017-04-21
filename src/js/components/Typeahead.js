@@ -1,13 +1,12 @@
-import classNames from 'classnames';
-import InnerTypeahead from 'mesosphere-react-typeahead';
+import classNames from "classnames";
+import InnerTypeahead from "mesosphere-react-typeahead";
 /* eslint-disable no-unused-vars */
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 /* eslint-enable no-unused-vars */
 
-import FilterInputText from './FilterInputText';
+import FilterInputText from "./FilterInputText";
 
 class Typeahead extends FilterInputText {
-
   // Use this method to clear the input field with a ref.
   // See: https://github.com/mesosphere/react-typeahead#public-methods
   handleInputClear() {
@@ -29,12 +28,12 @@ class Typeahead extends FilterInputText {
       selected
     } = this.props;
 
-    if (selected === '') {
+    if (selected === "") {
       selected = [];
     }
 
-    const classSet = classNames('typeahead', {
-      'inverse': inverseStyle
+    const classSet = classNames("typeahead", {
+      inverse: inverseStyle
     });
 
     return (
@@ -46,22 +45,27 @@ class Typeahead extends FilterInputText {
           onInputChange={handleFilterChange}
           options={items}
           placeholder={placeholder}
-          ref={(ref) => { if (ref) { this.typeahead = ref.getInstance(); } }}
+          ref={ref => {
+            if (ref) {
+              this.typeahead = ref.getInstance();
+            }
+          }}
           selected={selected}
           typeaheadMenuClassName="dropdown-menu-list"
-          typeaheadMenuWrapperClassName="dropdown-menu" />
+          typeaheadMenuWrapperClassName="dropdown-menu"
+        />
       </div>
     );
   }
 }
 
 Typeahead.defaultProps = {
-  emptyLabel: 'Nothing to show.',
+  emptyLabel: "Nothing to show.",
   onDropdownItemSelection() {},
   inverseStyle: false,
   items: [],
   selected: [],
-  placeholder: 'Filter'
+  placeholder: "Filter"
 };
 
 Typeahead.propTypes = {

@@ -1,32 +1,33 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
-import {MountService} from 'foundation-ui';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
+import { MountService } from "foundation-ui";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import Config from '../../config/Config';
-import ConfigStore from '../../stores/ConfigStore';
-import ConfigurationMap from '../../components/ConfigurationMap';
-import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../components/ConfigurationMapValue';
-import {findNestedPropertyInObject} from '../../utils/Util';
-import HashMapDisplay from '../../components/HashMapDisplay';
-import Loader from '../../components/Loader';
-import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
-import MetadataStore from '../../stores/MetadataStore';
-import Page from '../../components/Page';
-import VersionsModal from '../../components/modals/VersionsModal';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import Config from "../../config/Config";
+import ConfigStore from "../../stores/ConfigStore";
+import ConfigurationMap from "../../components/ConfigurationMap";
+import ConfigurationMapHeading from "../../components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "../../components/ConfigurationMapLabel";
+import ConfigurationMapRow from "../../components/ConfigurationMapRow";
+import ConfigurationMapSection from "../../components/ConfigurationMapSection";
+import ConfigurationMapValue from "../../components/ConfigurationMapValue";
+import { findNestedPropertyInObject } from "../../utils/Util";
+import HashMapDisplay from "../../components/HashMapDisplay";
+import Loader from "../../components/Loader";
+import MarathonStore
+  from "../../../../plugins/services/src/js/stores/MarathonStore";
+import MetadataStore from "../../stores/MetadataStore";
+import Page from "../../components/Page";
+import VersionsModal from "../../components/modals/VersionsModal";
 
 const METHODS_TO_BIND = [
-  'handleClusterConfigModalClose',
-  'handleClusterConfigModalOpen'
+  "handleClusterConfigModalClose",
+  "handleClusterConfigModalOpen"
 ];
 
 const SystemOverviewBreadcrumbs = () => {
@@ -51,20 +52,20 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'config',
-        events: ['ccidSuccess']
+        name: "config",
+        events: ["ccidSuccess"]
       },
       {
-        name: 'marathon',
-        events: ['instanceInfoSuccess']
+        name: "marathon",
+        events: ["instanceInfoSuccess"]
       },
       {
-        name: 'metadata',
-        events: ['dcosBuildInfoChange', 'dcosSuccess', 'success']
+        name: "metadata",
+        events: ["dcosBuildInfoChange", "dcosSuccess", "success"]
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -78,11 +79,11 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   handleClusterConfigModalOpen() {
-    this.setState({isClusterBuildInfoOpen: true});
+    this.setState({ isClusterBuildInfoOpen: true });
   }
 
   handleClusterConfigModalClose() {
-    this.setState({isClusterBuildInfoOpen: false});
+    this.setState({ isClusterBuildInfoOpen: false });
   }
 
   getLoading() {
@@ -90,7 +91,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   getClusterDetails() {
-    let ccid = ConfigStore.get('ccid');
+    let ccid = ConfigStore.get("ccid");
     let publicIP = this.getPublicIP();
     let productVersion = MetadataStore.version;
 
@@ -146,26 +147,29 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     }
 
     return {
-      'Marathon Details': {
-        'Version': marathonDetails.version,
-        'Framework ID': marathonDetails.frameworkId,
-        'Leader': marathonDetails.leader,
-        'Marathon Config': marathonDetails.marathon_config,
-        'ZooKeeper Config': marathonDetails.zookeeper_config
+      "Marathon Details": {
+        Version: marathonDetails.version,
+        "Framework ID": marathonDetails.frameworkId,
+        Leader: marathonDetails.leader,
+        "Marathon Config": marathonDetails.marathon_config,
+        "ZooKeeper Config": marathonDetails.zookeeper_config
       }
     };
   }
 
   getPageHeaderActions() {
-    return [{
-      label: 'View Cluster Configuration',
-      onItemSelect: this.handleClusterConfigModalOpen
-    }];
+    return [
+      {
+        label: "View Cluster Configuration",
+        onItemSelect: this.handleClusterConfigModalOpen
+      }
+    ];
   }
 
   getPublicIP() {
     const publicIP = findNestedPropertyInObject(
-      MetadataStore.get('metadata'), 'PUBLIC_IPV4'
+      MetadataStore.get("metadata"),
+      "PUBLIC_IPV4"
     );
 
     if (!publicIP) {
@@ -176,7 +180,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   render() {
-    const buildInfo = MetadataStore.get('dcosBuildInfo');
+    const buildInfo = MetadataStore.get("dcosBuildInfo");
     const marathonHash = this.getMarathonDetailsHash();
     let marathonDetails = null;
     let versionsModal = null;
@@ -187,16 +191,20 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
     if (buildInfo != null) {
       versionsModal = (
-        <VersionsModal onClose={this.handleClusterConfigModalClose}
+        <VersionsModal
+          onClose={this.handleClusterConfigModalClose}
           open={this.state.isClusterBuildInfoOpen}
-          versionDump={buildInfo} />
+          versionDump={buildInfo}
+        />
       );
     }
 
     return (
       <Page>
-        <Page.Header actions={this.getPageHeaderActions()}
-          breadcrumbs={<SystemOverviewBreadcrumbs />} />
+        <Page.Header
+          actions={this.getPageHeaderActions()}
+          breadcrumbs={<SystemOverviewBreadcrumbs />}
+        />
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
@@ -207,8 +215,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             </ConfigurationMapHeading>
             {this.getClusterDetails()}
             {marathonDetails}
-            <MountService.Mount
-              type="OverviewDetailTab:AdditionalClusterDetails" />
+            <MountService.Mount type="OverviewDetailTab:AdditionalClusterDetails" />
           </ConfigurationMap>
         </div>
         {versionsModal}
@@ -218,7 +225,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 }
 
 OverviewDetailTab.routeConfig = {
-  label: 'Overview',
+  label: "Overview",
   matches: /^\/system-overview\/details/
 };
 

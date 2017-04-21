@@ -1,74 +1,81 @@
-jest.dontMock('../ConfigurationMapBooleanValue');
-jest.dontMock('#SRC/js/components/ConfigurationMapValue');
+jest.dontMock("../ConfigurationMapBooleanValue");
+jest.dontMock("#SRC/js/components/ConfigurationMapValue");
 /* eslint-disable no-unused-vars */
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require("react");
+const ReactDOM = require("react-dom");
 /* eslint-enable no-unused-vars */
-const TestUtils = require('react-addons-test-utils');
-const ConfigurationMapBooleanValue = require('../ConfigurationMapBooleanValue');
+const TestUtils = require("react-addons-test-utils");
+const ConfigurationMapBooleanValue = require("../ConfigurationMapBooleanValue");
 
-describe('ConfigurationMapBooleanValue', function () {
-
-  it('should show the default value for `true`', function () {
+describe("ConfigurationMapBooleanValue", function() {
+  it("should show the default value for `true`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapBooleanValue value={true} />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance, 'configuration-map-value'
+      instance,
+      "configuration-map-value"
     ).textContent.trim();
 
-    expect(contentText).toEqual('Enabled');
+    expect(contentText).toEqual("Enabled");
   });
 
-  it('should show the default value for `false`', function () {
+  it("should show the default value for `false`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapBooleanValue value={false} />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance, 'configuration-map-value'
+      instance,
+      "configuration-map-value"
     ).textContent.trim();
 
-    expect(contentText).toEqual('Disabled');
+    expect(contentText).toEqual("Disabled");
   });
 
-  it('should show the custom value for `true`', function () {
+  it("should show the custom value for `true`", function() {
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapBooleanValue options={{truthy:'foo', falsy:'bar'}}
-        value={true} />
+      <ConfigurationMapBooleanValue
+        options={{ truthy: "foo", falsy: "bar" }}
+        value={true}
+      />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance, 'configuration-map-value'
+      instance,
+      "configuration-map-value"
     ).textContent.trim();
 
-    expect(contentText).toEqual('foo');
+    expect(contentText).toEqual("foo");
   });
 
-  it('should show the custom value for `false`', function () {
+  it("should show the custom value for `false`", function() {
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapBooleanValue options={{truthy:'foo', falsy:'bar'}}
-        value={false} />
+      <ConfigurationMapBooleanValue
+        options={{ truthy: "foo", falsy: "bar" }}
+        value={false}
+      />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance, 'configuration-map-value'
+      instance,
+      "configuration-map-value"
     ).textContent.trim();
 
-    expect(contentText).toEqual('bar');
+    expect(contentText).toEqual("bar");
   });
 
-  it('should show the `defaultValue` if missing', function () {
+  it("should show the `defaultValue` if missing", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapBooleanValue value={null} defaultValue="-" />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance, 'configuration-map-value'
+      instance,
+      "configuration-map-value"
     ).textContent.trim();
 
-    expect(contentText).toEqual('-');
+    expect(contentText).toEqual("-");
   });
-
 });

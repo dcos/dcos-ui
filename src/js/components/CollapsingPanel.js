@@ -1,10 +1,10 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import CollapsingPanelContent from './CollapsingPanelContent';
-import CollapsingPanelHeader from './CollapsingPanelHeader';
+import CollapsingPanelContent from "./CollapsingPanelContent";
+import CollapsingPanelHeader from "./CollapsingPanelHeader";
 
-const METHODS_TO_BIND = ['handleHeadingClick'];
+const METHODS_TO_BIND = ["handleHeadingClick"];
 
 class CollapsingPanel extends React.Component {
   constructor() {
@@ -14,25 +14,22 @@ class CollapsingPanel extends React.Component {
       isExpanded: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleHeadingClick() {
-    this.setState({isExpanded: !this.state.isExpanded});
+    this.setState({ isExpanded: !this.state.isExpanded });
   }
 
   getChildren() {
-    return React.Children.map(this.props.children, (child) => {
+    return React.Children.map(this.props.children, child => {
       if (child.type === CollapsingPanelHeader) {
-        return React.cloneElement(
-          child,
-          {
-            onClick: this.handleHeadingClick,
-            isExpanded: this.state.isExpanded
-          }
-        );
+        return React.cloneElement(child, {
+          onClick: this.handleHeadingClick,
+          isExpanded: this.state.isExpanded
+        });
       }
 
       if (child.type === CollapsingPanelContent && !this.state.isExpanded) {
@@ -44,7 +41,7 @@ class CollapsingPanel extends React.Component {
   }
 
   render() {
-    const classes = classNames('panel panel-collapsing', this.props.className);
+    const classes = classNames("panel panel-collapsing", this.props.className);
 
     return (
       <div className={classes}>

@@ -1,5 +1,5 @@
 const AuthConstants = {
-  userCookieKey: 'dcos-acs-info-cookie'
+  userCookieKey: "dcos-acs-info-cookie"
 };
 
 module.exports = AuthConstants;

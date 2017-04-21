@@ -1,36 +1,42 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 class FullScreenModalHeaderActions extends React.Component {
   getActions() {
-    const {actions} = this.props;
+    const { actions } = this.props;
 
     if (!actions || actions.length === 0) {
       return null;
     }
 
-    return actions.map(
-      ({className, clickHandler, label, node, disabled}, index) => {
-        if (node) {
-          return node;
-        }
-
-        const classes = classNames('button flush-top', className);
-
-        return (
-          <button className={classes}
-            disabled={disabled}
-            key={index}
-            onClick={clickHandler}>
-            {label}
-          </button>
-        );
+    return actions.map(({
+      className,
+      clickHandler,
+      label,
+      node,
+      disabled
+    }, index) => {
+      if (node) {
+        return node;
       }
-    );
+
+      const classes = classNames("button flush-top", className);
+
+      return (
+        <button
+          className={classes}
+          disabled={disabled}
+          key={index}
+          onClick={clickHandler}
+        >
+          {label}
+        </button>
+      );
+    });
   }
 
   render() {
-    const {className, type} = this.props;
+    const { className, type } = this.props;
 
     const classes = classNames(
       `modal-full-screen-actions modal-full-screen-actions-${type} button-collection flush-vertical`,
@@ -60,7 +66,7 @@ FullScreenModalHeaderActions.propTypes = {
     })
   ),
   className: classProps,
-  type: React.PropTypes.oneOf(['primary', 'secondary']).isRequired
+  type: React.PropTypes.oneOf(["primary", "secondary"]).isRequired
 };
 
 module.exports = FullScreenModalHeaderActions;

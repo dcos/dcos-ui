@@ -1,55 +1,54 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
 
 import {
   getSharedIconWithLabel,
   getContainerNameWithIcon
-} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
+} from "../utils/ServiceConfigDisplayUtil";
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const columns = [
   {
-    heading: 'Key',
-    prop: 'key'
+    heading: "Key",
+    prop: "key"
   },
   {
-    heading: 'Value',
-    prop: 'value'
+    heading: "Value",
+    prop: "value"
   },
   {
-    heading: 'Container',
-    prop: 'container'
+    heading: "Container",
+    prop: "container"
   }
 ];
 
-const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
-  const {environment = {}, containers = []} = appConfig;
+const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
+  const { environment = {}, containers = [] } = appConfig;
 
   if (!environment || !containers) {
     return <noscript />;
   }
 
   let combinedEnv = Object.keys(environment)
-    .filter(function (key) {
-      return typeof environment[key] === 'string';
+    .filter(function(key) {
+      return typeof environment[key] === "string";
     })
-    .reduce(
-      (memo, key) => {
-        memo.push({
-          key: <code>{key}</code>,
-          value: environment[key],
-          container: getSharedIconWithLabel()
-        });
+    .reduce((memo, key) => {
+      memo.push({
+        key: <code>{key}</code>,
+        value: environment[key],
+        container: getSharedIconWithLabel()
+      });
 
-        return memo;
-      },
-      []
-    );
+      return memo;
+    }, []);
 
   combinedEnv = containers.reduce((memo, container) => {
-    const {environment = {}} = container;
+    const { environment = {} } = container;
 
     return Object.keys(environment).reduce((cvMemo, key) => {
       cvMemo.push({
@@ -73,11 +72,12 @@ const PodEnvironmentVariablesConfigSection = ({appConfig, onEditClick}) => {
       </ConfigurationMapHeading>
       <ConfigurationMapSection key="pod-general-section">
         <ConfigurationMapTable
-          columnDefaults={{hideIfEmpty: true}}
+          columnDefaults={{ hideIfEmpty: true }}
           columns={columns}
           data={combinedEnv}
           onEditClick={onEditClick}
-          tabViewID="multienvironment" />
+          tabViewID="multienvironment"
+        />
       </ConfigurationMapSection>
     </div>
   );

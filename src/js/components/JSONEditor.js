@@ -1,16 +1,16 @@
-import AceEditor from 'react-ace';
-import React from 'react';
-import deepEqual from 'deep-equal';
+import AceEditor from "react-ace";
+import React from "react";
+import deepEqual from "deep-equal";
 
-import {omit} from '../utils/Util';
-import JSONUtil from '../utils/JSONUtil';
-import JSONEditorUtil from '../utils/JSONEditorUtil';
+import { omit } from "../utils/Util";
+import JSONUtil from "../utils/JSONUtil";
+import JSONEditorUtil from "../utils/JSONEditorUtil";
 
 const METHODS_TO_BIND = [
-  'handleBlur',
-  'handleChange',
-  'handleEditorLoad',
-  'handleFocus'
+  "handleBlur",
+  "handleChange",
+  "handleEditorLoad",
+  "handleFocus"
 ];
 
 /**
@@ -100,7 +100,7 @@ class JSONEditor extends React.Component {
     // Initial state synchronization
     this.updateLocalJsonState(this.getNewJsonState(jsonText));
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -116,7 +116,7 @@ class JSONEditor extends React.Component {
     }
 
     // Ignore invalid values
-    if (typeof nextProps.value !== 'object') {
+    if (typeof nextProps.value !== "object") {
       return;
     }
 
@@ -146,7 +146,7 @@ class JSONEditor extends React.Component {
 
     // Update local state with the new, computed text
     this.updateLocalJsonState(this.getNewJsonState(jsonText));
-    this.setState({aceEditorState: {jsonText}});
+    this.setState({ aceEditorState: { jsonText } });
   }
 
   /**
@@ -163,9 +163,11 @@ class JSONEditor extends React.Component {
    */
   shouldComponentUpdate(nextProps, nextState) {
     // Update if ACE editor properties are changed
-    if (!deepEqual(nextProps.editorProps, this.props.editorProps) ||
-        (nextProps.height !== this.props.height) ||
-        (nextProps.width !== this.props.width)) {
+    if (
+      !deepEqual(nextProps.editorProps, this.props.editorProps) ||
+      nextProps.height !== this.props.height ||
+      nextProps.width !== this.props.width
+    ) {
       return true;
     }
 
@@ -184,7 +186,7 @@ class JSONEditor extends React.Component {
     this.aceEditor = editor;
 
     // Disable tab index for JSON editor
-    this.aceEditor.renderer.textarea.setAttribute('tabIndex', -1);
+    this.aceEditor.renderer.textarea.setAttribute("tabIndex", -1);
 
     // Disable syntax highlighting worker, since we are responsible for feeding
     // the correct syntax error + provided error markers
@@ -218,7 +220,7 @@ class JSONEditor extends React.Component {
     const lastError = this.jsonError;
 
     // Calculate what the next state is going to be
-    const {jsonValue, jsonMeta, jsonError} = this.getNewJsonState(jsonText);
+    const { jsonValue, jsonMeta, jsonError } = this.getNewJsonState(jsonText);
 
     // Update the `isTyping` flag
     this.isTyping = true;
@@ -235,7 +237,7 @@ class JSONEditor extends React.Component {
       // event for every property that changed in the JSON
       const diff = JSONEditorUtil.deepObjectDiff(lastValue, jsonValue);
 
-      diff.forEach(({path, value}) => {
+      diff.forEach(({ path, value }) => {
         this.props.onPropertyChange(path, value, jsonValue);
       });
 
@@ -244,7 +246,7 @@ class JSONEditor extends React.Component {
     }
 
     // Update local json state
-    this.updateLocalJsonState({jsonValue, jsonMeta, jsonError, jsonText});
+    this.updateLocalJsonState({ jsonValue, jsonMeta, jsonError, jsonText });
   }
 
   /**
@@ -298,7 +300,7 @@ class JSONEditor extends React.Component {
     }
 
     // Reset some properties
-    let {jsonValue, jsonMeta, jsonError} = this;
+    let { jsonValue, jsonMeta, jsonError } = this;
 
     // Try to parse and extract metadata
     try {
@@ -309,19 +311,20 @@ class JSONEditor extends React.Component {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
       const errorStr = e.toString();
-      jsonError = errorStr.replace(/at position (\d+)/g,
-        function (match, offset) {
-          const cursor = JSONEditorUtil.cursorFromOffset(
-            parseInt(offset, 10),
-            jsonText
-          );
+      jsonError = errorStr.replace(/at position (\d+)/g, function(
+        match,
+        offset
+      ) {
+        const cursor = JSONEditorUtil.cursorFromOffset(
+          parseInt(offset, 10),
+          jsonText
+        );
 
-          return `at line ${cursor.row}:${cursor.column}`;
-        }
-      );
+        return `at line ${cursor.row}:${cursor.column}`;
+      });
     }
 
-    return {jsonValue, jsonText, jsonMeta, jsonError};
+    return { jsonValue, jsonText, jsonMeta, jsonError };
   }
 
   /**
@@ -381,49 +384,50 @@ class JSONEditor extends React.Component {
   getErrorMarkers() {
     // Extract syntax errors, or other errors that refer to line
     if (this.jsonError) {
-
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      const errorMsg =
-        this.jsonError.replace(/at line ([\d:]+)/g, function (m, line) {
-          errorLine = parseInt(line.split(':')[0], 10);
+      const errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, function(
+        m,
+        line
+      ) {
+        errorLine = parseInt(line.split(":")[0], 10);
 
-          return '';
-        });
+        return "";
+      });
 
       // Return error marker
       return [
         {
           row: errorLine,
           text: errorMsg,
-          type: 'error'
+          type: "error"
         }
       ];
     }
 
-    return this.externalErrors.map((error) => {
-      const {path, message} = error;
+    return this.externalErrors.map(error => {
+      const { path, message } = error;
 
       // All errors with empty paths go to line 0
       if (path.length === 0) {
         return {
           row: 0,
           text: message,
-          type: 'error'
+          type: "error"
         };
       }
 
       // Check if there is a token that matches the path completely
-      const errorPath = error.path.join('.');
-      const token = this.jsonMeta.find(function (token) {
-        return token.path.join('.') === errorPath;
+      const errorPath = error.path.join(".");
+      const token = this.jsonMeta.find(function(token) {
+        return token.path.join(".") === errorPath;
       });
 
       if (token) {
         return {
           row: token.line - 1,
           text: message,
-          type: 'error'
+          type: "error"
         };
       }
 
@@ -432,34 +436,37 @@ class JSONEditor extends React.Component {
       //
       // If nothing is found, default to root ([])
       //
-      const candidates = this.jsonMeta.reduce(function (memo, token) {
-        const isMatch = token.path.every(function (component, i) {
-          return path[i] === component;
-        });
-
-        if (isMatch) {
-          memo.push({
-            path: token.path,
-            row: token.line - 1
+      const candidates = this.jsonMeta.reduce(
+        function(memo, token) {
+          const isMatch = token.path.every(function(component, i) {
+            return path[i] === component;
           });
-        }
 
-        return memo;
-      }, [{path: [], row: 0}]);
+          if (isMatch) {
+            memo.push({
+              path: token.path,
+              row: token.line - 1
+            });
+          }
+
+          return memo;
+        },
+        [{ path: [], row: 0 }]
+      );
 
       // Find the most specific token line
-      const candidate = candidates.sort(function (a, b) {
+      const candidate = candidates.sort(function(a, b) {
         return b.path.length - a.path.length;
       })[0];
 
       // Keep the difference between the original and the new path and display
       // it as prefix in the error message:
-      const prefixPath = path.slice(candidate.path.length).join('.');
+      const prefixPath = path.slice(candidate.path.length).join(".");
 
       return {
         row: candidate.row,
         text: `${prefixPath}: ${message}`,
-        type: 'error'
+        type: "error"
       };
     });
   }
@@ -468,10 +475,10 @@ class JSONEditor extends React.Component {
    * @override
    */
   render() {
-    const {width, height, editorProps} = this.props;
-    const {aceEditorState} = this.state;
+    const { width, height, editorProps } = this.props;
+    const { aceEditorState } = this.state;
 
-    const omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
+    const omitKeys = [].concat(Object.keys(JSONEditor.propTypes), "mode");
 
     return (
       <AceEditor
@@ -492,15 +499,15 @@ class JSONEditor extends React.Component {
 
 JSONEditor.defaultProps = {
   errors: [],
-  editorProps: {$blockScrolling: Infinity},
-  height: '100%',
+  editorProps: { $blockScrolling: Infinity },
+  height: "100%",
   onBlur() {},
   onChange() {},
   onErrorStateChange() {},
   onFocus() {},
   onPropertyChange() {},
   value: {},
-  width: '100%'
+  width: "100%"
 };
 
 JSONEditor.propTypes = {

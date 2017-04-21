@@ -1,85 +1,88 @@
-import {Tooltip} from 'reactjs-components';
-import {MountService} from 'foundation-ui';
-import React, {Component} from 'react';
+import { Tooltip } from "reactjs-components";
+import { MountService } from "foundation-ui";
+import React, { Component } from "react";
 
-import AddButton from '#SRC/js/components/form/AddButton';
-import DeleteRowButton from '#SRC/js/components/form/DeleteRowButton';
-import FieldError from '#SRC/js/components/form/FieldError';
-import FieldInput from '#SRC/js/components/form/FieldInput';
-import FieldLabel from '#SRC/js/components/form/FieldLabel';
-import FormGroup from '#SRC/js/components/form/FormGroup';
-import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
-import FormRow from '#SRC/js/components/form/FormRow';
-import Icon from '#SRC/js/components/Icon';
-import MetadataStore from '#SRC/js/stores/MetadataStore';
+import AddButton from "#SRC/js/components/form/AddButton";
+import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
+import FieldError from "#SRC/js/components/form/FieldError";
+import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
+import FormGroupHeadingContent
+  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormRow from "#SRC/js/components/form/FormRow";
+import Icon from "#SRC/js/components/Icon";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
-import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
+import {
+  FormReducer as env
+} from "../../reducers/serviceForm/EnvironmentVariables";
+import { FormReducer as labels } from "../../reducers/serviceForm/Labels";
 
 class EnvironmentFormSection extends Component {
-
   getEnvironmentLines(data) {
     const errors = this.props.errors.env || {};
 
-    return data.filter(function (item) {
-      return item.value == null || typeof item.value === 'string';
-    }).map((env, key) => {
-      let keyLabel = null;
-      let valueLabel = null;
-      if (key === 0) {
-        keyLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                Key
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-        valueLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                Value
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-      }
+    return data
+      .filter(function(item) {
+        return item.value == null || typeof item.value === "string";
+      })
+      .map((env, key) => {
+        let keyLabel = null;
+        let valueLabel = null;
+        if (key === 0) {
+          keyLabel = (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Key
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          );
+          valueLabel = (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  Value
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          );
+        }
 
-      return (
-        <FormRow key={key}>
-          <FormGroup
-            className="column-6"
-            required={false}>
-            {keyLabel}
-            <FieldInput
-              name={`env.${key}.key`}
-              type="text"
-              value={env.key}/>
-            <span className="emphasis form-colon">:</span>
-          </FormGroup>
-          <FormGroup
-            className="column-6"
-            required={false}
-            showError={Boolean(errors[env.key])}>
-            {valueLabel}
-            <FieldInput
-              name={`env.${key}.value`}
-              type="text"
-              value={env.value}/>
-            <FieldError>{errors[env.key]}</FieldError>
-          </FormGroup>
-          <FormGroup hasNarrowMargins={true} applyLabelOffset={key === 0}>
-            <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(
-                this, {value: key, path: 'env'}
-              )} />
-          </FormGroup>
-        </FormRow>
-      );
-    });
+        return (
+          <FormRow key={key}>
+            <FormGroup className="column-6" required={false}>
+              {keyLabel}
+              <FieldInput name={`env.${key}.key`} type="text" value={env.key} />
+              <span className="emphasis form-colon">:</span>
+            </FormGroup>
+            <FormGroup
+              className="column-6"
+              required={false}
+              showError={Boolean(errors[env.key])}
+            >
+              {valueLabel}
+              <FieldInput
+                name={`env.${key}.value`}
+                type="text"
+                value={env.value}
+              />
+              <FieldError>{errors[env.key]}</FieldError>
+            </FormGroup>
+            <FormGroup hasNarrowMargins={true} applyLabelOffset={key === 0}>
+              <DeleteRowButton
+                onClick={this.props.onRemoveItem.bind(this, {
+                  value: key,
+                  path: "env"
+                })}
+              />
+            </FormGroup>
+          </FormRow>
+        );
+      });
   }
 
   getLabelsLines(data) {
@@ -111,31 +114,35 @@ class EnvironmentFormSection extends Component {
 
       return (
         <FormRow key={key}>
-          <FormGroup
-            className="column-6">
+          <FormGroup className="column-6">
             {keyLabel}
             <FieldInput
               name={`labels.${key}.key`}
               type="text"
-              value={label.key}/>
+              value={label.key}
+            />
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
             className="column-6"
             required={false}
-            showError={Boolean(errors[label.key])}>
+            showError={Boolean(errors[label.key])}
+          >
             {valueLabel}
             <FieldInput
               name={`labels.${key}.value`}
               type="text"
-              value={label.value}/>
+              value={label.value}
+            />
             <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
           <FormGroup hasNarrowMargins={true} applyLabelOffset={key === 0}>
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(
-                this, {value: key, path: 'labels'}
-              )} />
+              onClick={this.props.onRemoveItem.bind(this, {
+                value: key,
+                path: "labels"
+              })}
+            />
           </FormGroup>
         </FormRow>
       );
@@ -143,24 +150,30 @@ class EnvironmentFormSection extends Component {
   }
 
   render() {
-    const {data, errors} = this.props;
+    const { data, errors } = this.props;
 
     const envTooltipContent = (
       <span>
-        {'DC/OS also exposes environment variables for host ports and metdata. '}
+        {
+          "DC/OS also exposes environment variables for host ports and metdata. "
+        }
         <a
           href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html"
-          target="_blank">
+          target="_blank"
+        >
           More information
         </a>.
       </span>
     );
     const labelsTooltipContent = (
       <span>
-        {'For example, you could label services “staging” and “production” to mark them by their position in the pipeline. '}
+        {
+          "For example, you could label services “staging” and “production” to mark them by their position in the pipeline. "
+        }
         <a
-          href={MetadataStore.buildDocsURI('/usage/tutorials/task-labels/')}
-          target="_blank">
+          href={MetadataStore.buildDocsURI("/usage/tutorials/task-labels/")}
+          target="_blank"
+        >
           More information
         </a>.
       </span>
@@ -188,7 +201,8 @@ class EnvironmentFormSection extends Component {
                 content={envTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                wrapText={true}>
+                wrapText={true}
+              >
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
@@ -201,9 +215,11 @@ class EnvironmentFormSection extends Component {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
-              onClick={this.props.onAddItem.bind(
-                this, {value: data.env.length, path: 'env'}
-              )}>
+              onClick={this.props.onAddItem.bind(this, {
+                value: data.env.length,
+                path: "env"
+              })}
+            >
               Add Environment Variable
             </AddButton>
           </FormGroup>
@@ -218,7 +234,8 @@ class EnvironmentFormSection extends Component {
                 content={labelsTooltipContent}
                 interactive={true}
                 maxWidth={300}
-                wrapText={true}>
+                wrapText={true}
+              >
                 <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
@@ -231,9 +248,11 @@ class EnvironmentFormSection extends Component {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
-              onClick={this.props.onAddItem.bind(
-                this, {value: data.labels.length, path: 'labels'}
-              )}>
+              onClick={this.props.onAddItem.bind(this, {
+                value: data.labels.length,
+                path: "labels"
+              })}
+            >
               Add Label
             </AddButton>
           </FormGroup>
@@ -243,7 +262,8 @@ class EnvironmentFormSection extends Component {
           data={data}
           errors={errors}
           onAddItem={this.props.onAddItem.bind(this)}
-          onRemoveItem={this.props.onRemoveItem.bind(this)} />
+          onRemoveItem={this.props.onRemoveItem.bind(this)}
+        />
       </div>
     );
   }
@@ -254,7 +274,7 @@ EnvironmentFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {},
-  mountType: 'CreateService:EnvironmentFormSection'
+  mountType: "CreateService:EnvironmentFormSection"
 };
 
 EnvironmentFormSection.propTypes = {

@@ -1,5 +1,5 @@
-import React from 'react';
-import classNames from 'classnames/dedupe';
+import React from "react";
+import classNames from "classnames/dedupe";
 
 // Size of largest portion to give to smallest portion. We have a max of 5
 // status types so we want to keep this growth ratio relatively small.
@@ -16,7 +16,7 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   let maxSize = 0;
   let maxIndex = 0;
   // Find new Max (could be different after we've stolen from a portion already)
-  barSizes.forEach(function (relativeSize, index) {
+  barSizes.forEach(function(relativeSize, index) {
     if (relativeSize > maxSize) {
       maxSize = relativeSize;
       maxIndex = index;
@@ -50,7 +50,7 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
 
 class StatusBar extends React.Component {
   getBars(data) {
-    let max = data.reduce(function (sum, item) {
+    let max = data.reduce(function(sum, item) {
       return sum + item.value;
     }, 0);
     const unassignedValue = this.props.scale - max;
@@ -63,8 +63,8 @@ class StatusBar extends React.Component {
     const indexesLessThanThreshold = [];
     const unassignedPortion = unassignedValue / max * 100;
 
-    const barSizes = data.map(function (status, index) {
-      const {value} = status;
+    const barSizes = data.map(function(status, index) {
+      const { value } = status;
 
       const relativeSize = value / max * 100;
 
@@ -78,15 +78,15 @@ class StatusBar extends React.Component {
     // Fudge barSizes to ensure small portions are visible
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
-    return data.map(function (status, index) {
-      let {className, style = {}} = status;
+    return data.map(function(status, index) {
+      let { className, style = {} } = status;
       const scale = barSizes[index];
 
       if (className == null) {
         className = `element-${index}`;
       }
 
-      className = classNames('bar', className);
+      className = classNames("bar", className);
 
       if (scale === 0) {
         return null;
@@ -94,24 +94,20 @@ class StatusBar extends React.Component {
 
       style.width = `${scale}%`;
 
-      return (
-        <span style={style} key={index} className={className} />
-      );
+      return <span style={style} key={index} className={className} />;
     });
   }
 
   render() {
-    const {data, className} = this.props;
+    const { data, className } = this.props;
 
     if (!data) {
       return null;
     }
 
-    const classes = classNames('status-bar flex-box', className);
+    const classes = classNames("status-bar flex-box", className);
 
-    return (
-      <div className={classes}>{this.getBars(data)}</div>
-    );
+    return <div className={classes}>{this.getBars(data)}</div>;
   }
 }
 

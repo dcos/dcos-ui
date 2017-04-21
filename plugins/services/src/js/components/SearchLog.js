@@ -1,15 +1,15 @@
-import classNames from 'classnames';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import classNames from "classnames";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import FilterBar from '#SRC/js/components/FilterBar';
-import FilterInputText from '#SRC/js/components/FilterInputText';
-import KeyboardUtil from '#SRC/js/utils/KeyboardUtil';
+import FilterBar from "#SRC/js/components/FilterBar";
+import FilterInputText from "#SRC/js/components/FilterInputText";
+import KeyboardUtil from "#SRC/js/utils/KeyboardUtil";
 
 const METHODS_TO_BIND = [
-  'handleSearchStringChange',
-  'handleCountChange',
-  'handleKeyDown'
+  "handleSearchStringChange",
+  "handleCountChange",
+  "handleKeyDown"
 ];
 
 class SearchLog extends React.Component {
@@ -17,12 +17,12 @@ class SearchLog extends React.Component {
     super(...arguments);
 
     this.state = {
-      searchString: '',
+      searchString: "",
       totalFound: 0,
       watching: 0
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -31,7 +31,7 @@ class SearchLog extends React.Component {
     const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
 
     if (filterInput) {
-      filterInput.addEventListener('keydown', this.handleKeyDown);
+      filterInput.addEventListener("keydown", this.handleKeyDown);
     }
   }
 
@@ -42,8 +42,10 @@ class SearchLog extends React.Component {
 
     if (nextTotalFound === 0) {
       updatedState.watching = 0;
-    } else if (this.state.watching === 0 || (nextSearchString != null &&
-        this.state.searchString !== nextSearchString)) {
+    } else if (
+      this.state.watching === 0 ||
+      (nextSearchString != null && this.state.searchString !== nextSearchString)
+    ) {
       updatedState.watching = 1;
     }
 
@@ -54,46 +56,46 @@ class SearchLog extends React.Component {
     const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
 
     if (filterInput) {
-      filterInput.removeEventListener('keydown', this.handleKeyDown);
+      filterInput.removeEventListener("keydown", this.handleKeyDown);
     }
   }
 
   handleKeyDown(event) {
-    const {keyCode} = event;
+    const { keyCode } = event;
     if (keyCode === KeyboardUtil.keyCodes.enter) {
-      this.changeWatching('next');
+      this.changeWatching("next");
     }
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString, watching: 1});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString, watching: 1 });
   }
 
   handleCountChange(totalFound) {
-    this.setState({totalFound});
+    this.setState({ totalFound });
   }
 
   changeWatching(direction) {
-    let {totalFound, watching} = this.state;
-    if (direction === 'next') {
+    let { totalFound, watching } = this.state;
+    if (direction === "next") {
       watching += 1;
       if (watching > totalFound) {
         watching = 1;
       }
     }
 
-    if (direction === 'previous') {
+    if (direction === "previous") {
       watching -= 1;
       if (watching < 1) {
         watching = totalFound;
       }
     }
 
-    this.setState({watching});
+    this.setState({ watching });
   }
 
   getSearchCount() {
-    let {searchString, totalFound, watching} = this.state;
+    let { searchString, totalFound, watching } = this.state;
 
     if (totalFound === 0 && !searchString) {
       return null;
@@ -117,25 +119,31 @@ class SearchLog extends React.Component {
 
     return (
       <div className="button-group button-group-directions">
-        <div onClick={this.changeWatching.bind(this, 'previous')}
-          className="button button-default button-up-arrow button-stroke" />
-        <div onClick={this.changeWatching.bind(this, 'next')}
-          className="button button-default button-down-arrow button-stroke" />
+        <div
+          onClick={this.changeWatching.bind(this, "previous")}
+          className="button button-default button-up-arrow button-stroke"
+        />
+        <div
+          onClick={this.changeWatching.bind(this, "next")}
+          className="button button-default button-down-arrow button-stroke"
+        />
       </div>
     );
   }
 
   render() {
-    const {actions, children} = this.props;
-    const {searchString, watching} = this.state;
-    const clonedChildren = children && React.cloneElement(children, {
-      highlightText: searchString,
-      watching,
-      onCountChange: this.handleCountChange
-    });
+    const { actions, children } = this.props;
+    const { searchString, watching } = this.state;
+    const clonedChildren =
+      children &&
+      React.cloneElement(children, {
+        highlightText: searchString,
+        watching,
+        onCountChange: this.handleCountChange
+      });
 
     const inputContainerClassSet = classNames({
-      'filter-input-text-group-wide': this.state.searchString
+      "filter-input-text-group-wide": this.state.searchString
     });
 
     return (
@@ -143,7 +151,8 @@ class SearchLog extends React.Component {
         <FilterBar
           className="filter-bar control-group form-group flex-wrap-items-none-screen-small flex-item-shrink-0 flush-bottom"
           leftChildrenClass="filter-bar-left filter-bar-search-container flex-wrap-items-none flex-item-grow-1 flex-item-shrink-1"
-          rightAlignLastNChildren={React.Children.count(actions)}>
+          rightAlignLastNChildren={React.Children.count(actions)}
+        >
           <FilterInputText
             ref="filterInput"
             className="flex-grow flex-box flush-bottom"
@@ -151,7 +160,8 @@ class SearchLog extends React.Component {
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
-            inputContainerClass={inputContainerClassSet} />
+            inputContainerClass={inputContainerClassSet}
+          />
           {this.getSearchButtons()}
           {actions}
         </FilterBar>

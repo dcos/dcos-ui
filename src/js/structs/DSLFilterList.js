@@ -3,7 +3,6 @@
  * with a DSL expression.
  */
 class DSLFilterList {
-
   /**
    * DSLFilterList constructor with optional initial filters array
    *
@@ -33,11 +32,10 @@ class DSLFilterList {
    * @returns {Array} Returns an array of DSLFilter objects that can handle the given token
    */
   getMatchingFilters(filterType, filterArguments) {
-    return this.filter(function (filter) {
+    return this.filter(function(filter) {
       return filter.filterCanHandle(filterType, filterArguments);
     });
   }
-
 }
 
 module.exports = DSLFilterList;

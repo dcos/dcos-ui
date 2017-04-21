@@ -1,44 +1,46 @@
-import classNames from 'classnames';
-import {Modal} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import classNames from "classnames";
+import { Modal } from "reactjs-components";
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CosmosErrorHeader from '../CosmosErrorHeader';
-import CosmosErrorMessage from '../CosmosErrorMessage';
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
-import Icon from '../Icon';
-import Image from '../Image';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import Loader from '../Loader';
-import MetadataStore from '../../stores/MetadataStore';
-import ReviewConfig from '../ReviewConfig';
-import SchemaForm from '../SchemaForm';
-import SchemaUtil from '../../utils/SchemaUtil';
-import StringUtil from '../../utils/StringUtil';
-import TabsMixin from '../../mixins/TabsMixin';
+import CosmosErrorHeader from "../CosmosErrorHeader";
+import CosmosErrorMessage from "../CosmosErrorMessage";
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import defaultServiceImage
+  from "../../../../plugins/services/src/img/icon-service-default-large@2x.png";
+import Icon from "../Icon";
+import Image from "../Image";
+import InternalStorageMixin from "../../mixins/InternalStorageMixin";
+import Loader from "../Loader";
+import MetadataStore from "../../stores/MetadataStore";
+import ReviewConfig from "../ReviewConfig";
+import SchemaForm from "../SchemaForm";
+import SchemaUtil from "../../utils/SchemaUtil";
+import StringUtil from "../../utils/StringUtil";
+import TabsMixin from "../../mixins/TabsMixin";
 
 const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
 const METHODS_TO_BIND = [
-  'getAdvancedSubmit',
-  'handleChangeTab',
-  'handleInstallPackage',
-  'handleAdvancedFormChange',
-  'handleModalClose',
-  'handlePreinstallNotesToggle'
+  "getAdvancedSubmit",
+  "handleChangeTab",
+  "handleInstallPackage",
+  "handleAdvancedFormChange",
+  "handleModalClose",
+  "handlePreinstallNotesToggle"
 ];
 
-class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class InstallPackageModal
+  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.tabs_tabs = {
-      defaultInstall: 'DefaultInstall',
-      advancedInstall: 'AdvancedInstall',
-      reviewAdvancedConfig: 'ReviewAdvancedConfig',
-      packageInstalled: 'PackageInstalled'
+      defaultInstall: "DefaultInstall",
+      advancedInstall: "AdvancedInstall",
+      reviewAdvancedConfig: "ReviewAdvancedConfig",
+      packageInstalled: "PackageInstalled"
     };
 
     this.internalStorage_set({
@@ -50,29 +52,31 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     });
 
     this.state = {
-      currentTab: 'defaultInstall',
+      currentTab: "defaultInstall",
       schemaIncorrect: false,
       truncatedPreInstallNotes: true
     };
 
-    this.store_listeners = [{
-      name: 'cosmosPackages',
-      events: [
-        'descriptionError',
-        'descriptionSuccess',
-        'installError',
-        'installSuccess'
-      ]
-    }];
+    this.store_listeners = [
+      {
+        name: "cosmosPackages",
+        events: [
+          "descriptionError",
+          "descriptionSuccess",
+          "installError",
+          "installSuccess"
+        ]
+      }
+    ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    const {props} = this;
+    const { props } = this;
     if (props.open) {
       CosmosPackagesStore.fetchPackageDescription(
         props.packageName,
@@ -83,7 +87,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    const {props} = this;
+    const { props } = this;
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
         descriptionError: null,
@@ -94,7 +98,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       // Reset our trigger submit for advanced install
       this.triggerAdvancedSubmit = undefined;
       this.setState({
-        currentTab: 'defaultInstall',
+        currentTab: "defaultInstall",
         truncatedPreInstallNotes: true
       });
     }
@@ -110,13 +114,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   componentDidUpdate() {
     if (this.triggerAdvancedSubmit) {
       // Trigger submit upfront to validate fields and potentially disable buttons
-      const {isValidated} = this.triggerAdvancedSubmit();
-      this.internalStorage_update({hasFormErrors: !isValidated});
+      const { isValidated } = this.triggerAdvancedSubmit();
+      this.internalStorage_update({ hasFormErrors: !isValidated });
     }
   }
 
   onCosmosPackagesStoreDescriptionError(descriptionError) {
-    this.internalStorage_update({descriptionError});
+    this.internalStorage_update({ descriptionError });
     this.forceUpdate();
   }
 
@@ -131,7 +135,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       isLoading: false
     });
 
-    this.setState({schemaIncorrect});
+    this.setState({ schemaIncorrect });
   }
 
   onCosmosPackagesStoreInstallError(installError) {
@@ -139,7 +143,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       installError,
       pendingRequest: false
     });
-    this.setState({currentTab: 'defaultInstall'});
+    this.setState({ currentTab: "defaultInstall" });
   }
 
   onCosmosPackagesStoreInstallSuccess() {
@@ -147,23 +151,23 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       installError: null,
       pendingRequest: false
     });
-    this.setState({currentTab: 'packageInstalled'});
+    this.setState({ currentTab: "packageInstalled" });
   }
 
   handleAdvancedFormChange(formObject) {
-    this.internalStorage_update({hasFormErrors: !formObject.isValidated});
+    this.internalStorage_update({ hasFormErrors: !formObject.isValidated });
     this.forceUpdate();
   }
 
   handleChangeTab(currentTab) {
-    const newState = {installError: null};
-    if (currentTab === 'advancedInstall') {
+    const newState = { installError: null };
+    if (currentTab === "advancedInstall") {
       // Change back to previous state and clean up stored config
       newState.advancedConfiguration = null;
     }
 
-    if (currentTab === 'reviewAdvancedConfig') {
-      const {isValidated, model} = this.triggerAdvancedSubmit();
+    if (currentTab === "reviewAdvancedConfig") {
+      const { isValidated, model } = this.triggerAdvancedSubmit();
 
       // Change state if form fields are validated and store configuration
       // for submission
@@ -183,18 +187,18 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     const configuration = this.getPackageConfiguration();
 
     CosmosPackagesStore.installPackage(name, version, configuration);
-    this.internalStorage_update({pendingRequest: true});
+    this.internalStorage_update({ pendingRequest: true });
     this.forceUpdate();
   }
 
   handleModalClose() {
-    this.setState({schemaIncorrect: false});
+    this.setState({ schemaIncorrect: false });
     this.props.onClose();
   }
 
   handlePreinstallNotesToggle() {
     const truncatedPreInstallNotes = !this.state.truncatedPreInstallNotes;
-    this.setState({truncatedPreInstallNotes});
+    this.setState({ truncatedPreInstallNotes });
   }
 
   getAdvancedSubmit(triggerSubmit) {
@@ -202,12 +206,12 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getPackageConfiguration() {
-    const {advancedConfiguration} = this.internalStorage_get();
-    const {currentTab} = this.state;
+    const { advancedConfiguration } = this.internalStorage_get();
+    const { currentTab } = this.state;
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    const isAdvancedInstall = currentTab === 'advancedInstall' ||
-      currentTab === 'reviewAdvancedConfig';
+    const isAdvancedInstall =
+      currentTab === "advancedInstall" || currentTab === "reviewAdvancedConfig";
 
     if (isAdvancedInstall && advancedConfiguration) {
       return advancedConfiguration;
@@ -234,7 +238,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   getInstallErrorScreen() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    const {pendingRequest, installError} = this.internalStorage_get();
+    const { pendingRequest, installError } = this.internalStorage_get();
 
     return (
       <div>
@@ -249,7 +253,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <button
               disabled={!cosmosPackage || pendingRequest}
               className="button button-block"
-              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              onClick={this.handleChangeTab.bind(this, "advancedInstall")}
+            >
               Edit Configuration
             </button>
           </div>
@@ -279,18 +284,16 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       return null;
     }
 
-    let ellipses = '';
-    let textTruncationToggleWord = 'collapse';
+    let ellipses = "";
+    let textTruncationToggleWord = "collapse";
 
     if (truncated) {
-      ellipses = '...';
-      textTruncationToggleWord = 'expand';
+      ellipses = "...";
+      textTruncationToggleWord = "expand";
     }
 
     const text = (
-      <span
-        className="clickable"
-        onClick={this.handlePreinstallNotesToggle}>
+      <span className="clickable" onClick={this.handlePreinstallNotesToggle}>
         <u>{textTruncationToggleWord}</u>
       </span>
     );
@@ -314,7 +317,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     const version = cosmosPackage.getCurrentVersion();
     const truncated = this.state.truncatedPreInstallNotes;
     const packageVersionClasses = classNames({
-      'flush-bottom': !preInstallNotes
+      "flush-bottom": !preInstallNotes
     });
 
     let error;
@@ -330,10 +333,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       return this.getInstallErrorScreen();
     }
 
-    let buttonText = 'Install Package';
+    let buttonText = "Install Package";
 
     if (pendingRequest) {
-      buttonText = 'Installing...';
+      buttonText = "Installing...";
     }
 
     return (
@@ -343,7 +346,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <div className="icon icon-jumbo icon-image-container icon-app-container">
               <Image
                 fallbackSrc={defaultServiceImage}
-                src={cosmosPackage.getIcons()['icon-large']} />
+                src={cosmosPackage.getIcons()["icon-large"]}
+              />
             </div>
             <p className="h2 short-top short-bottom">{name}</p>
             <p className={packageVersionClasses}>{version}</p>
@@ -356,13 +360,15 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <button
               disabled={!cosmosPackage || pendingRequest || descriptionError}
               className="button button-success button-block"
-              onClick={this.handleInstallPackage}>
+              onClick={this.handleInstallPackage}
+            >
               {buttonText}
             </button>
             <button
               disabled={!cosmosPackage || pendingRequest}
               className="button button-link button-primary button-block"
-              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              onClick={this.handleChangeTab.bind(this, "advancedInstall")}
+            >
               Advanced Installation
             </button>
           </div>
@@ -372,7 +378,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   renderAdvancedInstallTabView() {
-    const {pendingRequest, hasFormErrors} = this.internalStorage_get();
+    const { pendingRequest, hasFormErrors } = this.internalStorage_get();
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     // Only return footer, we always render SchemaForm, but just change
@@ -382,50 +388,54 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="button-collection flush-bottom">
           <button
             className="button"
-            onClick={this.handleChangeTab.bind(this, 'defaultInstall')}>
+            onClick={this.handleChangeTab.bind(this, "defaultInstall")}
+          >
             Back
           </button>
           <button
             disabled={!cosmosPackage || pendingRequest || hasFormErrors}
             className="button button-success"
-            onClick={this.handleChangeTab.bind(this, 'reviewAdvancedConfig')}>
+            onClick={this.handleChangeTab.bind(this, "reviewAdvancedConfig")}
+          >
             Review and Install
           </button>
         </div>
       </div>
     );
-
   }
 
   renderReviewAdvancedConfigTabView() {
-    const {pendingRequest} = this.internalStorage_get();
+    const { pendingRequest } = this.internalStorage_get();
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
-    let buttonText = 'Install';
+    let buttonText = "Install";
 
     if (pendingRequest) {
-      buttonText = 'Installing...';
+      buttonText = "Installing...";
     }
 
     return (
       <div className="modal--install-package__review__wrapper">
         <ReviewConfig
-          packageIcon={cosmosPackage.getIcons()['icon-small']}
+          packageIcon={cosmosPackage.getIcons()["icon-small"]}
           packageName={name}
           packageVersion={version}
-          configuration={this.getPackageConfiguration()} />
+          configuration={this.getPackageConfiguration()}
+        />
         <div className="modal-footer">
           <div className="button-collection flush-bottom">
             <button
               className="button"
-              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              onClick={this.handleChangeTab.bind(this, "advancedInstall")}
+            >
               Back
             </button>
             <button
               disabled={!cosmosPackage || pendingRequest}
               className="button button-success"
-              onClick={this.handleInstallPackage}>
+              onClick={this.handleInstallPackage}
+            >
               {buttonText}
             </button>
           </div>
@@ -435,7 +445,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   renderPackageInstalledTabView() {
-    const {pendingRequest} = this.internalStorage_get();
+    const { pendingRequest } = this.internalStorage_get();
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     const notes = cosmosPackage.getPostInstallNotes();
@@ -450,8 +460,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
               <Icon id="circle-check" size="large" color="green" />
             </span>
             <h2 className="short-top short-bottom">Success!</h2>
-            <div className="install-package-modal-package-notes text-overflow-break-word"
-              dangerouslySetInnerHTML={parsedNotes} />
+            <div
+              className="install-package-modal-package-notes text-overflow-break-word"
+              dangerouslySetInnerHTML={parsedNotes}
+            />
           </div>
         </div>
         <div className="modal-footer">
@@ -459,7 +471,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <button
               disabled={!cosmosPackage || pendingRequest}
               className="button button-success button-block"
-              onClick={this.props.onClose}>
+              onClick={this.props.onClose}
+            >
               OK
             </button>
           </div>
@@ -469,8 +482,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getIncorrectSchemaWarning(cosmosPackage) {
-    let errorText = 'The schema for this package is not properly configured. ' +
-      'If you are the package owner, please check your configuration.';
+    let errorText =
+      "The schema for this package is not properly configured. " +
+      "If you are the package owner, please check your configuration.";
 
     const maintainer = cosmosPackage.getMaintainer();
     if (maintainer) {
@@ -496,7 +510,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           <div className="button-collection button-collection-stacked horizontal-center">
             <button
               className="button button-wide button-block"
-              onClick={this.handleModalClose}>
+              onClick={this.handleModalClose}
+            >
               Close
             </button>
           </div>
@@ -513,17 +528,21 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <div className="icon icon-jumbo icon-image-container icon-app-container">
               <Image
                 fallbackSrc={defaultServiceImage}
-                src={cosmosPackage.getIcons()['icon-large']} />
+                src={cosmosPackage.getIcons()["icon-large"]}
+              />
             </div>
             <p className="h2 short-top short-bottom">
               {cosmosPackage.getName()}
             </p>
             <p>CLI Only Package</p>
             <p className="flush-bottom">
-              {'This package can only be installed using the CLI. See the '}
+              {"This package can only be installed using the CLI. See the "}
               <a
-                href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')}
-                target="_blank">
+                href={MetadataStore.buildDocsURI(
+                  "/usage/managing-services/install/#installing-a-service-using-the-cli"
+                )}
+                target="_blank"
+              >
                 documentation
               </a>.
             </p>
@@ -533,7 +552,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           <div className="button-collection horizontal-center flush-bottom">
             <button
               className="button flush-bottom button-wide"
-              onClick={this.handleModalClose}>
+              onClick={this.handleModalClose}
+            >
               Close
             </button>
           </div>
@@ -543,8 +563,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getModalContents() {
-    const {currentTab, schemaIncorrect} = this.state;
-    const {isLoading} = this.internalStorage_get();
+    const { currentTab, schemaIncorrect } = this.state;
+    const { isLoading } = this.internalStorage_get();
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     if (isLoading || !cosmosPackage) {
@@ -561,20 +581,24 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
-    const advancedConfigClasses = classNames('modal-install-package-body-and-header', {
-      hidden: currentTab !== 'advancedInstall'
-    });
+    const advancedConfigClasses = classNames(
+      "modal-install-package-body-and-header",
+      {
+        hidden: currentTab !== "advancedInstall"
+      }
+    );
 
     return (
       <div className="modal-install-package-tab-form-wrapper">
         <div className={advancedConfigClasses}>
           <SchemaForm
-            packageIcon={cosmosPackage.getIcons()['icon-small']}
+            packageIcon={cosmosPackage.getIcons()["icon-small"]}
             packageName={name}
             packageVersion={version}
             schema={cosmosPackage.getConfig()}
             onChange={this.handleAdvancedFormChange}
-            getTriggerSubmit={this.getAdvancedSubmit} />
+            getTriggerSubmit={this.getAdvancedSubmit}
+          />
         </div>
         {this.tabs_getTabView()}
       </div>
@@ -582,24 +606,24 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   render() {
-    const {props, state} = this;
-    const {currentTab} = state;
+    const { props, state } = this;
+    const { currentTab } = state;
 
-    const isAdvanced = currentTab === 'advancedInstall' ||
-      currentTab === 'reviewAdvancedConfig';
+    const isAdvanced =
+      currentTab === "advancedInstall" || currentTab === "reviewAdvancedConfig";
 
     const backdropClasses = classNames({
-      'modal-backdrop': true,
-      'default-cursor': isAdvanced
+      "modal-backdrop": true,
+      "default-cursor": isAdvanced
     });
 
-    const modalClasses = classNames('modal modal-install-package', {
-      'modal-large modal-install-package-advanced-view': isAdvanced,
-      'modal-small': !isAdvanced
+    const modalClasses = classNames("modal modal-install-package", {
+      "modal-large modal-install-package-advanced-view": isAdvanced,
+      "modal-small": !isAdvanced
     });
 
     const modalWrapperClasses = classNames({
-      'multiple-form-modal modal-form': isAdvanced
+      "multiple-form-modal modal-form": isAdvanced
     });
 
     return (
@@ -612,7 +636,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         open={props.open}
         scrollContainerClass="multiple-form-modal-body"
         showFooter={false}
-        useGemini={false}>
+        useGemini={false}
+      >
         {this.getModalContents()}
       </Modal>
     );

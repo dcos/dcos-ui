@@ -1,20 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import CompositeState from '#SRC/js/structs/CompositeState';
-import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
-import Loader from '#SRC/js/components/Loader';
-import MesosSummaryStore from '#SRC/js/stores/MesosSummaryStore';
-import ResourcesUtil from '#SRC/js/utils/ResourcesUtil';
-import Units from '#SRC/js/utils/Units';
+import CompositeState from "#SRC/js/structs/CompositeState";
+import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import Loader from "#SRC/js/components/Loader";
+import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
+import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import Units from "#SRC/js/utils/Units";
 
-import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
-import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
-import TaskEndpointsList from '../../components/TaskEndpointsList';
+import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
+import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
+import TaskEndpointsList from "../../components/TaskEndpointsList";
 
 class TaskDetailsTab extends React.Component {
   getContainerInfo(task) {
@@ -42,10 +44,11 @@ class TaskDetailsTab extends React.Component {
     }
 
     const services = CompositeState.getServiceList();
-    const service = services.filter({ids: [mesosTask.framework_id]}).last();
+    const service = services.filter({ ids: [mesosTask.framework_id] }).last();
     const node = CompositeState.getNodesList()
-      .filter({ids: [mesosTask.slave_id]}).last();
-    const sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
+      .filter({ ids: [mesosTask.slave_id] })
+      .last();
+    const sandBoxPath = TaskDirectoryStore.get("sandBoxPath");
 
     let serviceRow = null;
     let nodeRow = null;
@@ -55,20 +58,21 @@ class TaskDetailsTab extends React.Component {
     if (mesosTask.resources != null) {
       const resourceLabels = ResourcesUtil.getResourceLabels();
 
-      resourceRows = ResourcesUtil.getDefaultResources().map(
-        function (resource, index) {
-          return (
-            <ConfigurationMapRow key={index}>
-              <ConfigurationMapLabel>
-                {resourceLabels[resource]}
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {Units.formatResource(resource, mesosTask.resources[resource])}
-              </ConfigurationMapValue>
-            </ConfigurationMapRow>
-          );
-        }
-      );
+      resourceRows = ResourcesUtil.getDefaultResources().map(function(
+        resource,
+        index
+      ) {
+        return (
+          <ConfigurationMapRow key={index}>
+            <ConfigurationMapLabel>
+              {resourceLabels[resource]}
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {Units.formatResource(resource, mesosTask.resources[resource])}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+        );
+      });
     }
 
     if (service != null) {
@@ -147,7 +151,7 @@ class TaskDetailsTab extends React.Component {
     let labelRows = null;
 
     if (mesosTask.labels) {
-      labelRows = mesosTask.labels.map(function ({key, value}) {
+      labelRows = mesosTask.labels.map(function({ key, value }) {
         return (
           <ConfigurationMapRow key={key}>
             <ConfigurationMapLabel>
@@ -172,9 +176,9 @@ class TaskDetailsTab extends React.Component {
   }
 
   render() {
-    const {task} = this.props;
+    const { task } = this.props;
 
-    if (!MesosSummaryStore.get('statesProcessed')) {
+    if (!MesosSummaryStore.get("statesProcessed")) {
       return <Loader />;
     }
 

@@ -1,20 +1,20 @@
-import {Dropdown} from 'reactjs-components';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import React from "react";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 const getMenuItems = (children, iconID) => {
   return [
     {
-      className: 'hidden',
+      className: "hidden",
       html: <Icon id={iconID} size="mini" />,
-      id: 'trigger'
+      id: "trigger"
     },
     ...React.Children.map(children, getDropdownItemFromComponent)
   ];
 };
 
-const handleItemSelection = (item) => {
+const handleItemSelection = item => {
   if (item.onItemSelect) {
     item.onItemSelect();
   }
@@ -28,7 +28,7 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = ({anchorRight, children, iconID}) => {
+const PageHeaderActionsMenu = ({ anchorRight, children, iconID }) => {
   return (
     <Dropdown
       anchorRight={anchorRight}
@@ -39,13 +39,14 @@ const PageHeaderActionsMenu = ({anchorRight, children, iconID}) => {
       transition={true}
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
-      wrapperClassName="dropdown" />
+      wrapperClassName="dropdown"
+    />
   );
 };
 
 PageHeaderActionsMenu.defaultProps = {
   anchorRight: true,
-  iconID: 'ellipsis-vertical'
+  iconID: "ellipsis-vertical"
 };
 
 PageHeaderActionsMenu.propTypes = {

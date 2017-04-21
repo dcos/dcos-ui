@@ -1,4 +1,4 @@
-import GeminiScrollbar from 'react-gemini-scrollbar';
+import GeminiScrollbar from "react-gemini-scrollbar";
 
 let scrollbarWidth = null;
 
@@ -11,17 +11,17 @@ const ScrollbarUtil = {
    */
   getScrollbarWidth(options = {}) {
     if (scrollbarWidth == null || options.forceUpdate) {
-      const element = global.document.createElement('div');
+      const element = global.document.createElement("div");
 
-      element.style.position = 'absolute';
-      element.style.top = '-9999px';
-      element.style.width = '100px';
-      element.style.height = '100px';
-      element.style.overflow = 'scroll';
-      element.style.msOverflowStyle = 'scrollbar';
+      element.style.position = "absolute";
+      element.style.top = "-9999px";
+      element.style.width = "100px";
+      element.style.height = "100px";
+      element.style.overflow = "scroll";
+      element.style.msOverflowStyle = "scrollbar";
 
       global.document.body.appendChild(element);
-      scrollbarWidth = (element.offsetWidth - element.clientWidth);
+      scrollbarWidth = element.offsetWidth - element.clientWidth;
       global.document.body.removeChild(element);
     }
 

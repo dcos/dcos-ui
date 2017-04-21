@@ -1,5 +1,5 @@
-import RoutingService from './RoutingService';
-import EventTypes from './EventTypes';
+import RoutingService from "./RoutingService";
+import EventTypes from "./EventTypes";
 
 module.exports = {
   EventTypes,

@@ -1,23 +1,24 @@
-jest.dontMock('../ChartMixin');
+jest.dontMock("../ChartMixin");
 
-const ChartMixin = require('../ChartMixin');
+const ChartMixin = require("../ChartMixin");
 
-describe('ChartMixin', function () {
-
-  beforeEach(function () {
+describe("ChartMixin", function() {
+  beforeEach(function() {
     var now = Date.now();
     var interval = 2000;
 
-    var data = [{
-      id: 'used_resources',
-      values: Array(31).fill(0).map(function (value, i) {
-        return {
-          date: now + (interval * i),
-          percentage: 0,
-          value: 0
-        };
-      })
-    }];
+    var data = [
+      {
+        id: "used_resources",
+        values: Array(31).fill(0).map(function(value, i) {
+          return {
+            date: now + interval * i,
+            percentage: 0,
+            value: 0
+          };
+        })
+      }
+    ];
 
     this.props = {
       data,
@@ -33,9 +34,8 @@ describe('ChartMixin', function () {
     };
   });
 
-  describe('#formatXAxis', function () {
-
-    beforeEach(function () {
+  describe("#formatXAxis", function() {
+    beforeEach(function() {
       this.props = {
         axisConfiguration: {
           x: {
@@ -45,72 +45,73 @@ describe('ChartMixin', function () {
       };
     });
 
-    it('should parse strings to numbers', function () {
-      const result = ChartMixin.formatXAxis.call({props: this.props}, '0');
-      expect(result).toEqual('0');
+    it("should parse strings to numbers", function() {
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, "0");
+      expect(result).toEqual("0");
     });
 
-    it('should parse numbers', function () {
-      const result = ChartMixin.formatXAxis.call({props: this.props}, 3);
-      expect(result).toEqual('3s');
+    it("should parse numbers", function() {
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, 3);
+      expect(result).toEqual("3s");
     });
 
-    it('should not format zeros', function () {
-      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
+    it("should not format zeros", function() {
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, 0);
       expect(result).toEqual(0);
     });
 
-    it('should format positive numbers', function () {
-      const result = ChartMixin.formatXAxis.call({props: this.props}, 3);
-      expect(result).toEqual('3s');
+    it("should format positive numbers", function() {
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, 3);
+      expect(result).toEqual("3s");
     });
 
-    it('should format negative numbers', function () {
-      const result = ChartMixin.formatXAxis.call({props: this.props}, -3);
-      expect(result).toEqual('-3s');
+    it("should format negative numbers", function() {
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, -3);
+      expect(result).toEqual("-3s");
     });
 
-    it('should return an empty string if it matches the value', function () {
+    it("should return an empty string if it matches the value", function() {
       this.props.axisConfiguration.x.hideMatch = /^0$/;
-      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
-      expect(result).toEqual('');
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, 0);
+      expect(result).toEqual("");
     });
 
-    it('should return value if there\'s no match', function () {
+    it("should return value if there's no match", function() {
       this.props.axisConfiguration.x.hideMatch = /^10$/;
-      const result = ChartMixin.formatXAxis.call({props: this.props}, 0);
+      const result = ChartMixin.formatXAxis.call({ props: this.props }, 0);
       expect(result).toEqual(0);
     });
   });
 
-  describe('#getXScale', function () {
-
-    it('should build the correct amount of ticks', function () {
+  describe("#getXScale", function() {
+    it("should build the correct amount of ticks", function() {
       var props = this.props;
       var xScale = ChartMixin.getXScale(
-        props.data, props.width, props.refreshRate
+        props.data,
+        props.width,
+        props.refreshRate
       );
       expect(xScale.ticks(4)).toEqual([-60, -40, -20, 0]);
     });
 
-    it('should have the correct domain range', function () {
+    it("should have the correct domain range", function() {
       var props = this.props;
       var xScale = ChartMixin.getXScale(
-        props.data, props.width, props.refreshRate
+        props.data,
+        props.width,
+        props.refreshRate
       );
       expect(xScale.domain()).toEqual([-60, 0]);
     });
-
   });
 
-  describe('#getHeight', function () {
-
-    it('should return 0 given 0 height and 0 margin', function () {
+  describe("#getHeight", function() {
+    it("should return 0 given 0 height and 0 margin", function() {
       var height = ChartMixin.getHeight(this.props);
       expect(height).toEqual(0);
     });
 
-    it('should return NaN when given a NaN argument', function () {
+    it("should return NaN when given a NaN argument", function() {
       var height = ChartMixin.getHeight({
         margin: {
           top: 10,
@@ -121,7 +122,7 @@ describe('ChartMixin', function () {
       expect(isNaN(height)).toEqual(true);
     });
 
-    it('should return a number when given a null argument', function () {
+    it("should return a number when given a null argument", function() {
       var height = ChartMixin.getHeight({
         margin: {
           top: null,
@@ -132,7 +133,7 @@ describe('ChartMixin', function () {
       expect(height).toEqual(90);
     });
 
-    it('yields positive view height given node height > margins', function () {
+    it("yields positive view height given node height > margins", function() {
       var height = ChartMixin.getHeight({
         margin: {
           top: 10,
@@ -147,7 +148,7 @@ describe('ChartMixin', function () {
       expect(height).toEqual(9);
     });
 
-    it('yields negative view height given node height < margins', function () {
+    it("yields negative view height given node height < margins", function() {
       var height = ChartMixin.getHeight({
         margin: {
           top: 100,
@@ -158,18 +159,16 @@ describe('ChartMixin', function () {
 
       expect(height).toEqual(-189);
     });
-
   });
 
-  describe('#getWidth', function () {
-
-    it('should return 0 given 0 width and 0 margin', function () {
+  describe("#getWidth", function() {
+    it("should return 0 given 0 width and 0 margin", function() {
       var width = ChartMixin.getWidth(this.props);
 
       expect(width).toEqual(0);
     });
 
-    it('should return NaN when given NaN argument', function () {
+    it("should return NaN when given NaN argument", function() {
       var width = ChartMixin.getWidth({
         margin: {
           left: 9,
@@ -180,7 +179,7 @@ describe('ChartMixin', function () {
       expect(isNaN(width)).toEqual(true);
     });
 
-    it('should return a number when given a null argument', function () {
+    it("should return a number when given a null argument", function() {
       var width = ChartMixin.getWidth({
         margin: {
           left: 9,
@@ -191,7 +190,7 @@ describe('ChartMixin', function () {
       expect(width).toEqual(-19);
     });
 
-    it('yields positive view width given node width > margins', function () {
+    it("yields positive view width given node width > margins", function() {
       var width = ChartMixin.getWidth({
         margin: {
           top: 8,
@@ -206,7 +205,7 @@ describe('ChartMixin', function () {
       expect(width).toEqual(25);
     });
 
-    it('yields negative view width given node width < margins', function () {
+    it("yields negative view width given node width < margins", function() {
       var width = ChartMixin.getWidth({
         margin: {
           left: 90,
@@ -217,7 +216,5 @@ describe('ChartMixin', function () {
 
       expect(width).toEqual(-245);
     });
-
   });
-
 });

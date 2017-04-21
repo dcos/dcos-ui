@@ -1,25 +1,27 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
 
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
+import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class ServicePlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: 'Field Name',
-        prop: 'fieldName'
+        heading: "Field Name",
+        prop: "fieldName"
       },
       {
-        heading: 'Operator',
-        prop: 'operator'
+        heading: "Operator",
+        prop: "operator"
       },
       {
-        heading: 'Value',
-        prop: 'value'
+        heading: "Value",
+        prop: "value"
       }
     ];
   }
@@ -27,17 +29,17 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
   getConstraints() {
     const constraints = this.props.appConfig.constraints || [];
 
-    return constraints.map(function ([fieldName, operator, value]) {
+    return constraints.map(function([fieldName, operator, value]) {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
         value = <em>Not Applicable</em>;
       }
 
-      return {fieldName, operator, value};
+      return { fieldName, operator, value };
     });
   }
 
   render() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
     const constraints = this.getConstraints();
 
     // Since we are stateless component we will need to return something for react
@@ -56,7 +58,8 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
             columns={this.getColumns()}
             data={constraints}
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapSection>
       </div>
     );

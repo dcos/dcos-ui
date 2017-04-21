@@ -1,5 +1,5 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
-import Util from '../utils/Util';
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import Util from "../utils/Util";
 
 import {
   REQUEST_USERS_SUCCESS,
@@ -8,9 +8,9 @@ import {
   REQUEST_USER_CREATE_ERROR,
   REQUEST_USER_DELETE_SUCCESS,
   REQUEST_USER_DELETE_ERROR
-} from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import Config from "../config/Config";
 
 const UsersActions = {
   fetch() {
@@ -34,17 +34,17 @@ const UsersActions = {
 
   addUser(data) {
     let userID = data.uid;
-    data = Util.omit(data, ['uid']);
+    data = Util.omit(data, ["uid"]);
 
     if (!userID && data.description) {
-      userID = data.description.replace(/\s+/g, '').toLowerCase();
+      userID = data.description.replace(/\s+/g, "").toLowerCase();
     }
 
     userID = encodeURIComponent(userID);
 
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
-      method: 'PUT',
+      method: "PUT",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -67,7 +67,7 @@ const UsersActions = {
     userID = encodeURIComponent(userID);
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
-      method: 'DELETE',
+      method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_DELETE_SUCCESS,
@@ -87,21 +87,23 @@ const UsersActions = {
 };
 
 if (Config.useFixtures) {
-  const usersFixture = require('../../../tests/_fixtures/acl/users-unicode.json');
+  const usersFixture = require("../../../tests/_fixtures/acl/users-unicode.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
   global.actionTypes.UsersActions = {
-    fetch: {event: 'success', success: {response: usersFixture}},
-    addUser: {event: 'success'},
-    deleteUser: {event: 'success'}
+    fetch: { event: "success", success: { response: usersFixture } },
+    addUser: { event: "success" },
+    deleteUser: { event: "success" }
   };
 
-  Object.keys(global.actionTypes.UsersActions).forEach(function (method) {
+  Object.keys(global.actionTypes.UsersActions).forEach(function(method) {
     UsersActions[method] = RequestUtil.stubRequest(
-      UsersActions, 'UsersActions', method
+      UsersActions,
+      "UsersActions",
+      method
     );
   });
 }

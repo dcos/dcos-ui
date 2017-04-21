@@ -1,9 +1,9 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 class TabView extends React.Component {
   render() {
-    const classes = classNames('menu-tabbed-view', this.props.className);
+    const classes = classNames("menu-tabbed-view", this.props.className);
 
     return (
       <div className={classes}>

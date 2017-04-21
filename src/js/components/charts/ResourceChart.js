@@ -1,36 +1,38 @@
-import React from 'react';
+import React from "react";
 
-import BarChart from '../../components/charts/BarChart';
-import Chart from '../../components/charts/Chart';
-import Config from '../../config/Config';
-import ResourcesUtil from '../../utils/ResourcesUtil';
-import Units from '../../utils/Units';
-import Util from '../../utils/Util';
+import BarChart from "../../components/charts/BarChart";
+import Chart from "../../components/charts/Chart";
+import Config from "../../config/Config";
+import ResourcesUtil from "../../utils/ResourcesUtil";
+import Units from "../../utils/Units";
+import Util from "../../utils/Util";
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
 
 class ResourceChart extends React.Component {
-
   getResourceChart(resource, totalResources) {
     const colorIndex = ResourcesUtil.getResourceColor(resource);
     const resourceLabel = ResourcesUtil.getResourceLabel(resource);
-    const resourceData = [{
-      name: 'Alloc',
-      colorIndex,
-      values: totalResources[resource]
-    }];
+    const resourceData = [
+      {
+        name: "Alloc",
+        colorIndex,
+        values: totalResources[resource]
+      }
+    ];
     const resourceValue = Units.formatResource(
-      resource, Util.last(totalResources[resource]).value
+      resource,
+      Util.last(totalResources[resource]).value
     );
 
     const axisConfiguration = {
-      x: {hideMatch: /^0$/},
-      y: {showPercentage: false, suffix: '%'}
+      x: { hideMatch: /^0$/ },
+      y: { showPercentage: false, suffix: "%" }
     };
 
     let maxY = 5;
-    totalResources[resource].forEach(function (resourceTotal) {
+    totalResources[resource].forEach(function(resourceTotal) {
       if (resourceTotal.percentage > maxY) {
         maxY = resourceTotal.percentage;
       }
@@ -47,22 +49,29 @@ class ResourceChart extends React.Component {
         <h4 className="flush-top flush-bottom">
           {resourceValue}
         </h4>
-        <div className={`side-panel-resource-label
-            text-color-${colorIndex}`}>
+        <div
+          className={`side-panel-resource-label
+            text-color-${colorIndex}`}
+        >
           {resourceLabel.toUpperCase()}
         </div>
 
-        <Chart calcHeight={function (w) { return w / WIDTH_HEIGHT_RATIO; }}
-          delayRender={true}>
+        <Chart
+          calcHeight={function(w) {
+            return w / WIDTH_HEIGHT_RATIO;
+          }}
+          delayRender={true}
+        >
           <BarChart
             axisConfiguration={axisConfiguration}
             data={resourceData}
-            margin={{top: 0, left: 43, right: 10, bottom: 40}}
+            margin={{ top: 0, left: 43, right: 10, bottom: 40 }}
             maxY={maxY}
             refreshRate={Config.getRefreshRate()}
             ticksY={3}
             xGridLines={0}
-            y="percentage" />
+            y="percentage"
+          />
         </Chart>
       </div>
     );
@@ -82,7 +91,7 @@ class ResourceChart extends React.Component {
 }
 
 ResourceChart.defaultProps = {
-  className: 'column-12 column-small-4'
+  className: "column-12 column-small-4"
 };
 
 ResourceChart.propTypes = {

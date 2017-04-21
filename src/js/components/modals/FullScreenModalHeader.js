@@ -1,10 +1,10 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 class FullScreenModalHeader extends React.Component {
   render() {
-    const {children, className} = this.props;
-    const classes = classNames('modal-full-screen-header pod', className);
+    const { children, className } = this.props;
+    const classes = classNames("modal-full-screen-header pod", className);
 
     return (
       <div className={classes}>

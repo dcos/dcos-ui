@@ -1,56 +1,56 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Table} from 'reactjs-components';
+import classNames from "classnames";
+import React from "react";
+import { Table } from "reactjs-components";
 
-import TableUtil from '#SRC/js/utils/TableUtil';
-import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
+import TableUtil from "#SRC/js/utils/TableUtil";
+import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
 const METHODS_TO_BIND = [
-  'getColumnHeading',
-  'renderColumnID',
-  'renderColumnState',
-  'renderColumnTerminationCode',
-  'renderColumnTerminationMessage'
+  "getColumnHeading",
+  "renderColumnID",
+  "renderColumnState",
+  "renderColumnTerminationCode",
+  "renderColumnTerminationMessage"
 ];
 
 class PodContainerTerminationTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   getColumns() {
-    const {getClassName} = ResourceTableUtil;
+    const { getClassName } = ResourceTableUtil;
 
     return [
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'Container ID',
+        prop: "Container ID",
         heading: this.getColumnHeading,
         render: this.renderColumnID
       },
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'Last State',
+        prop: "Last State",
         heading: this.getColumnHeading,
         render: this.renderColumnState
       },
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'Code',
+        prop: "Code",
         heading: this.getColumnHeading,
         render: this.renderColumnTerminationCode
       },
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'Message',
+        prop: "Message",
         heading: this.getColumnHeading,
         render: this.renderColumnTerminationMessage
       }
@@ -61,52 +61,41 @@ class PodContainerTerminationTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col style={{width: '160px'}} />
-        <col style={{width: '80px'}} />
-        <col style={{width: '160px'}} />
+        <col style={{ width: "160px" }} />
+        <col style={{ width: "80px" }} />
+        <col style={{ width: "160px" }} />
       </colgroup>
     );
   }
 
   getColumnHeading(prop, order, sortBy) {
-    const caretClassNames = classNames(
-      'caret',
-      {
-        [`caret--${order}`]: order != null,
-        'caret--visible': prop === sortBy.prop
-      }
-    );
+    const caretClassNames = classNames("caret", {
+      [`caret--${order}`]: order != null,
+      "caret--visible": prop === sortBy.prop
+    });
 
     return (
       <span>
         {prop}
-        <span className={caretClassNames}></span>
+        <span className={caretClassNames} />
       </span>
     );
   }
 
   renderColumnID(prop, row) {
-    return (
-      <span>{row.getId()}</span>
-    );
+    return <span>{row.getId()}</span>;
   }
 
   renderColumnState(prop, row) {
-    return (
-      <span>{row.getLastKnownState()}</span>
-    );
+    return <span>{row.getLastKnownState()}</span>;
   }
 
   renderColumnTerminationCode(prop, row) {
-    return (
-      <span>{row.getTermination().exitCode || 0}</span>
-    );
+    return <span>{row.getTermination().exitCode || 0}</span>;
   }
 
   renderColumnTerminationMessage(prop, row) {
-    return (
-      <span>{row.getTermination().message || '-'}</span>
-    );
+    return <span>{row.getTermination().message || "-"}</span>;
   }
 
   render() {
@@ -117,13 +106,14 @@ class PodContainerTerminationTable extends React.Component {
         colGroup={this.getColGroup()}
         data={this.props.containers}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: 'ID', order: 'desc'}} />
+        sortBy={{ prop: "ID", order: "desc" }}
+      />
     );
   }
 }
 
 PodContainerTerminationTable.defaultProps = {
-  className: 'table table-borderless-outer table-borderless-inner-columns flush-bottom',
+  className: "table table-borderless-outer table-borderless-inner-columns flush-bottom",
   containers: []
 };
 

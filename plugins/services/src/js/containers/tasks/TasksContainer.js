@@ -1,25 +1,25 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import ContainerUtil from '#SRC/js/utils/ContainerUtil';
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 
-import ActionKeys from '../../constants/ActionKeys';
-import MarathonActions from '../../events/MarathonActions';
-import Service from '../../structs/Service';
-import ServiceActionItem from '../../constants/ServiceActionItem';
-import TaskModals from '../../components/modals/TaskModals';
-import TasksView from './TasksView';
+import ActionKeys from "../../constants/ActionKeys";
+import MarathonActions from "../../events/MarathonActions";
+import Service from "../../structs/Service";
+import ServiceActionItem from "../../constants/ServiceActionItem";
+import TaskModals from "../../components/modals/TaskModals";
+import TasksView from "./TasksView";
 
 import {
   REQUEST_MARATHON_TASK_KILL_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS
-} from '../../constants/ActionTypes';
+} from "../../constants/ActionTypes";
 
 const METHODS_TO_BIND = [
-  'handleServerAction',
-  'handleModalClose',
-  'clearActionError',
-  'killTasks'
+  "handleServerAction",
+  "handleModalClose",
+  "clearActionError",
+  "killTasks"
 ];
 
 class TasksContainer extends React.Component {
@@ -31,7 +31,7 @@ class TasksContainer extends React.Component {
       pendingActions: {}
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -59,7 +59,7 @@ class TasksContainer extends React.Component {
   }
 
   handleServerAction(payload) {
-    const {action} = payload;
+    const { action } = payload;
 
     switch (action.type) {
       case REQUEST_MARATHON_TASK_KILL_ERROR:
@@ -75,7 +75,7 @@ class TasksContainer extends React.Component {
     if (key) {
       this.clearActionError(key);
     }
-    this.setState({modal: {}});
+    this.setState({ modal: {} });
   }
 
   fetchData() {
@@ -88,14 +88,18 @@ class TasksContainer extends React.Component {
    * @param {String} actionType
    */
   setPendingAction(actionType) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, true
+        pendingActions,
+        actionType,
+        true
       )
     });
   }
@@ -107,14 +111,18 @@ class TasksContainer extends React.Component {
    * @param  {Any} error
    */
   unsetPendingAction(actionType, error = null) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, error
+        actionErrors,
+        actionType,
+        error
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, false
+        pendingActions,
+        actionType,
+        false
       )
     });
 
@@ -125,11 +133,13 @@ class TasksContainer extends React.Component {
   }
 
   clearActionError(actionType) {
-    const {actionErrors} = this.state;
+    const { actionErrors } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       )
     });
   }
@@ -138,12 +148,12 @@ class TasksContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, {id})
+        modal: Object.assign({}, props, { id })
       });
     };
 
     return {
-      killTasks: (props) => set(ServiceActionItem.KILL_TASKS, props)
+      killTasks: props => set(ServiceActionItem.KILL_TASKS, props)
     };
   }
 
@@ -163,16 +173,19 @@ class TasksContainer extends React.Component {
         clearError={this.clearActionError}
         onClose={this.handleModalClose}
         pendingActions={this.state.pendingActions}
-        modalProps={modalProps} />
+        modalProps={modalProps}
+      />
     );
   }
 
   render() {
     return (
       <div>
-        <TasksView service={this.props.service}
+        <TasksView
+          service={this.props.service}
           params={this.props.params}
-          tasks={this.props.tasks} />
+          tasks={this.props.tasks}
+        />
         {this.getModals()}
       </div>
     );

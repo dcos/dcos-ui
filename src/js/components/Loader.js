@@ -1,5 +1,5 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 /*
  * Example usage:
@@ -8,9 +8,9 @@ import React from 'react';
 
 // Available types:
 const typeMap = {
-  ballBeat: {className: 'ball-beat', divCount: 3},
-  ballScale: {className: 'ball-scale', divCount: 1},
-  ballSpinFadeLoader: {className: 'ball-spin-fade-loader', divCount: 8}
+  ballBeat: { className: "ball-beat", divCount: 3 },
+  ballScale: { className: "ball-scale", divCount: 1 },
+  ballSpinFadeLoader: { className: "ball-spin-fade-loader", divCount: 8 }
 
   /* Other available loaders: */
   // ballClipRotate: {className: 'ball-clip-rotate', divCount: 1},
@@ -44,23 +44,20 @@ const typeMap = {
 
 class Loader extends React.Component {
   getDivs(length) {
-    return Array.from({length}).map(function (_, index) {
+    return Array.from({ length }).map(function(_, index) {
       return <div className="loader-element" key={index} />;
     });
   }
 
   render() {
-    const {className, innerClassName, size, type} = this.props;
+    const { className, innerClassName, size, type } = this.props;
     const config = typeMap[type] || typeMap.ballScale;
-    const classes = classNames(
-      'loader horizontal-center',
-      className
-    );
+    const classes = classNames("loader horizontal-center", className);
 
     const innerClasses = classNames(
       config.className,
       {
-        'loader-small': size === 'small'
+        "loader-small": size === "small"
       },
       innerClassName
     );
@@ -76,9 +73,9 @@ class Loader extends React.Component {
 }
 
 Loader.defaultProps = {
-  className: '',
-  innerClassName: '',
-  type: 'ballScale'
+  className: "",
+  innerClassName: "",
+  type: "ballScale"
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -90,8 +87,8 @@ const classPropType = React.PropTypes.oneOfType([
 Loader.propTypes = {
   className: classPropType,
   innerClassName: classPropType,
-  size: React.PropTypes.oneOf(['small']),
-  type: React.PropTypes.oneOf(['ballBeat', 'ballScale', 'ballSpinFadeLoader'])
+  size: React.PropTypes.oneOf(["small"]),
+  type: React.PropTypes.oneOf(["ballBeat", "ballScale", "ballSpinFadeLoader"])
 };
 
 module.exports = Loader;

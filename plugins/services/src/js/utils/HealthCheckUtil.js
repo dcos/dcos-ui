@@ -1,7 +1,7 @@
-import HealthCheckProtocols from '../constants/HealthCheckProtocols';
+import HealthCheckProtocols from "../constants/HealthCheckProtocols";
 
 module.exports = {
   isKnownProtocol(protocol) {
-    return ['', ...Object.values(HealthCheckProtocols)].includes(protocol);
+    return ["", ...Object.values(HealthCheckProtocols)].includes(protocol);
   }
 };

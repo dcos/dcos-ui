@@ -1,40 +1,31 @@
-require('../_support/utils/ServicesUtil');
-const {Timeouts} = require('../_support/constants');
+require("../_support/utils/ServicesUtil");
+const { Timeouts } = require("../_support/constants");
 
-describe('Services', function () {
-
+describe("Services", function() {
   /**
    * Test the applications
    */
-  describe('Applications', function () {
-
-    beforeEach(function () {
-      cy
-        .visitUrl(`services/overview/%2F${Cypress.env('TEST_UUID')}/create`);
+  describe("Applications", function() {
+    beforeEach(function() {
+      cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
     });
 
     function selectMesosRuntime() {
-      cy
-        .contains('More Settings')
-        .click();
-      cy
-        .contains('Mesos Runtime')
-        .click();
+      cy.contains("More Settings").click();
+      cy.contains("Mesos Runtime").click();
     }
 
-    it('Create a simple app', function () {
-      const serviceName = 'app-with-inline-shell-script';
-      const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
+    it("Create a simple app", function() {
+      const serviceName = "app-with-inline-shell-script";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -42,101 +33,85 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}10');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'mem': 10,
-          'instances': 1
-        }]);
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          mem: 10,
+          instances: 1
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Mesos Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('10 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should('exist');
-
+        .should("exist");
     });
 
-    it('Creates an app with artifacts', function () {
-      const serviceName = 'app-with-artifacts';
-      const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
+    it("Creates an app with artifacts", function() {
+      const serviceName = "app-with-artifacts";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -145,497 +120,397 @@ describe('Services', function () {
       //   .getFormGroupInputFor('CPUs *')
       //   .type('{selectall}0.1');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}10');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Use some artifacts
-      cy
-        .contains('Add Artifact')
-        .click();
+      cy.contains("Add Artifact").click();
       cy
         .get('input[name="fetch.0.uri"]')
-        .type('http://lorempicsum.com/simpsons/600/400/1');
-      cy
-        .contains('Add Artifact')
-        .click();
+        .type("http://lorempicsum.com/simpsons/600/400/1");
+      cy.contains("Add Artifact").click();
       cy
         .get('input[name="fetch.1.uri"]')
-        .type('http://lorempicsum.com/simpsons/600/400/2');
-      cy
-        .contains('Add Artifact')
-        .click();
+        .type("http://lorempicsum.com/simpsons/600/400/2");
+      cy.contains("Add Artifact").click();
       cy
         .get('input[name="fetch.2.uri"]')
-        .type('http://lorempicsum.com/simpsons/600/400/3');
+        .type("http://lorempicsum.com/simpsons/600/400/3");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'mem': 10,
-          'instances': 1,
-          'fetch': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          mem: 10,
+          instances: 1,
+          fetch: [
             {
-              'uri': 'http://lorempicsum.com/simpsons/600/400/1'
+              uri: "http://lorempicsum.com/simpsons/600/400/1"
             },
             {
-              'uri': 'http://lorempicsum.com/simpsons/600/400/2'
+              uri: "http://lorempicsum.com/simpsons/600/400/2"
             },
             {
-              'uri': 'http://lorempicsum.com/simpsons/600/400/3'
+              uri: "http://lorempicsum.com/simpsons/600/400/3"
             }
           ]
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Mesos Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('10 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Image')
-        .contains('Not Supported');
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("Not Supported");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Command')
+        .configurationSection("General")
+        .configurationMapValue("Command")
         .contains(cmdline);
       cy
         .root()
-        .configurationSection('Container Artifacts')
-        .children('table')
-        .getTableColumn('Artifact URI')
+        .configurationSection("Container Artifacts")
+        .children("table")
+        .getTableColumn("Artifact URI")
         .contents()
-        .should('deep.equal', [
-          'http://lorempicsum.com/simpsons/600/400/1',
-          'http://lorempicsum.com/simpsons/600/400/2',
-          'http://lorempicsum.com/simpsons/600/400/3'
+        .should("deep.equal", [
+          "http://lorempicsum.com/simpsons/600/400/1",
+          "http://lorempicsum.com/simpsons/600/400/2",
+          "http://lorempicsum.com/simpsons/600/400/3"
         ]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Creates an app with command health check', function () {
-      const serviceName = 'app-with-command-health-check';
+    it("Creates an app with command health check", function() {
+      const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy
-        .root()
-        .getFormGroupInputFor('Container Image')
-        .type('nginx');
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
       // cy
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}32');
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
       // Select Networking section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Networking')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy
-        .root()
-        .getFormGroupInputFor('Network Type')
-        .select('Bridge');
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
-      cy
-        .contains('Add Service Endpoint')
-        .click();
-      cy
-        .root()
-        .getFormGroupInputFor('Container Port')
-        .type('80');
+      cy.contains("Add Service Endpoint").click();
+      cy.root().getFormGroupInputFor("Container Port").type("80");
 
       // Switch to health checks
-      cy
-        .contains('Health Checks')
-        .click();
+      cy.contains("Health Checks").click();
 
       // Add a health check
-      cy
-        .contains('Add Health Check')
-        .click();
-      cy
-        .root()
-        .getFormGroupInputFor('Protocol')
-        .select('Command');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type('sleep 5; exit 0');
+      cy.contains("Add Health Check").click();
+      cy.root().getFormGroupInputFor("Protocol").select("Command");
+      cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'instances': 1,
-          'container': {
-            'type': 'DOCKER',
-            'docker': {
-              'image': 'nginx',
-              'network': 'BRIDGE',
-              'portMappings': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          instances: 1,
+          container: {
+            type: "DOCKER",
+            docker: {
+              image: "nginx",
+              network: "BRIDGE",
+              portMappings: [
                 {
-                  'containerPort': 80,
-                  'hostPort': 0,
-                  'protocol': 'tcp'
+                  containerPort: 80,
+                  hostPort: 0,
+                  protocol: "tcp"
                 }
               ]
             }
           },
-          'cpus': 0.1,
-          'mem': 32,
-          'healthChecks': [
+          cpus: 0.1,
+          mem: 32,
+          healthChecks: [
             {
-              'protocol': 'COMMAND',
-              'command': {
-                'value': 'sleep 5; exit 0'
+              protocol: "COMMAND",
+              command: {
+                value: "sleep 5; exit 0"
               }
             }
           ]
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Docker Engine');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Docker Engine");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('32 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Image')
-        .contains('nginx');
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("nginx");
       cy
         .root()
-        .configurationSection('Network')
-        .configurationMapValue('Network Type')
-        .contains('BRIDGE');
+        .configurationSection("Network")
+        .configurationMapValue("Network Type")
+        .contains("BRIDGE");
 
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .getTableRowThatContains('80')
-        .should('exist');
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("80")
+        .should("exist");
 
       cy
         .root()
-        .configurationSection('Command Health Checks')
-        .getTableRowThatContains('sleep 5; exit 0')
-        .should('exist');
+        .configurationSection("Command Health Checks")
+        .getTableRowThatContains("sleep 5; exit 0")
+        .should("exist");
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and look for health
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .get('.bar.healthy', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Create an app with docker config', function () {
-      const serviceName = 'app-with-docker-config';
-      const cmdline = 'python3 -m http.server 8080';
+    it("Create an app with docker config", function() {
+      const serviceName = "app-with-docker-config";
+      const cmdline = "python3 -m http.server 8080";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy
-        .root()
-        .getFormGroupInputFor('Container Image')
-        .type('python:3');
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
       // cy
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}32');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Networking')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy
-        .root()
-        .getFormGroupInputFor('Network Type')
-        .select('Bridge');
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
-      cy
-        .contains('Add Service Endpoint')
-        .click();
+      cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy
-        .root()
-        .getFormGroupInputFor('Container Port')
-        .type('8080');
-      cy
-        .root()
-        .getFormGroupInputFor('Service Endpoint Name')
-        .type('http');
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'instances': 1,
-          'mem': 32,
-          'container': {
-            'type': 'DOCKER',
-            'docker': {
-              'image': 'python:3',
-              'network': 'BRIDGE',
-              'portMappings': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          instances: 1,
+          mem: 32,
+          container: {
+            type: "DOCKER",
+            docker: {
+              image: "python:3",
+              network: "BRIDGE",
+              portMappings: [
                 {
-                  'name': 'http',
-                  'hostPort': 0,
-                  'containerPort': 8080,
-                  'protocol': 'tcp'
+                  name: "http",
+                  hostPort: 0,
+                  containerPort: 8080,
+                  protocol: "tcp"
                 }
               ]
             }
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Docker Engine');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Docker Engine");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('32 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Image')
-        .contains('python:3');
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("python:3");
 
       cy
         .root()
-        .configurationSection('Network')
-        .configurationMapValue('Network Type')
-        .contains('BRIDGE');
+        .configurationSection("Network")
+        .configurationMapValue("Network Type")
+        .contains("BRIDGE");
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .getTableRowThatContains('http')
-        .should('exist');
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("http")
+        .should("exist");
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .getTableRowThatContains('8080')
-        .should('exist');
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("8080")
+        .should("exist");
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and wait until it's Running
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Create an app with environment variables', function () {
-      const serviceName = 'app-with-environment-variables';
-      const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
+    it("Create an app with environment variables", function() {
+      const serviceName = "app-with-environment-variables";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -643,185 +518,135 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}10');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Select Environment section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Environment')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
-      cy
-        .contains('Add Environment Variable')
-        .click();
-      cy
-        .get('input[name="env.0.key"]')
-        .type('camelCase');
-      cy
-        .get('input[name="env.0.value"]')
-        .type('test');
+      cy.contains("Add Environment Variable").click();
+      cy.get('input[name="env.0.key"]').type("camelCase");
+      cy.get('input[name="env.0.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Environment Variable')
-        .click();
-      cy
-        .get('input[name="env.1.key"]')
-        .type('snake_case');
-      cy
-        .get('input[name="env.1.value"]')
-        .type('test');
+      cy.contains("Add Environment Variable").click();
+      cy.get('input[name="env.1.key"]').type("snake_case");
+      cy.get('input[name="env.1.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Environment Variable')
-        .click();
-      cy
-        .get('input[name="env.2.key"]')
-        .type('lowercase');
-      cy
-        .get('input[name="env.2.value"]')
-        .type('test');
+      cy.contains("Add Environment Variable").click();
+      cy.get('input[name="env.2.key"]').type("lowercase");
+      cy.get('input[name="env.2.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Environment Variable')
-        .click();
-      cy
-        .get('input[name="env.3.key"]')
-        .type('UPPERCASE');
-      cy
-        .get('input[name="env.3.value"]')
-        .type('test');
+      cy.contains("Add Environment Variable").click();
+      cy.get('input[name="env.3.key"]').type("UPPERCASE");
+      cy.get('input[name="env.3.value"]').type("test");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'mem': 10,
-          'instances': 1,
-          'env': {
-            'camelCase': 'test',
-            'snake_case': 'test',
-            'lowercase': 'test',
-            'UPPERCASE': 'test'
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          mem: 10,
+          instances: 1,
+          env: {
+            camelCase: "test",
+            snake_case: "test",
+            lowercase: "test",
+            UPPERCASE: "test"
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Mesos Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('10 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection('Environment Variables')
-        .children('table')
-        .getTableColumn('Key')
+        .configurationSection("Environment Variables")
+        .children("table")
+        .getTableColumn("Key")
         .contents()
-        .should('deep.equal', [
-          'camelCase',
-          'snake_case',
-          'lowercase',
-          'UPPERCASE'
+        .should("deep.equal", [
+          "camelCase",
+          "snake_case",
+          "lowercase",
+          "UPPERCASE"
         ]);
       cy
         .root()
-        .configurationSection('Environment Variables')
-        .children('table')
-        .getTableColumn('Value')
+        .configurationSection("Environment Variables")
+        .children("table")
+        .getTableColumn("Value")
         .contents()
-        .should('deep.equal', [
-          'test',
-          'test',
-          'test',
-          'test'
-        ]);
+        .should("deep.equal", ["test", "test", "test", "test"]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and wait until it's Running
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Create an app with external volume', function () {
-      const serviceName = 'app-with-external-volume';
-      const cmdline = 'while true ; do echo \'test\' > test/echo ; sleep 100 ; done';
-      const volumeName = `integration-test-dcos-ui-${Cypress.env('TEST_UUID')}`;
+    it("Create an app with external volume", function() {
+      const serviceName = "app-with-external-volume";
+      const cmdline =
+        "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
+      const volumeName = `integration-test-dcos-ui-${Cypress.env("TEST_UUID")}`;
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -829,179 +654,138 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}64');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Select Volumes section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Volumes')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
-      cy
-        .contains('Add External Volume')
-        .click();
-      cy
-        .root()
-        .getFormGroupInputFor('Name')
-        .type(volumeName);
-      cy
-        .root()
-        .getFormGroupInputFor('Size (GiB)')
-        .type('1');
-      cy
-        .root()
-        .getFormGroupInputFor('Container Path')
-        .type('test');
+      cy.contains("Add External Volume").click();
+      cy.root().getFormGroupInputFor("Name").type(volumeName);
+      cy.root().getFormGroupInputFor("Size (GiB)").type("1");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'instances': 1,
-          'cpus': 0.1,
-          'mem': 64,
-          'cmd': cmdline,
-          'container': {
-            'volumes': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          instances: 1,
+          cpus: 0.1,
+          mem: 64,
+          cmd: cmdline,
+          container: {
+            volumes: [
               {
-                'containerPath': 'test',
-                'external': {
-                  'name': volumeName,
-                  'provider': 'dvdi',
-                  'options': {
-                    'dvdi/driver': 'rexray'
+                containerPath: "test",
+                external: {
+                  name: volumeName,
+                  provider: "dvdi",
+                  options: {
+                    "dvdi/driver": "rexray"
                   },
-                  'size': 1
+                  size: 1
                 },
-                'mode': 'RW'
+                mode: "RW"
               }
             ],
-            'type': 'MESOS'
+            type: "MESOS"
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Universal Container Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Universal Container Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('64 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("64 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Volume')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Volume")
         .contents()
-        .should('deep.equal', [
-          `External (${volumeName})`
-        ]);
+        .should("deep.equal", [`External (${volumeName})`]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Size')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Size")
         .contents()
-        .should('deep.equal', [
-          '1 GiB'
-        ]);
+        .should("deep.equal", ["1 GiB"]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Mode')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Mode")
         .contents()
-        .should('deep.equal', [
-          'RW'
-        ]);
+        .should("deep.equal", ["RW"]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Container Mount Path')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Container Mount Path")
         .contents()
-        .should('deep.equal', [
-          'test'
-        ]);
+        .should("deep.equal", ["test"]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and wait until it's Running
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Create an app with HTTP health check', function () {
-      const serviceName = 'app-with-http-health-check';
+    it("Create an app with HTTP health check", function() {
+      const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -1009,212 +793,158 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}32');
-      cy
-        .root()
-        .getFormGroupInputFor('Container Image')
-        .type('nginx');
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
 
       // Select Networking section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Networking')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy
-        .root()
-        .getFormGroupInputFor('Network Type')
-        .select('Bridge');
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
-      cy
-        .contains('Add Service Endpoint')
-        .click();
+      cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy
-        .root()
-        .getFormGroupInputFor('Container Port')
-        .type('80');
-      cy
-        .root()
-        .getFormGroupInputFor('Service Endpoint Name')
-        .type('http');
+      cy.root().getFormGroupInputFor("Container Port").type("80");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Switch to health checks
-      cy
-        .contains('Health Checks')
-        .click();
+      cy.contains("Health Checks").click();
 
       // Add a health check
-      cy
-        .contains('Add Health Check')
-        .click();
-      cy
-        .root()
-        .getFormGroupInputFor('Protocol')
-        .select('HTTP');
-      cy
-        .root()
-        .getFormGroupInputFor('Service Endpoint')
-        .select('http');
-      cy
-        .root()
-        .getFormGroupInputFor('Path')
-        .type('/');
+      cy.contains("Add Health Check").click();
+      cy.root().getFormGroupInputFor("Protocol").select("HTTP");
+      cy.root().getFormGroupInputFor("Service Endpoint").select("http");
+      cy.root().getFormGroupInputFor("Path").type("/");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cpus': 0.1,
-          'mem': 32,
-          'instances': 1,
-          'healthChecks': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cpus: 0.1,
+          mem: 32,
+          instances: 1,
+          healthChecks: [
             {
-              'portIndex': 0,
-              'protocol': 'MESOS_HTTP',
-              'path': '/'
+              portIndex: 0,
+              protocol: "MESOS_HTTP",
+              path: "/"
             }
           ],
-          'container': {
-            'type': 'DOCKER',
-            'docker': {
-              'image': 'nginx',
-              'network': 'BRIDGE',
-              'portMappings': [
+          container: {
+            type: "DOCKER",
+            docker: {
+              image: "nginx",
+              network: "BRIDGE",
+              portMappings: [
                 {
-                  'name': 'http',
-                  'hostPort': 0,
-                  'containerPort': 80,
-                  'protocol': 'tcp'
+                  name: "http",
+                  hostPort: 0,
+                  containerPort: 80,
+                  protocol: "tcp"
                 }
               ]
             }
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Docker Engine');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Docker Engine");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('32 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Image')
-        .contains('nginx');
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("nginx");
 
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .children('table')
-        .getTableColumn('Name')
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Name")
         .contents()
-        .should('deep.equal', [
-          'http'
-        ]);
+        .should("deep.equal", ["http"]);
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .children('table')
-        .getTableColumn('Protocol')
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Protocol")
         .contents()
-        .should('deep.equal', [
-          'tcp'
-        ]);
+        .should("deep.equal", ["tcp"]);
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .children('table')
-        .getTableColumn('Container Port')
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Container Port")
         .contents()
-        .should('deep.equal', [
-          '80'
-        ]);
+        .should("deep.equal", ["80"]);
       cy
         .root()
-        .configurationSection('Service Endpoints')
-        .children('table')
-        .getTableColumn('Host Port')
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Host Port")
         .contents()
-        .should('deep.equal', [
-          '0'
-        ]);
+        .should("deep.equal", ["0"]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and look for health
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .get('.bar.healthy', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
 
-    it('Create an app with labels', function () {
-      const serviceName = 'app-with-labels';
-      const cmdline = 'while true; do echo \'test\' ; sleep 100 ; done';
+    it("Create an app with labels", function() {
+      const serviceName = "app-with-labels";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -1222,183 +952,133 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}10');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Select Environment section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Environment')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
-      cy
-        .contains('Add Label')
-        .click();
-      cy
-        .get('input[name="labels.0.key"]')
-        .type('camelCase');
-      cy
-        .get('input[name="labels.0.value"]')
-        .type('test');
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.0.key"]').type("camelCase");
+      cy.get('input[name="labels.0.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Label')
-        .click();
-      cy
-        .get('input[name="labels.1.key"]')
-        .type('snake_case');
-      cy
-        .get('input[name="labels.1.value"]')
-        .type('test');
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.1.key"]').type("snake_case");
+      cy.get('input[name="labels.1.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Label')
-        .click();
-      cy
-        .get('input[name="labels.2.key"]')
-        .type('lowercase');
-      cy
-        .get('input[name="labels.2.value"]')
-        .type('test');
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.2.key"]').type("lowercase");
+      cy.get('input[name="labels.2.value"]').type("test");
 
       // Add an environment variable
-      cy
-        .contains('Add Label')
-        .click();
-      cy
-        .get('input[name="labels.3.key"]')
-        .type('UPPERCASE');
-      cy
-        .get('input[name="labels.3.value"]')
-        .type('test');
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.3.key"]').type("UPPERCASE");
+      cy.get('input[name="labels.3.value"]').type("test");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'mem': 10,
-          'instances': 1,
-          'labels': {
-            'camelCase': 'test',
-            'snake_case': 'test',
-            'lowercase': 'test',
-            'UPPERCASE': 'test'
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          mem: 10,
+          instances: 1,
+          labels: {
+            camelCase: "test",
+            snake_case: "test",
+            lowercase: "test",
+            UPPERCASE: "test"
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Mesos Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('10 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection('Labels')
-        .children('table')
-        .getTableColumn('Key')
+        .configurationSection("Labels")
+        .children("table")
+        .getTableColumn("Key")
         .contents()
-        .should('deep.equal', [
-          'camelCase',
-          'snake_case',
-          'lowercase',
-          'UPPERCASE'
+        .should("deep.equal", [
+          "camelCase",
+          "snake_case",
+          "lowercase",
+          "UPPERCASE"
         ]);
       cy
         .root()
-        .configurationSection('Labels')
-        .children('table')
-        .getTableColumn('Value')
+        .configurationSection("Labels")
+        .children("table")
+        .getTableColumn("Value")
         .contents()
-        .should('deep.equal', [
-          'test',
-          'test',
-          'test',
-          'test'
-        ]);
+        .should("deep.equal", ["test", "test", "test", "test"]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and wait until it's Running
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should('exist');
-
+        .should("exist");
     });
 
-    it('Create an app with persistent volume', function () {
-      const serviceName = 'app-with-persistent-volume';
-      const cmdline = 'while true ; do echo \'test\' > test/echo ; sleep 100 ; done';
+    it("Create an app with persistent volume", function() {
+      const serviceName = "app-with-persistent-volume";
+      const cmdline =
+        "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
 
       // Select 'Single Container'
-      cy
-        .contains('Single Container')
-        .click();
+      cy.contains("Single Container").click();
 
       // Fill-in the input elements
       cy
         .root()
-        .getFormGroupInputFor('Service ID *')
+        .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       //
       // TODO: Due to a bug in cypress you cannot type values with dots
@@ -1406,166 +1086,125 @@ describe('Services', function () {
       //   .get('input[name=cpus]')
       //   .type('{selectall}0.5');
       //
-      cy
-        .root()
-        .getFormGroupInputFor('Memory (MiB) *')
-        .type('{selectall}10');
-      cy
-        .root()
-        .getFormGroupInputFor('Command')
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select mesos runtime
       selectMesosRuntime();
 
       // Select Volumes section
-      cy
-        .root()
-        .get('.menu-tabbed-item')
-        .contains('Volumes')
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
-      cy
-        .contains('Add Local Volume')
-        .click();
-      cy
-        .root()
-        .getFormGroupInputFor('Volume Type')
-        .select('Persistent Volume');
-      cy
-        .root()
-        .getFormGroupInputFor('Size (MiB)')
-        .type('128');
-      cy
-        .root()
-        .getFormGroupInputFor('Container Path')
-        .type('test');
+      cy.contains("Add Local Volume").click();
+      cy.root().getFormGroupInputFor("Volume Type").select("Persistent Volume");
+      cy.root().getFormGroupInputFor("Size (MiB)").type("128");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
-      cy
-        .contains('JSON Editor')
-        .click();
+      cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy
-        .get('#brace-editor')
-        .contents()
-        .asJson()
-        .should('deep.equal', [{
-          'id': `/${Cypress.env('TEST_UUID')}/${serviceName}`,
-          'cmd': cmdline,
-          'cpus': 0.1,
-          'mem': 10,
-          'instances': 1,
-          'container': {
-            'volumes': [
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.1,
+          mem: 10,
+          instances: 1,
+          container: {
+            volumes: [
               {
-                'persistent': {
-                  'size': 128
+                persistent: {
+                  size: 128
                 },
-                'mode': 'RW',
-                'containerPath': 'test'
+                mode: "RW",
+                containerPath: "test"
               }
             ],
-            'type': 'MESOS'
+            type: "MESOS"
           },
-          'residency': {
-            'relaunchEscalationTimeoutSeconds': 10,
-            'taskLostBehavior': 'WAIT_FOREVER'
+          residency: {
+            relaunchEscalationTimeoutSeconds: 10,
+            taskLostBehavior: "WAIT_FOREVER"
           }
-        }]);
+        }
+      ]);
 
       // Click Review and Run
-      cy
-        .contains('Review & Run')
-        .click();
+      cy.contains("Review & Run").click();
 
       // Verify the review screen
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Service ID')
-        .contains(`/${Cypress.env('TEST_UUID')}/${serviceName}`);
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Container Runtime')
-        .contains('Universal Container Runtime');
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Universal Container Runtime");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('CPU')
-        .contains('0.1');
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.1");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Memory')
-        .contains('10 MiB');
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
       cy
         .root()
-        .configurationSection('General')
-        .configurationMapValue('Disk')
-        .contains('Not Configured');
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Volume')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Volume")
         .contents()
-        .should('deep.equal', [
-          'Persistent Local'
-        ]);
+        .should("deep.equal", ["Persistent Local"]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Size')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Size")
         .contents()
-        .should('deep.equal', [
-          '128 MiB'
-        ]);
+        .should("deep.equal", ["128 MiB"]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Mode')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Mode")
         .contents()
-        .should('deep.equal', [
-          'RW'
-        ]);
+        .should("deep.equal", ["RW"]);
       cy
         .root()
-        .configurationSection('Storage')
-        .children('table')
-        .getTableColumn('Container Mount Path')
+        .configurationSection("Storage")
+        .children("table")
+        .getTableColumn("Container Mount Path")
         .contents()
-        .should('deep.equal', [
-          'test'
-        ]);
+        .should("deep.equal", ["test"]);
 
       // Run service
-      cy
-        .get('button.button-primary')
-        .contains('Run Service')
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
 
       // Get the table row and wait until it's Running
       cy
-        .get('.page-body-content table')
+        .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .contains('Running', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
-        .should('exist');
-
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
     });
-
   });
-
 });

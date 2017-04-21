@@ -1,14 +1,14 @@
-import {SET} from '#SRC/js/constants/TransactionTypes';
+import { SET } from "#SRC/js/constants/TransactionTypes";
 
 module.exports = {
-  JSONReducer(state, {path, type, value}) {
+  JSONReducer(state, { path, type, value }) {
     const [_base, index, field] = path;
 
     if (!this.requriePorts) {
       this.requriePorts = [];
     }
 
-    if (field === 'hostPort' && type === SET) {
+    if (field === "hostPort" && type === SET) {
       this.requriePorts[index] = value > 0;
     }
 

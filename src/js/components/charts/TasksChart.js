@@ -1,19 +1,19 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import React from 'react';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import React from "react";
 
-import Chart from './Chart';
-import DialChart from './DialChart';
+import Chart from "./Chart";
+import DialChart from "./DialChart";
 
 const TASKS_PER_ROW = 3;
 const TASK_INFO = {
-  'TASK_RUNNING': {label: 'Tasks running', colorIndex: 4},
-  'TASK_STAGING': {label: 'Tasks staging', colorIndex: 1}
+  TASK_RUNNING: { label: "Tasks running", colorIndex: 4 },
+  TASK_STAGING: { label: "Tasks staging", colorIndex: 1 }
 };
 const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
 function getEmptyTaskData() {
-  return DISPLAYED_TASK_KEYS.map(function (key) {
+  return DISPLAYED_TASK_KEYS.map(function(key) {
     return {
       name: key,
       colorIndex: TASK_INFO[key].colorIndex,
@@ -23,8 +23,7 @@ function getEmptyTaskData() {
 }
 
 var TasksChart = React.createClass({
-
-  displayName: 'TasksChart',
+  displayName: "TasksChart",
 
   propTypes: {
     // {TASK_RUNNING: 0, TASK_STAGING: 4}
@@ -46,22 +45,22 @@ var TasksChart = React.createClass({
 
     var numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
-    return DISPLAYED_TASK_KEYS.map(function (key) {
+    return DISPLAYED_TASK_KEYS.map(function(key) {
       const info = TASK_INFO[key];
-      var task = tasks.find(function (task) {
+      var task = tasks.find(function(task) {
         return task.name === key;
       });
       if (task === undefined) {
         task = { value: 0 };
       }
       var classes = {
-        'unit-bordered-horizontal-small text-align-center column-12': true
+        "unit-bordered-horizontal-small text-align-center column-12": true
       };
       // equalize columns for units
       if (numberOfTasks > TASKS_PER_ROW) {
-        classes['column-small-4'] = true;
+        classes["column-small-4"] = true;
       } else {
-        classes['column-small-' + (12 / numberOfTasks)] = true;
+        classes["column-small-" + 12 / numberOfTasks] = true;
       }
       var classSet = classNames(classes);
 
@@ -70,7 +69,11 @@ var TasksChart = React.createClass({
           <p className="h1 unit flush-top">
             {task.value}
           </p>
-          <p className={'unit-label short-top flush-bottom path-color-' + info.colorIndex}>
+          <p
+            className={
+              "unit-label short-top flush-bottom path-color-" + info.colorIndex
+            }
+          >
             {info.label}
           </p>
         </div>
@@ -79,13 +82,13 @@ var TasksChart = React.createClass({
   },
 
   getTotal(tasks) {
-    return tasks.reduce(function (acc, task) {
+    return tasks.reduce(function(acc, task) {
       return acc + task.value;
     }, 0);
   },
 
   getTasks(tasks = {}) {
-    return DISPLAYED_TASK_KEYS.map(function (key) {
+    return DISPLAYED_TASK_KEYS.map(function(key) {
       return {
         colorIndex: TASK_INFO[key].colorIndex,
         name: key,
@@ -102,9 +105,7 @@ var TasksChart = React.createClass({
     }
 
     return (
-      <DialChart
-        data={tasks}
-        slices={getEmptyTaskData()}>
+      <DialChart data={tasks} slices={getEmptyTaskData()}>
         {this.getDialChartChildren(total)}
       </DialChart>
     );
@@ -133,7 +134,6 @@ var TasksChart = React.createClass({
       </div>
     );
   }
-
 });
 
 module.exports = TasksChart;

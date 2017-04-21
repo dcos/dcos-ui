@@ -1,9 +1,8 @@
-import Networking from '#SRC/js/constants/Networking';
+import Networking from "#SRC/js/constants/Networking";
 
-import HostUtil from '../utils/HostUtil';
+import HostUtil from "../utils/HostUtil";
 
 const ServiceConfigUtil = {
-
   matchVIPLabel(str) {
     return Networking.VIP_LABEL_REGEX.test(str);
   },
@@ -23,13 +22,13 @@ const ServiceConfigUtil = {
   },
 
   buildHostNameFromVipLabel(label, port) {
-    const [ipOrName, labelPort = ''] = label.split(':');
+    const [ipOrName, labelPort = ""] = label.split(":");
 
     // Sometimes we don't know the port yet
-    port = port || '<assigned port>';
+    port = port || "<assigned port>";
 
     // 0 means randomly assigned port
-    port = labelPort === '0' ? port : labelPort;
+    port = labelPort === "0" ? port : labelPort;
 
     // it seems to be an IP address
     if (/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(ipOrName)) {
@@ -40,7 +39,6 @@ const ServiceConfigUtil = {
 
     return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
   }
-
 };
 
 module.exports = ServiceConfigUtil;

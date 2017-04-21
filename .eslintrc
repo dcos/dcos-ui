@@ -46,6 +46,7 @@
   ],
 
   "rules": {
+    "prettier/prettier": "error",
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],

@@ -1,21 +1,22 @@
-import React from 'react';
-import {Tooltip} from 'reactjs-components';
+import React from "react";
+import { Tooltip } from "reactjs-components";
 
-import Icon from '../Icon';
-import StringUtil from '../../utils/StringUtil';
-import UserActions from '../../constants/UserActions';
+import Icon from "../Icon";
+import StringUtil from "../../utils/StringUtil";
+import UserActions from "../../constants/UserActions";
 
-const FormGroupContainer = (props) => {
+const FormGroupContainer = props => {
   let removeButton = null;
   if (props.onRemove != null) {
     removeButton = (
       <div className="form-group-container-action-button-group">
-        <Tooltip content={StringUtil.capitalize(UserActions.DELETE)}
+        <Tooltip
+          content={StringUtil.capitalize(UserActions.DELETE)}
           maxWidth={300}
-          wrapText={true}>
-          <a className="button button-primary-link"
-            onClick={props.onRemove}>
-            <Icon id="close" color="grey" size="tiny" family="tiny"/>
+          wrapText={true}
+        >
+          <a className="button button-primary-link" onClick={props.onRemove}>
+            <Icon id="close" color="grey" size="tiny" family="tiny" />
           </a>
         </Tooltip>
       </div>

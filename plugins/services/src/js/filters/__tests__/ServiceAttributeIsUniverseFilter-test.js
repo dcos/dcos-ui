@@ -1,52 +1,52 @@
-jest.dontMock('#SRC/js/structs/DSLFilterList');
-jest.dontMock('#SRC/resources/grammar/SearchDSL.jison');
-jest.dontMock('../ServiceAttributeIsUniverseFilter');
-jest.dontMock('#SRC/js/structs/List');
+jest.dontMock("#SRC/js/structs/DSLFilterList");
+jest.dontMock("#SRC/resources/grammar/SearchDSL.jison");
+jest.dontMock("../ServiceAttributeIsUniverseFilter");
+jest.dontMock("#SRC/js/structs/List");
 
-var Application = require('../../structs/Application');
-var DSLFilterList = require('#SRC/js/structs/DSLFilterList');
-var Framework = require('../../structs/Framework');
-var List = require('#SRC/js/structs/List');
-var Pod = require('../../structs/Pod');
-var SearchDSL = require('#SRC/resources/grammar/SearchDSL.jison');
-var ServiceAttributeIsUniverseFilter = require('../ServiceAttributeIsUniverseFilter');
+var Application = require("../../structs/Application");
+var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
+var Framework = require("../../structs/Framework");
+var List = require("#SRC/js/structs/List");
+var Pod = require("../../structs/Pod");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var ServiceAttributeIsUniverseFilter = require("../ServiceAttributeIsUniverseFilter");
 
-describe('ServiceAttributeIsUniverseFilter', function () {
-
-  beforeEach(function () {
-    this.mockItems = [
-      new Framework(),
-      new Application(),
-      new Pod()
-    ];
+describe("ServiceAttributeIsUniverseFilter", function() {
+  beforeEach(function() {
+    this.mockItems = [new Framework(), new Application(), new Pod()];
   });
 
-  it('Should match Framework instances', function () {
-    const services = new List({items: this.mockItems});
-    const expr = SearchDSL.parse('is:universe');
+  it("Should match Framework instances", function() {
+    const services = new List({ items: this.mockItems });
+    const expr = SearchDSL.parse("is:universe");
 
-    const filters = new DSLFilterList().add(new ServiceAttributeIsUniverseFilter());
+    const filters = new DSLFilterList().add(
+      new ServiceAttributeIsUniverseFilter()
+    );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]
     ]);
   });
 
-  it('Should correctly keep nothing on unknown values', function () {
-    const services = new List({items: this.mockItems});
-    const expr = SearchDSL.parse('is:foo');
+  it("Should correctly keep nothing on unknown values", function() {
+    const services = new List({ items: this.mockItems });
+    const expr = SearchDSL.parse("is:foo");
 
-    const filters = new DSLFilterList().add(new ServiceAttributeIsUniverseFilter());
+    const filters = new DSLFilterList().add(
+      new ServiceAttributeIsUniverseFilter()
+    );
 
-    expect(expr.filter(filters, services).getItems()).toEqual([
-    ]);
+    expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it('Should be case-insensitive', function () {
-    const services = new List({items: this.mockItems});
-    const expr = SearchDSL.parse('is:UniVErSe');
+  it("Should be case-insensitive", function() {
+    const services = new List({ items: this.mockItems });
+    const expr = SearchDSL.parse("is:UniVErSe");
 
-    const filters = new DSLFilterList().add(new ServiceAttributeIsUniverseFilter());
+    const filters = new DSLFilterList().add(
+      new ServiceAttributeIsUniverseFilter()
+    );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       this.mockItems[0]

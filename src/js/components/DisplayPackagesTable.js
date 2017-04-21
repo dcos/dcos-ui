@@ -1,21 +1,19 @@
-import {Table} from 'reactjs-components';
+import { Table } from "reactjs-components";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-medium@2x.png';
-import Image from './Image';
+import defaultServiceImage
+  from "../../../plugins/services/src/img/icon-service-default-medium@2x.png";
+import Image from "./Image";
 
-const METHODS_TO_BIND = [
-  'getDeployButton',
-  'getHeadline'
-];
+const METHODS_TO_BIND = ["getDeployButton", "getHeadline"];
 
 class DisplayPackagesTable extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -26,13 +24,13 @@ class DisplayPackagesTable extends React.Component {
     return [
       {
         heading,
-        prop: 'name',
+        prop: "name",
         render: this.getHeadline,
         sortable: false
       },
       {
         heading,
-        prop: 'deploy',
+        prop: "deploy",
         render: this.getDeployButton,
         sortable: false
       }
@@ -43,7 +41,7 @@ class DisplayPackagesTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col style={{width: '120px'}} />
+        <col style={{ width: "120px" }} />
       </colgroup>
     );
   }
@@ -53,19 +51,22 @@ class DisplayPackagesTable extends React.Component {
     let name = cosmosPackage.getName();
 
     // Remove initial slash if present
-    if (name.charAt(0) === '/') {
+    if (name.charAt(0) === "/") {
       name = name.slice(1);
     }
 
     return (
-      <div className="media-object-spacing-wrapper media-object-spacing-super-narrow clickable"
-        onClick={this.props.onDetailOpen.bind(this, cosmosPackage)}>
+      <div
+        className="media-object-spacing-wrapper media-object-spacing-super-narrow clickable"
+        onClick={this.props.onDetailOpen.bind(this, cosmosPackage)}
+      >
         <div className="media-object media-object-align-middle">
           <div className="media-object-item">
             <div className="icon icon-margin-right icon-large icon-image-container icon-app-container icon-default-white">
               <Image
                 fallbackSrc={defaultServiceImage}
-                src={packageImages['icon-large']} />
+                src={packageImages["icon-large"]}
+              />
             </div>
           </div>
           <div className="media-object-item">
@@ -90,7 +91,8 @@ class DisplayPackagesTable extends React.Component {
       <div className="flex-align-right">
         <button
           className="button button-success"
-          onClick={this.props.onDeploy.bind(this, packageToDeploy)}>
+          onClick={this.props.onDeploy.bind(this, packageToDeploy)}
+        >
           Install
         </button>
       </div>
@@ -103,7 +105,8 @@ class DisplayPackagesTable extends React.Component {
         className="table table-hover table-hide-header table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.props.packages.getItems().slice()} />
+        data={this.props.packages.getItems().slice()}
+      />
     );
   }
 }

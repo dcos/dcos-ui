@@ -1,4 +1,4 @@
-import TransactionTypes from '../constants/TransactionTypes';
+import TransactionTypes from "../constants/TransactionTypes";
 
 module.exports = {
   /**
@@ -25,15 +25,13 @@ module.exports = {
    *   the passed object, and builds a state object with the same shape.
    */
   combineReducers(reducers = {}) {
-    const reducerKeys = Object.keys(reducers).filter(
-      function (reducerKey) {
-        return typeof reducers[reducerKey] === 'function';
-      }
-    );
+    const reducerKeys = Object.keys(reducers).filter(function(reducerKey) {
+      return typeof reducers[reducerKey] === "function";
+    });
     // This is creating the context for this combined reducer.
     const context = new WeakMap();
 
-    return function (state, action, index = 0) {
+    return function(state, action, index = 0) {
       let reducerIndex = reducerKeys.length;
       const localState = Object.assign({}, state);
 
@@ -55,8 +53,12 @@ module.exports = {
         // reducer.bind(context.get(reducer))(state[key], action);
         // but it will not copy the function, which in this case is a huge
         // increase in performance.
-        localState[key] =
-          reducer.call(context.get(reducer), localState[key], action, index);
+        localState[key] = reducer.call(
+          context.get(reducer),
+          localState[key],
+          action,
+          index
+        );
       }
 
       return localState;
@@ -78,9 +80,9 @@ module.exports = {
     return value;
   },
 
-  simpleReducer(needle, defaultState = '') {
-    return function (state = defaultState, {path, type, value}) {
-      if (type === TransactionTypes.SET && path.join('.') === needle) {
+  simpleReducer(needle, defaultState = "") {
+    return function(state = defaultState, { path, type, value }) {
+      if (type === TransactionTypes.SET && path.join(".") === needle) {
         return value;
       }
 
@@ -88,10 +90,10 @@ module.exports = {
     };
   },
 
-  simpleIntReducer(needle, defaultState = '') {
-    return function (state = defaultState, {path, type, value}) {
+  simpleIntReducer(needle, defaultState = "") {
+    return function(state = defaultState, { path, type, value }) {
       const parsedValue = parseInt(value, 10);
-      if (type === TransactionTypes.SET && path.join('.') === needle) {
+      if (type === TransactionTypes.SET && path.join(".") === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;
         }
@@ -103,10 +105,10 @@ module.exports = {
     };
   },
 
-  simpleFloatReducer(needle, defaultState = '') {
-    return function (state = defaultState, {path, type, value}) {
+  simpleFloatReducer(needle, defaultState = "") {
+    return function(state = defaultState, { path, type, value }) {
       const parsedValue = parseFloat(value);
-      if (type === TransactionTypes.SET && path.join('.') === needle) {
+      if (type === TransactionTypes.SET && path.join(".") === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;
         }

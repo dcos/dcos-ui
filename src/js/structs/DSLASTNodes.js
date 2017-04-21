@@ -2,14 +2,12 @@
  * Base class for AST nodes in DSL, representing a token in the user input
  */
 class ASTNode {
-
   /**
    * @param {number} start - The starting point of the token in the input string
    * @param {number} end - The ending point of the token in the input string
    * @param {ASTNode[]} children - Child nodes to this node
    */
-  constructor(start, end, children=[]) {
-
+  constructor(start, end, children = []) {
     /**
      * The position array contains an array of tuples, containing the start-end
      * position of each relevant text portions that composes this token.
@@ -28,7 +26,6 @@ class ASTNode {
      * @var {Array}
      */
     this.children = children;
-
   }
 }
 
@@ -36,7 +33,6 @@ class ASTNode {
  * Combiner (operator) AST node
  */
 class CombinerNode extends ASTNode {
-
   /**
    * @param {DSLCombinerTypes} combinerType - The combiner type (AND, OR)
    * @param {ASTNode} child1 - The left-side operator
@@ -61,7 +57,6 @@ class CombinerNode extends ASTNode {
  * Filter (operand) AST node
  */
 class FilterNode extends ASTNode {
-
   /**
    * @param {number} start - The starting point of the token in the input string
    * @param {number} end - The ending point of the token in the input string

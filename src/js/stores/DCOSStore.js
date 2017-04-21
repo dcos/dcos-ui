@@ -1,39 +1,42 @@
-import {EventEmitter} from 'events';
-import PluginSDK, {Hooks} from 'PluginSDK';
+import { EventEmitter } from "events";
+import PluginSDK, { Hooks } from "PluginSDK";
 
 import {
   METRONOME_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE
-} from '../constants/EventTypes';
+} from "../constants/EventTypes";
 import {
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_GROUPS_CHANGE,
   MARATHON_QUEUE_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
-} from '../../../plugins/services/src/js/constants/EventTypes';
+} from "../../../plugins/services/src/js/constants/EventTypes";
 
-import DeclinedOffersUtil from '../../../plugins/services/src/js/utils/DeclinedOffersUtil';
-import DeploymentsList from '../../../plugins/services/src/js/structs/DeploymentsList';
-import Item from '../structs/Item';
-import Framework from '../../../plugins/services/src/js/structs/Framework';
-import JobTree from '../structs/JobTree';
-import MarathonStore from '../../../plugins/services/src/js/stores/MarathonStore';
-import MesosSummaryStore from './MesosSummaryStore';
-import MetronomeStore from './MetronomeStore';
-import NotificationStore from './NotificationStore';
-import ServiceTree from '../../../plugins/services/src/js/structs/ServiceTree';
-import SummaryList from '../structs/SummaryList';
+import DeclinedOffersUtil
+  from "../../../plugins/services/src/js/utils/DeclinedOffersUtil";
+import DeploymentsList
+  from "../../../plugins/services/src/js/structs/DeploymentsList";
+import Item from "../structs/Item";
+import Framework from "../../../plugins/services/src/js/structs/Framework";
+import JobTree from "../structs/JobTree";
+import MarathonStore
+  from "../../../plugins/services/src/js/stores/MarathonStore";
+import MesosSummaryStore from "./MesosSummaryStore";
+import MetronomeStore from "./MetronomeStore";
+import NotificationStore from "./NotificationStore";
+import ServiceTree from "../../../plugins/services/src/js/structs/ServiceTree";
+import SummaryList from "../structs/SummaryList";
 
 const METHODS_TO_BIND = [
-  'onMetronomeChange',
-  'onMarathonGroupsChange',
-  'onMarathonQueueChange',
-  'onMarathonDeploymentsChange',
-  'onMarathonServiceVersionChange',
-  'onMarathonServiceVersionsChange',
-  'onMesosSummaryChange'
+  "onMetronomeChange",
+  "onMarathonGroupsChange",
+  "onMarathonQueueChange",
+  "onMarathonDeploymentsChange",
+  "onMarathonServiceVersionChange",
+  "onMarathonServiceVersionsChange",
+  "onMesosSummaryChange"
 ];
 
 const EVENT_DEBOUNCE_TIME = 250;
@@ -52,7 +55,7 @@ class DCOSStore extends EventEmitter {
       listenAlways: true
     });
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -75,7 +78,7 @@ class DCOSStore extends EventEmitter {
   }
 
   getEvents() {
-    return {change: DCOS_CHANGE};
+    return { change: DCOS_CHANGE };
   }
 
   getTotalListenerCount() {
@@ -87,7 +90,7 @@ class DCOSStore extends EventEmitter {
   getProxyListeners() {
     let proxyListeners = [];
 
-    if (Hooks.applyFilter('hasCapability', false, 'metronomeAPI')) {
+    if (Hooks.applyFilter("hasCapability", false, "metronomeAPI")) {
       proxyListeners.push({
         event: METRONOME_JOBS_CHANGE,
         handler: this.onMetronomeChange,
@@ -95,7 +98,7 @@ class DCOSStore extends EventEmitter {
       });
     }
 
-    if (Hooks.applyFilter('hasCapability', false, 'mesosAPI')) {
+    if (Hooks.applyFilter("hasCapability", false, "mesosAPI")) {
       proxyListeners.push({
         event: MESOS_SUMMARY_CHANGE,
         handler: this.onMesosSummaryChange,
@@ -103,7 +106,7 @@ class DCOSStore extends EventEmitter {
       });
     }
 
-    if (Hooks.applyFilter('hasCapability', false, 'marathonAPI')) {
+    if (Hooks.applyFilter("hasCapability", false, "marathonAPI")) {
       proxyListeners = proxyListeners.concat([
         {
           event: MARATHON_DEPLOYMENTS_CHANGE,
@@ -157,27 +160,29 @@ class DCOSStore extends EventEmitter {
     if (!this.data.marathon.dataReceived) {
       return;
     }
-    const deploymentsList = MarathonStore.get('deployments');
-    const serviceTree = MarathonStore.get('groups');
+    const deploymentsList = MarathonStore.get("deployments");
+    const serviceTree = MarathonStore.get("groups");
 
     const deploymentListLength = deploymentsList.getItems().length;
     const currentDeploymentCount = NotificationStore.getNotificationCount(
-      'services-deployments'
+      "services-deployments"
     );
 
     if (deploymentListLength !== currentDeploymentCount) {
       NotificationStore.addNotification(
-        'services-deployments',
-        'deployment-count',
+        "services-deployments",
+        "deployment-count",
         deploymentListLength
       );
     }
 
     // Populate deployments with affected services
-    this.data.marathon.deploymentsList = deploymentsList
-      .mapItems(function (deployment) {
-        const ids = deployment.getAffectedServiceIds();
-        const services = ids.reduce(function (memo, id) {
+    this.data.marathon.deploymentsList = deploymentsList.mapItems(function(
+      deployment
+    ) {
+      const ids = deployment.getAffectedServiceIds();
+      const services = ids.reduce(
+        function(memo, id) {
           const service = serviceTree.findItemById(id);
           if (service != null) {
             memo.affected.push(service);
@@ -186,13 +191,18 @@ class DCOSStore extends EventEmitter {
           }
 
           return memo;
-        }, {affected: [], stale: []});
+        },
+        { affected: [], stale: [] }
+      );
 
-        return Object.assign({
+      return Object.assign(
+        {
           affectedServices: services.affected,
           staleServiceIds: services.stale
-        }, deployment);
-      });
+        },
+        deployment
+      );
+    });
 
     this.emit(DCOS_CHANGE);
   }
@@ -201,10 +211,10 @@ class DCOSStore extends EventEmitter {
     // Debounce specified events
     if ([DCOS_CHANGE].includes(eventType)) {
       clearTimeout(this.debouncedEvents.get(eventType));
-      this.debouncedEvents.set(eventType, setTimeout(
-        super.emit.bind(this, ...arguments),
-        EVENT_DEBOUNCE_TIME
-      ));
+      this.debouncedEvents.set(
+        eventType,
+        setTimeout(super.emit.bind(this, ...arguments), EVENT_DEBOUNCE_TIME)
+      );
 
       return;
     }
@@ -213,12 +223,12 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonGroupsChange() {
-    const serviceTree = MarathonStore.get('groups');
+    const serviceTree = MarathonStore.get("groups");
     if (!(serviceTree instanceof ServiceTree)) {
       return;
     }
 
-    const {marathon} = this.data;
+    const { marathon } = this.data;
 
     // Update service tree and data received flag
     marathon.serviceTree = serviceTree;
@@ -231,10 +241,10 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonQueueChange(nextQueue) {
-    const {marathon:{queue}} = this.data;
+    const { marathon: { queue } } = this.data;
 
     const queuedAppIDs = [];
-    nextQueue.forEach((entry) => {
+    nextQueue.forEach(entry => {
       if (entry.app == null && entry.pod == null) {
         return;
       }
@@ -256,7 +266,7 @@ class DCOSStore extends EventEmitter {
       queue.set(id, entry);
     });
 
-    queue.forEach((entry) => {
+    queue.forEach(entry => {
       let id = null;
 
       if (entry.pod != null) {
@@ -274,8 +284,8 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonServiceVersionChange(event) {
-    const {serviceID, versionID, version} = event;
-    const {marathon:{versions}} = this.data;
+    const { serviceID, versionID, version } = event;
+    const { marathon: { versions } } = this.data;
     let currentVersions = versions.get(serviceID);
 
     if (!currentVersions) {
@@ -289,8 +299,8 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonServiceVersionsChange(event) {
-    let {serviceID, versions:nextVersions} = event;
-    const {marathon:{versions}} = this.data;
+    let { serviceID, versions: nextVersions } = event;
+    const { marathon: { versions } } = this.data;
     const currentVersions = versions.get(serviceID);
 
     if (currentVersions) {
@@ -302,7 +312,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMesosSummaryChange() {
-    const states = MesosSummaryStore.get('states');
+    const states = MesosSummaryStore.get("states");
     if (!(states instanceof SummaryList)) {
       return;
     }
@@ -312,7 +322,7 @@ class DCOSStore extends EventEmitter {
   }
 
   onMetronomeChange() {
-    const {metronome} = this.data;
+    const { metronome } = this.data;
 
     // Update job tree and data received flag
     metronome.jobTree = MetronomeStore.jobTree;
@@ -322,13 +332,13 @@ class DCOSStore extends EventEmitter {
   }
 
   addProxyListeners() {
-    this.getProxyListeners().forEach(function (item) {
+    this.getProxyListeners().forEach(function(item) {
       item.store.addChangeListener(item.event, item.handler);
     });
   }
 
   removeProxyListeners() {
-    this.getProxyListeners().forEach(function (item) {
+    this.getProxyListeners().forEach(function(item) {
       item.store.removeChangeListener(item.event, item.handler);
     });
   }
@@ -392,20 +402,22 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    const {marathon:{serviceTree, queue, versions}, mesos} = this.data;
+    const { marathon: { serviceTree, queue, versions }, mesos } = this.data;
 
     // Create framework dict from Mesos data
-    const frameworks = mesos.lastSuccessful().getServiceList()
-      .reduceItems(function (memo, framework) {
+    const frameworks = mesos
+      .lastSuccessful()
+      .getServiceList()
+      .reduceItems(function(memo, framework) {
         if (framework instanceof Item) {
-          memo[framework.get('name')] = framework.get();
+          memo[framework.get("name")] = framework.get();
         }
 
         return memo;
       }, {});
 
     // Merge data by framework name, as  Marathon doesn't know framework ids.
-    return serviceTree.mapItems(function (item) {
+    return serviceTree.mapItems(function(item) {
       if (item instanceof ServiceTree) {
         return item;
       }
@@ -421,16 +433,11 @@ class DCOSStore extends EventEmitter {
       }
 
       if (item instanceof Item) {
-        return new item.constructor(
-          Object.assign(options, item.get())
-        );
+        return new item.constructor(Object.assign(options, item.get()));
       }
 
-      return new item.constructor(
-        Object.assign(options, item)
-      );
+      return new item.constructor(Object.assign(options, item));
     });
-
   }
 
   get jobDataReceived() {
@@ -442,7 +449,7 @@ class DCOSStore extends EventEmitter {
   }
 
   get storeID() {
-    return 'dcos';
+    return "dcos";
   }
 }
 

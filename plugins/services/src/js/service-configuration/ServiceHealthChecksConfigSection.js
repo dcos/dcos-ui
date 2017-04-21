@@ -1,19 +1,26 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
-import Util from '#SRC/js/utils/Util';
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import Util from "#SRC/js/utils/Util";
 
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
   getDisplayValue
-} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
-import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../constants/HealthCheckProtocols';
+} from "../utils/ServiceConfigDisplayUtil";
+import ConfigurationMapDurationValue
+  from "../components/ConfigurationMapDurationValue";
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
+import {
+  COMMAND,
+  MESOS_HTTP,
+  MESOS_HTTPS
+} from "../constants/HealthCheckProtocols";
 
 function renderDuration(prop, row) {
   const value = row[prop] || null;
@@ -22,7 +29,8 @@ function renderDuration(prop, row) {
     <ConfigurationMapDurationValue
       defaultValue={<em>Not Configured</em>}
       units="sec"
-      value={value} />
+      value={value}
+    />
   );
 }
 
@@ -31,22 +39,22 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
    * @override
    */
   shouldExcludeItem() {
-    const {appConfig} = this.props;
+    const { appConfig } = this.props;
 
-    return !Util.findNestedPropertyInObject(appConfig, 'healthChecks.length');
+    return !Util.findNestedPropertyInObject(appConfig, "healthChecks.length");
   }
 
   /**
    * @override
    */
   getDefinition() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
 
     return {
-      tabViewID: 'healthChecks',
+      tabViewID: "healthChecks",
       values: [
         {
-          key: 'healthChecks',
+          key: "healthChecks",
           render(healthChecks) {
             if (healthChecks.length === 0) {
               return null;
@@ -55,7 +63,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             return (
               <ConfigurationMapHeading
                 key="service-health-checks-heading"
-                level={1}>
+                level={1}
+              >
 
                 Health Checks
               </ConfigurationMapHeading>
@@ -63,18 +72,18 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
           }
         },
         {
-          key: 'healthChecks',
+          key: "healthChecks",
           render(healthChecks) {
             const serviceEndpointHealthChecks = healthChecks.filter(
-              (healthCheck) => {
+              healthCheck => {
                 return [MESOS_HTTP, MESOS_HTTPS].includes(healthCheck.protocol);
               }
             );
 
             const columns = [
               {
-                heading: getColumnHeadingFn('Protocol'),
-                prop: 'protocol',
+                heading: getColumnHeadingFn("Protocol"),
+                prop: "protocol",
                 render(prop, row) {
                   return (
                     <ConfigurationMapValue>
@@ -86,8 +95,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Path'),
-                prop: 'path',
+                heading: getColumnHeadingFn("Path"),
+                prop: "path",
                 className: getColumnClassNameFn(),
                 render(prop, row) {
                   return (
@@ -99,30 +108,30 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Grace Period'),
-                prop: 'gracePeriodSeconds',
+                heading: getColumnHeadingFn("Grace Period"),
+                prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Interval'),
-                prop: 'intervalSeconds',
+                heading: getColumnHeadingFn("Interval"),
+                prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Timeout'),
-                prop: 'timeoutSeconds',
+                heading: getColumnHeadingFn("Timeout"),
+                prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
                 className: getColumnClassNameFn(),
-                heading: getColumnHeadingFn('Max Failures'),
-                prop: 'maxConsecutiveFailures',
+                heading: getColumnHeadingFn("Max Failures"),
+                prop: "maxConsecutiveFailures",
                 render(prop, row) {
                   return (
                     <ConfigurationMapValue>
@@ -136,14 +145,17 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="healthChecks" />
+                      tabViewID="healthChecks"
+                    />
                   );
                 }
               });
@@ -156,7 +168,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             return [
               <ConfigurationMapHeading
                 key="service-endpoint-health-checks-heading"
-                level={2}>
+                level={2}
+              >
 
                 Service Endpoint Health Checks
               </ConfigurationMapHeading>,
@@ -164,21 +177,22 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="service-endpoint-health-checks"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={serviceEndpointHealthChecks} />
+                data={serviceEndpointHealthChecks}
+              />
             ];
           }
         },
         {
-          key: 'healthChecks',
+          key: "healthChecks",
           render(healthChecks) {
-            const commandHealthChecks = healthChecks.filter((healthCheck) => {
+            const commandHealthChecks = healthChecks.filter(healthCheck => {
               return healthCheck.protocol === COMMAND;
             });
 
             const columns = [
               {
-                heading: getColumnHeadingFn('Command'),
-                prop: 'command',
+                heading: getColumnHeadingFn("Command"),
+                prop: "command",
                 render: (prop, row) => {
                   const command = row[prop] || {};
                   const value = getDisplayValue(command.value);
@@ -198,30 +212,30 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Grace Period'),
-                prop: 'gracePeriodSeconds',
+                heading: getColumnHeadingFn("Grace Period"),
+                prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Interval'),
-                prop: 'intervalSeconds',
+                heading: getColumnHeadingFn("Interval"),
+                prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Timeout'),
-                prop: 'timeoutSeconds',
+                heading: getColumnHeadingFn("Timeout"),
+                prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
                 className: getColumnClassNameFn(),
-                heading: getColumnHeadingFn('Max Failures'),
-                prop: 'maxConsecutiveFailures',
+                heading: getColumnHeadingFn("Max Failures"),
+                prop: "maxConsecutiveFailures",
                 render(prop, row) {
                   return (
                     <ConfigurationMapValue>
@@ -235,14 +249,17 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="environment" />
+                      tabViewID="environment"
+                    />
                   );
                 }
               });
@@ -255,7 +272,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             return [
               <ConfigurationMapHeading
                 key="command-health-checks-heading"
-                level={2}>
+                level={2}
+              >
 
                 Command Health Checks
               </ConfigurationMapHeading>,

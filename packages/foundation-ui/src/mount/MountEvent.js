@@ -1,4 +1,3 @@
 module.exports = {
-  CHANGE: Symbol('change')
+  CHANGE: Symbol("change")
 };
-

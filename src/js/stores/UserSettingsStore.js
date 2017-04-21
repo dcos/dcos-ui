@@ -1,8 +1,8 @@
-import EventEmitter from 'events';
+import EventEmitter from "events";
 
-import LocalStorageUtil from '../utils/LocalStorageUtil';
+import LocalStorageUtil from "../utils/LocalStorageUtil";
 
-const LOCAL_STORAGE_KEY = 'dcosUserSettings';
+const LOCAL_STORAGE_KEY = "dcosUserSettings";
 
 function getLocalStorageObject() {
   const localStorageObject = LocalStorageUtil.get(LOCAL_STORAGE_KEY);
@@ -34,7 +34,7 @@ class UserSettingsStore extends EventEmitter {
   }
 
   get storeID() {
-    return 'userSettings';
+    return "userSettings";
   }
 }
 

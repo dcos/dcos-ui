@@ -1,8 +1,7 @@
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
 class FilterBar extends React.Component {
-
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -39,7 +38,7 @@ class FilterBar extends React.Component {
   }
 
   getFilterItems(filterItemArray) {
-    return filterItemArray.map(function (item, index) {
+    return filterItemArray.map(function(item, index) {
       return (
         <div className="filter-bar-item" key={index}>
           {item}
@@ -49,7 +48,7 @@ class FilterBar extends React.Component {
   }
 
   render() {
-    const {className, rightAlignLastNChildren} = this.props;
+    const { className, rightAlignLastNChildren } = this.props;
     const filterItems = React.Children.toArray(this.props.children);
 
     return (
@@ -69,10 +68,10 @@ FilterBar.propTypes = {
 };
 
 FilterBar.defaultProps = {
-  className: 'filter-bar',
-  leftChildrenClass: 'filter-bar-left',
+  className: "filter-bar",
+  leftChildrenClass: "filter-bar-left",
   rightAlignLastNChildren: 0,
-  rightChildrenClass: 'filter-bar-right'
+  rightChildrenClass: "filter-bar-right"
 };
 
 module.exports = FilterBar;

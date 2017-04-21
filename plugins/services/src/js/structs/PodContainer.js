@@ -1,10 +1,10 @@
-import Item from '#SRC/js/structs/Item';
-import PodContainerStatus from '../constants/PodContainerStatus';
-import PodContainerState from '../constants/PodContainerState';
+import Item from "#SRC/js/structs/Item";
+import PodContainerStatus from "../constants/PodContainerStatus";
+import PodContainerState from "../constants/PodContainerState";
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {
-    switch (this.get('status')) {
+    switch (this.get("status")) {
       case PodContainerState.RUNNING:
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
@@ -39,32 +39,35 @@ module.exports = class PodContainer extends Item {
   }
 
   getEndpoints() {
-    return this.get('endpoints') || [];
+    return this.get("endpoints") || [];
   }
 
   getId() {
-    return this.get('containerId') || '';
+    return this.get("containerId") || "";
   }
 
   getLastChanged() {
-    return new Date(this.get('lastChanged') || '');
+    return new Date(this.get("lastChanged") || "");
   }
 
   getLastUpdated() {
-    return new Date(this.get('lastUpdated') || '');
+    return new Date(this.get("lastUpdated") || "");
   }
 
   getName() {
-    return this.get('name') || '';
+    return this.get("name") || "";
   }
 
   getResources() {
-    return Object.assign({
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0
-    }, this.get('resources'));
+    return Object.assign(
+      {
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      },
+      this.get("resources")
+    );
   }
 
   hasHealthChecks() {
@@ -74,10 +77,10 @@ module.exports = class PodContainer extends Item {
     // 'healthy: should only be present if a health check is defined for this endpoint'
     //
     const endpoints = this.getEndpoints();
-    let allHaveChecks = (endpoints.length > 0);
+    let allHaveChecks = endpoints.length > 0;
     let hasFailure = false;
 
-    this.getEndpoints().forEach(function (ep) {
+    this.getEndpoints().forEach(function(ep) {
       if (ep.healthy === undefined) {
         allHaveChecks = false;
       }
@@ -92,7 +95,7 @@ module.exports = class PodContainer extends Item {
   isHealthy() {
     // If we have at least 1 health check and it has failed, we are assumed to
     // be unhealthy.
-    return !this.getEndpoints().some(function (ep) {
+    return !this.getEndpoints().some(function(ep) {
       return ep.healthy !== undefined && !ep.healthy;
     });
   }

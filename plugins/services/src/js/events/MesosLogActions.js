@@ -1,12 +1,11 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import Config from '#SRC/js/config/Config';
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import Config from "#SRC/js/config/Config";
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from "../constants/ActionTypes";
 
 const MesosLogActions = {
-
   requestOffset(slaveID, path) {
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=-1`,
@@ -75,7 +74,6 @@ const MesosLogActions = {
       }
     });
   }
-
 };
 
 module.exports = MesosLogActions;

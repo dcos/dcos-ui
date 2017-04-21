@@ -1,15 +1,15 @@
-import Transaction from '../structs/Transaction';
-import {findNestedPropertyInObject} from './Util';
+import Transaction from "../structs/Transaction";
+import { findNestedPropertyInObject } from "./Util";
 
 module.exports = {
   combineParsers(parsers = []) {
-    parsers = parsers.filter(
-      function (parser) {
-        return typeof parser === 'function';
-      }
-    ).reverse();
+    parsers = parsers
+      .filter(function(parser) {
+        return typeof parser === "function";
+      })
+      .reverse();
 
-    return function (state = {}) {
+    return function(state = {}) {
       let index = parsers.length;
 
       const transactionLog = [];
@@ -31,9 +31,9 @@ module.exports = {
   },
 
   simpleParser(path) {
-    const searchPath = path.join('.');
+    const searchPath = path.join(".");
 
-    return function (state) {
+    return function(state) {
       const value = findNestedPropertyInObject(state, searchPath);
 
       if (value == null) {
@@ -41,7 +41,6 @@ module.exports = {
       }
 
       return new Transaction(path, value);
-
     };
   }
 };

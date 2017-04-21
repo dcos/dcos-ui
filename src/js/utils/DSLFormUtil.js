@@ -1,7 +1,6 @@
-import DSLFilterTypes from '../constants/DSLFilterTypes';
+import DSLFilterTypes from "../constants/DSLFilterTypes";
 
 const DSLFormUtil = {
-
   /**
    * This function creates a `nodeCompareFunction` function, used by the
    * expression update utilities to detect relevant nodes.
@@ -14,7 +13,7 @@ const DSLFormUtil = {
    * @returns {function} Returns a compatible function for use by applyadd
    */
   createNodeComparisionFunction(parts) {
-    const referenceNodes = Object.keys(parts).map((key) => parts[key]);
+    const referenceNodes = Object.keys(parts).map(key => parts[key]);
 
     /**
      * The returned function is called when the node `nodeAdded` is about to
@@ -37,8 +36,8 @@ const DSLFormUtil = {
      * @param {FilterNode} astNode - The node in the AST to compare against
      * @returns {Boolean} Return true if the two nodes are compatible
      */
-    return function (nodeAdded, astNode) {
-      return referenceNodes.some((referenceNode) => {
+    return function(nodeAdded, astNode) {
+      return referenceNodes.some(referenceNode => {
         if (referenceNode.filterType !== astNode.filterType) {
           return false;
         }
@@ -49,12 +48,13 @@ const DSLFormUtil = {
         }
 
         // But attribute nodes are strict
-        return (referenceNode.filterParams.label === astNode.filterParams.label)
-            && (referenceNode.filterParams.text === astNode.filterParams.text);
+        return (
+          referenceNode.filterParams.label === astNode.filterParams.label &&
+          referenceNode.filterParams.text === astNode.filterParams.text
+        );
       });
     };
   }
-
 };
 
 module.exports = DSLFormUtil;

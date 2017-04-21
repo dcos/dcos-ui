@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import TableUtil from '#SRC/js/utils/TableUtil';
-import Util from '#SRC/js/utils/Util';
-import TaskStatusSortingOrder from '../constants/TaskStatusSortingOrder';
+import TableUtil from "#SRC/js/utils/TableUtil";
+import Util from "#SRC/js/utils/Util";
+import TaskStatusSortingOrder from "../constants/TaskStatusSortingOrder";
 
 function getUpdatedTimestamp(model) {
   const lastStatus = Util.last(model.statuses);
@@ -13,18 +13,18 @@ function getUpdatedTimestamp(model) {
 
 const TaskTableUtil = {
   getSortFunction(tieBreakerProp) {
-    return TableUtil.getSortFunction(tieBreakerProp, function (item, prop) {
-      const hasGetter = typeof item.get === 'function';
+    return TableUtil.getSortFunction(tieBreakerProp, function(item, prop) {
+      const hasGetter = typeof item.get === "function";
 
-      if (prop === 'updated') {
+      if (prop === "updated") {
         return getUpdatedTimestamp(item) || 0;
       }
 
-      if (prop === 'status' && !hasGetter) {
+      if (prop === "status" && !hasGetter) {
         return TaskStatusSortingOrder[item.state];
       }
 
-      if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
+      if (prop === "cpus" || prop === "mem" || prop === "disk") {
         // This is necessary for tasks, since they are not structs
         let value = item[prop];
 

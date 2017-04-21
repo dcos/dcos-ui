@@ -1,7 +1,7 @@
 const TaskHealthStates = {
-  HEALTHY: 'Healthy',
-  UNHEALTHY: 'Unhealthy',
-  UNKNOWN: 'Unkown'
+  HEALTHY: "Healthy",
+  UNHEALTHY: "Unhealthy",
+  UNKNOWN: "Unkown"
 };
 
 module.exports = TaskHealthStates;

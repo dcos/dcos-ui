@@ -1,5 +1,5 @@
-import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
-import UnitHealthStore from '../../../stores/UnitHealthStore';
+import BreadcrumbSegment from "../../../components/BreadcrumbSegment";
+import UnitHealthStore from "../../../stores/UnitHealthStore";
 
 class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   constructor() {
@@ -7,19 +7,19 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
 
     this.store_listeners = [
       {
-        name: 'unitHealth',
-        events: ['nodeSuccess']
+        name: "unitHealth",
+        events: ["nodeSuccess"]
       }
     ];
   }
 
   componentDidMount() {
-    const {unitID, unitNodeID} = this.props.params;
+    const { unitID, unitNodeID } = this.props.params;
     const node = UnitHealthStore.getNode(unitNodeID);
 
-    if (node.get('host_ip')) {
+    if (node.get("host_ip")) {
       /* eslint-disable react/no-did-mount-set-state */
-      this.setState({isLoadingCrumb: false});
+      this.setState({ isLoadingCrumb: false });
       /* eslint-enable react/no-did-mount-set-state */
     } else {
       UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
@@ -27,14 +27,14 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   onUnitHealthStoreNodeSuccess() {
-    this.setState({isLoadingCrumb: false});
+    this.setState({ isLoadingCrumb: false });
   }
 
   getCrumbLabel() {
-    const {unitNodeID} = this.props.params;
+    const { unitNodeID } = this.props.params;
     const node = UnitHealthStore.getNode(unitNodeID);
 
-    return node.get('host_ip');
+    return node.get("host_ip");
   }
 }
 

@@ -1,26 +1,28 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import {formatResource} from '#SRC/js/utils/Units';
-import Util from '#SRC/js/utils/Util';
+import { formatResource } from "#SRC/js/utils/Units";
+import Util from "#SRC/js/utils/Util";
 
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
   getDisplayValue
-} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
+} from "../utils/ServiceConfigDisplayUtil";
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
   shouldExcludeItem() {
-    const {appConfig} = this.props;
+    const { appConfig } = this.props;
 
     return !Util.findNestedPropertyInObject(
-      appConfig, 'container.volumes.length'
+      appConfig,
+      "container.volumes.length"
     );
   }
 
@@ -28,18 +30,18 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
    * @override
    */
   getDefinition() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
 
     return {
-      tabViewID: 'volumes',
+      tabViewID: "volumes",
       values: [
         {
-          key: 'container.volumes',
-          heading: 'Storage',
+          key: "container.volumes",
+          heading: "Storage",
           headingLevel: 1
         },
         {
-          key: 'container.volumes',
+          key: "container.volumes",
           render(volumes) {
             if (volumes == null) {
               return null;
@@ -47,23 +49,23 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
             const columns = [
               {
-                heading: getColumnHeadingFn('Volume'),
-                prop: 'volume',
+                heading: getColumnHeadingFn("Volume"),
+                prop: "volume",
                 render(prop, row) {
-                  let name = '';
+                  let name = "";
 
                   if (row.name != null) {
                     name = ` (${row.name})`;
                   }
 
-                  return `${row.type.join(' ')}${name}`;
+                  return `${row.type.join(" ")}${name}`;
                 },
                 className: getColumnClassNameFn(),
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Size'),
-                prop: 'size',
+                heading: getColumnHeadingFn("Size"),
+                prop: "size",
                 render(prop, row) {
                   let value = row[prop];
 
@@ -71,25 +73,25 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                     return getDisplayValue(value, row.isHostVolume);
                   }
 
-                  if (row.type.join(' ') === 'External' && !row.isHostVolume) {
+                  if (row.type.join(" ") === "External" && !row.isHostVolume) {
                     // External volumes specify size in GiB
                     value = value * 1024;
                   }
 
-                  return formatResource('disk', value);
+                  return formatResource("disk", value);
                 },
                 className: getColumnClassNameFn(),
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Mode'),
-                prop: 'mode',
+                heading: getColumnHeadingFn("Mode"),
+                prop: "mode",
                 className: getColumnClassNameFn(),
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn('Container Mount Path'),
-                prop: 'containerPath',
+                heading: getColumnHeadingFn("Container Mount Path"),
+                prop: "containerPath",
                 className: getColumnClassNameFn(),
                 sortable: true
               }
@@ -97,7 +99,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
             let shouldDisplayHostPath = false;
 
-            const volumesData = volumes.map((appVolume) => {
+            const volumesData = volumes.map(appVolume => {
               // We don't want to mutate the appVolume value.
               const volume = {
                 name: null,
@@ -111,13 +113,13 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
               if (appVolume.persistent != null) {
                 volume.size = appVolume.persistent.size;
-                volume.type.push('Persistent', 'Local');
+                volume.type.push("Persistent", "Local");
               } else if (appVolume.external != null) {
                 volume.size = appVolume.external.size;
-                volume.type.push('External');
+                volume.type.push("External");
               } else {
                 volume.isHostVolume = true;
-                volume.type.push('Host', 'Volume');
+                volume.type.push("Host", "Volume");
               }
 
               if (appVolume.external != null) {
@@ -139,8 +141,8 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (shouldDisplayHostPath) {
               columns.push({
-                heading: getColumnHeadingFn('Host Path'),
-                prop: 'hostPath',
+                heading: getColumnHeadingFn("Host Path"),
+                prop: "hostPath",
                 className: getColumnClassNameFn(),
                 sortable: true
               });
@@ -148,14 +150,17 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="volumes" />
+                      tabViewID="volumes"
+                    />
                   );
                 }
               });
@@ -166,7 +171,8 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="service-volumes"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={volumesData} />
+                data={volumesData}
+              />
             );
           }
         }

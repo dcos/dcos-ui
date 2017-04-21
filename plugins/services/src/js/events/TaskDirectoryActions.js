@@ -1,15 +1,15 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import Config from '#SRC/js/config/Config';
-import MesosStateUtil from '#SRC/js/utils/MesosStateUtil';
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import Config from "#SRC/js/config/Config";
+import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
 
 import {
   REQUEST_NODE_STATE_ERROR,
   REQUEST_NODE_STATE_SUCCESS,
   REQUEST_TASK_DIRECTORY_ERROR,
   REQUEST_TASK_DIRECTORY_SUCCESS
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 
 function getNodeStateURL(task, node) {
   let pid, nodePID;
@@ -19,7 +19,7 @@ function getNodeStateURL(task, node) {
   }
 
   if (pid) {
-    nodePID = pid.substring(0, pid.indexOf('@'));
+    nodePID = pid.substring(0, pid.indexOf("@"));
   }
 
   return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
@@ -27,14 +27,13 @@ function getNodeStateURL(task, node) {
 
 var TaskDirectoryActions = {
   getDownloadURL(nodeID, path) {
-    return `${Config.rootUrl}/agent/${nodeID}/files/download?` +
-      `path=${path}`;
+    return `${Config.rootUrl}/agent/${nodeID}/files/download?path=${path}`;
   },
 
   fetchNodeState: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function (task, node, innerPath) {
+    function(resolve, reject) {
+      return function(task, node, innerPath) {
         return RequestUtil.json({
           url: getNodeStateURL(task, node),
           success(response) {
@@ -48,7 +47,7 @@ var TaskDirectoryActions = {
             resolve();
           },
           error(xhr) {
-            if (xhr.statusText === 'abort') {
+            if (xhr.statusText === "abort") {
               resolve();
 
               return;
@@ -66,7 +65,7 @@ var TaskDirectoryActions = {
         });
       };
     },
-    {delayAfterCount: Config.delayAfterErrorCount}
+    { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   fetchDirectory(task, innerPath, nodeState) {
@@ -82,7 +81,7 @@ var TaskDirectoryActions = {
 
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${task.slave_id}/files/browse`,
-      data: {path},
+      data: { path },
       success(directory) {
         AppDispatcher.handleServerAction({
           type: REQUEST_TASK_DIRECTORY_SUCCESS,
@@ -92,7 +91,7 @@ var TaskDirectoryActions = {
         });
       },
       error(xhr) {
-        if (xhr.statusText === 'abort') {
+        if (xhr.statusText === "abort") {
           return;
         }
 

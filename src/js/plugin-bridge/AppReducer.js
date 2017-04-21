@@ -1,14 +1,10 @@
-import {APP_STORE_CHANGE} from '../constants/EventTypes';
-import {APPLICATION} from '../constants/PluginConstants';
-import StructUtil from '../utils/StructUtil';
+import { APP_STORE_CHANGE } from "../constants/EventTypes";
+import { APPLICATION } from "../constants/PluginConstants";
+import StructUtil from "../utils/StructUtil";
 
 const initialState = {};
 // List of plugins with permissions to alter this state
-const PERMISSIONS_LIST = [
-  APPLICATION,
-  'authentication',
-  'organization'
-];
+const PERMISSIONS_LIST = [APPLICATION, "authentication", "organization"];
 
 // Compute new state based on action
 function updateState(prevState, action) {
@@ -23,7 +19,7 @@ function allowedToProceed(action) {
 }
 
 // Clones state from application stores and maps it into the OmniStore
-module.exports = function (state = initialState, action) {
+module.exports = function(state = initialState, action) {
   // Return early if the action didn't come from Application
   //  or plugins with permission
   if (!allowedToProceed(action)) {

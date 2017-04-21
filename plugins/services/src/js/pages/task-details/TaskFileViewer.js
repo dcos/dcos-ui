@@ -1,22 +1,22 @@
-import classNames from 'classnames';
-import {Dropdown, Tooltip} from 'reactjs-components';
-import React from 'react';
-import {routerShape, formatPattern} from 'react-router';
+import classNames from "classnames";
+import { Dropdown, Tooltip } from "reactjs-components";
+import React from "react";
+import { routerShape, formatPattern } from "react-router";
 
-import Icon from '#SRC/js/components/Icon';
-import RouterUtil from '#SRC/js/utils/RouterUtil';
+import Icon from "#SRC/js/components/Icon";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-import DirectoryItem from '../../structs/DirectoryItem';
-import MesosLogContainer from '../../components/MesosLogContainer';
-import SearchLog from '../../components/SearchLog';
-import TaskDirectory from '../../structs/TaskDirectory';
-import TaskDirectoryActions from '../../events/TaskDirectoryActions';
+import DirectoryItem from "../../structs/DirectoryItem";
+import MesosLogContainer from "../../components/MesosLogContainer";
+import SearchLog from "../../components/SearchLog";
+import TaskDirectory from "../../structs/TaskDirectory";
+import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
 class TaskFileViewer extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {currentFile: null};
+    this.state = { currentFile: null };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -25,19 +25,20 @@ class TaskFileViewer extends React.Component {
 
     const task = curState.task;
     const nextTask = nextState.task;
-    const didSlaveIdChange = task && nextTask &&
-      task.slave_id !== nextTask.slave_id;
+    const didSlaveIdChange =
+      task && nextTask && task.slave_id !== nextTask.slave_id;
 
-    const didTaskChange = curProps.task !== nextProps.task ||
-      didSlaveIdChange;
+    const didTaskChange = curProps.task !== nextProps.task || didSlaveIdChange;
 
     const directory = curProps.directory;
     const nextDirectory = nextProps.directory;
-    const didDirectoryItemsChange = directory && nextDirectory &&
+    const didDirectoryItemsChange =
+      directory &&
+      nextDirectory &&
       directory.getItems().length !== nextDirectory.getItems().length;
 
-    const didDirectoryChange = directory !== nextDirectory ||
-      didDirectoryItemsChange;
+    const didDirectoryChange =
+      directory !== nextDirectory || didDirectoryItemsChange;
 
     const didCurrentFileChange = curState.currentFile !== nextState.currentFile;
 
@@ -45,29 +46,31 @@ class TaskFileViewer extends React.Component {
   }
 
   handleViewChange(currentFile) {
-    const {params, routes} = this.props;
-    const path = currentFile.get('path');
-    if (path === this.getSelectedFile().get('path')) {
+    const { params, routes } = this.props;
+    const path = currentFile.get("path");
+    if (path === this.getSelectedFile().get("path")) {
       // File path didn't change, let's not try to update path
       return;
     }
 
     let routePath = RouterUtil.reconstructPathFromRoutes(routes);
-    const hasFilePathParam = routePath.endsWith(':filePath');
-    if (!hasFilePathParam && routePath.endsWith('/')) {
-      routePath += ':filePath';
+    const hasFilePathParam = routePath.endsWith(":filePath");
+    if (!hasFilePathParam && routePath.endsWith("/")) {
+      routePath += ":filePath";
     }
-    if (!hasFilePathParam && !routePath.endsWith('/')) {
-      routePath += '/:filePath';
+    if (!hasFilePathParam && !routePath.endsWith("/")) {
+      routePath += "/:filePath";
     }
-    this.context.router.push(formatPattern(
-      routePath,
-      Object.assign({}, params, {filePath: encodeURIComponent(path)})
-    ));
+    this.context.router.push(
+      formatPattern(
+        routePath,
+        Object.assign({}, params, { filePath: encodeURIComponent(path) })
+      )
+    );
   }
 
   getLogFiles() {
-    const {directory, limitLogFiles} = this.props;
+    const { directory, limitLogFiles } = this.props;
     const logViews = [];
     if (!directory) {
       return logViews;
@@ -75,11 +78,9 @@ class TaskFileViewer extends React.Component {
 
     const limitLogFilesIsNotEmpty = limitLogFiles.length > 0;
 
-    directory.getItems().forEach((item) => {
-      const excludeFile = (
-        limitLogFilesIsNotEmpty &&
-        !limitLogFiles.includes(item.getName())
-      );
+    directory.getItems().forEach(item => {
+      const excludeFile =
+        limitLogFilesIsNotEmpty && !limitLogFiles.includes(item.getName());
 
       if (!item.isLogFile() || excludeFile) {
         return;
@@ -96,15 +97,16 @@ class TaskFileViewer extends React.Component {
       const name = item.getName();
 
       const classes = classNames({
-        'button button-stroke': true,
-        'active': name === selectedName
+        "button button-stroke": true,
+        active: name === selectedName
       });
 
       return (
         <button
           className={classes}
           key={index}
-          onClick={this.handleViewChange.bind(this, item)}>
+          onClick={this.handleViewChange.bind(this, item)}
+        >
           {item.getDisplayName()}
         </button>
       );
@@ -122,16 +124,14 @@ class TaskFileViewer extends React.Component {
   }
 
   getItemHtml(displayName) {
-    return (
-      <span className="flush dropdown-header">{displayName}</span>
-    );
+    return <span className="flush dropdown-header">{displayName}</span>;
   }
 
   getDropdownItems(logFiles) {
-    return logFiles.map(function (item) {
+    return logFiles.map(function(item) {
       const displayName = item.getDisplayName();
       const selectedHtml = this.getItemHtml(displayName);
-      const dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = <a>{selectedHtml}</a>;
 
       return {
         id: item.getName(),
@@ -144,18 +144,20 @@ class TaskFileViewer extends React.Component {
   }
 
   getSelectedFile() {
-    const {props, state} = this;
+    const { props, state } = this;
     const file = state.currentFile;
     const paramsPath = decodeURIComponent(props.params.filePath);
-    if (!file && paramsPath !== 'undefined') {
-      return new DirectoryItem({path: paramsPath});
+    if (!file && paramsPath !== "undefined") {
+      return new DirectoryItem({ path: paramsPath });
     }
 
     const files = this.getLogFiles();
 
-    return files.find(function (file) {
-      return file.getName() === 'stdout';
-    }) || files[0];
+    return (
+      files.find(function(file) {
+        return file.getName() === "stdout";
+      }) || files[0]
+    );
   }
 
   getSelectionComponent(selectedLogFile) {
@@ -179,21 +181,22 @@ class TaskFileViewer extends React.Component {
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
-        wrapperClassName="dropdown form-group" />
+        wrapperClassName="dropdown form-group"
+      />
     );
   }
 
   getActions(selectedLogFile, filePath) {
-    const {task} = this.props;
+    const { task } = this.props;
 
     return [
       this.getSelectionComponent(selectedLogFile),
-      <Tooltip key="tooltip" anchor="end" content={'Download log file'}>
+      <Tooltip key="tooltip" anchor="end" content={"Download log file"}>
         <a
           className="button button-stroke"
           disabled={!filePath}
-          href=
-            {TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
+          href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}
+        >
           <Icon id="download" size="mini" />
         </a>
       </Tooltip>
@@ -201,19 +204,20 @@ class TaskFileViewer extends React.Component {
   }
 
   render() {
-    const {task} = this.props;
+    const { task } = this.props;
 
     // Only try to get path if file exists
     const selectedLogFile = this.getSelectedFile();
     const selectedName = selectedLogFile && selectedLogFile.getName();
-    const filePath = selectedLogFile && selectedLogFile.get('path');
+    const filePath = selectedLogFile && selectedLogFile.get("path");
 
     return (
       <SearchLog actions={this.getActions(selectedLogFile, filePath)}>
         <MesosLogContainer
           filePath={filePath}
           task={task}
-          logName={selectedName} />
+          logName={selectedName}
+        />
       </SearchLog>
     );
   }

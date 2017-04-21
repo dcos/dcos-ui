@@ -1,19 +1,19 @@
-import classNames from 'classnames';
-import React, {PropTypes} from 'react';
+import classNames from "classnames";
+import React, { PropTypes } from "react";
 
-import DSLCombinerTypes from '../constants/DSLCombinerTypes';
-import DSLFilterTypes from '../constants/DSLFilterTypes';
-import DSLUpdatePolicy from '../constants/DSLUpdatePolicy';
-import DSLExpression from '../structs/DSLExpression';
-import DSLUpdateUtil from '../utils/DSLUpdateUtil';
-import DSLUtil from '../utils/DSLUtil';
-import {FilterNode} from '../structs/DSLASTNodes';
-import {createNodeComparisionFunction} from '../utils/DSLFormUtil';
+import DSLCombinerTypes from "../constants/DSLCombinerTypes";
+import DSLFilterTypes from "../constants/DSLFilterTypes";
+import DSLUpdatePolicy from "../constants/DSLUpdatePolicy";
+import DSLExpression from "../structs/DSLExpression";
+import DSLUpdateUtil from "../utils/DSLUpdateUtil";
+import DSLUtil from "../utils/DSLUtil";
+import { FilterNode } from "../structs/DSLASTNodes";
+import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
 
 const METHODS_TO_BIND = [
-  'handleFormBlur',
-  'handleFormChange',
-  'handleFormSubmit'
+  "handleFormBlur",
+  "handleFormChange",
+  "handleFormSubmit"
 ];
 
 /**
@@ -24,22 +24,22 @@ class DSLFormWithExpressionUpdates extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleFormBlur(event) {
-    const {target} = event;
-    const {onChange, parts} = this.props;
-    let {value} = target;
+    const { target } = event;
+    const { onChange, parts } = this.props;
+    let { value } = target;
 
-    const name = target.getAttribute('name');
+    const name = target.getAttribute("name");
     if (!name) {
       return;
     }
 
-    if (target.type === 'checkbox') {
+    if (target.type === "checkbox") {
       value = target.checked;
     }
 
@@ -64,16 +64,16 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * @param {Object} event
    */
   handleFormChange(event) {
-    const {target} = event;
-    const {onChange, parts} = this.props;
-    let {value} = target;
+    const { target } = event;
+    const { onChange, parts } = this.props;
+    let { value } = target;
 
-    const name = target.getAttribute('name');
+    const name = target.getAttribute("name");
     if (!name) {
       return;
     }
 
-    if (target.type === 'checkbox') {
+    if (target.type === "checkbox") {
       value = target.checked;
     }
 
@@ -132,42 +132,37 @@ class DSLFormWithExpressionUpdates extends React.Component {
       // policy the previous labels must be removed.
       //
       case DSLFilterTypes.ATTRIB:
-
         // On 'Radio' update policy the new value is replacing any occurrence
         // of all of the specified nodes.
         if (updatePolicy === DSLUpdatePolicy.Radio) {
           if (value) {
             expression = DSLUpdateUtil.applyReplace(
-              expression, allMatchingNodes, [updateNode], {
+              expression,
+              allMatchingNodes,
+              [updateNode],
+              {
                 nodeCompareFunction: createNodeComparisionFunction(parts),
                 itemCombiner,
                 newCombiner: groupCombiner
               }
             );
           } else {
-            expression = DSLUpdateUtil.applyDelete(
-              expression, matchingNodes
-            );
+            expression = DSLUpdateUtil.applyDelete(expression, matchingNodes);
           }
           break;
         }
 
         // On 'Checkbox' policy, we just add/remove the matching AST node
         if (value) {
-          expression = DSLUpdateUtil.applyAdd(
-            expression, [updateNode], {
-              nodeCompareFunction: createNodeComparisionFunction(parts),
-              itemCombiner,
-              newCombiner: groupCombiner
-            }
-          );
+          expression = DSLUpdateUtil.applyAdd(expression, [updateNode], {
+            nodeCompareFunction: createNodeComparisionFunction(parts),
+            itemCombiner,
+            newCombiner: groupCombiner
+          });
         } else {
-          expression = DSLUpdateUtil.applyDelete(
-            expression, matchingNodes
-          );
+          expression = DSLUpdateUtil.applyDelete(expression, matchingNodes);
         }
         break;
-
       //
       // The exact attribute updates just replaces the node with a new text
       //
@@ -177,23 +172,28 @@ class DSLFormWithExpressionUpdates extends React.Component {
         });
 
         expression = DSLUpdateUtil.applyReplace(
-          expression, matchingNodes, [newExactNode], {
+          expression,
+          matchingNodes,
+          [newExactNode],
+          {
             newCombiner: groupCombiner
           }
         );
         break;
-
       //
       // The fuzzy attribute replaces as many attributes as in the new text
       //
       case DSLFilterTypes.FUZZY:
-        const newFuzzyNodes = value.replace(':', ' ').split(' ').map((text) => {
-          return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {text});
+        const newFuzzyNodes = value.replace(":", " ").split(" ").map(text => {
+          return new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text });
         });
 
         // And replace the existing fuzzy nodes
         expression = DSLUpdateUtil.applyReplace(
-          expression, matchingNodes, newFuzzyNodes, {
+          expression,
+          matchingNodes,
+          newFuzzyNodes,
+          {
             newCombiner: groupCombiner
           }
         );
@@ -207,17 +207,19 @@ class DSLFormWithExpressionUpdates extends React.Component {
    * @override
    */
   render() {
-    const {enabled} = this.props;
+    const { enabled } = this.props;
     const formClasses = classNames({
-      'dsl-form-group form-group tall': true,
-      'disabled': !enabled
+      "dsl-form-group form-group tall": true,
+      disabled: !enabled
     });
 
     return (
-      <form className={formClasses}
+      <form
+        className={formClasses}
         onChange={this.handleFormChange}
         onBlur={this.handleFormBlur}
-        onSubmit={this.handleFormSubmit}>
+        onSubmit={this.handleFormSubmit}
+      >
         {this.props.children}
       </form>
     );
@@ -237,16 +239,16 @@ DSLFormWithExpressionUpdates.propTypes = {
   enabled: PropTypes.bool,
   expression: PropTypes.instanceOf(DSLExpression).isRequired,
   groupCombiner: PropTypes.oneOf(
-    Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
+    Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
   ),
   itemCombiner: PropTypes.oneOf(
-    Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
+    Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
   ),
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
   updatePolicy: PropTypes.oneOf(
-    Object.keys(DSLUpdatePolicy).map((key) => DSLUpdatePolicy[key])
+    Object.keys(DSLUpdatePolicy).map(key => DSLUpdatePolicy[key])
   )
 };
 

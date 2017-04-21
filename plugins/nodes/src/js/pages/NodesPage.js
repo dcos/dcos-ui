@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Icon from '#SRC/js/components/Icon';
+import Icon from "#SRC/js/components/Icon";
 
 class NodesPage extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class NodesPage extends React.Component {
 }
 
 NodesPage.routeConfig = {
-  label: 'Nodes',
+  label: "Nodes",
   icon: <Icon id="servers-inverse" size="small" family="product" />,
   matches: /^\/nodes/
 };

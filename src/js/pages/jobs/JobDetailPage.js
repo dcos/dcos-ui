@@ -1,69 +1,72 @@
-import classNames from 'classnames';
-import {Confirm} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
-import prettycron from 'prettycron';
+import classNames from "classnames";
+import { Confirm } from "reactjs-components";
+import mixin from "reactjs-mixin";
+import prettycron from "prettycron";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
+import { routerShape } from "react-router";
 
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Icon from '../../components/Icon';
-import JobConfiguration from './JobConfiguration';
-import JobFormModal from '../../components/modals/JobFormModal';
-import JobRunHistoryTable from './JobRunHistoryTable';
-import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
-import Loader from '../../components/Loader';
-import MetronomeStore from '../../stores/MetronomeStore';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
-import StringUtil from '../../utils/StringUtil';
-import TabsMixin from '../../mixins/TabsMixin';
-import TimeAgo from '../../components/TimeAgo';
-import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
-import UserActions from '../../constants/UserActions';
+import Icon from "../../components/Icon";
+import JobConfiguration from "./JobConfiguration";
+import JobFormModal from "../../components/modals/JobFormModal";
+import JobRunHistoryTable from "./JobRunHistoryTable";
+import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
+import Loader from "../../components/Loader";
+import MetronomeStore from "../../stores/MetronomeStore";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
+import StringUtil from "../../utils/StringUtil";
+import TabsMixin from "../../mixins/TabsMixin";
+import TimeAgo from "../../components/TimeAgo";
+import TaskStates
+  from "../../../../plugins/services/src/js/constants/TaskStates";
+import UserActions from "../../constants/UserActions";
 
 const METHODS_TO_BIND = [
-  'closeDialog',
-  'handleEditButtonClick',
-  'handleRunNowButtonClick',
-  'handleDisableScheduleButtonClick',
-  'handleEnableScheduleButtonClick',
-  'handleDestroyButtonClick',
-  'onMetronomeStoreJobDeleteError',
-  'onMetronomeStoreJobDeleteSuccess',
-  'onMetronomeStoreJobDetailError',
-  'onMetronomeStoreJobDetailChange'
+  "closeDialog",
+  "handleEditButtonClick",
+  "handleRunNowButtonClick",
+  "handleDisableScheduleButtonClick",
+  "handleEnableScheduleButtonClick",
+  "handleDestroyButtonClick",
+  "onMetronomeStoreJobDeleteError",
+  "onMetronomeStoreJobDeleteSuccess",
+  "onMetronomeStoreJobDetailError",
+  "onMetronomeStoreJobDetailChange"
 ];
 
 const DIALOGS = {
-  EDIT: 'edit',
-  DESTROY: 'destroy'
+  EDIT: "edit",
+  DESTROY: "destroy"
 };
 
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = [{
-      name: 'metronome',
-      events: [
-        'jobDeleteSuccess',
-        'jobDeleteError',
-        'jobDetailChange',
-        'jobDetailError',
-        'jobRunError',
-        'jobRunSuccess',
-        'jobScheduleUpdateError',
-        'jobScheduleUpdateSuccess'
-      ],
-      suppressUpdate: false
-    }];
+    this.store_listeners = [
+      {
+        name: "metronome",
+        events: [
+          "jobDeleteSuccess",
+          "jobDeleteError",
+          "jobDetailChange",
+          "jobDetailError",
+          "jobRunError",
+          "jobRunSuccess",
+          "jobScheduleUpdateError",
+          "jobScheduleUpdateSuccess"
+        ],
+        suppressUpdate: false
+      }
+    ];
 
     this.tabs_tabs = {
-      runHistory: 'Run History',
-      configuration: 'Configuration'
+      runHistory: "Run History",
+      configuration: "Configuration"
     };
 
     this.state = {
@@ -76,7 +79,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       isLoading: true
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -92,7 +95,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   onMetronomeStoreJobDeleteError(id, error) {
-    const {message:errorMsg} = error;
+    const { message: errorMsg } = error;
     if (id !== this.props.params.id || errorMsg == null) {
       return;
     }
@@ -106,19 +109,19 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   onMetronomeStoreJobDeleteSuccess() {
     this.closeDialog();
-    this.context.router.push('/jobs');
+    this.context.router.push("/jobs");
   }
 
   onMetronomeStoreJobDetailError() {
-    this.setState({errorCount: this.state.errorCount + 1});
+    this.setState({ errorCount: this.state.errorCount + 1 });
   }
 
   onMetronomeStoreJobDetailChange() {
-    this.setState({errorCount: 0, isLoading: false});
+    this.setState({ errorCount: 0, isLoading: false });
   }
 
   handleEditButtonClick() {
-    this.setState({jobActionDialog: DIALOGS.EDIT});
+    this.setState({ jobActionDialog: DIALOGS.EDIT });
   }
 
   handleRunNowButtonClick() {
@@ -136,11 +139,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleDestroyButtonClick() {
-    this.setState({jobActionDialog: DIALOGS.DESTROY});
+    this.setState({ jobActionDialog: DIALOGS.DESTROY });
   }
 
   handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
-    this.setState({disabledDialog: DIALOGS.DESTROY}, () => {
+    this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
       MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
     });
   }
@@ -158,7 +161,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return;
     }
 
-    this.setState({jobActionDialog: selection.id});
+    this.setState({ jobActionDialog: selection.id });
   }
 
   closeDialog() {
@@ -170,12 +173,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getDestroyConfirmDialog() {
-    const {id} = this.props.params;
-    const {disabledDialog, jobActionDialog, errorMsg} = this.state;
+    const { id } = this.props.params;
+    const { disabledDialog, jobActionDialog, errorMsg } = this.state;
     let stopCurrentJobRuns = false;
     let actionButtonLabel = `${StringUtil.capitalize(UserActions.DELETE)} Job`;
-    let message = `Are you sure you want to ${UserActions.DELETE} ${id}? ` +
-      'This action is irreversible.';
+    let message =
+      `Are you sure you want to ${UserActions.DELETE} ${id}? ` +
+      "This action is irreversible.";
 
     if (/stopCurrentJobRuns=true/.test(errorMsg)) {
       actionButtonLabel = `Stop Current Runs and ${StringUtil.capitalize(UserActions.DELETE)} Job`;
@@ -193,7 +197,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     );
 
     return (
-      <Confirm children={content}
+      <Confirm
+        children={content}
         disabled={disabledDialog === DIALOGS.DESTROY}
         open={jobActionDialog === DIALOGS.DESTROY}
         onClose={this.closeDialog}
@@ -201,15 +206,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         leftButtonCallback={this.closeDialog}
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
-        rightButtonCallback=
-          {this.handleAcceptDestroyDialog.bind(this, stopCurrentJobRuns)} />
+        rightButtonCallback={this.handleAcceptDestroyDialog.bind(
+          this,
+          stopCurrentJobRuns
+        )}
+      />
     );
   }
 
   getErrorScreen() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
         <RequestErrorMsg />
       </Page>
     );
@@ -218,7 +226,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   getLoadingScreen() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
         <Loader />
       </Page>
     );
@@ -246,11 +254,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getJobStatus(job) {
     let longestRunningTask = null;
-    const longestRunningActiveRun = job.getActiveRuns()
+    const longestRunningActiveRun = job
+      .getActiveRuns()
       .getLongestRunningActiveRun();
 
     if (longestRunningActiveRun != null) {
-      longestRunningTask = longestRunningActiveRun.getTasks()
+      longestRunningTask = longestRunningActiveRun
+        .getTasks()
         .getLongestRunningTask();
     }
 
@@ -267,11 +277,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     const nodes = [];
     const scheduleText = this.getPrettySchedule(job);
     let longestRunningTask = null;
-    const longestRunningActiveRun = job.getActiveRuns()
+    const longestRunningActiveRun = job
+      .getActiveRuns()
       .getLongestRunningActiveRun();
 
     if (longestRunningActiveRun != null) {
-      longestRunningTask = longestRunningActiveRun.getTasks()
+      longestRunningTask = longestRunningActiveRun
+        .getTasks()
         .getLongestRunningTask();
     }
 
@@ -287,7 +299,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
             key="schedule-icon"
             color="grey"
             id="repeat"
-            size="mini" />
+            size="mini"
+          />
           <span>Scheduled {StringUtil.lowercase(scheduleText)}</span>
         </p>
       );
@@ -297,17 +310,17 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       const dateCompleted = longestRunningTask.getDateCompleted();
 
       const status = TaskStates[longestRunningTask.getStatus()];
-      const statusClasses = classNames('job-details-header-status', {
-        'text-success': status.stateTypes.includes('success')
-        && !status.stateTypes.includes('failure'),
-        'text-danger': status.stateTypes.includes('failure')
+      const statusClasses = classNames("job-details-header-status", {
+        "text-success": status.stateTypes.includes("success") &&
+          !status.stateTypes.includes("failure"),
+        "text-danger": status.stateTypes.includes("failure")
       });
 
       let timePrefix = null;
       const shouldSuppressRelativeTime = dateCompleted == null;
 
       if (shouldSuppressRelativeTime) {
-        timePrefix = 'for ';
+        timePrefix = "for ";
       }
 
       nodes.push(
@@ -318,7 +331,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           <TimeAgo
             prefix={timePrefix}
             suppressSuffix={shouldSuppressRelativeTime}
-            time={longestRunningActiveRun.getDateCreated()} />
+            time={longestRunningActiveRun.getDateCreated()}
+          />
         </span>
       );
     }
@@ -341,31 +355,31 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     const actions = [];
 
     actions.push({
-      label: 'Edit',
+      label: "Edit",
       onItemSelect: this.handleEditButtonClick
     });
 
     actions.push({
-      label: 'Run Now',
+      label: "Run Now",
       onItemSelect: this.handleRunNowButtonClick
     });
 
     if (schedule != null && schedule.enabled) {
       actions.push({
-        label: 'Disable Schedule',
+        label: "Disable Schedule",
         onItemSelect: this.handleDisableScheduleButtonClick
       });
     }
 
     if (schedule != null && !schedule.enabled) {
       actions.push({
-        label: 'Enable Schedule',
+        label: "Enable Schedule",
         onItemSelect: this.handleEnableScheduleButtonClick
       });
     }
 
     actions.push({
-      className: 'text-danger',
+      className: "text-danger",
       label: StringUtil.capitalize(UserActions.DELETE),
       onItemSelect: this.handleDestroyButtonClick
     });
@@ -378,14 +392,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     return [
       {
-        label: 'Run History',
-        callback: () => { this.setState({currentTab: 'runHistory'}); },
-        isActive: activeTab === 'runHistory'
+        label: "Run History",
+        callback: () => {
+          this.setState({ currentTab: "runHistory" });
+        },
+        isActive: activeTab === "runHistory"
       },
       {
-        label: 'Configuration',
-        callback: () => { this.setState({currentTab: 'configuration'}); },
-        isActive: activeTab === 'configuration'
+        label: "Configuration",
+        callback: () => {
+          this.setState({ currentTab: "configuration" });
+        },
+        isActive: activeTab === "configuration"
       }
     ];
   }
@@ -412,7 +430,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <JobsBreadcrumbs
         jobID={job.getId()}
         jobSchedules={jobSchedules}
-        jobStatus={jobStatus} />
+        jobStatus={jobStatus}
+      />
     );
 
     return (
@@ -420,12 +439,15 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         <Page.Header
           actions={this.getActions()}
           breadcrumbs={breadcrumbs}
-          tabs={this.getTabs()} />
+          tabs={this.getTabs()}
+        />
         {this.tabs_getTabView(job)}
-        <JobFormModal isEdit={true}
+        <JobFormModal
+          isEdit={true}
           job={job}
           open={this.state.jobActionDialog === DIALOGS.EDIT}
-          onClose={this.closeDialog} />
+          onClose={this.closeDialog}
+        />
         {this.getDestroyConfirmDialog()}
       </Page>
     );

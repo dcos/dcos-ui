@@ -1,7 +1,7 @@
-import {navigation} from 'foundation-ui';
-import React from 'react';
+import { navigation } from "foundation-ui";
+import React from "react";
 
-import Config from '../config/Config';
+import Config from "../config/Config";
 
 const NavigationServiceUtil = {
   /**
@@ -12,29 +12,30 @@ const NavigationServiceUtil = {
    * @return {undefined}
    */
   registerRoutesInNavigation(routes) {
-    if (Config.environment === 'development') {
-      console.warn('DEPRECATED: All navigation elements should register ' +
-        'with the NavigationService');
+    if (Config.environment === "development") {
+      console.warn(
+        "DEPRECATED: All navigation elements should register " +
+          "with the NavigationService"
+      );
     }
 
-    const indexRoute = routes.find((route) => route.id === 'index');
+    const indexRoute = routes.find(route => route.id === "index");
 
     if (!indexRoute) {
       return;
     }
 
     indexRoute.childRoutes
-      .filter(({isInSidebar}) => isInSidebar)
-      .forEach(function (route) {
-        const {path, category, childRoutes = []} = route;
+      .filter(({ isInSidebar }) => isInSidebar)
+      .forEach(function(route) {
+        const { path, category, childRoutes = [] } = route;
         const primaryPath = `/${path}`;
 
         navigation.NavigationService.registerCategory(category);
 
-        const icon = React.cloneElement(
-          route.component.routeConfig.icon,
-          {className: 'sidebar-menu-item-icon icon icon-small'}
-        );
+        const icon = React.cloneElement(route.component.routeConfig.icon, {
+          className: "sidebar-menu-item-icon icon icon-small"
+        });
 
         navigation.NavigationService.registerPrimary(
           primaryPath,
@@ -42,13 +43,13 @@ const NavigationServiceUtil = {
           { category, icon }
         );
         childRoutes
-          .filter(({isInSidebar}) => isInSidebar)
-          .forEach((childRoute) => {
+          .filter(({ isInSidebar }) => isInSidebar)
+          .forEach(childRoute => {
             navigation.NavigationService.registerSecondary(
               primaryPath,
               childRoute.path,
               childRoute.component.routeConfig.label,
-              {isActiveRegex: childRoute.sidebarActiveRegex}
+              { isActiveRegex: childRoute.sidebarActiveRegex }
             );
           });
       });

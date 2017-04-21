@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-const DetailViewSectionHeading = (props) => {
-  const {children, className, level} = props;
+const DetailViewSectionHeading = props => {
+  const { children, className, level } = props;
 
   const headingProps = {
     className: classNames(
-      'detail-view-section-heading',
-      {'detail-view-section-heading-primary': level === 1},
+      "detail-view-section-heading",
+      { "detail-view-section-heading-primary": level === 1 },
       className
     )
   };

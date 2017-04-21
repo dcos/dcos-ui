@@ -1,20 +1,20 @@
-import classNames from 'classnames';
-import {routerShape, Link} from 'react-router';
-import React from 'react';
-import {Table} from 'reactjs-components';
+import classNames from "classnames";
+import { routerShape, Link } from "react-router";
+import React from "react";
+import { Table } from "reactjs-components";
 
-import OverlayList from '../../structs/OverlayList';
+import OverlayList from "../../structs/OverlayList";
 
 const headerMapping = {
-  name: 'Name',
-  subnet: 'IP Subnet',
-  prefix: 'Agent Prefix Length'
+  name: "Name",
+  subnet: "IP Subnet",
+  prefix: "Agent Prefix Length"
 };
 
 class VirtualNetworksTable extends React.Component {
   getClassName(prop, sortBy) {
     return classNames({
-      'active': prop === sortBy.prop
+      active: prop === sortBy.prop
     });
   }
 
@@ -30,7 +30,7 @@ class VirtualNetworksTable extends React.Component {
         },
         headerClassName: getClassName,
         heading,
-        prop: 'name',
+        prop: "name",
         render: this.renderName,
         sortable: false
       },
@@ -41,7 +41,7 @@ class VirtualNetworksTable extends React.Component {
         },
         headerClassName: getClassName,
         heading,
-        prop: 'subnet',
+        prop: "subnet",
         sortable: false
       },
       {
@@ -51,16 +51,14 @@ class VirtualNetworksTable extends React.Component {
         },
         headerClassName: getClassName,
         heading,
-        prop: 'prefix',
+        prop: "prefix",
         sortable: false
       }
     ];
   }
 
   renderHeading(prop) {
-    return (
-      <span className="table-header-title">{headerMapping[prop]}</span>
-    );
+    return <span className="table-header-title">{headerMapping[prop]}</span>;
   }
 
   renderName(prop, overlay) {
@@ -70,7 +68,8 @@ class VirtualNetworksTable extends React.Component {
       <Link
         className="table-cell-link-primary"
         title={overlayName}
-        to={`/networking/networks/${overlayName}`}>
+        to={`/networking/networks/${overlayName}`}
+      >
         {overlayName}
       </Link>
     );
@@ -79,7 +78,7 @@ class VirtualNetworksTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '30%'}} />
+        <col style={{ width: "30%" }} />
         <col />
         <col />
       </colgroup>
@@ -92,7 +91,8 @@ class VirtualNetworksTable extends React.Component {
         className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.props.overlays.getItems()} />
+        data={this.props.overlays.getItems()}
+      />
     );
   }
 }

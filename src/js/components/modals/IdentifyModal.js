@@ -1,15 +1,14 @@
-import classNames from 'classnames';
-import {Modal} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Modal } from "reactjs-components";
+import React from "react";
 
-import Config from '../../config/Config';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import ModalHeading from '../modals/ModalHeading';
-import ValidatorUtil from '../../utils/ValidatorUtil';
+import Config from "../../config/Config";
+import InternalStorageMixin from "../../mixins/InternalStorageMixin";
+import ModalHeading from "../modals/ModalHeading";
+import ValidatorUtil from "../../utils/ValidatorUtil";
 
 var IdentifyModal = React.createClass({
-
-  displayName: 'IdentifyModal',
+  displayName: "IdentifyModal",
 
   propTypes: {
     onLogin: React.PropTypes.func.isRequired
@@ -20,7 +19,7 @@ var IdentifyModal = React.createClass({
   componentWillMount() {
     this.internalStorage_set({
       emailHasError: false,
-      email: ''
+      email: ""
     });
   },
 
@@ -46,8 +45,10 @@ var IdentifyModal = React.createClass({
   getFooter() {
     return (
       <div className="button-collection button-collection-align-horizontal-center flush-bottom">
-        <button className="button button-primary button-wide-below-screen-mini"
-          onClick={this.handleSubmit}>
+        <button
+          className="button button-primary button-wide-below-screen-mini"
+          onClick={this.handleSubmit}
+        >
           Try {Config.productName}
         </button>
       </div>
@@ -74,14 +75,14 @@ var IdentifyModal = React.createClass({
   render() {
     var data = this.internalStorage_get();
     var emailClassSet = classNames({
-      'form-group': true,
-      'flush-bottom': true,
-      'form-group-danger': data.emailHasError
+      "form-group": true,
+      "flush-bottom": true,
+      "form-group-danger": data.emailHasError
     });
 
     var emailHelpBlock = classNames({
-      'form-control-feedback': true,
-      'hidden': !data.emailHasError
+      "form-control-feedback": true,
+      hidden: !data.emailHasError
     });
 
     return (
@@ -94,15 +95,17 @@ var IdentifyModal = React.createClass({
         open={this.props.open}
         showHeader={true}
         showFooter={true}
-        subHeader={this.getSubHeader()}>
-        <form className="flush-bottom"
-          onSubmit={this.handleSubmit}>
+        subHeader={this.getSubHeader()}
+      >
+        <form className="flush-bottom" onSubmit={this.handleSubmit}>
           <div className={emailClassSet}>
-            <input className="form-control flush-bottom"
+            <input
+              className="form-control flush-bottom"
               autoFocus={true}
               type="email"
               placeholder="Email address"
-              ref="email" />
+              ref="email"
+            />
             <p className={emailHelpBlock}>
               Please provide a valid email address (e.g. email@domain.com).
             </p>

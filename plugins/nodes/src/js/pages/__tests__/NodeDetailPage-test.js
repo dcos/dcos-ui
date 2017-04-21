@@ -1,70 +1,69 @@
-jest.dontMock('#SRC/js/components/charts/Chart');
-jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
-jest.dontMock('#SRC/js/mixins/TabsMixin');
-jest.dontMock('#SRC/js/stores/MesosSummaryStore');
-jest.dontMock('../nodes/NodeDetailPage');
-jest.dontMock('#SRC/js/components/RequestErrorMsg');
-jest.dontMock('#SRC/js/structs/CompositeState');
-jest.dontMock('#SRC/js/components/Page');
+jest.dontMock("#SRC/js/components/charts/Chart");
+jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
+jest.dontMock("#SRC/js/mixins/TabsMixin");
+jest.dontMock("#SRC/js/stores/MesosSummaryStore");
+jest.dontMock("../nodes/NodeDetailPage");
+jest.dontMock("#SRC/js/components/RequestErrorMsg");
+jest.dontMock("#SRC/js/structs/CompositeState");
+jest.dontMock("#SRC/js/components/Page");
 
-const JestUtil = require('#SRC/js/utils/JestUtil');
+const JestUtil = require("#SRC/js/utils/JestUtil");
 
-JestUtil.unMockStores(['MesosSummaryStore', 'MesosStateStore']);
+JestUtil.unMockStores(["MesosSummaryStore", "MesosStateStore"]);
 /* eslint-disable no-unused-vars */
-const React = require('react');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
+const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
 
-const CompositeState = require('#SRC/js/structs/CompositeState');
-const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
-const MesosSummaryActions = require('#SRC/js/events/MesosSummaryActions');
-const MesosSummaryStore = require('#SRC/js/stores/MesosSummaryStore');
-const Node = require('#SRC/js/structs/Node');
-const NodesList = require('#SRC/js/structs/NodesList');
-const NodeDetailPage = require('../nodes/NodeDetailPage');
+const CompositeState = require("#SRC/js/structs/CompositeState");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const MesosSummaryActions = require("#SRC/js/events/MesosSummaryActions");
+const MesosSummaryStore = require("#SRC/js/stores/MesosSummaryStore");
+const Node = require("#SRC/js/structs/Node");
+const NodesList = require("#SRC/js/structs/NodesList");
+const NodeDetailPage = require("../nodes/NodeDetailPage");
 
-describe('NodeDetailPage', function () {
-  beforeEach(function () {
+describe("NodeDetailPage", function() {
+  beforeEach(function() {
     this.fetchSummary = MesosSummaryActions.fetchSummary;
     this.getTasksFromNodeID = MesosStateStore.getTasksFromNodeID;
     this.storeGet = MesosStateStore.get;
     this.storeGetNode = MesosStateStore.getNodeFromID;
     this.getNodesList = CompositeState.getNodesList;
 
-    this.container = global.document.createElement('div');
+    this.container = global.document.createElement("div");
 
-    CompositeState.getNodesList = function () {
-      return new NodesList({items: [{id: 'existingNode'}]});
+    CompositeState.getNodesList = function() {
+      return new NodesList({ items: [{ id: "existingNode" }] });
     };
 
-    MesosSummaryActions.fetchSummary = function () {
+    MesosSummaryActions.fetchSummary = function() {
       return null;
     };
-    MesosStateStore.getTasksFromNodeID = function () {
+    MesosStateStore.getTasksFromNodeID = function() {
       return [];
     };
 
-    MesosStateStore.get = function (key) {
-      if (key === 'lastMesosState') {
+    MesosStateStore.get = function(key) {
+      if (key === "lastMesosState") {
         return {
-          version: '1'
+          version: "1"
         };
       }
-      if (key === 'statesProcessed') {
+      if (key === "statesProcessed") {
         return true;
       }
-
     };
 
-    MesosStateStore.getNodeFromID = function (id) {
-      if (id === 'nonExistent') {
+    MesosStateStore.getNodeFromID = function(id) {
+      if (id === "nonExistent") {
         return null;
       }
 
       return {
-        id: 'existingNode',
-        version: '10',
+        id: "existingNode",
+        version: "10",
         active: true,
         registered_time: 10
       };
@@ -73,15 +72,17 @@ describe('NodeDetailPage', function () {
     MesosSummaryStore.processSummary({
       slaves: [
         {
-          'id': 'foo',
-          'hostname': 'bar'
+          id: "foo",
+          hostname: "bar"
         },
         {
-          id: 'existingNode',
-          version: '10',
+          id: "existingNode",
+          version: "10",
           active: true,
           registered_time: 10,
-          sumTaskTypesByState() { return 1; }
+          sumTaskTypesByState() {
+            return 1;
+          }
         }
       ]
     });
@@ -91,10 +92,11 @@ describe('NodeDetailPage', function () {
         NodeDetailPage,
         {
           params: {
-            nodeID: 'nonExistent',
-            taskID: 'foo'
+            nodeID: "nonExistent",
+            taskID: "foo"
           },
-          routes: [{path: '/nodes/:nodeID', children: []}]},
+          routes: [{ path: "/nodes/:nodeID", children: [] }]
+        },
         {}
       ),
       this.container
@@ -105,7 +107,7 @@ describe('NodeDetailPage', function () {
     );
   });
 
-  afterEach(function () {
+  afterEach(function() {
     MesosSummaryActions.fetchSummary = this.fetchSummary;
     MesosStateStore.getTasksFromNodeID = this.getTasksFromNodeID;
     MesosStateStore.get = this.storeGet;
@@ -116,14 +118,11 @@ describe('NodeDetailPage', function () {
     CompositeState.getNodesList = this.getNodesList;
   });
 
-  describe('#getNode', function () {
-
-    it('should store an instance of Node', function () {
-      var node = this.instance.getNode({params: {nodeID: 'existingNode'}});
+  describe("#getNode", function() {
+    it("should store an instance of Node", function() {
+      var node = this.instance.getNode({ params: { nodeID: "existingNode" } });
       expect(node instanceof Node).toEqual(true);
       this.instance = null;
     });
-
   });
-
 });

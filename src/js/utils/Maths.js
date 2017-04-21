@@ -1,5 +1,4 @@
 var Maths = {
-
   round(value, precision) {
     precision = precision || 0;
     var factor = Math.pow(10, precision);
@@ -10,7 +9,7 @@ var Maths = {
   sum(array) {
     var sum = 0;
 
-    array.forEach(function (value) {
+    array.forEach(function(value) {
       if (Array.isArray(value)) {
         sum += this.sum(value);
       } else {
@@ -63,7 +62,7 @@ var Maths = {
    * @return {Number} An unmapped number between in the provided range
    **/
   unmapValue(value, stats) {
-    value = stats.min + (value * (stats.max - stats.min));
+    value = stats.min + value * (stats.max - stats.min);
 
     if (isNaN(value)) {
       return undefined;
@@ -71,7 +70,6 @@ var Maths = {
       return value;
     }
   }
-
 };
 
 module.exports = Maths;

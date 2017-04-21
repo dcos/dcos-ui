@@ -1,46 +1,43 @@
-import classNames from 'classnames';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
-import GeminiScrollbar from 'react-gemini-scrollbar';
-import {Link, routerShape} from 'react-router';
-import React from 'react';
-import PluginSDK from 'PluginSDK';
-import {navigation} from 'foundation-ui';
+import classNames from "classnames";
+import CSSTransitionGroup from "react-addons-css-transition-group";
+import GeminiScrollbar from "react-gemini-scrollbar";
+import { Link, routerShape } from "react-router";
+import React from "react";
+import PluginSDK from "PluginSDK";
+import { navigation } from "foundation-ui";
 
-import {keyCodes} from '../utils/KeyboardUtil';
-import EventTypes from '../constants/EventTypes';
-import Icon from '../components/Icon';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import MesosSummaryStore from '../stores/MesosSummaryStore';
-import MetadataStore from '../stores/MetadataStore';
-import PrimarySidebarLink from '../components/PrimarySidebarLink';
-import ScrollbarUtil from '../utils/ScrollbarUtil';
-import SidebarActions from '../events/SidebarActions';
-import SidebarHeader from './SidebarHeader';
-import SidebarStore from '../stores/SidebarStore';
+import { keyCodes } from "../utils/KeyboardUtil";
+import EventTypes from "../constants/EventTypes";
+import Icon from "../components/Icon";
+import InternalStorageMixin from "../mixins/InternalStorageMixin";
+import MesosSummaryStore from "../stores/MesosSummaryStore";
+import MetadataStore from "../stores/MetadataStore";
+import PrimarySidebarLink from "../components/PrimarySidebarLink";
+import ScrollbarUtil from "../utils/ScrollbarUtil";
+import SidebarActions from "../events/SidebarActions";
+import SidebarHeader from "./SidebarHeader";
+import SidebarStore from "../stores/SidebarStore";
 
-const {
-  NavigationService,
-  EventTypes: {NAVIGATION_CHANGE}} = navigation;
+const { NavigationService, EventTypes: { NAVIGATION_CHANGE } } = navigation;
 
 const defaultMenuItems = [
-  '/dashboard',
-  '/services',
-  '/jobs',
-  '/universe',
-  '/nodes',
-  '/networking',
-  '/security',
-  '/system-overview',
-  '/components',
-  '/settings',
-  '/organization'
+  "/dashboard",
+  "/services",
+  "/jobs",
+  "/universe",
+  "/nodes",
+  "/networking",
+  "/security",
+  "/system-overview",
+  "/components",
+  "/settings",
+  "/organization"
 ];
 
-const {Hooks} = PluginSDK;
+const { Hooks } = PluginSDK;
 
 var Sidebar = React.createClass({
-
-  displayName: 'Sidebar',
+  displayName: "Sidebar",
 
   mixins: [InternalStorageMixin],
 
@@ -49,16 +46,16 @@ var Sidebar = React.createClass({
   },
 
   getInitialState() {
-    return {expandedItems: []};
+    return { expandedItems: [] };
   },
 
   componentWillMount() {
-    const pathnameSegments = this.props.location.pathname.split('/');
+    const pathnameSegments = this.props.location.pathname.split("/");
 
     // If the user loaded the UI from a route other than `/`, we want to display
     // it in its expanded state.
     if (pathnameSegments.length > 1) {
-      this.setState({expandedItems: [`/${pathnameSegments[1]}`]});
+      this.setState({ expandedItems: [`/${pathnameSegments[1]}`] });
     }
   },
 
@@ -66,7 +63,7 @@ var Sidebar = React.createClass({
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
     this.internalStorage_update({
-      mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
+      mesosInfo: MesosSummaryStore.get("states").lastSuccessful()
     });
 
     MetadataStore.addChangeListener(
@@ -76,12 +73,12 @@ var Sidebar = React.createClass({
 
     if (this.sidebarWrapperRef) {
       this.sidebarWrapperRef.addEventListener(
-        'transitionend',
+        "transitionend",
         this.handleSidebarTransitionEnd
       );
     }
 
-    global.addEventListener('keydown', this.handleKeyPress, true);
+    global.addEventListener("keydown", this.handleKeyPress, true);
   },
 
   componentWillUnmount() {
@@ -97,12 +94,12 @@ var Sidebar = React.createClass({
 
     if (this.sidebarWrapperRef) {
       this.sidebarWrapperRef.removeEventListener(
-        'transitionend',
+        "transitionend",
         this.handleSidebarTransitionEnd
       );
     }
 
-    global.removeEventListener('keydown', this.handleKeyPress, true);
+    global.removeEventListener("keydown", this.handleKeyPress, true);
   },
 
   onDCOSMetadataChange() {
@@ -116,9 +113,11 @@ var Sidebar = React.createClass({
   handleKeyPress(event) {
     const nodeName = event.target.nodeName;
 
-    if (event.keyCode === keyCodes.leftBracket
-      && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')
-      && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
+    if (
+      event.keyCode === keyCodes.leftBracket &&
+      !(nodeName === "INPUT" || nodeName === "TEXTAREA") &&
+      !(event.ctrlKey || event.metaKey || event.shiftKey)
+    ) {
       // #sidebarWidthChange is passed as a callback so that the sidebar
       // has had a chance to update before Gemini re-renders.
       this.toggleSidebarDocking();
@@ -140,7 +139,7 @@ var Sidebar = React.createClass({
         return null;
       }
 
-      if (group.category !== 'root') {
+      if (group.category !== "root") {
         heading = (
           <h6 className="sidebar-section-header">
             {group.category}
@@ -149,8 +148,10 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
-          key={index}>
+        <div
+          className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
+          key={index}
+        >
           {heading}
           {menuItems}
         </div>
@@ -159,15 +160,17 @@ var Sidebar = React.createClass({
   },
 
   getNavigationGroup(group) {
-    const menuItems = Hooks
-      .applyFilter('sidebarNavigation', defaultMenuItems)
-      .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+    const menuItems = Hooks.applyFilter(
+      "sidebarNavigation",
+      defaultMenuItems
+    ).reduce((routesMap, path) => routesMap.set(path, true), new Map());
 
-    const filteredItems = group.children
-     .filter((route) => menuItems.has(route.path));
+    const filteredItems = group.children.filter(route =>
+      menuItems.has(route.path)
+    );
 
     const groupMenuItems = filteredItems.map((element, index) => {
-      const {pathname} = this.props.location;
+      const { pathname } = this.props.location;
 
       const hasChildren = element.children && element.children.length !== 0;
       const isExpanded = this.state.expandedItems.includes(element.path);
@@ -177,11 +180,13 @@ var Sidebar = React.createClass({
       let isChildActive = false;
       if (isExpanded && hasChildren) {
         [submenu, isChildActive] = this.getGroupSubmenu(
-          group.path, element.children);
+          group.path,
+          element.children
+        );
       }
 
       let linkElement = element.link;
-      if (typeof linkElement === 'string') {
+      if (typeof linkElement === "string") {
         linkElement = (
           <PrimarySidebarLink
             hasChildren={hasChildren}
@@ -189,13 +194,18 @@ var Sidebar = React.createClass({
             isExpanded={isExpanded}
             to={element.path}
             icon={element.options.icon}
-            onClick={this.handlePrimarySidebarLinkClick.bind(this, element, isChildActive)}>
+            onClick={this.handlePrimarySidebarLinkClick.bind(
+              this,
+              element,
+              isChildActive
+            )}
+          >
             {linkElement}
           </PrimarySidebarLink>
         );
       }
 
-      const itemClassSet = classNames('sidebar-menu-item', {
+      const itemClassSet = classNames("sidebar-menu-item", {
         selected: isParentActive && !isChildActive,
         open: isExpanded
       });
@@ -216,27 +226,31 @@ var Sidebar = React.createClass({
   },
 
   getGroupSubmenu(path, children) {
-    const {pathname} = this.props.location;
+    const { pathname } = this.props.location;
     let isChildActive = false;
 
-    const childRoutesPaths = children.map(({path}) => path);
-    const filteredPaths = Hooks
-        .applyFilter('secondaryNavigation', path, childRoutesPaths);
+    const childRoutesPaths = children.map(({ path }) => path);
+    const filteredPaths = Hooks.applyFilter(
+      "secondaryNavigation",
+      path,
+      childRoutesPaths
+    );
 
     // Defaulting to unfiltered set of paths
     const childRoutesMap = (filteredPaths || childRoutesPaths)
-        .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+      .reduce((routesMap, path) => routesMap.set(path, true), new Map());
 
-    const filteredChildRoutes =
-        children.filter(({path}) => childRoutesMap.has(path));
+    const filteredChildRoutes = children.filter(({ path }) =>
+      childRoutesMap.has(path)
+    );
 
     const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
-        const isActive = currentChild.options.isActiveRegex != null ?
-          currentChild.options.isActiveRegex.test(pathname) :
-          pathname.startsWith(currentChild.path);
+        const isActive = currentChild.options.isActiveRegex != null
+          ? currentChild.options.isActiveRegex.test(pathname)
+          : pathname.startsWith(currentChild.path);
 
-        const menuItemClasses = classNames({selected: isActive});
+        const menuItemClasses = classNames({ selected: isActive });
 
         // First matched active child wins,
         // ie in /path/child and /path/child-path without this conditional /path/child-path
@@ -246,14 +260,16 @@ var Sidebar = React.createClass({
         }
 
         let linkElement = currentChild.link;
-        if (typeof linkElement === 'string') {
+        if (typeof linkElement === "string") {
           linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
         }
 
         children.push(
-          <li className={menuItemClasses}
+          <li
+            className={menuItemClasses}
             key={index}
-            onClick={this.handleSubmenuItemClick}>
+            onClick={this.handleSubmenuItemClick}
+          >
             {linkElement}
           </li>
         );
@@ -267,14 +283,12 @@ var Sidebar = React.createClass({
   },
 
   getVersion() {
-    const data = MetadataStore.get('dcosMetadata');
+    const data = MetadataStore.get("dcosMetadata");
     if (data == null || data.version == null) {
       return null;
     }
 
-    return (
-      <span className="version-number">v.{data.version}</span>
-    );
+    return <span className="version-number">v.{data.version}</span>;
   },
 
   handleClusterHeaderUpdate() {
@@ -282,8 +296,8 @@ var Sidebar = React.createClass({
   },
 
   handlePrimarySidebarLinkClick(element, isChildActive) {
-    const {expandedItems} = this.state;
-    const {path} = element;
+    const { expandedItems } = this.state;
+    const { path } = element;
     const expandedItemIndex = expandedItems.indexOf(path);
 
     if (expandedItemIndex === -1) {
@@ -292,7 +306,7 @@ var Sidebar = React.createClass({
       expandedItems.splice(expandedItemIndex, 1);
     }
 
-    this.setState({expandedItems});
+    this.setState({ expandedItems });
   },
 
   handleSidebarTransitionEnd(event) {
@@ -309,7 +323,7 @@ var Sidebar = React.createClass({
 
   toggleSidebarDocking() {
     global.requestAnimationFrame(() => {
-      if (SidebarStore.get('isDocked')) {
+      if (SidebarStore.get("isDocked")) {
         SidebarActions.undock();
       } else {
         SidebarActions.dock();
@@ -318,33 +332,40 @@ var Sidebar = React.createClass({
   },
 
   render() {
-    let dockIconID = 'sidebar-expand';
+    let dockIconID = "sidebar-expand";
     let overlay = null;
 
-    if (SidebarStore.get('isDocked')) {
-      dockIconID = 'sidebar-collapse';
+    if (SidebarStore.get("isDocked")) {
+      dockIconID = "sidebar-collapse";
     }
 
-    if (SidebarStore.get('isVisible')) {
+    if (SidebarStore.get("isVisible")) {
       overlay = (
         <div className="sidebar-backdrop" onClick={this.handleOverlayClick} />
       );
     }
 
     return (
-      <div className="sidebar-wrapper"
-        ref={(ref) => { this.sidebarWrapperRef = ref; }}>
+      <div
+        className="sidebar-wrapper"
+        ref={ref => {
+          this.sidebarWrapperRef = ref;
+        }}
+      >
         <CSSTransitionGroup
           transitionName="sidebar-backdrop"
           transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}>
+          transitionLeaveTimeout={250}
+        >
           {overlay}
         </CSSTransitionGroup>
         <div className="sidebar flex flex-direction-top-to-bottom">
           <SidebarHeader onUpdate={this.handleClusterHeaderUpdate} />
-          <GeminiScrollbar autoshow={true}
+          <GeminiScrollbar
+            autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
-            ref={(ref) => this.geminiRef = ref}>
+            ref={ref => this.geminiRef = ref}
+          >
             <div className="sidebar-content-wrapper">
               <div className="sidebar-sections pod pod-narrow">
                 {this.getNavigationSections()}
@@ -352,16 +373,17 @@ var Sidebar = React.createClass({
             </div>
           </GeminiScrollbar>
           <div className="sidebar-dock-container">
-            <Icon className="sidebar-dock-trigger"
+            <Icon
+              className="sidebar-dock-trigger"
               size="mini"
               id={dockIconID}
-              onClick={this.toggleSidebarDocking} />
+              onClick={this.toggleSidebarDocking}
+            />
           </div>
         </div>
       </div>
     );
   }
-
 });
 
 module.exports = Sidebar;

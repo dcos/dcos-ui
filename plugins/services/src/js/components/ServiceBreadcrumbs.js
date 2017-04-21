@@ -1,21 +1,23 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import {Link} from 'react-router';
+import ReactDOM from "react-dom";
+import React from "react";
+import { Link } from "react-router";
 
-import DCOSStore from '#SRC/js/stores/DCOSStore';
-import Breadcrumb from '#SRC/js/components/Breadcrumb';
-import BreadcrumbSupplementalContent from '#SRC/js/components/BreadcrumbSupplementalContent';
-import BreadcrumbTextContent from '#SRC/js/components/BreadcrumbTextContent';
-import PageHeaderBreadcrumbs from '#SRC/js/components/PageHeaderBreadcrumbs';
-import Util from '#SRC/js/utils/Util';
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbSupplementalContent
+  from "#SRC/js/components/BreadcrumbSupplementalContent";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
+import Util from "#SRC/js/utils/Util";
 
-import HealthBar from './HealthBar';
-import ServiceStatusWarningWithDebugInformation from './ServiceStatusWarningWithDebugInstruction';
-import ServiceTree from '../structs/ServiceTree';
+import HealthBar from "./HealthBar";
+import ServiceStatusWarningWithDebugInformation
+  from "./ServiceStatusWarningWithDebugInstruction";
+import ServiceTree from "../structs/ServiceTree";
 
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
-const METHODS_TO_BIND = ['checkBreadcrumbOverflow', 'handleViewportResize'];
+const METHODS_TO_BIND = ["checkBreadcrumbOverflow", "handleViewportResize"];
 
 class ServiceBreadcrumbs extends React.Component {
   constructor() {
@@ -29,7 +31,7 @@ class ServiceBreadcrumbs extends React.Component {
       shouldRenderServiceStatus: true
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -38,7 +40,7 @@ class ServiceBreadcrumbs extends React.Component {
 
   componentDidMount() {
     this.checkBreadcrumbOverflow();
-    global.addEventListener('resize', this.handleViewportResize);
+    global.addEventListener("resize", this.handleViewportResize);
   }
 
   componentDidUpdate() {
@@ -46,7 +48,7 @@ class ServiceBreadcrumbs extends React.Component {
   }
 
   componentWillUnmount() {
-    global.removeEventListener('resize', this.handleViewportResize);
+    global.removeEventListener("resize", this.handleViewportResize);
   }
 
   handleViewportResize() {
@@ -65,12 +67,13 @@ class ServiceBreadcrumbs extends React.Component {
       if (availableWidth <= 0 && this.state.shouldRenderServiceStatus) {
         // Hide the status bar when the breadcrumbs are wider than the
         // container's width.
-        this.setState({shouldRenderServiceStatus: false});
-      } else if (availableWidth > statusBarWidth
-        && !this.state.shouldRenderServiceStatus) {
+        this.setState({ shouldRenderServiceStatus: false });
+      } else if (
+        availableWidth > statusBarWidth && !this.state.shouldRenderServiceStatus
+      ) {
         // Show the status bar if its width is less than the amount of available
         // space.
-        this.setState({shouldRenderServiceStatus: true});
+        this.setState({ shouldRenderServiceStatus: true });
       }
     }
   }
@@ -83,13 +86,16 @@ class ServiceBreadcrumbs extends React.Component {
   getAvailableBreadcrumbWidth() {
     const breadcrumbsNode = ReactDOM.findDOMNode(this);
     const breadcrumbsDimensions = breadcrumbsNode.getBoundingClientRect();
-    const lastBreadcrumbNode = breadcrumbsNode
-      .querySelector('.breadcrumb:last-child');
-    const lastBreadcrumbDimensions = lastBreadcrumbNode
-      .getBoundingClientRect();
+    const lastBreadcrumbNode = breadcrumbsNode.querySelector(
+      ".breadcrumb:last-child"
+    );
+    const lastBreadcrumbDimensions = lastBreadcrumbNode.getBoundingClientRect();
 
-    return (breadcrumbsDimensions.left + breadcrumbsDimensions.width)
-      - lastBreadcrumbDimensions.right;
+    return (
+      breadcrumbsDimensions.left +
+      breadcrumbsDimensions.width -
+      lastBreadcrumbDimensions.right
+    );
   }
 
   /**
@@ -99,8 +105,9 @@ class ServiceBreadcrumbs extends React.Component {
    */
   getBreadcrumbStatusBarWidth() {
     if (this.breadcrumbStatusRef != null) {
-      this.lastStatusWidth = ReactDOM.findDOMNode(this.breadcrumbStatusRef)
-        .clientWidth + BREADCRUMB_CONTENT_MARGIN;
+      this.lastStatusWidth =
+        ReactDOM.findDOMNode(this.breadcrumbStatusRef).clientWidth +
+        BREADCRUMB_CONTENT_MARGIN;
     }
 
     return this.lastStatusWidth;
@@ -115,7 +122,7 @@ class ServiceBreadcrumbs extends React.Component {
     const tasksSummary = service.getTasksSummary();
     const runningTasksCount = tasksSummary.tasksRunning;
     const instancesCount = service.getInstancesCount();
-    const isDeploying = serviceStatus === 'Deploying';
+    const isDeploying = serviceStatus === "Deploying";
 
     if (instancesCount === 0) {
       return null;
@@ -123,7 +130,8 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent
-        ref={(ref) => this.breadcrumbStatusRef = ref}>
+        ref={ref => this.breadcrumbStatusRef = ref}
+      >
         <BreadcrumbSupplementalContent>
           <span className="muted">
             {serviceStatus} ({runningTasksCount} of {instancesCount})
@@ -135,7 +143,8 @@ class ServiceBreadcrumbs extends React.Component {
             key="status-bar"
             instancesCount={instancesCount}
             isDeploying={isDeploying}
-            tasksSummary={tasksSummary} />
+            tasksSummary={tasksSummary}
+          />
         </BreadcrumbSupplementalContent>
       </BreadcrumbSupplementalContent>
     );
@@ -148,9 +157,9 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent>
-        <Link to={'/services/detail/' + aggregateIDs}>
+        <Link to={"/services/detail/" + aggregateIDs}>
           <span className="icon icon-small icon-image-container icon-app-container">
-            <img src={service.getImages()['icon-small']}/>
+            <img src={service.getImages()["icon-small"]} />
           </span>
         </Link>
       </BreadcrumbSupplementalContent>
@@ -158,7 +167,7 @@ class ServiceBreadcrumbs extends React.Component {
   }
 
   render() {
-    const {serviceID, taskID, taskName, extra} = this.props;
+    const { serviceID, taskID, taskName, extra } = this.props;
 
     let crumbs = [
       <Breadcrumb key={-1} title="Services">
@@ -168,9 +177,9 @@ class ServiceBreadcrumbs extends React.Component {
       </Breadcrumb>
     ];
 
-    let aggregateIDs = '';
-    const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, '');
-    const ids = trimmedServiceID.split('/');
+    let aggregateIDs = "";
+    const trimmedServiceID = decodeURIComponent(serviceID).replace(/^\//, "");
+    const ids = trimmedServiceID.split("/");
 
     if (serviceID != null && trimmedServiceID.length > 0) {
       const serviceCrumbs = ids.map((id, index) => {
@@ -178,24 +187,23 @@ class ServiceBreadcrumbs extends React.Component {
         let serviceImage = null;
 
         aggregateIDs += encodeURIComponent(`/${id}`);
-        let routePath = '/services/overview/' + aggregateIDs;
+        let routePath = "/services/overview/" + aggregateIDs;
         if (index === ids.length - 1) {
           const service = DCOSStore.serviceTree.findItemById(serviceID);
           // Make sure to change to detail route if service is not a group
           if (!(service instanceof ServiceTree)) {
-            routePath = '/services/detail/' + aggregateIDs;
+            routePath = "/services/detail/" + aggregateIDs;
           }
           breadcrumbHealth = this.getHealthStatus(service);
           serviceImage = this.getServiceImage(service, aggregateIDs);
         }
 
         return (
-          <Breadcrumb
-            key={index}
-            title={ids.slice(0, index + 1).join('/')}>
+          <Breadcrumb key={index} title={ids.slice(0, index + 1).join("/")}>
             {serviceImage}
             <BreadcrumbTextContent
-              ref={(ref) => this.primaryBreadcrumbTextRef = ref}>
+              ref={ref => this.primaryBreadcrumbTextRef = ref}
+            >
               <Link to={routePath}>
                 {id}
               </Link>
@@ -211,13 +219,12 @@ class ServiceBreadcrumbs extends React.Component {
     if (taskID != null && taskName != null) {
       const encodedTaskID = encodeURIComponent(taskID);
       crumbs.push(
-        <Breadcrumb
-          key={trimmedServiceID.length + 1}
-          title={taskID}>
+        <Breadcrumb key={trimmedServiceID.length + 1} title={taskID}>
           <BreadcrumbTextContent>
             <Link
               to={`/services/detail/${aggregateIDs}/tasks/${encodedTaskID}`}
-              index={taskID}>
+              index={taskID}
+            >
               {taskName}
             </Link>
           </BreadcrumbTextContent>
@@ -233,13 +240,14 @@ class ServiceBreadcrumbs extends React.Component {
       <PageHeaderBreadcrumbs
         iconID="services"
         iconRoute="/services"
-        breadcrumbs={crumbs} />
+        breadcrumbs={crumbs}
+      />
     );
   }
 }
 
 ServiceBreadcrumbs.defaultProps = {
-  serviceID: ''
+  serviceID: ""
 };
 
 ServiceBreadcrumbs.propTypes = {

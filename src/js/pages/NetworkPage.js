@@ -1,17 +1,17 @@
-import {routerShape, Link} from 'react-router';
-import mixin from 'reactjs-mixin';
+import { routerShape, Link } from "react-router";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {Hooks} from 'PluginSDK';
+import { Hooks } from "PluginSDK";
 
-import Breadcrumb from '../components/Breadcrumb';
-import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
-import Icon from '../components/Icon';
-import Loader from '../components/Loader';
-import Page from '../components/Page';
-import SidebarActions from '../events/SidebarActions';
-import TabsMixin from '../mixins/TabsMixin';
+import Breadcrumb from "../components/Breadcrumb";
+import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
+import Icon from "../components/Icon";
+import Loader from "../components/Loader";
+import Page from "../components/Page";
+import SidebarActions from "../events/SidebarActions";
+import TabsMixin from "../mixins/TabsMixin";
 
 const NetworkingBreadcrumbs = () => {
   const crumbs = [
@@ -35,17 +35,18 @@ class NetworkPage extends mixin(TabsMixin) {
     super.componentWillMount(...arguments);
 
     const networkPageReady = Hooks.applyFilter(
-      'networkPageReady', Promise.resolve({isReady: true})
+      "networkPageReady",
+      Promise.resolve({ isReady: true })
     );
 
     if (!networkPageReady.isReady) {
       // Set page ready once promise resolves
       networkPageReady.then(() => {
-        this.setState({networkPageReady: true});
+        this.setState({ networkPageReady: true });
       });
     }
 
-    this.setState({networkPageReady: networkPageReady.isReady});
+    this.setState({ networkPageReady: networkPageReady.isReady });
   }
 
   render() {
@@ -67,12 +68,12 @@ NetworkPage.contextTypes = {
 };
 
 NetworkPage.routeConfig = {
-  label: 'Networking',
+  label: "Networking",
   icon: <Icon id="network-inverse" size="small" family="product" />,
   matches: /^\/networking/
 };
 
-NetworkPage.willTransitionTo = function () {
+NetworkPage.willTransitionTo = function() {
   SidebarActions.close();
 };
 

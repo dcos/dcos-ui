@@ -1,65 +1,63 @@
-const Job = require('../../structs/Job');
-const JobUtil = require('../JobUtil');
+const Job = require("../../structs/Job");
+const JobUtil = require("../JobUtil");
 
-describe('JobUtil', function () {
-
-  describe('#createJobFromFormModel', function () {
-
-    it('should return instance of Job', function () {
+describe("JobUtil", function() {
+  describe("#createJobFromFormModel", function() {
+    it("should return instance of Job", function() {
       const job = JobUtil.createJobFromFormModel({
-        general: {id: 'test'}
+        general: { id: "test" }
       });
 
       expect(job).toEqual(jasmine.any(Job));
     });
 
-    it('should return instance Job if null is provided', function () {
+    it("should return instance Job if null is provided", function() {
       expect(JobUtil.createJobFromFormModel(null)).toEqual(jasmine.any(Job));
     });
 
-    it('should return instance Job if empty object is provided', function () {
+    it("should return instance Job if empty object is provided", function() {
       expect(JobUtil.createJobFromFormModel({})).toEqual(jasmine.any(Job));
     });
 
-    it('should convert form model to the corresponding job', function () {
+    it("should convert form model to the corresponding job", function() {
       const job = JobUtil.createJobFromFormModel({
-        general: {id: 'test', cmd: 'sleep 1000;'}
+        general: { id: "test", cmd: "sleep 1000;" }
       });
 
-      expect(job.getId()).toEqual('test');
-      expect(job.getCommand()).toEqual('sleep 1000;');
+      expect(job.getId()).toEqual("test");
+      expect(job.getCommand()).toEqual("sleep 1000;");
     });
 
-    it('should return job with schedule if actiavted', function () {
+    it("should return job with schedule if actiavted", function() {
       const job = JobUtil.createJobFromFormModel({
-        general: { id: 'test', cmd: 'sleep 1000;' },
+        general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
-          id: 'default',
-          cron: '* * * * *',
+          id: "default",
+          cron: "* * * * *",
           enabled: true,
-          concurrencyPolicy: 'ALLOW',
+          concurrencyPolicy: "ALLOW",
           runOnSchedule: true
         }
       });
 
       expect(job.getSchedules()).toEqual([
         {
-          id: 'default',
-          cron: '* * * * *',
+          id: "default",
+          cron: "* * * * *",
           enabled: true,
-          concurrencyPolicy: 'ALLOW'
+          concurrencyPolicy: "ALLOW"
         }
       ]);
     });
 
-    it('should remove schedule if deactivated', function () {
+    it("should remove schedule if deactivated", function() {
       const job = JobUtil.createJobFromFormModel({
-        general: { id: 'test', cmd: 'sleep 1000;' },
+        general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
-          id: 'default',
-          cron: '* * * * *',
+          id: "default",
+          cron: "* * * * *",
           enabled: true,
-          concurrencyPolicy: 'ALLOW',
+          concurrencyPolicy: "ALLOW",
           runOnSchedule: false
         }
       });
@@ -68,21 +66,20 @@ describe('JobUtil', function () {
     });
   });
 
-  describe('#createFormModelFromSchema', function () {
-
-    it('should create the correct model', function () {
+  describe("#createFormModelFromSchema", function() {
+    it("should create the correct model", function() {
       const schema = {
-        type: 'object',
+        type: "object",
         properties: {
           general: {
-            description: 'Configure your container',
-            type: 'object',
+            description: "Configure your container",
+            type: "object",
             properties: {
               id: {
-                default: 'job.id',
-                title: 'ID',
-                description: 'The id for the job',
-                type: 'string',
+                default: "job.id",
+                title: "ID",
+                description: "The id for the job",
+                type: "string",
                 getter(job) {
                   return job.getId();
                 }
@@ -90,61 +87,58 @@ describe('JobUtil', function () {
             }
           }
         },
-        required: [
-          'general'
-        ]
+        required: ["general"]
       };
 
-      const job = new Job({id: 'test'});
+      const job = new Job({ id: "test" });
 
       expect(JobUtil.createFormModelFromSchema(schema, job)).toEqual({
-        general: {id: 'test'}
+        general: { id: "test" }
       });
     });
   });
 
-  describe('#createJobSpecFromJob', function () {
-
-    it('should create the correct job', function () {
+  describe("#createJobSpecFromJob", function() {
+    it("should create the correct job", function() {
       const job = new Job({
-        id: 'test',
+        id: "test",
         run: {
-          cmd: 'sleep 1000;'
+          cmd: "sleep 1000;"
         }
       });
 
-      expect(JobUtil.createJobSpecFromJob(job)).toEqual(
-        {
-          id: 'test',
-          run: {
-            cmd: 'sleep 1000;',
-            cpus: 0.01,
-            mem: 128,
-            disk: 0
-          },
-          schedules: []
-        });
+      expect(JobUtil.createJobSpecFromJob(job)).toEqual({
+        id: "test",
+        run: {
+          cmd: "sleep 1000;",
+          cpus: 0.01,
+          mem: 128,
+          disk: 0
+        },
+        schedules: []
+      });
     });
 
-    it('should add concurrencyPolicy if schedule is defined', function () {
+    it("should add concurrencyPolicy if schedule is defined", function() {
       const job = new Job({
-        id: 'test',
+        id: "test",
         run: {
-          cmd: 'sleep 1000;'
+          cmd: "sleep 1000;"
         },
-        schedules: [{
-          id: 'every-minute',
-          cron: '* * * * *'
-        }]
+        schedules: [
+          {
+            id: "every-minute",
+            cron: "* * * * *"
+          }
+        ]
       });
 
-      expect(JobUtil.createJobSpecFromJob(job).schedules[0]).toEqual(
-        {
-          id: 'every-minute',
-          enabled: true,
-          concurrencyPolicy: 'ALLOW',
-          cron: '* * * * *'
-        });
+      expect(JobUtil.createJobSpecFromJob(job).schedules[0]).toEqual({
+        id: "every-minute",
+        enabled: true,
+        concurrencyPolicy: "ALLOW",
+        cron: "* * * * *"
+      });
     });
   });
 });

@@ -1,13 +1,13 @@
-import {Confirm} from 'reactjs-components';
-import React, {PropTypes} from 'react';
-import PureRender from 'react-addons-pure-render-mixin';
+import { Confirm } from "reactjs-components";
+import React, { PropTypes } from "react";
+import PureRender from "react-addons-pure-render-mixin";
 
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
-import AppLockedMessage from './AppLockedMessage';
-import Pod from '../../structs/Pod';
-import Service from '../../structs/Service';
-import ServiceTree from '../../structs/ServiceTree';
+import AppLockedMessage from "./AppLockedMessage";
+import Pod from "../../structs/Pod";
+import Service from "../../structs/Service";
+import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceSuspendModal extends React.Component {
   constructor() {
@@ -21,8 +21,7 @@ class ServiceSuspendModal extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending
-      && !nextProps.isPending;
+    const requestCompleted = this.props.isPending && !nextProps.isPending;
 
     const shouldClose = requestCompleted && !nextProps.errors;
 
@@ -32,33 +31,33 @@ class ServiceSuspendModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {errors} = nextProps;
+    const { errors } = nextProps;
     if (!errors) {
-      this.setState({errorMsg: null});
+      this.setState({ errorMsg: null });
 
       return;
     }
 
-    if (typeof errors === 'string') {
-      this.setState({errorMsg: errors});
+    if (typeof errors === "string") {
+      this.setState({ errorMsg: errors });
 
       return;
     }
 
-    let {message: errorMsg = '', details} = errors;
+    let { message: errorMsg = "", details } = errors;
     const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
-      errorMsg = details.reduce(function (memo, error) {
-        return `${memo} ${error.errors.join(' ')}`;
-      }, '');
+      errorMsg = details.reduce(function(memo, error) {
+        return `${memo} ${error.errors.join(" ")}`;
+      }, "");
     }
 
     if (!errorMsg || !errorMsg.length) {
       errorMsg = null;
     }
 
-    this.setState({errorMsg});
+    this.setState({ errorMsg });
   }
 
   shouldForceUpdate() {
@@ -66,16 +65,14 @@ class ServiceSuspendModal extends React.Component {
   }
 
   getErrorMessage() {
-    const {errorMsg = null} = this.state;
+    const { errorMsg = null } = this.state;
 
     if (!errorMsg) {
       return null;
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <AppLockedMessage service={this.props.service} />
-      );
+      return <AppLockedMessage service={this.props.service} />;
     }
 
     return (
@@ -84,23 +81,17 @@ class ServiceSuspendModal extends React.Component {
   }
 
   render() {
-    const {
-      isPending,
-      onClose,
-      open,
-      service,
-      suspendItem
-    } = this.props;
+    const { isPending, onClose, open, service, suspendItem } = this.props;
 
-    let itemText = 'Service';
-    let serviceName = '';
+    let itemText = "Service";
+    let serviceName = "";
 
     if (service instanceof Pod) {
-      itemText = 'Pod';
+      itemText = "Pod";
     }
 
     if (service instanceof ServiceTree) {
-      itemText = 'Group';
+      itemText = "Group";
     }
 
     if (service) {
@@ -122,9 +113,14 @@ class ServiceSuspendModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText={`Suspend ${itemText}`}
         rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}
-        showHeader={true}>
+        showHeader={true}
+      >
         <p>
-          Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
+          Are you sure you want to suspend
+          {" "}
+          <span className="emphasize">{serviceName}</span>
+          {" "}
+          by scaling to 0 instances?
         </p>
         {this.getErrorMessage()}
       </Confirm>
@@ -134,10 +130,7 @@ class ServiceSuspendModal extends React.Component {
 
 ServiceSuspendModal.propTypes = {
   suspendItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string
-  ]),
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

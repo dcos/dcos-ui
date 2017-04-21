@@ -1,5 +1,4 @@
 const HostUtil = {
-
   /**
    * Util to "transform" a string to a valid hostname following the RFC-952
    * standard. It mirrors the `dcos/mesos_state` implementation.
@@ -12,17 +11,16 @@ const HostUtil = {
    */
   stringToHostname(string) {
     if (string == null) {
-
       return null;
     }
 
     return string
-      .split('.')
-      .filter(function (string) {
-        return string !== '';
+      .split(".")
+      .filter(function(string) {
+        return string !== "";
       })
       .map(HostUtil.stringToLabel)
-      .join('.');
+      .join(".");
   },
 
   /**
@@ -38,33 +36,31 @@ const HostUtil = {
     const LABEL_MAX_LENGTH = 63;
 
     if (string == null) {
-      return '';
+      return "";
     }
 
     string = string.toLowerCase();
 
     // Strip all invalid character including leading and trailing dashes
     // or replace them with dashes.
-    string = string.replace(/(_)|^-+|-+$|[^a-z0-9-]/g, function (match, p1) {
-
+    string = string.replace(/(_)|^-+|-+$|[^a-z0-9-]/g, function(match, p1) {
       // Replace underscores (first capture group) with dashes
       if (p1 != null) {
-        return '-';
+        return "-";
       }
 
       // Strip any other invalid character
-      return '';
+      return "";
     });
 
     // Trim labels if they exceed the allowed max length
     if (string.length > LABEL_MAX_LENGTH) {
-
       // Remove all dashes and groups of dashes that have an offset larger or
       // equal to the allowed max length before trimming the label to ensure
       // that no label ends with a dash.
-      string = string.replace(/[-]+/g, function (match, offset) {
+      string = string.replace(/[-]+/g, function(match, offset) {
         if (offset + match.length >= LABEL_MAX_LENGTH) {
-          return '';
+          return "";
         }
 
         return match;

@@ -1,11 +1,12 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import Icon from '../Icon';
+import Icon from "../Icon";
 
-function AddButton({children, className, icon, onClick}) {
+function AddButton({ children, className, icon, onClick }) {
   const classes = classNames(
-    'button button-primary-link button-flush', className
+    "button button-primary-link button-flush",
+    className
   );
 
   return (

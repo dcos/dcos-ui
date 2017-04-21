@@ -1,56 +1,55 @@
-import {cleanJobJSON} from '../utils/CleanJSONUtil';
-import DateUtil from '../utils/DateUtil';
-import Item from './Item';
-import JobRunList from './JobRunList';
+import { cleanJobJSON } from "../utils/CleanJSONUtil";
+import DateUtil from "../utils/DateUtil";
+import Item from "./Item";
+import JobRunList from "./JobRunList";
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
   DEFAULT_MEM
-} from '../constants/JobResources';
+} from "../constants/JobResources";
 
 module.exports = class Job extends Item {
   getActiveRuns() {
-    return new JobRunList({items: this.get('activeRuns')});
+    return new JobRunList({ items: this.get("activeRuns") });
   }
 
   getCommand() {
-    const {cmd} = this.get('run') || {};
+    const { cmd } = this.get("run") || {};
 
     return cmd;
   }
 
   getCpus() {
-    const {cpus = DEFAULT_CPUS} = this.get('run') || {};
+    const { cpus = DEFAULT_CPUS } = this.get("run") || {};
 
     return cpus;
   }
 
   getDescription() {
-    return this.get('description');
+    return this.get("description");
   }
 
   getDocker() {
-    const {docker = {}} = this.get('run') || {};
+    const { docker = {} } = this.get("run") || {};
 
     return docker;
   }
 
   getDisk() {
-    const {disk = DEFAULT_DISK} = this.get('run') || {};
+    const { disk = DEFAULT_DISK } = this.get("run") || {};
 
     return disk;
   }
 
   getId() {
-    return this.get('id');
+    return this.get("id");
   }
 
   getJobRuns() {
-    const activeRuns = this.get('activeRuns') || [];
-    const {
-      failedFinishedRuns = [],
-      successfulFinishedRuns = []
-    } = this.get('history') || {};
+    const activeRuns = this.get("activeRuns") || [];
+    const { failedFinishedRuns = [], successfulFinishedRuns = [] } = this.get(
+      "history"
+    ) || {};
 
     return new JobRunList({
       items: [].concat(activeRuns, failedFinishedRuns, successfulFinishedRuns)
@@ -58,22 +57,22 @@ module.exports = class Job extends Item {
   }
 
   getLabels() {
-    return this.get('labels') || {};
+    return this.get("labels") || {};
   }
 
   getMem() {
-    const {mem = DEFAULT_MEM} = this.get('run') || {};
+    const { mem = DEFAULT_MEM } = this.get("run") || {};
 
     return mem;
   }
 
   getLastRunsSummary() {
-    return this.get('historySummary') || {};
+    return this.get("historySummary") || {};
   }
 
   getLastRunStatus() {
-    let {lastFailureAt, lastSuccessAt} = this.getLastRunsSummary();
-    let status = 'N/A';
+    let { lastFailureAt, lastSuccessAt } = this.getLastRunsSummary();
+    let status = "N/A";
     let time = null;
 
     if (lastFailureAt !== null) {
@@ -86,23 +85,23 @@ module.exports = class Job extends Item {
 
     if (lastFailureAt !== null || lastSuccessAt !== null) {
       if (lastFailureAt > lastSuccessAt) {
-        status = 'Failed';
+        status = "Failed";
         time = lastFailureAt;
       } else {
-        status = 'Success';
+        status = "Success";
         time = lastSuccessAt;
       }
     }
 
-    return {status, time};
+    return { status, time };
   }
 
   getName() {
-    return this.getId().split('.').pop();
+    return this.getId().split(".").pop();
   }
 
   getSchedules() {
-    const schedules = this.get('schedules');
+    const schedules = this.get("schedules");
 
     if (!Array.isArray(schedules)) {
       return [];
@@ -126,15 +125,15 @@ module.exports = class Job extends Item {
       const schedule = this.getSchedules()[0];
 
       if (schedule != null && schedule.enabled) {
-        return 'SCHEDULED';
+        return "SCHEDULED";
       }
     }
 
     if (scheduleLength === 0 && activeRunsLength === 0) {
-      return 'UNSCHEDULED';
+      return "UNSCHEDULED";
     }
 
-    return 'COMPLETED';
+    return "COMPLETED";
   }
 
   toJSON() {

@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const CosmosErrorHeader = function (props) {
-
+const CosmosErrorHeader = function(props) {
   return (
     <h3 className="text-align-center flush-top">
       {props.children}
@@ -14,4 +13,3 @@ CosmosErrorHeader.propTypes = {
 };
 
 module.exports = CosmosErrorHeader;
-

@@ -1,20 +1,20 @@
-import DateUtil from '../utils/DateUtil';
-import Item from './Item';
+import DateUtil from "../utils/DateUtil";
+import Item from "./Item";
 
 module.exports = class JobTask extends Item {
   getDateStarted() {
-    return DateUtil.strToMs(this.get('startedAt'));
+    return DateUtil.strToMs(this.get("startedAt"));
   }
 
   getDateCompleted() {
-    return DateUtil.strToMs(this.get('completedAt'));
+    return DateUtil.strToMs(this.get("completedAt"));
   }
 
   getTaskID() {
-    return this.get('id');
+    return this.get("id");
   }
 
   getStatus() {
-    return this.get('status');
+    return this.get("status");
   }
 };

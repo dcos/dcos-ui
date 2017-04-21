@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import Node from '#SRC/js/structs/Node';
-import Util from '#SRC/js/utils/Util';
+import Node from "#SRC/js/structs/Node";
+import Util from "#SRC/js/utils/Util";
 
 const TaskUtil = {
   /**
@@ -18,27 +18,27 @@ const TaskUtil = {
     const hostName = node.getHostName();
 
     // networkType is 'HOST', but no host name
-    if (networkType !== 'BRIDGE' && networkType !== 'USER' && !hostName) {
-      return {ports: [], hosts: []};
+    if (networkType !== "BRIDGE" && networkType !== "USER" && !hostName) {
+      return { ports: [], hosts: [] };
     }
 
     // networkType is 'HOST'
-    if (networkType !== 'BRIDGE' && networkType !== 'USER') {
-      return {ports, hosts: [hostName]};
+    if (networkType !== "BRIDGE" && networkType !== "USER") {
+      return { ports, hosts: [hostName] };
     }
 
     // networkType is 'BRIDGE' or 'USER'
     const portMappings = this.getPortMappings(task) || [];
     if (portMappings.length) {
       return {
-        ports: portMappings.map(function (mapping) {
+        ports: portMappings.map(function(mapping) {
           return mapping.host_port;
         }),
         hosts: [hostName]
       };
     }
 
-    return {ports, hosts: this.getIPAddresses(task)};
+    return { ports, hosts: this.getIPAddresses(task) };
   },
 
   /**
@@ -48,20 +48,23 @@ const TaskUtil = {
    * @return {Array.<number>} an array of port numbers
    */
   getPorts(task = {}) {
-    const ports = Util.findNestedPropertyInObject(task, 'discovery.ports.ports');
+    const ports = Util.findNestedPropertyInObject(
+      task,
+      "discovery.ports.ports"
+    );
 
     // If there are no service ports, use task ports
     if (!ports || !ports.length) {
       return task.ports || [];
     }
 
-    return ports.map(function (port) {
+    return ports.map(function(port) {
       return port.number;
     });
   },
 
   getTaskStatusSlug(task) {
-    return task.state.substring('TASK_'.length).toLowerCase();
+    return task.state.substring("TASK_".length).toLowerCase();
   },
 
   getTaskStatusClassName(task) {
@@ -71,7 +74,7 @@ const TaskUtil = {
   },
 
   getPortMappings(task) {
-    const {container} = task;
+    const { container } = task;
     if (!container || !container.type) {
       return null;
     }
@@ -89,7 +92,7 @@ const TaskUtil = {
   },
 
   getNetworkType(task) {
-    const {container} = task;
+    const { container } = task;
     if (!container || !container.type) {
       return null;
     }
@@ -103,14 +106,13 @@ const TaskUtil = {
   getIPAddresses(task) {
     const ipAddresses = Util.findNestedPropertyInObject(
       task,
-      'statuses.0.container_status.network_infos.0.ip_addresses'
+      "statuses.0.container_status.network_infos.0.ip_addresses"
     ) || [];
 
-    return ipAddresses.map(function (item) {
+    return ipAddresses.map(function(item) {
       return item.ip_address;
     });
   }
-
 };
 
 module.exports = TaskUtil;

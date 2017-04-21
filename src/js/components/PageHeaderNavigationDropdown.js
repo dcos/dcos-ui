@@ -1,12 +1,12 @@
-import {Dropdown} from 'reactjs-components';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import React from "react";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 class PageHeaderNavigationDropdown extends React.Component {
   getActiveItemID() {
-    const {items} = this.props;
-    const activeTab = items.find(function (item) {
+    const { items } = this.props;
+    const activeTab = items.find(function(item) {
       return item.isActive;
     });
 
@@ -20,8 +20,8 @@ class PageHeaderNavigationDropdown extends React.Component {
   }
 
   getItems() {
-    return this.props.items.map(function (item) {
-      const {label} = item;
+    return this.props.items.map(function(item) {
+      const { label } = item;
 
       return Object.assign({}, item, {
         html: label,
@@ -31,10 +31,12 @@ class PageHeaderNavigationDropdown extends React.Component {
               {label}
             </span>
             <span className="page-header-navigation-dropdown-caret">
-              <Icon id="caret-down"
+              <Icon
+                id="caret-down"
                 color="light-grey"
                 family="tiny"
-                size="tiny" />
+                size="tiny"
+              />
             </span>
           </div>
         )
@@ -43,7 +45,7 @@ class PageHeaderNavigationDropdown extends React.Component {
   }
 
   render() {
-    const {handleNavigationItemSelection} = this.props;
+    const { handleNavigationItemSelection } = this.props;
     const dropdownItems = this.getItems();
 
     if (dropdownItems.length === 0) {
@@ -63,7 +65,8 @@ class PageHeaderNavigationDropdown extends React.Component {
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
-        wrapperClassName="page-header-navigation-dropdown dropdown" />
+        wrapperClassName="page-header-navigation-dropdown dropdown"
+      />
     );
   }
 }

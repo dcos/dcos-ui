@@ -1,32 +1,34 @@
-import React from 'react';
+import React from "react";
 
-import DCOSStore from '#SRC/js/stores/DCOSStore';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
-    const {ports} = task;
+    const { ports } = task;
     if (!ports || !ports.length) {
-      return 'None';
+      return "None";
     }
 
-    return ports.join(', ');
+    return ports.join(", ");
   }
 
   getTaskStatus(task) {
     if (task == null || task.status == null) {
-      return 'Unknown';
+      return "Unknown";
     }
 
     return task.status;
   }
 
   getTimeField(time) {
-    let timeString = 'Never';
+    let timeString = "Never";
 
     if (time != null) {
       timeString = new Date(time).toLocaleString();
@@ -106,16 +108,16 @@ class MarathonTaskDetailsList extends React.Component {
       return null;
     }
 
-    return task.healthCheckResults.map((result, i) =>{
+    return task.healthCheckResults.map((result, i) => {
       let consecutiveFailures = result.consecutiveFailures;
-      let alive = 'Yes';
+      let alive = "Yes";
 
       if (consecutiveFailures == null) {
-        consecutiveFailures = 'None';
+        consecutiveFailures = "None";
       }
 
       if (!result.alive) {
-        alive = 'No';
+        alive = "No";
       }
 
       return (
@@ -169,10 +171,13 @@ class MarathonTaskDetailsList extends React.Component {
   }
 
   render() {
-    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(this.props.taskID);
+    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(
+      this.props.taskID
+    );
     const taskConfiguration = this.getMarathonTaskDetails(marathonTask);
-    const healthCheckResults =
-      this.getMarathonTaskHealthCheckResults(marathonTask);
+    const healthCheckResults = this.getMarathonTaskHealthCheckResults(
+      marathonTask
+    );
 
     return (
       <ConfigurationMapSection>

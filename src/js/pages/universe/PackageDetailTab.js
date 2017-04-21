@@ -1,24 +1,25 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
-import Image from '../../components/Image';
-import ImageViewer from '../../components/ImageViewer';
-import InstallPackageModal from '../../components/modals/InstallPackageModal';
-import Loader from '../../components/Loader';
-import MetadataStore from '../../stores/MetadataStore';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
-import StringUtil from '../../utils/StringUtil';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import defaultServiceImage
+  from "../../../../plugins/services/src/img/icon-service-default-large@2x.png";
+import Image from "../../components/Image";
+import ImageViewer from "../../components/ImageViewer";
+import InstallPackageModal from "../../components/modals/InstallPackageModal";
+import Loader from "../../components/Loader";
+import MetadataStore from "../../stores/MetadataStore";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
+import StringUtil from "../../utils/StringUtil";
 
-const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
+const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   const name = cosmosPackage.getName();
   const version = cosmosPackage.getCurrentVersion();
 
@@ -30,10 +31,7 @@ const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
     </Breadcrumb>,
     <Breadcrumb key={1} title={name}>
       <BreadcrumbTextContent>
-        <Link
-          to={`/universe/packages/${name}`}
-          query={{version}}
-          key={0}>
+        <Link to={`/universe/packages/${name}`} query={{ version }} key={0}>
           {name}
         </Link>
       </BreadcrumbTextContent>
@@ -43,10 +41,7 @@ const PackageDetailBreadcrumbs = ({cosmosPackage}) => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = [
-  'handleInstallModalClose',
-  'handleInstallModalOpen'
-];
+const METHODS_TO_BIND = ["handleInstallModalClose", "handleInstallModalOpen"];
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -58,19 +53,21 @@ class PackageDetailTab extends mixin(StoreMixin) {
       isLoading: true
     };
 
-    this.store_listeners = [{
-      name: 'cosmosPackages',
-      events: ['descriptionError', 'descriptionSuccess'],
-      unmountWhen(store, event) {
-        if (event === 'descriptionSuccess') {
-          return !!CosmosPackagesStore.get('packageDetails');
-        }
-      },
-      listenAlways: false,
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        name: "cosmosPackages",
+        events: ["descriptionError", "descriptionSuccess"],
+        unmountWhen(store, event) {
+          if (event === "descriptionSuccess") {
+            return !!CosmosPackagesStore.get("packageDetails");
+          }
+        },
+        listenAlways: false,
+        suppressUpdate: true
+      }
+    ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -78,26 +75,26 @@ class PackageDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
 
-    const {packageName} = this.props.params;
-    const {version} = this.props.location.query;
+    const { packageName } = this.props.params;
+    const { version } = this.props.location.query;
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
 
   onCosmosPackagesStoreDescriptionError() {
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 
   onCosmosPackagesStoreDescriptionSuccess() {
-    this.setState({hasError: false, isLoading: false});
+    this.setState({ hasError: false, isLoading: false });
   }
 
   handleInstallModalClose() {
-    this.setState({openInstallModal: false});
+    this.setState({ openInstallModal: false });
   }
 
   handleInstallModalOpen() {
-    this.setState({openInstallModal: true});
+    this.setState({ openInstallModal: true });
   }
 
   getErrorScreen() {
@@ -107,7 +104,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getItems(definition, renderItem) {
     const items = [];
     definition.forEach((item, index) => {
-      const {label, type, value} = item;
+      const { label, type, value } = item;
 
       // When there is no content to render, discard it all together
       if (!value || (Array.isArray(value) && !value.length)) {
@@ -118,7 +115,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       let content = value;
 
       // Render sub items
-      if (type === 'subItems') {
+      if (type === "subItems") {
         content = this.getItems(value, this.getSubItem);
       }
 
@@ -133,13 +130,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
       return null;
     }
 
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       value = <p className="flush">{value}</p>;
     }
 
     return (
-      <div className="pod pod-shorter flush-top flush-right flush-left"
-        key={key}>
+      <div
+        className="pod pod-shorter flush-top flush-right flush-left"
+        key={key}
+      >
         <h5 className="flush-top">{label}</h5>
         {value}
       </div>
@@ -161,13 +160,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
       content = <a key={key} href={value} target="_blank">{value}</a>;
     }
 
-    return (
-      <p key={key} className="short">{`${label}: `}{content}</p>
-    );
+    return <p key={key} className="short">{`${label}: `}{content}</p>;
   }
 
   mapLicenses(licenses) {
-    return licenses.map(function (license) {
+    return licenses.map(function(license) {
       const item = {
         label: license.name,
         value: license.url
@@ -178,9 +175,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getSelectedBadge(cosmosPackage, version) {
-    const versionTag = (
-      <span>{version}</span>
-    );
+    const versionTag = <span>{version}</span>;
 
     if (cosmosPackage.isSelected()) {
       // TODO: Convert this to .pill-label.
@@ -203,10 +198,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
         <div>
           <p>CLI Only Package</p>
           <p>
-            {'This package can only be installed using the CLI. See the '}
+            {"This package can only be installed using the CLI. See the "}
             <a
-              href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')}
-              target="_blank">
+              href={MetadataStore.buildDocsURI(
+                "/usage/managing-services/install/#installing-a-service-using-the-cli"
+              )}
+              target="_blank"
+            >
               documentation
             </a>.
           </p>
@@ -217,14 +215,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <button
         className="button button-success"
-        onClick={this.handleInstallModalOpen}>
+        onClick={this.handleInstallModalOpen}
+      >
         Install Package
       </button>
     );
   }
 
   render() {
-    const {props, state} = this;
+    const { props, state } = this;
 
     if (state.hasError || !props.params.packageName) {
       return this.getErrorScreen();
@@ -242,38 +241,49 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     const definition = [
       {
-        label: 'Description',
-        value: description && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)} />
+        label: "Description",
+        value: description &&
+          <div
+            dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)}
+          />
       },
       {
-        label: 'Pre-Install Notes',
-        value: preInstallNotes && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(preInstallNotes)} />
+        label: "Pre-Install Notes",
+        value: preInstallNotes &&
+          <div
+            dangerouslySetInnerHTML={StringUtil.parseMarkdown(preInstallNotes)}
+          />
       },
       {
-        label: 'Information',
-        type: 'subItems',
+        label: "Information",
+        type: "subItems",
         value: [
-          {label: 'SCM', value: cosmosPackage.getSCM()},
-          {label: 'Maintainer', value: cosmosPackage.getMaintainer()}
+          { label: "SCM", value: cosmosPackage.getSCM() },
+          { label: "Maintainer", value: cosmosPackage.getMaintainer() }
         ]
       },
       {
-        label: 'Licenses',
-        type: 'subItems',
+        label: "Licenses",
+        type: "subItems",
         value: this.mapLicenses(cosmosPackage.getLicenses())
       }
     ];
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<PackageDetailBreadcrumbs cosmosPackage={cosmosPackage} />} />
+        <Page.Header
+          breadcrumbs={
+            <PackageDetailBreadcrumbs cosmosPackage={cosmosPackage} />
+          }
+        />
         <div className="media-object-spacing-wrapper">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
               <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
                 <Image
                   fallbackSrc={defaultServiceImage}
-                  src={cosmosPackage.getIcons()['icon-large']} />
+                  src={cosmosPackage.getIcons()["icon-large"]}
+                />
               </div>
             </div>
             <div className="media-object-item">
@@ -293,7 +303,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
           open={state.openInstallModal}
           packageName={name}
           packageVersion={version}
-          onClose={this.handleInstallModalClose}/>
+          onClose={this.handleInstallModalClose}
+        />
       </Page>
     );
   }

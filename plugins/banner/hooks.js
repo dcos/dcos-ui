@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-const SDK = require('./SDK').getSDK();
+const SDK = require("./SDK").getSDK();
 
-const {Icon, DOMUtils} = SDK.get(['Icon', 'DOMUtils']);
+const { Icon, DOMUtils } = SDK.get(["Icon", "DOMUtils"]);
 
 module.exports = {
   configuration: {
-    backgroundColor: '#1E232F',
-    foregroundColor: '#FFFFFF',
+    backgroundColor: "#1E232F",
+    foregroundColor: "#FFFFFF",
     headerTitle: null,
     headerContent: null,
     footerContent: null,
@@ -19,13 +19,15 @@ module.exports = {
 
   initialize() {
     SDK.Hooks.addAction(
-      'applicationRendered',
+      "applicationRendered",
       this.applicationRendered.bind(this)
     );
-    SDK.Hooks.addFilter('applicationContents',
+    SDK.Hooks.addFilter(
+      "applicationContents",
       this.applicationContents.bind(this)
     );
-    SDK.Hooks.addFilter('overlayNewWindowButton',
+    SDK.Hooks.addFilter(
+      "overlayNewWindowButton",
       this.overlayNewWindowButton.bind(this)
     );
     this.configure(SDK.config);
@@ -33,7 +35,7 @@ module.exports = {
 
   configure(configuration) {
     // Only merge keys that have a non-null value
-    Object.keys(configuration).forEach((key) => {
+    Object.keys(configuration).forEach(key => {
       if (configuration[key] != null) {
         this.configuration[key] = configuration[key];
       }
@@ -43,14 +45,16 @@ module.exports = {
   isEnabled() {
     const configuration = this.configuration;
 
-    return configuration.headerTitle != null ||
+    return (
+      configuration.headerTitle != null ||
       configuration.headerContent != null ||
-      configuration.footerContent != null;
+      configuration.footerContent != null
+    );
   },
 
   toggleFullContent() {
-    const banner = global.document.querySelector('.banner-plugin-wrapper');
-    banner.classList.toggle('display-full');
+    const banner = global.document.querySelector(".banner-plugin-wrapper");
+    banner.classList.toggle("display-full");
   },
 
   applicationRendered() {
@@ -58,7 +62,7 @@ module.exports = {
       return;
     }
 
-    const frame = global.document.getElementById('banner-plugin-iframe');
+    const frame = global.document.getElementById("banner-plugin-iframe");
 
     if (frame == null) {
       return;
@@ -73,7 +77,7 @@ module.exports = {
     const frameWindow = frame.contentWindow;
     const topWindow = global;
 
-    frameWindow.addEventListener('hashchange', function () {
+    frameWindow.addEventListener("hashchange", function() {
       topWindow.location.hash = frameWindow.location.hash;
     });
   },
@@ -90,7 +94,8 @@ module.exports = {
         <iframe
           frameBorder="0"
           id="banner-plugin-iframe"
-          src={`./index.html${global.location.hash}`} />
+          src={`./index.html${global.location.hash}`}
+        />
 
         {this.getFooter()}
       </div>
@@ -115,7 +120,7 @@ module.exports = {
   getIcon() {
     const imagePath = this.configuration.imagePath;
 
-    if (imagePath == null || imagePath === '') {
+    if (imagePath == null || imagePath === "") {
       return null;
     }
 
@@ -133,14 +138,15 @@ module.exports = {
   getTitle() {
     const title = this.configuration.headerTitle;
 
-    if (title == null || title === '') {
+    if (title == null || title === "") {
       return null;
     }
 
     return (
       <h5
         className="title flush-top flush-bottom"
-        style={{color: this.configuration.foregroundColor}}>
+        style={{ color: this.configuration.foregroundColor }}
+      >
         {title}
       </h5>
     );
@@ -149,7 +155,7 @@ module.exports = {
   getHeaderContent() {
     const content = this.configuration.headerContent;
 
-    if (content == null || content === '') {
+    if (content == null || content === "") {
       return null;
     }
 
@@ -170,9 +176,7 @@ module.exports = {
     }
 
     return (
-      <header
-        className="flex-container"
-        style={this.getColorStyles()}>
+      <header className="flex-container" style={this.getColorStyles()}>
         <span className="flex-container">
           <span>
             {icon}
@@ -180,11 +184,13 @@ module.exports = {
           </span>
           <span
             className="banner-plugin-info-icon clickable hidden-medium-up"
-            onClick={this.toggleFullContent}>
+            onClick={this.toggleFullContent}
+          >
             <Icon
               fill={this.configuration.foregroundColor}
               id="circle-information"
-              size="mini" />
+              size="mini"
+            />
           </span>
         </span>
         {content}
@@ -195,7 +201,7 @@ module.exports = {
   getFooter() {
     const content = this.configuration.footerContent;
 
-    if (content == null || content === '') {
+    if (content == null || content === "") {
       return null;
     }
 

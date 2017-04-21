@@ -1,8 +1,8 @@
-import List from '#SRC/js/structs/List';
-import MesosSummaryUtil from '#SRC/js/utils/MesosSummaryUtil';
-import StringUtil from '#SRC/js/utils/StringUtil';
+import List from "#SRC/js/structs/List";
+import MesosSummaryUtil from "#SRC/js/utils/MesosSummaryUtil";
+import StringUtil from "#SRC/js/utils/StringUtil";
 
-import Framework from './Framework';
+import Framework from "./Framework";
 
 class ServicesList extends List {
   filter(filters) {
@@ -10,30 +10,30 @@ class ServicesList extends List {
 
     if (filters) {
       if (filters.ids) {
-        services = services.filter(function (service) {
+        services = services.filter(function(service) {
           return filters.ids.includes(service.id);
         });
       }
 
       if (filters.name) {
-        services = StringUtil.filterByString(services, 'name', filters.name);
+        services = StringUtil.filterByString(services, "name", filters.name);
       }
 
       if (filters.health != null && filters.health.length !== 0) {
-        services = services.filter(function (service) {
-          return filters.health.some(function (healthValue) {
+        services = services.filter(function(service) {
+          return filters.health.some(function(healthValue) {
             return service.getHealth().value === parseInt(healthValue, 10);
           });
         });
       }
     }
 
-    return new ServicesList({items: services});
+    return new ServicesList({ items: services });
   }
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(function (service) {
+    const resourcesList = services.map(function(service) {
       return service.used_resources;
     });
 
@@ -59,8 +59,8 @@ class ServicesList extends List {
 
     const taskTypes = Object.keys(tasks);
 
-    services.forEach(function (service) {
-      taskTypes.forEach(function (taskType) {
+    services.forEach(function(service) {
+      taskTypes.forEach(function(taskType) {
         if (service[taskType]) {
           tasks[taskType] += service[taskType];
         }

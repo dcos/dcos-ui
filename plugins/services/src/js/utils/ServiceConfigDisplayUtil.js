@@ -1,23 +1,23 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import {isObject} from '#SRC/js/utils/Util';
-import Icon from '#SRC/js/components/Icon';
+import { isObject } from "#SRC/js/utils/Util";
+import Icon from "#SRC/js/components/Icon";
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {
     return (prop, sortBy) => {
       return classNames(classes, {
-        'active': prop === sortBy.prop
+        active: prop === sortBy.prop
       });
     };
   },
 
   getColumnHeadingFn(defaultHeading) {
     return (prop, order, sortBy) => {
-      const caretClassNames = classNames('caret', {
+      const caretClassNames = classNames("caret", {
         [`caret--${order}`]: order != null && sortBy.prop === prop,
-        'caret--visible': sortBy.prop === prop
+        "caret--visible": sortBy.prop === prop
       });
 
       return (
@@ -39,10 +39,10 @@ const ServiceConfigDisplayUtil = {
   },
 
   getDisplayValue(value, isDisabled = false) {
-    if (!isDisabled && (value == null || value === '')) {
+    if (!isDisabled && (value == null || value === "")) {
       return <em>Not Configured</em>;
     }
-    if (isDisabled && (value == null || value === '')) {
+    if (isDisabled && (value == null || value === "")) {
       return <em>Not Supported</em>;
     }
 
@@ -66,7 +66,6 @@ const ServiceConfigDisplayUtil = {
       </span>
     );
   }
-
 };
 
 module.exports = ServiceConfigDisplayUtil;

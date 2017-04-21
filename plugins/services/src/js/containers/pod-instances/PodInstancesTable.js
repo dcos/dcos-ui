@@ -1,46 +1,46 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import React from 'react';
-import {Link} from 'react-router';
-import {Tooltip} from 'reactjs-components';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import React from "react";
+import { Link } from "react-router";
+import { Tooltip } from "reactjs-components";
 
-import CheckboxTable from '#SRC/js/components/CheckboxTable';
-import CollapsingString from '#SRC/js/components/CollapsingString';
-import ExpandingTable from '#SRC/js/components/ExpandingTable';
-import Icon from '#SRC/js/components/Icon';
-import TimeAgo from '#SRC/js/components/TimeAgo';
-import Units from '#SRC/js/utils/Units';
+import CheckboxTable from "#SRC/js/components/CheckboxTable";
+import CollapsingString from "#SRC/js/components/CollapsingString";
+import ExpandingTable from "#SRC/js/components/ExpandingTable";
+import Icon from "#SRC/js/components/Icon";
+import TimeAgo from "#SRC/js/components/TimeAgo";
+import Units from "#SRC/js/utils/Units";
 
-import Pod from '../../structs/Pod';
-import PodInstanceList from '../../structs/PodInstanceList';
-import PodInstanceStatus from '../../constants/PodInstanceStatus';
-import PodTableHeaderLabels from '../../constants/PodTableHeaderLabels';
-import PodUtil from '../../utils/PodUtil';
+import Pod from "../../structs/Pod";
+import PodInstanceList from "../../structs/PodInstanceList";
+import PodInstanceStatus from "../../constants/PodInstanceStatus";
+import PodTableHeaderLabels from "../../constants/PodTableHeaderLabels";
+import PodUtil from "../../utils/PodUtil";
 
 const tableColumnClasses = {
-  checkbox: 'task-table-column-checkbox',
-  name: 'task-table-column-primary',
-  address: 'task-table-column-host-address',
-  status: 'task-table-column-status',
-  health: 'task-table-column-health',
-  logs: 'task-table-column-logs',
-  cpus: 'task-table-column-cpus',
-  mem: 'task-table-column-mem',
-  updated: 'task-table-column-updated',
-  version: 'task-table-column-version'
+  checkbox: "task-table-column-checkbox",
+  name: "task-table-column-primary",
+  address: "task-table-column-host-address",
+  status: "task-table-column-status",
+  health: "task-table-column-health",
+  logs: "task-table-column-logs",
+  cpus: "task-table-column-cpus",
+  mem: "task-table-column-mem",
+  updated: "task-table-column-updated",
+  version: "task-table-column-version"
 };
 
 const METHODS_TO_BIND = [
-  'getColGroup',
-  'handleItemCheck',
-  'renderColumnAddress',
-  'renderColumnID',
-  'renderColumnLogs',
-  'renderColumnResource',
-  'renderColumnStatus',
-  'renderColumnHealth',
-  'renderColumnUpdated',
-  'renderColumnVersion'
+  "getColGroup",
+  "handleItemCheck",
+  "renderColumnAddress",
+  "renderColumnID",
+  "renderColumnLogs",
+  "renderColumnResource",
+  "renderColumnStatus",
+  "renderColumnHealth",
+  "renderColumnUpdated",
+  "renderColumnVersion"
 ];
 
 class PodInstancesTable extends React.Component {
@@ -51,13 +51,13 @@ class PodInstancesTable extends React.Component {
       checkedItems: {}
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {checkedItems} = this.state;
+    const { checkedItems } = this.state;
     const prevInstances = this.props.instances.getItems();
     const nextInstances = nextProps.instances.getItems();
 
@@ -65,28 +65,28 @@ class PodInstancesTable extends React.Component {
     // items, re-trigger selection change in order to remove checked
     // entries that are no longer present.
 
-    if (Object.keys(checkedItems).length &&
-       !deepEqual(prevInstances, nextInstances)) {
+    if (
+      Object.keys(checkedItems).length &&
+      !deepEqual(prevInstances, nextInstances)
+    ) {
       this.triggerSelectionChange(checkedItems, nextProps.instances);
     }
   }
 
   triggerSelectionChange(checkedItems, instances) {
-    const checkedItemInstances = instances.getItems().filter(
-      function (item) {
-        return checkedItems[item.getId()];
-      }
-    );
+    const checkedItemInstances = instances.getItems().filter(function(item) {
+      return checkedItems[item.getId()];
+    });
     this.props.onSelectionChange(checkedItemInstances);
   }
 
   handleItemCheck(idsChecked) {
     const checkedItems = {};
 
-    idsChecked.forEach(function (id) {
+    idsChecked.forEach(function(id) {
       checkedItems[id] = true;
     });
-    this.setState({checkedItems});
+    this.setState({ checkedItems });
 
     this.triggerSelectionChange(checkedItems, this.props.instances);
   }
@@ -109,26 +109,23 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumnHeading(prop, order, sortBy) {
-    const caretClassNames = classNames(
-      'caret',
-      {
-        [`caret--${order}`]: order != null,
-        'caret--visible': prop === sortBy.prop
-      }
-    );
+    const caretClassNames = classNames("caret", {
+      [`caret--${order}`]: order != null,
+      "caret--visible": prop === sortBy.prop
+    });
 
     return (
       <span>
         {PodTableHeaderLabels[prop]}
-        <span className={caretClassNames}></span>
+        <span className={caretClassNames} />
       </span>
     );
   }
 
   getColumnClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
-      'highlight': prop === sortBy.prop,
-      'clickable': row == null
+      highlight: prop === sortBy.prop,
+      clickable: row == null
     });
   }
 
@@ -137,63 +134,63 @@ class PodInstancesTable extends React.Component {
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'name',
+        prop: "name",
         render: this.renderColumnID,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'address',
+        prop: "address",
         render: this.renderColumnAddress,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'status',
+        prop: "status",
         render: this.renderColumnStatus,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'health',
+        prop: "health",
         render: this.renderColumnHealth,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'logs',
+        prop: "logs",
         render: this.renderColumnLogs,
         sortable: false
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'cpus',
+        prop: "cpus",
         render: this.renderColumnResource,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'mem',
+        prop: "mem",
         render: this.renderColumnResource,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'updated',
+        prop: "updated",
         render: this.renderColumnUpdated,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'version',
+        prop: "version",
         render: this.renderColumnVersion,
         sortable: true
       }
@@ -201,7 +198,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getContainersWithResources(podSpec, containers, agentAddress) {
-    const children = containers.map(function (container) {
+    const children = containers.map(function(container) {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
@@ -210,17 +207,21 @@ class PodInstancesTable extends React.Component {
         containerResources = containerSpec.resources;
       }
 
-      const addressComponents = container.getEndpoints().map(function (endpoint, i) {
-        return (
-          <a className="text-muted"
-            href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
-            key={i}
-            target="_blank"
-            title="Open in a new window">
-            {endpoint.allocatedHostPort}
-          </a>
-        );
-      });
+      const addressComponents = container
+        .getEndpoints()
+        .map(function(endpoint, i) {
+          return (
+            <a
+              className="text-muted"
+              href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
+              key={i}
+              target="_blank"
+              title="Open in a new window"
+            >
+              {endpoint.allocatedHostPort}
+            </a>
+          );
+        });
 
       return {
         id: container.getId(),
@@ -230,7 +231,7 @@ class PodInstancesTable extends React.Component {
         cpus: containerResources.cpus,
         mem: containerResources.mem,
         updated: container.getLastUpdated(),
-        version: ''
+        version: ""
       };
     });
 
@@ -238,7 +239,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getDisabledItemsMap(instanceList) {
-    return instanceList.reduceItems(function (memo, instance) {
+    return instanceList.reduceItems(function(memo, instance) {
       if (!instance.isRunning()) {
         memo[instance.getId()] = true;
       }
@@ -250,14 +251,16 @@ class PodInstancesTable extends React.Component {
   getTableDataFor(instances, filterText) {
     const podSpec = this.props.pod.getSpec();
 
-    return instances.getItems().map((instance) => {
-      const containers = instance.getContainers().filter(function (container) {
+    return instances.getItems().map(instance => {
+      const containers = instance.getContainers().filter(function(container) {
         return PodUtil.isContainerMatchingText(container, filterText);
       });
       const children = this.getContainersWithResources(
-        podSpec, containers, instance.getAgentAddress()
+        podSpec,
+        containers,
+        instance.getAgentAddress()
       );
-      const {cpus, mem} = instance.getResources();
+      const { cpus, mem } = instance.getResources();
 
       return {
         id: instance.getId(),
@@ -272,25 +275,24 @@ class PodInstancesTable extends React.Component {
         children
       };
     });
-
   }
 
   getInstanceFilterStatus(instance) {
     const status = instance.getInstanceStatus();
     switch (status) {
       case PodInstanceStatus.STAGED:
-        return 'staged';
+        return "staged";
 
       case PodInstanceStatus.HEALTHY:
       case PodInstanceStatus.UNHEALTHY:
       case PodInstanceStatus.RUNNING:
-        return 'active';
+        return "active";
 
       case PodInstanceStatus.KILLED:
-        return 'completed';
+        return "completed";
 
       default:
-        return '';
+        return "";
     }
   }
 
@@ -303,7 +305,7 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnID(prop, col, rowOptions = {}) {
-    const {id: taskID, name: taskName} = col;
+    const { id: taskID, name: taskName } = col;
     if (!rowOptions.isParent) {
       const id = encodeURIComponent(this.props.pod.getId());
 
@@ -312,20 +314,21 @@ class PodInstancesTable extends React.Component {
           <Link
             className="table-cell-link-secondary text-overflow"
             to={`/services/detail/${id}/tasks/${taskID}`}
-            title={taskName}>
+            title={taskName}
+          >
             <CollapsingString string={taskName} />
           </Link>
         </div>
       );
     }
 
-    const classes = classNames('expanding-table-primary-cell is-expandable', {
-      'is-expanded': rowOptions.isExpanded
+    const classes = classNames("expanding-table-primary-cell is-expandable", {
+      "is-expanded": rowOptions.isExpanded
     });
 
     return this.renderWithClickHandler(
       rowOptions,
-      (<CollapsingString string={taskID} />),
+      <CollapsingString string={taskID} />,
       classes
     );
   }
@@ -340,85 +343,90 @@ class PodInstancesTable extends React.Component {
     const taskID = row.id;
 
     return (
-      <Link
-        to={`/services/detail/${id}/tasks/${taskID}/logs`}
-        title={row.name}>
+      <Link to={`/services/detail/${id}/tasks/${taskID}/logs`} title={row.name}>
         <Icon color="grey" id="page-document" size="mini" />
       </Link>
     );
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    const {address} = row;
+    const { address } = row;
 
     if (rowOptions.isParent) {
-      const {agent} = row;
+      const { agent } = row;
 
       if (!agent) {
-        return this.renderWithClickHandler(rowOptions, (
+        return this.renderWithClickHandler(
+          rowOptions,
           <CollapsingString string={address} />
-        ));
+        );
       }
 
-      return this.renderWithClickHandler(rowOptions, (
+      return this.renderWithClickHandler(
+        rowOptions,
         <Link
           className="table-cell-link-secondary text-overflow"
           to={`/nodes/${agent.id}`}
-          title={address}>
+          title={address}
+        >
           <CollapsingString string={address} />
         </Link>
-        ));
+      );
     }
 
     return this.renderWithClickHandler(rowOptions, address);
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
-    const {status} = row;
+    const { status } = row;
 
-    return this.renderWithClickHandler(rowOptions, (
+    return this.renderWithClickHandler(
+      rowOptions,
       <span className={`status-text ${status.textClassName}`}>
         {status.displayName}
       </span>
-    ));
+    );
   }
 
   renderColumnHealth(prop, row, rowOptions = {}) {
-    const {status} = row;
-    const {healthStatus} = status;
-    let tooltipContent = 'Healthy';
+    const { status } = row;
+    const { healthStatus } = status;
+    let tooltipContent = "Healthy";
 
-    if (healthStatus === 'UNHEALTHY') {
-      tooltipContent = 'Unhealthy';
+    if (healthStatus === "UNHEALTHY") {
+      tooltipContent = "Unhealthy";
     }
 
-    if (healthStatus === 'NA') {
-      tooltipContent = 'No health checks available';
+    if (healthStatus === "NA") {
+      tooltipContent = "No health checks available";
     }
 
-    return this.renderWithClickHandler(rowOptions, (
+    return this.renderWithClickHandler(
+      rowOptions,
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box flex-align-items-center
         flex-direction-top-to-bottom">
         <div className="table-cell-icon">
           <Tooltip anchor="center" content={tooltipContent}>
-            <span className={classNames('flush', status.dotClassName)} />
+            <span className={classNames("flush", status.dotClassName)} />
           </Tooltip>
         </div>
       </div>
-    ));
+    );
   }
 
   renderColumnResource(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, (
+    return this.renderWithClickHandler(
+      rowOptions,
       <span>{Units.formatResource(prop, row[prop])}</span>
-    ));
+    );
   }
 
   renderColumnUpdated(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, (
+    return this.renderWithClickHandler(
+      rowOptions,
       <TimeAgo time={row.updated} />
-    ));
+    );
   }
 
   renderColumnVersion(prop, row, rowOptions = {}) {
@@ -428,14 +436,15 @@ class PodInstancesTable extends React.Component {
 
     const localeVersion = new Date(row.version).toLocaleString();
 
-    return this.renderWithClickHandler(rowOptions, (
+    return this.renderWithClickHandler(
+      rowOptions,
       <span>{localeVersion}</span>
-    ));
+    );
   }
 
   render() {
-    let {instances, pod, filterText} = this.props;
-    const {checkedItems} = this.state;
+    let { instances, pod, filterText } = this.props;
+    const { checkedItems } = this.state;
 
     // If custom list of instances is not provided, use the default instances
     // from the pod
@@ -458,19 +467,19 @@ class PodInstancesTable extends React.Component {
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
-        sortBy={{prop: 'name', order: 'asc'}}
+        sortBy={{ prop: "name", order: "asc" }}
         tableComponent={CheckboxTable}
-        uniqueProperty="id" />
+        uniqueProperty="id"
+      />
     );
   }
-
 }
 
 PodInstancesTable.defaultProps = {
-  filterText: '',
+  filterText: "",
   instances: null,
   inverseStyle: false,
-  onSelectionChange() { },
+  onSelectionChange() {},
   pod: null
 };
 

@@ -1,10 +1,7 @@
-import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
-import {
-  ADD_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import Transaction from '#SRC/js/structs/Transaction';
-import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
+import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 
 module.exports = {
   JSONReducer: null,
@@ -20,32 +17,32 @@ module.exports = {
   JSONParser(state) {
     const portMappings = findNestedPropertyInObject(
       state,
-      'container.docker.portMappings'
+      "container.docker.portMappings"
     ) || [];
-    const portDefinitionsLength = findNestedPropertyInObject(
-      state,
-      'portDefinitions.length'
-    ) || 0;
+    const portDefinitionsLength =
+      findNestedPropertyInObject(state, "portDefinitions.length") || 0;
 
     // Add additional fields if we have more definitions in portMappings
     // than in portDefinitions
     const length = portMappings.length - portDefinitionsLength;
     const addTransactions = [];
-    Array.from({length}).forEach((_, index) => {
+    Array.from({ length }).forEach((_, index) => {
       addTransactions.push(
-        new Transaction(['portDefinitions'], portMappings.length + index - 1, ADD_ITEM)
+        new Transaction(
+          ["portDefinitions"],
+          portMappings.length + index - 1,
+          ADD_ITEM
+        )
       );
     });
 
     // Look at portMappings and add accepted fields
     // but translate them into portDefinitions
-    return portMappings.reduce(function (memo, item, index) {
+    return portMappings.reduce(function(memo, item, index) {
       if (item.name != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'name'
-        ], item.name, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "name"], item.name, SET)
+        );
       }
 
       // If port is a number but not zero, we set automaticPort to false
@@ -53,103 +50,102 @@ module.exports = {
       // since we have a host port
       const hostPort = Number(item.hostPort);
       if (!isNaN(hostPort) && hostPort !== 0) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'automaticPort'
-        ], false, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "automaticPort"],
+            false,
+            SET
+          )
+        );
 
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'portMapping'
-        ], true, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "portMapping"], true, SET)
+        );
 
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'hostPort'
-        ], hostPort, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "hostPort"], hostPort, SET)
+        );
       }
 
       // If port is zero, we set automaticPort to true and portMapping to true,
       // since we have a host port
       if (!isNaN(hostPort) && hostPort === 0) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'automaticPort'
-        ], true, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "automaticPort"],
+            true,
+            SET
+          )
+        );
 
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'portMapping'
-        ], true, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "portMapping"], true, SET)
+        );
       }
 
       // If port is not set, we set portMapping to false
       if (isNaN(hostPort)) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'portMapping'
-        ], false, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "portMapping"], false, SET)
+        );
       }
 
       const containerPort = Number(item.containerPort);
       if (!isNaN(containerPort)) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'containerPort'
-        ], containerPort, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "containerPort"],
+            containerPort,
+            SET
+          )
+        );
       }
 
       const servicePort = Number(item.servicePort);
       if (!isNaN(servicePort)) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'servicePort'
-        ], servicePort, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "servicePort"],
+            servicePort,
+            SET
+          )
+        );
       }
 
       if (item.protocol != null) {
-        const protocols = item.protocol.split(',');
-        PROTOCOLS.forEach((protocol) => {
-          memo.push(new Transaction([
-            'portDefinitions',
-            index,
-            'protocol',
-            protocol
-          ], protocols.includes(protocol), SET));
+        const protocols = item.protocol.split(",");
+        PROTOCOLS.forEach(protocol => {
+          memo.push(
+            new Transaction(
+              ["portDefinitions", index, "protocol", protocol],
+              protocols.includes(protocol),
+              SET
+            )
+          );
         });
       }
 
       const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
       if (vip != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'loadBalanced'
-        ], true, SET));
+        memo.push(
+          new Transaction(["portDefinitions", index, "loadBalanced"], true, SET)
+        );
 
         if (!vip.startsWith(`${state.id}:`)) {
-          memo.push(new Transaction([
-            'portDefinitions',
-            index,
-            'vip'
-          ], vip, SET));
+          memo.push(
+            new Transaction(["portDefinitions", index, "vip"], vip, SET)
+          );
         }
       }
 
       if (item.labels != null) {
-        memo.push(new Transaction([
-          'portDefinitions',
-          index,
-          'labels'
-        ], item.labels, SET));
+        memo.push(
+          new Transaction(
+            ["portDefinitions", index, "labels"],
+            item.labels,
+            SET
+          )
+        );
       }
 
       return memo;

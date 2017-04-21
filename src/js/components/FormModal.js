@@ -1,17 +1,19 @@
-import classNames from 'classnames/dedupe';
-import {Form, Modal} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import { Form, Modal } from "reactjs-components";
+import React from "react";
 
 const METHODS_TO_BIND = [
-  'getTriggerSubmit', 'handleTriggerSubmit', 'handleError'
+  "getTriggerSubmit",
+  "handleTriggerSubmit",
+  "handleError"
 ];
 
 class FormModal extends React.Component {
   constructor() {
     super();
-    this.triggerSubmit = function () {};
+    this.triggerSubmit = function() {};
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -46,9 +48,9 @@ class FormModal extends React.Component {
   focusOnField() {
     // Gotta account for animation
     setTimeout(() => {
-      const el = this.refs['form-wrapper'];
+      const el = this.refs["form-wrapper"];
       if (el) {
-        const input = el.querySelector('form input');
+        const input = el.querySelector("form input");
         if (input) {
           input.focus();
         }
@@ -59,12 +61,12 @@ class FormModal extends React.Component {
   getButtons() {
     return this.props.buttonDefinition.map((buttonDefinition, i) => {
       let buttonClassSet = {
-        'disabled': this.props.disabled
+        disabled: this.props.disabled
       };
       buttonClassSet[buttonDefinition.className] = true;
       buttonClassSet = classNames(buttonClassSet);
 
-      let handleOnClick = function () {};
+      let handleOnClick = function() {};
       if (buttonDefinition.isClose) {
         handleOnClick = this.props.onClose;
       }
@@ -82,7 +84,8 @@ class FormModal extends React.Component {
           className={buttonClassSet}
           disabled={this.props.disabled}
           key={i}
-          onClick={handleOnClick}>
+          onClick={handleOnClick}
+        >
           {buttonDefinition.text}
         </button>
       );
@@ -100,16 +103,15 @@ class FormModal extends React.Component {
 
   getClassName(hasContentFooter) {
     if (hasContentFooter) {
-      return 'form';
+      return "form";
     }
 
-    return 'form flush-bottom';
+    return "form flush-bottom";
   }
 
   getContent() {
     return (
-      <div ref="form-wrapper"
-        className={classNames(this.props.contentClasses)}>
+      <div ref="form-wrapper" className={classNames(this.props.contentClasses)}>
         {this.props.children}
         <Form
           className={this.getClassName(!!this.props.contentFooter)}
@@ -117,7 +119,8 @@ class FormModal extends React.Component {
           triggerSubmit={this.getTriggerSubmit}
           onSubmit={this.props.onSubmit}
           onChange={this.props.onChange}
-          onError={this.handleError} />
+          onError={this.handleError}
+        />
         {this.props.contentFooter}
       </div>
     );
@@ -134,7 +137,8 @@ class FormModal extends React.Component {
         showFooter={true}
         footer={this.getFooter()}
         titleClass="text-align-center flush"
-        {...this.props.modalProps}>
+        {...this.props.modalProps}
+      >
         {this.getContent()}
       </Modal>
     );
@@ -144,13 +148,13 @@ class FormModal extends React.Component {
 FormModal.defaultProps = {
   buttonDefinition: [
     {
-      text: 'Cancel',
-      className: 'button button-medium',
+      text: "Cancel",
+      className: "button button-medium",
       isClose: true
     },
     {
-      text: 'Create',
-      className: 'button button-success button-medium',
+      text: "Create",
+      className: "button button-success button-medium",
       isSubmit: true
     }
   ],

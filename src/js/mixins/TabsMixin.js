@@ -1,12 +1,12 @@
-import classNames from 'classnames/dedupe';
-import {Link, formatPattern} from 'react-router';
+import classNames from "classnames/dedupe";
+import { Link, formatPattern } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import TabsUtil from '../utils/TabsUtil';
-import Util from '../utils/Util';
-import NotificationStore from '../stores/NotificationStore';
+import TabsUtil from "../utils/TabsUtil";
+import Util from "../utils/Util";
+import NotificationStore from "../stores/NotificationStore";
 
 /**
  * Adds tabs-specific methods onto a class.
@@ -61,14 +61,18 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getUnroutedItem(props = {}, tab) {
-    const attributes = Util.omit(props, ['classNames']);
-    const tabLabelClass = classNames('menu-tabbed-item-label', props.classNames);
+    const attributes = Util.omit(props, ["classNames"]);
+    const tabLabelClass = classNames(
+      "menu-tabbed-item-label",
+      props.classNames
+    );
 
     return (
       <span
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
-        {...attributes}>
+        {...attributes}
+      >
         <span className="menu-tabbed-item-label-text">
           {this.tabs_tabs[tab]}
         </span>
@@ -99,19 +103,18 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getRoutedItem(props = {}, tab) {
-    const attributes = Util.omit(props, ['classNames']);
+    const attributes = Util.omit(props, ["classNames"]);
     let badge = null;
     const notificationCount = NotificationStore.getNotificationCount(tab);
     const hasNotification = notificationCount > 0;
     const tabLabelClasses = classNames(
-      'menu-tabbed-item-label',
-      {'badge-container': hasNotification},
+      "menu-tabbed-item-label",
+      { "badge-container": hasNotification },
       props.classNames
     );
-    const textClasses = classNames(
-      'menu-tabbed-item-label-text',
-      {'badge-container-text': hasNotification}
-    );
+    const textClasses = classNames("menu-tabbed-item-label-text", {
+      "badge-container-text": hasNotification
+    });
 
     if (hasNotification) {
       badge = (
@@ -126,7 +129,8 @@ const TabsMixin = {
         to={formatPattern(tab, attributes.params)}
         className={tabLabelClasses}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
-        {...attributes}>
+        {...attributes}
+      >
         <span className={textClasses}>
           {this.tabs_tabs[tab]}
         </span>
@@ -158,7 +162,7 @@ const TabsMixin = {
   tabs_getTabView() {
     // Replace spaces in the currentTab string because we are calling the string
     // as a function on the component, and functions cannot have spaces.
-    const currentTab = this.tabs_tabs[this.state.currentTab].replace(' ', '');
+    const currentTab = this.tabs_tabs[this.state.currentTab].replace(" ", "");
     const renderFunction = this[`render${currentTab}TabView`];
 
     if (renderFunction == null) {
@@ -169,7 +173,7 @@ const TabsMixin = {
   },
 
   tabs_handleTabClick(nextTab) {
-    this.setState({currentTab: nextTab});
+    this.setState({ currentTab: nextTab });
   }
 };
 

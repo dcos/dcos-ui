@@ -1,9 +1,9 @@
-import Item from '#SRC/js/structs/Item';
-import ServiceImages from '../constants/ServiceImages';
+import Item from "#SRC/js/structs/Item";
+import ServiceImages from "../constants/ServiceImages";
 
 module.exports = class Task extends Item {
   getId() {
-    return this.get('id') || '';
+    return this.get("id") || "";
   }
 
   getImages() {
@@ -11,7 +11,7 @@ module.exports = class Task extends Item {
   }
 
   getName() {
-    return this.get('name');
+    return this.get("name");
   }
 
   /**
@@ -26,9 +26,9 @@ module.exports = class Task extends Item {
 
     // Join service id parts and prepend with a slash to form a valid id
     if (parts) {
-      return `/${parts.join('/')}`;
+      return `/${parts.join("/")}`;
     }
 
-    return '';
+    return "";
   }
 };

@@ -1,4 +1,4 @@
-import TransactionTypes from '../constants/TransactionTypes';
+import TransactionTypes from "../constants/TransactionTypes";
 
 const validTypes = Object.values(TransactionTypes);
 const validKeys = Object.keys(TransactionTypes);

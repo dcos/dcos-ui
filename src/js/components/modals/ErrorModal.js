@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import {Modal} from 'reactjs-components';
+import { Modal } from "reactjs-components";
 
-import ModalHeading from '../modals/ModalHeading';
+import ModalHeading from "../modals/ModalHeading";
 
 var ErrorModal = React.createClass({
-
-  displayName: 'ErrorModal',
+  displayName: "ErrorModal",
 
   propTypes: {
     onClose: React.PropTypes.func.isRequired,
@@ -30,7 +29,8 @@ var ErrorModal = React.createClass({
         onClose={this.onClose}
         open={this.props.open}
         showHeader={true}
-        header={header}>
+        header={header}
+      >
         {this.props.errorMsg}
       </Modal>
     );

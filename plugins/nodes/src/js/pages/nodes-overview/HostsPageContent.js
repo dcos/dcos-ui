@@ -1,24 +1,24 @@
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import FilterBar from '#SRC/js/components/FilterBar';
-import FilterButtons from '#SRC/js/components/FilterButtons';
-import FilterHeadline from '#SRC/js/components/FilterHeadline';
-import ResourceBarChart from '#SRC/js/components/charts/ResourceBarChart';
+import FilterBar from "#SRC/js/components/FilterBar";
+import FilterButtons from "#SRC/js/components/FilterButtons";
+import FilterHeadline from "#SRC/js/components/FilterHeadline";
+import ResourceBarChart from "#SRC/js/components/charts/ResourceBarChart";
 
-import FilterByService from '../../../../../services/src/js/components/FilterByService';
+import FilterByService
+  from "../../../../../services/src/js/components/FilterByService";
 
-const HEALTH_FILTER_BUTTONS = ['all', 'healthy', 'unhealthy'];
+const HEALTH_FILTER_BUTTONS = ["all", "healthy", "unhealthy"];
 
-const METHODS_TO_BIND = ['onResetFilter'];
+const METHODS_TO_BIND = ["onResetFilter"];
 
 class HostsPageContent extends React.Component {
-
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -27,7 +27,7 @@ class HostsPageContent extends React.Component {
     this.props.onResetFilter(...arguments);
 
     if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
-      this.serviceFilter.setDropdownValue('default');
+      this.serviceFilter.setDropdownValue("default");
     }
   }
 
@@ -64,13 +64,15 @@ class HostsPageContent extends React.Component {
           resourceType="Nodes"
           resources={totalHostsResources}
           selectedResource={selectedResource}
-          totalResources={totalResources} />
+          totalResources={totalResources}
+        />
         <FilterHeadline
           currentLength={filteredNodeCount}
           isFiltering={isFiltering}
           name="Node"
           onReset={this.onResetFilter}
-          totalLength={totalNodeCount} />
+          totalLength={totalNodeCount}
+        />
         <FilterBar rightAlignLastNChildren={1}>
           {filterInputText}
           <FilterButtons
@@ -79,14 +81,16 @@ class HostsPageContent extends React.Component {
             itemList={filterItemList}
             onFilterChange={onFilterChange}
             renderButtonContent={filterButtonContent}
-            selectedFilter={selectedFilter} />
+            selectedFilter={selectedFilter}
+          />
           <div className="form-group flush-bottom">
             <FilterByService
               byServiceFilter={byServiceFilter}
               handleFilterChange={handleFilterChange}
-              ref={(ref) => this.serviceFilter = ref}
+              ref={ref => this.serviceFilter = ref}
               services={services}
-              totalHostsCount={totalNodeCount} />
+              totalHostsCount={totalNodeCount}
+            />
           </div>
           {viewTypeRadioButtons}
         </FilterBar>

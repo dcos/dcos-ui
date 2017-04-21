@@ -1,22 +1,22 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AlertPanel from '../../components/AlertPanel';
-import AlertPanelHeader from '../../components/AlertPanelHeader';
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import FilterBar from '../../components/FilterBar';
-import FilterHeadline from '../../components/FilterHeadline';
-import FilterInputText from '../../components/FilterInputText';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
-import VirtualNetworksStore from '../../stores/VirtualNetworksStore';
-import VirtualNetworksTable from './VirtualNetworksTable';
+import AlertPanel from "../../components/AlertPanel";
+import AlertPanelHeader from "../../components/AlertPanelHeader";
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import FilterInputText from "../../components/FilterInputText";
+import Loader from "../../components/Loader";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
+import VirtualNetworksStore from "../../stores/VirtualNetworksStore";
+import VirtualNetworksTable from "./VirtualNetworksTable";
 
 const NetworksBreadcrumbs = () => {
   const crumbs = [
@@ -31,10 +31,10 @@ const NetworksBreadcrumbs = () => {
 };
 
 const METHODS_TO_BIND = [
-  'handleSearchStringChange',
-  'onVirtualNetworksStoreError',
-  'onVirtualNetworksStoreSuccess',
-  'resetFilter'
+  "handleSearchStringChange",
+  "onVirtualNetworksStoreError",
+  "onVirtualNetworksStoreSuccess",
+  "resetFilter"
 ];
 
 class VirtualNetworksTabContent extends mixin(StoreMixin) {
@@ -43,34 +43,34 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
     this.state = {
       receivedVirtualNetworks: false,
-      searchString: '',
+      searchString: "",
       errorCount: 0
     };
 
     this.store_listeners = [
       {
-        name: 'virtualNetworks',
-        events: ['success', 'error'],
+        name: "virtualNetworks",
+        events: ["success", "error"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   onVirtualNetworksStoreError() {
     const errorCount = this.state.errorCount + 1;
-    this.setState({errorCount});
+    this.setState({ errorCount });
   }
 
   onVirtualNetworksStoreSuccess() {
-    this.setState({receivedVirtualNetworks: true, errorCount: 0});
+    this.setState({ receivedVirtualNetworks: true, errorCount: 0 });
   }
 
   isLoading() {
@@ -78,7 +78,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   resetFilter() {
-    this.setState({searchString: ''});
+    this.setState({ searchString: "" });
   }
 
   getEmptyScreen() {
@@ -96,14 +96,16 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return <RequestErrorMsg />;
   }
 
-  getFilteredOverlayList(overlayList, searchString = '') {
-    if (searchString === '') {
+  getFilteredOverlayList(overlayList, searchString = "") {
+    if (searchString === "") {
       return overlayList;
     }
 
-    return overlayList.filterItems(function (overlay) {
-      return overlay.getName().includes(searchString) ||
-        overlay.getSubnet().includes(searchString);
+    return overlayList.filterItems(function(overlay) {
+      return (
+        overlay.getName().includes(searchString) ||
+        overlay.getSubnet().includes(searchString)
+      );
     });
   }
 
@@ -112,7 +114,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getContent() {
-    const {errorCount, searchString} = this.state;
+    const { errorCount, searchString } = this.state;
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
@@ -122,7 +124,10 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     }
 
     const overlayList = VirtualNetworksStore.getOverlays();
-    const filteredOverlayList = this.getFilteredOverlayList(overlayList, searchString);
+    const filteredOverlayList = this.getFilteredOverlayList(
+      overlayList,
+      searchString
+    );
     if (filteredOverlayList.length === 0) {
       return this.getEmptyScreen();
     }
@@ -133,11 +138,13 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
           onReset={this.resetFilter}
           name="Network"
           currentLength={filteredOverlayList.getItems().length}
-          totalLength={overlayList.getItems().length} />
+          totalLength={overlayList.getItems().length}
+        />
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
+            handleFilterChange={this.handleSearchStringChange}
+          />
         </FilterBar>
         <VirtualNetworksTable overlays={filteredOverlayList} />
       </div>
@@ -156,7 +163,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 }
 
 VirtualNetworksTabContent.routeConfig = {
-  label: 'Networks',
+  label: "Networks",
   matches: /^\/networking\/networks/
 };
 

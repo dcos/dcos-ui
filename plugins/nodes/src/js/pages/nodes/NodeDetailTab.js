@@ -1,18 +1,20 @@
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
-import DateUtil from '#SRC/js/utils/DateUtil';
-import HashMapDisplay from '#SRC/js/components/HashMapDisplay';
-import MesosStateStore from '#SRC/js/stores/MesosStateStore';
-import Node from '#SRC/js/structs/Node';
-import StringUtil from '#SRC/js/utils/StringUtil';
-import Units from '#SRC/js/utils/Units';
+import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import DateUtil from "#SRC/js/utils/DateUtil";
+import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import Node from "#SRC/js/structs/Node";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import Units from "#SRC/js/utils/Units";
 
 class NodeDetailTab extends React.Component {
   constructor() {
@@ -21,8 +23,8 @@ class NodeDetailTab extends React.Component {
   }
 
   render() {
-    const {node} = this.props;
-    const resources = node.get('resources');
+    const { node } = this.props;
+    const resources = node.get("resources");
 
     return (
       <div className="container">
@@ -49,9 +51,7 @@ class NodeDetailTab extends React.Component {
                 Registered
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {DateUtil.msToDateStr(
-                  node.registered_time.toFixed(3) * 1000
-                )}
+                {DateUtil.msToDateStr(node.registered_time.toFixed(3) * 1000)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
@@ -59,13 +59,11 @@ class NodeDetailTab extends React.Component {
                 Master Version
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {MesosStateStore.get('lastMesosState').version}
+                {MesosStateStore.get("lastMesosState").version}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>
-          <HashMapDisplay
-            hash={node.attributes}
-            headline="Attributes" />
+          <HashMapDisplay hash={node.attributes} headline="Attributes" />
           <ConfigurationMapSection>
             <ConfigurationMapHeading>
               Resources
@@ -75,7 +73,7 @@ class NodeDetailTab extends React.Component {
                 Disk
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {Units.formatResource('disk', resources.disk)}
+                {Units.formatResource("disk", resources.disk)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
@@ -83,7 +81,7 @@ class NodeDetailTab extends React.Component {
                 Mem
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {Units.formatResource('mem', resources.mem)}
+                {Units.formatResource("mem", resources.mem)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
@@ -91,7 +89,7 @@ class NodeDetailTab extends React.Component {
                 CPUs
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {Units.formatResource('cpus', resources.cpus)}
+                {Units.formatResource("cpus", resources.cpus)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>

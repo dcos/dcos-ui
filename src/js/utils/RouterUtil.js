@@ -1,13 +1,13 @@
-import qs from 'query-string';
-import {createRoutes} from 'react-router';
-import React from 'react';
+import qs from "query-string";
+import { createRoutes } from "react-router";
+import React from "react";
 
-import Util from './Util';
+import Util from "./Util";
 
 function findRedirect(queryString) {
   let redirectTo = false;
 
-  Object.keys(queryString).forEach(function (key) {
+  Object.keys(queryString).forEach(function(key) {
     if (/redirect/.test(key)) {
       redirectTo = queryString[key];
     }
@@ -17,7 +17,6 @@ function findRedirect(queryString) {
 }
 
 const RouterUtil = {
-
   getRedirectTo() {
     let redirectTo = false;
 
@@ -43,14 +42,12 @@ const RouterUtil = {
    * @return {Array} React tree of routes
    */
   createComponentsFromRoutes(routes) {
-    return routes.map(function (route) {
-      let args = [route.type, Util.omit(route, ['type', 'children'])];
+    return routes.map(function(route) {
+      let args = [route.type, Util.omit(route, ["type", "children"])];
 
       if (
-          route.component &&
-          route.component.willTransitionTo &&
-          !route.onEnter
-        ) {
+        route.component && route.component.willTransitionTo && !route.onEnter
+      ) {
         route.onEnter = route.component.willTransitionTo;
       }
 
@@ -107,15 +104,17 @@ const RouterUtil = {
    * @returns {String} path - absolute path pattern
    */
   reconstructPathFromRoutes(routes) {
-    const path = routes.filter(function (route) {
-      return !!route.path;
-    }).map(function (route) {
-      return route.path;
-    }).join('/');
+    const path = routes
+      .filter(function(route) {
+        return !!route.path;
+      })
+      .map(function(route) {
+        return route.path;
+      })
+      .join("/");
 
     return `/${path}`;
   }
-
 };
 
 module.exports = RouterUtil;

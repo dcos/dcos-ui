@@ -1,40 +1,38 @@
-import Item from '#SRC/js/structs/Item';
-import VolumeStatus from '../constants/VolumeStatus';
+import Item from "#SRC/js/structs/Item";
+import VolumeStatus from "../constants/VolumeStatus";
 
 class Volume extends Item {
-
   getContainerPath() {
-    return this.get('containerPath');
+    return this.get("containerPath");
   }
 
   getHost() {
-    return this.get('host');
+    return this.get("host");
   }
 
   getId() {
-    return this.get('id');
+    return this.get("id");
   }
 
   getMode() {
-    return this.get('mode');
+    return this.get("mode");
   }
 
   getStatus() {
-    return this.get('status') || VolumeStatus.UNAVAILABLE;
+    return this.get("status") || VolumeStatus.UNAVAILABLE;
   }
 
   getSize() {
-    return this.get('size');
+    return this.get("size");
   }
 
   getTaskID() {
-    return this.get('taskID');
+    return this.get("taskID");
   }
 
   getType() {
-    return this.get('type');
+    return this.get("type");
   }
-
 }
 
 module.exports = Volume;

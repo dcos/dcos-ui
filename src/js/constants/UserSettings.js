@@ -1,3 +1,3 @@
 module.exports = {
-  SAVED_STATE_KEY: 'savedStates'
+  SAVED_STATE_KEY: "savedStates"
 };

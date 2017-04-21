@@ -1,24 +1,30 @@
-import FormUtil from './FormUtil';
-import Util from './Util';
+import FormUtil from "./FormUtil";
+import Util from "./Util";
 
 function getValueFromSchemaProperty(fieldProps) {
-  let value = '';
+  let value = "";
 
   if (fieldProps.default != null) {
     value = fieldProps.default;
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       value = value.toString();
     }
   }
 
   if (Array.isArray(fieldProps.default) && fieldProps.default.length === 0) {
-    value = '';
+    value = "";
   }
 
   return value;
 }
 
-function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition) {
+function setLabelFromSchemaProperty(
+  fieldName,
+  fieldProps,
+  isRequired,
+  renderLabel,
+  definition
+) {
   let label = fieldProps.title || fieldName;
 
   if (isRequired) {
@@ -30,7 +36,7 @@ function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   }
 
   // Set the label property of checkboxes if a label is defined.
-  if (fieldProps.type === 'boolean') {
+  if (fieldProps.type === "boolean") {
     definition.label = fieldProps.label || label;
 
     return;
@@ -51,15 +57,17 @@ function schemaToFieldDefinition(options) {
   const value = getValueFromSchemaProperty(fieldProps);
 
   let definition = {
-    fieldType: 'text',
+    fieldType: "text",
     focused: false,
     name: fieldName,
-    placeholder: '',
+    placeholder: "",
     isRequired,
     required: false,
     showError: false,
-    writeType: 'input',
-    validation() { return true; },
+    writeType: "input",
+    validation() {
+      return true;
+    },
     externalValidator: fieldProps.externalValidator,
     value,
     valueType: fieldProps.type
@@ -69,22 +77,28 @@ function schemaToFieldDefinition(options) {
     definition.labelClass = fieldProps.className;
   }
 
-  setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition);
+  setLabelFromSchemaProperty(
+    fieldName,
+    fieldProps,
+    isRequired,
+    renderLabel,
+    definition
+  );
 
-  if (typeof value === 'boolean') {
+  if (typeof value === "boolean") {
     definition.checked = value;
   }
 
-  if (fieldProps.type === 'number') {
-    definition.fieldType = 'number';
+  if (fieldProps.type === "number") {
+    definition.fieldType = "number";
   }
 
   if (fieldProps.focused) {
     definition.focused = true;
   }
 
-  if (fieldProps.fieldType === 'select') {
-    definition.fieldType = 'select';
+  if (fieldProps.fieldType === "select") {
+    definition.fieldType = "select";
     definition.options = fieldProps.options;
   }
 
@@ -92,13 +106,13 @@ function schemaToFieldDefinition(options) {
     definition.helpBlock = fieldProps.helpBlock;
   }
 
-  if (fieldProps.type === 'boolean') {
-    definition.fieldType = 'checkbox';
+  if (fieldProps.type === "boolean") {
+    definition.fieldType = "checkbox";
     definition.checked = fieldProps.default || false;
   }
 
   if (fieldProps.multiLine === true) {
-    definition.fieldType = 'textarea';
+    definition.fieldType = "textarea";
   }
 
   if (fieldProps.formElementClass) {
@@ -138,17 +152,19 @@ function schemaToFieldDefinition(options) {
     }
 
     if (renderRemove) {
-      let arrayAction = 'push';
+      let arrayAction = "push";
       if (fieldProps.deleteButtonTop) {
         itemShape.deleteButtonTop = true;
-        arrayAction = 'unshift';
+        arrayAction = "unshift";
       }
       let title = null;
       if (itemShape.getTitle) {
         title = itemShape.getTitle();
       }
 
-      definition[arrayAction](renderRemove(formParent, fieldName, propID, title));
+      definition[arrayAction](
+        renderRemove(formParent, fieldName, propID, title)
+      );
     }
 
     if (formParent.itemShapes == null) {
@@ -175,18 +191,23 @@ function nestedSchemaToFieldDefinition(options) {
   const nestedDefinition = {
     name: fieldName,
     render: null,
-    fieldType: 'object',
+    fieldType: "object",
     definition: []
   };
 
-  if (typeof renderSubheader === 'function') {
-    nestedDefinition.render = renderSubheader.bind(null, fieldName, fieldProps.description, levelsDeep);
+  if (typeof renderSubheader === "function") {
+    nestedDefinition.render = renderSubheader.bind(
+      null,
+      fieldName,
+      fieldProps.description,
+      levelsDeep
+    );
   }
 
   const properties = fieldProps.properties;
   const requiredProps = fieldProps.required;
 
-  Object.keys(properties).forEach(function (nestedFieldName) {
+  Object.keys(properties).forEach(function(nestedFieldName) {
     const nestedPropertyValue = properties[nestedFieldName];
     if (nestedPropertyValue.properties) {
       nestedDefinition.definition.push(
@@ -205,7 +226,8 @@ function nestedSchemaToFieldDefinition(options) {
           fieldName: nestedFieldName,
           fieldProps: nestedPropertyValue,
           formParent: nestedDefinition.definition,
-          isRequired: requiredProps && requiredProps.indexOf(nestedFieldName) > -1,
+          isRequired: requiredProps &&
+            requiredProps.indexOf(nestedFieldName) > -1,
           renderLabel
         })
       );
@@ -244,29 +266,35 @@ const SchemaUtil = {
     const multipleDefinition = {};
     const schemaProperties = schema.properties;
 
-    Object.keys(schemaProperties).forEach(function (topLevelProp) {
+    Object.keys(schemaProperties).forEach(function(topLevelProp) {
       const topLevelPropertyObject = schemaProperties[topLevelProp];
       const secondLevelProperties = topLevelPropertyObject.properties;
       const requiredProps = topLevelPropertyObject.required;
-      const definitionForm = multipleDefinition[topLevelProp] = {};
+      const definitionForm = (multipleDefinition[topLevelProp] = {});
 
       definitionForm.title = topLevelPropertyObject.title || topLevelProp;
       definitionForm.selectValue = topLevelProp;
       definitionForm.description = topLevelPropertyObject.description;
       definitionForm.definition = [];
-      Object.keys(secondLevelProperties).forEach(function (secondLevelProp) {
+      Object.keys(secondLevelProperties).forEach(function(secondLevelProp) {
         const secondLevelObject = secondLevelProperties[secondLevelProp];
         let fieldDefinition;
 
-        if (secondLevelObject.type === 'group' && secondLevelObject.properties != null) {
-          fieldDefinition = Object.keys(secondLevelObject.properties).map(function (key) {
+        if (
+          secondLevelObject.type === "group" &&
+          secondLevelObject.properties != null
+        ) {
+          fieldDefinition = Object.keys(
+            secondLevelObject.properties
+          ).map(function(key) {
             const field = secondLevelObject.properties[key];
 
             return schemaToFieldDefinition({
               fieldName: key,
               fieldProps: field,
               formParent: topLevelProp,
-              isRequired: requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+              isRequired: requiredProps &&
+                requiredProps.indexOf(secondLevelProp) > -1,
               renderLabel
             });
           });
@@ -275,7 +303,8 @@ const SchemaUtil = {
             fieldName: secondLevelProp,
             fieldProps: secondLevelObject,
             formParent: definitionForm.definition,
-            isRequired: requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+            isRequired: requiredProps &&
+              requiredProps.indexOf(secondLevelProp) > -1,
             renderLabel,
             renderRemove
           });
@@ -299,24 +328,25 @@ const SchemaUtil = {
 
           if (secondLevelObject.title) {
             definitionForm.definition.push(
-              renderSubheader(secondLevelObject.title, secondLevelObject.description)
+              renderSubheader(
+                secondLevelObject.title,
+                secondLevelObject.description
+              )
             );
           }
           definitionForm.definition.push(fieldDefinition);
 
           if (renderAdd) {
-            definitionForm.definition.push(
-              {
-                render: renderAdd.bind(
-                  null,
-                  secondLevelProp,
-                  definitionForm.definition,
-                  itemShape.definition,
-                  secondLevelProperties[secondLevelProp].addLabel
-                ),
-                prop: secondLevelProp
-              }
-            );
+            definitionForm.definition.push({
+              render: renderAdd.bind(
+                null,
+                secondLevelProp,
+                definitionForm.definition,
+                itemShape.definition,
+                secondLevelProperties[secondLevelProp].addLabel
+              ),
+              prop: secondLevelProp
+            });
           }
 
           return;
@@ -324,7 +354,6 @@ const SchemaUtil = {
 
         definitionForm.definition.push(fieldDefinition);
       });
-
     });
 
     return multipleDefinition;
@@ -340,19 +369,19 @@ const SchemaUtil = {
   definitionToJSONDocument(definition) {
     const jsonDocument = {};
 
-    Object.keys(definition).forEach(function (topLevelProp) {
+    Object.keys(definition).forEach(function(topLevelProp) {
       const topLevelProperties = definition[topLevelProp];
-      const topLevelDefinition = jsonDocument[topLevelProp] = {};
+      const topLevelDefinition = (jsonDocument[topLevelProp] = {});
       const topLevelDefinitionValues = topLevelProperties.definition;
 
       if (!topLevelDefinitionValues) {
         return;
       }
 
-      topLevelDefinitionValues.forEach(function (formDefinition) {
+      topLevelDefinitionValues.forEach(function(formDefinition) {
         if (formDefinition.definition) {
-          const nested = topLevelDefinition[formDefinition.name] = {};
-          formDefinition.definition.forEach(function (nestedDefinition) {
+          const nested = (topLevelDefinition[formDefinition.name] = {});
+          formDefinition.definition.forEach(function(nestedDefinition) {
             const fieldName = nestedDefinition.name;
             const fieldValue = nestedDefinition.value;
             nested[fieldName] = fieldValue;
@@ -378,7 +407,7 @@ const SchemaUtil = {
   validateSchema(schema) {
     try {
       SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition({schema})
+        SchemaUtil.schemaToMultipleDefinition({ schema })
       );
 
       return true;

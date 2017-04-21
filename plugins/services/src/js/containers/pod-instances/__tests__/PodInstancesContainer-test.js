@@ -1,101 +1,139 @@
-jest.dontMock('../../../structs/Pod');
-jest.dontMock('../../../structs/PodInstanceList');
-jest.dontMock('../../../structs/PodInstance');
-jest.dontMock('../../../structs/PodContainer');
-jest.dontMock('../../../../../../../tests/_fixtures/pods/PodFixture');
-jest.dontMock('#SRC/js/components/CheckboxTable');
-jest.dontMock('#SRC/js/components/CollapsingString');
-jest.dontMock('#SRC/js/components/ExpandingTable');
-jest.dontMock('#SRC/js/components/FilterBar');
-jest.dontMock('#SRC/js/components/FilterInputText');
-jest.dontMock('#SRC/js/components/FilterButtons');
-jest.dontMock('#SRC/js/components/TimeAgo');
-jest.dontMock('../PodViewFilter');
-jest.dontMock('../PodInstancesContainer');
-jest.dontMock('../PodInstancesTable');
+jest.dontMock("../../../structs/Pod");
+jest.dontMock("../../../structs/PodInstanceList");
+jest.dontMock("../../../structs/PodInstance");
+jest.dontMock("../../../structs/PodContainer");
+jest.dontMock("../../../../../../../tests/_fixtures/pods/PodFixture");
+jest.dontMock("#SRC/js/components/CheckboxTable");
+jest.dontMock("#SRC/js/components/CollapsingString");
+jest.dontMock("#SRC/js/components/ExpandingTable");
+jest.dontMock("#SRC/js/components/FilterBar");
+jest.dontMock("#SRC/js/components/FilterInputText");
+jest.dontMock("#SRC/js/components/FilterButtons");
+jest.dontMock("#SRC/js/components/TimeAgo");
+jest.dontMock("../PodViewFilter");
+jest.dontMock("../PodInstancesContainer");
+jest.dontMock("../PodInstancesTable");
 
-const JestUtil = require('#SRC/js/utils/JestUtil');
+const JestUtil = require("#SRC/js/utils/JestUtil");
 /* eslint-disable no-unused-vars */
-const React = require('react');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const TestUtils = require('react-addons-test-utils');
+const TestUtils = require("react-addons-test-utils");
 
-const PodInstancesContainer = require('../PodInstancesContainer');
-const Pod = require('../../../structs/Pod');
-const Util = require('#SRC/js/utils/Util');
+const PodInstancesContainer = require("../PodInstancesContainer");
+const Pod = require("../../../structs/Pod");
+const Util = require("#SRC/js/utils/Util");
 
-const PodFixture = require('../../../../../../../tests/_fixtures/pods/PodFixture');
+const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture");
 
-describe('PodInstancesContainer', function () {
-
+describe("PodInstancesContainer", function() {
   // Fix the dates in order to test the relative date field
   const fixture = Util.deepCopy(PodFixture);
-  fixture.instances[0].lastUpdated = new Date(Date.now() - (86400000 * 1)).toString();
-  fixture.instances[0].lastChanged = new Date(Date.now() - (86400000 * 2)).toString();
-  fixture.instances[0].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 3)).toString();
-  fixture.instances[0].containers[0].lastChanged = new Date(Date.now() - (86400000 * 4)).toString();
-  fixture.instances[0].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 5)).toString();
-  fixture.instances[0].containers[1].lastChanged = new Date(Date.now() - (86400000 * 6)).toString();
-  fixture.instances[1].lastUpdated = new Date(Date.now() - (86400000 * 7)).toString();
-  fixture.instances[1].lastChanged = new Date(Date.now() - (86400000 * 8)).toString();
-  fixture.instances[1].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 9)).toString();
-  fixture.instances[1].containers[0].lastChanged = new Date(Date.now() - (86400000 * 10)).toString();
-  fixture.instances[1].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 11)).toString();
-  fixture.instances[1].containers[1].lastChanged = new Date(Date.now() - (86400000 * 12)).toString();
+  fixture.instances[0].lastUpdated = new Date(
+    Date.now() - 86400000 * 1
+  ).toString();
+  fixture.instances[0].lastChanged = new Date(
+    Date.now() - 86400000 * 2
+  ).toString();
+  fixture.instances[0].containers[0].lastUpdated = new Date(
+    Date.now() - 86400000 * 3
+  ).toString();
+  fixture.instances[0].containers[0].lastChanged = new Date(
+    Date.now() - 86400000 * 4
+  ).toString();
+  fixture.instances[0].containers[1].lastUpdated = new Date(
+    Date.now() - 86400000 * 5
+  ).toString();
+  fixture.instances[0].containers[1].lastChanged = new Date(
+    Date.now() - 86400000 * 6
+  ).toString();
+  fixture.instances[1].lastUpdated = new Date(
+    Date.now() - 86400000 * 7
+  ).toString();
+  fixture.instances[1].lastChanged = new Date(
+    Date.now() - 86400000 * 8
+  ).toString();
+  fixture.instances[1].containers[0].lastUpdated = new Date(
+    Date.now() - 86400000 * 9
+  ).toString();
+  fixture.instances[1].containers[0].lastChanged = new Date(
+    Date.now() - 86400000 * 10
+  ).toString();
+  fixture.instances[1].containers[1].lastUpdated = new Date(
+    Date.now() - 86400000 * 11
+  ).toString();
+  fixture.instances[1].containers[1].lastChanged = new Date(
+    Date.now() - 86400000 * 12
+  ).toString();
 
   const pod = new Pod(fixture);
 
-  describe('#render', function () {
-
-    describe('search with instance name', function () {
-
-      beforeEach(function () {
+  describe("#render", function() {
+    describe("search with instance name", function() {
+      beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(PodInstancesContainer,
-          {pod}, {service: pod});
+        const component = JestUtil.stubRouterContext(
+          PodInstancesContainer,
+          { pod },
+          { service: pod }
+        );
         this.instance = TestUtils.renderIntoDocument(component);
 
         const searchInput = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance, 'filter-input-text' );
+          this.instance,
+          "filter-input-text"
+        );
 
-        searchInput.value = 'instance-1';
+        searchInput.value = "instance-1";
         TestUtils.Simulate.change(searchInput);
       });
 
-      it('should properly return matching instances', function () {
+      it("should properly return matching instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'task-table-column-primary')
-            .reduce(JestUtil.reduceTextContentOfSelector(
-              '.collapsing-string-full-string'), []);
+          this.instance,
+          "task-table-column-primary"
+        ).reduce(
+          JestUtil.reduceTextContentOfSelector(
+            ".collapsing-string-full-string"
+          ),
+          []
+        );
 
-        expect(names).toEqual([
-          'instance-1'
-        ]);
+        expect(names).toEqual(["instance-1"]);
       });
     });
 
-    describe('search with container name', function () {
-
-      beforeEach(function () {
+    describe("search with container name", function() {
+      beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(PodInstancesContainer,
-          {pod}, {service: pod});
+        const component = JestUtil.stubRouterContext(
+          PodInstancesContainer,
+          { pod },
+          { service: pod }
+        );
         this.instance = TestUtils.renderIntoDocument(component);
 
         const searchInput = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance, 'filter-input-text' );
+          this.instance,
+          "filter-input-text"
+        );
 
-        searchInput.value = 'container-1';
+        searchInput.value = "container-1";
         TestUtils.Simulate.change(searchInput);
       });
 
-      it('should properly return matching instances and containers', function () {
+      it("should properly return matching instances and containers", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'task-table-column-primary')
-            .reduce(JestUtil.reduceTextContentOfSelector(
-              '.collapsing-string-full-string'), []);
+          this.instance,
+          "task-table-column-primary"
+        ).reduce(
+          JestUtil.reduceTextContentOfSelector(
+            ".collapsing-string-full-string"
+          ),
+          []
+        );
 
         // The table is expanded and the containers are filtered, therefore
         // we should see 1 Header + 1 Child for every instance.
@@ -104,88 +142,94 @@ describe('PodInstancesContainer', function () {
         //  staged instance should not be shown on the search results)
         //
         expect(names).toEqual([
-          'instance-1',
-          'container-1',
-          'instance-2',
-          'container-1'
+          "instance-1",
+          "container-1",
+          "instance-2",
+          "container-1"
         ]);
       });
 
-      it('should always show instance total resources', function () {
+      it("should always show instance total resources", function() {
         var mem = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'task-table-column-mem')
-            .filter(JestUtil.filterByTagName('TD'))
-            .reduce(JestUtil.reduceTextContentOfSelector(
-              'span'), []);
+          this.instance,
+          "task-table-column-mem"
+        )
+          .filter(JestUtil.filterByTagName("TD"))
+          .reduce(JestUtil.reduceTextContentOfSelector("span"), []);
 
-        expect(mem).toEqual([
-          '128 MiB',
-          '64 MiB',
-          '128 MiB',
-          '64 MiB'
-        ]);
+        expect(mem).toEqual(["128 MiB", "64 MiB", "128 MiB", "64 MiB"]);
       });
     });
 
-    describe('show all', function () {
-
-      beforeEach(function () {
+    describe("show all", function() {
+      beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(PodInstancesContainer,
-          {pod}, {service: pod});
+        const component = JestUtil.stubRouterContext(
+          PodInstancesContainer,
+          { pod },
+          { service: pod }
+        );
         this.instance = TestUtils.renderIntoDocument(component);
 
         const buttons = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance, 'button-group' ).querySelectorAll('button');
+          this.instance,
+          "button-group"
+        ).querySelectorAll("button");
 
         // First button is 'All'
         TestUtils.Simulate.click(buttons[0]);
-
       });
 
-      it('should properly show all instances', function () {
+      it("should properly show all instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'task-table-column-primary')
-            .reduce(JestUtil.reduceTextContentOfSelector(
-              '.collapsing-string-full-string'), []);
+          this.instance,
+          "task-table-column-primary"
+        ).reduce(
+          JestUtil.reduceTextContentOfSelector(
+            ".collapsing-string-full-string"
+          ),
+          []
+        );
 
-        expect(names).toEqual([
-          'instance-1',
-          'instance-2',
-          'instance-3'
-        ]);
+        expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
     });
 
-    describe('show completed', function () {
-
-      beforeEach(function () {
+    describe("show completed", function() {
+      beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(PodInstancesContainer,
-          {pod}, {service: pod});
+        const component = JestUtil.stubRouterContext(
+          PodInstancesContainer,
+          { pod },
+          { service: pod }
+        );
         this.instance = TestUtils.renderIntoDocument(component);
 
         const buttons = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance, 'button-group' ).querySelectorAll('button');
+          this.instance,
+          "button-group"
+        ).querySelectorAll("button");
 
         // Third button is 'Completed'
         // (We have no such instances in our mock data)
         TestUtils.Simulate.click(buttons[2]);
-
       });
 
-      it('should properly show no instances', function () {
+      it("should properly show no instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-            this.instance, 'task-table-column-primary')
-            .reduce(JestUtil.reduceTextContentOfSelector(
-              '.collapsing-string-full-string'), []);
+          this.instance,
+          "task-table-column-primary"
+        ).reduce(
+          JestUtil.reduceTextContentOfSelector(
+            ".collapsing-string-full-string"
+          ),
+          []
+        );
 
-        expect(names).toEqual([
-        ]);
+        expect(names).toEqual([]);
       });
     });
-
   });
 });

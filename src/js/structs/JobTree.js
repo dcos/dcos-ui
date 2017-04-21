@@ -1,5 +1,5 @@
-import Job from './Job';
-import Tree from './Tree';
+import Job from "./Job";
+import Tree from "./Tree";
 
 module.exports = class JobTree extends Tree {
   /**
@@ -13,26 +13,29 @@ module.exports = class JobTree extends Tree {
    * @constructor
    * @struct
    */
-  constructor({id} = {}) {
+  constructor({ id } = {}) {
     super(...arguments);
 
-    this.id = '';
-    if (typeof id == 'string') {
+    this.id = "";
+    if (typeof id == "string") {
       this.id = id;
     }
 
     // Converts items into instances of JobTree or Job
     // based on their properties.
-    this.list = this.list.map((item) => {
+    this.list = this.list.map(item => {
       if (item instanceof Job || item instanceof JobTree) {
         return item;
       }
 
       // Create instances of JobTree for tree like items
-      if ((item.items != null && Array.isArray(item.items))
-        && !(item instanceof JobTree)) {
+      if (
+        item.items != null &&
+        Array.isArray(item.items) &&
+        !(item instanceof JobTree)
+      ) {
         return new this.constructor(
-          Object.assign({filterProperties: this.getFilterProperties()}, item)
+          Object.assign({ filterProperties: this.getFilterProperties() }, item)
         );
       }
 
@@ -50,12 +53,12 @@ module.exports = class JobTree extends Tree {
    * @return {Job|JobTree} matching item
    */
   findItemById(id) {
-    return this.findItem(function (item) {
+    return this.findItem(function(item) {
       return item.getId() === id;
     });
   }
 
   getName() {
-    return this.getId().split('.').pop();
+    return this.getId().split(".").pop();
   }
 };

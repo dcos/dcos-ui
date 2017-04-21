@@ -1,27 +1,26 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
-import {Table, Tooltip} from 'reactjs-components';
+import classNames from "classnames";
+import { Link } from "react-router";
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
+import { Table, Tooltip } from "reactjs-components";
 
-import Icon from '#SRC/js/components/Icon';
-import Loader from '#SRC/js/components/Loader';
-import NodesTableHeaderLabels from '#SRC/js/constants/NodesTableHeaderLabels';
-import ResourceTableUtil from '#SRC/js/utils/ResourceTableUtil';
-import StatusBar from '#SRC/js/components/StatusBar';
-import StringUtil from '#SRC/js/utils/StringUtil';
-import TableUtil from '#SRC/js/utils/TableUtil';
-import UnitHealthUtil from '#SRC/js/utils/UnitHealthUtil';
+import Icon from "#SRC/js/components/Icon";
+import Loader from "#SRC/js/components/Loader";
+import NodesTableHeaderLabels from "#SRC/js/constants/NodesTableHeaderLabels";
+import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
+import StatusBar from "#SRC/js/components/StatusBar";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import TableUtil from "#SRC/js/utils/TableUtil";
+import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 const COLOR_CLASSNAMES = {
-  cpus: 'color-1',
-  mem: 'color-2',
-  disk: 'color-3'
+  cpus: "color-1",
+  mem: "color-2",
+  disk: "color-3"
 };
 
 var NodesTable = React.createClass({
-
-  displayName: 'NodesTable',
+  displayName: "NodesTable",
 
   mixins: [PureRender],
 
@@ -45,18 +44,17 @@ var NodesTable = React.createClass({
             className="icon-alert icon-margin-right"
             color="neutral"
             id="yield"
-            size="mini" />
+            size="mini"
+          />
           {headline}
         </Tooltip>
       );
     }
 
-    const nodeID = node.get('id');
+    const nodeID = node.get("id");
 
     return (
-      <Link
-        className="table-cell-link-primary"
-        to={`/nodes/${nodeID}`}>
+      <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
         {headline}
       </Link>
     );
@@ -84,8 +82,9 @@ var NodesTable = React.createClass({
     return (
       <span className="status-bar-with-label-wrapper">
         <StatusBar
-          data={[{value, className: COLOR_CLASSNAMES[prop]}]}
-          scale={100} />
+          data={[{ value, className: COLOR_CLASSNAMES[prop] }]}
+          scale={100}
+        />
         <span className="label">{value}%</span>
       </span>
     );
@@ -95,25 +94,26 @@ var NodesTable = React.createClass({
     const className = ResourceTableUtil.getClassName;
     const heading = ResourceTableUtil.renderHeading(NodesTableHeaderLabels);
     const getHealthSorting = TableUtil.getHealthSortingOrder;
-    const sortFunction = TableUtil.getSortFunction('hostname',
-      function (node, prop) {
-        if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
-          return node.getUsageStats(prop).percentage;
-        }
-
-        if (prop === 'health') {
-          return UnitHealthUtil.getHealthSorting(node);
-        }
-
-        return node.get(prop);
+    const sortFunction = TableUtil.getSortFunction("hostname", function(
+      node,
+      prop
+    ) {
+      if (prop === "cpus" || prop === "mem" || prop === "disk") {
+        return node.getUsageStats(prop).percentage;
       }
-    );
+
+      if (prop === "health") {
+        return UnitHealthUtil.getHealthSorting(node);
+      }
+
+      return node.get(prop);
+    });
 
     return [
       {
         className,
         headerClassName: className,
-        prop: 'hostname',
+        prop: "hostname",
         render: this.renderHeadline,
         sortable: true,
         sortFunction,
@@ -122,16 +122,16 @@ var NodesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'health',
+        prop: "health",
         render: this.renderHealth,
         sortable: true,
         sortFunction: getHealthSorting,
-        heading: ResourceTableUtil.renderHeading({health: 'HEALTH'})
+        heading: ResourceTableUtil.renderHeading({ health: "HEALTH" })
       },
       {
         className,
         headerClassName: className,
-        prop: 'TASK_RUNNING',
+        prop: "TASK_RUNNING",
         render: ResourceTableUtil.renderTask,
         sortable: true,
         sortFunction,
@@ -140,7 +140,7 @@ var NodesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'cpus',
+        prop: "cpus",
         render: this.renderStats,
         sortable: true,
         sortFunction,
@@ -149,7 +149,7 @@ var NodesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'mem',
+        prop: "mem",
         render: this.renderStats,
         sortable: true,
         sortFunction,
@@ -158,7 +158,7 @@ var NodesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'disk',
+        prop: "disk",
         render: this.renderStats,
         sortable: true,
         sortFunction,
@@ -171,11 +171,11 @@ var NodesTable = React.createClass({
     return (
       <colgroup>
         <col />
-        <col style={{width: '100px'}} />
-        <col style={{width: '110px'}} />
-        <col className="hidden-small-down" style={{width: '135px'}} />
-        <col className="hidden-small-down" style={{width: '135px'}} />
-        <col className="hidden-small-down" style={{width: '135px'}} />
+        <col style={{ width: "100px" }} />
+        <col style={{ width: "110px" }} />
+        <col className="hidden-small-down" style={{ width: "135px" }} />
+        <col className="hidden-small-down" style={{ width: "135px" }} />
+        <col className="hidden-small-down" style={{ width: "135px" }} />
       </colgroup>
     );
   },
@@ -183,7 +183,7 @@ var NodesTable = React.createClass({
   getRowAttributes(node) {
     return {
       className: classNames({
-        'danger': node.isActive() === false
+        danger: node.isActive() === false
       })
     };
   },
@@ -198,7 +198,8 @@ var NodesTable = React.createClass({
         containerSelector=".gm-scroll-view"
         data={this.props.hosts.slice()}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{ prop: 'health', order: 'asc' }} />
+        sortBy={{ prop: "health", order: "asc" }}
+      />
     );
   }
 });

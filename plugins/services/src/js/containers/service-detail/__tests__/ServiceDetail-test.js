@@ -1,40 +1,39 @@
-jest.dontMock('#SRC/js/components/ConfigurationMap');
-jest.dontMock('#SRC/js/components/ConfigurationMapLabel');
-jest.dontMock('#SRC/js/components/ConfigurationMapValue');
-jest.dontMock('#SRC/js/components/ConfigurationMapHeading');
-jest.dontMock('#SRC/js/components/ConfigurationMapRow');
-jest.dontMock('#SRC/js/components/ConfigurationMapSection');
-jest.dontMock('#SRC/js/components/CollapsingString');
-jest.dontMock('#SRC/js/components/DetailViewSectionHeading');
-jest.dontMock('#SRC/js/components/DetailViewHeader');
-jest.dontMock('#SRC/js/stores/MesosStateStore');
-jest.dontMock('#SRC/js/components/Page');
-jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
-jest.dontMock('../ServiceDetail');
-jest.dontMock('../../service-debug/ServiceDebugContainer');
-jest.dontMock('../../service-configuration/ServiceConfigurationContainer');
-jest.dontMock('../../tasks/ServiceTasksContainer');
-jest.dontMock('../ServiceInfo');
-jest.dontMock('../../../structs/Application');
+jest.dontMock("#SRC/js/components/ConfigurationMap");
+jest.dontMock("#SRC/js/components/ConfigurationMapLabel");
+jest.dontMock("#SRC/js/components/ConfigurationMapValue");
+jest.dontMock("#SRC/js/components/ConfigurationMapHeading");
+jest.dontMock("#SRC/js/components/ConfigurationMapRow");
+jest.dontMock("#SRC/js/components/ConfigurationMapSection");
+jest.dontMock("#SRC/js/components/CollapsingString");
+jest.dontMock("#SRC/js/components/DetailViewSectionHeading");
+jest.dontMock("#SRC/js/components/DetailViewHeader");
+jest.dontMock("#SRC/js/stores/MesosStateStore");
+jest.dontMock("#SRC/js/components/Page");
+jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
+jest.dontMock("../ServiceDetail");
+jest.dontMock("../../service-debug/ServiceDebugContainer");
+jest.dontMock("../../service-configuration/ServiceConfigurationContainer");
+jest.dontMock("../../tasks/ServiceTasksContainer");
+jest.dontMock("../ServiceInfo");
+jest.dontMock("../../../structs/Application");
 
 /* eslint-disable no-unused-vars */
-const React = require('react');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
-const JestUtil = require('#SRC/js/utils/JestUtil');
+const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
+const JestUtil = require("#SRC/js/utils/JestUtil");
 
-const Application = require('../../../structs/Application');
-const ServiceDetail = require('../ServiceDetail');
-const ServiceDebugContainer = require('../../service-debug/ServiceDebugContainer');
-const ServiceConfigurationContainer = require('../../service-configuration/ServiceConfigurationContainer');
-const ServiceTasksContainer = require('../../tasks/ServiceTasksContainer');
+const Application = require("../../../structs/Application");
+const ServiceDetail = require("../ServiceDetail");
+const ServiceDebugContainer = require("../../service-debug/ServiceDebugContainer");
+const ServiceConfigurationContainer = require("../../service-configuration/ServiceConfigurationContainer");
+const ServiceTasksContainer = require("../../tasks/ServiceTasksContainer");
 
-describe('ServiceDetail', function () {
-
+describe("ServiceDetail", function() {
   const service = new Application({
-    id: '/group/test',
-    healthChecks: [{path: '', protocol: 'HTTP'}],
+    id: "/group/test",
+    healthChecks: [{ path: "", protocol: "HTTP" }],
     deployments: [],
     cpus: 1,
     mem: 2048,
@@ -44,10 +43,10 @@ describe('ServiceDetail', function () {
     tasksRunning: 2,
     tasksHealthy: 2,
     tasksUnhealthy: 0,
-    version: '2001-01-01T01:01:01.001Z',
+    version: "2001-01-01T01:01:01.001Z",
     versionInfo: {
-      lastConfigChangeAt: '2001-01-01T01:01:01.001Z',
-      lastScalingAt: '2001-01-01T01:01:01.001Z'
+      lastConfigChangeAt: "2001-01-01T01:01:01.001Z",
+      lastScalingAt: "2001-01-01T01:01:01.001Z"
     }
   });
 
@@ -65,13 +64,13 @@ describe('ServiceDetail', function () {
     }
   };
 
-  beforeEach(function () {
-    this.container = global.document.createElement('div');
+  beforeEach(function() {
+    this.container = global.document.createElement("div");
     this.wrapper = ReactDOM.render(
       JestUtil.stubRouterContext(
         ServiceDetail,
         {
-          actions: {editService() {}},
+          actions: { editService() {} },
           errors: {},
           params: {},
           service
@@ -82,18 +81,19 @@ describe('ServiceDetail', function () {
       ),
       this.container
     );
-    this.instance =
-      TestUtils.findRenderedComponentWithType(this.wrapper, ServiceDetail);
+    this.instance = TestUtils.findRenderedComponentWithType(
+      this.wrapper,
+      ServiceDetail
+    );
     this.node = ReactDOM.findDOMNode(this.instance);
   });
 
-  afterEach(function () {
+  afterEach(function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#renderConfigurationTabView', function () {
-
-    it('renders the configuration tab', function () {
+  describe("#renderConfigurationTabView", function() {
+    it("renders the configuration tab", function() {
       var configurationTabView = ReactDOM.render(
         this.instance.renderConfigurationTabView(),
         this.container
@@ -104,14 +104,11 @@ describe('ServiceDetail', function () {
       );
 
       expect(ServiceTasksContainer).toBeDefined();
-
     });
-
   });
 
-  describe('#renderDebugTabView', function () {
-
-    it('renders debug tab', function () {
+  describe("#renderDebugTabView", function() {
+    it("renders debug tab", function() {
       var debugTabView = ReactDOM.render(
         this.instance.renderDebugTabView(),
         this.container
@@ -123,12 +120,10 @@ describe('ServiceDetail', function () {
 
       expect(serviceDebugContainer).toBeDefined();
     });
-
   });
 
-  describe('#renderInstancesTabView', function () {
-
-    it('renders task tab', function () {
+  describe("#renderInstancesTabView", function() {
+    it("renders task tab", function() {
       var instancesTabView = ReactDOM.render(
         this.instance.renderInstancesTabView(),
         this.container
@@ -139,9 +134,6 @@ describe('ServiceDetail', function () {
       );
 
       expect(serviceDetailInstancesTab).toBeDefined();
-
     });
-
   });
-
 });

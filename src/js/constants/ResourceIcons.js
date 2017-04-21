@@ -1,7 +1,7 @@
 const RESOURCE_ICONS = {
-  disk: 'harddrive',
-  cpu: 'cpu',
-  memory: 'memory'
+  disk: "harddrive",
+  cpu: "cpu",
+  memory: "memory"
 };
 
 module.exports = RESOURCE_ICONS;

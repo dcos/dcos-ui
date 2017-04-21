@@ -1,10 +1,10 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 class CollapsingPanelContent extends React.Component {
   render() {
     const classes = classNames(
-      'panel-cell panel-cell-content',
+      "panel-cell panel-cell-content",
       this.props.className
     );
 

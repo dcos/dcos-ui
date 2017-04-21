@@ -1,85 +1,95 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import React, {Component, PropTypes} from 'react';
-import {Confirm} from 'reactjs-components';
-import {Hooks} from 'PluginSDK';
-import {routerShape} from 'react-router';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import React, { Component, PropTypes } from "react";
+import { Confirm } from "reactjs-components";
+import { Hooks } from "PluginSDK";
+import { routerShape } from "react-router";
 
-import {combineParsers} from '#SRC/js/utils/ParserUtil';
-import {combineReducers} from '#SRC/js/utils/ReducerUtil';
-import {DCOS_CHANGE} from '#SRC/js/constants/EventTypes';
-import DCOSStore from '#SRC/js/stores/DCOSStore';
-import AppValidators from '#SRC/resources/raml/marathon/v2/types/app.raml';
-import DataValidatorUtil from '#SRC/js/utils/DataValidatorUtil';
-import FullScreenModal from '#SRC/js/components/modals/FullScreenModal';
-import FullScreenModalHeader from '#SRC/js/components/modals/FullScreenModalHeader';
-import FullScreenModalHeaderActions from '#SRC/js/components/modals/FullScreenModalHeaderActions';
-import FullScreenModalHeaderTitle from '#SRC/js/components/modals/FullScreenModalHeaderTitle';
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
-import PodValidators from '#SRC/resources/raml/marathon/v2/types/pod.raml';
-import ToggleButton from '#SRC/js/components/ToggleButton';
-import Util from '#SRC/js/utils/Util';
+import { combineParsers } from "#SRC/js/utils/ParserUtil";
+import { combineReducers } from "#SRC/js/utils/ReducerUtil";
+import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import AppValidators from "#SRC/resources/raml/marathon/v2/types/app.raml";
+import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
+import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
+import FullScreenModalHeader
+  from "#SRC/js/components/modals/FullScreenModalHeader";
+import FullScreenModalHeaderActions
+  from "#SRC/js/components/modals/FullScreenModalHeaderActions";
+import FullScreenModalHeaderTitle
+  from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
+import PodValidators from "#SRC/resources/raml/marathon/v2/types/pod.raml";
+import ToggleButton from "#SRC/js/components/ToggleButton";
+import Util from "#SRC/js/utils/Util";
 
-import Application from '../../structs/Application';
-import ApplicationSpec from '../../structs/ApplicationSpec';
-import PodSpec from '../../structs/PodSpec';
-import Service from '../../structs/Service';
+import Application from "../../structs/Application";
+import ApplicationSpec from "../../structs/ApplicationSpec";
+import PodSpec from "../../structs/PodSpec";
+import Service from "../../structs/Service";
 
-import MarathonActions from '../../events/MarathonActions';
-import MarathonStore from '../../stores/MarathonStore';
+import MarathonActions from "../../events/MarathonActions";
+import MarathonStore from "../../stores/MarathonStore";
 import {
   MARATHON_SERVICE_CREATE_ERROR,
   MARATHON_SERVICE_CREATE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS
-} from '../../constants/EventTypes';
+} from "../../constants/EventTypes";
 
-import {DEFAULT_APP_SPEC} from '../../constants/DefaultApp';
-import {DEFAULT_POD_SPEC} from '../../constants/DefaultPod';
+import { DEFAULT_APP_SPEC } from "../../constants/DefaultApp";
+import { DEFAULT_POD_SPEC } from "../../constants/DefaultPod";
 
-import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
-import CreateServiceJsonOnly from './CreateServiceJsonOnly';
-import EnvironmentFormSection from '../forms/EnvironmentFormSection';
-import MarathonAppValidators from '../../validators/MarathonAppValidators';
-import MarathonErrorUtil from '../../utils/MarathonErrorUtil';
-import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
-import NewCreateServiceModalForm from './NewCreateServiceModalForm';
-import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
-import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
-import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import JSONSingleContainerReducers from '../../reducers/JSONSingleContainerReducers';
-import JSONMultiContainerParser from '../../reducers/JSONMultiContainerParser';
-import JSONMultiContainerReducers from '../../reducers/JSONMultiContainerReducers';
-import JSONSingleContainerParser from '../../reducers/JSONSingleContainerParser';
-import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
-import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
-import NetworkingFormSection from '../forms/NetworkingFormSection';
-import ServiceErrorTypes from '../../constants/ServiceErrorTypes';
-import VolumesFormSection from '../forms/VolumesFormSection';
-import VipLabelsValidators from '../../validators/VipLabelsValidators';
-import {getBaseID, getServiceJSON} from '../../utils/ServiceUtil';
+import ContainerServiceFormSection from "../forms/ContainerServiceFormSection";
+import CreateServiceJsonOnly from "./CreateServiceJsonOnly";
+import EnvironmentFormSection from "../forms/EnvironmentFormSection";
+import MarathonAppValidators from "../../validators/MarathonAppValidators";
+import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
+import NewCreateServiceModalServicePicker
+  from "./NewCreateServiceModalServicePicker";
+import NewCreateServiceModalForm from "./NewCreateServiceModalForm";
+import ServiceConfigDisplay
+  from "../../service-configuration/ServiceConfigDisplay";
+import GeneralServiceFormSection from "../forms/GeneralServiceFormSection";
+import HealthChecksFormSection from "../forms/HealthChecksFormSection";
+import JSONSingleContainerReducers
+  from "../../reducers/JSONSingleContainerReducers";
+import JSONMultiContainerParser from "../../reducers/JSONMultiContainerParser";
+import JSONMultiContainerReducers
+  from "../../reducers/JSONMultiContainerReducers";
+import JSONSingleContainerParser
+  from "../../reducers/JSONSingleContainerParser";
+import MultiContainerNetworkingFormSection
+  from "../forms/MultiContainerNetworkingFormSection";
+import MultiContainerVolumesFormSection
+  from "../forms/MultiContainerVolumesFormSection";
+import NetworkingFormSection from "../forms/NetworkingFormSection";
+import ServiceErrorTypes from "../../constants/ServiceErrorTypes";
+import VolumesFormSection from "../forms/VolumesFormSection";
+import VipLabelsValidators from "../../validators/VipLabelsValidators";
+import { getBaseID, getServiceJSON } from "../../utils/ServiceUtil";
 
 const METHODS_TO_BIND = [
-  'handleClearError',
-  'handleClose',
-  'handleCloseConfirmModal',
-  'handleConfirmGoBack',
-  'handleConvertToPod',
-  'handleGoBack',
-  'handleJSONToggle',
-  'handleRouterWillLeave',
-  'handleServiceChange',
-  'handleServiceErrorsChange',
-  'handleServicePropertyChange',
-  'handleServiceReview',
-  'handleServiceRun',
-  'handleServiceSelection',
-  'handleStoreChange',
-  'handleTabChange',
-  'onMarathonStoreServiceCreateError',
-  'onMarathonStoreServiceCreateSuccess',
-  'onMarathonStoreServiceEditError',
-  'onMarathonStoreServiceEditSuccess'
+  "handleClearError",
+  "handleClose",
+  "handleCloseConfirmModal",
+  "handleConfirmGoBack",
+  "handleConvertToPod",
+  "handleGoBack",
+  "handleJSONToggle",
+  "handleRouterWillLeave",
+  "handleServiceChange",
+  "handleServiceErrorsChange",
+  "handleServicePropertyChange",
+  "handleServiceReview",
+  "handleServiceRun",
+  "handleServiceSelection",
+  "handleStoreChange",
+  "handleTabChange",
+  "onMarathonStoreServiceCreateError",
+  "onMarathonStoreServiceCreateSuccess",
+  "onMarathonStoreServiceEditError",
+  "onMarathonStoreServiceEditSuccess"
 ];
 
 const APP_VALIDATORS = [
@@ -93,10 +103,7 @@ const APP_VALIDATORS = [
   VipLabelsValidators.mustContainPort
 ];
 
-const POD_VALIDATORS = [
-  PodValidators.Pod,
-  VipLabelsValidators.mustContainPort
-];
+const POD_VALIDATORS = [PodValidators.Pod, VipLabelsValidators.mustContainPort];
 
 class NewCreateServiceModal extends Component {
   constructor() {
@@ -104,15 +111,15 @@ class NewCreateServiceModal extends Component {
 
     this.state = this.getResetState(this.props);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
-    const {location, route} = this.props;
-    const {service} = this.state;
-    const {router} = this.context;
+    const { location, route } = this.props;
+    const { service } = this.state;
+    const { router } = this.context;
     // Add store change listeners the traditional way as React Router is
     // not able to pass down correct props if we are using StoreMixin
     MarathonStore.addChangeListener(
@@ -144,10 +151,12 @@ class NewCreateServiceModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {location, params} = this.props;
+    const { location, params } = this.props;
     // Skip update if there was no change to props
-    if (nextProps.location.pathname === location.pathname &&
-      deepEqual(nextProps.params, params)) {
+    if (
+      nextProps.location.pathname === location.pathname &&
+      deepEqual(nextProps.params, params)
+    ) {
       return;
     }
 
@@ -159,17 +168,15 @@ class NewCreateServiceModal extends Component {
     const shouldClose = requestCompleted && !nextState.apiErrors.length;
 
     if (shouldClose) {
-      const serviceID = nextProps.params.id || '';
+      const serviceID = nextProps.params.id || "";
 
-      const {path} = nextProps.route;
-      const routePrefix = path.startsWith('edit') ?
-        // When edit: navigate to the detail of the service which was edited
-        '/services/detail/' :
-        // When create: navigate to the group service was created in
-        '/services/overview/';
-      this.context.router.push(
-        routePrefix + encodeURIComponent(serviceID)
-      );
+      const { path } = nextProps.route;
+      const routePrefix = path.startsWith("edit")
+        ? // When edit: navigate to the detail of the service which was edited
+          "/services/detail/"
+        : // When create: navigate to the group service was created in
+          "/services/overview/";
+      this.context.router.push(routePrefix + encodeURIComponent(serviceID));
     }
   }
 
@@ -206,7 +213,7 @@ class NewCreateServiceModal extends Component {
   }
 
   onMarathonStoreServiceCreateSuccess() {
-    this.setState({apiErrors: [], isPending: false});
+    this.setState({ apiErrors: [], isPending: false });
   }
 
   onMarathonStoreServiceEditError(errors) {
@@ -217,17 +224,17 @@ class NewCreateServiceModal extends Component {
   }
 
   onMarathonStoreServiceEditSuccess() {
-    this.setState({apiErrors: [], isPending: false});
+    this.setState({ apiErrors: [], isPending: false });
   }
 
   shouldForceSubmit() {
-    return this.state.apiErrors.some(function (error) {
+    return this.state.apiErrors.some(function(error) {
       return error.type === ServiceErrorTypes.SERVICE_DEPLOYING;
     });
   }
 
   handleRouterWillLeave() {
-    const {isOpen, hasChangesApplied, serviceReviewActive} = this.state;
+    const { isOpen, hasChangesApplied, serviceReviewActive } = this.state;
     // If we are not about to close the modal and not on the review screen,
     // confirm before navigating away
     if (isOpen && hasChangesApplied && !serviceReviewActive) {
@@ -241,8 +248,8 @@ class NewCreateServiceModal extends Component {
   }
 
   handleConfirmGoBack() {
-    const {location} = this.props;
-    const {serviceFormActive, serviceJsonActive} = this.state;
+    const { location } = this.props;
+    const { serviceFormActive, serviceJsonActive } = this.state;
 
     // Close if editing a service in the form
     if (serviceFormActive && this.isLocationEdit(location)) {
@@ -278,15 +285,15 @@ class NewCreateServiceModal extends Component {
     // Unsubscribe from further events
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
 
-    const {params} = this.props;
-    const serviceID = decodeURIComponent(params.id || '/');
+    const { params } = this.props;
+    const serviceID = decodeURIComponent(params.id || "/");
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    this.setState({service, serviceSpec: service.getSpec()});
+    this.setState({ service, serviceSpec: service.getSpec() });
   }
 
   handleGoBack(event) {
-    const {tabViewID} = event;
+    const { tabViewID } = event;
     const {
       hasChangesApplied,
       serviceFormActive,
@@ -297,7 +304,7 @@ class NewCreateServiceModal extends Component {
     if (serviceReviewActive) {
       // Remove the 'Application is deploying' error when we havigate back
       // since it's not related to the form
-      const apiErrors = this.state.apiErrors.filter(function (error) {
+      const apiErrors = this.state.apiErrors.filter(function(error) {
         return error.type !== ServiceErrorTypes.SERVICE_DEPLOYING;
       });
 
@@ -332,7 +339,7 @@ class NewCreateServiceModal extends Component {
   }
 
   handleTabChange(activeTab) {
-    this.setState({activeTab});
+    this.setState({ activeTab });
   }
 
   handleClearError() {
@@ -343,16 +350,16 @@ class NewCreateServiceModal extends Component {
   }
 
   handleOpenConfirm() {
-    this.setState({isConfirmOpen: true});
+    this.setState({ isConfirmOpen: true });
   }
 
   handleCloseConfirmModal() {
-    this.setState({isConfirmOpen: false});
+    this.setState({ isConfirmOpen: false });
   }
 
   handleClose() {
     // Start the animation of the modal by setting isOpen to false
-    this.setState({isConfirmOpen: false, isOpen: false}, () => {
+    this.setState({ isConfirmOpen: false, isOpen: false }, () => {
       // Once state is set, start a timer for the length of the animation and
       // navigate away once the animation is over.
       setTimeout(this.context.router.goBack, 300);
@@ -360,30 +367,30 @@ class NewCreateServiceModal extends Component {
   }
 
   handleConvertToPod() {
-    this.handleServiceSelection({type: 'pod'});
+    this.handleServiceSelection({ type: "pod" });
   }
 
   handleJSONToggle() {
-    this.setState({isJSONModeActive: !this.state.isJSONModeActive});
+    this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
   handleServiceChange(newService) {
-    this.setState({serviceSpec: newService, hasChangesApplied: true});
+    this.setState({ serviceSpec: newService, hasChangesApplied: true });
   }
 
   handleServiceErrorsChange(errors) {
-    this.setState({serviceFormErrors: errors});
+    this.setState({ serviceFormErrors: errors });
   }
 
   handleServicePropertyChange(path) {
-    const refPath = path.join('.');
-    let {apiErrors} = this.state;
+    const refPath = path.join(".");
+    let { apiErrors } = this.state;
 
-    apiErrors = apiErrors.filter((error) => {
-      const errorPath = error.path.join('.');
+    apiErrors = apiErrors.filter(error => {
+      const errorPath = error.path.join(".");
 
       // Remove all root errors on a simple update
-      if (errorPath === '') {
+      if (errorPath === "") {
         return false;
       }
 
@@ -391,16 +398,16 @@ class NewCreateServiceModal extends Component {
       return errorPath !== refPath;
     });
 
-    this.setState({apiErrors});
+    this.setState({ apiErrors });
   }
 
   handleServiceSelection(event) {
-    const {route, type} = event;
-    const {params} = this.props;
-    const baseID = getBaseID(decodeURIComponent(params.id || '/'));
+    const { route, type } = event;
+    const { params } = this.props;
+    const baseID = getBaseID(decodeURIComponent(params.id || "/"));
 
     switch (type) {
-      case 'app':
+      case "app":
         this.setState({
           activeTab: null,
           apiErrors: [],
@@ -408,13 +415,13 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceFormActive: true,
           serviceSpec: new ApplicationSpec(
-            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
+            Object.assign({ id: baseID }, DEFAULT_APP_SPEC)
           ),
           showAllErrors: false
         });
         break;
 
-      case 'pod':
+      case "pod":
         this.setState({
           activeTab: null,
           apiErrors: [],
@@ -422,13 +429,13 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceFormActive: true,
           serviceSpec: new PodSpec(
-            Object.assign({id: baseID}, DEFAULT_POD_SPEC)
+            Object.assign({ id: baseID }, DEFAULT_POD_SPEC)
           ),
           showAllErrors: false
         });
         break;
 
-      case 'json':
+      case "json":
         this.setState({
           activeTab: null,
           apiErrors: [],
@@ -436,13 +443,13 @@ class NewCreateServiceModal extends Component {
           servicePickerActive: false,
           serviceJsonActive: true,
           serviceSpec: new ApplicationSpec(
-            Object.assign({id: baseID}, DEFAULT_APP_SPEC)
+            Object.assign({ id: baseID }, DEFAULT_APP_SPEC)
           ),
           showAllErrors: false
         });
         break;
 
-      case 'redirect':
+      case "redirect":
         this.context.router.push(route);
         break;
     }
@@ -463,8 +470,8 @@ class NewCreateServiceModal extends Component {
   }
 
   handleServiceRun() {
-    const {location} = this.props;
-    const {service, serviceSpec} = this.state;
+    const { location } = this.props;
+    const { service, serviceSpec } = this.state;
     const force = this.shouldForceSubmit();
     if (this.isLocationEdit(location) && service instanceof Service) {
       MarathonActions.editService(service, serviceSpec, force);
@@ -472,11 +479,11 @@ class NewCreateServiceModal extends Component {
       MarathonActions.createService(serviceSpec, force);
     }
 
-    this.setState({isPending: true});
+    this.setState({ isPending: true });
   }
 
   isLocationEdit(location) {
-    return location.pathname.includes('/edit');
+    return location.pathname.includes("/edit");
   }
 
   /**
@@ -486,15 +493,15 @@ class NewCreateServiceModal extends Component {
    * @returns {Array} - An array of error objects
    */
   getFormErrors() {
-    const {serviceFormErrors, serviceSpec} = this.state;
+    const { serviceFormErrors, serviceSpec } = this.state;
     let validationErrors = [];
 
     const appValidators = APP_VALIDATORS.concat(
-      Hooks.applyFilter('appValidators', [])
+      Hooks.applyFilter("appValidators", [])
     );
 
     const podValidators = POD_VALIDATORS.concat(
-      Hooks.applyFilter('podValidators', [])
+      Hooks.applyFilter("podValidators", [])
     );
 
     // Validate Application or Pod according to the contents
@@ -534,21 +541,23 @@ class NewCreateServiceModal extends Component {
         <FullScreenModalHeader>
           <FullScreenModalHeaderActions
             actions={this.getSecondaryActions()}
-            type="secondary" />
+            type="secondary"
+          />
           <FullScreenModalHeaderTitle>
             Review & Run Service
           </FullScreenModalHeaderTitle>
           <FullScreenModalHeaderActions
             actions={this.getPrimaryActions()}
-            type="primary" />
+            type="primary"
+          />
         </FullScreenModalHeader>
       );
     }
 
-    let title = 'Run a Service';
-    const {location} = this.props;
-    const {service} = this.state;
-    const serviceName = service ? `"${service.getName()}"` : 'Service';
+    let title = "Run a Service";
+    const { location } = this.props;
+    const { service } = this.state;
+    const serviceName = service ? `"${service.getName()}"` : "Service";
 
     if (this.isLocationEdit(location)) {
       title = `Edit ${serviceName}`;
@@ -558,13 +567,15 @@ class NewCreateServiceModal extends Component {
       <FullScreenModalHeader>
         <FullScreenModalHeaderActions
           actions={this.getSecondaryActions()}
-          type="secondary" />
+          type="secondary"
+        />
         <FullScreenModalHeaderTitle>
           {title}
         </FullScreenModalHeaderTitle>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}
-          type="primary" />
+          type="primary"
+        />
       </FullScreenModalHeader>
     );
   }
@@ -587,7 +598,8 @@ class NewCreateServiceModal extends Component {
             <ServiceConfigDisplay
               onEditClick={this.handleGoBack}
               appConfig={serviceSpec}
-              errors={this.getAllErrors()} />
+              errors={this.getAllErrors()}
+            />
           </div>
         </div>
       );
@@ -596,13 +608,14 @@ class NewCreateServiceModal extends Component {
     if (servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
-          onServiceSelect={this.handleServiceSelection} />
+          onServiceSelect={this.handleServiceSelection}
+        />
       );
     }
 
     if (serviceFormActive) {
-      const {location} = this.props;
-      const {showAllErrors} = this.state;
+      const { location } = this.props;
+      const { showAllErrors } = this.state;
 
       const SECTIONS = [
         ContainerServiceFormSection,
@@ -622,36 +635,43 @@ class NewCreateServiceModal extends Component {
       if (serviceSpec instanceof PodSpec) {
         jsonParserReducers = combineParsers(
           Hooks.applyFilter(
-            'multiContainerCreateJsonParserReducers',
+            "multiContainerCreateJsonParserReducers",
             JSONMultiContainerParser
           )
         );
 
         jsonConfigReducers = combineReducers(
           Hooks.applyFilter(
-            'multiContainerJsonConfigReducers',
+            "multiContainerJsonConfigReducers",
             JSONMultiContainerReducers
           )
         );
 
         inputConfigReducers = combineReducers(
           Hooks.applyFilter(
-            'multiContainerInputConfigReducers',
-            Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+            "multiContainerInputConfigReducers",
+            Object.assign({}, ...SECTIONS.map(item => item.configReducers))
           )
         );
       } else {
         jsonParserReducers = combineParsers(
-          Hooks.applyFilter('serviceCreateJsonParserReducers', JSONSingleContainerParser)
+          Hooks.applyFilter(
+            "serviceCreateJsonParserReducers",
+            JSONSingleContainerParser
+          )
         );
 
         jsonConfigReducers = combineReducers(
-          Hooks.applyFilter('serviceJsonConfigReducers', JSONSingleContainerReducers)
+          Hooks.applyFilter(
+            "serviceJsonConfigReducers",
+            JSONSingleContainerReducers
+          )
         );
 
         inputConfigReducers = combineReducers(
-          Hooks.applyFilter('serviceInputConfigReducers',
-            Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+          Hooks.applyFilter(
+            "serviceInputConfigReducers",
+            Object.assign({}, ...SECTIONS.map(item => item.configReducers))
           )
         );
       }
@@ -666,14 +686,15 @@ class NewCreateServiceModal extends Component {
           inputConfigReducers={inputConfigReducers}
           isEdit={this.isLocationEdit(location)}
           isJSONModeActive={isJSONModeActive}
-          ref={(ref) => {
-            return this.createComponent = ref;
+          ref={ref => {
+            return (this.createComponent = ref);
           }}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
           service={serviceSpec}
-          showAllErrors={showAllErrors} />
+          showAllErrors={showAllErrors}
+        />
       );
     }
 
@@ -686,10 +707,11 @@ class NewCreateServiceModal extends Component {
           onChange={this.handleServiceChange}
           onErrorsChange={this.handleServiceErrorsChange}
           onPropertyChange={this.handleServicePropertyChange}
-          ref={(ref) => {
-            return this.createComponent = ref;
+          ref={ref => {
+            return (this.createComponent = ref);
           }}
-          service={serviceSpec} />
+          service={serviceSpec}
+        />
       );
     }
 
@@ -705,10 +727,10 @@ class NewCreateServiceModal extends Component {
     } = this.state;
 
     const force = this.shouldForceSubmit();
-    const runButtonLabel = force ? 'Force Run Service' : 'Run Service';
-    const runButtonClassNames = classNames('flush-vertical', {
-      'button-primary': !force,
-      'button-danger': force
+    const runButtonLabel = force ? "Force Run Service" : "Run Service";
+    const runButtonClassNames = classNames("flush-vertical", {
+      "button-primary": !force,
+      "button-danger": force
     });
 
     // NOTE: Always prioritize review screen check
@@ -735,15 +757,16 @@ class NewCreateServiceModal extends Component {
               checkboxClassName="toggle-button toggle-button-align-left"
               checked={this.state.isJSONModeActive}
               onChange={this.handleJSONToggle}
-              key="json-editor">
+              key="json-editor"
+            >
               JSON Editor
             </ToggleButton>
           )
         },
         {
-          className: 'button-primary flush-vertical',
+          className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: 'Review & Run'
+          label: "Review & Run"
         }
       ];
     }
@@ -751,9 +774,9 @@ class NewCreateServiceModal extends Component {
     if (serviceJsonActive) {
       return [
         {
-          className: 'button-primary flush-vertical',
+          className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: 'Review & Run'
+          label: "Review & Run"
         }
       ];
     }
@@ -762,13 +785,15 @@ class NewCreateServiceModal extends Component {
   }
 
   getResetState(nextProps = this.props) {
-    const {location, params} = nextProps;
+    const { location, params } = nextProps;
     const isEdit = this.isLocationEdit(location);
-    const serviceID = decodeURIComponent(params.id || '/');
-    const service = isEdit ? DCOSStore.serviceTree.findItemById(serviceID) : null;
+    const serviceID = decodeURIComponent(params.id || "/");
+    const service = isEdit
+      ? DCOSStore.serviceTree.findItemById(serviceID)
+      : null;
     const isSpecificVersion = service instanceof Application && params.version;
     let serviceSpec = new ApplicationSpec(
-      Object.assign({id: getBaseID(serviceID)}, DEFAULT_APP_SPEC)
+      Object.assign({ id: getBaseID(serviceID) }, DEFAULT_APP_SPEC)
     );
 
     if (isEdit && service instanceof Service && !isSpecificVersion) {
@@ -802,20 +827,20 @@ class NewCreateServiceModal extends Component {
   }
 
   getSecondaryActions() {
-    const {location} = this.props;
-    const {
-      servicePickerActive,
-      serviceReviewActive
-    } = this.state;
-    let label = 'Back';
+    const { location } = this.props;
+    const { servicePickerActive, serviceReviewActive } = this.state;
+    let label = "Back";
 
-    if (servicePickerActive || (this.isLocationEdit(location) && !serviceReviewActive)) {
-      label = 'Cancel';
+    if (
+      servicePickerActive ||
+      (this.isLocationEdit(location) && !serviceReviewActive)
+    ) {
+      label = "Cancel";
     }
 
     return [
       {
-        className: 'button-stroke',
+        className: "button-stroke",
         clickHandler: this.handleGoBack,
         label
       }
@@ -823,7 +848,7 @@ class NewCreateServiceModal extends Component {
   }
 
   render() {
-    const {props} = this;
+    const { props } = this;
     const {
       hasChangesApplied,
       isOpen,
@@ -846,7 +871,8 @@ class NewCreateServiceModal extends Component {
         onClose={closeAction}
         useGemini={useGemini}
         open={isOpen}
-        {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}>
+        {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}
+      >
         {this.getModalContent()}
         <Confirm
           closeByBackdropClick={true}
@@ -858,7 +884,8 @@ class NewCreateServiceModal extends Component {
           rightButtonText="Discard"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleConfirmGoBack}
-          showHeader={true}>
+          showHeader={true}
+        >
           <p>
             Are you sure you want to leave this page? Any data you entered will be lost.
           </p>

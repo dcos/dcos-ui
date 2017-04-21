@@ -1,108 +1,99 @@
-import Ace from 'react-ace';
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import {Hooks} from 'PluginSDK';
-import {Modal, Tooltip} from 'reactjs-components';
-import React, {PropTypes} from 'react';
+import Ace from "react-ace";
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import { Hooks } from "PluginSDK";
+import { Modal, Tooltip } from "reactjs-components";
+import React, { PropTypes } from "react";
 
-import 'brace/mode/json';
-import 'brace/theme/monokai';
-import 'brace/ext/language_tools';
+import "brace/mode/json";
+import "brace/theme/monokai";
+import "brace/ext/language_tools";
 
-import Config from '#SRC/js/config/Config';
-import Icon from '#SRC/js/components/Icon';
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
-import ToggleButton from '#SRC/js/components/ToggleButton';
-import CollapsibleErrorMessage from '#SRC/js/components/CollapsibleErrorMessage';
+import Config from "#SRC/js/config/Config";
+import Icon from "#SRC/js/components/Icon";
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
+import ToggleButton from "#SRC/js/components/ToggleButton";
+import CollapsibleErrorMessage
+  from "#SRC/js/components/CollapsibleErrorMessage";
 
-import PodSpec from '../../structs/PodSpec';
-import Service from '../../structs/Service';
-import ServiceForm from '../ServiceForm';
-import ServiceSchema from '../../schemas/ServiceSchema';
-import ServiceUtil from '../../utils/ServiceUtil';
-import ErrorPaths from '../../constants/ErrorPaths';
+import PodSpec from "../../structs/PodSpec";
+import Service from "../../structs/Service";
+import ServiceForm from "../ServiceForm";
+import ServiceSchema from "../../schemas/ServiceSchema";
+import ServiceUtil from "../../utils/ServiceUtil";
+import ErrorPaths from "../../constants/ErrorPaths";
 
-const SUPPORTED_ONLY_IN_JSON_TEXT = 'Your config contains attributes we currently only support in the JSON mode.';
+const SUPPORTED_ONLY_IN_JSON_TEXT =
+  "Your config contains attributes we currently only support in the JSON mode.";
 
 const METHODS_TO_BIND = [
-  'getTriggerSubmit',
-  'handleJSONChange',
-  'handleJSONToggle',
-  'handleSubmit',
-  'handleTabChange'
+  "getTriggerSubmit",
+  "handleJSONChange",
+  "handleJSONToggle",
+  "handleSubmit",
+  "handleTabChange"
 ];
 
 const serverResponseMappings = {
-  'error.path.missing': 'Specify a path',
-  'error.minLength': 'Field may not be blank',
-  'error.expected.jsnumber': 'A number is expected',
-  'error.expected.jsstring': 'A string is expected'
+  "error.path.missing": "Specify a path",
+  "error.minLength": "Field may not be blank",
+  "error.expected.jsnumber": "A number is expected",
+  "error.expected.jsstring": "A string is expected"
 };
 
-const responseAttributePathToFieldIdMap = Object.assign({
-  '/acceptedResourceRoles': 'acceptedResourceRoles',
-  '/cmd': 'cmd',
-  '/constraints': 'constraints',
-  '/constraints({INDEX})': 'constraints',
-  '/container/docker/forcePullImage': 'dockerForcePullImage',
-  '/container/docker/image': 'dockerImage',
-  '/container/docker/network': 'dockerNetwork',
-  '/container/docker/privileged': 'dockerPrivileged',
-  '/container/docker/parameters({INDEX})/key':
-    'dockerParameters/{INDEX}/key',
-  '/container/docker/parameters': 'dockerParameters',
-  '/container/docker/parameters({INDEX})/value':
-    'dockerParameters/{INDEX}/value',
-  '/container/volumes({INDEX})/containerPath':
-    'containerVolumes/{INDEX}/containerPath',
-  '/container/volumes({INDEX})/hostPath':
-    'containerVolumes/{INDEX}/hostPath',
-  '/container/volumes({INDEX})/mode':
-    'containerVolumes/{INDEX}/mode',
-  '/cpus': 'cpus',
-  '/disk': 'disk',
-  '/env': 'env',
-  '/executor': 'executor',
-  '/healthChecks({INDEX})/command/value':
-    'healthChecks/{INDEX}/command',
-  '/healthChecks({INDEX})/path':
-    'healthChecks/{INDEX}/path',
-  '/healthChecks({INDEX})/intervalSeconds':
-    'healthChecks/{INDEX}/intervalSeconds',
-  '/healthChecks({INDEX})/port':
-    'healthChecks/{INDEX}/port',
-  '/healthChecks({INDEX})/portIndex':
-    'healthChecks/{INDEX}/portIndex',
-  '/healthChecks({INDEX})/timeoutSeconds':
-    'healthChecks/{INDEX}/timeoutSeconds',
-  '/healthChecks({INDEX})/gracePeriodSeconds':
-    'healthChecks/{INDEX}/gracePeriodSeconds',
-  '/healthChecks({INDEX})/maxConsecutiveFailures':
-    'healthChecks/{INDEX}/maxConsecutiveFailures',
-  '/instances': 'instances',
-  '/mem': 'mem',
-  '/portDefinitions': 'portDefinitions',
-  '/portDefinitions({INDEX})/name': 'portDefinitions/{INDEX}/name',
-  '/portDefinitions({INDEX})/port': 'portDefinitions/{INDEX}/port',
-  '/portDefinitions({INDEX})/protocol': 'portDefinitions/{INDEX}/protocol',
-  '/value/isResident': 'Residency',
-  '/value/upgradeStrategy': 'Update Strategy',
-  '/container/docker/portMappings': 'dockerPortMappings',
-  '/container/docker/portMappings({INDEX})/containerPort':
-    'dockerPortMappings/{INDEX}/port',
-  '/container/docker/portMappings({INDEX})/protocol':
-    'dockerPortMappings/{INDEX}/protocol',
-  '/container/docker/portMappings({INDEX})/hostPort': 'dockerPortMappings',
-  '/container/docker/portMappings({INDEX})/servicePort': 'dockerPortMappings',
-  '/labels': 'labels',
-  '/uris': 'uris',
-  '/user': 'user'
-}, ErrorPaths);
+const responseAttributePathToFieldIdMap = Object.assign(
+  {
+    "/acceptedResourceRoles": "acceptedResourceRoles",
+    "/cmd": "cmd",
+    "/constraints": "constraints",
+    "/constraints({INDEX})": "constraints",
+    "/container/docker/forcePullImage": "dockerForcePullImage",
+    "/container/docker/image": "dockerImage",
+    "/container/docker/network": "dockerNetwork",
+    "/container/docker/privileged": "dockerPrivileged",
+    "/container/docker/parameters({INDEX})/key": "dockerParameters/{INDEX}/key",
+    "/container/docker/parameters": "dockerParameters",
+    "/container/docker/parameters({INDEX})/value": "dockerParameters/{INDEX}/value",
+    "/container/volumes({INDEX})/containerPath": "containerVolumes/{INDEX}/containerPath",
+    "/container/volumes({INDEX})/hostPath": "containerVolumes/{INDEX}/hostPath",
+    "/container/volumes({INDEX})/mode": "containerVolumes/{INDEX}/mode",
+    "/cpus": "cpus",
+    "/disk": "disk",
+    "/env": "env",
+    "/executor": "executor",
+    "/healthChecks({INDEX})/command/value": "healthChecks/{INDEX}/command",
+    "/healthChecks({INDEX})/path": "healthChecks/{INDEX}/path",
+    "/healthChecks({INDEX})/intervalSeconds": "healthChecks/{INDEX}/intervalSeconds",
+    "/healthChecks({INDEX})/port": "healthChecks/{INDEX}/port",
+    "/healthChecks({INDEX})/portIndex": "healthChecks/{INDEX}/portIndex",
+    "/healthChecks({INDEX})/timeoutSeconds": "healthChecks/{INDEX}/timeoutSeconds",
+    "/healthChecks({INDEX})/gracePeriodSeconds": "healthChecks/{INDEX}/gracePeriodSeconds",
+    "/healthChecks({INDEX})/maxConsecutiveFailures": "healthChecks/{INDEX}/maxConsecutiveFailures",
+    "/instances": "instances",
+    "/mem": "mem",
+    "/portDefinitions": "portDefinitions",
+    "/portDefinitions({INDEX})/name": "portDefinitions/{INDEX}/name",
+    "/portDefinitions({INDEX})/port": "portDefinitions/{INDEX}/port",
+    "/portDefinitions({INDEX})/protocol": "portDefinitions/{INDEX}/protocol",
+    "/value/isResident": "Residency",
+    "/value/upgradeStrategy": "Update Strategy",
+    "/container/docker/portMappings": "dockerPortMappings",
+    "/container/docker/portMappings({INDEX})/containerPort": "dockerPortMappings/{INDEX}/port",
+    "/container/docker/portMappings({INDEX})/protocol": "dockerPortMappings/{INDEX}/protocol",
+    "/container/docker/portMappings({INDEX})/hostPort": "dockerPortMappings",
+    "/container/docker/portMappings({INDEX})/servicePort": "dockerPortMappings",
+    "/labels": "labels",
+    "/uris": "uris",
+    "/user": "user"
+  },
+  ErrorPaths
+);
 
 function didMessageChange(prevMessage, newMessage) {
-  return (typeof prevMessage !== typeof newMessage) ||
-         ((typeof prevMessage === 'object') &&
-          !deepEqual(prevMessage, newMessage));
+  return (
+    typeof prevMessage !== typeof newMessage ||
+    (typeof prevMessage === "object" && !deepEqual(prevMessage, newMessage))
+  );
 }
 
 class ServiceFormModal extends React.Component {
@@ -110,12 +101,12 @@ class ServiceFormModal extends React.Component {
     super(...arguments);
 
     this.state = {
-      defaultTab: '',
+      defaultTab: "",
       jsonMode: false,
       serviceSpec: null
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -131,8 +122,7 @@ class ServiceFormModal extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending
-      && !nextProps.isPending;
+    const requestCompleted = this.props.isPending && !nextProps.isPending;
 
     const shouldClose = requestCompleted && !nextProps.errors;
 
@@ -142,13 +132,15 @@ class ServiceFormModal extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {state, props} = this;
+    const { state, props } = this;
 
-    return props.open !== nextProps.open ||
+    return (
+      props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
       props.isPending !== nextProps.isPending ||
       didMessageChange(props.errors, nextProps.errors) ||
-      didMessageChange(state.jsonLockReason, nextState.jsonLockReason);
+      didMessageChange(state.jsonLockReason, nextState.jsonLockReason)
+    );
   }
 
   resetState(props = this.props) {
@@ -161,22 +153,25 @@ class ServiceFormModal extends React.Component {
       jsonMode = true;
     }
 
-    this.setState({
-      defaultTab: '',
-      jsonLockReason,
-      jsonMode,
-      serviceSpec
-    }, this.props.clearError);
+    this.setState(
+      {
+        defaultTab: "",
+        jsonLockReason,
+        jsonMode,
+        serviceSpec
+      },
+      this.props.clearError
+    );
   }
 
   handleJSONChange(jsonDefinition) {
-    let {serviceSpec} = this.state;
+    let { serviceSpec } = this.state;
 
     try {
       serviceSpec = ServiceUtil.createSpecFromDefinition(
-        JSON.parse(jsonDefinition));
-    } catch (e) {
-    }
+        JSON.parse(jsonDefinition)
+      );
+    } catch (e) {}
 
     let jsonLockReason = null;
 
@@ -184,18 +179,21 @@ class ServiceFormModal extends React.Component {
       jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
     }
 
-    this.setState({
-      serviceSpec,
-      jsonLockReason
-    }, this.props.clearError);
+    this.setState(
+      {
+        serviceSpec,
+        jsonLockReason
+      },
+      this.props.clearError
+    );
   }
 
   handleJSONToggle() {
     const nextState = {};
-    let {serviceSpec} = this.state;
+    let { serviceSpec } = this.state;
 
     if (!this.state.jsonMode) {
-      const {model} = this.triggerSubmit();
+      const { model } = this.triggerSubmit();
       serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
@@ -207,7 +205,6 @@ class ServiceFormModal extends React.Component {
     nextState.serviceSpec = serviceSpec;
     if (this.shouldDisableForm(serviceSpec)) {
       nextState.jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
-
     } else {
       nextState.jsonMode = !this.state.jsonMode;
     }
@@ -216,7 +213,7 @@ class ServiceFormModal extends React.Component {
   }
 
   handleTabChange(tab) {
-    this.setState({defaultTab: tab});
+    this.setState({ defaultTab: tab });
   }
 
   shouldDisableForm(serviceSpec) {
@@ -229,12 +226,12 @@ class ServiceFormModal extends React.Component {
     const portDefinitions = serviceSpec.getPortDefinitions();
 
     if (portDefinitions) {
-      const invalidVIP = !portDefinitions.some(function (port) {
+      const invalidVIP = !portDefinitions.some(function(port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
 
-        return Object.keys(port.labels).some(function (key) {
+        return Object.keys(port.labels).some(function(key) {
           return port.labels[key] === `${serviceSpec.getId()}:${port.port}`;
         });
       });
@@ -243,25 +240,35 @@ class ServiceFormModal extends React.Component {
       }
     }
 
-    if (containerSettings && containerSettings.docker && containerSettings.docker.portMappings) {
-      const invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
-        if (port.labels == null || Object.keys(port.labels).length === 0) {
-          return true;
-        }
+    if (
+      containerSettings &&
+      containerSettings.docker &&
+      containerSettings.docker.portMappings
+    ) {
+      const invalidVIPPortMappings = !containerSettings.docker.portMappings.some(
+        function(port) {
+          if (port.labels == null || Object.keys(port.labels).length === 0) {
+            return true;
+          }
 
-        return Object.keys(port.labels).some(function (key) {
-          return port.labels[key] === `${serviceSpec.getId()}:` +
-              `${port.containerPort}`;
-        });
-      });
+          return Object.keys(port.labels).some(function(key) {
+            return (
+              port.labels[key] ===
+              `${serviceSpec.getId()}:${port.containerPort}`
+            );
+          });
+        }
+      );
       if (invalidVIPPortMappings) {
         return true;
       }
     }
 
-    return containerSettings != null && containerSettings.type === 'MESOS' && (
-      (containerSettings.docker && containerSettings.docker.image != null) ||
-      (containerSettings.appc && containerSettings.appc.image != null)
+    return (
+      containerSettings != null &&
+      containerSettings.type === "MESOS" &&
+      ((containerSettings.docker && containerSettings.docker.image != null) ||
+        (containerSettings.appc && containerSettings.appc.image != null))
     );
   }
 
@@ -270,25 +277,17 @@ class ServiceFormModal extends React.Component {
   }
 
   handleSubmit() {
-    const {serviceSpec} = this.state;
-    const {
-      isEdit,
-      marathonAction,
-      service
-    } = this.props;
+    const { serviceSpec } = this.state;
+    const { isEdit, marathonAction, service } = this.props;
 
     if (this.state.jsonMode) {
-      marathonAction(
-        service,
-        serviceSpec,
-        this.shouldForceUpdate()
-      );
+      marathonAction(service, serviceSpec, this.shouldForceUpdate());
 
       return;
     }
 
     if (this.triggerSubmit) {
-      const {model, isValidated} = this.triggerSubmit();
+      const { model, isValidated } = this.triggerSubmit();
 
       if (!isValidated) {
         return;
@@ -301,11 +300,7 @@ class ServiceFormModal extends React.Component {
         service.getSpec().get() // Work on the original service spec
       );
 
-      marathonAction(
-        service,
-        serviceSpec,
-        this.shouldForceUpdate()
-      );
+      marathonAction(service, serviceSpec, this.shouldForceUpdate());
     }
   }
 
@@ -325,36 +320,33 @@ class ServiceFormModal extends React.Component {
     let errorList = null;
     if (errorDetails.details != null) {
       const responseMap = Hooks.applyFilter(
-        'serviceFormErrorResponseMap',
+        "serviceFormErrorResponseMap",
         responseAttributePathToFieldIdMap
       );
-      errorList = errorDetails.details.map(function ({path, errors}) {
-        let fieldId = 'general';
+      errorList = errorDetails.details.map(function({ path, errors }) {
+        let fieldId = "general";
 
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '(0)', [1]: '0'
-        const matches = Hooks.applyFilter('serviceFormMatchErrorPath',
+        const matches = Hooks.applyFilter(
+          "serviceFormMatchErrorPath",
           path.match(/\(([0-9]+)\)/),
           path
         );
 
         if (matches != null) {
-          let resolvePath = responseMap[
-            path.replace(matches[0], '({INDEX})')
-          ];
+          let resolvePath = responseMap[path.replace(matches[0], "({INDEX})")];
 
           if (resolvePath == null) {
-            resolvePath = responseMap[
-              path.replace(matches[0], '{INDEX}')
-            ];
+            resolvePath = responseMap[path.replace(matches[0], "{INDEX}")];
           }
           if (resolvePath != null) {
-            fieldId = resolvePath.replace('{INDEX}', matches[1]);
+            fieldId = resolvePath.replace("{INDEX}", matches[1]);
           }
         } else {
           fieldId = responseMap[path] || fieldId;
         }
-        errors = errors.map(function (error) {
+        errors = errors.map(function(error) {
           if (serverResponseMappings[error]) {
             return serverResponseMappings[error];
           }
@@ -364,7 +356,6 @@ class ServiceFormModal extends React.Component {
 
         // Return path-prefixed error string
         return `${fieldId}: ${errors}`;
-
       });
     }
 
@@ -373,7 +364,8 @@ class ServiceFormModal extends React.Component {
         <CollapsibleErrorMessage
           className="error-for-modal"
           message={`App is currently locked by one or more deployments.
-            Press the button again to forcefully change and deploy the new configuration.`} />
+            Press the button again to forcefully change and deploy the new configuration.`}
+        />
       );
     }
 
@@ -381,42 +373,33 @@ class ServiceFormModal extends React.Component {
       <CollapsibleErrorMessage
         className="error-for-modal"
         details={errorList}
-        message={errorDetails.message} />
+        message={errorDetails.message}
+      />
     );
-
   }
 
   getSubmitText() {
     if (this.props.isEdit) {
-      return 'Deploy Changes';
+      return "Deploy Changes";
     }
 
-    return 'Deploy';
+    return "Deploy";
   }
 
   getFooter() {
-    const {
-      onClose,
-      isPending
-    } = this.props;
+    const { onClose, isPending } = this.props;
 
-    const deployButtonClassNames = classNames('button button-large',
-      {
-        'button-success': !isPending,
-        'disabled': isPending
-      }
-    );
+    const deployButtonClassNames = classNames("button button-large", {
+      "button-success": !isPending,
+      disabled: isPending
+    });
 
     return (
       <div className="button-collection flush-bottom">
-        <button
-          className="button button-large"
-          onClick={onClose}>
+        <button className="button button-large" onClick={onClose}>
           Cancel
         </button>
-        <button
-          className={deployButtonClassNames}
-          onClick={this.handleSubmit}>
+        <button className={deployButtonClassNames} onClick={this.handleSubmit}>
           {this.getSubmitText()}
         </button>
       </div>
@@ -424,21 +407,18 @@ class ServiceFormModal extends React.Component {
   }
 
   getModalContents() {
-    const {
-      defaultTab,
-      jsonMode,
-      serviceSpec
-    } = this.state;
+    const { defaultTab, jsonMode, serviceSpec } = this.state;
 
     if (jsonMode) {
       const jsonDefinition = JSON.stringify(serviceSpec, null, 2);
       const toolTipContent = (
         <div>
           Use the JSON editor to enter Marathon Application definitions manually.
-          {' '}
+          {" "}
           <a
             href={`${Config.marathonDocsURI}generated/api.html#v2_apps_post`}
-            target="_blank">
+            target="_blank"
+          >
             View API docs.
           </a>
         </div>
@@ -446,7 +426,8 @@ class ServiceFormModal extends React.Component {
 
       return (
         <div className="ace-editor-container">
-          <Ace editorProps={{$blockScrolling: true}}
+          <Ace
+            editorProps={{ $blockScrolling: true }}
             mode="json"
             onChange={this.handleJSONChange}
             showGutter={true}
@@ -454,14 +435,16 @@ class ServiceFormModal extends React.Component {
             theme="monokai"
             height="462px"
             value={jsonDefinition}
-            width="100%"/>
+            width="100%"
+          />
           <Tooltip
             content={toolTipContent}
             interactive={true}
             wrapperClassName="tooltip-wrapper media-object-item json-editor-help"
             wrapText={true}
             maxWidth={300}
-            position="left">
+            position="left"
+          >
             <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
         </div>
@@ -480,13 +463,14 @@ class ServiceFormModal extends React.Component {
         model={model}
         onChange={this.props.clearError}
         onTabChange={this.handleTabChange}
-        schema={ServiceSchema}/>
+        schema={ServiceSchema}
+      />
     );
   }
 
   getToggleButton() {
-    let classSet = 'modal-form-title-label flush-bottom';
-    const {jsonLockReason} = this.state;
+    let classSet = "modal-form-title-label flush-bottom";
+    const { jsonLockReason } = this.state;
 
     if (jsonLockReason) {
       classSet = `${classSet} disabled`;
@@ -497,7 +481,8 @@ class ServiceFormModal extends React.Component {
         className={classSet}
         checkboxClassName="toggle-button"
         checked={this.state.jsonMode}
-        onChange={this.handleJSONToggle}>
+        onChange={this.handleJSONToggle}
+      >
         JSON mode
       </ToggleButton>
     );
@@ -511,17 +496,18 @@ class ServiceFormModal extends React.Component {
         content={jsonLockReason}
         interactive={true}
         maxWidth={320}
-        wrapText={true} >
+        wrapText={true}
+      >
         {toggleButton}
       </Tooltip>
     );
   }
 
   render() {
-    let headerText = 'Deploy New Service';
+    let headerText = "Deploy New Service";
 
     if (this.props.isEdit) {
-      headerText = 'Edit Service';
+      headerText = "Edit Service";
     }
 
     const header = (
@@ -552,7 +538,8 @@ class ServiceFormModal extends React.Component {
         header={header}
         scrollContainerClass="multiple-form-modal-body"
         showFooter={true}
-        useGemini={false}>
+        useGemini={false}
+      >
         {this.getModalContents()}
       </Modal>
     );
@@ -567,10 +554,7 @@ ServiceFormModal.defaultProps = {
 };
 
 ServiceFormModal.propTypes = {
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string
-  ]),
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isEdit: PropTypes.bool,
   isPending: PropTypes.bool.isRequired,
   marathonAction: PropTypes.func.isRequired,

@@ -1,32 +1,37 @@
-import React from 'react';
-import {MountService} from 'foundation-ui';
+import React from "react";
+import { MountService } from "foundation-ui";
 
-import ErrorsAlert from '#SRC/js/components/ErrorsAlert';
-import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
-import {translateErrorMessages} from '#SRC/js/utils/ErrorMessageUtil';
-import PodContainersConfigSection from './PodContainersConfigSection';
-import PodEnvironmentVariablesConfigSection from './PodEnvironmentVariablesConfigSection';
-import PodGeneralConfigSection from './PodGeneralConfigSection';
-import PodHealthChecksConfigSection from './PodHealthChecksConfigSection';
-import PodLabelsConfigSection from './PodLabelsConfigSection';
-import PodNetworkConfigSection from './PodNetworkConfigSection';
-import PodPlacementConstraintsConfigSection from './PodPlacementConstraintsConfigSection';
-import PodSpec from '../structs/PodSpec';
-import PodStorageConfigSection from './PodStorageConfigSection';
-import ServiceEnvironmentVariablesConfigSection from './ServiceEnvironmentVariablesConfigSection';
-import ServiceErrorMessages from '../constants/ServiceErrorMessages';
-import ServiceErrorPathMapping from '../constants/ServiceErrorPathMapping';
-import ServiceGeneralConfigSection from './ServiceGeneralConfigSection';
-import ServiceHealthChecksConfigSection from './ServiceHealthChecksConfigSection';
-import ServiceLabelsConfigSection from './ServiceLabelsConfigSection';
-import ServiceNetworkingConfigSection from './ServiceNetworkingConfigSection';
-import ServicePlacementConstraintsConfigSection from './ServicePlacementConstraintsConfigSection';
-import ServiceStorageConfigSection from './ServiceStorageConfigSection';
+import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
+import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import { translateErrorMessages } from "#SRC/js/utils/ErrorMessageUtil";
+import PodContainersConfigSection from "./PodContainersConfigSection";
+import PodEnvironmentVariablesConfigSection
+  from "./PodEnvironmentVariablesConfigSection";
+import PodGeneralConfigSection from "./PodGeneralConfigSection";
+import PodHealthChecksConfigSection from "./PodHealthChecksConfigSection";
+import PodLabelsConfigSection from "./PodLabelsConfigSection";
+import PodNetworkConfigSection from "./PodNetworkConfigSection";
+import PodPlacementConstraintsConfigSection
+  from "./PodPlacementConstraintsConfigSection";
+import PodSpec from "../structs/PodSpec";
+import PodStorageConfigSection from "./PodStorageConfigSection";
+import ServiceEnvironmentVariablesConfigSection
+  from "./ServiceEnvironmentVariablesConfigSection";
+import ServiceErrorMessages from "../constants/ServiceErrorMessages";
+import ServiceErrorPathMapping from "../constants/ServiceErrorPathMapping";
+import ServiceGeneralConfigSection from "./ServiceGeneralConfigSection";
+import ServiceHealthChecksConfigSection
+  from "./ServiceHealthChecksConfigSection";
+import ServiceLabelsConfigSection from "./ServiceLabelsConfigSection";
+import ServiceNetworkingConfigSection from "./ServiceNetworkingConfigSection";
+import ServicePlacementConstraintsConfigSection
+  from "./ServicePlacementConstraintsConfigSection";
+import ServiceStorageConfigSection from "./ServiceStorageConfigSection";
 
 const PRIORITIES_PAD_NUMBER = 100;
 const DEFAULT_DISPLAY_COMPONENTS = [
   {
-    MOUNT_TYPE: 'CreateService:ServiceConfigDisplay:App',
+    MOUNT_TYPE: "CreateService:ServiceConfigDisplay:App",
     COMPONENTS: [
       ServiceGeneralConfigSection,
       ServicePlacementConstraintsConfigSection,
@@ -38,7 +43,7 @@ const DEFAULT_DISPLAY_COMPONENTS = [
     ]
   },
   {
-    MOUNT_TYPE: 'CreateService:ServiceConfigDisplay:Pod',
+    MOUNT_TYPE: "CreateService:ServiceConfigDisplay:Pod",
     COMPONENTS: [
       PodGeneralConfigSection,
       PodContainersConfigSection,
@@ -53,7 +58,7 @@ const DEFAULT_DISPLAY_COMPONENTS = [
 ];
 
 // Register default config display components (this needs to only happen once)
-DEFAULT_DISPLAY_COMPONENTS.forEach(({MOUNT_TYPE, COMPONENTS}) => {
+DEFAULT_DISPLAY_COMPONENTS.forEach(({ MOUNT_TYPE, COMPONENTS }) => {
   COMPONENTS.forEach((component, index, componentArray) => {
     // Define  component priorities based on index (highest prio goes first)
     // and pad priorities, so that we can add components in between.
@@ -69,10 +74,10 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({MOUNT_TYPE, COMPONENTS}) => {
 class ServiceConfigDisplay extends React.Component {
   getMountType() {
     if (this.props.appConfig instanceof PodSpec) {
-      return 'CreateService:ServiceConfigDisplay:Pod';
+      return "CreateService:ServiceConfigDisplay:Pod";
     }
 
-    return 'CreateService:ServiceConfigDisplay:App';
+    return "CreateService:ServiceConfigDisplay:App";
   }
 
   getErrors() {
@@ -80,11 +85,12 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   render() {
-    const {appConfig, onEditClick} = this.props;
+    const { appConfig, onEditClick } = this.props;
     const errorsAlert = (
       <ErrorsAlert
         errors={this.getErrors()}
-        pathMapping={ServiceErrorPathMapping} />
+        pathMapping={ServiceErrorPathMapping}
+      />
     );
 
     return (
@@ -94,7 +100,8 @@ class ServiceConfigDisplay extends React.Component {
           appConfig={appConfig}
           errors={errorsAlert}
           onEditClick={onEditClick}
-          type={this.getMountType()} />
+          type={this.getMountType()}
+        />
       </ConfigurationMap>
     );
   }

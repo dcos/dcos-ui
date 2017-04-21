@@ -1,43 +1,40 @@
-import mixin from 'reactjs-mixin';
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import MesosStateStore from '#SRC/js/stores/MesosStateStore';
-import Page from '#SRC/js/components/Page';
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import Page from "#SRC/js/components/Page";
 
-import TaskDetail from '../../../../../services/src/js/pages/task-details/TaskDetail';
-import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
+import TaskDetail
+  from "../../../../../services/src/js/pages/task-details/TaskDetail";
+import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
-const dontScrollRoutes = [
-  /\/files\/view.*$/,
-  /\/logs.*$/
-];
+const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class NodesTaskDetailPage extends mixin(StoreMixin) {
-
   constructor() {
     super(...arguments);
 
     this.store_listeners = [
       {
-        name: 'summary',
-        events: ['success'],
+        name: "summary",
+        events: ["success"],
         listenAlways: false
       }
     ];
   }
 
   render() {
-    const {location, params, routes} = this.props;
-    const {nodeID, taskID} = params;
+    const { location, params, routes } = this.props;
+    const { nodeID, taskID } = params;
 
     const routePrefix = `/nodes/${encodeURIComponent(nodeID)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
-      {label: 'Details', routePath: routePrefix + '/details'},
-      {label: 'Files', routePath: routePrefix + '/files'},
-      {label: 'Logs', routePath: routePrefix + '/logs'}
+      { label: "Details", routePath: routePrefix + "/details" },
+      { label: "Files", routePath: routePrefix + "/files" },
+      { label: "Logs", routePath: routePrefix + "/logs" }
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -47,22 +44,20 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
         <NodeBreadcrumbs
           nodeID={nodeID}
           taskID={task.getId()}
-          taskName={task.getName()}/>
+          taskName={task.getName()}
+        />
       );
     } else {
       breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} />;
     }
 
-    const dontScroll = dontScrollRoutes.some((regex) => {
+    const dontScroll = dontScrollRoutes.some(regex => {
       return regex.test(location.pathname);
     });
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header
-          breadcrumbs={breadcrumbs}
-          tabs={tabs}
-          iconID="servers" />
+        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="servers" />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

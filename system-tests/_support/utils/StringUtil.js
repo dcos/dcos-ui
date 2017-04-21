@@ -1,5 +1,4 @@
 module.exports = {
-
   /**
    * Return the element's text contents, convert new lines to spaces and then
    * trim duplicate whitespaces.
@@ -8,7 +7,6 @@ module.exports = {
    * @returns {String} Returns the normalized string contents
    */
   getContents(element) {
-    return element.innerText.replace(/[\r\n\s+]+/g, ' ').trim();
+    return element.innerText.replace(/[\r\n\s+]+/g, " ").trim();
   }
-
 };

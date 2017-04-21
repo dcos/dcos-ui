@@ -1,30 +1,32 @@
-import {Tooltip} from 'reactjs-components';
-import React, {Component} from 'react';
-import Objektiv from 'objektiv';
+import { Tooltip } from "reactjs-components";
+import React, { Component } from "react";
+import Objektiv from "objektiv";
 
-import AddButton from '#SRC/js/components/form/AddButton';
-import FieldError from '#SRC/js/components/form/FieldError';
-import FieldInput from '#SRC/js/components/form/FieldInput';
-import FieldLabel from '#SRC/js/components/form/FieldLabel';
-import FieldSelect from '#SRC/js/components/form/FieldSelect';
-import FormGroup from '#SRC/js/components/form/FormGroup';
-import FormGroupContainer from '#SRC/js/components/form/FormGroupContainer';
-import FormGroupHeading from '#SRC/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '#SRC/js/components/form/FormGroupHeadingContent';
-import FormRow from '#SRC/js/components/form/FormRow';
-import Icon from '#SRC/js/components/Icon';
-import MetadataStore from '#SRC/js/stores/MetadataStore';
+import AddButton from "#SRC/js/components/form/AddButton";
+import FieldError from "#SRC/js/components/form/FieldError";
+import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FieldSelect from "#SRC/js/components/form/FieldSelect";
+import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
+import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
+import FormGroupHeadingContent
+  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormRow from "#SRC/js/components/form/FormRow";
+import Icon from "#SRC/js/components/Icon";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
-import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
-import VolumeConstants from '../../constants/VolumeConstants';
+import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
+import {
+  FormReducer as volumeMounts
+} from "../../reducers/serviceForm/MultiContainerVolumes";
+import VolumeConstants from "../../constants/VolumeConstants";
 
-const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
+const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
 class MultiContainerVolumesFormSection extends Component {
-
   getContainerMounts(containers, volumeMountIndex) {
-    const {volumeMounts} = this.props.data;
+    const { volumeMounts } = this.props.data;
 
     return containers.map((container, containerIndex) => {
       let containersLabel = null;
@@ -63,7 +65,8 @@ class MultiContainerVolumesFormSection extends Component {
             <FieldInput
               name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
               type="text"
-              value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}/>
+              value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}
+            />
           </FormGroup>
         </FormRow>
       );
@@ -79,24 +82,22 @@ class MultiContainerVolumesFormSection extends Component {
    * @return {Array} elements
    */
   getVolumesMountLines(data, offset) {
-    const {containers} = this.props.data;
+    const { containers } = this.props.data;
 
     return data.map((volumes, key) => {
       const nameError = errorsLens
         .at(key + offset, {})
-        .attr('volumes', {})
-        .get(this.props.errors)
-        .name;
-      const removeHandler = this.props.onRemoveItem.bind(
-        this, {value: key, path: 'volumeMounts'}
-      );
+        .attr("volumes", {})
+        .get(this.props.errors).name;
+      const removeHandler = this.props.onRemoveItem.bind(this, {
+        value: key,
+        path: "volumeMounts"
+      });
 
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>
-            <FormGroup
-              className="column-6"
-              showError={false}>
+            <FormGroup className="column-6" showError={false}>
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -106,10 +107,13 @@ class MultiContainerVolumesFormSection extends Component {
               </FieldLabel>
               <FieldSelect
                 name={`volumeMounts.${key}.type`}
-                value={volumes.type}>
+                value={volumes.type}
+              >
                 <option>Select...</option>
                 <option value={VolumeConstants.type.host}>Host Volume</option>
-                <option value={VolumeConstants.type.ephemeral}>Ephemeral Volume</option>
+                <option value={VolumeConstants.type.ephemeral}>
+                  Ephemeral Volume
+                </option>
               </FieldSelect>
             </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
@@ -123,7 +127,8 @@ class MultiContainerVolumesFormSection extends Component {
               <FieldInput
                 name={`volumeMounts.${key}.name`}
                 type="text"
-                value={volumes.name}/>
+                value={volumes.name}
+              />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </FormRow>
@@ -149,7 +154,8 @@ class MultiContainerVolumesFormSection extends Component {
             <FieldInput
               name={`volumeMounts.${key}.hostPath`}
               type="text"
-              value={volumes.hostPath}/>
+              value={volumes.hostPath}
+            />
           </FormGroup>
         </FormRow>
       );
@@ -159,8 +165,8 @@ class MultiContainerVolumesFormSection extends Component {
   getHeadline() {
     const tooltipContent = (
       <span>
-        {'DC/OS offers several storage options. '}
-        <a href={MetadataStore.buildDocsURI('/usage/storage/')} target="_blank">
+        {"DC/OS offers several storage options. "}
+        <a href={MetadataStore.buildDocsURI("/usage/storage/")} target="_blank">
           More information
         </a>.
       </span>
@@ -177,7 +183,8 @@ class MultiContainerVolumesFormSection extends Component {
               content={tooltipContent}
               interactive={true}
               maxWidth={300}
-              wrapText={true}>
+              wrapText={true}
+            >
               <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
@@ -187,20 +194,21 @@ class MultiContainerVolumesFormSection extends Component {
   }
 
   render() {
-    const {data, handleTabChange} = this.props;
+    const { data, handleTabChange } = this.props;
 
     if (!data.containers || !data.containers.length) {
       return (
         <div>
           {this.getHeadline()}
           <p>
-            {'Please '}
+            {"Please "}
             <a
-              onClick={handleTabChange.bind(null, 'services')}
-              className="clickable">
+              onClick={handleTabChange.bind(null, "services")}
+              className="clickable"
+            >
               add a container
             </a>
-            {' before configuring Volumes.'}
+            {" before configuring Volumes."}
           </p>
         </div>
       );
@@ -214,9 +222,12 @@ class MultiContainerVolumesFormSection extends Component {
         </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>
-          <AddButton onClick={this.props.onAddItem.bind(
-              this, {value: data.volumeMounts.length, path: 'volumeMounts'}
-            )}>
+          <AddButton
+            onClick={this.props.onAddItem.bind(this, {
+              value: data.volumeMounts.length,
+              path: "volumeMounts"
+            })}
+          >
             Add Volume
           </AddButton>
         </div>
