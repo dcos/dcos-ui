@@ -2448,9 +2448,9 @@
       "resolved": "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-5.0.3.tgz"
     },
     "eslint-config-dcos": {
-      "version": "0.1.0",
-      "from": "dcos/javascript#drozhkov/prettier-1.0",
-      "resolved": "git://github.com/dcos/javascript.git#926668e5eff26b5f6836e09e6a356ba2a1777d66"
+      "version": "0.2.0",
+      "from": "dcos/javascript#v0.2.1",
+      "resolved": "git://github.com/dcos/javascript.git#6a8ab5ddec14c41532722cdf843f4e845cb0acbd"
     },
     "eslint-import-resolver-node": {
       "version": "0.2.3",
@@ -6566,9 +6566,9 @@
       "resolved": "https://registry.npmjs.org/preserve/-/preserve-0.2.0.tgz"
     },
     "prettier": {
-      "version": "1.1.0",
-      "from": "prettier@1.1.0",
-      "resolved": "https://registry.npmjs.org/prettier/-/prettier-1.1.0.tgz",
+      "version": "1.2.2",
+      "from": "prettier@1.2.2",
+      "resolved": "https://registry.npmjs.org/prettier/-/prettier-1.2.2.tgz",
       "dependencies": {
         "ast-types": {
           "version": "0.9.8",
