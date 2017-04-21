@@ -201,14 +201,14 @@ const DeclinedOffersUtil = {
         unmatchedResource: declinedOffer.reason,
         offered: resources.reduce(
           (accumulator, resource) => {
-            const { name, role } = resource;
+            const { name, role, scalar = 0 } = resource;
 
             if (name === "ports") {
               const { ranges = [] } = resource;
 
               accumulator[name] = ranges.reduce(rangeReducer, []);
             } else {
-              accumulator[name] = resource.scalar;
+              accumulator[name] = scalar;
             }
 
             // Accumulate all roles.
