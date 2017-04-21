@@ -1,6 +1,8 @@
 import {ADD_ITEM, REMOVE_ITEM} from '#SRC/js/constants/TransactionTypes';
 import Transaction from '#SRC/js/structs/Transaction';
 
+import VolumeConstants from '../../constants/VolumeConstants';
+
 /*
  * transformContainers
  * converts nested container - volumeMounts structure into flat array of tuples
@@ -21,6 +23,10 @@ module.exports = {
   JSONReducer(state = [], {type, path, value}) {
     const [base, index, name] = path;
 
+    if (this.hostPaths == null) {
+      this.hostPaths = {};
+    }
+
     if (base !== 'volumeMounts') {
       return state;
     }
@@ -36,8 +42,18 @@ module.exports = {
         break;
     }
 
+    if (name === 'type' && value === VolumeConstants.type.ephemeral) {
+      newState[index].host = null;
+    }
+    if (name === 'type' && value === VolumeConstants.type.host) {
+      newState[index].host = this.hostPaths[index];
+    }
     if (name === 'name') {
       newState[index].name = value;
+    }
+    if (name === 'hostPath') {
+      this.hostPaths[index] = value;
+      newState[index].host = value;
     }
 
     return newState;
@@ -60,12 +76,33 @@ module.exports = {
         }
         volumeIndexMap[volume.name] = volumes.push(volume.name) - 1;
 
+        let volumeTypeTransactions = [
+          new Transaction(
+            ['volumeMounts', volumeIndexMap[volume.name], 'type'],
+            VolumeConstants.type.ephemeral
+          )
+        ];
+
+        if (volume.host != null) {
+          volumeTypeTransactions = [
+            new Transaction(
+              ['volumeMounts', volumeIndexMap[volume.name], 'type'],
+              VolumeConstants.type.host
+            ),
+            new Transaction(
+              ['volumeMounts', volumeIndexMap[volume.name], 'hostPath'],
+              volume.host
+            )
+          ];
+        }
+
         return memo.concat(
           new Transaction(['volumeMounts'], volumeIndexMap[volume.name], ADD_ITEM),
           new Transaction(
             ['volumeMounts', volumeIndexMap[volume.name], 'name'],
             volume.name
-          )
+          ),
+          volumeTypeTransactions
         );
       }, []);
 
@@ -135,6 +172,12 @@ module.exports = {
         break;
     }
 
+    if (name === 'type') {
+      newState[index].type = String(value);
+    }
+    if (name === 'hostPath') {
+      newState[index].hostPath = String(value);
+    }
     if (name === 'name') {
       newState[index].name = String(value);
     }
