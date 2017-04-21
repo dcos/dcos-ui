@@ -4,7 +4,7 @@ import json
 from subprocess import check_output
 
 # Remove jobs that share this prefix
-jobs = json.loads(check_output('dcos job list --json', shell=True))
+jobs = json.loads(check_output('dcos job list --json', shell=True).decode('utf-8'))
 for job in jobs:
   if job['id'].startswith("%s." % os.environ['TEST_UUID']):
     print("Removing job %s" % job['id'])
