@@ -172,7 +172,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       innerPath = decodeURIComponent(params.innerPath);
     }
 
-    TaskDirectoryStore.fetchDirectory(task, innerPath);
+    if (task != null) {
+      TaskDirectoryStore.fetchDirectory(task, innerPath);
+    }
+
     this.setState({ directory: null });
   }
 
@@ -180,7 +183,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     const { router } = this.context;
     const { params, routes } = this.props;
     const task = MesosStateStore.getTaskFromTaskID(params.taskID);
-    TaskDirectoryStore.setPath(task, path);
+    if (task != null) {
+      TaskDirectoryStore.setPath(task, path);
+    }
     // Transition to parent route, which uses a default route
     const parentPath = RouterUtil.reconstructPathFromRoutes(routes);
     router.push(formatPattern(parentPath, params));
@@ -317,7 +322,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getSubView() {
     const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
     const { directory, selectedLogFile } = this.state;
     if (this.hasLoadingError()) {
       return this.getErrorScreen();
@@ -326,6 +330,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     if (!directory || !task) {
       return this.getLoadingScreen();
     }
+    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
