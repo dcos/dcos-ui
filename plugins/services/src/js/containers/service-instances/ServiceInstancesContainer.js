@@ -7,11 +7,11 @@ import Loader from "#SRC/js/components/Loader";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import Service from "../../structs/Service";
-import TasksContainer from "./TasksContainer";
+import TasksContainer from "../tasks/TasksContainer";
 
 const METHODS_TO_BIND = ["onStateStoreSuccess", "onStateStoreError"];
 
-class ServiceTasksContainer extends mixin(StoreMixin) {
+class ServiceInstancesContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -77,16 +77,16 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
 
   render() {
     return (
-      <MountService.Mount type="ServiceTasksContainer:TasksContainer">
+      <MountService.Mount type="ServiceInstancesContainer:TasksContainer">
         {this.getContents()}
       </MountService.Mount>
     );
   }
 }
 
-ServiceTasksContainer.propTypes = {
+ServiceInstancesContainer.propTypes = {
   service: React.PropTypes.instanceOf(Service),
   params: React.PropTypes.object.isRequired
 };
 
-module.exports = ServiceTasksContainer;
+module.exports = ServiceInstancesContainer;

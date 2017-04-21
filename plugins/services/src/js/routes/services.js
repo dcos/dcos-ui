@@ -20,11 +20,10 @@ import TaskLogsContainer from "../pages/task-details/TaskLogsContainer";
 import TaskVolumeContainer
   from "../containers/volume-detail/TaskVolumeContainer";
 import VolumeTable from "../components/VolumeTable";
-import ServiceConfigurationContainer
-  from "../containers/service-configuration/ServiceConfigurationContainer";
-import ServiceDebugContainer
-  from "../containers/service-debug/ServiceDebugContainer";
-import ServiceTasksContainer from "../containers/tasks/ServiceTasksContainer";
+import HighOrderServiceConfiguration
+  from "../components/HighOrderServiceConfiguration";
+import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
+import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
 
 function buildServiceCrumbs({ id }) {
   id = decodeURIComponent(id).replace(/^\//, "");
@@ -183,7 +182,7 @@ const serviceRoutes = [
             type: Route,
             path: "configuration",
             title: "Configuration",
-            component: ServiceConfigurationContainer,
+            component: HighOrderServiceConfiguration,
             buildBreadCrumb() {
               return {
                 parentCrumb: "/services/overview",
@@ -200,7 +199,7 @@ const serviceRoutes = [
             type: Route,
             path: "debug",
             title: "Debug",
-            component: ServiceDebugContainer,
+            component: HighOrderServiceDebug,
             buildBreadCrumb() {
               return {
                 parentCrumb: "/services/overview",
@@ -234,7 +233,7 @@ const serviceRoutes = [
             type: Route,
             title: "Instances",
             path: "tasks",
-            component: ServiceTasksContainer
+            component: HighOrderServiceInstances
           },
           {
             type: Redirect,
