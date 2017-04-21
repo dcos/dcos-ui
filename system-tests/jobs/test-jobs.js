@@ -244,7 +244,7 @@ describe('Jobs', function () {
     cy
       .get('.clickable')
       .contains('Add Label')
-      .click();
+      .click({force: true});
 
     // Fill-in the second label
     cy
@@ -262,7 +262,7 @@ describe('Jobs', function () {
     cy
       .get('.clickable')
       .contains('Add Label')
-      .click();
+      .click({force: true});
 
     // Fill-in the third label
     cy
@@ -280,7 +280,7 @@ describe('Jobs', function () {
     cy
       .get('.clickable')
       .contains('Add Label')
-      .click();
+      .click({force: true});
 
     // Fill-in the fourth label
     cy

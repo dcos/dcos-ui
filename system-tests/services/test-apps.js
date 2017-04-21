@@ -10,7 +10,7 @@ describe('Services', function () {
 
     beforeEach(function () {
       cy
-        .visitUrl(`services/detail/%2F${Cypress.env('TEST_UUID')}/create`);
+        .visitUrl(`services/overview/%2F${Cypress.env('TEST_UUID')}/create`);
     });
 
     function selectMesosRuntime() {
@@ -112,8 +112,8 @@ describe('Services', function () {
 
       // Wait for the table and the service to appear
       cy
-        .get('.page-body-content table')
-        .contains(serviceName)
+        .get('.page-body-content table', {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Wait for the table and the service to appear
@@ -268,7 +268,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
     });
@@ -443,7 +443,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and look for health
@@ -611,7 +611,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and wait until it's Running
@@ -796,7 +796,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and wait until it's Running
@@ -978,7 +978,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and wait until it's Running
@@ -1190,7 +1190,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and look for health
@@ -1554,7 +1554,7 @@ describe('Services', function () {
       // Wait for the table and the service to appear
       cy
         .get('.page-body-content table')
-        .contains(serviceName)
+        .contains(serviceName, {timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT})
         .should('exist');
 
       // Get the table row and wait until it's Running
