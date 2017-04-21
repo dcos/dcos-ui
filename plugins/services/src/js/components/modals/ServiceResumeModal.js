@@ -1,20 +1,17 @@
-import {Confirm} from 'reactjs-components';
-import React, {PropTypes} from 'react';
-import PureRender from 'react-addons-pure-render-mixin';
+import { Confirm } from "reactjs-components";
+import React, { PropTypes } from "react";
+import PureRender from "react-addons-pure-render-mixin";
 
-import FieldInput from '#SRC/js/components/form/FieldInput';
-import FormGroup from '#SRC/js/components/form/FormGroup';
-import FormRow from '#SRC/js/components/form/FormRow';
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import FieldInput from "#SRC/js/components/form/FieldInput";
+import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormRow from "#SRC/js/components/form/FormRow";
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
-import AppLockedMessage from './AppLockedMessage';
-import Service from '../../structs/Service';
-import ServiceTree from '../../structs/ServiceTree';
+import AppLockedMessage from "./AppLockedMessage";
+import Service from "../../structs/Service";
+import ServiceTree from "../../structs/ServiceTree";
 
-const METHODS_TO_BIND = [
-  'handleConfirmation',
-  'handleInstancesFieldChange'
-];
+const METHODS_TO_BIND = ["handleConfirmation", "handleInstancesFieldChange"];
 
 class ServiceResumeModal extends React.Component {
   constructor() {
@@ -27,14 +24,13 @@ class ServiceResumeModal extends React.Component {
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending
-      && !nextProps.isPending;
+    const requestCompleted = this.props.isPending && !nextProps.isPending;
     const shouldClose = requestCompleted && !nextProps.errors;
 
     if (shouldClose) {
@@ -43,33 +39,33 @@ class ServiceResumeModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {errors} = nextProps;
+    const { errors } = nextProps;
     if (!errors) {
-      this.setState({errorMsg: null});
+      this.setState({ errorMsg: null });
 
       return;
     }
 
-    if (typeof errors === 'string') {
-      this.setState({errorMsg: errors});
+    if (typeof errors === "string") {
+      this.setState({ errorMsg: errors });
 
       return;
     }
 
-    let {message: errorMsg = '', details} = errors;
+    let { message: errorMsg = "", details } = errors;
     const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
-      errorMsg = details.reduce(function (memo, error) {
-        return `${memo} ${error.errors.join(' ')}`;
-      }, '');
+      errorMsg = details.reduce(function(memo, error) {
+        return `${memo} ${error.errors.join(" ")}`;
+      }, "");
     }
 
     if (!errorMsg || !errorMsg.length) {
       errorMsg = null;
     }
 
-    this.setState({errorMsg});
+    this.setState({ errorMsg });
   }
 
   handleConfirmation() {
@@ -87,16 +83,14 @@ class ServiceResumeModal extends React.Component {
   }
 
   getErrorMessage() {
-    const {errorMsg = null} = this.state;
+    const { errorMsg = null } = this.state;
 
     if (!errorMsg) {
       return null;
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <AppLockedMessage service={this.props.service} />
-      );
+      return <AppLockedMessage service={this.props.service} />;
     }
 
     return (
@@ -105,7 +99,7 @@ class ServiceResumeModal extends React.Component {
   }
 
   getModalContent() {
-    const {props: {service}} = this;
+    const { props: { service } } = this;
 
     if (service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       return (
@@ -117,15 +111,17 @@ class ServiceResumeModal extends React.Component {
 
     return (
       <div>
-        <p>This service is currently suspended. Do you want to resume this service? You can change the number of instances to resume by using the field below.</p>
+        <p>
+          This service is currently suspended. Do you want to resume this service? You can change the number of instances to resume by using the field below.
+        </p>
         <FormRow>
-          <FormGroup
-            className="column-12 column-small-6 column-small-offset-3 flush-bottom">
+          <FormGroup className="column-12 column-small-6 column-small-offset-3 flush-bottom">
             <FieldInput
               name="instances"
               onChange={this.handleInstancesFieldChange}
               type="number"
-              value="1" />
+              value="1"
+            />
           </FormGroup>
         </FormRow>
       </div>
@@ -137,7 +133,7 @@ class ServiceResumeModal extends React.Component {
   }
 
   render() {
-    const {isPending, onClose, open} = this.props;
+    const { isPending, onClose, open } = this.props;
 
     const heading = (
       <ModalHeading>
@@ -155,7 +151,8 @@ class ServiceResumeModal extends React.Component {
         rightButtonText="Resume Service"
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.handleConfirmation}
-        showHeader={true}>
+        showHeader={true}
+      >
         {this.getModalContent()}
         {this.getErrorMessage()}
       </Confirm>
@@ -164,10 +161,7 @@ class ServiceResumeModal extends React.Component {
 }
 
 ServiceResumeModal.propTypes = {
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string
-  ]),
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

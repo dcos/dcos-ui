@@ -1,39 +1,39 @@
-import mixin from 'reactjs-mixin';
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {routerShape} from 'react-router';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { routerShape } from "react-router";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CompositeState from '#SRC/js/structs/CompositeState';
-import Loader from '#SRC/js/components/Loader';
-import MesosSummaryStore from '#SRC/js/stores/MesosSummaryStore';
-import Page from '#SRC/js/components/Page';
-import ResourceChart from '#SRC/js/components/charts/ResourceChart';
-import TabsMixin from '#SRC/js/mixins/TabsMixin';
-import RouterUtil from '#SRC/js/utils/RouterUtil';
+import CompositeState from "#SRC/js/structs/CompositeState";
+import Loader from "#SRC/js/components/Loader";
+import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
+import Page from "#SRC/js/components/Page";
+import ResourceChart from "#SRC/js/components/charts/ResourceChart";
+import TabsMixin from "#SRC/js/mixins/TabsMixin";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-import NodeBreadcrumbs from '../../components/NodeBreadcrumbs';
-import NodeHealthStore from '../../stores/NodeHealthStore';
+import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
+import NodeHealthStore from "../../stores/NodeHealthStore";
 
 class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.store_listeners = [
-      {name: 'summary', events: ['success'], suppressUpdate: false},
-      {name: 'state', events: ['success'], suppressUpdate: false},
+      { name: "summary", events: ["success"], suppressUpdate: false },
+      { name: "state", events: ["success"], suppressUpdate: false },
       {
-        name: 'nodeHealth',
-        events: ['nodeSuccess', 'nodeError', 'unitsSuccess', 'unitsError'],
+        name: "nodeHealth",
+        events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"],
         suppressUpdate: false
       }
     ];
 
     this.tabs_tabs = {
-      '/nodes/:nodeID/tasks': 'Tasks',
-      '/nodes/:nodeID/health': 'Health',
-      '/nodes/:nodeID/details': 'Details'
+      "/nodes/:nodeID/tasks": "Tasks",
+      "/nodes/:nodeID/health": "Health",
+      "/nodes/:nodeID/details": "Details"
     };
 
     this.state = {
@@ -47,23 +47,25 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     const node = this.getNode(this.props);
     if (node) {
-      this.setState({node});
+      this.setState({ node });
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
     const routes = this.props.routes;
-    const currentRoute = routes.find(function (route) {
+    const currentRoute = routes.find(function(route) {
       return route.component === NodeDetailPage;
     });
     if (currentRoute != null) {
-      this.tabs_tabs = currentRoute.childRoutes.filter(function ({isTab}) {
-        return !!isTab;
-      }).reduce(function (tabs, {path, title}) {
-        tabs[path] = title;
+      this.tabs_tabs = currentRoute.childRoutes
+        .filter(function({ isTab }) {
+          return !!isTab;
+        })
+        .reduce(function(tabs, { path, title }) {
+          tabs[path] = title;
 
-        return tabs;
-      }, this.tabs_tabs);
+          return tabs;
+        }, this.tabs_tabs);
     }
     this.updateCurrentTab();
   }
@@ -71,7 +73,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   componentWillReceiveProps(nextProps) {
     if (this.props.params.nodeID !== nextProps.params.nodeID) {
       const node = this.getNode(nextProps);
-      this.setState({node});
+      this.setState({ node });
     }
 
     this.updateCurrentTab(nextProps);
@@ -82,35 +84,35 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     const node = this.getNode(this.props);
     if (node && !this.state.node) {
-      this.setState({node});
+      this.setState({ node });
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
   }
 
   onStateStoreSuccess() {
     if (this.state.mesosStateLoaded === false) {
-      this.setState({mesosStateLoaded: true});
+      this.setState({ mesosStateLoaded: true });
     }
   }
 
   updateCurrentTab(nextProps) {
-    const {routes} = nextProps || this.props;
+    const { routes } = nextProps || this.props;
     const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
-      this.setState({currentTab});
+      this.setState({ currentTab });
     }
   }
 
   getNode(props) {
-    return CompositeState.getNodesList().filter(
-      {ids: [props.params.nodeID]}
-    ).last();
+    return CompositeState.getNodesList()
+      .filter({ ids: [props.params.nodeID] })
+      .last();
   }
 
   getLoadingScreen() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <Loader />
       </Page>
     );
@@ -119,7 +121,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   getNotFound(nodeID) {
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <div className="pod text-align-center">
           <h3 className="flush-top text-align-center">
             Error finding node
@@ -137,59 +139,55 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return null;
     }
 
-    const states = MesosSummaryStore.get('states');
+    const states = MesosSummaryStore.get("states");
     const resources = states[`getResourceStatesFor${itemType}IDs`]([item.id]);
 
     return (
       <div className="row">
-        <ResourceChart
-          resourceName="cpus"
-          resources={resources} />
-        <ResourceChart
-          resourceName="mem"
-          resources={resources} />
-        <ResourceChart
-          resourceName="disk"
-          resources={resources} />
+        <ResourceChart resourceName="cpus" resources={resources} />
+        <ResourceChart resourceName="mem" resources={resources} />
+        <ResourceChart resourceName="disk" resources={resources} />
       </div>
     );
   }
 
   render() {
-    if (!MesosSummaryStore.get('statesProcessed') ||
-      !this.state.mesosStateLoaded) {
+    if (
+      !MesosSummaryStore.get("statesProcessed") ||
+      !this.state.mesosStateLoaded
+    ) {
       return this.getLoadingScreen();
     }
 
-    const {node} = this.state;
-    const {nodeID} = this.props.params;
+    const { node } = this.state;
+    const { nodeID } = this.props.params;
 
     if (!node) {
       return this.getNotFound(nodeID);
     }
 
-    const {currentTab} = this.state;
+    const { currentTab } = this.state;
     const tabs = [
       {
-        label: 'Tasks',
+        label: "Tasks",
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/tasks`);
         },
-        isActive: currentTab === '/nodes/:nodeID/tasks'
+        isActive: currentTab === "/nodes/:nodeID/tasks"
       },
       {
-        label: 'Health',
+        label: "Health",
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/health`);
         },
-        isActive: currentTab === '/nodes/:nodeID/health'
+        isActive: currentTab === "/nodes/:nodeID/health"
       },
       {
-        label: 'Details',
+        label: "Details",
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/details`);
         },
-        isActive: currentTab === '/nodes/:nodeID/details'
+        isActive: currentTab === "/nodes/:nodeID/details"
       }
     ];
 
@@ -197,8 +195,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       <Page>
         <Page.Header
           breadcrumbs={<NodeBreadcrumbs nodeID={nodeID} />}
-          tabs={tabs} />
-        {React.cloneElement(this.props.children, {node})}
+          tabs={tabs}
+        />
+        {React.cloneElement(this.props.children, { node })}
       </Page>
     );
   }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Image from './Image';
+import Image from "./Image";
 
 function CreateServiceModalServicePickerOptionImage(props) {
   return (

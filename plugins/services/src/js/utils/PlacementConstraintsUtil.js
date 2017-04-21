@@ -1,4 +1,4 @@
-import OperatorTypes from '../constants/OperatorTypes';
+import OperatorTypes from "../constants/OperatorTypes";
 
 module.exports = {
   requiresValue(operator) {

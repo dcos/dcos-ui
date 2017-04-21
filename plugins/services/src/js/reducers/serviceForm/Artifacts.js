@@ -1,27 +1,22 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import Transaction from '#SRC/js/structs/Transaction';
-import {isEmpty} from '#SRC/js/utils/ValidatorUtil';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
+import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 
 function getJson(data) {
-  return data
-    .filter(({uri}) => !isEmpty(uri));
+  return data.filter(({ uri }) => !isEmpty(uri));
 }
 
-function processTransaction(state, {type, path, value}) {
+function processTransaction(state, { type, path, value }) {
   const [field, index, name] = path;
 
-  if (field !== 'fetch') {
+  if (field !== "fetch") {
     return state;
   }
 
   let newState = state.slice();
 
   if (type === ADD_ITEM) {
-    newState.push({uri: null});
+    newState.push({ uri: null });
   }
 
   if (type === REMOVE_ITEM) {
@@ -38,7 +33,7 @@ function processTransaction(state, {type, path, value}) {
 }
 
 module.exports = {
-  JSONReducer(state, {type, path, value}) {
+  JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -47,7 +42,7 @@ module.exports = {
       this.fetch = [];
     }
 
-    this.fetch = processTransaction(this.fetch, {type, path, value});
+    this.fetch = processTransaction(this.fetch, { type, path, value });
 
     return getJson(this.fetch);
   },
@@ -57,22 +52,22 @@ module.exports = {
       return [];
     }
 
-    return state.fetch.reduce(function (memo, item, index) {
-      memo.push(new Transaction( ['fetch'], index, ADD_ITEM ));
-      Object.keys(item).forEach(function (key) {
-        memo.push(new Transaction( ['fetch', index, key], item[key], SET));
+    return state.fetch.reduce(function(memo, item, index) {
+      memo.push(new Transaction(["fetch"], index, ADD_ITEM));
+      Object.keys(item).forEach(function(key) {
+        memo.push(new Transaction(["fetch", index, key], item[key], SET));
       });
 
       return memo;
     }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    state = processTransaction(state, {type, path, value});
+    state = processTransaction(state, { type, path, value });
 
     return state;
   }

@@ -1,18 +1,17 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import CollapsingString from './CollapsingString';
+import CollapsingString from "./CollapsingString";
 
 class DetailViewHeader extends React.Component {
-
   getIcon() {
-    const {icon, iconClassName} = this.props;
+    const { icon, iconClassName } = this.props;
 
     if (icon == null) {
       return null;
     }
 
-    const iconClasses = classNames('icon icon-large', iconClassName);
+    const iconClasses = classNames("icon icon-large", iconClassName);
 
     return (
       <div className="detail-view-header-icon">
@@ -24,16 +23,13 @@ class DetailViewHeader extends React.Component {
   }
 
   getTitle() {
-    const {title, titleClassName} = this.props;
+    const { title, titleClassName } = this.props;
 
     if (title == null) {
       return null;
     }
 
-    const titleClasses = classNames(
-      'h1 flush',
-      titleClassName
-    );
+    const titleClasses = classNames("h1 flush", titleClassName);
 
     return (
       <span className={titleClasses}>
@@ -43,24 +39,21 @@ class DetailViewHeader extends React.Component {
   }
 
   getSubTitle() {
-    const {subTitle, subTitleClassName} = this.props;
+    const { subTitle, subTitleClassName } = this.props;
 
     if (subTitle == null) {
       return null;
     }
 
-    const subtitleClasses = classNames(
-      'emphasize',
-      subTitleClassName
-    );
+    const subtitleClasses = classNames("emphasize", subTitleClassName);
 
-    return (<div className={subtitleClasses}>{subTitle}</div>);
+    return <div className={subtitleClasses}>{subTitle}</div>;
   }
 
   renderActionButtons() {
-    const {actionButtons, buttonCollectionClassNames} = this.props;
+    const { actionButtons, buttonCollectionClassNames } = this.props;
     const buttonCollectionClasses = classNames(
-      'button-collection',
+      "button-collection",
       buttonCollectionClassNames
     );
 
@@ -85,18 +78,18 @@ class DetailViewHeader extends React.Component {
     } = this.props;
 
     const detailViewHeaderClasses = classNames(
-      'detail-view-header flex-item-shrink-0',
-      {'has-tabs': !!navigationTabs},
+      "detail-view-header flex-item-shrink-0",
+      { "has-tabs": !!navigationTabs },
       className
     );
 
     const detailViewHeaderContentWrapperClasses = classNames(
-      'detail-view-header-content-wrapper',
+      "detail-view-header-content-wrapper",
       detailViewHeaderContentWrapperClassNames
     );
 
     const detailViewHeaderContentHeadingClasses = classNames(
-      'detail-view-header-content-heading',
+      "detail-view-header-content-heading",
       detailViewHeaderContentHeadingClassNames
     );
 

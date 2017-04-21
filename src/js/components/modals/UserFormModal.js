@@ -1,21 +1,19 @@
-import mixin from 'reactjs-mixin';
-import {Hooks} from 'PluginSDK';
+import mixin from "reactjs-mixin";
+import { Hooks } from "PluginSDK";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AuthStore from '../../stores/AuthStore';
-import FormModal from '../FormModal';
-import ModalHeading from '../modals/ModalHeading';
-import UserStore from '../../stores/UserStore';
+import AuthStore from "../../stores/AuthStore";
+import FormModal from "../FormModal";
+import ModalHeading from "../modals/ModalHeading";
+import UserStore from "../../stores/UserStore";
 
-const TELEMETRY_NOTIFICATION = 'Because telemetry is disabled you must manually notify users of ACL changes.';
+const TELEMETRY_NOTIFICATION =
+  "Because telemetry is disabled you must manually notify users of ACL changes.";
 
-const METHODS_TO_BIND = [
-  'handleNewUserSubmit',
-  'onUserStoreCreateSuccess'
-];
+const METHODS_TO_BIND = ["handleNewUserSubmit", "onUserStoreCreateSuccess"];
 
 class UserFormModal extends mixin(StoreMixin) {
   constructor() {
@@ -29,13 +27,13 @@ class UserFormModal extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'user',
-        events: ['createSuccess', 'createError'],
+        name: "user",
+        events: ["createSuccess", "createError"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -58,60 +56,74 @@ class UserFormModal extends mixin(StoreMixin) {
   }
 
   handleNewUserSubmit(model) {
-    this.setState({disableNewUser: true});
+    this.setState({ disableNewUser: true });
 
-    const userModelObject = Hooks.applyFilter('userModelObject', Object.assign(
-      {}, model, {
+    const userModelObject = Hooks.applyFilter(
+      "userModelObject",
+      Object.assign({}, model, {
         creator_uid: AuthStore.getUser().uid,
         cluster_url: `${global.location.protocol}//${global.location.hostname}`
-      }
-    ));
+      })
+    );
     UserStore.addUser(userModelObject);
   }
 
   getButtonDefinition() {
-    return Hooks.applyFilter('userFormModalButtonDefinition', [
+    return Hooks.applyFilter("userFormModalButtonDefinition", [
       {
-        text: 'Cancel',
-        className: 'button button-medium',
+        text: "Cancel",
+        className: "button button-medium",
         isClose: true
       },
       {
-        text: 'Add User',
-        className: 'button button-success button-medium',
+        text: "Add User",
+        className: "button button-success button-medium",
         isSubmit: true
       }
     ]);
   }
 
   getNewUserFormDefinition() {
-    const {props, state} = this;
+    const { props, state } = this;
 
-    return Hooks.applyFilter('userFormModalDefinition', [{
-      fieldType: 'text',
-      name: 'uid',
-      placeholder: 'Email',
-      required: true,
-      showError: state.errorMsg,
-      showLabel: false,
-      writeType: 'input',
-      validation() { return true; },
-      value: ''
-    }], props, state);
+    return Hooks.applyFilter(
+      "userFormModalDefinition",
+      [
+        {
+          fieldType: "text",
+          name: "uid",
+          placeholder: "Email",
+          required: true,
+          showError: state.errorMsg,
+          showLabel: false,
+          writeType: "input",
+          validation() {
+            return true;
+          },
+          value: ""
+        }
+      ],
+      props,
+      state
+    );
   }
 
   getHeader() {
-    return Hooks.applyFilter('userFormModalHeader', (
+    return Hooks.applyFilter(
+      "userFormModalHeader",
       <ModalHeading>
         Add User to Cluster
       </ModalHeading>
-    ));
+    );
   }
 
   getFooter() {
-    return Hooks.applyFilter('userFormModalFooter', (
-      <p className="flush-bottom text-align-center"><strong>Important:</strong> {TELEMETRY_NOTIFICATION}</p>
-    ));
+    return Hooks.applyFilter(
+      "userFormModalFooter",
+      <p className="flush-bottom text-align-center">
+        <strong>Important:</strong> {TELEMETRY_NOTIFICATION}
+      </p>
+    );
   }
 
   render() {
@@ -127,8 +139,8 @@ class UserFormModal extends mixin(StoreMixin) {
         onClose={this.props.onClose}
         onSubmit={this.handleNewUserSubmit}
         open={this.props.open}
-        contentFooter={this.getFooter()}>
-      </FormModal>
+        contentFooter={this.getFooter()}
+      />
     );
   }
 }

@@ -1,18 +1,22 @@
-import CompressionPlugin from 'compression-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import StringReplacePlugin from 'string-replace-webpack-plugin';
-import webpack from 'webpack';
-import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
+import CompressionPlugin from "compression-webpack-plugin";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import StringReplacePlugin from "string-replace-webpack-plugin";
+import webpack from "webpack";
+import SVGCompilerPlugin from "./plugins/svg-compiler-plugin";
 
-import packageInfo from '../package';
-import webpackConfig from './webpack.config.babel';
+import packageInfo from "../package";
+import webpackConfig from "./webpack.config.babel";
 
 function addImageOptimizer(loader) {
-  return loader + '!image-webpack?' + JSON.stringify({
-    progressive: true,
-    svgoPlugins: [{removeViewBox: false}]
-  });
+  return (
+    loader +
+    "!image-webpack?" +
+    JSON.stringify({
+      progressive: true,
+      svgoPlugins: [{ removeViewBox: false }]
+    })
+  );
 }
 
 const REPLACEMENT_VARS = {
@@ -21,25 +25,25 @@ const REPLACEMENT_VARS = {
 };
 
 const dependencies = Object.assign({}, packageInfo.dependencies);
-delete dependencies['canvas-ui'];
-delete dependencies['cnvs'];
+delete dependencies["canvas-ui"];
+delete dependencies["cnvs"];
 
 module.exports = Object.assign({}, webpackConfig, {
   entry: {
-    index: './src/js/index.js',
+    index: "./src/js/index.js",
     vendor: Object.keys(dependencies)
   },
-  devtool: '#source-map',
+  devtool: "#source-map",
   production: true,
   output: {
-    path: './dist',
-    filename: './[name].[hash].js'
+    path: "./dist",
+    filename: "./[name].[hash].js"
   },
   plugins: [
     // Important to keep React file size down
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
       }
     }),
 
@@ -53,13 +57,17 @@ module.exports = Object.assign({}, webpackConfig, {
       }
     }),
 
-    new ExtractTextPlugin('./[name].[hash].css'),
+    new ExtractTextPlugin("./[name].[hash].css"),
 
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js', Infinity),
+    new webpack.optimize.CommonsChunkPlugin(
+      "vendor",
+      "vendor.[hash].js",
+      Infinity
+    ),
 
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
+      filename: "index.html",
+      template: "./src/index.html",
       production: true
     }),
 
@@ -68,11 +76,11 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new webpack.IgnorePlugin(/tests\/_fixtures\//),
 
-    new SVGCompilerPlugin({baseDir: 'src/img/components/icons'}),
+    new SVGCompilerPlugin({ baseDir: "src/img/components/icons" }),
 
     new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
       test: /\.js$|\.css|\.html$/,
       minRatio: 0.9
     })
@@ -84,38 +92,47 @@ module.exports = Object.assign({}, webpackConfig, {
         test: /\.js$/,
         // Exclude all node_modules except dcos-dygraphs
         exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
-        loader: 'babel?' + JSON.stringify({
-          cacheDirectory: '/tmp',
-          // Map through resolve to fix preset loading problem
-          presets: [
-            'babel-preset-es2015',
-            'babel-preset-react'
-          ].map(require.resolve)
-        })
+        loader: "babel?" +
+          JSON.stringify({
+            cacheDirectory: "/tmp",
+            // Map through resolve to fix preset loading problem
+            presets: ["babel-preset-es2015", "babel-preset-react"].map(
+              require.resolve
+            )
+          })
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?-mergeLonghand!postcss')
+        loader: ExtractTextPlugin.extract("style", "css?-mergeLonghand!postcss")
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css?-mergeLonghand!postcss!less')
+        loader: ExtractTextPlugin.extract(
+          "style",
+          "css?-mergeLonghand!postcss!less"
+        )
       },
       {
         test: /\.png$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/png')
+        loader: addImageOptimizer(
+          "file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/png"
+        )
       },
       {
         test: /\.svg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml')
+        loader: addImageOptimizer(
+          "file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml"
+        )
       },
       {
         test: /\.gif$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif')
+        loader: addImageOptimizer(
+          "file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif"
+        )
       },
       {
         test: /\.jpg$/,
-        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]')
+        loader: addImageOptimizer("file?name=./[hash]-[name].[ext]")
       },
       // Replace @@variables
       {
@@ -124,7 +141,7 @@ module.exports = Object.assign({}, webpackConfig, {
         loader: StringReplacePlugin.replace({
           replacements: [
             {
-              pattern: /@@(\w+)/ig,
+              pattern: /@@(\w+)/gi,
               replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }

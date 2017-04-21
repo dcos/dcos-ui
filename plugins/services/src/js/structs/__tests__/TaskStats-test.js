@@ -1,118 +1,113 @@
-const List = require('#SRC/js/structs/List');
-const TaskStats = require('../TaskStats');
-const TaskStat = require('../TaskStat');
+const List = require("#SRC/js/structs/List");
+const TaskStats = require("../TaskStats");
+const TaskStat = require("../TaskStat");
 
-describe('TaskStats', function () {
-
-  describe('#getStatsForTasksWithLatestConfig', function () {
-
-    it('returns task stat instance', function () {
-      const statistics = new TaskStats({withLatestConfig: {}})
-        .getStatsForTasksWithLatestConfig();
+describe("TaskStats", function() {
+  describe("#getStatsForTasksWithLatestConfig", function() {
+    it("returns task stat instance", function() {
+      const statistics = new TaskStats({
+        withLatestConfig: {}
+      }).getStatsForTasksWithLatestConfig();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it('pass correct data set to task stat struct', function () {
+    it("pass correct data set to task stat struct", function() {
       const statistics = new TaskStats({
         withLatestConfig: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         }
       }).getStatsForTasksWithLatestConfig();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
     });
-
   });
 
-  describe('#getStatsForTasksStaredAfterLastScaling', function () {
-
-    it('returns task stat instance', function () {
-      const statistics = new TaskStats({startedAfterLastScaling: {}})
-        .getStatsForTasksStaredAfterLastScaling();
+  describe("#getStatsForTasksStaredAfterLastScaling", function() {
+    it("returns task stat instance", function() {
+      const statistics = new TaskStats({
+        startedAfterLastScaling: {}
+      }).getStatsForTasksStaredAfterLastScaling();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it('pass correct data set to task stat struct', function () {
+    it("pass correct data set to task stat struct", function() {
       const statistics = new TaskStats({
         startedAfterLastScaling: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         }
       }).getStatsForTasksStaredAfterLastScaling();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
     });
-
   });
 
-  describe('#getStatsForTasksWithOutdatedConfig', function () {
-
-    it('returns task stat instance', function () {
-      const statistics = new TaskStats({withOutdatedConfig: {}})
-        .getStatsForTasksWithOutdatedConfig();
+  describe("#getStatsForTasksWithOutdatedConfig", function() {
+    it("returns task stat instance", function() {
+      const statistics = new TaskStats({
+        withOutdatedConfig: {}
+      }).getStatsForTasksWithOutdatedConfig();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it('pass correct data set to task stat struct', function () {
+    it("pass correct data set to task stat struct", function() {
       const statistics = new TaskStats({
         withOutdatedConfig: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         }
       }).getStatsForTasksWithOutdatedConfig();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
     });
-
   });
 
-  describe('#getStatsForAllTasks', function () {
-
-    it('returns task stat instance', function () {
-      const statistics = new TaskStats({totalSummary: {}}).getStatsForAllTasks();
+  describe("#getStatsForAllTasks", function() {
+    it("returns task stat instance", function() {
+      const statistics = new TaskStats({
+        totalSummary: {}
+      }).getStatsForAllTasks();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it('pass correct data set to task stat struct', function () {
+    it("pass correct data set to task stat struct", function() {
       const statistics = new TaskStats({
         totalSummary: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         }
       }).getStatsForAllTasks();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
     });
-
   });
 
-  describe('#getList', function () {
-
-    it('returns List instance', function () {
-      const statisticsList = new TaskStats({totalSummary: {}}).getList();
+  describe("#getList", function() {
+    it("returns List instance", function() {
+      const statisticsList = new TaskStats({ totalSummary: {} }).getList();
 
       expect(statisticsList instanceof List).toBeTruthy();
     });
 
-    it('should only return items with stats', function () {
+    it("should only return items with stats", function() {
       const statisticsList = new TaskStats({
         totalSummary: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         },
         startedAfterLastScaling: {
           stats: {
-            counts: {healthy: 1}
+            counts: { healthy: 1 }
           }
         },
         withOutdatedConfig: {
@@ -123,7 +118,5 @@ describe('TaskStats', function () {
 
       expect(statisticsList.getItems().length).toEqual(2);
     });
-
   });
-
 });

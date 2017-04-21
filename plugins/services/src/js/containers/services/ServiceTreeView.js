@@ -1,33 +1,32 @@
-import classNames from 'classnames';
-import React, {PropTypes} from 'react';
-import {routerShape} from 'react-router';
+import classNames from "classnames";
+import React, { PropTypes } from "react";
+import { routerShape } from "react-router";
 
-import DSLExpression from '#SRC/js/structs/DSLExpression';
-import DSLFilterField from '#SRC/js/components/DSLFilterField';
-import DSLFilterList from '#SRC/js/structs/DSLFilterList';
-import Page from '#SRC/js/components/Page';
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLFilterField from "#SRC/js/components/DSLFilterField";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+import Page from "#SRC/js/components/Page";
 
-import EmptyServiceTree from './EmptyServiceTree';
-import FuzzyTextDSLSection from '../../components/dsl/FuzzyTextDSLSection';
-import Service from '../../structs/Service';
-import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import ServiceHealthDSLSection from '../../components/dsl/ServiceHealthDSLSection';
-import ServiceOtherDSLSection from '../../components/dsl/ServiceOtherDSLSection';
-import ServicesTable from './ServicesTable';
-import ServiceStatusDSLSection from '../../components/dsl/ServiceStatusDSLSection';
-import ServiceTree from '../../structs/ServiceTree';
+import EmptyServiceTree from "./EmptyServiceTree";
+import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
+import Service from "../../structs/Service";
+import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
+import ServiceHealthDSLSection
+  from "../../components/dsl/ServiceHealthDSLSection";
+import ServiceOtherDSLSection
+  from "../../components/dsl/ServiceOtherDSLSection";
+import ServicesTable from "./ServicesTable";
+import ServiceStatusDSLSection
+  from "../../components/dsl/ServiceStatusDSLSection";
+import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceTreeView extends React.Component {
   getFilterBar() {
-    const {
-      filters,
-      filterExpression,
-      onFilterExpressionChange
-    } = this.props;
+    const { filters, filterExpression, onFilterExpressionChange } = this.props;
 
     const hostClasses = classNames({
-      'column-medium-5': !filterExpression.value,
-      'column-medium-12': filterExpression.value
+      "column-medium-5": !filterExpression.value,
+      "column-medium-12": filterExpression.value
     });
 
     return (
@@ -42,18 +41,17 @@ class ServiceTreeView extends React.Component {
               FuzzyTextDSLSection
             ]}
             expression={filterExpression}
-            onChange={onFilterExpressionChange} />
+            onChange={onFilterExpressionChange}
+          />
         </div>
       </div>
     );
   }
 
   getSearchHeader() {
-    const {filterExpression} = this.props;
+    const { filterExpression } = this.props;
     if (filterExpression.defined) {
-      return (
-        <h5 className="muted">Search Results</h5>
-      );
+      return <h5 className="muted">Search Results</h5>;
     }
 
     return null;
@@ -68,11 +66,11 @@ class ServiceTreeView extends React.Component {
       services
     } = this.props;
 
-    const {modalHandlers} = this.context;
+    const { modalHandlers } = this.context;
     // Only add id if service is not root
-    const routePath = serviceTree.id === '/' ?
-      '/services/overview/create' :
-      `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
+    const routePath = serviceTree.id === "/"
+      ? "/services/overview/create"
+      : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
 
     const createService = () => {
       this.context.router.push(routePath);
@@ -81,10 +79,13 @@ class ServiceTreeView extends React.Component {
     if (isEmpty) {
       return (
         <Page>
-          <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
+          <Page.Header
+            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          />
           <EmptyServiceTree
             onCreateGroup={modalHandlers.createGroup}
-            onCreateService={createService} />
+            onCreateService={createService}
+          />
           {children}
         </Page>
       );
@@ -94,16 +95,19 @@ class ServiceTreeView extends React.Component {
       <Page>
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-          actions={[{onItemSelect: modalHandlers.createGroup, label: 'Create Group'}]}
-          addButton={{onItemSelect: createService, label: 'Run a Service'}}
-          />
+          actions={[
+            { onItemSelect: modalHandlers.createGroup, label: "Create Group" }
+          ]}
+          addButton={{ onItemSelect: createService, label: "Run a Service" }}
+        />
         <div>
           {this.getFilterBar()}
           {this.getSearchHeader()}
           <ServicesTable
             isFiltered={filterExpression.defined}
             modalHandlers={modalHandlers}
-            services={services} />
+            services={services}
+          />
         </div>
         {children}
       </Page>
@@ -129,10 +133,12 @@ ServiceTreeView.propTypes = {
   isEmpty: PropTypes.bool,
   children: PropTypes.node,
   onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.instanceOf(Service),
-    PropTypes.instanceOf(ServiceTree)
-  ])).isRequired,
+  services: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.instanceOf(Service),
+      PropTypes.instanceOf(ServiceTree)
+    ])
+  ).isRequired,
   serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 

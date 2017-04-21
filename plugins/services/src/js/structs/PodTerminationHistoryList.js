@@ -1,5 +1,5 @@
-import List from '#SRC/js/structs/List';
-import PodTerminationHistory from './PodTerminationHistory';
+import List from "#SRC/js/structs/List";
+import PodTerminationHistory from "./PodTerminationHistory";
 
 class PodTerminationHistoryList extends List {}
 

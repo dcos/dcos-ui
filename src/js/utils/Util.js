@@ -1,9 +1,8 @@
-import ValidatorUtil from './ValidatorUtil';
+import ValidatorUtil from "./ValidatorUtil";
 
 const uniqueIDMap = {};
 
 const Util = {
-
   /**
    * Give a unique ID for this session.
    * @param {string} id              Namespace for the unique ids.
@@ -24,7 +23,7 @@ const Util = {
    * @return {Object}               Copy of object without blacklisted keys
    */
   omit(object, blacklistKeys) {
-    return Object.keys(object).reduce(function (newObject, key) {
+    return Object.keys(object).reduce(function(newObject, key) {
       if (blacklistKeys.indexOf(key) === -1) {
         newObject[key] = object[key];
       }
@@ -65,7 +64,7 @@ const Util = {
   },
 
   getLocaleCompareSortFn(prop) {
-    return function (a, b) {
+    return function(a, b) {
       return a[prop].localeCompare(b[prop]);
     };
   },
@@ -82,7 +81,7 @@ const Util = {
       return null;
     }
 
-    return propertyPath.split('.').reduce(function (current, nextProp) {
+    return propertyPath.split(".").reduce(function(current, nextProp) {
       if (current == null) {
         return current;
       }
@@ -102,12 +101,12 @@ const Util = {
   debounce(func, wait) {
     let timeoutID = null;
 
-    return function (...args) {
+    return function(...args) {
       if (timeoutID) {
         global.clearTimeout(timeoutID);
       }
 
-      timeoutID = global.setTimeout(function () {
+      timeoutID = global.setTimeout(function() {
         func.apply(null, args);
       }, wait);
     };
@@ -120,7 +119,7 @@ const Util = {
    * @return {Boolean} Whether the argument is an object.
    */
   isObject(obj) {
-    return obj && obj.toString && obj.toString() === '[object Object]';
+    return obj && obj.toString && obj.toString() === "[object Object]";
   },
 
   /**
@@ -138,7 +137,7 @@ const Util = {
     }
 
     if (copy != null) {
-      Object.keys(copy).forEach((key) => {
+      Object.keys(copy).forEach(key => {
         copy[key] = Util.deepCopy(copy[key]);
       });
     } else {
@@ -155,25 +154,28 @@ const Util = {
    * @return {Object} Copy of a filtered obj
    */
   filterEmptyValues(obj) {
-    return Object.keys(obj).filter(function (key) {
-      return !ValidatorUtil.isEmpty(obj[key]);
-    }).reduce(function (memo, key) {
-      memo[key] = obj[key];
+    return Object.keys(obj)
+      .filter(function(key) {
+        return !ValidatorUtil.isEmpty(obj[key]);
+      })
+      .reduce(function(memo, key) {
+        memo[key] = obj[key];
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
   },
 
   objectToGetParams(obj) {
-    const queryString = Object.keys(obj).filter(function (param) {
-      return obj[param] != null;
-    }).map(function (param) {
-      return `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`;
-    }).join('&');
+    const queryString = Object.keys(obj)
+      .filter(function(param) {
+        return obj[param] != null;
+      })
+      .map(function(param) {
+        return `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`;
+      })
+      .join("&");
 
-    return queryString
-      ? `?${queryString}`
-      : '';
+    return queryString ? `?${queryString}` : "";
   },
 
   /**
@@ -185,7 +187,7 @@ const Util = {
    * @returns {String} item param lowercased
    */
   toLowerCaseIfString(item) {
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       return item.toLowerCase();
     }
 
@@ -201,13 +203,12 @@ const Util = {
    * @returns {String} item param lowercased
    */
   toUpperCaseIfString(item) {
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       return item.toUpperCase();
     }
 
     return item;
   }
-
 };
 
 module.exports = Util;

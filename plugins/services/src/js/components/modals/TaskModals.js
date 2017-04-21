@@ -1,12 +1,11 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import ActionKeys from '../../constants/ActionKeys';
-import KillPodInstanceModal from './KillPodInstanceModal';
-import KillTaskModal from './KillTaskModal';
-import ServiceActionItem from '../../constants/ServiceActionItem';
+import ActionKeys from "../../constants/ActionKeys";
+import KillPodInstanceModal from "./KillPodInstanceModal";
+import KillTaskModal from "./KillTaskModal";
+import ServiceActionItem from "../../constants/ServiceActionItem";
 
 class TaskModals extends React.Component {
-
   getKillPodInstancesModal() {
     const {
       actions,
@@ -27,7 +26,8 @@ class TaskModals extends React.Component {
         errors={actionErrors[key]}
         open={modalProps.id === ServiceActionItem.KILL_POD_INSTANCES}
         onClose={() => onClose(key)}
-        {...modalProps} />
+        {...modalProps}
+      />
     );
   }
 
@@ -51,7 +51,8 @@ class TaskModals extends React.Component {
         errors={actionErrors[key]}
         open={modalProps.id === ServiceActionItem.KILL_TASKS}
         onClose={() => onClose(key)}
-        {...modalProps} />
+        {...modalProps}
+      />
     );
   }
 

@@ -1,71 +1,73 @@
-jest.dontMock('../TaskFilesTab');
-jest.dontMock('../TaskDetail');
-jest.dontMock('../../../stores/MarathonStore');
+jest.dontMock("../TaskFilesTab");
+jest.dontMock("../TaskDetail");
+jest.dontMock("../../../stores/MarathonStore");
 
-jest.dontMock('#SRC/js/stores/DCOSStore');
-jest.dontMock('#SRC/js/stores/MesosStateStore');
-jest.dontMock('#SRC/js/stores/MesosSummaryStore');
-jest.dontMock('#SRC/js/components/Page');
-jest.dontMock('#SRC/js/mixins/InternalStorageMixin');
+jest.dontMock("#SRC/js/stores/DCOSStore");
+jest.dontMock("#SRC/js/stores/MesosStateStore");
+jest.dontMock("#SRC/js/stores/MesosSummaryStore");
+jest.dontMock("#SRC/js/components/Page");
+jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
 
-const JestUtil = require('#SRC/js/utils/JestUtil');
+const JestUtil = require("#SRC/js/utils/JestUtil");
 
-JestUtil.unMockStores(['MarathonStore', 'MesosStateStore', 'MesosSummaryStore']);
-
-/* eslint-disable no-unused-vars */
-const React = require('react');
-/* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
+JestUtil.unMockStores([
+  "MarathonStore",
+  "MesosStateStore",
+  "MesosSummaryStore"
+]);
 
 /* eslint-disable no-unused-vars */
-const MesosSummaryStore = require('#SRC/js/stores/MesosSummaryStore');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const MesosStateStore = require('#SRC/js/stores/MesosStateStore');
-const Task = require('../../../structs/Task');
-const TaskDirectory = require('../../../structs/TaskDirectory');
-const TaskDirectoryStore = require('../../../stores/TaskDirectoryStore');
-const TaskDetail = require('../TaskDetail');
+const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
 
-describe('TaskDetail', function () {
-  beforeEach(function () {
-    this.container = global.document.createElement('div');
-    this.params = {
+/* eslint-disable no-unused-vars */
+const MesosSummaryStore = require("#SRC/js/stores/MesosSummaryStore");
+/* eslint-enable no-unused-vars */
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const Task = require("../../../structs/Task");
+const TaskDirectory = require("../../../structs/TaskDirectory");
+const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore");
+const TaskDetail = require("../TaskDetail");
 
-    };
+describe("TaskDetail", function() {
+  beforeEach(function() {
+    this.container = global.document.createElement("div");
+    this.params = {};
     this.instance = JestUtil.renderWithStubbedRouter(
       TaskDetail,
       {
         params: this.params,
-        routes: [{path: '/services/detail/:id/tasks/:taskID'}]
+        routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
       },
       this.container,
       {}
     );
-    this.instance.setState = jasmine.createSpy('setState');
-    this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
+    this.instance.setState = jasmine.createSpy("setState");
+    this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
     // Store original versions
     this.storeGetDirectory = TaskDirectoryStore.fetchDirectory;
     this.storeGet = MesosStateStore.get;
     this.storeChangeListener = MesosStateStore.addChangeListener;
     // Create mock functions
-    MesosStateStore.get = function (key) {
-      if (key === 'lastMesosState') {
+    MesosStateStore.get = function(key) {
+      if (key === "lastMesosState") {
         return {};
       }
     };
-    MesosStateStore.addChangeListener = function () {};
-    MesosStateStore.getTaskFromTaskID = function () {
+    MesosStateStore.addChangeListener = function() {};
+    MesosStateStore.getTaskFromTaskID = function() {
       return new Task({
-        id: 'fake id',
-        state: 'TASK_RUNNING'
+        id: "fake id",
+        state: "TASK_RUNNING"
       });
     };
 
-    TaskDirectoryStore.fetchDirectory = jasmine.createSpy('getDirectory');
+    TaskDirectoryStore.fetchDirectory = jasmine.createSpy("getDirectory");
   });
 
-  afterEach(function () {
+  afterEach(function() {
     // Restore original functions
     MesosStateStore.get = this.storeGet;
     MesosStateStore.addChangeListener = this.storeChangeListener;
@@ -74,69 +76,71 @@ describe('TaskDetail', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#componentDidMount', function () {
-
-    it('should call getDirectory after onStateStoreSuccess is called', function () {
+  describe("#componentDidMount", function() {
+    it("should call getDirectory after onStateStoreSuccess is called", function() {
       this.instance.onStateStoreSuccess();
       expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
-
   });
 
-  describe('#onTaskDirectoryStoreError', function () {
-
-    it('should setState', function () {
+  describe("#onTaskDirectoryStoreError", function() {
+    it("should setState", function() {
       this.instance.onTaskDirectoryStoreError();
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it('should setState increment taskDirectoryErrorCount', function () {
-      this.instance.state = {taskDirectoryErrorCount: 1};
+    it("should setState increment taskDirectoryErrorCount", function() {
+      this.instance.state = { taskDirectoryErrorCount: 1 };
       this.instance.onTaskDirectoryStoreError();
-      expect(this.instance.setState)
-        .toHaveBeenCalledWith({taskDirectoryErrorCount: 2});
+      expect(this.instance.setState).toHaveBeenCalledWith({
+        taskDirectoryErrorCount: 2
+      });
     });
-
   });
 
-  describe('#onTaskDirectoryStoreSuccess', function () {
-
-    it('should setState', function () {
+  describe("#onTaskDirectoryStoreSuccess", function() {
+    it("should setState", function() {
       this.instance.onTaskDirectoryStoreSuccess();
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it('should setState increment onTaskDirectoryStoreSuccess', function () {
-      const directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
+    it("should setState increment onTaskDirectoryStoreSuccess", function() {
+      const directory = new TaskDirectory({
+        items: [{ nlink: 1, path: "/stdout" }]
+      });
       // Let directory return something
-      TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
+      TaskDirectoryStore.get = jasmine
+        .createSpy("TaskDirectoryStore#get")
         .and.returnValue(directory);
 
       this.instance.onTaskDirectoryStoreSuccess();
-      expect(this.instance.setState)
-        .toHaveBeenCalledWith({directory, taskDirectoryErrorCount: 0});
+      expect(this.instance.setState).toHaveBeenCalledWith({
+        directory,
+        taskDirectoryErrorCount: 0
+      });
     });
-
   });
 
-  describe('#getSubView', function () {
-    beforeEach(function () {
+  describe("#getSubView", function() {
+    beforeEach(function() {
       this.getNodeFromID = MesosStateStore.getNodeFromID;
-      MesosStateStore.getNodeFromID = function () {
-        return {hostname: 'hello'};
+      MesosStateStore.getNodeFromID = function() {
+        return { hostname: "hello" };
       };
-      this.container = global.document.createElement('div');
+      this.container = global.document.createElement("div");
     });
 
-    afterEach(function () {
+    afterEach(function() {
       MesosStateStore.getNodeFromID = this.getNodeFromID;
 
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it('should call getErrorScreen when error occurred', function () {
+    it("should call getErrorScreen when error occurred", function() {
       this.instance.state = {
-        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
+        directory: new TaskDirectory({
+          items: [{ nlink: 1, path: "/stdout" }]
+        }),
         taskDirectoryErrorCount: 3
       };
       this.instance.getSubView();
@@ -144,27 +148,28 @@ describe('TaskDetail', function () {
       expect(this.instance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it('ignores getErrorScreen when error has not occurred', function () {
+    it("ignores getErrorScreen when error has not occurred", function() {
       // Let innerPath return something
-      TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
-        .and.returnValue('');
+      TaskDirectoryStore.get = jasmine
+        .createSpy("TaskDirectoryStore#get")
+        .and.returnValue("");
       this.instance.state = {
-        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})
+        directory: new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
       };
       this.instance.getSubView();
 
       expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it('should return null if there are no nodes', function () {
+    it("should return null if there are no nodes", function() {
       const node = ReactDOM.findDOMNode(this.instance);
       expect(node).toEqual(null);
     });
 
-    it('should return an element if there is a node', function () {
-      MesosStateStore.get = function () {
+    it("should return an element if there is a node", function() {
+      MesosStateStore.get = function() {
         return new Task({
-          slaves: {fakeProp: 'faked'}
+          slaves: { fakeProp: "faked" }
         });
       };
 
@@ -172,7 +177,7 @@ describe('TaskDetail', function () {
         TaskDetail,
         {
           params: this.params,
-          routes: [{path: '/services/detail/:id/tasks/:taskID'}]
+          routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
         },
         this.container,
         {}
@@ -183,15 +188,16 @@ describe('TaskDetail', function () {
     });
   });
 
-  describe('#getBasicInfo', function () {
-
-    it('should return null if task is null', function () {
-      MesosStateStore.getTaskFromTaskID = function () { return null; };
+  describe("#getBasicInfo", function() {
+    it("should return null if task is null", function() {
+      MesosStateStore.getTaskFromTaskID = function() {
+        return null;
+      };
       const result = this.instance.getBasicInfo();
       expect(result).toEqual(null);
     });
 
-    it('should return an element if task is not null', function () {
+    it("should return an element if task is not null", function() {
       const result = this.instance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);

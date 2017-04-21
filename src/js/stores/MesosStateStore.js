@@ -1,20 +1,20 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
-import AppDispatcher from '../events/AppDispatcher';
-import ActionTypes from '../constants/ActionTypes';
-import CompositeState from '../structs/CompositeState';
-import Config from '../config/Config';
-import Framework from '../../../plugins/services/src/js/structs/Framework';
-import GetSetBaseStore from './GetSetBaseStore';
+import AppDispatcher from "../events/AppDispatcher";
+import ActionTypes from "../constants/ActionTypes";
+import CompositeState from "../structs/CompositeState";
+import Config from "../config/Config";
+import Framework from "../../../plugins/services/src/js/structs/Framework";
+import GetSetBaseStore from "./GetSetBaseStore";
 import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
   VISIBILITY_CHANGE
-} from '../constants/EventTypes';
-import MesosStateActions from '../events/MesosStateActions';
-import MesosStateUtil from '../utils/MesosStateUtil';
-import Task from '../../../plugins/services/src/js/structs/Task';
-import VisibilityStore from './VisibilityStore';
+} from "../constants/EventTypes";
+import MesosStateActions from "../events/MesosStateActions";
+import MesosStateUtil from "../utils/MesosStateUtil";
+import Task from "../../../plugins/services/src/js/structs/Task";
+import VisibilityStore from "./VisibilityStore";
 
 var requestInterval = null;
 
@@ -22,7 +22,8 @@ function startPolling() {
   if (requestInterval == null) {
     MesosStateActions.fetchState();
     requestInterval = setInterval(
-      MesosStateActions.fetchState, Config.getRefreshRate()
+      MesosStateActions.fetchState,
+      Config.getRefreshRate()
     );
   }
 }
@@ -41,8 +42,8 @@ function stopPolling() {
  * @return {Object} task
  */
 function assignSchedulerTaskField(task, schedulerTasks) {
-  if (schedulerTasks.some(({id}) => task.id === id)) {
-    return Object.assign({}, task, {schedulerTask: true});
+  if (schedulerTasks.some(({ id }) => task.id === id)) {
+    return Object.assign({}, task, { schedulerTask: true });
   }
 
   return task;
@@ -65,14 +66,14 @@ class MesosStateStore extends GetSetBaseStore {
         error: MESOS_STATE_REQUEST_ERROR
       },
       unmountWhen(store, event) {
-        if (event === 'success') {
-          return Object.keys(store.get('lastMesosState')).length;
+        if (event === "success") {
+          return Object.keys(store.get("lastMesosState")).length;
         }
       },
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== ActionTypes.SERVER_ACTION) {
         return false;
       }
@@ -132,9 +133,9 @@ class MesosStateStore extends GetSetBaseStore {
   indexTasksByID(lastMesosState) {
     const taskIndex = {};
 
-    lastMesosState.frameworks.forEach(function (service) {
+    lastMesosState.frameworks.forEach(function(service) {
       const tasks = service.tasks.concat(service.completed_tasks);
-      tasks.forEach(function (task) {
+      tasks.forEach(function(task) {
         taskIndex[task.id] = task;
       });
     });
@@ -144,21 +145,23 @@ class MesosStateStore extends GetSetBaseStore {
 
   getHostResourcesByFramework(filter) {
     return MesosStateUtil.getHostResourcesByFramework(
-      this.get('lastMesosState'), filter
+      this.get("lastMesosState"),
+      filter
     );
   }
 
   getPodHistoricalInstances(pod) {
     return MesosStateUtil.getPodHistoricalInstances(
-      this.get('lastMesosState'), pod
+      this.get("lastMesosState"),
+      pod
     );
   }
 
   getServiceFromName(name) {
-    const services = this.get('lastMesosState').frameworks;
+    const services = this.get("lastMesosState").frameworks;
 
     if (services) {
-      return services.find(function (service) {
+      return services.find(function(service) {
         return service.name === name;
       });
     }
@@ -167,10 +170,10 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getNodeFromID(id) {
-    const nodes = this.get('lastMesosState').slaves;
+    const nodes = this.get("lastMesosState").slaves;
 
     if (nodes) {
-      return nodes.find(function (node) {
+      return nodes.find(function(node) {
         return node.id === id;
       });
     }
@@ -179,10 +182,10 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getNodeFromHostname(hostname) {
-    const nodes = this.get('lastMesosState').slaves;
+    const nodes = this.get("lastMesosState").slaves;
 
     if (nodes) {
-      return nodes.find(function (node) {
+      return nodes.find(function(node) {
         return node.hostname === hostname;
       });
     }
@@ -191,18 +194,18 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const services = this.get('lastMesosState').frameworks || [];
+    const services = this.get("lastMesosState").frameworks || [];
     const memberTasks = {};
 
     const schedulerTasks = this.getSchedulerTasks();
 
-    services.forEach((service) => {
-      service.tasks.forEach(function (task) {
+    services.forEach(service => {
+      service.tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
           memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTasks);
         }
       });
-      service.completed_tasks.forEach(function (task) {
+      service.completed_tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
           memberTasks[task.id] = task;
         }
@@ -213,7 +216,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTaskFromTaskID(taskID) {
-    const taskCache = this.get('taskCache');
+    const taskCache = this.get("taskCache");
     const foundTask = taskCache[taskID];
     if (foundTask == null) {
       return null;
@@ -226,35 +229,35 @@ class MesosStateStore extends GetSetBaseStore {
    * @return {Array} list of scheduler tasks
    */
   getSchedulerTasks() {
-    const tasks = this.getTasksFromServiceName('marathon');
+    const tasks = this.getTasksFromServiceName("marathon");
 
-    return tasks.filter(function ({labels}) {
+    return tasks.filter(function({ labels }) {
       if (!labels) {
         return false;
       }
 
-      return labels.some(({key}) => key === 'DCOS_PACKAGE_FRAMEWORK_NAME');
+      return labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME");
     });
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
     const tasks = this.getSchedulerTasks();
 
-    return tasks.find(function ({labels}) {
-      return labels.some(({key, value}) => {
-        return key === 'DCOS_PACKAGE_FRAMEWORK_NAME' && value === serviceName;
+    return tasks.find(function({ labels }) {
+      return labels.some(({ key, value }) => {
+        return key === "DCOS_PACKAGE_FRAMEWORK_NAME" && value === serviceName;
       });
     });
   }
 
   getTasksFromServiceName(serviceName) {
-    const frameworks = this.get('lastMesosState').frameworks;
+    const frameworks = this.get("lastMesosState").frameworks;
 
     if (!frameworks) {
       return null;
     }
 
-    const framework = frameworks.find(function (framework) {
+    const framework = frameworks.find(function(framework) {
       return framework.name === serviceName;
     });
 
@@ -269,7 +272,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksByService(service) {
-    const frameworks = this.get('lastMesosState').frameworks;
+    const frameworks = this.get("lastMesosState").frameworks;
     const serviceName = service.getName();
 
     // Convert serviceId to Mesos task name
@@ -284,21 +287,22 @@ class MesosStateStore extends GetSetBaseStore {
     // Combine framework (if matching framework was found) and filtered
     // Marathon tasks. This will give you a list of framework tasks including
     // the scheduler tasks or a list of Marathon application tasks.
-    return frameworks.reduce(function (serviceTasks, framework) {
-      const {tasks = [], completed_tasks = {}, name} = framework;
+    return frameworks.reduce(function(serviceTasks, framework) {
+      const { tasks = [], completed_tasks = {}, name } = framework;
       // Include tasks from framework match, if service is a Framework
       if (service instanceof Framework && name === serviceName) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map((task) => assignSchedulerTaskField(task, schedulerTasks));
+          .map(task => assignSchedulerTaskField(task, schedulerTasks));
       }
 
       // Filter marathon tasks by service name
-      if (name === 'marathon') {
-        return tasks.concat(completed_tasks)
-          .filter(({name}) => name === mesosTaskName)
+      if (name === "marathon") {
+        return tasks
+          .concat(completed_tasks)
+          .filter(({ name }) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map((task) => assignSchedulerTaskField(task, schedulerTasks));
+          .map(task => assignSchedulerTaskField(task, schedulerTasks));
       }
 
       return serviceTasks;
@@ -307,7 +311,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   getTasksFromVirtualNetworkName(overlayName) {
     return MesosStateUtil.getTasksFromVirtualNetworkName(
-      this.get('lastMesosState'),
+      this.get("lastMesosState"),
       overlayName
     );
   }
@@ -315,7 +319,7 @@ class MesosStateStore extends GetSetBaseStore {
   processStateSuccess(lastMesosState) {
     CompositeState.addState(lastMesosState);
     const taskCache = this.indexTasksByID(lastMesosState);
-    this.set({lastMesosState, taskCache});
+    this.set({ lastMesosState, taskCache });
     this.emit(MESOS_STATE_CHANGE);
   }
 
@@ -328,9 +332,8 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   get storeID() {
-    return 'state';
+    return "state";
   }
-
 }
 
 module.exports = new MesosStateStore();

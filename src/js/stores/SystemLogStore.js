@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_SYSTEM_LOG_ERROR,
@@ -8,21 +8,21 @@ import {
   REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
   REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
 import {
   SYSTEM_LOG_CHANGE,
   SYSTEM_LOG_REQUEST_ERROR,
   SYSTEM_LOG_STREAM_TYPES_SUCCESS,
   SYSTEM_LOG_STREAM_TYPES_ERROR
-} from '../constants/EventTypes';
-import BaseStore from './BaseStore';
-import Config from '../config/Config';
-import SystemLogActions from '../events/SystemLogActions';
-import {APPEND, PREPEND} from '../constants/SystemLogTypes';
-import {findNestedPropertyInObject} from '../utils/Util';
-import {MESSAGE} from '../constants/LogFields';
-import {msToLogTime} from '../utils/DateUtil';
+} from "../constants/EventTypes";
+import BaseStore from "./BaseStore";
+import Config from "../config/Config";
+import SystemLogActions from "../events/SystemLogActions";
+import { APPEND, PREPEND } from "../constants/SystemLogTypes";
+import { findNestedPropertyInObject } from "../utils/Util";
+import { MESSAGE } from "../constants/LogFields";
+import { msToLogTime } from "../utils/DateUtil";
 
 class SystemLogStore extends BaseStore {
   constructor() {
@@ -46,13 +46,13 @@ class SystemLogStore extends BaseStore {
       suppressUpdate: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
       }
 
-      const {data, firstEntry, subscriptionID, type} = payload.action;
+      const { data, firstEntry, subscriptionID, type } = payload.action;
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
@@ -88,10 +88,9 @@ class SystemLogStore extends BaseStore {
       newLogData.entries = entries.concat(logData.entries);
     }
     const length = entries.reduce((sum, entry) => {
-      return sum + findNestedPropertyInObject(
-        entry,
-        `fields.${MESSAGE}.length`
-      ) || 0;
+      return (
+        sum + findNestedPropertyInObject(entry, `fields.${MESSAGE}.length`) || 0
+      );
     }, 0);
 
     // Update new size
@@ -103,32 +102,35 @@ class SystemLogStore extends BaseStore {
   getFullLog(subscriptionID) {
     const entries = findNestedPropertyInObject(
       this.logs[subscriptionID],
-      'entries'
+      "entries"
     ) || [];
 
     // Formatting logs as we do in the CLI:
     // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260
-    return entries.filter((entry) => {
-      return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
-    }).map(function (entry) {
-      const {fields = {}} = entry;
-      const lineData = [];
-      // entry.realtime_timestamp returns a unix time in microseconds
-      // https://www.freedesktop.org/software/systemd/man/sd_journal_get_realtime_usec.html
-      if (typeof entry.realtime_timestamp === 'number') {
-        lineData.push(msToLogTime(entry.realtime_timestamp/1000));
-      }
-      // Concat `:` to last element if there is data
-      if (lineData.length) {
-        const lastElement = lineData[lineData.length - 1];
-        lineData[lineData.length - 1] = `${lastElement}:`;
-      }
+    return entries
+      .filter(entry => {
+        return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
+      })
+      .map(function(entry) {
+        const { fields = {} } = entry;
+        const lineData = [];
+        // entry.realtime_timestamp returns a unix time in microseconds
+        // https://www.freedesktop.org/software/systemd/man/sd_journal_get_realtime_usec.html
+        if (typeof entry.realtime_timestamp === "number") {
+          lineData.push(msToLogTime(entry.realtime_timestamp / 1000));
+        }
+        // Concat `:` to last element if there is data
+        if (lineData.length) {
+          const lastElement = lineData[lineData.length - 1];
+          lineData[lineData.length - 1] = `${lastElement}:`;
+        }
 
-      lineData.push(fields[MESSAGE]);
+        lineData.push(fields[MESSAGE]);
 
-      // Format: `date: MESSAGE`
-      return `${lineData.join(' ')}`;
-    }).join('\n');
+        // Format: `date: MESSAGE`
+        return `${lineData.join(" ")}`;
+      })
+      .join("\n");
   }
 
   hasLoadedTop(subscriptionID) {
@@ -141,11 +143,11 @@ class SystemLogStore extends BaseStore {
   }
 
   startTailing(nodeID, options) {
-    let {subscriptionID, cursor} = options;
+    let { subscriptionID, cursor } = options;
     if (!cursor && subscriptionID && this.logs[subscriptionID]) {
-      const {entries} = this.logs[subscriptionID];
+      const { entries } = this.logs[subscriptionID];
       cursor = entries[entries.length - 1].cursor;
-      options = Object.assign({}, options, {cursor});
+      options = Object.assign({}, options, { cursor });
     }
 
     // Will return unchanged subscriptionID if provided in the options
@@ -176,19 +178,16 @@ class SystemLogStore extends BaseStore {
   }
 
   fetchRange(nodeID, options) {
-    const {subscriptionID} = options;
+    const { subscriptionID } = options;
     const cursor = findNestedPropertyInObject(
       this.logs[subscriptionID],
-      'entries.0.cursor'
+      "entries.0.cursor"
     );
     if ((!cursor && !options.cursor) || this.hasLoadedTop(subscriptionID)) {
       return false;
     }
 
-    SystemLogActions.fetchRange(
-      nodeID,
-      Object.assign({cursor}, options)
-    );
+    SystemLogActions.fetchRange(nodeID, Object.assign({ cursor }, options));
   }
 
   fetchStreamTypes(nodeID) {
@@ -197,7 +196,7 @@ class SystemLogStore extends BaseStore {
 
   processLogAppend(subscriptionID, entries) {
     if (!this.logs[subscriptionID]) {
-      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+      this.logs[subscriptionID] = { entries: [], totalSize: 0 };
     }
 
     this.logs[subscriptionID] = this.addEntries(
@@ -210,14 +209,14 @@ class SystemLogStore extends BaseStore {
 
   processLogError(subscriptionID, data) {
     if (!this.logs[subscriptionID]) {
-      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+      this.logs[subscriptionID] = { entries: [], totalSize: 0 };
     }
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, APPEND, data);
   }
 
   processLogPrepend(subscriptionID, firstEntry, entries = []) {
     if (!this.logs[subscriptionID]) {
-      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+      this.logs[subscriptionID] = { entries: [], totalSize: 0 };
     }
 
     this.logs[subscriptionID].hasLoadedTop = firstEntry;
@@ -233,13 +232,13 @@ class SystemLogStore extends BaseStore {
 
   processLogPrependError(subscriptionID, data) {
     if (!this.logs[subscriptionID]) {
-      this.logs[subscriptionID] = {entries: [], totalSize: 0};
+      this.logs[subscriptionID] = { entries: [], totalSize: 0 };
     }
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, PREPEND, data);
   }
 
   get storeID() {
-    return 'systemLog';
+    return "systemLog";
   }
 }
 

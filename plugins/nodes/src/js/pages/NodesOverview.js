@@ -1,39 +1,41 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Link, routerShape} from 'react-router';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import classNames from "classnames";
+import React from "react";
+import { Link, routerShape } from "react-router";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AlertPanel from '#SRC/js/components/AlertPanel';
-import AlertPanelHeader from '#SRC/js/components/AlertPanelHeader';
-import CompositeState from '#SRC/js/structs/CompositeState';
-import Config from '#SRC/js/config/Config';
-import EventTypes from '#SRC/js/constants/EventTypes';
-import FilterInputText from '#SRC/js/components/FilterInputText';
-import Icon from '#SRC/js/components/Icon';
-import InternalStorageMixin from '#SRC/js/mixins/InternalStorageMixin';
-import MesosSummaryStore from '#SRC/js/stores/MesosSummaryStore';
-import Page from '#SRC/js/components/Page';
-import QueryParamsMixin from '#SRC/js/mixins/QueryParamsMixin';
-import SidebarActions from '#SRC/js/events/SidebarActions';
-import StringUtil from '#SRC/js/utils/StringUtil';
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import CompositeState from "#SRC/js/structs/CompositeState";
+import Config from "#SRC/js/config/Config";
+import EventTypes from "#SRC/js/constants/EventTypes";
+import FilterInputText from "#SRC/js/components/FilterInputText";
+import Icon from "#SRC/js/components/Icon";
+import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
+import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
+import Page from "#SRC/js/components/Page";
+import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
+import SidebarActions from "#SRC/js/events/SidebarActions";
+import StringUtil from "#SRC/js/utils/StringUtil";
 
-import HostsPageContent from './nodes-overview/HostsPageContent';
-import NodeBreadcrumbs from '../components/NodeBreadcrumbs';
+import HostsPageContent from "./nodes-overview/HostsPageContent";
+import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 
 const NODES_DISPLAY_LIMIT = 300;
 
 function getMesosHosts(state) {
-  const states = MesosSummaryStore.get('states');
+  const states = MesosSummaryStore.get("states");
   const lastState = states.lastSuccessful();
   const nodes = CompositeState.getNodesList();
 
-  const {byServiceFilter, healthFilter, searchString} = state;
-  const filteredNodes = nodes.filter({
-    service: byServiceFilter,
-    name: searchString,
-    health: healthFilter
-  }).getItems();
-  const nodeIDs = filteredNodes.map(function (node) {
+  const { byServiceFilter, healthFilter, searchString } = state;
+  const filteredNodes = nodes
+    .filter({
+      service: byServiceFilter,
+      name: searchString,
+      health: healthFilter
+    })
+    .getItems();
+  const nodeIDs = filteredNodes.map(function(node) {
     return node.id;
   });
 
@@ -49,19 +51,18 @@ function getMesosHosts(state) {
 
 var DEFAULT_FILTER_OPTIONS = {
   byServiceFilter: null,
-  healthFilter: 'all',
-  searchString: ''
+  healthFilter: "all",
+  searchString: ""
 };
 
 var NodesOverview = React.createClass({
-
-  displayName: 'NodesOverview',
+  displayName: "NodesOverview",
 
   mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
 
   statics: {
     routeConfig: {
-      label: 'Nodes',
+      label: "Nodes",
       icon: <Icon family="product" id="servers-inverse" />,
       matches: /^\/nodes/
     },
@@ -79,7 +80,7 @@ var NodesOverview = React.createClass({
   },
 
   getInitialState() {
-    return Object.assign({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({ selectedResource: "cpus" }, DEFAULT_FILTER_OPTIONS);
   },
 
   componentWillMount() {
@@ -91,8 +92,8 @@ var NodesOverview = React.createClass({
 
     this.store_listeners = [
       {
-        name: 'nodeHealth',
-        events: ['success', 'error']
+        name: "nodeHealth",
+        events: ["success", "error"]
       }
     ];
   },
@@ -144,21 +145,21 @@ var NodesOverview = React.createClass({
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
 
-    this.resetQueryParams(['searchString', 'filterService', 'filterHealth']);
+    this.resetQueryParams(["searchString", "filterService", "filterHealth"]);
   },
 
-  handleSearchStringChange(searchString = '') {
+  handleSearchStringChange(searchString = "") {
     var stateChanges = Object.assign({}, this.state, {
       searchString
     });
 
     this.internalStorage_update(getMesosHosts(stateChanges));
-    this.setState({searchString});
-    this.setQueryParam('searchString', searchString);
+    this.setState({ searchString });
+    this.setQueryParam("searchString", searchString);
   },
 
   handleByServiceFilterChange(byServiceFilter) {
-    if (byServiceFilter === '') {
+    if (byServiceFilter === "") {
       byServiceFilter = null;
     }
 
@@ -167,32 +168,32 @@ var NodesOverview = React.createClass({
     });
 
     this.internalStorage_update(getMesosHosts(stateChanges));
-    this.setState({byServiceFilter});
-    this.setQueryParam('filterService', byServiceFilter);
+    this.setState({ byServiceFilter });
+    this.setQueryParam("filterService", byServiceFilter);
   },
 
   handleHealthFilterChange(healthFilter) {
-    this.internalStorage_update(getMesosHosts({healthFilter}));
-    this.setState({healthFilter});
-    this.setQueryParam('filterHealth', healthFilter);
+    this.internalStorage_update(getMesosHosts({ healthFilter }));
+    this.setState({ healthFilter });
+    this.setQueryParam("filterHealth", healthFilter);
   },
 
   onResourceSelectionChange(selectedResource) {
     if (this.state.selectedResource !== selectedResource) {
-      this.setState({selectedResource});
+      this.setState({ selectedResource });
     }
   },
 
   getButtonContent(filterName, count) {
     const dotClassSet = classNames({
-      'dot': filterName !== 'all',
-      'danger': filterName === 'unhealthy',
-      'success': filterName === 'healthy'
+      dot: filterName !== "all",
+      danger: filterName === "unhealthy",
+      success: filterName === "healthy"
     });
 
     return (
       <span className="badge-container button-align-content label flush">
-        <span className={dotClassSet}></span>
+        <span className={dotClassSet} />
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
@@ -202,7 +203,7 @@ var NodesOverview = React.createClass({
   },
 
   getFilterInputText() {
-    var isVisible = this.props.location.pathname.endsWith('/nodes/');
+    var isVisible = this.props.location.pathname.endsWith("/nodes/");
 
     if (!isVisible) {
       return null;
@@ -212,33 +213,28 @@ var NodesOverview = React.createClass({
       <FilterInputText
         className="flush-bottom"
         searchString={this.state.searchString}
-        handleFilterChange={this.handleSearchStringChange} />
+        handleFilterChange={this.handleSearchStringChange}
+      />
     );
   },
 
   getViewTypeRadioButtons(resetFilter) {
     const isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
 
-    var listClassSet = classNames('button button-stroke', {
-      'active': !isGridActive
+    var listClassSet = classNames("button button-stroke", {
+      active: !isGridActive
     });
 
-    var gridClassSet = classNames('button button-stroke', {
-      'active': isGridActive
+    var gridClassSet = classNames("button button-stroke", {
+      active: isGridActive
     });
 
     return (
       <div className="button-group flush-bottom">
-        <Link
-          className={listClassSet}
-          onClick={resetFilter}
-          to="/nodes">
+        <Link className={listClassSet} onClick={resetFilter} to="/nodes">
           List
         </Link>
-        <Link
-          className={gridClassSet}
-          onClick={resetFilter}
-          to="/nodes/grid">
+        <Link className={gridClassSet} onClick={resetFilter} to="/nodes/grid">
           Grid
         </Link>
       </div>
@@ -246,22 +242,26 @@ var NodesOverview = React.createClass({
   },
 
   getHostsPageContent() {
-    const {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
+    const {
+      byServiceFilter,
+      healthFilter,
+      searchString,
+      selectedResource
+    } = this.state;
     var data = this.internalStorage_get();
     const nodes = data.nodes || [];
     const nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
-    const nodesHealth = CompositeState.getNodesList().getItems().map(
-      function (node) {
+    const nodesHealth = CompositeState.getNodesList()
+      .getItems()
+      .map(function(node) {
         return node.getHealth();
-      }
-    );
-    const isFiltering = byServiceFilter !== null ||
-      healthFilter !== 'all' ||
-      searchString !== '';
+      });
+    const isFiltering =
+      byServiceFilter !== null || healthFilter !== "all" || searchString !== "";
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
           filterButtonContent={this.getButtonContent}
@@ -282,7 +282,8 @@ var NodesOverview = React.createClass({
           totalHostsResources={data.totalHostsResources}
           totalNodeCount={data.totalNodes}
           totalResources={data.totalResources}
-          viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}>
+          viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
+        >
           {this.props.children}
         </HostsPageContent>
       </Page>
@@ -312,12 +313,11 @@ var NodesOverview = React.createClass({
 
   render() {
     var data = this.internalStorage_get();
-    const statesProcessed = MesosSummaryStore.get('statesProcessed');
+    const statesProcessed = MesosSummaryStore.get("statesProcessed");
     var isEmpty = statesProcessed && data.totalNodes === 0;
 
     return this.getContents(isEmpty);
   }
-
 });
 
 module.exports = NodesOverview;

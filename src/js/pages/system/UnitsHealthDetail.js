@@ -1,23 +1,23 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import FilterBar from '../../components/FilterBar';
-import FilterHeadline from '../../components/FilterHeadline';
-import FilterInputText from '../../components/FilterInputText';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
-import UnitHealthDropdown from '../../components/UnitHealthDropdown';
-import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
-import UnitHealthStore from '../../stores/UnitHealthStore';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import FilterInputText from "../../components/FilterInputText";
+import Loader from "../../components/Loader";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
+import UnitHealthDropdown from "../../components/UnitHealthDropdown";
+import UnitHealthNodesTable from "../../components/UnitHealthNodesTable";
+import UnitHealthStore from "../../stores/UnitHealthStore";
 
-const UnitHealthDetailBreadcrumbs = ({unit}) => {
+const UnitHealthDetailBreadcrumbs = ({ unit }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Components">
       <BreadcrumbTextContent>
@@ -33,7 +33,7 @@ const UnitHealthDetailBreadcrumbs = ({unit}) => {
     crumbs.push(
       <Breadcrumb key={0} title="Components">
         <BreadcrumbTextContent>
-          <Link to={`/components/${unit.get('id')}`}>
+          <Link to={`/components/${unit.get("id")}`}>
             {`${unitTitle} `}
             <span className={healthStatus.classNames}>
               ({healthStatus.title})
@@ -48,9 +48,9 @@ const UnitHealthDetailBreadcrumbs = ({unit}) => {
 };
 
 const METHODS_TO_BIND = [
-  'handleHealthSelection',
-  'handleSearchStringChange',
-  'resetFilter'
+  "handleHealthSelection",
+  "handleSearchStringChange",
+  "resetFilter"
 ];
 
 class UnitsHealthDetail extends mixin(StoreMixin) {
@@ -59,21 +59,21 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'unitHealth',
-        events: ['unitSuccess', 'unitError', 'nodesSuccess', 'nodesError'],
+        name: "unitHealth",
+        events: ["unitSuccess", "unitError", "nodesSuccess", "nodesError"],
         suppressUpdate: true
       }
     ];
 
     this.state = {
       hasError: false,
-      healthFilter: 'all',
+      healthFilter: "all",
       isLoadingUnit: true,
       isLoadingNodes: true,
-      searchString: ''
+      searchString: ""
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -86,37 +86,37 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   onUnitHealthStoreUnitSuccess() {
-    this.setState({isLoadingUnit: false});
+    this.setState({ isLoadingUnit: false });
   }
 
   onUnitHealthStoreUnitError() {
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 
   onUnitHealthStoreNodesSuccess() {
-    this.setState({isLoadingNodes: false});
+    this.setState({ isLoadingNodes: false });
   }
 
   onUnitHealthStoreNodeError() {
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 
   handleHealthSelection(selectedHealth) {
-    this.setState({healthFilter: selectedHealth.id});
+    this.setState({ healthFilter: selectedHealth.id });
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   resetFilter() {
     if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
-      this.healthFilter.setDropdownValue('all');
+      this.healthFilter.setDropdownValue("all");
     }
 
     this.setState({
-      searchString: '',
-      healthFilter: 'all'
+      searchString: "",
+      healthFilter: "all"
     });
   }
 
@@ -134,18 +134,12 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
   getNodesTable(unit, visibleData) {
     return (
-      <UnitHealthNodesTable
-        nodes={visibleData}
-        params={this.props.params} />
+      <UnitHealthNodesTable nodes={visibleData} params={this.props.params} />
     );
   }
 
   getUnit() {
-    const {
-      hasError,
-      isLoadingUnit,
-      isLoadingNodes
-    } = this.state;
+    const { hasError, isLoadingUnit, isLoadingNodes } = this.state;
 
     if (hasError) {
       return null;
@@ -159,7 +153,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   getVisibleData(data, searchString, healthFilter) {
-    return data.filter({ip: searchString, health: healthFilter}).getItems();
+    return data.filter({ ip: searchString, health: healthFilter }).getItems();
   }
 
   getContent() {
@@ -186,23 +180,26 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <FilterHeadline
           currentLength={visibleData.length}
-          isFiltering={healthFilter !== 'all' || searchString !== ''}
+          isFiltering={healthFilter !== "all" || searchString !== ""}
           name="Health Check"
           onReset={this.resetFilter}
-          totalLength={nodes.getItems().length} />
+          totalLength={nodes.getItems().length}
+        />
         <FilterBar>
           <div className="form-group flush-bottom">
             <FilterInputText
               className="flush-bottom"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange} />
+              handleFilterChange={this.handleSearchStringChange}
+            />
           </div>
           <UnitHealthDropdown
             className="button dropdown-toggle text-align-left"
             dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
-            ref={(ref) => this.healthFilter = ref} />
+            ref={ref => (this.healthFilter = ref)}
+          />
         </FilterBar>
         <div className="flex-container-col flex-grow no-overflow">
           {this.getNodesTable(this.getUnit(), visibleData)}
@@ -214,9 +211,9 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={
-          <UnitHealthDetailBreadcrumbs unit={this.getUnit()} />
-        } />
+        <Page.Header
+          breadcrumbs={<UnitHealthDetailBreadcrumbs unit={this.getUnit()} />}
+        />
         {this.getContent()}
       </Page>
     );

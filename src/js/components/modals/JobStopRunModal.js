@@ -1,46 +1,46 @@
-import {Confirm} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { Confirm } from "reactjs-components";
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import MetronomeStore from '../../stores/MetronomeStore';
-import ModalHeading from '../modals/ModalHeading';
+import MetronomeStore from "../../stores/MetronomeStore";
+import ModalHeading from "../modals/ModalHeading";
 
-const METHODS_TO_BIND = [
-  'handleButtonConfirm'
-];
+const METHODS_TO_BIND = ["handleButtonConfirm"];
 
 class JobStopRunModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = [{
-      name: 'metronome',
-      events: ['jobStopRunSuccess', 'jobStopRunError'],
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        name: "metronome",
+        events: ["jobStopRunSuccess", "jobStopRunError"],
+        suppressUpdate: true
+      }
+    ];
 
     this.state = {
       pendingRequest: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleButtonConfirm() {
-    const {selectedItems, jobID} = this.props;
+    const { selectedItems, jobID } = this.props;
     // TODO DCOS-8763 introduce support for multiple job run IDs
     if (selectedItems.length === 1) {
       MetronomeStore.stopJobRun(jobID, selectedItems[0]);
     }
 
-    this.setState({pendingRequest: true});
+    this.setState({ pendingRequest: true });
   }
 
   onMetronomeStoreJobStopRunSuccess() {
-    this.setState({pendingRequest: false});
+    this.setState({ pendingRequest: false });
     this.props.onClose();
     this.props.onSuccess();
   }
@@ -52,7 +52,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   getContentHeader(selectedItems, selectedItemsLength) {
     let headerContent = ` ${selectedItemsLength} Job Runs`;
     if (selectedItemsLength === 1) {
-      headerContent = 'this';
+      headerContent = "this";
     }
 
     return (
@@ -68,7 +68,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
     if (selectedItemsLength === 1) {
       bodyText = `the job run with id ${selectedItems[0]}`;
     } else {
-      bodyText = 'the selected job runs';
+      bodyText = "the selected job runs";
     }
 
     return (
@@ -79,7 +79,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    const {selectedItems} = this.props;
+    const { selectedItems } = this.props;
     const selectedItemsLength = selectedItems.length;
 
     return (
@@ -90,12 +90,12 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   render() {
-    const {onClose, open, selectedItems} = this.props;
-    let rightButtonText = 'Stop Job Run';
+    const { onClose, open, selectedItems } = this.props;
+    let rightButtonText = "Stop Job Run";
     const selectedItemsLength = selectedItems.length;
 
     if (selectedItems.length > 1) {
-      rightButtonText = 'Stop Job Runs';
+      rightButtonText = "Stop Job Runs";
     }
 
     return (
@@ -110,12 +110,12 @@ class JobStopRunModal extends mixin(StoreMixin) {
         rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}
-        showHeader={true}>
+        showHeader={true}
+      >
         {this.getModalContents()}
       </Confirm>
     );
   }
-
 }
 
 JobStopRunModal.defaultProps = {

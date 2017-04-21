@@ -1,43 +1,44 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import {List} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Link } from "react-router";
+import { List } from "reactjs-components";
+import React from "react";
 
 class ComponentList extends React.Component {
-
   getComponentListContent(units) {
-    return units.map(function (unit) {
+    return units.map(function(unit) {
       const health = unit.getHealth();
-      const healthClasses = classNames('text-align-right', health.classNames);
-      const unitID = unit.get('id');
+      const healthClasses = classNames("text-align-right", health.classNames);
+      const unitID = unit.get("id");
 
       return {
         content: [
           {
-            className: 'dashboard-health-list-item-description text-overflow',
+            className: "dashboard-health-list-item-description text-overflow",
             content: (
-              <Link to={`/components/${unitID}`}
-                className="dashboard-health-list-item-cell emphasis">
+              <Link
+                to={`/components/${unitID}`}
+                className="dashboard-health-list-item-cell emphasis"
+              >
                 {unit.getTitle()}
               </Link>
             ),
-            tag: 'span'
+            tag: "span"
           },
           {
-            className: 'dashboard-health-list-health-label',
+            className: "dashboard-health-list-health-label",
             content: (
               <div key="health" className={healthClasses}>
                 {health.title}
               </div>
             ),
-            tag: 'div'
+            tag: "div"
           }
         ]
       };
     });
   }
 
- /**
+  /**
  * Order health status
  * based on HealthSorting mapping value
  * where lowest (0) (top of the list) is most important for visibility
@@ -47,7 +48,7 @@ class ComponentList extends React.Component {
  * @returns {Number} item position
  */
   getSortedHealthValues(items) {
-    items.sort(function (a, b) {
+    items.sort(function(a, b) {
       let aHealthScore = a.getHealth().sortingValue;
       let bHealthScore = b.getHealth().sortingValue;
 
@@ -81,7 +82,7 @@ class ComponentList extends React.Component {
    * @memberOf ComponentList
    */
   getVisibleComponents(units) {
-    const {displayCount} = this.props;
+    const { displayCount } = this.props;
 
     if (units.length > displayCount) {
       return units.slice(0, displayCount);
@@ -100,7 +101,7 @@ class ComponentList extends React.Component {
   }
 
   render() {
-    let {units} = this.props;
+    let { units } = this.props;
     units = units.getItems();
 
     if (units.length === 0) {
@@ -116,7 +117,8 @@ class ComponentList extends React.Component {
         <List
           className="list list-unstyled"
           content={content}
-          transition={false} />
+          transition={false}
+        />
       </div>
     );
   }

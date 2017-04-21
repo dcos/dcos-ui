@@ -1,62 +1,66 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
 
-import ConfigurationMapBooleanValue from '../components/ConfigurationMapBooleanValue';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import VolumeConstants from '../constants/VolumeConstants';
+import ConfigurationMapBooleanValue
+  from "../components/ConfigurationMapBooleanValue";
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
+import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
+import VolumeConstants from "../constants/VolumeConstants";
 
 const BOOLEAN_OPTIONS = {
-  truthy : 'TRUE',
-  falsy  : 'FALSE'
+  truthy: "TRUE",
+  falsy: "FALSE"
 };
 
 class PodStorageConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: 'Volume',
-        prop: 'volume'
+        heading: "Volume",
+        prop: "volume"
       },
       {
-        heading: 'Type',
-        prop: 'type'
+        heading: "Type",
+        prop: "type"
       },
       {
-        heading: 'Size',
-        prop: 'size'
+        heading: "Size",
+        prop: "size"
       },
       {
-        heading: 'Read Only',
-        prop: 'readOnly',
+        heading: "Read Only",
+        prop: "readOnly",
         render(prop, row) {
           return (
             <ConfigurationMapBooleanValue
               options={BOOLEAN_OPTIONS}
-              value={row[prop]} />
+              value={row[prop]}
+            />
           );
         }
       },
       {
-        heading: 'Container Mount Path',
-        prop: 'mountPath'
+        heading: "Container Mount Path",
+        prop: "mountPath"
       },
       {
-        heading: 'Host Path',
-        prop: 'hostPath'
+        heading: "Host Path",
+        prop: "hostPath"
       },
       {
-        heading: 'Container',
-        prop: 'container'
+        heading: "Container",
+        prop: "container"
       }
     ];
   }
 
   render() {
-    const {onEditClick} = this.props;
-    const {volumes = [], containers = []} = this.props.appConfig;
+    const { onEditClick } = this.props;
+    const { volumes = [], containers = [] } = this.props.appConfig;
     const volumeSummary = volumes.reduce((memo, volume) => {
       const type = volume.host == null
         ? VolumeConstants.type.ephemeral
@@ -69,25 +73,23 @@ class PodStorageConfigSection extends React.Component {
       };
 
       // Fetch all mounts for this volume in the containers
-      const containerMounts = containers.reduce(
-        (cmMemo, container) => {
-          const {volumeMounts = []} = container;
+      const containerMounts = containers.reduce((cmMemo, container) => {
+        const { volumeMounts = [] } = container;
 
-          return cmMemo.concat(
-            volumeMounts
-              .filter((volumeMount) => volumeMount.name === volume.name)
-              .map((volumeMount) => {
-                return {
-                  container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
-                    container
-                  ),
-                  mountPath: volumeMount.mountPath,
-                  readOnly: volumeMount.readOnly || false
-                };
-              })
-          );
-        }, []
-      );
+        return cmMemo.concat(
+          volumeMounts
+            .filter(volumeMount => volumeMount.name === volume.name)
+            .map(volumeMount => {
+              return {
+                container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
+                  container
+                ),
+                mountPath: volumeMount.mountPath,
+                readOnly: volumeMount.readOnly || false
+              };
+            })
+        );
+      }, []);
 
       // If there are no mounts, add only one line without containers
       if (containerMounts.length === 0) {
@@ -98,9 +100,7 @@ class PodStorageConfigSection extends React.Component {
 
       // Otherwise create one volume entry for each mount
       return containerMounts.reduce((volumesMemo, mountInfo) => {
-        return volumesMemo.concat(
-          Object.assign(volumeInfo, mountInfo)
-        );
+        return volumesMemo.concat(Object.assign(volumeInfo, mountInfo));
       }, memo);
     }, []);
 
@@ -113,11 +113,12 @@ class PodStorageConfigSection extends React.Component {
         <ConfigurationMapHeading level={1}>Storage</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
-            columnDefaults={{hideIfEmpty: true}}
+            columnDefaults={{ hideIfEmpty: true }}
             columns={this.getColumns()}
             data={volumeSummary}
             onEditClick={onEditClick}
-            tabViewID="multivolumes" />
+            tabViewID="multivolumes"
+          />
         </ConfigurationMapSection>
       </div>
     );

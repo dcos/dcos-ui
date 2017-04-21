@@ -1,9 +1,5 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 
 const defaultFieldValues = {
   automaticPort: true,
@@ -31,16 +27,19 @@ const defaultFieldValues = {
  * @param {*} action.value - to perform action with
  * @return {Object[]} new portDefinitions with action performed on it
  */
-function reducer(portDefinitions = [], {type, path = [], value}) {
+function reducer(portDefinitions = [], { type, path = [], value }) {
   const [base, index, field, subfield] = path;
-  const joinedPath = path.join('.');
+  const joinedPath = path.join(".");
 
-  if (base === 'portDefinitions') {
-    if (joinedPath === 'portDefinitions') {
+  if (base === "portDefinitions") {
+    if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
           const portDefinition = Object.assign({}, defaultFieldValues);
-          portDefinition.protocol = Object.assign({}, defaultFieldValues.protocol);
+          portDefinition.protocol = Object.assign(
+            {},
+            defaultFieldValues.protocol
+          );
           portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:
@@ -52,13 +51,13 @@ function reducer(portDefinitions = [], {type, path = [], value}) {
     }
 
     if (index != null && type === SET) {
-      Object.keys(defaultFieldValues).forEach((fieldKey) => {
+      Object.keys(defaultFieldValues).forEach(fieldKey => {
         if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {
           portDefinitions[index][fieldKey] = value;
         }
       });
 
-      if (field === 'protocol' && PROTOCOLS.includes(subfield)) {
+      if (field === "protocol" && PROTOCOLS.includes(subfield)) {
         portDefinitions[index].protocol[subfield] = value;
       }
 

@@ -1,8 +1,8 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import ActionTypes from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
+import ActionTypes from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import Config from "../config/Config";
 
 const ConfigActions = {
   fetchConfig() {
@@ -56,14 +56,19 @@ if (Config.useFixtures || Config.useUIConfigFixtures) {
   }
 
   global.actionTypes.ConfigActions = {
-    fetchConfig: {event: 'success', success: {
-      response: Config.uiConfigurationFixture
-    }}
+    fetchConfig: {
+      event: "success",
+      success: {
+        response: Config.uiConfigurationFixture
+      }
+    }
   };
 
-  Object.keys(global.actionTypes.ConfigActions).forEach(function (method) {
+  Object.keys(global.actionTypes.ConfigActions).forEach(function(method) {
     ConfigActions[method] = RequestUtil.stubRequest(
-      ConfigActions, 'ConfigActions', method
+      ConfigActions,
+      "ConfigActions",
+      method
     );
   });
 }

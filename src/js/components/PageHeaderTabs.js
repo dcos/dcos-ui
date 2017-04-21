@@ -1,22 +1,22 @@
-import classNames from 'classnames';
-import {Link, routerShape} from 'react-router';
-import React from 'react';
+import classNames from "classnames";
+import { Link, routerShape } from "react-router";
+import React from "react";
 
-import PageHeaderNavigationDropdown from './PageHeaderNavigationDropdown';
+import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
-const METHODS_TO_BIND = ['handleNavigationItemSelection'];
+const METHODS_TO_BIND = ["handleNavigationItemSelection"];
 
 class PageHeaderTabs extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleNavigationItemSelection(navItem) {
-    const {callback, routePath} = navItem;
+    const { callback, routePath } = navItem;
 
     if (callback != null) {
       callback();
@@ -28,12 +28,14 @@ class PageHeaderTabs extends React.Component {
   }
 
   getTabs() {
-    const {props: {tabs}} = this;
+    const { props: { tabs } } = this;
 
-    const tabElements = tabs.map(function (tab, index) {
-      const {isActive, callback, label, routePath} = tab;
-      const classes = classNames('menu-tabbed-item', {active: isActive});
-      const linkClasses = classNames('menu-tabbed-item-label', {active: isActive});
+    const tabElements = tabs.map(function(tab, index) {
+      const { isActive, callback, label, routePath } = tab;
+      const classes = classNames("menu-tabbed-item", { active: isActive });
+      const linkClasses = classNames("menu-tabbed-item-label", {
+        active: isActive
+      });
 
       const innerLinkSpan = (
         <span className="menu-tabbed-item-label-text">
@@ -48,10 +50,7 @@ class PageHeaderTabs extends React.Component {
 
       if (callback == null && routePath != null) {
         link = (
-          <Link
-            className={linkClasses}
-            to={routePath}
-            activeClassName="active">
+          <Link className={linkClasses} to={routePath} activeClassName="active">
             {innerLinkSpan}
           </Link>
         );
@@ -72,14 +71,14 @@ class PageHeaderTabs extends React.Component {
   }
 
   getNavigationDropdownItems() {
-    const {tabs} = this.props;
+    const { tabs } = this.props;
 
     if (tabs == null) {
       return [];
     }
 
     return tabs.map((tab, index) => {
-      const {callback, isActive, label, routePath} = tab;
+      const { callback, isActive, label, routePath } = tab;
       // We add 1 to index for the ID to avoid an ID of 0, due to coercion in
       // the Dropdown component.
       const id = index + 1;
@@ -104,7 +103,8 @@ class PageHeaderTabs extends React.Component {
         {this.getTabs()}
         <PageHeaderNavigationDropdown
           handleNavigationItemSelection={this.handleNavigationItemSelection}
-          items={this.getNavigationDropdownItems()} />
+          items={this.getNavigationDropdownItems()}
+        />
       </div>
     );
   }

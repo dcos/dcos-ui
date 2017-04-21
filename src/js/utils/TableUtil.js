@@ -1,9 +1,10 @@
-import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
-import UnitHealthStatus from '../constants/UnitHealthStatus';
-import Util from './Util';
+import HealthSorting
+  from "../../../plugins/services/src/js/constants/HealthSorting";
+import UnitHealthStatus from "../constants/UnitHealthStatus";
+import Util from "./Util";
 
 var TableUtil = {
-    /**
+  /**
    * WARNING: When removing/modifying this function be aware of comments/sizes
    * in variables-layout.less
    * Returns an integer of what the expected height of a
@@ -14,15 +15,15 @@ var TableUtil = {
   getRowHeight() {
     const defaultRowSize = 29;
     const definitionList = {
-      mini: {screen: 480, rowHeight: 32},
-      small: {screen: 768, rowHeight: 37},
-      medium: {screen: 992, rowHeight: 45},
-      large: {screen: 1270, rowHeight: 52}
+      mini: { screen: 480, rowHeight: 32 },
+      small: { screen: 768, rowHeight: 37 },
+      medium: { screen: 992, rowHeight: 45 },
+      large: { screen: 1270, rowHeight: 52 }
     };
 
     let rowHeight = null;
     const windowWidth = global.innerWidth;
-    Object.keys(definitionList).forEach(function (size) {
+    Object.keys(definitionList).forEach(function(size) {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;
       }
@@ -63,8 +64,8 @@ var TableUtil = {
    * between two items
    */
   getSortFunction(tieBreakerProp, getProperty) {
-    return function (prop, order) {
-      return function (a, b) {
+    return function(prop, order) {
+      return function(a, b) {
         return TableUtil.compareValues(
           getProperty(a, prop, order),
           getProperty(b, prop, order),
@@ -85,17 +86,17 @@ var TableUtil = {
   getHealthSortingValue(healthValue) {
     let match;
 
-    if (typeof healthValue == 'number') {
+    if (typeof healthValue == "number") {
       match = UnitHealthStatus[healthValue].sortingValue;
     }
 
-    if (typeof healthValue == 'string') {
+    if (typeof healthValue == "string") {
       healthValue = Util.toUpperCaseIfString(healthValue);
       match = HealthSorting[healthValue];
     }
 
     // defaults to NA if can't map to a health sorting value
-    if (typeof match === 'undefined') {
+    if (typeof match === "undefined") {
       match = HealthSorting.NA;
     }
 
@@ -134,7 +135,7 @@ var TableUtil = {
     return 0;
   },
 
-/**
+  /**
  *
  * @returns {Function} sortHealthValues
  */

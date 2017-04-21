@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 
 class TaskFilesTab extends React.Component {
   render() {
-    const {children, directory, onOpenLogClick, task} = this.props;
+    const { children, directory, onOpenLogClick, task } = this.props;
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-        {children && React.cloneElement(children, {
-          directory,
-          task,
-          onOpenLogClick
-        })}
+        {children &&
+          React.cloneElement(children, {
+            directory,
+            task,
+            onOpenLogClick
+          })}
       </div>
     );
   }

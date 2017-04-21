@@ -1,10 +1,10 @@
-import classNames from 'classnames';
-import DeepEqual from 'deep-equal';
-import React, {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+import classNames from "classnames";
+import DeepEqual from "deep-equal";
+import React, { PropTypes } from "react";
+import ReactDOM from "react-dom";
 
-import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
-import Icon from './Icon';
+import BreadcrumbSegmentLink from "./BreadcrumbSegmentLink";
+import Icon from "./Icon";
 
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
@@ -25,8 +25,8 @@ class ManualBreadcrumbs extends React.Component {
 
   componentDidMount() {
     if (global != null) {
-      global.addEventListener('resize', this.handleResize);
-      global.addEventListener('focus', this.handleResize);
+      global.addEventListener("resize", this.handleResize);
+      global.addEventListener("focus", this.handleResize);
     }
   }
 
@@ -36,8 +36,8 @@ class ManualBreadcrumbs extends React.Component {
 
   componentWillUnmount() {
     if (global != null) {
-      global.removeEventListener('resize', this.handleResize);
-      global.removeEventListener('focus', this.handleResize);
+      global.removeEventListener("resize", this.handleResize);
+      global.removeEventListener("focus", this.handleResize);
     }
   }
 
@@ -91,11 +91,13 @@ class ManualBreadcrumbs extends React.Component {
 
   getExpandedWidth() {
     // array/splat casts NodeList to array
-    const listItems = [...ReactDOM.findDOMNode(this).children]
-      .filter(function (_, index) {
-        // Filter out even nodes containing '>'
-        return index % 2 === 0;
-      });
+    const listItems = [...ReactDOM.findDOMNode(this).children].filter(function(
+      _,
+      index
+    ) {
+      // Filter out even nodes containing '>'
+      return index % 2 === 0;
+    });
 
     return listItems
       .map((item, index) => {
@@ -107,10 +109,9 @@ class ManualBreadcrumbs extends React.Component {
 
         return this.getWidthFromCollapsedItem(item);
       })
-      .reduce(
-        function (totalWidth, itemWidth) { return totalWidth + itemWidth; },
-        this.getLastItemWidth()
-      );
+      .reduce(function(totalWidth, itemWidth) {
+        return totalWidth + itemWidth;
+      }, this.getLastItemWidth());
   }
 
   getLastItemWidth() {
@@ -135,11 +136,11 @@ class ManualBreadcrumbs extends React.Component {
 
   getBreadcrumb(breadcrumb, key) {
     if (!React.isValidElement(breadcrumb)) {
-      if (typeof breadcrumb === 'string') {
-        breadcrumb = {label: breadcrumb};
+      if (typeof breadcrumb === "string") {
+        breadcrumb = { label: breadcrumb };
       }
 
-      breadcrumb = (<BreadcrumbSegmentLink {...breadcrumb} />);
+      breadcrumb = <BreadcrumbSegmentLink {...breadcrumb} />;
     }
 
     return this.wrapListItem(breadcrumb, key);
@@ -147,7 +148,7 @@ class ManualBreadcrumbs extends React.Component {
 
   getBreadcrumbDivider(key) {
     return (
-      <li className="flush" key={key} >
+      <li className="flush" key={key}>
         <Icon id="caret-right" size="mini" />
       </li>
     );
@@ -178,8 +179,8 @@ class ManualBreadcrumbs extends React.Component {
 
   render() {
     const classSet = classNames(
-      'breadcrumb list list-inline list-unstyled h4 flush-top flush-left',
-      {collapsed: this.state.collapsed},
+      "breadcrumb list list-inline list-unstyled h4 flush-top flush-left",
+      { collapsed: this.state.collapsed },
       this.props.breadcrumbClasses
     );
 

@@ -1,6 +1,6 @@
-import Config from '../config/Config';
-import UserSettingsStore from '../stores/UserSettingsStore';
-import {SAVED_STATE_KEY} from '../constants/UserSettings';
+import Config from "../config/Config";
+import UserSettingsStore from "../stores/UserSettingsStore";
+import { SAVED_STATE_KEY } from "../constants/UserSettings";
 
 const SaveStateMixin = {
   componentWillMount() {
@@ -22,7 +22,7 @@ const SaveStateMixin = {
   },
 
   saveState_save() {
-    const {saveState_key, saveState_properties, state} = this;
+    const { saveState_key, saveState_properties, state } = this;
     let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY);
     if (savedStates == null) {
       savedStates = {};
@@ -30,7 +30,7 @@ const SaveStateMixin = {
 
     let stateToSave = {};
     if (saveState_properties) {
-      stateToSave = saveState_properties.reduce(function (newState, property) {
+      stateToSave = saveState_properties.reduce(function(newState, property) {
         newState[property] = state[property];
 
         return newState;
@@ -40,8 +40,8 @@ const SaveStateMixin = {
     if (Object.keys(stateToSave).length) {
       savedStates[saveState_key] = stateToSave;
       UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
-    } else if (Config.environment === 'development') {
-      console.warn('No state saved. Please set saveState_properties.');
+    } else if (Config.environment === "development") {
+      console.warn("No state saved. Please set saveState_properties.");
     }
   }
 };

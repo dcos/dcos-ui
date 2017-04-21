@@ -1,13 +1,12 @@
-import React from 'react';
-import {Dropdown} from 'reactjs-components';
+import React from "react";
+import { Dropdown } from "reactjs-components";
 
-import Framework from '../structs/Framework';
+import Framework from "../structs/Framework";
 
-var defaultId = 'default';
+var defaultId = "default";
 
 var FilterByService = React.createClass({
-
-  displayName: 'FilterByService',
+  displayName: "FilterByService",
 
   propTypes: {
     byServiceFilter: React.PropTypes.string,
@@ -36,8 +35,10 @@ var FilterByService = React.createClass({
   getItemHtml(service) {
     return (
       <span className="badge-container">
-        <span className="badge-container-text">{service.get('name')}</span>
-        <span className="badge badge-rounded">{service.getNodeIDs().length}</span>
+        <span className="badge-container-text">{service.get("name")}</span>
+        <span className="badge badge-rounded">
+          {service.getNodeIDs().length}
+        </span>
       </span>
     );
   },
@@ -47,27 +48,25 @@ var FilterByService = React.createClass({
     // service struct featuring frameworks and apps.
     const defaultItem = new Framework({
       id: defaultId,
-      name: 'All Services',
+      name: "All Services",
       // This is literally the worst way of doing this.
       slave_ids: new Array(this.props.totalHostsCount)
     });
     const items = [defaultItem].concat(this.props.services);
 
-    return items.map((service) => {
+    return items.map(service => {
       var selectedHtml = this.getItemHtml(service);
-      var dropdownHtml = (<a>{selectedHtml}</a>);
+      var dropdownHtml = <a>{selectedHtml}</a>;
 
       var item = {
-        id: service.get('id'),
-        name: service.get('name'),
+        id: service.get("id"),
+        name: service.get("name"),
         html: dropdownHtml,
         selectedHtml
       };
 
-      if (service.get('id') === defaultId) {
-        item.selectedHtml = (
-          <span>Filter by Service</span>
-        );
+      if (service.get("id") === defaultId) {
+        item.selectedHtml = <span>Filter by Service</span>;
       }
 
       return item;
@@ -99,11 +98,12 @@ var FilterByService = React.createClass({
         items={this.getDropdownItems()}
         initialID={this.getSelectedId(this.props.byServiceFilter)}
         onItemSelection={this.handleItemSelection}
-        ref={(ref) => this.dropdown = ref}
+        ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
-        transitionName="dropdown-menu" />
+        transitionName="dropdown-menu"
+      />
     );
   }
 });

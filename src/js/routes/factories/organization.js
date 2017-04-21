@@ -1,55 +1,57 @@
 /* eslint-disable no-unused-vars */
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 /* eslint-enable no-unused-vars */
-import {Route, Redirect} from 'react-router';
+import { Route, Redirect } from "react-router";
 
-import {Hooks} from 'PluginSDK';
-import OrganizationPage from '../../pages/OrganizationPage';
-import UsersPage from '../../pages/system/UsersPage';
+import { Hooks } from "PluginSDK";
+import OrganizationPage from "../../pages/OrganizationPage";
+import UsersPage from "../../pages/system/UsersPage";
 
 const RouteFactory = {
   getOrganizationRoutes() {
     // Return filtered Routes
-    return Hooks.applyFilter('organizationRoutes', {
-      routes: [{
-        type: Route,
-        path: 'users',
-        component: UsersPage,
-        isInSidebar: true,
-        buildBreadCrumb() {
-          return {
-            parentCrumb: '/organization',
-            getCrumbs() {
-              return [
-                {
-                  label: 'Users',
-                  route: {to: '/organization/users'}
-                }
-              ];
-            }
-          };
-        },
-        children: []
-      }],
+    return Hooks.applyFilter("organizationRoutes", {
+      routes: [
+        {
+          type: Route,
+          path: "users",
+          component: UsersPage,
+          isInSidebar: true,
+          buildBreadCrumb() {
+            return {
+              parentCrumb: "/organization",
+              getCrumbs() {
+                return [
+                  {
+                    label: "Users",
+                    route: { to: "/organization/users" }
+                  }
+                ];
+              }
+            };
+          },
+          children: []
+        }
+      ],
       redirect: {
         type: Redirect,
-        from: '/organization',
-        to: '/organization/users'
+        from: "/organization",
+        to: "/organization/users"
       }
     });
   },
 
   getRoutes() {
-    const {routes, redirect} = this.getOrganizationRoutes();
+    const { routes, redirect } = this.getOrganizationRoutes();
 
     return [
       // Redirect should always go before path, otherwise router won't ever reach it
       redirect,
       {
         type: Route,
-        path: 'organization',
+        path: "organization",
         component: OrganizationPage,
-        category: 'system',
+        category: "system",
         isInSidebar: true,
         children: routes,
         buildBreadCrumb() {
@@ -57,8 +59,8 @@ const RouteFactory = {
             getCrumbs() {
               return [
                 {
-                  label: 'Organization',
-                  route: {to: '/organization'}
+                  label: "Organization",
+                  route: { to: "/organization" }
                 }
               ];
             }

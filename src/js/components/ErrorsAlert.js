@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Alert from './Alert';
-import {getUnanchoredErrorMessage} from '../utils/ErrorMessageUtil';
+import Alert from "./Alert";
+import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
 
-const ErrorsAlert = function (props) {
-  const {errors, hideTopLevelErrors, pathMapping} = props;
+const ErrorsAlert = function(props) {
+  const { errors, hideTopLevelErrors, pathMapping } = props;
   let showErrors = errors;
 
   if (hideTopLevelErrors) {
-    showErrors = showErrors.filter(function (error) {
+    showErrors = showErrors.filter(function(error) {
       return error.path.length === 0;
     });
   }
@@ -18,7 +18,7 @@ const ErrorsAlert = function (props) {
   }
 
   // De-duplicate error messages that have exactly the same translated output
-  const errorMessages = showErrors.reduce(function (messages, error) {
+  const errorMessages = showErrors.reduce(function(messages, error) {
     const message = getUnanchoredErrorMessage(error, pathMapping);
     if (messages.indexOf(message) !== -1) {
       return messages;

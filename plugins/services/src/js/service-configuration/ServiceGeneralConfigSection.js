@@ -1,60 +1,58 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
-import {formatResource} from '#SRC/js/utils/Units';
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { formatResource } from "#SRC/js/utils/Units";
 
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ContainerConstants from '../constants/ContainerConstants';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ContainerConstants from "../constants/ContainerConstants";
+import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
   getDisplayValue
-} from '../utils/ServiceConfigDisplayUtil';
+} from "../utils/ServiceConfigDisplayUtil";
 
-const {type: {DOCKER, NONE}, labelMap} = ContainerConstants;
+const { type: { DOCKER, NONE }, labelMap } = ContainerConstants;
 
 class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
   shouldExcludeItem(row) {
-    const {appConfig} = this.props;
+    const { appConfig } = this.props;
 
     switch (row.key) {
-      case 'fetch':
-        return !findNestedPropertyInObject(appConfig, 'fetch.length');
-      case 'gpus':
-        return !findNestedPropertyInObject(appConfig, 'gpus');
-      case 'backoffSeconds':
-        return !findNestedPropertyInObject(appConfig, 'backoffSeconds');
-      case 'backoffFactor':
-        return !findNestedPropertyInObject(appConfig, 'backoffFactor');
-      case 'maxLaunchDelaySeconds':
+      case "fetch":
+        return !findNestedPropertyInObject(appConfig, "fetch.length");
+      case "gpus":
+        return !findNestedPropertyInObject(appConfig, "gpus");
+      case "backoffSeconds":
+        return !findNestedPropertyInObject(appConfig, "backoffSeconds");
+      case "backoffFactor":
+        return !findNestedPropertyInObject(appConfig, "backoffFactor");
+      case "maxLaunchDelaySeconds":
+        return !findNestedPropertyInObject(appConfig, "maxLaunchDelaySeconds");
+      case "minHealthOpacity":
+        return !findNestedPropertyInObject(appConfig, "minHealthOpacity");
+      case "maxOverCapacity":
+        return !findNestedPropertyInObject(appConfig, "maxOverCapacity");
+      case "acceptedResourceRoles":
         return !findNestedPropertyInObject(
-          appConfig, 'maxLaunchDelaySeconds'
+          appConfig,
+          "acceptedResourceRoles.length"
         );
-      case 'minHealthOpacity':
-        return !findNestedPropertyInObject(appConfig, 'minHealthOpacity');
-      case 'maxOverCapacity':
-        return !findNestedPropertyInObject(appConfig, 'maxOverCapacity');
-      case 'acceptedResourceRoles':
-        return !findNestedPropertyInObject(
-          appConfig, 'acceptedResourceRoles.length'
-        );
-      case 'dependencies':
-        return !findNestedPropertyInObject(
-          appConfig, 'dependencies.length'
-        );
-      case 'executor':
-        return !findNestedPropertyInObject(appConfig, 'executor');
-      case 'user':
-        return !findNestedPropertyInObject(appConfig, 'user');
-      case 'args':
-        return !findNestedPropertyInObject(appConfig, 'args.length');
-      case 'version':
-        return !findNestedPropertyInObject(appConfig, 'version');
+      case "dependencies":
+        return !findNestedPropertyInObject(appConfig, "dependencies.length");
+      case "executor":
+        return !findNestedPropertyInObject(appConfig, "executor");
+      case "user":
+        return !findNestedPropertyInObject(appConfig, "user");
+      case "args":
+        return !findNestedPropertyInObject(appConfig, "args.length");
+      case "version":
+        return !findNestedPropertyInObject(appConfig, "version");
       default:
         return false;
     }
@@ -64,95 +62,101 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
    * @override
    */
   getDefinition() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
 
     return {
-      tabViewID: 'services',
+      tabViewID: "services",
       values: [
         {
-          heading: 'General',
+          heading: "General",
           headingLevel: 1
         },
         {
-          key: 'id',
-          label: 'Service ID'
+          key: "id",
+          label: "Service ID"
         },
         {
-          key: 'instances',
-          label: 'Instances'
+          key: "instances",
+          label: "Instances"
         },
         {
-          key: 'container.type',
-          label: 'Container Runtime',
+          key: "container.type",
+          label: "Container Runtime",
           transformValue(runtime) {
             return labelMap[runtime] || labelMap[NONE];
           }
         },
         {
-          key: 'cpus',
-          label: 'CPU'
+          key: "cpus",
+          label: "CPU"
         },
         {
-          key: 'mem',
-          label: 'Memory',
+          key: "mem",
+          label: "Memory",
           transformValue(value) {
             if (value == null) {
               return value;
             }
 
-            return formatResource('mem', value);
+            return formatResource("mem", value);
           }
         },
         {
-          key: 'disk',
-          label: 'Disk',
+          key: "disk",
+          label: "Disk",
           transformValue(value) {
             if (value == null) {
               return value;
             }
 
-            return formatResource('disk', value);
+            return formatResource("disk", value);
           }
         },
         {
-          key: 'gpus',
-          label: 'GPU'
+          key: "gpus",
+          label: "GPU"
         },
         {
-          key: 'backoffSeconds',
-          label: 'Backoff Seconds'
+          key: "backoffSeconds",
+          label: "Backoff Seconds"
         },
         {
-          key: 'backoffFactor',
-          label: 'Backoff Factor'
+          key: "backoffFactor",
+          label: "Backoff Factor"
         },
         {
-          key: 'maxLaunchDelaySeconds',
-          label: 'Backoff Max Launch Delay'
+          key: "maxLaunchDelaySeconds",
+          label: "Backoff Max Launch Delay"
         },
         {
-          key: 'minHealthOpacity',
-          label: 'Upgrade Min Health Capacity'
+          key: "minHealthOpacity",
+          label: "Upgrade Min Health Capacity"
         },
         {
-          key: 'maxOverCapacity',
-          label: 'Upgrade Max Overcapacity'
+          key: "maxOverCapacity",
+          label: "Upgrade Max Overcapacity"
         },
         {
-          key: 'container.docker.image',
-          label: 'Container Image',
+          key: "container.docker.image",
+          label: "Container Image",
           transformValue(value, appConfig) {
-            const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+            const runtime = findNestedPropertyInObject(
+              appConfig,
+              "container.type"
+            );
 
             // Disabled for NONE
             return getDisplayValue(value, runtime == null || runtime === NONE);
           }
         },
         {
-          key: 'container.docker.privileged',
-          label: 'Extended Runtime Priv.',
+          key: "container.docker.privileged",
+          label: "Extended Runtime Priv.",
           transformValue(value, appConfig) {
-            const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+            const runtime = findNestedPropertyInObject(
+              appConfig,
+              "container.type"
+            );
             // Disabled for DOCKER
             if (runtime !== DOCKER && value == null) {
               return getDisplayValue(null, true);
@@ -163,10 +167,13 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           }
         },
         {
-          key: 'container.docker.forcePullImage',
-          label: 'Force Pull on Launch',
+          key: "container.docker.forcePullImage",
+          label: "Force Pull on Launch",
           transformValue(value, appConfig) {
-            const runtime = findNestedPropertyInObject(appConfig, 'container.type');
+            const runtime = findNestedPropertyInObject(
+              appConfig,
+              "container.type"
+            );
             // Disabled for DOCKER
             if (runtime !== DOCKER && value == null) {
               return getDisplayValue(null, true);
@@ -177,35 +184,35 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           }
         },
         {
-          key: 'cmd',
-          label: 'Command',
-          type: 'pre'
+          key: "cmd",
+          label: "Command",
+          type: "pre"
         },
         {
-          key: 'acceptedResourceRoles',
-          label: 'Resource Roles',
+          key: "acceptedResourceRoles",
+          label: "Resource Roles",
           transformValue(value = []) {
-            return value.join(', ');
+            return value.join(", ");
           }
         },
         {
-          key: 'dependencies',
-          label: 'Dependencies',
+          key: "dependencies",
+          label: "Dependencies",
           transformValue(value = []) {
-            return value.join(', ');
+            return value.join(", ");
           }
         },
         {
-          key: 'executor',
-          label: 'Executor'
+          key: "executor",
+          label: "Executor"
         },
         {
-          key: 'user',
-          label: 'User'
+          key: "user",
+          label: "User"
         },
         {
-          key: 'args',
-          label: 'Args',
+          key: "args",
+          label: "Args",
           transformValue(value = []) {
             if (!value.length) {
               return getDisplayValue(null);
@@ -219,28 +226,28 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           }
         },
         {
-          key: 'version',
-          label: 'Version'
+          key: "version",
+          label: "Version"
         },
         {
-          key: 'fetch',
-          heading: 'Container Artifacts',
+          key: "fetch",
+          heading: "Container Artifacts",
           headingLevel: 3
         },
         {
-          key: 'fetch',
+          key: "fetch",
           render(data) {
             const columns = [
               {
-                heading: getColumnHeadingFn('Artifact Uri'),
-                prop: 'uri',
+                heading: getColumnHeadingFn("Artifact Uri"),
+                prop: "uri",
                 render: (prop, row) => {
                   const value = row[prop];
 
                   return getDisplayValue(value);
                 },
                 className: getColumnClassNameFn(
-                  'configuration-map-table-label'
+                  "configuration-map-table-label"
                 ),
                 sortable: true
               }
@@ -248,14 +255,17 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="services" />
+                      tabViewID="services"
+                    />
                   );
                 }
               });
@@ -266,7 +276,8 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="artifacts-table"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={data} />
+                data={data}
+              />
             );
           }
         }

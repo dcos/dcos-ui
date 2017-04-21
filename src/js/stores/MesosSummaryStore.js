@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_SUMMARY_ERROR,
@@ -7,22 +7,22 @@ import {
   REQUEST_SUMMARY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import CompositeState from '../structs/CompositeState';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import CompositeState from "../structs/CompositeState";
+import Config from "../config/Config";
 import {
   MESOS_SUMMARY_CHANGE,
   MESOS_SUMMARY_REQUEST_ERROR
-} from '../constants/EventTypes';
-import GetSetBaseStore from './GetSetBaseStore';
-import MesosSummaryActions from '../events/MesosSummaryActions';
-import MesosSummaryUtil from '../utils/MesosSummaryUtil';
-import StateSummary from '../structs/StateSummary';
-import SummaryList from '../structs/SummaryList';
-import TimeScales from '../constants/TimeScales';
-import Util from '../utils/Util';
-import VisibilityStore from './VisibilityStore';
+} from "../constants/EventTypes";
+import GetSetBaseStore from "./GetSetBaseStore";
+import MesosSummaryActions from "../events/MesosSummaryActions";
+import MesosSummaryUtil from "../utils/MesosSummaryUtil";
+import StateSummary from "../structs/StateSummary";
+import SummaryList from "../structs/SummaryList";
+import TimeScales from "../constants/TimeScales";
+import Util from "../utils/Util";
+import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
 let isInactive = false;
@@ -36,8 +36,8 @@ function startPolling() {
     MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
 
     requestInterval = setInterval(() => {
-      const wasInactive = isInactive && !VisibilityStore.get('isInactive');
-      isInactive = VisibilityStore.get('isInactive');
+      const wasInactive = isInactive && !VisibilityStore.get("isInactive");
+      isInactive = VisibilityStore.get("isInactive");
 
       if (!isInactive) {
         if (wasInactive) {
@@ -54,7 +54,7 @@ function startPolling() {
         // effects (like re-rendering etc). The tab is out of focus so we
         // don't want it to do any work. It only matters that there is
         // appropriate history when we return focus to the tab.
-        this.processSummaryError({silent: true});
+        this.processSummaryError({ silent: true });
       }
     }, Config.getRefreshRate());
   }
@@ -81,8 +81,8 @@ class MesosSummaryStore extends GetSetBaseStore {
 
       // When to remove listener
       unmountWhen(store, event) {
-        if (event === 'success') {
-          return store.get('statesProcessed');
+        if (event === "success") {
+          return store.get("statesProcessed");
         }
       },
 
@@ -90,7 +90,7 @@ class MesosSummaryStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -128,8 +128,8 @@ class MesosSummaryStore extends GetSetBaseStore {
 
   getInitialStates() {
     const initialStates = MesosSummaryUtil.getInitialStates().slice();
-    const states = new SummaryList({maxLength: Config.historyLength});
-    initialStates.forEach((state) => {
+    const states = new SummaryList({ maxLength: Config.historyLength });
+    initialStates.forEach(state => {
       states.addSnapshot(state, state.date, false);
     });
 
@@ -167,26 +167,26 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   getActiveServices() {
-    return this.get('states').lastSuccessful().getServiceList().getItems();
+    return this.get("states").lastSuccessful().getServiceList().getItems();
   }
 
   getServiceFromName(name) {
     const services = this.getActiveServices();
 
-    return services.find(function (service) {
-      return service.get('name') === name;
+    return services.find(function(service) {
+      return service.get("name") === name;
     });
   }
 
   hasServiceUrl(serviceName) {
     const service = this.getServiceFromName(serviceName);
-    const webuiUrl = service.get('webui_url');
+    const webuiUrl = service.get("webui_url");
 
     return service && webuiUrl != null && webuiUrl.length > 0;
   }
 
   getNextRequestTime() {
-    const lastRequestTime = this.get('lastRequestTime');
+    const lastRequestTime = this.get("lastRequestTime");
     if (!lastRequestTime) {
       return Date.now();
     }
@@ -201,11 +201,11 @@ class MesosSummaryStore extends GetSetBaseStore {
       return this.processSummaryError();
     }
 
-    const states = this.get('states');
+    const states = this.get("states");
 
-    if (typeof data.date !== 'number') {
+    if (typeof data.date !== "number") {
       const lastRequestTime = this.getNextRequestTime();
-      this.set({lastRequestTime});
+      this.set({ lastRequestTime });
       data.date = lastRequestTime;
     }
 
@@ -214,7 +214,7 @@ class MesosSummaryStore extends GetSetBaseStore {
     states.addSnapshot(data, data.date);
 
     if (!options.silent) {
-      this.set({statesProcessed: true});
+      this.set({ statesProcessed: true });
       this.emit(MESOS_SUMMARY_CHANGE);
     }
   }
@@ -235,18 +235,18 @@ class MesosSummaryStore extends GetSetBaseStore {
 
     // Multiply Config.stateRefresh in order to use larger time slices
     data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    data.forEach((datum) => {
-      this.processSummary(datum, {silent: true});
+    data.forEach(datum => {
+      this.processSummary(datum, { silent: true });
     });
-    this.set({lastRequestTime: Date.now()});
+    this.set({ lastRequestTime: Date.now() });
     this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {
-    const unsuccessfulSummary = new StateSummary({successful: false});
-    const states = this.get('states');
+    const unsuccessfulSummary = new StateSummary({ successful: false });
+    const states = this.get("states");
 
-    this.set({lastRequestTime: this.getNextRequestTime()});
+    this.set({ lastRequestTime: this.getNextRequestTime() });
 
     states.add(unsuccessfulSummary);
 
@@ -256,9 +256,8 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   get storeID() {
-    return 'summary';
+    return "summary";
   }
-
 }
 
 module.exports = new MesosSummaryStore();

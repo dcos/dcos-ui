@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import GeminiScrollbar from 'react-gemini-scrollbar';
-import React from 'react';
+import classNames from "classnames";
+import GeminiScrollbar from "react-gemini-scrollbar";
+import React from "react";
 
-import ScrollbarUtil from '../utils/ScrollbarUtil';
-import Util from '../utils/Util';
+import ScrollbarUtil from "../utils/ScrollbarUtil";
+import Util from "../utils/Util";
 
 /**
  * A component to use as in place of GeminiScrollbar when the parent's width
@@ -50,8 +50,9 @@ class FluidGeminiScrollbar extends React.Component {
       componentMountCount = 0;
 
       if (scrollbarWidth > 0) {
-        const head = global.document.head
-          || global.document.getElementsByTagName('head')[0];
+        const head =
+          global.document.head ||
+          global.document.getElementsByTagName("head")[0];
 
         const cssString = `
           .gm-scrollbar-container-fluid-view-width > .gm-scroll-view {
@@ -59,8 +60,8 @@ class FluidGeminiScrollbar extends React.Component {
           }
         `;
 
-        styleElement = global.document.createElement('style');
-        styleElement.type = 'text/css';
+        styleElement = global.document.createElement("style");
+        styleElement.type = "text/css";
 
         if (styleElement.styleSheet) {
           styleElement.styleSheet.cssText = cssString;
@@ -85,23 +86,27 @@ class FluidGeminiScrollbar extends React.Component {
       return;
     }
 
-    if (styleElement instanceof Element &&
-        styleElement.parentNode instanceof Node) {
-
+    if (
+      styleElement instanceof Element &&
+      styleElement.parentNode instanceof Node
+    ) {
       styleElement.parentNode.removeChild(styleElement);
     }
   }
 
   render() {
-    const {props} = this;
+    const { props } = this;
     const classes = classNames(
-      'gm-scrollbar-container-fluid-view-width', props.className
+      "gm-scrollbar-container-fluid-view-width",
+      props.className
     );
 
     return (
-      <GeminiScrollbar className={classes}
-        ref={(ref) => this.geminiRef = ref}
-        {...Util.omit(props, ['className'])} />
+      <GeminiScrollbar
+        className={classes}
+        ref={ref => (this.geminiRef = ref)}
+        {...Util.omit(props, ["className"])}
+      />
     );
   }
 }

@@ -1,19 +1,18 @@
-import classNames from 'classnames';
-import {Form} from 'reactjs-components';
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import classNames from "classnames";
+import { Form } from "reactjs-components";
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import Loader from '#SRC/js/components/Loader';
-import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
+import Loader from "#SRC/js/components/Loader";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 
-import NodesGridDials from './NodesGridDials';
+import NodesGridDials from "./NodesGridDials";
 
 var MAX_SERVICES_TO_SHOW = 32;
 var OTHER_SERVICES_COLOR = 32;
 
 var NodesGridView = React.createClass({
-
-  displayName: 'NodesGridView',
+  displayName: "NodesGridView",
 
   mixins: [PureRender],
 
@@ -43,7 +42,7 @@ var NodesGridView = React.createClass({
   },
 
   getLoadingScreen() {
-    var {hasLoadingError} = this.props;
+    var { hasLoadingError } = this.props;
     var errorMsg = null;
     if (hasLoadingError) {
       errorMsg = <RequestErrorMsg />;
@@ -62,7 +61,7 @@ var NodesGridView = React.createClass({
   },
 
   getActiveServiceIds() {
-    return this.props.services.map(function (service) {
+    return this.props.services.map(function(service) {
       return service.getId();
     });
   },
@@ -72,31 +71,32 @@ var NodesGridView = React.createClass({
     var activeServiceIds = this.getActiveServiceIds();
 
     // Filter out inactive services
-    var items = props.services.filter(function (service) {
-      return activeServiceIds.includes(service.id);
-    })
-    // Limit to max amount
-    .slice(0, MAX_SERVICES_TO_SHOW)
-    // Return view definition
-    .map(function (service) {
-      var color = props.serviceColors[service.id];
-      var className = `dot service-color-${color}`;
+    var items = props.services
+      .filter(function(service) {
+        return activeServiceIds.includes(service.id);
+      })
+      // Limit to max amount
+      .slice(0, MAX_SERVICES_TO_SHOW)
+      // Return view definition
+      .map(function(service) {
+        var color = props.serviceColors[service.id];
+        var className = `dot service-color-${color}`;
 
-      return (
-        <li key={service.id}>
-          <span className={className}></span>
-          <span>{service.name}</span>
-        </li>
-      );
-    });
+        return (
+          <li key={service.id}>
+            <span className={className} />
+            <span>{service.name}</span>
+          </li>
+        );
+      });
 
     // Add 'Others' node to the list
     if (activeServiceIds.length > MAX_SERVICES_TO_SHOW) {
-      var classNameOther = 'service-legend-color service-color-' +
-        OTHER_SERVICES_COLOR;
+      var classNameOther =
+        "service-legend-color service-color-" + OTHER_SERVICES_COLOR;
       items.push(
         <li key="other">
-          <span className={classNameOther}></span>
+          <span className={classNameOther} />
           <span>Other</span>
         </li>
       );
@@ -110,11 +110,11 @@ var NodesGridView = React.createClass({
   },
 
   getNodesGrid() {
-    var {props} = this;
+    var { props } = this;
 
     var classSet = classNames({
-      'side-list nodes-grid-legend': true,
-      'disabled': !props.showServices
+      "side-list nodes-grid-legend": true,
+      disabled: !props.showServices
     });
 
     return (
@@ -123,14 +123,17 @@ var NodesGridView = React.createClass({
         <div className={classSet}>
           <label className="show-services-label h5 tall flush-top">
             <Form
-              definition={[{
-                fieldType: 'checkbox',
-                name: 'showServices',
-                checked: props.showServices,
-                label: 'Show Services by Share',
-                value: props.showServices
-              }]}
-              onChange={this.handleCheckboxChange} />
+              definition={[
+                {
+                  fieldType: "checkbox",
+                  name: "showServices",
+                  checked: props.showServices,
+                  label: "Show Services by Share",
+                  value: props.showServices
+                }
+              ]}
+              onChange={this.handleCheckboxChange}
+            />
           </label>
           {this.getServicesList(props)}
         </div>
@@ -140,7 +143,8 @@ var NodesGridView = React.createClass({
           resourcesByFramework={props.resourcesByFramework}
           selectedResource={props.selectedResource}
           serviceColors={props.serviceColors}
-          showServices={props.showServices} />
+          showServices={props.showServices}
+        />
       </div>
     );
   },
@@ -152,13 +156,16 @@ var NodesGridView = React.createClass({
       receivedNodeHealthResponse
     } = this.props;
 
-    if (hasLoadingError || receivedEmptyMesosState || !receivedNodeHealthResponse) {
+    if (
+      hasLoadingError ||
+      receivedEmptyMesosState ||
+      !receivedNodeHealthResponse
+    ) {
       return this.getLoadingScreen();
     } else {
       return this.getNodesGrid();
     }
   }
-
 });
 
 module.exports = NodesGridView;

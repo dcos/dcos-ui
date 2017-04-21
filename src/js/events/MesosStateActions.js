@@ -1,16 +1,15 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import ActionTypes from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
-import MesosStateUtil from '../utils/MesosStateUtil';
+import ActionTypes from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import Config from "../config/Config";
+import MesosStateUtil from "../utils/MesosStateUtil";
 
 var MesosStateActions = {
-
   fetchState: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
+    function(resolve, reject) {
+      return function() {
         RequestUtil.json({
           url: `${Config.historyServer}/mesos/master/state`,
           timeout: 2000,
@@ -37,9 +36,8 @@ var MesosStateActions = {
         });
       };
     },
-    {delayAfterCount: Config.delayAfterErrorCount}
+    { delayAfterCount: Config.delayAfterErrorCount }
   )
-
 };
 
 module.exports = MesosStateActions;

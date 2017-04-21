@@ -1,6 +1,6 @@
-import List from './List';
-import MesosSummaryUtil from '../utils/MesosSummaryUtil';
-import StateSummary from './StateSummary';
+import List from "./List";
+import MesosSummaryUtil from "../utils/MesosSummaryUtil";
+import StateSummary from "./StateSummary";
 
 class SummaryList extends List {
   constructor(options = {}) {
@@ -17,11 +17,11 @@ class SummaryList extends List {
   }
 
   addSnapshot(snapshot, date, successful) {
-    this.add(new StateSummary({snapshot, date, successful}));
+    this.add(new StateSummary({ snapshot, date, successful }));
   }
 
   getActiveNodesByState() {
-    return this.getItems().map(function (state) {
+    return this.getItems().map(function(state) {
       let slavesCount = null;
 
       if (state.isSnapshotSuccessful()) {
@@ -44,16 +44,16 @@ class SummaryList extends List {
       }
     }
 
-    return new StateSummary({successful: false});
+    return new StateSummary({ successful: false });
   }
 
   getResourceStatesForServiceIDs(ids) {
     const items = this.getItems() || [];
-    const stateResources = items.map(function (state) {
+    const stateResources = items.map(function(state) {
       let resources = null, totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
-        resources = state.getServiceList().filter({ids}).sumUsedResources();
+        resources = state.getServiceList().filter({ ids }).sumUsedResources();
         totalResources = state.getSlaveTotalResources();
       }
 
@@ -68,12 +68,12 @@ class SummaryList extends List {
   }
 
   getResourceStatesForNodeIDs(ids) {
-    const stateResources = this.getItems().map(function (state) {
+    const stateResources = this.getItems().map(function(state) {
       let resources = null, totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
-        resources = state.getNodesList().filter({ids}).sumUsedResources();
-        totalResources = state.getNodesList().filter({ids}).sumResources();
+        resources = state.getNodesList().filter({ ids }).sumUsedResources();
+        totalResources = state.getNodesList().filter({ ids }).sumResources();
       }
 
       return {
@@ -85,7 +85,6 @@ class SummaryList extends List {
 
     return MesosSummaryUtil.stateResourcesToResourceStates(stateResources);
   }
-
 }
 
 module.exports = SummaryList;

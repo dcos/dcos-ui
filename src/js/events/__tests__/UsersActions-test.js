@@ -1,261 +1,257 @@
-jest.dontMock('../AppDispatcher');
-jest.dontMock('../UsersActions');
-jest.dontMock('../../config/Config');
-jest.dontMock('../../constants/ActionTypes');
+jest.dontMock("../AppDispatcher");
+jest.dontMock("../UsersActions");
+jest.dontMock("../../config/Config");
+jest.dontMock("../../constants/ActionTypes");
 
-const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
+const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
-const ActionTypes = require('../../constants/ActionTypes');
-const AppDispatcher = require('../AppDispatcher');
-const Config = require('../../config/Config');
-const UsersActions = require('../UsersActions');
+const ActionTypes = require("../../constants/ActionTypes");
+const AppDispatcher = require("../AppDispatcher");
+const Config = require("../../config/Config");
+const UsersActions = require("../UsersActions");
 
-describe('UsersActions', function () {
-
-  describe('#fetch', function () {
-
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
+describe("UsersActions", function() {
+  describe("#fetch", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
       UsersActions.fetch();
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_SUCCESS);
       });
 
-      this.configuration.success({foo: 'bar'});
+      this.configuration.success({ foo: "bar" });
     });
 
-    it('dispatches the correct action when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_ERROR);
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the xhr when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
-          foo: 'bar',
-          responseJSON: {description: 'baz'}
+          foo: "bar",
+          responseJSON: { description: "baz" }
         });
       });
 
       this.configuration.error({
-        foo: 'bar',
-        responseJSON: {description: 'baz'}
+        foo: "bar",
+        responseJSON: { description: "baz" }
       });
     });
 
-    it('calls #json from the RequestUtil', function () {
+    it("calls #json from the RequestUtil", function() {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it('fetches data from the correct URL', function () {
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users');
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + "/users");
     });
-
   });
 
-  describe('#addUser', function () {
-
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      UsersActions.addUser({uid: 'foo'});
+  describe("#addUser", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
+      UsersActions.addUser({ uid: "foo" });
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it('calls #json from the RequestUtil', function () {
+    it("calls #json from the RequestUtil", function() {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it('fetches data from the correct URL', function () {
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo');
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual(
+        Config.acsAPIPrefix + "/users/foo"
+      );
     });
 
-    it('encodes characters for URL', function () {
-      UsersActions.addUser({uid: 'foo@email.com'});
+    it("encodes characters for URL", function() {
+      UsersActions.addUser({ uid: "foo@email.com" });
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo%40email.com');
+      expect(this.configuration.url).toEqual(
+        Config.acsAPIPrefix + "/users/foo%40email.com"
+      );
     });
 
-    it('uses PUT for the request method', function () {
-      expect(this.configuration.method).toEqual('PUT');
+    it("uses PUT for the request method", function() {
+      expect(this.configuration.method).toEqual("PUT");
     });
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_USER_CREATE_SUCCESS);
+        expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_SUCCESS);
       });
 
-      this.configuration.success({foo: 'bar'});
+      this.configuration.success({ foo: "bar" });
     });
 
-    it('dispatches the userID when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the userID when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.userID).toEqual('foo');
+        expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.success({description: 'bar'});
+      this.configuration.success({ description: "bar" });
     });
 
-    it('dispatches the correct action when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_USER_CREATE_ERROR);
+        expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_ERROR);
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the correct message when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct message when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual('bar');
+        expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the userID when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the userID when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.userID).toEqual('foo');
+        expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the xhr when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
-          foo: 'bar',
-          responseJSON: {description: 'baz'}
+          foo: "bar",
+          responseJSON: { description: "baz" }
         });
       });
 
       this.configuration.error({
-        foo: 'bar',
-        responseJSON: {description: 'baz'}
+        foo: "bar",
+        responseJSON: { description: "baz" }
       });
     });
-
   });
 
-  describe('#deleteUser', function () {
-
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      UsersActions.deleteUser('foo');
+  describe("#deleteUser", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
+      UsersActions.deleteUser("foo");
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it('calls #json from the RequestUtil', function () {
+    it("calls #json from the RequestUtil", function() {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it('fetches data from the correct URL', function () {
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo');
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual(
+        Config.acsAPIPrefix + "/users/foo"
+      );
     });
 
-    it('encodes characters for URL', function () {
-      UsersActions.deleteUser('foo@email.com');
+    it("encodes characters for URL", function() {
+      UsersActions.deleteUser("foo@email.com");
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo%40email.com');
+      expect(this.configuration.url).toEqual(
+        Config.acsAPIPrefix + "/users/foo%40email.com"
+      );
     });
 
-    it('uses DELETE for the request method', function () {
-      expect(this.configuration.method).toEqual('DELETE');
+    it("uses DELETE for the request method", function() {
+      expect(this.configuration.method).toEqual("DELETE");
     });
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_USER_DELETE_SUCCESS);
+        expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_SUCCESS);
       });
 
-      this.configuration.success({foo: 'bar'});
+      this.configuration.success({ foo: "bar" });
     });
 
-    it('dispatches the userID when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the userID when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.userID).toEqual('foo');
+        expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the correct action when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_USER_DELETE_ERROR);
+        expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_ERROR);
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the correct message when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the correct message when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual('bar');
+        expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the userID when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the userID when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.userID).toEqual('foo');
+        expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({responseJSON: {description: 'bar'}});
+      this.configuration.error({ responseJSON: { description: "bar" } });
     });
 
-    it('dispatches the xhr when unsuccessful', function () {
-      var id = AppDispatcher.register(function (payload) {
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
-          foo: 'bar',
-          responseJSON: {description: 'baz'}
+          foo: "bar",
+          responseJSON: { description: "baz" }
         });
       });
 
       this.configuration.error({
-        foo: 'bar',
-        responseJSON: {description: 'baz'}
+        foo: "bar",
+        responseJSON: { description: "baz" }
       });
     });
-
   });
-
 });

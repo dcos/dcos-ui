@@ -1,23 +1,24 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import DSLCombinerTypes from '#SRC/js/constants/DSLCombinerTypes';
-import DSLExpression from '#SRC/js/structs/DSLExpression';
-import DSLExpressionPart from '#SRC/js/structs/DSLExpressionPart';
-import DSLFormWithExpressionUpdates from '#SRC/js/components/DSLFormWithExpressionUpdates';
-import DSLUtil from '#SRC/js/utils/DSLUtil';
-import FieldInput from '#SRC/js/components/form/FieldInput';
-import FieldLabel from '#SRC/js/components/form/FieldLabel';
-import FormGroup from '#SRC/js/components/form/FormGroup';
+import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
+import DSLFormWithExpressionUpdates
+  from "#SRC/js/components/DSLFormWithExpressionUpdates";
+import DSLUtil from "#SRC/js/utils/DSLUtil";
+import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
-  is_healthy: DSLExpressionPart.attribute('is', 'healthy'),
-  is_unhealthy: DSLExpressionPart.attribute('is', 'unhealthy'),
-  no_healthchecks: DSLExpressionPart.attribute('no', 'healthchecks')
+  is_healthy: DSLExpressionPart.attribute("is", "healthy"),
+  is_unhealthy: DSLExpressionPart.attribute("is", "unhealthy"),
+  no_healthchecks: DSLExpressionPart.attribute("no", "healthchecks")
 };
 
 class ServiceHealthDSLSection extends React.Component {
   render() {
-    const {expression, onChange} = this.props;
+    const { expression, onChange } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
@@ -28,7 +29,8 @@ class ServiceHealthDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        parts={EXPRESSION_PARTS}>
+        parts={EXPRESSION_PARTS}
+      >
 
         <label>Health</label>
         <div className="row">
@@ -39,7 +41,8 @@ class ServiceHealthDSLSection extends React.Component {
                   checked={data.is_healthy}
                   disabled={!enabled}
                   name="is_healthy"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 Healthy
               </FieldLabel>
               <FieldLabel>
@@ -47,7 +50,8 @@ class ServiceHealthDSLSection extends React.Component {
                   checked={data.no_healthchecks}
                   disabled={!enabled}
                   name="no_healthchecks"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 N/A
               </FieldLabel>
             </FormGroup>
@@ -59,7 +63,8 @@ class ServiceHealthDSLSection extends React.Component {
                   checked={data.is_unhealthy}
                   disabled={!enabled}
                   name="is_unhealthy"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 Unhealthy
               </FieldLabel>
             </FormGroup>

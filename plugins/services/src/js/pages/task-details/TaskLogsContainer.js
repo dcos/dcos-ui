@@ -1,16 +1,16 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import ConfigStore from '#SRC/js/stores/ConfigStore';
-import Loader from '#SRC/js/components/Loader';
-import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
-import {SYSTEM_LOGS} from '#SRC/js/constants/MesosLoggingStrategy';
+import ConfigStore from "#SRC/js/stores/ConfigStore";
+import Loader from "#SRC/js/components/Loader";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { SYSTEM_LOGS } from "#SRC/js/constants/MesosLoggingStrategy";
 
-import Task from '../../structs/Task';
-import TaskDirectory from '../../structs/TaskDirectory';
-import TaskFileViewer from './TaskFileViewer';
-import TaskSystemLogsContainer from './TaskSystemLogsContainer';
+import Task from "../../structs/Task";
+import TaskDirectory from "../../structs/TaskDirectory";
+import TaskFileViewer from "./TaskFileViewer";
+import TaskSystemLogsContainer from "./TaskSystemLogsContainer";
 
 class TaskLogsContainer extends mixin(StoreMixin) {
   constructor() {
@@ -19,33 +19,35 @@ class TaskLogsContainer extends mixin(StoreMixin) {
       isLoading: true
     };
 
-    this.store_listeners = [{
-      name: 'config',
-      events: ['success', 'error'],
-      listenAlways: false
-    }];
+    this.store_listeners = [
+      {
+        name: "config",
+        events: ["success", "error"],
+        listenAlways: false
+      }
+    ];
   }
 
   componentWillMount() {
     // We already have a configuration, so stop loading. No need to fetch
-    if (this.state.isLoading && ConfigStore.get('config') != null) {
-      this.setState({isLoading: false});
+    if (this.state.isLoading && ConfigStore.get("config") != null) {
+      this.setState({ isLoading: false });
     }
   }
 
   componentDidMount() {
     // We did not already receive the configuration
-    if (this.state.isLoading && ConfigStore.get('config') == null) {
+    if (this.state.isLoading && ConfigStore.get("config") == null) {
       ConfigStore.fetch();
     }
   }
 
   onConfigStoreSuccess() {
-    this.setState({isLoading: false});
+    this.setState({ isLoading: false });
   }
 
   onConfigStoreError() {
-    this.setState({isLoading: false});
+    this.setState({ isLoading: false });
   }
 
   render() {
@@ -53,11 +55,11 @@ class TaskLogsContainer extends mixin(StoreMixin) {
       return <Loader />;
     }
 
-    const {directory, params, routes, selectedLogFile, task} = this.props;
-    const config = ConfigStore.get('config');
+    const { directory, params, routes, selectedLogFile, task } = this.props;
+    const config = ConfigStore.get("config");
     const loggingStrategy = findNestedPropertyInObject(
       config,
-      'uiConfiguration.plugins.mesos.logging-strategy'
+      "uiConfiguration.plugins.mesos.logging-strategy"
     );
 
     if (loggingStrategy === SYSTEM_LOGS) {
@@ -67,11 +69,12 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     return (
       <TaskFileViewer
         directory={directory}
-        limitLogFiles={['stdout', 'stderr']}
+        limitLogFiles={["stdout", "stderr"]}
         params={params}
         routes={routes}
         selectedLogFile={selectedLogFile}
-        task={task} />
+        task={task}
+      />
     );
   }
 }

@@ -3,7 +3,6 @@
  * separated into a different file solely for organization purposes.
  */
 var JSONEditorUtil = {
-
   /**
    * This function walks the `text` argument and locates the line and
    * column the given string offset.
@@ -21,12 +20,12 @@ var JSONEditorUtil = {
 
     // Handle negative offsets
     if (offset < 0) {
-      return {row:0, column:0};
+      return { row: 0, column: 0 };
     }
 
     // Find row
     for (let index = 0; index <= offset; ++index) {
-      if (text[index] === '\n') {
+      if (text[index] === "\n") {
         row++;
         lastRowOffset = index + 1;
       }
@@ -40,7 +39,7 @@ var JSONEditorUtil = {
       column = text.length - lastRowOffset;
     }
 
-    return {row, column};
+    return { row, column };
   },
 
   /**
@@ -56,25 +55,29 @@ var JSONEditorUtil = {
     if (oldObj === newObj) {
       return [];
     }
-    if ((typeof oldObj !== typeof newObj) ||
-       ((oldObj !== null) && (newObj === null)) ||
-       ((oldObj === null) && (newObj !== null))) {
-      return [{path, value: newObj, previous: oldObj}];
+    if (
+      typeof oldObj !== typeof newObj ||
+      (oldObj !== null && newObj === null) ||
+      (oldObj === null && newObj !== null)
+    ) {
+      return [{ path, value: newObj, previous: oldObj }];
     }
-    if (typeof oldObj !== 'object') {
-      return [{path, value: newObj, previous: oldObj}];
+    if (typeof oldObj !== "object") {
+      return [{ path, value: newObj, previous: oldObj }];
     }
 
     const oldKeys = Object.keys(oldObj);
     const newKeys = Object.keys(newObj);
 
     // Process removed/changed keys
-    let diff = oldKeys.reduce(function (memo, key) {
+    let diff = oldKeys.reduce(function(memo, key) {
       const index = newKeys.indexOf(key);
       if (index === -1) {
-        memo.push(
-          {path: path.concat([key]), value: undefined, previous: oldObj[key]}
-        );
+        memo.push({
+          path: path.concat([key]),
+          value: undefined,
+          previous: oldObj[key]
+        });
 
         return memo;
       }
@@ -83,23 +86,27 @@ var JSONEditorUtil = {
 
       return memo.concat(
         JSONEditorUtil.deepObjectDiff(
-          oldObj[key], newObj[key], path.concat([key])
+          oldObj[key],
+          newObj[key],
+          path.concat([key])
         )
       );
     }, []);
 
     // Process new keys
-    diff = newKeys.reduce(function (memo, key) {
-      memo.push(
-        {path: path.concat([key]), value: newObj[key], previous: undefined}
-      );
+    diff = newKeys.reduce(function(memo, key) {
+      memo.push({
+        path: path.concat([key]),
+        value: newObj[key],
+        previous: undefined
+      });
 
       return memo;
     }, diff);
 
     // If something changed, include the current object as changed
     if (diff.length) {
-      diff.push({path, value: newObj, previous: oldObj});
+      diff.push({ path, value: newObj, previous: oldObj });
     }
 
     return diff;
@@ -138,18 +145,18 @@ var JSONEditorUtil = {
 
     // Since `null` is also considered an object, handle it before we reach
     // the next statement where Object.keys will fail.
-    if ((oldVal == null) || (newVal == null)) {
+    if (oldVal == null || newVal == null) {
       return newVal;
     }
 
-    if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
+    if (typeof oldVal === "object" && typeof newVal === "object") {
       const oldKeys = Object.keys(oldVal);
       const newKeys = Object.keys(newVal);
 
       // Keep keys that exist in both objects, in the order they appear in the
       // `oldKeys` array. In the same time, strip these keys out of the
       // `newKeys` array in order to keep only the `new` keys.
-      const resultKeys = oldKeys.filter(function (key) {
+      const resultKeys = oldKeys.filter(function(key) {
         if (Object.prototype.hasOwnProperty.call(newVal, key)) {
           const index = newKeys.indexOf(key);
           newKeys.splice(index, 1);
@@ -164,7 +171,7 @@ var JSONEditorUtil = {
       resultKeys.push(...newKeys);
 
       // Convert keys array to an object
-      return resultKeys.reduce(function (resultObj, key) {
+      return resultKeys.reduce(function(resultObj, key) {
         resultObj[key] = JSONEditorUtil.sortObjectKeys(
           oldVal[key],
           newVal[key]
@@ -176,7 +183,6 @@ var JSONEditorUtil = {
 
     return newVal;
   }
-
 };
 
 module.exports = JSONEditorUtil;

@@ -1,13 +1,12 @@
-import Config from '../config/Config';
-import DSLCombinerTypes from '../constants/DSLCombinerTypes';
-import DSLExpression from '../structs/DSLExpression';
-import DSLFilterTypes from '../constants/DSLFilterTypes';
-import DSLUtil from './DSLUtil';
+import Config from "../config/Config";
+import DSLCombinerTypes from "../constants/DSLCombinerTypes";
+import DSLExpression from "../structs/DSLExpression";
+import DSLFilterTypes from "../constants/DSLFilterTypes";
+import DSLUtil from "./DSLUtil";
 
 const STRING_EXPR = /(['"])[^\1]+?(?=\1)\1/;
 
 const DSLUpdateUtil = {
-
   /**
    * Default function used by the `applyAdd` function to detect is similar node
    * already exists in the expression.
@@ -44,22 +43,22 @@ const DSLUpdateUtil = {
     const strings = [];
 
     // Extract string expressions so we have a simpler expression to work with
-    src = src.replace(STRING_EXPR, (match) => {
+    src = src.replace(STRING_EXPR, match => {
       strings.push(match);
 
-      return '\x01';
+      return "\x01";
     });
 
     // Perform clean-ups
-    src = src.replace(/\(([^ ,]+)\)/g, '$1'); // Single parenthesis
-    src = src.replace(/\s+/g, ' '); // Consecutive spaces
-    src = src.replace(/,(\s*,)+/g, ','); // Consecutive commas
-    src = src.replace(/^\s*,/g, ''); // Orphan commas (left-side)
-    src = src.replace(/,\s*$/g, ''); // Orphan commas (right-side)
-    src = src.replace(/\(\s*,\s*/g, '('); // Orphan commas (left-paren)
-    src = src.replace(/\s*,\s*\)/g, ')'); // Orphan commas (right-paren)
-    src = src.replace(/:,+/g, ':'); // Orphan commas (multi-value)
-    src = src.replace(/\s+,\s+/g, ', '); // Commas with surrounding whitespace
+    src = src.replace(/\(([^ ,]+)\)/g, "$1"); // Single parenthesis
+    src = src.replace(/\s+/g, " "); // Consecutive spaces
+    src = src.replace(/,(\s*,)+/g, ","); // Consecutive commas
+    src = src.replace(/^\s*,/g, ""); // Orphan commas (left-side)
+    src = src.replace(/,\s*$/g, ""); // Orphan commas (right-side)
+    src = src.replace(/\(\s*,\s*/g, "("); // Orphan commas (left-paren)
+    src = src.replace(/\s*,\s*\)/g, ")"); // Orphan commas (right-paren)
+    src = src.replace(/:,+/g, ":"); // Orphan commas (multi-value)
+    src = src.replace(/\s+,\s+/g, ", "); // Commas with surrounding whitespace
 
     // Put strings back
     /* eslint-disable no-control-regex */
@@ -80,15 +79,15 @@ const DSLUpdateUtil = {
    * @param {number} offset - The offset to apply on position indices
    * @returns {String} Returns the updated string
    */
-  updateNodeTextString(src, node, newNode, offset=0) {
-    const {position, filterType} = node;
+  updateNodeTextString(src, node, newNode, offset = 0) {
+    const { position, filterType } = node;
     let textStart = position[0][0] + offset;
     let textEnd = position[0][1] + offset;
-    let {filterParams: {text}} = newNode;
+    let { filterParams: { text } } = newNode;
 
     if (filterType !== newNode.filterType) {
-      if (Config.environment === 'development') {
-        throw new Error('Trying to update a node with a mismatching node!');
+      if (Config.environment === "development") {
+        throw new Error("Trying to update a node with a mismatching node!");
       }
 
       return src;
@@ -118,23 +117,23 @@ const DSLUpdateUtil = {
    * @param {number} offset - The offset to apply on position indices
    * @returns {String} Returns the updated string
    */
-  updateNodeValueString(src, node, newNode, offset=0) {
-    const {position, filterType} = node;
+  updateNodeValueString(src, node, newNode, offset = 0) {
+    const { position, filterType } = node;
     const labelStart = position[0][0] + offset;
     const labelEnd = position[0][1] + offset;
-    const {filterParams: {label}} = newNode;
+    const { filterParams: { label } } = newNode;
 
     if (filterType !== newNode.filterType) {
-      if (Config.environment === 'development') {
-        throw new Error('Trying to update a node with a mismatching node!');
+      if (Config.environment === "development") {
+        throw new Error("Trying to update a node with a mismatching node!");
       }
 
       return src;
     }
 
     if (filterType !== DSLFilterTypes.ATTRIB) {
-      if (Config.environment === 'development') {
-        throw new Error('Trying to update a non-label node as label!');
+      if (Config.environment === "development") {
+        throw new Error("Trying to update a non-label node as label!");
       }
 
       return src;
@@ -153,8 +152,8 @@ const DSLUpdateUtil = {
    * @param {Boolean} [bleed] - Set to true if you want to trim bleeding spaces
    * @returns {String} Returns the updated string
    */
-  deleteNodeString(src, node, offset=0) {
-    const {position} = node;
+  deleteNodeString(src, node, offset = 0) {
+    const { position } = node;
     const endingRegex = /^(\s|,\s|$)/;
     let start = position[0][0] + offset;
     let end = position[0][1] + offset;
@@ -169,24 +168,24 @@ const DSLUpdateUtil = {
       // value in the attribute. To test for this, we are checking if the
       // character right before is the label ':' and the character after is a
       // whitespace or a comma with whitespace
-      if ((src[start - 1] === ':') && (endingRegex.exec(src.substr(end)))) {
+      if (src[start - 1] === ":" && endingRegex.exec(src.substr(end))) {
         start = position[0][0] + offset;
         end = position[1][1] + offset;
 
-      // Otherwise, bleed left to remove the comma if we are part of multi-value
-      } else if (src[start - 1] === ',') {
+        // Otherwise, bleed left to remove the comma if we are part of multi-value
+      } else if (src[start - 1] === ",") {
         start -= 1;
 
-      // Or bleed right if we were the first item
-      } else if (src[end] === ',') {
+        // Or bleed right if we were the first item
+      } else if (src[end] === ",") {
         end += 1;
       }
     }
 
     // Strip and cleanup any damage caused by it
     return DSLUpdateUtil.cleanupExpressionString(
-        src.substr(0, start) + src.substr(end)
-      );
+      src.substr(0, start) + src.substr(end)
+    );
   },
 
   /**
@@ -199,16 +198,22 @@ const DSLUpdateUtil = {
    * @param {DSLCombinerTypes} [combiner] - The combiner operation to use
    * @returns {String} Returns the updated string
    */
-  addNodeString(src, node, fullAst, offset=0, combiner=DSLCombinerTypes.AND) {
+  addNodeString(
+    src,
+    node,
+    fullAst,
+    offset = 0,
+    combiner = DSLCombinerTypes.AND
+  ) {
     const whitespaceRegex = /\s+$/;
 
     // Trim tailing whitespace
-    src = src.replace(whitespaceRegex, '');
+    src = src.replace(whitespaceRegex, "");
 
     // If we are using AND operation just append node string with whitespace
     if (combiner === DSLCombinerTypes.AND) {
       if (src) {
-        src += ' ';
+        src += " ";
       }
 
       return src + DSLUtil.getNodeString(node);
@@ -216,7 +221,7 @@ const DSLUpdateUtil = {
 
     // If we are using OR operator, just append
     if (src) {
-      src += ', ';
+      src += ", ";
     }
 
     return src + DSLUtil.getNodeString(node);
@@ -232,10 +237,14 @@ const DSLUpdateUtil = {
    * @param {number} offset - The offset to apply on position indices
    * @returns {String} Returns the updated string
    */
-  appendAttribNodeString(src, node, toNode, offset=0) {
+  appendAttribNodeString(src, node, toNode, offset = 0) {
     // Inject only the text into the given label
-    return src.substr(0, toNode.position[1][1] + offset) + ',' +
-      node.filterParams.text + src.substr(toNode.position[1][1] + offset);
+    return (
+      src.substr(0, toNode.position[1][1] + offset) +
+      "," +
+      node.filterParams.text +
+      src.substr(toNode.position[1][1] + offset)
+    );
   },
 
   /**
@@ -246,61 +255,73 @@ const DSLUpdateUtil = {
    * @param {Object} [options] - Combine options
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyAdd(expression, nodes, options={}) {
+  applyAdd(expression, nodes, options = {}) {
     const {
-      nodeCompareFunction=DSLUpdateUtil.defaultNodeCompareFunction,
-      itemCombiner=DSLCombinerTypes.AND,
-      newCombiner=DSLCombinerTypes.AND
+      nodeCompareFunction = DSLUpdateUtil.defaultNodeCompareFunction,
+      itemCombiner = DSLCombinerTypes.AND,
+      newCombiner = DSLCombinerTypes.AND
     } = options;
 
-    const expressionUpdate = nodes.reduce(({value, offset}, node, index) => {
-      let combiner = itemCombiner;
-      let newValue = value;
+    const expressionUpdate = nodes.reduce(
+      ({ value, offset }, node, index) => {
+        let combiner = itemCombiner;
+        let newValue = value;
 
-      // Find all the existing nodes, related to the node being added
-      const relevantNodes = DSLUtil.reduceAstFilters(expression.ast,
-        (memo, filterNode) => {
-          if (nodeCompareFunction(node, filterNode)) {
-            memo.push(filterNode);
+        // Find all the existing nodes, related to the node being added
+        const relevantNodes = DSLUtil.reduceAstFilters(
+          expression.ast,
+          (memo, filterNode) => {
+            if (nodeCompareFunction(node, filterNode)) {
+              memo.push(filterNode);
+            }
+
+            return memo;
+          },
+          []
+        );
+
+        // If this is the first element, check if we have previous relevant
+        // occurrences in the expression, and if yes, use the `newCombiner`
+        if (index === 0) {
+          if (relevantNodes.length === 0) {
+            combiner = newCombiner;
           }
-
-          return memo;
-        },
-        []
-      );
-
-      // If this is the first element, check if we have previous relevant
-      // occurrences in the expression, and if yes, use the `newCombiner`
-      if (index === 0) {
-        if (relevantNodes.length === 0) {
-          combiner = newCombiner;
         }
-      }
 
-      // In case of an OR operator + attribute node we take special care for
-      // creating multi-value attributes when possible
-      if ((combiner === DSLCombinerTypes.OR) &&
-          (node.filterType === DSLFilterTypes.ATTRIB) &&
-          (relevantNodes.length !== 0) &&
-          (node.filterParams.label === relevantNodes[0].filterParams.label)) {
+        // In case of an OR operator + attribute node we take special care for
+        // creating multi-value attributes when possible
+        if (
+          combiner === DSLCombinerTypes.OR &&
+          node.filterType === DSLFilterTypes.ATTRIB &&
+          relevantNodes.length !== 0 &&
+          node.filterParams.label === relevantNodes[0].filterParams.label
+        ) {
+          newValue = DSLUpdateUtil.appendAttribNodeString(
+            value,
+            node,
+            relevantNodes[0],
+            offset
+          );
 
-        newValue = DSLUpdateUtil.appendAttribNodeString(
-          value, node, relevantNodes[0], offset
-        );
+          // Otherwise we use regular node concatenation
+        } else {
+          newValue = DSLUpdateUtil.addNodeString(
+            value,
+            node,
+            expression.ast,
+            offset,
+            combiner
+          );
+        }
 
-      // Otherwise we use regular node concatenation
-      } else {
-        newValue = DSLUpdateUtil.addNodeString(
-          value, node, expression.ast, offset, combiner
-        );
-      }
+        // Update offset in order for the token positions in the expression
+        // AST to be processable even after the updates
+        offset += newValue.length - value.length;
 
-      // Update offset in order for the token positions in the expression
-      // AST to be processable even after the updates
-      offset += newValue.length - value.length;
-
-      return {offset, value: newValue};
-    }, {offset: 0, value: expression.value});
+        return { offset, value: newValue };
+      },
+      { offset: 0, value: expression.value }
+    );
 
     return new DSLExpression(expressionUpdate.value);
   },
@@ -313,18 +334,19 @@ const DSLUpdateUtil = {
    * @returns {DSLExpression} expression - The updated expression
    */
   applyDelete(expression, nodes) {
-    const newExpression = nodes.reduce(({value, offset}, node) => {
-      // Delete value
-      const newValue = DSLUpdateUtil.deleteNodeString(
-        value, node, offset
-      );
+    const newExpression = nodes.reduce(
+      ({ value, offset }, node) => {
+        // Delete value
+        const newValue = DSLUpdateUtil.deleteNodeString(value, node, offset);
 
-      // This action shifted the location of the tokens in the original
-      // expression. Update offset.
-      offset += newValue.length - value.length;
+        // This action shifted the location of the tokens in the original
+        // expression. Update offset.
+        offset += newValue.length - value.length;
 
-      return {value: newValue, offset};
-    }, {value: expression.value, offset: 0});
+        return { value: newValue, offset };
+      },
+      { value: expression.value, offset: 0 }
+    );
 
     return new DSLExpression(newExpression.value);
   },
@@ -339,7 +361,7 @@ const DSLUpdateUtil = {
    * @param {Object} [addOptions] - Options for adding nodes
    * @returns {DSLExpression} expression - The updated expression
    */
-  applyReplace(expression, nodes, newNodes, addOptions={}) {
+  applyReplace(expression, nodes, newNodes, addOptions = {}) {
     const updateCount = Math.min(nodes.length, newNodes.length);
     let expressionValue = expression.value;
     let offset = 0;
@@ -351,7 +373,10 @@ const DSLUpdateUtil = {
 
       // Update expression value
       const newValue = DSLUpdateUtil.updateNodeTextString(
-        expressionValue, updateNode, withNode, offset
+        expressionValue,
+        updateNode,
+        withNode,
+        offset
       );
 
       // This action may have shifted the location of the tokens
@@ -366,39 +391,33 @@ const DSLUpdateUtil = {
 
     // Delete nodes using applyDelete
     if (newNodes.length < nodes.length) {
-
       // Note that the offsets in the `nodes` array point to the old expression
       // so they have to be updated in order to match the new expression
-      const deleteNodes = nodes.slice(updateCount)
-        .map((node) => {
-          node.position = node.position.map(([start, end]) => {
-            return [
-              start + offset,
-              end + offset
-            ];
-          });
-
-          return node;
+      const deleteNodes = nodes.slice(updateCount).map(node => {
+        node.position = node.position.map(([start, end]) => {
+          return [start + offset, end + offset];
         });
+
+        return node;
+      });
 
       // We avoid expanding the logic of `applyDelete` and instead we use the
       // 'hack' of the offset update above in order to isolate the logic.
-      return DSLUpdateUtil.applyDelete(
-        newExpression, deleteNodes
-      );
+      return DSLUpdateUtil.applyDelete(newExpression, deleteNodes);
     }
 
     // Add nodes using applyAdd
     if (newNodes.length > nodes.length) {
       return DSLUpdateUtil.applyAdd(
-        newExpression, newNodes.slice(updateCount), addOptions
+        newExpression,
+        newNodes.slice(updateCount),
+        addOptions
       );
     }
 
     // Otherwise just return the expression
     return newExpression;
   }
-
 };
 
 module.exports = DSLUpdateUtil;

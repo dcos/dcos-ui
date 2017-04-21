@@ -1,13 +1,12 @@
-import {Modal} from 'reactjs-components';
-import React from 'react';
+import { Modal } from "reactjs-components";
+import React from "react";
 
-import ClickToSelect from '../ClickToSelect';
-import Config from '../../config/Config';
-import ModalHeading from '../modals/ModalHeading';
+import ClickToSelect from "../ClickToSelect";
+import Config from "../../config/Config";
+import ModalHeading from "../modals/ModalHeading";
 
 var VersionsModal = React.createClass({
-
-  displayName: 'VersionsModal',
+  displayName: "VersionsModal",
 
   propTypes: {
     onClose: React.PropTypes.func.isRequired,
@@ -21,9 +20,7 @@ var VersionsModal = React.createClass({
   getContent() {
     var string = JSON.stringify(this.props.versionDump, null, 2);
 
-    return (
-      <pre className="flush-bottom">{string}</pre>
-    );
+    return <pre className="flush-bottom">{string}</pre>;
   },
 
   render() {
@@ -39,7 +36,8 @@ var VersionsModal = React.createClass({
         open={this.props.open}
         showHeader={true}
         header={header}
-        size="large">
+        size="large"
+      >
         <ClickToSelect>
           {this.getContent()}
         </ClickToSelect>

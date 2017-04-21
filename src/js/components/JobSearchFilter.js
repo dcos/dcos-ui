@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import FilterInputText from './FilterInputText';
+import FilterInputText from "./FilterInputText";
 
 class JobSearchFilter extends React.Component {
   render() {
@@ -10,7 +10,8 @@ class JobSearchFilter extends React.Component {
         className="flush-bottom"
         handleFilterChange={this.props.onChange}
         placeholder="Search"
-        searchString={this.props.value} />
+        searchString={this.props.value}
+      />
     );
   }
 }

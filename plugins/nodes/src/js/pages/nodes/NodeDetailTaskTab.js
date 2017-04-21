@@ -1,17 +1,14 @@
-import React from 'react';
-import {routerShape} from 'react-router';
+import React from "react";
+import { routerShape } from "react-router";
 
-import {
-  DCOS_CHANGE
-} from '#SRC/js/constants/EventTypes';
-import DCOSStore from '#SRC/js/stores/DCOSStore';
-import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
-import TasksContainer from '../../../../../services/src/js/containers/tasks/TasksContainer';
+import TasksContainer
+  from "../../../../../services/src/js/containers/tasks/TasksContainer";
 
-const METHODS_TO_BIND = [
-  'onStoreChange'
-];
+const METHODS_TO_BIND = ["onStoreChange"];
 
 class NodeDetailTaskTab extends React.Component {
   constructor() {
@@ -22,7 +19,7 @@ class NodeDetailTaskTab extends React.Component {
       lastUpdate: 0
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -37,8 +34,10 @@ class NodeDetailTaskTab extends React.Component {
 
   onStoreChange() {
     // Throttle updates from DCOSStore
-    if (Date.now() - this.state.lastUpdate > 1000
-      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
+    if (
+      Date.now() - this.state.lastUpdate > 1000 ||
+      (DCOSStore.serviceDataReceived && this.state.isLoading)
+    ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
@@ -47,14 +46,10 @@ class NodeDetailTaskTab extends React.Component {
   }
 
   render() {
-    const {nodeID} = this.props.params;
+    const { nodeID } = this.props.params;
     const tasks = MesosStateStore.getTasksFromNodeID(nodeID);
 
-    return (
-      <TasksContainer
-        params={this.props.params}
-        tasks={tasks} />
-    );
+    return <TasksContainer params={this.props.params} tasks={tasks} />;
   }
 }
 

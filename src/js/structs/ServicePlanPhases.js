@@ -1,5 +1,5 @@
-import List from './List';
-import ServicePlanPhase from './ServicePlanPhase';
+import List from "./List";
+import ServicePlanPhase from "./ServicePlanPhase";
 
 class ServicePlanPhases extends List {
   constructor() {
@@ -29,7 +29,6 @@ class ServicePlanPhases extends List {
   getActiveIndex() {
     return this._activePhaseIndex;
   }
-
 }
 
 ServicePlanPhases.type = ServicePlanPhase;

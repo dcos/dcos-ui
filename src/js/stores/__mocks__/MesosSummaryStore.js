@@ -1,4 +1,4 @@
-var MesosSummaryStore = jest.genMockFromModule('../MesosSummaryStore');
+var MesosSummaryStore = jest.genMockFromModule("../MesosSummaryStore");
 
 var _data = {};
 

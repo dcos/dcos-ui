@@ -1,6 +1,6 @@
 const ContainerValidatorUtil = {
   isValidDockerImage(dockerImage) {
-    if (typeof dockerImage !== 'string' || dockerImage === '') {
+    if (typeof dockerImage !== "string" || dockerImage === "") {
       return false;
     }
 

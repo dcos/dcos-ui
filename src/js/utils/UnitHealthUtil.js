@@ -1,17 +1,17 @@
-import UnitHealthStatus from '../constants/UnitHealthStatus';
-import UnitHealthTypes from '../constants/UnitHealthTypes';
-import TableUtil from '../utils/TableUtil';
-import Util from '../utils/Util';
+import UnitHealthStatus from "../constants/UnitHealthStatus";
+import UnitHealthTypes from "../constants/UnitHealthTypes";
+import TableUtil from "../utils/TableUtil";
+import Util from "../utils/Util";
 
 const UnitHealthUtil = {
   getHealthSortFunction(...args) {
-    return TableUtil.getSortFunction('id', function (item, prop) {
+    return TableUtil.getSortFunction("id", function(item, prop) {
       // TODO: Deprecate sorting conditions by prop
-      if (prop === 'health') {
+      if (prop === "health") {
         return UnitHealthUtil.getHealthSorting(item);
       }
 
-      if (prop === 'id' || prop === 'name') {
+      if (prop === "id" || prop === "name") {
         return item.getTitle();
       }
 
@@ -30,11 +30,13 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    const healthKey = Object.keys(UnitHealthStatus).find(function (key) {
-      return (UnitHealthStatus[key].value === health);
+    const healthKey = Object.keys(UnitHealthStatus).find(function(key) {
+      return UnitHealthStatus[key].value === health;
     });
 
-    return UnitHealthStatus[healthKey] || UnitHealthStatus[UnitHealthTypes.SERVER_NA];
+    return (
+      UnitHealthStatus[healthKey] || UnitHealthStatus[UnitHealthTypes.SERVER_NA]
+    );
   },
 
   /**
@@ -46,11 +48,11 @@ const UnitHealthUtil = {
   filterByHealth(items, health) {
     health = Util.toLowerCaseIfString(health);
 
-    if (health === 'all') {
+    if (health === "all") {
       return items;
     }
 
-    return items.filter(function (datum) {
+    return items.filter(function(datum) {
       if (health.length > 1) {
         return Util.toLowerCaseIfString(datum.getHealth().title) === health;
       }
@@ -58,7 +60,6 @@ const UnitHealthUtil = {
       return datum.getHealth().value === +health;
     });
   }
-
 };
 
 module.exports = UnitHealthUtil;

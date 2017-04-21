@@ -1,7 +1,7 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
-import GetSetBaseStore from './GetSetBaseStore';
-import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
+import GetSetBaseStore from "./GetSetBaseStore";
+import { NOTIFICATION_CHANGE } from "../constants/EventTypes";
 
 class NotificationStore extends GetSetBaseStore {
   constructor() {
@@ -56,17 +56,17 @@ class NotificationStore extends GetSetBaseStore {
    @access public
    */
   addNotification(locations, notificationID, value) {
-    const notificationMap = this.get('notificationMap');
+    const notificationMap = this.get("notificationMap");
 
     if (Array.isArray(locations)) {
-      locations.forEach((location) => {
+      locations.forEach(location => {
         this.setLocationValue(notificationMap, location, notificationID, value);
       });
     } else {
       this.setLocationValue(notificationMap, locations, notificationID, value);
     }
 
-    this.set({notificationMap});
+    this.set({ notificationMap });
     this.emit(NOTIFICATION_CHANGE);
   }
 
@@ -78,17 +78,17 @@ class NotificationStore extends GetSetBaseStore {
    @access public
    */
   removeNotification(locations, notificationID) {
-    const notificationMap = this.get('notificationMap');
+    const notificationMap = this.get("notificationMap");
 
     if (Array.isArray(locations)) {
-      locations.forEach((location) => {
+      locations.forEach(location => {
         this.deleteLocation(notificationMap, location, notificationID);
       });
     } else {
       this.deleteLocation(notificationMap, locations, notificationID);
     }
 
-    this.set({notificationMap});
+    this.set({ notificationMap });
     this.emit(NOTIFICATION_CHANGE);
   }
 
@@ -100,20 +100,20 @@ class NotificationStore extends GetSetBaseStore {
    @return {Number} value representing the number of notifications.
    */
   getNotificationCount(tabName) {
-    let notificationMap = this.get('notificationMap');
+    let notificationMap = this.get("notificationMap");
     if (!Object.prototype.hasOwnProperty.call(notificationMap, tabName)) {
       return 0;
     }
 
     notificationMap = notificationMap[tabName];
 
-    return Object.values(notificationMap).reduce(function (tally, count) {
-      return tally += count;
+    return Object.values(notificationMap).reduce(function(tally, count) {
+      return (tally += count);
     }, 0);
   }
 
   get storeID() {
-    return 'notification';
+    return "notification";
   }
 }
 

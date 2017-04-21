@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Icon from '../components/Icon';
+import Icon from "../components/Icon";
 
 class ComponentsPage extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class ComponentsPage extends React.Component {
 }
 
 ComponentsPage.routeConfig = {
-  label: 'Components',
+  label: "Components",
   icon: <Icon id="components-inverse" size="small" family="product" />,
   matches: /^\/components/
 };

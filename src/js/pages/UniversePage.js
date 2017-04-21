@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Icon from '../components/Icon';
+import Icon from "../components/Icon";
 
 class UniversePage extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class UniversePage extends React.Component {
 }
 
 UniversePage.routeConfig = {
-  label: 'Universe',
+  label: "Universe",
   icon: <Icon id="packages-inverse" size="small" family="product" />,
   matches: /^\/universe/
 };

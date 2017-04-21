@@ -1,34 +1,28 @@
-const Service = require('../Service');
+const Service = require("../Service");
 
-describe('Service', function () {
-
-  describe('#getId', function () {
-
-    it('returns correct id', function () {
+describe("Service", function() {
+  describe("#getId", function() {
+    it("returns correct id", function() {
       const service = new Service({
-        id: '/test/cmd'
+        id: "/test/cmd"
       });
 
-      expect(service.getId()).toEqual('/test/cmd');
+      expect(service.getId()).toEqual("/test/cmd");
     });
-
   });
 
-  describe('#getMesosId', function () {
-
-    it('returns correct id', function () {
+  describe("#getMesosId", function() {
+    it("returns correct id", function() {
       const service = new Service({
-        id: '/test/cmd'
+        id: "/test/cmd"
       });
 
-      expect(service.getMesosId()).toEqual('cmd.test');
+      expect(service.getMesosId()).toEqual("cmd.test");
     });
-
   });
 
-  describe('#getResources', function () {
-
-    it('should return default correct resource data', function () {
+  describe("#getResources", function() {
+    it("should return default correct resource data", function() {
       expect(new Service().getResources()).toEqual({
         cpus: 0,
         mem: 0,
@@ -36,21 +30,17 @@ describe('Service', function () {
         disk: 0
       });
     });
-
   });
 
-  describe('#toJSON', function () {
-
-    it('returns a object with the values in _itemData', function () {
-      const item = new Service({foo: 'bar', baz: 'qux'});
-      expect(item.toJSON()).toEqual({foo:'bar', baz:'qux'});
+  describe("#toJSON", function() {
+    it("returns a object with the values in _itemData", function() {
+      const item = new Service({ foo: "bar", baz: "qux" });
+      expect(item.toJSON()).toEqual({ foo: "bar", baz: "qux" });
     });
 
-    it('returns a JSON string with the values in _itemData', function () {
-      const item = new Service({foo: 'bar', baz: 'qux'});
+    it("returns a JSON string with the values in _itemData", function() {
+      const item = new Service({ foo: "bar", baz: "qux" });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
-
   });
-
 });

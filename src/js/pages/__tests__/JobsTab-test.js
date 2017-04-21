@@ -1,43 +1,45 @@
-jest.dontMock('../jobs/JobsTab');
-jest.dontMock('../../mixins/InternalStorageMixin');
-jest.dontMock('../../mixins/SaveStateMixin');
-jest.dontMock('../../components/Page');
-jest.mock('../../stores/UserSettingsStore');
-jest.mock('../../mixins/QueryParamsMixin');
+jest.dontMock("../jobs/JobsTab");
+jest.dontMock("../../mixins/InternalStorageMixin");
+jest.dontMock("../../mixins/SaveStateMixin");
+jest.dontMock("../../components/Page");
+jest.mock("../../stores/UserSettingsStore");
+jest.mock("../../mixins/QueryParamsMixin");
 
 /* eslint-disable no-unused-vars */
-const React = require('react');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
-const JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
+const JestUtil = require("../../utils/JestUtil");
 
-const AlertPanel = require('../../components/AlertPanel');
-const MetronomeUtil = require('../../utils/MetronomeUtil');
-const DCOSStore = require('../../../../src/js/stores/DCOSStore');
-const JobsTab = require('../jobs/JobsTab');
-const JobTree = require('../../structs/JobTree');
-const JobsTable = require('../../pages/jobs/JobsTable');
+const AlertPanel = require("../../components/AlertPanel");
+const MetronomeUtil = require("../../utils/MetronomeUtil");
+const DCOSStore = require("../../../../src/js/stores/DCOSStore");
+const JobsTab = require("../jobs/JobsTab");
+const JobTree = require("../../structs/JobTree");
+const JobsTable = require("../../pages/jobs/JobsTable");
 
-describe('JobsTab', function () {
-
-  beforeEach(function () {
-    DCOSStore.jobTree = new JobTree(MetronomeUtil.parseJobs([{
-      id: '/test'
-    }]));
+describe("JobsTab", function() {
+  beforeEach(function() {
+    DCOSStore.jobTree = new JobTree(
+      MetronomeUtil.parseJobs([
+        {
+          id: "/test"
+        }
+      ])
+    );
     DCOSStore.jobDataReceived = true;
-    this.container = global.document.createElement('div');
+    this.container = global.document.createElement("div");
   });
 
-  afterEach(function () {
+  afterEach(function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#render', function () {
-
-    it('renders the job table', function () {
+  describe("#render", function() {
+    it("renders the job table", function() {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
         this.container
       );
 
@@ -46,22 +48,20 @@ describe('JobsTab', function () {
       ).toBeDefined();
     });
 
-    it('renders loading screen', function () {
+    it("renders loading screen", function() {
       DCOSStore.jobDataReceived = false;
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
         this.container
       );
 
       var node = ReactDOM.findDOMNode(instance);
-      expect(
-        node.querySelector('.ball-scale')
-      ).toBeDefined();
+      expect(node.querySelector(".ball-scale")).toBeDefined();
     });
 
-    it('renders correct empty panel', function () {
+    it("renders correct empty panel", function() {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
         this.container
       );
 
@@ -69,7 +69,5 @@ describe('JobsTab', function () {
         TestUtils.scryRenderedComponentsWithType(instance, AlertPanel)
       ).toBeDefined();
     });
-
   });
-
 });

@@ -1,20 +1,20 @@
-import mixin from 'reactjs-mixin';
-import {Link, routerShape} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link, routerShape } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../../components/BreadcrumbTextContent';
-import Loader from '../../../components/Loader';
-import Page from '../../../components/Page';
-import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import RouterUtil from '../../../utils/RouterUtil';
-import TabsMixin from '../../../mixins/TabsMixin';
-import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
+import Breadcrumb from "../../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
+import Loader from "../../../components/Loader";
+import Page from "../../../components/Page";
+import RequestErrorMsg from "../../../components/RequestErrorMsg";
+import RouterUtil from "../../../utils/RouterUtil";
+import TabsMixin from "../../../mixins/TabsMixin";
+import VirtualNetworksStore from "../../../stores/VirtualNetworksStore";
 
-const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
+const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
@@ -46,8 +46,8 @@ const NetworksDetailBreadcrumbs = ({overlayID, overlay}) => {
 };
 
 const METHODS_TO_BIND = [
-  'onVirtualNetworksStoreError',
-  'onVirtualNetworksStoreSuccess'
+  "onVirtualNetworksStoreError",
+  "onVirtualNetworksStoreSuccess"
 ];
 
 class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
@@ -61,19 +61,19 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     // Virtual Network Detail Tabs
     this.tabs_tabs = {
-      '/networking/networks/:overlayName': 'Tasks',
-      '/networking/networks/:overlayName/details': 'Details'
+      "/networking/networks/:overlayName": "Tasks",
+      "/networking/networks/:overlayName/details": "Details"
     };
 
     this.store_listeners = [
       {
-        name: 'virtualNetworks',
-        events: ['success', 'error'],
+        name: "virtualNetworks",
+        events: ["success", "error"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -89,19 +89,19 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   updateCurrentTab(nextProps) {
-    const {routes} = nextProps || this.props;
+    const { routes } = nextProps || this.props;
     const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
-    this.setState({currentTab});
+    this.setState({ currentTab });
   }
 
   onVirtualNetworksStoreError() {
     const errorCount = this.state.errorCount + 1;
-    this.setState({errorCount});
+    this.setState({ errorCount });
   }
 
   onVirtualNetworksStoreSuccess() {
-    this.setState({receivedVirtualNetworks: true, errorCount: 0});
+    this.setState({ receivedVirtualNetworks: true, errorCount: 0 });
   }
 
   getErrorScreen() {
@@ -131,7 +131,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    const {currentTab, errorCount, receivedVirtualNetworks} = this.state;
+    const { currentTab, errorCount, receivedVirtualNetworks } = this.state;
 
     if (errorCount >= 3) {
       return this.getErrorScreen();
@@ -143,24 +143,30 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     const tabs = [
       {
-        label: 'Tasks',
+        label: "Tasks",
         callback: () => {
-          this.setState({currentTab: '/networking/networks/:overlayName'});
-          this.context.router.push(`/networking/networks/${this.props.params.overlayName}`);
+          this.setState({ currentTab: "/networking/networks/:overlayName" });
+          this.context.router.push(
+            `/networking/networks/${this.props.params.overlayName}`
+          );
         },
-        isActive: currentTab === '/networking/networks/:overlayName'
+        isActive: currentTab === "/networking/networks/:overlayName"
       },
       {
-        label: 'Details',
+        label: "Details",
         callback: () => {
-          this.setState({currentTab: '/networking/networks/:overlayName/details'});
-          this.context.router.push(`/networking/networks/${this.props.params.overlayName}/details`);
+          this.setState({
+            currentTab: "/networking/networks/:overlayName/details"
+          });
+          this.context.router.push(
+            `/networking/networks/${this.props.params.overlayName}/details`
+          );
         },
-        isActive: currentTab === '/networking/networks/:overlayName/details'
+        isActive: currentTab === "/networking/networks/:overlayName/details"
       }
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
+    const overlay = VirtualNetworksStore.getOverlays().findItem(overlay => {
       return overlay.getName() === this.props.params.overlayName;
     });
 
@@ -168,7 +174,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       <Page>
         <Page.Header
           breadcrumbs={<NetworksDetailBreadcrumbs overlay={overlay} />}
-          tabs={tabs} />
+          tabs={tabs}
+        />
         {React.cloneElement(this.props.children, { overlay })}
       </Page>
     );

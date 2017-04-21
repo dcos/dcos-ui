@@ -1,7 +1,7 @@
-import PluginSDK from 'PluginSDK';
-import JestUtil from '../utils/JestUtil';
-import Loader from './Loader';
-import PluginModules from './PluginModules';
+import PluginSDK from "PluginSDK";
+import JestUtil from "../utils/JestUtil";
+import Loader from "./Loader";
+import PluginModules from "./PluginModules";
 
 /**
  * Loads whatever plugins are passed in. Could be Mocks
@@ -11,7 +11,7 @@ function loadPlugins(plugins) {
   var availablePlugins = {};
   var pluginConfig = {};
 
-  Object.keys(plugins).forEach(function (pluginID) {
+  Object.keys(plugins).forEach(function(pluginID) {
     availablePlugins[pluginID] = plugins[pluginID].module;
     pluginConfig[pluginID] = plugins[pluginID].config;
   });
@@ -27,10 +27,9 @@ function loadPlugins(plugins) {
 function loadPluginsByName(plugins) {
   const pluginsToLoad = {};
 
-  const {pluginsList, externalPluginsList} = Loader.__getAvailablePlugins();
+  const { pluginsList, externalPluginsList } = Loader.__getAvailablePlugins();
 
-  Object.keys(plugins).forEach(function (pluginID) {
-
+  Object.keys(plugins).forEach(function(pluginID) {
     if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
       throw new Error(`${pluginID} does not exist. Failed to load.`);
     }
@@ -48,7 +47,6 @@ function loadPluginsByName(plugins) {
     };
   });
   loadPlugins(pluginsToLoad);
-
 }
 
 /**
@@ -113,7 +111,7 @@ function dontMock(moduleNames) {
     return;
   }
   // Assuming modules have unique names
-  const foundType = Object.keys(PluginModules).filter((moduleType) => {
+  const foundType = Object.keys(PluginModules).filter(moduleType => {
     return name in PluginModules[moduleType];
   });
   if (!foundType.length) {

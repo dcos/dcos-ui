@@ -1,8 +1,8 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import Config from '#SRC/js/config/Config';
-import Util from '#SRC/js/utils/Util';
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import Config from "#SRC/js/config/Config";
+import Util from "#SRC/js/utils/Util";
 
 import {
   REQUEST_MARATHON_GROUP_CREATE_ERROR,
@@ -40,11 +40,11 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR
-} from '../constants/ActionTypes';
-import MarathonUtil from '../utils/MarathonUtil';
-import Pod from '../structs/Pod';
-import PodSpec from '../structs/PodSpec';
-import Service from '../structs/Service';
+} from "../constants/ActionTypes";
+import MarathonUtil from "../utils/MarathonUtil";
+import Pod from "../structs/Pod";
+import PodSpec from "../structs/PodSpec";
+import Service from "../structs/Service";
 
 function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
@@ -53,8 +53,8 @@ function buildURI(path) {
 var MarathonActions = {
   createGroup(data) {
     RequestUtil.json({
-      url: buildURI('/groups'),
-      method: 'POST',
+      url: buildURI("/groups"),
+      method: "POST",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -76,12 +76,12 @@ var MarathonActions = {
     let url = buildURI(`/groups/${groupId}`);
 
     if (force === true) {
-      url += '?force=true';
+      url += "?force=true";
     }
 
     RequestUtil.json({
       url,
-      method: 'DELETE',
+      method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_SUCCESS
@@ -100,15 +100,15 @@ var MarathonActions = {
   editGroup(data, force) {
     const groupId = encodeURIComponent(data.id);
     let url = buildURI(`/groups/${groupId}`);
-    data = Util.omit(data, ['id']);
+    data = Util.omit(data, ["id"]);
 
     if (force === true) {
-      url += '?force=true';
+      url += "?force=true";
     }
 
     RequestUtil.json({
       url,
-      method: 'PUT',
+      method: "PUT",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -134,15 +134,15 @@ var MarathonActions = {
     // TODO (DCOS-9621): Validate input and only accept instances of ServiceSpec
 
     // Always default to the `/apps` endpoint to create services
-    let url = buildURI('/apps');
+    let url = buildURI("/apps");
 
     if (spec instanceof PodSpec) {
-      url = buildURI('/pods');
+      url = buildURI("/pods");
     }
 
     RequestUtil.json({
       url,
-      method: 'POST',
+      method: "POST",
       data: spec,
       success() {
         AppDispatcher.handleServerAction({
@@ -173,12 +173,12 @@ var MarathonActions = {
     }
 
     if (force === true) {
-      url += '?force=true';
+      url += "?force=true";
     }
 
     RequestUtil.json({
       url,
-      method: 'DELETE',
+      method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
@@ -204,8 +204,8 @@ var MarathonActions = {
   editService(service, spec, force) {
     // TODO (DCOS-9621): Only accept instances of ServiceSpec for spec
     if (!(service instanceof Service)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('service is not an instance of Service');
+      if (process.env.NODE_ENV !== "production") {
+        throw new TypeError("service is not an instance of Service");
       }
 
       return;
@@ -225,7 +225,7 @@ var MarathonActions = {
 
     RequestUtil.json({
       url,
-      method: 'PUT',
+      method: "PUT",
       data: spec,
       success() {
         AppDispatcher.handleServerAction({
@@ -244,8 +244,8 @@ var MarathonActions = {
 
   restartService(service, force = false) {
     if (!(service instanceof Service)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('service is not an instance of Service');
+      if (process.env.NODE_ENV !== "production") {
+        throw new TypeError("service is not an instance of Service");
       }
 
       return;
@@ -258,12 +258,12 @@ var MarathonActions = {
     }
 
     if (force === true) {
-      url += '?force=true';
+      url += "?force=true";
     }
 
     RequestUtil.json({
       url,
-      method: 'POST',
+      method: "POST",
       data: force,
       success() {
         AppDispatcher.handleServerAction({
@@ -281,80 +281,80 @@ var MarathonActions = {
   },
 
   fetchGroups: RequestUtil.debounceOnError(
-      Config.getRefreshRate(),
-      function (resolve, reject) {
-        return function () {
-          const url = buildURI('/groups');
-          const embed = [
-            {name: 'embed', value: 'group.groups'},
-            {name: 'embed', value: 'group.apps'},
-            {name: 'embed', value: 'group.pods'},
-            {name: 'embed', value: 'group.apps.deployments'},
-            {name: 'embed', value: 'group.apps.counts'},
-            {name: 'embed', value: 'group.apps.tasks'},
-            {name: 'embed', value: 'group.apps.taskStats'},
-            {name: 'embed', value: 'group.apps.lastTaskFailure'}
-          ];
+    Config.getRefreshRate(),
+    function(resolve, reject) {
+      return function() {
+        const url = buildURI("/groups");
+        const embed = [
+          { name: "embed", value: "group.groups" },
+          { name: "embed", value: "group.apps" },
+          { name: "embed", value: "group.pods" },
+          { name: "embed", value: "group.apps.deployments" },
+          { name: "embed", value: "group.apps.counts" },
+          { name: "embed", value: "group.apps.tasks" },
+          { name: "embed", value: "group.apps.taskStats" },
+          { name: "embed", value: "group.apps.lastTaskFailure" }
+        ];
 
-          RequestUtil.json({
-            url,
-            data: embed,
-            success(response) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_GROUPS_SUCCESS,
-                data: MarathonUtil.parseGroups(response)
-              });
-              resolve();
-            },
-            error(xhr) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_GROUPS_ERROR,
-                data: xhr.message,
-                xhr
-              });
-              reject();
-            },
-            hangingRequestCallback() {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_GROUPS_ONGOING
-              });
-            }
-          });
-        };
-      },
-      {delayAfterCount: Config.delayAfterErrorCount}
+        RequestUtil.json({
+          url,
+          data: embed,
+          success(response) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_GROUPS_SUCCESS,
+              data: MarathonUtil.parseGroups(response)
+            });
+            resolve();
+          },
+          error(xhr) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_GROUPS_ERROR,
+              data: xhr.message,
+              xhr
+            });
+            reject();
+          },
+          hangingRequestCallback() {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_GROUPS_ONGOING
+            });
+          }
+        });
+      };
+    },
+    { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   fetchDeployments: RequestUtil.debounceOnError(
-      Config.getRefreshRate(),
-      function (resolve, reject) {
-        return function () {
-          RequestUtil.json({
-            url: buildURI('/deployments'),
-            success(response) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
-                data: response
-              });
-              resolve();
-            },
-            error(xhr) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-                data: xhr.message,
-                xhr
-              });
-              reject();
-            },
-            hangingRequestCallback() {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
-              });
-            }
-          });
-        };
-      },
-      {delayAfterCount: Config.delayAfterErrorCount}
+    Config.getRefreshRate(),
+    function(resolve, reject) {
+      return function() {
+        RequestUtil.json({
+          url: buildURI("/deployments"),
+          success(response) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+              data: response
+            });
+            resolve();
+          },
+          error(xhr) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+              data: xhr.message,
+              xhr
+            });
+            reject();
+          },
+          hangingRequestCallback() {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
+            });
+          }
+        });
+      };
+    },
+    { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   fetchServiceVersion(serviceID, versionID) {
@@ -363,7 +363,7 @@ var MarathonActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
-          data: {serviceID, versionID, version: response}
+          data: { serviceID, versionID, version: response }
         });
       },
       error(xhr) {
@@ -380,10 +380,10 @@ var MarathonActions = {
     RequestUtil.json({
       url: buildURI(`/apps/${serviceID}/versions`),
       success(response) {
-        const {versions} = response;
+        const { versions } = response;
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
-          data: {serviceID, versions}
+          data: { serviceID, versions }
         });
       },
       error(xhr) {
@@ -398,7 +398,7 @@ var MarathonActions = {
 
   fetchMarathonInstanceInfo() {
     RequestUtil.json({
-      url: buildURI('/info'),
+      url: buildURI("/info"),
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
@@ -416,47 +416,47 @@ var MarathonActions = {
   },
 
   fetchQueue: RequestUtil.debounceOnError(
-      Config.getRefreshRate(),
-      function (resolve, reject) {
-        return function (options = {}) {
-          const queryParams = options.params || '';
+    Config.getRefreshRate(),
+    function(resolve, reject) {
+      return function(options = {}) {
+        const queryParams = options.params || "";
 
-          RequestUtil.json({
-            url: buildURI(`/queue${queryParams}`),
-            success(response) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_QUEUE_SUCCESS,
-                data: response
-              });
-              resolve();
-            },
-            error(xhr) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_QUEUE_ERROR,
-                data: xhr.message,
-                xhr
-              });
-              reject();
-            },
-            hangingRequestCallback() {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_MARATHON_QUEUE_ONGOING
-              });
-            }
-          });
-        };
-      },
-      {delayAfterCount: Config.delayAfterErrorCount}
+        RequestUtil.json({
+          url: buildURI(`/queue${queryParams}`),
+          success(response) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_SUCCESS,
+              data: response
+            });
+            resolve();
+          },
+          error(xhr) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_ERROR,
+              data: xhr.message,
+              xhr
+            });
+            reject();
+          },
+          hangingRequestCallback() {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_ONGOING
+            });
+          }
+        });
+      };
+    },
+    { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   revertDeployment(deploymentID) {
     RequestUtil.json({
       url: buildURI(`/deployments/${deploymentID}`),
-      method: 'DELETE',
+      method: "DELETE",
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
-          data: Object.assign({originalDeploymentID: deploymentID}, response)
+          data: Object.assign({ originalDeploymentID: deploymentID }, response)
         });
       },
       error(xhr) {
@@ -475,20 +475,20 @@ var MarathonActions = {
   killTasks(taskIDs, scaleTask, force) {
     let params = [];
     if (scaleTask) {
-      params.push('scale=true');
+      params.push("scale=true");
     }
     if (force) {
-      params.push('force=true');
+      params.push("force=true");
     }
 
     if (params.length > 0) {
-      params = `?${params.join('&')}`;
+      params = `?${params.join("&")}`;
     }
 
     RequestUtil.json({
       url: buildURI(`/tasks/delete${params}`),
-      data: {ids: taskIDs},
-      method: 'POST',
+      data: { ids: taskIDs },
+      method: "POST",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_SUCCESS
@@ -505,17 +505,17 @@ var MarathonActions = {
   },
 
   killPodInstances(pod, instanceIDs, force) {
-    const podID = pod.getId().replace(/^\//, '');
-    let params = '';
+    const podID = pod.getId().replace(/^\//, "");
+    let params = "";
 
     if (force) {
-      params = '?force=true';
+      params = "?force=true";
     }
 
     RequestUtil.json({
       url: buildURI(`/pods/${podID}::instances${params}`),
       data: instanceIDs,
-      method: 'DELETE',
+      method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
@@ -529,13 +529,11 @@ var MarathonActions = {
         });
       }
     });
-
   }
-
 };
 
 if (Config.useFixtures) {
-  const groupsFixture = require('../../../../../tests/_fixtures/marathon-pods/groups.json');
+  const groupsFixture = require("../../../../../tests/_fixtures/marathon-pods/groups.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
@@ -543,25 +541,33 @@ if (Config.useFixtures) {
 
   global.actionTypes.MarathonActions = {
     createService: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     deleteService: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     editService: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     restartService: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     fetchGroups: {
-      event: 'success', success: {response: groupsFixture}
+      event: "success",
+      success: { response: groupsFixture }
     }
   };
 
-  Object.keys(global.actionTypes.MarathonActions).forEach(function (method) {
-    MarathonActions[method] =
-        RequestUtil.stubRequest(MarathonActions, 'MarathonActions', method);
+  Object.keys(global.actionTypes.MarathonActions).forEach(function(method) {
+    MarathonActions[method] = RequestUtil.stubRequest(
+      MarathonActions,
+      "MarathonActions",
+      method
+    );
   });
 }
 

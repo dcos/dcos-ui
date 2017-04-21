@@ -1,14 +1,14 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 class CollapsingPanelHeader extends React.Component {
   getStateIndicator() {
-    let iconID = 'caret-down';
+    let iconID = "caret-down";
 
     if (this.props.isExpanded) {
-      iconID = 'caret-up';
+      iconID = "caret-up";
     }
 
     return <Icon id={iconID} color="neutral" size="mini" />;
@@ -16,7 +16,7 @@ class CollapsingPanelHeader extends React.Component {
 
   render() {
     const classes = classNames(
-      'panel-cell panel-cell-header panel-cell-short clickable',
+      "panel-cell panel-cell-header panel-cell-short clickable",
       this.props.className
     );
 

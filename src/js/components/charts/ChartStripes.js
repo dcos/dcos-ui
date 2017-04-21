@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
 
 var ChartStripes = React.createClass({
-
-  displayName: 'ChartStripes',
+  displayName: "ChartStripes",
 
   propTypes: {
     count: React.PropTypes.number.isRequired,
@@ -14,18 +13,20 @@ var ChartStripes = React.createClass({
     var count = props.count;
     var width = props.width / (2 * count);
 
-    return Array(count).fill().map(function (v, i) {
+    return Array(count).fill().map(function(v, i) {
       // indent with margin, start one width length in
       // and add two times width per step
-      var position = width + (i * 2 * width);
+      var position = width + i * 2 * width;
 
       return (
-        <rect key={i}
+        <rect
+          key={i}
           className="background"
-          x={position + 'px'}
+          x={position + "px"}
           y={0}
           height={props.height}
-          width={width} />
+          width={width}
+        />
       );
     });
   },

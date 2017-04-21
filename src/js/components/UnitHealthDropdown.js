@@ -1,28 +1,28 @@
-import {Dropdown} from 'reactjs-components';
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import UnitHealthStatus from '../constants/UnitHealthStatus';
+import UnitHealthStatus from "../constants/UnitHealthStatus";
 
 const DEFAULT_ITEM = {
-  id: 'all',
-  html: 'All Health Checks',
-  selectedHtml: 'All Health Checks'
+  id: "all",
+  html: "All Health Checks",
+  selectedHtml: "All Health Checks"
 };
 
 class UnitHealthDropdown extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
-    this.state = {dropdownItems: this.getDropdownItems()};
+    this.state = { dropdownItems: this.getDropdownItems() };
   }
 
   getDropdownItems() {
-    const keys = Object.keys(UnitHealthStatus).filter(function (key) {
-      return (key !== 'NA' && key !== 'WARN');
+    const keys = Object.keys(UnitHealthStatus).filter(function(key) {
+      return key !== "NA" && key !== "WARN";
     });
 
-    const items = keys.map(function (key) {
+    const items = keys.map(function(key) {
       return {
         id: key,
         html: UnitHealthStatus[key].title,
@@ -42,8 +42,13 @@ class UnitHealthDropdown extends React.Component {
   }
 
   render() {
-    const {className, dropdownMenuClassName, initialID, onHealthSelection} = this.props;
-    const {dropdownItems} = this.state;
+    const {
+      className,
+      dropdownMenuClassName,
+      initialID,
+      onHealthSelection
+    } = this.props;
+    const { dropdownItems } = this.state;
 
     return (
       <Dropdown
@@ -53,11 +58,12 @@ class UnitHealthDropdown extends React.Component {
         initialID={initialID}
         items={dropdownItems}
         onItemSelection={onHealthSelection}
-        ref={(ref) => this.dropdown = ref}
+        ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
-        wrapperClassName="dropdown" />
+        wrapperClassName="dropdown"
+      />
     );
   }
 }
@@ -70,8 +76,8 @@ UnitHealthDropdown.propTypes = {
 };
 
 UnitHealthDropdown.defaultProps = {
-  className: 'button dropdown-toggle text-align-left',
-  dropdownMenuClassName: 'dropdown-menu'
+  className: "button dropdown-toggle text-align-left",
+  dropdownMenuClassName: "dropdown-menu"
 };
 
 module.exports = UnitHealthDropdown;

@@ -1,31 +1,35 @@
-import CompositeState from '../structs/CompositeState';
-import Node from '../structs/Node';
-import StringUtil from './StringUtil';
+import CompositeState from "../structs/CompositeState";
+import Node from "../structs/Node";
+import StringUtil from "./StringUtil";
 
 const DefaultResourceTypes = {
-  cpus: {label: 'CPU', colorID: 0},
-  mem: {label: 'Memory', colorID: 6},
-  disk: {label: 'Disk', colorID: 3}
+  cpus: { label: "CPU", colorID: 0 },
+  mem: { label: "Memory", colorID: 6 },
+  disk: { label: "Disk", colorID: 3 }
 };
 
 // Let's create an instance of a Node with our default resources
-const fakeUsedResources = Object.keys(DefaultResourceTypes)
-.reduce(function (memo, resource) {
+const fakeUsedResources = Object.keys(DefaultResourceTypes).reduce(function(
+  memo,
+  resource
+) {
   memo[resource] = 0;
 
   return memo;
 }, {});
-const fakeNode = new Node({used_resources: fakeUsedResources});
+const fakeNode = new Node({ used_resources: fakeUsedResources });
 
-const usedColors = Object.keys(DefaultResourceTypes)
-.map(function (resource) {
+const usedColors = Object.keys(DefaultResourceTypes).map(function(resource) {
   return DefaultResourceTypes[resource].colorID;
 });
-const availableColors = Array(9).fill().map(function (value, index) {
-  return index;
-}).filter(function (value) {
-  return usedColors.indexOf(value) === -1;
-});
+const availableColors = Array(9)
+  .fill()
+  .map(function(value, index) {
+    return index;
+  })
+  .filter(function(value) {
+    return usedColors.indexOf(value) === -1;
+  });
 
 function getAvailableColors() {
   const colors = availableColors.slice(0);
@@ -51,10 +55,10 @@ const ResourcesUtil = {
       }
     }
 
-    let resources = Object.keys(item.get('used_resources'));
+    let resources = Object.keys(item.get("used_resources"));
 
     if (excludeList.length > 0) {
-      resources = resources.filter(function (resource) {
+      resources = resources.filter(function(resource) {
         // If it's not in the exclude list, we want it
         return excludeList.indexOf(resource) === -1;
       });

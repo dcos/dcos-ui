@@ -1,10 +1,9 @@
-import d3 from 'd3';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import d3 from "d3";
+import React from "react";
+import ReactDOM from "react-dom";
 
 var AnimationCircle = React.createClass({
-
-  displayName: 'AnimationCircle',
+  displayName: "AnimationCircle",
 
   propTypes: {
     className: React.PropTypes.string,
@@ -29,8 +28,9 @@ var AnimationCircle = React.createClass({
   },
 
   componentDidMount() {
-    d3.select(ReactDOM.findDOMNode(this))
-      .attr('transform', 'translate(' + this.props.position + ')');
+    d3
+      .select(ReactDOM.findDOMNode(this))
+      .attr("transform", "translate(" + this.props.position + ")");
   },
 
   componentWillReceiveProps(nextProps) {
@@ -39,19 +39,21 @@ var AnimationCircle = React.createClass({
     // Handle first position to not animate into position
     // We need this because we get 0-data for graphs on the first render
     if (!this.state.didRenderBefore) {
-      d3.select(node)
-        .attr('transform', 'translate(' + nextProps.position + ')');
+      d3
+        .select(node)
+        .attr("transform", "translate(" + nextProps.position + ")");
 
-      this.setState({didRenderBefore: true});
+      this.setState({ didRenderBefore: true });
 
       return;
     }
 
-    d3.select(node)
+    d3
+      .select(node)
       .transition()
       .duration(nextProps.transitionTime)
-      .ease('linear')
-      .attr('transform', 'translate(' + nextProps.position + ')');
+      .ease("linear")
+      .attr("transform", "translate(" + nextProps.position + ")");
   },
 
   render() {

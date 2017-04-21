@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import ManualBreadcrumbs from './ManualBreadcrumbs';
+import ManualBreadcrumbs from "./ManualBreadcrumbs";
 
 class Breadcrumbs extends React.Component {
   buildCrumbs(route) {
-    const {params, routes} = this.props;
+    const { params, routes } = this.props;
 
     const crumbConfiguration = route.buildBreadCrumb(params, routes);
     let crumbs = crumbConfiguration.getCrumbs(params, routes);
@@ -21,7 +21,7 @@ class Breadcrumbs extends React.Component {
   }
 
   findParentRoute(parentCrumbPath) {
-    const segments = parentCrumbPath.split('/');
+    const segments = parentCrumbPath.split("/");
 
     // remove the split('/') artifact - an empty string
     segments.shift(0, 1);
@@ -44,8 +44,8 @@ class Breadcrumbs extends React.Component {
         subSegments = segments.slice(0, -j);
       }
 
-      const subPath = subSegments.join('/');
-      const restPath = segments.join('/');
+      const subPath = subSegments.join("/");
+      const restPath = segments.join("/");
 
       // Test all routes on that level for each subPath
       for (let i = 0; i < routes.length; i++) {
@@ -61,7 +61,10 @@ class Breadcrumbs extends React.Component {
 
           // There are children and we still have untested segments
           if (hasChildren) {
-            const foundRoute = this.findRoute(segments.slice(subSegments.length), route.childRoutes);
+            const foundRoute = this.findRoute(
+              segments.slice(subSegments.length),
+              route.childRoutes
+            );
 
             if (foundRoute) {
               return foundRoute;
@@ -88,11 +91,10 @@ class Breadcrumbs extends React.Component {
   }
 
   getCrumbsFromRoute() {
-    const {routes} = this.props;
+    const { routes } = this.props;
     // Find the first route with a name
     let currentRoute = null;
-    loop:
-    for (var i = routes.length - 1; i >= 0; i--) {
+    loop: for (var i = routes.length - 1; i >= 0; i--) {
       if (routes[i].buildBreadCrumb) {
         currentRoute = routes[i];
         break loop;
@@ -111,9 +113,7 @@ class Breadcrumbs extends React.Component {
   render() {
     const crumbs = this.getCrumbsFromRoute();
 
-    return (
-      <ManualBreadcrumbs crumbs={crumbs} />
-    );
+    return <ManualBreadcrumbs crumbs={crumbs} />;
   }
 }
 

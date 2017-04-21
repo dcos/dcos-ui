@@ -1,4 +1,4 @@
-import TransactionTypes from '../constants/TransactionTypes';
+import TransactionTypes from "../constants/TransactionTypes";
 
 /**
  * An immutable batch is an ever growing batch with a reduce capability.
@@ -43,7 +43,7 @@ import TransactionTypes from '../constants/TransactionTypes';
  */
 
 class Batch {
-  constructor(batch=[]) {
+  constructor(batch = []) {
     this.add = this.add.bind(batch);
     this.reduce = this.reduce.bind(batch);
   }
@@ -61,9 +61,12 @@ class Batch {
 
     // Remove previous if path is the same as current to minimize
     // number of actions
-    const {path} = batch[batch.length - 1] || {};
-    const hasEqualPaths = item && Array.isArray(path) &&
-      Array.isArray(item.path) && path.join() === item.path.join();
+    const { path } = batch[batch.length - 1] || {};
+    const hasEqualPaths =
+      item &&
+      Array.isArray(path) &&
+      Array.isArray(item.path) &&
+      path.join() === item.path.join();
     if (item.type === TransactionTypes.SET && hasEqualPaths) {
       batch.pop();
     }
@@ -87,12 +90,11 @@ class Batch {
   reduce(callback, data) {
     // Run at least once even if there are no actions in the batch
     if (this.length === 0) {
-      return callback(data, {path: [], value: 'INIT'}, 0);
+      return callback(data, { path: [], value: "INIT" }, 0);
     }
 
     return this.reduce(callback, data);
   }
-
 }
 
 module.exports = Batch;

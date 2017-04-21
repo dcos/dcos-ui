@@ -1,21 +1,17 @@
-import mixin from 'reactjs-mixin';
-import {MountService} from 'foundation-ui';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import mixin from "reactjs-mixin";
+import { MountService } from "foundation-ui";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Loader from '#SRC/js/components/Loader';
-import MesosStateStore from '#SRC/js/stores/MesosStateStore';
-import RequestErrorMsg from '#SRC/js/components/RequestErrorMsg';
-import Service from '../../structs/Service';
-import TasksContainer from './TasksContainer';
+import Loader from "#SRC/js/components/Loader";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import Service from "../../structs/Service";
+import TasksContainer from "./TasksContainer";
 
-const METHODS_TO_BIND = [
-  'onStateStoreSuccess',
-  'onStateStoreError'
-];
+const METHODS_TO_BIND = ["onStateStoreSuccess", "onStateStoreError"];
 
 class ServiceTasksContainer extends mixin(StoreMixin) {
-
   constructor() {
     super(...arguments);
 
@@ -25,19 +21,20 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [
-      {name: 'state', events: ['success', 'error'], suppressUpdate: true}
+      { name: "state", events: ["success", "error"], suppressUpdate: true }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   onStateStoreSuccess() {
     // Throttle updates
-    if (Date.now() - this.state.lastUpdate > 1000
-      || this.state.mesosStateErrorCount !== 0) {
-
+    if (
+      Date.now() - this.state.lastUpdate > 1000 ||
+      this.state.mesosStateErrorCount !== 0
+    ) {
       this.setState({
         lastUpdate: Date.now(),
         mesosStateErrorCount: 0
@@ -52,9 +49,8 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
   }
 
   getContents() {
-    const isLoading = Object.keys(
-      MesosStateStore.get('lastMesosState')
-    ).length === 0;
+    const isLoading =
+      Object.keys(MesosStateStore.get("lastMesosState")).length === 0;
 
     const hasError = this.state.mesosStateErrorCount > 3;
 
@@ -67,13 +63,15 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
       return <RequestErrorMsg />;
     }
 
-    const {service} = this.props;
+    const { service } = this.props;
     const tasks = MesosStateStore.getTasksByService(service);
 
     return (
-      <TasksContainer params={this.props.params}
+      <TasksContainer
+        params={this.props.params}
         service={service}
-        tasks={tasks} />
+        tasks={tasks}
+      />
     );
   }
 

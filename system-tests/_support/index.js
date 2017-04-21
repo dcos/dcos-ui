@@ -1,4 +1,4 @@
-const StringUtil = require('./utils/StringUtil');
+const StringUtil = require("./utils/StringUtil");
 
 /**
  * Visit the specified (Routed) URL
@@ -8,13 +8,18 @@ const StringUtil = require('./utils/StringUtil');
  *
  * @param {String} visitUrl - The URL to visit
  */
-Cypress.addParentCommand('visitUrl', function (visitUrl) {
-  var clusterDomain = new URL(Cypress.env('CLUSTER_URL')).host.split(':')[0];
-  var url = Cypress.env('CLUSTER_URL') + '/#' + visitUrl;
+Cypress.addParentCommand("visitUrl", function(visitUrl) {
+  var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
+  var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 
   cy
-    .setCookie('dcos-acs-auth-cookie', Cypress.env('CLUSTER_AUTH_TOKEN'), {httpOnly: true, domain: clusterDomain})
-    .setCookie('dcos-acs-info-cookie', Cypress.env('CLUSTER_AUTH_INFO'), {domain: clusterDomain})
+    .setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
+      httpOnly: true,
+      domain: clusterDomain
+    })
+    .setCookie("dcos-acs-info-cookie", Cypress.env("CLUSTER_AUTH_INFO"), {
+      domain: clusterDomain
+    })
     .visit(url);
 });
 
@@ -44,10 +49,10 @@ Cypress.addParentCommand('visitUrl', function (visitUrl) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} label - The contents of the <label> to match
  */
-Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
+Cypress.addChildCommand("getFormGroupInputFor", function(elements, label) {
   const compareLabel = label.toLowerCase();
-  const formGroup = elements.find('.form-group').filter(function (index, group) {
-    const groupLabel = Cypress.$(group).find('label');
+  const formGroup = elements.find(".form-group").filter(function(index, group) {
+    const groupLabel = Cypress.$(group).find("label");
     if (groupLabel.length === 0) {
       return false;
     }
@@ -60,7 +65,7 @@ Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
 
   // If we found a form group, return the input element within
   // (Note: <span class="form control"> is used to wrap <select>s)
-  return formGroup.find('textarea, input, select, *:not(span).form-control');
+  return formGroup.find("textarea, input, select, *:not(span).form-control");
 });
 
 /**
@@ -73,11 +78,14 @@ Cypress.addChildCommand('getFormGroupInputFor', function (elements, label) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} contents - The contents of the <td /> to search
  */
-Cypress.addChildCommand('getTableRowThatContains', function (elements, contents) {
-  let matchedRows = elements.find('tr');
+Cypress.addChildCommand("getTableRowThatContains", function(
+  elements,
+  contents
+) {
+  let matchedRows = elements.find("tr");
 
-  matchedRows = matchedRows.filter(function (index, row) {
-    return Array.prototype.slice.apply(row.childNodes).some(function (child) {
+  matchedRows = matchedRows.filter(function(index, row) {
+    return Array.prototype.slice.apply(row.childNodes).some(function(child) {
       return child.innerText.indexOf(contents) !== -1;
     });
   });
@@ -94,9 +102,9 @@ Cypress.addChildCommand('getTableRowThatContains', function (elements, contents)
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String|Number} columNameOrIndex - The table index or the <th /> contents
  */
-Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) {
-  const matchedRows = elements.find('tr');
-  const headings = matchedRows.eq(0).find('th');
+Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
+  const matchedRows = elements.find("tr");
+  const headings = matchedRows.eq(0).find("th");
   let columnIndex = parseInt(columNameOrIndex);
 
   if (Number.isNaN(columnIndex)) {
@@ -104,7 +112,7 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
 
     // Fallback to first column
     columnIndex = 0;
-    headings.each(function (index, th) {
+    headings.each(function(index, th) {
       if (StringUtil.getContents(th).toLowerCase() === compareName) {
         columnIndex = index;
       }
@@ -114,11 +122,11 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
   // Collect all visible rows
   return matchedRows
     .slice(1)
-    .filter(function (index, element) {
-      return Cypress.$(element).is(':visible');
+    .filter(function(index, element) {
+      return Cypress.$(element).is(":visible");
     })
-    .map(function (index, element) {
-      return element.querySelectorAll('td')[columnIndex];
+    .map(function(index, element) {
+      return element.querySelectorAll("td")[columnIndex];
     });
 });
 
@@ -134,19 +142,21 @@ Cypress.addChildCommand('getTableColumn', function (elements, columNameOrIndex) 
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand('contents', function (elements) {
-  return elements.map(function (index, element) {
-    const doc = element.ownerDocument;
-    const win = doc.defaultView || doc.parentWindow;
+Cypress.addChildCommand("contents", function(elements) {
+  return elements
+    .map(function(index, element) {
+      const doc = element.ownerDocument;
+      const win = doc.defaultView || doc.parentWindow;
 
-    if (element.classList.contains('ace_editor')) {
-      return win.ace.edit(element.id).getValue();
-    } else if (element.value !== undefined) {
-      return element.value;
-    } else {
-      return element.innerText;
-    }
-  }).get();
+      if (element.classList.contains("ace_editor")) {
+        return win.ace.edit(element.id).getValue();
+      } else if (element.value !== undefined) {
+        return element.value;
+      } else {
+        return element.innerText;
+      }
+    })
+    .get();
 });
 
 /**
@@ -154,9 +164,9 @@ Cypress.addChildCommand('contents', function (elements) {
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand('asJson', function (contents) {
+Cypress.addChildCommand("asJson", function(contents) {
   if (contents.length != null) {
-    return contents.map(function (content) {
+    return contents.map(function(content) {
       return JSON.parse(content);
     });
   } else {
@@ -169,16 +179,16 @@ Cypress.addChildCommand('asJson', function (contents) {
  *
  * @param {jQuery.Element} elements - The DOM elements to trigger the event into
  */
-Cypress.addChildCommand('triggerHover', function (elements) {
-  elements.each(function (index, element) {
-    fireEvent(element, 'mouseover');
+Cypress.addChildCommand("triggerHover", function(elements) {
+  elements.each(function(index, element) {
+    fireEvent(element, "mouseover");
   });
 
   function fireEvent(element, event) {
     if (element.fireEvent) {
-      element.fireEvent('on' + event);
+      element.fireEvent("on" + event);
     } else {
-      var evObj = document.createEvent('Events');
+      var evObj = document.createEvent("Events");
 
       evObj.initEvent(event, true, false);
 

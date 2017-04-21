@@ -1,61 +1,65 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
+import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 
-class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionDisplay {
+class ServiceEnvironmentVariablesConfigSection
+  extends ServiceConfigBaseSectionDisplay {
   /**
   * @override
   */
   shouldExcludeItem() {
-    const {appConfig: {env}} = this.props;
+    const { appConfig: { env } } = this.props;
 
-    return env == null ||
+    return (
+      env == null ||
       Object.keys(env).length === 0 ||
-      Object.keys(env).every((key) => typeof env[key] !== 'string');
+      Object.keys(env).every(key => typeof env[key] !== "string")
+    );
   }
 
   /**
    * @override
    */
   getDefinition() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
 
     return {
-      tabViewID: 'environment',
+      tabViewID: "environment",
       values: [
         {
-          key: 'env',
-          heading: 'Environment Variables',
+          key: "env",
+          heading: "Environment Variables",
           headingLevel: 1
         },
         {
-          key: 'env',
+          key: "env",
           render(envData) {
             const columns = [
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Key'),
-                prop: 'key',
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Key"),
+                prop: "key",
                 render: (prop, row) => {
                   return <code>{row[prop]}</code>;
                 },
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-label'
+                  "configuration-map-table-label"
                 ),
                 sortable: true
               },
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Value'),
-                prop: 'value',
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Value"),
+                prop: "value",
                 render: (prop, row) => {
                   const value = row[prop];
 
                   return ServiceConfigDisplayUtil.getDisplayValue(value);
                 },
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-value'
+                  "configuration-map-table-value"
                 ),
                 sortable: true
               }
@@ -63,31 +67,37 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="environment" />
+                      tabViewID="environment"
+                    />
                   );
                 }
               });
             }
 
-            const data = Object.keys(envData).map((envKey) => {
-              return {key: envKey, value: envData[envKey]};
-            }).filter(function ({value}) {
-              return typeof value === 'string';
-            });
+            const data = Object.keys(envData)
+              .map(envKey => {
+                return { key: envKey, value: envData[envKey] };
+              })
+              .filter(function({ value }) {
+                return typeof value === "string";
+              });
 
             return (
               <Table
                 key="secrets-table"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={data} />
+                data={data}
+              />
             );
           }
         }

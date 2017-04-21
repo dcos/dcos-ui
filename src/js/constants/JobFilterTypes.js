@@ -1,5 +1,5 @@
 const JobFilterTypes = {
-  TEXT: 'searchString'
+  TEXT: "searchString"
 };
 
 module.exports = JobFilterTypes;

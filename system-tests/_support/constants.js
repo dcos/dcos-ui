@@ -1,5 +1,4 @@
 const Timeouts = {
-
   /**
    * How long to wait until an service is fully deployed.
    *
@@ -15,7 +14,6 @@ const Timeouts = {
    * resources, allocate volumes and start the containers.
    */
   JOB_DEPLOYMENT_TIMEOUT: 60000
-
 };
 
 module.exports = {

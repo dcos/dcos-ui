@@ -1,16 +1,16 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
-import Util from '#SRC/js/utils/Util';
-import Transaction from '#SRC/js/structs/Transaction';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
+import Util from "#SRC/js/utils/Util";
+import Transaction from "#SRC/js/structs/Transaction";
 
-import {COMMAND, MESOS_HTTP, MESOS_HTTPS} from '../../constants/HealthCheckProtocols';
+import {
+  COMMAND,
+  MESOS_HTTP,
+  MESOS_HTTPS
+} from "../../constants/HealthCheckProtocols";
 
 function mapHealthChecks(item) {
-  const newItem = Util.omit(item, ['path', 'command', 'protocol', 'https']);
+  const newItem = Util.omit(item, ["path", "command", "protocol", "https"]);
 
   if (item.protocol != null) {
     newItem.protocol = item.protocol;
@@ -29,7 +29,7 @@ function mapHealthChecks(item) {
 }
 
 module.exports = {
-  JSONReducer(state, {type, path, value}) {
+  JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -43,26 +43,28 @@ module.exports = {
       this.healthChecks = [];
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (type === REMOVE_ITEM && joinedPath === 'portDefinitions') {
-      this.healthChecks = this.healthChecks.map((item) => {
-        if (item.portIndex === value) {
-          return null;
-        }
+    if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
+      this.healthChecks = this.healthChecks
+        .map(item => {
+          if (item.portIndex === value) {
+            return null;
+          }
 
-        if (item.portIndex > value) {
-          item.portIndex--;
-        }
+          if (item.portIndex > value) {
+            item.portIndex--;
+          }
 
-        return item;
-      }).filter((item) => {
-        return item != null;
-      });
+          return item;
+        })
+        .filter(item => {
+          return item != null;
+        });
     }
 
-    if (joinedPath.search('healthChecks') !== -1) {
-      if (joinedPath === 'healthChecks') {
+    if (joinedPath.search("healthChecks") !== -1) {
+      if (joinedPath === "healthChecks") {
         switch (type) {
           case ADD_ITEM:
             this.healthChecks.push({});
@@ -104,7 +106,9 @@ module.exports = {
           this.healthChecks[index].timeoutSeconds = parseIntValue(value);
         }
         if (`healthChecks.${index}.maxConsecutiveFailures` === joinedPath) {
-          this.healthChecks[index].maxConsecutiveFailures = parseIntValue(value);
+          this.healthChecks[index].maxConsecutiveFailures = parseIntValue(
+            value
+          );
         }
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
@@ -124,55 +128,58 @@ module.exports = {
       return [];
     }
 
-    return state.healthChecks.reduce(function (memo, item, index) {
+    return state.healthChecks.reduce(function(memo, item, index) {
       if (item.protocol == null) {
         return memo;
       }
-      memo.push(new Transaction(['healthChecks'], index, ADD_ITEM));
-      memo.push(new Transaction([
-        'healthChecks',
-        index,
-        'protocol'
-      ], item.protocol.toUpperCase(), SET));
+      memo.push(new Transaction(["healthChecks"], index, ADD_ITEM));
+      memo.push(
+        new Transaction(
+          ["healthChecks", index, "protocol"],
+          item.protocol.toUpperCase(),
+          SET
+        )
+      );
       if (item.protocol.toUpperCase() === COMMAND) {
         if (item.command != null && item.command.value != null) {
-          memo.push(new Transaction([
-            'healthChecks',
-            index,
-            'command'
-          ], item.command.value, SET));
+          memo.push(
+            new Transaction(
+              ["healthChecks", index, "command"],
+              item.command.value,
+              SET
+            )
+          );
         }
       }
-      if (item.protocol.toUpperCase().replace(MESOS_HTTPS, MESOS_HTTP) === MESOS_HTTP) {
+      if (
+        item.protocol.toUpperCase().replace(MESOS_HTTPS, MESOS_HTTP) ===
+        MESOS_HTTP
+      ) {
         if (item.protocol === MESOS_HTTPS) {
-          memo.push(new Transaction([
-            'healthChecks',
-            index,
-            'https'
-          ], true, SET));
+          memo.push(
+            new Transaction(["healthChecks", index, "https"], true, SET)
+          );
         }
       }
       [
-        'path',
-        'portIndex',
-        'gracePeriodSeconds',
-        'intervalSeconds',
-        'timeoutSeconds',
-        'maxConsecutiveFailures'
-      ].forEach((key) => {
+        "path",
+        "portIndex",
+        "gracePeriodSeconds",
+        "intervalSeconds",
+        "timeoutSeconds",
+        "maxConsecutiveFailures"
+      ].forEach(key => {
         if (item[key] != null) {
-          memo.push(new Transaction([
-            'healthChecks',
-            index,
-            key
-          ], item[key], SET));
+          memo.push(
+            new Transaction(["healthChecks", index, key], item[key], SET)
+          );
         }
       });
 
       return memo;
     }, []);
   },
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -180,26 +187,28 @@ module.exports = {
       this.cache = [];
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (type === REMOVE_ITEM && joinedPath === 'portDefinitions') {
-      state = state.map((item) => {
-        if (item.portIndex === value) {
-          return null;
-        }
+    if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
+      state = state
+        .map(item => {
+          if (item.portIndex === value) {
+            return null;
+          }
 
-        if (item.portIndex > value) {
-          item.portIndex--;
-        }
+          if (item.portIndex > value) {
+            item.portIndex--;
+          }
 
-        return item;
-      }).filter((item) => {
-        return item != null;
-      });
+          return item;
+        })
+        .filter(item => {
+          return item != null;
+        });
     }
 
-    if (joinedPath.search('healthChecks') !== -1) {
-      if (joinedPath === 'healthChecks') {
+    if (joinedPath.search("healthChecks") !== -1) {
+      if (joinedPath === "healthChecks") {
         switch (type) {
           case ADD_ITEM:
             state.push({});

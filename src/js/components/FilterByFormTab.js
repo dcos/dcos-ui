@@ -1,5 +1,5 @@
-import {Dropdown} from 'reactjs-components';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import React from "react";
 
 class FilterByFormTab extends React.Component {
   constructor() {
@@ -23,9 +23,9 @@ class FilterByFormTab extends React.Component {
   }
 
   getDropdownItems() {
-    return this.props.tabs.map(function (tab) {
+    return this.props.tabs.map(function(tab) {
       const selectedHtml = this.getItemHtml(tab);
-      const dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = <a>{selectedHtml}</a>;
 
       return {
         id: tab.title,
@@ -54,7 +54,8 @@ class FilterByFormTab extends React.Component {
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
-        transitionName="dropdown-menu" />
+        transitionName="dropdown-menu"
+      />
     );
   }
 }
@@ -66,7 +67,7 @@ FilterByFormTab.propTypes = {
 };
 
 FilterByFormTab.defaultProps = {
-  currentTab: '',
+  currentTab: "",
   handleFilterChange() {},
   tabs: []
 };

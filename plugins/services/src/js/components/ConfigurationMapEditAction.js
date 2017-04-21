@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const ConfigurationMapEditAction = ({tabViewID, onEditClick}) => {
+const ConfigurationMapEditAction = ({ tabViewID, onEditClick }) => {
   if (!onEditClick) {
     return <noscript />;
   }
@@ -8,7 +8,8 @@ const ConfigurationMapEditAction = ({tabViewID, onEditClick}) => {
   return (
     <a
       className="button button-link flush table-display-on-row-hover"
-      onClick={onEditClick.bind(null, {tabViewID})}>
+      onClick={onEditClick.bind(null, { tabViewID })}
+    >
       Edit
     </a>
   );

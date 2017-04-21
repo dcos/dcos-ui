@@ -1,56 +1,59 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {routerShape} from 'react-router';
+import mixin from "reactjs-mixin";
+import React from "react";
+import { routerShape } from "react-router";
 
-import {StoreMixin} from 'mesosphere-shared-reactjs';
-import DCOSStore from '#SRC/js/stores/DCOSStore';
+import { StoreMixin } from "mesosphere-shared-reactjs";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 
-import AlertPanel from '../../components/AlertPanel';
-import AlertPanelHeader from '../../components/AlertPanelHeader';
-import FilterBar from '../../components/FilterBar';
-import FilterHeadline from '../../components/FilterHeadline';
-import JobsBreadcrumbs from '../../components/breadcrumbs/JobsBreadcrumbs';
-import JobsTable from './JobsTable';
-import JobSearchFilter from '../../components/JobSearchFilter';
-import JobFilterTypes from '../../constants/JobFilterTypes';
-import JobFormModal from '../../components/modals/JobFormModal';
-import JobTree from '../../structs/JobTree';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import ServiceFilterTypes from '../../../../plugins/services/src/js/constants/ServiceFilterTypes';
+import AlertPanel from "../../components/AlertPanel";
+import AlertPanelHeader from "../../components/AlertPanelHeader";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
+import JobsTable from "./JobsTable";
+import JobSearchFilter from "../../components/JobSearchFilter";
+import JobFilterTypes from "../../constants/JobFilterTypes";
+import JobFormModal from "../../components/modals/JobFormModal";
+import JobTree from "../../structs/JobTree";
+import Loader from "../../components/Loader";
+import Page from "../../components/Page";
+import ServiceFilterTypes
+  from "../../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
-  'getHeadline',
-  'handleFilterChange',
-  'handleCloseJobFormModal',
-  'handleOpenJobFormModal',
-  'resetFilter',
-  'resetFilterQueryParams'
+  "getHeadline",
+  "handleFilterChange",
+  "handleCloseJobFormModal",
+  "handleOpenJobFormModal",
+  "resetFilter",
+  "resetFilterQueryParams"
 ];
 
 var DEFAULT_FILTER_OPTIONS = {
-  searchString: ''
+  searchString: ""
 };
 
 class JobsTab extends mixin(StoreMixin) {
-
   constructor() {
     super(...arguments);
 
-    this.state = Object.assign({
-      isJobFormModalOpen: false
-    }, DEFAULT_FILTER_OPTIONS);
+    this.state = Object.assign(
+      {
+        isJobFormModalOpen: false
+      },
+      DEFAULT_FILTER_OPTIONS
+    );
 
     this.store_listeners = [
-      {name: 'dcos', events: ['change'], suppressUpdate: false},
+      { name: "dcos", events: ["change"], suppressUpdate: false },
       {
-        name: 'metronome',
-        events: ['change', 'jobCreateSuccess'],
+        name: "metronome",
+        events: ["change", "jobCreateSuccess"],
         suppressUpdate: false
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -66,19 +69,19 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   handleCloseJobFormModal() {
-    this.setState({isJobFormModalOpen: false});
+    this.setState({ isJobFormModalOpen: false });
   }
 
   handleOpenJobFormModal() {
-    this.setState({isJobFormModalOpen: true});
+    this.setState({ isJobFormModalOpen: true });
   }
 
   handleFilterChange(filterValue) {
-    const {router} = this.context;
-    const {location: {pathname}} = this.props;
-    const query = {[JobFilterTypes.TEXT]: filterValue};
+    const { router } = this.context;
+    const { location: { pathname } } = this.props;
+    const query = { [JobFilterTypes.TEXT]: filterValue };
 
-    router.push({pathname, query});
+    router.push({ pathname, query });
 
     this.setState({
       searchString: filterValue
@@ -86,10 +89,10 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   resetFilterQueryParams() {
-    const {location: {pathname}} = this.props;
+    const { location: { pathname } } = this.props;
     const query = Object.assign({}, location.query);
 
-    Object.values(ServiceFilterTypes).forEach(function (filterKey) {
+    Object.values(ServiceFilterTypes).forEach(function(filterKey) {
       delete query[filterKey];
     });
 
@@ -102,7 +105,7 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   updateFromProps(props) {
-    const {location = {query:{}}} = props;
+    const { location = { query: {} } } = props;
 
     if (location.query[JobFilterTypes.TEXT] != null) {
       const state = {};
@@ -113,13 +116,14 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   getHeadline(item, filteredJobs) {
-    const {state} = this;
+    const { state } = this;
     const jobs = item.getItems();
 
-    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
-      .some((filterKey) => {
-        return state[filterKey] != null && state[filterKey].length > 0;
-      });
+    const hasFiltersApplied = Object.keys(
+      DEFAULT_FILTER_OPTIONS
+    ).some(filterKey => {
+      return state[filterKey] != null && state[filterKey].length > 0;
+    });
 
     if (hasFiltersApplied) {
       return (
@@ -127,13 +131,14 @@ class JobsTab extends mixin(StoreMixin) {
           onReset={this.resetFilter}
           name="Jobs"
           currentLength={filteredJobs.length}
-          totalLength={jobs.length} />
+          totalLength={jobs.length}
+        />
       );
     }
   }
 
   getFilteredJobs(item) {
-    const {searchString} = this.state;
+    const { searchString } = this.state;
     let jobs = item.getItems();
 
     if (searchString) {
@@ -155,14 +160,19 @@ class JobsTab extends mixin(StoreMixin) {
     return (
       <Page>
         <Page.Header
-          addButton={{label: 'Create a job', onItemSelect: this.handleOpenJobFormModal}}
-          breadcrumbs={<JobsBreadcrumbs jobID={item.id} />} />
+          addButton={{
+            label: "Create a job",
+            onItemSelect: this.handleOpenJobFormModal
+          }}
+          breadcrumbs={<JobsBreadcrumbs jobID={item.id} />}
+        />
         <div className="flex-grow">
           {this.getHeadline(item, filteredJobs)}
           <FilterBar>
             <JobSearchFilter
               onChange={this.handleFilterChange}
-              value={this.state.searchString} />
+              value={this.state.searchString}
+            />
           </FilterBar>
           <JobsTable jobs={filteredJobs} />
         </div>
@@ -174,8 +184,10 @@ class JobsTab extends mixin(StoreMixin) {
   getAlertPanelFooter() {
     return (
       <div className="button-collection flush-bottom">
-        <button className="button button-success"
-          onClick={this.handleOpenJobFormModal}>
+        <button
+          className="button button-success"
+          onClick={this.handleOpenJobFormModal}
+        >
           Create a Job
         </button>
       </div>
@@ -187,7 +199,7 @@ class JobsTab extends mixin(StoreMixin) {
     if (!DCOSStore.jobDataReceived) {
       return (
         <Page>
-          <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+          <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
           <Loader />
         </Page>
       );
@@ -205,7 +217,7 @@ class JobsTab extends mixin(StoreMixin) {
     // Render empty panel
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
         <AlertPanel>
           <AlertPanelHeader>No active jobs</AlertPanelHeader>
           <p className="tall">
@@ -219,7 +231,7 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {id} = this.props.params;
+    let { id } = this.props.params;
     id = decodeURIComponent(id);
 
     // Find item in root tree and default to root tree if there is no match
@@ -228,7 +240,8 @@ class JobsTab extends mixin(StoreMixin) {
     const modal = (
       <JobFormModal
         open={this.state.isJobFormModalOpen}
-        onClose={this.handleCloseJobFormModal}/>
+        onClose={this.handleCloseJobFormModal}
+      />
     );
 
     return this.getContents(item, modal);

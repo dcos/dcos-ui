@@ -1,20 +1,19 @@
-import React from 'react';
-import {routerShape} from 'react-router';
-import {Tooltip} from 'reactjs-components';
+import React from "react";
+import { routerShape } from "react-router";
+import { Tooltip } from "reactjs-components";
 
-import Chart from '#SRC/js/components/charts/Chart';
-import DialChart from '#SRC/js/components/charts/DialChart';
-import Icon from '#SRC/js/components/Icon';
-import ResourcesUtil from '#SRC/js/utils/ResourcesUtil';
+import Chart from "#SRC/js/components/charts/Chart";
+import DialChart from "#SRC/js/components/charts/DialChart";
+import Icon from "#SRC/js/components/Icon";
+import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 var colors = {
   error: 2,
-  unused: 'unused'
+  unused: "unused"
 };
 
 var NodesGridDials = React.createClass({
-
-  displayName: 'NodesGridDials',
+  displayName: "NodesGridDials",
 
   propTypes: {
     hosts: React.PropTypes.array.isRequired,
@@ -36,14 +35,15 @@ var NodesGridDials = React.createClass({
   getServiceSlicesConfig(node) {
     var config = [];
     var props = this.props;
-    var resourcesByFramework = props.resourcesByFramework[node.get('id')];
+    var resourcesByFramework = props.resourcesByFramework[node.get("id")];
 
     if (!resourcesByFramework) {
       return config;
     }
 
-    Object.keys(resourcesByFramework).forEach(function (frameworkID) {
-      var percentage = resourcesByFramework[frameworkID][props.selectedResource] * 100;
+    Object.keys(resourcesByFramework).forEach(function(frameworkID) {
+      var percentage =
+        resourcesByFramework[frameworkID][props.selectedResource] * 100;
       percentage /= node.getUsageStats(props.selectedResource).total;
 
       config.push({
@@ -57,25 +57,27 @@ var NodesGridDials = React.createClass({
   },
 
   getUsedSliceConfig(node) {
-    const {selectedResource} = this.props;
+    const { selectedResource } = this.props;
     const colorIndex = ResourcesUtil.getResourceColor(selectedResource);
     const label = ResourcesUtil.getResourceLabel(selectedResource);
     var serviceSlices = this.getServiceSlicesConfig(node);
     var percentage;
 
     if (serviceSlices.length > 0) {
-      percentage = serviceSlices.reduce(function (memo, slice) {
+      percentage = serviceSlices.reduce(function(memo, slice) {
         return memo + slice.percentage;
       }, 0);
     } else {
       percentage = node.getUsageStats(selectedResource).percentage;
     }
 
-    return [{
-      colorIndex,
-      name: label,
-      percentage
-    }];
+    return [
+      {
+        colorIndex,
+        name: label,
+        percentage
+      }
+    ];
   },
 
   getActiveSliceData(node) {
@@ -88,7 +90,7 @@ var NodesGridDials = React.createClass({
       config = this.getUsedSliceConfig(node);
     }
 
-    var percentage = config.reduce(function (memo, slice) {
+    var percentage = config.reduce(function(memo, slice) {
       memo += slice.percentage;
 
       return memo;
@@ -97,7 +99,7 @@ var NodesGridDials = React.createClass({
 
     config.push({
       colorIndex: colors.unused,
-      name: 'Unused',
+      name: "Unused",
       percentage: 100 - percentage
     });
 
@@ -111,14 +113,14 @@ var NodesGridDials = React.createClass({
     return [
       {
         colorIndex: colors.error,
-        name: 'Error',
+        name: "Error",
         percentage: 100
       }
     ];
   },
 
   getDialConfig(node) {
-    const {selectedResource} = this.props;
+    const { selectedResource } = this.props;
     const resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
     if (node.isActive()) {
@@ -127,10 +129,10 @@ var NodesGridDials = React.createClass({
       return {
         data: sliceData.data,
         description: [
-          <span className="unit" key={'unit'}>
+          <span className="unit" key={"unit"}>
             {sliceData.usedPercentage}%
           </span>,
-          <span className="unit-label text-muted" key={'unit-label'}>
+          <span className="unit-label text-muted" key={"unit-label"}>
             {resourceLabel}
           </span>
         ]
@@ -148,7 +150,7 @@ var NodesGridDials = React.createClass({
   },
 
   getDials() {
-    return this.props.hosts.map((node) => {
+    return this.props.hosts.map(node => {
       var config = this.getDialConfig(node);
       let description = (
         <div className="description">
@@ -158,21 +160,28 @@ var NodesGridDials = React.createClass({
 
       if (!node.isActive()) {
         description = (
-          <Tooltip content="Connection to node lost"
-            wrapperClassName="tooltip-wrapper text-align-center description">
+          <Tooltip
+            content="Connection to node lost"
+            wrapperClassName="tooltip-wrapper text-align-center description"
+          >
             {config.description}
           </Tooltip>
         );
       }
 
       return (
-        <a className="nodes-grid-dials-item clickable"
-          onClick={this.handleDialClick.bind(this, node.get('id'))}
-          key={node.get('id')}>
+        <a
+          className="nodes-grid-dials-item clickable"
+          onClick={this.handleDialClick.bind(this, node.get("id"))}
+          key={node.get("id")}
+        >
           <div className="chart">
-            <Chart calcHeight={function (w) { return w; }}>
-              <DialChart data={config.data}
-                value="percentage">
+            <Chart
+              calcHeight={function(w) {
+                return w;
+              }}
+            >
+              <DialChart data={config.data} value="percentage">
                 {description}
               </DialChart>
             </Chart>
@@ -185,8 +194,8 @@ var NodesGridDials = React.createClass({
   // Zero-height spacer items force dial charts in the last line of the flex layout
   // not to spread themselves across the line.
   getSpacers() {
-    return Array(30).fill().map(function (v, index) {
-      return <div className="nodes-grid-dials-spacer" key={index}></div>;
+    return Array(30).fill().map(function(v, index) {
+      return <div className="nodes-grid-dials-spacer" key={index} />;
     });
   },
 
@@ -198,7 +207,6 @@ var NodesGridDials = React.createClass({
       </div>
     );
   }
-
 });
 
 module.exports = NodesGridDials;

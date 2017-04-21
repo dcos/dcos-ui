@@ -1,5 +1,5 @@
-import List from '#SRC/js/structs/List';
-import PodInstance from './PodInstance';
+import List from "#SRC/js/structs/List";
+import PodInstance from "./PodInstance";
 
 class PodInstanceList extends List {}
 

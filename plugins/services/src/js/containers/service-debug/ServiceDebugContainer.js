@@ -1,31 +1,33 @@
-import React from 'react';
-import {routerShape} from 'react-router';
+import React from "react";
+import { routerShape } from "react-router";
 
-import Alert from '#SRC/js/components/Alert';
-import ConfigurationMap from '#SRC/js/components/ConfigurationMap';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '#SRC/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '#SRC/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '#SRC/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '#SRC/js/components/ConfigurationMapValue';
-import DateUtil from '#SRC/js/utils/DateUtil';
-import TimeAgo from '#SRC/js/components/TimeAgo';
+import Alert from "#SRC/js/components/Alert";
+import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import DateUtil from "#SRC/js/utils/DateUtil";
+import TimeAgo from "#SRC/js/components/TimeAgo";
 
-import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
-import DeclinedOffersTable from '../../components/DeclinedOffersTable';
-import DeclinedOffersUtil from '../../utils/DeclinedOffersUtil';
-import MarathonStore from '../../stores/MarathonStore';
-import RecentOffersSummary from '../../components/RecentOffersSummary';
-import Service from '../../structs/Service';
-import TaskStatsTable from './TaskStatsTable';
+import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
+import DeclinedOffersTable from "../../components/DeclinedOffersTable";
+import DeclinedOffersUtil from "../../utils/DeclinedOffersUtil";
+import MarathonStore from "../../stores/MarathonStore";
+import RecentOffersSummary from "../../components/RecentOffersSummary";
+import Service from "../../structs/Service";
+import TaskStatsTable from "./TaskStatsTable";
 
-const METHODS_TO_BIND = ['handleJumpToRecentOffersClick'];
+const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
 
 class ServiceDebugContainer extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -39,7 +41,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getDeclinedOffersTable() {
-    const {service} = this.props;
+    const { service } = this.props;
 
     if (!this.shouldShowDeclinedOfferTable()) {
       return null;
@@ -52,9 +54,11 @@ class ServiceDebugContainer extends React.Component {
         <ConfigurationMapHeading level={2}>
           Details
         </ConfigurationMapHeading>
-        <DeclinedOffersTable offers={queue.declinedOffers.offers}
+        <DeclinedOffersTable
+          offers={queue.declinedOffers.offers}
           service={service}
-          summary={queue.declinedOffers.summary} />
+          summary={queue.declinedOffers.summary}
+        />
       </div>
     );
   }
@@ -62,12 +66,17 @@ class ServiceDebugContainer extends React.Component {
   getLastTaskFailureInfo() {
     const lastTaskFailure = this.props.service.getLastTaskFailure();
     if (lastTaskFailure == null) {
-      return (
-        <p>This app does not have failed tasks</p>
-      );
+      return <p>This app does not have failed tasks</p>;
     }
 
-    const {version, timestamp, taskId, state, message, host} = lastTaskFailure;
+    const {
+      version,
+      timestamp,
+      taskId,
+      state,
+      message,
+      host
+    } = lastTaskFailure;
 
     return (
       <ConfigurationMapSection>
@@ -126,13 +135,11 @@ class ServiceDebugContainer extends React.Component {
   getLastVersionChange() {
     const versionInfo = this.props.service.getVersionInfo();
     if (versionInfo == null) {
-      return (
-        <p>This app does not have version change information</p>
-      );
+      return <p>This app does not have version change information</p>;
     }
 
-    const {lastScalingAt, lastConfigChangeAt} = versionInfo;
-    let lastScaling = 'No operation since last config change';
+    const { lastScalingAt, lastConfigChangeAt } = versionInfo;
+    let lastScaling = "No operation since last config change";
     if (lastScalingAt !== lastConfigChangeAt) {
       lastScaling = (
         <span>
@@ -165,7 +172,7 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getRecentOfferSummaryContent() {
-    const {service} = this.props;
+    const { service } = this.props;
 
     if (!this.shouldShowDeclinedOfferSummary()) {
       return null;
@@ -182,15 +189,15 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getRecentOfferSummaryCount() {
-    const {service} = this.props;
+    const { service } = this.props;
 
     if (!this.shouldShowDeclinedOfferSummary()) {
       return null;
     }
 
     const queue = service.getQueue();
-    const {declinedOffers: {summary}} = queue;
-    const {roles: {offers = 0}} = summary;
+    const { declinedOffers: { summary } } = queue;
+    const { roles: { offers = 0 } } = summary;
 
     return ` (${offers})`;
   }
@@ -200,14 +207,14 @@ class ServiceDebugContainer extends React.Component {
       return `Rejected offer analysis is not currently supported for ${frameworkName}.`;
     }
 
-    return 'Rejected offer analysis is not currently supported.';
+    return "Rejected offer analysis is not currently supported.";
   }
 
   getRecentOfferSummaryIntroText() {
-    const {service} = this.props;
+    const { service } = this.props;
 
     if (this.isFramework(service)) {
-      const {labels = {}} = service;
+      const { labels = {} } = service;
       const frameworkName = labels.DCOS_PACKAGE_FRAMEWORK_NAME;
 
       return this.getRecentOfferSummaryDisabledText(frameworkName);
@@ -217,7 +224,7 @@ class ServiceDebugContainer extends React.Component {
       return DeclinedOffersHelpText.summaryIntro;
     }
 
-    return 'Offers will appear here when your service is deploying or waiting for resources.';
+    return "Offers will appear here when your service is deploying or waiting for resources.";
   }
 
   getRecentOfferSummary() {
@@ -226,7 +233,11 @@ class ServiceDebugContainer extends React.Component {
     const offerCount = this.getRecentOfferSummaryCount();
 
     return (
-      <div ref={(ref) => { this.offerSummaryRef = ref; }}>
+      <div
+        ref={ref => {
+          this.offerSummaryRef = ref;
+        }}
+      >
         <ConfigurationMapHeading>
           Recent Resource Offers{offerCount}
         </ConfigurationMapHeading>
@@ -240,28 +251,22 @@ class ServiceDebugContainer extends React.Component {
     const taskStats = this.props.service.getTaskStats();
 
     if (taskStats.getList().getItems().length === 0) {
-      return (
-        <p>This app does not have task statistics</p>
-      );
+      return <p>This app does not have task statistics</p>;
     }
 
     return <TaskStatsTable taskStats={taskStats} />;
   }
 
   getValueText(value) {
-    if (value == null || value === '') {
-      return (
-        <p>Unspecified</p>
-      );
+    if (value == null || value === "") {
+      return <p>Unspecified</p>;
     }
 
-    return (
-      <span>{value}</span>
-    );
+    return <span>{value}</span>;
   }
 
   getWaitingForResourcesNotice() {
-    const {service} = this.props;
+    const { service } = this.props;
 
     if (this.isFramework(service)) {
       return null;
@@ -284,8 +289,10 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <Alert>
-        {'DC/OS has been waiting for resources and is unable to complete this deployment for '}
-        {DateUtil.getDuration(timeWaiting, null)}{'. '}
+        {
+          "DC/OS has been waiting for resources and is unable to complete this deployment for "
+        }
+        {DateUtil.getDuration(timeWaiting, null)}{". "}
         <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>
           See recent resource offers
         </a>.
@@ -300,31 +307,39 @@ class ServiceDebugContainer extends React.Component {
   }
 
   isFramework(service) {
-    const {labels = {}} = service;
+    const { labels = {} } = service;
 
-    return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null
-      || labels.DCOS_PACKAGE_IS_FRAMEWORK != null;
+    return (
+      labels.DCOS_PACKAGE_FRAMEWORK_NAME != null ||
+      labels.DCOS_PACKAGE_IS_FRAMEWORK != null
+    );
   }
 
   shouldShowDeclinedOfferSummary() {
-    const {service} = this.props;
+    const { service } = this.props;
 
-    return !this.shouldSuppressDeclinedOfferDetails()
-      && service.getQueue().declinedOffers.summary != null;
+    return (
+      !this.shouldSuppressDeclinedOfferDetails() &&
+      service.getQueue().declinedOffers.summary != null
+    );
   }
 
   shouldShowDeclinedOfferTable() {
-    const {service} = this.props;
+    const { service } = this.props;
 
-    return !this.shouldSuppressDeclinedOfferDetails()
-      && service.getQueue().declinedOffers.offers != null;
+    return (
+      !this.shouldSuppressDeclinedOfferDetails() &&
+      service.getQueue().declinedOffers.offers != null
+    );
   }
 
   shouldSuppressDeclinedOfferDetails() {
-    const {service} = this.props;
+    const { service } = this.props;
 
-    return this.isFramework(service)
-      || !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service);
+    return (
+      this.isFramework(service) ||
+      !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)
+    );
   }
 
   render() {

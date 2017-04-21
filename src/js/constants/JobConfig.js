@@ -1,8 +1,5 @@
 const ServiceConfig = {
-  BLACKLIST: [
-    'activeRuns',
-    'history'
-  ]
+  BLACKLIST: ["activeRuns", "history"]
 };
 
 module.exports = ServiceConfig;

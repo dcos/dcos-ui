@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Alert from '#SRC/js/components/Alert';
-import ConfigurationMapHeading from '#SRC/js/components/ConfigurationMapHeading';
-import PodContainerConfigSection from './PodContainerConfigSection';
+import Alert from "#SRC/js/components/Alert";
+import ConfigurationMapHeading
+  from "#SRC/js/components/ConfigurationMapHeading";
+import PodContainerConfigSection from "./PodContainerConfigSection";
 
 function renderContainers(appConfig, handleEditClick) {
-  const {containers = []} = appConfig;
+  const { containers = [] } = appConfig;
 
   return containers.map((container, index) => {
     return (
@@ -14,12 +15,13 @@ function renderContainers(appConfig, handleEditClick) {
         containerConfig={container}
         key={`pod-container-${container.name}`}
         onEditClick={handleEditClick}
-        index={index} />
+        index={index}
+      />
     );
   });
 }
 
-const PodContainersConfigSection = ({appConfig, onEditClick}) => {
+const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>

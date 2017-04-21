@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import Pod from '../../structs/Pod';
-import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
+import Pod from "../../structs/Pod";
+import ServiceConfigDisplay
+  from "../../service-configuration/ServiceConfigDisplay";
 
 class PodConfigurationTabView extends React.Component {
   render() {

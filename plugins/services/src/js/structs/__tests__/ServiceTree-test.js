@@ -1,40 +1,38 @@
-const Application = require('../Application');
-const Framework = require('../Framework');
-const HealthStatus = require('../../constants/HealthStatus');
-const HealthTypes = require('../../constants/HealthTypes');
-const ServiceTree = require('../ServiceTree');
-const ServiceStatus = require('../../constants/ServiceStatus');
-const VolumeList = require('../../structs/VolumeList');
+const Application = require("../Application");
+const Framework = require("../Framework");
+const HealthStatus = require("../../constants/HealthStatus");
+const HealthTypes = require("../../constants/HealthTypes");
+const ServiceTree = require("../ServiceTree");
+const ServiceStatus = require("../../constants/ServiceStatus");
+const VolumeList = require("../../structs/VolumeList");
 
-describe('ServiceTree', function () {
-
-  describe('#constructor', function () {
-
-    beforeEach(function () {
+describe("ServiceTree", function() {
+  describe("#constructor", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
-        id: '/group',
+        id: "/group",
         items: [
           {
-            id: 'group/test',
+            id: "group/test",
             items: []
           },
           {
-            id: '/group/alpha'
+            id: "/group/alpha"
           },
           {
-            id: '/group/beta',
+            id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           },
           {
-            id: '/group/gamma',
+            id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           },
-          new Application({id: 'a'}),
-          new Framework({id: 'b'})
+          new Application({ id: "a" }),
+          new Framework({ id: "b" })
         ],
         filterProperties: {
           id(item) {
@@ -44,98 +42,95 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('defaults id to root tree (groups) id', function () {
-      const tree = new ServiceTree({apps: [], groups: []});
-      expect(tree.getId()).toEqual('/');
+    it("defaults id to root tree (groups) id", function() {
+      const tree = new ServiceTree({ apps: [], groups: [] });
+      expect(tree.getId()).toEqual("/");
     });
 
-    it('sets correct tree (group) id', function () {
-      expect(this.instance.getId()).toEqual('/group');
+    it("sets correct tree (group) id", function() {
+      expect(this.instance.getId()).toEqual("/group");
     });
 
-    it('accepts nested trees', function () {
+    it("accepts nested trees", function() {
       expect(this.instance.getItems()[0] instanceof ServiceTree).toEqual(true);
     });
 
-    it('converts items into Application and Framework instances', function () {
+    it("converts items into Application and Framework instances", function() {
       expect(this.instance.getItems()[1] instanceof Application).toEqual(true);
       expect(this.instance.getItems()[2] instanceof Framework).toEqual(true);
       expect(this.instance.getItems()[3] instanceof Application).toEqual(true);
     });
 
-    it('should not convert instances of service', function () {
-      expect(this.instance.getItems()[4].get()).toEqual({id: 'a'});
-      expect(this.instance.getItems()[5].get()).toEqual({id: 'b'});
+    it("should not convert instances of service", function() {
+      expect(this.instance.getItems()[4].get()).toEqual({ id: "a" });
+      expect(this.instance.getItems()[5].get()).toEqual({ id: "b" });
     });
   });
 
-  describe('#add', function () {
-
-    it('adds a service', function () {
-      const tree = new ServiceTree({id: '/test', items: []});
-      tree.add(new Application({id: 'a'}));
-      expect(tree.getItems()[0].get('id')).toEqual('a');
+  describe("#add", function() {
+    it("adds a service", function() {
+      const tree = new ServiceTree({ id: "/test", items: [] });
+      tree.add(new Application({ id: "a" }));
+      expect(tree.getItems()[0].get("id")).toEqual("a");
     });
 
-    it('adds service like items', function () {
-      const tree = new ServiceTree({id: '/test', items: []});
-      tree.add({id: 'a'});
-      expect(tree.getItems()[0].id).toEqual('a');
+    it("adds service like items", function() {
+      const tree = new ServiceTree({ id: "/test", items: [] });
+      tree.add({ id: "a" });
+      expect(tree.getItems()[0].id).toEqual("a");
     });
 
-    it('adds two items', function () {
-      const tree = new ServiceTree({id: '/test', items: []});
-      tree.add(new Application({id: 'a'}));
-      tree.add(new Application({id: 'b'}));
-      expect(tree.getItems()[0].get('id')).toEqual('a');
-      expect(tree.getItems()[1].get('id')).toEqual('b');
+    it("adds two items", function() {
+      const tree = new ServiceTree({ id: "/test", items: [] });
+      tree.add(new Application({ id: "a" }));
+      tree.add(new Application({ id: "b" }));
+      expect(tree.getItems()[0].get("id")).toEqual("a");
+      expect(tree.getItems()[1].get("id")).toEqual("b");
     });
 
-    it('adds items to current Tree', function () {
+    it("adds items to current Tree", function() {
       const tree = new ServiceTree({
-        id: '/test',
-        items: [new Application({id: 'a'})]
+        id: "/test",
+        items: [new Application({ id: "a" })]
       });
-      tree.add(new Application({id: 'b'}));
-      tree.add(new Application({id: 'c'}));
+      tree.add(new Application({ id: "b" }));
+      tree.add(new Application({ id: "c" }));
 
-      expect(tree.getItems()[0].get('id')).toEqual('a');
-      expect(tree.getItems()[1].get('id')).toEqual('b');
-      expect(tree.getItems()[2].get('id')).toEqual('c');
+      expect(tree.getItems()[0].get("id")).toEqual("a");
+      expect(tree.getItems()[1].get("id")).toEqual("b");
+      expect(tree.getItems()[2].get("id")).toEqual("c");
     });
-
   });
 
-  describe('#filterItemsByText', function () {
-
-    beforeEach(function () {
+  describe("#filterItemsByText", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
-        id: '/group',
+        id: "/group",
         items: [
           {
-            id: 'group/test',
+            id: "group/test",
             items: [
               {
-                id: 'group/test/foo'
+                id: "group/test/foo"
               },
               {
-                id: 'group/test/bar'
+                id: "group/test/bar"
               }
             ]
           },
           {
-            id: '/group/alpha'
+            id: "/group/alpha"
           },
           {
-            id: '/group/beta',
+            id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           },
           {
-            id: '/group/gamma',
+            id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           }
         ],
@@ -147,64 +142,63 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('should return an instance of ServiceTree', function () {
-      const filteredTree = this.instance.filterItemsByText('alpha');
+    it("should return an instance of ServiceTree", function() {
+      const filteredTree = this.instance.filterItemsByText("alpha");
       expect(filteredTree instanceof ServiceTree).toBeTruthy();
     });
 
-    it('should include matching trees', function () {
-      const filteredItems = this.instance.filterItemsByText('test').getItems();
+    it("should include matching trees", function() {
+      const filteredItems = this.instance.filterItemsByText("test").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
 
-    it('should not include empty trees', function () {
-      const filteredItems = this.instance.filterItemsByText('beta').getItems();
+    it("should not include empty trees", function() {
+      const filteredItems = this.instance.filterItemsByText("beta").getItems();
       expect(filteredItems[0] instanceof Framework).toBeTruthy();
     });
 
-    it('should no include matching subtrees', function () {
-      const filteredItems = this.instance.filterItemsByText('foo').getItems();
+    it("should no include matching subtrees", function() {
+      const filteredItems = this.instance.filterItemsByText("foo").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
   });
 
-  describe('#filterItemsByFilter', function () {
-
-    beforeEach(function () {
+  describe("#filterItemsByFilter", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
-        id: '/group',
+        id: "/group",
         items: [
           {
-            id: '/group/test',
+            id: "/group/test",
             items: [
               {
-                id: '/group/test/foo',
-                cmd: 'cmd'
+                id: "/group/test/foo",
+                cmd: "cmd"
               },
               {
-                id: '/group/test/bar',
-                cmd: 'cmd'
+                id: "/group/test/bar",
+                cmd: "cmd"
               }
             ]
           },
           {
-            id: '/group/alpha',
-            cmd: 'cmd'
+            id: "/group/alpha",
+            cmd: "cmd"
           },
           {
-            id: '/group/beta',
-            cmd: 'cmd',
+            id: "/group/beta",
+            cmd: "cmd",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             },
             tasksHealthy: 1,
             tasksRunning: 1
           },
           {
-            id: 'gamma',
-            cmd: 'cmd',
+            id: "gamma",
+            cmd: "cmd",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           }
         ],
@@ -216,55 +210,62 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('should filter by name', function () {
-      const filteredServices = this.instance.filterItemsByFilter({
-        id: 'alpha'
-      }).getItems();
+    it("should filter by name", function() {
+      const filteredServices = this.instance
+        .filterItemsByFilter({
+          id: "alpha"
+        })
+        .getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual('/group/alpha');
+      expect(filteredServices[0].getId()).toEqual("/group/alpha");
     });
 
-    it('should filter by name in groups', function () {
-      const filteredServices = this.instance.filterItemsByFilter({
-        id: '/group/test/foo'
-      }).getItems();
+    it("should filter by name in groups", function() {
+      const filteredServices = this.instance
+        .filterItemsByFilter({
+          id: "/group/test/foo"
+        })
+        .getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual('/group/test/foo');
+      expect(filteredServices[0].getId()).toEqual("/group/test/foo");
     });
 
-    it('should filter by health', function () {
-      const filteredServices = this.instance.filterItemsByFilter({
-        health: [HealthTypes.HEALTHY]
-      }).getItems();
+    it("should filter by health", function() {
+      const filteredServices = this.instance
+        .filterItemsByFilter({
+          health: [HealthTypes.HEALTHY]
+        })
+        .getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual('/group/beta');
+      expect(filteredServices[0].getId()).toEqual("/group/beta");
     });
 
-    it('should perform a logical AND with multiple filters', function () {
-      const filteredServices = this.instance.filterItemsByFilter({
-        health: [HealthTypes.NA],
-        id: 'alpha'
-      }).getItems();
+    it("should perform a logical AND with multiple filters", function() {
+      const filteredServices = this.instance
+        .filterItemsByFilter({
+          health: [HealthTypes.NA],
+          id: "alpha"
+        })
+        .getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual('/group/alpha');
+      expect(filteredServices[0].getId()).toEqual("/group/alpha");
     });
   });
 
-  describe('#findItem', function () {
-
-    beforeEach(function () {
+  describe("#findItem", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
         items: [
           {
-            id: '/test',
+            id: "/test",
             items: []
           },
           {
-            id: '/alpha'
+            id: "/alpha"
           }
         ],
         filterProperties: {
@@ -275,99 +276,100 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('should find matching subtree', function () {
-      expect(this.instance.findItem(function (item) {
-        return item.getId() === '/test';
-      }).getId()).toEqual('/test');
+    it("should find matching subtree", function() {
+      expect(
+        this.instance
+          .findItem(function(item) {
+            return item.getId() === "/test";
+          })
+          .getId()
+      ).toEqual("/test");
     });
-
   });
 
-  describe('#findItemById', function () {
-
-    beforeEach(function () {
+  describe("#findItemById", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
-        id: '/',
+        id: "/",
         items: [
           {
-            id: '/test',
+            id: "/test",
             items: [
               {
-                id: '/test/foo'
+                id: "/test/foo"
               },
               {
-                id: '/test/bar'
+                id: "/test/bar"
               }
             ]
           },
           {
-            id: '/alpha',
-            cmd: 'cmd'
+            id: "/alpha",
+            cmd: "cmd"
           },
           {
-            id: '/beta',
-            cmd: 'cmd',
+            id: "/beta",
+            cmd: "cmd",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           }
         ]
       });
     });
 
-    it('should find matching item', function () {
-      expect(this.instance.findItemById('/beta').getId()).toEqual('/beta');
+    it("should find matching item", function() {
+      expect(this.instance.findItemById("/beta").getId()).toEqual("/beta");
     });
 
-    it('should find matching subtree item', function () {
-      expect(this.instance.findItemById('/test/foo').getId())
-        .toEqual('/test/foo');
+    it("should find matching subtree item", function() {
+      expect(this.instance.findItemById("/test/foo").getId()).toEqual(
+        "/test/foo"
+      );
     });
 
-    it('should find matching subtree', function () {
-      expect(this.instance.findItemById('/test').getId()).toEqual('/test');
+    it("should find matching subtree", function() {
+      expect(this.instance.findItemById("/test").getId()).toEqual("/test");
     });
-
   });
 
-  describe('#getDeployments', function () {
-
-    it('should return an empty array', function () {
+  describe("#getDeployments", function() {
+    it("should return an empty array", function() {
       const serviceTree = new ServiceTree({
-        id: '/group/id',
+        id: "/group/id",
         items: [
           {
-            id: '/test',
+            id: "/test",
             items: [
               {
-                id: '/foo',
-                cmd: 'cmd',
+                id: "/foo",
+                cmd: "cmd",
                 deployments: []
               },
               {
-                id: '/bar',
-                cmd: 'cmd'
+                id: "/bar",
+                cmd: "cmd"
               }
             ]
           },
           {
-            id: '/alpha',
-            cmd: 'cmd',
+            id: "/alpha",
+            cmd: "cmd",
             deployments: []
           },
           {
-            id: '/beta',
-            cmd: 'cmd',
+            id: "/beta",
+            cmd: "cmd",
             deployments: [],
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           },
           {
-            id: '/gamma',
-            cmd: 'cmd',
+            id: "/gamma",
+            cmd: "cmd",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           }
         ]
@@ -376,85 +378,84 @@ describe('ServiceTree', function () {
       expect(serviceTree.getDeployments()).toEqual([]);
     });
 
-    it('should return an array with three deployments', function () {
+    it("should return an array with three deployments", function() {
       const serviceTree = new ServiceTree({
-        id: '/group/id',
+        id: "/group/id",
         items: [
           {
-            id: '/test',
+            id: "/test",
             items: [
               {
-                id: '/foo',
-                cmd: 'cmd',
+                id: "/foo",
+                cmd: "cmd",
                 deployments: [
                   {
-                    id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'
+                    id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"
                   }
                 ]
               },
               {
-                id: '/bar',
-                cmd: 'cmd'
+                id: "/bar",
+                cmd: "cmd"
               }
             ]
           },
           {
-            id: '/alpha',
-            cmd: 'cmd',
+            id: "/alpha",
+            cmd: "cmd",
             deployments: [
               {
-                id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'
+                id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f2"
               }
             ]
           },
           {
-            id: '/beta',
-            cmd: 'cmd',
+            id: "/beta",
+            cmd: "cmd",
             deployments: [
               {
-                id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'
+                id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f3"
               }
             ],
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           },
           {
-            id: '/gamma',
-            cmd: 'cmd',
+            id: "/gamma",
+            cmd: "cmd",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           }
         ]
       });
 
       expect(serviceTree.getDeployments()).toEqual([
-        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'},
-        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'},
-        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}
+        { id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" },
+        { id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f2" },
+        { id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f3" }
       ]);
     });
   });
 
-  describe('#getHealth', function () {
-
+  describe("#getHealth", function() {
     const healthyService = new Application({
-      healthChecks: [{path: '', protocol: 'HTTP'}],
+      healthChecks: [{ path: "", protocol: "HTTP" }],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 1,
       tasksUnhealthy: 0
     });
     const unhealthyService = new Application({
-      healthChecks: [{path: '', protocol: 'HTTP'}],
+      healthChecks: [{ path: "", protocol: "HTTP" }],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 0,
       tasksUnhealthy: 1
     });
     const idleService = new Application({
-      healthChecks: [{path: '', protocol: 'HTTP'}],
+      healthChecks: [{ path: "", protocol: "HTTP" }],
       tasksStaged: 0,
       tasksRunning: 0,
       tasksHealthy: 0,
@@ -468,116 +469,103 @@ describe('ServiceTree', function () {
       tasksUnhealthy: 0
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
       this.instance = new ServiceTree();
-
     });
 
-    it('returns NA health for empty tree', function () {
+    it("returns NA health for empty tree", function() {
       expect(this.instance.getHealth()).toEqual(HealthStatus.NA);
     });
 
-    it('returns correct health for a tree with healthy services', function () {
+    it("returns correct health for a tree with healthy services", function() {
       this.instance.add(healthyService);
 
       expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
-    it('returns correct health for a tree with healthy and idle services',
-      function () {
-        this.instance.add(healthyService);
-        this.instance.add(idleService);
+    it("returns correct health for a tree with healthy and idle services", function() {
+      this.instance.add(healthyService);
+      this.instance.add(idleService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
+    });
 
-    it('returns correct health for a tree with healthy and na  services',
-      function () {
-        this.instance.add(healthyService);
-        this.instance.add(naService);
+    it("returns correct health for a tree with healthy and na  services", function() {
+      this.instance.add(healthyService);
+      this.instance.add(naService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
+    });
 
-    it('returns correct health for a tree with unhealthy services',
-      function () {
-        this.instance.add(unhealthyService);
+    it("returns correct health for a tree with unhealthy services", function() {
+      this.instance.add(unhealthyService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+    });
 
-    it('returns correct health for a tree with unhealthy and healthy services',
-      function () {
-        this.instance.add(unhealthyService);
-        this.instance.add(healthyService);
+    it("returns correct health for a tree with unhealthy and healthy services", function() {
+      this.instance.add(unhealthyService);
+      this.instance.add(healthyService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+    });
 
-    it('returns correct health for a tree with unhealthy and idle services',
-      function () {
-        this.instance.add(unhealthyService);
-        this.instance.add(idleService);
+    it("returns correct health for a tree with unhealthy and idle services", function() {
+      this.instance.add(unhealthyService);
+      this.instance.add(idleService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+    });
 
-    it('returns correct health for a tree with unhealthy and NA services',
-      function () {
-        this.instance.add(unhealthyService);
-        this.instance.add(naService);
+    it("returns correct health for a tree with unhealthy and NA services", function() {
+      this.instance.add(unhealthyService);
+      this.instance.add(naService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+    });
 
-    it('returns correct health for a tree with idle services', function () {
+    it("returns correct health for a tree with idle services", function() {
       this.instance.add(idleService);
 
       expect(this.instance.getHealth()).toEqual(HealthStatus.IDLE);
     });
 
-    it('returns correct health for a tree with idle and NA services',
-      function () {
-        this.instance.add(idleService);
-        this.instance.add(naService);
+    it("returns correct health for a tree with idle and NA services", function() {
+      this.instance.add(idleService);
+      this.instance.add(naService);
 
-        expect(this.instance.getHealth()).toEqual(HealthStatus.IDLE);
-      }
-    );
+      expect(this.instance.getHealth()).toEqual(HealthStatus.IDLE);
+    });
 
-    it('returns correct health for a tree with NA services', function () {
+    it("returns correct health for a tree with NA services", function() {
       this.instance.add(naService);
 
       expect(this.instance.getHealth()).toEqual(HealthStatus.NA);
     });
-
   });
 
-  describe('#getResources', function () {
-
-    beforeEach(function () {
+  describe("#getResources", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns correct resource data', function () {
-      this.instance.add(new Application({
-        cpus: 1,
-        mem: 2048,
-        disk: 0,
-        instances:1
-      }));
-      this.instance.add(new Application({
-        cpus: 6,
-        mem: 1024,
-        disk: 6,
-        instances:1
-      }));
+    it("returns correct resource data", function() {
+      this.instance.add(
+        new Application({
+          cpus: 1,
+          mem: 2048,
+          disk: 0,
+          instances: 1
+        })
+      );
+      this.instance.add(
+        new Application({
+          cpus: 6,
+          mem: 1024,
+          disk: 6,
+          instances: 1
+        })
+      );
 
       expect(this.instance.getResources()).toEqual({
         cpus: 7,
@@ -585,168 +573,180 @@ describe('ServiceTree', function () {
         disk: 6
       });
     });
-
   });
 
-  describe('#getInstancesCount', function () {
-
-    beforeEach(function () {
+  describe("#getInstancesCount", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns correct number for instances for 0 instances', function () {
-      this.instance.add(new Application({
-        instances: 0
-      }));
+    it("returns correct number for instances for 0 instances", function() {
+      this.instance.add(
+        new Application({
+          instances: 0
+        })
+      );
 
       expect(this.instance.getInstancesCount()).toEqual(0);
     });
 
-    it('returns correct number for instances for 1 instance', function () {
-      this.instance.add(new Application({
-        instances: 1
-      }));
+    it("returns correct number for instances for 1 instance", function() {
+      this.instance.add(
+        new Application({
+          instances: 1
+        })
+      );
 
       expect(this.instance.getInstancesCount()).toEqual(1);
     });
 
-    it('returns correct number for instances for 5 instances', function () {
-      this.instance.add(new Application({
-        instances: 3
-      }));
+    it("returns correct number for instances for 5 instances", function() {
+      this.instance.add(
+        new Application({
+          instances: 3
+        })
+      );
 
-      this.instance.add(new Application({
-        instances: 2
-      }));
+      this.instance.add(
+        new Application({
+          instances: 2
+        })
+      );
 
       expect(this.instance.getInstancesCount()).toEqual(5);
     });
-
   });
 
-  describe('#getStatus', function () {
-
-    beforeEach(function () {
+  describe("#getStatus", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns correct status for running tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 1,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 1,
-        deployments: []
-      }));
+    it("returns correct status for running tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
 
-      expect(this.instance.getStatus())
-        .toEqual(ServiceStatus.RUNNING.displayName);
+      expect(this.instance.getStatus()).toEqual(
+        ServiceStatus.RUNNING.displayName
+      );
     });
 
-    it('returns correct status for suspended tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 0,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 0,
-        deployments: []
-      }));
+    it("returns correct status for suspended tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        })
+      );
 
-      expect(this.instance.getStatus())
-        .toEqual(ServiceStatus.SUSPENDED.displayName);
+      expect(this.instance.getStatus()).toEqual(
+        ServiceStatus.SUSPENDED.displayName
+      );
     });
 
-    it('returns correct status for deploying tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 15,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 0,
-        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
-      }));
+    it("returns correct status for deploying tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
 
-      expect(this.instance.getStatus())
-        .toEqual(ServiceStatus.DEPLOYING.displayName);
+      expect(this.instance.getStatus()).toEqual(
+        ServiceStatus.DEPLOYING.displayName
+      );
     });
-
   });
 
-  describe('#getServiceStatus', function () {
-
-    beforeEach(function () {
+  describe("#getServiceStatus", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns correct status object for running tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 1,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 1,
-        deployments: []
-      }));
+    it("returns correct status object for running tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
 
-      expect(this.instance.getServiceStatus())
-        .toEqual(ServiceStatus.RUNNING);
+      expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it('returns correct status object for suspended tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 0,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 0,
-        deployments: []
-      }));
+    it("returns correct status object for suspended tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        })
+      );
 
-      expect(this.instance.getServiceStatus())
-        .toEqual(ServiceStatus.SUSPENDED);
+      expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.SUSPENDED);
     });
 
-    it('returns correct status object for deploying tree', function () {
-      this.instance.add(new Application({
-        tasksStaged: 0,
-        tasksRunning: 15,
-        tasksHealthy: 0,
-        tasksUnhealthy: 0,
-        instances: 0,
-        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
-      }));
+    it("returns correct status object for deploying tree", function() {
+      this.instance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
 
-      expect(this.instance.getServiceStatus())
-        .toEqual(ServiceStatus.DEPLOYING);
+      expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
     });
-
   });
 
-  describe('#getServices', function () {
-
-    beforeEach(function () {
+  describe("#getServices", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree({
-        id: '/group',
+        id: "/group",
         items: [
           {
-            id: 'group/test',
+            id: "group/test",
             items: []
           },
           {
-            id: '/group/alpha'
+            id: "/group/alpha"
           },
           {
-            id: '/group/beta',
+            id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
             }
           },
           {
-            id: '/group/gamma',
+            id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: 'random'
+              RANDOM_LABEL: "random"
             }
           }
         ],
@@ -758,34 +758,36 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('returns an array with all the Services in the group', function () {
+    it("returns an array with all the Services in the group", function() {
       const services = this.instance.getServices();
       expect(services.getItems().length).toEqual(3);
     });
-
   });
 
-  describe('#getTasksSummary', function () {
-
-    beforeEach(function () {
+  describe("#getTasksSummary", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns correct task summary', function () {
-      this.instance.add(new Application({
-        instances: 1,
-        tasksStaged: 0,
-        tasksRunning: 1,
-        tasksHealthy: 1,
-        tasksUnhealthy: 0
-      }));
-      this.instance.add(new Application({
-        instances: 19,
-        tasksStaged: 1,
-        tasksRunning: 18,
-        tasksHealthy: 15,
-        tasksUnhealthy: 1
-      }));
+    it("returns correct task summary", function() {
+      this.instance.add(
+        new Application({
+          instances: 1,
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 1,
+          tasksUnhealthy: 0
+        })
+      );
+      this.instance.add(
+        new Application({
+          instances: 19,
+          tasksStaged: 1,
+          tasksRunning: 18,
+          tasksHealthy: 15,
+          tasksUnhealthy: 1
+        })
+      );
 
       expect(this.instance.getTasksSummary()).toEqual({
         tasksStaged: 1,
@@ -797,21 +799,25 @@ describe('ServiceTree', function () {
       });
     });
 
-    it('returns correct task summary for Over Capacity', function () {
-      this.instance.add(new Application({
-        instances: 1,
-        tasksStaged: 0,
-        tasksRunning: 1,
-        tasksHealthy: 1,
-        tasksUnhealthy: 0
-      }));
-      this.instance.add(new Application({
-        instances: 10,
-        tasksStaged: 1,
-        tasksRunning: 18,
-        tasksHealthy: 15,
-        tasksUnhealthy: 1
-      }));
+    it("returns correct task summary for Over Capacity", function() {
+      this.instance.add(
+        new Application({
+          instances: 1,
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 1,
+          tasksUnhealthy: 0
+        })
+      );
+      this.instance.add(
+        new Application({
+          instances: 10,
+          tasksStaged: 1,
+          tasksRunning: 18,
+          tasksHealthy: 15,
+          tasksUnhealthy: 1
+        })
+      );
 
       expect(this.instance.getTasksSummary()).toEqual({
         tasksStaged: 1,
@@ -822,137 +828,153 @@ describe('ServiceTree', function () {
         tasksOverCapacity: 9
       });
     });
-
   });
 
-  describe('#getVolumes', function () {
-
-    beforeEach(function () {
+  describe("#getVolumes", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns a VolumeList with all the volumes in the group', function () {
-      this.instance.add(new Application({
-        id: '/persistent',
-        volumes: [{
-          containerPath: 'data',
-          mode: 'RW',
-          persistent: {size: 100}
-        }]
-      }));
+    it("returns a VolumeList with all the volumes in the group", function() {
+      this.instance.add(
+        new Application({
+          id: "/persistent",
+          volumes: [
+            {
+              containerPath: "data",
+              mode: "RW",
+              persistent: { size: 100 }
+            }
+          ]
+        })
+      );
 
-      this.instance.add(new Application({
-        id: '/persistent2',
-        volumes: [{
-          containerPath: 'data',
-          mode: 'RW',
-          persistent: {size: 100}
-        }]
-      }));
+      this.instance.add(
+        new Application({
+          id: "/persistent2",
+          volumes: [
+            {
+              containerPath: "data",
+              mode: "RW",
+              persistent: { size: 100 }
+            }
+          ]
+        })
+      );
 
       const volumeList = this.instance.getVolumes();
       expect(volumeList).toEqual(jasmine.any(VolumeList));
       expect(volumeList.getItems().length).toEqual(2);
     });
-
   });
 
-  describe('#getFrameworks', function () {
-
-    beforeEach(function () {
+  describe("#getFrameworks", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns an array with all the Frameworks in the group', function () {
-      this.instance.add(new Framework({
-        id: '/metronome'
-      }));
+    it("returns an array with all the Frameworks in the group", function() {
+      this.instance.add(
+        new Framework({
+          id: "/metronome"
+        })
+      );
 
-      this.instance.add(new Application({
-        id: '/sleeper'
-      }));
+      this.instance.add(
+        new Application({
+          id: "/sleeper"
+        })
+      );
 
       const frameworks = this.instance.getFrameworks();
       expect(frameworks.length).toEqual(1);
     });
-
   });
 
-  describe('#getLabels', function () {
-
-    beforeEach(function () {
+  describe("#getLabels", function() {
+    beforeEach(function() {
       this.instance = new ServiceTree();
     });
 
-    it('returns an array with all the labels in the group', function () {
-      this.instance.add(new Framework({
-        id: '/metronome',
-        labels: {
-          'label_one': 'value_one'
-        }
-      }));
+    it("returns an array with all the labels in the group", function() {
+      this.instance.add(
+        new Framework({
+          id: "/metronome",
+          labels: {
+            label_one: "value_one"
+          }
+        })
+      );
 
-      this.instance.add(new Framework({
-        id: '/cassandra',
-        labels: {
-          'label_one': 'value_two',
-          'label_two': 'value_three'
-        }
-      }));
+      this.instance.add(
+        new Framework({
+          id: "/cassandra",
+          labels: {
+            label_one: "value_two",
+            label_two: "value_three"
+          }
+        })
+      );
 
-      this.instance.add(new Application({
-        id: '/sleeper'
-      }));
+      this.instance.add(
+        new Application({
+          id: "/sleeper"
+        })
+      );
 
       const labels = this.instance.getLabels();
       expect(labels.length).toEqual(3);
       expect(labels).toEqual([
-        {key: 'label_one', value: 'value_one'},
-        {key: 'label_one', value: 'value_two'},
-        {key: 'label_two', value: 'value_three'}
+        { key: "label_one", value: "value_one" },
+        { key: "label_one", value: "value_two" },
+        { key: "label_two", value: "value_three" }
       ]);
     });
 
-    it('filters out duplicate label key-value tuples', function () {
-      this.instance.add(new Framework({
-        id: '/metronome',
-        labels: {
-          'label_one': 'value_one'
-        }
-      }));
+    it("filters out duplicate label key-value tuples", function() {
+      this.instance.add(
+        new Framework({
+          id: "/metronome",
+          labels: {
+            label_one: "value_one"
+          }
+        })
+      );
 
-      this.instance.add(new Application({
-        id: '/sleeper',
-        labels: {
-          'label_one': 'value_one',
-          'label_two': 'value_one'
-        }
-      }));
+      this.instance.add(
+        new Application({
+          id: "/sleeper",
+          labels: {
+            label_one: "value_one",
+            label_two: "value_one"
+          }
+        })
+      );
 
       const labels = this.instance.getLabels();
       expect(labels.length).toEqual(2);
       expect(labels).toEqual([
-        {key: 'label_one', value: 'value_one'},
-        {key: 'label_two', value: 'value_one'}
+        { key: "label_one", value: "value_one" },
+        { key: "label_two", value: "value_one" }
       ]);
     });
 
-    it('returns an empty array if no labels are found', function () {
-      this.instance.add(new Framework({
-        id: '/metronome'
-      }));
+    it("returns an empty array if no labels are found", function() {
+      this.instance.add(
+        new Framework({
+          id: "/metronome"
+        })
+      );
 
       const labels = this.instance.getLabels();
       expect(labels.length).toEqual(0);
       expect(labels).toEqual([]);
     });
 
-    it('returns an empty array if tree is empty', function () {
+    it("returns an empty array if tree is empty", function() {
       const labels = this.instance.getLabels();
       expect(labels.length).toEqual(0);
       expect(labels).toEqual([]);
     });
-
   });
-
 });

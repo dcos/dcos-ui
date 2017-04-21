@@ -1,12 +1,12 @@
-import {Confirm} from 'reactjs-components';
-import React, {PropTypes} from 'react';
-import PureRender from 'react-addons-pure-render-mixin';
+import { Confirm } from "reactjs-components";
+import React, { PropTypes } from "react";
+import PureRender from "react-addons-pure-render-mixin";
 
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
-import AppLockedMessage from './AppLockedMessage';
-import Service from '../../structs/Service';
-import ServiceTree from '../../structs/ServiceTree';
+import AppLockedMessage from "./AppLockedMessage";
+import Service from "../../structs/Service";
+import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceRestartModal extends React.Component {
   constructor() {
@@ -20,8 +20,7 @@ class ServiceRestartModal extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending
-      && !nextProps.isPending;
+    const requestCompleted = this.props.isPending && !nextProps.isPending;
 
     const shouldClose = requestCompleted && !nextProps.errors;
 
@@ -31,33 +30,33 @@ class ServiceRestartModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {errors} = nextProps;
+    const { errors } = nextProps;
     if (!errors) {
-      this.setState({errorMsg: null});
+      this.setState({ errorMsg: null });
 
       return;
     }
 
-    if (typeof errors === 'string') {
-      this.setState({errorMsg: errors});
+    if (typeof errors === "string") {
+      this.setState({ errorMsg: errors });
 
       return;
     }
 
-    let {message: errorMsg = '', details} = errors;
+    let { message: errorMsg = "", details } = errors;
     const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
-      errorMsg = details.reduce(function (memo, error) {
-        return `${memo} ${error.errors.join(' ')}`;
-      }, '');
+      errorMsg = details.reduce(function(memo, error) {
+        return `${memo} ${error.errors.join(" ")}`;
+      }, "");
     }
 
     if (!errorMsg || !errorMsg.length) {
       errorMsg = null;
     }
 
-    this.setState({errorMsg});
+    this.setState({ errorMsg });
   }
 
   shouldForceUpdate() {
@@ -65,16 +64,14 @@ class ServiceRestartModal extends React.Component {
   }
 
   getErrorMessage() {
-    const {errorMsg = null} = this.state;
+    const { errorMsg = null } = this.state;
 
     if (!errorMsg) {
       return null;
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <AppLockedMessage service={this.props.service} />
-      );
+      return <AppLockedMessage service={this.props.service} />;
     }
 
     return (
@@ -83,20 +80,14 @@ class ServiceRestartModal extends React.Component {
   }
 
   render() {
-    const {
-      isPending,
-      onClose,
-      open,
-      service,
-      restartService
-    } = this.props;
+    const { isPending, onClose, open, service, restartService } = this.props;
 
     const heading = (
       <ModalHeading>
         Restart Service
       </ModalHeading>
     );
-    let serviceName = '';
+    let serviceName = "";
 
     if (service) {
       serviceName = service.getId();
@@ -111,10 +102,15 @@ class ServiceRestartModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText="Restart Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={() => restartService(service, this.shouldForceUpdate())}
-        showHeader={true}>
+        rightButtonCallback={() =>
+          restartService(service, this.shouldForceUpdate())}
+        showHeader={true}
+      >
         <p>
-          Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
+          Are you sure you want to restart
+          {" "}
+          <span className="emphasize">{serviceName}</span>
+          ?
         </p>
         {this.getErrorMessage()}
       </Confirm>
@@ -123,10 +119,7 @@ class ServiceRestartModal extends React.Component {
 }
 
 ServiceRestartModal.propTypes = {
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string
-  ]),
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

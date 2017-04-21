@@ -5,12 +5,11 @@ import {
   REQUEST_SIDEBAR_UNDOCK,
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_SIDEBAR_WIDTH_CHANGE
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 
-import AppDispatcher from './AppDispatcher';
+import AppDispatcher from "./AppDispatcher";
 
 module.exports = {
-
   open() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_OPEN,

@@ -1,64 +1,67 @@
-const MultiContainerScaling = require('../MultiContainerScaling');
-const Batch = require('#SRC/js/structs/Batch');
-const Transaction = require('#SRC/js/structs/Transaction');
-const {SET} = require('#SRC/js/constants/TransactionTypes');
+const MultiContainerScaling = require("../MultiContainerScaling");
+const Batch = require("#SRC/js/structs/Batch");
+const Transaction = require("#SRC/js/structs/Transaction");
+const { SET } = require("#SRC/js/constants/TransactionTypes");
 
-describe('MultiContainerScaling', function () {
-  describe('#JSONReducer', function () {
-    it('should not return anything with an empty back', function () {
+describe("MultiContainerScaling", function() {
+  describe("#JSONReducer", function() {
+    it("should not return anything with an empty back", function() {
       const batch = new Batch();
 
-      expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({})))
-      .toEqual(null);
+      expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}))).toEqual(
+        null
+      );
     });
 
-    it('should return a fixed scaling block when instances defined', function () {
+    it("should return a fixed scaling block when instances defined", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['instances'], 1));
+      batch = batch.add(new Transaction(["instances"], 1));
 
-      expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {}))
-        .toEqual({
-          kind: 'fixed',
-          instances: 1
-        });
+      expect(
+        batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
+      ).toEqual({
+        kind: "fixed",
+        instances: 1
+      });
     });
 
-    it('should return different scaling kinds if defined', function () {
+    it("should return different scaling kinds if defined", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(['scaling.kind'], 'wrong'));
+      batch = batch.add(new Transaction(["scaling.kind"], "wrong"));
 
       // NOTE: This is mainly future-proofing and not a feature
-      expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {}))
-        .toEqual({
-          kind: 'wrong',
-          instances: 1
-        });
+      expect(
+        batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
+      ).toEqual({
+        kind: "wrong",
+        instances: 1
+      });
     });
   });
 
-  describe('#JSONParser', function () {
-    it('should not populate transactions on empty config', function () {
-      const expectedObject = [
-      ];
+  describe("#JSONParser", function() {
+    it("should not populate transactions on empty config", function() {
+      const expectedObject = [];
 
-      expect(MultiContainerScaling.JSONParser({
-      })).toEqual(expectedObject);
+      expect(MultiContainerScaling.JSONParser({})).toEqual(expectedObject);
     });
 
-    it('should properly populate instances and scaling.kind', function () {
+    it("should properly populate instances and scaling.kind", function() {
       const expectedObject = [
-        {type: SET, value: 2, path: ['instances']},
-        {type: SET, value: 'random', path: ['scaling', 'kind']}
+        { type: SET, value: 2, path: ["instances"] },
+        { type: SET, value: "random", path: ["scaling", "kind"] }
       ];
 
-      expect(MultiContainerScaling.JSONParser({
-        'scaling': {
-          'instances': 2,
-          'kind': 'random'
-        }
-      })).toEqual(expectedObject);
+      expect(
+        MultiContainerScaling.JSONParser({
+          scaling: {
+            instances: 2,
+            kind: "random"
+          }
+        })
+      ).toEqual(expectedObject);
     });
   });
 });

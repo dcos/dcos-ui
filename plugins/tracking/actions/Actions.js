@@ -1,15 +1,15 @@
-import deepEqual from 'deep-equal';
-import md5 from 'md5';
-import {hashHistory, match} from 'react-router';
+import deepEqual from "deep-equal";
+import md5 from "md5";
+import { hashHistory, match } from "react-router";
 
-import RouterUtil from '#SRC/js/utils/RouterUtil';
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-const SDK = require('../SDK').getSDK();
+const SDK = require("../SDK").getSDK();
 
-const {Config, Util} = SDK.get(['Config', 'Util']);
+const { Config, Util } = SDK.get(["Config", "Util"]);
 
 var Actions = {
-  previousFakePageLog: '',
+  previousFakePageLog: "",
 
   dcosMetadata: null,
 
@@ -19,13 +19,10 @@ var Actions = {
 
   pageQueue: [],
 
-  actions: [
-    'log',
-    'logFakePageView'
-  ],
+  actions: ["log", "logFakePageView"],
 
   initialize() {
-    this.actions.forEach((action) => {
+    this.actions.forEach(action => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -36,10 +33,12 @@ var Actions = {
   metadataLoaded() {
     const metadata = SDK.Store.getAppState().metadata;
 
-    return (metadata &&
+    return (
+      metadata &&
       metadata.dcosMetadata &&
       metadata.metadata &&
-      metadata.metadata.CLUSTER_ID);
+      metadata.metadata.CLUSTER_ID
+    );
   },
 
   listenForDcosMetadata() {
@@ -56,8 +55,9 @@ var Actions = {
   },
 
   mergeMetaData() {
-    return Object.assign({}, SDK.Store.getAppState().metadata.dcosMetadata,
-      {clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID});
+    return Object.assign({}, SDK.Store.getAppState().metadata.dcosMetadata, {
+      clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID
+    });
   },
 
   setDcosMetadata(metadata) {
@@ -81,9 +81,11 @@ var Actions = {
     this.lastLogDate = this.createdAt;
     this.stintID = md5(`session_${this.createdAt}`);
 
-    hashHistory.listen(Util.debounce(function (location) {
-      Actions.setActivePage(location.pathname + location.search);
-    }, 200));
+    hashHistory.listen(
+      Util.debounce(function(location) {
+        Actions.setActivePage(location.pathname + location.search);
+      }, 200)
+    );
 
     // Poll to deplete queue
     const checkAnalyticsReady = () => {
@@ -99,19 +101,21 @@ var Actions = {
   },
 
   canLog() {
-    return (global.analytics
-      && global.analytics.initialized
-      && this.dcosMetadata != null
-      && this.routes != null);
+    return (
+      global.analytics &&
+      global.analytics.initialized &&
+      this.dcosMetadata != null &&
+      this.routes != null
+    );
   },
 
   drainQueue() {
-    this.logQueue.forEach((log) => {
+    this.logQueue.forEach(log => {
       this.log(log);
     });
     this.logQueue = [];
 
-    this.pageQueue.forEach((path) => {
+    this.pageQueue.forEach(path => {
       this.logPage(path);
     });
     this.pageQueue = [];
@@ -133,7 +137,7 @@ var Actions = {
   },
 
   setActivePage(path) {
-    if (path[path.length - 1] === '/') {
+    if (path[path.length - 1] === "/") {
       path = path.substring(0, path.length - 1);
     }
 
@@ -151,10 +155,13 @@ var Actions = {
   },
 
   getLogData() {
-    return Object.assign({
-      appVersion: Config.version,
-      version: '@@VERSION'
-    }, this.dcosMetadata);
+    return Object.assign(
+      {
+        appVersion: Config.version,
+        version: "@@VERSION"
+      },
+      this.dcosMetadata
+    );
   },
 
   identify(uid) {
@@ -167,16 +174,14 @@ var Actions = {
       return;
     }
 
-    if (!SDK.Hooks.applyFilter('shouldIdentifyLoggedInUser', true)) {
+    if (!SDK.Hooks.applyFilter("shouldIdentifyLoggedInUser", true)) {
       return;
     }
 
-    const traits = Object.assign(this.getLogData(), {email: uid});
-    global.analytics.identify(
-      uid, traits, this.getAnonymizingKeys()
-    );
+    const traits = Object.assign(this.getLogData(), { email: uid });
+    global.analytics.identify(uid, traits, this.getAnonymizingKeys());
 
-    this.log('dcos_login');
+    this.log("dcos_login");
   },
 
   logPage(path) {
@@ -186,22 +191,25 @@ var Actions = {
       return;
     }
 
-    if (typeof path === 'string') {
-      match({ history: hashHistory, routes: this.routes },
+    if (typeof path === "string") {
+      match(
+        { history: hashHistory, routes: this.routes },
         (error, redirectLocation, nextState) => {
           if (!error && nextState) {
-            let pathMatcher = RouterUtil.reconstructPathFromRoutes(nextState.routes);
+            let pathMatcher = RouterUtil.reconstructPathFromRoutes(
+              nextState.routes
+            );
             if (nextState.params) {
-              Object.keys(nextState.params).forEach(function (param) {
+              Object.keys(nextState.params).forEach(function(param) {
                 pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);
                 pathMatcher = pathMatcher.replace(`:${param}`, `[${param}]`);
               });
             }
 
             // Replaces '/?/' and '/?' with '/'
-            path = pathMatcher.replace(/\/\?\/?/g, '/');
+            path = pathMatcher.replace(/\/\?\/?/g, "/");
           } else {
-            path = '/unknown';
+            path = "/unknown";
           }
 
           this.submitToAnalytics(path);
@@ -213,11 +221,9 @@ var Actions = {
   },
 
   submitToAnalytics(path) {
-    global.analytics.page(Object.assign(
-      this.getLogData(),
-      this.getAnonymizingKeys().page,
-      {path}
-    ));
+    global.analytics.page(
+      Object.assign(this.getLogData(), this.getAnonymizingKeys().page, { path })
+    );
   },
 
   /**
@@ -241,14 +247,13 @@ var Actions = {
     return {
       page: {
         // Anonymize
-        referrer: '',
-        url: '',
-        path: '',
-        title: ''
+        referrer: "",
+        url: "",
+        path: "",
+        title: ""
       }
     };
   }
-
 };
 
 module.exports = Actions;

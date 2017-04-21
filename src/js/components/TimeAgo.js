@@ -1,21 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import DateUtil from '../utils/DateUtil';
-import Util from '../utils/Util';
+import DateUtil from "../utils/DateUtil";
+import Util from "../utils/Util";
 
 const SECOND = 1000;
 const MINUTE = 60 * MINUTE;
 const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
-const METHODS_TO_BIND = [
-  'updateTime'
-];
+const METHODS_TO_BIND = ["updateTime"];
 
 class TimeAgo extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -60,8 +58,8 @@ class TimeAgo extends React.Component {
   }
 
   render() {
-    const {prefix, suppressSuffix, time} = this.props;
-    let relativeTime = 'N/A';
+    const { prefix, suppressSuffix, time } = this.props;
+    let relativeTime = "N/A";
     if (time) {
       relativeTime = DateUtil.msToRelativeTime(time, suppressSuffix);
     }
@@ -75,7 +73,8 @@ class TimeAgo extends React.Component {
       <time
         title={DateUtil.msToUTCDate(time)}
         dateTime={DateUtil.msToUTCDate(time)}
-        {...Util.omit(this.props, ['prefix', 'suppressSuffix', 'time'])}>
+        {...Util.omit(this.props, ["prefix", "suppressSuffix", "time"])}
+      >
         {prefixString}{relativeTime}
       </time>
     );

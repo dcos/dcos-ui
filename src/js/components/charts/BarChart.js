@@ -1,17 +1,16 @@
-import classNames from 'classnames';
-import d3 from 'd3';
-import deepEqual from 'deep-equal';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import classNames from "classnames";
+import d3 from "d3";
+import deepEqual from "deep-equal";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Bar from './Bar';
-import ChartMixin from '../../mixins/ChartMixin';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import Util from '../../utils/Util';
+import Bar from "./Bar";
+import ChartMixin from "../../mixins/ChartMixin";
+import InternalStorageMixin from "../../mixins/InternalStorageMixin";
+import Util from "../../utils/Util";
 
 var BarChart = React.createClass({
-
-  displayName: 'BarChart',
+  displayName: "BarChart",
 
   mixins: [ChartMixin, InternalStorageMixin],
 
@@ -32,8 +31,8 @@ var BarChart = React.createClass({
   getDefaultProps() {
     return {
       axisConfiguration: {
-        x: {hideMatch: false},
-        y: {hideMatch: false, showPercentage: true}
+        x: { hideMatch: false },
+        y: { hideMatch: false, showPercentage: true }
       },
       inverseStyle: false,
       margin: {
@@ -51,14 +50,16 @@ var BarChart = React.createClass({
       },
       refreshRate: 0,
       xGridLines: null,
-      y: 'y'
+      y: "y"
     };
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.height !== nextProps.height ||
+    return (
+      this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
-      !deepEqual(this.props.data, nextProps.data);
+      !deepEqual(this.props.data, nextProps.data)
+    );
   },
 
   componentWillMount() {
@@ -99,10 +100,12 @@ var BarChart = React.createClass({
     // unfortunately.
     this.renderAxis(props, xScale, yScale);
 
-    this.internalStorage_update(Object.assign(this.prepareValues(props), {
-      xScale,
-      yScale
-    }));
+    this.internalStorage_update(
+      Object.assign(this.prepareValues(props), {
+        xScale,
+        yScale
+      })
+    );
 
     this.resetXAxis(props);
   },
@@ -115,11 +118,12 @@ var BarChart = React.createClass({
     var data = this.internalStorage_get();
     var el = ReactDOM.findDOMNode(this);
 
-    d3.select(el)
-      .append('defs')
-      .append('clipPath')
-        .attr('id', data.clipPathID)
-        .append('rect');
+    d3
+      .select(el)
+      .append("defs")
+      .append("clipPath")
+      .attr("id", data.clipPathID)
+      .append("rect");
 
     this.updateClipPath();
   },
@@ -128,35 +132,37 @@ var BarChart = React.createClass({
     var data = this.internalStorage_get();
     var props = this.props;
     var width = props.width - props.margin.left - props.margin.right;
-    var height = props.height + 1;  // +1 for the base axis line
+    var height = props.height + 1; // +1 for the base axis line
 
-    d3.select('#' + data.clipPathID + ' rect')
-      .attr({
-        width,
-        height
-      });
+    d3.select("#" + data.clipPathID + " rect").attr({
+      width,
+      height
+    });
   },
 
   getStack() {
-    return d3.layout.stack()
-      .values(function (d) { return d.values; })
-      .x(function (d) { return d.date; });
+    return d3.layout
+      .stack()
+      .values(function(d) {
+        return d.values;
+      })
+      .x(function(d) {
+        return d.date;
+      });
   },
 
   getYScale(props) {
-    return d3.scale.linear()
-      .domain([0, props.maxY])
-      .range([props.height, 0]);
+    return d3.scale.linear().domain([0, props.maxY]).range([props.height, 0]);
   },
 
   formatYAxis(ticks, maxY) {
-    var formatPercent = d3.scale.linear().tickFormat(ticks, '.0%');
+    var formatPercent = d3.scale.linear().tickFormat(ticks, ".0%");
 
-    return (d) => {
+    return d => {
       const axisConfiguration = this.props.axisConfiguration;
       const hideMatch = axisConfiguration.y.hideMatch;
       if (hideMatch && hideMatch.test(d.toString())) {
-        return '';
+        return "";
       }
 
       let value = d;
@@ -165,7 +171,7 @@ var BarChart = React.createClass({
         value = formatPercent(d / maxY);
 
         if (d >= maxY) {
-          value = '100%';
+          value = "100%";
         }
       }
 
@@ -186,56 +192,64 @@ var BarChart = React.createClass({
 
     // The 4 is a number that works, though random :)
     if (firstDataSet) {
-      const xAxisClass = classNames('x axis', {
-        'text-small': props.width < 350
+      const xAxisClass = classNames("x axis", {
+        "text-small": props.width < 350
       });
 
       var xTicks = length / (props.refreshRate / 1000) / 4;
-      var xAxis = d3.svg.axis()
+      var xAxis = d3.svg
+        .axis()
         .scale(xScale)
         .ticks(xTicks)
         .tickFormat(this.formatXAxis)
-        .orient('bottom');
-      d3.select(this.refs.xAxis).interrupt()
-        .attr('class', xAxisClass)
+        .orient("bottom");
+      d3
+        .select(this.refs.xAxis)
+        .interrupt()
+        .attr("class", xAxisClass)
         .call(xAxis);
     }
 
-    const yAxisClass = classNames('y axis', {
-      'text-small': props.width < 350,
-      'inverse': props.inverseStyle
+    const yAxisClass = classNames("y axis", {
+      "text-small": props.width < 350,
+      inverse: props.inverseStyle
     });
-    var yAxis = d3.svg.axis()
+    var yAxis = d3.svg
+      .axis()
       .scale(yScale)
       .ticks(props.ticksY)
       .tickFormat(this.formatYAxis(props.ticksY, props.maxY))
-      .orient('left');
-    d3.select(this.refs.yAxis)
-      .attr('class', yAxisClass)
-      .call(yAxis);
+      .orient("left");
+    d3.select(this.refs.yAxis).attr("class", yAxisClass).call(yAxis);
 
-    d3.select(this.refs.yGrid)
-      .attr('class', 'grid y')
+    d3
+      .select(this.refs.yGrid)
+      .attr("class", "grid y")
       .call(
-        d3.svg.axis().scale(yScale)
-          .orient('left')
+        d3.svg
+          .axis()
+          .scale(yScale)
+          .orient("left")
           .ticks(props.ticksY)
           .tickSize(-props.width, 0, 0)
-          .tickFormat('')
+          .tickFormat("")
       );
 
     let xGridLines = props.ticksY;
     if (props.xGridLines != null) {
       xGridLines = props.xGridLines;
     }
-    d3.select(this.refs.xGrid)
-      .attr('class', 'grid x')
+    d3
+      .select(this.refs.xGrid)
+      .attr("class", "grid x")
       .call(
-        d3.svg.axis().scale(xScale)
-          .orient('top')
+        d3.svg
+          .axis()
+          .scale(xScale)
+          .orient("top")
           .ticks(xGridLines)
           .tickSize(-props.height, 0, 0)
-          .tickFormat('')
+          .tickFormat("")
       );
   },
 
@@ -247,7 +261,8 @@ var BarChart = React.createClass({
 
     if (stackedData.length !== 0) {
       valuesLength = Util.last(stackedData).values.length;
-      rectWidth = (props.width - props.margin.left - props.margin.right) / valuesLength;
+      rectWidth =
+        (props.width - props.margin.left - props.margin.right) / valuesLength;
     }
 
     return {
@@ -263,9 +278,12 @@ var BarChart = React.createClass({
     // the axis is reset right before we update the bar to the new value/position
     // prevents subsequent animations from animating from 0
     if (data.rectWidth) {
-      d3.select(this.refs.xAxis).interrupt()
-        .transition().delay(0)
-        .attr('transform', 'translate(' + [0, props.height] + ')');
+      d3
+        .select(this.refs.xAxis)
+        .interrupt()
+        .transition()
+        .delay(0)
+        .attr("transform", "translate(" + [0, props.height] + ")");
     }
   },
 
@@ -282,28 +300,31 @@ var BarChart = React.createClass({
     var lineClass;
     if (!props.peakline) {
       peaklineHeight = 0;
-      lineClass = 'hidden ';
+      lineClass = "hidden ";
     }
 
-    return data.stackedData.map(function (service) {
-      const rectWidth = (chartWidth - marginLeft - marginRight) /
-        (valuesLength - 1);
+    return data.stackedData.map(function(service) {
+      const rectWidth =
+        (chartWidth - marginLeft - marginRight) / (valuesLength - 1);
 
-      return service.values.map(function (val, j) {
+      return service.values.map(function(val, j) {
         let rectHeight, colorClass;
         let barMargin = 0;
-        let shapeRendering = 'auto';
-        const posX = chartWidth - marginLeft - marginRight -
-          (rectWidth * (valuesLength - 1 - j));
+        let shapeRendering = "auto";
+        const posX =
+          chartWidth -
+          marginLeft -
+          marginRight -
+          rectWidth * (valuesLength - 1 - j);
 
         if (val.percentage == null) {
           rectHeight = props.height - peaklineHeight;
-          colorClass = 'path-color-7';
+          colorClass = "path-color-7";
 
           // flush svg rect edges together
-          shapeRendering = 'crispEdges';
+          shapeRendering = "crispEdges";
         } else {
-          rectHeight = (props.height * val[y] / props.maxY) - peaklineHeight;
+          rectHeight = props.height * val[y] / props.maxY - peaklineHeight;
           colorClass = `path-color-${service.colorIndex}`;
 
           // Will increase the margin between bars as they become smaller
@@ -324,7 +345,8 @@ var BarChart = React.createClass({
             transitionDelay={props.transition.delay}
             transitionDuration={props.transition.duration}
             lineClass={lineClass + colorClass}
-            shapeRendering={shapeRendering} />
+            shapeRendering={shapeRendering}
+          />
         );
       });
     });
@@ -334,23 +356,27 @@ var BarChart = React.createClass({
     var data = this.internalStorage_get();
     var props = this.props;
     var margin = props.margin;
-    var clipPath = 'url(#' + data.clipPathID + ')';
+    var clipPath = "url(#" + data.clipPathID + ")";
 
     var gridClassSet = classNames({
-      'grid-graph': true,
+      "grid-graph": true,
       inverse: props.inverseStyle
     });
 
     return (
-      <svg height={props.height + margin.bottom}
+      <svg
+        height={props.height + margin.bottom}
         width={props.width}
         className="barchart"
-        ref="barchart">
-        <g transform={'translate(' + [margin.left, margin.bottom / 2] + ')'}>
+        ref="barchart"
+      >
+        <g transform={"translate(" + [margin.left, margin.bottom / 2] + ")"}>
           <g className="y axis" ref="yAxis" />
-          <g className="x axis"
-            transform={'translate(' + [0, props.height] + ')'}
-            ref="xAxis"/>
+          <g
+            className="x axis"
+            transform={"translate(" + [0, props.height] + ")"}
+            ref="xAxis"
+          />
           <g className={gridClassSet} clipPath={clipPath}>
             <g ref="yGrid" />
             <g ref="xGrid" />

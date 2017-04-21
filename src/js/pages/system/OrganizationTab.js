@@ -1,47 +1,47 @@
-import classNames from 'classnames';
-import {Dropdown, Form, Table} from 'reactjs-components';
-import {Hooks} from 'PluginSDK';
-import {Link} from 'react-router';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { Dropdown, Form, Table } from "reactjs-components";
+import { Hooks } from "PluginSDK";
+import { Link } from "react-router";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import BulkOptions from '../../constants/BulkOptions';
-import FilterBar from '../../components/FilterBar';
-import FilterHeadline from '../../components/FilterHeadline';
-import FilterInputText from '../../components/FilterInputText';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import Page from '../../components/Page';
-import ResourceTableUtil from '../../utils/ResourceTableUtil';
-import StringUtil from '../../utils/StringUtil';
-import TableUtil from '../../utils/TableUtil';
-import UsersActionsModal from '../../components/modals/UsersActionsModal';
-import UserFormModal from '../../components/modals/UserFormModal';
-import UsersStore from '../../stores/UsersStore';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import BulkOptions from "../../constants/BulkOptions";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import FilterInputText from "../../components/FilterInputText";
+import InternalStorageMixin from "../../mixins/InternalStorageMixin";
+import Page from "../../components/Page";
+import ResourceTableUtil from "../../utils/ResourceTableUtil";
+import StringUtil from "../../utils/StringUtil";
+import TableUtil from "../../utils/TableUtil";
+import UsersActionsModal from "../../components/modals/UsersActionsModal";
+import UserFormModal from "../../components/modals/UserFormModal";
+import UsersStore from "../../stores/UsersStore";
 
 const USERS_CHANGE_EVENTS = [
-  'onUserStoreCreateSuccess',
-  'onUserStoreDeleteSuccess'
+  "onUserStoreCreateSuccess",
+  "onUserStoreDeleteSuccess"
 ];
 
 const METHODS_TO_BIND = [
-  'getTableRowOptions',
-  'handleActionSelection',
-  'handleActionSelectionClose',
-  'handleCheckboxChange',
-  'handleHeadingCheckboxChange',
-  'handleNewUserClick',
-  'handleNewUserClose',
-  'handleSearchStringChange',
-  'renderCheckbox',
-  'renderFullName',
-  'renderHeadingCheckbox',
-  'renderUsername',
-  'resetFilter'
+  "getTableRowOptions",
+  "handleActionSelection",
+  "handleActionSelectionClose",
+  "handleCheckboxChange",
+  "handleHeadingCheckboxChange",
+  "handleNewUserClick",
+  "handleNewUserClose",
+  "handleSearchStringChange",
+  "renderCheckbox",
+  "renderFullName",
+  "renderHeadingCheckbox",
+  "renderUsername",
+  "resetFilter"
 ];
 
 const UsersBreadcrumbs = () => {
@@ -60,33 +60,37 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   constructor() {
     super(arguments);
 
-    this.store_listeners = [{
-      name: 'user',
-      events: ['createSuccess', 'deleteSuccess'],
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        name: "user",
+        events: ["createSuccess", "deleteSuccess"],
+        suppressUpdate: true
+      }
+    ];
 
     this.state = {
       checkableCount: 0,
       checkedCount: 0,
       openNewUserModal: false,
       showActionDropdown: false,
-      searchString: '',
+      searchString: "",
       selectedAction: null,
       usersStoreError: false,
       usersStoreSuccess: false
     };
 
-    METHODS_TO_BIND.forEach(function (method) {
+    METHODS_TO_BIND.forEach(function(method) {
       this[method] = this[method].bind(this);
     }, this);
 
-    Hooks.applyFilter('organizationTabChangeEvents', USERS_CHANGE_EVENTS)
-      .forEach((event) => {
-        this[event] = this.onUsersChange;
-      });
+    Hooks.applyFilter(
+      "organizationTabChangeEvents",
+      USERS_CHANGE_EVENTS
+    ).forEach(event => {
+      this[event] = this.onUsersChange;
+    });
 
-    this.internalStorage_update({selectedIDSet: {}});
+    this.internalStorage_update({ selectedIDSet: {} });
   }
 
   componentWillMount() {
@@ -105,8 +109,10 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   componentDidUpdate(prevProps, prevState) {
     super.componentDidUpdate(...arguments);
 
-    if (prevState.searchString !== this.state.searchString ||
-        prevProps.items.length !== this.props.items.length) {
+    if (
+      prevState.searchString !== this.state.searchString ||
+      prevProps.items.length !== this.props.items.length
+    ) {
       this.resetTablewideCheckboxTabulations();
     }
   }
@@ -134,11 +140,11 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     const selectedIDSet = this.internalStorage_get().selectedIDSet;
 
     selectedIDSet[eventObject.fieldName] = isChecked;
-    this.internalStorage_update({selectedIDSet});
+    this.internalStorage_update({ selectedIDSet });
 
     this.setState({
       checkedCount,
-      showActionDropdown: (checkedCount > 0)
+      showActionDropdown: checkedCount > 0
     });
   }
 
@@ -147,28 +153,28 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     this.bulkCheck(isChecked);
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
     this.bulkCheck(false);
   }
 
   handleNewUserClick() {
-    this.setState({openNewUserModal: true});
+    this.setState({ openNewUserModal: true });
   }
 
   handleNewUserClose() {
-    this.setState({openNewUserModal: false});
+    this.setState({ openNewUserModal: false });
   }
 
   renderFullName(prop, subject) {
-    return subject.get('description');
+    return subject.get("description");
   }
 
   renderUsername(prop, subject) {
     return (
       <div className="row">
         <div className="column-small-12 column-large-12 column-x-large-12 text-overflow">
-          {subject.get('uid')}
+          {subject.get("uid")}
         </div>
       </div>
     );
@@ -177,8 +183,8 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   renderCheckbox(prop, row) {
     const rowID = row[this.props.itemID];
     const remoteIDSet = this.internalStorage_get().remoteIDSet;
-    const {checkableCount, checkedCount} = this.state;
-    const disabled = (remoteIDSet[rowID] === true);
+    const { checkableCount, checkedCount } = this.state;
+    const disabled = remoteIDSet[rowID] === true;
     let checked = null;
 
     if (disabled || checkedCount === 0) {
@@ -192,16 +198,19 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     return (
       <Form
         formGroupClass="form-group flush-bottom"
-        definition={[{
-          checked,
-          disabled,
-          value: checked,
-          fieldType: 'checkbox',
-          labelClass: 'form-row-element form-element-checkbox',
-          name: rowID,
-          showLabel: false
-        }]}
-        onChange={this.handleCheckboxChange} />
+        definition={[
+          {
+            checked,
+            disabled,
+            value: checked,
+            fieldType: "checkbox",
+            labelClass: "form-row-element form-element-checkbox",
+            name: rowID,
+            showLabel: false
+          }
+        ]}
+        onChange={this.handleCheckboxChange}
+      />
     );
   }
 
@@ -228,21 +237,22 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
           {
             checked,
             value: checked,
-            fieldType: 'checkbox',
+            fieldType: "checkbox",
             indeterminate,
-            labelClass: 'form-row-element form-element-checkbox',
-            name: 'headingCheckbox',
+            labelClass: "form-row-element form-element-checkbox",
+            name: "headingCheckbox",
             showLabel: false
           }
         ]}
-        onChange={this.handleHeadingCheckboxChange} />
+        onChange={this.handleHeadingCheckboxChange}
+      />
     );
   }
 
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40px'}} />
+        <col style={{ width: "40px" }} />
         <col />
       </colgroup>
     );
@@ -250,18 +260,18 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'clickable': row == null // this is a header
+      clickable: row == null // this is a header
     });
   }
 
   getColumns() {
-    const {getClassName} = this;
+    const { getClassName } = this;
 
     return [
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'selected',
+        prop: "selected",
         render: this.renderCheckbox,
         sortable: false,
         heading: this.renderHeadingCheckbox
@@ -270,16 +280,16 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
         cacheCell: true,
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'uid',
+        prop: "uid",
         render: this.renderUsername,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(
-          this.props.itemID,
-          function (item, prop) {
-            return item.get(prop);
-          }
-        ),
-        heading: ResourceTableUtil.renderHeading({uid: 'USERNAME'})
+        sortFunction: TableUtil.getSortFunction(this.props.itemID, function(
+          item,
+          prop
+        ) {
+          return item.get(prop);
+        }),
+        heading: ResourceTableUtil.renderHeading({ uid: "USERNAME" })
       }
     ];
   }
@@ -300,7 +310,8 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       return (
         <button
           className="button"
-          onClick={this.handleActionSelection.bind(this, dropdownItems[0])}>
+          onClick={this.handleActionSelection.bind(this, dropdownItems[0])}
+        >
           {dropdownItems[0].html}
         </button>
       );
@@ -320,17 +331,18 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
           scrollContainerParentSelector=".gm-prevented"
           transition={true}
           transitionName="dropdown-menu"
-          wrapperClassName="dropdown" />
+          wrapperClassName="dropdown"
+        />
       </li>
     );
   }
 
   getActionsDropdownItems(actionPhrases) {
-    return Object.keys(actionPhrases).map(function (action) {
+    return Object.keys(actionPhrases).map(function(action) {
       return {
         html: actionPhrases[action].dropdownOption,
         id: action,
-        selectedHtml: 'Actions'
+        selectedHtml: "Actions"
       };
     });
   }
@@ -340,13 +352,13 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       const checkboxStates = this.internalStorage_get().selectedIDSet;
       const selectedItems = {};
 
-      Object.keys(checkboxStates).forEach(function (id) {
+      Object.keys(checkboxStates).forEach(function(id) {
         if (checkboxStates[id] === true) {
           selectedItems[id] = true;
         }
       });
 
-      return items.filter(function (item) {
+      return items.filter(function(item) {
         const itemID = item[itemIDName];
 
         return selectedItems[itemID] || false;
@@ -357,16 +369,18 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getVisibleItems(items) {
-    let {searchString} = this.state;
+    let { searchString } = this.state;
     searchString = searchString.toLowerCase();
 
-    if (searchString !== '') {
-      return items.filter((item) => {
-        const description = item.get('description').toLowerCase();
+    if (searchString !== "") {
+      return items.filter(item => {
+        const description = item.get("description").toLowerCase();
         const id = item.get(this.props.itemID).toLowerCase();
 
-        return description.indexOf(searchString) > -1
-          || id.indexOf(searchString) > -1;
+        return (
+          description.indexOf(searchString) > -1 ||
+          id.indexOf(searchString) > -1
+        );
       });
     }
 
@@ -388,14 +402,15 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
         itemID={itemID}
         itemType={itemName}
         onClose={this.handleActionSelectionClose}
-        selectedItems={checkedItemObjects} />
+        selectedItems={checkedItemObjects}
+      />
     );
   }
 
   getTableRowOptions(row) {
     const selectedIDSet = this.internalStorage_get().selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
-      return {className: 'selected'};
+      return { className: "selected" };
     }
 
     return {};
@@ -405,10 +420,10 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     let checkedCount = 0;
     const selectedIDSet = this.internalStorage_get().selectedIDSet;
 
-    Object.keys(selectedIDSet).forEach(function (id) {
+    Object.keys(selectedIDSet).forEach(function(id) {
       selectedIDSet[id] = isChecked;
     });
-    this.internalStorage_update({selectedIDSet});
+    this.internalStorage_update({ selectedIDSet });
 
     if (isChecked) {
       checkedCount = this.state.checkableCount;
@@ -421,29 +436,29 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   resetTablewideCheckboxTabulations() {
-    let {items, itemID} = this.props;
+    let { items, itemID } = this.props;
     items = this.getVisibleItems(items);
     const selectedIDSet = {};
     const remoteIDSet = {};
     let checkableCount = 0;
 
     // Initializing hash of items' IDs and corresponding checkbox state.
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       const id = item.get(itemID);
       checkableCount += 1;
       selectedIDSet[id] = false;
     });
 
-    this.internalStorage_update({selectedIDSet, remoteIDSet});
-    this.setState({checkableCount});
+    this.internalStorage_update({ selectedIDSet, remoteIDSet });
+    this.setState({ checkableCount });
   }
 
   resetFilter() {
-    this.setState({searchString: ''});
+    this.setState({ searchString: "" });
   }
 
   render() {
-    const {items, itemID, itemName} = this.props;
+    const { items, itemID, itemName } = this.props;
     const state = this.state;
     const action = state.selectedAction;
     const capitalizedItemName = StringUtil.capitalize(itemName);
@@ -456,19 +471,25 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       <Page>
         <Page.Header
           breadcrumbs={<UsersBreadcrumbs />}
-          addButton={{onItemSelect: this.handleNewUserClick, label: `New ${capitalizedItemName}`}} />
+          addButton={{
+            onItemSelect: this.handleNewUserClick,
+            label: `New ${capitalizedItemName}`
+          }}
+        />
         <div className="flex-container-col">
           <div className={`${itemName}s-table-header`}>
             <FilterHeadline
               onReset={this.resetFilter}
               name={capitalizedItemName}
               currentLength={visibleItems.length}
-              totalLength={items.length} />
+              totalLength={items.length}
+            />
             <FilterBar>
               <FilterInputText
                 className="flush-bottom"
                 searchString={this.state.searchString}
-                handleFilterChange={this.handleSearchStringChange} />
+                handleFilterChange={this.handleSearchStringChange}
+              />
               {actionDropdown}
               {actionsModal}
             </FilterBar>
@@ -483,12 +504,14 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
               containerSelector=".gm-scroll-view"
               data={visibleItems}
               itemHeight={TableUtil.getRowHeight()}
-              sortBy={{prop: sortProp, order: 'asc'}} />
+              sortBy={{ prop: sortProp, order: "asc" }}
+            />
           </div>
         </div>
         <UserFormModal
           open={this.state.openNewUserModal}
-          onClose={this.handleNewUserClose}/>
+          onClose={this.handleNewUserClose}
+        />
       </Page>
     );
   }

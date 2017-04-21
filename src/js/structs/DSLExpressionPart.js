@@ -1,5 +1,5 @@
-import DSLFilterTypes from '../constants/DSLFilterTypes';
-import {FilterNode} from './DSLASTNodes';
+import DSLFilterTypes from "../constants/DSLFilterTypes";
+import { FilterNode } from "./DSLASTNodes";
 
 /**
  * The DSL Expression Parts are used by components inserted in a `DSLInputForm`
@@ -43,9 +43,8 @@ import {FilterNode} from './DSLASTNodes';
  *
  */
 class DSLExpressionPart {
-
-  static attribute(label, text=undefined) {
-    return new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {label, text});
+  static attribute(label, text = undefined) {
+    return new FilterNode(0, 0, DSLFilterTypes.ATTRIB, { label, text });
   }
 
   static get exact() {
@@ -55,7 +54,6 @@ class DSLExpressionPart {
   static get fuzzy() {
     return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {});
   }
-
 }
 
 module.exports = DSLExpressionPart;

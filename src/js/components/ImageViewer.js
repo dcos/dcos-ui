@@ -1,45 +1,45 @@
-import React from 'react';
-import ImageViewerModal from './modals/ImageViewerModal';
+import React from "react";
+import ImageViewerModal from "./modals/ImageViewerModal";
 
 const METHODS_TO_BIND = [
-  'handleImageViewerModalClose',
-  'handleImageViewerLeftClick',
-  'handleImageViewerRightClick'
+  "handleImageViewerModalClose",
+  "handleImageViewerLeftClick",
+  "handleImageViewerRightClick"
 ];
 
 class ImageViewer extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {selectedImage: null};
+    this.state = { selectedImage: null };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleImageViewerModalClose() {
-    this.setState({selectedImage: null});
+    this.setState({ selectedImage: null });
   }
 
   handleImageViewerModalOpen(selectedImage) {
-    this.setState({selectedImage});
+    this.setState({ selectedImage });
   }
 
   handleImageViewerLeftClick() {
-    let {selectedImage} = this.state;
-    const {images} = this.props;
+    let { selectedImage } = this.state;
+    const { images } = this.props;
     if (--selectedImage < 0) {
       selectedImage = images.length - 1;
     }
-    this.setState({selectedImage});
+    this.setState({ selectedImage });
   }
 
   handleImageViewerRightClick() {
-    let {selectedImage} = this.state;
-    const {images} = this.props;
+    let { selectedImage } = this.state;
+    const { images } = this.props;
     // Add before the modulus operator and use modulus as a circular buffer
-    this.setState({selectedImage: ++selectedImage % images.length});
+    this.setState({ selectedImage: ++selectedImage % images.length });
   }
 
   getImages(images) {
@@ -49,15 +49,16 @@ class ImageViewer extends React.Component {
           <div
             className="media-object-item-fill-image image-rounded-corners clickable"
             onClick={this.handleImageViewerModalOpen.bind(this, index)}
-            style={{backgroundImage: `url(${imageUrl})`}} />
+            style={{ backgroundImage: `url(${imageUrl})` }}
+          />
         </div>
       );
     });
   }
 
   render() {
-    const {images} = this.props;
-    const {selectedImage} = this.state;
+    const { images } = this.props;
+    const { selectedImage } = this.state;
 
     if (!images || !images.length) {
       return null;
@@ -77,7 +78,8 @@ class ImageViewer extends React.Component {
           images={images}
           open={selectedImage != null}
           onClose={this.handleImageViewerModalClose}
-          selectedImage={selectedImage} />
+          selectedImage={selectedImage}
+        />
       </div>
     );
   }

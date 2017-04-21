@@ -1,8 +1,7 @@
-import {EventEmitter} from 'events';
-import {NAVIGATION_CHANGE} from './EventTypes';
+import { EventEmitter } from "events";
+import { NAVIGATION_CHANGE } from "./EventTypes";
 
 class NavigationService extends EventEmitter {
-
   constructor() {
     super();
 
@@ -13,18 +12,18 @@ class NavigationService extends EventEmitter {
       instance: this,
       deferredTasks: [],
       definition: [
-         // The only default is root, so it goes first no matter what
-         { category: 'root', children: [] }
+        // The only default is root, so it goes first no matter what
+        { category: "root", children: [] }
       ],
       defer(method, args) {
-        this.deferredTasks.push({method, args});
+        this.deferredTasks.push({ method, args });
       },
       processDeferred() {
         const tasks = this.deferredTasks.slice(0);
         this.deferredTasks = [];
 
         // If Task is unable to resolve at this point of time it will re-defer itself
-        tasks.forEach(({method, args}) => {
+        tasks.forEach(({ method, args }) => {
           method.apply(this.instance, args);
         });
       }
@@ -58,7 +57,7 @@ class NavigationService extends EventEmitter {
    * @param  {String} category Category name
    */
   registerCategory(category) {
-    if (!this.definition.find((element) => element.category === category)) {
+    if (!this.definition.find(element => element.category === category)) {
       this.definition.push({
         category,
         children: []
@@ -78,20 +77,21 @@ class NavigationService extends EventEmitter {
    * @return {undefined}
    */
   registerPrimary(path, link, options = {}) {
-    const {category = 'root'} = options;
-    const categoryElement = this.definition
-      .find((element) => element.category === category);
+    const { category = "root" } = options;
+    const categoryElement = this.definition.find(
+      element => element.category === category
+    );
 
     if (!categoryElement) {
       return this.defer(this.instance.registerPrimary, arguments);
     }
 
-    const existingElement = categoryElement.children.find((element) => {
+    const existingElement = categoryElement.children.find(element => {
       return element.path === path;
     });
 
     if (existingElement) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         console.warn(`Primary nav with the path ${path} already exists!`);
       }
 
@@ -124,22 +124,25 @@ class NavigationService extends EventEmitter {
       return result.concat(category.children);
     }, []);
 
-    const parentElement = primaryElements
-      .find((element) => element.path === parentPath);
+    const parentElement = primaryElements.find(
+      element => element.path === parentPath
+    );
 
     if (!parentElement) {
       return this.defer(this.instance.registerSecondary, arguments);
     }
 
-    const existingElement = parentElement.children.find((element) => {
+    const existingElement = parentElement.children.find(element => {
       return element.path === path;
     });
 
     if (existingElement) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.warn(`
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(
+          `
           Secondary nav with the path ${parentPath}/${path} already exists!
-        `);
+        `
+        );
       }
 
       return;

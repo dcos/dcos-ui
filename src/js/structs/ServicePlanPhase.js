@@ -1,41 +1,40 @@
-import Item from './Item';
-import List from './List';
-import ServicePlanBlock from './ServicePlanBlock';
-import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
+import Item from "./Item";
+import List from "./List";
+import ServicePlanBlock from "./ServicePlanBlock";
+import ServicePlanStatusTypes from "../constants/ServicePlanStatusTypes";
 
 class ServicePlanPhase extends Item {
   getBlocks() {
-    const items = this.get('blocks').map(function (block) {
+    const items = this.get("blocks").map(function(block) {
       return new ServicePlanBlock(block);
     });
 
-    return new List({items});
+    return new List({ items });
   }
 
   getID() {
-    return this.get('id');
+    return this.get("id");
   }
 
   getName() {
-    return this.get('name');
+    return this.get("name");
   }
 
   isComplete() {
-    return this.get('status') === ServicePlanStatusTypes.COMPLETE;
+    return this.get("status") === ServicePlanStatusTypes.COMPLETE;
   }
 
   isInProgress() {
-    return this.get('status') === ServicePlanStatusTypes.IN_PROGRESS;
+    return this.get("status") === ServicePlanStatusTypes.IN_PROGRESS;
   }
 
   isPending() {
-    return this.get('status') === ServicePlanStatusTypes.PENDING;
+    return this.get("status") === ServicePlanStatusTypes.PENDING;
   }
 
   isWaiting() {
-    return this.get('status') === ServicePlanStatusTypes.WAITING;
+    return this.get("status") === ServicePlanStatusTypes.WAITING;
   }
-
 }
 
 module.exports = ServicePlanPhase;

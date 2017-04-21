@@ -1,7 +1,6 @@
 const MESSAGE_VARIABLE = /\{\{([^{}]+)\}\}/g;
 
 const ErrorMessageUtil = {
-
   /**
    * This function returns the `message` of the given array object,
    * with the path and message components concatenated into a uniform
@@ -12,9 +11,9 @@ const ErrorMessageUtil = {
    * @returns {String} Returns the composed error string
    */
   getUnanchoredErrorMessage(error, pathTranslationRules) {
-    const {message, path = []} = error;
-    const pathString = path.join('.');
-    const rule = pathTranslationRules.find(function (rule) {
+    const { message, path = [] } = error;
+    const pathString = path.join(".");
+    const rule = pathTranslationRules.find(function(rule) {
       return rule.match.exec(pathString);
     });
 
@@ -41,12 +40,12 @@ const ErrorMessageUtil = {
    * @returns {Array} Returns a new list with the translated error messages
    */
   translateErrorMessages(errors, translationRules) {
-    return errors.map(function (error) {
-      const {path = [], type, variables} = error;
-      const pathString = path.join('.');
+    return errors.map(function(error) {
+      const { path = [], type, variables } = error;
+      const pathString = path.join(".");
 
-      const rule = translationRules.find(function (rule) {
-        return (rule.type === type) && rule.path.exec(pathString);
+      const rule = translationRules.find(function(rule) {
+        return rule.type === type && rule.path.exec(pathString);
       });
 
       // If there is no translation rule, pass-through the message
@@ -56,11 +55,12 @@ const ErrorMessageUtil = {
 
       // Return the translated message
       return {
-        message: rule.message.replace(MESSAGE_VARIABLE,
-          function (match, variable) {
-            return ''+variables[variable] || '';
-          }
-        ),
+        message: rule.message.replace(MESSAGE_VARIABLE, function(
+          match,
+          variable
+        ) {
+          return "" + variables[variable] || "";
+        }),
         path,
         type,
         variables

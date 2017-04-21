@@ -1,11 +1,11 @@
-import classNames from 'classnames';
-import {Form} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Form } from "reactjs-components";
+import React from "react";
 
-import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
-import ServiceStatusTypes from '../../constants/ServiceStatusTypes';
+import ServiceFilterTypes from "../../constants/ServiceFilterTypes";
+import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 
-const METHODS_TO_BIND = ['handleFormChange'];
+const METHODS_TO_BIND = ["handleFormChange"];
 
 class SidebarFilter extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ class SidebarFilter extends React.Component {
       selectedNodes: []
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -39,7 +39,7 @@ class SidebarFilter extends React.Component {
   }
 
   clearFilters() {
-    this.setState({selectedNodes: []});
+    this.setState({ selectedNodes: [] });
     this.props.handleFilterChange(this.props.filterType, []);
   }
 
@@ -49,35 +49,35 @@ class SidebarFilter extends React.Component {
     selectedNodes.push(filterValue);
 
     this.setState(
-      {selectedNodes},
+      { selectedNodes },
       this.props.handleFilterChange(this.props.filterType, selectedNodes)
     );
   }
 
   unsetFilterNode(filterValue) {
-    const selectedNodes = this.state.selectedNodes.filter(function (node) {
+    const selectedNodes = this.state.selectedNodes.filter(function(node) {
       return node !== filterValue;
     });
 
     this.setState(
-      {selectedNodes},
+      { selectedNodes },
       this.props.handleFilterChange(this.props.filterType, selectedNodes)
     );
   }
 
   updateFilterStatus() {
-    const {props, state} = this;
-    const {filterType, filters} = props;
+    const { props, state } = this;
+    const { filterType, filters } = props;
     const selectedNodes = filters[filterType] || [];
     const stringify = JSON.stringify;
 
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
-      this.setState({selectedNodes});
+      this.setState({ selectedNodes });
     }
   }
 
   getCountByValue(filterValue) {
-    const {props} = this;
+    const { props } = this;
     const count = props.countByValue[props.filterValues[filterValue]];
 
     if (count == null) {
@@ -88,17 +88,19 @@ class SidebarFilter extends React.Component {
   }
 
   getClearLinkForFilter() {
-    const {filters, filterType} = this.props;
+    const { filters, filterType } = this.props;
 
-    if (filters[filterType] == null ||
-      filters[filterType].length === 0) {
+    if (filters[filterType] == null || filters[filterType].length === 0) {
       return null;
     }
 
     return (
       <a
         className="sidebar-filters-header-clear small flush"
-        onClick={() => { this.clearFilters(); }}>
+        onClick={() => {
+          this.clearFilters();
+        }}
+      >
         (Clear)
       </a>
     );
@@ -107,11 +109,12 @@ class SidebarFilter extends React.Component {
   getFormLabel(filterLabel, filterValue) {
     let badge = null;
     const count = this.getCountByValue(filterValue);
-    const filterLabelClasses = classNames(
-      'sidebar-filters-item-label',
-      {'badge-container': count}
-    );
-    const filterLabelTextClasses = classNames({'badge-container-text': count});
+    const filterLabelClasses = classNames("sidebar-filters-item-label", {
+      "badge-container": count
+    });
+    const filterLabelTextClasses = classNames({
+      "badge-container-text": count
+    });
 
     if (count) {
       badge = (
@@ -130,35 +133,38 @@ class SidebarFilter extends React.Component {
   }
 
   getCheckboxes() {
-    const {filterLabels, filterType, filterValues} = this.props;
-    const {selectedNodes} = this.state;
+    const { filterLabels, filterType, filterValues } = this.props;
+    const { selectedNodes } = this.state;
 
     return Object.keys(filterLabels)
-      .filter((filterLabel) => {
+      .filter(filterLabel => {
         const filterValue = filterValues[filterLabel];
 
-        return filterValue != null &&
+        return (
+          filterValue != null &&
           !(filterType === ServiceFilterTypes.STATUS &&
-          filterValue === ServiceStatusTypes.NA &&
-          this.getCountByValue(filterValue) === 0);
+            filterValue === ServiceStatusTypes.NA &&
+            this.getCountByValue(filterValue) === 0)
+        );
       })
-      .map((filterLabel) => {
+      .map(filterLabel => {
         const value = filterValues[filterLabel];
-        const checked = selectedNodes.indexOf(value.toString()) > -1
-          || selectedNodes.indexOf(value) > -1;
+        const checked =
+          selectedNodes.indexOf(value.toString()) > -1 ||
+          selectedNodes.indexOf(value) > -1;
 
         const isActive = this.getCountByValue(filterLabel) > 0;
 
         const labelClassSet = classNames({
-          'filter-active': isActive,
-          'filter-inactive': !isActive,
-          'filter-checked': checked
+          "filter-active": isActive,
+          "filter-inactive": !isActive,
+          "filter-checked": checked
         });
 
         return {
           checked,
           value: checked,
-          fieldType: 'checkbox',
+          fieldType: "checkbox",
           name: filterLabel,
           label: this.getFormLabel(filterLabels[filterLabel], filterLabel),
           labelClass: labelClassSet
@@ -167,32 +173,33 @@ class SidebarFilter extends React.Component {
   }
 
   getForm() {
-    const definition = [{
-      fieldType: 'checkbox',
-      name: 'filterNodes',
-      value: this.getCheckboxes(),
-      writeType: 'input'
-    }];
+    const definition = [
+      {
+        fieldType: "checkbox",
+        name: "filterNodes",
+        value: this.getCheckboxes(),
+        writeType: "input"
+      }
+    ];
 
     return (
       <Form
         formGroupClass="form-group flush"
         formRowClass="row"
         definition={definition}
-        onChange={this.handleFormChange} />
+        onChange={this.handleFormChange}
+      />
     );
   }
 
   getTitle() {
-    const {title} = this.props;
+    const { title } = this.props;
 
     if (title == null) {
       return null;
     }
 
-    return (
-      <h6 className="sidebar-filters-header-title flush">{title}</h6>
-    );
+    return <h6 className="sidebar-filters-header-title flush">{title}</h6>;
   }
 
   render() {

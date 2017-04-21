@@ -1,16 +1,16 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
-import {Tooltip} from 'reactjs-components';
+import classNames from "classnames/dedupe";
+import React from "react";
+import { Tooltip } from "reactjs-components";
 
-import Icon from './Icon';
-import PageHeaderActionsMenu from './PageHeaderActionsMenu';
+import Icon from "./Icon";
+import PageHeaderActionsMenu from "./PageHeaderActionsMenu";
 
 const getDropdownAction = (action, index) => {
   if (React.isValidElement(action)) {
     return action;
   }
 
-  const {className, label, onItemSelect} = action;
+  const { className, label, onItemSelect } = action;
   const itemClasses = classNames(className);
 
   return (
@@ -21,9 +21,8 @@ const getDropdownAction = (action, index) => {
 };
 
 class PageHeaderActions extends React.Component {
-
   renderActionsMenu() {
-    const {actions} = this.props;
+    const { actions } = this.props;
 
     if (actions.length > 0) {
       const dropdownElements = actions.map(getDropdownAction);
@@ -37,7 +36,7 @@ class PageHeaderActions extends React.Component {
   }
 
   renderAddButton() {
-    const {addButton} = this.props;
+    const { addButton } = this.props;
 
     if (Array.isArray(addButton) && addButton.length > 0) {
       const dropdownElements = addButton.map(getDropdownAction);
@@ -50,10 +49,10 @@ class PageHeaderActions extends React.Component {
     }
 
     if (addButton != null) {
-      const {label, onItemSelect, className} = addButton;
+      const { label, onItemSelect, className } = addButton;
       const buttonClasses = classNames(
-          'button button-link button-narrow',
-          className
+        "button button-link button-narrow",
+        className
       );
 
       const button = (
@@ -63,9 +62,7 @@ class PageHeaderActions extends React.Component {
       );
 
       if (label != null) {
-        return (
-          <Tooltip content={label}>{button}</Tooltip>
-        );
+        return <Tooltip content={label}>{button}</Tooltip>;
       }
 
       return button;
@@ -106,10 +103,7 @@ PageHeaderActions.propTypes = {
     menuActionsProps
   ]),
   actions: React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([
-      React.PropTypes.node,
-      menuActionsProps
-    ])
+    React.PropTypes.oneOfType([React.PropTypes.node, menuActionsProps])
   )
 };
 

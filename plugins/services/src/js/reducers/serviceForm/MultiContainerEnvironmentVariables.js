@@ -1,8 +1,5 @@
-import {
-  ADD_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import Transaction from '#SRC/js/structs/Transaction';
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONParser(state) {
@@ -10,7 +7,7 @@ module.exports = {
       return [];
     }
 
-    return Object.keys(state.environment).reduce(function (memo, key, index) {
+    return Object.keys(state.environment).reduce(function(memo, key, index) {
       /**
        * For the environment variables which are a key => value based object
        * we want to create a new item and fill it with the key and the
@@ -19,17 +16,11 @@ module.exports = {
        * 2) Set the key on the path `env.${index}.key`
        * 3) Set the value on the path `env.${index}.value`
        */
-      memo.push(new Transaction(['env'], index, ADD_ITEM));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'key'
-      ], key, SET));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'value'
-      ], state.environment[key], SET));
+      memo.push(new Transaction(["env"], index, ADD_ITEM));
+      memo.push(new Transaction(["env", index, "key"], key, SET));
+      memo.push(
+        new Transaction(["env", index, "value"], state.environment[key], SET)
+      );
 
       return memo;
     }, []);

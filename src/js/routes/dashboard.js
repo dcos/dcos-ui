@@ -1,11 +1,11 @@
-import {Route} from 'react-router';
+import { Route } from "react-router";
 
-import DashboardPage from '../pages/DashboardPage';
+import DashboardPage from "../pages/DashboardPage";
 
 const dashboardRoutes = {
-  category: 'root',
+  category: "root",
   type: Route,
-  path: 'dashboard',
+  path: "dashboard",
   component: DashboardPage,
   isInSidebar: true
 };

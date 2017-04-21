@@ -1,10 +1,6 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import {parseIntValue} from '#SRC/js/utils/ReducerUtil';
-import Transaction from '#SRC/js/structs/Transaction';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONParser(state) {
@@ -12,9 +8,10 @@ module.exports = {
       return [];
     }
 
-    return state.container.volumes.filter((item) => item.external != null)
-    .reduce(function (memo, item, index) {
-      /**
+    return state.container.volumes
+      .filter(item => item.external != null)
+      .reduce(function(memo, item, index) {
+        /**
        * For the externalVolumes we have a special case as all the volumes
        * are present in the `container.volumes` But in this parser we only
        * want to parse the external volumes. Which means that we first filter
@@ -33,76 +30,86 @@ module.exports = {
        * 6) Set the mode from `volume.mode` on the path
        *    `externalVolumes.${index}.mode`
        */
-      memo.push(new Transaction(['externalVolumes'], index, ADD_ITEM));
+        memo.push(new Transaction(["externalVolumes"], index, ADD_ITEM));
 
-      if (item.external.name != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'name'
-        ], item.external.name, SET));
-      }
+        if (item.external.name != null) {
+          memo.push(
+            new Transaction(
+              ["externalVolumes", index, "name"],
+              item.external.name,
+              SET
+            )
+          );
+        }
 
-      if (item.external.size != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'size'
-        ], item.external.size, SET));
-      }
+        if (item.external.size != null) {
+          memo.push(
+            new Transaction(
+              ["externalVolumes", index, "size"],
+              item.external.size,
+              SET
+            )
+          );
+        }
 
-      if (item.containerPath != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'containerPath'
-        ], item.containerPath, SET));
-      }
+        if (item.containerPath != null) {
+          memo.push(
+            new Transaction(
+              ["externalVolumes", index, "containerPath"],
+              item.containerPath,
+              SET
+            )
+          );
+        }
 
-      if (item.external.provider != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'provider'
-        ], item.external.provider, SET));
-      }
+        if (item.external.provider != null) {
+          memo.push(
+            new Transaction(
+              ["externalVolumes", index, "provider"],
+              item.external.provider,
+              SET
+            )
+          );
+        }
 
-      if (item.external.options != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'options'
-        ], item.external.options, SET));
-      }
-      if (item.mode != null) {
-        memo.push(new Transaction([
-          'externalVolumes',
-          index,
-          'mode'
-        ], item.mode, SET));
-      }
+        if (item.external.options != null) {
+          memo.push(
+            new Transaction(
+              ["externalVolumes", index, "options"],
+              item.external.options,
+              SET
+            )
+          );
+        }
+        if (item.mode != null) {
+          memo.push(
+            new Transaction(["externalVolumes", index, "mode"], item.mode, SET)
+          );
+        }
 
-      return memo;
-    }, []);
+        return memo;
+      }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (path[0] === 'externalVolumes') {
-      if (joinedPath === 'externalVolumes') {
+    if (path[0] === "externalVolumes") {
+      if (joinedPath === "externalVolumes") {
         switch (type) {
           case ADD_ITEM:
             state.push({
-              containerPath: null, name: null, provider: 'dvdi',
+              containerPath: null,
+              name: null,
+              provider: "dvdi",
               options: {
-                'dvdi/driver': 'rexray'
+                "dvdi/driver": "rexray"
               },
-              mode: 'RW'
+              mode: "RW"
             });
             break;
           case REMOVE_ITEM:
@@ -126,7 +133,10 @@ module.exports = {
       if (type === SET && `externalVolumes.${index}.name` === joinedPath) {
         state[index].name = String(value);
       }
-      if (type === SET && `externalVolumes.${index}.containerPath` === joinedPath) {
+      if (
+        type === SET &&
+        `externalVolumes.${index}.containerPath` === joinedPath
+      ) {
         state[index].containerPath = String(value);
       }
       if (type === SET && `externalVolumes.${index}.size` === joinedPath) {

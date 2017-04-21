@@ -1,12 +1,8 @@
-import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} from '#SRC/js/constants/TransactionTypes';
-import Transaction from '#SRC/js/structs/Transaction';
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
-  JSONReducer(state, {type, path, value}) {
+  JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -20,13 +16,13 @@ module.exports = {
       this.env = [];
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (joinedPath.search('env') !== -1) {
-      if (joinedPath === 'env') {
+    if (joinedPath.search("env") !== -1) {
+      if (joinedPath === "env") {
         switch (type) {
           case ADD_ITEM:
-            this.env.push({key: null, value: null});
+            this.env.push({ key: null, value: null });
             break;
           case REMOVE_ITEM:
             this.env = this.env.filter((item, index) => {
@@ -67,7 +63,7 @@ module.exports = {
       return [];
     }
 
-    return Object.keys(state.env).reduce(function (memo, key, index) {
+    return Object.keys(state.env).reduce(function(memo, key, index) {
       /**
        * For the environment variables which are a key => value based object
        * we want to create a new item and fill it with the key and the
@@ -76,34 +72,26 @@ module.exports = {
        * 2) Set the key on the path `env.${index}.key`
        * 3) Set the value on the path `env.${index}.value`
        */
-      memo.push(new Transaction(['env'], index, ADD_ITEM));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'key'
-      ], key, SET));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'value'
-      ], state.env[key], SET));
+      memo.push(new Transaction(["env"], index, ADD_ITEM));
+      memo.push(new Transaction(["env", index, "key"], key, SET));
+      memo.push(new Transaction(["env", index, "value"], state.env[key], SET));
 
       return memo;
     }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (joinedPath.search('env') !== -1) {
-      if (joinedPath === 'env') {
+    if (joinedPath.search("env") !== -1) {
+      if (joinedPath === "env") {
         switch (type) {
           case ADD_ITEM:
-            state.push({key: null, value: null});
+            state.push({ key: null, value: null });
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

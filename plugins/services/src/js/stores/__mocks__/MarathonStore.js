@@ -1,4 +1,4 @@
-var MarathonStore = jest.genMockFromModule('../MarathonStore');
+var MarathonStore = jest.genMockFromModule("../MarathonStore");
 
 var _data = {};
 

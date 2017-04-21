@@ -1,5 +1,5 @@
-import {EventEmitter} from 'events';
-import {CHANGE} from './MountEvent';
+import { EventEmitter } from "events";
+import { CHANGE } from "./MountEvent";
 
 /**
  * MountService
@@ -40,38 +40,45 @@ class MountService extends EventEmitter {
    * @param {Number} [priority] - Number which is used to sort the components
    */
   registerComponent(component, type, priority = 0) {
-    let {components, instance, rank} = this;
+    let { components, instance, rank } = this;
 
-    if (typeof component !== 'function') {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('Provided component must be a ' +
-            'React.Component constructor or a stateless functional component');
+    if (typeof component !== "function") {
+      if (process.env.NODE_ENV !== "production") {
+        throw new TypeError(
+          "Provided component must be a " +
+            "React.Component constructor or a stateless functional component"
+        );
       }
 
       return;
     }
 
-    if (typeof type !== 'string' || type === '') {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('Provided type must be a none empty string');
+    if (typeof type !== "string" || type === "") {
+      if (process.env.NODE_ENV !== "production") {
+        throw new TypeError("Provided type must be a none empty string");
       }
 
       return;
     }
 
-    if (components.find((descriptor) =>
-        descriptor.component === component &&
-        descriptor.type === type)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new Error(`Provided component/type ${component.name}/${type}` +
-          'combination is already registered');
+    if (
+      components.find(
+        descriptor =>
+          descriptor.component === component && descriptor.type === type
+      )
+    ) {
+      if (process.env.NODE_ENV !== "production") {
+        throw new Error(
+          `Provided component/type ${component.name}/${type}` +
+            "combination is already registered"
+        );
       }
 
       return;
     }
 
     // Add component descriptor and sort components list by priority and rank
-    components.push({component, priority, type, rank: rank++});
+    components.push({ component, priority, type, rank: rank++ });
     components.sort((a, b) => {
       if (a.priority !== b.priority) {
         return b.priority - a.priority;
@@ -91,12 +98,14 @@ class MountService extends EventEmitter {
    * @param  {String} type
    */
   unregisterComponent(component, type) {
-    const {components, instance} = this;
+    const { components, instance } = this;
 
     let i = components.length;
     while (--i >= 0) {
-      if (components[i].component === component &&
-          components[i].type === type) {
+      if (
+        components[i].component === component &&
+        components[i].type === type
+      ) {
         components.splice(i, 1);
         break;
       }
@@ -113,10 +122,11 @@ class MountService extends EventEmitter {
    * @returns {Array} list of matching components ordered by priority
    */
   findComponentsWithType(type) {
-    const {components} = this;
+    const { components } = this;
 
-    return components.filter((descriptor) => descriptor.type === type)
-        .map((descriptor) => descriptor.component);
+    return components
+      .filter(descriptor => descriptor.type === type)
+      .map(descriptor => descriptor.component);
   }
 }
 

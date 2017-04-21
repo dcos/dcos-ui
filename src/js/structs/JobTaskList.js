@@ -1,9 +1,9 @@
-import List from './List';
-import JobTask from './JobTask';
+import List from "./List";
+import JobTask from "./JobTask";
 
 class JobTaskList extends List {
   getLongestRunningTask() {
-    const sortedTasks = this.getItems().sort(function (a, b) {
+    const sortedTasks = this.getItems().sort(function(a, b) {
       if (a.getDateStarted() == null && b.getDateStarted() == null) {
         return 0;
       }

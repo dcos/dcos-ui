@@ -1,21 +1,21 @@
-import {combineReducers} from '#SRC/js/utils/ReducerUtil';
-import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
-import {SET, ADD_ITEM, REMOVE_ITEM} from '#SRC/js/constants/TransactionTypes';
-import {simpleParser, combineParsers} from '#SRC/js/utils/ParserUtil';
-import Transaction from '#SRC/js/structs/Transaction';
-import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+import { combineReducers } from "#SRC/js/utils/ReducerUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
+import { simpleParser, combineParsers } from "#SRC/js/utils/ParserUtil";
+import Transaction from "#SRC/js/structs/Transaction";
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import {
   FormReducer as volumesFormReducer,
   JSONReducer as volumesJSONReducer
-} from './Volumes';
-import ContainerConstants from '../../constants/ContainerConstants';
-import docker from './Docker';
+} from "./Volumes";
+import ContainerConstants from "../../constants/ContainerConstants";
+import docker from "./Docker";
 
-const {DOCKER, MESOS, NONE} = ContainerConstants.type;
+const { DOCKER, MESOS, NONE } = ContainerConstants.type;
 
 const containerJSONReducer = combineReducers({
-  type(state, {type, path, value}) {
+  type(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -32,12 +32,12 @@ const containerJSONReducer = combineReducers({
       this.hasVolumes = [];
     }
 
-    const joinedPath = path.join('.');
-    if (type === SET && joinedPath === 'container.docker.image') {
+    const joinedPath = path.join(".");
+    if (type === SET && joinedPath === "container.docker.image") {
       this.hasImage = !ValidatorUtil.isEmpty(value);
     }
 
-    if (path[0] === 'localVolumes' || path[0] === 'externalVolumes') {
+    if (path[0] === "localVolumes" || path[0] === "externalVolumes") {
       switch (type) {
         case ADD_ITEM:
           this.hasVolumes.push(true);
@@ -49,7 +49,7 @@ const containerJSONReducer = combineReducers({
       }
     }
 
-    if (type === SET && joinedPath === 'container.type' && value !== NONE) {
+    if (type === SET && joinedPath === "container.type" && value !== NONE) {
       this.noState = false;
 
       return value;
@@ -71,21 +71,27 @@ const containerJSONReducer = combineReducers({
 
     return state;
   },
-  docker(_, {type, path, value}, index) {
+  docker(_, { type, path, value }, index) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
     // Passing down the index as well, for reducers to use context
-    this.internalState = docker(this.internalState, {type, path, value}, index);
+    this.internalState = docker(
+      this.internalState,
+      { type, path, value },
+      index
+    );
 
-    const joinedPath = path && path.join('.');
-    if (type === SET && joinedPath === 'container.type') {
+    const joinedPath = path && path.join(".");
+    if (type === SET && joinedPath === "container.type") {
       this.containerType = value;
     }
 
-    if (!ValidatorUtil.isEmpty(this.internalState) &&
-      this.containerType !== NONE) {
+    if (
+      !ValidatorUtil.isEmpty(this.internalState) &&
+      this.containerType !== NONE
+    ) {
       return Object.assign({}, this.internalState);
     }
   },
@@ -93,34 +99,41 @@ const containerJSONReducer = combineReducers({
 });
 
 const containerReducer = combineReducers({
-  type(state, {type, path, value}) {
+  type(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
-    if (type === SET && joinedPath === 'container.type') {
+    const joinedPath = path.join(".");
+    if (type === SET && joinedPath === "container.type") {
       return value;
     }
 
     return state;
   },
-  docker(_, {type, path, value}, index) {
+  docker(_, { type, path, value }, index) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
     // Passing down the index as well, for reducers to use context
-    this.internalState = docker(this.internalState, {type, path, value}, index);
+    this.internalState = docker(
+      this.internalState,
+      { type, path, value },
+      index
+    );
 
-    const joinedPath = path && path.join('.');
-    if (type === SET && joinedPath === 'container.type') {
+    const joinedPath = path && path.join(".");
+    if (type === SET && joinedPath === "container.type") {
       this.containerType = value;
     }
 
-    if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
+    if (
+      !ValidatorUtil.isEmpty(this.internalState) &&
+      this.containerType !== NONE
+    ) {
       const newState = Object.assign({}, this.internalState);
-      Object.keys(this.internalState).forEach((key) => {
+      Object.keys(this.internalState).forEach(key => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
           delete newState[key];
         }
@@ -142,14 +155,15 @@ module.exports = {
       this.isMesosRuntime = true;
     }
 
-    const {type, path, value} = args[0];
+    const { type, path, value } = args[0];
 
-    if (type === SET && path.join('.') === 'container.type') {
+    if (type === SET && path.join(".") === "container.type") {
       this.isMesosRuntime = value === NONE;
     }
 
     const newState = Object.assign(
-      {}, containerJSONReducer.apply(this, [this.internalState, ...args])
+      {},
+      containerJSONReducer.apply(this, [this.internalState, ...args])
     );
 
     this.internalState = newState;
@@ -175,7 +189,8 @@ module.exports = {
     }
 
     const newState = Object.assign(
-      {}, containerReducer.apply(this, [this.internalState, ...args])
+      {},
+      containerReducer.apply(this, [this.internalState, ...args])
     );
 
     this.internalState = newState;
@@ -206,9 +221,9 @@ module.exports = {
   },
 
   JSONParser: combineParsers([
-    function (state) {
-      const image = findNestedPropertyInObject(state, 'container.docker.image');
-      let value = findNestedPropertyInObject(state, 'container.type');
+    function(state) {
+      const image = findNestedPropertyInObject(state, "container.docker.image");
+      let value = findNestedPropertyInObject(state, "container.type");
 
       if (value === MESOS && !image) {
         value = NONE;
@@ -218,13 +233,13 @@ module.exports = {
         value = NONE;
       }
 
-      return new Transaction(['container', 'type'], value);
+      return new Transaction(["container", "type"], value);
     },
-    simpleParser(['container', DOCKER.toLowerCase(), 'image']),
-    simpleParser(['container', MESOS.toLowerCase(), 'image']),
-    simpleParser(['container', DOCKER.toLowerCase(), 'forcePullImage']),
-    simpleParser(['container', MESOS.toLowerCase(), 'forcePullImage']),
-    simpleParser(['container', DOCKER.toLowerCase(), 'privileged']),
-    simpleParser(['container', MESOS.toLowerCase(), 'privileged'])
+    simpleParser(["container", DOCKER.toLowerCase(), "image"]),
+    simpleParser(["container", MESOS.toLowerCase(), "image"]),
+    simpleParser(["container", DOCKER.toLowerCase(), "forcePullImage"]),
+    simpleParser(["container", MESOS.toLowerCase(), "forcePullImage"]),
+    simpleParser(["container", DOCKER.toLowerCase(), "privileged"]),
+    simpleParser(["container", MESOS.toLowerCase(), "privileged"])
   ])
 };

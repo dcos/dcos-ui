@@ -1,5 +1,5 @@
-import List from './List';
-import UniversePackage from './UniversePackage';
+import List from "./List";
+import UniversePackage from "./UniversePackage";
 
 class UniversePackagesList extends List {
   constructor(options = {}) {
@@ -9,9 +9,9 @@ class UniversePackagesList extends List {
         description: null, // use default getter
         name: null, // use default getter
         tags(item) {
-          const tags = item.get('tags') || [];
+          const tags = item.get("tags") || [];
 
-          return tags.join(' ');
+          return tags.join(" ");
         }
       };
     }
@@ -24,7 +24,7 @@ class UniversePackagesList extends List {
     const selectedPackages = [];
     const nonSelectedPackages = [];
 
-    this.getItems().forEach(function (universePackage) {
+    this.getItems().forEach(function(universePackage) {
       if (universePackage.isSelected()) {
         selectedPackages.push(universePackage);
       } else {
@@ -33,8 +33,8 @@ class UniversePackagesList extends List {
     });
 
     return {
-      selectedPackages: new this.constructor({items: selectedPackages}),
-      nonSelectedPackages: new this.constructor({items: nonSelectedPackages})
+      selectedPackages: new this.constructor({ items: selectedPackages }),
+      nonSelectedPackages: new this.constructor({ items: nonSelectedPackages })
     };
   }
 }

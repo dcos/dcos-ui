@@ -1,7 +1,6 @@
-import ValidatorUtil from '#SRC/js/utils/ValidatorUtil';
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 const CreateServiceModalFormUtil = {
-
   /**
    * Remove empty properties from the given input object, or pass through the
    * value if it is a non-object.
@@ -10,7 +9,7 @@ const CreateServiceModalFormUtil = {
    * @returns {*} A shallow copy of the object, with the non-empty values
    */
   stripEmptyProperties(object) {
-    if ((typeof object !== 'object') || (object === null)) {
+    if (typeof object !== "object" || object === null) {
       return object;
     }
 
@@ -20,10 +19,12 @@ const CreateServiceModalFormUtil = {
       baseObject = [];
     }
 
-    return Object.keys(object).reduce(function (memo, key) {
+    return Object.keys(object).reduce(function(memo, key) {
       if (!ValidatorUtil.isEmpty(object[key]) && !Number.isNaN(object[key])) {
         // Apply the strip function recursively and keep only non-empty values
-        const value = CreateServiceModalFormUtil.stripEmptyProperties(object[key]);
+        const value = CreateServiceModalFormUtil.stripEmptyProperties(
+          object[key]
+        );
         if (!ValidatorUtil.isEmpty(value) && !Number.isNaN(value)) {
           memo[key] = value;
         }
@@ -48,7 +49,7 @@ const CreateServiceModalFormUtil = {
   applyPatchObject(data, patch) {
     const newObj = Object.assign({}, data);
 
-    return Object.keys(patch).reduce(function (memo, key) {
+    return Object.keys(patch).reduce(function(memo, key) {
       const dataValue = memo[key];
       const patchValue = patch[key];
 
@@ -62,7 +63,10 @@ const CreateServiceModalFormUtil = {
         }
       }
 
-      const value = CreateServiceModalFormUtil.applyPatch(dataValue, patchValue);
+      const value = CreateServiceModalFormUtil.applyPatch(
+        dataValue,
+        patchValue
+      );
 
       // Repeat the same check like before, since the patched structure
       // might have been emptied
@@ -98,7 +102,7 @@ const CreateServiceModalFormUtil = {
     const itemCount = Math.max(data.length, patch.length);
     const result = [];
 
-    for (let i=0; i<itemCount; ++i) {
+    for (let i = 0; i < itemCount; ++i) {
       const dataValue = data[i];
       const patchValue = patch[i];
 
@@ -106,8 +110,9 @@ const CreateServiceModalFormUtil = {
       // adding new ones, process them in priority.
       if (i >= data.length) {
         if (!ValidatorUtil.isEmpty(patchValue) && !Number.isNaN(patchValue)) {
-          const value = CreateServiceModalFormUtil
-            .stripEmptyProperties(patchValue);
+          const value = CreateServiceModalFormUtil.stripEmptyProperties(
+            patchValue
+          );
 
           if (!ValidatorUtil.isEmpty(value) && !Number.isNaN(value)) {
             result.push(value);
@@ -132,7 +137,9 @@ const CreateServiceModalFormUtil = {
 
       // Arrays allow type replacement in the patch function
       const value = CreateServiceModalFormUtil.applyPatch(
-        dataValue, patchValue, true
+        dataValue,
+        patchValue,
+        true
       );
 
       // Push value only if the value is not empty
@@ -167,7 +174,7 @@ const CreateServiceModalFormUtil = {
    * @param {Boolean} allowTypeChange - Set to true to allow types to change
    * @returns {Object} The patched data response
    */
-  applyPatch(data, patch, allowTypeChange=false) {
+  applyPatch(data, patch, allowTypeChange = false) {
     // If we don't have data, prefer patch, but make sure not to include
     // empty properties in the objects
     if (data == null) {
@@ -175,16 +182,15 @@ const CreateServiceModalFormUtil = {
     }
 
     // Prefer `data` type if we have a type clash
-    if ((typeof data !== typeof patch) ||
-        (Array.isArray(data) !== Array.isArray(patch))) {
-
-      return allowTypeChange
-        ? patch
-        : data;
+    if (
+      typeof data !== typeof patch ||
+      Array.isArray(data) !== Array.isArray(patch)
+    ) {
+      return allowTypeChange ? patch : data;
     }
 
     // Non-object types just pass through
-    if (typeof patch !== 'object' || patch === null) {
+    if (typeof patch !== "object" || patch === null) {
       return patch;
     }
 

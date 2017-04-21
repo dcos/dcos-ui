@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const ConfigurationMapRow = (props) => {
+const ConfigurationMapRow = props => {
   return (
     <div className="configuration-map-row table-row">
       {props.children}

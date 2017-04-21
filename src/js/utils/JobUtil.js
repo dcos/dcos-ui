@@ -1,16 +1,17 @@
-import Job from '../structs/Job';
+import Job from "../structs/Job";
 
 // TODO: DCOS-7747 Move this method as well as `createFormModelFromSchema` into
 // the SchemaUtil and refactor it accordingly.
-const getMatchingProperties = function (job, item) {
-  return Object.keys(item).reduce(function (memo, subItem) {
-
-    if (item[subItem].type === 'group') {
-      Object.keys(item[subItem].properties).forEach(function (key) {
+const getMatchingProperties = function(job, item) {
+  return Object.keys(item).reduce(function(memo, subItem) {
+    if (item[subItem].type === "group") {
+      Object.keys(item[subItem].properties).forEach(function(key) {
         memo[key] = item[subItem].properties[key].default;
 
-        if (item[subItem].properties[key].getter &&
-          !!item[subItem].properties[key].getter(job)) {
+        if (
+          item[subItem].properties[key].getter &&
+          !!item[subItem].properties[key].getter(job)
+        ) {
           memo[key] = item[subItem].properties[key].getter(job);
         }
       });
@@ -18,7 +19,7 @@ const getMatchingProperties = function (job, item) {
       return memo;
     }
 
-    if (item[subItem].type === 'object') {
+    if (item[subItem].type === "object") {
       memo[subItem] = getMatchingProperties(job, item[subItem].properties);
 
       return memo;
@@ -53,14 +54,14 @@ const JobUtil = {
     spec.description = general.description;
 
     if (labels != null && labels.items != null) {
-      spec.labels = labels.items.reduce(function (memo, {key, value}) {
+      spec.labels = labels.items.reduce(function(memo, { key, value }) {
         if (key == null) {
           return memo;
         }
 
         // The 'undefined' value is not rendered by the JSON.stringify,
         // so make sure empty environment variables are not left unrendered
-        memo[key] = value || '';
+        memo[key] = value || "";
 
         return memo;
       }, {});
@@ -74,7 +75,7 @@ const JobUtil = {
     });
 
     if (docker && docker.image) {
-      Object.assign(spec.run, {docker});
+      Object.assign(spec.run, { docker });
     }
 
     // Reset schedules
@@ -84,11 +85,11 @@ const JobUtil = {
     // defaults
     if (!schedule || schedule.runOnSchedule) {
       const {
-        id = 'default',
+        id = "default",
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = 'ALLOW',
+        concurrencyPolicy = "ALLOW",
         startingDeadlineSeconds
       } = schedule || {};
 
@@ -129,28 +130,30 @@ const JobUtil = {
 
     const docker = job.getDocker();
     if (docker.image) {
-      Object.assign(spec.run, {docker});
+      Object.assign(spec.run, { docker });
     }
 
     const [schedule] = job.getSchedules();
     if (schedule) {
       const {
-        id = 'default',
+        id = "default",
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = 'ALLOW',
+        concurrencyPolicy = "ALLOW",
         startingDeadlineSeconds
       } = schedule;
       // Transfer schedule as with reasonable defaults
-      spec.schedules = [{
-        id,
-        enabled,
-        cron,
-        timezone,
-        concurrencyPolicy,
-        startingDeadlineSeconds
-      }];
+      spec.schedules = [
+        {
+          id,
+          enabled,
+          cron,
+          timezone,
+          concurrencyPolicy,
+          startingDeadlineSeconds
+        }
+      ];
     } else {
       spec.schedules = [];
     }

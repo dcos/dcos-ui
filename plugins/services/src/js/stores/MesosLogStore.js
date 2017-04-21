@@ -1,13 +1,11 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
-import {
-  SERVER_ACTION
-} from '#SRC/js/constants/ActionTypes';
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import Config from '#SRC/js/config/Config';
-import BaseStore from '#SRC/js/stores/BaseStore';
-import Item from '#SRC/js/structs/Item';
-import {APPEND, PREPEND} from '#SRC/js/constants/SystemLogTypes';
+import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import Config from "#SRC/js/config/Config";
+import BaseStore from "#SRC/js/stores/BaseStore";
+import Item from "#SRC/js/structs/Item";
+import { APPEND, PREPEND } from "#SRC/js/constants/SystemLogTypes";
 
 import {
   REQUEST_MESOS_LOG_ERROR,
@@ -16,15 +14,15 @@ import {
   REQUEST_MESOS_LOG_SUCCESS,
   REQUEST_PREVIOUS_MESOS_LOG_ERROR,
   REQUEST_PREVIOUS_MESOS_LOG_SUCCESS
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 import {
   MESOS_INITIALIZE_LOG_CHANGE,
   MESOS_INITIALIZE_LOG_REQUEST_ERROR,
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR
-} from '../constants/EventTypes';
-import LogBuffer from '../structs/LogBuffer';
-import MesosLogActions from '../events/MesosLogActions';
+} from "../constants/EventTypes";
+import LogBuffer from "../structs/LogBuffer";
+import MesosLogActions from "../events/MesosLogActions";
 
 const MAX_FILE_SIZE = 50000;
 
@@ -48,7 +46,7 @@ class MesosLogStore extends BaseStore {
       suppressUpdate: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
@@ -107,19 +105,14 @@ class MesosLogStore extends BaseStore {
       length = logBuffer.getStart();
     }
 
-    MesosLogActions.fetchPreviousLog(
-      slaveID,
-      path,
-      startOffset,
-      length
-    );
+    MesosLogActions.fetchPreviousLog(slaveID, path, startOffset, length);
   }
 
   startTailing(slaveID, path) {
     let logBuffer = this.getLogBuffer(path);
     if (!logBuffer) {
       logBuffer = new LogBuffer();
-      this.logs[path] = {logBuffer, isTailing: true};
+      this.logs[path] = { logBuffer, isTailing: true };
       // Request offset to initialize logBuffer
       MesosLogActions.requestOffset(slaveID, path);
     } else {
@@ -159,7 +152,7 @@ class MesosLogStore extends BaseStore {
 
   processOffsetError(slaveID, path) {
     // Try to re-initialize from where we left off
-    setTimeout(function () {
+    setTimeout(function() {
       MesosLogActions.requestOffset(slaveID, path);
     }, Config.tailRefresh);
 
@@ -188,7 +181,7 @@ class MesosLogStore extends BaseStore {
       // since that might mean that there is more data to show
       MesosLogActions.fetchLog(slaveID, path, end, MAX_FILE_SIZE);
     } else {
-      setTimeout(function () {
+      setTimeout(function() {
         MesosLogActions.fetchLog(slaveID, path, end, MAX_FILE_SIZE);
       }, Config.tailRefresh);
     }
@@ -215,7 +208,7 @@ class MesosLogStore extends BaseStore {
     }
 
     // Try to re-start from where we left off
-    setTimeout(function () {
+    setTimeout(function() {
       MesosLogActions.fetchLog(
         slaveID,
         path,
@@ -237,14 +230,15 @@ class MesosLogStore extends BaseStore {
     MesosLogActions.fetchLog(
       slaveID,
       path,
-      logBuffer.getStart() - MAX_FILE_SIZE, MAX_FILE_SIZE
+      logBuffer.getStart() - MAX_FILE_SIZE,
+      MAX_FILE_SIZE
     );
 
     this.emit(MESOS_LOG_REQUEST_ERROR, path);
   }
 
   getLogBuffer(path) {
-    const {logBuffer} = this.logs[path] || {};
+    const { logBuffer } = this.logs[path] || {};
 
     return logBuffer;
   }
@@ -259,9 +253,8 @@ class MesosLogStore extends BaseStore {
   }
 
   get storeID() {
-    return 'mesosLog';
+    return "mesosLog";
   }
-
 }
 
 module.exports = new MesosLogStore();

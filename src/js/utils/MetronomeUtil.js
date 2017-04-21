@@ -11,13 +11,15 @@
  * have already been added to the parent
  */
 function addJob(parent, item, jobsAlreadyAdded) {
-  const {id} = parent;
+  const { id } = parent;
 
   const itemId = item.id;
 
-  if ((itemId.startsWith('.') || itemId.endsWith('.'))) {
-    throw new Error(`Id (${itemId}) must not start with a leading dot (".") ` +
-      'and should not end with a dot.');
+  if (itemId.startsWith(".") || itemId.endsWith(".")) {
+    throw new Error(
+      `Id (${itemId}) must not start with a leading dot (".") ` +
+        "and should not end with a dot."
+    );
   }
 
   if (!itemId.startsWith(id)) {
@@ -57,7 +59,7 @@ function addJob(parent, item, jobsAlreadyAdded) {
   // Find or create corresponding parent tree and add it to the tree
   let subParent = jobsAlreadyAdded[parentId];
   if (!subParent) {
-    subParent = {id: parentId, items: []};
+    subParent = { id: parentId, items: [] };
     addJob(parent, subParent, jobsAlreadyAdded);
   }
 
@@ -66,7 +68,6 @@ function addJob(parent, item, jobsAlreadyAdded) {
 }
 
 const MetronomeUtil = {
-
   /**
    * [parseJobs description]
    * @param  {array} jobs to be turned into an acceptable structure
@@ -77,7 +78,7 @@ const MetronomeUtil = {
    * }} jobs and groups in a tree structure
    */
   parseJobs(jobs) {
-    const rootTree = {id: ''};
+    const rootTree = { id: "" };
     const jobsAlreadyAdded = {
       [rootTree.id]: rootTree
     };
@@ -86,7 +87,7 @@ const MetronomeUtil = {
       jobs = [jobs];
     }
 
-    jobs.forEach(function (job) {
+    jobs.forEach(function(job) {
       addJob(rootTree, job, jobsAlreadyAdded);
     });
 
@@ -94,20 +95,20 @@ const MetronomeUtil = {
   },
 
   parseJob(job) {
-    let {history}= job;
+    let { history } = job;
 
     if (history == null) {
       return job;
     }
 
-    let {failedFinishedRuns = [], successfulFinishedRuns = []} = history;
+    let { failedFinishedRuns = [], successfulFinishedRuns = [] } = history;
 
-    failedFinishedRuns = failedFinishedRuns.map(function (jobRun) {
-      return Object.assign({}, jobRun, {status: 'FAILED', jobId: job.id});
+    failedFinishedRuns = failedFinishedRuns.map(function(jobRun) {
+      return Object.assign({}, jobRun, { status: "FAILED", jobId: job.id });
     });
 
-    successfulFinishedRuns = successfulFinishedRuns.map(function (jobRun) {
-      return Object.assign({}, jobRun, {status: 'COMPLETED', jobId: job.id});
+    successfulFinishedRuns = successfulFinishedRuns.map(function(jobRun) {
+      return Object.assign({}, jobRun, { status: "COMPLETED", jobId: job.id });
     });
 
     history = Object.assign({}, history, {
@@ -115,9 +116,8 @@ const MetronomeUtil = {
       successfulFinishedRuns
     });
 
-    return Object.assign({}, job, {history});
+    return Object.assign({}, job, { history });
   }
-
 };
 
 module.exports = MetronomeUtil;

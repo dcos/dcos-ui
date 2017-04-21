@@ -1,24 +1,24 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
 import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_ERROR,
   REQUEST_LOGOUT_SUCCESS,
   REQUEST_LOGOUT_ERROR
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import Config from "../config/Config";
 
 const AuthActions = {
   login(credentials, target) {
-    let query = '';
+    let query = "";
     if (target) {
       query = `?target=${encodeURIComponent(target)}`;
     }
 
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/login${query}`,
-      method: 'POST',
+      method: "POST",
       data: credentials,
       success() {
         AppDispatcher.handleServerAction({
@@ -55,11 +55,11 @@ const AuthActions = {
 };
 
 if (Config.useFixtures) {
-  AuthActions.login = function () {
+  AuthActions.login = function() {
     // base64 encoded - {is_remote: false, uid: "bootstrapuser", description: "Bootstrap superuser"}
     global.document.cookie =
-      'dcos-acs-info-cookie=' +
-        'eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ==';
+      "dcos-acs-info-cookie=" +
+      "eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ==";
     AppDispatcher.handleServerAction({
       type: REQUEST_LOGIN_SUCCESS
     });

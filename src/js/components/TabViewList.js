@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
 class TabViewList extends React.Component {
   getChildren() {
-    const {activeTab, children} = this.props;
+    const { activeTab, children } = this.props;
 
     return React.Children.map(children, (tab, index) => {
       if (tab.props.id === activeTab || (!activeTab && index === 0)) {
@@ -15,7 +15,10 @@ class TabViewList extends React.Component {
   }
 
   render() {
-    const classes = classNames('menu-tabbed-view-container', this.props.classNames);
+    const classes = classNames(
+      "menu-tabbed-view-container",
+      this.props.classNames
+    );
 
     return (
       <div className={classes}>

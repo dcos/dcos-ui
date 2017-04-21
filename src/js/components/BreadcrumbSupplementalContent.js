@@ -1,17 +1,17 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
 class BreadcrumbSupplementalContent extends React.Component {
   render() {
-    const {children, hasStatusBar} = this.props;
+    const { children, hasStatusBar } = this.props;
 
     if (!children) {
       return null;
     }
 
     const classes = classNames(
-      'breadcrumb__content breadcrumb__content--supplemental',
-      {'breadcrumb__content--has-status-bar': hasStatusBar}
+      "breadcrumb__content breadcrumb__content--supplemental",
+      { "breadcrumb__content--has-status-bar": hasStatusBar }
     );
 
     return (

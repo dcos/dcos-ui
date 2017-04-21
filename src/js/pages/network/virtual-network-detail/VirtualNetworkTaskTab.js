@@ -1,38 +1,38 @@
-import classNames from 'classnames';
-import {routerShape, Link} from 'react-router';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { routerShape, Link } from "react-router";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
-import {Table} from 'reactjs-components';
+import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Table } from "reactjs-components";
 
-import FilterBar from '../../../components/FilterBar';
-import FilterHeadline from '../../../components/FilterHeadline';
-import FilterInputText from '../../../components/FilterInputText';
-import Icon from '../../../components/Icon';
-import Loader from '../../../components/Loader';
-import MesosStateStore from '../../../stores/MesosStateStore';
-import Overlay from '../../../structs/Overlay';
-import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import TaskUtil from '../../../../../plugins/services/src/js/utils/TaskUtil';
-import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
-import Util from '../../../utils/Util';
+import FilterBar from "../../../components/FilterBar";
+import FilterHeadline from "../../../components/FilterHeadline";
+import FilterInputText from "../../../components/FilterInputText";
+import Icon from "../../../components/Icon";
+import Loader from "../../../components/Loader";
+import MesosStateStore from "../../../stores/MesosStateStore";
+import Overlay from "../../../structs/Overlay";
+import RequestErrorMsg from "../../../components/RequestErrorMsg";
+import TaskUtil from "../../../../../plugins/services/src/js/utils/TaskUtil";
+import VirtualNetworkUtil from "../../../utils/VirtualNetworkUtil";
+import Util from "../../../utils/Util";
 
 const headerMapping = {
-  id: 'TASK',
-  ip_address: 'CONTAINER IP',
-  port_mappings: 'PORT MAPPINGS'
+  id: "TASK",
+  ip_address: "CONTAINER IP",
+  port_mappings: "PORT MAPPINGS"
 };
 const METHODS_TO_BIND = [
-  'handleSearchStringChange',
-  'renderAgentIP',
-  'renderID',
-  'renderPorts',
-  'resetFilter'
+  "handleSearchStringChange",
+  "renderAgentIP",
+  "renderID",
+  "renderPorts",
+  "resetFilter"
 ];
 
-const agentIPPath = 'statuses.0.container_status.network_infos.0.ip_addresses';
+const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   constructor() {
@@ -40,55 +40,56 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     this.state = {
       errorMessage: null,
-      searchString: '',
+      searchString: "",
       tasksDataReceived: false
     };
 
-    this.store_listeners = [{
-      name: 'state',
-      events: ['success', 'error'],
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        name: "state",
+        events: ["success", "error"],
+        suppressUpdate: true
+      }
+    ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   onStateStoreError(errorMessage) {
-    this.setState({tasksDataReceived: true, errorMessage});
+    this.setState({ tasksDataReceived: true, errorMessage });
   }
 
   onStateStoreSuccess() {
-    this.setState({tasksDataReceived: true, errorMessage: null});
+    this.setState({ tasksDataReceived: true, errorMessage: null });
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   resetFilter() {
-    this.setState({searchString: ''});
+    this.setState({ searchString: "" });
   }
 
   isLoading() {
     return !this.state.tasksDataReceived;
   }
 
-  getFilteredTasks(tasks, searchString = '') {
-    if (searchString === '') {
+  getFilteredTasks(tasks, searchString = "") {
+    if (searchString === "") {
       return tasks;
     }
 
-    return tasks.filter(function (task) {
-      return task.name.includes(searchString) ||
-        task.id.includes(searchString);
+    return tasks.filter(function(task) {
+      return task.name.includes(searchString) || task.id.includes(searchString);
     });
   }
 
   getClassName(prop, sortBy) {
     return classNames({
-      'active': prop === sortBy.prop
+      active: prop === sortBy.prop
     });
   }
 
@@ -101,7 +102,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'id',
+        prop: "id",
         render: this.renderID,
         sortable: false
       },
@@ -110,7 +111,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         getValue: this.getAgentIP,
         headerClassName: getClassName,
         heading,
-        prop: 'ip_address',
+        prop: "ip_address",
         render: this.renderAgentIP,
         sortable: false
       },
@@ -119,7 +120,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         getValue: TaskUtil.getPortMappings,
         headerClassName: getClassName,
         heading,
-        prop: 'port_mappings',
+        prop: "port_mappings",
         render: this.renderPorts,
         sortable: false
       }
@@ -129,7 +130,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '50%'}} />
+        <col style={{ width: "50%" }} />
         <col />
         <col />
       </colgroup>
@@ -154,8 +155,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     const classes = classNames({
-      'table-cell-link-primary': hierarchy.primary,
-      'table-cell-link-secondary': hierarchy.secondary
+      "table-cell-link-primary": hierarchy.primary,
+      "table-cell-link-secondary": hierarchy.secondary
     });
 
     const overlayName = this.props.overlay.getName();
@@ -165,16 +166,19 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         className={classes}
         key={value}
         title={title}
-        to={`/networking/networks/${overlayName}/tasks/${taskID}`}>
+        to={`/networking/networks/${overlayName}/tasks/${taskID}`}
+      >
         {value}
       </Link>
     );
   }
 
   getTitle(portMappings) {
-    return portMappings.map(function (mapping) {
-      return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
-    }).join(', ');
+    return portMappings
+      .map(function(mapping) {
+        return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
+      })
+      .join(", ");
   }
 
   getAgentIP(task) {
@@ -184,44 +188,44 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return ipAddresses;
     }
 
-    return ipAddresses.map(function (ipAddress) {
-      return ipAddress.ip_address;
-    }).join(', ');
+    return ipAddresses
+      .map(function(ipAddress) {
+        return ipAddress.ip_address;
+      })
+      .join(", ");
   }
 
   renderAgentIP(prop, task) {
     const ipAddress = this.getAgentIP(task);
 
     if (!ipAddress) {
-      return 'N/A';
+      return "N/A";
     }
 
     return ipAddress;
   }
 
   renderHeading(prop) {
-    return (
-      <span className="table-header-title">{headerMapping[prop]}</span>
-    );
+    return <span className="table-header-title">{headerMapping[prop]}</span>;
   }
 
   renderID(prop, task) {
-    return this.getTaskLink(task.id, null, null, {primary: true});
+    return this.getTaskLink(task.id, null, null, { primary: true });
   }
 
   renderPorts(prop, task) {
     let portMappings = TaskUtil.getPortMappings(task);
     if (!portMappings) {
-      return 'N/A';
+      return "N/A";
     }
 
     const title = this.getTitle(portMappings);
     if (portMappings.length > 3) {
       portMappings = portMappings.slice(0, 2);
-      portMappings.push({container_port: '...'});
+      portMappings.push({ container_port: "..." });
     }
 
-    const {id} = task;
+    const { id } = task;
 
     return portMappings.map((mapping, index) => {
       let mapTo = null;
@@ -233,12 +237,13 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
               className="list-inline-separator"
               family="tiny"
               id="caret-right"
-              size="tiny" />
+              size="tiny"
+            />
             {this.getTaskLink(
               id,
               `${mapping.host_port} (${mapping.protocol})`,
               title,
-              {secondary: true}
+              { secondary: true }
             )}
           </span>
         );
@@ -248,12 +253,9 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         <div key={index} className="table-cell-value">
           <div className="table-cell-details-secondary flex-box flex-box-align-vertical-center table-cell-flex-box">
             <div className="text-overflow service-link">
-              {this.getTaskLink(
-                id,
-                mapping.container_port,
-                title,
-                {secondary: true}
-              )}
+              {this.getTaskLink(id, mapping.container_port, title, {
+                secondary: true
+              })}
               {mapTo}
             </div>
           </div>
@@ -263,7 +265,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   render() {
-    const {errorMessage, searchString} = this.state;
+    const { errorMessage, searchString } = this.state;
     if (this.isLoading()) {
       return this.getLoadingScreen();
     }
@@ -272,7 +274,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return this.getErrorScreen();
     }
 
-    const {overlay} = this.props;
+    const { overlay } = this.props;
     if (!overlay) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
@@ -288,17 +290,20 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
           onReset={this.resetFilter}
           name="Task"
           currentLength={filteredTasks.length}
-          totalLength={tasks.length} />
+          totalLength={tasks.length}
+        />
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
+            handleFilterChange={this.handleSearchStringChange}
+          />
         </FilterBar>
         <Table
           className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
-          data={filteredTasks} />
+          data={filteredTasks}
+        />
       </div>
     );
   }

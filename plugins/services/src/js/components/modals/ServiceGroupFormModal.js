@@ -1,19 +1,17 @@
-import React, {PropTypes} from 'react';
-import PureRender from 'react-addons-pure-render-mixin';
+import React, { PropTypes } from "react";
+import PureRender from "react-addons-pure-render-mixin";
 
-import FormModal from '#SRC/js/components/FormModal';
-import ModalHeading from '#SRC/js/components/modals/ModalHeading';
-import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
+import FormModal from "#SRC/js/components/FormModal";
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
+import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const METHODS_TO_BIND = [
-  'handleNewGroupSubmit'
-];
+const METHODS_TO_BIND = ["handleNewGroupSubmit"];
 
 class ServiceGroupFormModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -21,8 +19,7 @@ class ServiceGroupFormModal extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const requestCompleted = this.props.isPending
-      && !nextProps.isPending;
+    const requestCompleted = this.props.isPending && !nextProps.isPending;
 
     const shouldClose = requestCompleted && !nextProps.errors;
 
@@ -32,15 +29,15 @@ class ServiceGroupFormModal extends React.Component {
   }
 
   handleNewGroupSubmit(model) {
-    const {parentGroupId} = this.props;
+    const { parentGroupId } = this.props;
 
-    this.props.createGroup(Object.assign({}, model,
-      {id: `${parentGroupId}/${model.id}`})
+    this.props.createGroup(
+      Object.assign({}, model, { id: `${parentGroupId}/${model.id}` })
     );
   }
 
   getErrorMessage() {
-    const {errors} = this.props;
+    const { errors } = this.props;
     if (!errors) {
       return null;
     }
@@ -53,39 +50,33 @@ class ServiceGroupFormModal extends React.Component {
   getNewGroupFormDefinition() {
     return [
       {
-        fieldType: 'text',
-        name: 'id',
-        placeholder: 'Group name',
+        fieldType: "text",
+        name: "id",
+        placeholder: "Group name",
         required: true,
         showLabel: false,
-        writeType: 'input',
+        writeType: "input",
         validation: ServiceValidatorUtil.isValidServiceID,
-        validationErrorText: 'Group name must be at least 1 character and ' +
-          'may only contain digits (0-9), dashes (-), dots (.), ' +
-          'and lowercase letters (a-z). The name may not begin or end ' +
-          'with a dash.'
+        validationErrorText: "Group name must be at least 1 character and " +
+          "may only contain digits (0-9), dashes (-), dots (.), " +
+          "and lowercase letters (a-z). The name may not begin or end " +
+          "with a dash."
       }
     ];
   }
 
   render() {
-    const {
-      clearError,
-      isPending,
-      onClose,
-      open,
-      parentGroupId
-    } = this.props;
+    const { clearError, isPending, onClose, open, parentGroupId } = this.props;
 
     const buttonDefinition = [
       {
-        text: 'Cancel',
-        className: 'button button-medium',
+        text: "Cancel",
+        className: "button button-medium",
         isClose: true
       },
       {
-        text: 'Create Group',
-        className: 'button button-success button-medium',
+        text: "Create Group",
+        className: "button button-success button-medium",
         isSubmit: true
       }
     ];
@@ -103,9 +94,10 @@ class ServiceGroupFormModal extends React.Component {
         onSubmit={this.handleNewGroupSubmit}
         onChange={clearError}
         open={open}
-        definition={this.getNewGroupFormDefinition()}>
+        definition={this.getNewGroupFormDefinition()}
+      >
         <p className="text-align-center flush-top">
-          {'Enter a path for the new group under '}
+          {"Enter a path for the new group under "}
           <span className="emphasize">{parentGroupId}</span>
         </p>
         {this.getErrorMessage()}

@@ -42,12 +42,12 @@
   },
 
   "extends": [
-    "airbnb",
-    "plugin:destructuring/recommended"
+    "dcos"
   ],
 
   "rules": {
-    "arrow-parens": ["error", "always"],
+    "prettier/prettier": "error",
+    "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
     "compat/compat": "error",
@@ -58,16 +58,7 @@
     "keyword-spacing": ["error"],
     "multiline-ternary": "off", // allow both multiline and single line
     "newline-before-return": "error",
-    "no-mixed-operators": [2, {
-      "groups": [
-        ["+", "-", "*", "/", "%", "**"],
-        ["&", "|", "^", "~", "<<", ">>", ">>>"],
-        ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
-        ["&&", "||"],
-        ["in", "instanceof"]
-      ],
-      "allowSamePrecedence": true
-    }],
+    "no-mixed-operators": "off",
     "no-mixed-spaces-and-tabs": "error",
     "no-multiple-empty-lines": ["error", {"max": 1}],
     "no-nested-ternary": ["error"],
@@ -81,11 +72,11 @@
       "varsIgnorePattern": "^_"
     }],
     "no-use-before-define": "off",
-    "quotes": ["error", "single"],
+    "quotes": "off",
     "react/jsx-filename-extension": "off",
     "semi": ["error"],
     "space-before-blocks": ["error", "always"],
-    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }],
+    "space-before-function-paren": "off",
     "spaced-comment": ["error", "always"],
     "strict": ["error", "never"], // <-- fix
     "valid-jsdoc": ["error", {

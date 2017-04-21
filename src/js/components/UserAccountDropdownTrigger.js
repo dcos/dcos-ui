@@ -1,8 +1,8 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {
@@ -10,8 +10,8 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'metadata',
-        events: ['success'],
+        name: "metadata",
+        events: ["success"],
         listenAlways: false
       }
     ];
@@ -24,7 +24,7 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   }
 
   render() {
-    let {primaryContent, secondaryContent = null} = this.props;
+    let { primaryContent, secondaryContent = null } = this.props;
 
     // Promote secondary content to primary content in the event that secondary
     // is the only available content.

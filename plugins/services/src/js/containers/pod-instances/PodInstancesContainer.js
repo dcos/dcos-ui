@@ -1,29 +1,29 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import AppDispatcher from '#SRC/js/events/AppDispatcher';
-import ContainerUtil from '#SRC/js/utils/ContainerUtil';
-import EventTypes from '#SRC/js/constants/EventTypes';
-import MesosStateStore from '#SRC/js/stores/MesosStateStore';
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import ContainerUtil from "#SRC/js/utils/ContainerUtil";
+import EventTypes from "#SRC/js/constants/EventTypes";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
-import ActionKeys from '../../constants/ActionKeys';
-import MarathonActions from '../../events/MarathonActions';
-import Pod from '../../structs/Pod';
-import PodInstancesView from './PodInstancesView';
-import PodUtil from '../../utils/PodUtil';
-import ServiceActionItem from '../../constants/ServiceActionItem';
-import TaskModals from '../../components/modals/TaskModals';
+import ActionKeys from "../../constants/ActionKeys";
+import MarathonActions from "../../events/MarathonActions";
+import Pod from "../../structs/Pod";
+import PodInstancesView from "./PodInstancesView";
+import PodUtil from "../../utils/PodUtil";
+import ServiceActionItem from "../../constants/ServiceActionItem";
+import TaskModals from "../../components/modals/TaskModals";
 
 import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
   REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
-} from '../../constants/ActionTypes';
+} from "../../constants/ActionTypes";
 
 const METHODS_TO_BIND = [
-  'handleMesosStateChange',
-  'handleServerAction',
-  'handleModalClose',
-  'clearActionError',
-  'killPodInstances'
+  "handleMesosStateChange",
+  "handleServerAction",
+  "handleModalClose",
+  "clearActionError",
+  "killPodInstances"
 ];
 
 class PodInstancesContainer extends React.Component {
@@ -36,7 +36,7 @@ class PodInstancesContainer extends React.Component {
       pendingActions: {}
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -79,7 +79,7 @@ class PodInstancesContainer extends React.Component {
   }
 
   handleServerAction(payload) {
-    const {action} = payload;
+    const { action } = payload;
 
     switch (action.type) {
       case REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR:
@@ -95,7 +95,7 @@ class PodInstancesContainer extends React.Component {
     if (key) {
       this.clearActionError(key);
     }
-    this.setState({modal: {}});
+    this.setState({ modal: {} });
   }
 
   fetchData() {
@@ -108,14 +108,18 @@ class PodInstancesContainer extends React.Component {
    * @param {String} actionType
    */
   setPendingAction(actionType) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, true
+        pendingActions,
+        actionType,
+        true
       )
     });
   }
@@ -127,14 +131,18 @@ class PodInstancesContainer extends React.Component {
    * @param  {Any} error
    */
   unsetPendingAction(actionType, error = null) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, error
+        actionErrors,
+        actionType,
+        error
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, false
+        pendingActions,
+        actionType,
+        false
       )
     });
 
@@ -145,11 +153,13 @@ class PodInstancesContainer extends React.Component {
   }
 
   clearActionError(actionType) {
-    const {actionErrors} = this.state;
+    const { actionErrors } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       )
     });
   }
@@ -158,14 +168,13 @@ class PodInstancesContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, {id})
+        modal: Object.assign({}, props, { id })
       });
     };
 
     return {
-      killPodInstances: (props) => set(
-        ServiceActionItem.KILL_POD_INSTANCES, props
-      )
+      killPodInstances: props =>
+        set(ServiceActionItem.KILL_POD_INSTANCES, props)
     };
   }
 
@@ -176,8 +185,8 @@ class PodInstancesContainer extends React.Component {
   }
 
   getModals() {
-    const {pod} = this.props;
-    const modalProps = Object.assign({pod}, this.state.modal);
+    const { pod } = this.props;
+    const modalProps = Object.assign({ pod }, this.state.modal);
 
     return (
       <TaskModals
@@ -186,28 +195,31 @@ class PodInstancesContainer extends React.Component {
         clearError={this.clearActionError}
         onClose={this.handleModalClose}
         pendingActions={this.state.pendingActions}
-        modalProps={modalProps} />
+        modalProps={modalProps}
+      />
     );
   }
 
   render() {
-    const {pod} = this.props;
+    const { pod } = this.props;
 
     const historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
     let instances = PodUtil.mergeHistoricalInstanceList(
-      pod.getInstanceList(), historicalInstances);
+      pod.getInstanceList(),
+      historicalInstances
+    );
 
-    instances = instances.mapItems(function (instance) {
-      instance.agent = MesosStateStore.getNodeFromHostname(instance.getAgentAddress());
+    instances = instances.mapItems(function(instance) {
+      instance.agent = MesosStateStore.getNodeFromHostname(
+        instance.getAgentAddress()
+      );
 
       return instance;
     });
 
     return (
       <div>
-        <PodInstancesView
-          instances={instances}
-          pod={pod} />
+        <PodInstancesView instances={instances} pod={pod} />
         {this.getModals()}
       </div>
     );

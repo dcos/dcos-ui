@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 
 const TemplateUtil = {
-
   /**
    * Defines each item in children as a template child of the parent class.
    *
@@ -26,7 +25,7 @@ const TemplateUtil = {
    *
    * @return {Array} a list of children.
    */
-  getTypesOfTemplateChildren({templateItems = {}}) {
+  getTypesOfTemplateChildren({ templateItems = {} }) {
     return Object.values(templateItems);
   },
 
@@ -41,8 +40,9 @@ const TemplateUtil = {
   filterTemplateChildren(T, children) {
     const types = this.getTypesOfTemplateChildren(T);
 
-    return React.Children.toArray(children)
-        .filter((child) => !types.includes(child.type));
+    return React.Children
+      .toArray(children)
+      .filter(child => !types.includes(child.type));
   },
 
   /**
@@ -54,10 +54,8 @@ const TemplateUtil = {
    * @return {React.Component} a single child of type <T>.
    */
   getChildOfType(children, T) {
-    return React.Children.toArray(children)
-      .find((child) => child.type === T);
+    return React.Children.toArray(children).find(child => child.type === T);
   }
-
 };
 
 module.exports = TemplateUtil;

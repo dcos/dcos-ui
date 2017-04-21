@@ -1,37 +1,36 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CompositeState from '#SRC/js/structs/CompositeState';
-import QueryParamsMixin from '#SRC/js/mixins/QueryParamsMixin';
+import CompositeState from "#SRC/js/structs/CompositeState";
+import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 
-import NodesTable from '../../../components/NodesTable';
+import NodesTable from "../../../components/NodesTable";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
-
   constructor() {
     super(...arguments);
 
     this.state = {
       filteredNodes: [],
-      filters: {health: 'all', name: '', service: null},
+      filters: { health: "all", name: "", service: null },
       receivedNodeHealthResponse: false
     };
     this.store_listeners = [
       {
-        events: ['success'],
+        events: ["success"],
         listenAlways: false,
-        name: 'nodeHealth',
+        name: "nodeHealth",
         suppressUpdate: true
       }
     ];
   }
 
   componentWillReceiveProps(nextProps) {
-    const {location: {query}} = nextProps;
+    const { location: { query } } = nextProps;
     const filters = {
-      health: query.filterHealth || 'all',
-      name: query.searchString || '',
+      health: query.filterHealth || "all",
+      name: query.searchString || "",
       service: query.filterService || null
     };
     this.setFilters(filters);
@@ -42,13 +41,13 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   setFilters(newFilters, callback) {
-    if (newFilters.service === '') {
+    if (newFilters.service === "") {
       newFilters.service = null;
     }
     const filters = Object.assign({}, this.state.filters, newFilters);
     const filteredNodes = this.getFilteredNodes(filters);
 
-    this.setState({filters, filteredNodes}, callback);
+    this.setState({ filters, filteredNodes }, callback);
   }
 
   onNodeHealthStoreSuccess() {
@@ -59,12 +58,13 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   render() {
-    const {receivedNodeHealthResponse, filteredNodes} = this.state;
+    const { receivedNodeHealthResponse, filteredNodes } = this.state;
 
     return (
       <NodesTable
         hosts={filteredNodes}
-        receivedNodeHealthResponse={receivedNodeHealthResponse} />
+        receivedNodeHealthResponse={receivedNodeHealthResponse}
+      />
     );
   }
 }

@@ -1,24 +1,27 @@
-import React, {Component} from 'react';
-import {Tooltip} from 'reactjs-components';
+import React, { Component } from "react";
+import { Tooltip } from "reactjs-components";
 
-import {findNestedPropertyInObject} from '#SRC/js/utils/Util';
-import AddButton from '#SRC/js/components/form/AddButton';
-import DeleteRowButton from '#SRC/js/components/form/DeleteRowButton';
-import Icon from '#SRC/js/components/Icon';
-import FieldError from '#SRC/js/components/form/FieldError';
-import FieldInput from '#SRC/js/components/form/FieldInput';
-import FieldLabel from '#SRC/js/components/form/FieldLabel';
-import FormGroup from '#SRC/js/components/form/FormGroup';
-import FormRow from '#SRC/js/components/form/FormRow';
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import AddButton from "#SRC/js/components/form/AddButton";
+import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
+import Icon from "#SRC/js/components/Icon";
+import FieldError from "#SRC/js/components/form/FieldError";
+import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormRow from "#SRC/js/components/form/FormRow";
 
 class ArtifactsSection extends Component {
   getArtifactsLabel() {
     const tooltipContent = (
       <span>
-        {'If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. '}
+        {
+          "If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. "
+        }
         <a
           href="https://mesosphere.github.io/marathon/docs/application-basics.html"
-          target="_blank">
+          target="_blank"
+        >
           More information
         </a>.
       </span>
@@ -26,12 +29,13 @@ class ArtifactsSection extends Component {
 
     return (
       <FieldLabel>
-        {'Artifact URI '}
+        {"Artifact URI "}
         <Tooltip
           content={tooltipContent}
           interactive={true}
           maxWidth={300}
-          wrapText={true}>
+          wrapText={true}
+        >
           <Icon color="grey" id="circle-question" size="mini" />
         </Tooltip>
       </FieldLabel>
@@ -39,7 +43,7 @@ class ArtifactsSection extends Component {
   }
 
   getArtifactsInputs() {
-    const {data, errors, path} = this.props;
+    const { data, errors, path } = this.props;
 
     if (data.length === 0) {
       return (
@@ -60,22 +64,22 @@ class ArtifactsSection extends Component {
 
       return (
         <FormRow key={`${path}.${index}`}>
-          <FormGroup
-            className="column-12"
-            showError={Boolean(error)}>
+          <FormGroup className="column-12" showError={Boolean(error)}>
             {label}
             <FieldInput
               name={`${path}.${index}.uri`}
               placeholder="http://example.com"
-              value={item.uri}/>
+              value={item.uri}
+            />
             <FieldError>{error}</FieldError>
           </FormGroup>
           <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>
             <DeleteRowButton
-              onClick={this.props.onRemoveItem.bind(
-                this,
-                {path, value: index}
-              )} />
+              onClick={this.props.onRemoveItem.bind(this, {
+                path,
+                value: index
+              })}
+            />
           </FormGroup>
         </FormRow>
       );
@@ -83,7 +87,7 @@ class ArtifactsSection extends Component {
   }
 
   render() {
-    const {data, path} = this.props;
+    const { data, path } = this.props;
 
     return (
       <div className="form-section">
@@ -91,10 +95,11 @@ class ArtifactsSection extends Component {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
-              onClick={this.props.onAddItem.bind(
-                this,
-                {path, value: data.length}
-              )}>
+              onClick={this.props.onAddItem.bind(this, {
+                path,
+                value: data.length
+              })}
+            >
               Add Artifact
             </AddButton>
           </FormGroup>

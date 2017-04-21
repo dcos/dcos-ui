@@ -1,19 +1,19 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
-const Alert = ({children, flushBottom, showIcon, type}) => {
-  const classes = classNames('alert', {
+const Alert = ({ children, flushBottom, showIcon, type }) => {
+  const classes = classNames("alert", {
     [`alert-${type}`]: type != null,
-    'flush-bottom': flushBottom === true
+    "flush-bottom": flushBottom === true
   });
   let icon = null;
 
   if (showIcon) {
     const ids = {
-      danger: 'yield',
-      success: 'checkmark'
+      danger: "yield",
+      success: "checkmark"
     };
 
     icon = (
@@ -36,14 +36,14 @@ const Alert = ({children, flushBottom, showIcon, type}) => {
 Alert.defaultProps = {
   flushBottom: false,
   showIcon: true,
-  type: 'danger'
+  type: "danger"
 };
 
 Alert.propTypes = {
   children: React.PropTypes.node.isRequired,
   flushBottom: React.PropTypes.bool,
   showIcon: React.PropTypes.bool,
-  type: React.PropTypes.oneOf(['danger', 'success'])
+  type: React.PropTypes.oneOf(["danger", "success"])
 };
 
 module.exports = Alert;

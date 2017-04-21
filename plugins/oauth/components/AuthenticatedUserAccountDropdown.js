@@ -1,15 +1,11 @@
-import React from 'react';
+import React from "react";
 
-const SDK = require('../SDK').getSDK();
+const SDK = require("../SDK").getSDK();
 
-const {
-  AuthStore,
-  UserAccountDropdown,
-  UserAccountDropdownTrigger
-} = SDK.get([
-  'AuthStore',
-  'UserAccountDropdown',
-  'UserAccountDropdownTrigger'
+const { AuthStore, UserAccountDropdown, UserAccountDropdownTrigger } = SDK.get([
+  "AuthStore",
+  "UserAccountDropdown",
+  "UserAccountDropdownTrigger"
 ]);
 
 class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
@@ -33,30 +29,35 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
    * @override
    */
   getMenuItems() {
-    const {clusterName, menuItems} = this.props;
+    const { clusterName, menuItems } = this.props;
     const nextMenuItems = menuItems.slice();
     const userLabel = this.getUserLabel();
 
     nextMenuItems.unshift({
-      className: 'hidden',
+      className: "hidden",
       html: (
-        <UserAccountDropdownTrigger primaryContent={clusterName}
-          secondaryContent={userLabel} />
+        <UserAccountDropdownTrigger
+          primaryContent={clusterName}
+          secondaryContent={userLabel}
+        />
       ),
-      id: 'dropdown-trigger',
+      id: "dropdown-trigger",
       selectable: false
     });
 
-    nextMenuItems.push({
-      className: 'dropdown-menu-section-header',
-      html: <label className="text-overflow">{userLabel}</label>,
-      id: 'header-user-label',
-      selectable: false
-    }, {
-      html: 'Sign Out',
-      id: 'sign-out',
-      onClick: AuthStore.logout
-    });
+    nextMenuItems.push(
+      {
+        className: "dropdown-menu-section-header",
+        html: <label className="text-overflow">{userLabel}</label>,
+        id: "header-user-label",
+        selectable: false
+      },
+      {
+        html: "Sign Out",
+        id: "sign-out",
+        onClick: AuthStore.logout
+      }
+    );
 
     return nextMenuItems;
   }

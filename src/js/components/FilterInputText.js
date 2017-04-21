@@ -1,14 +1,15 @@
-import classNames from 'classnames';
-import React, {PropTypes} from 'react';
+import classNames from "classnames";
+import React, { PropTypes } from "react";
 
-import Icon from './Icon';
-import ServiceFilterTypes from '../../../plugins/services/src/js/constants/ServiceFilterTypes';
+import Icon from "./Icon";
+import ServiceFilterTypes
+  from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
-  'handleBlur',
-  'handleFocus',
-  'handleChange',
-  'handleInputClear'
+  "handleBlur",
+  "handleFocus",
+  "handleChange",
+  "handleInputClear"
 ];
 
 class FilterInputText extends React.Component {
@@ -19,13 +20,13 @@ class FilterInputText extends React.Component {
       focus: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {focus} = this.state;
+    const { focus } = this.state;
 
     if (prevState.focus !== focus && focus && this.inputField) {
       this.inputField.focus();
@@ -33,15 +34,15 @@ class FilterInputText extends React.Component {
   }
 
   handleChange(event) {
-    const {target} = event;
+    const { target } = event;
 
     // Make sure to never emit falsy values
-    const value = target.value || '';
+    const value = target.value || "";
     this.props.handleFilterChange(value, ServiceFilterTypes.TEXT);
   }
 
   handleInputClear() {
-    this.props.handleFilterChange('', ServiceFilterTypes.TEXT);
+    this.props.handleFilterChange("", ServiceFilterTypes.TEXT);
   }
 
   handleBlur() {
@@ -57,11 +58,11 @@ class FilterInputText extends React.Component {
   }
 
   getInputField() {
-    const {inverseStyle, placeholder, searchString} = this.props;
+    const { inverseStyle, placeholder, searchString } = this.props;
 
     const inputClasses = classNames({
-      'form-control filter-input-text': true,
-      'form-control-inverse': inverseStyle
+      "form-control filter-input-text": true,
+      "form-control-inverse": inverseStyle
     });
 
     return (
@@ -69,9 +70,10 @@ class FilterInputText extends React.Component {
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
-        ref={(ref) => this.inputField = ref}
+        ref={ref => (this.inputField = ref)}
         type="text"
-        value={searchString} />
+        value={searchString}
+      />
     );
   }
 
@@ -80,15 +82,15 @@ class FilterInputText extends React.Component {
       return null;
     }
 
-    const {inverseStyle, sideText} = this.props;
-    let color = 'white';
+    const { inverseStyle, sideText } = this.props;
+    let color = "white";
 
     if (!inverseStyle) {
-      color = 'purple';
+      color = "purple";
     }
 
-    const iconClassNames = classNames('clickable', {
-      'icon-margin-left': !!sideText
+    const iconClassNames = classNames("clickable", {
+      "icon-margin-left": !!sideText
     });
 
     return (
@@ -99,47 +101,51 @@ class FilterInputText extends React.Component {
             id="circle-close"
             size="mini"
             className={iconClassNames}
-            color={color} />
+            color={color}
+          />
         </a>
       </span>
     );
   }
 
   render() {
-    const {className, inputContainerClass, inverseStyle} = this.props;
-    const {focus} = this.state;
+    const { className, inputContainerClass, inverseStyle } = this.props;
+    const { focus } = this.state;
 
-    let iconColor = 'grey';
+    let iconColor = "grey";
     const iconSearchClasses = classNames({
-      'active': focus
+      active: focus
     });
 
     if (!inverseStyle && focus) {
-      iconColor = 'purple';
+      iconColor = "purple";
     }
 
-    const inputContainerClasses = classNames({
-      'form-control form-control-group filter-input-text-group': true,
-      'form-control-inverse': inverseStyle,
-      'focus': focus
-    }, inputContainerClass);
-
-    const formGroupClasses = classNames(
-      'form-group',
-      className
+    const inputContainerClasses = classNames(
+      {
+        focus,
+        "form-control form-control-group filter-input-text-group": true,
+        "form-control-inverse": inverseStyle
+      },
+      inputContainerClass
     );
+
+    const formGroupClasses = classNames("form-group", className);
 
     return (
       <div className={formGroupClasses}>
-        <div className={inputContainerClasses}
+        <div
+          className={inputContainerClasses}
           onClick={this.handleFocus}
-          onBlur={this.handleBlur}>
+          onBlur={this.handleBlur}
+        >
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
               id="search"
               size="mini"
               className={iconSearchClasses}
-              color={iconColor} />
+              color={iconColor}
+            />
           </span>
           {this.getInputField()}
           {this.getClearIcon()}
@@ -151,8 +157,8 @@ class FilterInputText extends React.Component {
 
 FilterInputText.defaultProps = {
   inverseStyle: false,
-  placeholder: 'Filter',
-  searchString: '',
+  placeholder: "Filter",
+  searchString: "",
   sideText: null
 };
 

@@ -1,17 +1,21 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import Util from '../utils/Util';
+import Util from "../utils/Util";
 
 class Icon extends React.Component {
   render() {
-    const {props} = this;
+    const { props } = this;
 
-    const additionalProps = Util.omit(
-      props,
-      ['className', 'color', 'family', 'id', 'size']
-    );
-    const classes = classNames('icon',
+    const additionalProps = Util.omit(props, [
+      "className",
+      "color",
+      "family",
+      "id",
+      "size"
+    ]);
+    const classes = classNames(
+      "icon",
       {
         [`icon-${props.color}`]: !!props.color,
         [`icon-${props.size}`]: !!props.size
@@ -29,8 +33,8 @@ class Icon extends React.Component {
 }
 
 Icon.defaultProps = {
-  family: 'system',
-  size: 'medium'
+  family: "system",
+  size: "medium"
 };
 
 Icon.propTypes = {
@@ -40,19 +44,15 @@ Icon.propTypes = {
     React.PropTypes.string
   ]),
   color: React.PropTypes.string,
-  family: React.PropTypes.oneOf([
-    'product',
-    'system',
-    'tiny'
-  ]),
+  family: React.PropTypes.oneOf(["product", "system", "tiny"]),
   id: React.PropTypes.string.isRequired,
   size: React.PropTypes.oneOf([
-    'tiny',
-    'mini',
-    'small',
-    'medium',
-    'large',
-    'jumbo'
+    "tiny",
+    "mini",
+    "small",
+    "medium",
+    "large",
+    "jumbo"
   ])
 };
 

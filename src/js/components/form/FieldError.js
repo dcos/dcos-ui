@@ -1,16 +1,17 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import {omit} from '../../utils/Util';
+import { omit } from "../../utils/Util";
 
-const FieldError = (props) => {
-  const {className} = props;
-  const classes = classNames('form-control-feedback', className);
+const FieldError = props => {
+  const { className } = props;
+  const classes = classNames("form-control-feedback", className);
 
   return (
     <p
       className={classes}
-      {...omit(props, Object.keys(FieldError.propTypes))} />
+      {...omit(props, Object.keys(FieldError.propTypes))}
+    />
   );
 };
 

@@ -1,52 +1,53 @@
-import classNames from 'classnames';
-import {Dropdown, Table, Tooltip} from 'reactjs-components';
-import {Link} from 'react-router';
-import React, {PropTypes} from 'react';
+import classNames from "classnames";
+import { Dropdown, Table, Tooltip } from "reactjs-components";
+import { Link } from "react-router";
+import React, { PropTypes } from "react";
 
-import Links from '#SRC/js/constants/Links';
-import Icon from '#SRC/js/components/Icon';
-import NestedServiceLinks from '#SRC/js/components/NestedServiceLinks';
-import StringUtil from '#SRC/js/utils/StringUtil';
-import TableUtil from '#SRC/js/utils/TableUtil';
-import Units from '#SRC/js/utils/Units';
-import UserActions from '#SRC/js/constants/UserActions';
+import Links from "#SRC/js/constants/Links";
+import Icon from "#SRC/js/components/Icon";
+import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import TableUtil from "#SRC/js/utils/TableUtil";
+import Units from "#SRC/js/utils/Units";
+import UserActions from "#SRC/js/constants/UserActions";
 
-import HealthBar from '../../components/HealthBar';
-import Pod from '../../structs/Pod';
-import ResourceTableUtil from '../../../../../../src/js/utils/ResourceTableUtil';
-import Service from '../../structs/Service';
-import ServiceActionItem from '../../constants/ServiceActionItem';
-import ServiceStatusWarning from '../../components/ServiceStatusWarning';
-import ServiceTableHeaderLabels from '../../constants/ServiceTableHeaderLabels';
-import ServiceTableUtil from '../../utils/ServiceTableUtil';
-import ServiceTree from '../../structs/ServiceTree';
+import HealthBar from "../../components/HealthBar";
+import Pod from "../../structs/Pod";
+import ResourceTableUtil
+  from "../../../../../../src/js/utils/ResourceTableUtil";
+import Service from "../../structs/Service";
+import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceStatusWarning from "../../components/ServiceStatusWarning";
+import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
+import ServiceTableUtil from "../../utils/ServiceTableUtil";
+import ServiceTree from "../../structs/ServiceTree";
 
 const StatusMapping = {
-  'Running': 'running-state'
+  Running: "running-state"
 };
 
 const columnClasses = {
-  name: 'service-table-column-name',
-  status: 'service-table-column-status',
-  cpus: 'service-table-column-cpus',
-  mem: 'service-table-column-mem',
-  disk: 'service-table-column-disk',
-  actions: 'service-table-column-actions'
+  name: "service-table-column-name",
+  status: "service-table-column-status",
+  cpus: "service-table-column-cpus",
+  mem: "service-table-column-mem",
+  disk: "service-table-column-disk",
+  actions: "service-table-column-actions"
 };
 
 const METHODS_TO_BIND = [
-  'onActionsItemSelection',
-  'renderHeadline',
-  'renderStats',
-  'renderStatus',
-  'renderServiceActions'
+  "onActionsItemSelection",
+  "renderHeadline",
+  "renderStats",
+  "renderStatus",
+  "renderServiceActions"
 ];
 
 class ServicesTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -63,34 +64,36 @@ class ServicesTable extends React.Component {
         className="table-cell-icon table-display-on-row-hover"
         href={service.getWebURL()}
         target="_blank"
-        title="Open in a new window">
+        title="Open in a new window"
+      >
         <Icon
           color="neutral"
           className="icon-margin-left"
           id="open-external"
-          size="mini" />
+          size="mini"
+        />
       </a>
     );
   }
 
   onActionsItemSelection(service, actionItem) {
-    const {modalHandlers} = this.context;
+    const { modalHandlers } = this.context;
 
     switch (actionItem.id) {
       case ServiceActionItem.SCALE:
-        modalHandlers.scaleService({service});
+        modalHandlers.scaleService({ service });
         break;
       case ServiceActionItem.RESTART:
-        modalHandlers.restartService({service});
+        modalHandlers.restartService({ service });
         break;
       case ServiceActionItem.RESUME:
-        modalHandlers.resumeService({service});
+        modalHandlers.resumeService({ service });
         break;
       case ServiceActionItem.SUSPEND:
-        modalHandlers.suspendService({service});
+        modalHandlers.suspendService({ service });
         break;
       case ServiceActionItem.DELETE:
-        modalHandlers.deleteService({service});
+        modalHandlers.deleteService({ service });
         break;
     }
   }
@@ -98,9 +101,9 @@ class ServicesTable extends React.Component {
   getServiceLink(service) {
     const id = encodeURIComponent(service.getId());
     const isGroup = service instanceof ServiceTree;
-    const serviceLink = isGroup ?
-      `/services/overview/${id}` :
-      `/services/detail/${id}`;
+    const serviceLink = isGroup
+      ? `/services/overview/${id}`
+      : `/services/detail/${id}`;
 
     if (this.props.isFiltered) {
       return (
@@ -108,14 +111,13 @@ class ServicesTable extends React.Component {
           serviceID={id}
           className="service-breadcrumb"
           majorLinkClassName="service-breadcrumb-service-id"
-          minorLinkWrapperClassName="service-breadcrumb-crumb" />
+          minorLinkWrapperClassName="service-breadcrumb-crumb"
+        />
       );
     }
 
     return (
-      <Link
-        className="table-cell-link-primary text-overflow"
-        to={serviceLink}>
+      <Link className="table-cell-link-primary text-overflow" to={serviceLink}>
         {service.getName()}
       </Link>
     );
@@ -125,18 +127,19 @@ class ServicesTable extends React.Component {
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
       return (
-        <Icon className="icon-margin-right"
+        <Icon
+          className="icon-margin-right"
           color="grey"
           id="folder"
-          size="mini" />
+          size="mini"
+        />
       );
     }
 
     // Get service image/icon
     return (
-      <span
-        className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
-        <img src={service.getImages()['icon-small']}/>
+      <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
+        <img src={service.getImages()["icon-small"]} />
       </span>
     );
   }
@@ -144,16 +147,14 @@ class ServicesTable extends React.Component {
   renderHeadline(prop, service) {
     const id = encodeURIComponent(service.getId());
     const isGroup = service instanceof ServiceTree;
-    const serviceLink = isGroup ?
-      `/services/overview/${id}` :
-      `/services/detail/${id}`;
+    const serviceLink = isGroup
+      ? `/services/overview/${id}`
+      : `/services/detail/${id}`;
 
     return (
       <div className="service-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link
-          className="table-cell-icon"
-          to={serviceLink}>
+        <Link className="table-cell-icon" to={serviceLink}>
           {this.getImage(service)}
         </Link>
         <span className="table-cell-value table-cell-flex-box">
@@ -167,19 +168,17 @@ class ServicesTable extends React.Component {
   renderServiceActions(prop, service) {
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
-    const isSingleInstanceApp = service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
+    const isSingleInstanceApp = service.getLabels()
+      .MARATHON_SINGLE_INSTANCE_APP;
     const instancesCount = service.getInstancesCount();
-    const scaleText = isGroup ? 'Scale By' : 'Scale';
+    const scaleText = isGroup ? "Scale By" : "Scale";
 
     const dropdownItems = [
       {
-        className: 'hidden',
+        className: "hidden",
         id: ServiceActionItem.MORE,
-        html: '',
-        selectedHtml: (
-          <Icon id="ellipsis-vertical"
-            size="mini" />
-        )
+        html: "",
+        selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
       },
       {
         className: classNames({
@@ -193,21 +192,21 @@ class ServicesTable extends React.Component {
           hidden: isPod || isGroup || instancesCount === 0
         }),
         id: ServiceActionItem.RESTART,
-        html: 'Restart'
+        html: "Restart"
       },
       {
         className: classNames({
           hidden: instancesCount === 0
         }),
         id: ServiceActionItem.SUSPEND,
-        html: 'Suspend'
+        html: "Suspend"
       },
       {
         className: classNames({
           hidden: isGroup || instancesCount > 0
         }),
         id: ServiceActionItem.RESUME,
-        html: 'Resume'
+        html: "Resume"
       },
       {
         id: ServiceActionItem.DELETE,
@@ -235,7 +234,8 @@ class ServicesTable extends React.Component {
           scrollContainerParentSelector=".gm-prevented"
           title="More actions"
           transition={true}
-          transitionName="dropdown-menu" />
+          transitionName="dropdown-menu"
+        />
       </Tooltip>
     );
   }
@@ -244,14 +244,14 @@ class ServicesTable extends React.Component {
     const instancesCount = service.getInstancesCount();
     const serviceId = service.getId();
     const serviceStatus = service.getStatus();
-    const serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
     const tasksSummary = service.getTasksSummary();
-    const {tasksRunning} = tasksSummary;
+    const { tasksRunning } = tasksSummary;
 
-    const isDeploying = serviceStatus === 'Deploying';
+    const isDeploying = serviceStatus === "Deploying";
 
     const conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Instance', tasksRunning)})`;
+    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
@@ -263,7 +263,8 @@ class ServicesTable extends React.Component {
             isDeploying={isDeploying}
             key={serviceId}
             tasksSummary={tasksSummary}
-            instancesCount={instancesCount} />
+            instancesCount={instancesCount}
+          />
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
@@ -289,8 +290,8 @@ class ServicesTable extends React.Component {
     const isHeader = row == null;
 
     return classNames(columnClasses[prop], {
-      'active': prop === sortBy.prop,
-      'clickable': isHeader
+      active: prop === sortBy.prop,
+      clickable: isHeader
     });
   }
 
@@ -301,7 +302,7 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'name',
+        prop: "name",
         render: this.renderHeadline,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
@@ -310,13 +311,11 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'status',
+        prop: "status",
         helpText: (
           <span>
-            {'At-a-glance overview of the global application or group state. '}
-            <a
-              href={Links.statusHelpLink}
-              target="_blank">
+            {"At-a-glance overview of the global application or group state. "}
+            <a href={Links.statusHelpLink} target="_blank">
               Read more
             </a>.
           </span>
@@ -329,7 +328,7 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'cpus',
+        prop: "cpus",
         render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
@@ -338,7 +337,7 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'mem',
+        prop: "mem",
         render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
@@ -347,7 +346,7 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'disk',
+        prop: "disk",
         render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
@@ -356,7 +355,7 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
-        prop: 'actions',
+        prop: "actions",
         render: this.renderServiceActions,
         sortable: false,
         heading() {
@@ -389,7 +388,8 @@ class ServicesTable extends React.Component {
         data={this.props.services.slice()}
         itemHeight={TableUtil.getRowHeight()}
         containerSelector=".gm-scroll-view"
-        sortBy={{prop: 'name', order: 'asc'}} />
+        sortBy={{ prop: "name", order: "asc" }}
+      />
     );
   }
 }

@@ -1,18 +1,15 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_USERS_SUCCESS,
   REQUEST_USERS_ERROR,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import {
-  USERS_CHANGE,
-  USERS_REQUEST_ERROR
-} from '../constants/EventTypes';
-import GetSetBaseStore from './GetSetBaseStore';
-import UsersActions from '../events/UsersActions';
-import UsersList from '../structs/UsersList';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import { USERS_CHANGE, USERS_REQUEST_ERROR } from "../constants/EventTypes";
+import GetSetBaseStore from "./GetSetBaseStore";
+import UsersActions from "../events/UsersActions";
+import UsersList from "../structs/UsersList";
 
 class UsersStore extends GetSetBaseStore {
   constructor() {
@@ -35,7 +32,7 @@ class UsersStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -57,11 +54,11 @@ class UsersStore extends GetSetBaseStore {
   }
 
   getUsers() {
-    return new UsersList({items: this.getUsersRaw()});
+    return new UsersList({ items: this.getUsersRaw() });
   }
 
   getUsersRaw() {
-    return this.get('users');
+    return this.get("users");
   }
 
   addChangeListener(eventName, callback) {
@@ -73,7 +70,7 @@ class UsersStore extends GetSetBaseStore {
   }
 
   processUsers(users) {
-    this.set({users});
+    this.set({ users });
     this.emit(USERS_CHANGE);
   }
 
@@ -82,9 +79,8 @@ class UsersStore extends GetSetBaseStore {
   }
 
   get storeID() {
-    return 'users';
+    return "users";
   }
-
 }
 
 module.exports = new UsersStore();

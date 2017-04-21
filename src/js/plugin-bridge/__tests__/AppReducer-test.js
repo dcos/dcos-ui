@@ -1,36 +1,35 @@
-jest.dontMock('../AppReducer');
-jest.dontMock('../../config/Config');
-jest.dontMock('../../stores/ConfigStore');
+jest.dontMock("../AppReducer");
+jest.dontMock("../../config/Config");
+jest.dontMock("../../stores/ConfigStore");
 
-const deepEqual = require('deep-equal');
+const deepEqual = require("deep-equal");
 
-const EventTypes = require('../../constants/EventTypes');
-const PluginSDK = require('PluginSDK');
-const PluginConstants = require('../../constants/PluginConstants');
-const PluginTestUtils = require('PluginTestUtils');
+const EventTypes = require("../../constants/EventTypes");
+const PluginSDK = require("PluginSDK");
+const PluginConstants = require("../../constants/PluginConstants");
+const PluginTestUtils = require("PluginTestUtils");
 
 // Get State specific to Application
 function getApplicationState() {
   return PluginSDK.Store.getState()[PluginConstants.APPLICATION];
 }
 
-describe('AppReducer', function () {
-
+describe("AppReducer", function() {
   var expectedState = {
-    foo: 'bar',
-    qux: {foo: 'bar'}
+    foo: "bar",
+    qux: { foo: "bar" }
   };
 
-  it('should alter state correctly when no plugins loaded', function () {
+  it("should alter state correctly when no plugins loaded", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'foo',
-      data: 'bar'
+      storeID: "foo",
+      data: "bar"
     });
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'qux',
-      data: {foo: 'bar'}
+      storeID: "qux",
+      data: { foo: "bar" }
     });
     PluginSDK.initialize({});
 
@@ -39,25 +38,23 @@ describe('AppReducer', function () {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it('should alter state correctly after plugins loaded', function () {
+  it("should alter state correctly after plugins loaded", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'foo',
-      data: 'bar'
+      storeID: "foo",
+      data: "bar"
     });
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'qux',
-      data: {foo: 'bar'}
+      storeID: "qux",
+      data: { foo: "bar" }
     });
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(
-      function () {
-        return function () {
-          return {foo: 'bar'};
-        };
-      }
-    );
+    var mockPlugin = jest.genMockFunction().mockImplementation(function() {
+      return function() {
+        return { foo: "bar" };
+      };
+    });
 
     PluginTestUtils.loadPlugins({
       fakePlugin: {
@@ -74,16 +71,16 @@ describe('AppReducer', function () {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it('should alter state correctly for storeID', function () {
+  it("should alter state correctly for storeID", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'foo',
-      data: 'bar'
+      storeID: "foo",
+      data: "bar"
     });
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'qux',
-      data: {foo: 'bar'}
+      storeID: "qux",
+      data: { foo: "bar" }
     });
 
     var state = getApplicationState();
@@ -92,14 +89,12 @@ describe('AppReducer', function () {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it('should not alter state if action dispatched from plugin', function () {
+  it("should not alter state if action dispatched from plugin", function() {
     var pluginDispatch;
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(
-      function (SDK) {
-        pluginDispatch = SDK.dispatch;
-      }
-    );
+    var mockPlugin = jest.genMockFunction().mockImplementation(function(SDK) {
+      pluginDispatch = SDK.dispatch;
+    });
 
     PluginTestUtils.loadPlugins({
       fakePluginAgain: {
@@ -112,8 +107,8 @@ describe('AppReducer', function () {
 
     pluginDispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'foo',
-      data: 'boom'
+      storeID: "foo",
+      data: "boom"
     });
     var state = getApplicationState();
     // lets remove the config stuff just for ease
@@ -121,15 +116,15 @@ describe('AppReducer', function () {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it('should clone state', function () {
+  it("should clone state", function() {
     var nestedObj = {};
     var data = {
-      foo: 'bar',
+      foo: "bar",
       nested: nestedObj
     };
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
-      storeID: 'foo',
+      storeID: "foo",
       data
     });
     var state = getApplicationState();
@@ -137,5 +132,4 @@ describe('AppReducer', function () {
     expect(state.foo !== data).toEqual(true);
     expect(state.foo.nestedObj !== nestedObj).toEqual(true);
   });
-
 });

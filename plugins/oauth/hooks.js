@@ -1,14 +1,15 @@
-import {MountService} from 'foundation-ui';
+import { MountService } from "foundation-ui";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {Redirect, Route, hashHistory} from 'react-router';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { Redirect, Route, hashHistory } from "react-router";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AuthenticatedUserAccountDropdown from './components/AuthenticatedUserAccountDropdown';
-import LoginPage from './components/LoginPage';
+import AuthenticatedUserAccountDropdown
+  from "./components/AuthenticatedUserAccountDropdown";
+import LoginPage from "./components/LoginPage";
 
-const SDK = require('./SDK').getSDK();
+const SDK = require("./SDK").getSDK();
 
 const {
   AccessDeniedPage,
@@ -20,14 +21,14 @@ const {
   RouterUtil,
   UsersPage
 } = SDK.get([
-  'AccessDeniedPage',
-  'ApplicationUtil',
-  'AuthStore',
-  'Authenticated',
-  'ConfigStore',
-  'CookieUtils',
-  'RouterUtil',
-  'UsersPage'
+  "AccessDeniedPage",
+  "ApplicationUtil",
+  "AuthStore",
+  "Authenticated",
+  "ConfigStore",
+  "CookieUtils",
+  "RouterUtil",
+  "UsersPage"
 ]);
 
 let configResponseCallback = null;
@@ -37,41 +38,43 @@ const defaultOrganizationRoute = {
 
 module.exports = Object.assign({}, StoreMixin, {
   actions: [
-    'AJAXRequestError',
-    'userLoginSuccess',
-    'userLogoutSuccess',
-    'redirectToLogin'
+    "AJAXRequestError",
+    "userLoginSuccess",
+    "userLogoutSuccess",
+    "redirectToLogin"
   ],
 
   filters: [
-    'applicationRoutes',
-    'delayApplicationLoad',
-    'dcosInstallCommandExtraSteps',
-    'organizationRoutes',
-    'serverErrorModalListeners'
+    "applicationRoutes",
+    "delayApplicationLoad",
+    "dcosInstallCommandExtraSteps",
+    "organizationRoutes",
+    "serverErrorModalListeners"
   ],
 
   initialize() {
-    this.filters.forEach((filter) => {
+    this.filters.forEach(filter => {
       SDK.Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach((action) => {
+    this.actions.forEach(action => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
-    this.store_initializeListeners([{
-      name: 'config',
-      events: ['success', 'error']
-    }]);
+    this.store_initializeListeners([
+      {
+        name: "config",
+        events: ["success", "error"]
+      }
+    ]);
     this.registerUserAccountDropdown();
   },
 
   dcosInstallCommandExtraSteps() {
     // Inject additional steps into the CLI install instructions
-    return 'dcos auth login';
+    return "dcos auth login";
   },
 
   redirectToLogin(nextState, replace) {
-    replace('/login');
+    replace("/login");
   },
 
   AJAXRequestError(xhr) {
@@ -85,20 +88,22 @@ module.exports = Object.assign({}, StoreMixin, {
 
     // Unauthorized
     if (xhr.status === 401 && !onLoginPage && !onAccessDeniedPage) {
-      global.document.cookie = CookieUtils.emptyCookieWithExpiry(new Date(1970));
-      global.location.href = '#/login';
+      global.document.cookie = CookieUtils.emptyCookieWithExpiry(
+        new Date(1970)
+      );
+      global.location.href = "#/login";
     }
 
     // Forbidden
     if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
-      global.location.href = '#/access-denied';
+      global.location.href = "#/access-denied";
     }
   },
 
   serverErrorModalListeners(listeners) {
     listeners.push({
-      name: 'auth',
-      events: ['logoutError']
+      name: "auth",
+      events: ["logoutError"]
     });
 
     return listeners;
@@ -106,8 +111,8 @@ module.exports = Object.assign({}, StoreMixin, {
 
   applicationRoutes(routes) {
     // Override handler of index to be 'authenticated'
-    routes[0].children.forEach(function (child) {
-      if (child.id === 'index') {
+    routes[0].children.forEach(function(child) {
+      if (child.id === "index") {
         child.component = new Authenticated(child.component);
         child.onEnter = child.component.willTransitionTo;
       }
@@ -117,12 +122,12 @@ module.exports = Object.assign({}, StoreMixin, {
     routes[0].children.unshift(
       {
         component: AccessDeniedPage,
-        path: '/access-denied',
+        path: "/access-denied",
         type: Route
       },
       {
         component: LoginPage,
-        path: '/login',
+        path: "/login",
         type: Route
       }
     );
@@ -148,23 +153,23 @@ module.exports = Object.assign({}, StoreMixin, {
   organizationRoutes(routeDefinition = defaultOrganizationRoute) {
     const userRoute = {
       type: Route,
-      path: 'users',
+      path: "users",
       component: UsersPage,
       buildBreadCrumb() {
         return {
-          parentCrumb: '/organization',
+          parentCrumb: "/organization",
           getCrumbs() {
             return [
               {
-                label: 'Users',
-                route: {to: '/organization/users'}
+                label: "Users",
+                route: { to: "/organization/users" }
               }
             ];
           }
         };
       }
     };
-    const usersRouteIndex = routeDefinition.routes.findIndex(function (route) {
+    const usersRouteIndex = routeDefinition.routes.findIndex(function(route) {
       return route.name === userRoute.name;
     });
     // Replace by new definition
@@ -179,8 +184,8 @@ module.exports = Object.assign({}, StoreMixin, {
 
     routeDefinition.redirect = {
       type: Redirect,
-      from: '/organization',
-      to: '/organization/users'
+      from: "/organization",
+      to: "/organization/users"
     };
 
     return routeDefinition;
@@ -189,7 +194,7 @@ module.exports = Object.assign({}, StoreMixin, {
   registerUserAccountDropdown() {
     MountService.MountService.registerComponent(
       AuthenticatedUserAccountDropdown,
-      'Sidebar:UserAccountDropdown',
+      "Sidebar:UserAccountDropdown",
       100
     );
   },
@@ -201,14 +206,14 @@ module.exports = Object.assign({}, StoreMixin, {
       global.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {
-        const loginRedirectRoute = AuthStore.get('loginRedirectRoute');
+        const loginRedirectRoute = AuthStore.get("loginRedirectRoute");
 
         if (loginRedirectRoute) {
           // Go to redirect route if it is present
           hashHistory.push(loginRedirectRoute);
         } else {
           // Go to home
-          hashHistory.push('/');
+          hashHistory.push("/");
         }
       });
     }
@@ -234,6 +239,6 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   navigateToLoginPage() {
-    global.location.href = '#/login';
+    global.location.href = "#/login";
   }
 });

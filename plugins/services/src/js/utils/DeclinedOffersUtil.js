@@ -1,11 +1,11 @@
-import DateUtil from '#SRC/js/utils/DateUtil';
-import Util from '#SRC/js/utils/Util';
+import DateUtil from "#SRC/js/utils/DateUtil";
+import Util from "#SRC/js/utils/Util";
 
-import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
-import ServiceStatus from '../constants/ServiceStatus';
+import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
+import ServiceStatus from "../constants/ServiceStatus";
 
 const DEPLOYMENT_WARNING_DELAY_MS = 1000 * 60 * 5;
-const UNAVAILABLE_TEXT = 'N/A';
+const UNAVAILABLE_TEXT = "N/A";
 
 const rangeReducer = (accumulator, range) => {
   accumulator.push(`${range.begin} – ${range.end}`);
@@ -14,13 +14,13 @@ const rangeReducer = (accumulator, range) => {
 };
 
 const constraintsReducer = (accumulator, constraint) => {
-  const {name, ranges, set, text, scalar} = constraint;
+  const { name, ranges, set, text, scalar } = constraint;
   let value = null;
 
   if (ranges) {
-    value = ranges.reduce(rangeReducer, []).join(', ');
+    value = ranges.reduce(rangeReducer, []).join(", ");
   } else if (set) {
-    value = set.join(', ');
+    value = set.join(", ");
   } else if (text) {
     value = text;
   } else if (scalar) {
@@ -38,92 +38,89 @@ const constraintsReducer = (accumulator, constraint) => {
 
 const DeclinedOffersUtil = {
   getSummaryFromQueue(queue) {
-    const {app, pod, processedOffersSummary = {}} = queue;
+    const { app, pod, processedOffersSummary = {} } = queue;
 
     if (!processedOffersSummary.unusedOffersCount) {
       return null;
     }
 
-    const {rejectSummaryLastOffers = []} = processedOffersSummary;
+    const { rejectSummaryLastOffers = [] } = processedOffersSummary;
     const declinedOffersMap = {};
 
     // Construct map of summary.
-    rejectSummaryLastOffers.forEach(({reason, declined, processed}) => {
-      declinedOffersMap[reason] = {declined, processed};
+    rejectSummaryLastOffers.forEach(({ reason, declined, processed }) => {
+      declinedOffersMap[reason] = { declined, processed };
     });
 
-    const roleOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.UNFULFILLED_ROLE
-    ];
-    const constraintOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.UNFULFILLED_CONSTRAINT
-    ];
-    const cpuOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.INSUFFICIENT_CPU
-    ];
-    const memOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.INSUFFICIENT_MEM
-    ];
-    const diskOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.INSUFFICIENT_DISK
-    ];
-    const portOfferSummary = declinedOffersMap[
-      DeclinedOffersReasons.INSUFFICIENT_PORTS
-    ];
+    const roleOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.UNFULFILLED_ROLE];
+    const constraintOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.UNFULFILLED_CONSTRAINT];
+    const cpuOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_CPU];
+    const memOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_MEM];
+    const diskOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_DISK];
+    const portOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_PORTS];
 
     let requestedResources = null;
 
     if (pod != null) {
-      const {containers = []} = pod;
+      const { containers = [] } = pod;
 
-      requestedResources = containers.reduce((accumulator, container) => {
-        // Tally the total number of requested resources.
-        accumulator.cpus += (
-          Util.findNestedPropertyInObject(container, 'resources.cpus') || 0
-        );
-        accumulator.mem += (
-          Util.findNestedPropertyInObject(container, 'resources.mem') || 0
-        );
-        accumulator.disk += (
-          Util.findNestedPropertyInObject(container, 'resources.disk') || 0
-        );
+      requestedResources = containers.reduce(
+        (accumulator, container) => {
+          // Tally the total number of requested resources.
+          accumulator.cpus +=
+            Util.findNestedPropertyInObject(container, "resources.cpus") || 0;
+          accumulator.mem +=
+            Util.findNestedPropertyInObject(container, "resources.mem") || 0;
+          accumulator.disk +=
+            Util.findNestedPropertyInObject(container, "resources.disk") || 0;
 
-        // Push ports to the ports array if defined.
-        const ports = Util.findNestedPropertyInObject(
-          container, 'resources.ports'
-        );
+          // Push ports to the ports array if defined.
+          const ports = Util.findNestedPropertyInObject(
+            container,
+            "resources.ports"
+          );
 
-        if (ports) {
-          accumulator.ports.push(ports);
+          if (ports) {
+            accumulator.ports.push(ports);
+          }
+
+          return accumulator;
+        },
+        {
+          roles: Util.findNestedPropertyInObject(
+            pod,
+            "scheduling.placement.acceptedResourceRoles"
+          ) || ["*"],
+          constraints: Util.findNestedPropertyInObject(
+            pod,
+            "scheduling.placement.constraints"
+          ) || [],
+          cpus: Util.findNestedPropertyInObject(
+            pod,
+            "executorResources.cpus"
+          ) || 0,
+          mem: Util.findNestedPropertyInObject(pod, "executorResources.mem") ||
+            0,
+          disk: Util.findNestedPropertyInObject(
+            pod,
+            "executorResources.disk"
+          ) || 0,
+          ports: []
         }
-
-        return accumulator;
-      }, {
-        roles: Util.findNestedPropertyInObject(
-          pod, 'scheduling.placement.acceptedResourceRoles'
-        ) || ['*'],
-        constraints: Util.findNestedPropertyInObject(
-          pod, 'scheduling.placement.constraints'
-        ) || [],
-        cpus: Util.findNestedPropertyInObject(
-          pod, 'executorResources.cpus'
-        ) || 0,
-        mem: Util.findNestedPropertyInObject(
-          pod, 'executorResources.mem'
-        ) || 0,
-        disk: Util.findNestedPropertyInObject(
-          pod, 'executorResources.disk'
-        ) || 0,
-        ports: []
-      });
+      );
     } else {
       requestedResources = {
         roles: Util.findNestedPropertyInObject(
-            app, 'acceptedResourceRoles'
-          ) || ['*'],
-        constraints: Util.findNestedPropertyInObject(
-          app, 'constraints'
-        ) || [],
+          app,
+          "acceptedResourceRoles"
+        ) || ["*"],
+        constraints: Util.findNestedPropertyInObject(app, "constraints") || [],
         cpus: app.cpus || 0,
         mem: app.mem || 0,
         disk: app.disk || 0,
@@ -133,26 +130,30 @@ const DeclinedOffersUtil = {
 
     return {
       roles: {
-        requested: requestedResources.roles.join(', ') || UNAVAILABLE_TEXT,
+        requested: requestedResources.roles.join(", ") || UNAVAILABLE_TEXT,
         offers: roleOfferSummary.processed,
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraints: {
-        requested: requestedResources.constraints.map((constraint = []) => {
-          if (Array.isArray(constraint)) {
-            return constraint.join(':');
-          }
+        requested: requestedResources.constraints
+          .map((constraint = []) => {
+            if (Array.isArray(constraint)) {
+              return constraint.join(":");
+            }
 
-          // pod
-          const {fieldName, operator, value} = constraint;
+            // pod
+            const { fieldName, operator, value } = constraint;
 
-          return [fieldName, operator, value].filter(function (value) {
-            return value && value !== '';
-          }).join(':');
-        }).join(', ') || UNAVAILABLE_TEXT,
+            return [fieldName, operator, value]
+              .filter(function(value) {
+                return value && value !== "";
+              })
+              .join(":");
+          })
+          .join(", ") || UNAVAILABLE_TEXT,
         offers: constraintOfferSummary.processed,
-        matched: constraintOfferSummary.processed
-          - constraintOfferSummary.declined
+        matched: constraintOfferSummary.processed -
+          constraintOfferSummary.declined
       },
       cpus: {
         requested: requestedResources.cpus,
@@ -170,9 +171,11 @@ const DeclinedOffersUtil = {
         matched: diskOfferSummary.processed - diskOfferSummary.declined
       },
       ports: {
-        requested: requestedResources.ports.map((resourceArr = []) => {
-          return resourceArr.join(', ');
-        }).join(', ') || UNAVAILABLE_TEXT,
+        requested: requestedResources.ports
+          .map((resourceArr = []) => {
+            return resourceArr.join(", ");
+          })
+          .join(", ") || UNAVAILABLE_TEXT,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }
@@ -180,19 +183,15 @@ const DeclinedOffersUtil = {
   },
 
   getOffersFromQueue(queue) {
-    const {lastUnusedOffers = []} = queue;
+    const { lastUnusedOffers = [] } = queue;
 
     if (!lastUnusedOffers.length) {
       return null;
     }
 
-    return lastUnusedOffers.map((declinedOffer) => {
+    return lastUnusedOffers.map(declinedOffer => {
       const {
-        offer: {
-          attributes = [],
-          hostname,
-          resources = []
-        },
+        offer: { attributes = [], hostname, resources = [] },
         timestamp
       } = declinedOffer;
 
@@ -200,62 +199,73 @@ const DeclinedOffersUtil = {
         hostname,
         timestamp,
         unmatchedResource: declinedOffer.reason,
-        offered: resources.reduce((accumulator, resource) => {
-          const {name, role} = resource;
+        offered: resources.reduce(
+          (accumulator, resource) => {
+            const { name, role } = resource;
 
-          if (name === 'ports') {
-            const {ranges = []} = resource;
+            if (name === "ports") {
+              const { ranges = [] } = resource;
 
-            accumulator[name] = ranges.reduce(rangeReducer, []);
-          } else {
-            accumulator[name] = resource.scalar;
+              accumulator[name] = ranges.reduce(rangeReducer, []);
+            } else {
+              accumulator[name] = resource.scalar;
+            }
+
+            // Accumulate all roles.
+            if (!accumulator.roles.includes(role) && role) {
+              accumulator.roles.push(role);
+            }
+
+            return accumulator;
+          },
+          {
+            constraints: attributes.reduce(constraintsReducer, []).join(", "),
+            roles: []
           }
-
-          // Accumulate all roles.
-          if (!accumulator.roles.includes(role) && role) {
-            accumulator.roles.push(role);
-          }
-
-          return accumulator;
-        }, {
-          constraints: attributes.reduce(constraintsReducer, []).join(', '),
-          roles: []
-        })
+        )
       };
     });
   },
 
   getTimeWaiting(queue) {
-    return Util.findNestedPropertyInObject(
-        queue, 'processedOffersSummary.lastUsedOfferAt'
-      ) || queue.since;
+    return (
+      Util.findNestedPropertyInObject(
+        queue,
+        "processedOffersSummary.lastUsedOfferAt"
+      ) || queue.since
+    );
   },
 
   shouldDisplayDeclinedOffersWarning(item) {
     const queue = item.getQueue();
     const lastUsedOffer = DateUtil.strToMs(
       Util.findNestedPropertyInObject(
-        queue, 'processedOffersSummary.lastUsedOfferAt'
+        queue,
+        "processedOffersSummary.lastUsedOfferAt"
       ) || 0
     );
     const lastUnusedOffer = DateUtil.strToMs(
       Util.findNestedPropertyInObject(
-        queue, 'processedOffersSummary.lastUnusedOfferAt'
+        queue,
+        "processedOffersSummary.lastUnusedOfferAt"
       ) || 0
     );
 
     // We don't display the declined offers debug info if the app is not in the
     // deployment queue, or if the app's status is delayed, or if the app has
     // matched an offer more recently than unmatched.
-    if (queue == null
-      || item.getServiceStatus() === ServiceStatus.DELAYED
-      || lastUsedOffer >= lastUnusedOffer) {
+    if (
+      queue == null ||
+      item.getServiceStatus() === ServiceStatus.DELAYED ||
+      lastUsedOffer >= lastUnusedOffer
+    ) {
       return false;
     }
 
-    return Date.now()
-      - DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(queue))
-      >= DEPLOYMENT_WARNING_DELAY_MS;
+    return (
+      Date.now() - DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(queue)) >=
+      DEPLOYMENT_WARNING_DELAY_MS
+    );
   }
 };
 

@@ -1,6 +1,6 @@
-import Item from './Item';
-import ObjectUtil from '../utils/ObjectUtil';
-import StringUtil from '../utils/StringUtil';
+import Item from "./Item";
+import ObjectUtil from "../utils/ObjectUtil";
+import StringUtil from "../utils/StringUtil";
 
 /**
  * Cast an item to the List's type, if specified.
@@ -23,7 +23,6 @@ function cast(item) {
 }
 
 module.exports = class List {
-
   /**
    * List
    * @param {Object} options Options object
@@ -38,14 +37,13 @@ module.exports = class List {
 
     if (options.items) {
       if (!Array.isArray(options.items)) {
-        throw new Error('Expected an array.');
+        throw new Error("Expected an array.");
       }
       if (this.constructor.type != null) {
         this.list = options.items.map(cast.bind(this));
       } else {
         this.list = options.items;
       }
-
     }
 
     this.filterProperties = options.filterProperties || {};
@@ -90,14 +88,16 @@ module.exports = class List {
     // and we mark all the objects of `currentItems` with it, declaring them as
     // used.
     const comparisonTag = {};
-    for (let i=0, length=currentItems.length; i<length; ++i) {
-      combinedItems[actualLength++] =
-        ObjectUtil.markObject(currentItems[i], comparisonTag);
+    for (let i = 0, length = currentItems.length; i < length; ++i) {
+      combinedItems[actualLength++] = ObjectUtil.markObject(
+        currentItems[i],
+        comparisonTag
+      );
     }
 
     // We then iterate over the `newItems` and skip the objects that are already
     // marked from the previous step.
-    for (let i=0, length=newItems.length; i<length; ++i) {
+    for (let i = 0, length = newItems.length; i < length; ++i) {
       if (!ObjectUtil.objectHasMark(newItems[i], comparisonTag)) {
         combinedItems[actualLength++] = newItems[i];
       }
@@ -107,7 +107,7 @@ module.exports = class List {
     // of the end result and we create the new list
     combinedItems.length = actualLength;
 
-    return new this.constructor({items: combinedItems});
+    return new this.constructor({ items: combinedItems });
   }
 
   /**
@@ -121,7 +121,7 @@ module.exports = class List {
       return callback(item, index, this);
     });
 
-    return new this.constructor({items});
+    return new this.constructor({ items });
   }
 
   /**
@@ -135,35 +135,41 @@ module.exports = class List {
     let items = this.getItems();
 
     if (filterText) {
-      items = StringUtil.filterByString(items, function (item) {
-        const searchFields = Object.keys(filterProperties).map(function (prop) {
-          // We need different handlers for item getters since the property
-          // since there can be different ways of getting the value needed
+      items = StringUtil.filterByString(
+        items,
+        function(item) {
+          const searchFields = Object.keys(filterProperties).map(function(
+            prop
+          ) {
+            // We need different handlers for item getters since the property
+            // since there can be different ways of getting the value needed
 
-          // Use getter function if specified in filterProperties.
-          // This is used if property is nested or type is different than string
-          const valueGetter = filterProperties[prop];
-          if (typeof valueGetter === 'function') {
-            return valueGetter(item, prop);
-          }
+            // Use getter function if specified in filterProperties.
+            // This is used if property is nested or type is different than string
+            const valueGetter = filterProperties[prop];
+            if (typeof valueGetter === "function") {
+              return valueGetter(item, prop);
+            }
 
-          // Use default getter if item is an instanceof Item.
-          // This is the regular way of getting a property on an item
-          if (item instanceof Item) {
-            return item.get(prop) || '';
-          }
+            // Use default getter if item is an instanceof Item.
+            // This is the regular way of getting a property on an item
+            if (item instanceof Item) {
+              return item.get(prop) || "";
+            }
 
-          // Last resort is to get property on object.
-          // Some of the items in lists are not always of instance Item and
-          // therefore we might need to get it directly on the object
-          return item[prop] || '';
-        });
+            // Last resort is to get property on object.
+            // Some of the items in lists are not always of instance Item and
+            // therefore we might need to get it directly on the object
+            return item[prop] || "";
+          });
 
-        return searchFields.join(' ');
-      }, filterText);
+          return searchFields.join(" ");
+        },
+        filterText
+      );
     }
 
-    return new this.constructor({items});
+    return new this.constructor({ items });
   }
 
   /**
@@ -185,7 +191,7 @@ module.exports = class List {
       return callback(item, index, this);
     });
 
-    return new this.constructor({items});
+    return new this.constructor({ items });
   }
 
   /**

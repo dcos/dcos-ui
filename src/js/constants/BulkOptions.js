@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import StringUtil from '../utils/StringUtil';
-import UserActions from './UserActions';
+import StringUtil from "../utils/StringUtil";
+import UserActions from "./UserActions";
 
 const BulkOptions = {
   user: {
@@ -13,7 +13,7 @@ const BulkOptions = {
           {StringUtil.capitalize(UserActions.DELETE)}
         </span>
       ),
-      title: 'Are you sure?',
+      title: "Are you sure?",
       actionPhrase: `will be ${UserActions.DELETED}`
     }
   }

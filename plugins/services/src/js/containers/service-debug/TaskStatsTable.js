@@ -1,38 +1,38 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Table} from 'reactjs-components';
+import classNames from "classnames";
+import React from "react";
+import { Table } from "reactjs-components";
 
-import DateUtil from '#SRC/js/utils/DateUtil';
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 const taskStatus = [
-  'getRunningTaskCount',
-  'getHealthyTaskCount',
-  'getUnhealthyTaskCount',
-  'getStagedTaskCount'
+  "getRunningTaskCount",
+  "getHealthyTaskCount",
+  "getUnhealthyTaskCount",
+  "getStagedTaskCount"
 ];
 const nameMapping = {
-  startedAfterLastScaling: 'Started After Last Scaling',
-  withLatestConfig: 'With Latest Config',
-  withOutdatedConfig: 'With Outdated Config',
-  totalSummary: 'Total Summary'
+  startedAfterLastScaling: "Started After Last Scaling",
+  withLatestConfig: "With Latest Config",
+  withOutdatedConfig: "With Outdated Config",
+  totalSummary: "Total Summary"
 };
 const headerMapping = {
-  getRunningTaskCount: 'RUNNING',
-  getHealthyTaskCount: 'HEALTHY',
-  getUnhealthyTaskCount: 'UNHEALTHY',
-  getStagedTaskCount: 'STAGED',
-  getMedianLifeTime: 'MEDIAN LIFETIME'
+  getRunningTaskCount: "RUNNING",
+  getHealthyTaskCount: "HEALTHY",
+  getUnhealthyTaskCount: "UNHEALTHY",
+  getStagedTaskCount: "STAGED",
+  getMedianLifeTime: "MEDIAN LIFETIME"
 };
 
 class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy) {
-    const shouldAlignRight = taskStatus.includes(prop)
-      || prop === 'getMedianLifeTime';
+    const shouldAlignRight =
+      taskStatus.includes(prop) || prop === "getMedianLifeTime";
 
     return classNames({
-      'active': prop === sortBy.prop,
-      'text-align-right': shouldAlignRight,
-      'hidden-small-down': taskStatus.includes(prop)
+      active: prop === sortBy.prop,
+      "text-align-right": shouldAlignRight,
+      "hidden-small-down": taskStatus.includes(prop)
     });
   }
 
@@ -45,7 +45,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getName',
+        prop: "getName",
         render(prop, taskStats) {
           return nameMapping[taskStats.getName()];
         },
@@ -55,7 +55,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getRunningTaskCount',
+        prop: "getRunningTaskCount",
         render: this.getStatus,
         sortable: false
       },
@@ -63,7 +63,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getHealthyTaskCount',
+        prop: "getHealthyTaskCount",
         render: this.getStatus,
         sortable: false
       },
@@ -71,7 +71,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getUnhealthyTaskCount',
+        prop: "getUnhealthyTaskCount",
         render: this.getStatus,
         sortable: false
       },
@@ -79,7 +79,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getStagedTaskCount',
+        prop: "getStagedTaskCount",
         render: this.getStatus,
         sortable: false
       },
@@ -87,7 +87,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getMedianLifeTime',
+        prop: "getMedianLifeTime",
         render: this.renderTime,
         sortable: false
       }
@@ -95,19 +95,17 @@ class TaskStatsTable extends React.Component {
   }
 
   renderHeading(prop) {
-    return (
-      <span className="table-header-title">{headerMapping[prop]}</span>
-    );
+    return <span className="table-header-title">{headerMapping[prop]}</span>;
   }
 
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '20%'}} />
-        <col style={{width: '95px'}} className="hidden-small-down" />
-        <col style={{width: '90px'}} className="hidden-small-down" />
-        <col style={{width: '105px'}} className="hidden-small-down" />
-        <col style={{width: '90px'}} className="hidden-small-down" />
+        <col style={{ width: "20%" }} />
+        <col style={{ width: "95px" }} className="hidden-small-down" />
+        <col style={{ width: "90px" }} className="hidden-small-down" />
+        <col style={{ width: "105px" }} className="hidden-small-down" />
+        <col style={{ width: "90px" }} className="hidden-small-down" />
         <col />
       </colgroup>
     );
@@ -118,17 +116,16 @@ class TaskStatsTable extends React.Component {
   }
 
   renderTime(prop, taskStats) {
-    let label = 'seconds';
+    let label = "seconds";
     const lifeTimeSeconds = taskStats[prop]();
     let timeValue = lifeTimeSeconds;
 
     if (lifeTimeSeconds > 3600) {
-      label = 'minutes';
+      label = "minutes";
       timeValue = timeValue / 60;
     }
 
-    timeValue = new Number(parseFloat(timeValue).toFixed())
-      .toLocaleString();
+    timeValue = new Number(parseFloat(timeValue).toFixed()).toLocaleString();
 
     const humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds, 10));
 
@@ -141,7 +138,8 @@ class TaskStatsTable extends React.Component {
         className="table table-simple table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.props.taskStats.getList().getItems()} />
+        data={this.props.taskStats.getList().getItems()}
+      />
     );
   }
 }

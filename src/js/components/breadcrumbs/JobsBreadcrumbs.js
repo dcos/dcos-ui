@@ -1,13 +1,14 @@
-import {Link} from 'react-router';
-import prettycron from 'prettycron';
-import React from 'react';
-import {Tooltip} from 'reactjs-components';
+import { Link } from "react-router";
+import prettycron from "prettycron";
+import React from "react";
+import { Tooltip } from "reactjs-components";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbSupplementalContent from '../../components/BreadcrumbSupplementalContent';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import Icon from '../Icon';
-import PageHeaderBreadcrumbs from '../../components/PageHeaderBreadcrumbs';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbSupplementalContent
+  from "../../components/BreadcrumbSupplementalContent";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import Icon from "../Icon";
+import PageHeaderBreadcrumbs from "../../components/PageHeaderBreadcrumbs";
 
 function getJobStatus(jobStatus) {
   if (jobStatus != null) {
@@ -33,11 +34,9 @@ function getJobSchedule(jobSchedules) {
           <Tooltip
             content={prettycron.toString(schedule.cron)}
             maxWidth={250}
-            wrapText={true}>
-            <Icon
-              color="grey"
-              id="repeat"
-              size="mini" />
+            wrapText={true}
+          >
+            <Icon color="grey" id="repeat" size="mini" />
           </Tooltip>
         </BreadcrumbSupplementalContent>
       );
@@ -47,9 +46,9 @@ function getJobSchedule(jobSchedules) {
   return null;
 }
 
-const JobsBreadcrumbs = (props) => {
-  const {jobID, taskID, taskName, jobSchedules, jobStatus} = props;
-  let aggregateIDs = '';
+const JobsBreadcrumbs = props => {
+  const { jobID, taskID, taskName, jobSchedules, jobStatus } = props;
+  let aggregateIDs = "";
   const crumbs = [
     <Breadcrumb key={0} title="Jobs">
       <BreadcrumbTextContent>
@@ -59,14 +58,14 @@ const JobsBreadcrumbs = (props) => {
   ];
 
   if (jobID != null && jobID.length > 0) {
-    const ids = jobID.split('.');
+    const ids = jobID.split(".");
 
-    const jobsCrumbs = ids.map(function (id, index) {
+    const jobsCrumbs = ids.map(function(id, index) {
       let status;
       let scheduleIcon;
 
-      if (aggregateIDs !== '') {
-        aggregateIDs += '.';
+      if (aggregateIDs !== "") {
+        aggregateIDs += ".";
       }
       aggregateIDs += id;
 
