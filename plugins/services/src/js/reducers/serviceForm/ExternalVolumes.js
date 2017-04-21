@@ -134,7 +134,8 @@ module.exports = {
         state[index].name = String(value);
       }
       if (
-        type === SET && `externalVolumes.${index}.containerPath` === joinedPath
+        type === SET &&
+        `externalVolumes.${index}.containerPath` === joinedPath
       ) {
         state[index].containerPath = String(value);
       }

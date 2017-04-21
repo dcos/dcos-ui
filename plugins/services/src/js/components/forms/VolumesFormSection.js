@@ -199,7 +199,8 @@ class VolumesFormSection extends Component {
 
     return data.map((volume, key) => {
       if (
-        volume.type === "HOST" && (dockerImage == null || dockerImage === "")
+        volume.type === "HOST" &&
+        (dockerImage == null || dockerImage === "")
       ) {
         return null;
       }

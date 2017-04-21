@@ -40,7 +40,9 @@ module.exports = {
 
   JSONParser(state) {
     if (
-      state == null || state.networks == null || !Array.isArray(state.networks)
+      state == null ||
+      state.networks == null ||
+      !Array.isArray(state.networks)
     ) {
       return [];
     }

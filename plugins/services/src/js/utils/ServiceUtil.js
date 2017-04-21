@@ -58,7 +58,8 @@ const pruneHealthCheckAttributes = function(healthCheckSchema, healthCheck) {
 
   return Object.keys(properties).reduce(function(memo, prop) {
     if (
-      !properties[prop].shouldShow || properties[prop].shouldShow(healthCheck)
+      !properties[prop].shouldShow ||
+      properties[prop].shouldShow(healthCheck)
     ) {
       if (prop === "command") {
         memo[prop] = { value: healthCheck[prop] };
@@ -416,7 +417,8 @@ const ServiceUtil = {
               if (ValidatorUtil.isDefined(port.servicePort)) {
                 portMapping.servicePort = port.servicePort;
               } else if (
-                port.loadBalanced === true && networkType !== "bridge"
+                port.loadBalanced === true &&
+                networkType !== "bridge"
               ) {
                 portMapping.servicePort = lbPort;
               }

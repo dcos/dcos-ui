@@ -38,7 +38,8 @@ const ServiceList = React.createClass({
   handleServiceClick(service, event) {
     // Open service in new window/tab if service has a web URL
     if (
-      service.getWebURL() && (event.ctrlKey || event.shiftKey || event.metaKey)
+      service.getWebURL() &&
+      (event.ctrlKey || event.shiftKey || event.metaKey)
     ) {
       return;
     }

@@ -198,7 +198,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
-            ref={ref => this.healthFilter = ref}
+            ref={ref => (this.healthFilter = ref)}
           />
         </FilterBar>
         <div className="flex-container-col flex-grow no-overflow">

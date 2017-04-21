@@ -21,7 +21,7 @@ describe("Transaction", function() {
 
     it("type should not be writable", function() {
       const transaction = new Transaction(0, 0);
-      expect(() => transaction.type = "EVIL DELETE").toThrowError();
+      expect(() => (transaction.type = "EVIL DELETE")).toThrowError();
     });
 
     it("Should have the value which has been set", function() {
@@ -32,7 +32,7 @@ describe("Transaction", function() {
 
     it("value should not be writable", function() {
       const transaction = new Transaction(0, 0);
-      expect(() => transaction.value = "EVIL value").toThrowError();
+      expect(() => (transaction.value = "EVIL value")).toThrowError();
     });
 
     it("Should have the path which has been set", function() {
@@ -43,7 +43,7 @@ describe("Transaction", function() {
 
     it("path should not be writable", function() {
       const transaction = new Transaction(0, 0);
-      expect(() => transaction.path = "EVIL path").toThrowError();
+      expect(() => (transaction.path = "EVIL path")).toThrowError();
     });
   });
 });

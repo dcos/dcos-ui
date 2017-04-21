@@ -87,7 +87,7 @@ class HostsPageContent extends React.Component {
             <FilterByService
               byServiceFilter={byServiceFilter}
               handleFilterChange={handleFilterChange}
-              ref={ref => this.serviceFilter = ref}
+              ref={ref => (this.serviceFilter = ref)}
               services={services}
               totalHostsCount={totalNodeCount}
             />

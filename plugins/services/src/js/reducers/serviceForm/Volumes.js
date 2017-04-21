@@ -107,7 +107,8 @@ function reduceVolumes(state, { type, path, value }) {
       this.externalVolumes[index].external.name = String(value);
     }
     if (
-      type === SET && `externalVolumes.${index}.containerPath` === joinedPath
+      type === SET &&
+      `externalVolumes.${index}.containerPath` === joinedPath
     ) {
       this.externalVolumes[index].containerPath = String(value);
     }

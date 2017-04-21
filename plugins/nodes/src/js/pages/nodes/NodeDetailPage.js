@@ -153,7 +153,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   render() {
     if (
-      !MesosSummaryStore.get("statesProcessed") || !this.state.mesosStateLoaded
+      !MesosSummaryStore.get("statesProcessed") ||
+      !this.state.mesosStateLoaded
     ) {
       return this.getLoadingScreen();
     }

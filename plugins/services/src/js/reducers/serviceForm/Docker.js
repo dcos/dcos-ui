@@ -89,7 +89,8 @@ module.exports = combineReducers({
 
     // We only want portMappings for networks of type BRIDGE or USER
     if (
-      this.appState.networkType !== BRIDGE && this.appState.networkType !== USER
+      this.appState.networkType !== BRIDGE &&
+      this.appState.networkType !== USER
     ) {
       return null;
     }

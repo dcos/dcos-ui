@@ -46,7 +46,9 @@ const RouterUtil = {
       let args = [route.type, Util.omit(route, ["type", "children"])];
 
       if (
-        route.component && route.component.willTransitionTo && !route.onEnter
+        route.component &&
+        route.component.willTransitionTo &&
+        !route.onEnter
       ) {
         route.onEnter = route.component.willTransitionTo;
       }

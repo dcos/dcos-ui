@@ -89,7 +89,8 @@ const containerJSONReducer = combineReducers({
     }
 
     if (
-      !ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE
+      !ValidatorUtil.isEmpty(this.internalState) &&
+      this.containerType !== NONE
     ) {
       return Object.assign({}, this.internalState);
     }
@@ -128,7 +129,8 @@ const containerReducer = combineReducers({
     }
 
     if (
-      !ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE
+      !ValidatorUtil.isEmpty(this.internalState) &&
+      this.containerType !== NONE
     ) {
       const newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach(key => {

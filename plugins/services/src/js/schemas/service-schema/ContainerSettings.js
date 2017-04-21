@@ -34,7 +34,8 @@ const ContainerSettings = {
             const { image } = containerSettings;
 
             if (
-              image == null || ContainerValidatorUtil.isValidDockerImage(image)
+              image == null ||
+              ContainerValidatorUtil.isValidDockerImage(image)
             ) {
               return true;
             }
@@ -73,7 +74,9 @@ const ContainerSettings = {
           getter(service) {
             const container = service.getContainerSettings();
             if (
-              container && container.docker && container.docker.forcePullImage
+              container &&
+              container.docker &&
+              container.docker.forcePullImage
             ) {
               return container.docker.forcePullImage;
             }

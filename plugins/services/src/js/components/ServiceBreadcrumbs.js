@@ -69,7 +69,8 @@ class ServiceBreadcrumbs extends React.Component {
         // container's width.
         this.setState({ shouldRenderServiceStatus: false });
       } else if (
-        availableWidth > statusBarWidth && !this.state.shouldRenderServiceStatus
+        availableWidth > statusBarWidth &&
+        !this.state.shouldRenderServiceStatus
       ) {
         // Show the status bar if its width is less than the amount of available
         // space.
@@ -130,7 +131,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent
-        ref={ref => this.breadcrumbStatusRef = ref}
+        ref={ref => (this.breadcrumbStatusRef = ref)}
       >
         <BreadcrumbSupplementalContent>
           <span className="muted">
@@ -202,7 +203,7 @@ class ServiceBreadcrumbs extends React.Component {
           <Breadcrumb key={index} title={ids.slice(0, index + 1).join("/")}>
             {serviceImage}
             <BreadcrumbTextContent
-              ref={ref => this.primaryBreadcrumbTextRef = ref}
+              ref={ref => (this.primaryBreadcrumbTextRef = ref)}
             >
               <Link to={routePath}>
                 {id}

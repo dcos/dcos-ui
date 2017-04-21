@@ -103,7 +103,8 @@ class MountService extends EventEmitter {
     let i = components.length;
     while (--i >= 0) {
       if (
-        components[i].component === component && components[i].type === type
+        components[i].component === component &&
+        components[i].type === type
       ) {
         components.splice(i, 1);
         break;

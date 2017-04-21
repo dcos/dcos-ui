@@ -155,7 +155,7 @@ class HealthTab extends React.Component {
             dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
-            ref={ref => this.healthFilter = ref}
+            ref={ref => (this.healthFilter = ref)}
           />
         </FilterBar>
         <Table

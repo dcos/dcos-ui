@@ -23,7 +23,8 @@ Cypress.addChildCommand("configurationSection", function(
       while (node.length !== 0) {
         // Exit condition also includes nested siblings that contain sections
         if (
-          node.is(headingSelector) || node.find(headingSelector).length !== 0
+          node.is(headingSelector) ||
+          node.find(headingSelector).length !== 0
         ) {
           break;
         }

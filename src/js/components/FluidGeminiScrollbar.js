@@ -87,7 +87,8 @@ class FluidGeminiScrollbar extends React.Component {
     }
 
     if (
-      styleElement instanceof Element && styleElement.parentNode instanceof Node
+      styleElement instanceof Element &&
+      styleElement.parentNode instanceof Node
     ) {
       styleElement.parentNode.removeChild(styleElement);
     }
@@ -103,7 +104,7 @@ class FluidGeminiScrollbar extends React.Component {
     return (
       <GeminiScrollbar
         className={classes}
-        ref={ref => this.geminiRef = ref}
+        ref={ref => (this.geminiRef = ref)}
         {...Util.omit(props, ["className"])}
       />
     );

@@ -224,7 +224,7 @@ class DSLInputField extends React.Component {
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
-        ref={ref => this.inputField = ref}
+        ref={ref => (this.inputField = ref)}
         type="text"
         value={expression.value}
       />

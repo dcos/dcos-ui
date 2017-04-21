@@ -514,7 +514,8 @@ module.exports = {
     }
 
     if (
-      type === SET && joinedPath === `containers.${index}.exec.command.shell`
+      type === SET &&
+      joinedPath === `containers.${index}.exec.command.shell`
     ) {
       newState[index].exec = Object.assign({}, newState[index].exec, {
         command: { shell: value }
@@ -662,7 +663,8 @@ module.exports = {
     }
 
     if (
-      type === SET && joinedPath === `containers.${index}.exec.command.shell`
+      type === SET &&
+      joinedPath === `containers.${index}.exec.command.shell`
     ) {
       newState[index].exec = Object.assign({}, newState[index].exec, {
         command: { shell: value }

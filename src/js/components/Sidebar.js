@@ -364,7 +364,7 @@ var Sidebar = React.createClass({
           <GeminiScrollbar
             autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
-            ref={ref => this.geminiRef = ref}
+            ref={ref => (this.geminiRef = ref)}
           >
             <div className="sidebar-content-wrapper">
               <div className="sidebar-sections pod pod-narrow">

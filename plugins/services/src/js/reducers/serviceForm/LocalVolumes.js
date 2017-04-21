@@ -108,7 +108,8 @@ module.exports = {
         state[index].mode = String(value);
       }
       if (
-        type === SET && `localVolumes.${index}.containerPath` === joinedPath
+        type === SET &&
+        `localVolumes.${index}.containerPath` === joinedPath
       ) {
         state[index].containerPath = String(value);
       }

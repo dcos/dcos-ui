@@ -141,7 +141,7 @@ module.exports = Object.assign({}, webpackConfig, {
         loader: StringReplacePlugin.replace({
           replacements: [
             {
-              pattern: /@@(\w+)/ig,
+              pattern: /@@(\w+)/gi,
               replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }

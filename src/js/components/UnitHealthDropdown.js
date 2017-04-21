@@ -58,7 +58,7 @@ class UnitHealthDropdown extends React.Component {
         initialID={initialID}
         items={dropdownItems}
         onItemSelection={onHealthSelection}
-        ref={ref => this.dropdown = ref}
+        ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
