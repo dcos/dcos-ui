@@ -141,14 +141,14 @@ class ServiceBreadcrumbs extends React.Component {
     );
   }
 
-  getServiceImage(service, serviceLink) {
+  getServiceImage(service, aggregateIDs) {
     if (service == null || service instanceof ServiceTree) {
       return null;
     }
 
     return (
       <BreadcrumbSupplementalContent>
-        <Link to={serviceLink}>
+        <Link to={'/services/detail/' + aggregateIDs}>
           <span className="icon icon-small icon-image-container icon-app-container">
             <img src={service.getImages()['icon-small']}/>
           </span>
@@ -180,11 +180,13 @@ class ServiceBreadcrumbs extends React.Component {
         aggregateIDs += encodeURIComponent(`/${id}`);
         let routePath = '/services/overview/' + aggregateIDs;
         if (index === ids.length - 1) {
-          routePath = '/services/detail/' + aggregateIDs;
           const service = DCOSStore.serviceTree.findItemById(serviceID);
-
+          // Make sure to change to detail route if service is not a group
+          if (!(service instanceof ServiceTree)) {
+            routePath = '/services/detail/' + aggregateIDs;
+          }
           breadcrumbHealth = this.getHealthStatus(service);
-          serviceImage = this.getServiceImage(service, routePath);
+          serviceImage = this.getServiceImage(service, aggregateIDs);
         }
 
         return (
