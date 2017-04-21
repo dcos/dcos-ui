@@ -1,6 +1,7 @@
 import React from 'react';
 import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
+import {Hooks} from 'PluginSDK';
 
 import Icon from '#SRC/js/components/Icon';
 import RouterUtil from '#SRC/js/utils/RouterUtil';
@@ -38,6 +39,15 @@ var ServicesPage = React.createClass({
       '/services/overview': 'Services',
       '/services/deployments': 'Deployments'
     };
+
+    if (!Hooks.applyFilter('hasCapability', false, 'mesosAPI') ||
+        !Hooks.applyFilter('hasCapability', false, 'marathonAPI')) {
+
+      this.context.router.replace('/access-denied');
+
+      return;
+    }
+
     this.updateCurrentTab();
   },
 
