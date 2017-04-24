@@ -438,6 +438,61 @@ describe("DeclinedOffersUtil", function() {
       ]);
     });
 
+    it("defaults null scalar values to 0", function() {
+      const unusedOffers = DeclinedOffersUtil.getOffersFromQueue({
+        lastUnusedOffers: [
+          {
+            offer: {
+              id: "offer_123",
+              agentId: "slave_123",
+              hostname: "1.2.3.4",
+              resources: [
+                {
+                  name: "cpus",
+                  scalar: null,
+                  ranges: [
+                    {
+                      begin: 1,
+                      end: 5
+                    }
+                  ],
+                  set: ["a", "b"],
+                  role: "*"
+                }
+              ],
+              attributes: [
+                {
+                  name: "foo",
+                  ranges: [
+                    {
+                      begin: 1,
+                      end: 5
+                    }
+                  ],
+                  set: ["a", "b"]
+                }
+              ]
+            },
+            timestamp: "2016-02-28T16:41:41.090Z",
+            reason: ["InsufficientMemory"]
+          }
+        ]
+      });
+
+      expect(unusedOffers).toEqual([
+        {
+          hostname: "1.2.3.4",
+          timestamp: "2016-02-28T16:41:41.090Z",
+          unmatchedResource: ["InsufficientMemory"],
+          offered: {
+            constraints: "foo:1 – 5",
+            cpus: 0,
+            roles: ["*"]
+          }
+        }
+      ]);
+    });
+
     it("returns an array of offer details from API response", function() {
       const unusedOffers = DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: [
