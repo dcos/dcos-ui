@@ -18,10 +18,8 @@ import CreateServiceModalUniversePanelOption
   from "../../components/CreateServiceModalUniversePanelOption";
 import defaultServiceImage
   from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
-import DisplayPackagesTable from "../../components/DisplayPackagesTable";
 import FilterInputText from "../../components/FilterInputText";
 import Image from "../../components/Image";
-import InstallPackageModal from "../../components/modals/InstallPackageModal";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import StringUtil from "../../utils/StringUtil";
