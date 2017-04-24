@@ -98,7 +98,7 @@ class UniversePackage extends Item {
     );
   }
 
-  isSelected() {
+  isCertified() {
     return this.get("selected");
   }
 }

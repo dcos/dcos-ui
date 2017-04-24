@@ -64,6 +64,16 @@
       }
     }
   }
+
+  .badge {
+    text-transform: uppercase;
+
+    &--primary {
+      background-color: @purple;
+      border-color: @purple;
+      color: @white;
+    }
+  }
 }
 
 & when (@badge-enabled) and (@layout-screen-small-enabled) {

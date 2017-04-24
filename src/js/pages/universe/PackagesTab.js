@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 import { Link, routerShape } from "react-router";
@@ -17,14 +18,12 @@ import CreateServiceModalUniversePanelOption
   from "../../components/CreateServiceModalUniversePanelOption";
 import defaultServiceImage
   from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
-import DisplayPackagesTable from "../../components/DisplayPackagesTable";
 import FilterInputText from "../../components/FilterInputText";
 import Image from "../../components/Image";
-import InstallPackageModal from "../../components/modals/InstallPackageModal";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
-import Panel from "../../components/Panel";
 import StringUtil from "../../utils/StringUtil";
+import UniversePackageOption from "./UniversePackageOption";
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
@@ -38,7 +37,7 @@ const PackagesBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = ["handleInstallModalClose", "handleSearchStringChange"];
+const METHODS_TO_BIND = ["handleSearchStringChange"];
 
 const shouldRenderUniverseOption = Hooks.applyFilter(
   "hasCapability",
@@ -101,15 +100,6 @@ class PackagesTab extends mixin(StoreMixin) {
     });
   }
 
-  handleInstallModalClose() {
-    this.setState({ installModalPackage: null });
-  }
-
-  handleInstallModalOpen(cosmosPackage, event) {
-    event.stopPropagation();
-    this.setState({ installModalPackage: cosmosPackage });
-  }
-
   handleSearchStringChange(searchString = "") {
     this.setState({ searchString });
   }
@@ -125,20 +115,9 @@ class PackagesTab extends mixin(StoreMixin) {
     );
   }
 
-  getButton(cosmosPackage) {
-    return (
-      <button
-        className="button button-success"
-        onClick={this.handleInstallModalOpen.bind(this, cosmosPackage)}
-      >
-        Install Package
-      </button>
-    );
-  }
-
   getIcon(cosmosPackage) {
     return (
-      <div className="icon icon-jumbo icon-image-container icon-app-container icon-default-white">
+      <div className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
         <Image
           fallbackSrc={defaultServiceImage}
           src={cosmosPackage.getIcons()["icon-medium"]}
@@ -151,123 +130,121 @@ class PackagesTab extends mixin(StoreMixin) {
     return <Loader />;
   }
 
-  getSelectedPackages(packages) {
-    const { searchString } = this.state;
-    if (searchString) {
-      return null;
-    }
-
+  getPackageGrid(packages) {
     return packages.getItems().map((cosmosPackage, index) => {
       return (
-        <div
-          className="panel-grid-item column-12 column-small-6 column-medium-4 column-large-3"
+        <UniversePackageOption
+          image={this.getIcon(cosmosPackage)}
           key={index}
+          label={this.getPackageOptionBadge(cosmosPackage)}
+          onOptionSelect={this.handleDetailOpen.bind(this, cosmosPackage)}
         >
-          <Panel
-            className="clickable"
-            contentClass="horizontal-center"
-            footer={this.getButton(cosmosPackage)}
-            footerClass="horizontal-center"
-            onClick={this.handleDetailOpen.bind(this, cosmosPackage)}
-          >
-            {this.getIcon(cosmosPackage)}
-            <div className="h2 short">
-              {cosmosPackage.getName()}
-            </div>
-            <p className="flush">
-              {cosmosPackage.getCurrentVersion()}
-            </p>
-          </Panel>
-        </div>
+          <div className="h6 flush-top short">
+            {cosmosPackage.getName()}
+          </div>
+          <small className="flush">
+            {cosmosPackage.getCurrentVersion()}
+          </small>
+        </UniversePackageOption>
       );
     });
   }
 
-  getTitle(title) {
-    return <h4>{title}</h4>;
+  getPackageOptionBadge(cosmosPackage) {
+    const isCertified = cosmosPackage.isCertified();
+    const copy = isCertified ? "Certified" : "Community";
+    const classes = classNames("badge badge-rounded", {
+      "badge--primary": isCertified
+    });
+
+    return <span className={classes}>{copy}</span>;
   }
 
-  getSelectedPackagesGrid(packages) {
-    if (this.state.searchString) {
+  getCertifiedPackagesGrid(packages) {
+    if (this.state.searchString || packages.getItems().length === 0) {
       return null;
     }
 
     return (
-      <div className="clearfix">
-        {this.getTitle("Selected Packages", true)}
-        <div className="pod pod-short flush-right flush-left">
-          <div className="panel-grid row">
-            {this.getSelectedPackages(packages)}
-          </div>
+      <div className="pod flush-top flush-horizontal clearfix">
+        <h4 className="short flush-top">Certified Services</h4>
+        <p className="tall flush-top">
+          Certified services have been tested and are guaranteed to work with DC/OS.
+        </p>
+        <div className="panel-grid row">
+          {this.getPackageGrid(packages)}
         </div>
       </div>
     );
   }
 
-  getPackagesTable(packages) {
-    let title = "Community Packages";
+  getCommunityPackagesGrid(packages) {
+    if (packages.getItems().length === 0) {
+      return null;
+    }
 
-    if (this.state.searchString) {
+    let subtitle = (
+      <p className="tall flush-top">
+        Community services have not been tested extensively with DC/OS.
+      </p>
+    );
+    let title = "Community Services";
+    const isSearchActive = this.state.searchString !== "";
+    const titleClasses = classNames("flush-top", {
+      short: !isSearchActive,
+      tall: isSearchActive
+    });
+
+    if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
-      const packagesWord = StringUtil.pluralize("package", foundPackagesLength);
+      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
 
+      subtitle = null;
       title = `${packages.getItems().length} ${packagesWord} found`;
     }
 
     return (
-      <div>
-        {this.getTitle(title, false)}
-        <DisplayPackagesTable
-          onDeploy={this.handleInstallModalOpen.bind(this)}
-          onDetailOpen={this.handleDetailOpen.bind(this)}
-          packages={packages}
-        />
+      <div className="clearfix">
+        <h4 className={titleClasses}>{title}</h4>
+        {subtitle}
+        <div className="panel-grid row">
+          {this.getPackageGrid(packages)}
+        </div>
       </div>
     );
   }
 
   render() {
     const { state } = this;
-    let content, packageName, packageVersion;
+    let content;
 
     if (state.errorMessage) {
       content = this.getErrorScreen();
     } else if (state.isLoading) {
       content = this.getLoadingScreen();
     } else {
-      if (state.installModalPackage) {
-        packageName = state.installModalPackage.getName();
-        packageVersion = state.installModalPackage.getCurrentVersion();
-      }
-
       const packages = CosmosPackagesStore.getAvailablePackages();
       const splitPackages = packages.getSelectedAndNonSelectedPackages();
 
-      let tablePackages = splitPackages.nonSelectedPackages;
-      const gridPackages = splitPackages.selectedPackages;
+      let communityPackages = splitPackages.nonSelectedPackages;
+      const selectedPackages = splitPackages.selectedPackages;
 
       if (state.searchString) {
-        tablePackages = packages.filterItemsByText(state.searchString);
+        communityPackages = packages.filterItemsByText(state.searchString);
       }
 
       content = (
-        <div>
-          <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+        <div className="container">
+          <div className="pod flush-horizontal flush-top">
             <FilterInputText
               className="flex-grow"
-              placeholder="Search"
+              placeholder="Search packages"
               searchString={state.searchString}
               handleFilterChange={this.handleSearchStringChange}
             />
           </div>
-          {this.getSelectedPackagesGrid(gridPackages)}
-          {this.getPackagesTable(tablePackages)}
-          <InstallPackageModal
-            open={!!state.installModalPackage}
-            packageName={packageName}
-            packageVersion={packageVersion}
-            onClose={this.handleInstallModalClose}
-          />
+          {this.getCertifiedPackagesGrid(selectedPackages)}
+          {this.getCommunityPackagesGrid(communityPackages)}
         </div>
       );
     }

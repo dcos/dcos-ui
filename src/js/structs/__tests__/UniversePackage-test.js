@@ -38,15 +38,15 @@ describe("UniversePackage", function() {
     });
   });
 
-  describe("#isSelected", function() {
+  describe("#isCertified", function() {
     it("returns true if package is selected", function() {
       var pkg = new UniversePackage({ selected: true });
-      expect(pkg.isSelected()).toEqual(true);
+      expect(pkg.isCertified()).toEqual(true);
     });
 
     it("returns false if package is not selected", function() {
       var pkg = new UniversePackage({ selected: false });
-      expect(pkg.isSelected()).toEqual(false);
+      expect(pkg.isCertified()).toEqual(false);
     });
   });
 

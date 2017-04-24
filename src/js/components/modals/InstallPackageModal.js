@@ -333,17 +333,17 @@ class InstallPackageModal
       return this.getInstallErrorScreen();
     }
 
-    let buttonText = "Install Package";
+    let buttonText = "Deploy";
 
     if (pendingRequest) {
-      buttonText = "Installing...";
+      buttonText = "Deploying...";
     }
 
     return (
       <div>
         <div className="modal-body">
           <div className="text-align-center">
-            <div className="icon icon-jumbo icon-image-container icon-app-container">
+            <div className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless">
               <Image
                 fallbackSrc={defaultServiceImage}
                 src={cosmosPackage.getIcons()["icon-large"]}
@@ -369,7 +369,7 @@ class InstallPackageModal
               className="button button-link button-primary button-block"
               onClick={this.handleChangeTab.bind(this, "advancedInstall")}
             >
-              Advanced Installation
+              Configure
             </button>
           </div>
         </div>
@@ -397,7 +397,7 @@ class InstallPackageModal
             className="button button-success"
             onClick={this.handleChangeTab.bind(this, "reviewAdvancedConfig")}
           >
-            Review and Install
+            Review and Deploy
           </button>
         </div>
       </div>
@@ -409,10 +409,10 @@ class InstallPackageModal
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
-    let buttonText = "Install";
+    let buttonText = "Deploy";
 
     if (pendingRequest) {
-      buttonText = "Installing...";
+      buttonText = "Deploying...";
     }
 
     return (
@@ -536,7 +536,7 @@ class InstallPackageModal
             </p>
             <p>CLI Only Package</p>
             <p className="flush-bottom">
-              {"This package can only be installed using the CLI. See the "}
+              {"This package can only be deployed using the CLI. See the "}
               <a
                 href={MetadataStore.buildDocsURI(
                   "/usage/managing-services/install/#installing-a-service-using-the-cli"

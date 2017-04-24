@@ -112,15 +112,18 @@ describe("Packages Tab", function() {
       cy.get("input").type("cass");
     });
 
-    it("should hide selected panels", function() {
-      cy.get(".panel").should(function($panels) {
-        expect($panels.length).to.equal(0);
-      });
+    it("should hide certified panels", function() {
+      cy
+        .get("h4")
+        .contains("Certified Services")
+        .should(function($certifiedHeading) {
+          expect($certifiedHeading.length).to.equal(0);
+        });
     });
 
-    it("should should only cassandra in table", function() {
-      cy.get("tr").should(function($rows) {
-        expect($rows.length).to.equal(4);
+    it("should should only cassandra in panels", function() {
+      cy.get(".panel").should(function($panels) {
+        expect($panels.length).to.equal(1);
       });
     });
   });
@@ -128,7 +131,12 @@ describe("Packages Tab", function() {
   context("selected packages", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/universe", logIn: true });
-      cy.get(".panel").as("panels");
+      cy
+        .get("h4")
+        .contains("Certified Services")
+        .closest(".pod")
+        .find(".panel")
+        .as("panels");
     });
 
     it("should have the first 9 packages as selected", function() {
@@ -144,7 +152,8 @@ describe("Packages Tab", function() {
     });
 
     it("should open the modal when the panel button is clicked", function() {
-      cy.get(".panel:first .button").click();
+      cy.get(".panel").contains("arangodb").click();
+      cy.get(".button.button-success").contains("Deploy").click();
 
       cy.get(".modal").should(function($modal) {
         expect($modal.length).to.equal(1);
@@ -152,34 +161,10 @@ describe("Packages Tab", function() {
     });
 
     it("shouldn't open the modal when the panel is clicked", function() {
-      cy.get(".panel:first").click();
+      cy.get(".panel").contains("arangodb").click();
 
       cy.get(".modal").should(function($modal) {
         expect($modal.length).to.equal(0);
-      });
-    });
-  });
-
-  context("package table", function() {
-    beforeEach(function() {
-      cy.visitUrl({ url: "/universe", logIn: true });
-    });
-
-    it("should show the very last item in the table", function() {
-      // Ensure table has rendered before beginning
-      cy.get("table").get(".page-body").then(function($pageBodyResults) {
-        const $pageBody = $pageBodyResults.get(0);
-        // Adjust page-body for option (Mac OS)
-        // 'Show scroll bars: Automatically based on mouse or trackpad'
-        $pageBody.scrollTop = $pageBody.scrollHeight - $pageBody.clientHeight;
-        cy.get(".page-body .gm-scroll-view").then(function($scrolViewResults) {
-          const $gmScrolView = $scrolViewResults.get(0);
-          // Adjust page-body for option (Mac OS)
-          // 'Show scroll bars: Always'
-          $gmScrolView.scrollTop =
-            $gmScrolView.scrollHeight - $gmScrolView.clientHeight;
-          cy.get("table").contains("zeppelin");
-        });
       });
     });
   });
