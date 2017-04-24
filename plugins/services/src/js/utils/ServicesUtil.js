@@ -4,7 +4,7 @@ import ServiceOther from "../constants/ServiceOther";
 import ServiceTree from "../structs/ServiceTree";
 
 function getCountByType(services) {
-  const universeKey = ServiceOther.UNIVERSE.key;
+  const catalogKey = ServiceOther.CATALOG.key;
   const volumesKey = ServiceOther.VOLUMES.key;
   const podsKey = ServiceOther.PODS.key;
 
@@ -30,10 +30,10 @@ function getCountByType(services) {
       }
 
       if (service instanceof Framework) {
-        if (memo.filterOther[universeKey] === undefined) {
-          memo.filterOther[universeKey] = 1;
+        if (memo.filterOther[catalogKey] === undefined) {
+          memo.filterOther[catalogKey] = 1;
         } else {
-          memo.filterOther[universeKey]++;
+          memo.filterOther[catalogKey]++;
         }
       }
 

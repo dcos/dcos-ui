@@ -18,7 +18,7 @@ describe("Packages Tab", function() {
           message: "The url for Invalid does not have correct syntax"
         }
       })
-      .visitUrl({ url: "/universe/packages", logIn: true });
+      .visitUrl({ url: "/catalog/packages", logIn: true });
 
     cy
       .get(".page-body-content .alert-content")
@@ -40,7 +40,7 @@ describe("Packages Tab", function() {
           message: "The index file is missing in Invalid"
         }
       })
-      .visitUrl({ url: "/universe", logIn: true });
+      .visitUrl({ url: "/catalog", logIn: true });
 
     cy
       .get(".page-body-content .alert-content")
@@ -62,7 +62,7 @@ describe("Packages Tab", function() {
           message: "The package file is missing in Invalid"
         }
       })
-      .visitUrl({ url: "/universe", logIn: true });
+      .visitUrl({ url: "/catalog", logIn: true });
 
     cy
       .get(".page-body-content .alert-content")
@@ -83,7 +83,7 @@ describe("Packages Tab", function() {
           message: "The package file is missing in a repository"
         }
       })
-      .visitUrl({ url: "/universe", logIn: true });
+      .visitUrl({ url: "/catalog", logIn: true });
 
     cy
       .get(".page-body-content .alert-content")
@@ -101,14 +101,14 @@ describe("Packages Tab", function() {
         status: 400,
         response: { message: "Some other error" }
       })
-      .visitUrl({ url: "/universe", logIn: true });
+      .visitUrl({ url: "/catalog", logIn: true });
 
     cy.get(".panel-content h3").should("contain", "An Error Occurred");
   });
 
   context("searching", function() {
     beforeEach(function() {
-      cy.visitUrl({ url: "/universe", logIn: true });
+      cy.visitUrl({ url: "/catalog", logIn: true });
       cy.get("input").type("cass");
     });
 
@@ -130,7 +130,7 @@ describe("Packages Tab", function() {
 
   context("selected packages", function() {
     beforeEach(function() {
-      cy.visitUrl({ url: "/universe", logIn: true });
+      cy.visitUrl({ url: "/catalog", logIn: true });
       cy
         .get("h4")
         .contains("Certified Services")
@@ -148,7 +148,7 @@ describe("Packages Tab", function() {
 
   context("package panels", function() {
     beforeEach(function() {
-      cy.visitUrl({ url: "/universe", logIn: true });
+      cy.visitUrl({ url: "/catalog", logIn: true });
     });
 
     it("should open the modal when the panel button is clicked", function() {

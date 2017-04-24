@@ -24,7 +24,7 @@ const defaultMenuItems = [
   "/dashboard",
   "/services",
   "/jobs",
-  "/universe",
+  "/catalog",
   "/nodes",
   "/networking",
   "/security",

@@ -49,5 +49,5 @@
 3. Click on Kafka
 4. Go to the Broker task
 5. Go to the Logs and scroll
-6. Go to Universe
+6. Go to Catalog
 7. Go to the Nodes page

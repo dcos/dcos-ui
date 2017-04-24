@@ -1,5 +1,5 @@
 var ServiceOtherTypes = {
-  UNIVERSE: 0,
+  CATALOG: 0,
   VOLUMES: 1,
   PODS: 2
 };

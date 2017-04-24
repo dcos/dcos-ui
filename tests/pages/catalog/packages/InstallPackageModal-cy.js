@@ -5,7 +5,7 @@ describe("Install Package Modal", function() {
         mesos: "1-task-healthy",
         universePackages: true
       })
-      .visitUrl({ url: "/universe" })
+      .visitUrl({ url: "/catalog" })
       .get(".page-body-content .panel-content .h6")
       .contains("arangodb")
       .eq(0)

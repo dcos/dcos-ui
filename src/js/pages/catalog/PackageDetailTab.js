@@ -25,14 +25,14 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   const version = cosmosPackage.getCurrentVersion();
 
   const crumbs = [
-    <Breadcrumb key={0} title="Packages">
+    <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
-        <Link to="/universe/packages">Packages</Link>
+        <Link to="/catalog/packages">Catalog</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>,
     <Breadcrumb key={1} title={name}>
       <BreadcrumbTextContent>
-        <Link to={`/universe/packages/${name}`} query={{ version }} key={0}>
+        <Link to={`/catalog/packages/${name}`} query={{ version }} key={0}>
           {name}
         </Link>
       </BreadcrumbTextContent>

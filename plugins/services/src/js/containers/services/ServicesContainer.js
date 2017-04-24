@@ -27,8 +27,8 @@ import ServiceAttributeHealthFilter
 import ServiceAttributeIsFilter from "../../filters/ServiceAttributeIsFilter";
 import ServiceAttributeIsPodFilter
   from "../../filters/ServiceAttributeIsPodFilter";
-import ServiceAttributeIsUniverseFilter
-  from "../../filters/ServiceAttributeIsUniverseFilter";
+import ServiceAttributeIsCatalogFilter
+  from "../../filters/ServiceAttributeIsCatalogFilter";
 import ServiceAttributeNoHealthchecksFilter
   from "../../filters/ServiceAttributeNoHealthchecksFilter";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
@@ -72,7 +72,7 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeHasVolumesFilter(),
   new ServiceAttributeIsFilter(),
   new ServiceAttributeIsPodFilter(),
-  new ServiceAttributeIsUniverseFilter(),
+  new ServiceAttributeIsCatalogFilter(),
   new ServiceAttributeNoHealthchecksFilter(),
   new ServiceNameTextFilter()
 ]);
