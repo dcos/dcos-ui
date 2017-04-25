@@ -160,7 +160,7 @@ class RoutingService extends EventEmitter {
       );
     }
 
-    this.definition.push({
+    this.definition.unshift({
       path,
       to,
       type: Redirect
