@@ -18,14 +18,6 @@ import PodSpec from '../../structs/PodSpec';
 
 const {DOCKER} = ContainerConstants.type;
 
-const containerSettings = {
-  privileged: {
-    label: 'Grant Runtime Privileges',
-    helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.',
-    dockerOnly: 'Grant runtime privileges is only supported in Docker Runtime.'
-  }
-};
-
 const appPaths = {
   artifacts: 'fetch',
   cmd: 'cmd',
@@ -119,7 +111,7 @@ class ContainerServiceFormAdvancedSection extends Component {
     );
   }
 
-  getContainerSettings() {
+  getPrivilegedOption() {
     const {data, errors, path, service} = this.props;
     if (service instanceof PodSpec) {
       return null;
@@ -128,51 +120,44 @@ class ContainerServiceFormAdvancedSection extends Component {
     const typePath = this.getFieldPath(path, 'type');
     const containerType = findNestedPropertyInObject(data, typePath);
     const typeErrors = findNestedPropertyInObject(errors, typePath);
-    const sectionCount = Object.keys(containerSettings).length;
-    const selections = Object.keys(containerSettings).map((settingName, index) => {
-      const {helpText, label, dockerOnly} = containerSettings[settingName];
-      const settingsPath = this.getFieldPath(path, settingName);
-      const checked = findNestedPropertyInObject(data, settingsPath);
-      const isDisabled = containerType !== DOCKER;
-      const labelNodeClasses = classNames({
-        'disabled muted': isDisabled,
-        'flush-bottom': (index === sectionCount - 1)
-      });
-
-      let labelNode = (
-        <FieldLabel key={`label.${index}`} className={labelNodeClasses}>
-          <FieldInput
-            checked={!isDisabled && Boolean(checked)}
-            name={settingsPath}
-            type="checkbox"
-            disabled={isDisabled}
-            value={settingName} />
-          {label}
-          <FieldHelp>{helpText}</FieldHelp>
-        </FieldLabel>
-      );
-
-      if (isDisabled) {
-        labelNode = (
-          <Tooltip
-            content={dockerOnly}
-            key={`tooltip.${index}`}
-            position="top"
-            scrollContainer=".gm-scroll-view"
-            width={300}
-            wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
-            wrapText={true}>
-            {labelNode}
-          </Tooltip>
-        );
-      }
-
-      return labelNode;
+    const settingsPath = this.getFieldPath(path, 'privileged');
+    const isChecked = findNestedPropertyInObject(data, settingsPath);
+    const isDisabled = containerType !== DOCKER;
+    const disabledClassNames = classNames({
+      'disabled muted': isDisabled
     });
+
+    let privilegedOption = (
+      <FieldLabel key="label-privileged" className={disabledClassNames}>
+        <FieldInput
+          checked={!isDisabled && Boolean(isChecked)}
+          disabled={isDisabled}
+          name={settingsPath}
+          type="checkbox"
+          value="privileged" />
+        Grant Runtime Privileges
+        <FieldHelp>By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.</FieldHelp>
+      </FieldLabel>
+    );
+
+    if (isDisabled) {
+      privilegedOption = (
+        <Tooltip
+          content="Grant runtime privileges is only supported in Docker Runtime."
+          key="tooltip-privileged"
+          position="top"
+          scrollContainer=".gm-scroll-view"
+          width={300}
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
+          wrapText={true}>
+          {privilegedOption}
+        </Tooltip>
+      );
+    }
 
     return (
       <FormGroup showError={Boolean(typeErrors)}>
-        {selections}
+        {privilegedOption}
         <FieldError>{typeErrors}</FieldError>
       </FormGroup>
     );
@@ -196,7 +181,7 @@ class ContainerServiceFormAdvancedSection extends Component {
           Advanced Settings
         </h3>
         <p>Advanced settings related to the runtime you have selected above.</p>
-        {this.getContainerSettings()}
+        {this.getPrivilegedOption()}
         <FieldLabel key="label.forcePullImage" className="flush-bottom">
           <FieldInput
             checked={findNestedPropertyInObject(data, forcePullImagePath)}
