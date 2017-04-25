@@ -666,7 +666,7 @@ describe("Services", function() {
       // Add an environment variable
       cy.contains("Add External Volume").click();
       cy.root().getFormGroupInputFor("Name").type(volumeName);
-      cy.root().getFormGroupInputFor("Size (GiB)").type("1");
+      cy.root().getFormGroupInputFor("Size (MiB)").type("1");
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
@@ -743,7 +743,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Size")
         .contents()
-        .should("deep.equal", ["1 GiB"]);
+        .should("deep.equal", ["1 MiB"]);
       cy
         .root()
         .configurationSection("Storage")
