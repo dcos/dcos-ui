@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { Link } from "react-router";
+import { MountService } from "foundation-ui";
 import React, { PropTypes } from "react";
 
 import Links from "#SRC/js/constants/Links";
@@ -256,6 +257,15 @@ class ServicesTable extends React.Component {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
+    const serviceStatusContent = (
+      <span>
+        <span className={serviceStatusClassSet}>{serviceStatus}</span>
+        <span className="hidden-large-down">{verboseOverview}</span>
+        <span className="hidden-jumbo-up">{conciseOverview}</span>
+        <ServiceStatusWarning item={service} />
+      </span>
+    );
+
     return (
       <div className="status-bar-wrapper">
         <span className="status-bar-indicator">
@@ -267,10 +277,12 @@ class ServicesTable extends React.Component {
           />
         </span>
         <span className="status-bar-text">
-          <span className={serviceStatusClassSet}>{serviceStatus}</span>
-          <span className="hidden-large-down">{verboseOverview}</span>
-          <span className="hidden-jumbo-up">{conciseOverview}</span>
-          <ServiceStatusWarning item={service} />
+          <MountService.Mount
+            defaultContent={serviceStatusContent}
+            limit={1}
+            service={service}
+            type="ServiceDetail:ServiceStatus"
+          />
         </span>
       </div>
     );

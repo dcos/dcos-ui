@@ -42,6 +42,7 @@ module.exports = {
     ReducerUtil: "ReducerUtil",
     ResourceTableUtil: "ResourceTableUtil",
     RouterUtil: "RouterUtil",
+    ServiceUtil: "ServiceUtil",
     StringUtil: "StringUtil",
     TableUtil: "TableUtil",
     TabsUtil: "TabsUtil",

@@ -6,6 +6,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent
   from "#SRC/js/components/BreadcrumbSupplementalContent";
+import { MountService } from "foundation-ui";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import Util from "#SRC/js/utils/Util";
@@ -18,6 +19,10 @@ import ServiceTree from "../structs/ServiceTree";
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
 const METHODS_TO_BIND = ["checkBreadcrumbOverflow", "handleViewportResize"];
+
+function ServiceStatusText(props) {
+  return <span>{props.defaultContent}</span>;
+}
 
 class ServiceBreadcrumbs extends React.Component {
   constructor() {
@@ -41,6 +46,10 @@ class ServiceBreadcrumbs extends React.Component {
   componentDidMount() {
     this.checkBreadcrumbOverflow();
     global.addEventListener("resize", this.handleViewportResize);
+    MountService.MountService.registerComponent(
+      ServiceStatusText,
+      "ServiceDetail:ServiceStatus"
+    );
   }
 
   componentDidUpdate() {
@@ -49,6 +58,10 @@ class ServiceBreadcrumbs extends React.Component {
 
   componentWillUnmount() {
     global.removeEventListener("resize", this.handleViewportResize);
+    MountService.MountService.unregisterComponent(
+      ServiceStatusText,
+      "ServiceDetail:ServiceStatus"
+    );
   }
 
   handleViewportResize() {
@@ -69,8 +82,7 @@ class ServiceBreadcrumbs extends React.Component {
         // container's width.
         this.setState({ shouldRenderServiceStatus: false });
       } else if (
-        availableWidth > statusBarWidth &&
-        !this.state.shouldRenderServiceStatus
+        availableWidth > statusBarWidth && !this.state.shouldRenderServiceStatus
       ) {
         // Show the status bar if its width is less than the amount of available
         // space.
@@ -121,9 +133,9 @@ class ServiceBreadcrumbs extends React.Component {
 
     const serviceStatus = service.getStatus();
     const tasksSummary = service.getTasksSummary();
-    const runningTasksCount = tasksSummary.tasksRunning;
     const instancesCount = service.getInstancesCount();
     const isDeploying = serviceStatus === "Deploying";
+    const runningTasksCount = tasksSummary.tasksRunning;
 
     if (instancesCount === 0) {
       return null;
@@ -131,11 +143,16 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent
-        ref={ref => (this.breadcrumbStatusRef = ref)}
+        ref={ref => this.breadcrumbStatusRef = ref}
       >
         <BreadcrumbSupplementalContent>
           <span className="muted">
-            {serviceStatus} ({runningTasksCount} of {instancesCount})
+            <MountService.Mount
+              defaultContent={`${serviceStatus} (${runningTasksCount} of ${instancesCount})`}
+              limit={1}
+              service={service}
+              type="ServiceDetail:ServiceStatus"
+            />
           </span>
           <ServiceStatusWarningWithDebugInformation item={service} />
         </BreadcrumbSupplementalContent>
@@ -203,7 +220,7 @@ class ServiceBreadcrumbs extends React.Component {
           <Breadcrumb key={index} title={ids.slice(0, index + 1).join("/")}>
             {serviceImage}
             <BreadcrumbTextContent
-              ref={ref => (this.primaryBreadcrumbTextRef = ref)}
+              ref={ref => this.primaryBreadcrumbTextRef = ref}
             >
               <Link to={routePath}>
                 {id}
