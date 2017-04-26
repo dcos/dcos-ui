@@ -690,7 +690,29 @@
           "statuses": [
             {
               "state": "TASK_RUNNING",
-              "timestamp": 1444059214.32713
+              "timestamp": 1444059214.32713,
+              "container_status": {
+                "container_id": {
+                  "value": "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                },
+                "network_infos": [
+                  {
+                    "labels": [
+                      {
+                        "key": "DCOS_SPACE",
+                        "value": "/sleep"
+                      }
+                    ],
+                    "ip_addresses": [
+                      {
+                        "protocol": "IPv4",
+                        "ip_address": "9.0.2.34"
+                      }
+                    ],
+                    "name": "dcos-1"
+                  }
+                ]
+              }
             }
           ]
         }
