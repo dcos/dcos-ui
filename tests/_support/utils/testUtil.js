@@ -7,8 +7,8 @@ module.exports = {
     });
   },
   getVisibleTableRows($tableRows) {
-    return $tableRows.toArray().filter(function (tableRow) {
-      return global.getComputedStyle(tableRow).display !== 'none';
+    return $tableRows.toArray().filter(function(tableRow) {
+      return global.getComputedStyle(tableRow).display !== "none";
     });
   }
 };
