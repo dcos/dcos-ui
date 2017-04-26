@@ -34,7 +34,7 @@ const TaskDetail = require("../TaskDetail");
 describe("TaskDetail", function() {
   beforeEach(function() {
     this.container = global.document.createElement("div");
-    this.params = {};
+    this.params = { id: "foo", taskID: "bar" };
     this.instance = JestUtil.renderWithStubbedRouter(
       TaskDetail,
       {
@@ -48,6 +48,7 @@ describe("TaskDetail", function() {
     this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
     // Store original versions
     this.storeGetDirectory = TaskDirectoryStore.fetchDirectory;
+    this.storeSetPath = TaskDirectoryStore.setPath;
     this.storeGet = MesosStateStore.get;
     this.storeChangeListener = MesosStateStore.addChangeListener;
     // Create mock functions
@@ -59,12 +60,13 @@ describe("TaskDetail", function() {
     MesosStateStore.addChangeListener = function() {};
     MesosStateStore.getTaskFromTaskID = function() {
       return new Task({
-        id: "fake id",
+        id: "bar",
         state: "TASK_RUNNING"
       });
     };
 
-    TaskDirectoryStore.fetchDirectory = jasmine.createSpy("getDirectory");
+    TaskDirectoryStore.fetchDirectory = jasmine.createSpy("fetchDirectory");
+    TaskDirectoryStore.setPath = jasmine.createSpy("setPath");
   });
 
   afterEach(function() {
@@ -72,12 +74,13 @@ describe("TaskDetail", function() {
     MesosStateStore.get = this.storeGet;
     MesosStateStore.addChangeListener = this.storeChangeListener;
     TaskDirectoryStore.fetchDirectory = this.storeGetDirectory;
+    TaskDirectoryStore.setPath = this.storeSetPath;
 
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
   describe("#componentDidMount", function() {
-    it("should call getDirectory after onStateStoreSuccess is called", function() {
+    it("should call fetchDirectory after onStateStoreSuccess is called", function() {
       this.instance.onStateStoreSuccess();
       expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
@@ -100,7 +103,7 @@ describe("TaskDetail", function() {
 
   describe("#onTaskDirectoryStoreSuccess", function() {
     it("should setState", function() {
-      this.instance.onTaskDirectoryStoreSuccess();
+      this.instance.onTaskDirectoryStoreSuccess("bar");
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
@@ -113,11 +116,46 @@ describe("TaskDetail", function() {
         .createSpy("TaskDirectoryStore#get")
         .and.returnValue(directory);
 
-      this.instance.onTaskDirectoryStoreSuccess();
+      this.instance.onTaskDirectoryStoreSuccess("bar");
       expect(this.instance.setState).toHaveBeenCalledWith({
         directory,
         taskDirectoryErrorCount: 0
       });
+    });
+  });
+
+  describe("#handleFetchDirectory", function() {
+    it("should setState", function() {
+      this.instance.handleFetchDirectory();
+      expect(this.instance.setState).toHaveBeenCalled();
+    });
+
+    it("should call TaskDirectoryStore.fetchDirectory", function() {
+      this.instance.handleFetchDirectory();
+      expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
+    });
+
+    it("should not call TaskDirectoryStore.fetchDirectory", function() {
+      MesosStateStore.getTaskFromTaskID = function() {
+        return null;
+      };
+      this.instance.handleFetchDirectory();
+      expect(TaskDirectoryStore.fetchDirectory).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("#handleBreadcrumbClick", function() {
+    it("should call TaskDirectoryStore.setPath", function() {
+      this.instance.handleBreadcrumbClick();
+      expect(TaskDirectoryStore.setPath).toHaveBeenCalled();
+    });
+
+    it("should not call TaskDirectoryStore.setPath", function() {
+      MesosStateStore.getTaskFromTaskID = function() {
+        return null;
+      };
+      this.instance.handleBreadcrumbClick();
+      expect(TaskDirectoryStore.setPath).not.toHaveBeenCalled();
     });
   });
 
