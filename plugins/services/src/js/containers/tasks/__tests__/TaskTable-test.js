@@ -9,8 +9,10 @@ jest.dontMock('moment');
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 const JestUtil = require('../../../../../../../src/js/utils/JestUtil');
 
+const CheckboxTable = require('../../../../../../../src/js/components/CheckboxTable');
 const DCOSStore = require('foundation-ui').DCOSStore;
 const MesosStateStore = require('../../../../../../../src/js/stores/MesosStateStore');
 const TaskTable = require('../TaskTable');
@@ -55,6 +57,16 @@ describe('TaskTable', function () {
         {id: '2', state: 'TASK_FINISHED', isStartedByMarathon: true}
       ];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
+    });
+
+    it('it does not pass a uniqueProperty to CheckboxTable', function () {
+      const component = JestUtil.stubRouterContext(TaskTable, {params: {}});
+      const result = TestUtils.renderIntoDocument(component);
+      const table = TestUtils.findRenderedComponentWithType(result, CheckboxTable);
+      // TODO: Should not look at 'id' until tasks are sure to have unique IDs
+      // this test can be removed (and we can add 'id') once tasks IDs are sure
+      // to be unique
+      expect(table.props.uniqueProperty).toEqual(undefined);
     });
 
   });
