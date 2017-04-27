@@ -1,5 +1,5 @@
 var ServiceOtherLabels = {
-  UNIVERSE: "Universe",
+  CATALOG: "Catalog",
   VOLUMES: "Volumes",
   PODS: "Pods"
 };

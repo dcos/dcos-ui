@@ -2,9 +2,9 @@ import ServiceOtherLabels from "./ServiceOtherLabels";
 import ServiceOtherTypes from "./ServiceOtherTypes";
 
 var SERVICE_OTHER = {
-  UNIVERSE: {
-    key: ServiceOtherTypes.UNIVERSE,
-    displayName: ServiceOtherLabels.UNIVERSE
+  CATALOG: {
+    key: ServiceOtherTypes.CATALOG,
+    displayName: ServiceOtherLabels.CATALOG
   },
   VOLUMES: {
     key: ServiceOtherTypes.VOLUMES,

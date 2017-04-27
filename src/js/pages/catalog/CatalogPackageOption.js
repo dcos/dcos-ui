@@ -2,7 +2,7 @@ import React from "react";
 
 import Panel from "../../components/Panel";
 
-function UniversePackageOption(props) {
+function CatalogPackageOption(props) {
   const { children, image, label, onOptionSelect } = props;
   const contentClasses = [
     "panel-cell horizontal-center text-align-center",
@@ -42,4 +42,4 @@ function UniversePackageOption(props) {
   );
 }
 
-module.exports = UniversePackageOption;
+module.exports = CatalogPackageOption;

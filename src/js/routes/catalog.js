@@ -1,20 +1,25 @@
 import { Route, Redirect } from "react-router";
 
-import InstalledPackagesTab from "../pages/universe/InstalledPackagesTab";
-import PackageDetailTab from "../pages/universe/PackageDetailTab";
-import PackagesTab from "../pages/universe/PackagesTab";
-import UniversePage from "../pages/UniversePage";
+import PackageDetailTab from "../pages/catalog/PackageDetailTab";
+import PackagesTab from "../pages/catalog/PackagesTab";
+import CatalogPage from "../pages/CatalogPage";
 
 const universeRoutes = [
   {
+    // Keep this around for any old links pointing to /universe
     type: Redirect,
     from: "/universe",
-    to: "/universe/packages"
+    to: "/catalog"
+  },
+  {
+    type: Redirect,
+    from: "/catalog",
+    to: "/catalog/packages"
   },
   {
     type: Route,
-    path: "universe",
-    component: UniversePage,
+    path: "catalog",
+    component: CatalogPage,
     category: "root",
     isInSidebar: true,
     children: [
@@ -22,19 +27,13 @@ const universeRoutes = [
         type: Route,
         path: "packages",
         component: PackagesTab,
-        isInSidebar: true
+        hideHeaderNavigation: true
       },
       {
         type: Route,
         path: "packages/:packageName",
         component: PackageDetailTab,
         hideHeaderNavigation: true
-      },
-      {
-        type: Route,
-        path: "installed-packages",
-        component: InstalledPackagesTab,
-        isInSidebar: true
       }
     ]
   }

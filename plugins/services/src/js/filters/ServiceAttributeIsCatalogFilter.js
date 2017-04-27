@@ -3,14 +3,14 @@ import DSLFilter from "#SRC/js/structs/DSLFilter";
 import Framework from "../structs/Framework";
 
 const LABEL = "is";
-const LABEL_TEXT = "universe";
+const LABEL_TEXT = "catalog";
 
 /**
- * This filter handles the `is:universe` for filtering universe frameworks
+ * This filter handles the `is:catalog` for filtering catalog frameworks
  */
-class ServiceAttributeIsUniverseFilter extends DSLFilter {
+class ServiceAttributeIsCatalogFilter extends DSLFilter {
   /**
-   * Handle all `is:universe` attrib filters that we can handle.
+   * Handle all `is:catalog` attrib filters that we can handle.
    *
    * @override
    */
@@ -34,4 +34,4 @@ class ServiceAttributeIsUniverseFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttributeIsUniverseFilter;
+module.exports = ServiceAttributeIsCatalogFilter;

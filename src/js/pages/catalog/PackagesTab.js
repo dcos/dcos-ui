@@ -14,8 +14,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import CosmosErrorMessage from "../../components/CosmosErrorMessage";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
-import CreateServiceModalUniversePanelOption
-  from "../../components/CreateServiceModalUniversePanelOption";
+import CreateServiceModalCatalogPanelOption
+  from "../../components/CreateServiceModalCatalogPanelOption";
 import defaultServiceImage
   from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
 import FilterInputText from "../../components/FilterInputText";
@@ -23,13 +23,13 @@ import Image from "../../components/Image";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import StringUtil from "../../utils/StringUtil";
-import UniversePackageOption from "./UniversePackageOption";
+import CatalogPackageOption from "./CatalogPackageOption";
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
-    <Breadcrumb key={0} title="Packages">
+    <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
-        <Link to="/universe/packages">Packages</Link>
+        <Link to="/catalog/packages">Catalog</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -39,15 +39,15 @@ const PackagesBreadcrumbs = () => {
 
 const METHODS_TO_BIND = ["handleSearchStringChange"];
 
-const shouldRenderUniverseOption = Hooks.applyFilter(
+const shouldRenderCatalogOption = Hooks.applyFilter(
   "hasCapability",
   true,
   "packageAPI"
 );
 
-if (shouldRenderUniverseOption) {
+if (shouldRenderCatalogOption) {
   MountService.MountService.registerComponent(
-    CreateServiceModalUniversePanelOption,
+    CreateServiceModalCatalogPanelOption,
     "CreateService:ServicePicker:GridOptions",
     0
   );
@@ -93,7 +93,7 @@ class PackagesTab extends mixin(StoreMixin) {
   handleDetailOpen(cosmosPackage, event) {
     event.stopPropagation();
     this.context.router.push({
-      pathname: `/universe/packages/${cosmosPackage.getName()}`,
+      pathname: `/catalog/packages/${cosmosPackage.getName()}`,
       query: {
         version: cosmosPackage.getCurrentVersion()
       }
@@ -133,7 +133,7 @@ class PackagesTab extends mixin(StoreMixin) {
   getPackageGrid(packages) {
     return packages.getItems().map((cosmosPackage, index) => {
       return (
-        <UniversePackageOption
+        <CatalogPackageOption
           image={this.getIcon(cosmosPackage)}
           key={index}
           label={this.getPackageOptionBadge(cosmosPackage)}
@@ -145,7 +145,7 @@ class PackagesTab extends mixin(StoreMixin) {
           <small className="flush">
             {cosmosPackage.getCurrentVersion()}
           </small>
-        </UniversePackageOption>
+        </CatalogPackageOption>
       );
     });
   }
@@ -238,7 +238,7 @@ class PackagesTab extends mixin(StoreMixin) {
           <div className="pod flush-horizontal flush-top">
             <FilterInputText
               className="flex-grow"
-              placeholder="Search packages"
+              placeholder="Search catalog"
               searchString={state.searchString}
               handleFilterChange={this.handleSearchStringChange}
             />
@@ -260,11 +260,6 @@ class PackagesTab extends mixin(StoreMixin) {
 
 PackagesTab.contextTypes = {
   router: routerShape
-};
-
-PackagesTab.routeConfig = {
-  label: "Packages",
-  matches: /^\/universe\/packages/
 };
 
 module.exports = PackagesTab;

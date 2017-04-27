@@ -9,7 +9,7 @@ import CreateServiceModalServicePickerOptionContent
 import CreateServiceModalServicePickerOptionImage
   from "./CreateServiceModalServicePickerOptionImage";
 
-class CreateServicePickerUniverseOption extends React.Component {
+class CreateServicePickerCatalogOption extends React.Component {
   render() {
     const { columnClasses, onOptionSelect } = this.props;
 
@@ -17,7 +17,7 @@ class CreateServicePickerUniverseOption extends React.Component {
       <CreateServiceModalServicePickerOption
         columnClasses={columnClasses}
         onOptionSelect={onOptionSelect.bind(null, {
-          route: "universe",
+          route: "catalog",
           type: "redirect"
         })}
       >
@@ -30,9 +30,9 @@ class CreateServicePickerUniverseOption extends React.Component {
   }
 }
 
-CreateServicePickerUniverseOption.propTypes = {
+CreateServicePickerCatalogOption.propTypes = {
   columnClasses: React.PropTypes.string,
   onOptionSelect: React.PropTypes.func
 };
 
-module.exports = CreateServicePickerUniverseOption;
+module.exports = CreateServicePickerCatalogOption;

@@ -11,7 +11,7 @@ const General = {
     <span>
       Configure your container service here or
       {" "}
-      <a href="#/universe">install from Universe</a>
+      <a href="#/catalog">install from Catalog</a>
       .
     </span>
   ),

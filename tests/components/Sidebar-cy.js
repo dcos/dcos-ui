@@ -1,8 +1,6 @@
 const nestedRoutesToTest = [
   { url: "/services/overview", parentMenuLabel: "Services" },
   { url: "/services/deployments", parentMenuLabel: "Services" },
-  { url: "/universe/packages", parentMenuLabel: "Universe" },
-  { url: "/universe/installed-packages", parentMenuLabel: "Universe" },
   { url: "/networking/networks", parentMenuLabel: "Networking" },
   { url: "/settings/repositories", parentMenuLabel: "Settings" },
   { url: "/organization/users", parentMenuLabel: "Organization" }

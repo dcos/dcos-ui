@@ -207,7 +207,7 @@ module.exports = class ServiceTree extends Tree {
       if (Array.isArray(filter.other) && filter.other.length !== 0) {
         services = services.reduce(function(memo, service) {
           filter.other.forEach(function(otherKey) {
-            if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
+            if (parseInt(otherKey, 10) === ServiceOther.CATALOG.key) {
               if (service instanceof ServiceTree) {
                 memo = memo.concat(
                   service.filterItemsByFilter({ other: [otherKey] }).getItems()
