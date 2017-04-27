@@ -1,6 +1,7 @@
 import AceEditor from "react-ace";
 import React from "react";
 import deepEqual from "deep-equal";
+import "brace/ext/searchbox";
 
 import { omit } from "../utils/Util";
 import JSONUtil from "../utils/JSONUtil";
