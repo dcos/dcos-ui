@@ -8,9 +8,9 @@ import ServiceInstancesContainer
   from "../containers/service-instances/ServiceInstancesContainer";
 
 const HighOrderServiceInstances = function(props) {
-  const { pod, service, params } = props;
-  if (pod != null) {
-    return <PodInstancesContainer pod={pod} />;
+  const { service, params } = props;
+  if (service instanceof Pod) {
+    return <PodInstancesContainer pod={service} />;
   }
 
   return <ServiceInstancesContainer service={service} params={params} />;
@@ -18,8 +18,10 @@ const HighOrderServiceInstances = function(props) {
 
 HighOrderServiceInstances.propTypes = {
   params: React.PropTypes.object.isRequired,
-  pod: React.PropTypes.instanceOf(Pod),
-  service: React.PropTypes.instanceOf(Service)
+  service: React.PropTypes.oneOfType([
+    React.PropTypes.instanceOf(Pod),
+    React.PropTypes.instanceOf(Service)
+  ])
 };
 
 module.exports = HighOrderServiceInstances;

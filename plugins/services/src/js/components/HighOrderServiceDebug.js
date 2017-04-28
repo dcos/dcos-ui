@@ -7,17 +7,19 @@ import ServiceDebugContainer
   from "../containers/service-debug/ServiceDebugContainer";
 
 const HighOrderServiceDebug = function(props) {
-  const { pod, service } = props;
-  if (pod != null) {
-    return <PodDebugContainer pod={pod} />;
+  const { service } = props;
+  if (service instanceof Pod) {
+    return <PodDebugContainer pod={service} />;
   }
 
   return <ServiceDebugContainer service={service} />;
 };
 
 HighOrderServiceDebug.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod),
-  service: React.PropTypes.instanceOf(Service)
+  service: React.PropTypes.oneOfType([
+    React.PropTypes.instanceOf(Pod),
+    React.PropTypes.instanceOf(Service)
+  ])
 };
 
 module.exports = HighOrderServiceDebug;

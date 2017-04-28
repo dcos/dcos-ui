@@ -8,9 +8,9 @@ import ServiceConfigurationContainer
   from "../containers/service-configuration/ServiceConfigurationContainer";
 
 const HighOrderServiceConfiguration = function(props) {
-  const { pod, errors, onEditClick, service } = props;
-  if (pod != null) {
-    return <PodConfigurationContainer pod={pod} />;
+  const { errors, onEditClick, service } = props;
+  if (service instanceof Pod) {
+    return <PodConfigurationContainer pod={service} />;
   }
 
   return (
@@ -23,9 +23,11 @@ const HighOrderServiceConfiguration = function(props) {
 };
 
 HighOrderServiceConfiguration.propTypes = {
-  errors: React.PropTypes.object,
-  pod: React.PropTypes.instanceOf(Pod),
-  service: React.PropTypes.instanceOf(Service)
+  errors: React.PropTypes.array,
+  service: React.PropTypes.oneOfType([
+    React.PropTypes.instanceOf(Pod),
+    React.PropTypes.instanceOf(Service)
+  ])
 };
 
 module.exports = HighOrderServiceConfiguration;
