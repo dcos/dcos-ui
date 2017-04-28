@@ -7,7 +7,7 @@ import Service from "../structs/Service";
 import ServiceInstancesContainer
   from "../containers/service-instances/ServiceInstancesContainer";
 
-const HighOrderServiceInstances = props => {
+const HighOrderServiceInstances = function(props) {
   const { pod, service, params } = props;
   if (pod != null) {
     return <PodInstancesContainer pod={pod} />;

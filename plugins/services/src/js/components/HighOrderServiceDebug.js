@@ -6,7 +6,7 @@ import Service from "../structs/Service";
 import ServiceDebugContainer
   from "../containers/service-debug/ServiceDebugContainer";
 
-const HighOrderServiceDebug = props => {
+const HighOrderServiceDebug = function(props) {
   const { pod, service } = props;
   if (pod != null) {
     return <PodDebugContainer pod={pod} />;
