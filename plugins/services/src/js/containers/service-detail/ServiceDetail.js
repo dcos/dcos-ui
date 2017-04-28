@@ -189,6 +189,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       volumes: service.getVolumes().getItems()
     };
 
+    // TODO (DCOS_OSS-1038): Move cloned props to route parameters
     const clonedChildren = React.Children.map(children, function(child) {
       // Only add props to children that are not ServiceModals
       if (child.type === ServiceModals) {
