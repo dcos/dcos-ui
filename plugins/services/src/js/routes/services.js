@@ -164,70 +164,25 @@ const serviceRoutes = [
           {
             type: Route,
             path: "volumes/:volumeID",
-            component: ServiceVolumeContainer,
-            buildBreadCrumb(params) {
-              return {
-                parentCrumb: `/services/detail/${params.id}`,
-                getCrumbs(volumeParams) {
-                  return [
-                    {
-                      label: volumeParams.volumeID
-                    }
-                  ];
-                }
-              };
-            }
+            component: ServiceVolumeContainer
           },
           {
             type: Route,
             path: "configuration",
             title: "Configuration",
-            component: HighOrderServiceConfiguration,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/services/overview",
-                getCrumbs(params) {
-                  return {
-                    parentCrumb: `/services/overview/${params.id}`,
-                    getCrumbs: buildServiceCrumbs
-                  };
-                }
-              };
-            }
+            component: HighOrderServiceConfiguration
           },
           {
             type: Route,
             path: "debug",
             title: "Debug",
-            component: HighOrderServiceDebug,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/services/overview",
-                getCrumbs(params) {
-                  return {
-                    parentCrumb: `/services/overview/${params.id}`,
-                    getCrumbs: buildServiceCrumbs
-                  };
-                }
-              };
-            }
+            component: HighOrderServiceDebug
           },
           {
             type: Route,
             path: "volumes",
             title: "Volumes",
-            component: VolumeTable,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/services/overview",
-                getCrumbs(params) {
-                  return {
-                    parentCrumb: `/services/overview/${params.id}`,
-                    getCrumbs: buildServiceCrumbs
-                  };
-                }
-              };
-            }
+            component: VolumeTable
           },
           {
             type: Route,
