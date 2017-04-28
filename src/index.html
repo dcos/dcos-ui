@@ -35,6 +35,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="./img/components/icons/favicon-apple-152x152.png">
     <script type="text/javascript">(function () {var PAGE_LOADED_TIME = Date.now(); window.getPageLoadedTime = function () {return PAGE_LOADED_TIME;}})();</script>
     <!--[if BOOTSTRAP-CSS]><![endif]-->
+
+    <script type="text/JavaScript">
+    // old school Frame busting solution
+    // even though this solution has other way around it
+    // the X-Frame-Options set in the HEADERS is the ideal
+    if (top != self) { top.location.replace(self.location.href); }
+    </script>
   </head>
 
   <body>
