@@ -24,7 +24,10 @@ describe("ServicesTable", function() {
 
   beforeEach(function() {
     this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(<ServicesTable />, this.container);
+    this.instance = ReactDOM.render(
+      <ServicesTable.WrappedComponent />,
+      this.container
+    );
   });
 
   afterEach(function() {

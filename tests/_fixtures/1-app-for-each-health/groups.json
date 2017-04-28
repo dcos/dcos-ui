@@ -155,6 +155,9 @@
         "maximumOverCapacity": 1
       },
       "labels": {
+        "DCOS_SERVICE_NAME": "cassandra",
+        "DCOS_SERVICE_PORT_INDEX": "foo",
+        "DCOS_SERVICE_SCHEME": "bar",
         "DCOS_PACKAGE_RELEASE": "2",
         "DCOS_PACKAGE_SOURCE": "file:///Users/kowens/git/universe/",
         "DCOS_PACKAGE_COMMAND": "eyJwaXAiOiBbImRjb3M9PTAuMS4xMyIsICJnaXQraHR0cHM6Ly9naXRodWIuY29tL21lc29zcGhlcmUvZGNvcy1jYXNzYW5kcmEuZ2l0I2Rjb3MtY2Fzc2FuZHJhPTAuMS4wIl19",

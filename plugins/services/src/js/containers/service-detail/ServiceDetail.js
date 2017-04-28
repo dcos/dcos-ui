@@ -1,3 +1,4 @@
+import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
@@ -111,6 +112,21 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     const actions = [];
 
+    if (
+      service instanceof Service &&
+      service.getWebURL() != null &&
+      service.getWebURL() !== ""
+    ) {
+      actions.push({
+        label: this.props.intl.formatMessage({
+          id: "SERVICE_ACTIONS.OPEN_SERVICE"
+        }),
+        onItemSelect() {
+          modalHandlers.openServiceUI({ service });
+        }
+      });
+    }
+
     actions.push({
       label: "Edit",
       onItemSelect() {
@@ -219,7 +235,8 @@ ServiceDetail.contextTypes = {
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     suspendService: PropTypes.func,
-    deleteService: PropTypes.func
+    deleteService: PropTypes.func,
+    openService: PropTypes.func
   }).isRequired,
   router: routerShape
 };
@@ -233,4 +250,4 @@ ServiceDetail.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = ServiceDetail;
+module.exports = injectIntl(ServiceDetail);
