@@ -909,7 +909,7 @@ describe("Service Form Modal", function() {
             .should("not.have.attr", "disabled");
         });
 
-        it("should disable bridge networking when Universal Container Runtime selected", function() {
+        it("should not disable bridge networking when Universal Container Runtime selected", function() {
           setRuntime("Universal Container Runtime");
           clickNetworkingTab();
 
@@ -929,7 +929,7 @@ describe("Service Form Modal", function() {
             .get("@containerDockerNetwork")
             .children("option:eq(1)")
             .should("have.value", "BRIDGE")
-            .should("have.attr", "disabled");
+            .should("not.have.attr", "disabled");
 
           // CONTAINER.dcos-1
           cy
