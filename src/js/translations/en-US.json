@@ -1,16 +1,6 @@
 {
-  "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
-  "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
-  "DASHBOARD.PANEL_HEADING.MEMORY": "Memory Allocation",
-  "DASHBOARD.PANEL_HEADING.DISK": "Disk Allocation",
-  "DASHBOARD.PANEL_HEADING.SERVICES_HEALTH": "Services Health",
-  "DASHBOARD.PANEL_HEADING.TASKS": "Tasks",
-  "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH": "Component Health",
-  "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
-
-  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
-  "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
-  "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}",
+  "CLIPBOARD.COPY": "Copy",
+  "CLIPBOARD.COPIED": "Copied",
 
   "COMMON.GENERAL": "General",
   "COMMON.DETAILS": "Details",
@@ -20,5 +10,33 @@
   "COMMON.BUILT": "Built",
   "COMMON.STARTED": "Started",
   "COMMON.ELECTED": "Elected",
-  "COMMON.BY_NAME": "by {name}"
+  "COMMON.BY_NAME": "by {name}",
+
+  "BUTTON.CLOSE": "Close",
+
+  "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
+  "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
+  "DASHBOARD.PANEL_HEADING.MEMORY": "Memory Allocation",
+  "DASHBOARD.PANEL_HEADING.DISK": "Disk Allocation",
+  "DASHBOARD.PANEL_HEADING.SERVICES_HEALTH": "Services Health",
+  "DASHBOARD.PANEL_HEADING.TASKS": "Tasks",
+  "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH": "Component Health",
+  "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
+
+  "DOCS.MORE_INFORMATION": "More information",
+  "DOCS.DOCUMENTATION": "documentation",
+
+  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
+  "SERVICE_ACTIONS.SDK_SERVICE_RESTART": "Restart your service from the DC/OS CLI.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND": "Suspend your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_RESUME": "Resume your service by scaling to 1 or more instances from the DC/OS CLI using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SCALE": "Update the number of instances in your service's target configuration using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE": "Scaling to fewer instances is not supported.",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_1": "You must delete",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2": "via the DC/OS CLI. Copy and paste this command into the CLI. See the",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3": "To clean up resources reserved by your service, run the",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_4": "framework cleaner script",
+
+  "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
+  "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}"
 }
