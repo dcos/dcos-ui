@@ -13,6 +13,25 @@
       "mem": 16,
       "disk": 0,
       "executor": "",
+      "volumes": [
+        {
+          "id": "volume-1",
+          "containerPath": "path-volume-1",
+          "mode": "RW",
+          "size": 1,
+          "type": "External",
+          "status": "Attached"
+        },
+        {
+          "id": "volume-2",
+          "containerPath": "path-volume-2",
+          "mode": "RW",
+          "size": 2,
+          "type": "Persistent",
+          "host": "10.0.1.54",
+          "status": "Detached"
+        }
+      ],
       "constraints": [
         
       ],
@@ -45,6 +64,10 @@
       },
       "acceptedResourceRoles": null,
       "version": "2015-08-28T01:26:14.620Z",
+      "versionInfo": {
+        "lastScalingAt": "2015-08-28T01:26:14.620Z",
+        "lastConfigChangeAt": "2015-08-28T01:26:14.620Z"
+      },
       "tasksStaged": 0,
       "tasksRunning": 1,
       "tasksHealthy": 0,

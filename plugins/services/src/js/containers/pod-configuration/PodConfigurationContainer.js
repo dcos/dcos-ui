@@ -9,6 +9,7 @@ class PodConfigurationTabView extends React.Component {
     const spec = this.props.pod.getSpec();
     const localeVersion = new Date(spec.getVersion()).toLocaleString();
 
+    // TODO (DCOS_OSS-1037): Implement ability to edit a Pod
     return (
       <div className="container">
         <h3 className="flush-top">

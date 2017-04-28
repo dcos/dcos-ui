@@ -460,10 +460,15 @@ class ServicesContainer extends React.Component {
   }
 
   getPodDetail(item) {
-    const { children } = this.props;
+    const { children, params, routes } = this.props;
 
     return (
-      <PodDetail actions={this.getActions()} pod={item}>
+      <PodDetail
+        actions={this.getActions()}
+        params={params}
+        pod={item}
+        routes={routes}
+      >
         {children}
         {this.getModals(item)}
       </PodDetail>

@@ -63,6 +63,13 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
   }
 
+  if (configuration.mesos === "1-pod") {
+    router.route(
+      /service\/marathon\/v2\/groups/,
+      "fx:marathon-1-pod-group/groups"
+    );
+  }
+
   if (configuration.mesos === "1-empty-group") {
     router.route(/marathon\/v2\/groups/, "fx:marathon-1-group/groups");
   }

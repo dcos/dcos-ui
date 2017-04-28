@@ -20,6 +20,10 @@ import TaskLogsContainer from "../pages/task-details/TaskLogsContainer";
 import TaskVolumeContainer
   from "../containers/volume-detail/TaskVolumeContainer";
 import VolumeTable from "../components/VolumeTable";
+import HighOrderServiceConfiguration
+  from "../components/HighOrderServiceConfiguration";
+import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
+import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
 
 function buildServiceCrumbs({ id }) {
   id = decodeURIComponent(id).replace(/^\//, "");
@@ -118,6 +122,11 @@ const serviceRoutes = [
       },
       // Service Detail routes
       {
+        type: Redirect,
+        from: "/services/detail/:id",
+        to: "/services/detail/:id/tasks"
+      },
+      {
         type: Route,
         component: ServicesContainer,
         path: "detail/:id",
@@ -155,60 +164,88 @@ const serviceRoutes = [
           {
             type: Route,
             path: "volumes/:volumeID",
-            component: ServiceVolumeContainer,
-            buildBreadCrumb(params) {
-              return {
-                parentCrumb: `/services/detail/${params.id}`,
-                getCrumbs(volumeParams) {
-                  return [
-                    {
-                      label: volumeParams.volumeID
-                    }
-                  ];
-                }
-              };
-            }
+            component: ServiceVolumeContainer
           },
           {
             type: Route,
+            path: "configuration",
+            title: "Configuration",
+            component: HighOrderServiceConfiguration
+          },
+          {
+            type: Route,
+            path: "debug",
+            title: "Debug",
+            component: HighOrderServiceDebug
+          },
+          {
+            type: Route,
+            path: "volumes",
+            title: "Volumes",
+            component: VolumeTable
+          },
+          {
+            type: Route,
+            title: "Instances",
             path: "tasks",
-            component({ children }) {
-              return children;
+            component: HighOrderServiceInstances
+          },
+          {
+            type: Redirect,
+            path: "/services/detail/:id/tasks/:taskID",
+            to: "/services/detail/:id/tasks/:taskID/details"
+          },
+          {
+            type: Route,
+            title: "Instances",
+            path: "tasks/:taskID",
+            component: ServiceTaskDetailPage,
+            hideHeaderNavigation: true,
+            buildBreadCrumb() {
+              return {
+                parentCrumb: "/services/overview/:id",
+                getCrumbs(params, routes) {
+                  return [
+                    <TaskDetailBreadcrumb
+                      params={params}
+                      routes={routes}
+                      to="/services/overview/:id/tasks/:taskID"
+                      routePath=":taskID"
+                    />
+                  ];
+                }
+              };
             },
             children: [
               {
-                type: Redirect,
-                path: "/services/detail/:id/tasks/:taskID",
-                to: "/services/detail/:id/tasks/:taskID/details"
-              },
-              {
                 type: Route,
-                path: ":taskID",
-                component: ServiceTaskDetailPage,
+                component: TaskDetailsTab,
                 hideHeaderNavigation: true,
+                isTab: true,
+                path: "details",
+                title: "Details",
                 buildBreadCrumb() {
                   return {
-                    parentCrumb: "/services/detail/:id",
-                    getCrumbs(params, routes) {
-                      return [
-                        <TaskDetailBreadcrumb
-                          params={params}
-                          routes={routes}
-                          to="/services/detail/:id/tasks/:taskID"
-                          routePath=":taskID"
-                        />
-                      ];
+                    parentCrumb: "/services/detail/:id/tasks/:taskID",
+                    getCrumbs() {
+                      return [];
                     }
                   };
-                },
+                }
+              },
+              {
+                hideHeaderNavigation: true,
+                component: TaskFilesTab,
+                isTab: true,
+                path: "files",
+                title: "Files",
+                type: Route,
                 children: [
                   {
-                    type: Route,
-                    component: TaskDetailsTab,
+                    component: TaskFileBrowser,
+                    fileViewerRoutePath: "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                     hideHeaderNavigation: true,
-                    isTab: true,
-                    path: "details",
-                    title: "Details",
+                    type: IndexRoute,
                     buildBreadCrumb() {
                       return {
                         parentCrumb: "/services/detail/:id/tasks/:taskID",
@@ -219,107 +256,83 @@ const serviceRoutes = [
                     }
                   },
                   {
+                    component: TaskFileViewer,
                     hideHeaderNavigation: true,
-                    component: TaskFilesTab,
-                    isTab: true,
-                    path: "files",
-                    title: "Files",
-                    type: Route,
-                    children: [
-                      {
-                        component: TaskFileBrowser,
-                        fileViewerRoutePath: "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                        hideHeaderNavigation: true,
-                        type: IndexRoute,
-                        buildBreadCrumb() {
-                          return {
-                            parentCrumb: "/services/detail/:id/tasks/:taskID",
-                            getCrumbs() {
-                              return [];
-                            }
-                          };
-                        }
-                      },
-                      {
-                        component: TaskFileViewer,
-                        hideHeaderNavigation: true,
-                        path: "view(/:filePath(/:innerPath))",
-                        type: Route,
-                        buildBreadCrumb() {
-                          return {
-                            parentCrumb: "/services/detail/:id/tasks/:taskID",
-                            getCrumbs() {
-                              return [];
-                            }
-                          };
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    component: TaskLogsContainer,
-                    hideHeaderNavigation: true,
-                    isTab: true,
-                    path: "logs",
-                    title: "Logs",
+                    path: "view(/:filePath(/:innerPath))",
                     type: Route,
                     buildBreadCrumb() {
                       return {
                         parentCrumb: "/services/detail/:id/tasks/:taskID",
                         getCrumbs() {
                           return [];
-                        }
-                      };
-                    },
-                    children: [
-                      {
-                        path: ":filePath",
-                        type: Route
-                      }
-                    ]
-                  },
-                  {
-                    component: VolumeTable,
-                    hideHeaderNavigation: true,
-                    isTab: true,
-                    path: "volumes",
-                    title: "Volumes",
-                    type: Route,
-                    buildBreadCrumb() {
-                      return {
-                        parentCrumb: "/services/detail/:id/tasks/:taskID",
-                        getCrumbs() {
-                          return [];
-                        }
-                      };
-                    }
-                  },
-                  {
-                    type: Route,
-                    hideHeaderNavigation: true,
-                    path: "volumes/:volumeID",
-                    component: TaskVolumeContainer,
-                    buildBreadCrumb() {
-                      return {
-                        parentCrumb: "/services/detail/:id/tasks/:taskID/volumes",
-                        getCrumbs(params) {
-                          return [
-                            {
-                              label: "Volumes",
-                              route: {
-                                params,
-                                to: "/services/detail/:id/tasks/:taskID/volumes"
-                              }
-                            },
-                            {
-                              label: params.volumeID
-                            }
-                          ];
                         }
                       };
                     }
                   }
                 ]
+              },
+              {
+                component: TaskLogsContainer,
+                hideHeaderNavigation: true,
+                isTab: true,
+                path: "logs",
+                title: "Logs",
+                type: Route,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: "/services/detail/:id/tasks/:taskID",
+                    getCrumbs() {
+                      return [];
+                    }
+                  };
+                },
+                children: [
+                  {
+                    path: ":filePath",
+                    type: Route
+                  }
+                ]
+              },
+              {
+                component: VolumeTable,
+                hideHeaderNavigation: true,
+                isTab: true,
+                path: "volumes",
+                title: "Volumes",
+                type: Route,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: "/services/detail/:id/tasks/:taskID",
+                    getCrumbs() {
+                      return [];
+                    }
+                  };
+                }
+              },
+              {
+                type: Route,
+                hideHeaderNavigation: true,
+                path: "volumes/:volumeID",
+                component: TaskVolumeContainer,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: "/services/detail/:id/tasks/:taskID/volumes",
+                    getCrumbs(params) {
+                      return [
+                        {
+                          label: "Volumes",
+                          route: {
+                            params,
+                            to: "/services/detail/:id/tasks/:taskID/volumes"
+                          }
+                        },
+                        {
+                          label: params.volumeID
+                        }
+                      ];
+                    }
+                  };
+                }
               }
             ]
           }

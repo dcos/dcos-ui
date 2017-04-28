@@ -3,17 +3,15 @@ import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
 
 import Page from "#SRC/js/components/Page";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import UserActions from "#SRC/js/constants/UserActions";
 
-import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import Pod from "../../structs/Pod";
-import PodConfigurationContainer
-  from "../pod-configuration/PodConfigurationContainer";
-import PodDebugContainer from "../pod-debug/PodDebugContainer";
 import PodHeader from "./PodHeader";
-import PodInstancesContainer from "../pod-instances/PodInstancesContainer";
+import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
+import ServiceModals from "../../components/modals/ServiceModals";
 
 const METHODS_TO_BIND = [
   "handleActionDestroy",
@@ -27,9 +25,9 @@ class PodDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      instances: "Instances",
-      configuration: "Configuration",
-      debug: "Debug"
+      "/services/overview/:id/tasks": "Instances",
+      "/services/overview/:id/configuration": "Configuration",
+      "/services/overview/:id/debug": "Debug"
     };
 
     this.state = {
@@ -39,6 +37,24 @@ class PodDetail extends mixin(TabsMixin) {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentWillMount() {
+    super.componentWillMount(...arguments);
+    this.updateCurrentTab();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(...arguments);
+    this.updateCurrentTab(nextProps);
+  }
+
+  updateCurrentTab(props = this.props) {
+    const { routes } = props;
+    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    if (currentTab != null) {
+      this.setState({ currentTab });
+    }
   }
 
   handleActionDestroy() {
@@ -61,24 +77,6 @@ class PodDetail extends mixin(TabsMixin) {
   handleActionSuspend() {
     const { pod } = this.props;
     this.context.modalHandlers.suspendService({ pod });
-  }
-
-  renderConfigurationTabView() {
-    const { pod } = this.props;
-
-    return <PodConfigurationContainer pod={pod} />;
-  }
-
-  renderDebugTabView() {
-    const { pod } = this.props;
-
-    return <PodDebugContainer pod={pod} />;
-  }
-
-  renderInstancesTabView() {
-    const { pod } = this.props;
-
-    return <PodInstancesContainer pod={pod} />;
   }
 
   getActions() {
@@ -114,30 +112,13 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
-    const activeTab = this.state.currentTab;
+    const { pod: { id } } = this.props;
+    const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     return [
-      {
-        label: "Instances",
-        callback: () => {
-          this.setState({ currentTab: "instances" });
-        },
-        isActive: activeTab === "instances"
-      },
-      {
-        label: "Configuration",
-        callback: () => {
-          this.setState({ currentTab: "configuration" });
-        },
-        isActive: activeTab === "configuration"
-      },
-      {
-        label: "Debug",
-        callback: () => {
-          this.setState({ currentTab: "debug" });
-        },
-        isActive: activeTab === "debug"
-      }
+      { label: "Instances", routePath: `${routePrefix}/tasks` },
+      { label: "Configuration", routePath: `${routePrefix}/configuration` },
+      { label: "Debug", routePath: `${routePrefix}/debug` }
     ];
   }
 
@@ -145,6 +126,17 @@ class PodDetail extends mixin(TabsMixin) {
     const { children, pod } = this.props;
 
     const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
+
+    // TODO (DCOS_OSS-1038): Move cloned props to route parameters
+    const clonedProps = { service: pod };
+    const clonedChildren = React.Children.map(children, function(child) {
+      // Only add props to children that are not ServiceModals
+      if (child.type === ServiceModals) {
+        return child;
+      }
+
+      return React.cloneElement(child, clonedProps);
+    });
 
     return (
       <Page>
@@ -159,11 +151,10 @@ class PodDetail extends mixin(TabsMixin) {
             onScale={this.handleActionScale}
             onSuspend={this.handleActionSuspend}
             pod={pod}
-            tabs={this.tabs_getUnroutedTabs()}
+            tabs={this.getTabs()}
           />
         </Page.Header>
-        {this.tabs_getTabView()}
-        {children}
+        {clonedChildren}
       </Page>
     );
   }
