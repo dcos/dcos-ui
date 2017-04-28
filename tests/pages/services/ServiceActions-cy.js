@@ -6,83 +6,48 @@ describe("Service Actions", function() {
     cy.get(".dropdown-menu-items").contains(actionText).click();
   }
 
-  beforeEach(function() {
-    cy.configureCluster({
-      mesos: "1-for-each-health",
-      nodeHealth: true
-    });
-
-    cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-  });
-
   context("Open Service Action", function() {
-    context("Services Table", function() {
-      beforeEach(function() {
-        cy.visitUrl({ url: "/services/overview" });
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true
       });
 
-      it('displays the "Open Service" option for services that have a web UI', function() {
-        cy
-          .get(".table-cell-link-primary")
-          .contains("cassandra-healthy")
-          .closest("tr")
-          .find(".dropdown .button")
-          .click();
-
-        cy
-          .get(".dropdown-menu-items")
-          .contains("Open Service")
-          .should(function($menuItem) {
-            expect($menuItem.length).to.equal(1);
-          });
-      });
-
-      it('does not display the "Open Service" option for services that have a web UI', function() {
-        cy
-          .get(".table-cell-link-primary")
-          .contains("cassandra-unhealthy")
-          .closest("tr")
-          .find(".dropdown .button")
-          .click();
-
-        cy
-          .get(".dropdown-menu-items")
-          .contains("Open Service")
-          .should(function($menuItem) {
-            expect($menuItem.hasClass("hidden")).to.equal(true);
-          });
-      });
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
     });
 
-    context("Service Detail", function() {
-      it('displays the "Open Service" option for services that have a web UI', function() {
-        cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
+    it('displays the "Open Service" option for services that have a web UI', function() {
+      cy.get(".page-header-actions .dropdown").click();
+      cy
+        .get(".dropdown-menu-items")
+        .contains("Open Service")
+        .should(function($menuItem) {
+          expect($menuItem.length).to.equal(1);
+        });
+    });
 
-        cy.get(".page-header-actions .dropdown").click();
-        cy
-          .get(".dropdown-menu-items")
-          .contains("Open Service")
-          .should(function($menuItem) {
-            expect($menuItem.length).to.equal(1);
-          });
-      });
+    it('does not display the "Open Service" option for services that have a web UI', function() {
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-unhealthy" });
 
-      it('does not display the "Open Service" option for services that have a web UI', function() {
-        cy.visitUrl({ url: "/services/detail/%2Fcassandra-unhealthy" });
-
-        cy.get(".page-header-actions .dropdown").click();
-        cy
-          .get(".dropdown-menu-items")
-          .contains("Open Service")
-          .should(function($menuItem) {
-            expect($menuItem.length).to.equal(0);
-          });
-      });
+      cy.get(".page-header-actions .dropdown").click();
+      cy
+        .get(".dropdown-menu-items")
+        .contains("Open Service")
+        .should(function($menuItem) {
+          expect($menuItem.length).to.equal(0);
+        });
     });
   });
 
   context("Edit Action", function() {
     beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
+
       clickHeaderAction("Edit");
     });
 
@@ -238,6 +203,12 @@ describe("Service Actions", function() {
 
   context("Scale Action", function() {
     beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
       clickHeaderAction("Scale");
     });
 
@@ -326,6 +297,12 @@ describe("Service Actions", function() {
 
   context("Suspend Action", function() {
     beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
       clickHeaderAction("Suspend");
     });
 
@@ -409,187 +386,6 @@ describe("Service Actions", function() {
         .contains("Cancel")
         .click();
       cy.get(".confirm-modal").should("to.have.length", 0);
-    });
-  });
-
-  context("Resume Action", function() {
-    function openDropdown() {
-      cy.get(".service-table-column-actions .dropdown .button").eq(0).click();
-    }
-
-    function clickResume() {
-      cy.get(".dropdown-menu-items li").contains("Resume").click();
-    }
-
-    function configureClusterWithSuspendedServiceAndVisitServices() {
-      cy.configureCluster({
-        mesos: "1-service-suspended",
-        nodeHealth: true
-      });
-
-      cy.visitUrl({ url: "/services/overview" });
-    }
-
-    it("hides the suspend option in the service action dropdown", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-      openDropdown();
-
-      cy
-        .get(".dropdown-menu-items li")
-        .contains("Suspend")
-        .should("have.class", "hidden");
-    });
-
-    it("shows the resume option in the service action dropdown", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-      openDropdown();
-
-      cy
-        .get(".dropdown-menu-items li")
-        .contains("Resume")
-        .should("not.have.class", "hidden");
-    });
-
-    it("opens the resume dialog", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-      openDropdown();
-      clickResume();
-
-      cy
-        .get(".modal-header")
-        .contains("Resume Service")
-        .should("have.length", 1);
-    });
-
-    it("opens the resume dialog with the instances textbox if the single app instance label does not exist", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-      openDropdown();
-      clickResume();
-
-      cy.get('input[name="instances"]').should("have.length", 1);
-    });
-
-    it("opens the resume dialog without the instances textbox if the single app instance label exists", function() {
-      cy.configureCluster({
-        mesos: "1-service-suspended-single-instance",
-        nodeHealth: true
-      });
-
-      cy.visitUrl({ url: "/services/overview" });
-
-      openDropdown();
-      clickResume();
-
-      cy.get('input[name="instances"]').should("have.length", 0);
-    });
-
-    it("disables button during API request", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
-      });
-
-      openDropdown();
-      clickResume();
-
-      cy
-        .get(".modal-footer .button-collection .button-primary")
-        .click()
-        .should("have.class", "disabled");
-    });
-
-    it("closes dialog on successful API request", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
-      });
-
-      openDropdown();
-      clickResume();
-
-      cy.get(".modal-footer .button-collection .button-primary").click();
-      cy.get(".modal-body").should("to.have.length", 0);
-    });
-
-    it("shows error message on conflict", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-
-      cy.route({
-        method: "PUT",
-        status: 409,
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: {
-          message: "App is locked by one or more deployments."
-        }
-      });
-
-      openDropdown();
-      clickResume();
-
-      cy.get(".modal-footer .button-collection .button-primary").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "App is locked by one or more deployments.");
-    });
-
-    it("shows error message on not authorized", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-
-      cy.route({
-        method: "PUT",
-        status: 403,
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: {
-          message: "Not Authorized to perform this action!"
-        }
-      });
-
-      openDropdown();
-      clickResume();
-
-      cy.get(".modal-footer .button-collection .button-primary").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "Not Authorized to perform this action!");
-    });
-
-    it("reenables button after faulty request", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: [],
-        delay: SERVER_RESPONSE_DELAY
-      });
-
-      openDropdown();
-      clickResume();
-
-      cy
-        .get(".modal-footer .button-collection .button-primary")
-        .as("primaryButton")
-        .click();
-      cy.get("@primaryButton").should("have.class", "disabled");
-      cy.get("@primaryButton").should("not.have.class", "disabled");
-    });
-
-    it("closes dialog on secondary button click", function() {
-      configureClusterWithSuspendedServiceAndVisitServices();
-      openDropdown();
-      clickResume();
-
-      cy
-        .get(".modal-footer .button-collection .button")
-        .contains("Cancel")
-        .click();
-      cy.get(".modal-body").should("to.have.length", 0);
     });
   });
 });
