@@ -7,7 +7,7 @@ describe("Jobs", function() {
     });
   });
 
-  it("Create a simple job", function() {
+  it("should create a simple job", function() {
     const jobName = "job-with-inline-shell-script";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -61,10 +61,30 @@ describe("Jobs", function() {
     cy
       .get(".page-body-content table")
       .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
-      .should("exist");
+      .get("a.table-cell-link-primary")
+      .contains(`${jobName}`)
+      .click();
+
+    // open edit screen
+    cy
+      .get(".page-header-actions .dropdown")
+      .click()
+      .get(".dropdown-menu-items")
+      .contains("Edit")
+      .click();
+
+    // Check the input elements
+    cy
+      .root()
+      .getFormGroupInputFor("ID *")
+      .should("have.value", `${fullJobName}`);
+
+    cy.root().getFormGroupInputFor("Mem (MiB)").should("have.value", "32");
+
+    cy.root().getFormGroupInputFor("Command").contains(`${cmdline}`);
   });
 
-  it("Create a job with docker config", function() {
+  it("should create a job with docker config", function() {
     const jobName = "job-with-docker-config";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -131,10 +151,45 @@ describe("Jobs", function() {
     cy
       .get(".page-body-content table")
       .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
-      .should("exist");
+      .get("a.table-cell-link-primary")
+      .contains(`${jobName}`)
+      .click();
+
+    // open edit screen
+    cy
+      .get(".page-header-actions .dropdown")
+      .click()
+      .get(".dropdown-menu-items")
+      .contains("Edit")
+      .click();
+
+    // Fill-in the input elements
+    cy
+      .root()
+      .getFormGroupInputFor("ID *")
+      .should("have.value", `${fullJobName}`);
+    //
+    // TODO: Due to a bug in cypress you cannot type values with dots
+    // cy
+    //   .root()
+    //   .getFormGroupInputFor('CPUs')
+    //   .type('{selectall}0.5');
+    //
+    cy.root().getFormGroupInputFor("Mem (MiB)").should("have.value", "32");
+    cy.root().getFormGroupInputFor("Command").contains(cmdline);
+
+    // Select `Docker Container`
+    cy
+      .root()
+      .get(".multiple-form-modal-sidebar-menu-item")
+      .contains("Docker Container")
+      .click();
+
+    // Fill-in image
+    cy.root().getFormGroupInputFor("Image").should("have.value", "python:3");
   });
 
-  it("Create a job with labels", function() {
+  it("should create a job with labels", function() {
     const jobName = "job-with-labels";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -227,10 +282,83 @@ describe("Jobs", function() {
     cy
       .get(".page-body-content table")
       .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
-      .should("exist");
+      .get("a.table-cell-link-primary")
+      .contains(`${jobName}`)
+      .click();
+
+    // open edit screen
+    cy
+      .get(".page-header-actions .dropdown")
+      .click()
+      .get(".dropdown-menu-items")
+      .contains("Edit")
+      .click();
+
+    // Fill-in the input elements
+    cy
+      .root()
+      .getFormGroupInputFor("ID *")
+      .should("have.value", `${fullJobName}`);
+    cy.root().getFormGroupInputFor("Mem (MiB)").should("have.value", "32");
+    cy.root().getFormGroupInputFor("Command").contains(cmdline);
+
+    // Select `Labels`
+    cy
+      .root()
+      .get(".multiple-form-modal-sidebar-menu-item")
+      .contains("Labels")
+      .click();
+
+    // Fill-in the first label
+    cy
+      .root()
+      .getFormGroupInputFor("Label Name")
+      .eq(0)
+      .should("have.value", "camelCase");
+    cy
+      .root()
+      .getFormGroupInputFor("Label Value")
+      .eq(0)
+      .should("have.value", "test");
+
+    // Fill-in the second label
+    cy
+      .root()
+      .getFormGroupInputFor("Label Name")
+      .eq(1)
+      .should("have.value", "snake_case");
+    cy
+      .root()
+      .getFormGroupInputFor("Label Value")
+      .eq(1)
+      .should("have.value", "test");
+
+    // Fill-in the third label
+    cy
+      .root()
+      .getFormGroupInputFor("Label Name")
+      .eq(2)
+      .should("have.value", "lowercase");
+    cy
+      .root()
+      .getFormGroupInputFor("Label Value")
+      .eq(2)
+      .should("have.value", "test");
+
+    // Fill-in the fourth label
+    cy
+      .root()
+      .getFormGroupInputFor("Label Name")
+      .eq(3)
+      .should("have.value", "UPPERCASE");
+    cy
+      .root()
+      .getFormGroupInputFor("Label Value")
+      .eq(3)
+      .should("have.value", "test");
   });
 
-  it("Create a job with schedule", function() {
+  it("should create a job with schedule", function() {
     const jobName = "job-with-schedule";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -304,6 +432,43 @@ describe("Jobs", function() {
     cy
       .get(".page-body-content table")
       .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
-      .should("exist");
+      .get("a.table-cell-link-primary")
+      .contains(`${jobName}`)
+      .click();
+
+    // open edit screen
+    cy
+      .get(".page-header-actions .dropdown")
+      .click()
+      .get(".dropdown-menu-items")
+      .contains("Edit")
+      .click();
+
+    // Fill-in the input elements
+    cy
+      .root()
+      .getFormGroupInputFor("ID *")
+      .should("have.value", `${fullJobName}`);
+    //
+    // TODO: Due to a bug in cypress you cannot type values with dots
+    // cy
+    //   .root()
+    //   .getFormGroupInputFor('CPUs')
+    //   .type('{selectall}0.1');
+    //
+    cy.root().getFormGroupInputFor("Mem (MiB)").should("have.value", "32");
+    cy.root().getFormGroupInputFor("Command").contains(cmdline);
+
+    // Select `Schedule`
+    cy
+      .root()
+      .get(".multiple-form-modal-sidebar-menu-item")
+      .contains("Schedule")
+      .click();
+
+    cy
+      .root()
+      .getFormGroupInputFor("Cron Schedule *")
+      .should("have.value", "* * * * *");
   });
 });
