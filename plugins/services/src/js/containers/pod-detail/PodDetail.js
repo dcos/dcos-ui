@@ -151,7 +151,7 @@ class PodDetail extends mixin(TabsMixin) {
             onScale={this.handleActionScale}
             onSuspend={this.handleActionSuspend}
             pod={pod}
-            tabs={this.tabs_getUnroutedTabs()}
+            tabs={this.getTabs()}
           />
         </Page.Header>
         {clonedChildren}
