@@ -169,6 +169,43 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/state/, "fx:marathon-1-task/state");
   }
 
+  if (configuration.mesos === "1-sdk-service") {
+    router
+      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/sdk-service")
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/groups-sdk-services"
+      )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/deployments"
+      )
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary")
+      .route(/state/, "fx:marathon-1-task/state");
+  }
+
+  if (configuration.mesos === "1-suspended-sdk-service") {
+    router
+      .route(
+        /service\/marathon\/v2\/apps/,
+        "fx:marathon-1-task/sdk-service-suspended"
+      )
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/groups-suspended-sdk-services"
+      )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/deployments"
+      )
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary")
+      .route(/state/, "fx:marathon-1-task/state");
+  }
+
   if (configuration.mesos === "1-service-suspended-single-instance") {
     router
       .route(

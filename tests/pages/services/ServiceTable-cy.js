@@ -492,4 +492,107 @@ describe("Service Table", function() {
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
+
+  context("SDK Services", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("opens the destroy dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Delete");
+
+      cy
+        .get(".confirm-modal p span")
+        .contains("/sleep")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos package uninstall test --app-id=/sleep");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the scale dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Scale");
+
+      cy
+        .get(".modal-header")
+        .contains("Scale Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the suspend dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Suspend");
+
+      cy
+        .get(".modal-header")
+        .contains("Suspend Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the resume dialog", function() {
+      cy.configureCluster({
+        mesos: "1-suspended-sdk-service",
+        nodeHealth: true
+      });
+
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
+
+      cy
+        .get(".modal-header")
+        .contains("Resume Service")
+        .should("have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the restart dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Restart");
+
+      cy
+        .get(".modal-header")
+        .contains("Restart Service")
+        .should("have.length", 1);
+
+      cy.get(".modal pre").contains("dcos marathon app restart /sleep");
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+  });
 });
