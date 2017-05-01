@@ -109,7 +109,7 @@
         "ports": "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "1.2.0"
@@ -179,7 +179,7 @@
         "cpus": 0
       },
       "capabilities": [
-        
+
       ],
       "hostname": "ip-10-0-2-121.us-west-2.compute.internal",
       "webui_url": "",
@@ -272,10 +272,10 @@
         }
       ],
       "completed_tasks": [
-        
+
       ],
       "offers": [
-        
+
       ],
       "executors": [
         {
@@ -285,7 +285,7 @@
           "command": {
             "value": "./executor/bin/kafka-executor server ./executor/conf/executor.yml",
             "argv": [
-              
+
             ],
             "environment": {
               "variables": [
@@ -474,10 +474,6 @@
               "value": "true"
             },
             {
-              "key": "DCOS_PACKAGE_IS_FRAMEWORK",
-              "value": "true"
-            },
-            {
               "key": "DCOS_MIGRATION_API_VERSION",
               "value": "v1"
             },
@@ -560,13 +556,13 @@
         }
       ],
       "completed_tasks": [
-        
+
       ],
       "offers": [
-        
+
       ],
       "executors": [
-        
+
       ]
     },
     {
@@ -586,7 +582,7 @@
         "cpus": 0
       },
       "capabilities": [
-        
+
       ],
       "hostname": "10.0.4.58",
       "webui_url": "http://10.0.4.58:9090",
@@ -607,26 +603,26 @@
       },
       "role": "*",
       "tasks": [
-        
+
       ],
       "completed_tasks": [
-        
+
       ],
       "offers": [
-        
+
       ],
       "executors": [
-        
+
       ]
     }
   ],
   "completed_frameworks": [
-    
+
   ],
   "orphan_tasks": [
-    
+
   ],
   "unregistered_frameworks": [
-    
+
   ]
 }

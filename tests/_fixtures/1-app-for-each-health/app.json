@@ -102,7 +102,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-        
+
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -123,7 +123,7 @@
         }
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         9000,
@@ -148,7 +148,7 @@
         }
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -165,8 +165,7 @@
         "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "cassandra-healthy",
         "DCOS_PACKAGE_VERSION": "0.2.0-1",
-        "DCOS_PACKAGE_NAME": "cassandra-healthy",
-        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+        "DCOS_PACKAGE_NAME": "cassandra-healthy"
       },
       "acceptedResourceRoles": null,
       "ipAddress": null,
@@ -180,7 +179,7 @@
       "tasksHealthy": 1,
       "tasksUnhealthy": 0,
       "deployments": [
-        
+
       ]
     },
     {
@@ -285,7 +284,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-        
+
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -306,7 +305,7 @@
         }
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         9000,
@@ -331,7 +330,7 @@
         }
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -345,8 +344,7 @@
         "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "cassandra-unhealthy",
         "DCOS_PACKAGE_VERSION": "0.2.0-1",
-        "DCOS_PACKAGE_NAME": "cassandra-unhealthy",
-        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+        "DCOS_PACKAGE_NAME": "cassandra-unhealthy"
       },
       "acceptedResourceRoles": null,
       "ipAddress": null,
@@ -360,7 +358,7 @@
       "tasksHealthy": 0,
       "tasksUnhealthy": 1,
       "deployments": [
-        
+
       ]
     },
     {
@@ -465,7 +463,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-        
+
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -486,7 +484,7 @@
         }
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         9000,
@@ -498,10 +496,10 @@
       "maxLaunchDelaySeconds": 3600,
       "container": null,
       "healthChecks": [
-        
+
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -515,8 +513,7 @@
         "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "cassandra-na",
         "DCOS_PACKAGE_VERSION": "0.2.0-1",
-        "DCOS_PACKAGE_NAME": "cassandra-na",
-        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+        "DCOS_PACKAGE_NAME": "cassandra-na"
       },
       "acceptedResourceRoles": null,
       "ipAddress": null,
@@ -530,7 +527,7 @@
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
       "deployments": [
-        
+
       ]
     },
     {
@@ -635,7 +632,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-        
+
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -656,7 +653,7 @@
         }
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         9000,
@@ -681,7 +678,7 @@
         }
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -695,8 +692,7 @@
         "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "cassandra-idle",
         "DCOS_PACKAGE_VERSION": "0.2.0-1",
-        "DCOS_PACKAGE_NAME": "cassandra-idle",
-        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+        "DCOS_PACKAGE_NAME": "cassandra-idle"
       },
       "acceptedResourceRoles": null,
       "ipAddress": null,
@@ -710,7 +706,7 @@
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
       "deployments": [
-        
+
       ]
     }
   ]
