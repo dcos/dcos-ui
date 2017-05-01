@@ -84,7 +84,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         validationErrorText: "Must be a valid url with http:// or https://",
         showLabel: false,
         writeType: "input",
-        validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/,
+        validation: /^https?:\/\/.+\..+$/,
         value: ""
       },
       {
