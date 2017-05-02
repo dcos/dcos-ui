@@ -8,5 +8,15 @@
   "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH": "Component Health",
   "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
 
-  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service"
+  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
+
+  "COMMON.GENERAL": "General",
+  "COMMON.DETAILS": "Details",
+  "COMMON.CLUSTER": "Cluster",
+  "COMMON.LEADER": "Leader",
+  "COMMON.VERSION": "Version",
+  "COMMON.BUILT": "Built",
+  "COMMON.STARTED": "Started",
+  "COMMON.ELECTED": "Elected",
+  "COMMON.BY_NAME": "by {name}"
 }

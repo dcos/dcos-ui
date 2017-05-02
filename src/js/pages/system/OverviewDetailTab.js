@@ -5,6 +5,7 @@ import { MountService } from "foundation-ui";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { FormattedMessage } from "react-intl";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -22,8 +23,11 @@ import Loader from "../../components/Loader";
 import MarathonStore
   from "../../../../plugins/services/src/js/stores/MarathonStore";
 import MetadataStore from "../../stores/MetadataStore";
+import MesosStateStore from "../../stores/MesosStateStore";
 import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
+import { msToRelativeTime } from "../../utils/DateUtil";
+import { isEmpty } from "../../utils/ValidatorUtil";
 
 const METHODS_TO_BIND = [
   "handleClusterConfigModalClose",
@@ -62,6 +66,11 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       {
         name: "metadata",
         events: ["dcosBuildInfoChange", "dcosSuccess", "success"]
+      },
+      {
+        name: "state",
+        events: ["success"],
+        listenAlways: false
       }
     ];
 
@@ -179,6 +188,95 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     return publicIP;
   }
 
+  /**
+   * Get build time and returns
+   * user if existent otherwise
+   * only build time
+   *
+   * @returns {String|Component} Build time
+   *
+   * @memberOf OverviewDetailTab
+   */
+  getMesosBuildUser() {
+    const mesosConfig = MesosStateStore.get("lastMesosState");
+
+    if (isEmpty(mesosConfig.build_user)) {
+      return null;
+    } else {
+      return (
+        <FormattedMessage
+          id="COMMON.BY_NAME"
+          values={{
+            name: mesosConfig.build_user
+          }}
+        />
+      );
+    }
+  }
+
+  getMesosDetails() {
+    const mesosConfig = MesosStateStore.get("lastMesosState");
+    const mesosCluster = mesosConfig.cluster || this.getLoading();
+    const mesosLeaderInfo = mesosConfig.leader_info || this.getLoading();
+    const mesosVersion = mesosConfig.version || this.getLoading();
+    const mesosBuilt = mesosConfig.build_time || this.getLoading();
+    const mesosStarted = mesosConfig.start_time || this.getLoading();
+    const mesosElected = mesosConfig.elected_time || this.getLoading();
+
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapRow key="cluster">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.CLUSTER" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {mesosCluster}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="leader">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.LEADER" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {mesosLeaderInfo.hostname}:{mesosLeaderInfo.port}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="version">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.VERSION" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {mesosVersion}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="built">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.BUILT" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {msToRelativeTime(mesosBuilt)} {this.getMesosBuildUser()}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="started">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.STARTED" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {msToRelativeTime(mesosStarted)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="elected">
+          <ConfigurationMapLabel>
+            <FormattedMessage id="COMMON.ELECTED" />
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {msToRelativeTime(mesosElected)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    );
+  }
+
   render() {
     const buildInfo = MetadataStore.get("dcosBuildInfo");
     const marathonHash = this.getMarathonDetailsHash();
@@ -208,12 +306,16 @@ class OverviewDetailTab extends mixin(StoreMixin) {
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
-              Cluster Details
+              Cluster <FormattedMessage id="COMMON.DETAILS" />
             </ConfigurationMapHeading>
             <ConfigurationMapHeading level={2}>
-              General
+              <FormattedMessage id="COMMON.GENERAL" />
             </ConfigurationMapHeading>
             {this.getClusterDetails()}
+            <ConfigurationMapHeading level={2}>
+              Mesos <FormattedMessage id="COMMON.DETAILS" />
+            </ConfigurationMapHeading>
+            {this.getMesosDetails()}
             {marathonDetails}
             <MountService.Mount type="OverviewDetailTab:AdditionalClusterDetails" />
           </ConfigurationMap>
