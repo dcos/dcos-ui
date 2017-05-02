@@ -965,10 +965,9 @@ describe("Services", function() {
 
       cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.get(".button").contains("Add Ephemeral Volume").click();
-
+      cy.get(".button").contains("Add Volume").click();
+      cy.root().getFormGroupInputFor("Volume Type").select("Ephemeral Volume");
       cy.root().getFormGroupInputFor("Name").type("test");
-
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
       cy.get("#brace-editor").contents().asJson().should("deep.equal", [
@@ -1178,7 +1177,7 @@ describe("Services", function() {
               mode: "host"
             }
           ],
-          env: {
+          environment: {
             camelCase: "test",
             snake_case: "test",
             lowercase: "test",
