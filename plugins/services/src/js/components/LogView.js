@@ -310,7 +310,7 @@ class LogView extends React.Component {
     // Show loader since we will start a request for more logs
     return (
       <div className="pod flush-top">
-        <Loader innerClassName="loader-small" type="ballSpinFadeLoader" />
+        <Loader innerClassName="loader--small" type="ballSpinFadeLoader" />
       </div>
     );
   }
