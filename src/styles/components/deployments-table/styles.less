@@ -1,64 +1,121 @@
+@deployments-table-service-height: @expanding-table-line-height + @deployments-table-service-path-line-height;
+@deployments-table-service-margin-top: @base-spacing-unit * 1/4;
+
+@deployments-table-service-path-font-size: @small-font-size;
+@deployments-table-service-path-line-height: 0.9rem;
+@deployments-table-service-path-padding-left: @base-spacing-unit * 1/2 + @icon-mini-width + @base-spacing-unit * 1/4;
+
 & when (@deployments-table-enabled) {
 
+  .modal {
+
+    &--deployments {
+
+      .modal-body-wrapper {
+        flex-basis: 480px;
+      }
+    }
+  }
+
+  .button {
+
+    &--deployments {
+
+      &__loader,
+      &__copy {
+        display: inline-block;
+      }
+
+      &__loader {
+
+        .line-spin-fade-loader {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      &__copy {
+        vertical-align: middle;
+      }
+    }
+  }
+
   .deployments-table {
+    table-layout: fixed;
 
-    // TODO: Apply this more globally.
-    .deployment-services-list,
-    .deployment-start-time,
-    .deployment-step,
-    .deployment-status-list,
-    .deployment-rollback {
-      font-size: 1rem;
-    }
+    &-column {
 
-    .deployment-id {
-      .text-overflow;
-      margin-bottom: 8px;
-    }
+      &-id {
+        width: auto;
+      }
 
-    .deployment-service-icon {
-      flex-shrink: 0;
-      margin: 0 8px;
-    }
-
-    .deployment-service-name {
-      .text-overflow;
-    }
-
-    .deployment-location-list,
-    .deployment-start-time {
-      display: block;
-      padding-top: 23px;
-    }
-
-    .deployment-location-list li,
-    .deployment-status-list li {
-      margin-bottom: 0;
-    }
-
-    .deployment-breadcrumb {
-
-      .deployment-breadcrumb-service-id {
+      &-start-time {
         display: none;
+        width: 140px;
       }
 
-      .deployment-breadcrumb-crumb {
-        font-size: 1rem;
-        line-height: 32px;
+      &-status {
+        width: 130px;
+      }
+
+      &-actions {
+        width: 40px;
+
+        .icon {
+          display: block;
+        }
+      }
+    }
+
+    .deployment-service-path {
+      font-size: @deployments-table-service-path-font-size;
+      line-height: @deployments-table-service-path-line-height;
+      padding-left: @deployments-table-service-path-padding-left;
+    }
+
+    .expanding-table-child {
+      height: @deployments-table-service-height;
+      margin-top: @deployments-table-service-margin-top;
+    }
+  }
+}
+
+& when (@deployments-table-enabled) and (@layout-screen-small-enabled) {
+
+  @media (max-width: @layout-screen-small-max-width) {
+
+    .modal {
+
+      &--deployments {
+
+        &.modal-large {
+          width: 100%;
+        }
       }
     }
   }
+}
 
-  .deployment-step {
-    display: inline-block;
-    margin-bottom: 8px;
-    margin-left: @base-spacing-unit * 0.25;
-  }
+& when (@deployments-table-enabled) and (@layout-screen-medium-enabled) {
 
-  .deployment-status-list {
+  @media (min-width: @layout-screen-medium-min-width) {
 
-    li {
-      line-height: 32px;
+    .deployments-table {
+
+      &-column {
+
+        &-id {
+          width: auto;
+        }
+
+        &-start-time {
+          display: table-cell;
+
+          col& {
+            display: table-column;
+          }
+        }
+      }
     }
   }
 }

@@ -9,6 +9,8 @@
   "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
 
   "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
+  "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
+  "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}",
 
   "COMMON.GENERAL": "General",
   "COMMON.DETAILS": "Details",

@@ -34,8 +34,7 @@ var ServicesPage = React.createClass({
       { name: "notification", events: ["change"], suppressUpdate: false }
     ];
     this.tabs_tabs = {
-      "/services/overview": "Services",
-      "/services/deployments": "Deployments"
+      "/services/overview": "Services"
     };
     this.updateCurrentTab();
   },

@@ -1,6 +1,7 @@
 import classNames from "classnames";
-import { Confirm, Table } from "reactjs-components";
-import { Link } from "react-router";
+import { Confirm, Dropdown, Modal } from "reactjs-components";
+import { hashHistory } from "react-router";
+import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -9,39 +10,39 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
-import Breadcrumb from "#SRC/js/components/Breadcrumb";
-import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import CollapsingString from "#SRC/js/components/CollapsingString";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import ExpandingTable from "#SRC/js/components/ExpandingTable";
+import Icon from "#SRC/js/components/Icon";
+import Image from "#SRC/js/components/Image";
 import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
-import Page from "#SRC/js/components/Page";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import StatusBar from "#SRC/js/components/StatusBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import UserActions from "#SRC/js/constants/UserActions";
 
-import defaultServiceImage
-  from "../../../img/icon-service-default-small@2x.png";
-import MarathonActions from "../../events/MarathonActions";
+import defaultServiceImage from "../../img/icon-service-default-small@2x.png";
+import MarathonActions from "../events/MarathonActions";
 
-const columnHeading = ResourceTableUtil.renderHeading({
-  id: "AFFECTED SERVICES",
-  startTime: "STARTED",
-  location: "LOCATION",
-  status: "STATUS",
-  action: ""
+const columnClasses = {
+  id: "deployments-table-column-id",
+  startTime: "deployments-table-column-start-time",
+  status: "deployments-table-column-status",
+  action: "deployments-table-column-actions"
+};
+const columnHeadings = ResourceTableUtil.renderHeading({
+  id: "Affected Services",
+  startTime: "Started",
+  status: "Status",
+  action: null
 });
-const COLLAPSING_COLUMNS = ["location", "startTime", "action"];
 const METHODS_TO_BIND = [
   "renderAffectedServices",
-  "renderAffectedServicesList",
-  "renderLocation",
   "renderStartTime",
   "renderStatus",
-  "renderAction",
+  "renderActionsMenu",
   "handleRollbackClick",
   "handleRollbackCancel",
   "handleRollbackConfirm",
@@ -52,27 +53,13 @@ const METHODS_TO_BIND = [
 // collapsing columns are tightly coupled to the left-align caret property;
 // this wrapper allows ordinary columns to collapse.
 function columnClassNameGetter(prop, sortBy, row) {
-  const classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
-  if (COLLAPSING_COLUMNS.includes(prop)) {
-    return classNames(classSet, "hidden-small-down");
-  }
-
-  return classSet;
+  return classNames(
+    columnClasses[prop],
+    ResourceTableUtil.getClassName(prop, sortBy, row)
+  );
 }
 
-const DeploymentsBreadcrumbs = () => {
-  const crumbs = [
-    <Breadcrumb key={0} title="Deployments">
-      <BreadcrumbTextContent>
-        <Link to="/services/deployments">Deployments</Link>
-      </BreadcrumbTextContent>
-    </Breadcrumb>
-  ];
-
-  return <Page.Header.Breadcrumbs iconID="services" breadcrumbs={crumbs} />;
-};
-
-class DeploymentsTab extends mixin(StoreMixin) {
+class DeploymentsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -118,152 +105,9 @@ class DeploymentsTab extends mixin(StoreMixin) {
     }
   }
 
-  renderAffectedServices(prop, deployment) {
-    return (
-      <dl className="deployment-services-list flush-top flush-bottom tree-list">
-        <dt className="deployment-id text-uppercase">
-          <CollapsingString string={deployment.getId()} />
-        </dt>
-        {this.renderAffectedServicesList(deployment.getAffectedServices())}
-        {this.renderStaleServicesList(deployment.getStaleServiceIds())}
-      </dl>
-    );
-  }
-
-  renderStaleServicesList(serviceIds) {
-    if (serviceIds == null) {
-      return;
-    }
-
-    return serviceIds.map(function(serviceId) {
-      return (
-        <dd key={`stale_${serviceId}`}>
-          <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
-            <img src={defaultServiceImage} />
-          </span>
-          {serviceId}
-        </dd>
-      );
-    });
-  }
-
-  renderAffectedServicesList(services) {
-    return services.map(function(service) {
-      const id = encodeURIComponent(service.getId());
-      const image = service.getImages()["icon-small"];
-
-      return (
-        <dd key={`service_${id}`}>
-          <Link
-            to={`/services/detail/${id}`}
-            className="deployment-service-name table-cell-link-primary"
-          >
-            <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
-              <img src={image} />
-            </span>
-            {service.getName()}
-          </Link>
-        </dd>
-      );
-    });
-  }
-
-  renderLocation(prop, deployment) {
-    const services = deployment.getAffectedServices();
-    const items = services.map(function(service, index) {
-      return (
-        <li key={index}>
-          <NestedServiceLinks
-            serviceID={service.getId()}
-            className="deployment-breadcrumb"
-            majorLinkClassName="deployment-breadcrumb-service-id"
-            minorLinkWrapperClassName="deployment-breadcrumb-crumb"
-          />
-        </li>
-      );
-    });
-
-    return (
-      <ol className="deployment-location-list list-unstyled flush-bottom">
-        {items}
-      </ol>
-    );
-  }
-
-  renderStartTime(prop, deployment) {
-    return (
-      <TimeAgo
-        className="deployment-start-time"
-        time={deployment.getStartTime()}
-      />
-    );
-  }
-
-  renderStatus(prop, deployment) {
-    const currentStep = deployment.getCurrentStep();
-    const totalSteps = deployment.getTotalSteps();
-    const title = `Step ${currentStep} of ${totalSteps}`;
-    const statusBar = this.renderStatusBar(currentStep, totalSteps);
-    const services = deployment.getAffectedServices();
-
-    let currentActions = {};
-    if (deployment.currentActions && deployment.currentActions.length > 0) {
-      currentActions = deployment.currentActions.reduce(function(memo, action) {
-        memo[action.app] = action.action;
-
-        return memo;
-      }, {});
-    }
-
-    const items = services.map(function(service, index) {
-      let statusText = service.getStatus();
-      if (currentActions[service.id] != null) {
-        statusText += ` (${currentActions[service.id]})`;
-      }
-
-      return (
-        <li key={index}>
-          {statusText}
-        </li>
-      );
-    });
-
-    return (
-      <div>
-        {statusBar}
-        <span className="deployment-step">{title}</span>
-        <ol className="deployment-status-list list-unstyled flush-bottom">
-          {items}
-        </ol>
-      </div>
-    );
-  }
-
-  renderStatusBar(currentStep, totalSteps) {
-    const data = [
-      { className: "color-4", value: currentStep - 1 },
-      { className: "staged", value: 1 },
-      { className: "", value: totalSteps - currentStep }
-    ];
-
-    return <StatusBar className="status-bar--large" data={data} />;
-  }
-
-  renderAction(prop, deployment) {
-    if (deployment != null) {
-      let linkText = "Rollback";
-      if (deployment.isStarting()) {
-        linkText = `${linkText} & ${StringUtil.capitalize(UserActions.DELETE)}`;
-      }
-
-      return (
-        <a
-          className="deployment-rollback button button-link button-danger table-display-on-row-hover"
-          onClick={this.handleRollbackClick.bind(null, deployment)}
-        >
-          {linkText}
-        </a>
-      );
+  handleActionSelect(deployment, action) {
+    if (action.id === "rollback") {
+      this.handleRollbackClick(deployment);
     }
   }
 
@@ -281,98 +125,232 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   handleRollbackConfirm() {
     const { deploymentToRollback } = this.state;
+
     if (deploymentToRollback != null) {
       this.setState({ awaitingRevertDeploymentResponse: true });
       MarathonActions.revertDeployment(deploymentToRollback.getId());
+
+      this.props.onClose();
     }
   }
 
-  getColumns() {
+  getChildTableData(deployment) {
     return [
-      {
-        className: columnClassNameGetter,
-        heading: columnHeading,
-        prop: "id",
-        render: this.renderAffectedServices
-      },
-      {
-        className: columnClassNameGetter,
-        heading: columnHeading,
-        prop: "location",
-        render: this.renderLocation
-      },
-      {
-        className: columnClassNameGetter,
-        heading: columnHeading,
-        prop: "startTime",
-        render: this.renderStartTime
-      },
-      {
-        className: columnClassNameGetter,
-        heading: columnHeading,
-        prop: "status",
-        render: this.renderStatus
-      },
-      {
-        className: columnClassNameGetter,
-        heading: columnHeading,
-        prop: "action",
-        render: this.renderAction
-      }
+      ...deployment.getAffectedServices().map(function(service) {
+        service.isStale = false;
+
+        return service;
+      }),
+      ...deployment.getStaleServiceIds().map(function(serviceID) {
+        return {
+          serviceID,
+          isStale: true
+        };
+      })
     ];
   }
 
   getColGroup() {
     return (
       <colgroup>
-        <col style={{ width: "300px" }} />
-        <col className="hidden-small-down" />
-        <col className="hidden-small-down" style={{ width: "120px" }} />
-        <col style={{ width: "240px" }} />
-        <col className="hidden-small-down" style={{ width: "160px" }} />
+        <col className={columnClasses.id} />
+        <col className={columnClasses.startTime} />
+        <col className={columnClasses.status} />
+        <col className={columnClasses.action} />
       </colgroup>
+    );
+  }
+
+  getColumns() {
+    return [
+      {
+        className: columnClassNameGetter,
+        heading: columnHeadings,
+        prop: "id",
+        render: this.renderAffectedServices
+      },
+      {
+        className: columnClassNameGetter,
+        heading: columnHeadings,
+        prop: "startTime",
+        render: this.renderStartTime
+      },
+      {
+        className: columnClassNameGetter,
+        heading: columnHeadings,
+        prop: "status",
+        render: this.renderStatus
+      },
+      {
+        className: columnClassNameGetter,
+        heading: columnHeadings,
+        prop: "action",
+        render: this.renderActionsMenu,
+        sortable: false
+      }
+    ];
+  }
+
+  getRollbackModalText(deploymentToRollback) {
+    const serviceNames = deploymentToRollback
+      .getAffectedServices()
+      .map(function(service) {
+        return StringUtil.capitalize(service.getName());
+      });
+    const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
+    const serviceCount = serviceNames.length;
+
+    const service = StringUtil.pluralize("service", serviceCount);
+    const its = serviceCount === 1 ? "its" : "their";
+    const version = StringUtil.pluralize("version", serviceCount);
+
+    if (deploymentToRollback.isStarting()) {
+      return `This will stop the current deployment of ${listOfServiceNames} and
+              start a new deployment to ${UserActions.DELETE} the affected
+              ${service}.`;
+    }
+
+    return `This will stop the current deployment of ${listOfServiceNames} and
+            start a new deployment to revert the affected ${service} to ${its}
+            previous ${version}.`;
+  }
+
+  getServiceDisplayPath(service) {
+    // Remove the service's name from the end of the path.
+    const servicePath = service
+      .getId()
+      .replace(new RegExp(`/${service.getName()}$`), "");
+
+    return `services${servicePath}`;
+  }
+
+  getTableData(deploymentsItems) {
+    return deploymentsItems.map(deployment => {
+      deployment.children = this.getChildTableData(deployment);
+
+      return deployment;
+    });
+  }
+
+  renderActionsMenu(prop, deployment, rowOptions) {
+    if (rowOptions.isParent && deployment != null) {
+      let actionText = "Rollback";
+      if (deployment.isStarting()) {
+        actionText = `${actionText} & ${StringUtil.capitalize(UserActions.DELETE)}`;
+      }
+
+      const dropdownItems = [
+        {
+          className: "hidden",
+          id: "default",
+          html: "",
+          selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+        },
+        {
+          id: "rollback",
+          html: (
+            <span className="text-danger">
+              {actionText}
+            </span>
+          )
+        }
+      ];
+
+      return (
+        <Dropdown
+          anchorRight={true}
+          buttonClassName="button button-mini button-link"
+          dropdownMenuClassName="dropdown-menu"
+          dropdownMenuListClassName="dropdown-menu-list"
+          dropdownMenuListItemClassName="clickable"
+          wrapperClassName="dropdown flush-bottom table-cell-icon"
+          items={dropdownItems}
+          persistentID="default"
+          onItemSelection={this.handleActionSelect.bind(this, deployment)}
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
+          title="More actions"
+          transition={true}
+          transitionName="dropdown-menu"
+        />
+      );
+    }
+
+    return null;
+  }
+
+  renderAffectedServices(prop, item, rowOptions) {
+    // item is an instance of Deployment
+    if (rowOptions.isParent) {
+      let classes = null;
+
+      if (item.children && item.children.length > 0) {
+        classes = classNames("expanding-table-primary-cell is-expandable", {
+          "is-expanded": rowOptions.isExpanded
+        });
+      }
+
+      return (
+        <div className={classes} onClick={rowOptions.clickHandler}>
+          <CollapsingString string={item.getId()} />
+        </div>
+      );
+    }
+
+    if (item.isStale) {
+      return (
+        <div className="expanding-table-primary-cell-heading expanding-table-primary-cell-heading--no-nested-indicator">
+          <div className="table-cell-flex-box" key={`stale_${item.serviceID}`}>
+            <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right deployment-service-icon">
+              <Image src={defaultServiceImage} />
+            </span>
+            <span className="table-cell-value">
+              {item.serviceID}
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    // item is an instance of Service
+    const id = encodeURIComponent(item.getId());
+    const image = item.getImages()["icon-small"];
+
+    return (
+      <div>
+        <div className="expanding-table-primary-cell-heading expanding-table-primary-cell-heading--no-nested-indicator">
+          <a
+            className="deployment-service-name table-cell-link-primary table-cell-flex-box clickable"
+            onClick={() => {
+              hashHistory.push(`/services/detail/${id}`);
+            }}
+          >
+            <span className="table-cell-icon icon icon-mini icon-image-container icon-margin-right icon-app-container deployment-service-icon">
+              <Image fallbackSrc={defaultServiceImage} src={image} />
+            </span>
+            <span className="table-cell-value">
+              {item.getName()}
+            </span>
+          </a>
+        </div>
+        <div className="deployment-service-path text-overflow">
+          {this.getServiceDisplayPath(item)}
+        </div>
+      </div>
     );
   }
 
   renderEmpty() {
     return (
-      <Page>
-        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />} />
-        <AlertPanel>
-          <AlertPanelHeader>No active deployments</AlertPanelHeader>
-          <p className="flush">Active deployments will be shown here.</p>
-        </AlertPanel>
-      </Page>
+      <AlertPanel>
+        <AlertPanelHeader>No active deployments</AlertPanelHeader>
+        <p className="flush">Active deployments will be shown here.</p>
+      </AlertPanel>
     );
   }
 
   renderLoading() {
     return <Loader />;
-  }
-
-  renderPopulated(deploymentsItems) {
-    const deploymentsCount = deploymentsItems.length;
-    const deploymentsLabel = StringUtil.pluralize(
-      "Deployment",
-      deploymentsCount
-    );
-
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />} />
-        <h4 className="flush-top">
-          {deploymentsCount} Active {deploymentsLabel}
-        </h4>
-        <Table
-          className="table table-borderless-outer table-borderless-inner-columns
-            flush-bottom deployments-table"
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={deploymentsItems.slice()}
-        />
-        {this.renderRollbackModal()}
-      </Page>
-    );
   }
 
   renderRollbackModal() {
@@ -384,7 +362,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     const heading = (
       <ModalHeading>
-        You're About To Rollback The Deployment
+        Are you sure?
       </ModalHeading>
     );
 
@@ -411,26 +389,53 @@ class DeploymentsTab extends mixin(StoreMixin) {
     }
   }
 
-  getRollbackModalText(deploymentToRollback) {
-    const serviceNames = deploymentToRollback
-      .getAffectedServices()
-      .map(function(service) {
-        return StringUtil.capitalize(service.getName());
-      });
-    const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
-    const serviceCount = serviceNames.length;
-
-    const service = StringUtil.pluralize("service", serviceCount);
-    const its = serviceCount === 1 ? "its" : "their";
-    const version = StringUtil.pluralize("version", serviceCount);
-
-    if (deploymentToRollback.isStarting()) {
-      return `This will stop the current deployment of ${listOfServiceNames} and start a new deployment to ${UserActions.DELETE} the affected ${service}.`;
+  renderStartTime(prop, deployment, rowOptions) {
+    if (rowOptions.isParent) {
+      return (
+        <TimeAgo
+          className="deployment-start-time"
+          time={deployment.getStartTime()}
+        />
+      );
     }
 
-    return `This will stop the current deployment of ${listOfServiceNames} and
-            start a new deployment to revert the affected ${service} to ${its}
-            previous ${version}.`;
+    return null;
+  }
+
+  renderStatus(prop, item, rowOptions) {
+    if (rowOptions.isParent) {
+      const currentStep = item.getCurrentStep();
+      const totalSteps = item.getTotalSteps();
+
+      return this.renderStatusBar(currentStep, totalSteps);
+    }
+
+    return item.getStatus();
+  }
+
+  renderStatusBar(currentStep, totalSteps) {
+    const data = [
+      { className: "color-4", value: currentStep - 1 },
+      { className: "staged", value: 1 },
+      { className: "", value: totalSteps - currentStep }
+    ];
+
+    return <StatusBar className="status-bar--large" data={data} />;
+  }
+
+  renderTable(deploymentsItems) {
+    return (
+      <div>
+        <ExpandingTable
+          childRowClassName="expanding-table-child"
+          className="deployments-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+          columns={this.getColumns()}
+          colGroup={this.getColGroup()}
+          data={this.getTableData(deploymentsItems)}
+        />
+        {this.renderRollbackModal()}
+      </div>
+    );
   }
 
   renderRollbackError(deploymentRollbackError) {
@@ -444,23 +449,51 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   render() {
+    let content = null;
     const deployments = DCOSStore.deploymentsList.getItems();
+    const { intl, isOpen, onClose } = this.props;
     const loading = !DCOSStore.serviceDataReceived;
 
     if (loading) {
-      return this.renderLoading();
+      content = this.renderLoading();
+    } else if (deployments.length === 0) {
+      content = this.renderEmpty();
+    } else if (isOpen) {
+      content = this.renderTable(deployments);
     }
-    if (deployments.length === 0) {
-      return this.renderEmpty();
-    } else {
-      return this.renderPopulated(deployments);
-    }
+
+    const footer = (
+      <div className="text-align-center">
+        <button className="button" onClick={onClose}>Close</button>
+      </div>
+    );
+    const heading = (
+      <ModalHeading>
+        {intl.formatMessage(
+          {
+            id: "SERVICES.DEPLOYMENT_MODAL_HEADING"
+          },
+          {
+            deploymentsCount: deployments.length
+          }
+        )}
+      </ModalHeading>
+    );
+
+    return (
+      <Modal
+        modalClass="modal modal-large modal--deployments"
+        footer={footer}
+        header={heading}
+        onClose={onClose}
+        open={isOpen}
+        showFooter={true}
+        showHeader={true}
+      >
+        {content}
+      </Modal>
+    );
   }
 }
 
-DeploymentsTab.routeConfig = {
-  label: "Deployments",
-  matches: /^\/services\/deployments/
-};
-
-module.exports = DeploymentsTab;
+module.exports = injectIntl(DeploymentsModal);

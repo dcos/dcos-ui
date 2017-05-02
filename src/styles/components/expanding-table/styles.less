@@ -1,9 +1,11 @@
+@expanding-table-line-height: 1.8rem;
+
 & when (@expanding-table-enabled) {
 
   .expanding-table {
 
     td {
-      line-height: 1.8rem;
+      line-height: @expanding-table-line-height;
       white-space: nowrap;
 
       // All children in an expanding table's cell needs to have the same
@@ -69,6 +71,15 @@
       height: 1px;
       top: 50%;
       width: @base-spacing-unit * 3/10;
+    }
+
+    &--no-nested-indicator {
+      padding-left: @base-spacing-unit * 1/2;
+
+      &:before,
+      &:after {
+        display: none;
+      }
     }
   }
 

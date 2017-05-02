@@ -3,7 +3,6 @@ import { Redirect, Route, IndexRoute } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import DeploymentsTab from "../pages/services/DeploymentsTab";
 import ServicesContainer from "../containers/services/ServicesContainer";
 import NewCreateServiceModal from "../components/modals/NewCreateServiceModal";
 import ServicesPage from "../pages/ServicesPage";
@@ -61,22 +60,6 @@ const serviceRoutes = [
         type: Route,
         component: ServicesContainer,
         path: "overview",
-        // TODO: Remove this when moving to use NavigationService directly,
-        // where we can register with sidebarActiveRegex option
-        sidebarActiveRegex: /(services\/overview|detail)/,
-        isInSidebar: true,
-        buildBreadCrumb() {
-          return {
-            getCrumbs() {
-              return [
-                {
-                  label: "Services",
-                  route: { to: "/services" }
-                }
-              ];
-            }
-          };
-        },
         children: [
           {
             type: Route,
@@ -337,12 +320,6 @@ const serviceRoutes = [
             ]
           }
         ]
-      },
-      {
-        type: Route,
-        path: "deployments",
-        component: DeploymentsTab,
-        isInSidebar: true
       }
     ]
   }
