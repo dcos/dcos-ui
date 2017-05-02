@@ -189,11 +189,10 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   /**
-   * Get build time and returns
-   * user if existent otherwise
-   * only build time
+   * Get user if existent otherwise
+   * return null
    *
-   * @returns {String|Component} Build time
+   * @returns {Component|Null} User string or null
    *
    * @memberOf OverviewDetailTab
    */
@@ -214,6 +213,13 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     }
   }
 
+  /**
+   * Build Mesos details
+   *
+   * @returns {Component} Mesos details component
+   *
+   * @memberOf OverviewDetailTab
+   */
   getMesosDetails() {
     const mesosConfig = MesosStateStore.get("lastMesosState");
     const mesosCluster = mesosConfig.cluster || this.getLoading();
