@@ -18,6 +18,7 @@ class PageHeader extends React.Component {
         primaryContentClassName,
         secondaryContentDetail,
         secondaryContentClassName,
+        supplementalContent,
         tabs
       }
     } = this;
@@ -48,7 +49,11 @@ class PageHeader extends React.Component {
           <div className={primaryContentClasses}>
             <SidebarToggle />
             {breadcrumbs}
-            <PageHeaderActions actions={actions} addButton={addButton} />
+            <PageHeaderActions
+              actions={actions}
+              addButton={addButton}
+              supplementalContent={supplementalContent}
+            />
           </div>
           <div className={secondaryContentClasses}>
             <PageHeaderTabs tabs={tabs} />
@@ -83,6 +88,7 @@ PageHeader.propTypes = {
   primaryContentClassName: classProps,
   secondaryContentClassName: classProps,
   secondaryContentDetail: React.PropTypes.node,
+  supplementalContent: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
 

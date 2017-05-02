@@ -69,9 +69,20 @@ class PageHeaderActions extends React.Component {
     }
   }
 
+  renderSupplementalContent() {
+    const { supplementalContent } = this.props;
+
+    if (supplementalContent == null) {
+      return null;
+    }
+
+    return supplementalContent;
+  }
+
   render() {
     return (
       <div className="page-header-actions">
+        {this.renderSupplementalContent()}
         <div className="button-collection-flush-bottom">
           {this.renderAddButton()}
           {this.renderActionsMenu()}
@@ -104,7 +115,8 @@ PageHeaderActions.propTypes = {
   ]),
   actions: React.PropTypes.arrayOf(
     React.PropTypes.oneOfType([React.PropTypes.node, menuActionsProps])
-  )
+  ),
+  supplementalContent: React.PropTypes.node
 };
 
 module.exports = PageHeaderActions;
