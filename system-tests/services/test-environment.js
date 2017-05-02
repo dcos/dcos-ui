@@ -7,6 +7,12 @@ describe("Services", function() {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
     });
 
+    afterEach(() => {
+      cy.window().then(win => {
+        win.location.href = "about:blank";
+      });
+    });
+
     it("should contain no running services", function() {
       // We should have the 'No running services' panel
       cy.contains("No running services").should("exist");

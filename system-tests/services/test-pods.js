@@ -10,6 +10,12 @@ describe("Services", function() {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
     });
 
+    afterEach(() => {
+      cy.window().then(win => {
+        win.location.href = "about:blank";
+      });
+    });
+
     it("Create a simple pod", function() {
       const serviceName = "pod-with-inline-shell-script";
       const command = "while true ; do echo 'test' ; sleep 100 ;";

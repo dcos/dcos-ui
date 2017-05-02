@@ -10,6 +10,12 @@ describe("Services", function() {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
     });
 
+    afterEach(() => {
+      cy.window().then(win => {
+        win.location.href = "about:blank";
+      });
+    });
+
     function selectMesosRuntime() {
       cy.contains("More Settings").click();
       cy.contains("Mesos Runtime").click();

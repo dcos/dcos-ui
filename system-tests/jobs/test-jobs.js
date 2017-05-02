@@ -1,6 +1,12 @@
 const { Timeouts } = require("../_support/constants");
 
 describe("Jobs", function() {
+  afterEach(() => {
+    cy.window().then(win => {
+      win.location.href = "about:blank";
+    });
+  });
+
   it("Create a simple job", function() {
     const jobName = "job-with-inline-shell-script";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
