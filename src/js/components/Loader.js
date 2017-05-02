@@ -10,7 +10,8 @@ import React from "react";
 const typeMap = {
   ballBeat: { className: "ball-beat", divCount: 3 },
   ballScale: { className: "ball-scale", divCount: 1 },
-  ballSpinFadeLoader: { className: "ball-spin-fade-loader", divCount: 8 }
+  ballSpinFadeLoader: { className: "ball-spin-fade-loader", divCount: 8 },
+  lineSpinFadeLoader: { className: "line-spin-fade-loader", divCount: 8 }
 
   /* Other available loaders: */
   // ballClipRotate: {className: 'ball-clip-rotate', divCount: 1},
@@ -36,7 +37,6 @@ const typeMap = {
   // lineScalePulseOut: {className: 'line-scale-pulse-out', divCount: 5},
   // lineScalePulseOutRapid:
   //   {className: 'line-scale-pulse-out-rapid', divCount: 5},
-  // lineSpinFadeLoader: {className: 'line-spin-fade-loader', divCount: 8},
   // pacman: {className: 'pacman', divCount: 5},
   // semiCircleSpin: {className: 'semi-circle-spin', divCount: 1},
   // triangleSkewSpin: {className: 'triangle-skew-spin', divCount: 1}
@@ -57,7 +57,8 @@ class Loader extends React.Component {
     const innerClasses = classNames(
       config.className,
       {
-        "loader-small": size === "small"
+        "loader--small": size === "small",
+        "loader--mini": size === "mini"
       },
       innerClassName
     );
@@ -87,8 +88,13 @@ const classPropType = React.PropTypes.oneOfType([
 Loader.propTypes = {
   className: classPropType,
   innerClassName: classPropType,
-  size: React.PropTypes.oneOf(["small"]),
-  type: React.PropTypes.oneOf(["ballBeat", "ballScale", "ballSpinFadeLoader"])
+  size: React.PropTypes.oneOf(["small", "mini"]),
+  type: React.PropTypes.oneOf([
+    "ballBeat",
+    "ballScale",
+    "ballSpinFadeLoader",
+    "lineSpinFadeLoader"
+  ])
 };
 
 module.exports = Loader;
