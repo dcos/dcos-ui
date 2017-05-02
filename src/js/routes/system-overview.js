@@ -5,7 +5,7 @@ import OverviewDetailTab from "../pages/system/OverviewDetailTab";
 
 const systemOverviewRoutes = {
   type: Route,
-  path: "system-overview",
+  path: "overview",
   component: SystemOverviewPage,
   category: "system",
   isInSidebar: true,

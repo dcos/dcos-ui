@@ -34,7 +34,7 @@ const SystemOverviewBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Cluster">
       <BreadcrumbTextContent>
-        <Link to="/system-overview">System Overview</Link>
+        <Link to="/overview">Overview</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -226,7 +226,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
 OverviewDetailTab.routeConfig = {
   label: "Overview",
-  matches: /^\/system-overview\/details/
+  matches: /^\/overview\/details/
 };
 
 module.exports = OverviewDetailTab;

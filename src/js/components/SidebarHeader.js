@@ -109,11 +109,11 @@ class SidebarHeader extends mixin(StoreMixin) {
         onClick: this.handleItemSelect
       },
       {
-        html: "System Overview",
-        id: "system-overview",
+        html: "Overview",
+        id: "overview",
         onClick: () => {
           SidebarActions.close();
-          this.context.router.push("/system-overview");
+          this.context.router.push("/overview");
         }
       },
       {
