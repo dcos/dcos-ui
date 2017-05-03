@@ -1,6 +1,4 @@
 const nestedRoutesToTest = [
-  { url: "/services/overview", parentMenuLabel: "Services" },
-  { url: "/services/deployments", parentMenuLabel: "Services" },
   { url: "/networking/networks", parentMenuLabel: "Networking" },
   { url: "/settings/repositories", parentMenuLabel: "Settings" },
   { url: "/organization/users", parentMenuLabel: "Organization" }
@@ -20,23 +18,23 @@ describe("Sidebar", function() {
 
       cy
         .get(".sidebar-sections .sidebar-menu-item")
-        .contains("Services")
-        .as("servicesMenuItem");
+        .contains("Settings")
+        .as("settingsMenuItem");
 
       // The menu item should not contain a nested list.
-      cy.get("@servicesMenuItem").should(function($anchorTag) {
+      cy.get("@settingsMenuItem").should(function($anchorTag) {
         const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
         expect($parentMenuItem.hasClass("open")).to.equal(false);
         expect($parentMenuItem.find("ul li").length).to.equal(0);
       });
 
-      cy.get("@servicesMenuItem").click();
+      cy.get("@settingsMenuItem").click();
 
       // Now the menu item should be expanded, so it contains a nested list.
-      cy.get("@servicesMenuItem").should(function($anchorTag) {
+      cy.get("@settingsMenuItem").should(function($anchorTag) {
         const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
         expect($parentMenuItem.hasClass("open")).to.equal(true);
-        expect($parentMenuItem.find("ul li").length).to.equal(2);
+        expect($parentMenuItem.find("ul li").length).to.equal(1);
       });
     });
 
