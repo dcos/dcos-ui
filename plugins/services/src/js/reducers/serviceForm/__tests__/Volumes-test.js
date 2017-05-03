@@ -7,6 +7,9 @@ const {
   SET
 } = require("#SRC/js/constants/TransactionTypes");
 
+const LOCAL_VOLUME_DEFAULT_SIZE = require("../../../constants/LocalVolumes")
+  .DEFAULT_SIZE;
+
 describe("Volumes", function() {
   describe("#JSONReducer", function() {
     it("should return an empty array if no volumes are set", function() {
@@ -27,7 +30,7 @@ describe("Volumes", function() {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: LOCAL_VOLUME_DEFAULT_SIZE
           },
           mode: "RW"
         }
@@ -152,7 +155,7 @@ describe("Volumes", function() {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: LOCAL_VOLUME_DEFAULT_SIZE
           },
           mode: "RW"
         },

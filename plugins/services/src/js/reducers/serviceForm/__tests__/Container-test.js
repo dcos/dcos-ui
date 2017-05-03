@@ -10,6 +10,9 @@ const {
   type: { BRIDGE, HOST, USER }
 } = require("#SRC/js/constants/Networking");
 
+const LOCAL_VOLUME_DEFAULT_SIZE = require("../../../constants/LocalVolumes")
+  .DEFAULT_SIZE;
+
 describe("Container", function() {
   describe("#JSONReducer", function() {
     it("should return a null container as default object", function() {
@@ -1076,7 +1079,7 @@ describe("Container", function() {
             {
               containerPath: null,
               persistent: {
-                size: null
+                size: LOCAL_VOLUME_DEFAULT_SIZE
               },
               mode: "RW"
             }
@@ -1136,7 +1139,7 @@ describe("Container", function() {
             {
               containerPath: null,
               persistent: {
-                size: null
+                size: LOCAL_VOLUME_DEFAULT_SIZE
               },
               mode: "RW"
             },

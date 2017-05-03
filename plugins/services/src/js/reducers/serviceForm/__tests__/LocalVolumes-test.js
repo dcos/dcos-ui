@@ -7,6 +7,9 @@ const {
   SET
 } = require("#SRC/js/constants/TransactionTypes");
 
+const LOCAL_VOLUME_DEFAULT_SIZE = require("../../../constants/LocalVolumes")
+  .DEFAULT_SIZE;
+
 describe("LocalVolumes", function() {
   describe("#FormReducer", function() {
     it("should return an Array with one item", function() {
@@ -14,7 +17,12 @@ describe("LocalVolumes", function() {
         .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"));
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
-        { size: null, containerPath: null, mode: "RW", type: "PERSISTENT" }
+        {
+          size: LOCAL_VOLUME_DEFAULT_SIZE,
+          containerPath: null,
+          mode: "RW",
+          type: "PERSISTENT"
+        }
       ]);
     });
 

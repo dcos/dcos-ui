@@ -1,6 +1,9 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 import Transaction from "#SRC/js/structs/Transaction";
+import {
+  DEFAULT_SIZE as LOCAL_VOLUME_DEFAULT_SIZE
+} from "../../constants/LocalVolumes";
 
 module.exports = {
   JSONParser(state) {
@@ -45,13 +48,15 @@ module.exports = {
             new Transaction(["localVolumes", index, "type"], "HOST", SET)
           );
 
-          memo.push(
-            new Transaction(
-              ["localVolumes", index, "hostPath"],
-              item.hostPath,
-              SET
-            )
-          );
+          if (item.hostPath != null) {
+            memo.push(
+              new Transaction(
+                ["localVolumes", index, "hostPath"],
+                item.hostPath,
+                SET
+              )
+            );
+          }
         }
 
         if (item.containerPath != null) {
@@ -85,7 +90,11 @@ module.exports = {
       if (joinedPath === "localVolumes") {
         switch (type) {
           case ADD_ITEM:
-            state.push({ containerPath: null, size: null, mode: "RW" });
+            state.push({
+              containerPath: null,
+              size: LOCAL_VOLUME_DEFAULT_SIZE,
+              mode: "RW"
+            });
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

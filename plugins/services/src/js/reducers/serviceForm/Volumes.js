@@ -1,6 +1,10 @@
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
+import {
+  DEFAULT_SIZE as LOCAL_VOLUME_DEFAULT_SIZE
+} from "../../constants/LocalVolumes";
+
 const mapLocalVolumes = function(volume) {
   if (volume.type === "PERSISTENT") {
     return {
@@ -126,7 +130,7 @@ function reduceVolumes(state, { type, path, value }) {
         case ADD_ITEM:
           this.localVolumes.push({
             containerPath: null,
-            persistent: { size: null },
+            persistent: { size: LOCAL_VOLUME_DEFAULT_SIZE },
             mode: "RW"
           });
           break;
