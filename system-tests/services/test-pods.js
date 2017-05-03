@@ -965,10 +965,9 @@ describe("Services", function() {
 
       cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.get(".button").contains("Add Ephemeral Volume").click();
-
+      cy.get(".button").contains("Add Volume").click();
+      cy.root().getFormGroupInputFor("Volume Type").select("Ephemeral Volume");
       cy.root().getFormGroupInputFor("Name").type("test");
-
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
       cy.get("#brace-editor").contents().asJson().should("deep.equal", [
@@ -1082,9 +1081,16 @@ describe("Services", function() {
       cy.root().configurationSection("Storage").then(function($storageSection) {
         const $tableRow = $storageSection.find("tbody tr:visible");
         const $tableCells = $tableRow.find("td");
-        const cellValues = ["test", "FALSE", "test", "container-1", "Edit"];
+        const cellValues = [
+          "test",
+          "EPHEMERAL",
+          "FALSE",
+          "test",
+          "container-1",
+          "Edit"
+        ];
 
-        expect($tableCells.length).to.equal(5);
+        expect($tableCells.length).to.equal(6);
 
         $tableCells.each(function(index) {
           expect(this.textContent.trim()).to.equal(cellValues[index]);
@@ -1178,7 +1184,7 @@ describe("Services", function() {
               mode: "host"
             }
           ],
-          env: {
+          environment: {
             camelCase: "test",
             snake_case: "test",
             lowercase: "test",
