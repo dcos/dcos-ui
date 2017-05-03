@@ -16,7 +16,7 @@ describe("Services", function() {
       });
     });
 
-    it("Create a simple pod", function() {
+    it("should create a simple pod", function() {
       const serviceName = "pod-with-inline-shell-script";
       const command = "while true ; do echo 'test' ; sleep 100 ;";
 
@@ -37,40 +37,9 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
       cy.root().getFormGroupInputFor("Command").type(command);
 
       cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          containers: [
-            {
-              name: "container-1",
-              resources: {
-                cpus: 0.1,
-                mem: 10
-              },
-              exec: {
-                command: {
-                  shell: command
-                }
-              }
-            }
-          ],
-          scaling: {
-            kind: "fixed",
-            instances: 1
-          },
-          networks: [
-            {
-              mode: "host"
-            }
-          ]
-        }
-      ]);
 
       cy.get("#brace-editor").contents().asJson().should("deep.equal", [
         {
@@ -133,11 +102,7 @@ describe("Services", function() {
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
-      cy
-        .root()
-        .configurationSection("Containers")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
+      // per container details
 
       cy
         .root()
@@ -179,10 +144,40 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
+      //   .type('{selectall}0.1');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").contains(command);
     });
 
-    it("Create a pod with multiple containers", function() {
+    it("should create a pod with multiple containers", function() {
       const serviceName = "pod-with-multiple-containers";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -374,10 +369,86 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      // Select first container
+      cy.root().get(".menu-tabbed-item").contains("first-container").click();
+
+      // Configure container
+      cy
+        .root()
+        .getFormGroupInputFor("Container Name")
+        .should("have.value", "first-container");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "nginx");
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs')
+      //   .type('{selectall}0.1');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").contains(cmdline);
+
+      // Go back to Service
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
+
+      // Ensure the name changes to 'Services'
+      cy.root().get(".menu-tabbed-item").contains("Services").should("exist");
+
+      // Select second container
+      cy.root().get(".menu-tabbed-item").contains("second-container").click();
+
+      // Configure container
+      cy
+        .root()
+        .getFormGroupInputFor("Container Name")
+        .should("have.value", "second-container");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "nginx");
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs')
+      //   .type('{selectall}0.1');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").contains(cmdline);
     });
 
-    it("Create a pod with service address", function() {
+    it("should create a pod with service address", function() {
       const serviceName = "pod-with-service-address";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -545,11 +616,11 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Service Endpoints")
-        .then(function($serviceEndpoitnsSection) {
+        .then(function($serviceEndpointsSection) {
           // Ensure the section itself exists.
-          expect($serviceEndpoitnsSection.get().length).to.equal(1);
+          expect($serviceEndpointsSection.get().length).to.equal(1);
 
-          const $tableCells = $serviceEndpoitnsSection.find(
+          const $tableCells = $serviceEndpointsSection.find(
             "tbody tr:visible td"
           );
           const cellValues = [
@@ -576,10 +647,67 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
+      //   .type('{selectall}0.5');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", containerImage);
+
+      cy.root().getFormGroupInputFor("Command").contains(command);
+
+      cy.get(".menu-tabbed-item").contains("Networking").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "CONTAINER.dcos"); // Virtual Network: dcos
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "8080");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
+
+      // cy
+      //   .get('input[name="containers.0.endpoints.0.loadBalanced"]')
+      //   .parents(".form-control-toggle")
+      //   .click();
     });
 
-    it("Create a pod with artifacts", function() {
+    it("should create a pod with artifacts", function() {
       const serviceName = "pod-with-artifacts";
       const command = "while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -761,10 +889,48 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").contains(command);
+
+      cy.get(".advanced-section").contains("More Settings").click();
+
+      cy
+        .get('input[name="containers.0.artifacts.0.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/1");
+
+      cy
+        .get('input[name="containers.0.artifacts.1.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/2");
+
+      cy
+        .get('input[name="containers.0.artifacts.2.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it("Create a pod with virtual network", function() {
+    it("should create a pod with virtual network", function() {
       const serviceName = "pod-with-virtual-network";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -937,10 +1103,63 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
+      //   .type('{selectall}0.5');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", containerImage);
+
+      cy.root().getFormGroupInputFor("Command").contains(command);
+
+      cy.get(".menu-tabbed-item").contains("Networking").click();
+
+      // Virtual Network: dcos
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "CONTAINER.dcos");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "8080");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
     });
 
-    it("Create a pod with ephemeral volume", function() {
+    it("should create a pod with ephemeral volume", function() {
       const serviceName = "pod-with-ephemeral-volume";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -1104,10 +1323,49 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
+      //   .type('{selectall}0.1');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").should("have.value", command);
+
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
+
+      cy.root().getFormGroupInputFor("Name").should("have.value", "test");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Path")
+        .should("have.value", "test");
     });
 
-    it("Create a pod with environment variable", function() {
+    it("should create a pod with environment variable", function() {
       const serviceName = "pod-with-environment-variable";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -1295,7 +1553,67 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
-        .should("exist");
+        .get("a.table-cell-link-primary")
+        .contains(`${serviceName}`)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .root()
+      //   .getFormGroupInputFor('CPUs *')
+      //   .type('{selectall}0.1');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").should("have.value", command);
+
+      cy.get(".menu-tabbed-item").contains("Environment").click();
+
+      cy
+        .root()
+        .get('input[name="env.0.key"]')
+        .should("have.value", "camelCase");
+
+      cy.root().get('input[name="env.0.value"]').should("have.value", "test");
+
+      cy
+        .root()
+        .get('input[name="env.1.key"]')
+        .should("have.value", "snake_case");
+
+      cy.root().get('input[name="env.1.value"]').should("have.value", "test");
+
+      cy
+        .root()
+        .get('input[name="env.2.key"]')
+        .should("have.value", "lowercase");
+
+      cy.root().get('input[name="env.2.value"]').should("have.value", "test");
+
+      cy
+        .root()
+        .get('input[name="env.3.key"]')
+        .should("have.value", "UPPERCASE");
+
+      cy.root().get('input[name="env.3.value"]').should("have.value", "test");
     });
   });
 });
