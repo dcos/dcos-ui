@@ -95,7 +95,7 @@
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "0.27.0"
@@ -137,7 +137,7 @@
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "0.27.0"
@@ -164,7 +164,7 @@
         "mem": 0.0
       },
       "reserved_resources": {
-        
+
       },
       "unreserved_resources": {
         "cpus": 4.0,
@@ -173,7 +173,7 @@
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "0.27.0"
@@ -215,7 +215,7 @@
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "0.27.0"
@@ -283,7 +283,7 @@
         "mem": 0.0
       },
       "reserved_resources": {
-        
+
       },
       "unreserved_resources": {
         "cpus": 4.0,
@@ -292,7 +292,7 @@
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
       },
       "attributes": {
-        
+
       },
       "active": true,
       "version": "0.27.0"
@@ -315,7 +315,7 @@
         "mem": 0.0
       },
       "capabilities": [
-        
+
       ],
       "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
       "webui_url": "",
@@ -433,10 +433,10 @@
         }
       ],
       "completed_tasks": [
-        
+
       ],
       "offers": [
-        
+
       ],
       "executors": [
         {
@@ -691,7 +691,7 @@
         "mem": 0.0
       },
       "capabilities": [
-        
+
       ],
       "hostname": "10.0.7.122",
       "webui_url": "http:\/\/10.0.7.122:8080",
@@ -775,32 +775,28 @@
             {
               "key": "DCOS_PACKAGE_NAME",
               "value": "cassandra"
-            },
-            {
-              "key": "DCOS_PACKAGE_IS_FRAMEWORK",
-              "value": "true"
             }
           ]
         }
       ],
       "completed_tasks": [
-        
+
       ],
       "offers": [
-        
+
       ],
       "executors": [
-        
+
       ]
     }
   ],
   "completed_frameworks": [
-    
+
   ],
   "orphan_tasks": [
-    
+
   ],
   "unregistered_frameworks": [
-    
+
   ]
 }

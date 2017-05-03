@@ -6,7 +6,7 @@
       "args": null,
       "user": null,
       "env": {
-        
+
       },
       "instances": 1,
       "cpus": 0.5,
@@ -14,7 +14,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-        
+
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -35,7 +35,7 @@
         }
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         9000,
@@ -60,7 +60,7 @@
         }
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -74,8 +74,7 @@
         "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "kafka",
         "DCOS_PACKAGE_VERSION": "0.2.0-1",
-        "DCOS_PACKAGE_NAME": "kafka",
-        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+        "DCOS_PACKAGE_NAME": "kafka"
       },
       "acceptedResourceRoles": null,
       "ipAddress": null,
@@ -89,12 +88,12 @@
       "tasksHealthy": 1,
       "tasksUnhealthy": 0,
       "deployments": [
-        
+
       ]
     }
   ],
   "groups": [
-    
+
   ],
   "id": "/"
 }

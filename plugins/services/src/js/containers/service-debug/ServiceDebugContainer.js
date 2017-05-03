@@ -311,10 +311,7 @@ class ServiceDebugContainer extends React.Component {
   isFramework(service) {
     const { labels = {} } = service;
 
-    return (
-      labels.DCOS_PACKAGE_FRAMEWORK_NAME != null ||
-      labels.DCOS_PACKAGE_IS_FRAMEWORK != null
-    );
+    return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null;
   }
 
   shouldShowDeclinedOfferSummary() {
