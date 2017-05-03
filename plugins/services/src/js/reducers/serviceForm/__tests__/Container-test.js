@@ -337,9 +337,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
         );
-        batch = batch.add(
-          new Transaction(["container", "docker", "network"], USER, SET)
-        );
+        batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
         batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
@@ -372,9 +370,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
         );
-        batch = batch.add(
-          new Transaction(["container", "docker", "network"], USER, SET)
-        );
+        batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
         // This is default
         // batch = batch.add(
         //   new Transaction(['portDefinitions', 0, 'portMapping'], false)
@@ -415,7 +411,7 @@ describe("Container", function() {
           new Transaction(["container", "type"], "DOCKER", SET)
         );
         batch = batch.add(
-          new Transaction(["container", "docker", "network"], BRIDGE, SET)
+          new Transaction(["networks", 0, "mode"], BRIDGE, SET)
         );
         // This is default
         // batch = batch.add(
@@ -463,7 +459,7 @@ describe("Container", function() {
           new Transaction(["container", "type"], "DOCKER", SET)
         );
         batch = batch.add(
-          new Transaction(["container", "docker", "network"], BRIDGE, SET)
+          new Transaction(["networks", 0, "mode"], BRIDGE, SET)
         );
         batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
         batch = batch.add(
@@ -514,7 +510,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], HOST, SET)
+            new Transaction(["networks", 0, "mode"], HOST, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -540,7 +536,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -587,7 +583,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -625,7 +621,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -666,7 +662,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -708,7 +704,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -749,7 +745,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -799,7 +795,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -852,7 +848,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
@@ -908,7 +904,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
@@ -977,7 +973,7 @@ describe("Container", function() {
           );
           batch = batch.add(new Transaction(["id"], "foo"));
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -1016,7 +1012,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "MESOS", SET)
           );
           batch = batch.add(
-            new Transaction(["container", "docker", "network"], USER, SET)
+            new Transaction(["networks", 0, "mode"], USER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
