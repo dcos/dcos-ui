@@ -171,7 +171,6 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
 
   if (configuration.mesos === "1-sdk-service") {
     router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/sdk-service")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/groups-sdk-services"
@@ -188,10 +187,6 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
 
   if (configuration.mesos === "1-suspended-sdk-service") {
     router
-      .route(
-        /service\/marathon\/v2\/apps/,
-        "fx:marathon-1-task/sdk-service-suspended"
-      )
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/groups-suspended-sdk-services"

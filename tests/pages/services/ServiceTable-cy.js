@@ -48,98 +48,96 @@ describe("Service Table", function() {
   });
 
   context("Destroy Action", function() {
-    context("Application", function() {
-      beforeEach(function() {
-        cy.configureCluster({
-          mesos: "1-task-healthy",
-          nodeHealth: true
-        });
-        cy.visitUrl({ url: "/services/overview" });
-
-        openDropdown("sleep");
-        clickDropdownAction("Delete");
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy",
+        nodeHealth: true
       });
+      cy.visitUrl({ url: "/services/overview" });
 
-      it("opens the correct service destroy dialog", function() {
-        cy
-          .get(".confirm-modal p span")
-          .contains("/sleep")
-          .should("to.have.length", 1);
-      });
+      openDropdown("sleep");
+      clickDropdownAction("Delete");
+    });
 
-      it("disables button during API request", function() {
-        cy.route({
-          method: "DELETE",
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: []
-        });
-        cy
-          .get(".confirm-modal .button-collection .button-danger")
-          .click()
-          .should("have.class", "disabled");
-      });
+    it("opens the correct service destroy dialog", function() {
+      cy
+        .get(".confirm-modal p span")
+        .contains("/sleep")
+        .should("to.have.length", 1);
+    });
 
-      it("closes dialog on successful API request", function() {
-        cy.route({
-          method: "DELETE",
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: []
-        });
-        cy.get(".confirm-modal .button-collection .button-danger").click();
-        cy.get(".confirm-modal").should("to.have.length", 0);
+    it("disables button during API request", function() {
+      cy.route({
+        method: "DELETE",
+        url: /marathon\/v2\/apps\/\/sleep/,
+        response: []
       });
+      cy
+        .get(".confirm-modal .button-collection .button-danger")
+        .click()
+        .should("have.class", "disabled");
+    });
 
-      it("shows error message on conflict", function() {
-        cy.route({
-          method: "DELETE",
-          status: 409,
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: { message: "App is locked by one or more deployments." }
-        });
-        cy.get(".confirm-modal .button-collection .button-danger").click();
-        cy
-          .get(".modal-body .text-danger")
-          .should("to.have.text", "App is locked by one or more deployments.");
+    it("closes dialog on successful API request", function() {
+      cy.route({
+        method: "DELETE",
+        url: /marathon\/v2\/apps\/\/sleep/,
+        response: []
       });
+      cy.get(".confirm-modal .button-collection .button-danger").click();
+      cy.get(".confirm-modal").should("to.have.length", 0);
+    });
 
-      it("shows error message on not authorized", function() {
-        cy.route({
-          method: "DELETE",
-          status: 403,
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: { message: "Not Authorized to perform this action!" }
-        });
-        cy.get(".confirm-modal .button-collection .button-danger").click();
-        cy
-          .get(".modal-body .text-danger")
-          .should("to.have.text", "Not Authorized to perform this action!");
+    it("shows error message on conflict", function() {
+      cy.route({
+        method: "DELETE",
+        status: 409,
+        url: /marathon\/v2\/apps\/\/sleep/,
+        response: { message: "App is locked by one or more deployments." }
       });
+      cy.get(".confirm-modal .button-collection .button-danger").click();
+      cy
+        .get(".modal-body .text-danger")
+        .should("to.have.text", "App is locked by one or more deployments.");
+    });
 
-      it("reenables button after faulty request", function() {
-        cy.route({
-          method: "DELETE",
-          status: 403,
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: {
-            message: { message: "Not Authorized to perform this action!" }
-          },
-          delay: SERVER_RESPONSE_DELAY
-        });
-        cy
-          .get(".confirm-modal .button-collection .button-danger")
-          .as("dangerButton")
-          .click();
-        cy.get("@dangerButton").should("have.class", "disabled");
-        cy.get("@dangerButton").should("not.have.class", "disabled");
+    it("shows error message on not authorized", function() {
+      cy.route({
+        method: "DELETE",
+        status: 403,
+        url: /marathon\/v2\/apps\/\/sleep/,
+        response: { message: "Not Authorized to perform this action!" }
       });
+      cy.get(".confirm-modal .button-collection .button-danger").click();
+      cy
+        .get(".modal-body .text-danger")
+        .should("to.have.text", "Not Authorized to perform this action!");
+    });
 
-      it("closes dialog on secondary button click", function() {
-        cy
-          .get(".confirm-modal .button-collection .button")
-          .contains("Cancel")
-          .click();
-        cy.get(".confirm-modal").should("to.have.length", 0);
+    it("reenables button after faulty request", function() {
+      cy.route({
+        method: "DELETE",
+        status: 403,
+        url: /marathon\/v2\/apps\/\/sleep/,
+        response: {
+          message: { message: "Not Authorized to perform this action!" }
+        },
+        delay: SERVER_RESPONSE_DELAY
       });
+      cy
+        .get(".confirm-modal .button-collection .button-danger")
+        .as("dangerButton")
+        .click();
+      cy.get("@dangerButton").should("have.class", "disabled");
+      cy.get("@dangerButton").should("not.have.class", "disabled");
+    });
+
+    it("closes dialog on secondary button click", function() {
+      cy
+        .get(".confirm-modal .button-collection .button")
+        .contains("Cancel")
+        .click();
+      cy.get(".confirm-modal").should("to.have.length", 0);
     });
   });
 
@@ -500,21 +498,21 @@ describe("Service Table", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/overview" });
+      cy.visitUrl({ url: "/services/overview/%2Fservices" });
     });
 
     it("opens the destroy dialog", function() {
-      openDropdown("sleep");
+      openDropdown("sdk-sleep");
       clickDropdownAction("Delete");
 
       cy
-        .get(".confirm-modal p span")
-        .contains("/sleep")
+        .get(".modal p span")
+        .contains("/sdk-sleep")
         .should("to.have.length", 1);
 
       cy
         .get(".modal pre")
-        .contains("dcos package uninstall test --app-id=/sleep");
+        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
 
       cy.get(".modal button").contains("Close").click();
 
@@ -522,7 +520,7 @@ describe("Service Table", function() {
     });
 
     it("opens the scale dialog", function() {
-      openDropdown("sleep");
+      openDropdown("sdk-sleep");
       clickDropdownAction("Scale");
 
       cy
@@ -532,7 +530,9 @@ describe("Service Table", function() {
 
       cy
         .get(".modal pre")
-        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
 
       cy.get(".modal button").contains("Close").click();
 
@@ -540,7 +540,7 @@ describe("Service Table", function() {
     });
 
     it("opens the suspend dialog", function() {
-      openDropdown("sleep");
+      openDropdown("sdk-sleep");
       clickDropdownAction("Suspend");
 
       cy
@@ -550,7 +550,9 @@ describe("Service Table", function() {
 
       cy
         .get(".modal pre")
-        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
 
       cy.get(".modal button").contains("Close").click();
 
@@ -563,7 +565,7 @@ describe("Service Table", function() {
         nodeHealth: true
       });
 
-      openDropdown("sleep");
+      openDropdown("sdk-sleep");
       clickDropdownAction("Resume");
 
       cy
@@ -573,7 +575,9 @@ describe("Service Table", function() {
 
       cy
         .get(".modal pre")
-        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
 
       cy.get(".modal button").contains("Close").click();
 
@@ -581,7 +585,7 @@ describe("Service Table", function() {
     });
 
     it("opens the restart dialog", function() {
-      openDropdown("sleep");
+      openDropdown("sdk-sleep");
       clickDropdownAction("Restart");
 
       cy
@@ -589,7 +593,9 @@ describe("Service Table", function() {
         .contains("Restart Service")
         .should("have.length", 1);
 
-      cy.get(".modal pre").contains("dcos marathon app restart /sleep");
+      cy
+        .get(".modal pre")
+        .contains("dcos marathon app restart /services/sdk-sleep");
       cy.get(".modal button").contains("Close").click();
 
       cy.get(".modal").should("not.exist");
