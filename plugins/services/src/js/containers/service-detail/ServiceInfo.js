@@ -10,6 +10,7 @@ import UserActions from "#SRC/js/constants/UserActions";
 import HealthBar from "../../components/HealthBar";
 import Service from "../../structs/Service";
 import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import StatusMapping from "../../constants/StatusMapping";
 
 class ServiceInfo extends React.Component {
@@ -92,7 +93,7 @@ class ServiceInfo extends React.Component {
           target="_blank"
           title="Open in a new window"
         >
-          <FormattedMessage id="SERVICE_ACTIONS.OPEN_SERVICE" />
+          <FormattedMessage id={ServiceActionLabels.open} />
         </a>
       );
     }
