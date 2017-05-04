@@ -69,8 +69,21 @@ class ServicesTable extends React.Component {
   }
 
   onActionsItemSelection(service, actionItem) {
-    // We still want to support the `open` action to display the web view
-    if (actionItem.id !== OPEN && isSDKService(service)) {
+    const isGroup = service instanceof ServiceTree;
+    let containsSDKService = false;
+
+    if (isGroup) {
+      containsSDKService =
+        service.findItem(function(item) {
+          return item instanceof Service && isSDKService(item);
+        }) != null;
+    }
+
+    if (
+      // We still want to support the `open` action to display the web view
+      actionItem.id !== OPEN &&
+      (containsSDKService || isSDKService(service))
+    ) {
       this.handleActionDisabledModalOpen(service, actionItem.id);
     } else {
       this.handleServiceAction(service, actionItem.id);
