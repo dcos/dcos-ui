@@ -248,7 +248,7 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getHeading() {
-    const { actionID, service } = this.props;
+    const { actionID, intl, service } = this.props;
 
     let itemText = "Service";
 
@@ -260,9 +260,13 @@ class ServiceActionDisabledModal extends React.Component {
       itemText = "Group";
     }
 
+    const action = actionID
+      ? intl.formatMessage({ id: ServiceActionLabels[actionID] })
+      : actionID;
+
     return (
       <ModalHeading>
-        {`${ServiceActionLabels[actionID]} ${itemText}`}
+        {`${action} ${itemText}`}
       </ModalHeading>
     );
   }
