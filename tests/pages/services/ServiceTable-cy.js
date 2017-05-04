@@ -601,4 +601,80 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
   });
+
+  context("SDK Groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("opens the destroy dialog", function() {
+      openDropdown("services");
+      clickDropdownAction("Delete");
+
+      cy.get(".modal p span").contains("/services").should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
+
+      cy.get(".modal pre").contains("dcos marathon group remove /services");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the scale dialog", function() {
+      openDropdown("services");
+      clickDropdownAction("Scale");
+
+      cy
+        .get(".modal-header")
+        .contains("Scale Group")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy
+        .get(".modal pre")
+        .contains("dcos marathon app update /services/sleep options.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the suspend dialog", function() {
+      openDropdown("services");
+      clickDropdownAction("Suspend");
+
+      cy
+        .get(".modal-header")
+        .contains("Suspend Group")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy
+        .get(".modal pre")
+        .contains("dcos marathon app update /services/sleep options.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+  });
 });
