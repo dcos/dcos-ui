@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import React from "react";
 import { Table } from "reactjs-components";
 
-import ResourceTableUtil from "../../../src/js/utils/ResourceTableUtil";
+import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import StringUtil from "../utils/StringUtil";
 import TableUtil from "../utils/TableUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
