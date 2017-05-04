@@ -17,7 +17,13 @@
   "DOCS.MORE_INFORMATION": "More information",
   "DOCS.DOCUMENTATION": "documentation",
 
-  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
+  "SERVICE_ACTIONS.DELETE": "Delete",
+  "SERVICE_ACTIONS.RESTART": "Restart",
+  "SERVICE_ACTIONS.RESUME": "Resume",
+  "SERVICE_ACTIONS.OPEN": "Open Service",
+  "SERVICE_ACTIONS.SCALE": "Scale",
+  "SERVICE_ACTIONS.SCALE_BY": "Scale By",
+  "SERVICE_ACTIONS.SUSPEND": "Suspend",
 
   "SERVICE_ACTIONS.SDK_SERVICE_RESTART": "Restart your service from the DC/OS CLI.",
   "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND": "Suspend your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file.",

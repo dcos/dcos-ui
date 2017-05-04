@@ -13,6 +13,7 @@ import ActionKeys from "../../constants/ActionKeys";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import Service from "../../structs/Service";
 import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
 
@@ -119,7 +120,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     ) {
       actions.push({
         label: this.props.intl.formatMessage({
-          id: "SERVICE_ACTIONS.OPEN_SERVICE"
+          id: ServiceActionLabels.open
         }),
         onItemSelect() {
           modalHandlers.openServiceUI({ service });

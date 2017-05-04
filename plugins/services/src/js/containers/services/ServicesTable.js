@@ -216,7 +216,7 @@ class ServicesTable extends React.Component {
     const isSingleInstanceApp = service.getLabels()
       .MARATHON_SINGLE_INSTANCE_APP;
     const instancesCount = service.getInstancesCount();
-    const scaleText = isGroup
+    const scaleTextID = isGroup
       ? ServiceActionLabels.scale_by
       : ServiceActionLabels[SCALE];
 
@@ -232,43 +232,49 @@ class ServicesTable extends React.Component {
           hidden: !this.hasWebUI(service)
         }),
         id: OPEN,
-        html: this.props.intl.formatMessage({
-          id: "SERVICE_ACTIONS.OPEN_SERVICE"
-        })
+        html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
       },
       {
         className: classNames({
           hidden: (isGroup && instancesCount === 0) || isSingleInstanceApp
         }),
         id: SCALE,
-        html: scaleText
+        html: this.props.intl.formatMessage({ id: scaleTextID })
       },
       {
         className: classNames({
           hidden: isPod || isGroup || instancesCount === 0
         }),
         id: RESTART,
-        html: ServiceActionLabels[RESTART]
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[RESTART]
+        })
       },
       {
         className: classNames({
           hidden: instancesCount === 0
         }),
         id: SUSPEND,
-        html: ServiceActionLabels[SUSPEND]
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[SUSPEND]
+        })
       },
       {
         className: classNames({
           hidden: isGroup || instancesCount > 0
         }),
         id: RESUME,
-        html: ServiceActionLabels[RESUME]
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[RESUME]
+        })
       },
       {
         id: DELETE,
         html: (
           <span className="text-danger">
-            {ServiceActionLabels[DELETE]}
+            {this.props.intl.formatMessage({
+              id: ServiceActionLabels[DELETE]
+            })}
           </span>
         )
       }
