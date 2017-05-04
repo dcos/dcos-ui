@@ -5,6 +5,8 @@ import { Modal } from "reactjs-components";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
+import { isPackage, isSDKService } from "#SRC/js/utils/ServiceUtil";
+
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
@@ -40,30 +42,37 @@ class ServiceActionDisabledModal extends React.Component {
     this.setState({ isTextCopied: true });
   }
 
-  getUpdateCommand() {
-    const { service } = this.props;
-    const serviceID = service.getId();
+  getUpdateCommand(service = this.props.service) {
+    const serviceID = service ? service.getId() : "";
     const packageName = service.getLabels().DCOS_PACKAGE_NAME;
 
-    return `dcos ${packageName} --name=${serviceID} update --options=<my-options>.json`;
+    // For everything SDK, not other packages
+    if (isSDKService(service)) {
+      return `dcos ${packageName} --name=${serviceID} update --options=${packageName}-options.json`;
+    }
+
+    return `dcos marathon app update ${serviceID} options.json`;
   }
 
-  getRestartCommand() {
-    const { service } = this.props;
-    const serviceID = service.getId();
+  getRestartCommand(service = this.props.service) {
+    const serviceID = service ? service.getId() : "";
 
     return `dcos marathon app restart ${serviceID}`;
   }
 
-  getDeleteCommand() {
-    const { service } = this.props;
-    const serviceID = service.getId();
+  getDeleteCommand(service = this.props.service) {
+    const serviceID = service ? service.getId() : "";
     const packageName = service.getLabels().DCOS_PACKAGE_NAME;
+
+    // For groups, not services
+    if (service instanceof ServiceTree) {
+      return `dcos marathon group remove ${serviceID}`;
+    }
 
     return `dcos package uninstall ${packageName} --app-id=${serviceID}`;
   }
 
-  getRestartMessage() {
+  getServiceRestartMessage() {
     const { intl } = this.props;
     const command = this.getRestartCommand();
 
@@ -86,7 +95,7 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getSuspendMessage() {
+  getServiceSuspendMessage() {
     const { intl } = this.props;
     const command = this.getUpdateCommand();
 
@@ -109,7 +118,7 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getResumeMessage() {
+  getServiceResumeMessage() {
     const { intl } = this.props;
     const command = this.getUpdateCommand();
 
@@ -132,7 +141,7 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getScaleMessage() {
+  getServiceScaleMessage() {
     const { intl } = this.props;
     const command = this.getUpdateCommand();
 
@@ -161,7 +170,7 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getDeleteMessage() {
+  getServiceDeleteMessage() {
     const { intl, service } = this.props;
     const serviceID = service ? service.getId() : "";
     const command = this.getDeleteCommand();
@@ -178,7 +187,6 @@ class ServiceActionDisabledModal extends React.Component {
           {intl.formatMessage({
             id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2"
           })}
-
           {" "}
           <a
             href={MetadataStore.buildDocsURI("/deploying-services/uninstall/")}
@@ -200,7 +208,7 @@ class ServiceActionDisabledModal extends React.Component {
             target="_blank"
           >
             {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_4"
+              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
             })}
           </a>
           .
@@ -209,20 +217,229 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getMessage() {
+  getServiceMessage() {
     const { actionID } = this.props;
 
     switch (actionID) {
       case RESTART:
-        return this.getRestartMessage();
+        return this.getServiceRestartMessage();
       case SUSPEND:
-        return this.getSuspendMessage();
+        return this.getServiceSuspendMessage();
       case RESUME:
-        return this.getResumeMessage();
+        return this.getServiceResumeMessage();
       case SCALE:
-        return this.getScaleMessage();
+        return this.getServiceScaleMessage();
       case DELETE:
-        return this.getDeleteMessage();
+        return this.getServiceDeleteMessage();
+      default:
+        return <noscript />;
+    }
+  }
+
+  getServiceTypes(testFunction) {
+    return this.props.service.flattenItems().getItems().reduce(function(
+      memo,
+      item
+    ) {
+      if (testFunction(item)) {
+        memo.selectedServices.push(item);
+      } else {
+        memo.otherServices.push(item);
+      }
+
+      return memo;
+    }, { selectedServices: [], otherServices: [] });
+  }
+
+  getServiceList(services) {
+    return services.map(function(item, index) {
+      const comma = index === services.length - 1 ? "" : ", ";
+      const itemID = item.getId();
+
+      return (
+        <span key={itemID}>
+          <span className="emphasis">{itemID}</span>{comma}
+        </span>
+      );
+    });
+  }
+
+  getServiceListCommand(services, commandFunction) {
+    return services
+      .map(function(item) {
+        return commandFunction(item);
+      })
+      .join(" &&\n");
+  }
+
+  getGroupUpdateMessage(updateDescription) {
+    const { actionID, intl } = this.props;
+    const { selectedServices, otherServices } = this.getServiceTypes(
+      isSDKService
+    );
+    const sdkServicesList = this.getServiceList(selectedServices);
+    const sdkCommand = this.getServiceListCommand(
+      selectedServices,
+      this.getUpdateCommand
+    );
+
+    let otherServicesMessage = "";
+    if (otherServices.length > 0) {
+      const otherServicesList = this.getServiceList(otherServices);
+      const otherCommand = this.getServiceListCommand(
+        otherServices,
+        this.getUpdateCommand
+      );
+
+      otherServicesMessage = (
+        <div>
+          <p>
+            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_7" })}
+            {" "}
+            {otherServicesList}
+            : {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_8" })}
+            {" "}
+            <code>options.json</code>
+            {". "}
+            <a
+              href={MetadataStore.buildDocsURI(
+                "/deploying-services/config-universe-service/"
+              )}
+              target="_blank"
+            >
+              {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            </a>
+          </p>
+          {this.getClipboardTrigger('{"instances": 0}')}
+          <p>
+            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_9" })}.
+          </p>
+          {this.getClipboardTrigger(otherCommand)}
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <p>
+          {intl.formatMessage({ id: ServiceActionLabels[actionID] })}
+          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1" })}
+          {" "}
+          {updateDescription}
+          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2" })}.
+        </p>
+        <p>
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3" })}
+          {" "}
+          {sdkServicesList}
+          {": "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_4" })}
+          {" "}
+          <code>{"<package-name>-options.json"}</code>
+          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_5" })}
+          {". "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/deploying-services/config-universe-service/"
+            )}
+            target="_blank"
+          >
+            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+          </a>
+        </p>
+        {this.getClipboardTrigger('{"env": {"<PACKAGE_NAME>_COUNT": "0"}}')}
+        <p>
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_6" })}.
+        </p>
+        {this.getClipboardTrigger(sdkCommand)}
+        {otherServicesMessage}
+      </div>
+    );
+  }
+
+  getGroupDeleteMessage() {
+    const { actionID, service, intl } = this.props;
+    const serviceID = service ? service.getId() : "";
+    const { selectedServices } = this.getServiceTypes(isPackage);
+    const packageCommand = this.getServiceListCommand(
+      selectedServices,
+      this.getDeleteCommand
+    );
+    const groupCommand = this.getDeleteCommand();
+
+    return (
+      <div>
+        <p>
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_1" })}
+          {". "}
+          <a
+            href={MetadataStore.buildDocsURI("/deploying-services/uninstall/")}
+            target="_blank"
+          >
+            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+          </a>
+        </p>
+        {this.getClipboardTrigger(packageCommand)}
+        <p>
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_2" })}
+          {" "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/usage/managing-services/uninstall/#framework-cleaner"
+            )}
+            target="_blank"
+          >
+            {intl.formatMessage({
+              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
+            })}
+          </a>
+          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_3" })}.
+        </p>
+        <p>
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_4" })}
+          {", "}
+          {intl
+            .formatMessage({ id: ServiceActionLabels[actionID] })
+            .toLowerCase()}
+          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_5" })}
+          {" "}
+          <span className="emphasis">{serviceID}</span>
+          {": "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_6" })}.
+          {" "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/cli/command-reference/dcos-marathon/dcos-marathon-group-remove/"
+            )}
+            target="_blank"
+          >
+            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+          </a>
+        </p>
+        {this.getClipboardTrigger(groupCommand)}
+      </div>
+    );
+  }
+
+  getGroupMessage() {
+    const { actionID, intl } = this.props;
+
+    switch (actionID) {
+      case SUSPEND:
+        return this.getGroupUpdateMessage(
+          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SUSPEND" })
+        );
+      case SCALE:
+        return this.getGroupUpdateMessage(
+          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE" })
+        );
+      case DELETE:
+        return this.getGroupDeleteMessage();
       default:
         return <noscript />;
     }
@@ -234,8 +451,10 @@ class ServiceActionDisabledModal extends React.Component {
     const copyID = isTextCopied ? "CLIPBOARD.COPIED" : "CLIPBOARD.COPY";
 
     return [
-      <pre key="command">{command}</pre>,
-      <p key="copy-link">
+      <pre key="command" className="prettyprint flush-bottom prettyprinted">
+        {command}
+      </pre>,
+      <p key="trigger">
         <ClipboardTrigger
           className="clickable"
           copyText={command}
@@ -284,20 +503,22 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   render() {
-    const { onClose, open } = this.props;
+    const { open, onClose, service } = this.props;
+    const message = service instanceof ServiceTree
+      ? this.getGroupMessage()
+      : this.getServiceMessage();
 
     return (
       <Modal
         open={open}
         onClose={onClose}
         header={this.getHeading()}
-        modalClass="modal confirm-modal"
         showCloseButton={false}
         showHeader={true}
         showFooter={true}
         footer={this.getFooter()}
       >
-        {this.getMessage()}
+        {message}
       </Modal>
     );
   }
