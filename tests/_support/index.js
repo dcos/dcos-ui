@@ -179,6 +179,10 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
       )
+      .route(
+        /service\/marathon\/v2\/apps\/\/services\/sdk-sleep\/versions/,
+        "fx:marathon-1-task/versions"
+      )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
