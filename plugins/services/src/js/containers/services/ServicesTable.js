@@ -74,6 +74,7 @@ class ServicesTable extends React.Component {
 
     if (isGroup) {
       containsSDKService =
+        // #findItem will flatten the service tree
         service.findItem(function(item) {
           return item instanceof Service && isSDKService(item);
         }) != null;
