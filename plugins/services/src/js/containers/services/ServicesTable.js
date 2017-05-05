@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
-import { Link } from "react-router";
+import { Link, routerShape } from "react-router";
 import React, { PropTypes } from "react";
 
 import Icon from "#SRC/js/components/Icon";
@@ -20,6 +20,7 @@ import ServiceActionDisabledModal
   from "../../components/modals/ServiceActionDisabledModal";
 import {
   DELETE,
+  EDIT,
   MORE,
   OPEN,
   RESTART,
@@ -92,9 +93,14 @@ class ServicesTable extends React.Component {
   }
 
   handleServiceAction(service, actionID) {
-    const { modalHandlers } = this.context;
+    const { modalHandlers, router } = this.context;
 
     switch (actionID) {
+      case EDIT:
+        router.push(
+          `/services/detail/${encodeURIComponent(service.getId())}/edit/`
+        );
+        break;
       case SCALE:
         modalHandlers.scaleService({ service });
         break;
@@ -246,6 +252,10 @@ class ServicesTable extends React.Component {
         }),
         id: OPEN,
         html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
+      },
+      {
+        id: EDIT,
+        html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
       },
       {
         className: classNames({
@@ -486,7 +496,8 @@ ServicesTable.contextTypes = {
     resumeService: PropTypes.func,
     suspendService: PropTypes.func,
     deleteService: PropTypes.func
-  }).isRequired
+  }).isRequired,
+  router: routerShape
 };
 
 ServicesTable.defaultProps = {
