@@ -296,23 +296,19 @@ Cypress.addParentCommand("clusterCleanup", function(fn) {
 Cypress.addParentCommand("visitUrl", function(options) {
   var callback = function() {};
 
-  if (options.logIn && !options.remoteLogIn) {
+  if (options.logIn && options.remoteLogIn) {
     callback = function(win) {
-      // {"uid":"joe","description":"Joe Doe"}
+      // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
       win.document.cookie =
         "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ==";
+        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K";
     };
-  } else if (options.logIn && options.remoteLogIn) {
+  } else {
     callback = function(win) {
-      // {"uid":"joe","description":"Joe Doe","is_remote":true}
+      // {"uid":"ui-bot","description":"UI Automated Test Bot"}
       win.document.cookie =
         "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UiLCJpc19yZW1vdGUiOnRydWV9";
-    };
-  } else if (options.identify) {
-    callback = function(win) {
-      win.localStorage.setItem("email", "ui-bot@dcos.io");
+        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
     };
   }
 
