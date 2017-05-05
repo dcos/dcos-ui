@@ -17,8 +17,8 @@
   },
   "license": "Apache-2.0",
   "engines": {
-    "node": "4.4.x",
-    "npm": "3.9.x"
+    "node": "8.x",
+    "npm": "5.x"
   },
   "browserslist": [
     "last 2 versions",
@@ -45,6 +45,7 @@
     "mesosphere-react-typeahead": "0.8.3",
     "mesosphere-shared-reactjs": "0.0.24",
     "moment": "2.13.0",
+    "npm": "^5.0.3",
     "objektiv": "0.3.0",
     "prettycron": "0.10.0",
     "query-string": "4.1.0",
@@ -128,7 +129,7 @@
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
-    "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
+    "shrinkwrap-dev": "npm shrinkwrap --dev",
     "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies && npm install compression-webpack-plugin@latest",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",

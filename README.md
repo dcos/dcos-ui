@@ -14,7 +14,7 @@ The DC/OS UI is used by datacenter operators to administer and manage a datacent
 
 ### Requirements
 
-Node 4.4.x and NPM 3.9.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
+Node 8.0.x and NPM 5.0.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 ### DC/OS Installation Instructions:
 1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
