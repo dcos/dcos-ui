@@ -14,7 +14,7 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const DCOSStore = require("../../../../../../src/js/stores/DCOSStore");
+const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const Deployment = require("../../structs/Deployment");
 const DeploymentsTab = require("../services/DeploymentsTab");
 const DeploymentsList = require("../../structs/DeploymentsList");

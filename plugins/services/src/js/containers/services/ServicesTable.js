@@ -4,9 +4,10 @@ import { injectIntl } from "react-intl";
 import { Link } from "react-router";
 import React, { PropTypes } from "react";
 
-import Links from "#SRC/js/constants/Links";
 import Icon from "#SRC/js/components/Icon";
+import Links from "#SRC/js/constants/Links";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
+import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
@@ -14,8 +15,6 @@ import UserActions from "#SRC/js/constants/UserActions";
 
 import HealthBar from "../../components/HealthBar";
 import Pod from "../../structs/Pod";
-import ResourceTableUtil
-  from "../../../../../../src/js/utils/ResourceTableUtil";
 import Service from "../../structs/Service";
 import ServiceActionItem from "../../constants/ServiceActionItem";
 import ServiceStatusWarning from "../../components/ServiceStatusWarning";
