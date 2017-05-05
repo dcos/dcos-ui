@@ -6,6 +6,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { FormattedMessage } from "react-intl";
+import moment from "moment";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -26,7 +27,6 @@ import MetadataStore from "../../stores/MetadataStore";
 import MesosStateStore from "../../stores/MesosStateStore";
 import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
-import { msToRelativeTime } from "../../utils/DateUtil";
 import { isEmpty } from "../../utils/ValidatorUtil";
 
 const METHODS_TO_BIND = [
@@ -260,7 +260,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.BUILT" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {msToRelativeTime(mesosBuilt)} {this.getMesosBuildUser()}
+            {moment(Date(mesosBuilt)).fromNow()} {this.getMesosBuildUser()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="started">
@@ -268,7 +268,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.STARTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {msToRelativeTime(mesosStarted)}
+            {moment(Date(mesosStarted)).fromNow()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="elected">
@@ -276,7 +276,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.ELECTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {msToRelativeTime(mesosElected)}
+            {moment(Date(mesosElected)).fromNow()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
