@@ -519,6 +519,26 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
+    it.only("opens the edit dialog", function() {
+      openDropdown("sdk-sleep");
+      clickDropdownAction("Edit");
+
+      cy
+        .get(".modal-header")
+        .contains("Edit Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
     it("opens the scale dialog", function() {
       openDropdown("sdk-sleep");
       clickDropdownAction("Scale");
