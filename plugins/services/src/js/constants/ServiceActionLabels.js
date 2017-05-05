@@ -1,4 +1,5 @@
 const ServiceActionLabels = {
+  edit: "SERVICE_ACTIONS.EDIT",
   delete: "SERVICE_ACTIONS.DELETE",
   restart: "SERVICE_ACTIONS.RESTART",
   resume: "SERVICE_ACTIONS.RESUME",

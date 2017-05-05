@@ -26,6 +26,7 @@
   "DOCS.MORE_INFORMATION": "More information",
   "DOCS.DOCUMENTATION": "documentation",
 
+  "SERVICE_ACTIONS.EDIT": "Edit",
   "SERVICE_ACTIONS.DELETE": "Delete",
   "SERVICE_ACTIONS.RESTART": "Restart",
   "SERVICE_ACTIONS.RESUME": "Resume",
@@ -65,6 +66,8 @@
   "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2": "via the DC/OS CLI. Copy and paste this command into the CLI. See the",
   "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3": "To clean up resources reserved by your service, run the",
   "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_4": "framework cleaner script",
+  "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_1": "Update your service's target configuration. Include an `options.json file with your changes.",
+  "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2": "on how to create an 'options.json' file.",
 
   "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
   "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}"
