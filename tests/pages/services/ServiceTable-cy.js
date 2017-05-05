@@ -1,8 +1,16 @@
 import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
-describe("Service Actions", function() {
-  function clickHeaderAction(actionText) {
-    cy.get(".page-header-actions .dropdown").click();
+describe("Service Table", function() {
+  function openDropdown(serviceName) {
+    cy
+      .get(".service-table")
+      .contains(serviceName)
+      .closest("tr")
+      .find(".dropdown")
+      .click();
+  }
+
+  function clickDropdownAction(actionText) {
     cy.get(".dropdown-menu-items").contains(actionText).click();
   }
 
@@ -13,11 +21,12 @@ describe("Service Actions", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
+      cy.visitUrl({ url: "/services/overview" });
     });
 
     it('displays the "Open Service" option for services that have a web UI', function() {
-      cy.get(".page-header-actions .dropdown").click();
+      openDropdown("cassandra-healthy");
+
       cy
         .get(".dropdown-menu-items")
         .contains("Open Service")
@@ -27,82 +36,14 @@ describe("Service Actions", function() {
     });
 
     it('does not display the "Open Service" option for services that have a web UI', function() {
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra-unhealthy" });
+      openDropdown("cassandra-unhealthy");
 
-      cy.get(".page-header-actions .dropdown").click();
       cy
         .get(".dropdown-menu-items")
         .contains("Open Service")
         .should(function($menuItem) {
-          expect($menuItem.length).to.equal(0);
+          expect($menuItem.hasClass("hidden")).to.equal(true);
         });
-    });
-  });
-
-  context("Edit Action", function() {
-    beforeEach(function() {
-      cy.configureCluster({
-        mesos: "1-for-each-health",
-        nodeHealth: true
-      });
-
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-
-      clickHeaderAction("Edit");
-    });
-
-    it("navigates to the correct route", function() {
-      cy
-        .location()
-        .its("hash")
-        .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
-    });
-
-    it("opens the correct service edit modal", function() {
-      cy
-        .get('.modal .menu-tabbed-view input[name="id"]')
-        .should("to.have.value", "/cassandra-healthy");
-    });
-
-    it("closes modal on successful API request", function() {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/cassandra-healthy/,
-        response: []
-      });
-      cy.get(".modal .modal-header .button").contains("Review & Run").click();
-      cy.get(".modal .modal-header .button").contains("Run Service").click();
-      cy.get(".modal").should("to.have.length", 0);
-    });
-
-    it("closes modal on secondary button click", function() {
-      cy.get(".modal .modal-header .button").contains("Cancel").click();
-      cy.get(".modal").should("to.have.length", 0);
-    });
-
-    it("opens confirm after edits", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
-      cy.get(".modal .modal-header .button").contains("Cancel").click();
-
-      cy.get(".confirm-modal").should("to.have.length", 1);
-    });
-
-    it("closes both confirm and edit modal after confirmation", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
-      cy.get(".modal .modal-header .button").contains("Cancel").click();
-      cy.get(".confirm-modal .button").contains("Discard").click();
-
-      cy.get(".confirm-modal").should("to.have.length", 0);
-      cy.get(".modal").should("to.have.length", 0);
-    });
-
-    it("it stays in the edit modal after cancelling confirmation", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
-      cy.get(".modal .modal-header .button").contains("Cancel").click();
-      cy.get(".confirm-modal .button").contains("Cancel").click();
-
-      cy.get(".confirm-modal").should("to.have.length", 0);
-      cy.get(".modal").should("to.have.length", 1);
     });
   });
 
@@ -113,9 +54,10 @@ describe("Service Actions", function() {
           mesos: "1-task-healthy",
           nodeHealth: true
         });
+        cy.visitUrl({ url: "/services/overview" });
 
-        cy.visitUrl({ url: "/services/detail/%2Fsleep" });
-        clickHeaderAction("Delete");
+        openDropdown("sleep");
+        clickDropdownAction("Delete");
       });
 
       it("opens the correct service destroy dialog", function() {
@@ -208,8 +150,10 @@ describe("Service Actions", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-      clickHeaderAction("Scale");
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("cassandra-healthy");
+      clickDropdownAction("Scale");
     });
 
     it("opens the correct service scale dialog", function() {
@@ -302,8 +246,10 @@ describe("Service Actions", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-      clickHeaderAction("Suspend");
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("cassandra-healthy");
+      clickDropdownAction("Suspend");
     });
 
     it("opens the correct service suspend dialog", function() {
@@ -396,17 +342,20 @@ describe("Service Actions", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/detail/%2Fsleep" });
+      cy.visitUrl({ url: "/services/overview" });
     });
 
     it("hides the suspend option in the service action dropdown", function() {
-      cy.get(".page-header-actions .dropdown").click();
+      openDropdown("sleep");
 
-      cy.get(".dropdown-menu-items li").should("not.contain", "Suspend");
+      cy
+        .get(".dropdown-menu-items li")
+        .contains("Suspend")
+        .should("have.class", "hidden");
     });
 
     it("shows the resume option in the service action dropdown", function() {
-      cy.get(".page-header-actions .dropdown").click();
+      openDropdown("sleep");
 
       cy
         .get(".dropdown-menu-items li")
@@ -415,7 +364,8 @@ describe("Service Actions", function() {
     });
 
     it("opens the resume dialog", function() {
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy
         .get(".modal-header")
@@ -424,7 +374,8 @@ describe("Service Actions", function() {
     });
 
     it("opens the resume dialog with the instances textbox if the single app instance label does not exist", function() {
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy.get('input[name="instances"]').should("have.length", 1);
     });
@@ -435,7 +386,10 @@ describe("Service Actions", function() {
         nodeHealth: true
       });
 
-      clickHeaderAction("Resume");
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy.get('input[name="instances"]').should("have.length", 0);
     });
@@ -447,7 +401,8 @@ describe("Service Actions", function() {
         response: []
       });
 
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy
         .get(".modal-footer .button-collection .button-primary")
@@ -462,7 +417,8 @@ describe("Service Actions", function() {
         response: []
       });
 
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-collection .button-primary").click();
       cy.get(".modal-body").should("to.have.length", 0);
@@ -478,7 +434,8 @@ describe("Service Actions", function() {
         }
       });
 
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-collection .button-primary").click();
       cy
@@ -496,7 +453,8 @@ describe("Service Actions", function() {
         }
       });
 
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-collection .button-primary").click();
       cy
@@ -512,7 +470,8 @@ describe("Service Actions", function() {
         delay: SERVER_RESPONSE_DELAY
       });
 
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy
         .get(".modal-footer .button-collection .button-primary")
@@ -523,13 +482,117 @@ describe("Service Actions", function() {
     });
 
     it("closes dialog on secondary button click", function() {
-      clickHeaderAction("Resume");
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
 
       cy
         .get(".modal-footer .button-collection .button")
         .contains("Cancel")
         .click();
       cy.get(".modal-body").should("to.have.length", 0);
+    });
+  });
+
+  context("SDK Services", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("opens the destroy dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Delete");
+
+      cy
+        .get(".confirm-modal p span")
+        .contains("/sleep")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos package uninstall test --app-id=/sleep");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the scale dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Scale");
+
+      cy
+        .get(".modal-header")
+        .contains("Scale Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the suspend dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Suspend");
+
+      cy
+        .get(".modal-header")
+        .contains("Suspend Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the resume dialog", function() {
+      cy.configureCluster({
+        mesos: "1-suspended-sdk-service",
+        nodeHealth: true
+      });
+
+      openDropdown("sleep");
+      clickDropdownAction("Resume");
+
+      cy
+        .get(".modal-header")
+        .contains("Resume Service")
+        .should("have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos test --name=/sleep update --options=<my-options>.json");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the restart dialog", function() {
+      openDropdown("sleep");
+      clickDropdownAction("Restart");
+
+      cy
+        .get(".modal-header")
+        .contains("Restart Service")
+        .should("have.length", 1);
+
+      cy.get(".modal pre").contains("dcos marathon app restart /sleep");
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
     });
   });
 });
