@@ -7,10 +7,42 @@ import Util from "../utils/Util";
 const WHITESPACE = "\u00A0";
 
 class ExpandingTable extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
 
-    this.state = { expandedRows: {} };
+    let initialState = { expandedRows: {} };
+
+    if (props.expandRowsByDefault) {
+      initialState = props.data.reduce(
+        function(memo, deployment) {
+          memo.expandedRows[deployment.id] = true;
+
+          return memo;
+        },
+        { expandedRows: {} }
+      );
+    }
+
+    this.state = initialState;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Check for new rows and expand them if expandRowsByDefault is true.
+    if (nextProps.expandRowsByDefault) {
+      let shouldSetState = false;
+      const nextExpandedRows = this.state.expandedRows;
+
+      nextProps.data.forEach(function(deployment) {
+        if (nextExpandedRows[deployment.id] == null) {
+          shouldSetState = true;
+          nextExpandedRows[deployment.id] = true;
+        }
+      });
+
+      if (shouldSetState) {
+        this.setState({ expandedRows: nextExpandedRows });
+      }
+    }
   }
 
   defaultRenderer(prop, row) {
@@ -23,7 +55,7 @@ class ExpandingTable extends React.Component {
 
     // If the selected row is already expanded, then we want to collapse it.
     if (expandedRows[rowID]) {
-      delete expandedRows[rowID];
+      expandedRows[rowID] = false;
     } else {
       expandedRows[rowID] = true;
     }
@@ -110,6 +142,7 @@ ExpandingTable.defaultProps = {
   alignCells: "top",
   childRowClassName: "text-overflow",
   expandAll: false,
+  expandRowsByDefault: false,
   tableComponent: Table
 };
 
@@ -122,6 +155,7 @@ ExpandingTable.propTypes = {
     React.PropTypes.string
   ]),
   expandAll: React.PropTypes.bool,
+  expandRowsByDefault: React.PropTypes.bool,
   tableComponent: React.PropTypes.func
 };
 
