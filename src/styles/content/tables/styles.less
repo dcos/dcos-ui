@@ -16,9 +16,12 @@
 
     &:hover {
 
-      td,
-      td.active {
-        background-color: @table-cell-hover-color;
+      td {
+
+        &,
+        &.active {
+          background-color: @table-cell-hover-color;
+        }
       }
 
       .table-display-on-row-hover {
