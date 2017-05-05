@@ -170,6 +170,5 @@ function reduceVolumes(state, { type, path, value }) {
 }
 
 module.exports = {
-  JSONReducer: reduceVolumes,
-  FormReducer: reduceVolumes
+  JSONReducer: reduceVolumes
 };

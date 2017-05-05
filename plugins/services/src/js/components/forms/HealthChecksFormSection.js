@@ -27,7 +27,7 @@ import {
 } from "../../constants/HealthCheckProtocols";
 import {
   FormReducer as healthChecks
-} from "../../reducers/serviceForm/HealthChecks";
+} from "../../reducers/serviceForm/FormReducers/HealthChecks";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 const errorsLens = Objektiv.attr("healthChecks", []);

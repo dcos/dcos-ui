@@ -1,5 +1,5 @@
-import Transaction from "#SRC/js/structs/Transaction";
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONReducer(state, { type, path, value }) {

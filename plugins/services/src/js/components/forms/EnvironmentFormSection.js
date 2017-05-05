@@ -14,11 +14,12 @@ import FormGroupHeadingContent
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
-
 import {
   FormReducer as env
-} from "../../reducers/serviceForm/EnvironmentVariables";
-import { FormReducer as labels } from "../../reducers/serviceForm/Labels";
+} from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
+import {
+  FormReducer as labels
+} from "../../reducers/serviceForm/FormReducers/Labels";
 
 class EnvironmentFormSection extends Component {
   getEnvironmentLines(data) {
