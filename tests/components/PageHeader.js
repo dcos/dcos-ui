@@ -13,7 +13,7 @@ describe("Page Header Component", function() {
       cy.get(".breadcrumbs.breadcrumbs--is-truncated").should("not.exist");
     });
 
-    it.only("doesn't ellipsis breadcrumb items", function() {
+    it("doesn't ellipsis breadcrumb items", function() {
       cy.get(".breadcrumb").each(function($currentBreadcrumb) {
         expect(
           $currentBreadcrumb[0].classList.value.indexOf(
