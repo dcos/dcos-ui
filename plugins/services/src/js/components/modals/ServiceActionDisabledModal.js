@@ -25,7 +25,7 @@ class ServiceActionDisabledModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = { isTextCopied: false };
+    this.state = { copiedCommand: false };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -34,12 +34,12 @@ class ServiceActionDisabledModal extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
-      this.setState({ isTextCopied: false });
+      this.setState({ copiedCommand: false });
     }
   }
 
-  handleTextCopy() {
-    this.setState({ isTextCopied: true });
+  handleTextCopy(copiedCommand) {
+    this.setState({ copiedCommand });
   }
 
   getUpdateCommand(service = this.props.service) {
@@ -447,8 +447,10 @@ class ServiceActionDisabledModal extends React.Component {
 
   getClipboardTrigger(command) {
     const { intl } = this.props;
-    const { isTextCopied } = this.state;
-    const copyID = isTextCopied ? "CLIPBOARD.COPIED" : "CLIPBOARD.COPY";
+    const { copiedCommand } = this.state;
+    const copyID = copiedCommand === command
+      ? "CLIPBOARD.COPIED"
+      : "CLIPBOARD.COPY";
 
     return [
       <pre key="command" className="prettyprint flush-bottom prettyprinted">
@@ -458,7 +460,7 @@ class ServiceActionDisabledModal extends React.Component {
         <ClipboardTrigger
           className="clickable"
           copyText={command}
-          onTextCopy={this.handleTextCopy}
+          onTextCopy={this.handleTextCopy.bind(this, command)}
         >
           <a>{intl.formatMessage({ id: copyID })}</a>
         </ClipboardTrigger>
