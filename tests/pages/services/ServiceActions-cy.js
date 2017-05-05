@@ -532,4 +532,129 @@ describe("Service Actions", function() {
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
+
+  context("SDK Services", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fservices%2Fsdk-sleep" });
+    });
+
+    it("opens the destroy dialog", function() {
+      clickHeaderAction("Delete");
+
+      cy
+        .get(".modal-header")
+        .contains("Delete Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the edit dialog", function() {
+      clickHeaderAction("Edit");
+
+      cy
+        .get(".modal-header")
+        .contains("Edit Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the scale dialog", function() {
+      clickHeaderAction("Scale");
+
+      cy
+        .get(".modal-header")
+        .contains("Scale Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the suspend dialog", function() {
+      clickHeaderAction("Suspend");
+
+      cy
+        .get(".modal-header")
+        .contains("Suspend Service")
+        .should("to.have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the resume dialog", function() {
+      cy.configureCluster({
+        mesos: "1-suspended-sdk-service",
+        nodeHealth: true
+      });
+
+      clickHeaderAction("Resume");
+
+      cy
+        .get(".modal-header")
+        .contains("Resume Service")
+        .should("have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains(
+          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+        );
+
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+
+    it("opens the restart dialog", function() {
+      clickHeaderAction("Restart");
+
+      cy
+        .get(".modal-header")
+        .contains("Restart Service")
+        .should("have.length", 1);
+
+      cy
+        .get(".modal pre")
+        .contains("dcos marathon app restart /services/sdk-sleep");
+      cy.get(".modal button").contains("Close").click();
+
+      cy.get(".modal").should("not.exist");
+    });
+  });
 });
