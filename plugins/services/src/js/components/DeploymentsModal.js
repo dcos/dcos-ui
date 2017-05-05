@@ -432,6 +432,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.getTableData(deploymentsItems)}
+          expandRowsByDefault={true}
         />
         {this.renderRollbackModal()}
       </div>
