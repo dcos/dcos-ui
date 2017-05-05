@@ -7,6 +7,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import ServiceConfigDisplay
@@ -116,6 +117,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     return [
       <button
         className="button button-stroke"
+        disabled={isSDKService(service)}
         key="version-button-edit"
         onClick={() => this.handleEditButtonClick()}
       >
@@ -123,6 +125,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       </button>,
       <button
         className="button button-stroke"
+        disabled={isSDKService(service)}
         key="version-button-apply"
         onClick={() => this.handleApplyButtonClick()}
       >

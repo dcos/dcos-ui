@@ -12,11 +12,12 @@ import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceTree from "../../structs/ServiceTree";
 import {
-  SCALE,
+  DELETE,
+  EDIT,
   RESTART,
   RESUME,
-  SUSPEND,
-  DELETE
+  SCALE,
+  SUSPEND
 } from "../../constants/ServiceActionItem";
 
 const METHODS_TO_BIND = ["handleTextCopy"];
@@ -217,6 +218,35 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
+  getServiceEditMessage() {
+    const { intl } = this.props;
+    const command = this.getUpdateCommand();
+
+    return (
+      <div>
+        <p>
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_1"
+          })}
+          {" "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/usage/managing-services/config-universe-service"
+            )}
+            target="_blank"
+          >
+            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+          </a>
+          {" "}
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2"
+          })}
+        </p>
+        {this.getClipboardTrigger(command)}
+      </div>
+    );
+  }
+
   getServiceMessage() {
     const { actionID } = this.props;
 
@@ -231,6 +261,8 @@ class ServiceActionDisabledModal extends React.Component {
         return this.getServiceScaleMessage();
       case DELETE:
         return this.getServiceDeleteMessage();
+      case EDIT:
+        return this.getServiceEditMessage();
       default:
         return <noscript />;
     }
