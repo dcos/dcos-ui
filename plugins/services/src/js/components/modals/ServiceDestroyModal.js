@@ -8,21 +8,24 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
 
 import AppLockedMessage from "./AppLockedMessage";
-import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;
-const METHODS_TO_BIND = ["handleRightButtonClick"];
+const METHODS_TO_BIND = [
+  "handleRightButtonClick",
+  "handleChangeInputFieldDestroy"
+];
 
 class ServiceDestroyModal extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
+      inputFieldDestroy: ""
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -77,40 +80,44 @@ class ServiceDestroyModal extends React.Component {
   }
 
   handleRightButtonClick() {
-    this.props.deleteItem(this.shouldForceUpdate());
+    const { service } = this.props;
+    const serviceName = service ? service.getId() : "";
+    const inputFieldDestroyValue = this.state.inputFieldDestroy;
+
+    if (inputFieldDestroyValue === serviceName) {
+      this.props.deleteItem(this.shouldForceUpdate());
+    }
+  }
+
+  handleChangeInputFieldDestroy(e) {
+    this.setState({
+      inputFieldDestroy: e.target.value
+    });
   }
 
   getDestroyMessage() {
     const { service } = this.props;
-    let serviceName = "";
-
-    if (service) {
-      serviceName = service.getId();
-    }
-
-    if (service instanceof Framework) {
-      return (
-        <p>
-          This will only
-          {" "}
-          {UserActions.DELETE}
-          {" "}
-          the package scheduler for
-          {" "}
-          <span className="emphasize">{serviceName}</span>
-          . Any tasks that were started by this scheduler will persist in the system. Are you sure you want to continue?
-        </p>
-      );
-    }
+    const serviceName = service ? service.getId() : "";
 
     return (
       <p>
-        {StringUtil.capitalize(UserActions.DELETING)}
+        {`In order to delete`}
         {" "}
         <span className="emphasize">{serviceName}</span>
         {" "}
-        is irreversible. Are you sure you want to continue?
+        please type the service name.
       </p>
+    );
+  }
+
+  getInputFieldDestroy() {
+    return (
+      <input
+        className="form-control filter-input-text"
+        onChange={this.handleChangeInputFieldDestroy}
+        type="text"
+        value={this.state.inputFieldDestroy}
+      />
     );
   }
 
@@ -173,6 +180,7 @@ class ServiceDestroyModal extends React.Component {
         showHeader={true}
       >
         {this.getDestroyMessage()}
+        {this.getInputFieldDestroy()}
         {this.getErrorMessage()}
       </Confirm>
     );
