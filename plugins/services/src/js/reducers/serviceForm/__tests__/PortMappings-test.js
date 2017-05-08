@@ -1,7 +1,6 @@
 const PortMappings = require("../PortMappings");
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Transaction = require("#SRC/js/structs/Transaction");
-const { type: { BRIDGE } } = require("#SRC/js/constants/Networking");
 const { type: { DOCKER } } = require("../../../constants/ContainerConstants");
 
 describe("#JSONParser", function() {
@@ -11,17 +10,15 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  name: "foo",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                }
-              ]
-            }
+            docker: {},
+            portMappings: [
+              {
+                name: "foo",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              }
+            ]
           }
         })
       ).toEqual([
@@ -40,17 +37,15 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  name: "foo",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                }
-              ]
-            }
+            docker: {},
+            portMappings: [
+              {
+                name: "foo",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              }
+            ]
           },
           portDefinitions: [
             {
@@ -75,14 +70,12 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  hostPort: 10
-                }
-              ]
-            }
+            docker: {},
+            portMappings: [
+              {
+                hostPort: 10
+              }
+            ]
           }
         })
       ).toEqual([
@@ -98,16 +91,14 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  labels: {
-                    VIP_0: "/:0"
-                  }
+            docker: {},
+            portMappings: [
+              {
+                labels: {
+                  VIP_0: "/:0"
                 }
-              ]
-            }
+              }
+            ]
           }
         })
       ).toEqual([
@@ -125,16 +116,14 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  labels: {
-                    VIP_1: "/:0"
-                  }
+            docker: {},
+            portMappings: [
+              {
+                labels: {
+                  VIP_1: "/:0"
                 }
-              ]
-            }
+              }
+            ]
           }
         })
       ).toEqual([
@@ -149,14 +138,12 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  protocol: "udp"
-                }
-              ]
-            }
+            docker: {},
+            portMappings: [
+              {
+                protocol: "udp"
+              }
+            ]
           }
         })
       ).toEqual([
@@ -172,26 +159,24 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  name: "foo",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                },
-                {
-                  name: "bar",
-                  hostPort: 10,
-                  containerPort: 81,
-                  protocol: "tcp",
-                  labels: {
-                    VIP_1: "/:0"
-                  }
+            docker: {},
+            portMappings: [
+              {
+                name: "foo",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              },
+              {
+                name: "bar",
+                hostPort: 10,
+                containerPort: 81,
+                protocol: "tcp",
+                labels: {
+                  VIP_1: "/:0"
                 }
-              ]
-            }
+              }
+            ]
           },
           portDefinitions: [
             {
@@ -228,17 +213,15 @@ describe("#JSONParser", function() {
         PortMappings.JSONParser({
           type: DOCKER,
           container: {
-            docker: {
-              network: BRIDGE,
-              portMappings: [
-                {
-                  name: "foo",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                }
-              ]
-            }
+            docker: {},
+            portMappings: [
+              {
+                name: "foo",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              }
+            ]
           },
           portDefinitions: [
             {

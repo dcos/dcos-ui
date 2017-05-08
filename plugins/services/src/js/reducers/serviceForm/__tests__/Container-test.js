@@ -7,7 +7,7 @@ const {
   REMOVE_ITEM
 } = require("#SRC/js/constants/TransactionTypes");
 const {
-  type: { BRIDGE, HOST, USER }
+  type: { BRIDGE, HOST, CONTAINER }
 } = require("#SRC/js/constants/Networking");
 
 describe("Container", function() {
@@ -19,10 +19,9 @@ describe("Container", function() {
         docker: {
           forcePullImage: null,
           image: "",
-          privileged: null,
-          network: null,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: null,
         volumes: []
       });
@@ -39,10 +38,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -60,10 +58,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -80,10 +77,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null,
-          network: null,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "MESOS",
         volumes: []
       });
@@ -103,10 +99,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           privileged: true,
-          forcePullImage: null,
-          network: undefined,
-          portMappings: null
+          forcePullImage: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -126,10 +121,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           privileged: false,
-          forcePullImage: null,
-          network: undefined,
-          portMappings: null
+          forcePullImage: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -149,10 +143,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -172,10 +165,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: true,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -195,10 +187,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: false,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -214,10 +205,9 @@ describe("Container", function() {
         docker: {
           forcePullImage: null,
           image: "",
-          privileged: null,
-          network: null,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: null,
         volumes: []
       });
@@ -237,11 +227,10 @@ describe("Container", function() {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         docker: {
           forcePullImage: null,
-          image: "foo",
-          network: null,
-          portMappings: null,
-          privileged: null
+          privileged: null,
+          image: "foo"
         },
+        portMappings: null,
         type: "MESOS",
         volumes: []
       });
@@ -263,10 +252,9 @@ describe("Container", function() {
         docker: {
           forcePullImage: true,
           image: "foo",
-          network: null,
-          portMappings: null,
           privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -283,10 +271,9 @@ describe("Container", function() {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -303,10 +290,9 @@ describe("Container", function() {
         docker: {
           image: "bar",
           forcePullImage: null,
-          privileged: null,
-          network: undefined,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: "DOCKER",
         volumes: []
       });
@@ -322,10 +308,9 @@ describe("Container", function() {
         docker: {
           forcePullImage: null,
           image: "",
-          privileged: null,
-          network: null,
-          portMappings: null
+          privileged: null
         },
+        portMappings: null,
         type: null,
         volumes: []
       });
@@ -337,7 +322,9 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
         );
-        batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
         batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
@@ -347,19 +334,18 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: USER,
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              }
-            ]
+            privileged: null
           },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
           type: "DOCKER",
           volumes: []
         });
@@ -370,7 +356,9 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
         );
-        batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
+        batch = batch.add(
+          new Transaction(["networks", 0, "mode"], CONTAINER, SET)
+        );
         // This is default
         // batch = batch.add(
         //   new Transaction(['portDefinitions', 0, 'portMapping'], false)
@@ -387,19 +375,18 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: USER,
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: null,
-                labels: null,
-                name: null,
-                protocol: null,
-                servicePort: null
-              }
-            ]
+            privileged: null
           },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: null,
+              labels: null,
+              name: null,
+              protocol: null,
+              servicePort: null
+            }
+          ],
           type: "DOCKER",
           volumes: []
         });
@@ -435,19 +422,18 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: BRIDGE,
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 100,
-                labels: null,
-                name: null,
-                protocol: "udp",
-                servicePort: null
-              }
-            ]
+            privileged: null
           },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 100,
+              labels: null,
+              name: null,
+              protocol: "udp",
+              servicePort: null
+            }
+          ],
           type: "DOCKER",
           volumes: []
         });
@@ -470,19 +456,18 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: BRIDGE,
-            portMappings: [
-              {
-                containerPort: 0,
-                hostPort: 0,
-                labels: null,
-                name: null,
-                protocol: "tcp",
-                servicePort: null
-              }
-            ]
+            privileged: null
           },
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
           type: "DOCKER",
           volumes: []
         });
@@ -495,10 +480,9 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: null,
-              portMappings: null
+              privileged: null
             },
+            portMappings: null,
             type: null,
             volumes: []
           });
@@ -519,12 +503,11 @@ describe("Container", function() {
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
             docker: {
-              network: HOST,
               forcePullImage: null,
               image: "",
-              privileged: null,
-              portMappings: null
+              privileged: null
             },
+            portMappings: null,
             type: "DOCKER",
             volumes: []
           });
@@ -536,7 +519,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -551,27 +534,26 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -583,7 +565,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -597,19 +579,18 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: "foo",
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: "foo",
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -621,7 +602,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -638,19 +619,18 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 100,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 100,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -662,7 +642,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -680,19 +660,18 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -704,7 +683,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -721,19 +700,18 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "udp,tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "udp,tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -745,7 +723,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -763,27 +741,26 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: { VIP_1: ":0" },
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: { VIP_1: ":0" },
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -795,7 +772,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
@@ -816,27 +793,26 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  name: null,
-                  protocol: "tcp",
-                  labels: { VIP_0: ":0" },
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  name: null,
-                  protocol: "tcp",
-                  labels: { VIP_1: ":0" },
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                name: null,
+                protocol: "tcp",
+                labels: { VIP_0: ":0" },
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                name: null,
+                protocol: "tcp",
+                labels: { VIP_1: ":0" },
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -848,7 +824,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
@@ -865,6 +841,9 @@ describe("Container", function() {
             new Transaction(["portDefinitions", 0, "hostPort"], 300)
           );
           batch = batch.add(
+            new Transaction(["portDefinitions", 0, "containerPort"], 8080)
+          );
+          batch = batch.add(
             new Transaction(["portDefinitions", 0, "loadBalanced"], true)
           );
 
@@ -872,27 +851,26 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 300,
-                  name: null,
-                  protocol: "tcp",
-                  labels: { VIP_0: ":300" },
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 8080,
+                hostPort: 300,
+                name: null,
+                protocol: "tcp",
+                labels: { VIP_0: ":8080" },
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -904,7 +882,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "DOCKER", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
@@ -926,27 +904,26 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  name: null,
-                  protocol: "tcp",
-                  labels: { VIP_1: "foo:0" },
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                name: null,
+                protocol: "tcp",
+                labels: { VIP_1: "foo:0" },
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -973,34 +950,33 @@ describe("Container", function() {
           );
           batch = batch.add(new Transaction(["id"], "foo"));
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: USER,
-              portMappings: [
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  labels: null,
-                  name: null,
-                  protocol: "tcp",
-                  servicePort: null
-                },
-                {
-                  containerPort: 0,
-                  hostPort: 0,
-                  name: null,
-                  protocol: "tcp",
-                  labels: { VIP_1: "foo:0" },
-                  servicePort: null
-                }
-              ]
+              privileged: null
             },
+            portMappings: [
+              {
+                containerPort: 0,
+                hostPort: 0,
+                labels: null,
+                name: null,
+                protocol: "tcp",
+                servicePort: null
+              },
+              {
+                containerPort: 0,
+                hostPort: 0,
+                name: null,
+                protocol: "tcp",
+                labels: { VIP_1: "foo:0" },
+                servicePort: null
+              }
+            ],
             type: "DOCKER",
             volumes: []
           });
@@ -1012,7 +988,7 @@ describe("Container", function() {
             new Transaction(["container", "type"], "MESOS", SET)
           );
           batch = batch.add(
-            new Transaction(["networks", 0, "mode"], USER, SET)
+            new Transaction(["networks", 0, "mode"], CONTAINER, SET)
           );
           batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
           batch = batch.add(
@@ -1023,10 +999,9 @@ describe("Container", function() {
             docker: {
               forcePullImage: null,
               image: "",
-              privileged: null,
-              network: null,
-              portMappings: null
+              privileged: null
             },
+            portMappings: null,
             type: "MESOS",
             volumes: []
           });
@@ -1042,10 +1017,9 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: null,
-            portMappings: null
+            privileged: null
           },
+          portMappings: null,
           type: null,
           volumes: []
         });
@@ -1063,10 +1037,9 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: null,
-            portMappings: null
+            privileged: null
           },
+          portMappings: null,
           type: "MESOS",
           volumes: [
             {
@@ -1089,10 +1062,9 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: null,
-            portMappings: null
+            privileged: null
           },
+          portMappings: null,
           type: "MESOS",
           volumes: [
             {
@@ -1123,10 +1095,9 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: null,
-            portMappings: null
+            privileged: null
           },
+          portMappings: null,
           type: "MESOS",
           volumes: [
             {
@@ -1166,10 +1137,9 @@ describe("Container", function() {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null,
-            network: null,
-            portMappings: null
+            privileged: null
           },
+          portMappings: null,
           type: null,
           volumes: []
         });

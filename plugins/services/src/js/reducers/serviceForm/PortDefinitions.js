@@ -34,11 +34,15 @@ module.exports = {
     }
 
     const joinedPath = path.join(".");
-    if (joinedPath === "networks.0.mode" && Boolean(value)) {
+    if (joinedPath === "networks.0.network" && value != null) {
+      const [mode, _name] = value.split(".");
+      this.appState.networkType = mode;
+    }
+    if (joinedPath === "networks.0.mode" && value != null) {
       this.appState.networkType = value;
     }
 
-    if (joinedPath === "id" && Boolean(value)) {
+    if (joinedPath === "id" && value != null) {
       this.appState.id = value;
     }
 

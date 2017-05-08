@@ -45,8 +45,8 @@ const VipLabelsValidators = {
 
     // Single container app with BRIDGE or USER network
     if (isEmpty(ports)) {
-      ports = findNestedPropertyInObject(app, "container.docker.portMappings");
-      pathPrefix = ["container", "docker", "portMappings"];
+      ports = findNestedPropertyInObject(app, "container.portMappings");
+      pathPrefix = ["container", "portMappings"];
     }
 
     if (!isEmpty(ports)) {

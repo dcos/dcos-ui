@@ -26,10 +26,13 @@ import SingleContainerPortDefinitions
   from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
 import SingleContainerPortMappings
   from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";
+import {
+  FormReducer as networks
+} from "../../reducers/serviceForm/FormReducers/Networks";
 import ContainerConstants from "../../constants/ContainerConstants";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 
-const { BRIDGE, HOST, USER } = Networking.type;
+const { BRIDGE, HOST, CONTAINER } = Networking.type;
 const { MESOS } = ContainerConstants.type;
 
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
@@ -56,7 +59,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   isHostNetwork() {
-    const { networkType = HOST } = this.props.data;
+    const networkType =
+      findNestedPropertyInObject(this.props.data, "networks.0.mode") || HOST;
 
     return networkType === HOST;
   }
@@ -68,7 +72,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       findNestedPropertyInObject(errors, `portDefinitions.${index}.port`) ||
       findNestedPropertyInObject(
         errors,
-        `container.docker.portMappings.${index}.hostPort`
+        `container.portMappings.${index}.hostPort`
       );
     const isInputDisabled = this.isHostNetwork()
       ? portsAutoAssign
@@ -139,7 +143,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       findNestedPropertyInObject(errors, `portDefinitions.${index}.labels`) ||
       findNestedPropertyInObject(
         errors,
-        `container.docker.portMappings.${index}.labels`
+        `container.portMappings.${index}.labels`
       );
 
     if (isObject(loadBalancedError)) {
@@ -302,7 +306,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       findNestedPropertyInObject(errors, `portDefinitions.${index}.protocol`) ||
       findNestedPropertyInObject(
         errors,
-        `container.docker.portMappings.${index}.protocol`
+        `container.portMappings.${index}.protocol`
       );
 
     const assignHelpText = (
@@ -373,7 +377,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       ) ||
       findNestedPropertyInObject(
         errors,
-        `container.docker.portMappings.${index}.containerPort`
+        `container.portMappings.${index}.containerPort`
       );
 
     return (
@@ -429,7 +433,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    const { errors, data: { networkType = HOST } } = this.props;
+    const { errors, data: { networks } } = this.props;
+    const networkType = findNestedPropertyInObject(networks, "0.mode") || HOST;
 
     const endpoints = this.isHostNetwork()
       ? this.props.data.portDefinitions
@@ -442,7 +447,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         findNestedPropertyInObject(errors, `portDefinitions.${index}.name`) ||
         findNestedPropertyInObject(
           errors,
-          `container.docker.portMappings.${index}.name`
+          `container.portMappings.${index}.name`
         );
 
       if (endpoint.portMapping || [BRIDGE, HOST].includes(networkType)) {
@@ -506,7 +511,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
         return {
           text: `Virtual Network: ${name}`,
-          value: `${USER}.${name}`
+          value: `${CONTAINER}.${name}`
         };
       })
       .getItems()
@@ -514,7 +519,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         return (
           <option
             key={index}
-            disabled={Boolean(disabledMap[USER])}
+            disabled={Boolean(disabledMap[CONTAINER])}
             value={virtualNetwork.value}
           >
             {virtualNetwork.text}
@@ -524,16 +529,19 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getTypeSelections() {
-    const { container } = this.props.data;
-    const type = findNestedPropertyInObject(container, "type");
-    const network = findNestedPropertyInObject(this.props.data, "networkType");
-    const disabledMap = {};
+    const networkMode = findNestedPropertyInObject(
+      this.props.data,
+      "networks.0.mode"
+    );
+    const networkName = findNestedPropertyInObject(
+      this.props.data,
+      "networks.0.name"
+    );
+    const selectedValue = networkName
+      ? `${networkMode}.${networkName}`
+      : networkMode;
 
-    // Runtime is Mesos
-    if (!type || type === MESOS) {
-      disabledMap[BRIDGE] =
-        "BRIDGE networking is not compatible with the Mesos runtime";
-    }
+    const disabledMap = {};
 
     const tooltipContent = Object.keys(disabledMap)
       .filter(function(key) {
@@ -545,7 +553,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       .join(", ");
 
     const selections = (
-      <FieldSelect name="networks.0.mode" value={network}>
+      <FieldSelect name="networks.0.network" value={selectedValue}>
         <option disabled={Boolean(disabledMap[HOST])} value={HOST}>
           Host
         </option>
@@ -574,10 +582,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpointsSection() {
-    const { container, networkType } = this.props.data;
+    const { container, networks } = this.props.data;
+    const networkType = findNestedPropertyInObject(networks, "0.mode");
     const type = findNestedPropertyInObject(container, "type");
     const isMesosRuntime = !type || type === MESOS;
-    const isUserNetwork = networkType && networkType.startsWith(USER);
+    const isVirtualNetwork = networkType && networkType.startsWith(CONTAINER);
     const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
@@ -613,7 +622,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if (isMesosRuntime && (isUserNetwork || isBridgeNetwork)) {
+    if (isMesosRuntime && (isVirtualNetwork || isBridgeNetwork)) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (
@@ -694,12 +703,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   render() {
     const networkError = findNestedPropertyInObject(
       this.props.errors,
-      "container.docker.network"
+      "networks"
     );
 
     const tooltipContent = (
       <span>
-        {"Choose BRIDGE, HOST, or USER networking. Refer to the "}
+        {
+          "Choose container/bridge, host, or container networking. Refer to the "
+        }
         <a
           href="https://mesosphere.github.io/marathon/docs/ports.html"
           target="_blank"
@@ -761,21 +772,13 @@ NetworkingFormSection.propTypes = {
 };
 
 NetworkingFormSection.configReducers = {
+  networks,
   portDefinitions: SingleContainerPortDefinitions,
   portMappings: SingleContainerPortMappings,
   portsAutoAssign(state, { type, path = [], value }) {
     const joinedPath = path.join(".");
 
     if (type === SET && joinedPath === "portsAutoAssign") {
-      return value;
-    }
-
-    return state;
-  },
-  networkType(state, { type, path = [], value }) {
-    const joinedPath = path.join(".");
-
-    if (type === SET && joinedPath === "networks.0.mode") {
       return value;
     }
 

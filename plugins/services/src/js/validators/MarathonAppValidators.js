@@ -132,49 +132,6 @@ const MarathonAppValidators = {
    * @param {Object} app - The data to validate
    * @returns {Array} Returns an array with validation errors
    */
-  complyWithIpAddressRules(app) {
-    // (AppDefinition.scala#L697)
-    if (ValidatorUtil.isEmpty(app.ipAddress)) {
-      return [];
-    }
-
-    // (AppDefinition.scala#L538)
-    if (ValidatorUtil.isEmpty(app.discoveryInfo)) {
-      return [];
-    }
-
-    // (AppDefinition.scala#L539)
-    const network = findNestedPropertyInObject(app, "container.docker.network");
-    if (ValidatorUtil.isEmpty(network)) {
-      return [];
-    }
-
-    // (AppDefinition.scala#L539)
-    if (/^(BRIDGE|USER)$/.exec(app.container.docker.network)) {
-      const message =
-        "ipAddress/discovery is not allowed for Docker " +
-        "containers using BRIDGE or USER networks";
-      const type = PROP_CONFLICT;
-      const variables = {
-        feature1: "ipAddress or discoveryInfo",
-        feature2: "container.docker.network"
-      };
-
-      return [
-        { path: ["ipAddress"], message, type, variables },
-        { path: ["discoveryInfo"], message, type, variables },
-        { path: ["container", "docker", "network"], message, type, variables }
-      ];
-    }
-
-    // No errors
-    return [];
-  },
-
-  /**
-   * @param {Object} app - The data to validate
-   * @returns {Array} Returns an array with validation errors
-   */
   mustContainImageOnDocker(app) {
     const type = findNestedPropertyInObject(app, "container.type");
     const image = findNestedPropertyInObject(app, "container.docker.image");

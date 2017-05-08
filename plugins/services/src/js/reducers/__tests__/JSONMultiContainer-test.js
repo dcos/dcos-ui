@@ -61,7 +61,6 @@ describe("JSONMultiContainer", function() {
           }
         ],
         fetch: [],
-        ipAddress: null,
         scaling: {
           kind: "fixed",
           instances: 10

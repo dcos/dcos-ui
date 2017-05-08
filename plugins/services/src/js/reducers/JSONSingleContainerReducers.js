@@ -16,12 +16,12 @@ import {
   JSONReducer as healthChecks
 } from "./serviceForm/JSONReducers/HealthChecks";
 import { JSONReducer as labels } from "./serviceForm/JSONReducers/Labels";
-import { JSONReducer as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONReducer as residency } from "./serviceForm/JSONReducers/Residency";
-import { JSONReducer as ipAddress } from "./serviceForm/JSONReducers/IpAddress";
 import {
   JSONReducer as requirePorts
 } from "./serviceForm/JSONReducers/RequirePorts";
+import { JSONReducer as portDefinitions } from "./serviceForm/PortDefinitions";
+import { JSONReducer as networks } from "./serviceForm/JSONReducers/Networks";
 
 module.exports = {
   id: simpleReducer("id"),
@@ -32,13 +32,13 @@ module.exports = {
   disk: simpleIntReducer("disk"),
   gpus: simpleIntReducer("gpus"),
   cmd: simpleReducer("cmd"),
-  env,
-  labels,
-  healthChecks,
   constraints,
+  env,
   fetch,
+  healthChecks,
+  labels,
+  networks,
   portDefinitions,
   requirePorts,
-  residency,
-  ipAddress
+  residency
 };

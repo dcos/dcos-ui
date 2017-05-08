@@ -61,36 +61,6 @@ const COMPLYWITHRESIDENCY_ERRORS = [
   }
 ];
 
-const COMPLYWITHIPADDRESS_ERRORS = [
-  {
-    path: ["ipAddress"],
-    message: "ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks",
-    type: "PROP_CONFLICT",
-    variables: {
-      feature1: "ipAddress or discoveryInfo",
-      feature2: "container.docker.network"
-    }
-  },
-  {
-    path: ["discoveryInfo"],
-    message: "ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks",
-    type: "PROP_CONFLICT",
-    variables: {
-      feature1: "ipAddress or discoveryInfo",
-      feature2: "container.docker.network"
-    }
-  },
-  {
-    path: ["container", "docker", "network"],
-    message: "ipAddress/discovery is not allowed for Docker containers using BRIDGE or USER networks",
-    type: "PROP_CONFLICT",
-    variables: {
-      feature1: "ipAddress or discoveryInfo",
-      feature2: "container.docker.network"
-    }
-  }
-];
-
 const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
   {
     path: ["container", "docker", "image"],
@@ -279,59 +249,6 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual(
         COMPLYWITHRESIDENCY_ERRORS
       );
-    });
-  });
-
-  describe("#complyWithIpAddressRules", function() {
-    it("should return no errors if nothing defined", function() {
-      const spec = {};
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
-    });
-
-    it("should return no errors if `ipAddress` only defined", function() {
-      const spec = { ipAddress: "foo" };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
-    });
-
-    it("should return no errors if `discoveryInfo` only defined", function() {
-      const spec = { discoveryInfo: "foo" };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
-    });
-
-    it("should return no errors if `container.docker.network` only defined", function() {
-      const spec = { container: { docker: { network: "OTHER" } } };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
-    });
-
-    it("should return errors if `ipAddress`, `discoveryInfo` and `container.docker.network` is `BRIDGE`", function() {
-      const spec = {
-        ipAddress: "foo",
-        discoveryInfo: "bar",
-        container: { docker: { network: "BRIDGE" } }
-      };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual(
-        COMPLYWITHIPADDRESS_ERRORS
-      );
-    });
-
-    it("should return errors if `ipAddress`, `discoveryInfo` and `container.docker.network` is `USER`", function() {
-      const spec = {
-        ipAddress: "foo",
-        discoveryInfo: "bar",
-        container: { docker: { network: "USER" } }
-      };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual(
-        COMPLYWITHIPADDRESS_ERRORS
-      );
-    });
-
-    it("should return no error if `ipAddress`, `discoveryInfo` and `container.docker.network` is `OTHER`", function() {
-      const spec = {
-        ipAddress: "foo",
-        discoveryInfo: "bar",
-        container: { docker: { network: "OTHER" } }
-      };
-      expect(MarathonAppValidators.complyWithIpAddressRules(spec)).toEqual([]);
     });
   });
 

@@ -22,7 +22,7 @@ import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
 import { JSONParser as residency } from "./serviceForm/JSONReducers/Residency";
 import { JSONParser as scaling } from "./serviceForm/MultiContainerScaling";
-import { JSONParser as network } from "./serviceForm/Network";
+import { JSONParser as networks } from "./serviceForm/JSONReducers/Networks";
 import {
   JSONParser as multiContainerNetwork
 } from "./serviceForm/MultiContainerNetwork";
@@ -39,20 +39,20 @@ module.exports = [
   simpleParser(["disk"]),
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
+  constraints,
   container,
   containers,
-  network,
+  environmentVariables,
+  externalVolumes,
+  fetch,
+  healthChecks,
+  labels,
+  localVolumes,
   multiContainerNetwork,
-  volumeMounts,
+  networks,
   portDefinitions,
   portMappings, // Note: must come after portDefinitions, as it uses its information!
-  environmentVariables,
-  labels,
-  scaling,
-  healthChecks,
-  localVolumes,
-  externalVolumes,
-  constraints,
   residency,
-  fetch
+  scaling,
+  volumeMounts
 ];

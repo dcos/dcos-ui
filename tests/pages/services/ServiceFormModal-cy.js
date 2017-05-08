@@ -839,7 +839,9 @@ describe("Service Form Modal", function() {
           setRuntime("Docker Engine");
           clickNetworkingTab();
 
-          cy.get('select[name="networks.0.mode"]').as("containerDockerNetwork");
+          cy
+            .get('select[name="networks.0.network"]')
+            .as("containerDockerNetwork");
 
           // HOST
           cy
@@ -855,18 +857,18 @@ describe("Service Form Modal", function() {
             .should("have.value", "BRIDGE")
             .should("not.have.attr", "disabled");
 
-          // USER.dcos-1
+          // CONTAINER.dcos-1
           cy
             .get("@containerDockerNetwork")
             .children("option:eq(2)")
-            .should("have.value", "USER.dcos-1")
+            .should("have.value", "CONTAINER.dcos-1")
             .should("not.have.attr", "disabled");
 
           // User.dcos-2
           cy
             .get("@containerDockerNetwork")
             .children("option:eq(3)")
-            .should("have.value", "USER.dcos-2")
+            .should("have.value", "CONTAINER.dcos-2")
             .should("not.have.attr", "disabled");
         });
 
@@ -874,7 +876,9 @@ describe("Service Form Modal", function() {
           setRuntime("Mesos Runtime");
           clickNetworkingTab();
 
-          cy.get('select[name="networks.0.mode"]').as("containerDockerNetwork");
+          cy
+            .get('select[name="networks.0.network"]')
+            .as("containerDockerNetwork");
 
           // HOST
           cy
@@ -890,18 +894,18 @@ describe("Service Form Modal", function() {
             .should("have.value", "BRIDGE")
             .should("have.attr", "disabled");
 
-          // USER.dcos-1
+          // CONTAINER.dcos-1
           cy
             .get("@containerDockerNetwork")
             .children("option:eq(2)")
-            .should("have.value", "USER.dcos-1")
+            .should("have.value", "CONTAINER.dcos-1")
             .should("not.have.attr", "disabled");
 
           // User.dcos-2
           cy
             .get("@containerDockerNetwork")
             .children("option:eq(3)")
-            .should("have.value", "USER.dcos-2")
+            .should("have.value", "CONTAINER.dcos-2")
             .should("not.have.attr", "disabled");
         });
       });
@@ -975,7 +979,7 @@ describe("Service Form Modal", function() {
           });
 
           it('should hide "Container Port"', function() {
-            cy.get('select[name="networks.0.mode"]').select("HOST");
+            cy.get('select[name="networks.0.network"]').select("HOST");
 
             cy
               .get("@tabView")
@@ -1011,7 +1015,7 @@ describe("Service Form Modal", function() {
 
         context("type: BRIDGE", function() {
           it('should show "Container Port" and "Protocol"', function() {
-            cy.get('select[name="networks.0.mode"]').select("BRIDGE");
+            cy.get('select[name="networks.0.network"]').select("BRIDGE");
 
             cy
               .get("@tabView")
@@ -1045,9 +1049,11 @@ describe("Service Form Modal", function() {
           });
         });
 
-        context("type: USER (Virtual Network: dcos)", function() {
+        context("type: CONTAINER (Virtual Network: dcos)", function() {
           it('should hide "Host Port" and "Protocol"', function() {
-            cy.get('select[name="networks.0.mode"]').select("USER.dcos-1");
+            cy
+              .get('select[name="networks.0.network"]')
+              .select("CONTAINER.dcos-1");
 
             cy
               .get("@tabView")
@@ -1081,7 +1087,9 @@ describe("Service Form Modal", function() {
           });
 
           it('should not hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
-            cy.get('select[name="networks.0.mode"]').select("USER.dcos-1");
+            cy
+              .get('select[name="networks.0.network"]')
+              .select("CONTAINER.dcos-1");
 
             // Enable port mapping
             cy
