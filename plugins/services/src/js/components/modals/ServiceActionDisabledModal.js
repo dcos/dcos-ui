@@ -5,7 +5,7 @@ import { Modal } from "reactjs-components";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import { isPackage, isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
@@ -363,7 +363,7 @@ class ServiceActionDisabledModal extends React.Component {
   getGroupDeleteMessage() {
     const { actionID, service, intl } = this.props;
     const serviceID = service ? service.getId() : "";
-    const { selectedServices } = this.getServiceTypes(isPackage);
+    const { selectedServices } = this.getServiceTypes(isSDKService);
     const packageCommand = this.getServiceListCommand(
       selectedServices,
       this.getDeleteCommand
