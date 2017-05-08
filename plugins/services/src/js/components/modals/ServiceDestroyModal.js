@@ -6,8 +6,10 @@ import React, { PropTypes } from "react";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
+import ClickToSelect from "#SRC/js/components/ClickToSelect";
 
 import AppLockedMessage from "./AppLockedMessage";
+import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
@@ -25,7 +27,8 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      inputFieldDestroy: ""
+      inputFieldDestroy: "",
+      isButtonDisabled: true
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -80,9 +83,13 @@ class ServiceDestroyModal extends React.Component {
   }
 
   handleRightButtonClick() {
-    const { service } = this.props;
+    const { service, onClose } = this.props;
     const serviceName = service ? service.getId() : "";
     const inputFieldDestroyValue = this.state.inputFieldDestroy;
+
+    if (service instanceof Framework) {
+      onClose();
+    }
 
     if (inputFieldDestroyValue === serviceName) {
       this.props.deleteItem(this.shouldForceUpdate());
@@ -90,34 +97,77 @@ class ServiceDestroyModal extends React.Component {
   }
 
   handleChangeInputFieldDestroy(e) {
+    const { service } = this.props;
+    const serviceName = service ? service.getId() : "";
+    const inputValue = e.target.value;
+    const comparison = inputValue === serviceName;
+
     this.setState({
-      inputFieldDestroy: e.target.value
+      inputFieldDestroy: e.target.value,
+      isButtonDisabled: !comparison
     });
   }
 
-  getDestroyMessage() {
+  getDestroyBody() {
+    const { service } = this.props;
+
+    if (service instanceof Framework) {
+      return this.getDestroyPackage();
+    } else {
+      return this.getDestroyService();
+    }
+  }
+
+  getDestroyPackage() {
     const { service } = this.props;
     const serviceName = service ? service.getId() : "";
 
     return (
-      <p>
-        {`In order to delete`}
-        {" "}
-        <span className="emphasize">{serviceName}</span>
-        {" "}
-        please type the service name.
-      </p>
+      <div>
+        <p>
+          {`In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the documentation`}
+          {" "}
+          <a
+            href="https://docs.mesosphere.com/service-docs/hdfs/uninstall/"
+            target="_blank"
+            title="documentation uninstall guide"
+          >
+            documentation
+          </a>
+          {" "}
+          {`for complete instructions or copy and paste this command into your CLI`}
+        </p>
+        <div className="flush-top snippet-wrapper">
+          <ClickToSelect>
+            <pre className="prettyprint flush-bottom">
+              dcos packages uninstall --app-id={serviceName}
+            </pre>
+          </ClickToSelect>
+        </div>
+      </div>
     );
   }
 
-  getInputFieldDestroy() {
+  getDestroyService() {
+    const { service } = this.props;
+    const serviceName = service ? service.getId() : "";
+
     return (
-      <input
-        className="form-control filter-input-text"
-        onChange={this.handleChangeInputFieldDestroy}
-        type="text"
-        value={this.state.inputFieldDestroy}
-      />
+      <div>
+        <p>
+          {`In order to delete`}
+          {" "}
+          <span className="emphasize">{serviceName}</span>
+          {" "}
+          please type the service name.
+        </p>
+        <input
+          className="form-control filter-input-text"
+          onChange={this.handleChangeInputFieldDestroy}
+          type="text"
+          value={this.state.inputFieldDestroy}
+        />
+      </div>
     );
   }
 
@@ -148,16 +198,22 @@ class ServiceDestroyModal extends React.Component {
   }
 
   render() {
-    const { isPending, onClose, open, service } = this.props;
+    const { onClose, open, service } = this.props;
+    let isButtonDisabled = this.state.isButtonDisabled;
 
-    let itemText = "Service";
+    let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
     if (service instanceof Pod) {
-      itemText = "Pod";
+      itemText += " Pod";
     }
 
     if (service instanceof ServiceTree) {
-      itemText = "Group";
+      itemText += " Group";
+    }
+
+    if (service instanceof Framework) {
+      isButtonDisabled = false;
+      itemText = "Dismiss";
     }
 
     const heading = (
@@ -168,19 +224,18 @@ class ServiceDestroyModal extends React.Component {
 
     return (
       <Confirm
-        disabled={isPending}
+        disabled={isButtonDisabled}
         header={heading}
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
         leftButtonCallback={onClose}
-        rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} ${itemText}`}
+        rightButtonText={itemText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        {this.getDestroyMessage()}
-        {this.getInputFieldDestroy()}
+        {this.getDestroyBody()}
         {this.getErrorMessage()}
       </Confirm>
     );
