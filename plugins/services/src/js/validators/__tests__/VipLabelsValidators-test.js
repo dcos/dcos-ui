@@ -10,7 +10,7 @@ describe("VipLabelsValidators", function() {
       });
 
       it("returns no errors if portMappings is empty", function() {
-        const spec = { container: { docker: { portMappings: [] } } };
+        const spec = { container: { portMappings: [] } };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
@@ -24,9 +24,7 @@ describe("VipLabelsValidators", function() {
       it("returns no errors if VIP label is correct", function() {
         const spec = {
           container: {
-            docker: {
-              portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }]
-            }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }]
           }
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
@@ -47,15 +45,13 @@ describe("VipLabelsValidators", function() {
       it("returns an error if VIP label contains non-integer port", function() {
         const spec = {
           container: {
-            docker: {
-              portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }]
-            }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }]
           }
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message: "VIP label must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "docker", "portMappings", 0, "labels", "VIP_0"]
+            path: ["container", "portMappings", 0, "labels", "VIP_0"]
           }
         ]);
       });
@@ -63,15 +59,13 @@ describe("VipLabelsValidators", function() {
       it("returns an error if VIP label contains an integer port that exceeds the max", function() {
         const spec = {
           container: {
-            docker: {
-              portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }]
-            }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }]
           }
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message: "Port should be an integer less than or equal to 65535",
-            path: ["container", "docker", "portMappings", 0, "labels", "VIP_0"]
+            path: ["container", "portMappings", 0, "labels", "VIP_0"]
           }
         ]);
       });
@@ -79,24 +73,22 @@ describe("VipLabelsValidators", function() {
       it("validates multiple ports", function() {
         const spec = {
           container: {
-            docker: {
-              portMappings: [
-                { labels: { VIP_0: "0.0.0.0:port" } },
-                { labels: { VIP_1: "0.0.0.0:65000" } },
-                { labels: { VIP_2: "0.0.0.0:9090" } },
-                { labels: { VIP_3: ":9090" } }
-              ]
-            }
+            portMappings: [
+              { labels: { VIP_0: "0.0.0.0:port" } },
+              { labels: { VIP_1: "0.0.0.0:65000" } },
+              { labels: { VIP_2: "0.0.0.0:9090" } },
+              { labels: { VIP_3: ":9090" } }
+            ]
           }
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message: "VIP label must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "docker", "portMappings", 0, "labels", "VIP_0"]
+            path: ["container", "portMappings", 0, "labels", "VIP_0"]
           },
           {
             message: "VIP label must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "docker", "portMappings", 3, "labels", "VIP_3"]
+            path: ["container", "portMappings", 3, "labels", "VIP_3"]
           }
         ]);
       });

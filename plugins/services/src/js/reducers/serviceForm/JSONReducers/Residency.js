@@ -3,6 +3,10 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONReducer(state, { type, path, value }) {
+    if (path == null) {
+      return state;
+    }
+
     if (this.localVolumes == null) {
       this.localVolumes = [];
     }

@@ -17,22 +17,12 @@ import {
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
-function getNetworkType(networkType, appDefinition) {
-  networkType = networkType || Networking.type.HOST;
-  const networkName = findNestedPropertyInObject(
-    appDefinition,
-    "ipAddress.networkName"
-  );
-
-  return networkName != null ? Networking.type.USER : networkType;
-}
-
 class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
   shouldExcludeItem(row) {
-    if (row.key !== "ipAddress.networkName") {
+    if (row.key !== "networks.0.name") {
       return false;
     }
 
@@ -56,12 +46,11 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
           headingLevel: 1
         },
         {
-          key: "container.docker.network",
-          label: "Network Type",
-          transformValue: getNetworkType
+          key: "networks.0.mode",
+          label: "Network Mode"
         },
         {
-          key: "ipAddress.networkName",
+          key: "networks.0.name",
           label: "Network Name"
         },
         {
@@ -74,17 +63,14 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               labels: "labels"
             };
 
-            const networkType = getNetworkType(
-              findNestedPropertyInObject(
-                appDefinition,
-                "container.docker.network"
-              ),
-              appDefinition
+            const networkType = findNestedPropertyInObject(
+              appDefinition,
+              "networks.0.mode"
             );
 
             const containerPortMappings = findNestedPropertyInObject(
               appDefinition,
-              "container.docker.portMappings"
+              "container.portMappings"
             );
             if (
               containerPortMappings != null &&

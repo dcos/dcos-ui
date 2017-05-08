@@ -2,6 +2,10 @@ import { SET } from "#SRC/js/constants/TransactionTypes";
 
 module.exports = {
   JSONReducer(state, { path, type, value }) {
+    if (path == null) {
+      return state;
+    }
+
     const [_base, index, field] = path;
 
     if (!this.requriePorts) {
