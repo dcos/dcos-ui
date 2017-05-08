@@ -34,7 +34,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#isPackage", function() {
-    it("should return true if service does not have the proper label", function() {
+    it("should return true if service does have the proper label", function() {
       const service = {
         id: "/foo",
         getLabels() {
