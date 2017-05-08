@@ -107,7 +107,7 @@ describe("Service Actions", function() {
   });
 
   context("Destroy Action", function() {
-    context.only("Application", function() {
+    context("Application", function() {
       beforeEach(function() {
         cy.configureCluster({
           mesos: "1-task-healthy",
