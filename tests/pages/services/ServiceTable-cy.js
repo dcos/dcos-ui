@@ -519,7 +519,7 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it.only("opens the edit dialog", function() {
+    it("opens the edit dialog", function() {
       openDropdown("sdk-sleep");
       clickDropdownAction("Edit");
 
