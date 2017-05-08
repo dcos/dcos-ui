@@ -1,4 +1,4 @@
-import { Confirm } from "reactjs-components";
+import { Confirm, Modal } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
 import React, { PropTypes } from "react";
@@ -83,13 +83,9 @@ class ServiceDestroyModal extends React.Component {
   }
 
   handleRightButtonClick() {
-    const { service, onClose } = this.props;
+    const { service } = this.props;
     const serviceName = service ? service.getId() : "";
     const inputFieldDestroyValue = this.state.inputFieldDestroy;
-
-    if (service instanceof Framework) {
-      onClose();
-    }
 
     if (inputFieldDestroyValue === serviceName) {
       this.props.deleteItem(this.shouldForceUpdate());
@@ -106,69 +102,6 @@ class ServiceDestroyModal extends React.Component {
       inputFieldDestroy: e.target.value,
       isButtonDisabled: !comparison
     });
-  }
-
-  getDestroyBody() {
-    const { service } = this.props;
-
-    if (service instanceof Framework) {
-      return this.getDestroyPackage();
-    } else {
-      return this.getDestroyService();
-    }
-  }
-
-  getDestroyPackage() {
-    const { service } = this.props;
-    const serviceName = service ? service.getId() : "";
-
-    return (
-      <div>
-        <p>
-          {`In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the documentation`}
-          {" "}
-          <a
-            href="https://docs.mesosphere.com/service-docs/hdfs/uninstall/"
-            target="_blank"
-            title="documentation uninstall guide"
-          >
-            documentation
-          </a>
-          {" "}
-          {`for complete instructions or copy and paste this command into your CLI`}
-        </p>
-        <div className="flush-top snippet-wrapper">
-          <ClickToSelect>
-            <pre className="prettyprint flush-bottom">
-              dcos packages uninstall --app-id={serviceName}
-            </pre>
-          </ClickToSelect>
-        </div>
-      </div>
-    );
-  }
-
-  getDestroyService() {
-    const { service } = this.props;
-    const serviceName = service ? service.getId() : "";
-
-    return (
-      <div>
-        <p>
-          {`In order to delete`}
-          {" "}
-          <span className="emphasize">{serviceName}</span>
-          {" "}
-          please type the service name.
-        </p>
-        <input
-          className="form-control filter-input-text"
-          onChange={this.handleChangeInputFieldDestroy}
-          type="text"
-          value={this.state.inputFieldDestroy}
-        />
-      </div>
-    );
   }
 
   getErrorMessage() {
@@ -197,8 +130,64 @@ class ServiceDestroyModal extends React.Component {
     }, REDIRECT_DELAY);
   }
 
-  render() {
+  getCloseButton() {
+    const { onClose } = this.props;
+
+    return (
+      <div className="row text-align-center">
+        <button
+          className="button button-primary button-medium"
+          onClick={onClose}
+        >
+          Close
+        </button>
+      </div>
+    );
+  }
+
+  getDestroyFrameworkModal() {
+    const { open, service, onClose } = this.props;
+    const serviceName = service ? service.getId() : "";
+
+    return (
+      <Modal
+        header={this.getModalHeading()}
+        footer={this.getCloseButton()}
+        modalClass="modal"
+        onClose={onClose}
+        open={open}
+        showHeader={true}
+        showFooter={true}
+        subHeader={this.getSubHeader()}
+      >
+        <p>
+          {`In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the documentation`}
+          {" "}
+          <a
+            href="https://docs.mesosphere.com/service-docs/hdfs/uninstall/"
+            target="_blank"
+            title="documentation uninstall guide"
+          >
+            documentation
+          </a>
+          {" "}
+          {`for complete instructions or copy and paste this command into your CLI`}
+        </p>
+        <div className="flush-top snippet-wrapper">
+          <ClickToSelect>
+            <pre className="prettyprint flush-bottom">
+              dcos packages uninstall --app-id={serviceName}
+            </pre>
+          </ClickToSelect>
+        </div>
+        {this.getErrorMessage()}
+      </Modal>
+    );
+  }
+
+  getDestroyServiceModal() {
     const { onClose, open, service } = this.props;
+    const serviceName = service ? service.getId() : "";
     let isButtonDisabled = this.state.isButtonDisabled;
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
@@ -216,16 +205,10 @@ class ServiceDestroyModal extends React.Component {
       itemText = "Dismiss";
     }
 
-    const heading = (
-      <ModalHeading className="text-danger">
-        {StringUtil.capitalize(UserActions.DELETE)} {itemText}
-      </ModalHeading>
-    );
-
     return (
       <Confirm
         disabled={isButtonDisabled}
-        header={heading}
+        header={this.getModalHeading()}
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
@@ -235,10 +218,52 @@ class ServiceDestroyModal extends React.Component {
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        {this.getDestroyBody()}
+        <p>
+          {`In order to delete`}
+          {" "}
+          <strong>{serviceName}</strong>
+          {" "}
+          please type the service name.
+        </p>
+        <input
+          className="form-control filter-input-text"
+          onChange={this.handleChangeInputFieldDestroy}
+          type="text"
+          value={this.state.inputFieldDestroy}
+        />
         {this.getErrorMessage()}
       </Confirm>
     );
+  }
+
+  getModalHeading() {
+    return (
+      <ModalHeading className="text-danger">
+        {StringUtil.capitalize(UserActions.DELETE)}
+      </ModalHeading>
+    );
+  }
+
+  getSubHeader() {
+    if (!this.props.subHeaderContent) {
+      return false;
+    }
+
+    return (
+      <p className="text-align-center flush-bottom">
+        {this.props.subHeaderContent}
+      </p>
+    );
+  }
+
+  render() {
+    const { service } = this.props;
+
+    if (service instanceof Framework) {
+      return this.getDestroyFrameworkModal();
+    }
+
+    return this.getDestroyServiceModal();
   }
 }
 
