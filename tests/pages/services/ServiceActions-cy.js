@@ -107,7 +107,7 @@ describe("Service Actions", function() {
   });
 
   context("Destroy Action", function() {
-    context("Application", function() {
+    context.only("Application", function() {
       beforeEach(function() {
         cy.configureCluster({
           mesos: "1-task-healthy",
@@ -120,29 +120,24 @@ describe("Service Actions", function() {
 
       it("opens the correct service destroy dialog", function() {
         cy
-          .get(".confirm-modal p span")
+          .get(".modal-body p strong")
           .contains("/sleep")
           .should("to.have.length", 1);
       });
 
-      it("disables button during API request", function() {
-        cy.route({
-          method: "DELETE",
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: []
-        });
+      it("disables button while service name isn't correct", function() {
         cy
           .get(".confirm-modal .button-collection .button-danger")
-          .click()
           .should("have.class", "disabled");
       });
 
-      it("closes dialog on successful API request", function() {
+      it("closes dialog when user type correct service name", function() {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/apps\/\/sleep/,
           response: []
         });
+        cy.get(".modal-body .filter-input-text").type("/sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy.get(".confirm-modal").should("to.have.length", 0);
       });
@@ -154,6 +149,7 @@ describe("Service Actions", function() {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: { message: "App is locked by one or more deployments." }
         });
+        cy.get(".modal-body .filter-input-text").type("/sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy
           .get(".modal-body .text-danger")
@@ -167,6 +163,7 @@ describe("Service Actions", function() {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: { message: "Not Authorized to perform this action!" }
         });
+        cy.get(".modal-body .filter-input-text").type("/sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy
           .get(".modal-body .text-danger")
@@ -185,10 +182,8 @@ describe("Service Actions", function() {
         });
         cy
           .get(".confirm-modal .button-collection .button-danger")
-          .as("dangerButton")
-          .click();
+          .as("dangerButton");
         cy.get("@dangerButton").should("have.class", "disabled");
-        cy.get("@dangerButton").should("not.have.class", "disabled");
       });
 
       it("closes dialog on secondary button click", function() {
