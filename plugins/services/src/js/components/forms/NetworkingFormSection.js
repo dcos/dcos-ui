@@ -608,6 +608,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       "networks"
     );
 
+    let { networks } = this.props.data;
+
     const tooltipContent = (
       <span>
         {
@@ -621,6 +623,29 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </a> for more information.
       </span>
     );
+
+    if (networks != null && networks.length > 1) {
+      networks = networks.map(function({ mode, name }) {
+        return {
+          name,
+          mode: Networking.internalToJson[mode]
+        };
+      });
+
+      return (
+        <div>
+          <h2 className="flush-top short-bottom">
+            Networking
+          </h2>
+          <FieldLabel>
+            Unable to edit Networking
+          </FieldLabel>
+          <pre>
+            {JSON.stringify(networks, null, 2)}
+          </pre>
+        </div>
+      );
+    }
 
     return (
       <div>

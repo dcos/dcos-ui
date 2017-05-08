@@ -1,23 +1,38 @@
-import { SET } from "#SRC/js/constants/TransactionTypes";
+import { ADD_ITEM, SET, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 
 module.exports = {
   FormReducer(state, { type, path = [], value }) {
+    if (path == null) {
+      return state;
+    }
+
     if (this.networks == null) {
-      this.networks = [{}];
+      this.networks = [];
     }
 
-    const joinedPath = path.join(".");
-    if (type === SET && joinedPath === "networks.0.network") {
-      const [mode, name] = value.split(".");
+    const [base, index, field] = path;
 
-      this.networks[0].mode = mode;
-      this.networks[0].name = name;
-    }
-    if (type === SET && joinedPath === "networks.0.mode") {
-      this.networks[0].mode = value;
-    }
-    if (type === SET && joinedPath === "networks.0.name") {
-      this.networks[0].name = value;
+    if (base === "networks") {
+      if (type === ADD_ITEM) {
+        this.networks.push({});
+      }
+      if (type === REMOVE_ITEM) {
+        this.networks = this.networks.filter((item, index) => {
+          return index !== value;
+        });
+      }
+      if (type === SET && field === "network") {
+        const [mode, name] = value.split(".");
+        this.networks[index] = {};
+        this.networks[index].mode = mode;
+        this.networks[index].name = name;
+      }
+      if (type === SET && field === "name") {
+        this.networks[index].name = value;
+      }
+      if (type === SET && field === "mode") {
+        this.networks[index].mode = value;
+      }
     }
 
     return this.networks;
