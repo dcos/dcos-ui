@@ -13,12 +13,12 @@ import Icon from "../Icon";
 import Image from "../Image";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Loader from "../Loader";
-import MetadataStore from "../../stores/MetadataStore";
 import ReviewConfig from "../ReviewConfig";
 import SchemaForm from "../SchemaForm";
 import SchemaUtil from "../../utils/SchemaUtil";
 import StringUtil from "../../utils/StringUtil";
 import TabsMixin from "../../mixins/TabsMixin";
+import UniversePackage from "../../structs/UniversePackage";
 
 const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
@@ -47,7 +47,6 @@ class InstallPackageModal
       descriptionError: null,
       hasFormErrors: false,
       installError: null,
-      isLoading: true,
       pendingRequest: false
     });
 
@@ -74,25 +73,14 @@ class InstallPackageModal
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-    const { props } = this;
-    if (props.open) {
-      CosmosPackagesStore.fetchPackageDescription(
-        props.packageName,
-        props.packageVersion
-      );
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     const { props } = this;
+    // If closing
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
         descriptionError: null,
         installError: null,
-        isLoading: true,
         pendingRequest: false
       });
       // Reset our trigger submit for advanced install
@@ -102,12 +90,17 @@ class InstallPackageModal
         truncatedPreInstallNotes: true
       });
     }
-
+    // If Opening
     if (!props.open && nextProps.open) {
-      CosmosPackagesStore.fetchPackageDescription(
-        nextProps.packageName,
-        nextProps.packageVersion
-      );
+      // If default - auto-install
+      if (!nextProps.advancedConfig) {
+        this.handleInstallPackage();
+      } else {
+        // Show advanced install
+        this.setState({
+          currentTab: "advancedInstall"
+        });
+      }
     }
   }
 
@@ -125,14 +118,13 @@ class InstallPackageModal
   }
 
   onCosmosPackagesStoreDescriptionSuccess() {
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { cosmosPackage } = this.props;
     const schemaIncorrect = !SchemaUtil.validateSchema(
       cosmosPackage.getConfig()
     );
 
     this.internalStorage_update({
-      hasError: schemaIncorrect,
-      isLoading: false
+      hasError: schemaIncorrect
     });
 
     this.setState({ schemaIncorrect });
@@ -146,10 +138,11 @@ class InstallPackageModal
     this.setState({ currentTab: "defaultInstall" });
   }
 
-  onCosmosPackagesStoreInstallSuccess() {
+  onCosmosPackagesStoreInstallSuccess(name, version, appId) {
     this.internalStorage_update({
       installError: null,
-      pendingRequest: false
+      pendingRequest: false,
+      appId
     });
     this.setState({ currentTab: "packageInstalled" });
   }
@@ -181,7 +174,7 @@ class InstallPackageModal
   }
 
   handleInstallPackage() {
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { cosmosPackage } = this.props;
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
     const configuration = this.getPackageConfiguration();
@@ -208,7 +201,7 @@ class InstallPackageModal
   getPackageConfiguration() {
     const { advancedConfiguration } = this.internalStorage_get();
     const { currentTab } = this.state;
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { cosmosPackage } = this.props;
 
     const isAdvancedInstall =
       currentTab === "advancedInstall" || currentTab === "reviewAdvancedConfig";
@@ -235,9 +228,7 @@ class InstallPackageModal
       </div>
     );
   }
-
   getInstallErrorScreen() {
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const { pendingRequest, installError } = this.internalStorage_get();
 
     return (
@@ -251,7 +242,7 @@ class InstallPackageModal
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked">
             <button
-              disabled={!cosmosPackage || pendingRequest}
+              disabled={pendingRequest}
               className="button button-block"
               onClick={this.handleChangeTab.bind(this, "advancedInstall")}
             >
@@ -311,7 +302,7 @@ class InstallPackageModal
       pendingRequest,
       installError
     } = this.internalStorage_get();
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { cosmosPackage } = this.props;
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
@@ -320,6 +311,14 @@ class InstallPackageModal
       "flush-bottom": !preInstallNotes
     });
 
+    if (installError) {
+      return this.getInstallErrorScreen();
+    }
+
+    if (pendingRequest) {
+      return this.getLoadingScreen();
+    }
+
     let error;
     if (descriptionError) {
       error = (
@@ -327,16 +326,6 @@ class InstallPackageModal
           {descriptionError}
         </p>
       );
-    }
-
-    if (installError) {
-      return this.getInstallErrorScreen();
-    }
-
-    let buttonText = "Deploy";
-
-    if (pendingRequest) {
-      buttonText = "Deploying...";
     }
 
     return (
@@ -356,20 +345,12 @@ class InstallPackageModal
           </div>
         </div>
         <div className="modal-footer">
-          <div className="button-collection button-collection-stacked">
+          <div className="button-collection button-collection-stacked horizontal-center">
             <button
-              disabled={!cosmosPackage || pendingRequest || descriptionError}
               className="button button-success button-block"
-              onClick={this.handleInstallPackage}
+              onClick={this.props.onClose}
             >
-              {buttonText}
-            </button>
-            <button
-              disabled={!cosmosPackage || pendingRequest}
-              className="button button-link button-primary button-block"
-              onClick={this.handleChangeTab.bind(this, "advancedInstall")}
-            >
-              Configure
+              OK
             </button>
           </div>
         </div>
@@ -379,21 +360,17 @@ class InstallPackageModal
 
   renderAdvancedInstallTabView() {
     const { pendingRequest, hasFormErrors } = this.internalStorage_get();
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-
     // Only return footer, we always render SchemaForm, but just change
     // the hidden class in render
+
     return (
       <div className="modal-footer">
         <div className="button-collection flush-bottom">
-          <button
-            className="button"
-            onClick={this.handleChangeTab.bind(this, "defaultInstall")}
-          >
-            Back
+          <button className="button" onClick={this.handleModalClose}>
+            Cancel
           </button>
           <button
-            disabled={!cosmosPackage || pendingRequest || hasFormErrors}
+            disabled={pendingRequest || hasFormErrors}
             className="button button-success"
             onClick={this.handleChangeTab.bind(this, "reviewAdvancedConfig")}
           >
@@ -406,7 +383,7 @@ class InstallPackageModal
 
   renderReviewAdvancedConfigTabView() {
     const { pendingRequest } = this.internalStorage_get();
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { cosmosPackage } = this.props;
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
     let buttonText = "Deploy";
@@ -432,7 +409,7 @@ class InstallPackageModal
               Back
             </button>
             <button
-              disabled={!cosmosPackage || pendingRequest}
+              disabled={pendingRequest}
               className="button button-success"
               onClick={this.handleInstallPackage}
             >
@@ -445,8 +422,8 @@ class InstallPackageModal
   }
 
   renderPackageInstalledTabView() {
-    const { pendingRequest } = this.internalStorage_get();
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const { appId } = this.internalStorage_get();
+    const { cosmosPackage } = this.props;
 
     const notes = cosmosPackage.getPostInstallNotes();
 
@@ -468,13 +445,12 @@ class InstallPackageModal
         </div>
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked horizontal-center">
-            <button
-              disabled={!cosmosPackage || pendingRequest}
+            <a
               className="button button-success button-block"
-              onClick={this.props.onClose}
+              href={`#/services/detail/${encodeURIComponent(appId)}`}
             >
-              OK
-            </button>
+              Go To Service
+            </a>
           </div>
         </div>
       </div>
@@ -520,60 +496,9 @@ class InstallPackageModal
     );
   }
 
-  getCLIPackageInfo(cosmosPackage) {
-    return (
-      <div>
-        <div className="modal-body">
-          <div className="horizontal-center">
-            <div className="icon icon-jumbo icon-image-container icon-app-container">
-              <Image
-                fallbackSrc={defaultServiceImage}
-                src={cosmosPackage.getIcons()["icon-large"]}
-              />
-            </div>
-            <p className="h2 short-top short-bottom">
-              {cosmosPackage.getName()}
-            </p>
-            <p>CLI Only Package</p>
-            <p className="flush-bottom">
-              {"This package can only be deployed using the CLI. See the "}
-              <a
-                href={MetadataStore.buildDocsURI(
-                  "/usage/managing-services/install/#installing-a-service-using-the-cli"
-                )}
-                target="_blank"
-              >
-                documentation
-              </a>.
-            </p>
-          </div>
-        </div>
-        <div className="modal-footer">
-          <div className="button-collection horizontal-center flush-bottom">
-            <button
-              className="button flush-bottom button-wide"
-              onClick={this.handleModalClose}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   getModalContents() {
     const { currentTab, schemaIncorrect } = this.state;
-    const { isLoading } = this.internalStorage_get();
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-
-    if (isLoading || !cosmosPackage) {
-      return this.getLoadingScreen();
-    }
-
-    if (cosmosPackage && cosmosPackage.isCLIOnly()) {
-      return this.getCLIPackageInfo(cosmosPackage);
-    }
+    const { cosmosPackage } = this.props;
 
     if (schemaIncorrect) {
       return this.getIncorrectSchemaWarning(cosmosPackage);
@@ -645,13 +570,14 @@ class InstallPackageModal
 }
 
 InstallPackageModal.defaultProps = {
+  advancedConfig: false,
   onClose() {},
   open: false
 };
 
 InstallPackageModal.propTypes = {
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string,
+  advancedConfig: React.PropTypes.bool,
+  cosmosPackage: React.PropTypes.instanceOf(UniversePackage).isRequired,
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func
 };

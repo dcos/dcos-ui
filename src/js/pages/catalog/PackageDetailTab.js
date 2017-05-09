@@ -42,7 +42,11 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = ["handleInstallModalClose", "handleInstallModalOpen"];
+const METHODS_TO_BIND = [
+  "handleInstallModalClose",
+  "handleConfigureInstallModalOpen",
+  "handleInstallModalOpen"
+];
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -95,7 +99,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handleInstallModalOpen() {
-    this.setState({ openInstallModal: true });
+    this.setState({ openInstallModal: true, advancedConfig: false });
+  }
+
+  handleConfigureInstallModalOpen() {
+    this.setState({ openInstallModal: true, advancedConfig: true });
   }
 
   getErrorScreen() {
@@ -192,7 +200,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  getInstallButton(cosmosPackage) {
+  getInstallButtons(cosmosPackage) {
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
@@ -213,12 +221,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     return (
-      <button
-        className="button button-success"
-        onClick={this.handleInstallModalOpen}
-      >
-        Deploy
-      </button>
+      <div className="button-collection">
+        <button
+          className="button button-primary button-link"
+          onClick={this.handleConfigureInstallModalOpen}
+        >
+          Configure
+        </button>
+        <button
+          className="button button-success"
+          onClick={this.handleInstallModalOpen}
+        >
+          Deploy
+        </button>
+      </div>
     );
   }
 
@@ -294,7 +310,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 <p>{this.getPackageBadge(cosmosPackage, version)}</p>
               </div>
               <div className="media-object-item">
-                {this.getInstallButton(cosmosPackage)}
+                {this.getInstallButtons(cosmosPackage)}
               </div>
             </div>
           </div>
@@ -305,8 +321,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
         </div>
         <InstallPackageModal
           open={state.openInstallModal}
-          packageName={name}
-          packageVersion={version}
+          cosmosPackage={cosmosPackage}
+          advancedConfig={state.advancedConfig}
           onClose={this.handleInstallModalClose}
         />
       </Page>
