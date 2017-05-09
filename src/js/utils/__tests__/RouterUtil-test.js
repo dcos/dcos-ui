@@ -81,7 +81,6 @@ describe("RouterUtil", function() {
           type: ReactRouter.Route,
           path: "foo",
           component() {},
-          buildBreadCrumb() {},
           children: [
             {
               type: ReactRouter.Route,
@@ -91,8 +90,7 @@ describe("RouterUtil", function() {
                 {
                   type: ReactRouter.Route,
                   path: "baz",
-                  component() {},
-                  buildBreadCrumb() {}
+                  component() {}
                 }
               ]
             }

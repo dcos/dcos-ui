@@ -9,8 +9,6 @@ import ServicesPage from "../pages/ServicesPage";
 import ServiceTaskDetailPage from "../pages/task-details/ServiceTaskDetailPage";
 import ServiceVolumeContainer
   from "../containers/volume-detail/ServiceVolumeContainer";
-import TaskDetailBreadcrumb
-  from "../pages/nodes/breadcrumbs/TaskDetailBreadcrumb";
 import TaskDetailsTab from "../pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "../pages/task-details/TaskFileBrowser";
 import TaskFilesTab from "../pages/task-details/TaskFilesTab";
@@ -23,24 +21,6 @@ import HighOrderServiceConfiguration
   from "../components/HighOrderServiceConfiguration";
 import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
 import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
-
-function buildServiceCrumbs({ id }) {
-  id = decodeURIComponent(id).replace(/^\//, "");
-  const ids = id.split("/");
-  let aggregateIDs = "";
-
-  return ids.map(function(id, index) {
-    aggregateIDs += encodeURIComponent(`/${id}`);
-    const serviceLink = index === ids.length - 1
-      ? `/services/detail/${aggregateIDs}`
-      : `/services/overview/${aggregateIDs}`;
-
-    return {
-      label: id,
-      route: { to: serviceLink }
-    };
-  });
-}
 
 const serviceRoutes = [
   {
@@ -60,44 +40,24 @@ const serviceRoutes = [
         type: Route,
         component: ServicesContainer,
         path: "overview",
+        // TODO: Remove this when moving to use NavigationService directly,
+        // where we can register with sidebarActiveRegex option
+        sidebarActiveRegex: /(overview|detail)/,
+        isInSidebar: true,
         children: [
           {
             type: Route,
             path: "create",
-            component: NewCreateServiceModal,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/services",
-                getCrumbs: buildServiceCrumbs
-              };
-            }
+            component: NewCreateServiceModal
           },
           {
             type: Route,
             path: ":id",
-            buildBreadCrumb() {
-              return {
-                getCrumbs() {
-                  return [
-                    {
-                      label: "Services",
-                      route: { to: "/services" }
-                    }
-                  ];
-                }
-              };
-            },
             children: [
               {
                 type: Route,
                 path: "create",
-                component: NewCreateServiceModal,
-                buildBreadCrumb(params) {
-                  return {
-                    parentCrumb: `/services/overview/${params.id}`,
-                    getCrumbs: buildServiceCrumbs
-                  };
-                }
+                component: NewCreateServiceModal
               }
             ]
           }
@@ -113,34 +73,16 @@ const serviceRoutes = [
         type: Route,
         component: ServicesContainer,
         path: "detail/:id",
-        buildBreadCrumb() {
-          return {
-            parentCrumb: "/services",
-            getCrumbs: buildServiceCrumbs
-          };
-        },
         children: [
           {
             type: Route,
             path: "create",
-            component: NewCreateServiceModal,
-            buildBreadCrumb(params) {
-              return {
-                parentCrumb: `/services/detail/${params.id}`,
-                getCrumbs: buildServiceCrumbs
-              };
-            }
+            component: NewCreateServiceModal
           },
           {
             type: Route,
             path: "edit(/:version)",
-            component: NewCreateServiceModal,
-            buildBreadCrumb(params) {
-              return {
-                parentCrumb: `/services/detail/${params.id}`,
-                getCrumbs: buildServiceCrumbs
-              };
-            }
+            component: NewCreateServiceModal
           },
           // This route needs to be rendered outside of the tabs that are
           // rendered in the service-task-details route.
@@ -184,21 +126,6 @@ const serviceRoutes = [
             path: "tasks/:taskID",
             component: ServiceTaskDetailPage,
             hideHeaderNavigation: true,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/services/overview/:id",
-                getCrumbs(params, routes) {
-                  return [
-                    <TaskDetailBreadcrumb
-                      params={params}
-                      routes={routes}
-                      to="/services/overview/:id/tasks/:taskID"
-                      routePath=":taskID"
-                    />
-                  ];
-                }
-              };
-            },
             children: [
               {
                 type: Route,
@@ -206,15 +133,7 @@ const serviceRoutes = [
                 hideHeaderNavigation: true,
                 isTab: true,
                 path: "details",
-                title: "Details",
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/services/detail/:id/tasks/:taskID",
-                    getCrumbs() {
-                      return [];
-                    }
-                  };
-                }
+                title: "Details"
               },
               {
                 hideHeaderNavigation: true,
@@ -228,29 +147,13 @@ const serviceRoutes = [
                     component: TaskFileBrowser,
                     fileViewerRoutePath: "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                     hideHeaderNavigation: true,
-                    type: IndexRoute,
-                    buildBreadCrumb() {
-                      return {
-                        parentCrumb: "/services/detail/:id/tasks/:taskID",
-                        getCrumbs() {
-                          return [];
-                        }
-                      };
-                    }
+                    type: IndexRoute
                   },
                   {
                     component: TaskFileViewer,
                     hideHeaderNavigation: true,
                     path: "view(/:filePath(/:innerPath))",
-                    type: Route,
-                    buildBreadCrumb() {
-                      return {
-                        parentCrumb: "/services/detail/:id/tasks/:taskID",
-                        getCrumbs() {
-                          return [];
-                        }
-                      };
-                    }
+                    type: Route
                   }
                 ]
               },
@@ -261,14 +164,6 @@ const serviceRoutes = [
                 path: "logs",
                 title: "Logs",
                 type: Route,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/services/detail/:id/tasks/:taskID",
-                    getCrumbs() {
-                      return [];
-                    }
-                  };
-                },
                 children: [
                   {
                     path: ":filePath",
@@ -282,40 +177,13 @@ const serviceRoutes = [
                 isTab: true,
                 path: "volumes",
                 title: "Volumes",
-                type: Route,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/services/detail/:id/tasks/:taskID",
-                    getCrumbs() {
-                      return [];
-                    }
-                  };
-                }
+                type: Route
               },
               {
                 type: Route,
                 hideHeaderNavigation: true,
                 path: "volumes/:volumeID",
-                component: TaskVolumeContainer,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/services/detail/:id/tasks/:taskID/volumes",
-                    getCrumbs(params) {
-                      return [
-                        {
-                          label: "Volumes",
-                          route: {
-                            params,
-                            to: "/services/detail/:id/tasks/:taskID/volumes"
-                          }
-                        },
-                        {
-                          label: params.volumeID
-                        }
-                      ];
-                    }
-                  };
-                }
+                component: TaskVolumeContainer
               }
             ]
           }

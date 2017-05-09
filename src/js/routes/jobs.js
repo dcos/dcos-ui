@@ -43,18 +43,6 @@ const jobsRoutes = {
   path: "jobs",
   category: "root",
   isInSidebar: true,
-  buildBreadCrumb() {
-    return {
-      getCrumbs() {
-        return [
-          {
-            label: "Jobs",
-            route: { to: "/jobs" }
-          }
-        ];
-      }
-    };
-  },
   children: [
     {
       type: IndexRoute,
@@ -68,12 +56,6 @@ const jobsRoutes = {
           type: Route,
           component: JobDetailPage,
           path: ":id",
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/jobs",
-              getCrumbs: buildJobCrumbs
-            };
-          },
           children: [
             {
               type: Redirect,
@@ -85,36 +67,13 @@ const jobsRoutes = {
               path: "tasks/:taskID",
               component: JobsTaskDetailPage,
               hideHeaderNavigation: true,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: "/jobs/:id",
-                  getCrumbs(params, routes) {
-                    return [
-                      <TaskDetailBreadcrumb
-                        params={params}
-                        routes={routes}
-                        to="/jobs/:id/tasks/:taskID"
-                        routePath="tasks/:taskID"
-                      />
-                    ];
-                  }
-                };
-              },
               children: [
                 {
                   component: TaskDetailsTab,
                   isTab: true,
                   path: "details",
                   title: "Details",
-                  type: Route,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: "/jobs/:id/tasks/:taskID",
-                      getCrumbs() {
-                        return [];
-                      }
-                    };
-                  }
+                  type: Route
                 },
                 {
                   hideHeaderNavigation: true,
@@ -128,29 +87,13 @@ const jobsRoutes = {
                       component: TaskFileBrowser,
                       fileViewerRoutePath: "/jobs/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                       hideHeaderNavigation: true,
-                      type: IndexRoute,
-                      buildBreadCrumb() {
-                        return {
-                          parentCrumb: "/jobs/:id/tasks/:taskID",
-                          getCrumbs() {
-                            return [];
-                          }
-                        };
-                      }
+                      type: IndexRoute
                     },
                     {
                       component: TaskFileViewer,
                       hideHeaderNavigation: true,
                       path: "view(/:filePath(/:innerPath))",
-                      type: Route,
-                      buildBreadCrumb() {
-                        return {
-                          parentCrumb: "/jobs/:id/tasks/:taskID",
-                          getCrumbs() {
-                            return [];
-                          }
-                        };
-                      }
+                      type: Route
                     }
                   ]
                 },
@@ -161,14 +104,6 @@ const jobsRoutes = {
                   path: "logs",
                   title: "Logs",
                   type: Route,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: "/jobs/:id/tasks/:taskID",
-                      getCrumbs() {
-                        return [];
-                      }
-                    };
-                  },
                   children: [
                     {
                       path: ":filePath",
