@@ -260,7 +260,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.BUILT" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(Date(mesosBuilt)).fromNow()}
+            {moment(mesosBuilt * 1000).fromNow()}
             {" "}
             {this.getMesosBuildUser(mesosBuildUser)}
           </ConfigurationMapValue>
@@ -270,7 +270,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.STARTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(Date(mesosStarted)).fromNow()}
+            {moment(mesosStarted * 1000).fromNow()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="elected">
@@ -278,7 +278,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.ELECTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(Date(mesosElected)).fromNow()}
+            {moment(mesosElected * 1000).fromNow()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
