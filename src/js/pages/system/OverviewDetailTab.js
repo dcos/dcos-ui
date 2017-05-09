@@ -192,21 +192,20 @@ class OverviewDetailTab extends mixin(StoreMixin) {
    * Get user if existent otherwise
    * return null
    *
+   * @param {String} mesosBuildUser
    * @returns {Component|Null} User string or null
    *
    * @memberOf OverviewDetailTab
    */
-  getMesosBuildUser() {
-    const mesosConfig = MesosStateStore.get("lastMesosState");
-
-    if (isEmpty(mesosConfig.build_user)) {
+  getMesosBuildUser(mesosBuildUser) {
+    if (isEmpty(mesosBuildUser)) {
       return null;
     } else {
       return (
         <FormattedMessage
           id="COMMON.BY_NAME"
           values={{
-            name: mesosConfig.build_user
+            name: mesosBuildUser
           }}
         />
       );
@@ -228,6 +227,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     const mesosBuilt = mesosConfig.build_time || this.getLoading();
     const mesosStarted = mesosConfig.start_time || this.getLoading();
     const mesosElected = mesosConfig.elected_time || this.getLoading();
+    const mesosBuildUser = mesosConfig.build_user;
 
     return (
       <ConfigurationMapSection>
@@ -260,7 +260,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.BUILT" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(Date(mesosBuilt)).fromNow()} {this.getMesosBuildUser()}
+            {moment(Date(mesosBuilt)).fromNow()}
+            {" "}
+            {this.getMesosBuildUser(mesosBuildUser)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="started">
