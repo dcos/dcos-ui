@@ -9,12 +9,19 @@ import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarToggle from "../components/SidebarToggle";
 import TemplateUtil from "../utils/TemplateUtil";
 
-const PageHeader = ({ actions, addButton, breadcrumbs, tabs }) => {
+const PageHeader = ({
+  actions,
+  addButton,
+  breadcrumbs,
+  supplementalContent,
+  tabs
+}) => {
   return (
     <BasePageHeader
       actions={actions}
       addButton={addButton}
       breadcrumbs={breadcrumbs}
+      supplementalContent={supplementalContent}
       tabs={tabs}
     />
   );
@@ -38,6 +45,7 @@ PageHeader.propTypes = {
     React.PropTypes.object
   ]),
   breadcrumbs: React.PropTypes.node,
+  supplementalContent: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
 
