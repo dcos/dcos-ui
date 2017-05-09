@@ -7,6 +7,8 @@ import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Page from "#SRC/js/components/Page";
 
+import DeploymentStatusIndicator
+  from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 import Service from "../../structs/Service";
@@ -99,6 +101,7 @@ class ServiceTreeView extends React.Component {
             { onItemSelect: modalHandlers.createGroup, label: "Create Group" }
           ]}
           addButton={{ onItemSelect: createService, label: "Run a Service" }}
+          supplementalContent={<DeploymentStatusIndicator />}
         />
         <div>
           {this.getFilterBar()}
