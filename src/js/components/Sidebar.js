@@ -27,8 +27,8 @@ const defaultMenuItems = [
   "/catalog",
   "/nodes",
   "/networking",
-  "/security",
-  "/system-overview",
+  "/secrets",
+  "/overview",
   "/components",
   "/settings",
   "/organization"

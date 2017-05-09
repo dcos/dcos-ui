@@ -63,7 +63,7 @@ const serviceRoutes = [
         path: "overview",
         // TODO: Remove this when moving to use NavigationService directly,
         // where we can register with sidebarActiveRegex option
-        sidebarActiveRegex: /(overview|detail)/,
+        sidebarActiveRegex: /(services\/overview|detail)/,
         isInSidebar: true,
         buildBreadCrumb() {
           return {
