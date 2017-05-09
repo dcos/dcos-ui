@@ -57,6 +57,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
       >
         <Loader
           className="button--deployments__loader icon icon-mini"
+          flip="horizontal"
           size="mini"
           type="lineSpinFadeLoader"
         />
