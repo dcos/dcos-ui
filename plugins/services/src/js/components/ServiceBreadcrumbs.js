@@ -129,13 +129,19 @@ class ServiceBreadcrumbs extends React.Component {
       return null;
     }
 
+    let taskCountDetails = `(${runningTasksCount})`;
+
+    if (runningTasksCount !== instancesCount) {
+      taskCountDetails = `(${runningTasksCount} of ${instancesCount})`;
+    }
+
     return (
       <BreadcrumbSupplementalContent
         ref={ref => (this.breadcrumbStatusRef = ref)}
       >
         <BreadcrumbSupplementalContent>
           <span className="muted">
-            {serviceStatus} ({runningTasksCount} of {instancesCount})
+            {serviceStatus} {taskCountDetails}
           </span>
           <ServiceStatusWarningWithDebugInformation item={service} />
         </BreadcrumbSupplementalContent>
