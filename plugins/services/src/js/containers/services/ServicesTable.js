@@ -266,8 +266,7 @@ class ServicesTable extends React.Component {
     const serviceStatus = service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
     const tasksSummary = service.getTasksSummary();
-    const { tasksRunning } = tasksSummary;
-
+    const tasksRunning = service.getTaskCount();
     const isDeploying = serviceStatus === "Deploying";
 
     const conciseOverview = ` (${tasksRunning}/${instancesCount})`;
