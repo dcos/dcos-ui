@@ -17,7 +17,7 @@ describe("Network", function() {
         {
           type: SET,
           value: "USER.dcos",
-          path: ["container", "docker", "network"]
+          path: ["networks", 0, "mode"]
         }
       ]);
     });
@@ -31,7 +31,7 @@ describe("Network", function() {
         }
       };
       expect(Network.JSONParser(state)).toEqual([
-        { type: SET, value: "BRIDGE", path: ["container", "docker", "network"] }
+        { type: SET, value: "BRIDGE", path: ["networks", 0, "mode"] }
       ]);
     });
 
@@ -44,7 +44,7 @@ describe("Network", function() {
         }
       };
       expect(Network.JSONParser(state)).toEqual([
-        { type: SET, value: "HOST", path: ["container", "docker", "network"] }
+        { type: SET, value: "HOST", path: ["networks", 0, "mode"] }
       ]);
     });
 
@@ -70,7 +70,7 @@ describe("Network", function() {
         {
           type: SET,
           value: "USER.dcos",
-          path: ["container", "docker", "network"]
+          path: ["networks", 0, "mode"]
         },
         { type: SET, value: ["group1"], path: ["ipAddress", "groups"] },
         {

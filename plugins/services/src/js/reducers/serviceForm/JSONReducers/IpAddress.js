@@ -23,7 +23,7 @@ module.exports = {
       this.internalState.labels = value;
     }
 
-    if (type === SET && joinedPath === "container.docker.network") {
+    if (type === SET && joinedPath === "networks.0.mode") {
       const networkName = value.split(".")[1];
       if (networkName != null) {
         return {

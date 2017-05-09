@@ -473,7 +473,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       .join(", ");
 
     const selections = (
-      <FieldSelect name="container.docker.network" value={network}>
+      <FieldSelect name="networks.0.mode" value={network}>
         <option disabled={Boolean(disabledMap[HOST])} value={HOST}>
           Host
         </option>
@@ -664,7 +664,7 @@ NetworkingFormSection.configReducers = {
   networkType(state, { type, path = [], value }) {
     const joinedPath = path.join(".");
 
-    if (type === SET && joinedPath === "container.docker.network") {
+    if (type === SET && joinedPath === "networks.0.mode") {
       return value;
     }
 
