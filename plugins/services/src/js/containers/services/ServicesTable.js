@@ -254,6 +254,7 @@ class ServicesTable extends React.Component {
         html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
       },
       {
+        className: classNames({ hidden: isGroup }),
         id: EDIT,
         html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
       },
