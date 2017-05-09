@@ -2,6 +2,7 @@ import { Confirm, Modal } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
 import React, { PropTypes } from "react";
+import { injectIntl } from "react-intl";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -146,7 +147,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyFrameworkModal() {
-    const { open, service, onClose } = this.props;
+    const { open, service, onClose, intl } = this.props;
     const serviceName = service ? service.getId() : "";
 
     return (
@@ -161,17 +162,23 @@ class ServiceDestroyModal extends React.Component {
         subHeader={this.getSubHeader()}
       >
         <p>
-          {`In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the documentation`}
-          {" "}
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK"
+          })}
           <a
             href="https://docs.mesosphere.com/service-docs/hdfs/uninstall/"
             target="_blank"
-            title="documentation uninstall guide"
+            title={intl.formatMessage({
+              id: "COMMON.DOCUMENTATION_TITLE"
+            })}
           >
-            documentation
+            {intl.formatMessage({
+              id: "COMMON.DOCUMENTATION"
+            })}
           </a>
-          {" "}
-          {`for complete instructions or copy and paste this command into your CLI`}
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK_2"
+          })}
         </p>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
@@ -186,7 +193,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyServiceModal() {
-    const { onClose, open, service } = this.props;
+    const { onClose, open, service, intl } = this.props;
     const serviceName = service ? service.getId() : "";
     let isButtonDisabled = this.state.isButtonDisabled;
 
@@ -219,11 +226,13 @@ class ServiceDestroyModal extends React.Component {
         showHeader={true}
       >
         <p>
-          {`In order to delete`}
-          {" "}
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.DELETE_SERVICE"
+          })}
           <strong>{serviceName}</strong>
-          {" "}
-          please type the service name.
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.DELETE_SERVICE_2"
+          })}
         </p>
         <input
           className="form-control filter-input-text"
@@ -283,4 +292,4 @@ ServiceDestroyModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceDestroyModal;
+module.exports = injectIntl(ServiceDestroyModal);
