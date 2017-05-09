@@ -223,7 +223,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
       .getId()
       .replace(new RegExp(`/${service.getName()}$`), "");
 
-    return `services${servicePath}`;
+    return (
+      <a
+        href={`#/services/overview/${encodeURIComponent(servicePath)}`}
+        onClick={this.props.onClose}
+      >
+        {`services${servicePath}`}
+      </a>
+    );
   }
 
   getTableData(deploymentsItems) {

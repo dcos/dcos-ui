@@ -71,6 +71,15 @@
       font-size: @deployments-table-service-path-font-size;
       line-height: @deployments-table-service-path-line-height;
       padding-left: @deployments-table-service-path-padding-left;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     .expanding-table-child {
