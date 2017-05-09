@@ -137,12 +137,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
   getChildTableData(deployment) {
     return [
       ...deployment.getAffectedServices().map(function(service) {
+        service.deployment = deployment;
         service.isStale = false;
 
         return service;
       }),
       ...deployment.getStaleServiceIds().map(function(serviceID) {
         return {
+          deployment,
           serviceID,
           isStale: true
         };
@@ -410,7 +412,28 @@ class DeploymentsModal extends mixin(StoreMixin) {
       return this.renderStatusBar(currentStep, totalSteps);
     }
 
-    return item.getStatus();
+    let currentActions = {};
+    if (
+      item.deployment.currentActions &&
+      item.deployment.currentActions.length > 0
+    ) {
+      currentActions = item.deployment.currentActions.reduce(function(
+        memo,
+        action
+      ) {
+        memo[action.app] = action.action;
+
+        return memo;
+      }, {});
+    }
+
+    let statusText = item.getStatus();
+
+    if (currentActions[item.id] != null) {
+      statusText = currentActions[item.id];
+    }
+
+    return statusText;
   }
 
   renderStatusBar(currentStep, totalSteps) {
