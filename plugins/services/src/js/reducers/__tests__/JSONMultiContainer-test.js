@@ -6,7 +6,7 @@ const JSONMultiContainerReducers = require("../JSONMultiContainerReducers");
 
 describe("JSONMultiContainer", function() {
   describe("integrity", function() {
-    it("parse and reduce doesn't change JSON", function() {
+    it("should parse and reduce without changing the JSON", function() {
       const podDefinition = {
         id: "/podABCD",
         labels: {
