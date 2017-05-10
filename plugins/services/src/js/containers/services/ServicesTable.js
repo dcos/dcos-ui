@@ -269,13 +269,13 @@ class ServicesTable extends React.Component {
     const tasksRunning = service.getTaskCount();
     const isDeploying = serviceStatus === "Deploying";
 
-    let conciseOverview = ` (${tasksRunning})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`;
+    const conciseOverview = tasksRunning === instancesCount
+      ? ` (${tasksRunning})`
+      : ` (${tasksRunning}/${instancesCount})`;
 
-    if (tasksRunning !== instancesCount) {
-      conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-      verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
-    }
+    const verboseOverview = tasksRunning === instancesCount
+      ? ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`
+      : ` (${tasksRunning} of ${instancesCount} Instances)`;
 
     return (
       <div className="status-bar-wrapper">
