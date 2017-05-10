@@ -18,6 +18,7 @@ import Image from "#SRC/js/components/Image";
 import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
+import ServiceUtil from "#SRC/js/utils/ServiceUtil";
 import StatusBar from "#SRC/js/components/StatusBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
@@ -242,7 +243,17 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 
   renderActionsMenu(prop, deployment, rowOptions) {
-    if (rowOptions.isParent && deployment != null) {
+    const { children = [] } = deployment;
+
+    const doesDeploymentContainSDKService = children.some(function(service) {
+      return ServiceUtil.isSDKService(service);
+    });
+
+    if (
+      !doesDeploymentContainSDKService &&
+      rowOptions.isParent &&
+      deployment != null
+    ) {
       let actionText = "Rollback";
       if (deployment.isStarting()) {
         actionText = `${actionText} & ${StringUtil.capitalize(UserActions.DELETE)}`;
