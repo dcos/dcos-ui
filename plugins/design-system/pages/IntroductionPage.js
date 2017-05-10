@@ -6,17 +6,17 @@ const SDK = require("../SDK").getSDK();
 
 const { Page } = SDK.get(["Page"]);
 
-class ButtonsPage extends Component {
+class IntroductionPage extends Component {
   render() {
     return (
       <Page>
         <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} />
         <div>
-          Buttons Page
+          Introduction Page
         </div>
       </Page>
     );
   }
 }
 
-module.exports = ButtonsPage;
+module.exports = IntroductionPage;
