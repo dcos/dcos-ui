@@ -735,9 +735,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <h2 className="flush-top short-bottom">
             Networking
           </h2>
-          <FieldLabel>
-            Unable to edit Networking
-          </FieldLabel>
+          <p>
+            {"This service has advanced networking configuration, which we" +
+              " don't currently support in the UI. Please use the JSON editor" +
+              " to make changes."}
+          </p>
           <pre>
             {JSON.stringify(networks, null, 2)}
           </pre>
