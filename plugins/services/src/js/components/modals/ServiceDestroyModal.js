@@ -28,7 +28,7 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      inputFieldDestroy: "",
+      serviceNameConfirmationValue: "",
       isButtonDisabled: true
     };
 
@@ -86,22 +86,23 @@ class ServiceDestroyModal extends React.Component {
   handleRightButtonClick() {
     const { service } = this.props;
     const serviceName = service ? service.getId() : "";
-    const inputFieldDestroyValue = this.state.inputFieldDestroy;
+    const serviceNameConfirmationValue = this.state
+      .serviceNameConfirmationValue;
 
-    if (inputFieldDestroyValue === serviceName) {
+    if (serviceNameConfirmationValue === serviceName) {
       this.props.deleteItem(this.shouldForceUpdate());
     }
   }
 
-  handleChangeInputFieldDestroy(e) {
+  handleChangeInputFieldDestroy(event) {
     const { service } = this.props;
     const serviceName = service ? service.getId() : "";
-    const inputValue = e.target.value;
-    const comparison = inputValue === serviceName;
+    const inputValue = event.target.value;
+    const isButtonDisabled = inputValue === serviceName;
 
     this.setState({
-      inputFieldDestroy: e.target.value,
-      isButtonDisabled: !comparison
+      serviceNameConfirmationValue: event.target.value,
+      isButtonDisabled: !isButtonDisabled
     });
   }
 
@@ -166,7 +167,7 @@ class ServiceDestroyModal extends React.Component {
             id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK"
           })}
           <a
-            href="https://docs.mesosphere.com/service-docs/hdfs/uninstall/"
+            href="https://docs.mesosphere.com/service-docs/"
             target="_blank"
             title={intl.formatMessage({
               id: "COMMON.DOCUMENTATION_TITLE"
@@ -195,7 +196,7 @@ class ServiceDestroyModal extends React.Component {
   getDestroyServiceModal() {
     const { onClose, open, service, intl } = this.props;
     const serviceName = service ? service.getId() : "";
-    let isButtonDisabled = this.state.isButtonDisabled;
+    const isButtonDisabled = this.state.isButtonDisabled;
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
@@ -205,11 +206,6 @@ class ServiceDestroyModal extends React.Component {
 
     if (service instanceof ServiceTree) {
       itemText += " Group";
-    }
-
-    if (service instanceof Framework) {
-      isButtonDisabled = false;
-      itemText = "Dismiss";
     }
 
     return (
@@ -238,7 +234,7 @@ class ServiceDestroyModal extends React.Component {
           className="form-control filter-input-text"
           onChange={this.handleChangeInputFieldDestroy}
           type="text"
-          value={this.state.inputFieldDestroy}
+          value={this.state.serviceNameConfirmationValue}
         />
         {this.getErrorMessage()}
       </Confirm>

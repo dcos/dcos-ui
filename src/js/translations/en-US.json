@@ -15,6 +15,7 @@
   "COMMON.BY_NAME": "by {name}",
   "COMMON.DOCUMENTATION": "documentation",
   "COMMON.DOCUMENTATION_TITLE": "go to documentation guide",
+  "COMMON.DISMISS": "Dismiss",
 
   "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
   "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
