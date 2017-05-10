@@ -41,7 +41,7 @@ describe("Service", function() {
       expect(service.getTaskCount()).toEqual(2);
     });
 
-    it("returns the number of reported tasks", function() {
+    it("returns 0 when the tasks array is empty", function() {
       const service = new Service({
         tasks: []
       });
