@@ -6,7 +6,7 @@ import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-
+import Icon from "#SRC/js/components/Icon";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
@@ -478,26 +478,23 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getClipboardTrigger(command) {
-    const { intl } = this.props;
-    const { copiedCommand } = this.state;
-    const copyID = copiedCommand === command
-      ? "CLIPBOARD.COPIED"
-      : "CLIPBOARD.COPY";
-
-    return [
-      <pre key="command" className="prettyprint flush-bottom prettyprinted">
-        {command}
-      </pre>,
-      <p key="trigger">
-        <ClipboardTrigger
-          className="clickable"
-          copyText={command}
-          onTextCopy={this.handleTextCopy.bind(this, command)}
-        >
-          <a>{intl.formatMessage({ id: copyID })}</a>
-        </ClipboardTrigger>
-      </p>
-    ];
+    return (
+      <div className="code-copy-wrapper">
+        <div className="code-copy-icon">
+          <ClipboardTrigger
+            className="clickable"
+            copyText={command}
+            onTextCopy={this.handleTextCopy.bind(this, command)}
+            useTooltip={true}
+          >
+            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
+          </ClipboardTrigger>
+        </div>
+        <pre className="prettyprint flush-bottom prettyprinted">
+          {command}
+        </pre>
+      </div>
+    );
   }
 
   getHeading() {
