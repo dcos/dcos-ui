@@ -388,6 +388,10 @@ module.exports = class ServiceTree extends Tree {
 
   getTaskCount() {
     return this.flattenItems().getItems().reduce(function(memo, service) {
+      if (service instanceof ServiceTree) {
+        return memo;
+      }
+
       return memo + service.getTaskCount();
     }, 0);
   }
