@@ -32,6 +32,32 @@ describe("Service", function() {
     });
   });
 
+  describe("#getTaskCount", function() {
+    it("returns the number of reported tasks", function() {
+      const service = new Service({
+        tasks: [{ foo: "bar" }, { bar: "baz" }]
+      });
+
+      expect(service.getTaskCount()).toEqual(2);
+    });
+
+    it("returns the number of reported tasks", function() {
+      const service = new Service({
+        tasks: []
+      });
+
+      expect(service.getTaskCount()).toEqual(0);
+    });
+
+    it("defaults to 0 if the tasks key is omitted", function() {
+      const service = new Service({
+        id: "/foo/bar"
+      });
+
+      expect(service.getTaskCount()).toEqual(0);
+    });
+  });
+
   describe("#toJSON", function() {
     it("returns a object with the values in _itemData", function() {
       const item = new Service({ foo: "bar", baz: "qux" });

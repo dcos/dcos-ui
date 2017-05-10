@@ -64,6 +64,10 @@ module.exports = class Service extends Item {
     return 0;
   }
 
+  getTaskCount() {
+    return (this.get("tasks") || []).length;
+  }
+
   getTasksSummary() {
     return {
       tasksHealthy: 0,
