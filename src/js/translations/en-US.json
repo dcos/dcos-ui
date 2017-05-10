@@ -1,16 +1,6 @@
 {
-  "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
-  "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
-  "DASHBOARD.PANEL_HEADING.MEMORY": "Memory Allocation",
-  "DASHBOARD.PANEL_HEADING.DISK": "Disk Allocation",
-  "DASHBOARD.PANEL_HEADING.SERVICES_HEALTH": "Services Health",
-  "DASHBOARD.PANEL_HEADING.TASKS": "Tasks",
-  "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH": "Component Health",
-  "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
-
-  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
-  "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
-  "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}",
+  "CLIPBOARD.COPY": "Copy",
+  "CLIPBOARD.COPIED": "Copied",
 
   "COMMON.GENERAL": "General",
   "COMMON.DETAILS": "Details",
@@ -20,5 +10,64 @@
   "COMMON.BUILT": "Built",
   "COMMON.STARTED": "Started",
   "COMMON.ELECTED": "Elected",
-  "COMMON.BY_NAME": "by {name}"
+  "COMMON.BY_NAME": "by {name}",
+
+  "BUTTON.CLOSE": "Close",
+
+  "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
+  "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
+  "DASHBOARD.PANEL_HEADING.MEMORY": "Memory Allocation",
+  "DASHBOARD.PANEL_HEADING.DISK": "Disk Allocation",
+  "DASHBOARD.PANEL_HEADING.SERVICES_HEALTH": "Services Health",
+  "DASHBOARD.PANEL_HEADING.TASKS": "Tasks",
+  "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH": "Component Health",
+  "DASHBOARD.PANEL_HEADING.NODES": "Nodes",
+
+  "DOCS.MORE_INFORMATION": "More information",
+  "DOCS.DOCUMENTATION": "documentation",
+
+  "SERVICE_ACTIONS.EDIT": "Edit",
+  "SERVICE_ACTIONS.DELETE": "Delete",
+  "SERVICE_ACTIONS.RESTART": "Restart",
+  "SERVICE_ACTIONS.RESUME": "Resume",
+  "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
+  "SERVICE_ACTIONS.SCALE": "Scale",
+  "SERVICE_ACTIONS.SCALE_BY": "Scale By",
+  "SERVICE_ACTIONS.SUSPEND": "Suspend",
+
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_1": "Copy and paste this command into the CLI",
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_2": "Then, run the",
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_3": "for each service to clean up reserved resources",
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_4": "Then",
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_5": "the group",
+  "SERVICE_ACTIONS.SDK_GROUP_DELETE_6": "Copy the command below into the DC/OS CLI",
+
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1": "your group by",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2": "from the DC/OS CLI",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3": "For",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_4": "Create",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_5": "files for each service. Here is a sample options file",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_6": "Then, use this command to update each service",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_7": "For",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_8": "Copy the JSON below into a file called",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_9": "Then, copy the command below into the DC/OS CLI",
+
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SUSPEND": "scaling each service to 0 instances",
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE": "updating the number of instances of each service",
+
+  "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT": "framework cleaner script",
+
+  "SERVICE_ACTIONS.SDK_SERVICE_RESTART": "Restart your service from the DC/OS CLI.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND": "Suspend your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_RESUME": "Resume your service by scaling to 1 or more instances from the DC/OS CLI using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SCALE": "Update the number of instances in your service's target configuration using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE": "Scaling to fewer instances is not supported.",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_1": "You must delete",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2": "via the DC/OS CLI. Copy and paste this command into the CLI. See the",
+  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3": "To clean up resources reserved by your service, run the",
+  "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_1": "Update your service's target configuration. Include an `options.json` file with your changes.",
+  "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2": "on how to create an 'options.json' file.",
+
+  "SERVICES.DEPLOYMENT_COUNT": "{deploymentsCount} {deploymentsCount, plural, =1 {deployment} other {deployments}}",
+  "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}"
 }

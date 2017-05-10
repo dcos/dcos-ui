@@ -8,15 +8,32 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import UserActions from "#SRC/js/constants/UserActions";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import Service from "../../structs/Service";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceTree from "../../structs/ServiceTree";
+import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
+import ServiceActionDisabledModal
+  from "../../components/modals/ServiceActionDisabledModal";
+import {
+  DELETE,
+  EDIT,
+  OPEN,
+  RESTART,
+  RESUME,
+  SCALE,
+  SUSPEND
+} from "../../constants/ServiceActionItem";
 
-const METHODS_TO_BIND = ["handleEditClearError", "onActionsItemSelection"];
+const METHODS_TO_BIND = [
+  "handleEditClearError",
+  "handleActionDisabledModalOpen",
+  "handleActionDisabledModalClose"
+];
 
 class ServiceDetail extends mixin(TabsMixin) {
   constructor() {
@@ -29,6 +46,8 @@ class ServiceDetail extends mixin(TabsMixin) {
     };
 
     this.state = {
+      actionDisabledID: null,
+      actionDisabledModalOpen: false,
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
 
@@ -61,29 +80,63 @@ class ServiceDetail extends mixin(TabsMixin) {
     this.props.clearError(ActionKeys.SERVICE_EDIT);
   }
 
-  onActionsItemSelection(actionItem) {
+  onActionsItemSelection(actionID) {
+    const { service } = this.props;
+    const isGroup = service instanceof ServiceTree;
+    let containsSDKService = false;
+
+    if (isGroup) {
+      containsSDKService =
+        service.findItem(function(item) {
+          return item instanceof Service && isSDKService(item);
+        }) != null;
+    }
+
+    // We still want to support the `open` action to display the web view
+    if (actionID !== OPEN && (containsSDKService || isSDKService(service))) {
+      this.handleActionDisabledModalOpen(actionID);
+    } else {
+      this.handleServiceAction(actionID);
+    }
+  }
+
+  handleServiceAction(actionID) {
     const { modalHandlers, router } = this.context;
     const { service } = this.props;
 
-    switch (actionItem.id) {
-      case ServiceActionItem.EDIT:
+    switch (actionID) {
+      case EDIT:
         router.push(
           `/services/detail/${encodeURIComponent(service.getId())}/edit/`
         );
         break;
-      case ServiceActionItem.SCALE:
+      case SCALE:
         modalHandlers.scaleService({ service });
         break;
-      case ServiceActionItem.RESTART:
+      case OPEN:
+        modalHandlers.openServiceUI({ service });
+        break;
+      case RESTART:
         modalHandlers.restartService({ service });
         break;
-      case ServiceActionItem.SUSPEND:
+      case RESUME:
+        modalHandlers.resumeService({ service });
+        break;
+      case SUSPEND:
         modalHandlers.suspendService({ service });
         break;
-      case ServiceActionItem.DELETE:
+      case DELETE:
         modalHandlers.deleteService({ service });
         break;
     }
+  }
+
+  handleActionDisabledModalOpen(actionDisabledID) {
+    this.setState({ actionDisabledModalOpen: true, actionDisabledID });
+  }
+
+  handleActionDisabledModalClose() {
+    this.setState({ actionDisabledModalOpen: false, actionDisabledID: null });
   }
 
   hasVolumes() {
@@ -107,7 +160,6 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   getActions() {
     const { service } = this.props;
-    const { modalHandlers, router } = this.context;
     const instanceCount = service.getInstancesCount();
 
     const actions = [];
@@ -119,54 +171,48 @@ class ServiceDetail extends mixin(TabsMixin) {
     ) {
       actions.push({
         label: this.props.intl.formatMessage({
-          id: "SERVICE_ACTIONS.OPEN_SERVICE"
+          id: ServiceActionLabels.open
         }),
-        onItemSelect() {
-          modalHandlers.openServiceUI({ service });
-        }
+        onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
       });
     }
 
     actions.push({
       label: "Edit",
-      onItemSelect() {
-        router.push(
-          `/services/detail/${encodeURIComponent(service.getId())}/edit/`
-        );
-      }
+      onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
     if (instanceCount > 0) {
       actions.push({
         label: "Restart",
-        onItemSelect: modalHandlers.restartService
+        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
       });
     }
     if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: "Scale",
-        onItemSelect: modalHandlers.scaleService
+        onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
       });
     }
 
     if (instanceCount > 0) {
       actions.push({
         label: "Suspend",
-        onItemSelect: modalHandlers.suspendService
+        onItemSelect: this.onActionsItemSelection.bind(this, SUSPEND)
       });
     }
 
     if (instanceCount === 0) {
       actions.push({
         label: "Resume",
-        onItemSelect: modalHandlers.resumeService
+        onItemSelect: this.onActionsItemSelection.bind(this, RESUME)
       });
     }
 
     actions.push({
       className: "text-danger",
       label: StringUtil.capitalize(UserActions.DELETE),
-      onItemSelect: modalHandlers.deleteService
+      onItemSelect: this.onActionsItemSelection.bind(this, DELETE)
     });
 
     return actions;
@@ -194,6 +240,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   render() {
     const { children, actions, errors, params, routes, service } = this.props;
+    const { actionDisabledModalOpen, actionDisabledID } = this.state;
     const breadcrumbs = <ServiceBreadcrumbs serviceID={service.id} />;
     const clonedProps = {
       params,
@@ -224,6 +271,12 @@ class ServiceDetail extends mixin(TabsMixin) {
           iconID="services"
         />
         {clonedChildren}
+        <ServiceActionDisabledModal
+          actionID={actionDisabledID}
+          open={actionDisabledModalOpen}
+          onClose={this.handleActionDisabledModalClose}
+          service={service}
+        />
       </Page>
     );
   }

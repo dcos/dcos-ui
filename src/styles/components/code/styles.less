@@ -12,4 +12,60 @@
       }
     }
   }
+
+  .code-copy-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    .code-copy-icon {
+      display: none;
+    }
+
+    &:hover {
+
+      .code-copy-icon {
+        background: @code-block-background-color;
+        box-shadow: 4px 0 6px @code-block-padding-top @code-block-background-color;
+        display: block;
+        position: absolute;
+        right: @code-block-padding-right;
+        top: calc(@code-block-padding-top ~' - 3px');
+
+        .icon.icon-grey {
+
+          &:hover {
+            color: color-lighten(@neutral, 20%);
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .code-copy-wrapper {
+
+      &:hover {
+
+        .code-copy-icon {
+          right: @code-block-padding-right-screen-medium;
+          top: calc(@code-block-padding-top-screen-medium ~' - 3px');
+        }
+      }
+    }
+  }
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .code-copy-wrapper {
+
+      &:hover {
+
+        .code-copy-icon {
+          right: @code-block-padding-right-screen-large;
+          top: calc(@code-block-padding-top-screen-large ~' - 3px');
+        }
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
-import { Link } from "react-router";
+import { Link, routerShape } from "react-router";
 import React, { PropTypes } from "react";
 
 import Icon from "#SRC/js/components/Icon";
@@ -11,12 +11,24 @@ import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
-import UserActions from "#SRC/js/constants/UserActions";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import HealthBar from "../../components/HealthBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceActionDisabledModal
+  from "../../components/modals/ServiceActionDisabledModal";
+import {
+  DELETE,
+  EDIT,
+  MORE,
+  OPEN,
+  RESTART,
+  RESUME,
+  SCALE,
+  SUSPEND
+} from "../../constants/ServiceActionItem";
+import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceStatusWarning from "../../components/ServiceStatusWarning";
 import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
 import ServiceTableUtil from "../../utils/ServiceTableUtil";
@@ -37,6 +49,9 @@ const columnClasses = {
 
 const METHODS_TO_BIND = [
   "onActionsItemSelection",
+  "handleServiceAction",
+  "handleActionDisabledModalOpen",
+  "handleActionDisabledModalClose",
   "renderHeadline",
   "renderStats",
   "renderStatus",
@@ -47,9 +62,72 @@ class ServicesTable extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = { actionDisabledService: null };
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  onActionsItemSelection(service, actionItem) {
+    const isGroup = service instanceof ServiceTree;
+    let containsSDKService = false;
+
+    if (isGroup) {
+      containsSDKService =
+        // #findItem will flatten the service tree
+        service.findItem(function(item) {
+          return item instanceof Service && isSDKService(item);
+        }) != null;
+    }
+
+    if (
+      // We still want to support the `open` action to display the web view
+      actionItem.id !== OPEN &&
+      (containsSDKService || isSDKService(service))
+    ) {
+      this.handleActionDisabledModalOpen(service, actionItem.id);
+    } else {
+      this.handleServiceAction(service, actionItem.id);
+    }
+  }
+
+  handleServiceAction(service, actionID) {
+    const { modalHandlers, router } = this.context;
+
+    switch (actionID) {
+      case EDIT:
+        router.push(
+          `/services/detail/${encodeURIComponent(service.getId())}/edit/`
+        );
+        break;
+      case SCALE:
+        modalHandlers.scaleService({ service });
+        break;
+      case OPEN:
+        modalHandlers.openServiceUI({ service });
+        break;
+      case RESTART:
+        modalHandlers.restartService({ service });
+        break;
+      case RESUME:
+        modalHandlers.resumeService({ service });
+        break;
+      case SUSPEND:
+        modalHandlers.suspendService({ service });
+        break;
+      case DELETE:
+        modalHandlers.deleteService({ service });
+        break;
+    }
+  }
+
+  handleActionDisabledModalOpen(actionDisabledService, actionDisabledID) {
+    this.setState({ actionDisabledService, actionDisabledID });
+  }
+
+  handleActionDisabledModalClose() {
+    this.setState({ actionDisabledService: null, actionDisabledID: null });
   }
 
   getOpenInNewWindowLink(service) {
@@ -74,31 +152,6 @@ class ServicesTable extends React.Component {
         />
       </a>
     );
-  }
-
-  onActionsItemSelection(service, actionItem) {
-    const { modalHandlers } = this.context;
-
-    switch (actionItem.id) {
-      case ServiceActionItem.SCALE:
-        modalHandlers.scaleService({ service });
-        break;
-      case ServiceActionItem.OPEN:
-        modalHandlers.openServiceUI({ service });
-        break;
-      case ServiceActionItem.RESTART:
-        modalHandlers.restartService({ service });
-        break;
-      case ServiceActionItem.RESUME:
-        modalHandlers.resumeService({ service });
-        break;
-      case ServiceActionItem.SUSPEND:
-        modalHandlers.suspendService({ service });
-        break;
-      case ServiceActionItem.DELETE:
-        modalHandlers.deleteService({ service });
-        break;
-    }
   }
 
   getServiceLink(service) {
@@ -182,12 +235,14 @@ class ServicesTable extends React.Component {
     const isSingleInstanceApp = service.getLabels()
       .MARATHON_SINGLE_INSTANCE_APP;
     const instancesCount = service.getInstancesCount();
-    const scaleText = isGroup ? "Scale By" : "Scale";
+    const scaleTextID = isGroup
+      ? ServiceActionLabels.scale_by
+      : ServiceActionLabels[SCALE];
 
     const dropdownItems = [
       {
         className: "hidden",
-        id: ServiceActionItem.MORE,
+        id: MORE,
         html: "",
         selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
       },
@@ -195,44 +250,55 @@ class ServicesTable extends React.Component {
         className: classNames({
           hidden: !this.hasWebUI(service)
         }),
-        id: ServiceActionItem.OPEN,
-        html: this.props.intl.formatMessage({
-          id: "SERVICE_ACTIONS.OPEN_SERVICE"
-        })
+        id: OPEN,
+        html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
+      },
+      {
+        className: classNames({ hidden: isGroup }),
+        id: EDIT,
+        html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
       },
       {
         className: classNames({
           hidden: (isGroup && instancesCount === 0) || isSingleInstanceApp
         }),
-        id: ServiceActionItem.SCALE,
-        html: scaleText
+        id: SCALE,
+        html: this.props.intl.formatMessage({ id: scaleTextID })
       },
       {
         className: classNames({
           hidden: isPod || isGroup || instancesCount === 0
         }),
-        id: ServiceActionItem.RESTART,
-        html: "Restart"
+        id: RESTART,
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[RESTART]
+        })
       },
       {
         className: classNames({
           hidden: instancesCount === 0
         }),
-        id: ServiceActionItem.SUSPEND,
-        html: "Suspend"
+        id: SUSPEND,
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[SUSPEND]
+        })
       },
       {
         className: classNames({
           hidden: isGroup || instancesCount > 0
         }),
-        id: ServiceActionItem.RESUME,
-        html: "Resume"
+        id: RESUME,
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[RESUME]
+        })
       },
       {
-        id: ServiceActionItem.DELETE,
+        id: DELETE,
         html: (
           <span className="text-danger">
-            {StringUtil.capitalize(UserActions.DELETE)}
+            {this.props.intl.formatMessage({
+              id: ServiceActionLabels[DELETE]
+            })}
           </span>
         )
       }
@@ -248,7 +314,7 @@ class ServicesTable extends React.Component {
           dropdownMenuListItemClassName="clickable"
           wrapperClassName="dropdown flush-bottom table-cell-icon"
           items={dropdownItems}
-          persistentID={ServiceActionItem.MORE}
+          persistentID={MORE}
           onItemSelection={this.onActionsItemSelection.bind(this, service)}
           scrollContainer=".gm-scroll-view"
           scrollContainerParentSelector=".gm-prevented"
@@ -399,17 +465,27 @@ class ServicesTable extends React.Component {
   }
 
   render() {
+    const { actionDisabledService, actionDisabledID } = this.state;
+
     return (
-      <Table
-        buildRowOptions={this.getRowAttributes}
-        className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
-        columns={this.getColumns()}
-        colGroup={this.getColGroup()}
-        data={this.props.services.slice()}
-        itemHeight={TableUtil.getRowHeight()}
-        containerSelector=".gm-scroll-view"
-        sortBy={{ prop: "name", order: "asc" }}
-      />
+      <div>
+        <Table
+          buildRowOptions={this.getRowAttributes}
+          className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
+          columns={this.getColumns()}
+          colGroup={this.getColGroup()}
+          data={this.props.services.slice()}
+          itemHeight={TableUtil.getRowHeight()}
+          containerSelector=".gm-scroll-view"
+          sortBy={{ prop: "name", order: "asc" }}
+        />
+        <ServiceActionDisabledModal
+          actionID={actionDisabledID}
+          open={actionDisabledService != null}
+          onClose={this.handleActionDisabledModalClose}
+          service={actionDisabledService}
+        />
+      </div>
     );
   }
 }
@@ -421,7 +497,8 @@ ServicesTable.contextTypes = {
     resumeService: PropTypes.func,
     suspendService: PropTypes.func,
     deleteService: PropTypes.func
-  }).isRequired
+  }).isRequired,
+  router: routerShape
 };
 
 ServicesTable.defaultProps = {

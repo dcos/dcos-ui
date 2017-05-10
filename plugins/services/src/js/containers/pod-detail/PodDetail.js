@@ -7,17 +7,30 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import UserActions from "#SRC/js/constants/UserActions";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import Pod from "../../structs/Pod";
 import PodHeader from "./PodHeader";
+import Service from "../../structs/Service";
+import ServiceActionDisabledModal
+  from "../../components/modals/ServiceActionDisabledModal";
+import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
+import ServiceTree from "../../structs/ServiceTree";
+import {
+  DELETE,
+  EDIT,
+  OPEN,
+  RESTART,
+  RESUME,
+  SCALE,
+  SUSPEND
+} from "../../constants/ServiceActionItem";
 
 const METHODS_TO_BIND = [
-  "handleActionDestroy",
-  "handleActionEdit",
-  "handleActionScale",
-  "handleActionSuspend"
+  "handleActionDisabledModalOpen",
+  "handleActionDisabledModalClose"
 ];
 
 class PodDetail extends mixin(TabsMixin) {
@@ -31,6 +44,8 @@ class PodDetail extends mixin(TabsMixin) {
     };
 
     this.state = {
+      actionDisabledID: null,
+      actionDisabledModalOpen: false,
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
 
@@ -57,26 +72,63 @@ class PodDetail extends mixin(TabsMixin) {
     }
   }
 
-  handleActionDestroy() {
+  onActionsItemSelection(actionID) {
     const { pod } = this.props;
-    this.context.modalHandlers.deleteService({ pod });
+    const isGroup = pod instanceof ServiceTree;
+    let containsSDKService = false;
+
+    if (isGroup) {
+      containsSDKService =
+        pod.findItem(function(item) {
+          return item instanceof Service && isSDKService(item);
+        }) != null;
+    }
+
+    // We still want to support the `open` action to display the web view
+    if (actionID !== OPEN && (containsSDKService || isSDKService(pod))) {
+      this.handleActionDisabledModalOpen(actionID);
+    } else {
+      this.handleServiceAction(actionID);
+    }
   }
 
-  handleActionEdit() {
+  handleServiceAction(actionID) {
+    const { modalHandlers, router } = this.context;
     const { pod } = this.props;
-    this.context.router.push(
-      `/services/detail/${encodeURIComponent(pod.getId())}/edit/`
-    );
+
+    switch (actionID) {
+      case EDIT:
+        router.push(
+          `/services/detail/${encodeURIComponent(pod.getId())}/edit/`
+        );
+        break;
+      case SCALE:
+        modalHandlers.scaleService({ service: pod });
+        break;
+      case OPEN:
+        modalHandlers.openServiceUI({ service: pod });
+        break;
+      case RESTART:
+        modalHandlers.restartService({ service: pod });
+        break;
+      case RESUME:
+        modalHandlers.resumeService({ service: pod });
+        break;
+      case SUSPEND:
+        modalHandlers.suspendService({ service: pod });
+        break;
+      case DELETE:
+        modalHandlers.deleteService({ service: pod });
+        break;
+    }
   }
 
-  handleActionScale() {
-    const { pod } = this.props;
-    this.context.modalHandlers.scaleService({ pod });
+  handleActionDisabledModalOpen(actionDisabledID) {
+    this.setState({ actionDisabledModalOpen: true, actionDisabledID });
   }
 
-  handleActionSuspend() {
-    const { pod } = this.props;
-    this.context.modalHandlers.suspendService({ pod });
+  handleActionDisabledModalClose() {
+    this.setState({ actionDisabledModalOpen: false, actionDisabledID: null });
   }
 
   getActions() {
@@ -85,27 +137,55 @@ class PodDetail extends mixin(TabsMixin) {
 
     const actions = [];
 
-    actions.push({
-      label: "Edit",
-      onItemSelect: this.handleActionEdit
-    });
+    if (
+      pod instanceof Service &&
+      pod.getWebURL() != null &&
+      pod.getWebURL() !== ""
+    ) {
+      actions.push({
+        label: this.props.intl.formatMessage({
+          id: ServiceActionLabels.open
+        }),
+        onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
+      });
+    }
 
     actions.push({
-      label: "Scale",
-      onItemSelect: this.handleActionScale
+      label: "Edit",
+      onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
     if (instanceCount > 0) {
       actions.push({
+        label: "Restart",
+        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
+      });
+    }
+    if (!pod.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
+      actions.push({
+        label: "Scale",
+        onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
+      });
+    }
+
+    if (instanceCount > 0) {
+      actions.push({
         label: "Suspend",
-        onItemSelect: this.handleActionSuspend
+        onItemSelect: this.onActionsItemSelection.bind(this, SUSPEND)
+      });
+    }
+
+    if (instanceCount === 0) {
+      actions.push({
+        label: "Resume",
+        onItemSelect: this.onActionsItemSelection.bind(this, RESUME)
       });
     }
 
     actions.push({
       className: "text-danger",
       label: StringUtil.capitalize(UserActions.DELETE),
-      onItemSelect: this.handleActionDestroy
+      onItemSelect: this.onActionsItemSelection.bind(this, DELETE)
     });
 
     return actions;
@@ -124,6 +204,7 @@ class PodDetail extends mixin(TabsMixin) {
 
   render() {
     const { children, pod } = this.props;
+    const { actionDisabledModalOpen, actionDisabledID } = this.state;
 
     const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
 
@@ -155,6 +236,12 @@ class PodDetail extends mixin(TabsMixin) {
           />
         </Page.Header>
         {clonedChildren}
+        <ServiceActionDisabledModal
+          actionID={actionDisabledID}
+          open={actionDisabledModalOpen}
+          onClose={this.handleActionDisabledModalClose}
+          service={pod}
+        />
       </Page>
     );
   }
