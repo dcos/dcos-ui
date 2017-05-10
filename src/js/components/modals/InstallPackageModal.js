@@ -237,7 +237,7 @@ class InstallPackageModal
           <CosmosErrorHeader>
             An Error Occurred
           </CosmosErrorHeader>
-          <CosmosErrorMessage error={installError} />
+          <CosmosErrorMessage error={installError} flushBottom={true} />
         </div>
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked">
