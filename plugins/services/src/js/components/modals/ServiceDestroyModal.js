@@ -251,7 +251,7 @@ class ServiceDestroyModal extends React.Component {
 
   getSubHeader() {
     if (!this.props.subHeaderContent) {
-      return false;
+      return null;
     }
 
     return (
