@@ -83,8 +83,7 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("should expand to show services", function() {
-      cy.get(".modal tbody tr:visible td .is-expandable").click();
+    it("should be auto-expanded to show services", function() {
       cy
         .get(
           ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
