@@ -7,8 +7,6 @@ import JobDetailPage from "../pages/jobs/JobDetailPage";
 import JobsPage from "../pages/JobsPage";
 import JobsTab from "../pages/jobs/JobsTab";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
-import TaskDetailBreadcrumb
-  from "../../../plugins/services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb";
 import TaskDetailsTab
   from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser
@@ -19,23 +17,6 @@ import TaskFileViewer
   from "../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
 import TaskLogsContainer
   from "../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
-
-function buildJobCrumbs({ id }) {
-  const ids = id.split(".");
-  let aggregateIDs = "";
-
-  return ids.map(function(id) {
-    if (aggregateIDs !== "") {
-      aggregateIDs += ".";
-    }
-    aggregateIDs += id;
-
-    return {
-      label: id,
-      route: { to: "/jobs/:id", params: { id: aggregateIDs } }
-    };
-  });
-}
 
 const jobsRoutes = {
   type: Route,

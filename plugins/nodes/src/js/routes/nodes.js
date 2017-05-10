@@ -3,11 +3,6 @@ import { IndexRoute, Route, Redirect } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import UnitsHealthDetailBreadcrumb
-  from "#SRC/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb";
-
-import NodeDetailBreadcrumb
-  from "../pages/nodes/breadcrumbs/NodeDetailBreadcrumb";
 import NodeDetailHealthTab from "../pages/nodes/NodeDetailHealthTab";
 import NodeDetailPage from "../pages/nodes/NodeDetailPage";
 import NodeDetailTab from "../pages/nodes/NodeDetailTab";
@@ -18,8 +13,6 @@ import NodesPage from "../pages/NodesPage";
 import NodesTableContainer
   from "../pages/nodes/nodes-table/NodesTableContainer";
 import NodesTaskDetailPage from "../pages/nodes/NodesTaskDetailPage";
-import TaskDetailBreadcrumb
-  from "../../../../services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb";
 import TaskDetailsTab
   from "../../../../services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser

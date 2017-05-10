@@ -7,10 +7,6 @@ import ComponentsPage from "../pages/ComponentsPage";
 import UnitsHealthDetail from "../pages/system/UnitsHealthDetail";
 import ComponentsUnitsHealthNodeDetailPage
   from "../pages/system/ComponentsUnitsHealthNodeDetailPage";
-import UnitsHealthDetailBreadcrumb
-  from "../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb";
-import UnitsHealthNodeDetailBreadcrumb
-  from "../pages/system/breadcrumbs/UnitsHealthNodeDetailBreadcrumb";
 import UnitsHealthTab from "../pages/system/UnitsHealthTab";
 
 const componentsRoutes = {
