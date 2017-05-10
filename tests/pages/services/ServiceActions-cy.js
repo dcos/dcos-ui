@@ -125,7 +125,7 @@ describe("Service Actions", function() {
           .should("to.have.length", 1);
       });
 
-      it("disables button while service name isn't correct", function() {
+      it("disable danger button while service name isn't correct", function() {
         cy
           .get(".confirm-modal .button-collection .button-danger")
           .should("have.class", "disabled");
@@ -183,7 +183,8 @@ describe("Service Actions", function() {
         cy
           .get(".confirm-modal .button-collection .button-danger")
           .as("dangerButton");
-        cy.get("@dangerButton").should("have.class", "disabled");
+        cy.get(".modal-body .filter-input-text").type("/sleep");
+        cy.get("@dangerButton").should("not.have.class", "disabled");
       });
 
       it("closes dialog on secondary button click", function() {
