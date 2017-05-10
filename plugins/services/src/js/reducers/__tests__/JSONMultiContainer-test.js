@@ -78,7 +78,19 @@ describe("JSONMultiContainer", function() {
       const batch = parser(podDefinition).reduce(function(batch, item) {
         return batch.add(item);
       }, new Batch());
-      expect(batch.reduce(reducers, {})).toEqual(podDefinition);
+      const jsonFromBatch = batch.reduce(reducers, {});
+      expect(jsonFromBatch).toEqual(podDefinition);
+      const batchFromJSONFromBatch = parser(jsonFromBatch).reduce(function(
+        batch,
+        item
+      ) {
+        return batch.add(item);
+      }, new Batch());
+      const jsonFromBatchFromJSONFromBatch = batchFromJSONFromBatch.reduce(
+        reducers,
+        {}
+      );
+      expect(jsonFromBatchFromJSONFromBatch).toEqual(podDefinition);
     });
   });
 });
