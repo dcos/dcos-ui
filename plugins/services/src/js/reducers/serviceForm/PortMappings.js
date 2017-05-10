@@ -17,7 +17,7 @@ module.exports = {
   JSONParser(state) {
     const portMappings = findNestedPropertyInObject(
       state,
-      "container.docker.portMappings"
+      "container.portMappings"
     ) || [];
     const portDefinitionsLength =
       findNestedPropertyInObject(state, "portDefinitions.length") || 0;

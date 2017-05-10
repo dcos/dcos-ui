@@ -2,16 +2,22 @@ import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { simpleParser, combineParsers } from "#SRC/js/utils/ParserUtil";
+import Networking from "#SRC/js/constants/Networking";
 import Transaction from "#SRC/js/structs/Transaction";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import { JSONReducer as volumesJSONReducer } from "./JSONReducers/Volumes";
+import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 import ContainerConstants from "../../constants/ContainerConstants";
 import docker from "./Docker";
+import networkingReducer from "./Networking";
+import VipLabelUtil from "../../utils/VipLabelUtil";
 
+const { BRIDGE, HOST, CONTAINER } = Networking.type;
 const { DOCKER, MESOS, NONE } = ContainerConstants.type;
 
 const containerJSONReducer = combineReducers({
+  volumes: volumesJSONReducer,
   type(state, { type, path, value }) {
     if (path == null) {
       return state;
@@ -92,7 +98,91 @@ const containerJSONReducer = combineReducers({
       return Object.assign({}, this.internalState);
     }
   },
-  volumes: volumesJSONReducer
+  portMappings(state, action) {
+    const { path = [], value, type } = action;
+    if (!this.appState) {
+      this.appState = {
+        id: "",
+        networkType: HOST
+      };
+    }
+    if (!this.containerType) {
+      this.containerType = NONE;
+    }
+
+    const joinedPath = path.join(".");
+    if (type === SET && joinedPath === "container.type") {
+      this.containerType = value;
+    }
+
+    if (joinedPath === "networks.0.network" && value != null) {
+      const [mode, _name] = value.split(".");
+      this.appState.networkType = mode;
+    }
+    if (joinedPath === "networks.0.mode" && value != null) {
+      this.appState.networkType = value;
+    }
+
+    if (joinedPath === "id" && Boolean(value)) {
+      this.appState.id = value;
+    }
+
+    // Apply networkingReducer to retrieve updated local state
+    // Store the change no matter what network type we have
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
+
+    // Universal containerizer does not support portMappings
+    if (this.containerType !== DOCKER) {
+      return null;
+    }
+
+    // We only want portMappings for networks of type BRIDGE or USER
+    if (
+      this.appState.networkType !== BRIDGE &&
+      this.appState.networkType !== CONTAINER
+    ) {
+      return null;
+    }
+
+    // Convert portDefinitions to portMappings
+    return this.portDefinitions.map((portDefinition, index) => {
+      const vipLabel = `VIP_${index}`;
+      const containerPort = Number(portDefinition.containerPort) || 0;
+      const servicePort = parseInt(portDefinition.servicePort, 10) || null;
+      let hostPort = Number(portDefinition.hostPort) || 0;
+      let protocol = PROTOCOLS.filter(function(protocol) {
+        return portDefinition.protocol[protocol];
+      }).join(",");
+
+      // Do not expose hostPort or protocol, when portMapping is turned off
+      if (
+        this.appState.networkType === CONTAINER &&
+        !portDefinition.portMapping
+      ) {
+        hostPort = null;
+        protocol = null;
+      }
+
+      // Prefer container port
+      // because this is what a user would expect to get load balanced
+      const vipPort = containerPort || hostPort || 0;
+      const labels = VipLabelUtil.generateVipLabel(
+        this.appState.id,
+        portDefinition,
+        vipLabel,
+        vipPort
+      );
+
+      return {
+        containerPort,
+        hostPort,
+        labels,
+        protocol,
+        servicePort,
+        name: portDefinition.name
+      };
+    });
+  }
 });
 
 const containerReducer = combineReducers({
