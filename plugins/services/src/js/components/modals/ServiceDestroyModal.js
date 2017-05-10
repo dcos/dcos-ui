@@ -85,7 +85,7 @@ class ServiceDestroyModal extends React.Component {
 
   handleRightButtonClick() {
     const { service } = this.props;
-    const serviceName = service ? service.getId() : "";
+    const serviceName = service.getId();
     const serviceNameConfirmationValue = this.state
       .serviceNameConfirmationValue;
 
@@ -96,7 +96,7 @@ class ServiceDestroyModal extends React.Component {
 
   handleChangeInputFieldDestroy(event) {
     const { service } = this.props;
-    const serviceName = service ? service.getId() : "";
+    const serviceName = service.getId();
     const inputValue = event.target.value;
     const isButtonDisabled = inputValue === serviceName;
 
@@ -149,7 +149,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyFrameworkModal() {
     const { open, service, onClose, intl } = this.props;
-    const serviceName = service ? service.getId() : "";
+    const serviceName = service.getId();
 
     return (
       <Modal
@@ -195,7 +195,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyServiceModal() {
     const { onClose, open, service, intl } = this.props;
-    const serviceName = service ? service.getId() : "";
+    const serviceName = service.getId();
     const isButtonDisabled = this.state.isButtonDisabled;
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
@@ -284,6 +284,8 @@ ServiceDestroyModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   service: PropTypes.oneOfType([
+    PropTypes.instanceOf(Framework),
+    PropTypes.instanceOf(Pod),
     PropTypes.instanceOf(ServiceTree),
     PropTypes.instanceOf(Service)
   ]).isRequired
