@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Remove the service group for the test
-dcos marathon group remove --force /$TEST_UUID
-# Remove kafka because we deployed it with 1 click deploy
-dcos marathon app remove --force kafka
