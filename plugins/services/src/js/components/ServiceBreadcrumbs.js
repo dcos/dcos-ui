@@ -121,7 +121,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     const serviceStatus = service.getStatus();
     const tasksSummary = service.getTasksSummary();
-    const runningTasksCount = tasksSummary.tasksRunning;
+    const runningTasksCount = service.getTaskCount();
     const instancesCount = service.getInstancesCount();
     const isDeploying = serviceStatus === "Deploying";
 
@@ -129,13 +129,17 @@ class ServiceBreadcrumbs extends React.Component {
       return null;
     }
 
+    const taskCountDetails = runningTasksCount === instancesCount
+      ? `(${runningTasksCount})`
+      : `(${runningTasksCount} of ${instancesCount})`;
+
     return (
       <BreadcrumbSupplementalContent
         ref={ref => (this.breadcrumbStatusRef = ref)}
       >
         <BreadcrumbSupplementalContent>
           <span className="muted">
-            {serviceStatus} ({runningTasksCount} of {instancesCount})
+            {serviceStatus} {taskCountDetails}
           </span>
           <ServiceStatusWarningWithDebugInformation item={service} />
         </BreadcrumbSupplementalContent>
