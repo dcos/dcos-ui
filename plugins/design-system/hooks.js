@@ -30,9 +30,22 @@ module.exports = {
     this.addRoutes();
   },
 
+  /**
+   * Using the NavigationService and RoutingService, we add all of our routes to
+   * the app here.
+   *
+   * The NavigationService provides method to define how an entry in the sidebar
+   * should be displayed.
+   */
   addRoutes() {
+    // Categories are used by the Sidebar to group navigation elements together.
     navigation.NavigationService.registerCategory("design system");
 
+    // Primary routes are top-level elements in the sidebar.
+    // In the following call to #registerPrimary, we provide the route path to
+    // link to, the display label and an object of options. The object of
+    // options contains the category that this entry belongs to and the icon
+    // that should be displayed.
     navigation.NavigationService.registerPrimary(
       "/ds-introduction",
       "Introduction",
@@ -65,6 +78,9 @@ module.exports = {
       }
     );
 
+    // Secondary routes appear nested underneath their parent.
+    // In the following call to #registerSecondary, we provide the parent route,
+    // the child route, and the display label.
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       "buttons",
@@ -83,10 +99,16 @@ module.exports = {
       "Tables"
     );
 
+    // The following calls to #registerPage define which components should be
+    // rendered for the given top-level routes.
+    routing.RoutingService.registerPage("/ds-introduction", IntroductionPage);
     routing.RoutingService.registerPage("/ds-components/buttons", ButtonsPage);
     routing.RoutingService.registerPage("/ds-components/modals", ModalsPage);
     routing.RoutingService.registerPage("/ds-components/tables", TablesPage);
 
+    // The following calls to #registerTab define child routes for each page.
+    // We provide the parent route, the child route, and the component to be
+    // rendered.
     routing.RoutingService.registerTab(
       "/ds-components/buttons",
       "overview",
@@ -105,12 +127,12 @@ module.exports = {
       StylesTab
     );
 
+    // Redirects should be rendered after all of the associated routes have been
+    // defined.
     routing.RoutingService.registerRedirect(
       "/ds-components/buttons",
       "/ds-components/buttons/overview"
     );
-
-    routing.RoutingService.registerPage("/ds-introduction", IntroductionPage);
   },
 
   configure(configuration) {
@@ -122,7 +144,15 @@ module.exports = {
     });
   },
 
+  /**
+   * We need to add all of our top-level routes via the sidebarNavigaiton
+   * fulter.
+   *
+   * @param  {array} routes - The existing array of routes.
+   * @return {array} - The same array with our additonal routes added to the
+   *   beginning.
+   */
   sidebarNavigation(routes) {
-    return routes.concat(["/ds-introduction"], ["/ds-components"]);
+    return ["/ds-introduction", "/ds-components"].concat(routes);
   }
 };
