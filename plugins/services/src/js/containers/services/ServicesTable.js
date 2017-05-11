@@ -332,15 +332,16 @@ class ServicesTable extends React.Component {
     const serviceStatus = service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
     const tasksSummary = service.getTasksSummary();
-    const { tasksRunning } = tasksSummary;
-
+    const tasksRunning = service.getTaskCount();
     const isDeploying = serviceStatus === "Deploying";
 
-    const conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`;
-    if (tasksRunning !== instancesCount) {
-      verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
-    }
+    const conciseOverview = tasksRunning === instancesCount
+      ? ` (${tasksRunning})`
+      : ` (${tasksRunning}/${instancesCount})`;
+
+    const verboseOverview = tasksRunning === instancesCount
+      ? ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`
+      : ` (${tasksRunning} of ${instancesCount} Instances)`;
 
     return (
       <div className="status-bar-wrapper">

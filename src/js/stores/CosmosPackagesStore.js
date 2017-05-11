@@ -134,7 +134,8 @@ class CosmosPackagesStore extends GetSetBaseStore {
           this.emit(
             COSMOS_INSTALL_SUCCESS,
             action.packageName,
-            action.packageVersion
+            action.packageVersion,
+            data.appId
           );
           break;
         case REQUEST_COSMOS_PACKAGE_INSTALL_ERROR:

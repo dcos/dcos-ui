@@ -764,6 +764,26 @@ describe("ServiceTree", function() {
     });
   });
 
+  describe("#getTaskCount", function() {
+    const fooService = new Application();
+    const barService = new Application({
+      tasks: [{ foo: "bar" }, { bar: "baz" }]
+    });
+    const bazService = new Application({
+      tasks: [{ foo: "bar" }]
+    });
+
+    it("returns the total number of reported tasks", function() {
+      const serviceTree = new ServiceTree();
+
+      serviceTree.add(fooService);
+      serviceTree.add(barService);
+      serviceTree.add(bazService);
+
+      expect(serviceTree.getTaskCount()).toEqual(3);
+    });
+  });
+
   describe("#getTasksSummary", function() {
     beforeEach(function() {
       this.instance = new ServiceTree();

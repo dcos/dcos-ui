@@ -7,7 +7,7 @@ import {
 import { JSONParser as fetch } from "./serviceForm/JSONReducers/Artifacts";
 import {
   JSONParser as environmentVariables
-} from "./serviceForm/JSONReducers/EnvironmentVariables";
+} from "./serviceForm/JSONReducers/MultiContainerEnvironmentVariables";
 import {
   JSONParser as externalVolumes
 } from "./serviceForm/JSONReducers/ExternalVolumes";
