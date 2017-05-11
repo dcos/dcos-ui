@@ -34,17 +34,6 @@ describe("Service Table", function() {
           expect($menuItem.length).to.equal(1);
         });
     });
-
-    it('does not display the "Open Service" option for services that have a web UI', function() {
-      openDropdown("cassandra-unhealthy");
-
-      cy
-        .get(".dropdown-menu-items")
-        .contains("Open Service")
-        .should(function($menuItem) {
-          expect($menuItem.hasClass("hidden")).to.equal(true);
-        });
-    });
   });
 
   context("Destroy Action", function() {
@@ -59,13 +48,6 @@ describe("Service Table", function() {
       clickDropdownAction("Delete");
     });
 
-    it("opens the correct service destroy dialog", function() {
-      cy
-        .get(".confirm-modal p span")
-        .contains("/sleep")
-        .should("to.have.length", 1);
-    });
-
     it("disables button during API request", function() {
       cy.route({
         method: "DELETE",
@@ -74,62 +56,7 @@ describe("Service Table", function() {
       });
       cy
         .get(".confirm-modal .button-collection .button-danger")
-        .click()
         .should("have.class", "disabled");
-    });
-
-    it("closes dialog on successful API request", function() {
-      cy.route({
-        method: "DELETE",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
-      });
-      cy.get(".confirm-modal .button-collection .button-danger").click();
-      cy.get(".confirm-modal").should("to.have.length", 0);
-    });
-
-    it("shows error message on conflict", function() {
-      cy.route({
-        method: "DELETE",
-        status: 409,
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: { message: "App is locked by one or more deployments." }
-      });
-      cy.get(".confirm-modal .button-collection .button-danger").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "App is locked by one or more deployments.");
-    });
-
-    it("shows error message on not authorized", function() {
-      cy.route({
-        method: "DELETE",
-        status: 403,
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: { message: "Not Authorized to perform this action!" }
-      });
-      cy.get(".confirm-modal .button-collection .button-danger").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "Not Authorized to perform this action!");
-    });
-
-    it("reenables button after faulty request", function() {
-      cy.route({
-        method: "DELETE",
-        status: 403,
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: {
-          message: { message: "Not Authorized to perform this action!" }
-        },
-        delay: SERVER_RESPONSE_DELAY
-      });
-      cy
-        .get(".confirm-modal .button-collection .button-danger")
-        .as("dangerButton")
-        .click();
-      cy.get("@dangerButton").should("have.class", "disabled");
-      cy.get("@dangerButton").should("not.have.class", "disabled");
     });
 
     it("closes dialog on secondary button click", function() {
@@ -248,13 +175,6 @@ describe("Service Table", function() {
 
       openDropdown("cassandra-healthy");
       clickDropdownAction("Suspend");
-    });
-
-    it("opens the correct service suspend dialog", function() {
-      cy
-        .get(".confirm-modal p span")
-        .contains("/cassandra-healthy")
-        .should("to.have.length", 1);
     });
 
     it("disables button during API request", function() {
