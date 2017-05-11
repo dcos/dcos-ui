@@ -18,8 +18,9 @@ import ServiceTree from "../../structs/ServiceTree";
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;
 const METHODS_TO_BIND = [
-  "handleRightButtonClick",
-  "handleChangeInputFieldDestroy"
+  "handleChangeInputFieldDestroy",
+  "handleModalClose",
+  "handleRightButtonClick"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -28,8 +29,7 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: "",
-      isButtonDisabled: true
+      serviceNameConfirmationValue: ""
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -83,27 +83,28 @@ class ServiceDestroyModal extends React.Component {
     return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
-  handleRightButtonClick() {
-    const { service } = this.props;
-    const serviceName = service.getId();
-    const serviceNameConfirmationValue = this.state
-      .serviceNameConfirmationValue;
+  handleModalClose() {
+    this.setState({ serviceNameConfirmationValue: "" });
+    this.props.onClose();
+  }
 
-    if (serviceNameConfirmationValue === serviceName) {
+  handleRightButtonClick() {
+    if (!this.getIsRightButtonDisabled()) {
       this.props.deleteItem(this.shouldForceUpdate());
+      this.setState({ serviceNameConfirmationValue: "" });
     }
   }
 
   handleChangeInputFieldDestroy(event) {
-    const { service } = this.props;
-    const serviceName = service.getId();
-    const inputValue = event.target.value;
-    const isButtonDisabled = inputValue === serviceName;
-
     this.setState({
-      serviceNameConfirmationValue: event.target.value,
-      isButtonDisabled: !isButtonDisabled
+      serviceNameConfirmationValue: event.target.value
     });
+  }
+
+  getIsRightButtonDisabled() {
+    return (
+      this.props.service.getId() !== this.state.serviceNameConfirmationValue
+    );
   }
 
   getErrorMessage() {
@@ -133,13 +134,11 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getCloseButton() {
-    const { onClose } = this.props;
-
     return (
       <div className="row text-align-center">
         <button
           className="button button-primary button-medium"
-          onClick={onClose}
+          onClick={this.handleModalClose}
         >
           Close
         </button>
@@ -148,7 +147,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyFrameworkModal() {
-    const { open, service, onClose, intl } = this.props;
+    const { open, service, intl } = this.props;
     const serviceName = service.getId();
 
     return (
@@ -156,7 +155,7 @@ class ServiceDestroyModal extends React.Component {
         header={this.getModalHeading()}
         footer={this.getCloseButton()}
         modalClass="modal"
-        onClose={onClose}
+        onClose={this.handleModalClose}
         open={open}
         showHeader={true}
         showFooter={true}
@@ -194,9 +193,8 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyServiceModal() {
-    const { onClose, open, service, intl } = this.props;
+    const { open, service, intl } = this.props;
     const serviceName = service.getId();
-    const isButtonDisabled = this.state.isButtonDisabled;
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
@@ -210,12 +208,12 @@ class ServiceDestroyModal extends React.Component {
 
     return (
       <Confirm
-        disabled={isButtonDisabled}
+        disabled={this.getIsRightButtonDisabled()}
         header={this.getModalHeading()}
         open={open}
-        onClose={onClose}
+        onClose={this.handleModalClose}
         leftButtonText="Cancel"
-        leftButtonCallback={onClose}
+        leftButtonCallback={this.handleModalClose}
         rightButtonText={itemText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleRightButtonClick}
