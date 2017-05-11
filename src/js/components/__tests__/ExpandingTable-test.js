@@ -54,6 +54,26 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["foo"]).toBeTruthy();
         expect(instance.state.expandedRows["bar"]).toBeTruthy();
       });
+
+      it("should expand all rows on mount when expandRowsByDefault is true", function() {
+        const instance = ReactDOM.render(
+          <ExpandingTable
+            columns={this.columns}
+            data={this.rows}
+            expandRowsByDefault={true}
+          />,
+          this.container
+        );
+
+        expect(instance.state.expandedRows["foo"]).toBeTruthy();
+        expect(instance.state.expandedRows["bar"]).toBeTruthy();
+
+        instance.expandRow(this.rows[0]);
+        instance.expandRow(this.rows[1]);
+
+        expect(instance.state.expandedRows["foo"]).toBeFalsy();
+        expect(instance.state.expandedRows["bar"]).toBeFalsy();
+      });
     });
 
     describe("#getRenderer", function() {
