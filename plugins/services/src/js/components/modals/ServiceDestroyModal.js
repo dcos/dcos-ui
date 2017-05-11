@@ -183,7 +183,9 @@ class ServiceDestroyModal extends React.Component {
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
-              dcos packages uninstall --app-id={serviceName}
+              dcos package uninstall
+              {" "}
+              {serviceName.replace("/", "")} --app-id={serviceName}
             </pre>
           </ClickToSelect>
         </div>
