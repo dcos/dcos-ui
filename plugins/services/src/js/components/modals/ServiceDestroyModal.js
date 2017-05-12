@@ -127,7 +127,7 @@ class ServiceDestroyModal extends React.Component {
     const { router } = this.context;
 
     // Close the modal and redirect after the close animation has completed
-    this.props.onClose();
+    this.handleModalClose();
     setTimeout(() => {
       router.push({ pathname: "/services/overview" });
     }, REDIRECT_DELAY);
