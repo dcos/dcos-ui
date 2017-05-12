@@ -123,7 +123,7 @@ class ExpandingTable extends React.Component {
 
   render() {
     const { props } = this;
-    const classes = classNames(props.className, {
+    const classes = classNames("table-hover", props.className, {
       [`table-align-${props.alignCells}`]: props.alignCells != null
     });
     const TableComponent = props.tableComponent;
