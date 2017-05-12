@@ -33,6 +33,14 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
     });
   }
 
+  componentWillReceiveProps() {
+    const deployments = DCOSStore.deploymentsList.getItems();
+
+    if (this.state.isOpen && deployments.length === 0) {
+      this.setState({ isOpen: false });
+    }
+  }
+
   handleDeploymentsButtonClick() {
     this.setState({ isOpen: true });
   }
