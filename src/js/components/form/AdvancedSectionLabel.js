@@ -22,7 +22,9 @@ const AdvancedSectionLabel = ({ className, children, isExpanded, onClick }) => {
   return (
     <a className={classes} onClick={onClick}>
       {getStateIndicator(isExpanded)}
-      {children}
+      <span>
+        {children}
+      </span>
     </a>
   );
 };
