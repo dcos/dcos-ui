@@ -172,6 +172,7 @@ class ContainerServiceFormAdvancedSection extends Component {
         labelNode = (
           <Tooltip
             content={dockerOnly}
+            elementTag="label"
             key={`tooltip.${index}`}
             position="top"
             width={300}
