@@ -208,6 +208,10 @@ const Util = {
     }
 
     return item;
+  },
+
+  isString(str) {
+    return typeof str === "string";
   }
 };
 
