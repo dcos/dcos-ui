@@ -7,7 +7,7 @@ import ContainerConstants from "../../constants/ContainerConstants";
 import networkingReducer from "./Networking";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
-const { DOCKER, NONE } = ContainerConstants.type;
+const { DOCKER, MESOS } = ContainerConstants.type;
 
 const { BRIDGE, HOST, USER } = Networking.type;
 
@@ -34,7 +34,7 @@ module.exports = combineReducers({
   image: simpleReducer("container.docker.image", ""),
   network(state, { type, path = [], value }) {
     if (!this.containerType) {
-      this.containerType = NONE;
+      this.containerType = MESOS;
     }
 
     const joinedPath = path.join(".");
@@ -62,7 +62,7 @@ module.exports = combineReducers({
       };
     }
     if (!this.containerType) {
-      this.containerType = NONE;
+      this.containerType = MESOS;
     }
 
     const joinedPath = path.join(".");

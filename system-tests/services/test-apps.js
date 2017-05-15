@@ -719,7 +719,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime");
+        .contains("Mesos Runtime");
       cy
         .root()
         .configurationSection("General")
@@ -1150,7 +1150,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime");
+        .contains("Mesos Runtime");
       cy
         .root()
         .configurationSection("General")

@@ -1,6 +1,10 @@
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
+import ContainerConstants from "../../../constants/ContainerConstants";
+
+const { type: { MESOS } } = ContainerConstants;
+
 const mapLocalVolumes = function(volume) {
   if (volume.type === "PERSISTENT") {
     return {
@@ -52,7 +56,7 @@ function reduceVolumes(state, { type, path, value }) {
   }
 
   if (joinedPath === "container.type") {
-    this.docker = value !== "NONE";
+    this.docker = value !== MESOS;
   }
 
   if (path[0] === "externalVolumes") {
