@@ -32,19 +32,7 @@ const RouteFactory = {
         type: Route,
         path: "networks",
         component: VirtualNetworksTab,
-        isInSidebar: true,
-        buildBreadCrumb() {
-          return {
-            getCrumbs() {
-              return [
-                {
-                  label: "Networks",
-                  route: { to: "/networking/networks" }
-                }
-              ];
-            }
-          };
-        }
+        isInSidebar: true
       },
       {
         type: Route,
@@ -54,49 +42,13 @@ const RouteFactory = {
           {
             type: IndexRoute,
             component: VirtualNetworkTaskTab,
-            hideHeaderNavigation: true,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/networking/networks",
-                getCrumbs(params) {
-                  const { overlayName } = params;
-
-                  return [
-                    {
-                      label: overlayName,
-                      route: {
-                        to: "/networking/networks/:overlayName",
-                        params: { overlayName }
-                      }
-                    }
-                  ];
-                }
-              };
-            }
+            hideHeaderNavigation: true
           },
           {
             type: Route,
             path: "details",
             component: VirtualNetworkDetailsTab,
-            hideHeaderNavigation: true,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/networking/networks",
-                getCrumbs(params) {
-                  const { overlayName } = params;
-
-                  return [
-                    {
-                      label: overlayName,
-                      route: {
-                        to: "/networking/networks/:overlayName",
-                        params: { overlayName }
-                      }
-                    }
-                  ];
-                }
-              };
-            }
+            hideHeaderNavigation: true
           }
         ]
       },
@@ -110,14 +62,6 @@ const RouteFactory = {
         path: "networks/:overlayName/tasks/:taskID",
         component: VirtualNetworkTaskPage,
         hideHeaderNavigation: true,
-        buildBreadCrumb() {
-          return {
-            parentCrumb: "/networking/networks/:overlayName/tasks",
-            getCrumbs(params) {
-              return [{ label: params.taskID }];
-            }
-          };
-        },
         children: [
           {
             component: TaskDetailsTab,
@@ -125,15 +69,7 @@ const RouteFactory = {
             isTab: true,
             path: "details",
             title: "Details",
-            type: Route,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/networking/networks/:overlayName/tasks/:taskID",
-                getCrumbs() {
-                  return [];
-                }
-              };
-            }
+            type: Route
           },
           {
             hideHeaderNavigation: true,
@@ -147,29 +83,13 @@ const RouteFactory = {
                 component: TaskFileBrowser,
                 fileViewerRoutePath: "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                 hideHeaderNavigation: true,
-                type: IndexRoute,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/networking/networks/:overlayName/tasks/:taskID",
-                    getCrumbs() {
-                      return [];
-                    }
-                  };
-                }
+                type: IndexRoute
               },
               {
                 component: TaskFileViewer,
                 hideHeaderNavigation: true,
                 path: "view(/:filePath(/:innerPath))",
-                type: Route,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: "/networking/networks/:overlayName/tasks/:taskID",
-                    getCrumbs() {
-                      return [];
-                    }
-                  };
-                }
+                type: Route
               }
             ]
           },
@@ -180,14 +100,6 @@ const RouteFactory = {
             path: "logs",
             title: "Logs",
             type: Route,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: "/networking/networks/:overlayName/tasks/:taskID",
-                getCrumbs() {
-                  return [];
-                }
-              };
-            },
             children: [
               {
                 path: ":filePath",

@@ -154,20 +154,7 @@ module.exports = Object.assign({}, StoreMixin, {
     const userRoute = {
       type: Route,
       path: "users",
-      component: UsersPage,
-      buildBreadCrumb() {
-        return {
-          parentCrumb: "/organization",
-          getCrumbs() {
-            return [
-              {
-                label: "Users",
-                route: { to: "/organization/users" }
-              }
-            ];
-          }
-        };
-      }
+      component: UsersPage
     };
     const usersRouteIndex = routeDefinition.routes.findIndex(function(route) {
       return route.name === userRoute.name;

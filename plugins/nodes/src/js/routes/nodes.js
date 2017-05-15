@@ -3,11 +3,6 @@ import { IndexRoute, Route, Redirect } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import UnitsHealthDetailBreadcrumb
-  from "#SRC/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb";
-
-import NodeDetailBreadcrumb
-  from "../pages/nodes/breadcrumbs/NodeDetailBreadcrumb";
 import NodeDetailHealthTab from "../pages/nodes/NodeDetailHealthTab";
 import NodeDetailPage from "../pages/nodes/NodeDetailPage";
 import NodeDetailTab from "../pages/nodes/NodeDetailTab";
@@ -18,8 +13,6 @@ import NodesPage from "../pages/NodesPage";
 import NodesTableContainer
   from "../pages/nodes/nodes-table/NodesTableContainer";
 import NodesTaskDetailPage from "../pages/nodes/NodesTaskDetailPage";
-import TaskDetailBreadcrumb
-  from "../../../../services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb";
 import TaskDetailsTab
   from "../../../../services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser
@@ -42,18 +35,6 @@ const nodesRoutes = {
   component: NodesPage,
   category: "resources",
   isInSidebar: true,
-  buildBreadCrumb() {
-    return {
-      getCrumbs() {
-        return [
-          {
-            label: "Nodes",
-            route: { to: "/nodes" }
-          }
-        ];
-      }
-    };
-  },
   children: [
     {
       type: Route,
@@ -79,21 +60,6 @@ const nodesRoutes = {
       type: Route,
       path: ":nodeID",
       component: NodeDetailPage,
-      buildBreadCrumb() {
-        return {
-          parentCrumb: "/nodes",
-          getCrumbs(params, routes) {
-            return [
-              <NodeDetailBreadcrumb
-                params={params}
-                routes={routes}
-                to="/nodes/:nodeID"
-                routePath=":nodeID"
-              />
-            ];
-          }
-        };
-      },
       children: [
         {
           type: Route,
@@ -110,43 +76,13 @@ const nodesRoutes = {
           type: Route,
           path: "health",
           title: "Health",
-          component: NodeDetailHealthTab,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/nodes",
-              getCrumbs(params, routes) {
-                return [
-                  <NodeDetailBreadcrumb
-                    params={params}
-                    routes={routes}
-                    to="/nodes/:nodeID"
-                    routePath="health"
-                  />
-                ];
-              }
-            };
-          }
+          component: NodeDetailHealthTab
         },
         {
           type: Route,
           path: "details",
           title: "Details",
-          component: NodeDetailTab,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/nodes",
-              getCrumbs(params, routes) {
-                return [
-                  <NodeDetailBreadcrumb
-                    params={params}
-                    routes={routes}
-                    to="/nodes/:nodeID"
-                    routePath="details"
-                  />
-                ];
-              }
-            };
-          }
+          component: NodeDetailTab
         }
       ]
     },
@@ -155,21 +91,6 @@ const nodesRoutes = {
       path: ":nodeID/tasks/:taskID",
       component: NodesTaskDetailPage,
       hideHeaderNavigation: true,
-      buildBreadCrumb() {
-        return {
-          parentCrumb: "/nodes/:nodeID",
-          getCrumbs(params, routes) {
-            return [
-              <TaskDetailBreadcrumb
-                params={params}
-                routes={routes}
-                to="/nodes/:nodeID/tasks/:taskID"
-                routePath="tasks/:taskID"
-              />
-            ];
-          }
-        };
-      },
       children: [
         {
           type: Route,
@@ -177,15 +98,7 @@ const nodesRoutes = {
           hideHeaderNavigation: true,
           title: "Details",
           path: "details",
-          isTab: true,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-              getCrumbs() {
-                return [];
-              }
-            };
-          }
+          isTab: true
         },
         {
           hideHeaderNavigation: true,
@@ -199,29 +112,13 @@ const nodesRoutes = {
               component: TaskFileBrowser,
               fileViewerRoutePath: "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
               hideHeaderNavigation: true,
-              type: IndexRoute,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-                  getCrumbs() {
-                    return [];
-                  }
-                };
-              }
+              type: IndexRoute
             },
             {
               component: TaskFileViewer,
               hideHeaderNavigation: true,
               path: "view(/:filePath(/:innerPath))",
-              type: Route,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-                  getCrumbs() {
-                    return [];
-                  }
-                };
-              }
+              type: Route
             }
           ]
         },
@@ -232,14 +129,6 @@ const nodesRoutes = {
           path: "logs",
           title: "Logs",
           type: Route,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-              getCrumbs() {
-                return [];
-              }
-            };
-          },
           children: [
             {
               path: ":filePath",
@@ -253,15 +142,7 @@ const nodesRoutes = {
           isTab: true,
           path: "volumes",
           title: "Volumes",
-          type: Route,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-              getCrumbs() {
-                return [];
-              }
-            };
-          }
+          type: Route
         }
       ]
     },
@@ -270,48 +151,14 @@ const nodesRoutes = {
     {
       type: Route,
       path: ":nodeID/tasks/:taskID/volumes/:volumeID",
-      component: TaskVolumeContainer,
-      buildBreadCrumb() {
-        return {
-          parentCrumb: "/nodes/:nodeID/tasks/:taskID",
-          getCrumbs(params) {
-            return [
-              {
-                label: "Volumes",
-                route: {
-                  params,
-                  to: "/nodes/:nodeID/tasks/:taskID/volumes/:volumeID"
-                }
-              },
-              {
-                label: params.volumeID
-              }
-            ];
-          }
-        };
-      }
+      component: TaskVolumeContainer
     },
     // This needs to be outside of the children array of node routes
     // so that it can be responsible for rendering its own header.
     {
       type: Route,
       path: ":nodeID/health/:unitNodeID/:unitID",
-      component: NodesUnitsHealthDetailPage,
-      buildBreadCrumb() {
-        return {
-          parentCrumb: "/nodes/:nodeID/health",
-          getCrumbs(params, routes) {
-            return [
-              <UnitsHealthDetailBreadcrumb
-                params={params}
-                routes={routes}
-                to="/nodes/:nodeID/health/:unitNodeID/:unitID"
-                routePath="health/:unitNodeID/:unitID"
-              />
-            ];
-          }
-        };
-      }
+      component: NodesUnitsHealthDetailPage
     }
   ]
 };

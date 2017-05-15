@@ -17,19 +17,6 @@ const RouteFactory = {
           path: "users",
           component: UsersPage,
           isInSidebar: true,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: "/organization",
-              getCrumbs() {
-                return [
-                  {
-                    label: "Users",
-                    route: { to: "/organization/users" }
-                  }
-                ];
-              }
-            };
-          },
           children: []
         }
       ],
@@ -53,19 +40,7 @@ const RouteFactory = {
         component: OrganizationPage,
         category: "system",
         isInSidebar: true,
-        children: routes,
-        buildBreadCrumb() {
-          return {
-            getCrumbs() {
-              return [
-                {
-                  label: "Organization",
-                  route: { to: "/organization" }
-                }
-              ];
-            }
-          };
-        }
+        children: routes
       }
     ];
   }
