@@ -102,7 +102,7 @@ class ActionsModal extends mixin(StoreMixin) {
 
     return (
       <div className="text-align-center">
-        <p>{this.getActionsModalContentsText()}</p>
+        {this.getActionsModalContentsText()}
         {this.getDropdown(itemType)}
         {this.getErrorMessage(validationError)}
         {this.getRequestErrorMessage(requestErrors)}
@@ -149,9 +149,17 @@ class ActionsModal extends mixin(StoreMixin) {
       }
     }
     if (actionText.phraseFirst) {
-      return `${actionText.actionPhrase} ${selectedItemsString}.`;
+      return (
+        <p>
+          {actionText.actionPhrase} <strong>{selectedItemsString}</strong>.
+        </p>
+      );
     } else {
-      return `${selectedItemsString} ${actionText.actionPhrase}.`;
+      return (
+        <p>
+          <strong>{selectedItemsString}</strong> {actionText.actionPhrase}.
+        </p>
+      );
     }
   }
 
