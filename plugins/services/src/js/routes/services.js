@@ -40,10 +40,6 @@ const serviceRoutes = [
         type: Route,
         component: ServicesContainer,
         path: "overview",
-        // TODO: Remove this when moving to use NavigationService directly,
-        // where we can register with sidebarActiveRegex option
-        sidebarActiveRegex: /(overview|detail)/,
-        isInSidebar: true,
         children: [
           {
             type: Route,
