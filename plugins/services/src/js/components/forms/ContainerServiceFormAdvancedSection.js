@@ -17,7 +17,7 @@ import {
 } from "../../reducers/serviceForm/Container";
 import {
   FormReducer as ContainersReducer
-} from "../../reducers/serviceForm/Containers";
+} from "../../reducers/serviceForm/FormReducers/Containers";
 import ArtifactsSection from "./ArtifactsSection";
 import ContainerConstants from "../../constants/ContainerConstants";
 import PodSpec from "../../structs/PodSpec";
