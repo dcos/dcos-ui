@@ -1,10 +1,9 @@
 import { combineReducers, simpleReducer } from "#SRC/js/utils/ReducerUtil";
 import { SET } from "#SRC/js/constants/TransactionTypes";
 import Networking from "#SRC/js/constants/Networking";
-
 import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 import ContainerConstants from "../../constants/ContainerConstants";
-import networkingReducer from "./Networking";
+import PortMappingsReducer from "./JSONReducers/PortMappingsReducer";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
 const { DOCKER, NONE } = ContainerConstants.type;
@@ -78,9 +77,9 @@ module.exports = combineReducers({
       this.appState.id = value;
     }
 
-    // Apply networkingReducer to retrieve updated local state
+    // Apply PortMappingsReducer to retrieve updated local state
     // Store the change no matter what network type we have
-    this.portDefinitions = networkingReducer(this.portDefinitions, action);
+    this.portDefinitions = PortMappingsReducer(this.portDefinitions, action);
 
     // Universal containerizer does not support portMappings
     if (this.containerType !== DOCKER) {
