@@ -41,7 +41,5 @@ module.exports = {
       }
 
       return new Transaction(path, value);
-
     };
-  }
-};
+  }};
