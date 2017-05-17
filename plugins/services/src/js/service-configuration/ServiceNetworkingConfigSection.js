@@ -71,7 +71,8 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               name: "name",
               port: "port",
               protocol: "protocol",
-              labels: "labels"
+              labels: "labels",
+              service: "servicePort"
             };
 
             const networkType = getNetworkType(
@@ -86,6 +87,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               appDefinition,
               "container.docker.portMappings"
             );
+
             if (
               containerPortMappings != null &&
               containerPortMappings.length !== 0
@@ -161,6 +163,33 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               columns.splice(hostPortIndex, 0, {
                 heading: getColumnHeadingFn("Container Port"),
                 prop: "containerPort",
+                className: getColumnClassNameFn(),
+                render(prop, row) {
+                  return getDisplayValue(row[prop]);
+                },
+                sortable: true
+              });
+            }
+
+            const containsServicePorts = portDefinitions.filter(function(
+              portDefinition
+            ) {
+              const result = portDefinition.servicePort
+                ? portDefinition.servicePort !== 0
+                : false;
+
+              return result;
+            });
+
+            if (containsServicePorts.length > 0) {
+              const hostPortIndex = columns.findIndex(column => {
+                return column.prop === keys.port;
+              });
+              const servicePortsPosition = hostPortIndex + 1;
+
+              columns.splice(servicePortsPosition, 0, {
+                heading: getColumnHeadingFn("Service Port"),
+                prop: keys.service,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
                   return getDisplayValue(row[prop]);
