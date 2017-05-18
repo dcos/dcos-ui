@@ -9,25 +9,27 @@
         background-color: inherit;
       }
     }
+
+    // Remove active styling from row hover state
+    &.table-hover {
+
+      tr {
+
+        &:hover {
+
+          td {
+
+            &.active {
+              background-color: @table-cell-hover-background-color;
+            }
+          }
+        }
+      }
+    }
   }
 
   tr,
   .table-row {
-
-    &:hover {
-
-      td {
-
-        &,
-        &.active {
-          background-color: inherit;
-        }
-      }
-
-      .table-display-on-row-hover {
-        visibility: visible;
-      }
-    }
 
     &.inactive {
 
