@@ -8,7 +8,12 @@ describe("Services", function() {
   describe("Applications", function() {
     beforeEach(function() {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
+      cy.server().route("POST", /\/service\/marathon\/v2\/apps/).as("appsReq");
     });
+
+    function clickElementByText(text) {
+      cy.contains(text).click();
+    }
 
     afterEach(() => {
       cy.window().then(win => {
@@ -17,11 +22,11 @@ describe("Services", function() {
     });
 
     function selectMesosRuntime() {
-      cy.contains("More Settings").click();
-      cy.contains("Mesos Runtime").click();
+      clickElementByText("More Settings");
+      clickElementByText("Mesos Runtime");
     }
 
-    it("Create a simple app", function() {
+    it("should create a simple app", function() {
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -100,14 +105,80 @@ describe("Services", function() {
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      // Wait for the table and the service to appear
+      // Now click on the name
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .getFormGroupInputFor('CPUs *')
+      //   .contents('equal', '0.5');
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      // Test Mesos Runtime again? should be tested before...
+    });
+
+    it("should fail create the same app name again", function() {
+      // same as above
+      const serviceName = "app-with-inline-shell-script";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+
+      // Select 'Single Container'
+      cy.contains("Single Container").click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+      // Select mesos runtime
+      selectMesosRuntime();
+
+      // Check JSON view
+      cy.contains("JSON Editor").click();
+
+      // Click Review and Run
+      cy.contains("button", "Review & Run").click();
+
+      // Run service
+      cy.contains("button", "Run Service").click();
+
+      // Also no Error should exist
+      cy
+        .wait("@appsReq")
+        .get(".alert-danger")
+        .contains(
+          `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`
+        )
         .should("exist");
     });
 
-    it("Creates an app with artifacts", function() {
+    it("should create an app with artifacts", function() {
       const serviceName = "app-with-artifacts";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -226,13 +297,52 @@ describe("Services", function() {
       cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
+      cy.get(".page-body-content table").contains(serviceName).should("exist");
+
+      // Now click on the name
       cy
         .get(".page-body-content table")
-        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      cy
+        .root()
+        .get('input[name="fetch.0.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/1");
+
+      cy
+        .root()
+        .get('input[name="fetch.1.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/2");
+
+      cy
+        .root()
+        .get('input[name="fetch.2.uri"]')
+        .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it("Creates an app with command health check", function() {
+    it("should create an app with command health check", function() {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
@@ -372,9 +482,68 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "nginx");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "BRIDGE");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "80");
+
+      // Switch to health checks
+      cy.contains("Health Checks").click();
+      cy
+        .root()
+        .getFormGroupInputFor("Protocol")
+        .should("have.value", "COMMAND");
+      cy
+        .root()
+        .getFormGroupInputFor("Command")
+        .should("have.value", "sleep 5; exit 0");
     });
 
-    it("Create an app with docker config", function() {
+    it("should create an app with docker config", function() {
       const serviceName = "app-with-docker-config";
       const cmdline = "python3 -m http.server 8080";
 
@@ -504,9 +673,69 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "python:3");
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "BRIDGE");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "8080");
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
     });
 
-    it("Create an app with environment variables", function() {
+    it("should create an app with environment variables", function() {
       const serviceName = "app-with-environment-variables";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -638,9 +867,52 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Environment section
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
+
+      cy.get('input[name="env.0.key"]').should("have.value", "camelCase");
+      cy.get('input[name="env.0.value"]').should("have.value", "test");
+
+      cy.get('input[name="env.1.key"]').should("have.value", "snake_case");
+      cy.get('input[name="env.1.value"]').should("have.value", "test");
+
+      cy.get('input[name="env.2.key"]').should("have.value", "lowercase");
+      cy.get('input[name="env.2.value"]').should("have.value", "test");
+
+      cy.get('input[name="env.3.key"]').should("have.value", "UPPERCASE");
+      cy.get('input[name="env.3.value"]').should("have.value", "test");
     });
 
-    it("Create an app with external volume", function() {
+    it("should create an app with external volume", function() {
       const serviceName = "app-with-external-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
@@ -780,9 +1052,47 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "64");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Volumes section
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+
+      cy.root().getFormGroupInputFor("Name").should("have.value", volumeName);
+      cy.root().getFormGroupInputFor("Size (GiB)").should("have.value", "1");
+      cy
+        .root()
+        .getFormGroupInputFor("Container Path")
+        .should("have.value", "test");
     });
 
-    it("Create an app with HTTP health check", function() {
+    it("should create an app with HTTP health check", function() {
       const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
@@ -938,9 +1248,79 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "nginx");
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "BRIDGE");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "80");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
+
+      // Switch to health checks
+      cy.contains("Health Checks").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Protocol")
+        .should("have.value", "MESOS_HTTP");
+
+      // maybe testing for text would be better here
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint")
+        .should("have.value", "0");
+
+      cy.root().getFormGroupInputFor("Path").should("have.value", "/");
     });
 
-    it("Create an app with labels", function() {
+    it("should create an app with labels", function() {
       const serviceName = "app-with-labels";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -1071,9 +1451,58 @@ describe("Services", function() {
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Environment section
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
+
+      // Add an environment variable
+      cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
+      cy.get('input[name="labels.0.value"]').should("have.value", "test");
+
+      // Add an environment variable
+      cy.get('input[name="labels.1.key"]').should("have.value", "snake_case");
+      cy.get('input[name="labels.1.value"]').should("have.value", "test");
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.2.key"]').should("have.value", "lowercase");
+      cy.get('input[name="labels.2.value"]').should("have.value", "test");
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.3.key"]').should("have.value", "UPPERCASE");
+      cy.get('input[name="labels.3.value"]').should("have.value", "test");
     });
 
-    it("Create an app with persistent volume", function() {
+    it("should create an app with persistent volume", function() {
       const serviceName = "app-with-persistent-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
@@ -1211,6 +1640,42 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Volume Type")
+        .should("have.value", "PERSISTENT");
+
+      cy.root().getFormGroupInputFor("Size (MiB)").should("have.value", "128");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Path")
+        .should("have.value", "test");
     });
   });
 });
