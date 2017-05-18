@@ -171,17 +171,15 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               });
             }
 
-            const containsServicePorts = portDefinitions.filter(function(
+            const containsServicePorts = portDefinitions.some(function(
               portDefinition
             ) {
-              const result = portDefinition.servicePort
-                ? portDefinition.servicePort !== 0
-                : false;
-
-              return result;
+              return (
+                portDefinition.servicePort && portDefinition.servicePort !== 0
+              );
             });
 
-            if (containsServicePorts.length > 0) {
+            if (containsServicePorts) {
               const hostPortIndex = columns.findIndex(column => {
                 return column.prop === keys.port;
               });
