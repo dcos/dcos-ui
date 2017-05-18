@@ -14,7 +14,7 @@ import {JSONParser as network} from './serviceForm/Network';
 import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
 import {JSONParser as volumeMounts} from './serviceForm/MultiContainerVolumes';
 import {JSONParser as containers} from './serviceForm/Containers';
-import {JSONParser as requriePorts} from './serviceForm/RequirePorts';
+import {JSONParser as requirePorts} from './serviceForm/RequirePorts';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 
 module.exports = [
@@ -41,5 +41,5 @@ module.exports = [
   constraints,
   residency,
   fetch,
-  requriePorts
+  requirePorts
 ];

@@ -22,7 +22,7 @@ describe('RequirePorts', function () {
         .toEqual(new Transaction(['portsAutoAssign'], true));
     });
 
-    it('should return inverted value of requriePorts', function () {
+    it('should return inverted value of requirePorts', function () {
       expect(RequirePorts.JSONParser({
         requirePorts: true
       })).toEqual(new Transaction(['portsAutoAssign'], false));
