@@ -21,6 +21,11 @@ describe("Services", function() {
       cy.contains("Mesos Runtime").click();
     }
 
+    function selectUniversalRuntime() {
+      cy.contains("More Settings").click();
+      cy.contains("Universal Container Runtime").click();
+    }
+
     it("Create a simple app", function() {
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -654,12 +659,6 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
@@ -793,12 +792,6 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Container Image").type("nginx");
 
@@ -952,12 +945,6 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
@@ -1211,6 +1198,423 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
+    });
+
+    describe("UCR", function() {
+      it("Create an ucr app with force-pull", function() {
+        const serviceName = "app-with-ucr-force-pull";
+        const container = "alpine";
+        const cmd = "while true; do sleep 100; done";
+
+        // Select 'Single Container'
+        cy.contains("Single Container").click();
+
+        // Fill-in the input elements
+        cy
+          .root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+        cy.root().getFormGroupInputFor("Container Image").type(container);
+        cy.root().getFormGroupInputFor("Command").type(cmd);
+        // Select ucr runtime
+        selectUniversalRuntime();
+        cy.contains("Force Pull Image On Launch").click();
+
+        //
+        // TODO: Due to a bug in cypress you cannot type values with dots
+        // cy
+        //   .get('input[name=cpus]')
+        //   .type('{selectall}0.5');
+        //
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+
+        // Check JSON view
+        cy.contains("JSON Editor").click();
+
+        // Check contents of the JSON editor
+        cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+          {
+            id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+            cpus: 0.1,
+            cmd: "while true; do sleep 100; done",
+            instances: 1,
+            mem: 32,
+            container: {
+              type: "MESOS",
+              docker: {
+                image: "alpine",
+                forcePullImage: true
+              }
+            }
+          }
+        ]);
+
+        // Click Review and Run
+        cy.contains("Review & Run").click();
+
+        // Verify the review screen
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Service ID")
+          .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Runtime")
+          .contains("Universal Container Runtime");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("FORCE PULL ON LAUNCH")
+          .contains("true");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("COMMAND")
+          .contains(cmd);
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("CPU")
+          .contains("0.1");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Memory")
+          .contains("32 MiB");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Disk")
+          .contains("Not Configured");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Image")
+          .contains("alpine");
+
+        // Run service
+        cy.get("button.button-primary").contains("Run Service").click();
+
+        // Wait for the table and the service to appear
+        cy
+          .get(".page-body-content table")
+          .contains(serviceName, {
+            timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+          })
+          .should("exist");
+
+        // Get the table row and wait until it's Running
+        cy
+          .get(".page-body-content table")
+          .getTableRowThatContains(serviceName)
+          .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+          .should("exist");
+      });
+      it("Create an ucr app with Host Volume", function() {
+        const serviceName = "app-with-ucr-host-volume";
+        const container = "alpine";
+        const cmd = "while true; do sleep 100; done";
+
+        // Select 'Single Container'
+        cy.contains("Single Container").click();
+
+        // Fill-in the input elements
+        cy
+          .root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+        cy.root().getFormGroupInputFor("Container Image").type(container);
+        cy.root().getFormGroupInputFor("Command").type(cmd);
+        // Select ucr runtime
+        selectUniversalRuntime();
+
+        //
+        // TODO: Due to a bug in cypress you cannot type values with dots
+        // cy
+        //   .get('input[name=cpus]')
+        //   .type('{selectall}0.5');
+        //
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+
+        // Select Voluimes section
+        cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+
+        // Click "Add Local Volume"
+        /**
+
+         */
+        cy.contains("Add Local Volume").click();
+
+        // Setup HTTP endpoint
+        cy.root().getFormGroupInputFor("Volume Type").select("Host Volume");
+        cy.root().getFormGroupInputFor("Host Path").type("/var/log");
+        cy.root().getFormGroupInputFor("Container Path").type("/var/log");
+
+        // Check JSON view
+        cy.contains("JSON Editor").click();
+
+        // Check contents of the JSON editor
+        cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+          {
+            id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+            cpus: 0.1,
+            cmd: "while true; do sleep 100; done",
+            instances: 1,
+            mem: 32,
+            container: {
+              type: "MESOS",
+              docker: {
+                image: "alpine"
+              },
+              volumes: [
+                {
+                  containerPath: "/var/log",
+                  hostPath: "/var/log",
+                  mode: "RW"
+                }
+              ]
+            }
+          }
+        ]);
+
+        // Click Review and Run
+        cy.contains("Review & Run").click();
+
+        // Verify the review screen
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Service ID")
+          .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Runtime")
+          .contains("Universal Container Runtime");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("COMMAND")
+          .contains(cmd);
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("CPU")
+          .contains("0.1");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Memory")
+          .contains("32 MiB");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Disk")
+          .contains("Not Configured");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Image")
+          .contains("alpine");
+
+        cy
+          .root()
+          .configurationSection("Storage")
+          .children("table")
+          .getTableColumn("Volume")
+          .contents()
+          .should("deep.equal", ["Host Volume"]);
+        cy
+          .root()
+          .configurationSection("Storage")
+          .children("table")
+          .getTableColumn("Size")
+          .contents()
+          .should("deep.equal", ["Not Supported"]);
+        cy
+          .root()
+          .configurationSection("Storage")
+          .children("table")
+          .getTableColumn("Mode")
+          .contents()
+          .should("deep.equal", ["RW"]);
+        cy
+          .root()
+          .configurationSection("Storage")
+          .children("table")
+          .getTableColumn("Container Mount Path")
+          .contents()
+          .should("deep.equal", ["/var/log"]);
+        cy
+          .root()
+          .configurationSection("Storage")
+          .children("table")
+          .getTableColumn("Host Path")
+          .contents()
+          .should("deep.equal", ["/var/log"]);
+
+        // Run service
+        cy.get("button.button-primary").contains("Run Service").click();
+
+        // Wait for the table and the service to appear
+        cy
+          .get(".page-body-content table")
+          .contains(serviceName, {
+            timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+          })
+          .should("exist");
+
+        // Get the table row and wait until it's Running
+        cy
+          .get(".page-body-content table")
+          .getTableRowThatContains(serviceName)
+          .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+          .should("exist");
+      });
+
+      it("Create an ucr app with bridge network", function() {
+        const serviceName = "app-with-ucr-bridge-network";
+        const container = "nginx";
+
+        // Select 'Single Container'
+        cy.contains("Single Container").click();
+
+        // Fill-in the input elements
+        cy
+          .root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+        cy.root().getFormGroupInputFor("Container Image").type(container);
+        // Select ucr runtime
+        selectUniversalRuntime();
+
+        //
+        // TODO: Due to a bug in cypress you cannot type values with dots
+        // cy
+        //   .get('input[name=cpus]')
+        //   .type('{selectall}0.5');
+        //
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+
+        // Select Networking section
+        cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+        // Select "Bridge"
+        cy.root().getFormGroupInputFor("Network Type").select("Bridge");
+
+        // Click "Add Service Endpoint"
+        /**
+
+         */
+        cy.contains("Add Service Endpoint").click();
+
+        // Setup HTTP endpoint
+        cy.root().getFormGroupInputFor("Container Port").type("8080");
+        cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
+
+        // Check JSON view
+        cy.contains("JSON Editor").click();
+
+        // Check contents of the JSON editor
+        cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+          {
+            id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+            cpus: 0.1,
+            instances: 1,
+            mem: 32,
+            container: {
+              type: "MESOS",
+              docker: {
+                image: "nginx"
+              },
+              portMappings: [
+                {
+                  name: "http",
+                  hostPort: 0,
+                  containerPort: 8080,
+                  protocol: "tcp"
+                }
+              ]
+            },
+            networks: [
+              {
+                mode: "container/bridge"
+              }
+            ]
+          }
+        ]);
+
+        // Click Review and Run
+        cy.contains("Review & Run").click();
+
+        // Verify the review screen
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Service ID")
+          .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Runtime")
+          .contains("Universal Container Runtime");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("CPU")
+          .contains("0.1");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Memory")
+          .contains("32 MiB");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Disk")
+          .contains("Not Configured");
+        cy
+          .root()
+          .configurationSection("General")
+          .configurationMapValue("Container Image")
+          .contains("nginx");
+
+        cy
+          .root()
+          .configurationSection("Network")
+          .configurationMapValue("Network Type")
+          .contains("container/bridge");
+        cy
+          .root()
+          .configurationSection("Service Endpoints")
+          .getTableRowThatContains("http")
+          .should("exist");
+        cy
+          .root()
+          .configurationSection("Service Endpoints")
+          .getTableRowThatContains("8080")
+          .should("exist");
+
+        // Run service
+        cy.get("button.button-primary").contains("Run Service").click();
+
+        // Wait for the table and the service to appear
+        cy
+          .get(".page-body-content table")
+          .contains(serviceName, {
+            timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+          })
+          .should("exist");
+
+        // Get the table row and wait until it's Running
+        cy
+          .get(".page-body-content table")
+          .getTableRowThatContains(serviceName)
+          .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+          .should("exist");
+      });
     });
   });
 });
