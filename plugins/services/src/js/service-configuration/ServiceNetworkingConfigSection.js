@@ -175,7 +175,8 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               portDefinition
             ) {
               return (
-                portDefinition.servicePort && portDefinition.servicePort !== 0
+                portDefinition.servicePort != null &&
+                portDefinition.servicePort !== 0
               );
             });
 
