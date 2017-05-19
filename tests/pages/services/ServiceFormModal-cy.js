@@ -805,7 +805,7 @@ describe("Service Form Modal", function() {
 
         it("should switch from Docker to Mesos correctly", function() {
           cy.get(".ace_content").should(function(nodeList) {
-            expect(nodeList[0].textContent).not.to.contain('"container": {');
+            expect(nodeList[0].textContent).not.to.contain('"type": "DOCKER"');
           });
         });
 
