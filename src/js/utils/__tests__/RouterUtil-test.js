@@ -133,4 +133,28 @@ describe("RouterUtil", function() {
       expect(path).toEqual("/foo/:id/:bar/baz");
     });
   });
+
+  describe("#redirect", function() {
+    beforeEach(function() {
+      // Overwrite jsdom global/window location mock
+      Object.defineProperty(global.location, "hostname", {
+        writable: true,
+        value: "localhost"
+      });
+    });
+
+    it("domain in redirect is valid", function() {
+      const expectedResult = true;
+      const domain = "http://localhost:4200/";
+
+      expect(RouterUtil.isValidRedirect(domain)).toEqual(expectedResult);
+    });
+
+    it("domain in redirect is invalid", function() {
+      const expectedResult = false;
+      const domain = "http://google.com:/";
+
+      expect(RouterUtil.isValidRedirect(domain)).toEqual(expectedResult);
+    });
+  });
 });

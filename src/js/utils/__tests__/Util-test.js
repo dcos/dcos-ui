@@ -414,4 +414,14 @@ describe("Util", function() {
       expect(Util.toUpperCaseIfString(value)).toEqual(value);
     });
   });
+
+  describe("#isString", function() {
+    it("should return true when argument is type string", function() {
+      expect(Util.isString("Name")).toEqual(true);
+    });
+
+    it("should return false when argument is NOT type string", function() {
+      expect(Util.isString(1)).toEqual(false);
+    });
+  });
 });
