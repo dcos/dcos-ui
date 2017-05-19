@@ -1611,5 +1611,75 @@ describe("Service Form Modal", function() {
         });
       });
     });
+
+    context("Multi-container (pod)", function() {
+      beforeEach(function() {
+        cy
+          .get(".menu-tabbed-item-label")
+          .eq(0)
+          .click()
+          .get(".menu-tabbed-view h2")
+          .contains("Service");
+      });
+
+      it("Should add new container", function() {
+        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+      });
+
+      it("Should contain two containers navigation under Services tab", function() {
+        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+
+        cy
+          .get(".menu-tabbed-item-label")
+          .eq(0)
+          .siblings()
+          .should("to.have.length", 2);
+      });
+
+      it("Should be right aligned of the parent", function() {
+        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+
+        cy
+          .get(".menu-tabbed-item-label")
+          .eq(0)
+          .siblings()
+          .each(function($element) {
+            const $parentLeftPosition = $element
+              .parent()[0]
+              .getBoundingClientRect().left;
+            const $elementLeftPosition = $element[0].getBoundingClientRect()
+              .left;
+            const threshold = 10;
+            const difference = $elementLeftPosition - $parentLeftPosition;
+
+            expect(difference >= threshold).to.equal(true);
+          });
+      });
+    });
+
+    context("Multi-container (pod) Review & Run", function() {
+      beforeEach(function() {
+        // Fill in SERVICE ID
+        cy.get('.form-control[name="id"]').clear().type("/test-review-and-run");
+
+        // Add a second container
+        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+
+        // Click review and run
+        cy
+          .get(".modal-full-screen-actions")
+          .contains("button", "Review & Run")
+          .click();
+      });
+
+      it("Should add new container", function() {
+        cy
+          .get(".detail-view-section-heading.configuration-map-heading")
+          .eq(1)
+          .contains("Containers")
+          .siblings()
+          .should("to.have.length", 2);
+      });
+    });
   });
 });
