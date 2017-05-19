@@ -13,8 +13,9 @@ import {JSONParser as scaling} from './serviceForm/MultiContainerScaling';
 import {JSONParser as network} from './serviceForm/Network';
 import {JSONParser as multiContainerNetwork} from './serviceForm/MultiContainerNetwork';
 import {JSONParser as volumeMounts} from './serviceForm/MultiContainerVolumes';
-import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 import {JSONParser as containers} from './serviceForm/Containers';
+import {JSONParser as requirePorts} from './serviceForm/RequirePorts';
+import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 
 module.exports = [
   simpleParser(['id']),
@@ -39,5 +40,6 @@ module.exports = [
   externalVolumes,
   constraints,
   residency,
-  fetch
+  fetch,
+  requirePorts
 ];

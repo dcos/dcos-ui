@@ -211,11 +211,11 @@ describe('Service Form Modal', function () {
       killSelection: 'YOUNGEST_FIRST',
       portDefinitions: [
         {
-          port: 10000,
+          port: 0,
           protocol: 'tcp'
         }
       ],
-      requirePorts: true
+      requirePorts: false
     };
 
     beforeEach(function () {
