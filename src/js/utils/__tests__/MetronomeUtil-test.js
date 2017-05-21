@@ -3,7 +3,7 @@ const MetronomeUtil = require("../MetronomeUtil");
 describe("MetronomeUtil", function() {
   describe("#parseJobs", function() {
     beforeEach(function() {
-      this.instance = MetronomeUtil.parseJobs([
+      this.jobs = MetronomeUtil.parseJobs([
         { id: "group" },
         { id: "group.foo" },
         { id: "group.bar" },
@@ -27,17 +27,17 @@ describe("MetronomeUtil", function() {
     });
 
     it("adds a job to the tree", function() {
-      var instance = MetronomeUtil.parseJobs({ id: "alpha" });
+      var jobs = MetronomeUtil.parseJobs({ id: "alpha" });
 
-      expect(instance.items[0].id).toEqual("alpha");
+      expect(jobs.items[0].id).toEqual("alpha");
     });
 
     it("adds nested items at the correct location based on id/path matching", function() {
-      var instance = MetronomeUtil.parseJobs({ id: "group.foo.bar" });
+      var jobs = MetronomeUtil.parseJobs({ id: "group.foo.bar" });
 
-      expect(instance.items[0].id).toEqual("group");
-      expect(instance.items[0].items[0].id).toEqual("group.foo");
-      expect(instance.items[0].items[0].items[0].id).toEqual("group.foo.bar");
+      expect(jobs.items[0].id).toEqual("group");
+      expect(jobs.items[0].items[0].id).toEqual("group.foo");
+      expect(jobs.items[0].items[0].items[0].id).toEqual("group.foo.bar");
     });
 
     it("should throw error if item is not an object with id", function() {
@@ -53,48 +53,48 @@ describe("MetronomeUtil", function() {
     });
 
     it("should return root group if empty array is passed", function() {
-      var instance = MetronomeUtil.parseJobs([]);
-      expect(instance.id).toEqual("");
-      expect(instance.items).toEqual(undefined);
+      var jobs = MetronomeUtil.parseJobs([]);
+      expect(jobs.id).toEqual("");
+      expect(jobs.items).toEqual(undefined);
     });
 
     it("nests everything under root", function() {
-      expect(this.instance.id).toEqual("");
+      expect(this.jobs.id).toEqual("");
     });
 
     it("consolidates jobs into common parent", function() {
-      expect(this.instance.items.length).toEqual(1);
-      expect(this.instance.items[0].id).toEqual("group");
+      expect(this.jobs.items.length).toEqual(1);
+      expect(this.jobs.items[0].id).toEqual("group");
     });
 
     it("defaults id to empty string (root group id)", function() {
-      const tree = MetronomeUtil.parseJobs([]);
-      expect(tree.id).toEqual("");
+      const jobs = MetronomeUtil.parseJobs([]);
+      expect(jobs.id).toEqual("");
     });
 
     it("sets correct tree id", function() {
-      expect(this.instance.items[0].id).toEqual("group");
+      expect(this.jobs.items[0].id).toEqual("group");
     });
 
     it("accepts nested trees (groups)", function() {
-      expect(this.instance.items[0].items[4].items.length).toEqual(1);
+      expect(this.jobs.items[0].items[4].items.length).toEqual(1);
     });
 
     it("doesn't add items to jobs with no nested items", function() {
-      expect(this.instance.items[0].items[2].items).toEqual(undefined);
+      expect(this.jobs.items[0].items[2].items).toEqual(undefined);
     });
 
     it("converts a single item into a subitem of root", function() {
-      const instance = MetronomeUtil.parseJobs({ id: "group.job" });
+      const jobs = MetronomeUtil.parseJobs({ id: "group.job" });
 
-      expect(instance.id).toEqual("");
-      expect(instance.items[0].id).toEqual("group");
-      expect(instance.items[0].items[0].id).toEqual("group.job");
+      expect(jobs.id).toEqual("");
+      expect(jobs.items[0].id).toEqual("group");
+      expect(jobs.items[0].items[0].id).toEqual("group.job");
     });
 
     it("merges data of items that are defined multiple times", function() {
-      const result = this.instance.items[0].items[3];
-      expect(result).toEqual({
+      const jobs = this.jobs.items[0].items[3];
+      expect(jobs).toEqual({
         id: "group.beta",
         cmd: ">beta",
         label: "Beta",
