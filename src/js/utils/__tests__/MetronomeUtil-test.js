@@ -1,7 +1,19 @@
 const MetronomeUtil = require("../MetronomeUtil");
 
 describe("MetronomeUtil", function() {
-  describe("#addJob", function() {
+  describe("#parseJobs", function() {
+    beforeEach(function() {
+      this.instance = MetronomeUtil.parseJobs([
+        { id: "group" },
+        { id: "group.foo" },
+        { id: "group.bar" },
+        { id: "group.alpha" },
+        { id: "group.beta", cmd: ">beta", description: "First beta" },
+        { id: "group.beta", label: "Beta", description: "Second beta" },
+        { id: "group.wibble.wobble" }
+      ]);
+    });
+
     it("should throw error if the provided id  starts with a dot", function() {
       expect(function() {
         MetronomeUtil.parseJobs({ id: ".malformed.id" });
@@ -44,20 +56,6 @@ describe("MetronomeUtil", function() {
       var instance = MetronomeUtil.parseJobs([]);
       expect(instance.id).toEqual("");
       expect(instance.items).toEqual(undefined);
-    });
-  });
-
-  describe("#parseJobs", function() {
-    beforeEach(function() {
-      this.instance = MetronomeUtil.parseJobs([
-        { id: "group" },
-        { id: "group.foo" },
-        { id: "group.bar" },
-        { id: "group.alpha" },
-        { id: "group.beta", cmd: ">beta", description: "First beta" },
-        { id: "group.beta", label: "Beta", description: "Second beta" },
-        { id: "group.wibble.wobble" }
-      ]);
     });
 
     it("nests everything under root", function() {
