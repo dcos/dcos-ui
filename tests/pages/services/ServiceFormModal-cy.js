@@ -985,51 +985,51 @@ describe("Service Form Modal", function() {
             .should("not.exist");
         });
 
-        context("Assign Automatically", function() {
-          it('should disable "Host Port" text field when "Assign Automatically" is checked', function() {
-            cy
-              .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.automaticPort"]')
-              .check();
-
-            cy
-              .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.hostPort"]')
-              .should("have.attr", "disabled");
-          });
-
-          it('should append "<assigned port>" to service address when "Assign Automatically" is checked', function() {
-            cy
-              .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.automaticPort"]')
-              .check();
-
-            cy.contains(".marathon.l4lb.thisdcos.directory:<assigned port>");
-          });
-
-          it('should append value for "Host Port" to service address when "Assign Automatically" is not checked', function() {
-            // Set checked, then have to click parent
-            // element as we cannot use cy.uncheck() because element is covered
-            // by .form-control-toggle-indicator
-            cy
-              .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.automaticPort"]')
-              .check();
-
-            // Uncheck it
-            cy.contains("label", "Assign Automatically").click();
-
-            // Set value for host port
-            cy
-              .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.hostPort"]')
-              .type(7);
-
-            cy.contains(".marathon.l4lb.thisdcos.directory:7");
-          });
-        });
-
         context("type: HOST", function() {
+          context("Assign Ports Automatically", function() {
+            it('should disable "Host Port" text field when "Assign Ports Automatically" is checked', function() {
+              cy
+                .get("@tabView")
+                .find('.form-control[name="portsAutoAssign"]')
+                .check();
+
+              cy
+                .get("@tabView")
+                .find('.form-control[name="portDefinitions.0.hostPort"]')
+                .should("have.attr", "disabled");
+            });
+
+            it('should append "<assigned port>" to service address when "Assign Ports Automatically" is checked', function() {
+              cy
+                .get("@tabView")
+                .find('.form-control[name="portsAutoAssign"]')
+                .check();
+
+              cy.contains(".marathon.l4lb.thisdcos.directory:<assigned port>");
+            });
+
+            it('should append value for "Host Port" to service address when "Assign Ports Automatically" is not checked', function() {
+              // Set checked, then have to click parent
+              // element as we cannot use cy.uncheck() because element is covered
+              // by .form-control-toggle-indicator
+              cy
+                .get("@tabView")
+                .find('.form-control[name="portsAutoAssign"]')
+                .check();
+
+              // Uncheck it
+              cy.contains("label", "Assign Ports Automatically").click();
+
+              // Set value for host port
+              cy
+                .get("@tabView")
+                .find('.form-control[name="portDefinitions.0.hostPort"]')
+                .type(7);
+
+              cy.contains(".marathon.l4lb.thisdcos.directory:7");
+            });
+          });
+
           it('should hide "Container Port"', function() {
             cy.get('select[name="container.docker.network"]').select("HOST");
 
