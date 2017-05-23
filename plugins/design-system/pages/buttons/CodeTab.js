@@ -24,9 +24,7 @@ class CodeTab extends Component {
                 Primary
               </button>
               <button
-                className="button
-                button-primary
-                button-small"
+                className="button button-primary button-small"
                 type="button"
               >
                 Primary
