@@ -10,7 +10,19 @@ const StringUtil = require("./utils/StringUtil");
  */
 Cypress.addParentCommand("visitUrl", function(visitUrl) {
   var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
-  var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
+  var url;
+
+  switch (visitUrl[0]) {
+    case "/":
+      url = Cypress.env("CLUSTER_URL") + visitUrl;
+      break;
+    case "#":
+      url = Cypress.env("CLUSTER_URL") + "/" + visitUrl;
+      break;
+    default:
+      // if it just starts with a-z assume that its a hash (old behavior)
+      url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
+  }
 
   cy
     .setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
@@ -105,7 +117,7 @@ Cypress.addChildCommand("getTableRowThatContains", function(
 Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
   const matchedRows = elements.find("tr");
   const headings = matchedRows.eq(0).find("th");
-  let columnIndex = parseInt(columNameOrIndex);
+  let columnIndex = parseInt(columNameOrIndex, 10);
 
   if (Number.isNaN(columnIndex)) {
     const compareName = String(columNameOrIndex).toLowerCase();
@@ -157,6 +169,23 @@ Cypress.addChildCommand("contents", function(elements) {
       }
     })
     .get();
+});
+
+/* Sets given JSONString as Value for ACE Editor
+ *
+ */
+Cypress.addChildCommand("setJSON", function(elements, JSONString) {
+  if (elements.length != null && JSONString) {
+    elements.map(function(index, element) {
+      const doc = element.ownerDocument;
+      const win = doc.defaultView || doc.parentWindow;
+      if (element.classList.contains("ace_editor")) {
+        win.ace.edit(element.id).setValue(JSONString);
+      } 
+      return element;
+    });
+  }
+  return elements;
 });
 
 /**
