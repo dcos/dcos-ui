@@ -22,3 +22,15 @@
       setup: ./services/_scripts/setup
       run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec services/test-environment.js --spec services/test-pods.js
       teardown: ./services/_scripts/teardown
+  - name: services.pods-communication
+    title: Pods Communication
+    cluster:
+      features: []
+    results:
+      junit: "cypress/results.xml"
+      assets:
+        - cypress
+    scripts:
+      setup: ./services/_scripts/setup
+      run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec services/test-environment.js --spec services/test-pods-communication.js
+      teardown: ./services/_scripts/teardown

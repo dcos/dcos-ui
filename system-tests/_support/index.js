@@ -159,6 +159,30 @@ Cypress.addChildCommand("contents", function(elements) {
     .get();
 });
 
+/* Sets given JSONString as Value for ACE Editor
+ * 
+ * This function will set the given text as value for ACE Editor
+ *
+ * @param {jQuery.Element} elements - The DOM scope to search within
+ * @param {String} JSONString - JSON Code as String
+ */
+Cypress.addChildCommand("setJSON", function(elements, JSONString) {
+  if (elements.length != null && JSONString) {
+    elements.map(function(index, element) {
+      const doc = element.ownerDocument;
+      const win = doc.defaultView || doc.parentWindow;
+      if (element.classList.contains("ace_editor")) {
+        win.ace.edit(element.id).setValue(JSONString);
+      }
+
+      return element;
+    });
+  }
+
+  return elements;
+});
+
+
 /**
  * Convert the strings in scope into a JSON object
  *
