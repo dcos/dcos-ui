@@ -6,6 +6,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
@@ -323,6 +324,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           open={state.openInstallModal}
           cosmosPackage={cosmosPackage}
           advancedConfig={state.advancedConfig}
+          isBetaPackage={BetaOptInUtil.isBeta(cosmosPackage.getConfig())}
           onClose={this.handleInstallModalClose}
         />
       </Page>
