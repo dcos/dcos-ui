@@ -95,8 +95,10 @@ module.exports = combineReducers({
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
       const vipLabel = `VIP_${index}`;
+      const vipPort = Number(portDefinition.vipPort) || null;
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
+      const defaultVipPort = vipPort || containerPort;
       let hostPort = Number(portDefinition.hostPort) || 0;
       let protocol = PROTOCOLS.filter(function (protocol) {
         return portDefinition.protocol[protocol];
@@ -110,12 +112,11 @@ module.exports = combineReducers({
 
       // Prefer container port
       // because this is what a user would expect to get load balanced
-      const vipPort = containerPort || hostPort || 0;
       const labels = VipLabelUtil.generateVipLabel(
         this.appState.id,
         portDefinition,
         vipLabel,
-        vipPort
+        vipPort || defaultVipPort
       );
 
       return {
