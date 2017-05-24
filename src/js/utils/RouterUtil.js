@@ -17,12 +17,10 @@ function findRedirect(queryString) {
 }
 
 const RouterUtil = {
-  isValidRedirect(domain) {
-    if (!Util.isString(domain)) {
-      return false;
-    }
+  isValidRedirect(url) {
+    const parsedUrl = Util.parseUrl(url);
 
-    return domain.includes(global.location.hostname);
+    return parsedUrl.hostname === global.location.hostname;
   },
 
   getRedirectTo() {

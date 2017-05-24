@@ -145,16 +145,16 @@ describe("RouterUtil", function() {
 
     it("domain in redirect is valid", function() {
       const expectedResult = true;
-      const domain = "http://localhost:4200/";
+      const url = "http://localhost:4200/";
 
-      expect(RouterUtil.isValidRedirect(domain)).toEqual(expectedResult);
+      expect(RouterUtil.isValidRedirect(url)).toEqual(expectedResult);
     });
 
     it("domain in redirect is invalid", function() {
       const expectedResult = false;
-      const domain = "http://google.com:/";
+      const url = "http://malicious.domain.com/pwned?localhost:4200";
 
-      expect(RouterUtil.isValidRedirect(domain)).toEqual(expectedResult);
+      expect(RouterUtil.isValidRedirect(url)).toEqual(expectedResult);
     });
   });
 });
