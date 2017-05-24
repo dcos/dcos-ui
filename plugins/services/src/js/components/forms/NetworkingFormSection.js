@@ -599,7 +599,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             checked={portsAutoAssignValue}
             name="portsAutoAssign"
             type="checkbox" />
-          Assign Ports Automatically
+          Assign Host Ports Automatically
         </FieldLabel>
       </div>
     );
