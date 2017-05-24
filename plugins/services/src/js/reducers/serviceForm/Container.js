@@ -9,7 +9,7 @@ import { JSONReducer as volumesJSONReducer } from "./JSONReducers/Volumes";
 import ContainerConstants from "../../constants/ContainerConstants";
 import docker from "./Docker";
 
-const { DOCKER, MESOS, NONE } = ContainerConstants.type;
+const { DOCKER, MESOS } = ContainerConstants.type;
 
 const containerJSONReducer = combineReducers({
   type(state, { type, path, value }) {
@@ -46,13 +46,13 @@ const containerJSONReducer = combineReducers({
       }
     }
 
-    if (type === SET && joinedPath === "container.type" && value !== NONE) {
+    if (type === SET && joinedPath === "container.type") {
       this.noState = false;
 
       return value;
     }
 
-    if (value === NONE) {
+    if (value === MESOS) {
       this.noState = true;
     }
 
@@ -85,10 +85,7 @@ const containerJSONReducer = combineReducers({
       this.containerType = value;
     }
 
-    if (
-      !ValidatorUtil.isEmpty(this.internalState) &&
-      this.containerType !== NONE
-    ) {
+    if (!ValidatorUtil.isEmpty(this.internalState)) {
       return Object.assign({}, this.internalState);
     }
   },
@@ -125,10 +122,7 @@ const containerReducer = combineReducers({
       this.containerType = value;
     }
 
-    if (
-      !ValidatorUtil.isEmpty(this.internalState) &&
-      this.containerType !== NONE
-    ) {
+    if (!ValidatorUtil.isEmpty(this.internalState)) {
       const newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach(key => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
@@ -154,7 +148,7 @@ module.exports = {
     const { type, path, value } = args[0];
 
     if (type === SET && path.join(".") === "container.type") {
-      this.isMesosRuntime = value === NONE;
+      this.isMesosRuntime = value === MESOS;
     }
 
     const newState = Object.assign(
@@ -197,8 +191,6 @@ module.exports = {
       delete newState.docker;
     } else if (this.isMesosRuntime && !ValidatorUtil.isEmpty(newState.docker)) {
       delete newState.docker;
-    } else if (newState.docker.type === NONE) {
-      delete newState.docker;
     }
 
     if (ValidatorUtil.isEmpty(newState.volumes)) {
@@ -218,15 +210,10 @@ module.exports = {
 
   JSONParser: combineParsers([
     function(state) {
-      const image = findNestedPropertyInObject(state, "container.docker.image");
       let value = findNestedPropertyInObject(state, "container.type");
 
-      if (value === MESOS && !image) {
-        value = NONE;
-      }
-
       if (value == null) {
-        value = NONE;
+        value = MESOS;
       }
 
       return new Transaction(["container", "type"], value);

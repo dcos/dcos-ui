@@ -21,10 +21,7 @@ import {
 import {
   FormReducer as ContainersReducer
 } from "../../reducers/serviceForm/Containers";
-import ContainerConstants from "../../constants/ContainerConstants";
 import PodSpec from "../../structs/PodSpec";
-
-const { NONE } = ContainerConstants.type;
 
 const appPaths = {
   cmd: "cmd",
@@ -159,14 +156,9 @@ class ContainerServiceFormSection extends Component {
   }
 
   render() {
-    const { data, errors, path, service } = this.props;
-    const typePath = this.getFieldPath(path, "type");
-    const containerType = findNestedPropertyInObject(data, typePath);
+    const { data, errors, path } = this.props;
     const imagePath = this.getFieldPath(path, "image");
     const image = findNestedPropertyInObject(data, imagePath);
-    const imageDisabled =
-      (containerType == null || containerType === NONE) &&
-      !(service instanceof PodSpec);
     const imageErrors = findNestedPropertyInObject(errors, imagePath);
     const cpusPath = this.getFieldPath(path, "cpus");
     const cpusErrors = findNestedPropertyInObject(errors, cpusPath);
@@ -175,33 +167,13 @@ class ContainerServiceFormSection extends Component {
     const cmdPath = this.getFieldPath(path, "cmd");
     const cmdErrors = findNestedPropertyInObject(errors, cmdPath);
 
-    let inputNode = (
-      <FieldInput name={imagePath} disabled={imageDisabled} value={image} />
-    );
-
-    if (imageDisabled) {
-      inputNode = (
-        <Tooltip
-          content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
-          width={300}
-          wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-          wrapText={true}
-        >
-          {inputNode}
-        </Tooltip>
-      );
-    }
-
     return (
       <div className="pod pod-short flush-horizontal flush-bottom">
         {this.getContainerNameField()}
         <FormRow>
-          <FormGroup
-            className="column-6"
-            showError={Boolean(!imageDisabled && imageErrors)}
-          >
+          <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             {this.getImageLabel()}
-            {inputNode}
+            <FieldInput name={imagePath} value={image} />
             <FieldHelp>
               Enter a Docker image you want to run, e.g. nginx.
             </FieldHelp>

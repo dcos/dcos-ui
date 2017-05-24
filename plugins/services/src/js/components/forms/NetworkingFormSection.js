@@ -29,7 +29,7 @@ import ContainerConstants from "../../constants/ContainerConstants";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 
 const { BRIDGE, HOST, USER } = Networking.type;
-const { MESOS, NONE } = ContainerConstants.type;
+const { MESOS } = ContainerConstants.type;
 
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
 
@@ -452,15 +452,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const disabledMap = {};
 
     // Runtime is Mesos
-    if (!type || type === NONE) {
+    if (!type || type === MESOS) {
       disabledMap[BRIDGE] =
         "BRIDGE networking is not compatible with the Mesos runtime";
-    }
-
-    // Runtime is Universal Container Runtime
-    if (type === MESOS) {
-      disabledMap[BRIDGE] =
-        "BRIDGE networking is not compatible with the Universal Container Runtime";
     }
 
     const tooltipContent = Object.keys(disabledMap)
@@ -504,8 +498,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getServiceEndpointsSection() {
     const { portDefinitions, container, networkType } = this.props.data;
     const type = findNestedPropertyInObject(container, "type");
-    const isMesosRuntime = !type || type === NONE;
-    const isUniversalContainerizer = !type || type === MESOS;
+    const isMesosRuntime = !type || type === MESOS;
     const isUserNetwork = networkType && networkType.startsWith(USER);
     const isBridgeNetwork = networkType && networkType.startsWith(BRIDGE);
 
@@ -542,10 +535,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if (
-      (isMesosRuntime || isUniversalContainerizer) &&
-      (isUserNetwork || isBridgeNetwork)
-    ) {
+    if (isMesosRuntime && (isUserNetwork || isBridgeNetwork)) {
       const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
 
       return (

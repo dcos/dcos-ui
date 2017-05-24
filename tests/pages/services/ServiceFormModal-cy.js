@@ -805,7 +805,7 @@ describe("Service Form Modal", function() {
 
         it("should switch from Docker to Mesos correctly", function() {
           cy.get(".ace_content").should(function(nodeList) {
-            expect(nodeList[0].textContent).not.to.contain('"container": {');
+            expect(nodeList[0].textContent).not.to.contain('"type": "DOCKER"');
           });
         });
 
@@ -822,7 +822,7 @@ describe("Service Form Modal", function() {
     context("Service: Networking", function() {
       /**
        * Clicks the runtime option under more settings
-       * @param {String} runtimeText one of ['Docker Engine', 'Mesos Runtime', 'Universal Container Runtime']
+       * @param {String} runtimeText one of ['Docker Engine', 'Mesos Runtime']
        */
       function setRuntime(runtimeText) {
         cy.get("a.clickable").contains("More Settings").click();
@@ -874,43 +874,6 @@ describe("Service Form Modal", function() {
 
         it('should disable bridge networking when "Mesos Runtime" selected', function() {
           setRuntime("Mesos Runtime");
-          clickNetworkingTab();
-
-          cy
-            .get('select[name="container.docker.network"]')
-            .as("containerDockerNetwork");
-
-          // HOST
-          cy
-            .get("@containerDockerNetwork")
-            .children("option:eq(0)")
-            .should("have.value", "HOST")
-            .should("not.have.attr", "disabled");
-
-          // BRIDGE - disabled
-          cy
-            .get("@containerDockerNetwork")
-            .children("option:eq(1)")
-            .should("have.value", "BRIDGE")
-            .should("have.attr", "disabled");
-
-          // USER.dcos-1
-          cy
-            .get("@containerDockerNetwork")
-            .children("option:eq(2)")
-            .should("have.value", "USER.dcos-1")
-            .should("not.have.attr", "disabled");
-
-          // User.dcos-2
-          cy
-            .get("@containerDockerNetwork")
-            .children("option:eq(3)")
-            .should("have.value", "USER.dcos-2")
-            .should("not.have.attr", "disabled");
-        });
-
-        it("should disable bridge networking when Universal Container Runtime selected", function() {
-          setRuntime("Universal Container Runtime");
           clickNetworkingTab();
 
           cy

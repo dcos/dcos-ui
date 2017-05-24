@@ -14,7 +14,7 @@ import {
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
 
-const { type: { DOCKER, NONE }, labelMap } = ContainerConstants;
+const { type: { DOCKER, MESOS }, labelMap } = ContainerConstants;
 
 class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
@@ -83,7 +83,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           key: "container.type",
           label: "Container Runtime",
           transformValue(runtime) {
-            return labelMap[runtime] || labelMap[NONE];
+            return labelMap[runtime] || labelMap[MESOS];
           }
         },
         {
@@ -145,8 +145,8 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
               "container.type"
             );
 
-            // Disabled for NONE
-            return getDisplayValue(value, runtime == null || runtime === NONE);
+            // Disabled for MESOS
+            return getDisplayValue(value, runtime == null || runtime === MESOS);
           }
         },
         {

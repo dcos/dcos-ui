@@ -34,7 +34,7 @@ import OperatorTypes from "../../constants/OperatorTypes";
 import PlacementConstraintsUtil from "../../utils/PlacementConstraintsUtil";
 import PodSpec from "../../structs/PodSpec";
 
-const { type: { MESOS, DOCKER, NONE }, labelMap } = ContainerConstants;
+const { type: { MESOS, DOCKER }, labelMap } = ContainerConstants;
 
 const METHODS_TO_BIND = [
   "handleConvertToPod",
@@ -47,13 +47,9 @@ const containerRuntimes = {
     label: <span>{labelMap[DOCKER]}</span>,
     helpText: "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
   },
-  [NONE]: {
-    label: <span>{labelMap[NONE]}</span>,
-    helpText: "The default Mesos containerizer"
-  },
   [MESOS]: {
     label: <span>{labelMap[MESOS]}</span>,
-    helpText: "Native container engine in Mesos using standard Linux features. Supports Docker file format, multiple containers (Pods) and GPU resources."
+    helpText: "Universal Container Runtime (UCR) using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
   }
 };
 
@@ -478,7 +474,7 @@ class GeneralServiceFormSection extends Component {
     const { container = {}, gpus } = data;
     const isDisabled = {};
     let disabledTooltipContent;
-    let type = NONE;
+    let type = MESOS;
 
     if (container != null && container.type != null) {
       type = container.type;
@@ -487,7 +483,7 @@ class GeneralServiceFormSection extends Component {
     if (!isEmpty(gpus) && gpus !== 0) {
       isDisabled[DOCKER] = true;
       disabledTooltipContent =
-        "Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.";
+        "Docker Engine does not support GPU resources, please select Mesos Runtime if you want to use GPU resources.";
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
