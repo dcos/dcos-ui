@@ -69,6 +69,7 @@ const KEY_VALUE_FIELDS = ["env", "environment", "labels"];
 const CONSTANTLY_UNMUTED_ERRORS = [
   /^constraints\.[0-9]+\./,
   /^portDefinitions\.[0-9]+\./,
+  /^container.docker.portMappings\.[0-9]+\./,
   /^localVolumes\.[0-9]+\./
 ];
 
