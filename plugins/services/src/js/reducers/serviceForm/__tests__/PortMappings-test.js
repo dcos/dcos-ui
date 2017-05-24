@@ -115,6 +115,7 @@ describe("#JSONParser", function() {
         new Transaction(["portDefinitions", 0, "portMapping"], false),
         new Transaction(["portDefinitions", 0, "loadBalanced"], true),
         new Transaction(["portDefinitions", 0, "vip"], "/:0"),
+        new Transaction(["portDefinitions", 0, "vipPort"], "0"),
         new Transaction(["portDefinitions", 0, "labels"], { VIP_0: "/:0" })
       ]);
     });
@@ -217,6 +218,7 @@ describe("#JSONParser", function() {
         new Transaction(["portDefinitions", 1, "protocol", "tcp"], true),
         new Transaction(["portDefinitions", 1, "loadBalanced"], true),
         new Transaction(["portDefinitions", 1, "vip"], "/:0"),
+        new Transaction(["portDefinitions", 1, "vipPort"], "0"),
         new Transaction(["portDefinitions", 1, "labels"], { VIP_1: "/:0" })
       ]);
     });
