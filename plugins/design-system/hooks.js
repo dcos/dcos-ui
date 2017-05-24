@@ -4,27 +4,27 @@ import React from "react";
 
 import { navigation, routing } from "foundation-ui";
 
-import ButtonsPage from "./pages/buttons/ButtonsPage";
+import ButtonsPage from "./pages/elements/buttons/ButtonsPage";
 import IntroductionPage from "./pages/IntroductionPage";
-import ModalsPage from "./pages/ModalsPage";
-import TablesPage from "./pages/TablesPage";
-import ColorPage from "./pages/ColorPage";
-import CreateEditPage from "./pages/CreateEditPage";
-import EmptyStatesPage from "./pages/EmptyStatesPage";
-import FormsPage from "./pages/FormsPage";
-import HelpFeedbackPage from "./pages/HelpFeedbackPage";
-import IconsPage from "./pages/IconsPage";
-import LayoutPage from "./pages/LayoutPage";
-import LoadingPage from "./pages/LoadingPage";
-import MotionPage from "./pages/MotionPage";
-import NotificationsPage from "./pages/NotificationsPage";
-import TypographyPage from "./pages/TypographyPage";
-import ValidationPage from "./pages/ValidationPage";
-import WritingPage from "./pages/WritingPage";
+import ModalsPage from "./pages/elements/modals/ModalsPage";
+import TablesPage from "./pages/elements/tables/TablesPage";
+import ColorPage from "./pages/style/ColorPage";
+import CreateEditPage from "./pages/patterns/CreateEditPage";
+import EmptyStatesPage from "./pages/patterns/EmptyStatesPage";
+import FormsPage from "./pages/patterns/FormsPage";
+import HelpFeedbackPage from "./pages/patterns/HelpFeedbackPage";
+import IconsPage from "./pages/style/IconsPage";
+import LayoutPage from "./pages/style/LayoutPage";
+import LoadingPage from "./pages/patterns/LoadingPage";
+import MotionPage from "./pages/style/MotionPage";
+import NotificationsPage from "./pages/patterns/NotificationsPage";
+import TypographyPage from "./pages/style/TypographyPage";
+import ValidationPage from "./pages/patterns/ValidationPage";
+import WritingPage from "./pages/style/WritingPage";
 
-import OverviewTab from "./pages/buttons/OverviewTab";
-import CodeTab from "./pages/buttons/CodeTab";
-import StylesTab from "./pages/buttons/StylesTab";
+import OverviewTab from "./pages/elements/buttons/tabs/OverviewTab";
+import CodeTab from "./pages/elements/buttons/tabs/CodeTab";
+import StylesTab from "./pages/elements/buttons/tabs/StylesTab";
 
 const SDK = require("./SDK").getSDK();
 
