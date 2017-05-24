@@ -20,17 +20,17 @@ describe('NetworkValidatorUtil', function () {
     });
 
     it('should handle number like inputs', function () {
-      expect(NetworkValidatorUtil.isValidPort(0)).toBe(true);
-      expect(NetworkValidatorUtil.isValidPort('0')).toBe(true);
+      expect(NetworkValidatorUtil.isValidPort(0)).toBe(false);
+      expect(NetworkValidatorUtil.isValidPort('0')).toBe(false);
       expect(NetworkValidatorUtil.isValidPort(80)).toBe(true);
       expect(NetworkValidatorUtil.isValidPort('80')).toBe(true);
       expect(NetworkValidatorUtil.isValidPort(8080)).toBe(true);
       expect(NetworkValidatorUtil.isValidPort('8080')).toBe(true);
     });
 
-    it('should verify that port is greater or equal to 0', function () {
+    it('should verify that port is greater then 0', function () {
       expect(NetworkValidatorUtil.isValidPort(-1)).toBe(false);
-      expect(NetworkValidatorUtil.isValidPort(0)).toBe(true);
+      expect(NetworkValidatorUtil.isValidPort(0)).toBe(false);
       expect(NetworkValidatorUtil.isValidPort(8080)).toBe(true);
     });
 
@@ -43,4 +43,3 @@ describe('NetworkValidatorUtil', function () {
   });
 
 });
-
