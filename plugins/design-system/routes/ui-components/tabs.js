@@ -1,24 +1,24 @@
 import { navigation, routing } from "foundation-ui";
 
-import MessagesPage from "../../pages/elements/messages/MessagesPage";
+import TabsPage from "../../pages/ui-components/tabs/TabsPage";
 
-import OverviewTab from "../../pages/elements/messages/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/messages/tabs/CodeTab";
-import StylesTab from "../../pages/elements/messages/tabs/StylesTab";
+import OverviewTab from "../../pages/ui-components/tabs/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/tabs/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/tabs/tabs/StylesTab";
 
 module.exports = {
-  name: "messages",
+  name: "tabs",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Messages"
+      "Tabs"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      MessagesPage
+      TabsPage
     );
 
     // The following calls to #registerTab define child routes for each page.

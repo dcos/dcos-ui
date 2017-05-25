@@ -1,24 +1,25 @@
 import { navigation, routing } from "foundation-ui";
 
-import SelectsPage from "../../pages/elements/selects/SelectsPage";
+import CheckboxesPage
+  from "../../pages/ui-components/checkboxes/CheckboxesPage";
 
-import OverviewTab from "../../pages/elements/selects/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/selects/tabs/CodeTab";
-import StylesTab from "../../pages/elements/selects/tabs/StylesTab";
+import OverviewTab from "../../pages/ui-components/checkboxes/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/checkboxes/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/checkboxes/tabs/StylesTab";
 
 module.exports = {
-  name: "selects",
+  name: "checkboxes",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Selects"
+      "Checkboxes"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      SelectsPage
+      CheckboxesPage
     );
 
     // The following calls to #registerTab define child routes for each page.

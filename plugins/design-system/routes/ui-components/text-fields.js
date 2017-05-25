@@ -1,24 +1,26 @@
 import { navigation, routing } from "foundation-ui";
 
-import ChartsPage from "../../pages/elements/charts/ChartsPage";
+import TextFieldsPage
+  from "../../pages/ui-components/text-fields/TextFieldsPage";
 
-import OverviewTab from "../../pages/elements/charts/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/charts/tabs/CodeTab";
-import StylesTab from "../../pages/elements/charts/tabs/StylesTab";
+import OverviewTab
+  from "../../pages/ui-components/text-fields/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/text-fields/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/text-fields/tabs/StylesTab";
 
 module.exports = {
-  name: "charts",
+  name: "text-fields",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Charts"
+      "Text Fields"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      ChartsPage
+      TextFieldsPage
     );
 
     // The following calls to #registerTab define child routes for each page.

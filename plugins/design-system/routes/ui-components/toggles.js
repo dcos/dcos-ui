@@ -1,25 +1,24 @@
 import { navigation, routing } from "foundation-ui";
 
-import RadioButtonsPage
-  from "../../pages/elements/radio-buttons/RadioButtonsPage";
+import TogglesPage from "../../pages/ui-components/toggles/TogglesPage";
 
-import OverviewTab from "../../pages/elements/radio-buttons/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/radio-buttons/tabs/CodeTab";
-import StylesTab from "../../pages/elements/radio-buttons/tabs/StylesTab";
+import OverviewTab from "../../pages/ui-components/toggles/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/toggles/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/toggles/tabs/StylesTab";
 
 module.exports = {
-  name: "radio-buttons",
+  name: "toggles",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Radio Buttons"
+      "Toggles"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      RadioButtonsPage
+      TogglesPage
     );
 
     // The following calls to #registerTab define child routes for each page.

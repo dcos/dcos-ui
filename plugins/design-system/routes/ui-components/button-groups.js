@@ -1,24 +1,26 @@
 import { navigation, routing } from "foundation-ui";
 
-import BreadcrumbsPage from "../../pages/elements/breadcrumbs/BreadcrumbsPage";
+import ButtonGroupsPage
+  from "../../pages/ui-components/button-groups/ButtonGroupsPage";
 
-import OverviewTab from "../../pages/elements/breadcrumbs/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/breadcrumbs/tabs/CodeTab";
-import StylesTab from "../../pages/elements/breadcrumbs/tabs/StylesTab";
+import OverviewTab
+  from "../../pages/ui-components/button-groups/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/button-groups/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/button-groups/tabs/StylesTab";
 
 module.exports = {
-  name: "breadcrumbs",
+  name: "button-groups",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Breadcrumbs"
+      "Button Groups"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      BreadcrumbsPage
+      ButtonGroupsPage
     );
 
     // The following calls to #registerTab define child routes for each page.

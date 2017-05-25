@@ -5,10 +5,6 @@ import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-const SDK = require("../SDK").getSDK();
-
-const { Page } = SDK.get(["Page"]);
-
 class DesignSystemBreadcrumbs extends Component {
   getBreadcrumbs() {
     return [

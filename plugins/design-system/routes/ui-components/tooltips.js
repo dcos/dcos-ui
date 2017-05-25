@@ -1,25 +1,24 @@
 import { navigation, routing } from "foundation-ui";
 
-import SegmentedBarsPage
-  from "../../pages/elements/segmented-bars/SegmentedBarsPage";
+import TooltipsPage from "../../pages/ui-components/tooltips/TooltipsPage";
 
-import OverviewTab from "../../pages/elements/segmented-bars/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/segmented-bars/tabs/CodeTab";
-import StylesTab from "../../pages/elements/segmented-bars/tabs/StylesTab";
+import OverviewTab from "../../pages/ui-components/tooltips/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/tooltips/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/tooltips/tabs/StylesTab";
 
 module.exports = {
-  name: "segmented-bars",
+  name: "tooltips",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Segmented Bars"
+      "Tooltips"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      SegmentedBarsPage
+      TooltipsPage
     );
 
     // The following calls to #registerTab define child routes for each page.

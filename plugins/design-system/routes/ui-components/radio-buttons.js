@@ -1,24 +1,26 @@
 import { navigation, routing } from "foundation-ui";
 
-import TextFieldsPage from "../../pages/elements/text-fields/TextFieldsPage";
+import RadioButtonsPage
+  from "../../pages/ui-components/radio-buttons/RadioButtonsPage";
 
-import OverviewTab from "../../pages/elements/text-fields/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/text-fields/tabs/CodeTab";
-import StylesTab from "../../pages/elements/text-fields/tabs/StylesTab";
+import OverviewTab
+  from "../../pages/ui-components/radio-buttons/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/radio-buttons/tabs/CodeTab";
+import StylesTab from "../../pages/ui-components/radio-buttons/tabs/StylesTab";
 
 module.exports = {
-  name: "text-fields",
+  name: "radio-buttons",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Text Fields"
+      "Radio Buttons"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      TextFieldsPage
+      RadioButtonsPage
     );
 
     // The following calls to #registerTab define child routes for each page.

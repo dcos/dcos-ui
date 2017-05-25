@@ -1,24 +1,27 @@
 import { navigation, routing } from "foundation-ui";
 
-import TabsPage from "../../pages/elements/tabs/TabsPage";
+import LoadingIndicatorsPage
+  from "../../pages/ui-components/loading-indicators/LoadingIndicatorsPage";
 
-import OverviewTab from "../../pages/elements/tabs/tabs/OverviewTab";
-import CodeTab from "../../pages/elements/tabs/tabs/CodeTab";
-import StylesTab from "../../pages/elements/tabs/tabs/StylesTab";
+import OverviewTab
+  from "../../pages/ui-components/loading-indicators/tabs/OverviewTab";
+import CodeTab from "../../pages/ui-components/loading-indicators/tabs/CodeTab";
+import StylesTab
+  from "../../pages/ui-components/loading-indicators/tabs/StylesTab";
 
 module.exports = {
-  name: "tabs",
+  name: "loading-indicators",
   tabs: ["overview", "code", "styles"],
   addRoutes() {
     navigation.NavigationService.registerSecondary(
       "/ds-components",
       this.name,
-      "Tabs"
+      "Loading Indicators"
     );
 
     routing.RoutingService.registerPage(
       `/ds-components/${this.name}`,
-      TabsPage
+      LoadingIndicatorsPage
     );
 
     // The following calls to #registerTab define child routes for each page.
