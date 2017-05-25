@@ -1220,12 +1220,6 @@ describe("Services", function() {
         selectUniversalRuntime();
         cy.contains("Force Pull Image On Launch").click();
 
-        //
-        // TODO: Due to a bug in cypress you cannot type values with dots
-        // cy
-        //   .get('input[name=cpus]')
-        //   .type('{selectall}0.5');
-        //
         cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
         // Check JSON view
@@ -1330,24 +1324,15 @@ describe("Services", function() {
         // Select ucr runtime
         selectUniversalRuntime();
 
-        //
-        // TODO: Due to a bug in cypress you cannot type values with dots
-        // cy
-        //   .get('input[name=cpus]')
-        //   .type('{selectall}0.5');
-        //
         cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
         // Select Voluimes section
         cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
         // Click "Add Local Volume"
-        /**
-
-         */
         cy.contains("Add Local Volume").click();
 
-        // Setup HTTP endpoint
+        // Setup Host Volume
         cy.root().getFormGroupInputFor("Volume Type").select("Host Volume");
         cy.root().getFormGroupInputFor("Host Path").type("/var/log");
         cy.root().getFormGroupInputFor("Container Path").type("/var/log");
@@ -1505,9 +1490,6 @@ describe("Services", function() {
         cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
         // Click "Add Service Endpoint"
-        /**
-
-         */
         cy.contains("Add Service Endpoint").click();
 
         // Setup HTTP endpoint
