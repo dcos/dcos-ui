@@ -337,8 +337,10 @@ const MarathonAppValidators = {
           variables
         });
       }
+
       const isValueDefinedAndRequiredEmpty =
-        PlacementConstraintsUtil.requiresEmptyValue(operator) && value != null;
+        PlacementConstraintsUtil.requiresEmptyValue(operator) &&
+        !ValidatorUtil.isEmpty(value);
 
       if (isValueDefinedAndRequiredEmpty) {
         errors.push({
@@ -348,8 +350,10 @@ const MarathonAppValidators = {
           variables
         });
       }
+
       const isValueNotAStringNumberWhenRequired =
         PlacementConstraintsUtil.stringNumberValue(operator) &&
+        !ValidatorUtil.isEmpty(value) &&
         !ValidatorUtil.isStringInteger(value);
 
       if (isValueNotAStringNumberWhenRequired) {
