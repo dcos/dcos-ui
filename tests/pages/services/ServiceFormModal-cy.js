@@ -1668,9 +1668,21 @@ describe("Service Form Modal", function() {
 
   context("Multi-container - Review & Run", function() {
     beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy"
+      });
+
+      cy.visitUrl({ url: "/services/overview/%2F/create" });
+      cy
+        .get(".create-service-modal-service-picker-option")
+        .contains("Multi-container (Pod)")
+        .click();
+
       // Fill in SERVICE ID
       cy.get('.form-control[name="id"]').clear().type("/test-review-and-run");
+    });
 
+    it("Should contain two containers at review and run modal", function() {
       // Add a second container
       cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
 
@@ -1679,9 +1691,8 @@ describe("Service Form Modal", function() {
         .get(".modal-full-screen-actions")
         .contains("button", "Review & Run")
         .click();
-    });
 
-    it("Should contain two containers", function() {
+      // assert review and run modal
       cy
         .get(".detail-view-section-heading.configuration-map-heading")
         .eq(1)
