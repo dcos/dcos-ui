@@ -1623,10 +1623,18 @@ describe("Service Form Modal", function() {
       });
 
       it("Should add new container", function() {
+        cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
         cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+        cy.get(".pod-narrow.pod-short").should("to.have.length", 2);
       });
 
       it("Should contain two containers navigation under Services tab", function() {
+        cy
+          .get(".menu-tabbed-item-label")
+          .eq(0)
+          .siblings()
+          .should("to.have.length", 1);
+
         cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
 
         cy
@@ -1656,30 +1664,30 @@ describe("Service Form Modal", function() {
           });
       });
     });
+  });
 
-    context("Multi-container (pod) Review & Run", function() {
-      beforeEach(function() {
-        // Fill in SERVICE ID
-        cy.get('.form-control[name="id"]').clear().type("/test-review-and-run");
+  context("Multi-container - Review & Run", function() {
+    beforeEach(function() {
+      // Fill in SERVICE ID
+      cy.get('.form-control[name="id"]').clear().type("/test-review-and-run");
 
-        // Add a second container
-        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+      // Add a second container
+      cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
 
-        // Click review and run
-        cy
-          .get(".modal-full-screen-actions")
-          .contains("button", "Review & Run")
-          .click();
-      });
+      // Click review and run
+      cy
+        .get(".modal-full-screen-actions")
+        .contains("button", "Review & Run")
+        .click();
+    });
 
-      it("Should add new container", function() {
-        cy
-          .get(".detail-view-section-heading.configuration-map-heading")
-          .eq(1)
-          .contains("Containers")
-          .siblings()
-          .should("to.have.length", 2);
-      });
+    it("Should contain two containers", function() {
+      cy
+        .get(".detail-view-section-heading.configuration-map-heading")
+        .eq(1)
+        .contains("Containers")
+        .siblings()
+        .should("to.have.length", 2);
     });
   });
 });
