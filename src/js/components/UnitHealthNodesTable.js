@@ -114,7 +114,7 @@ class UnitHealthNodesTable extends React.Component {
     return (
       <Table
         className="table table-borderless-outer
-          table-borderless-inner-columns flush-bottom"
+          table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"

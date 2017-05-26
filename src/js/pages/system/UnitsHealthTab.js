@@ -212,7 +212,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
           <div className="page-body-content-fill flex-grow flex-container-col">
             <Table
               className="table table-borderless-outer
-                table-borderless-inner-columns flush-bottom"
+                table-borderless-inner-columns table-hover flush-bottom"
               columns={this.getColumns()}
               colGroup={this.getColGroup()}
               containerSelector=".gm-scroll-view"

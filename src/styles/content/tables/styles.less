@@ -1,14 +1,35 @@
 & when (@table-enabled) {
 
-  tr,
-  .table-row {
+  .table {
 
-    &:hover {
+    th,
+    td {
 
-      .table-display-on-row-hover {
-        visibility: visible;
+      &.active {
+        background-color: inherit;
       }
     }
+
+    // Remove active styling from row hover state
+    &.table-hover {
+
+      tr {
+
+        &:hover {
+
+          td {
+
+            &.active {
+              background-color: @table-cell-hover-background-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tr,
+  .table-row {
 
     &.inactive {
 
@@ -61,6 +82,16 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     vertical-align: middle;
+
+    &.clickable {
+
+      &:hover {
+
+        .caret {
+          display: inline-block;
+        }
+      }
+    }
   }
 
   td {
@@ -68,6 +99,10 @@
     // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
     max-width: 0;
     vertical-align: middle;
+
+    &.active {
+      background-color: inherit;
+    }
   }
 
   .table-header-title {
