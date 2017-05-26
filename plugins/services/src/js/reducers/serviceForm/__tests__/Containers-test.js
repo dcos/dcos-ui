@@ -25,6 +25,62 @@ describe("Containers", function() {
       ]);
     });
 
+    describe("container with image", function() {
+      it("contains a container with image", function() {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["containers", 0, "image", "id"], "alpine", SET)
+        );
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            endpoints: [],
+            image: {
+              kind: "DOCKER",
+              id: "alpine"
+            },
+            resources: {
+              cpus: 0.1,
+              mem: 128
+            }
+          }
+        ]);
+      });
+
+      it("doesn't contain the image object", function() {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["containers", 0, "image", "id"], "alpine", SET)
+        );
+
+        // This is here to ensure that both image id changes are in the batch.
+        batch = batch.add(
+          new Transaction(["containers", 0, "resources", "cpus"], 0.2, SET)
+        );
+
+        batch = batch.add(
+          new Transaction(["containers", 0, "image", "id"], "", SET)
+        );
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            endpoints: [],
+            resources: {
+              cpus: 0.2,
+              disk: "",
+              mem: 128
+            }
+          }
+        ]);
+      });
+    });
+
     describe("endpoints", function() {
       describe("Host Mode", function() {
         it("should have one endpoint", function() {
