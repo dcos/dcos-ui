@@ -8,10 +8,19 @@ class OverviewTab extends Component {
           Buttons are used primarily on action items. Some examples include Add, Save, Delete, Deploy.
         </p>
         <p>
-          Do not use Buttons as navigational elements. Instead, use Links because it takes the user to a new page and is not associated with an action. Each page will likely have one primary button. Any remaining calls-to-action are represented as default buttons.
+          Do not use
+          {" "}
+          <code>&lt;button&gt;</code>
+          {" "}
+          as navigational elements. Instead, use
+          {" "}
+          <code>&lt;a&gt;</code>
+          {" "}
+          because it takes the user to a new page and is not associated with an action. Each page will likely have one primary button. Any remaining calls-to-action are represented as default buttons.
         </p>
         <h2>Guidelines</h2>
         <h3>Button States</h3>
+        <p>States help visually distinguish one button from another.</p>
         <table className="table">
           <thead>
             <tr>
@@ -72,6 +81,9 @@ class OverviewTab extends Component {
           </tbody>
         </table>
         <h3>Button Types</h3>
+        <p>
+          Different button types are available depending on the use case and placement.
+        </p>
         <table className="table">
           <thead>
             <tr>
@@ -117,6 +129,9 @@ class OverviewTab extends Component {
           </tbody>
         </table>
         <h3>Button Sizes</h3>
+        <p>
+          By default, buttons display at a standard size, comparable to that of an input field. One additional size is available: small.
+        </p>
         <table className="table">
           <thead>
             <tr>
@@ -209,9 +224,53 @@ class OverviewTab extends Component {
           For Sets of Buttons, use specific labels, such as Save or Cancel, instead of using Yes and No. This is particularly helpful when the user is confirming an action.
         </p>
         <h2>Usage</h2>
+        <div className="panel">
+          <div className="row">
+            <div className="column-6">
+              <div className="panel-cell">
+                <h3>Do</h3>
+                <button className="button button-primary" type="button">
+                  Deploy Service
+                </button>
+              </div>
+            </div>
+            <div className="column-6">
+              <div className="panel-cell">
+                <h3>Don't</h3>
+                <button className="button button-primary" type="button">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <h2>Attribute Breakdown</h2>
         <h2>Format</h2>
         <h2>Interaction/Behavior</h2>
+        <h3>Hover State</h3>
+        <p>All buttons should have a hover state...</p>
+        <h3>Focus State</h3>
+        <p>
+          For accessibility reasons it is important to distinguish the currently focused element on the page.
+        </p>
+        <h3>Active State</h3>
+        <p>
+          When a user clicks or taps on a button it is important to provide visual feedback that they have done so. Active states accomplish this.
+        </p>
+        <h3>Loading State</h3>
+        <p>
+          When the user clicks a button and an action is to be performed before proceeding (e.g. an API call) button should switch to a loading state so it is obvious to the user that something is happenign.
+        </p>
+        <h3>Tooltips</h3>
+        <p>
+          Buttons may or may not require tooltips to help communicate their intent.
+        </p>
+        <p>
+          Icon buttons that do not have labels should always have a tooltip so the user knows what will happen when they click it.
+        </p>
+        <p>
+          Disabled buttons should always have a tooltip to explain why it is disabled so the user is aware.
+        </p>
       </div>
     );
   }
