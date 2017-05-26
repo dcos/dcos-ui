@@ -80,7 +80,7 @@ class CliInstallModal extends React.Component {
       `sudo mv dcos /usr/local/bin`,
       `sudo chmod +x /usr/local/bin/dcos`,
       `dcos cluster setup ${clusterUrl}`,
-      `dco`
+      `dcos`
     ].filter(instruction => instruction !== undefined);
 
     return (
