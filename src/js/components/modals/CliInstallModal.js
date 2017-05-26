@@ -77,11 +77,10 @@ class CliInstallModal extends React.Component {
 
     const instructions = [
       `curl ${downloadUrl} -o dcos`,
-      "sudo mv dcos /usr/local/bin",
-      "sudo chmod +x /usr/local/bin/dcos",
-      `dcos config set core.dcos_url ${clusterUrl}`,
-      Hooks.applyFilter("dcosInstallCommandExtraSteps", undefined),
-      "dcos"
+      `sudo mv dcos /usr/local/bin`,
+      `sudo chmod +x /usr/local/bin/dcos`,
+      `dcos cluster setup ${clusterUrl}`,
+      `dco`
     ].filter(instruction => instruction !== undefined);
 
     return (
