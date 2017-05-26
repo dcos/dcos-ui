@@ -226,8 +226,7 @@ class JobsTable extends React.Component {
 
     const statusClasses = classNames({
       "text-success": jobState.stateTypes.includes("success"),
-      "text-danger": jobState.stateTypes.includes("failure"),
-      "text-color-white": jobState.stateTypes.includes("active")
+      "text-danger": jobState.stateTypes.includes("failure")
     });
 
     return <span className={statusClasses}>{jobState.displayName}</span>;
