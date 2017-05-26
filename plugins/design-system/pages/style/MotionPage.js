@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import DesignSystemBreadcrumbs from "../../components/DesignSystemBreadcrumbs";
+import StyleBreadcrumbs from "../../components/StyleBreadcrumbs";
 
 const SDK = require("../../SDK").getSDK();
 
@@ -10,7 +10,9 @@ class MotionPage extends Component {
   render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<StyleBreadcrumbs title="Motion" path="motion" />}
+        />
         <div>
           Motion Page
         </div>

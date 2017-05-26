@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import DesignSystemPage from "../../DesignSystemPage";
-import DesignSystemBreadcrumbs
-  from "../../../components/DesignSystemBreadcrumbs";
+import ComponentsBreadcrumbs from "../../../components/ComponentsBreadcrumbs";
 
 const SDK = require("../../../SDK").getSDK();
 
@@ -10,24 +9,30 @@ const { Page } = SDK.get(["Page"]);
 
 class RadioButtonsPage extends Component {
   render() {
+    const pathName = "radio-buttons";
     const tabs = [
       {
         label: "Overview",
-        routePath: "/ds-components/radio-buttons/overview"
+        routePath: `/ds-components/${pathName}/overview`
       },
       {
         label: "Code",
-        routePath: "/ds-components/radio-buttons/code"
+        routePath: `/ds-components/${pathName}/code`
       },
       {
         label: "Styles",
-        routePath: "/ds-components/radio-buttons/styles"
+        routePath: `/ds-components/${pathName}/styles`
       }
     ];
 
     return (
       <DesignSystemPage>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} tabs={tabs} />
+        <Page.Header
+          breadcrumbs={
+            <ComponentsBreadcrumbs title="Radio Buttons" path={pathName} />
+          }
+          tabs={tabs}
+        />
         {this.props.children}
       </DesignSystemPage>
     );

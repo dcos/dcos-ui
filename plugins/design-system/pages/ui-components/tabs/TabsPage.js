@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import DesignSystemPage from "../../DesignSystemPage";
-import DesignSystemBreadcrumbs
-  from "../../../components/DesignSystemBreadcrumbs";
+import ComponentsBreadcrumbs from "../../../components/ComponentsBreadcrumbs";
 
 const SDK = require("../../../SDK").getSDK();
 
@@ -10,24 +9,28 @@ const { Page } = SDK.get(["Page"]);
 
 class TabsPage extends Component {
   render() {
+    const pathName = "tabs";
     const tabs = [
       {
         label: "Overview",
-        routePath: "/ds-components/tabs/overview"
+        routePath: `/ds-components/${pathName}/overview`
       },
       {
         label: "Code",
-        routePath: "/ds-components/tabs/code"
+        routePath: `/ds-components/${pathName}/code`
       },
       {
         label: "Styles",
-        routePath: "/ds-components/tabs/styles"
+        routePath: `/ds-components/${pathName}/styles`
       }
     ];
 
     return (
       <DesignSystemPage>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} tabs={tabs} />
+        <Page.Header
+          breadcrumbs={<ComponentsBreadcrumbs title="Tabs" path={pathName} />}
+          tabs={tabs}
+        />
         {this.props.children}
       </DesignSystemPage>
     );

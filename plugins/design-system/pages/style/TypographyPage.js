@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import DesignSystemBreadcrumbs from "../../components/DesignSystemBreadcrumbs";
+import StyleBreadcrumbs from "../../components/StyleBreadcrumbs";
 
 const SDK = require("../../SDK").getSDK();
 
@@ -10,7 +10,11 @@ class TypographyPage extends Component {
   render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={
+            <StyleBreadcrumbs title="Typography" path="typography" />
+          }
+        />
         <div>
           Typograph Page
         </div>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import DesignSystemPage from "../../DesignSystemPage";
-import DesignSystemBreadcrumbs
-  from "../../../components/DesignSystemBreadcrumbs";
+import ComponentsBreadcrumbs from "../../../components/ComponentsBreadcrumbs";
 
 const SDK = require("../../../SDK").getSDK();
 
@@ -10,24 +9,30 @@ const { Page } = SDK.get(["Page"]);
 
 class CheckboxesPage extends Component {
   render() {
+    const pathName = "checkboxes";
     const tabs = [
       {
         label: "Overview",
-        routePath: "/ds-components/checkboxes/overview"
+        routePath: `/ds-components/${pathName}/overview`
       },
       {
         label: "Code",
-        routePath: "/ds-components/checkboxes/code"
+        routePath: `/ds-components/${pathName}/code`
       },
       {
         label: "Styles",
-        routePath: "/ds-components/checkboxes/styles"
+        routePath: `/ds-components/${pathName}/styles`
       }
     ];
 
     return (
       <DesignSystemPage>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} tabs={tabs} />
+        <Page.Header
+          breadcrumbs={
+            <ComponentsBreadcrumbs title="Checkboxes" path={pathName} />
+          }
+          tabs={tabs}
+        />
         {this.props.children}
       </DesignSystemPage>
     );

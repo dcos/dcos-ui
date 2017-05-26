@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import DesignSystemBreadcrumbs from "../../components/DesignSystemBreadcrumbs";
+import PatternsBreadcrumbs from "../../components/PatternsBreadcrumbs";
 
 const SDK = require("../../SDK").getSDK();
 
@@ -10,7 +10,11 @@ class HelpFeedbackPage extends Component {
   render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={
+            <PatternsBreadcrumbs title="Help & Feedback" path="help-feedback" />
+          }
+        />
         <div>
           Help/Feedback Page
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import DesignSystemBreadcrumbs from "../../components/DesignSystemBreadcrumbs";
+import PatternsBreadcrumbs from "../../components/PatternsBreadcrumbs";
 
 const SDK = require("../../SDK").getSDK();
 
@@ -10,7 +10,9 @@ class LoadingPage extends Component {
   render() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<DesignSystemBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<PatternsBreadcrumbs title="Loading" path="loading" />}
+        />
         <div>
           Loading Page
         </div>
