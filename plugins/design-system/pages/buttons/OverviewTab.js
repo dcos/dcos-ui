@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Tooltip } from "reactjs-components";
+import imageTest from "../../img/test.png";
 
 class OverviewTab extends Component {
   render() {
@@ -69,13 +71,15 @@ class OverviewTab extends Component {
                 Disable a button when the action is not applicable but we want to show the user that it may be possible. Disabled buttons should have a tooltip.
               </td>
               <td>
-                <button
-                  className="button button-disabled"
-                  type="button"
-                  disabled
-                >
-                  Disabled
-                </button>
+                <Tooltip content="test">
+                  <button
+                    className="button button-disabled"
+                    type="button"
+                    disabled
+                  >
+                    Disabled
+                  </button>
+                </Tooltip>
               </td>
             </tr>
           </tbody>
@@ -271,6 +275,7 @@ class OverviewTab extends Component {
         <p>
           Disabled buttons should always have a tooltip to explain why it is disabled so the user is aware.
         </p>
+        <img src={imageTest} width="300" />
       </div>
     );
   }
