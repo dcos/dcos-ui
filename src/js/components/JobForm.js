@@ -5,7 +5,12 @@ import SchemaForm from "./SchemaForm";
 
 const METHODS_TO_BIND = ["handleFormChange", "validateForm"];
 
-const SCHEDULE_FIELDS = ["cron", "timezone", "startingDeadlineSeconds"];
+const SCHEDULE_FIELDS = [
+  "enabled",
+  "cron",
+  "timezone",
+  "startingDeadlineSeconds"
+];
 
 const DUPLICABLE_FIELDS_TO_WATCH = {};
 

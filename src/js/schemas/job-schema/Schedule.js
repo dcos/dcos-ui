@@ -105,6 +105,17 @@ const Schedule = {
 
         return true;
       }
+    },
+    enabled: {
+      label: "Enabled",
+      showLabel: true,
+      title: "Enabled",
+      type: "boolean",
+      getter(job) {
+        const [schedule = {}] = job.getSchedules();
+
+        return schedule.enabled !== undefined ? schedule.enabled : false;
+      }
     }
   },
   required: ["cron"]
