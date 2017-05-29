@@ -188,8 +188,9 @@ module.exports = Object.assign({}, StoreMixin, {
 
   userLoginSuccess() {
     const redirectTo = RouterUtil.getRedirectTo();
+    const isValidRedirect = RouterUtil.isValidRedirect(redirectTo);
 
-    if (redirectTo) {
+    if (isValidRedirect) {
       global.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {

@@ -208,6 +208,42 @@ const Util = {
     }
 
     return item;
+  },
+
+  isString(str) {
+    return typeof str === "string";
+  },
+
+  /**
+   * Parse url string
+   * and returns its object representation
+   *
+   * @param {String} url
+   * @returns {Object} url representation
+   */
+  parseUrl(url) {
+    if (!Util.isString(url)) {
+      return null;
+    }
+
+    // TODO: replace below with browser native API <new URL()>
+    // when all browsers support are available
+    const aElement = document.createElement("a");
+    aElement.href = url;
+
+    return {
+      hash: aElement.hash,
+      host: aElement.host,
+      hostname: aElement.hostname,
+      href: aElement.href,
+      origin: aElement.origin,
+      password: aElement.password,
+      pathname: aElement.pathname,
+      port: aElement.port,
+      protocol: aElement.protocol,
+      search: aElement.search,
+      username: aElement.username
+    };
   }
 };
 

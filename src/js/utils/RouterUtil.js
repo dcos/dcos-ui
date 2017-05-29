@@ -17,6 +17,12 @@ function findRedirect(queryString) {
 }
 
 const RouterUtil = {
+  isValidRedirect(url) {
+    const parsedUrl = Util.parseUrl(url);
+
+    return parsedUrl.hostname === global.location.hostname;
+  },
+
   getRedirectTo() {
     let redirectTo = false;
 

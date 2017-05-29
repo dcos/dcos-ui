@@ -414,4 +414,39 @@ describe("Util", function() {
       expect(Util.toUpperCaseIfString(value)).toEqual(value);
     });
   });
+
+  describe("#isString", function() {
+    it("should return true when argument is type string", function() {
+      expect(Util.isString("Name")).toEqual(true);
+    });
+
+    it("should return false when argument is NOT type string", function() {
+      expect(Util.isString(1)).toEqual(false);
+    });
+  });
+
+  describe("#parseUrl", function() {
+    it("should return url object representation", function() {
+      const expectedResult = {
+        hash: "",
+        host: "google.com",
+        hostname: "google.com",
+        href: "http://google.com/",
+        origin: "http://google.com",
+        password: "",
+        pathname: "/",
+        port: "",
+        protocol: "http:",
+        search: "",
+        username: ""
+      };
+      const url = "http://google.com";
+
+      expect(Util.parseUrl(url)).toEqual(expectedResult);
+    });
+
+    it("should return null", function() {
+      expect(Util.parseUrl(1)).toEqual(null);
+    });
+  });
 });
