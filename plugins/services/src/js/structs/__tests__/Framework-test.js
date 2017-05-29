@@ -124,6 +124,69 @@ describe("Framework", function() {
         tasksOverCapacity: 0
       });
     });
+
+    it("aggregates the right number of tasks", function() {
+      MesosStateStore.getTasksByService = function() {
+        return [
+          {
+            id: "/fake_1",
+            isStartedByMarathon: true,
+            state: "TASK_RUNNING",
+            resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
+          },
+          {
+            id: "/fake_2",
+            state: "TASK_RUNNING",
+            statuses: [
+              {
+                healthy: true
+              }
+            ],
+            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+          },
+          {
+            id: "/fake_2",
+            state: "TASK_RUNNING",
+            statuses: [
+              {
+                healthy: false
+              }
+            ],
+            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+          },
+          {
+            id: "/fake_3",
+            state: "TASK_FINISHED",
+            statuses: [
+              {
+                healthy: false
+              }
+            ],
+            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+          }
+        ];
+      };
+
+      const service = new Framework({
+        instances: 1,
+        TASK_RUNNING: 2,
+        tasksHealthy: 1,
+        tasksRunning: 1,
+        tasksStaged: 0,
+        tasksUnhealthy: 0,
+        cpus: 1,
+        mem: 1000
+      });
+
+      expect(service.getTasksSummary()).toEqual({
+        tasksHealthy: 2,
+        tasksRunning: 3,
+        tasksStaged: 0,
+        tasksUnhealthy: 1,
+        tasksOverCapacity: 0,
+        tasksUnknown: 0
+      });
+    });
   });
 
   describe("#getInstancesCount", function() {
