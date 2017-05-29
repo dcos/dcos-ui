@@ -29,7 +29,7 @@ module.exports = {
     if (networkName != null && networkType != null) {
       transactions.push(
         new Transaction(
-          ["container", "docker", "network"],
+          ["networks", 0, "mode"],
           `${networkType}.${networkName}`
         )
       );
@@ -55,9 +55,7 @@ module.exports = {
         );
       }
     } else {
-      transactions.push(
-        new Transaction(["container", "docker", "network"], networkType)
-      );
+      transactions.push(new Transaction(["networks", 0, "mode"], networkType));
     }
 
     return transactions;

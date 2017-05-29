@@ -19,7 +19,7 @@ describe("PortDefinitions", function() {
 
     it("Should return null if networkType is not HOST", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["container.docker.network"], BRIDGE));
+      batch = batch.add(new Transaction(["networks", 0, "mode"], BRIDGE));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual(
@@ -29,7 +29,7 @@ describe("PortDefinitions", function() {
 
     it("Should return null if networkType is not USER", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["container.docker.network"], USER));
+      batch = batch.add(new Transaction(["networks", 0, "mode"], USER));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual(
@@ -48,9 +48,7 @@ describe("PortDefinitions", function() {
 
     it("should create default portDefinition configurations for BRIDGE network", function() {
       let batch = new Batch();
-      batch = batch.add(
-        new Transaction(["container", "docker", "network"], BRIDGE, SET)
-      );
+      batch = batch.add(new Transaction(["networks", 0, "mode"], BRIDGE, SET));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual(
@@ -60,9 +58,7 @@ describe("PortDefinitions", function() {
 
     it("shouldn't create portDefinitions for USER", function() {
       let batch = new Batch();
-      batch = batch.add(
-        new Transaction(["container", "docker", "network"], USER, SET)
-      );
+      batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual(
@@ -221,9 +217,7 @@ describe("PortDefinitions", function() {
 
     it("should store portDefinitions even if network is USER when recorded", function() {
       let batch = new Batch();
-      batch = batch.add(
-        new Transaction(["container", "docker", "network"], USER, SET)
-      );
+      batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
       batch = batch.add(
@@ -233,9 +227,7 @@ describe("PortDefinitions", function() {
         new Transaction(["portDefinitions", 1, "loadBalanced"], true)
       );
       batch = batch.add(new Transaction(["id"], "foo"));
-      batch = batch.add(
-        new Transaction(["container", "docker", "network"], HOST, SET)
-      );
+      batch = batch.add(new Transaction(["networks", 0, "mode"], HOST, SET));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: null },

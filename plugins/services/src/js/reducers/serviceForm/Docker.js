@@ -47,7 +47,7 @@ module.exports = combineReducers({
       return null;
     }
 
-    if (type === SET && joinedPath === "container.docker.network") {
+    if (type === SET && joinedPath === "networks.0.mode") {
       return Networking.type[value.split(".")[0]];
     }
 
@@ -70,7 +70,7 @@ module.exports = combineReducers({
       this.containerType = value;
     }
 
-    if (joinedPath === "container.docker.network" && Boolean(value)) {
+    if (joinedPath === "networks.0.mode" && Boolean(value)) {
       this.appState.networkType = value.split(".")[0];
     }
 

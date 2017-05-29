@@ -35,7 +35,7 @@ module.exports = {
     }
 
     const joinedPath = path.join(".");
-    if (joinedPath === "container.docker.network" && Boolean(value)) {
+    if (joinedPath === "networks.0.mode" && Boolean(value)) {
       this.appState.networkType = value;
     }
 
