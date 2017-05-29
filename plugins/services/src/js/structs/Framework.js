@@ -41,6 +41,17 @@ module.exports = class Framework extends Application {
     return tasksSummary;
   }
 
+  getTaskCount() {
+    // TODO: Circular reference workaround DCOS_OSS-783
+    const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+
+    const tasks = MesosStateStore.getTasksByService(this) || [];
+
+    return tasks.filter(function(task) {
+      return task.state === "TASK_RUNNING";
+    }).length;
+  }
+
   getUsageStats(resource) {
     const value = this.get("used_resources")[resource];
 

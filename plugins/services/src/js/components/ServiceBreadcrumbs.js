@@ -10,6 +10,7 @@ import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import Util from "#SRC/js/utils/Util";
 
+import Framework from "../structs/Framework";
 import HealthBar from "./HealthBar";
 import ServiceStatusWarningWithDebugInformation
   from "./ServiceStatusWarningWithDebugInstruction";
@@ -129,9 +130,11 @@ class ServiceBreadcrumbs extends React.Component {
       return null;
     }
 
-    const taskCountDetails = runningTasksCount === instancesCount
-      ? `(${runningTasksCount})`
-      : `(${runningTasksCount} of ${instancesCount})`;
+    let taskCountDetails = `(${runningTasksCount} of ${instancesCount})`;
+
+    if (service instanceof Framework || runningTasksCount === instancesCount) {
+      taskCountDetails = `(${runningTasksCount})`;
+    }
 
     return (
       <BreadcrumbSupplementalContent

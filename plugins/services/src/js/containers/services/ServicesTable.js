@@ -13,6 +13,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
+import Framework from "../../structs/Framework";
 import HealthBar from "../../components/HealthBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
@@ -333,15 +334,17 @@ class ServicesTable extends React.Component {
     const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
     const tasksSummary = service.getTasksSummary();
     const tasksRunning = service.getTaskCount();
+
     const isDeploying = serviceStatus === "Deploying";
 
-    const conciseOverview = tasksRunning === instancesCount
-      ? ` (${tasksRunning})`
-      : ` (${tasksRunning}/${instancesCount})`;
+    let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
 
-    const verboseOverview = tasksRunning === instancesCount
-      ? ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`
-      : ` (${tasksRunning} of ${instancesCount} Instances)`;
+    let verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
+
+    if (service instanceof Framework || tasksRunning === instancesCount) {
+      conciseOverview = ` (${tasksRunning})`;
+      verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`;
+    }
 
     return (
       <div className="status-bar-wrapper">
