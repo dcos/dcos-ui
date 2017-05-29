@@ -199,7 +199,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const defaultVipPort = this.isHostNetwork()
       ? hostPort
       : containerPort;
-    const placeholder = defaultVipPort;
+
+    // clear placeholder when HOST network portsAutoAssign is true
+    const placeholder = this.isHostNetwork() && portsAutoAssign
+      ? ''
+      : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError = findNestedPropertyInObject(
