@@ -135,34 +135,34 @@ describe('PortDefinitions', function () {
     it('should add the labels key if the portDefinition is load balanced', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
       batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 0, protocol: 'tcp', labels: null},
-          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': ':0'}}
+          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': ':null'}}
         ]);
     });
 
     it('should add the index of the portDefinition to the VIP keys', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
       batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
-          {name: null, port: 0, protocol: 'tcp', labels: {VIP_0: ':0'}},
-          {name: null, port: 0, protocol: 'tcp', labels: {VIP_1: ':0'}}
+          {name: null, port: 0, protocol: 'tcp', labels: {VIP_0: ':null'}},
+          {name: null, port: 0, protocol: 'tcp', labels: {VIP_1: ':null'}}
         ]);
     });
 
     it('should add the port to the VIP string', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
       batch = batch.add(new Transaction(['portsAutoAssign'], false));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 300));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
@@ -177,7 +177,7 @@ describe('PortDefinitions', function () {
     it('should add the app ID to the VIP string when it is defined', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
       batch = batch.add(new Transaction(['portsAutoAssign'], false));
       batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
       batch = batch.add(new Transaction(['id'], 'foo'));
@@ -185,7 +185,7 @@ describe('PortDefinitions', function () {
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 0, protocol: 'tcp', labels: null},
-          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:null'}}
         ]);
     });
 
@@ -193,7 +193,7 @@ describe('PortDefinitions', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
       batch = batch.add(new Transaction(['portsAutoAssign'], false));
       batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
       batch = batch.add(new Transaction(['id'], 'foo'));
@@ -202,7 +202,7 @@ describe('PortDefinitions', function () {
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 0, protocol: 'tcp', labels: null},
-          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:null'}}
         ]);
     });
 

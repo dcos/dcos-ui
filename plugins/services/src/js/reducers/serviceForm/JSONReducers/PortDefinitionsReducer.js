@@ -11,7 +11,8 @@ const FIELDS = [
   'loadBalanced',
   'name',
   'servicePort',
-  'vip'
+  'vip',
+  'vipPort'
 ];
 
 /**
@@ -41,7 +42,8 @@ function PortDefinitionsReducer(state = [], action) {
               udp: false
             },
             servicePort: null,
-            vip: null
+            vip: null,
+            vipPort: null
           });
           break;
         case REMOVE_ITEM:
