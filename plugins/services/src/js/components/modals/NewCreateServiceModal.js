@@ -620,7 +620,16 @@ class NewCreateServiceModal extends Component {
       const { location } = this.props;
       const { showAllErrors } = this.state;
 
-      const SECTIONS = [
+      const SINGLE_CONTAINER_SECTIONS = [
+        ContainerServiceFormSection,
+        EnvironmentFormSection,
+        GeneralServiceFormSection,
+        HealthChecksFormSection,
+        NetworkingFormSection,
+        VolumesFormSection
+      ];
+
+      const MULTI_CONTAINER_SECTIONS = [
         ContainerServiceFormSection,
         EnvironmentFormSection,
         GeneralServiceFormSection,
@@ -653,7 +662,10 @@ class NewCreateServiceModal extends Component {
         inputConfigReducers = combineReducers(
           Hooks.applyFilter(
             "multiContainerInputConfigReducers",
-            Object.assign({}, ...SECTIONS.map(item => item.configReducers))
+            Object.assign(
+              {},
+              ...MULTI_CONTAINER_SECTIONS.map(item => item.configReducers)
+            )
           )
         );
       } else {
@@ -674,7 +686,10 @@ class NewCreateServiceModal extends Component {
         inputConfigReducers = combineReducers(
           Hooks.applyFilter(
             "serviceInputConfigReducers",
-            Object.assign({}, ...SECTIONS.map(item => item.configReducers))
+            Object.assign(
+              {},
+              ...SINGLE_CONTAINER_SECTIONS.map(item => item.configReducers)
+            )
           )
         );
       }

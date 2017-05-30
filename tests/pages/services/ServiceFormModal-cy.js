@@ -839,9 +839,7 @@ describe("Service Form Modal", function() {
           setRuntime("Docker Engine");
           clickNetworkingTab();
 
-          cy
-            .get('select[name="container.docker.network"]')
-            .as("containerDockerNetwork");
+          cy.get('select[name="networks.0.mode"]').as("containerDockerNetwork");
 
           // HOST
           cy
@@ -876,9 +874,7 @@ describe("Service Form Modal", function() {
           setRuntime("Mesos Runtime");
           clickNetworkingTab();
 
-          cy
-            .get('select[name="container.docker.network"]')
-            .as("containerDockerNetwork");
+          cy.get('select[name="networks.0.mode"]').as("containerDockerNetwork");
 
           // HOST
           cy
@@ -994,7 +990,7 @@ describe("Service Form Modal", function() {
 
         context("type: HOST", function() {
           it('should hide "Container Port"', function() {
-            cy.get('select[name="container.docker.network"]').select("HOST");
+            cy.get('select[name="networks.0.mode"]').select("HOST");
 
             cy
               .get("@tabView")
@@ -1037,7 +1033,7 @@ describe("Service Form Modal", function() {
 
         context("type: BRIDGE", function() {
           it('should show "Container Port" and "Protocol"', function() {
-            cy.get('select[name="container.docker.network"]').select("BRIDGE");
+            cy.get('select[name="networks.0.mode"]').select("BRIDGE");
 
             cy
               .get("@tabView")
@@ -1080,9 +1076,7 @@ describe("Service Form Modal", function() {
 
         context("type: USER (Virtual Network: dcos)", function() {
           it('should hide "Host Port" and "Protocol"', function() {
-            cy
-              .get('select[name="container.docker.network"]')
-              .select("USER.dcos-1");
+            cy.get('select[name="networks.0.mode"]').select("USER.dcos-1");
 
             cy
               .get("@tabView")
@@ -1123,9 +1117,7 @@ describe("Service Form Modal", function() {
           });
 
           it('should not hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
-            cy
-              .get('select[name="container.docker.network"]')
-              .select("USER.dcos-1");
+            cy.get('select[name="networks.0.mode"]').select("USER.dcos-1");
 
             // Enable port mapping
             cy
