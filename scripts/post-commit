@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source ${SCRIPT_PATH}/utils/message
+
+title "Lint commit message..."
+
+linting_errors="$(npm run conventional-changelog-lint --silent -- -e; echo x$?)"
+
+if [  ${linting_errors##*x} -ne 0 ]
+then
+  warning "Wrong commit message format"
+
+  echo -e "Please adjust the commit message following the formatting rules" \
+    "as documented in our contributing guidelines (CONTRIBUTING.md)."\
+    "\n\n${linting_errors%x*}"\
+    "\nUse the following command to amend changes and edit the commit message."\
+    "\n\n> git commit --amend\n"
+  sleep 5
+  exit 0
+fi
+
+info "Commit message looks good"
