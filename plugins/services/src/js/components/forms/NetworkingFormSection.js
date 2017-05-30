@@ -77,7 +77,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     if (isInputDisabled) {
       placeholder = `$PORT${index}`;
-      hostPortValue = null;
+      hostPortValue = "";
     }
 
     const tooltipContent = (
