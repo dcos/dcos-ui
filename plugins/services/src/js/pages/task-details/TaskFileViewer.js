@@ -155,7 +155,7 @@ class TaskFileViewer extends React.Component {
 
     return (
       files.find(function(file) {
-        return file.getName() === "stdout";
+        return file.getName() === "stderr";
       }) || files[0]
     );
   }
