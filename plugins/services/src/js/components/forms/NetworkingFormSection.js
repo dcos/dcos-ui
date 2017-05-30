@@ -200,7 +200,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const { errors, data: { id, portsAutoAssign } } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
-    const placeholder = defaultVipPort;
+
+    // clear placeholder when HOST network portsAutoAssign is true
+    const placeholder = this.isHostNetwork() && portsAutoAssign
+      ? ""
+      : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError =
