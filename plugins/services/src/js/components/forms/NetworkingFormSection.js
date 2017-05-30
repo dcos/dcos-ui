@@ -689,7 +689,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getNonHostNetworkPortsAutoAssignSection(endpoint, index) {
     return (
       <FormGroup className="column-auto flush-left" key="assign-automatically">
-        <FieldLabel />
+        <FieldLabel>&nbsp;</FieldLabel>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
             checked={endpoint.automaticPort}
