@@ -651,6 +651,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
+        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
           <FormGroup className="column-12">
@@ -673,19 +674,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h3 className="short-bottom" key="service-endpoints-header">
-          Ports Auto Assign
-        </h3>
-        <p key="service-endpoints-description">
-          DC/OS can automatically assign ports
-        </p>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
             checked={portsAutoAssignValue}
             name="portsAutoAssign"
             type="checkbox"
           />
-          Assign Ports Automatically
+          Assign Host Ports Automatically
         </FieldLabel>
       </div>
     );
@@ -756,7 +751,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpointsSection()}
       </div>
     );
