@@ -30,7 +30,7 @@ describe("RoutingService", function() {
           path: "/test",
           component: Object,
           type: ReactRouter.Route,
-          opts: {}
+          options: {}
         }
       ]);
     });
@@ -46,7 +46,7 @@ describe("RoutingService", function() {
           path: "/test",
           component: Object,
           type: ReactRouter.Route,
-          opts: {},
+          options: {},
           children: [
             {
               path: "path",

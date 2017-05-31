@@ -89,8 +89,8 @@ class RoutingService extends EventEmitter {
     this.definition.push({
       component,
       path,
-      type: Route,
-      opts: options
+      options,
+      type: Route
     });
 
     this.instance.emit(ROUTING_CHANGE);

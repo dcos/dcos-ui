@@ -9,7 +9,7 @@ const { Page } = SDK.get(["Page"]);
 
 class ComponentPage extends Component {
   render() {
-    const { title, pathName } = this.props.route.opts;
+    const { title, pathName } = this.props.route.options;
     const tabs = [
       {
         label: "Overview",
