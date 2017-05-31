@@ -449,6 +449,13 @@ describe('MarathonAppValidators', function () {
       }]);
     });
 
+    it('shouldn\'t return an error for empty optional fields', function () {
+      const spec = {
+        constraints: [['hostname', 'GROUP_BY']]
+      };
+      expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
+    });
+
     it('returns an error when wrong characters are applied', function () {
       const spec = {
         constraints: [
