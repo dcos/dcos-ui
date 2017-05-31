@@ -70,9 +70,10 @@ class RoutingService extends EventEmitter {
    * @this {RoutingService~Context}
    * @param  {String} path a path to the page
    * @param  {React.Component} component a React.js component of the page
+   * @param  {Object} options - additional options
    * @return {undefined}
    */
-  registerPage(path, component) {
+  registerPage(path, component, options = {}) {
     if (!path || !component) {
       return throwError(new Error("Please provide all required arguments"));
     }
@@ -88,6 +89,7 @@ class RoutingService extends EventEmitter {
     this.definition.push({
       component,
       path,
+      options,
       type: Route
     });
 

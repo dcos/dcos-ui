@@ -5,17 +5,13 @@ import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-const SDK = require("../SDK").getSDK();
-
-const { Page } = SDK.get(["Page"]);
-
-class DesignSystemBreadcrumbs extends Component {
-  getBreadcrumbs() {
+class StyleBreadcrumbs extends Component {
+  getBreadcrumbs(title, path) {
     return [
-      <Breadcrumb key="main-breadcrumb" title="Design System">
+      <Breadcrumb key="main-breadcrumb" title={title}>
         <BreadcrumbTextContent>
-          <Link to="/design-system">
-            Design System
+          <Link to={`/ds-style/${path}`}>
+            {title}
           </Link>
         </BreadcrumbTextContent>
       </Breadcrumb>
@@ -23,13 +19,15 @@ class DesignSystemBreadcrumbs extends Component {
   }
 
   render() {
+    const { title, path } = this.props;
+
     return (
       <PageHeaderBreadcrumbs
         iconID="servers"
-        breadcrumbs={this.getBreadcrumbs()}
+        breadcrumbs={this.getBreadcrumbs(title, path)}
       />
     );
   }
 }
 
-module.exports = DesignSystemBreadcrumbs;
+module.exports = StyleBreadcrumbs;
