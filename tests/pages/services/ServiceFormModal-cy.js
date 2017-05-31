@@ -986,8 +986,8 @@ describe("Service Form Modal", function() {
         });
 
         context("type: HOST", function() {
-          context("Assign Ports Automatically", function() {
-            it('should disable "Host Port" text field when "Assign Ports Automatically" is checked', function() {
+          context("Assign Host Ports Automatically", function() {
+            it('should disable "Host Port" text field when "Assign Host Ports Automatically" is checked', function() {
               cy
                 .get("@tabView")
                 .find('.form-control[name="portsAutoAssign"]')
@@ -999,26 +999,11 @@ describe("Service Form Modal", function() {
                 .should("have.attr", "disabled");
             });
 
-            it('should append "<assigned port>" to service address when "Assign Ports Automatically" is checked', function() {
+            it('should append value for "Host Port" to service address when "Assign Host Ports Automatically" is not checked', function() {
+              cy.contains("label", "Assign Host Ports Automatically").click();
               cy
-                .get("@tabView")
-                .find('.form-control[name="portsAutoAssign"]')
-                .check();
-
-              cy.contains(".marathon.l4lb.thisdcos.directory:<assigned port>");
-            });
-
-            it('should append value for "Host Port" to service address when "Assign Ports Automatically" is not checked', function() {
-              // Set checked, then have to click parent
-              // element as we cannot use cy.uncheck() because element is covered
-              // by .form-control-toggle-indicator
-              cy
-                .get("@tabView")
-                .find('.form-control[name="portsAutoAssign"]')
-                .check();
-
-              // Uncheck it
-              cy.contains("label", "Assign Ports Automatically").click();
+                .contains("label", "Enable Load Balanced Service Address")
+                .click();
 
               // Set value for host port
               cy
@@ -1060,13 +1045,6 @@ describe("Service Form Modal", function() {
 
             cy
               .get("@tabView")
-              .should(
-                "contain",
-                ".marathon.l4lb.thisdcos.directory:<assigned port>"
-              );
-            // For some reason we can't do a regular "contains" (doesn't find it)
-            cy
-              .get("@tabView")
               .find('.form-control[name="portDefinitions.0.loadBalanced"]')
               .should("exist");
           });
@@ -1101,13 +1079,6 @@ describe("Service Form Modal", function() {
               .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
               .should("exist");
 
-            cy
-              .get("@tabView")
-              .should(
-                "contain",
-                ".marathon.l4lb.thisdcos.directory:<assigned port>"
-              );
-            // For some reason we can't do a regular "contains" (doesn't find it)
             cy
               .get("@tabView")
               .find('.form-control[name="portDefinitions.0.loadBalanced"]')
@@ -1146,13 +1117,6 @@ describe("Service Form Modal", function() {
               .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
               .should("not.exist");
 
-            cy
-              .get("@tabView")
-              .should(
-                "contain",
-                ".marathon.l4lb.thisdcos.directory:<assigned port>"
-              );
-            // For some reason we can't do a regular "contains" (doesn't find it)
             cy
               .get("@tabView")
               .find('.form-control[name="portDefinitions.0.loadBalanced"]')
@@ -1196,13 +1160,6 @@ describe("Service Form Modal", function() {
               .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
               .should("exist");
 
-            cy
-              .get("@tabView")
-              .should(
-                "contain",
-                ".marathon.l4lb.thisdcos.directory:<assigned port>"
-              );
-            // For some reason we can't do a regular "contains" (doesn't find it)
             cy
               .get("@tabView")
               .find('.form-control[name="portDefinitions.0.loadBalanced"]')
