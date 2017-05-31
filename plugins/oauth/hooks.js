@@ -47,7 +47,6 @@ module.exports = Object.assign({}, StoreMixin, {
   filters: [
     "applicationRoutes",
     "delayApplicationLoad",
-    "dcosInstallCommandExtraSteps",
     "organizationRoutes",
     "serverErrorModalListeners"
   ],
@@ -66,11 +65,6 @@ module.exports = Object.assign({}, StoreMixin, {
       }
     ]);
     this.registerUserAccountDropdown();
-  },
-
-  dcosInstallCommandExtraSteps() {
-    // Inject additional steps into the CLI install instructions
-    return "dcos auth login";
   },
 
   redirectToLogin(nextState, replace) {

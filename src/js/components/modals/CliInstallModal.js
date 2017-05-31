@@ -1,6 +1,5 @@
 import browserInfo from "browser-info";
 import classNames from "classnames";
-import { Hooks } from "PluginSDK";
 import { Modal } from "reactjs-components";
 import React from "react";
 
@@ -101,12 +100,9 @@ class CliInstallModal extends React.Component {
 
   getWindowsInstallInstruction(clusterUrl, downloadUrl) {
     const steps = [
-      "cd path/to/download/directory",
-      <span>
-        dcos config set core.dcos_url <a href={clusterUrl}>{clusterUrl}</a>
-      </span>,
-      Hooks.applyFilter("dcosInstallCommandExtraSteps", undefined),
-      "dcos"
+      `cd path/to/download/directory`,
+      `dcos cluster setup ${clusterUrl}`,
+      `dcos`
     ]
       .filter(instruction => instruction !== undefined)
       .map((instruction, index) => {
