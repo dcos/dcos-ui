@@ -4,6 +4,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import BetaOptInUtil from '../../utils/BetaOptInUtil';
 import CosmosErrorHeader from '../CosmosErrorHeader';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
@@ -23,6 +24,7 @@ const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
 const METHODS_TO_BIND = [
   'getAdvancedSubmit',
+  'handleAcceptBetaTerms',
   'handleChangeTab',
   'handleInstallPackage',
   'handleAdvancedFormChange',
@@ -35,6 +37,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     super(...arguments);
 
     this.tabs_tabs = {
+      betaTerms: 'BetaTerms',
       defaultInstall: 'DefaultInstall',
       advancedInstall: 'AdvancedInstall',
       reviewAdvancedConfig: 'ReviewAdvancedConfig',
@@ -122,16 +125,24 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   onCosmosPackagesStoreDescriptionSuccess() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    const schemaIncorrect = !SchemaUtil.validateSchema(
-      cosmosPackage.getConfig()
-    );
+    const configSchema = cosmosPackage.getConfig();
+    const schemaIncorrect = !SchemaUtil.validateSchema(configSchema);
+    const nextState = {schemaIncorrect};
 
     this.internalStorage_update({
       hasError: schemaIncorrect,
       isLoading: false
     });
 
-    this.setState({schemaIncorrect});
+    if (BetaOptInUtil.isBeta(configSchema)) {
+      Object.assign(nextState, {
+        betaTermsAccepted: false,
+        betaOptInProperties: BetaOptInUtil.getProperty(configSchema),
+        currentTab: 'betaTerms'
+      });
+    }
+
+    this.setState(nextState);
   }
 
   onCosmosPackagesStoreInstallError(installError) {
@@ -176,11 +187,24 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     this.tabs_handleTabClick(currentTab);
   }
 
+  handleAcceptBetaTerms() {
+    // Accept terms and move to advanced install tab
+    this.setState({
+      betaTermsAccepted: true,
+      currentTab: 'defaultInstall'
+    });
+  }
+
   handleInstallPackage() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
-    const configuration = this.getPackageConfiguration();
+    let configuration = this.getPackageConfiguration();
+
+    if (BetaOptInUtil.isBeta(cosmosPackage.getConfig())
+      && this.state.betaTermsAccepted) {
+      configuration = BetaOptInUtil.setBetaOptIn(configuration);
+    }
 
     CosmosPackagesStore.installPackage(name, version, configuration);
     this.internalStorage_update({pendingRequest: true});
@@ -299,6 +323,38 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       <span>
         {ellipses} {text}
       </span>
+    );
+  }
+
+  renderBetaTermsTabView() {
+    const { title, description } = this.state.betaOptInProperties;
+
+    return (
+      <div>
+        <div className="modal-body">
+          <div className="horizontal-center">
+            <h2 className="flush-top">
+              {title}
+            </h2>
+            <p className="text-align-center">
+              {description}
+            </p>
+          </div>
+        </div>
+        <div className="modal-footer">
+          <div className="button-collection button-collection-align-horizontal-center flush-bottom">
+            <button className="button" onClick={this.props.onClose}>
+              Cancel
+            </button>
+            <button
+              className="button button-success"
+              onClick={this.handleAcceptBetaTerms}
+            >
+              Accept
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -559,6 +615,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       return this.getIncorrectSchemaWarning(cosmosPackage);
     }
 
+    let schema = cosmosPackage.getConfig();
+
+    if (BetaOptInUtil.isBeta(schema)) {
+      // Remove beta opt-in from schema for better UX
+      schema = BetaOptInUtil.filterProperty(schema);
+    }
+
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getCurrentVersion();
     const advancedConfigClasses = classNames('modal-install-package-body-and-header', {
@@ -572,7 +635,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             packageIcon={cosmosPackage.getIcons()['icon-small']}
             packageName={name}
             packageVersion={version}
-            schema={cosmosPackage.getConfig()}
+            schema={schema}
             onChange={this.handleAdvancedFormChange}
             getTriggerSubmit={this.getAdvancedSubmit} />
         </div>
