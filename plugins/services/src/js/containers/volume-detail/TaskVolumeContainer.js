@@ -48,7 +48,7 @@ class TaskVolumeContainer extends React.Component {
   render() {
     const { taskID, volumeID } = this.props.params;
     const task = MesosStateStore.getTaskFromTaskID(taskID);
-    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
+    const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
     const volumeId = decodeURIComponent(volumeID);
 
     if (this.state.isLoading) {

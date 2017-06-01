@@ -110,6 +110,25 @@ const ServiceUtil = {
     return service;
   },
 
+  /**
+   * Get corresponding service ID
+   *
+   * @param  {string} taskID - the tasks' ID
+   * @return {string} service ID
+   */
+  getServiceIDFromTaskID(taskID = "") {
+    // Parse the task id (e.g. foo_bar.abc-123) to get the corresponding
+    // service id parts (foo, bar)
+    const parts = taskID.match(/([^_]+)(?=[_.])/g);
+
+    // Join service id parts and prepend with a slash to form a valid id
+    if (parts) {
+      return `/${parts.join("/")}`;
+    }
+
+    return "";
+  },
+
   getServiceNameFromTaskID(taskID) {
     const serviceName = taskID.split(".")[0].split("_");
 
