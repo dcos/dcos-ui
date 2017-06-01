@@ -29,6 +29,9 @@ import {
   JSONParser as volumeMounts
 } from "./serviceForm/MultiContainerVolumes";
 import { JSONParser as containers } from "./serviceForm/Containers";
+import {
+  JSONParser as requirePorts
+} from "./serviceForm/JSONReducers/RequirePorts";
 
 module.exports = [
   simpleParser(["id"]),
@@ -53,5 +56,6 @@ module.exports = [
   externalVolumes,
   constraints,
   residency,
-  fetch
+  fetch,
+  requirePorts
 ];

@@ -1,18 +1,18 @@
 import { SET } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
 
 module.exports = {
   JSONReducer(state, { path, type, value }) {
-    const [_base, index, field] = path;
+    const [base] = path;
 
-    if (!this.requriePorts) {
-      this.requriePorts = [];
+    if (base === "portsAutoAssign" && type === SET) {
+      return !value;
     }
 
-    if (field === "hostPort" && type === SET) {
-      this.requriePorts[index] = value > 0;
-    }
+    return state;
+  },
 
-    // Make sure to return null for falsy values
-    return this.requriePorts.includes(true) || null;
+  JSONParser(state) {
+    return new Transaction(["portsAutoAssign"], !state.requirePorts);
   }
 };

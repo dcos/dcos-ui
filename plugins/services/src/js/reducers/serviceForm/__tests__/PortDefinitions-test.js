@@ -90,9 +90,7 @@ describe("PortDefinitions", function() {
     it("should set the port value", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "automaticPort"], false)
-      );
+      batch = batch.add(new Transaction(["portsAutoAssign"], false));
       batch = batch.add(
         new Transaction(["portDefinitions", 0, "hostPort"], 100)
       );
@@ -102,11 +100,10 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("should default port value to 0 if automaticPort", function() {
+    it("should default port value to 0 if portsAutoAssign", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-      // This is default behavior
-      // batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], true));
+      batch = batch.add(new Transaction(["portsAutoAssign"], true));
       batch = batch.add(
         new Transaction(["portDefinitions", 0, "hostPort"], 100)
       );
@@ -181,9 +178,7 @@ describe("PortDefinitions", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "automaticPort"], false)
-      );
+      batch = batch.add(new Transaction(["portsAutoAssign"], false));
       batch = batch.add(
         new Transaction(["portDefinitions", 0, "hostPort"], 300)
       );
@@ -201,9 +196,7 @@ describe("PortDefinitions", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "automaticPort"], false)
-      );
+      batch = batch.add(new Transaction(["portsAutoAssign"], false));
       batch = batch.add(
         new Transaction(["portDefinitions", 1, "loadBalanced"], true)
       );
@@ -220,9 +213,7 @@ describe("PortDefinitions", function() {
       batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "automaticPort"], false)
-      );
+      batch = batch.add(new Transaction(["portsAutoAssign"], false));
       batch = batch.add(
         new Transaction(["portDefinitions", 1, "loadBalanced"], true)
       );

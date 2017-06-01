@@ -4,8 +4,6 @@ import Transaction from "#SRC/js/structs/Transaction";
 import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 
 module.exports = {
-  JSONReducer: null,
-
   /**
    * This parser must take precedence over PortDefinition parser, as it assumes
    * some data available from it
@@ -150,7 +148,5 @@ module.exports = {
 
       return memo;
     }, addTransactions);
-  },
-
-  FormReducer: null
+  }
 };

@@ -3,6 +3,7 @@ import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import { SET } from "#SRC/js/constants/TransactionTypes";
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldError from "#SRC/js/components/form/FieldError";
@@ -20,11 +21,10 @@ import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
-
-import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
-import {
-  FormReducer as portDefinitionsReducer
-} from "../../reducers/serviceForm/PortDefinitions";
+import SingleContainerPortDefinitions
+  from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
+import SingleContainerPortMappings
+  from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";
 import ContainerConstants from "../../constants/ContainerConstants";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 
@@ -54,18 +54,30 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     this.forceUpdate();
   }
 
+  isHostNetwork() {
+    const { networkType = HOST } = this.props.data;
+
+    return networkType === HOST;
+  }
+
   getHostPortFields(portDefinition, index) {
-    let placeholder;
-    const { errors } = this.props;
+    let hostPortValue = portDefinition.hostPort;
+    const { errors, data: { portsAutoAssign } } = this.props;
     const hostPortError =
       findNestedPropertyInObject(errors, `portDefinitions.${index}.port`) ||
       findNestedPropertyInObject(
         errors,
         `container.docker.portMappings.${index}.hostPort`
       );
+    const isInputDisabled = this.isHostNetwork()
+      ? portsAutoAssign
+      : portDefinition.automaticPort;
 
-    if (portDefinition.automaticPort) {
+    let placeholder;
+
+    if (isInputDisabled) {
       placeholder = `$PORT${index}`;
+      hostPortValue = "";
     }
 
     const tooltipContent = (
@@ -104,32 +116,24 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           </FormGroupHeading>
         </FieldLabel>
         <FieldInput
-          disabled={portDefinition.automaticPort}
+          disabled={isInputDisabled}
           placeholder={placeholder}
           min="0"
           name={`portDefinitions.${index}.hostPort`}
           type="number"
-          value={portDefinition.hostPort}
+          value={hostPortValue}
         />
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
-      <FormGroup className="column-auto flush-left" key="assign-automatically">
-        <FieldLabel />
-        <FieldLabel matchInputHeight={true}>
-          <FieldInput
-            checked={portDefinition.automaticPort}
-            name={`portDefinitions.${index}.automaticPort`}
-            type="checkbox"
-          />
-          Assign Automatically
-        </FieldLabel>
-      </FormGroup>
+      !this.isHostNetwork() &&
+        this.getNonHostNetworkPortsAutoAssignSection(portDefinition, index)
     ];
   }
 
   getLoadBalancedServiceAddressField(portDefinition, index) {
-    const { containerPort, hostPort, loadBalanced, vip } = portDefinition;
-    const { errors } = this.props;
+    const { errors, data: { id, portsAutoAssign } } = this.props;
+    const { containerPort, loadBalanced, vip } = portDefinition;
+    let { hostPort } = portDefinition;
     let vipPortError = null;
     let loadBalancedError =
       findNestedPropertyInObject(errors, `portDefinitions.${index}.labels`) ||
@@ -137,6 +141,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         errors,
         `container.docker.portMappings.${index}.labels`
       );
+
+    if (portsAutoAssign) {
+      hostPort = null;
+    }
 
     if (isObject(loadBalancedError)) {
       vipPortError = loadBalancedError[`VIP_${index}`];
@@ -154,7 +162,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       }
       port = port || 0;
 
-      address = `${this.props.data.id}:${port}`;
+      address = `${id}:${port}`;
     }
 
     let hostName = null;
@@ -347,12 +355,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    const {
-      errors,
-      data: { portDefinitions, networkType = HOST }
-    } = this.props;
+    const { errors, data: { networkType = HOST } } = this.props;
 
-    return portDefinitions.map((portDefinition, index) => {
+    const endpoints = this.isHostNetwork()
+      ? this.props.data.portDefinitions
+      : this.props.data.portMappings;
+
+    return endpoints.map((endpoint, index) => {
       let portMappingFields = null;
 
       const nameError =
@@ -362,11 +371,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           `container.docker.portMappings.${index}.name`
         );
 
-      if (portDefinition.portMapping || [BRIDGE, HOST].includes(networkType)) {
+      if (endpoint.portMapping || [BRIDGE, HOST].includes(networkType)) {
         portMappingFields = (
           <FormRow>
-            {this.getHostPortFields(portDefinition, index)}
-            {this.getProtocolField(portDefinition, index)}
+            {this.getHostPortFields(endpoint, index)}
+            {this.getProtocolField(endpoint, index)}
           </FormRow>
         );
       }
@@ -380,12 +389,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           })}
         >
           <FormRow>
-            {this.getContainerPortField(
-              portDefinition,
-              networkType,
-              errors,
-              index
-            )}
+            {this.getContainerPortField(endpoint, networkType, errors, index)}
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 <FormGroupHeading>
@@ -408,14 +412,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               <FieldInput
                 name={`portDefinitions.${index}.name`}
                 type="text"
-                value={portDefinition.name}
+                value={endpoint.name}
               />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-            {this.getPortMappingCheckbox(portDefinition, networkType, index)}
+            {this.getPortMappingCheckbox(endpoint, networkType, index)}
           </FormRow>
           {portMappingFields}
-          {this.getLoadBalancedServiceAddressField(portDefinition, index)}
+          {this.getLoadBalancedServiceAddressField(endpoint, index)}
         </FormGroupContainer>
       );
     });
@@ -580,6 +584,45 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 
+  getHostNetworkPortsAutoAssignSection() {
+    const portsAutoAssignValue = this.props.data.portsAutoAssign;
+
+    return (
+      <div>
+        <h3 className="short-bottom" key="service-endpoints-header">
+          Ports Auto Assign
+        </h3>
+        <p key="service-endpoints-description">
+          DC/OS can automatically assign ports
+        </p>
+        <FieldLabel matchInputHeight={true}>
+          <FieldInput
+            checked={portsAutoAssignValue}
+            name="portsAutoAssign"
+            type="checkbox"
+          />
+          Assign Ports Automatically
+        </FieldLabel>
+      </div>
+    );
+  }
+
+  getNonHostNetworkPortsAutoAssignSection(endpoint, index) {
+    return (
+      <FormGroup className="column-auto flush-left" key="assign-automatically">
+        <FieldLabel />
+        <FieldLabel matchInputHeight={true}>
+          <FieldInput
+            checked={endpoint.automaticPort}
+            name={`portDefinitions.${index}.automaticPort`}
+            type="checkbox"
+          />
+          Assign Automatically
+        </FieldLabel>
+      </FormGroup>
+    );
+  }
+
   render() {
     const networkError = findNestedPropertyInObject(
       this.props.errors,
@@ -629,6 +672,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
+        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpointsSection()}
       </div>
     );
@@ -650,7 +694,17 @@ NetworkingFormSection.propTypes = {
 };
 
 NetworkingFormSection.configReducers = {
-  portDefinitions: portDefinitionsReducer,
+  portDefinitions: SingleContainerPortDefinitions,
+  portMappings: SingleContainerPortMappings,
+  portsAutoAssign(state, { type, path = [], value }) {
+    const joinedPath = path.join(".");
+
+    if (type === SET && joinedPath === "portsAutoAssign") {
+      return value;
+    }
+
+    return state;
+  },
   networkType(state, { type, path = [], value }) {
     const joinedPath = path.join(".");
 

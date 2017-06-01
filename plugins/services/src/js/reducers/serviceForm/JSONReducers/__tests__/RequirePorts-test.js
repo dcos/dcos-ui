@@ -1,58 +1,32 @@
-const { SET } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
+const { SET } = require("#SRC/js/constants/TransactionTypes");
 const RequirePorts = require("../RequirePorts");
 
 describe("RequirePorts", function() {
   describe("#JSONReducer", function() {
-    it("it should return null as default", function() {
+    it("should return inverted value of portsAutoAssign", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["id"], "foo"));
+      batch = batch.add(new Transaction(["portsAutoAssign"], true, SET));
 
-      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(null);
+      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(false);
+    });
+  });
+
+  describe("#JSONParser", function() {
+    it("it should return true as default", function() {
+      expect(RequirePorts.JSONParser({})).toEqual(
+        new Transaction(["portsAutoAssign"], true)
+      );
     });
 
-    it("should return true if there is an endpoint with requested host port", function() {
-      let batch = new Batch();
-
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "hostPort"], 80, SET)
-      );
-
-      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(true);
-    });
-
-    it("should return true if there is at least one endpoint with requested host port", function() {
-      let batch = new Batch();
-
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "hostPort"], 80, SET)
-      );
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "hostPort"], 0, SET)
-      );
-      batch = batch.add(
-        new Transaction(["portDefinitions", 1, "hostPort"], 8080, SET)
-      );
-
-      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(true);
-    });
-
-    it("should return null if all of the endpoints do not request host port", function() {
-      let batch = new Batch();
-
-      batch = batch.add(
-        new Transaction(["portDefinitions", 0, "hostPort"], 0, SET)
-      );
-      batch = batch.add(
-        new Transaction(["portDefinitions", 1, "hostPort"], 0, SET)
-      );
-      batch = batch.add(
-        new Transaction(["portDefinitions", 2, "hostPort"], 0, SET)
-      );
-
-      expect(batch.reduce(RequirePorts.JSONReducer.bind({}))).toEqual(null);
+    it("should return inverted value of requirePorts", function() {
+      expect(
+        RequirePorts.JSONParser({
+          requirePorts: true
+        })
+      ).toEqual(new Transaction(["portsAutoAssign"], false));
     });
   });
 });
