@@ -1,1 +1,10 @@
-# This file intentionally left empty to keep the link
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source ${SCRIPT_PATH}/utils/git
+
+${SCRIPT_PATH}/validate-tests
+
+exit 0
