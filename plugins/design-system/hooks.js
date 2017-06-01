@@ -4,13 +4,42 @@ import React from "react";
 
 import { navigation, routing } from "foundation-ui";
 
-import ButtonsPage from "./pages/buttons/ButtonsPage";
 import IntroductionPage from "./pages/IntroductionPage";
-import ModalsPage from "./pages/ModalsPage";
-import OverviewTab from "./pages/buttons/OverviewTab";
-import CodeTab from "./pages/buttons/CodeTab";
-import StylesTab from "./pages/buttons/StylesTab";
-import TablesPage from "./pages/TablesPage";
+import ColorPage from "./pages/style/ColorPage";
+import CreateEditPage from "./pages/patterns/CreateEditPage";
+import EmptyStatesPage from "./pages/patterns/EmptyStatesPage";
+import FormsPage from "./pages/patterns/FormsPage";
+import HelpFeedbackPage from "./pages/patterns/HelpFeedbackPage";
+import IconsPage from "./pages/style/IconsPage";
+import LayoutPage from "./pages/style/LayoutPage";
+import LoadingPage from "./pages/patterns/LoadingPage";
+import MotionPage from "./pages/style/MotionPage";
+import NotificationsPage from "./pages/patterns/NotificationsPage";
+import TypographyPage from "./pages/style/TypographyPage";
+import ValidationPage from "./pages/patterns/ValidationPage";
+import WritingPage from "./pages/style/WritingPage";
+
+import BadgesRoute from "./routes/ui-components/badges";
+import BannersRoute from "./routes/ui-components/banners";
+import BreadcrumbsRoute from "./routes/ui-components/breadcrumbs";
+import ButtonGroupsRoute from "./routes/ui-components/button-groups";
+import ButtonsRoute from "./routes/ui-components/buttons";
+import ChartsRoute from "./routes/ui-components/charts";
+import CheckboxesRoute from "./routes/ui-components/checkboxes";
+import DropdownsRoute from "./routes/ui-components/dropdowns";
+import LoadingIndidactorsRoute from "./routes/ui-components/loading-indicators";
+import MessagesRoute from "./routes/ui-components/messages";
+import ModalsRoute from "./routes/ui-components/modals";
+import PanelsRoute from "./routes/ui-components/panels";
+import RadioButtonsRoute from "./routes/ui-components/radio-buttons";
+import SegmentedBarsRoute from "./routes/ui-components/segmented-bars";
+import SelectsRoute from "./routes/ui-components/selects";
+import TablesRoute from "./routes/ui-components/tables";
+import TabsRoute from "./routes/ui-components/tabs";
+import TextFieldsRoute from "./routes/ui-components/text-fields";
+import TogglesRoute from "./routes/ui-components/toggles";
+import TooltipsRoute from "./routes/ui-components/tooltips";
+import TypeRoute from "./routes/ui-components/type";
 
 const SDK = require("./SDK").getSDK();
 
@@ -18,6 +47,118 @@ const { Icon } = SDK.get(["Icon"]);
 
 module.exports = {
   configuration: {},
+  category: "design system",
+  sideBar: {
+    introduction: {
+      name: "Introduction",
+      path: "/ds-introduction",
+      page: IntroductionPage
+    },
+    style: {
+      name: "Style",
+      path: "/ds-style",
+      pages: [
+        {
+          name: "Color",
+          path: "color",
+          page: ColorPage
+        },
+        {
+          name: "Icons",
+          path: "icons",
+          page: IconsPage
+        },
+        {
+          name: "Layout",
+          path: "layout",
+          page: LayoutPage
+        },
+        {
+          name: "Motion",
+          path: "motion",
+          page: MotionPage
+        },
+        {
+          name: "Typography",
+          path: "typography",
+          page: TypographyPage
+        },
+        {
+          name: "Writing",
+          path: "writing",
+          page: WritingPage
+        }
+      ]
+    },
+    components: {
+      name: "Components",
+      path: "/ds-components"
+    },
+    patterns: {
+      name: "Patterns",
+      path: "/ds-patterns",
+      pages: [
+        {
+          name: "Create/Edit",
+          path: "create-edit",
+          page: CreateEditPage
+        },
+        {
+          name: "Empty States",
+          path: "empty-states",
+          page: EmptyStatesPage
+        },
+        {
+          name: "Help & Feedback",
+          path: "help-feedback",
+          page: HelpFeedbackPage
+        },
+        {
+          name: "Forms",
+          path: "forms",
+          page: FormsPage
+        },
+        {
+          name: "Loading",
+          path: "loading",
+          page: LoadingPage
+        },
+        {
+          name: "Notifications",
+          path: "notifications",
+          page: NotificationsPage
+        },
+        {
+          name: "Validation",
+          path: "validation",
+          page: ValidationPage
+        }
+      ]
+    }
+  },
+  componentRoutes: [
+    BadgesRoute,
+    BannersRoute,
+    BreadcrumbsRoute,
+    ButtonGroupsRoute,
+    ButtonsRoute,
+    ChartsRoute,
+    CheckboxesRoute,
+    DropdownsRoute,
+    LoadingIndidactorsRoute,
+    MessagesRoute,
+    ModalsRoute,
+    PanelsRoute,
+    RadioButtonsRoute,
+    SegmentedBarsRoute,
+    SelectsRoute,
+    TablesRoute,
+    TabsRoute,
+    TextFieldsRoute,
+    TogglesRoute,
+    TooltipsRoute,
+    TypeRoute
+  ],
 
   initialize() {
     // The priority is necessary to override the permissions checks
@@ -39,7 +180,7 @@ module.exports = {
    */
   addRoutes() {
     // Categories are used by the Sidebar to group navigation elements together.
-    navigation.NavigationService.registerCategory("design system");
+    navigation.NavigationService.registerCategory(this.category);
 
     // Primary routes are top-level elements in the sidebar.
     // In the following call to #registerPrimary, we provide the route path to
@@ -47,10 +188,10 @@ module.exports = {
     // options contains the category that this entry belongs to and the icon
     // that should be displayed.
     navigation.NavigationService.registerPrimary(
-      "/ds-introduction",
-      "Introduction",
+      this.sideBar.introduction.path,
+      this.sideBar.introduction.name,
       {
-        category: "design system",
+        category: this.category,
         icon: (
           <Icon
             className="sidebar-menu-item-icon icon icon-small"
@@ -63,14 +204,46 @@ module.exports = {
     );
 
     navigation.NavigationService.registerPrimary(
-      "/ds-components",
-      "Components",
+      this.sideBar.style.path,
+      this.sideBar.style.name,
       {
-        category: "design system",
+        category: this.category,
         icon: (
           <Icon
             className="sidebar-menu-item-icon icon icon-small"
-            id="services-inverse"
+            id="servers-inverse"
+            size="small"
+            family="product"
+          />
+        )
+      }
+    );
+
+    navigation.NavigationService.registerPrimary(
+      this.sideBar.components.path,
+      this.sideBar.components.name,
+      {
+        category: this.category,
+        icon: (
+          <Icon
+            className="sidebar-menu-item-icon icon icon-small"
+            id="components-inverse"
+            size="small"
+            family="product"
+          />
+        )
+      }
+    );
+
+    navigation.NavigationService.registerPrimary(
+      this.sideBar.patterns.path,
+      this.sideBar.patterns.name,
+      {
+        category: this.category,
+        icon: (
+          <Icon
+            className="sidebar-menu-item-icon icon icon-small"
+            id="packages-inverse"
             size="small"
             family="product"
           />
@@ -81,58 +254,52 @@ module.exports = {
     // Secondary routes appear nested underneath their parent.
     // In the following call to #registerSecondary, we provide the parent route,
     // the child route, and the display label.
-    navigation.NavigationService.registerSecondary(
-      "/ds-components",
-      "buttons",
-      "Buttons"
-    );
 
-    navigation.NavigationService.registerSecondary(
-      "/ds-components",
-      "modals",
-      "Modals"
-    );
+    // Register the routes for each child in the style sidebar
+    this.sideBar.style.pages.forEach(function(page) {
+      navigation.NavigationService.registerSecondary(
+        this.sideBar.style.path,
+        page.path,
+        page.name
+      );
+    }, this);
 
-    navigation.NavigationService.registerSecondary(
-      "/ds-components",
-      "tables",
-      "Tables"
-    );
+    // Register the routes for each child in the patterns sidebar
+    this.sideBar.patterns.pages.forEach(function(page) {
+      navigation.NavigationService.registerSecondary(
+        this.sideBar.patterns.path,
+        page.path,
+        page.name
+      );
+    }, this);
 
     // The following calls to #registerPage define which components should be
     // rendered for the given top-level routes.
-    routing.RoutingService.registerPage("/ds-introduction", IntroductionPage);
-    routing.RoutingService.registerPage("/ds-components/buttons", ButtonsPage);
-    routing.RoutingService.registerPage("/ds-components/modals", ModalsPage);
-    routing.RoutingService.registerPage("/ds-components/tables", TablesPage);
-
-    // The following calls to #registerTab define child routes for each page.
-    // We provide the parent route, the child route, and the component to be
-    // rendered.
-    routing.RoutingService.registerTab(
-      "/ds-components/buttons",
-      "overview",
-      OverviewTab
+    routing.RoutingService.registerPage(
+      this.sideBar.introduction.path,
+      this.sideBar.introduction.page
     );
 
-    routing.RoutingService.registerTab(
-      "/ds-components/buttons",
-      "code",
-      CodeTab
-    );
+    // Register the pages for the style sidebar
+    this.sideBar.style.pages.forEach(function(page) {
+      routing.RoutingService.registerPage(
+        `${this.sideBar.style.path}/${page.path}`,
+        page.page
+      );
+    }, this);
 
-    routing.RoutingService.registerTab(
-      "/ds-components/buttons",
-      "styles",
-      StylesTab
-    );
+    // Register the pages for the patterns sidebar
+    this.sideBar.patterns.pages.forEach(function(page) {
+      routing.RoutingService.registerPage(
+        `${this.sideBar.patterns.path}/${page.path}`,
+        page.page
+      );
+    }, this);
 
-    // Redirects should be rendered after all of the associated routes have been
-    // defined.
-    routing.RoutingService.registerRedirect(
-      "/ds-components/buttons",
-      "/ds-components/buttons/overview"
-    );
+    // Register the routes for each UI component for the components sidebar
+    this.componentRoutes.forEach(function(component) {
+      component.addRoutes();
+    });
   },
 
   configure(configuration) {
@@ -153,6 +320,11 @@ module.exports = {
    *   beginning.
    */
   sidebarNavigation(routes) {
-    return ["/ds-introduction", "/ds-components"].concat(routes);
+    return [
+      this.sideBar.introduction.path,
+      this.sideBar.style.path,
+      this.sideBar.components.path,
+      this.sideBar.patterns.path
+    ].concat(routes);
   }
 };
