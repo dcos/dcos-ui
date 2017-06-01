@@ -539,6 +539,9 @@ module.exports = {
       newState[index] = Object.assign({}, newState[index], {
         image: { id: value, kind: "DOCKER" }
       });
+      if (value === "") {
+        delete newState[index].image;
+      }
     }
 
     return newState;
