@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+import os
+import json
+from subprocess import check_output
+
+# Remove packages that share this prefix
+packages = json.loads(check_output('dcos package list --json', shell=True).decode('utf-8'))
+for package in packages:
+  for appId in package['apps']:
+    if appId.startswith("%s." % os.environ['TEST_UUID']):
+      print("Removing package %s" % appId)
+      check_output('dcos package uninstall %s --app-id=%s' % (package['name'], appId), shell=True)
+    elif appId == '/confluent-kafka' or appId == '/bitbucket':
+      print("Removing package %s" % appId)
+      check_output('dcos package uninstall %s --app-id=%s' % (package['name'], appId), shell=True)
