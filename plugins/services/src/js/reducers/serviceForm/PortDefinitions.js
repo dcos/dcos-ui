@@ -62,6 +62,8 @@ module.exports = {
       const hostPort = this.appState.portsAutoAssign
         ? 0
         : Number(portDefinition.hostPort);
+      const defaultVipPort = hostPort !== 0 ? hostPort : null;
+      const vipPort = portDefinition.vipPort || defaultVipPort;
       const protocol = PROTOCOLS.filter(function(protocol) {
         return portDefinition.protocol[protocol];
       }).join(",");
@@ -70,7 +72,7 @@ module.exports = {
         this.appState.id,
         portDefinition,
         vipLabel,
-        hostPort
+        vipPort
       );
 
       return {
@@ -133,6 +135,17 @@ module.exports = {
         if (!vip.startsWith(`${state.id}:`)) {
           memo.push(
             new Transaction(["portDefinitions", index, "vip"], vip, SET)
+          );
+        }
+
+        const vipPortMatch = vip.match(/.+:(\d+)/);
+        if (vipPortMatch) {
+          memo.push(
+            new Transaction(
+              ["portDefinitions", index, "vipPort"],
+              vipPortMatch[1],
+              SET
+            )
           );
         }
       }

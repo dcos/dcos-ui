@@ -10,7 +10,8 @@ const FIELDS = [
   "portMapping",
   "name",
   "servicePort",
-  "vip"
+  "vip",
+  "vipPort"
 ];
 
 /**
@@ -43,7 +44,8 @@ function SingleContainerPortMappingsReducer(state = [], action) {
               udp: false
             },
             servicePort: null,
-            vip: null
+            vip: null,
+            vipPort: null
           });
           break;
         case REMOVE_ITEM:

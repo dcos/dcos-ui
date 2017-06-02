@@ -20,6 +20,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import SingleContainerPortDefinitions
   from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
@@ -130,10 +131,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField(portDefinition, index) {
-    const { errors, data: { id, portsAutoAssign } } = this.props;
-    const { containerPort, loadBalanced, vip } = portDefinition;
-    let { hostPort } = portDefinition;
+  getLoadBalancedServiceAddressField(endpoint, index) {
+    const { errors } = this.props;
+    const { loadBalanced } = endpoint;
     let vipPortError = null;
     let loadBalancedError =
       findNestedPropertyInObject(errors, `portDefinitions.${index}.labels`) ||
@@ -142,32 +142,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         `container.docker.portMappings.${index}.labels`
       );
 
-    if (portsAutoAssign) {
-      hostPort = null;
-    }
-
     if (isObject(loadBalancedError)) {
       vipPortError = loadBalancedError[`VIP_${index}`];
       loadBalancedError = null;
-    }
-
-    let address = vip;
-    if (address == null) {
-      let port = "";
-      if (hostPort != null && hostPort !== "") {
-        port = hostPort;
-      }
-      if (containerPort != null && containerPort !== "") {
-        port = containerPort;
-      }
-      port = port || 0;
-
-      address = `${id}:${port}`;
-    }
-
-    let hostName = null;
-    if (!vipPortError) {
-      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address);
     }
 
     const loadBalancerDocsURI = MetadataStore.buildDocsURI(
@@ -184,8 +161,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
-    return (
-      <FormRow>
+    return [
+      <FormRow key="lb-enable">
         <FormGroup
           className="column-12"
           showError={Boolean(vipPortError || loadBalancedError)}
@@ -212,11 +189,108 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
-            <FieldHelp>
-              Load balance this service internally at {hostName}
-            </FieldHelp>
           </FieldLabel>
-          <FieldError>{vipPortError || loadBalancedError}</FieldError>
+        </FormGroup>
+      </FormRow>,
+      loadBalanced && this.getLoadBalancedPortField(endpoint, index)
+    ];
+  }
+
+  getLoadBalancedPortField(endpoint, index) {
+    const { errors, data: { id, portsAutoAssign } } = this.props;
+    const { hostPort, containerPort, vip, vipPort } = endpoint;
+    const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
+
+    // clear placeholder when HOST network portsAutoAssign is true
+    const placeholder = this.isHostNetwork() && portsAutoAssign
+      ? ""
+      : defaultVipPort;
+
+    let vipPortError = null;
+    let loadBalancedError =
+      findNestedPropertyInObject(errors, `portDefinitions.${index}.labels`) ||
+      findNestedPropertyInObject(
+        errors,
+        `container.docker.portMappings.${index}.labels`
+      );
+
+    const tooltipContent =
+      "This port will be used to load balance this service address internally";
+    if (isObject(loadBalancedError)) {
+      vipPortError = loadBalancedError[`VIP_${index}`];
+      loadBalancedError = null;
+    }
+
+    let address = vip;
+
+    if (address == null) {
+      let port = "";
+      if (!portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
+        port = hostPort;
+      }
+      if (!ValidatorUtil.isEmpty(containerPort)) {
+        port = containerPort;
+      }
+      if (!ValidatorUtil.isEmpty(vipPort)) {
+        port = vipPort;
+      }
+
+      address = `${id}:${port}`;
+    }
+
+    let hostName = null;
+    if (!vipPortError) {
+      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address);
+    }
+
+    const helpText = (
+      <FieldHelp>
+        Load balance this service internally at {hostName}
+      </FieldHelp>
+    );
+
+    return (
+      <FormRow key="lb-port">
+        <FormGroup className="column-12">
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Load Balanced Port
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={tooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  scrollContainer=".gm-scroll-view"
+                  wrapText={true}
+                >
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FormRow>
+            <FormGroup
+              className="column-3"
+              key="vip-port"
+              showError={Boolean(vipPortError)}
+            >
+              <FieldInput
+                min="1"
+                placeholder={placeholder}
+                name={`portDefinitions.${index}.vipPort`}
+                type="number"
+                value={vipPort}
+              />
+            </FormGroup>
+          </FormRow>
+          <FormRow>
+            <FormGroup className="column-12" showError={Boolean(vipPortError)}>
+              <FieldError>{vipPortError}</FieldError>
+              {!vipPortError && helpText}
+            </FormGroup>
+          </FormRow>
         </FormGroup>
       </FormRow>
     );
@@ -567,6 +641,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
+        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
           <FormGroup className="column-12">
@@ -589,19 +664,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h3 className="short-bottom" key="service-endpoints-header">
-          Ports Auto Assign
-        </h3>
-        <p key="service-endpoints-description">
-          DC/OS can automatically assign ports
-        </p>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
             checked={portsAutoAssignValue}
             name="portsAutoAssign"
             type="checkbox"
           />
-          Assign Ports Automatically
+          Assign Host Ports Automatically
         </FieldLabel>
       </div>
     );
@@ -610,7 +679,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getNonHostNetworkPortsAutoAssignSection(endpoint, index) {
     return (
       <FormGroup className="column-auto flush-left" key="assign-automatically">
-        <FieldLabel />
+        <FieldLabel>&nbsp;</FieldLabel>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
             checked={endpoint.automaticPort}
@@ -672,7 +741,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpointsSection()}
       </div>
     );

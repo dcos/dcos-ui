@@ -134,6 +134,17 @@ module.exports = {
             new Transaction(["portDefinitions", index, "vip"], vip, SET)
           );
         }
+
+        const vipPortMatch = vip.match(/.+:(\d+)/);
+        if (vipPortMatch) {
+          memo.push(
+            new Transaction(
+              ["portDefinitions", index, "vipPort"],
+              vipPortMatch[1],
+              SET
+            )
+          );
+        }
       }
 
       if (item.labels != null) {
