@@ -1297,5 +1297,238 @@ describe("Services", function() {
         .getTableRowThatContains(serviceName)
         .should("exist");
     });
+
+    it("should create a pod with labels", function() {
+      const serviceName = "pod-with-labels";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+      const containerName = "container-1";
+
+      // Select 'Multi-container (Pod)'
+      cy.contains("Multi-container (Pod)").click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains(containerName).click();
+
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+      // Select Environment section
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.0.key"]').type("camelCase");
+      cy.get('input[name="labels.0.value"]').type("test");
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.1.key"]').type("snake_case");
+      cy.get('input[name="labels.1.value"]').type("test");
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.2.key"]').type("lowercase");
+      cy.get('input[name="labels.2.value"]').type("test");
+
+      // Add an environment variable
+      cy.contains("Add Label").click();
+      cy.get('input[name="labels.3.key"]').type("UPPERCASE");
+      cy.get('input[name="labels.3.value"]').type("test");
+
+      // Check JSON view
+      cy.contains("JSON Editor").click();
+
+      // Check contents of the JSON editor
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          containers: [
+            {
+              name: containerName,
+              resources: {
+                cpus: 0.1,
+                mem: 10
+              },
+              exec: {
+                command: {
+                  shell: cmdline
+                }
+              }
+            }
+          ],
+          scaling: {
+            kind: "fixed",
+            instances: 1
+          },
+          networks: [
+            {
+              mode: "host"
+            }
+          ],
+          labels: {
+            camelCase: "test",
+            snake_case: "test",
+            lowercase: "test",
+            UPPERCASE: "test"
+          }
+        }
+      ]);
+
+      // Click Review and Run
+      cy.contains("Review & Run").click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Instances")
+        .contains("1");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains(`0.1 (0.1 ${containerName})`);
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains(`10 MiB (10 MiB ${containerName})`);
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Supported");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("GPU")
+        .contains("Not Supported");
+
+      cy
+        .root()
+        .configurationSection("Containers")
+        .configurationMapValue("Container Image")
+        .contains("Not Configured");
+
+      cy
+        .root()
+        .configurationSection("Containers")
+        .configurationMapValue("Force Pull On Launch")
+        .contains("Not Configured");
+
+      cy
+        .root()
+        .configurationSection("Containers")
+        .configurationMapValue("CPUs")
+        .contains("0.1");
+
+      cy
+        .root()
+        .configurationSection("Containers")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
+
+      cy
+        .root()
+        .configurationSection("Containers")
+        .configurationMapValue("Command")
+        .contains(cmdline);
+
+      cy.root().configurationSection("Labels").then(function($section) {
+        expect($section.get().length).to.equal(1);
+
+        const $tableRows = $section.find("tbody tr:visible");
+        const cellValues = [
+          ["camelCase", "test", "Shared", "Edit"],
+          ["snake_case", "test", "Shared", "Edit"],
+          ["lowercase", "test", "Shared", "Edit"],
+          ["UPPERCASE", "test", "Shared", "Edit"]
+        ];
+
+        $tableRows.each(function(rowIndex) {
+          const $tableCells = cy.$(this).find("td");
+
+          expect($tableCells.length).to.equal(4);
+
+          $tableCells.each(function(cellIndex) {
+            expect(this.textContent.trim()).to.equal(
+              cellValues[rowIndex][cellIndex]
+            );
+          });
+        });
+      });
+
+      // Run service
+      cy.get("button.button-primary").contains("Run Service").click();
+
+      cy.get(".page-body-content table").contains(serviceName).should("exist");
+
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains(containerName).click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "10");
+
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Environment section
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
+
+      // Check labels
+      cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
+      cy.get('input[name="labels.0.value"]').should("have.value", "test");
+
+      cy.get('input[name="labels.1.key"]').should("have.value", "snake_case");
+      cy.get('input[name="labels.1.value"]').should("have.value", "test");
+
+      cy.get('input[name="labels.2.key"]').should("have.value", "lowercase");
+      cy.get('input[name="labels.2.value"]').should("have.value", "test");
+
+      cy.get('input[name="labels.3.key"]').should("have.value", "UPPERCASE");
+      cy.get('input[name="labels.3.value"]').should("have.value", "test");
+    });
   });
 });
