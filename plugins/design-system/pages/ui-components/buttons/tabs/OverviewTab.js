@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
-import imageTest from "../../../../img/test.png";
+import imageButtonTooltip from "../../../../img/button-tooltip.gif";
 
 class OverviewTab extends Component {
   render() {
@@ -10,7 +10,7 @@ class OverviewTab extends Component {
           Buttons are used primarily on action items. Some examples include Add, Save, Delete, Deploy.
         </p>
         <p>
-          Do not use
+          Buttons make it obvious to the user that they can take an action. Do not use
           {" "}
           <code>&lt;button&gt;</code>
           {" "}
@@ -49,7 +49,7 @@ class OverviewTab extends Component {
                 Primary call to action button. Should stand out above all other actions. Examples include Save, Deploy.
               </td>
               <td>
-                <button className="button-primary" type="button">
+                <button className="button button-primary" type="button">
                   Primary
                 </button>
               </td>
@@ -57,7 +57,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Destructive</th>
               <td>
-                Destructive buttons are used to highlight something dangerous e.g. "Delete"
+                Destructive buttons are used to highlight something dangerous that can't be undone e.g. "Delete".
               </td>
               <td>
                 <button className="button button-danger" type="button">
@@ -68,7 +68,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Disabled</th>
               <td>
-                Disable a button when the action is not applicable but we want to show the user that it may be possible. Disabled buttons should have a tooltip.
+                Disable a button when the action is not applicable but we want to show the user that it may be possible. Disabled buttons often have a tooltip.
               </td>
               <td>
                 <Tooltip content="test">
@@ -100,7 +100,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Filled</th>
               <td>
-                ...
+                Buttons are filled by default.{" "}
               </td>
               <td>
                 <button className="button" type="button">
@@ -111,7 +111,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Outline</th>
               <td>
-                ...
+                An outlined may be applicable next to a filled button if we don't want it to draw as much attention, but visually want to align the buttons.
               </td>
               <td>
                 <button className="button button-outline" type="button">
@@ -122,7 +122,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Link</th>
               <td>
-                Link buttons are available to use if we want the action to not stand out as much e.g. "Cancel".
+                Link buttons are available to use if we want the action to not stand out as much e.g. "Cancel", or used when we want icons only.
               </td>
               <td>
                 <button className="button button-link" type="button">
@@ -148,7 +148,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Default</th>
               <td>
-                ...
+                Standard button size.
               </td>
               <td>
                 <button className="button" type="button">
@@ -182,7 +182,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Icon Only</th>
               <td>
-                ...
+                Use when an icon is enough to represent the action e.g. "Create a Service". Should be accompanied by a tooltip.
               </td>
               <td>
                 <button className="button button-link" type="button">
@@ -195,7 +195,7 @@ class OverviewTab extends Component {
             <tr>
               <th>Icon with Label</th>
               <td>
-                ...
+                If there is space and we feel an icon by itself is not obvious enough e.g. "Kill Task".
               </td>
               <td>
                 <button className="button button-primary" type="button">
@@ -207,18 +207,64 @@ class OverviewTab extends Component {
             </tr>
           </tbody>
         </table>
-        <h2>Labels</h2>
+        <h2>Usage Examples</h2>
+        <div className="panel">
+          <div className="panel-cell">
+            <div className="row">
+              <div className="column-6">
+                <p className="ds-do">Do</p>
+                <p>Use descriptive action verbs.</p>
+                <button className="button button-primary" type="button">
+                  Deploy service
+                </button>
+              </div>
+              <div className="column-6">
+                <p className="ds-dont">Don't</p>
+                <p>Use ambiguous labels.</p>
+                <button className="button button-primary" type="button">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="panel-cell">
+            <div className="row">
+              <div className="column-6">
+                <p className="ds-do">Do</p>
+                <p>Prioritize important actions.</p>
+                <div className="button-collection">
+                  <button className="button button-outline" type="button">
+                    Cancel
+                  </button>
+                  <button className="button button-primary" type="button">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+              <div className="column-6">
+                <p className="ds-dont">Don't</p>
+                <p>Have two primary CTAs next to each other.</p>
+                <div className="button-collection">
+                  <button className="button button-primary" type="button">
+                    Cancel
+                  </button>
+                  <button className="button button-primary" type="button">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2>Content</h2>
         <p>
-          Button labels tell users what will happen when they click the button.
-        </p>
-        <p>
-          Use verbs that describe the action. Acceptable labels include:
+          Button labels tell users what will happen when they click the button. Use verbs that describe the action. Acceptable labels include:
         </p>
         <ul>
-          <li>Create Object</li>
-          <li>Edit Object</li>
-          <li>Save Object</li>
-          <li>Delete Object</li>
+          <li>Create $object</li>
+          <li>Edit $object</li>
+          <li>Save $object</li>
+          <li>Delete $object</li>
           <li>Deploy, Scale, Restart</li>
         </ul>
         <p>
@@ -227,45 +273,17 @@ class OverviewTab extends Component {
         <p>
           For Sets of Buttons, use specific labels, such as Save or Cancel, instead of using Yes and No. This is particularly helpful when the user is confirming an action.
         </p>
-        <h2>Usage</h2>
-        <div className="panel">
-          <div className="row">
-            <div className="column-6">
-              <div className="panel-cell">
-                <h3>Do</h3>
-                <button className="button button-primary" type="button">
-                  Deploy Service
-                </button>
-              </div>
-            </div>
-            <div className="column-6">
-              <div className="panel-cell">
-                <h3>Don't</h3>
-                <button className="button button-primary" type="button">
-                  OK
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h2>Attribute Breakdown</h2>
-        <h2>Format</h2>
-        <h2>Interaction/Behavior</h2>
-        <h3>Hover State</h3>
-        <p>All buttons should have a hover state...</p>
-        <h3>Focus State</h3>
+        <h2>Feedback</h2>
+        <p>Buttons should have hover, active, focus states by default.</p>
         <p>
-          For accessibility reasons it is important to distinguish the currently focused element on the page.
+          When a user interacts with a button, either via click or tap, and an action is being completed, e.g. an API call, the button should change to disabled and provide feedback via the label to the user that it received the interaction and is busy performing the action.
         </p>
-        <h3>Active State</h3>
         <p>
-          When a user clicks or taps on a button it is important to provide visual feedback that they have done so. Active states accomplish this.
+          <button className="button button-primary" type="button" disabled>
+            Saving changes…
+          </button>
         </p>
-        <h3>Loading State</h3>
-        <p>
-          When the user clicks a button and an action is to be performed before proceeding (e.g. an API call) button should switch to a loading state so it is obvious to the user that something is happenign.
-        </p>
-        <h3>Tooltips</h3>
+        <h2>Tooltips</h2>
         <p>
           Buttons may or may not require tooltips to help communicate their intent.
         </p>
@@ -275,7 +293,7 @@ class OverviewTab extends Component {
         <p>
           Disabled buttons should always have a tooltip to explain why it is disabled so the user is aware.
         </p>
-        <img src={imageTest} width="300" />
+        <img src={imageButtonTooltip} width="150" />
       </div>
     );
   }
