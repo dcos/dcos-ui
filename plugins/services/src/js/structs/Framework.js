@@ -33,10 +33,36 @@ module.exports = class Framework extends Application {
   }
 
   getTasksSummary() {
+    // TODO: Circular reference workaround DCOS_OSS-783
+    const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+
     const tasksSummary = Object.assign({}, super.getTasksSummary());
+    const tasks = MesosStateStore.getTasksByService(this) || [];
     const tasksRunning = this.get("TASK_RUNNING") || 0;
     tasksSummary.tasksRunning += tasksRunning;
     tasksSummary.tasksUnknown += tasksRunning;
+
+    tasks.reduce(function(memo, task) {
+      if (task.state !== "TASK_RUNNING" || task.isStartedByMarathon) {
+        return memo;
+      }
+      if (task.statuses != null) {
+        return task.statuses.reduce(function(memo, status) {
+          if (status.healthy) {
+            memo.tasksHealthy++;
+            memo.tasksUnknown--;
+          }
+          if (status.healthy === false) {
+            memo.tasksUnhealthy++;
+            memo.tasksUnknown--;
+          }
+
+          return memo;
+        }, memo);
+      }
+
+      return memo;
+    }, tasksSummary);
 
     return tasksSummary;
   }
