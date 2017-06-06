@@ -17,28 +17,63 @@ function findRedirect(queryString) {
 }
 
 const RouterUtil = {
-  isValidRedirect(url) {
-    const parsedUrl = Util.parseUrl(url);
-
-    return parsedUrl.hostname === global.location.hostname;
-  },
-
-  getRedirectTo() {
-    let redirectTo = false;
-
+  /**
+   * Parse the url and find the query string (?)
+   * before or after the #
+   *
+   * @returns {Boolean|Object} false or query string object
+   */
+  getQueryStringInUrl() {
+    let queryString = false;
     // This will match url instances like this:
     // /?redirect=SOME_ADDRESS#/login
     if (global.location.search) {
-      redirectTo = findRedirect(qs.parse(global.location.search));
+      queryString = qs.parse(global.location.search);
     }
 
     // This will match url instances like this:
     // /#/login?redirect=SOME_ADDRESS
-    if (!redirectTo && global.location.hash) {
-      redirectTo = findRedirect(qs.parse(global.location.hash));
+    if (!queryString && global.location.hash) {
+      queryString = qs.parse(global.location.hash);
     }
 
-    return redirectTo;
+    return queryString;
+  },
+
+  isValidRedirect(url) {
+    const parsedUrl = Util.parseUrl(url);
+
+    if (!parsedUrl) {
+      return false;
+    }
+
+    return parsedUrl.hostname === global.location.hostname;
+  },
+
+  /**
+   * Find relativePath query
+   * and keep it's original encoding
+   * the use of qs will decode the path
+   * making the path not found
+   *
+   * @returns {Boolean|String} False or path encodedURI
+   */
+  getRelativePath() {
+    const RELATIVE_PATH = "relativePath=";
+    const url = global.location.href;
+
+    if (!url.includes(RELATIVE_PATH)) {
+      return false;
+    }
+
+    const startPoint = url.indexOf(RELATIVE_PATH) + RELATIVE_PATH.length;
+    const endPoint = url.length;
+
+    return url.substring(startPoint, endPoint);
+  },
+
+  getRedirectTo() {
+    return findRedirect(this.getQueryStringInUrl());
   },
 
   /**

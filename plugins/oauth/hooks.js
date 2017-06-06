@@ -74,7 +74,13 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   redirectToLogin(nextState, replace) {
-    replace("/login");
+    const redirectTo = RouterUtil.getRedirectTo();
+    // Ignores relative path if redirect is present
+    if (redirectTo) {
+      replace(`/login?redirect=${redirectTo}`);
+    } else {
+      replace(`/login?relativePath=${nextState.location.pathname}`);
+    }
   },
 
   AJAXRequestError(xhr) {
@@ -194,11 +200,14 @@ module.exports = Object.assign({}, StoreMixin, {
       global.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {
+        const relativePath = RouterUtil.getRelativePath();
         const loginRedirectRoute = AuthStore.get("loginRedirectRoute");
 
-        if (loginRedirectRoute) {
+        if (loginRedirectRoute && !relativePath) {
           // Go to redirect route if it is present
           hashHistory.push(loginRedirectRoute);
+        } else if (relativePath) {
+          global.location.replace(`${global.location.origin}/#${relativePath}`);
         } else {
           // Go to home
           hashHistory.push("/");

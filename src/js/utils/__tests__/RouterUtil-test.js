@@ -1,3 +1,4 @@
+jest.dontMock("query-string");
 jest.dontMock("../RouterUtil");
 
 const ReactRouter = require("react-router");
@@ -134,10 +135,23 @@ describe("RouterUtil", function() {
 
   describe("#redirect", function() {
     beforeEach(function() {
+      const searchQuery = "?redirect=http://www.google.com/&something=foo";
+
       // Overwrite jsdom global/window location mock
       Object.defineProperty(global.location, "hostname", {
         writable: true,
         value: "localhost"
+      });
+
+      Object.defineProperty(global.location, "href", {
+        writable: true,
+        value: "http://localhost:4200/#/login?relativePath=/services/detail/%2Fmlancaster/configuration"
+      });
+
+      // Overwrite jsdom global/window location mock
+      Object.defineProperty(global.location, "search", {
+        writable: true,
+        value: searchQuery
       });
     });
 
@@ -153,6 +167,48 @@ describe("RouterUtil", function() {
       const url = "http://malicious.domain.com/pwned?localhost:4200";
 
       expect(RouterUtil.isValidRedirect(url)).toEqual(expectedResult);
+    });
+
+    it("get relative path", function() {
+      const expectedResult = "/services/detail/%2Fmlancaster/configuration";
+
+      expect(RouterUtil.getRelativePath()).toEqual(expectedResult);
+    });
+
+    it("get redirectTo", function() {
+      const expectedResult = "http://www.google.com/";
+
+      expect(RouterUtil.getRedirectTo()).toEqual(expectedResult);
+    });
+  });
+
+  describe("#getQueryStringInUrl", function() {
+    const expectedResult = {
+      redirect: "http://www.google.com/",
+      something: "foo"
+    };
+
+    beforeEach(function() {
+      const searchQuery = "?redirect=http://www.google.com/&something=foo";
+
+      // Overwrite jsdom global/window location mock
+      Object.defineProperty(global.location, "search", {
+        writable: true,
+        value: searchQuery
+      });
+
+      Object.defineProperty(global.location, "hash", {
+        writable: true,
+        value: `#/some/path${searchQuery}`
+      });
+    });
+
+    it("get object from search query", function() {
+      expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
+    });
+
+    it("get object from hash query", function() {
+      expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
     });
   });
 });

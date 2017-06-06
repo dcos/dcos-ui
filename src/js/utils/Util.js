@@ -226,6 +226,11 @@ const Util = {
       return null;
     }
 
+    // Add http/s otherwise browser/engine think it's relative path
+    if (!/http|https/.test(url)) {
+      url = `https://${url}`;
+    }
+
     // TODO: replace below with browser native API <new URL()>
     // when all browsers support are available
     const aElement = document.createElement("a");
