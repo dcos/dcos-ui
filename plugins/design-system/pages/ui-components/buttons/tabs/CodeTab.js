@@ -136,10 +136,6 @@ class CodeTab extends Component {
             </tr>
           </tbody>
         </table>
-        <h2>Methods</h2>
-        <h2>Options/Parameters</h2>
-        <h2>Events</h2>
-        <h2>Data</h2>
       </div>
     );
   }
