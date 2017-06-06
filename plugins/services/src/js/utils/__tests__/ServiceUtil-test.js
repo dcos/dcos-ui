@@ -210,4 +210,26 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isSDKService(service)).toEqual(false);
     });
   });
+
+  describe("#getServiceIDFromTaskID", function() {
+    it("returns correct service id for a service in root", function() {
+      expect(
+        ServiceUtil.getServiceIDFromTaskID(
+          "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
+        )
+      ).toEqual("/test");
+    });
+
+    it("returns correct service id for a service in a group", function() {
+      expect(
+        ServiceUtil.getServiceIDFromTaskID(
+          "group_test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
+        )
+      ).toEqual("/group/test");
+    });
+
+    it("returns empty string if id is undefined", function() {
+      expect(ServiceUtil.getServiceIDFromTaskID()).toEqual("");
+    });
+  });
 });

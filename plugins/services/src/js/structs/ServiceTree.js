@@ -84,7 +84,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceFromTaskID(taskID) {
-    return this.findServiceByName(ServiceUtil.getServiceNameFromTaskID(taskID));
+    return this.findItemById(ServiceUtil.getServiceIDFromTaskID(taskID));
   }
 
   getTaskFromTaskID(taskID) {

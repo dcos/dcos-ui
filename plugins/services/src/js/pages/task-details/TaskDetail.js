@@ -230,7 +230,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
+    const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
     const taskIcon = <img src={task.getImages()["icon-large"]} />;
     const filePath = (selectedLogFile && selectedLogFile.get("path")) || null;
     const params = Object.assign({ filePath }, this.props.params);
@@ -330,7 +330,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     if (!directory || !task) {
       return this.getLoadingScreen();
     }
-    const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
+    const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
