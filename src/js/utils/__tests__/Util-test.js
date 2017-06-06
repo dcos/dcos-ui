@@ -448,5 +448,12 @@ describe("Util", function() {
     it("should return null", function() {
       expect(Util.parseUrl(1)).toEqual(null);
     });
+
+    it("should return absolute url if doesn't have protocol", function() {
+      const parsedUrl = Util.parseUrl("www.google.com");
+      const expectedResult = "https://www.google.com/";
+
+      expect(parsedUrl.href).toEqual(expectedResult);
+    });
   });
 });
