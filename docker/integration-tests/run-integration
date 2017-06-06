@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+# Switch to branch or commit hash
+
+if [[ ! -z "$PLUGINS_CHECKOUT" && -d "./dcos-ui-plugins" ]]; then
+  cd ./dcos-ui-plugins
+  git pull
+  git checkout $PLUGINS_CHECKOUT
+fi
+
+# Changes directory!
+cd /usr/src/dcos-ui
+
+git pull
+git checkout $APPLICATION_CHECKOUT
+
+npm set progress=false
+npm run --unsafe-perm preinstall
+npm i
+npm run scaffold
+npm run build-assets
+
+# Install dependencies of proxy
+npm install compression express http-proxy-middleware
+
+export APPLICATION_CONFIGURATION=`curl --insecure $CLUSTER_ADDRESS/dcos-metadata/ui-config.json`
+node dcos-ui-proxy.js -- --silent &
+
+# The proxy should start up really fast
+sleep 2;
+
+cypress run;
