@@ -3,6 +3,10 @@ import prettycron from "prettycron";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
+import Job from "#SRC/js/structs/Job";
+import JobTree from "#SRC/js/structs/JobTree";
+import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
+
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbSupplementalContent
   from "../../components/BreadcrumbSupplementalContent";
@@ -10,97 +14,103 @@ import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import Icon from "../Icon";
 import PageHeaderBreadcrumbs from "../../components/PageHeaderBreadcrumbs";
 
-function getJobStatus(jobStatus) {
-  if (jobStatus != null) {
-    return (
-      <BreadcrumbSupplementalContent>
-        <div className="service-page-header-status muted">
-          ({jobStatus})
-        </div>
-      </BreadcrumbSupplementalContent>
-    );
+function getLongestRunningTask(item) {
+  if (!(item instanceof Job)) {
+    return null;
   }
 
-  return null;
-}
+  const longestRunningActiveRun = item
+    .getActiveRuns()
+    .getLongestRunningActiveRun();
 
-function getJobSchedule(jobSchedules) {
-  if (jobSchedules && jobSchedules.length !== 0) {
-    const schedule = jobSchedules[0];
-
-    if (schedule.enabled) {
-      return (
-        <BreadcrumbSupplementalContent>
-          <Tooltip
-            content={prettycron.toString(schedule.cron)}
-            maxWidth={250}
-            wrapText={true}
-          >
-            <Icon color="grey" id="repeat" size="mini" />
-          </Tooltip>
-        </BreadcrumbSupplementalContent>
-      );
-    }
+  if (!longestRunningActiveRun) {
+    return null;
   }
 
-  return null;
+  return longestRunningActiveRun.getTasks().getLongestRunningTask();
 }
 
-const JobsBreadcrumbs = props => {
-  const { jobID, taskID, taskName, jobSchedules, jobStatus } = props;
-  let aggregateIDs = "";
-  const crumbs = [
-    <Breadcrumb key={0} title="Jobs">
+function getItemStatus(item) {
+  const longestRunningTask = getLongestRunningTask(item);
+
+  if (!longestRunningTask) {
+    return null;
+  }
+
+  return (
+    <BreadcrumbSupplementalContent>
+      <div className="service-page-header-status muted">
+        ({TaskStates[longestRunningTask.getStatus()].displayName})
+      </div>
+    </BreadcrumbSupplementalContent>
+  );
+}
+
+function getItemSchedule(item) {
+  if (!(item instanceof Job)) {
+    return null;
+  }
+
+  const schedule = item.getSchedules()[0];
+
+  if (!schedule || !schedule.enabled) {
+    return null;
+  }
+
+  return (
+    <BreadcrumbSupplementalContent>
+      <Tooltip
+        content={prettycron.toString(schedule.cron)}
+        maxWidth={250}
+        wrapText={true}
+      >
+        <Icon color="grey" id="repeat" size="mini" />
+      </Tooltip>
+    </BreadcrumbSupplementalContent>
+  );
+}
+
+function getBreadcrumb(item, details = true) {
+  const id = item.getId();
+  const name = item.getName();
+
+  return (
+    <Breadcrumb key={id} title="Jobs">
       <BreadcrumbTextContent>
-        <Link to="/jobs">Jobs</Link>
+        <Link to={`/jobs/${id}`}>
+          {name === "" ? "Jobs" : name}
+        </Link>
       </BreadcrumbTextContent>
+      {details ? getItemSchedule(item) : null}
+      {details ? getItemStatus(item) : null}
     </Breadcrumb>
-  ];
+  );
+}
 
-  if (jobID != null && jobID.length > 0) {
-    const ids = jobID.split(".");
+const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
+  const elements = tree
+    .filterItems(function(currentItem) {
+      return item != null && item.getId() === currentItem.getId();
+    })
+    .reduceItems(function(acc, currentItem) {
+      return acc.concat(getBreadcrumb(currentItem, details));
+    }, []);
 
-    const jobsCrumbs = ids.map(function(id, index) {
-      let status;
-      let scheduleIcon;
+  const breadcrumbs = [].concat(
+    getBreadcrumb(tree, details),
+    elements,
+    React.Children.toArray(children)
+  );
 
-      if (aggregateIDs !== "") {
-        aggregateIDs += ".";
-      }
-      aggregateIDs += id;
+  return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
+};
 
-      if (index === ids.length - 1) {
-        status = getJobStatus(jobStatus);
-        scheduleIcon = getJobSchedule(jobSchedules);
-      }
-
-      return (
-        <Breadcrumb key={index + 1} title="Identity Providers">
-          <BreadcrumbTextContent>
-            <Link to={`/jobs/${aggregateIDs}`} key={index}>{id}</Link>
-          </BreadcrumbTextContent>
-          {scheduleIcon}
-          {status}
-        </Breadcrumb>
-      );
-    });
-    crumbs.push(...jobsCrumbs);
-  }
-
-  if (taskID != null && taskName != null) {
-    const encodedTaskID = encodeURIComponent(taskID);
-    crumbs.push(
-      <Breadcrumb key="task-name" title={taskName}>
-        <BreadcrumbTextContent>
-          <Link to={`/jobs/${aggregateIDs}/tasks/${encodedTaskID}`}>
-            {taskName}
-          </Link>
-        </BreadcrumbTextContent>
-      </Breadcrumb>
-    );
-  }
-
-  return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={crumbs} />;
+JobsBreadcrumbs.propTypes = {
+  tree: React.PropTypes.instanceOf(JobTree).isRequired,
+  item: React.PropTypes.oneOfType([
+    React.PropTypes.instanceOf(JobTree),
+    React.PropTypes.instanceOf(Job)
+  ])
 };
 
 module.exports = JobsBreadcrumbs;

@@ -8,6 +8,7 @@ import React from "react";
 import { routerShape } from "react-router";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import Icon from "../../components/Icon";
 import JobConfiguration from "./JobConfiguration";
@@ -217,7 +218,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   getErrorScreen() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+        />
         <RequestErrorMsg />
       </Page>
     );
@@ -226,7 +229,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   getLoadingScreen() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+        />
         <Loader />
       </Page>
     );
@@ -250,27 +255,6 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     if (schedule.enabled) {
       return prettycron.toString(schedule.cron);
     }
-  }
-
-  getJobStatus(job) {
-    let longestRunningTask = null;
-    const longestRunningActiveRun = job
-      .getActiveRuns()
-      .getLongestRunningActiveRun();
-
-    if (longestRunningActiveRun != null) {
-      longestRunningTask = longestRunningActiveRun
-        .getTasks()
-        .getLongestRunningTask();
-    }
-
-    if (longestRunningTask == null) {
-      return null;
-    }
-
-    const status = TaskStates[longestRunningTask.getStatus()];
-
-    return status.displayName;
   }
 
   getSubTitle(job) {
@@ -423,22 +407,12 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     const job = MetronomeStore.getJob(this.props.params.id);
-    const jobStatus = this.getJobStatus(job);
-    const jobSchedules = job.getSchedules();
-
-    const breadcrumbs = (
-      <JobsBreadcrumbs
-        jobID={job.getId()}
-        jobSchedules={jobSchedules}
-        jobStatus={jobStatus}
-      />
-    );
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={breadcrumbs}
+          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} />}
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}

@@ -1,10 +1,16 @@
 import React from "react";
+import { Link } from "react-router";
+
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import TaskDetail
   from "../../../../plugins/services/src/js/pages/task-details/TaskDetail";
 import MesosStateStore from "../../stores/MesosStateStore";
+import MetronomeStore from "../../stores/MetronomeStore";
 import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import Page from "../../components/Page";
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
@@ -20,19 +26,25 @@ class JobTaskDetailPage extends React.Component {
       { label: "Logs", routePath: routePrefix + "/logs" }
     ];
 
+    const job = MetronomeStore.getJob(id);
     const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-    let breadcrumbs;
+    let breadcrumbs = (
+      <JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} details={false} />
+    );
+
     if (task != null) {
       breadcrumbs = (
-        <JobsBreadcrumbs
-          jobID={id}
-          taskID={task.getId()}
-          taskName={task.getName()}
-        />
+        <JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} details={false}>
+          <Breadcrumb key="task-name" title={task.getName()}>
+            <BreadcrumbTextContent>
+              <Link to={`/jobs/${id}/tasks/${task.getId()}`}>
+                {task.getName()}
+              </Link>
+            </BreadcrumbTextContent>
+          </Breadcrumb>
+        </JobsBreadcrumbs>
       );
-    } else {
-      breadcrumbs = <JobsBreadcrumbs />;
     }
 
     const dontScroll = dontScrollRoutes.some(regex => {

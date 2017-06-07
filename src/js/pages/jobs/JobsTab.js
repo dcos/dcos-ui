@@ -164,7 +164,7 @@ class JobsTab extends mixin(StoreMixin) {
             label: "Create a job",
             onItemSelect: this.handleOpenJobFormModal
           }}
-          breadcrumbs={<JobsBreadcrumbs jobID={item.id} />}
+          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} item={item} />}
         />
         <div className="flex-grow">
           {this.getHeadline(item, filteredJobs)}
@@ -199,7 +199,9 @@ class JobsTab extends mixin(StoreMixin) {
     if (!DCOSStore.jobDataReceived) {
       return (
         <Page>
-          <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
+          <Page.Header
+            breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+          />
           <Loader />
         </Page>
       );
@@ -217,7 +219,9 @@ class JobsTab extends mixin(StoreMixin) {
     // Render empty panel
     return (
       <Page>
-        <Page.Header breadcrumbs={<JobsBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+        />
         <AlertPanel>
           <AlertPanelHeader>No active jobs</AlertPanelHeader>
           <p className="tall">
