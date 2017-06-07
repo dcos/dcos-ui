@@ -7,7 +7,7 @@ describe("LocalVolumes", function() {
   describe("#FormReducer", function() {
     it("should return an Array with one item", function() {
       const batch = new Batch()
-        .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"));
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
         { size: null, containerPath: null, mode: "RW", type: "PERSISTENT" }
@@ -16,7 +16,7 @@ describe("LocalVolumes", function() {
 
     it("should contain one full local Volumes item", function() {
       const batch = new Batch()
-        .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 0, "size"], 1024))
         .add(
@@ -34,7 +34,7 @@ describe("LocalVolumes", function() {
 
     it("should parse wrong typed values correctly", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["localVolumes", 0, "type"], 123));
       batch = batch.add(new Transaction(["localVolumes", 0, "hostPath"], 123));
       batch = batch.add(
@@ -55,8 +55,8 @@ describe("LocalVolumes", function() {
 
     it("should contain two full local Volumes items", function() {
       const batch = new Batch()
-        .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
-        .add(new Transaction(["localVolumes"], 1, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 1, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 0, "size"], 1024))
@@ -83,8 +83,8 @@ describe("LocalVolumes", function() {
 
     it("should remove the right row.", function() {
       const batch = new Batch()
-        .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
-        .add(new Transaction(["localVolumes"], 1, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 1, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 0, "size"], 1024))
@@ -105,7 +105,7 @@ describe("LocalVolumes", function() {
 
     it("should set the right mode.", function() {
       const batch = new Batch()
-        .add(new Transaction(["localVolumes"], 0, ADD_ITEM))
+        .add(new Transaction(["localVolumes"], null, ADD_ITEM))
         .add(new Transaction(["localVolumes", 0, "type"], "PERSISTENT"))
         .add(new Transaction(["localVolumes", 0, "size"], 1024))
         .add(new Transaction(["localVolumes", 0, "containerPath"], "/dev/null"))

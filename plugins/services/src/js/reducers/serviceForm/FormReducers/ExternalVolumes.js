@@ -13,7 +13,7 @@ module.exports = {
       if (joinedPath === "externalVolumes") {
         switch (type) {
           case ADD_ITEM:
-            state.push({
+            const defaultVolume = {
               containerPath: null,
               name: null,
               provider: "dvdi",
@@ -21,7 +21,8 @@ module.exports = {
                 "dvdi/driver": "rexray"
               },
               mode: "RW"
-            });
+            };
+            state.push(Object.assign({}, value || defaultVolume));
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

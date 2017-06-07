@@ -47,7 +47,7 @@ describe("External Volumes", function() {
 
     it("should parse wrong typed values correctly", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["externalVolumes", 0, "name"], 123));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "provider"], 123)
@@ -75,8 +75,8 @@ describe("External Volumes", function() {
 
     it("should contain two full external Volumes items", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["externalVolumes"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "name"], "null")
       );
@@ -111,8 +111,8 @@ describe("External Volumes", function() {
 
     it("should remove the right row.", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["externalVolumes"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "name"], "null")
       );
@@ -140,7 +140,7 @@ describe("External Volumes", function() {
 
     it("should set the right options.", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "containerPath"], "/dev/null")
       );
@@ -167,7 +167,7 @@ describe("External Volumes", function() {
     });
     it("should set the right provider.", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "containerPath"], "/dev/null")
       );

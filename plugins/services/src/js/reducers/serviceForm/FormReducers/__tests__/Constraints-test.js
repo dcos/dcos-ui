@@ -7,7 +7,7 @@ describe("Constraints", function() {
   describe("#FormReducer", function() {
     it("creates constraint objects for the form", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
         new Transaction(["constraints", 0, "value"], "param", SET)
@@ -20,7 +20,7 @@ describe("Constraints", function() {
 
     it("includes optional value even if not set", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET)
       ]);
@@ -32,7 +32,7 @@ describe("Constraints", function() {
 
     it("doesn't process non-array states", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET)
       ]);

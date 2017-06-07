@@ -3,18 +3,18 @@ const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
 const HealthChecks = require("../HealthChecks");
 
-describe("Labels", function() {
+describe("HealthChecks", function() {
   describe("#FormReducer", function() {
     it("should return an Array", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{}]);
     });
 
     it("should set the protocol", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "COMMAND")
       );
@@ -28,7 +28,7 @@ describe("Labels", function() {
 
     it("should set the right Command", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "COMMAND")
       );
@@ -46,7 +46,7 @@ describe("Labels", function() {
 
     it("should set the right path", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
@@ -62,7 +62,7 @@ describe("Labels", function() {
 
     it("should have a fully fledged health check object", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
@@ -98,7 +98,7 @@ describe("Labels", function() {
         " protocol",
       function() {
         let batch = new Batch();
-        batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
         );
@@ -135,7 +135,7 @@ describe("Labels", function() {
 
     it("should keep https after switching protocol back to HTTP", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
@@ -156,7 +156,7 @@ describe("Labels", function() {
 
     it("should set protocol to http if https was set", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["healthChecks"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );

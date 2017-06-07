@@ -7,15 +7,15 @@ describe("Artifacts", function() {
   describe("#FromReducer", function() {
     it("emits correct JSON", function() {
       const batch = new Batch([
-        new Transaction(["fetch"], 0, ADD_ITEM),
-        new Transaction(["fetch", 0, "uri"], "http://mesosphere.io", SET),
-        new Transaction(["fetch"], 1, ADD_ITEM),
-        new Transaction(["fetch", 1, "uri"], "http://mesosphere.com", SET)
+        new Transaction(["fetch"], { uri: "http://example.io" }, ADD_ITEM),
+        new Transaction(["fetch", 0, "uri"], "http://example.io", SET),
+        new Transaction(["fetch"], { uri: "http://example.com" }, ADD_ITEM),
+        new Transaction(["fetch", 1, "uri"], "http://example.com", SET)
       ]);
 
       expect(batch.reduce(Artifacts.FormReducer.bind({}), [])).toEqual([
-        { uri: "http://mesosphere.io" },
-        { uri: "http://mesosphere.com" }
+        { uri: "http://example.io" },
+        { uri: "http://example.com" }
       ]);
     });
   });

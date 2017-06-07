@@ -20,7 +20,11 @@ function transformContainers(memo, container, containerIndex) {
 }
 
 module.exports = {
-  JSONReducer(state = [], { type, path, value }) {
+  JSONReducer(state = [], { type, path, value }, counterIndex) {
+    if (counterIndex === 0) {
+      state = [];
+    }
+
     const [base, index, name] = path;
 
     if (this.hostPaths == null) {

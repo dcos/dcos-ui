@@ -11,6 +11,21 @@ const FIELDS = [
   "vipPort"
 ];
 
+function transformPortDefinition(definition) {
+  if (
+    definition != null &&
+    definition.protocol != null &&
+    typeof definition.protocol === "string"
+  ) {
+    definition.protocol = {
+      tcp: definition.protocol.search("tcp"),
+      udp: definition.protocol.search("udp")
+    };
+  }
+
+  return definition;
+}
+
 /**
  * @param {Object[]} state
  * @param {Object} action
@@ -28,19 +43,21 @@ function PortDefinitionsReducer(state = [], action) {
     if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
-          state.push({
-            hostPort: null,
-            labels: null,
-            loadBalanced: false,
-            name: null,
-            protocol: {
-              tcp: true,
-              udp: false
-            },
-            servicePort: null,
-            vip: null,
-            vipPort: null
-          });
+          state.push(
+            transformPortDefinition(value) || {
+              hostPort: null,
+              labels: null,
+              loadBalanced: false,
+              name: null,
+              protocol: {
+                tcp: true,
+                udp: false
+              },
+              servicePort: null,
+              vip: null,
+              vipPort: null
+            }
+          );
           break;
         case REMOVE_ITEM:
           state = state.filter(function(item, index) {

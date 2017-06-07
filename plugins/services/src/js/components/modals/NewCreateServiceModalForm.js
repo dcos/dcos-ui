@@ -2,7 +2,7 @@ import classNames from "classnames";
 import deepEqual from "deep-equal";
 import React, { PropTypes, Component } from "react";
 
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { pluralize } from "#SRC/js/utils/StringUtil";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
 import AdvancedSectionContent
@@ -55,8 +55,6 @@ const METHODS_TO_BIND = [
   "handleJSONPropertyChange",
   "handleRemoveItem"
 ];
-
-const KEY_VALUE_FIELDS = ["env", "environment", "labels"];
 
 /**
  * Since the form input fields operate on a different path than the one in the
@@ -191,7 +189,7 @@ class NewCreateServiceModalForm extends Component {
 
     // Regenerate batch
     newState.batch = this.props
-      .jsonParserReducers(baseConfig)
+      .jsonParserReducers(deepCopy(baseConfig))
       .reduce((batch, item) => {
         return batch.add(item);
       }, new Batch());
@@ -293,14 +291,15 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
-    // Delete all key:value fields
-    // Otherwise applyPatch will duplicate keys we're changing via the form
-    KEY_VALUE_FIELDS.forEach(function(field) {
-      delete baseConfig[field];
-    });
-    const patch = batch.reduce(this.props.jsonConfigReducers, {});
+    // Do a deepCopy once before it goes to reducers
+    // so they don't need to perform Object.assign()
+    const baseConfigCopy = deepCopy(baseConfig);
+    const newConfig = batch.reduce(
+      this.props.jsonConfigReducers,
+      baseConfigCopy
+    );
 
-    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    return CreateServiceModalFormUtil.stripEmptyProperties(newConfig);
   }
 
   getErrors() {

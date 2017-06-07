@@ -13,7 +13,12 @@ module.exports = {
       if (joinedPath === "localVolumes") {
         switch (type) {
           case ADD_ITEM:
-            state.push({ containerPath: null, size: null, mode: "RW" });
+            const defaultVolume = {
+              containerPath: null,
+              size: null,
+              mode: "RW"
+            };
+            state.push(Object.assign({}, value || defaultVolume));
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

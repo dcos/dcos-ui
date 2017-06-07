@@ -87,7 +87,7 @@ class ArtifactsSection extends Component {
   }
 
   render() {
-    const { data, path } = this.props;
+    const { path } = this.props;
 
     return (
       <div className="form-section">
@@ -96,8 +96,7 @@ class ArtifactsSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path,
-                value: data.length
+                path
               })}
             >
               Add Artifact

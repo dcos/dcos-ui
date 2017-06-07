@@ -29,7 +29,7 @@ module.exports = {
        * 6) Set the mode from `volume.mode` on the path
        *    `externalVolumes.${index}.mode`
        */
-        memo.push(new Transaction(["externalVolumes"], index, ADD_ITEM));
+        memo.push(new Transaction(["externalVolumes"], item, ADD_ITEM));
 
         if (item.external.name != null) {
           memo.push(

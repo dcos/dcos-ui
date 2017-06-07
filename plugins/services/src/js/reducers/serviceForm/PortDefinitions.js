@@ -98,7 +98,7 @@ module.exports = {
 
     // Look at portDefinitions and add accepted fields
     return state.portDefinitions.reduce(function(memo, item, index) {
-      memo.push(new Transaction(["portDefinitions"], index, ADD_ITEM));
+      memo.push(new Transaction(["portDefinitions"], item, ADD_ITEM));
 
       if (item.name != null) {
         memo.push(

@@ -75,7 +75,9 @@ describe("JSONMultiContainer", function() {
 
       const reducers = combineReducers(JSONMultiContainerReducers).bind({});
       const parser = combineParsers(JSONMultiContainerParser);
-      const batch = parser(podDefinition).reduce(function(batch, item) {
+      const batch = parser(
+        JSON.parse(JSON.stringify(podDefinition))
+      ).reduce(function(batch, item) {
         return batch.add(item);
       }, new Batch());
       const jsonFromBatch = batch.reduce(reducers, {});

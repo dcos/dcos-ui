@@ -102,7 +102,7 @@ function containersParser(state) {
   }
 
   return state.containers.reduce((memo, item, index) => {
-    memo.push(new Transaction(["containers"], index, ADD_ITEM));
+    memo.push(new Transaction(["containers"], item, ADD_ITEM));
     if (item.name) {
       memo.push(new Transaction(["containers", index, "name"], item.name));
     }
@@ -161,7 +161,7 @@ function containersParser(state) {
         memo.push(
           new Transaction(
             ["containers", index, "artifacts"],
-            artifactIndex,
+            artifact,
             ADD_ITEM
           )
         );
@@ -187,7 +187,7 @@ function containersParser(state) {
         memo = memo.concat([
           new Transaction(
             ["containers", index, "endpoints"],
-            endpointIndex,
+            endpoint,
             ADD_ITEM
           ),
           new Transaction(
@@ -306,7 +306,10 @@ function containersParser(state) {
 }
 
 module.exports = {
-  JSONReducer(state = [], { type, path = [], value }) {
+  JSONReducer(state = [], { type, path = [], value }, containerIndex) {
+    if (containerIndex === 0) {
+      state = [];
+    }
     const [base, index, field, secondIndex, name, subField] = path;
 
     if (this.networkType == null) {
@@ -333,11 +336,17 @@ module.exports = {
 
     if (!path.includes("containers") && !path.includes("volumeMounts")) {
       return state.map((container, index) => {
-        container.endpoints = mapEndpoints(
-          this.endpoints[index].endpoints,
-          this.networkType,
-          this.appState
-        );
+        if (
+          this.endpoints &&
+          this.endpoints[index] &&
+          this.endpoints[index].endpoints
+        ) {
+          container.endpoints = mapEndpoints(
+            this.endpoints[index].endpoints,
+            this.networkType,
+            this.appState
+          );
+        }
 
         return container;
       });
@@ -364,9 +373,14 @@ module.exports = {
     if (joinedPath === "containers") {
       switch (type) {
         case ADD_ITEM:
-          const name = `container-${newState.length + 1}`;
+          let newItem = value;
 
-          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
+          if (value == null) {
+            const name = `container-${newState.length + 1}`;
+            newItem = Object.assign({}, DEFAULT_POD_CONTAINER, { name });
+          }
+
+          newState.push(newItem);
           this.cache.push({});
           this.endpoints.push({});
           break;
@@ -420,15 +434,14 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          const endpointDefinition = Object.assign(
-            {},
-            defaultEndpointsFieldValues
-          );
-          endpointDefinition.protocol = Object.assign(
-            {},
-            defaultEndpointsFieldValues.protocol
-          );
-          this.endpoints[index].endpoints.push(endpointDefinition);
+          let newEndpoint = value;
+
+          if (value == null) {
+            newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
+          }
+
+          newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
+          this.endpoints[index].endpoints.push(newEndpoint);
           break;
         case REMOVE_ITEM:
           this.endpoints[index].endpoints = this.endpoints[
@@ -461,11 +474,17 @@ module.exports = {
       }
     }
     newState = newState.map((container, index) => {
-      container.endpoints = mapEndpoints(
-        this.endpoints[index].endpoints,
-        this.networkType,
-        this.appState
-      );
+      if (
+        this.endpoints &&
+        this.endpoints[index] &&
+        this.endpoints[index].endpoints
+      ) {
+        container.endpoints = mapEndpoints(
+          this.endpoints[index].endpoints,
+          this.networkType,
+          this.appState
+        );
+      }
 
       return container;
     });
@@ -493,7 +512,9 @@ module.exports = {
 
       switch (type) {
         case ADD_ITEM:
-          this.artifactState[index].push({ uri: null });
+          this.artifactState[index].push(
+            Object.assign({}, value || { uri: null })
+          );
           break;
         case REMOVE_ITEM:
           this.artifactState[index] = this.artifactState[
@@ -575,7 +596,16 @@ module.exports = {
         case ADD_ITEM:
           const name = `container-${newState.length + 1}`;
 
-          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
+          let newItem = value;
+
+          if (value == null) {
+            newItem = Object.assign({}, DEFAULT_POD_CONTAINER, { name });
+          }
+
+          if (newItem.endpoints != null) {
+            newItem.endpoints = [];
+          }
+          newState.push(newItem);
           this.cache.push({});
           break;
         case REMOVE_ITEM:

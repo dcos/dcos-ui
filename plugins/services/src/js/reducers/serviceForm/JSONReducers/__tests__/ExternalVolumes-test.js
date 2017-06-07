@@ -41,7 +41,21 @@ describe("External Volumes", function() {
         }
       };
       expect(ExternalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["externalVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            external: {
+              name: "null",
+              provider: "dvdi",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          },
+          path: ["externalVolumes"]
+        },
         { type: SET, value: "null", path: ["externalVolumes", 0, "name"] },
         {
           type: SET,
@@ -84,7 +98,21 @@ describe("External Volumes", function() {
         }
       };
       expect(ExternalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["externalVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            external: {
+              name: "null",
+              provider: "dvdi",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          },
+          path: ["externalVolumes"]
+        },
         { type: SET, value: "null", path: ["externalVolumes", 0, "name"] },
         {
           type: SET,
@@ -122,7 +150,21 @@ describe("External Volumes", function() {
         }
       };
       expect(ExternalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["externalVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            external: {
+              name: "null",
+              provider: "provider",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          },
+          path: ["externalVolumes"]
+        },
         { type: SET, value: "null", path: ["externalVolumes", 0, "name"] },
         {
           type: SET,
@@ -164,7 +206,21 @@ describe("External Volumes", function() {
         }
       };
       expect(ExternalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["externalVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            external: {
+              name: "null",
+              provider: "provider",
+              options: {
+                someValue: true
+              }
+            },
+            mode: "RW"
+          },
+          path: ["externalVolumes"]
+        },
         { type: SET, value: "null", path: ["externalVolumes", 0, "name"] },
         {
           type: SET,
@@ -207,7 +263,22 @@ describe("External Volumes", function() {
         }
       };
       expect(ExternalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["externalVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            external: {
+              size: 1024,
+              name: "null",
+              provider: "dvdi",
+              options: {
+                "dvdi/driver": "rexray"
+              }
+            },
+            mode: "RW"
+          },
+          path: ["externalVolumes"]
+        },
         { type: SET, value: "null", path: ["externalVolumes", 0, "name"] },
         { type: SET, value: 1024, path: ["externalVolumes", 0, "size"] },
         {

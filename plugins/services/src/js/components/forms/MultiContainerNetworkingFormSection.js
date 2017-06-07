@@ -388,7 +388,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           <div>
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: endpoints.length,
                 path: `containers.${index}.endpoints`
               })}
             >

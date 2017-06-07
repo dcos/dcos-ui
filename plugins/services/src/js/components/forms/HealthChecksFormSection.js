@@ -474,7 +474,6 @@ class HealthChecksFormSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: data.healthChecks.length,
                 path: "healthChecks"
               })}
             >

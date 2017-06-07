@@ -7,7 +7,7 @@ describe("Constraints", function() {
   describe("#JSONReducer", function() {
     it("emits correct JSON", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
         new Transaction(["constraints", 0, "value"], "param", SET)
@@ -20,7 +20,7 @@ describe("Constraints", function() {
 
     it("skips value required to be empty after operator was set", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
         new Transaction(["constraints", 0, "value"], "foo", SET)
@@ -33,7 +33,7 @@ describe("Constraints", function() {
 
     it("skips value required to be empty before operator was set", function() {
       const batch = new Batch([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "value"], "foo", SET),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET)
@@ -52,7 +52,7 @@ describe("Constraints", function() {
           constraints: [["hostname", "JOIN", "param"]]
         })
       ).toEqual([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
         new Transaction(["constraints", 0, "value"], "param", SET)
@@ -91,7 +91,7 @@ describe("Constraints", function() {
           constraints: [["hostname", "JOIN"]]
         })
       ).toEqual([
-        new Transaction(["constraints"], 0, ADD_ITEM),
+        new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET)
       ]);

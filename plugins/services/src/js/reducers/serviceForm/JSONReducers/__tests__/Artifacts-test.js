@@ -8,16 +8,21 @@ describe("Artifacts", function() {
     it("parses JSON correctly", function() {
       expect(
         Artifacts.JSONParser({
-          fetch: [
-            { uri: "http://mesosphere.io" },
-            { uri: "http://mesosphere.com" }
-          ]
+          fetch: [{ uri: "http://example.io" }, { uri: "http://example.com" }]
         })
       ).toEqual([
-        { type: ADD_ITEM, path: ["fetch"], value: 0 },
-        { type: SET, path: ["fetch", 0, "uri"], value: "http://mesosphere.io" },
-        { type: ADD_ITEM, path: ["fetch"], value: 1 },
-        { type: SET, path: ["fetch", 1, "uri"], value: "http://mesosphere.com" }
+        {
+          type: ADD_ITEM,
+          path: ["fetch"],
+          value: { uri: "http://example.io" }
+        },
+        { type: SET, path: ["fetch", 0, "uri"], value: "http://example.io" },
+        {
+          type: ADD_ITEM,
+          path: ["fetch"],
+          value: { uri: "http://example.com" }
+        },
+        { type: SET, path: ["fetch", 1, "uri"], value: "http://example.com" }
       ]);
     });
   });
@@ -25,15 +30,15 @@ describe("Artifacts", function() {
   describe("#JSONReducer", function() {
     it("emits correct JSON", function() {
       const batch = new Batch([
-        new Transaction(["fetch"], 0, ADD_ITEM),
-        new Transaction(["fetch", 0, "uri"], "http://mesosphere.io", SET),
-        new Transaction(["fetch"], 1, ADD_ITEM),
-        new Transaction(["fetch", 1, "uri"], "http://mesosphere.com", SET)
+        new Transaction(["fetch"], { uri: "http://example.io" }, ADD_ITEM),
+        new Transaction(["fetch", 0, "uri"], "http://example.io", SET),
+        new Transaction(["fetch"], { uri: "http://example.com" }, ADD_ITEM),
+        new Transaction(["fetch", 1, "uri"], "http://example.com", SET)
       ]);
 
       expect(batch.reduce(Artifacts.JSONReducer.bind({}), {})).toEqual([
-        { uri: "http://mesosphere.io" },
-        { uri: "http://mesosphere.com" }
+        { uri: "http://example.io" },
+        { uri: "http://example.com" }
       ]);
     });
   });

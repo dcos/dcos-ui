@@ -41,7 +41,15 @@ describe("LocalVolumes", function() {
         }
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["localVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            persistent: { size: 1024 },
+            mode: "RW"
+          },
+          path: ["localVolumes"]
+        },
         { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
         { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
         {
@@ -77,7 +85,15 @@ describe("LocalVolumes", function() {
         }
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["localVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            persistent: { size: 1024 },
+            mode: "RW"
+          },
+          path: ["localVolumes"]
+        },
         { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
         { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
         {
@@ -102,7 +118,15 @@ describe("LocalVolumes", function() {
         }
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["localVolumes"] },
+        {
+          type: ADD_ITEM,
+          value: {
+            containerPath: "/dev/null",
+            persistent: { size: 1024 },
+            mode: "READ"
+          },
+          path: ["localVolumes"]
+        },
         { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
         { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
         {

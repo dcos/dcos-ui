@@ -199,7 +199,6 @@ class GeneralServiceFormSection extends Component {
         {containerElements}
         <AddButton
           onClick={this.props.onAddItem.bind(this, {
-            value: 0,
             path: "containers"
           })}
         >
@@ -276,7 +275,6 @@ class GeneralServiceFormSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                value: data.constraints.length,
                 path: "constraints"
               })}
             >

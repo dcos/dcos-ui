@@ -12,12 +12,12 @@ module.exports = {
     const newState = state.slice();
     if (path[0] === "networks") {
       if (type === ADD_ITEM && index !== 0) {
-        newState.push({ mode: Networking.type.HOST.toLowerCase() });
+        newState.push(value || { mode: Networking.type.HOST.toLowerCase() });
 
         return newState;
       }
 
-      if (type === SET) {
+      if (type === SET && typeof value === "string") {
         const [mode, name] = value.split(".");
 
         if (mode === Networking.type.CONTAINER) {
@@ -49,13 +49,13 @@ module.exports = {
 
     if (state.networks.length === 0) {
       return [
-        new Transaction(["networks"], 0, ADD_ITEM),
+        new Transaction(["networks"], {}, ADD_ITEM),
         new Transaction(["networks", 0], Networking.type.HOST)
       ];
     }
 
     return state.networks.reduce((memo, network, index) => {
-      memo.push(new Transaction(["networks"], index, ADD_ITEM));
+      memo.push(new Transaction(["networks"], network, ADD_ITEM));
 
       if (network.mode == null) {
         return memo;
@@ -89,7 +89,7 @@ module.exports = {
         return newState;
       }
 
-      if (type === SET) {
+      if (type === SET && typeof value === "string") {
         const [mode, name] = value.split(".");
 
         if (mode === Networking.type.CONTAINER) {
