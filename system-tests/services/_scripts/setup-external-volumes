@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# create app with extenal volumes
+cat <<EOF | dcos marathon app add
+{
+  "id": "/$TEST_UUID/external-volumes-single",
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "volumes": [
+      {
+        "containerPath": "data",
+        "external": {
+          "name": "integration-test-dcos-ui-$TEST_UUID-exvolsingle",
+          "provider": "dvdi",
+          "options": {
+            "dvdi/driver": "rexray"
+          },
+          "size": 1
+        },
+        "mode": "RW"
+      }
+    ]
+  },
+  "cpus": 0.1,
+  "cmd": "echo TEST_OUTPUT_$TEST_UUID >> \$MESOS_SANDBOX/data/foo; cat \$MESOS_SANDBOX/data/foo; while true; do sleep 10; done;",
+  "mem": 16
+} 
+EOF
