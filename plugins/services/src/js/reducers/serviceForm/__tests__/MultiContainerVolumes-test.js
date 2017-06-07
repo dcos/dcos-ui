@@ -52,7 +52,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have to items with names", function() {
+    it("should have two items with names", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -113,7 +113,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have to items with names", function() {
+    it("should have two items with names", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -139,7 +139,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have to items with names and mountpath", function() {
+    it("should have two items with names and mountpath", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
