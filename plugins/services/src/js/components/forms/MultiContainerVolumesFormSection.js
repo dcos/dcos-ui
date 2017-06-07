@@ -94,6 +94,10 @@ class MultiContainerVolumesFormSection extends Component {
         path: "volumeMounts"
       });
 
+      if (volumes.type === VolumeConstants.type.unknown) {
+        return null;
+      }
+
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>

@@ -40,6 +40,10 @@ function reduceVolumes(state, { type, path, value }) {
     this.localVolumes = [];
   }
 
+  if (this.unknownVolumes == null) {
+    this.unknownVolumes = [];
+  }
+
   if (this.docker == null) {
     this.docker = false;
   }
@@ -52,6 +56,10 @@ function reduceVolumes(state, { type, path, value }) {
 
   if (joinedPath === "container.type") {
     this.docker = value !== MESOS;
+  }
+
+  if (joinedPath === "unknownVolumes" && type === ADD_ITEM) {
+    this.unknownVolumes.push(value);
   }
 
   if (path[0] === "externalVolumes") {
@@ -90,7 +98,8 @@ function reduceVolumes(state, { type, path, value }) {
        */
       return [].concat(
         this.localVolumes.map(mapLocalVolumes),
-        this.externalVolumes
+        this.externalVolumes,
+        this.unknownVolumes
       );
     }
 
@@ -140,7 +149,8 @@ function reduceVolumes(state, { type, path, value }) {
 
       return [].concat(
         this.localVolumes.map(mapLocalVolumes),
-        this.externalVolumes
+        this.externalVolumes,
+        this.unknownVolumes
       );
     }
 
@@ -167,7 +177,8 @@ function reduceVolumes(state, { type, path, value }) {
 
   return [].concat(
     this.localVolumes.map(mapLocalVolumes),
-    this.externalVolumes
+    this.externalVolumes,
+    this.unknownVolumes
   );
 }
 

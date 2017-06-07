@@ -39,15 +39,15 @@ module.exports = {
 
     switch (type) {
       case ADD_ITEM:
-        newState.push({});
+        newState.push(value || {});
         break;
       case REMOVE_ITEM:
         newState = newState.filter((item, index) => index !== value);
         break;
     }
 
-    if (name === "type" && value === VolumeConstants.type.ephemeral) {
-      newState[index].host = null;
+    if (name === "type" && value !== VolumeConstants.type.host) {
+      delete newState[index].host;
     }
     if (name === "type" && value === VolumeConstants.type.host) {
       newState[index].host = this.hostPaths[index];
@@ -83,9 +83,19 @@ module.exports = {
         let volumeTypeTransactions = [
           new Transaction(
             ["volumeMounts", volumeIndexMap[volume.name], "type"],
-            VolumeConstants.type.ephemeral
+            VolumeConstants.type.unknown
           )
         ];
+
+        // Ephemeral Volumes have only name
+        if (Object.keys(volume).length === 1 && volume.name != null) {
+          volumeTypeTransactions = [
+            new Transaction(
+              ["volumeMounts", volumeIndexMap[volume.name], "type"],
+              VolumeConstants.type.ephemeral
+            )
+          ];
+        }
 
         if (volume.host != null) {
           volumeTypeTransactions = [
@@ -101,11 +111,7 @@ module.exports = {
         }
 
         return memo.concat(
-          new Transaction(
-            ["volumeMounts"],
-            volumeIndexMap[volume.name],
-            ADD_ITEM
-          ),
+          new Transaction(["volumeMounts"], volume, ADD_ITEM),
           new Transaction(
             ["volumeMounts", volumeIndexMap[volume.name], "name"],
             volume.name
@@ -126,7 +132,7 @@ module.exports = {
         if (volumeIndexMap[name] == null) {
           volumeIndexMap[name] = volumes.push(name) - 1;
           memo = memo.concat(
-            new Transaction(["volumeMounts"], volumeIndexMap[name], ADD_ITEM),
+            new Transaction(["volumeMounts"], volumeMount, ADD_ITEM),
             new Transaction(
               ["volumeMounts", volumeIndexMap[name], "name"],
               name

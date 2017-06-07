@@ -59,9 +59,13 @@ class PodStorageConfigSection extends React.Component {
     const { onEditClick } = this.props;
     const { volumes = [], containers = [] } = this.props.appConfig;
     const volumeSummary = volumes.reduce((memo, volume) => {
-      const type = volume.host == null
-        ? VolumeConstants.type.ephemeral
-        : VolumeConstants.type.host;
+      let type = VolumeConstants.type.unknown;
+      if (volume.host != null) {
+        type = VolumeConstants.type.host;
+      }
+      if (Object.keys(volume).length === 1 && volume.name != null) {
+        type = VolumeConstants.type.ephemeral;
+      }
 
       const volumeInfo = {
         type,

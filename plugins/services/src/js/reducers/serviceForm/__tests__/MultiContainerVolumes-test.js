@@ -9,11 +9,28 @@ const {
 
 describe("Volumes", function() {
   describe("#JSONReducer", function() {
-    it("should have an array with one object", function() {
-      let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+    describe("with an initial value in ADD_ITEM transaction", function() {
+      it("emits the value", function() {
+        let batch = new Batch();
+        batch = batch.add(
+          new Transaction(["volumeMounts"], { defaultValue: "foo" }, ADD_ITEM)
+        );
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([{}]);
+        expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+          { defaultValue: "foo" }
+        ]);
+      });
+    });
+
+    describe("with no initial value in ADD_ITEM transaction", function() {
+      it("should have an array with one object", function() {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+
+        expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+          {}
+        ]);
+      });
     });
 
     it("should have an array with one object containing a name", function() {
@@ -164,10 +181,11 @@ describe("Volumes", function() {
       ]);
     });
   });
+
   describe("#JSONParser", function() {
     it("should parse a simple config", function() {
       const expectedObject = [
-        { type: ADD_ITEM, value: 0, path: ["volumeMounts"] },
+        { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
         { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] }
       ];
@@ -186,7 +204,7 @@ describe("Volumes", function() {
 
     it("should parse a normal config", function() {
       const expectedObject = [
-        { type: ADD_ITEM, value: 0, path: ["volumeMounts"] },
+        { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
         { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] },
         { type: SET, value: "bar", path: ["volumeMounts", 0, "mountPath", 0] }
@@ -215,10 +233,14 @@ describe("Volumes", function() {
 
     it("should parse a advanced config", function() {
       const expectedObject = [
-        { type: ADD_ITEM, value: 0, path: ["volumeMounts"] },
+        { type: ADD_ITEM, value: { name: "foobar" }, path: ["volumeMounts"] },
         { type: SET, value: "foobar", path: ["volumeMounts", 0, "name"] },
         { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] },
-        { type: ADD_ITEM, value: 1, path: ["volumeMounts"] },
+        {
+          type: ADD_ITEM,
+          value: { host: "foopath", name: "foo" },
+          path: ["volumeMounts"]
+        },
         { type: SET, value: "foo", path: ["volumeMounts", 1, "name"] },
         { type: SET, value: "HOST", path: ["volumeMounts", 1, "type"] },
         { type: SET, value: "foopath", path: ["volumeMounts", 1, "hostPath"] },
@@ -257,6 +279,34 @@ describe("Volumes", function() {
             {
               name: "foo",
               host: "foopath"
+            }
+          ]
+        })
+      ).toEqual(expectedObject);
+    });
+
+    it("parses unknown volumes", function() {
+      const expectedObject = [
+        {
+          type: ADD_ITEM,
+          value: { unknownField: "foo", name: "unknown volume" },
+          path: ["volumeMounts"]
+        },
+        {
+          type: SET,
+          value: "unknown volume",
+          path: ["volumeMounts", 0, "name"]
+        },
+        { type: SET, value: "UNKNOWN", path: ["volumeMounts", 0, "type"] }
+      ];
+
+      expect(
+        VolumeMounts.JSONParser({
+          containers: [],
+          volumes: [
+            {
+              name: "unknown volume",
+              unknownField: "foo"
             }
           ]
         })
