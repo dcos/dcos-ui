@@ -21,7 +21,6 @@ const mapLocalVolumes = function(volume) {
   };
 };
 
-// NB: This is being used as FormReducer and JSONReducer
 function reduceVolumes(state, { type, path, value }) {
   if (path == null) {
     return state;
