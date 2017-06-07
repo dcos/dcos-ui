@@ -1,8 +1,8 @@
 # This is a container to run the cypress product from cypress.io.
 # It includes openjdk8 because the intention is to be run as a
 # Jenkins process.
-FROM node:4.4.4
-LABEL node-version="4.4.4" cypress-version="0.15.3"
+FROM node:6.10.2
+LABEL node-version="7.10.0" cypress-version="0.15.3"
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
@@ -19,7 +19,7 @@ RUN apt-get update                     \
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 # Update npm
-RUN npm install -g npm@3.9.0
+RUN npm install -g npm@4.5.0
 
 # Install known dependencies
 RUN mkdir /cached-npm_modules \
