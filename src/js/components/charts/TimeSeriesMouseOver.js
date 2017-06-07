@@ -72,6 +72,7 @@ var TimeSeriesMouseOver = React.createClass({
 
     d3
       .select(this.refs.xMousePosition)
+      .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("x1", mouse.x)
@@ -79,6 +80,7 @@ var TimeSeriesMouseOver = React.createClass({
 
     d3
       .select(this.refs.yMousePosition)
+      .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("y1", props.yScale(firstDataSet.values[index][props.y]))
@@ -123,8 +125,8 @@ var TimeSeriesMouseOver = React.createClass({
   },
 
   handleMouseOut() {
-    d3.select(this.refs.yMousePosition).interrupt();
-    d3.select(this.refs.xMousePosition).interrupt();
+    d3.select(this.refs.yMousePosition).interrupt().style("opacity", 0);
+    d3.select(this.refs.xMousePosition).interrupt().style("opacity", 0);
     d3.select(this.refs.xAxisCurrent).text("");
     d3.select(this.refs.yAxisCurrent).text("");
   },
@@ -157,12 +159,14 @@ var TimeSeriesMouseOver = React.createClass({
         <line
           className="chart-cursor-position-marker"
           ref="xMousePosition"
+          style={{ opacity: 0 }}
           y1={0}
           y2={height}
         />
         <line
           className="chart-cursor-position-marker"
           ref="yMousePosition"
+          style={{ opacity: 0 }}
           x1={0}
           x2={this.props.width}
         />
