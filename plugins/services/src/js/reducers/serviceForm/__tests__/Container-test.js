@@ -326,7 +326,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -364,7 +364,7 @@ describe("Container", function() {
         // batch = batch.add(
         //   new Transaction(['portDefinitions', 0, 'portMapping'], false)
         // );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "protocol", "udp"], true)
         );
@@ -405,7 +405,7 @@ describe("Container", function() {
         // batch = batch.add(
         //   new Transaction(['portDefinitions',0,'portMapping'], false)
         // );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "protocol", "tcp"], false)
         );
@@ -448,7 +448,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], BRIDGE, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -476,7 +476,7 @@ describe("Container", function() {
 
       it("shouldn't create portMappings by default", function() {
         let batch = new Batch();
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
           docker: {
@@ -496,7 +496,7 @@ describe("Container", function() {
           new Transaction(["container", "type"], "DOCKER", SET)
         );
         batch = batch.add(new Transaction(["networks", 0, "mode"], HOST, SET));
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -521,8 +521,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -567,7 +567,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -604,7 +604,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -644,7 +644,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -685,7 +685,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -725,8 +725,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -774,8 +774,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -826,8 +826,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -884,8 +884,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -934,8 +934,8 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -988,7 +988,7 @@ describe("Container", function() {
         batch = batch.add(
           new Transaction(["networks", 0, "mode"], CONTAINER, SET)
         );
-        batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
         batch = batch.add(
           new Transaction(["portDefinitions", 0, "portMapping"], true)
         );
@@ -1014,7 +1014,9 @@ describe("Container", function() {
           batch = batch.add(
             new Transaction(["networks", 0, "mode"], BRIDGE, SET)
           );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(["portDefinitions"], null, ADD_ITEM)
+          );
           batch = batch.add(
             new Transaction(["portDefinitions", 0, "portMapping"], true)
           );
@@ -1052,7 +1054,9 @@ describe("Container", function() {
           // batch = batch.add(
           //   new Transaction(['portDefinitions',0,'portMapping'], false)
           // );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(["portDefinitions"], null, ADD_ITEM)
+          );
           batch = batch.add(
             new Transaction(["portDefinitions", 0, "protocol", "tcp"], false)
           );
@@ -1095,7 +1099,9 @@ describe("Container", function() {
           batch = batch.add(
             new Transaction(["networks", 0, "mode"], BRIDGE, SET)
           );
-          batch = batch.add(new Transaction(["portDefinitions"], 0, ADD_ITEM));
+          batch = batch.add(
+            new Transaction(["portDefinitions"], null, ADD_ITEM)
+          );
           batch = batch.add(
             new Transaction(["portDefinitions", 0, "portMapping"], true)
           );
@@ -1143,7 +1149,7 @@ describe("Container", function() {
     it("should return a local volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
       );
@@ -1171,7 +1177,7 @@ describe("Container", function() {
     it("should return an external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         docker: {
@@ -1200,8 +1206,8 @@ describe("Container", function() {
     it("should return a local and an external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
       );
@@ -1240,11 +1246,11 @@ describe("Container", function() {
     it("should return an empty array if all volumes have been removed", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["localVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
       );
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["externalVolumes"], 0, REMOVE_ITEM));
       batch = batch.add(new Transaction(["localVolumes"], 0, REMOVE_ITEM));
 

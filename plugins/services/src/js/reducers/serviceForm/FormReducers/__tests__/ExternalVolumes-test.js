@@ -7,7 +7,7 @@ describe("External Volumes", function() {
   describe("#FormReducer", function() {
     it("should return an Array with one item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       expect(batch.reduce(ExternalVolumes.FormReducer, [])).toEqual([
         {
           containerPath: null,
@@ -23,7 +23,7 @@ describe("External Volumes", function() {
 
     it("should contain one full external Volumes item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["externalVolumes"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["externalVolumes", 0, "name"], "null")
       );

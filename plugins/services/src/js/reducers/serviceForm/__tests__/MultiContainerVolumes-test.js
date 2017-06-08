@@ -11,14 +11,14 @@ describe("Volumes", function() {
   describe("#JSONReducer", function() {
     it("should have an array with one object", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([{}]);
     });
 
     it("should have an array with one object containing a name", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
@@ -28,7 +28,7 @@ describe("Volumes", function() {
 
     it("should have an array with one object containing only a name", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(
         new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
@@ -41,7 +41,7 @@ describe("Volumes", function() {
 
     it("should have two items with names", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(
         new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
@@ -54,8 +54,8 @@ describe("Volumes", function() {
 
     it("should have to items with names", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
 
@@ -67,8 +67,8 @@ describe("Volumes", function() {
 
     it("should remove the right item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
@@ -80,7 +80,7 @@ describe("Volumes", function() {
 
     it("handles HOST type", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 0, "type"], "HOST"));
       batch = batch.add(
@@ -96,7 +96,7 @@ describe("Volumes", function() {
   describe("#FormReducer", function() {
     it("should have an array with one object", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
       expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
         { mountPath: [] }
@@ -105,7 +105,7 @@ describe("Volumes", function() {
 
     it("should have an array with one object containing a name", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
       expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
@@ -115,8 +115,8 @@ describe("Volumes", function() {
 
     it("should have to items with names", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
 
@@ -128,8 +128,8 @@ describe("Volumes", function() {
 
     it("should remove the right item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
@@ -141,8 +141,8 @@ describe("Volumes", function() {
 
     it("should have to items with names and mountpath", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(
         new Transaction(["volumeMounts", 0, "mountPath", 0], "foobar")
