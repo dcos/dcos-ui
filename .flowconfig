@@ -1,0 +1,14 @@
+[ignore]
+.*/__tests__/.*
+.*/node_modules/.*
+<PROJECT_ROOT>/dist/.*
+<PROJECT_ROOT>/system-tests/.*
+<PROJECT_ROOT>/gulpfile.js
+
+[include]
+
+[libs]
+
+[options]
+all=true
+emoji=true
