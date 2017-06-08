@@ -1530,5 +1530,78 @@ describe("Services", function() {
       cy.get('input[name="labels.3.key"]').should("have.value", "UPPERCASE");
       cy.get('input[name="labels.3.value"]').should("have.value", "test");
     });
+
+    it("should create a pod with communicating services", function() {
+      const serviceName = "pod-with-communicating-services";
+      const searchString = "Thank you for using nginx";
+
+      cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
+
+      cy.contains("JSON Configuration").click();
+
+      cy.get("#brace-editor").setJSON(
+        `{
+          "id": "/${Cypress.env("TEST_UUID")}/${serviceName}",
+          "networks": [
+            {
+              "mode": "host"
+            }
+          ],
+          "containers": [
+            {
+              "name": "nginx",
+              "resources": {
+                "cpus": 1.0,
+                "mem": 128
+              },
+              "image": {
+                "kind": "DOCKER",
+                "id": "nginx:latest"
+              }
+            },
+            {
+              "name": "http-client",
+              "resources": {
+                "cpus": 1.0,
+                "mem": 16
+              },
+              "exec": {
+                "command": {
+                  "shell": "while true; do curl http://localhost; sleep 3; done"
+                }
+              }
+            }
+          ]
+        }`
+      );
+
+      cy.contains("Review & Run").click();
+      cy.contains("button", "Run Service").click();
+
+      cy
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .should("exist");
+
+      cy.contains(serviceName).click();
+
+      cy
+        .contains(`${Cypress.env("TEST_UUID")}_${serviceName}`)
+        .parents(".collapsing-string")
+        .click();
+
+      cy.contains("http-client").click({ force: true });
+
+      cy.get(".menu-tabbed-item").contains("Logs").click();
+
+      cy.contains("button", "Output (stdout)").click();
+
+      cy.contains(searchString).should("exist");
+    });
   });
 });
