@@ -305,20 +305,18 @@ describe("Services", function() {
         .configurationSection("General")
         .configurationMapValue("Service ID")
         .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      //
-      // TODO: Uncomment this when this gets merged
-      //
-      // cy
-      //   .root()
-      //   .configurationSection('General')
-      //   .configurationMapValue('CPU')
-      //   .contains('0.2 (0.1 first-container, 0.1 second-container)');
-      // cy
-      //   .root()
-      //   .configurationSection('General')
-      //   .configurationMapValue('Memory')
-      //   .contains('20 MiB (10 MiB first-container, 10 MiB second-container)');
-      //
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.2 (0.1 first-container, 0.1 second-container)");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("20 MiB (10 MiB first-container, 10 MiB second-container)");
 
       cy
         .root()
