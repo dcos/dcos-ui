@@ -11,7 +11,7 @@ describe("Environment Variables", function() {
   describe("#JSONReducer", function() {
     it("should return a key value object", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["env"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
       batch = batch.add(new Transaction(["env", 0, "value"], "value"));
 
@@ -22,10 +22,10 @@ describe("Environment Variables", function() {
 
     it("should keep the last value if they have the same key", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["env"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
       batch = batch.add(new Transaction(["env", 0, "value"], "value"));
-      batch = batch.add(new Transaction(["env"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 1, "key"], "key"));
       batch = batch.add(new Transaction(["env", 1, "value"], "value2"));
 
@@ -36,10 +36,10 @@ describe("Environment Variables", function() {
 
     it("should keep remove the first item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["env"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "first"));
       batch = batch.add(new Transaction(["env", 0, "value"], "value"));
-      batch = batch.add(new Transaction(["env"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 1, "key"], "second"));
       batch = batch.add(new Transaction(["env", 1, "value"], "value"));
       batch = batch.add(new Transaction(["env"], 0, REMOVE_ITEM));

@@ -7,7 +7,7 @@ describe("Labels", function() {
   describe("#FormReducer", function() {
     it("should return a array containing key value objects", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["labels"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
       batch = batch.add(new Transaction(["labels", 0, "value"], "value"));
 
@@ -17,10 +17,10 @@ describe("Labels", function() {
     });
     it("should multiple items if they have the same key", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["labels"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
       batch = batch.add(new Transaction(["labels", 0, "value"], "value"));
-      batch = batch.add(new Transaction(["labels"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 1, "key"], "key"));
       batch = batch.add(new Transaction(["labels", 1, "value"], "value2"));
 
@@ -31,10 +31,10 @@ describe("Labels", function() {
     });
     it("should keep remove the first item", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["labels"], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "first"));
       batch = batch.add(new Transaction(["labels", 0, "value"], "value"));
-      batch = batch.add(new Transaction(["labels"], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 1, "key"], "second"));
       batch = batch.add(new Transaction(["labels", 1, "value"], "value"));
       batch = batch.add(new Transaction(["labels"], 0, REMOVE_ITEM));
