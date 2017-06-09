@@ -394,4 +394,59 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
   });
+
+  describe("#validateLabels", function() {
+    it("should not return error if labels are not specified", function() {
+      const spec = {};
+      expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
+    });
+
+    it("should not return error if label keys do not start or end with spaces", function() {
+      const spec = {
+        labels: {
+          foo: "bar",
+          bar: "baz"
+        }
+      };
+      expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
+    });
+
+    it("should return errors if any label key starts with a space", function() {
+      const spec = {
+        labels: {
+          " foo": "bar",
+          bar: "baz"
+        }
+      };
+      expect(MarathonAppValidators.validateLabels(spec)).toEqual([
+        {
+          message: "Keys must not start or end with whitespace characters",
+          path: ["labels. foo"],
+          type: SYNTAX_ERROR,
+          variables: {
+            name: "labels"
+          }
+        }
+      ]);
+    });
+
+    it("should return errors if any label key ends with a space", function() {
+      const spec = {
+        labels: {
+          "foo ": "bar",
+          bar: "baz"
+        }
+      };
+      expect(MarathonAppValidators.validateLabels(spec)).toEqual([
+        {
+          message: "Keys must not start or end with whitespace characters",
+          path: ["labels.foo "],
+          type: SYNTAX_ERROR,
+          variables: {
+            name: "labels"
+          }
+        }
+      ]);
+    });
+  });
 });
