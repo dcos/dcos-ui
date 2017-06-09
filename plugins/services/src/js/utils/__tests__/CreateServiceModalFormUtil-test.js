@@ -1,6 +1,6 @@
 const CreateServiceModalFormUtil = require("../CreateServiceModalFormUtil");
 
-const EMPTY_TYPES = [null, undefined, {}, [], "", NaN];
+const EMPTY_TYPES = [null, undefined, {}, "", NaN];
 const NUMERICAL_VALUE_TYPES = [0, 1234];
 const NON_NUMERICAL_VALUE_TYPES = ["foo", { a: "b" }, ["a"]];
 const VALUE_TYPES = [].concat(NUMERICAL_VALUE_TYPES, NON_NUMERICAL_VALUE_TYPES);
@@ -213,16 +213,16 @@ describe("CreateServiceModalFormUtil", function() {
         it(`should remove ${emptyTypeStr} along with empty deep arrays`, function() {
           const data = { a: [] };
           const patch = {
-            a: [[emptyType, emptyType, [emptyType, [emptyType]]]]
+            a: [[[[emptyType], emptyType], emptyType, emptyType]]
           };
           const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
-          expect(patched).toEqual({ a: [] });
+          expect(patched).toEqual({ a: [[[[]]]] });
         });
 
         it(`should remove ${emptyTypeStr} along with mixed empty structures`, function() {
           const data = { a: [] };
           const patch = {
-            a: [{ b: emptyType }, [emptyType, { c: emptyType }]]
+            a: [[{ c: emptyType }, emptyType], { b: emptyType }]
           };
           const patched = CreateServiceModalFormUtil.applyPatch(data, patch);
           expect(patched).toEqual({ a: [] });
