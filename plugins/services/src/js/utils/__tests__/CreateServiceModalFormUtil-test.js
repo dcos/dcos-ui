@@ -1,6 +1,6 @@
 const CreateServiceModalFormUtil = require("../CreateServiceModalFormUtil");
 
-const EMPTY_TYPES = [null, undefined, {}, [], "", NaN];
+const EMPTY_TYPES = [null, undefined, {}, "", NaN];
 
 function getTypeName(type) {
   if (Number.isNaN(type)) {
