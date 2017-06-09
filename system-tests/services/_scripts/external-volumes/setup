@@ -1,6 +1,21 @@
 #!/bin/bash
 
-# create app with extenal volumes
+if [ -z "$REGION" ]; then
+  echo "Error: Please specify the REGION environment variable"
+  exit 1
+fi
+
+if [ -z "$ACCESS_KEY_ID" ]; then
+  echo "Error: Please specify the ACCESS_KEY_ID environment variable"
+  exit 1
+fi
+
+if [ -z "$SECRET_ACCESS_KEY" ]; then
+  echo "Error: Please specify the SECRET_ACCESS_KEY environment variable"
+  exit 1
+fi
+
+# create app with external volumes
 cat <<EOF | dcos marathon app add
 {
   "id": "/$TEST_UUID/external-volumes-single",
@@ -25,5 +40,5 @@ cat <<EOF | dcos marathon app add
   "cpus": 0.1,
   "cmd": "echo TEST_OUTPUT_$TEST_UUID >> \$MESOS_SANDBOX/data/foo; cat \$MESOS_SANDBOX/data/foo; while true; do sleep 10; done;",
   "mem": 16
-} 
+}
 EOF
