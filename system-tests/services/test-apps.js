@@ -1816,25 +1816,45 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Service Endpoints")
-        .then(function($section) {
-          // Ensure the section itself exists.
-          expect($section.get().length).to.equal(1);
+        .children("table")
+        .getTableColumn("Name")
+        .contents()
+        .should("deep.equal", ["http"]);
 
-          const $tableCells = $section.find("tbody tr:visible td");
-          const cellValues = [
-            "http",
-            "Not Configured",
-            "8080",
-            "Not Configured",
-            `${Cypress.env("TEST_UUID")}` +
-              `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
-            "Edit"
-          ];
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Protocol")
+        .contents()
+        .should("deep.equal", ["Not Configured"]);
 
-          $tableCells.each(function(index) {
-            expect(this.textContent.trim()).to.equal(cellValues[index]);
-          });
-        });
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Container Port")
+        .contents()
+        .should("deep.equal", ["8080"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Host Port")
+        .contents()
+        .should("deep.equal", ["Not Configured"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Load Balanced Address")
+        .contents()
+        .should("deep.equal", [
+          `${Cypress.env("TEST_UUID")}` +
+            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
+        ]);
 
       cy.get("button").contains("Run Service").click();
 
