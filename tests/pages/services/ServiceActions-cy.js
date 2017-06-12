@@ -121,7 +121,7 @@ describe("Service Actions", function() {
       it("opens the correct service destroy dialog", function() {
         cy
           .get(".modal-body p strong")
-          .contains("/sleep")
+          .contains("sleep")
           .should("to.have.length", 1);
       });
 
