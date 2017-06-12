@@ -324,6 +324,34 @@ const MarathonAppValidators = {
 
       return errors;
     }, []);
+  },
+
+  /**
+   * @param {Object} app - The data to validate
+   * @returns {Array} Returns an array with validation errors
+   */
+  validateLabels(app) {
+    if (ValidatorUtil.isDefined(app.labels)) {
+      return Object.keys(app.labels)
+        .reduce(function(accumulator, labelKey) {
+          if (/^\s|\s$/.test(labelKey)) {
+            accumulator.push(`labels.${labelKey}`);
+          }
+
+          return accumulator;
+        }, [])
+        .map(function(labelPath) {
+          return {
+            path: [labelPath],
+            message: "Keys must not start or end with whitespace characters",
+            type: SYNTAX_ERROR,
+            variables: { name: "labels" }
+          };
+        });
+    }
+
+    // No errors
+    return [];
   }
 };
 

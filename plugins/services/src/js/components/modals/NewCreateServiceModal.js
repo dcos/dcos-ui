@@ -98,6 +98,7 @@ const APP_VALIDATORS = [
   MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.mustContainImageOnDocker,
   MarathonAppValidators.validateConstraints,
+  MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
   MarathonAppValidators.mustNotContainMarathonHTTPSHealthChecks,
   MarathonAppValidators.mustNotContainMarathonHTTPHealthChecks,
