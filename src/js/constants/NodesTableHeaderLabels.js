@@ -4,7 +4,7 @@ var NodesTableHeaderLabels = {
   disk: "DISK",
   hostname: "HOSTNAME",
   mem: "MEM",
-  TASK_RUNNING: "TASKS"
+  TASK_RUNNING: "TOTAL TASKS"
 };
 
 module.exports = NodesTableHeaderLabels;
