@@ -103,7 +103,8 @@ class ServiceDestroyModal extends React.Component {
 
   getIsRightButtonDisabled() {
     return (
-      this.props.service.getId() !== this.state.serviceNameConfirmationValue
+      this.formatServiceName(this.props.service.getId()) !==
+      this.formatServiceName(this.state.serviceNameConfirmationValue)
     );
   }
 
@@ -196,7 +197,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyServiceModal() {
     const { open, service, intl } = this.props;
-    const serviceName = service.getId();
+    const serviceName = this.formatServiceName(service.getId());
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
@@ -235,6 +236,7 @@ class ServiceDestroyModal extends React.Component {
           onChange={this.handleChangeInputFieldDestroy}
           type="text"
           value={this.state.serviceNameConfirmationValue}
+          autoFocus
         />
         {this.getErrorMessage()}
       </Confirm>
@@ -258,6 +260,26 @@ class ServiceDestroyModal extends React.Component {
       <p className="text-align-center flush-bottom">
         {this.props.subHeaderContent}
       </p>
+    );
+  }
+
+  /**
+   * Format serviceId to only the service name
+   * e.g path/to/service/name will only return name
+   *
+   * @param {String} serviceId
+   * @returns {String} formatted serviceId
+   *
+   * @memberof ServiceDestroyModal
+   */
+  formatServiceName(serviceId) {
+    if (typeof serviceId !== "string") {
+      return null;
+    }
+
+    return serviceId.substring(
+      serviceId.lastIndexOf("/") + 1,
+      serviceId.length
     );
   }
 
