@@ -154,7 +154,7 @@ module.exports = {
     this.internalState = newState;
 
     if (ValidatorUtil.isEmpty(newState.docker)) {
-      delete newState.docker;
+      newState.docker = null;
     }
 
     if (ValidatorUtil.isEmpty(newState.type)) {
