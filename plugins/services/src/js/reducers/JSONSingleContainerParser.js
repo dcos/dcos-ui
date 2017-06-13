@@ -18,6 +18,9 @@ import { JSONParser as labels } from "./serviceForm/JSONReducers/Labels";
 import {
   JSONParser as localVolumes
 } from "./serviceForm/JSONReducers/LocalVolumes";
+import {
+  JSONParser as unknownVolumes
+} from "./serviceForm/JSONReducers/UnknownVolumes";
 import { JSONParser as networks } from "./serviceForm/JSONReducers/Networks";
 import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
@@ -47,5 +50,7 @@ module.exports = [
   portDefinitions,
   portMappings, // Note: must come after portDefinitions, as it uses its information!
   residency,
-  requirePorts
+  fetch,
+  requirePorts,
+  unknownVolumes
 ];

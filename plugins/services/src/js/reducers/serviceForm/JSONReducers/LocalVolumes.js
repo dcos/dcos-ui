@@ -8,14 +8,14 @@ module.exports = {
     }
 
     return state.container.volumes
-      .filter(item => item.external == null)
+      .filter(item => item.hostPath != null || item.persistent != null)
       .reduce(function(memo, item, index) {
         /**
          * For the localVolumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only
          * want to parse the local volumes. which means that we first filter
          * those and only keep local volumes (decision based on if
-         * persistent is set). After that we do get all the values even
+         * persistent or hostPath is set). After that we do get all the values even
          * stuff which we do not handle in the form yet. These steps are:
          * 1) Add a new Item to the path with the index equal to index.
          * 2) Set the size from `volume.persistent.size`on the path

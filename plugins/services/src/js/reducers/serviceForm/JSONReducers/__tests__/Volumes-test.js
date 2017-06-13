@@ -5,7 +5,7 @@ const {
 } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
-const Volumes = require("../JSONReducers/Volumes");
+const Volumes = require("../Volumes");
 
 describe("Volumes", function() {
   describe("#JSONReducer", function() {
