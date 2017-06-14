@@ -68,9 +68,13 @@ class HashMapDisplay extends React.Component {
         key = renderKeys[key];
       }
 
+      const isAttribute = this.props.headline === "Attributes";
+
       return (
         <ConfigurationMapRow key={index}>
-          <ConfigurationMapLabel>{key}</ConfigurationMapLabel>
+          <ConfigurationMapLabel isAttribute={isAttribute}>
+            {key}
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>{value}</ConfigurationMapValue>
         </ConfigurationMapRow>
       );
