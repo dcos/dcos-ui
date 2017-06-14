@@ -21,6 +21,17 @@ const mapLocalVolumes = function (volume) {
   };
 };
 
+const mapExternalVolumes = function (volume) {
+  if (this.docker &&
+    this.dockerType === 'DOCKER' && volume.external.size != null) {
+    return Object.assign({},
+      volume,
+      {external: Object.assign({}, volume.external, {size: null})});
+  }
+
+  return volume;
+};
+
 const filterHostVolumes = function (volume) {
   return volume.type !== 'HOST' || this.docker;
 };
@@ -49,6 +60,10 @@ function reduceVolumes(state, {type, path, value}) {
     this.docker = false;
   }
 
+  if (this.dockerType == null) {
+    this.dockerType = 'DOCKER';
+  }
+
   const joinedPath = path.join('.');
 
   if (joinedPath === 'container.docker.image') {
@@ -57,6 +72,7 @@ function reduceVolumes(state, {type, path, value}) {
 
   if (joinedPath === 'container.type') {
     this.docker = value !== 'NONE';
+    this.dockerType = value;
   }
 
   if (path[0] === 'externalVolumes') {
@@ -87,7 +103,8 @@ function reduceVolumes(state, {type, path, value}) {
        *
        * Reducer should use the same format therefore we need to pick either
        * localVolumes format or externalVolumes format.
-       * We picked externalVolumes format. External Volumes are just external volumes.
+       * We picked externalVolumes format. External Volumes are just external
+       * volumes.
        *
        * The following code converts localVolumes by filtering HOST volumes and
        * mapping them to the common structure
@@ -110,7 +127,8 @@ function reduceVolumes(state, {type, path, value}) {
     if (type === SET && `externalVolumes.${index}.name` === joinedPath) {
       this.externalVolumes[index].external.name = String(value);
     }
-    if (type === SET && `externalVolumes.${index}.containerPath` === joinedPath) {
+    if (type === SET &&
+      `externalVolumes.${index}.containerPath` === joinedPath) {
       this.externalVolumes[index].containerPath = String(value);
     }
     if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
@@ -167,7 +185,9 @@ function reduceVolumes(state, {type, path, value}) {
     this.localVolumes
       .filter(filterHostVolumes.bind(this))
       .map(mapLocalVolumes),
-    this.externalVolumes);
+    this.externalVolumes.map(
+      mapExternalVolumes.bind(this)
+    ));
 }
 
 module.exports = {
