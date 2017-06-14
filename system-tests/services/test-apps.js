@@ -1677,5 +1677,196 @@ describe("Services", function() {
         .getFormGroupInputFor("Container Path")
         .should("have.value", "test");
     });
+
+    it("should create an app with service address", function() {
+      const serviceName = "app-with-service-address";
+      const command = "python3 -m http.server 8080";
+      const containerImage = "python:3";
+
+      // Select 'Single Container'
+      cy.contains("Single Container").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+
+      // Hack to allow entering decimals in number fields
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "text");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "number");
+
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
+
+      cy.root().getFormGroupInputFor("Command").type(command);
+
+      cy.get(".menu-tabbed-item").contains("Networking").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .select("Virtual Network: dcos");
+
+      cy.get(".button").contains("Add Service Endpoint").click();
+
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
+
+      cy
+        .get('input[name="portDefinitions.0.loadBalanced"]')
+        .parents(".form-control-toggle")
+        .click();
+
+      cy.get("label").contains("JSON Editor").click();
+
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: command,
+          cpus: 0.5,
+          mem: 32,
+          instances: 1,
+          container: {
+            type: "DOCKER",
+            docker: {
+              image: containerImage,
+              network: "USER",
+              portMappings: [
+                {
+                  name: "http",
+                  containerPort: 8080,
+                  labels: {
+                    VIP_0: `/${Cypress.env("TEST_UUID")}/${serviceName}:8080`
+                  }
+                }
+              ]
+            }
+          },
+          ipAddress: {
+            networkName: "dcos"
+          }
+        }
+      ]);
+
+      cy.get("button").contains("Review & Run").click();
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Instances")
+        .contains("1");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.5");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Docker Engine");
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Command")
+        .contains(command);
+
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains(containerImage);
+
+      cy
+        .root()
+        .configurationSection("Network")
+        .configurationMapValue("Network Type")
+        .contains("USER");
+
+      cy
+        .root()
+        .configurationSection("Network")
+        .configurationMapValue("Network Name")
+        .contains("dcos");
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Name")
+        .contents()
+        .should("deep.equal", ["http"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Protocol")
+        .contents()
+        .should("deep.equal", ["Not Configured"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Container Port")
+        .contents()
+        .should("deep.equal", ["8080"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Host Port")
+        .contents()
+        .should("deep.equal", ["Not Configured"]);
+
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .children("table")
+        .getTableColumn("Load Balanced Address")
+        .contents()
+        .should("deep.equal", [
+          `${Cypress.env("TEST_UUID")}` +
+            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
+        ]);
+
+      cy.get("button").contains("Run Service").click();
+
+      cy
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .should("exist");
+    });
   });
 });
