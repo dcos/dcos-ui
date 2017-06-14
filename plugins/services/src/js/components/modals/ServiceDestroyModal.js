@@ -103,8 +103,8 @@ class ServiceDestroyModal extends React.Component {
 
   getIsRightButtonDisabled() {
     return (
-      this.formatServiceName(this.props.service.getId()) !==
-      this.formatServiceName(this.state.serviceNameConfirmationValue)
+      this.getServiceName(this.props.service.getId()) !==
+      this.getServiceName(this.state.serviceNameConfirmationValue)
     );
   }
 
@@ -197,7 +197,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyServiceModal() {
     const { open, service, intl } = this.props;
-    const serviceName = this.formatServiceName(service.getId());
+    const serviceName = this.getServiceName(service.getId());
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
@@ -272,7 +272,7 @@ class ServiceDestroyModal extends React.Component {
    *
    * @memberof ServiceDestroyModal
    */
-  formatServiceName(serviceId) {
+  getServiceName(serviceId) {
     if (typeof serviceId !== "string") {
       return null;
     }
