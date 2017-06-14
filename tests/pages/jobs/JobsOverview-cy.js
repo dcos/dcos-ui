@@ -5,7 +5,7 @@ describe("Jobs Overview", function() {
         mesos: "1-for-each-health",
         nodeHealth: true
       });
-      cy.visitUrl({ url: "/jobs" });
+      cy.visitUrl({ url: "/jobs/overview" });
     });
 
     it("displays jobs overview page", function() {
