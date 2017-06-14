@@ -22,16 +22,12 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("should keep complex values", function() {
+    it("should skip complex values", function() {
       expect(
         MultiContainerEnvironmentVariables.JSONParser({
-          environment: { BAR: { secret: "value" } }
+          environment: { BAR: {} }
         })
-      ).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["env"] },
-        { type: SET, value: "BAR", path: ["env", 0, "key"] },
-        { type: SET, value: { secret: "value" }, path: ["env", 0, "value"] }
-      ]);
+      ).toEqual([]);
     });
   });
 });

@@ -110,14 +110,8 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("should keep complex values", function() {
-      expect(
-        EnvironmentVariables.JSONParser({ env: { foo: { secret: "value" } } })
-      ).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["env"] },
-        { type: SET, value: "foo", path: ["env", 0, "key"] },
-        { type: SET, value: { secret: "value" }, path: ["env", 0, "value"] }
-      ]);
+    it("should skip complex values", function() {
+      expect(EnvironmentVariables.JSONParser({ env: { foo: {} } })).toEqual([]);
     });
   });
 });
