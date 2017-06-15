@@ -3,6 +3,7 @@ import React from "react";
 import { Tooltip } from "reactjs-components";
 
 import StatusBar from "#SRC/js/components/StatusBar";
+import StringUtil from "#SRC/js/utils/StringUtil";
 
 import HealthBarStates from "../constants/HealthBarStates";
 
@@ -26,10 +27,9 @@ class HealthBar extends React.Component {
         return tasksSummary[task] !== 0 && task !== "tasksRunning";
       })
       .map(function(task, index) {
-        const percentage = parseInt(
-          tasksSummary[task] / instancesCount * 100,
-          10
-        );
+        const taskCount = tasksSummary[task];
+        const taskNoun = StringUtil.pluralize("Task", taskCount);
+        const percentage = parseInt(taskCount / instancesCount * 100, 10);
 
         const classSet = classNames(
           HealthBarStates[task].className,
@@ -39,7 +39,7 @@ class HealthBar extends React.Component {
         return (
           <div key={index} className="tooltip-line-item">
             <span className={classSet} />
-            {` ${tasksSummary[task]} ${HealthBarStates[task].label} `}
+            {` ${taskCount} ${HealthBarStates[task].label} ${taskNoun} `}
             <span className="health-bar-tooltip-instances-total">
               of {instancesCount}
             </span>
