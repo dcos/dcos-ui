@@ -9,6 +9,7 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
@@ -265,6 +266,33 @@ class VolumesFormSection extends Component {
         .get(this.props.errors)
         .containerPath;
 
+      const dockerType = findNestedPropertyInObject(this.props.data,
+        'container.type');
+
+      let sizeField = (
+        <Tooltip
+          content="Docker Runtime does not support size on external volumes, please select Mesos Runtime if you want to use size for external volumes."
+          width={300}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+          wrapText={true}>
+          <FieldInput
+            name={`externalVolumes.${key}.size`}
+            type="number"
+            disabled={true}
+            value={''} />
+        </Tooltip>
+      );
+
+      if (dockerType !== 'DOCKER') {
+        sizeField = (
+          <FieldInput
+            name={`externalVolumes.${key}.size`}
+            type="number"
+            value={volume.size} />
+        );
+      }
+
       return (
         <FormGroupContainer
           key={key}
@@ -301,10 +329,7 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldInput
-                name={`externalVolumes.${key}.size`}
-                type="number"
-                value={volume.size} />
+              {sizeField}
               <FieldError>{sizeError}</FieldError>
             </FormGroup>
             <FormGroup
