@@ -1,9 +1,9 @@
 import {
   MESOS_SUMMARY_CHANGE,
   MESOS_SUMMARY_REQUEST_ERROR
-} from '../constants/EventTypes';
-import Config from '../config/Config';
-import MesosSummaryStore from '../stores/MesosSummaryStore';
+} from "../constants/EventTypes";
+import Config from "../config/Config";
+import MesosSummaryStore from "../stores/MesosSummaryStore";
 
 module.exports = {
   /**
@@ -37,23 +37,25 @@ module.exports = {
       function keepPollingAlive() {
         if (MesosSummaryStore.listeners(MESOS_SUMMARY_CHANGE).length > 1) {
           MesosSummaryStore.removeChangeListener(
-            MESOS_SUMMARY_CHANGE, keepPollingAlive
+            MESOS_SUMMARY_CHANGE,
+            keepPollingAlive
           );
         }
       }
 
       MesosSummaryStore.addChangeListener(
-        MESOS_SUMMARY_CHANGE, keepPollingAlive
+        MESOS_SUMMARY_CHANGE,
+        keepPollingAlive
       );
 
-      mesosEvents.forEach(function (event) {
+      mesosEvents.forEach(function(event) {
         MesosSummaryStore.removeChangeListener(event, onMesosSummaryChange);
       });
 
       onSummaryReceivedCallback();
     }
 
-    mesosEvents.forEach(function (event) {
+    mesosEvents.forEach(function(event) {
       MesosSummaryStore.addChangeListener(event, onMesosSummaryChange);
     });
   }

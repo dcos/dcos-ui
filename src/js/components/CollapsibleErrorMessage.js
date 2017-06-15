@@ -1,14 +1,12 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 /**
  * Methods to bind in 'this' context
  */
-const METHODS_TO_BIND = [
-  'toggleExpanded'
-];
+const METHODS_TO_BIND = ["toggleExpanded"];
 
 /**
  * An error bar component commonly used in the ServiceForm and the JobsForm
@@ -29,7 +27,6 @@ const METHODS_TO_BIND = [
  *      />
  */
 class CollapsibleErrorMessage extends React.Component {
-
   /**
    * Initialize superclass
    */
@@ -42,10 +39,9 @@ class CollapsibleErrorMessage extends React.Component {
     };
 
     // Bind methods in context
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-
   }
 
   /**
@@ -62,7 +58,7 @@ class CollapsibleErrorMessage extends React.Component {
    */
   toggleExpanded() {
     const expanded = !this.state.expanded;
-    this.setState({expanded});
+    this.setState({ expanded });
 
     // Call onToggle callback
     this.props.onToggle(expanded);
@@ -74,7 +70,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getShowDetailsLink() {
-    const {message, details} = this.props;
+    const { message, details } = this.props;
 
     // Check if we must not show the detail link at all
     if (!message || !details || !details.length) {
@@ -82,20 +78,20 @@ class CollapsibleErrorMessage extends React.Component {
     }
 
     // Get text
-    let moreLess = 'more';
+    let moreLess = "more";
     if (this.state.expanded) {
-      moreLess = 'less';
+      moreLess = "less";
     }
 
     // Render
     return (
       <span
         className="collapsible-toggle-label clickable"
-        onClick={this.toggleExpanded} >
+        onClick={this.toggleExpanded}
+      >
         (Show {moreLess})
       </span>
     );
-
   }
 
   /**
@@ -104,9 +100,9 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component} - The rendered content
    */
   getDetailsListItems() {
-    const {details} = this.props;
+    const { details } = this.props;
 
-    return details.map(function (message, i) {
+    return details.map(function(message, i) {
       const msg = message.toString();
 
       return <li key={i}>{msg}</li>;
@@ -119,7 +115,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getFixedMessagePart() {
-    const {message} = this.props;
+    const { message } = this.props;
 
     // If not visible, just exit
     if (!message) {
@@ -133,7 +129,8 @@ class CollapsibleErrorMessage extends React.Component {
           className="icon-alert icon-margin-right"
           color="red"
           id="yield"
-          size="mini" />
+          size="mini"
+        />
         {message}
         {this.getShowDetailsLink()}
       </div>
@@ -146,7 +143,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   getCollapsibleMessagePart() {
-    const {message, details} = this.props;
+    const { message, details } = this.props;
     const isDetailed = !!message && details && details.length;
 
     // If not expanded or detailed, just exit
@@ -173,7 +170,7 @@ class CollapsibleErrorMessage extends React.Component {
    * @returns {React.Component|null} - The rendered content
    */
   render() {
-    const {message} = this.props;
+    const { message } = this.props;
 
     // If not visible, just exit
     if (!message) {
@@ -182,8 +179,8 @@ class CollapsibleErrorMessage extends React.Component {
 
     // Compile classes
     const className = classNames(
-      'collapsible-error-message',
-      {'expanded': this.state.expanded},
+      "collapsible-error-message",
+      { expanded: this.state.expanded },
       this.props.className
     );
 
@@ -195,15 +192,14 @@ class CollapsibleErrorMessage extends React.Component {
       </div>
     );
   }
-
 }
 
 CollapsibleErrorMessage.defaultProps = {
-  className: '',
+  className: "",
   details: null,
   expanded: false,
-  message: '',
-  onToggle() { }
+  message: "",
+  onToggle() {}
 };
 
 CollapsibleErrorMessage.propTypes = {

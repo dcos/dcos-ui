@@ -1,11 +1,11 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import DetailViewSectionHeading from './DetailViewSectionHeading';
+import DetailViewSectionHeading from "./DetailViewSectionHeading";
 
-const ConfigurationMapHeading = (props) => {
-  const {children, className, level} = props;
-  const classes = classNames('configuration-map-heading', className);
+const ConfigurationMapHeading = props => {
+  const { children, className, level } = props;
+  const classes = classNames("configuration-map-heading", className);
 
   return (
     <DetailViewSectionHeading className={classes} level={level}>

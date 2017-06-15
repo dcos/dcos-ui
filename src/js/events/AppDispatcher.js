@@ -1,12 +1,11 @@
-import {Dispatcher} from 'flux';
+import { Dispatcher } from "flux";
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from "../constants/ActionTypes";
 
 var AppDispatcher = Object.assign(new Dispatcher(), {
-
   handleServerAction(action) {
     if (!action.type) {
-      console.warn('Empty action.type: you likely mistyped the action.');
+      console.warn("Empty action.type: you likely mistyped the action.");
     }
 
     this.dispatch({
@@ -17,7 +16,7 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
 
   handleSidebarAction(action) {
     if (!action.type) {
-      console.warn('Empty action.type: you likely mistyped the action.');
+      console.warn("Empty action.type: you likely mistyped the action.");
     }
 
     this.dispatch({
@@ -25,7 +24,6 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
       action
     });
   }
-
 });
 
 module.exports = AppDispatcher;

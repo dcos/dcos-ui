@@ -1,19 +1,19 @@
 const ServiceErrorPathMapping = [
   {
     match: /^id$/,
-    name: 'The service ID'
+    name: "The service ID"
   },
   {
     match: /^instances$/,
-    name: 'The number of instances'
+    name: "The number of instances"
   },
   {
     match: /^cpus$/,
-    name: 'The number of CPUs'
+    name: "The number of CPUs"
   },
   {
     match: /^env\.\*$/,
-    name: 'An environment variable'
+    name: "An environment variable"
   }
 ];
 

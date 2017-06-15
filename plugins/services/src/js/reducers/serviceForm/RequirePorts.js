@@ -1,11 +1,11 @@
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+import { SET } from "../../../../../../src/js/constants/TransactionTypes";
+import Transaction from "../../../../../../src/js/structs/Transaction";
 
 module.exports = {
-  JSONReducer(state, {path, type, value}) {
+  JSONReducer(state, { path, type, value }) {
     const [base] = path;
 
-    if (base === 'portsAutoAssign' && type === SET) {
+    if (base === "portsAutoAssign" && type === SET) {
       return !value;
     }
 
@@ -13,6 +13,6 @@ module.exports = {
   },
 
   JSONParser(state) {
-    return new Transaction(['portsAutoAssign'], !state.requirePorts);
+    return new Transaction(["portsAutoAssign"], !state.requirePorts);
   }
 };

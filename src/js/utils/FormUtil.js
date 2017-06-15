@@ -1,27 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import Util from './Util';
+import Util from "./Util";
 
 // Will return false if key isn't something like 'ports[0].value'.
 function isNotMultipleProp(key) {
-  return !key.includes('[') || !key.includes(']');
+  return !key.includes("[") || !key.includes("]");
 }
 
 function containsMultipleProp(prop, fieldColumn, id) {
   if (id) {
-    return !!(
-      fieldColumn &&
+    return !!(fieldColumn &&
       fieldColumn.name &&
-      fieldColumn.name.includes(`${prop}[${id}]`)
-    );
+      fieldColumn.name.includes(`${prop}[${id}]`));
   }
 
-  return !!(
-    fieldColumn &&
+  return !!(fieldColumn &&
     fieldColumn.name &&
     fieldColumn.name.startsWith(`${prop}[`) &&
-    fieldColumn.name.includes(']')
-  );
+    fieldColumn.name.includes("]"));
 }
 
 const FormUtil = {
@@ -36,7 +32,7 @@ const FormUtil = {
    * @param {Number} index To add to make name unique (should reuse same index).
    */
   getMultipleFieldDefinition(prop, id, definition, model, index = 0) {
-    return definition.map(function (definitionField) {
+    return definition.map(function(definitionField) {
       definitionField = Util.deepCopy(definitionField);
       // Use index for key, so we can reuse same key for same field,
       // to not make react think it is a completely new field
@@ -63,7 +59,7 @@ const FormUtil = {
     const propValues = {};
     model = Object.assign({}, model);
 
-    Object.keys(model).forEach(function (key) {
+    Object.keys(model).forEach(function(key) {
       if (isNotMultipleProp(key) || !FormUtil.getProp(key)) {
         return;
       }
@@ -79,16 +75,20 @@ const FormUtil = {
       }
 
       if (valueProperty) {
-        if (typeof propValues[multipleProperty][valueIndex] === 'object') {
-          propValues[multipleProperty][valueIndex][valueProperty] = instanceValue;
+        if (typeof propValues[multipleProperty][valueIndex] === "object") {
+          propValues[multipleProperty][valueIndex][
+            valueProperty
+          ] = instanceValue;
         } else if (propValues[multipleProperty][valueIndex] == null) {
-          propValues[multipleProperty][valueIndex] = {[valueProperty]: instanceValue};
+          propValues[multipleProperty][valueIndex] = {
+            [valueProperty]: instanceValue
+          };
         }
       }
     });
 
-    Object.keys(propValues).forEach(function (propValue) {
-      propValues[propValue] = propValues[propValue].filter(function (item) {
+    Object.keys(propValues).forEach(function(propValue) {
+      propValues[propValue] = propValues[propValue].filter(function(item) {
         return item !== undefined;
       });
     });
@@ -107,12 +107,14 @@ const FormUtil = {
    */
   isFieldInstanceOfProp(prop, field, id) {
     const isFieldArray = Array.isArray(field);
-    const recursiveCheck = (nestedField) => {
+    const recursiveCheck = nestedField => {
       return this.isFieldInstanceOfProp(prop, nestedField, id);
     };
 
-    return (isFieldArray && field.some(recursiveCheck)) ||
-      containsMultipleProp(prop, field, id);
+    return (
+      (isFieldArray && field.some(recursiveCheck)) ||
+      containsMultipleProp(prop, field, id)
+    );
   },
 
   /**
@@ -127,13 +129,13 @@ const FormUtil = {
    */
   removePropID(definition, prop, id) {
     const fieldsToRemove = [];
-    definition.forEach((field) => {
+    definition.forEach(field => {
       if (this.isFieldInstanceOfProp(prop, field, id)) {
         fieldsToRemove.push(field);
       }
     });
 
-    fieldsToRemove.forEach(function (field) {
+    fieldsToRemove.forEach(function(field) {
       definition.splice(definition.indexOf(field), 1);
     });
   },
@@ -145,7 +147,7 @@ const FormUtil = {
    * @return {String} prop
    */
   getProp(key) {
-    return key && key.split('[')[0];
+    return key && key.split("[")[0];
   },
 
   /**
@@ -159,9 +161,9 @@ const FormUtil = {
       return null;
     }
 
-    const value = key.split('[');
+    const value = key.split("[");
 
-    return parseInt(value[1].split(']')[0], 10);
+    return parseInt(value[1].split("]")[0], 10);
   },
 
   /**
@@ -171,7 +173,7 @@ const FormUtil = {
    * @return {String} prop key
    */
   getPropKey(key) {
-    return key && key.split('.')[1];
+    return key && key.split(".")[1];
   },
 
   /**
@@ -191,7 +193,7 @@ const FormUtil = {
 
     // If an array of definitions, then call on each individual field.
     if (Array.isArray(definition)) {
-      definition.forEach(function (fieldDefinition) {
+      definition.forEach(function(fieldDefinition) {
         FormUtil.forEachDefinition(fieldDefinition, callback);
       });
 
@@ -201,8 +203,10 @@ const FormUtil = {
     // If has a property called 'definition' and it is an array, call on each
     // individual field. This can happen for definitions from TabForms
     // (multiple definitions).
-    if (Object.prototype.hasOwnProperty.call(definition, 'definition') &&
-      Array.isArray(definition.definition)) {
+    if (
+      Object.prototype.hasOwnProperty.call(definition, "definition") &&
+      Array.isArray(definition.definition)
+    ) {
       FormUtil.forEachDefinition(definition.definition, callback);
 
       return;
@@ -210,10 +214,10 @@ const FormUtil = {
 
     // This means we're at the root of a multiple definition.
     if (!React.isValidElement(definition)) {
-      Object.values(definition).forEach(function (nestedDefinition) {
+      Object.values(definition).forEach(function(nestedDefinition) {
         const isNested = Object.prototype.hasOwnProperty.call(
           nestedDefinition,
-          'definition'
+          "definition"
         );
         if (isNested) {
           FormUtil.forEachDefinition(nestedDefinition.definition, callback);
@@ -229,9 +233,12 @@ const FormUtil = {
    * @return {Boolean} isFieldDefinition Whether it is a definition.
    */
   isFieldDefinition(fieldDefinition) {
-    return typeof fieldDefinition === 'object' && fieldDefinition != null &&
-      Object.prototype.hasOwnProperty.call(fieldDefinition, 'name') &&
-      Object.prototype.hasOwnProperty.call(fieldDefinition, 'fieldType');
+    return (
+      typeof fieldDefinition === "object" &&
+      fieldDefinition != null &&
+      Object.prototype.hasOwnProperty.call(fieldDefinition, "name") &&
+      Object.prototype.hasOwnProperty.call(fieldDefinition, "fieldType")
+    );
   }
 };
 

@@ -1,22 +1,23 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AddRepositoryFormModal from '../../components/modals/AddRepositoryFormModal';
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import FilterBar from '../../components/FilterBar';
-import FilterInputText from '../../components/FilterInputText';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import RepositoriesTable from '../../components/RepositoriesTable';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
+import AddRepositoryFormModal
+  from "../../components/modals/AddRepositoryFormModal";
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import FilterBar from "../../components/FilterBar";
+import FilterInputText from "../../components/FilterInputText";
+import Loader from "../../components/Loader";
+import Page from "../../components/Page";
+import RepositoriesTable from "../../components/RepositoriesTable";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
 
-const RepositoriesBreadcrumbs = (addButton) => {
+const RepositoriesBreadcrumbs = addButton => {
   const crumbs = [
     <Breadcrumb key={-1} title="Repositories">
       <BreadcrumbTextContent>
@@ -29,14 +30,15 @@ const RepositoriesBreadcrumbs = (addButton) => {
     <Page.Header.Breadcrumbs
       iconID="gear"
       breadcrumbs={crumbs}
-      addButton={addButton} />
+      addButton={addButton}
+    />
   );
 };
 
 const METHODS_TO_BIND = [
-  'handleSearchStringChange',
-  'handleCloseAddRepository',
-  'handleOpenAddRepository'
+  "handleSearchStringChange",
+  "handleCloseAddRepository",
+  "handleOpenAddRepository"
 ];
 
 class RepositoriesTab extends mixin(StoreMixin) {
@@ -47,18 +49,18 @@ class RepositoriesTab extends mixin(StoreMixin) {
       addRepositoryModalOpen: false,
       hasError: false,
       isLoading: true,
-      searchString: ''
+      searchString: ""
     };
 
     this.store_listeners = [
       {
-        name: 'cosmosPackages',
-        events: ['repositoriesSuccess', 'repositoriesError'],
+        name: "cosmosPackages",
+        events: ["repositoriesSuccess", "repositoriesError"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -69,23 +71,23 @@ class RepositoriesTab extends mixin(StoreMixin) {
   }
 
   handleCloseAddRepository() {
-    this.setState({addRepositoryModalOpen: false});
+    this.setState({ addRepositoryModalOpen: false });
   }
 
   handleOpenAddRepository() {
-    this.setState({addRepositoryModalOpen: true});
+    this.setState({ addRepositoryModalOpen: true });
   }
 
   onCosmosPackagesStoreRepositoriesError() {
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 
   onCosmosPackagesStoreRepositoriesSuccess() {
-    this.setState({hasError: false, isLoading: false});
+    this.setState({ hasError: false, isLoading: false });
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   getErrorScreen() {
@@ -112,8 +114,9 @@ class RepositoriesTab extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    const repositories = CosmosPackagesStore.getRepositories()
-      .filterItemsByText(searchString);
+    const repositories = CosmosPackagesStore.getRepositories().filterItemsByText(
+      searchString
+    );
 
     return (
       <div>
@@ -122,13 +125,15 @@ class RepositoriesTab extends mixin(StoreMixin) {
             className="flush-bottom"
             placeholder="Search"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
+            handleFilterChange={this.handleSearchStringChange}
+          />
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
         <AddRepositoryFormModal
           numberOfRepositories={repositories.getItems().length}
           open={addRepositoryModalOpen}
-          onClose={this.handleCloseAddRepository} />
+          onClose={this.handleCloseAddRepository}
+        />
       </div>
     );
   }
@@ -139,9 +144,10 @@ class RepositoriesTab extends mixin(StoreMixin) {
         <Page.Header
           addButton={{
             onItemSelect: this.handleOpenAddRepository,
-            label: 'Add Repository'
+            label: "Add Repository"
           }}
-          breadcrumbs={<RepositoriesBreadcrumbs />} />
+          breadcrumbs={<RepositoriesBreadcrumbs />}
+        />
         {this.getContent()}
       </Page>
     );
@@ -149,7 +155,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
 }
 
 RepositoriesTab.routeConfig = {
-  label: 'Package Repositories',
+  label: "Package Repositories",
   matches: /^\/settings\/repositories/
 };
 

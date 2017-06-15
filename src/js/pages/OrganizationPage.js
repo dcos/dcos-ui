@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Icon from '../components/Icon';
+import Icon from "../components/Icon";
 
 class OrganizationPage extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class OrganizationPage extends React.Component {
 }
 
 OrganizationPage.routeConfig = {
-  label: 'Organization',
+  label: "Organization",
   icon: <Icon id="users-inverse" size="small" family="product" />,
   matches: /^\/organization/
 };

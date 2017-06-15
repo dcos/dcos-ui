@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import throttle from 'lodash.throttle';
+import React from "react";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import throttle from "lodash.throttle";
 
-import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
-import DOMUtils from '../../../../../src/js/utils/DOMUtils';
-import EmptyLogScreen from './EmptyLogScreen';
-import Highlight from './Highlight';
-import Loader from '../../../../../src/js/components/Loader';
+import { PREPEND } from "../../../../../src/js/constants/SystemLogTypes";
+import DOMUtils from "../../../../../src/js/utils/DOMUtils";
+import EmptyLogScreen from "./EmptyLogScreen";
+import Highlight from "./Highlight";
+import Loader from "../../../../../src/js/components/Loader";
 
 const CONTAINER_OFFSET_HEIGHT = 25;
 
 const METHODS_TO_BIND = [
-  'handleGoToBottom',
-  'handleLogContainerScroll',
-  'handleUpdateScrollPosition',
-  'handleWindowResize'
+  "handleGoToBottom",
+  "handleLogContainerScroll",
+  "handleUpdateScrollPosition",
+  "handleWindowResize"
 ];
 
 class LogView extends React.Component {
@@ -24,9 +24,9 @@ class LogView extends React.Component {
     // Using variable on component to avoid the asynchronous `setState`
     this.updatingScrollPosition = false;
 
-    this.state = {isAtBottom: true};
+    this.state = { isAtBottom: true };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -42,18 +42,17 @@ class LogView extends React.Component {
     this.handleLogContainerScroll = throttle(
       this.handleLogContainerScroll,
       50,
-      {leading: true, trailing: true}
+      { leading: true, trailing: true }
     );
 
-    this.handleWindowResize = throttle(
-      this.handleWindowResize,
-      50,
-      {leading: true, trailing: false}
-    );
+    this.handleWindowResize = throttle(this.handleWindowResize, 50, {
+      leading: true,
+      trailing: false
+    });
   }
 
   componentDidMount() {
-    global.addEventListener('resize', this.handleWindowResize);
+    global.addEventListener("resize", this.handleWindowResize);
     // Make sure to update scroll position on load. Needs to be did mount for
     // logContainer to be defined
     this.handleUpdateScrollPosition();
@@ -64,27 +63,27 @@ class LogView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {hasLoadedTop, highlightText, logName, watching} = this.props;
-    const {fullLog, isAtBottom} = this.state;
+    const { hasLoadedTop, highlightText, logName, watching } = this.props;
+    const { fullLog, isAtBottom } = this.state;
 
     return (
       // Check hasLoadedTop
-      (hasLoadedTop !== nextProps.hasLoadedTop) ||
+      hasLoadedTop !== nextProps.hasLoadedTop ||
       // Check highlightText
-      (highlightText !== nextProps.highlightText) ||
+      highlightText !== nextProps.highlightText ||
       // Check logName
-      (logName !== nextProps.logName) ||
+      logName !== nextProps.logName ||
       // Check watching
-      (watching !== nextProps.watching) ||
+      watching !== nextProps.watching ||
       // Check isAtBottom
-      (isAtBottom !== nextState.isAtBottom) ||
+      isAtBottom !== nextState.isAtBottom ||
       // Check fullLog at the end, as this could be a long string
-      (fullLog !== nextState.fullLog)
+      fullLog !== nextState.fullLog
     );
   }
 
   componentDidUpdate(prevProps) {
-    const {logContainer} = this;
+    const { logContainer } = this;
     if (logContainer == null) {
       return;
     }
@@ -101,21 +100,23 @@ class LogView extends React.Component {
       return;
     }
 
-    if (prevProps.watching !== this.props.watching ||
-      prevProps.highlightText !== this.props.highlightText) {
+    if (
+      prevProps.watching !== this.props.watching ||
+      prevProps.highlightText !== this.props.highlightText
+    ) {
       this.goToNewHighlightedSearch();
     }
   }
 
   componentWillUnmount() {
-    global.removeEventListener('resize', this.handleWindowResize);
+    global.removeEventListener("resize", this.handleWindowResize);
   }
 
   handleUpdateScrollPosition(props = this.props) {
-    const {direction, fullLog} = props;
+    const { direction, fullLog } = props;
     // Prevent updates to fullLog, if it has not changed
     if (this.state.fullLog !== fullLog) {
-      const {logContainer} = this;
+      const { logContainer } = this;
       let previousScrollTop;
       let previousScrollHeight;
       if (logContainer && direction === PREPEND && !this.state.isAtBottom) {
@@ -123,7 +124,7 @@ class LogView extends React.Component {
         previousScrollTop = logContainer.scrollTop;
         previousScrollHeight = logContainer.scrollHeight;
       }
-      this.setState({fullLog}, () => {
+      this.setState({ fullLog }, () => {
         // This allows the user to stay at the place of the log they were at
         // before the prepend.
         if (previousScrollHeight) {
@@ -146,7 +147,7 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    const {logContainer, props: {highlightText}} = this;
+    const { logContainer, props: { highlightText } } = this;
     // Do not scroll to bottom if we want to highlight a word in the log,
     // or we are already scrolling
     if (logContainer == null || highlightText) {
@@ -180,7 +181,7 @@ class LogView extends React.Component {
     // This number has been determined by trail and error to be a good
     // measurement for close to the top
     if (container.scrollTop < 2000) {
-      const {hasLoadedTop, fetchPreviousLogs} = this.props;
+      const { hasLoadedTop, fetchPreviousLogs } = this.props;
       if (!hasLoadedTop) {
         fetchPreviousLogs();
       }
@@ -195,18 +196,18 @@ class LogView extends React.Component {
 
     // The CONTAINER_OFFSET_HEIGHT is to give the checker a little bit of
     // breathing room to determine when we are at the bottom
-    const isAtBottom = container.offsetHeight + container.scrollTop +
-      CONTAINER_OFFSET_HEIGHT >= container.scrollHeight;
+    const isAtBottom =
+      container.offsetHeight + container.scrollTop + CONTAINER_OFFSET_HEIGHT >=
+      container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
-      this.setState({isAtBottom});
+      this.setState({ isAtBottom });
     }
-
   }
 
   goToNewHighlightedSearch() {
-    const {logContainer} = this;
-    const node = logContainer.querySelector('.highlight.selected');
+    const { logContainer } = this;
+    const node = logContainer.querySelector(".highlight.selected");
     if (!node || !logContainer) {
       return;
     }
@@ -216,22 +217,24 @@ class LogView extends React.Component {
     const containerScrollTop = logContainer.scrollTop;
     const nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
 
-    if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
-      nodeDistanceFromTop < containerScrollTop) {
+    if (
+      nodeDistanceFromTop > containerHeight + containerScrollTop ||
+      nodeDistanceFromTop < containerScrollTop
+    ) {
       // Set `updatingScrollPosition` guard to avoid 'at top' and
       // 'at bottom' checks when computationally setting the `scrollTop`
       this.updatingScrollPosition = true;
       // Warning: Causes reflow!
-      logContainer.scrollTop = nodeDistanceFromTop - (containerHeight / 2);
+      logContainer.scrollTop = nodeDistanceFromTop - containerHeight / 2;
       this.updatingScrollPosition = false;
     }
   }
 
   getLog() {
-    const {highlightText, logName, onCountChange, watching} = this.props;
-    const {fullLog} = this.state;
+    const { highlightText, logName, onCountChange, watching } = this.props;
+    const { fullLog } = this.state;
 
-    if (fullLog === '') {
+    if (fullLog === "") {
       return <EmptyLogScreen logName={logName} />;
     }
 
@@ -239,15 +242,19 @@ class LogView extends React.Component {
       <pre
         key="log-container"
         className="flex-item-grow-1 flush-bottom prettyprint"
-        ref={(ref) => { this.logContainer = ref; }}
-        onScroll={this.handleLogContainerScroll}>
+        ref={ref => {
+          this.logContainer = ref;
+        }}
+        onScroll={this.handleLogContainerScroll}
+      >
         {this.getLogPrepend()}
         <Highlight
           matchClass="highlight"
           matchElement="span"
           onCountChange={onCountChange}
           search={highlightText}
-          watching={watching}>
+          watching={watching}
+        >
           {fullLog}
         </Highlight>
       </pre>,
@@ -258,15 +265,16 @@ class LogView extends React.Component {
         transitionAppearTimeout={350}
         transitionEnterTimeout={350}
         transitionLeaveTimeout={350}
-        component="div">
+        component="div"
+      >
         {this.getGoToBottomButton()}
       </ReactCSSTransitionGroup>
     ];
   }
 
   getGoToBottomButton() {
-    const {highlightText} = this.props;
-    const {isAtBottom} = this.state;
+    const { highlightText } = this.props;
+    const { isAtBottom } = this.state;
 
     // Do not show go to bottom button, if we are already at the bottom,
     // or we are have highlighted text
@@ -277,7 +285,8 @@ class LogView extends React.Component {
     return (
       <button
         onClick={this.handleGoToBottom}
-        className="button go-to-bottom-button">
+        className="button go-to-bottom-button"
+      >
         Go to bottom
       </button>
     );
@@ -295,9 +304,7 @@ class LogView extends React.Component {
     // Show loader since we will start a request for more logs
     return (
       <div className="pod flush-top">
-        <Loader
-          innerClassName="loader-small"
-          type="ballSpinFadeLoader" />
+        <Loader innerClassName="loader-small" type="ballSpinFadeLoader" />
       </div>
     );
   }
@@ -313,7 +320,7 @@ class LogView extends React.Component {
 
 LogView.defaultProps = {
   hasLoadedTop: false,
-  highlightText: '',
+  highlightText: "",
   fetchPreviousLogs() {},
   onCountChange() {}
 };

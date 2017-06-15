@@ -1,17 +1,16 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import {List, Tooltip} from 'reactjs-components';
-import React from 'react';
-import {Link, routerShape} from 'react-router';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import { List, Tooltip } from "reactjs-components";
+import React from "react";
+import { Link, routerShape } from "react-router";
 
-import HealthLabels from '../constants/HealthLabels';
-import HealthStatus from '../constants/HealthStatus';
-import HealthTypesDescription from '../constants/HealthTypesDescription';
-import Loader from '../../../../../src/js/components/Loader';
+import HealthLabels from "../constants/HealthLabels";
+import HealthStatus from "../constants/HealthStatus";
+import HealthTypesDescription from "../constants/HealthTypesDescription";
+import Loader from "../../../../../src/js/components/Loader";
 
 const ServiceList = React.createClass({
-
-  displayName: 'ServiceList',
+  displayName: "ServiceList",
 
   propTypes: {
     services: React.PropTypes.array.isRequired,
@@ -37,8 +36,10 @@ const ServiceList = React.createClass({
 
   handleServiceClick(service, event) {
     // Open service in new window/tab if service has a web URL
-    if (service.getWebURL() &&
-      (event.ctrlKey || event.shiftKey || event.metaKey)) {
+    if (
+      service.getWebURL() &&
+      (event.ctrlKey || event.shiftKey || event.metaKey)
+    ) {
       return;
     }
     const id = encodeURIComponent(service.getId());
@@ -48,7 +49,7 @@ const ServiceList = React.createClass({
   },
 
   getServices(services, healthProcessed) {
-    return services.map((service) => {
+    return services.map(service => {
       const appHealth = service.getHealth();
       let state = HealthStatus.NA;
       let tooltipContent;
@@ -72,24 +73,26 @@ const ServiceList = React.createClass({
         healthLabel = <Loader size="small" type="ballBeat" />;
       }
 
-      const classSet = classNames('tooltip-wrapper', state.classNames);
+      const classSet = classNames("tooltip-wrapper", state.classNames);
 
       return {
         content: [
           {
-            className: 'dashboard-health-list-item-description text-overflow',
+            className: "dashboard-health-list-item-description text-overflow",
             content: (
-              <a key="title"
+              <a
+                key="title"
                 onClick={this.handleServiceClick.bind(this, service)}
                 href={service.getWebURL()}
-                className="dashboard-health-list-item-cell emphasis">
+                className="dashboard-health-list-item-cell emphasis"
+              >
                 {service.getName()}
               </a>
             ),
-            tag: 'span'
+            tag: "span"
           },
           {
-            className: 'dashboard-health-list-health-label',
+            className: "dashboard-health-list-health-label",
             content: (
               <Tooltip
                 anchor="end"
@@ -97,11 +100,12 @@ const ServiceList = React.createClass({
                 key="health"
                 wrapperClassName={classSet}
                 wrapText={true}
-                width={200}>
+                width={200}
+              >
                 {healthLabel}
               </Tooltip>
             ),
-            tag: 'div'
+            tag: "div"
           }
         ]
       };
@@ -113,9 +117,9 @@ const ServiceList = React.createClass({
       <div>
         <h3 className="flush-top text-align-center">No Services Running</h3>
         <p className="flush text-align-center">
-          {'Click the '}
+          {"Click the "}
           <Link to="/services">Services tab</Link>
-          {' to install services.'}
+          {" to install services."}
         </p>
       </div>
     );
@@ -130,7 +134,8 @@ const ServiceList = React.createClass({
           className="list list-unstyled"
           content={this.getServices(props.services, props.healthProcessed)}
           transition={false}
-          transitionName="something" />
+          transitionName="something"
+        />
       </div>
     );
   },

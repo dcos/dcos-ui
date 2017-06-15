@@ -22,5 +22,5 @@ module.exports = {
   //     req.url = req.url.replace(/^\/mesos/, '');
   //   }
   // },
-  '*': 'http://m1.dcos'
+  "*": "http://m1.dcos"
 };

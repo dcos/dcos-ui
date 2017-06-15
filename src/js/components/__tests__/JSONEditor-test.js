@@ -1,35 +1,34 @@
-jest.dontMock('../JSONEditor');
+jest.dontMock("../JSONEditor");
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const JSONEditor = require('../JSONEditor');
+const React = require("react");
+const ReactDOM = require("react-dom");
+const JSONEditor = require("../JSONEditor");
 
-describe('JSONEditor', function () {
-
-  beforeEach(function () {
-    this.container = global.document.createElement('div');
+describe("JSONEditor", function() {
+  beforeEach(function() {
+    this.container = global.document.createElement("div");
   });
 
-  afterEach(function () {
+  afterEach(function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#shouldComponentUpdate', function () {
+  describe("#shouldComponentUpdate", function() {
     const initialValue = {
-      id: '/',
+      id: "/",
       instances: 1,
       cpus: 1,
       mem: 128
     };
     const updatedValue = {
-      id: '/test',
+      id: "/test",
       instances: 1,
       cpus: 1,
       mem: 128,
-      cmd: 'while true; do sleep 10; done'
+      cmd: "while true; do sleep 10; done"
     };
 
-    it('should prevent unnecessary component updates', function () {
+    it("should prevent unnecessary component updates", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={initialValue} />,
         this.container
@@ -45,33 +44,30 @@ describe('JSONEditor', function () {
       expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(false);
     });
 
-    it('should update the component if the internal data has changed',
-      function () {
-        const instance = ReactDOM.render(
-          <JSONEditor value={initialValue} />,
-          this.container
-        );
+    it("should update the component if the internal data has changed", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={initialValue} />,
+        this.container
+      );
 
-        const nextProps = instance.props;
-        const nextState = instance.state;
+      const nextProps = instance.props;
+      const nextState = instance.state;
 
-        instance.handleChange(JSON.stringify(updatedValue));
-        instance.componentWillReceiveProps(nextProps);
+      instance.handleChange(JSON.stringify(updatedValue));
+      instance.componentWillReceiveProps(nextProps);
 
-        expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(true);
-      }
-    );
-
+      expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(true);
+    });
   });
 
-  describe('#handleChange', function () {
+  describe("#handleChange", function() {
     const initialJSONText = `{
           "id": "/",
           "instances": 1,
           "cpus": 1,
           "mem": 128
         }`;
-    const invalidJsonText = '{INVALID JSON}';
+    const invalidJsonText = "{INVALID JSON}";
     const validJSONText = `{
           "id": "/test",
           "instances": 1,
@@ -80,165 +76,166 @@ describe('JSONEditor', function () {
           "cmd": "while true; do sleep 10; done"
         }`;
 
-    it('should call on change handler with new value', function () {
+    it("should call on change handler with new value", function() {
       const onChangeHandler = jest.fn();
-      const instance = ReactDOM.render((
-        <JSONEditor
-          onChange={onChangeHandler} />
-      ), this.container);
+      const instance = ReactDOM.render(
+        <JSONEditor onChange={onChangeHandler} />,
+        this.container
+      );
 
       instance.handleChange(validJSONText);
 
       expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
     });
 
-    it('should not call on change handler with invalid value', function () {
+    it("should not call on change handler with invalid value", function() {
       const onChangeHandler = jest.fn();
-      const instance = ReactDOM.render((
-        <JSONEditor
-          onChange={onChangeHandler} />
-      ), this.container);
+      const instance = ReactDOM.render(
+        <JSONEditor onChange={onChangeHandler} />,
+        this.container
+      );
       instance.handleChange(invalidJsonText);
 
       expect(onChangeHandler).not.toBeCalled();
     });
 
-    it('should call on change handler with new value after error was resolved',
-      function () {
-        const onChangeHandler = jest.fn();
-        const instance = ReactDOM.render((
-          <JSONEditor
-            onChange={onChangeHandler} />
-        ), this.container);
+    it("should call on change handler with new value after error was resolved", function() {
+      const onChangeHandler = jest.fn();
+      const instance = ReactDOM.render(
+        <JSONEditor onChange={onChangeHandler} />,
+        this.container
+      );
 
-        instance.handleChange(invalidJsonText);
-        instance.handleChange(validJSONText);
+      instance.handleChange(invalidJsonText);
+      instance.handleChange(validJSONText);
 
-        expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
-      }
-    );
+      expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
+    });
 
-    it('should call error state change handler if new error was detected',
-      function () {
-        const onErrorStateChangeHandler = jest.fn();
-        const instance = ReactDOM.render((
-          <JSONEditor
-            onErrorStateChange={onErrorStateChangeHandler} />
-        ), this.container);
+    it("should call error state change handler if new error was detected", function() {
+      const onErrorStateChangeHandler = jest.fn();
+      const instance = ReactDOM.render(
+        <JSONEditor onErrorStateChange={onErrorStateChangeHandler} />,
+        this.container
+      );
 
-        instance.handleChange(invalidJsonText);
+      instance.handleChange(invalidJsonText);
 
-        expect(onErrorStateChangeHandler).toBeCalled();
-      }
-    );
+      expect(onErrorStateChangeHandler).toBeCalled();
+    });
 
-    it('should call error state change handler if error was resolved',
-      function () {
-        const onChangeHandler = jest.fn();
-        const onErrorStateChangeHandler = jest.fn();
-        const instance = ReactDOM.render((
-          <JSONEditor
-            onChange={onChangeHandler}
-            onErrorStateChange={onErrorStateChangeHandler} />
-        ), this.container);
+    it("should call error state change handler if error was resolved", function() {
+      const onChangeHandler = jest.fn();
+      const onErrorStateChangeHandler = jest.fn();
+      const instance = ReactDOM.render(
+        <JSONEditor
+          onChange={onChangeHandler}
+          onErrorStateChange={onErrorStateChangeHandler}
+        />,
+        this.container
+      );
 
-        instance.handleChange(invalidJsonText);
-        instance.handleChange(validJSONText);
+      instance.handleChange(invalidJsonText);
+      instance.handleChange(validJSONText);
 
-        expect(onErrorStateChangeHandler.mock.calls.length).toEqual(2);
-      }
-    );
+      expect(onErrorStateChangeHandler.mock.calls.length).toEqual(2);
+    });
 
-    it('should properly handle JSON change even with interfering prop updates',
-      function () {
-        jest.useFakeTimers();
+    it("should properly handle JSON change even with interfering prop updates", function() {
+      jest.useFakeTimers();
 
-        let instance = null;
+      let instance = null;
 
-        const onChangeHandler = jest.fn();
-        const onErrorStateChangeHandler = jest.fn(function () {
-          // Run all pending timers to reset internal `isTyping` state
-          jest.runOnlyPendingTimers();
+      const onChangeHandler = jest.fn();
+      const onErrorStateChangeHandler = jest.fn(function() {
+        // Run all pending timers to reset internal `isTyping` state
+        jest.runOnlyPendingTimers();
 
-          instance
-            .componentWillReceiveProps({value: JSON.parse(initialJSONText)});
+        instance.componentWillReceiveProps({
+          value: JSON.parse(initialJSONText)
         });
+      });
 
-        instance = ReactDOM.render((
-          <JSONEditor
-            onChange={onChangeHandler}
-            onErrorStateChange={onErrorStateChangeHandler} />
-        ), this.container);
+      instance = ReactDOM.render(
+        <JSONEditor
+          onChange={onChangeHandler}
+          onErrorStateChange={onErrorStateChangeHandler}
+        />,
+        this.container
+      );
 
-        instance.handleChange(initialJSONText);
-        instance.handleChange(invalidJsonText);
-        instance.handleChange(validJSONText);
+      instance.handleChange(initialJSONText);
+      instance.handleChange(invalidJsonText);
+      instance.handleChange(validJSONText);
 
-        expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
-      }
-    );
-
+      expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
+    });
   });
 
-  describe('#updateLocalJsonState', function () {
-    it('should accept `null` as an argument', function () {
-      const instance = ReactDOM.render((
-        <JSONEditor value={{}} />
-      ), this.container);
+  describe("#updateLocalJsonState", function() {
+    it("should accept `null` as an argument", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={{}} />,
+        this.container
+      );
 
       instance.updateLocalJsonState(null);
 
-      expect(instance.jsonText).toEqual('{}');
+      expect(instance.jsonText).toEqual("{}");
       expect(instance.jsonValue).toEqual({});
       expect(instance.jsonMeta).toEqual([]);
       expect(instance.jsonError).toEqual(null);
     });
 
-    it('should update all properties as given', function () {
-      const instance = ReactDOM.render((
-        <JSONEditor value={{}} />
-      ), this.container);
+    it("should update all properties as given", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={{}} />,
+        this.container
+      );
 
       instance.updateLocalJsonState({
-        jsonText  : '[]',
-        jsonError : [{path: 'id', message: 'Required'}],
-        jsonValue : [],
-        jsonMeta  : [{path: 'id', line: 1}]
+        jsonText: "[]",
+        jsonError: [{ path: "id", message: "Required" }],
+        jsonValue: [],
+        jsonMeta: [{ path: "id", line: 1 }]
       });
 
-      expect(instance.jsonText).toEqual('[]');
+      expect(instance.jsonText).toEqual("[]");
       expect(instance.jsonValue).toEqual([]);
-      expect(instance.jsonMeta).toEqual([{path: 'id', line: 1}]);
-      expect(instance.jsonError).toEqual([{path: 'id', message: 'Required'}]);
+      expect(instance.jsonMeta).toEqual([{ path: "id", line: 1 }]);
+      expect(instance.jsonError).toEqual([{ path: "id", message: "Required" }]);
     });
   });
 
-  describe('#getNewJsonState', function () {
-    it('should return `null` if the text has not changed', function () {
-      const instance = ReactDOM.render((
-        <JSONEditor value={{}} />
-      ), this.container);
+  describe("#getNewJsonState", function() {
+    it("should return `null` if the text has not changed", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={{}} />,
+        this.container
+      );
 
-      expect(instance.getNewJsonState('{}')).toEqual(null);
+      expect(instance.getNewJsonState("{}")).toEqual(null);
     });
 
-    it('should return errors if JSON is invalid', function () {
-      const instance = ReactDOM.render((
-        <JSONEditor value={{}} />
-      ), this.container);
+    it("should return errors if JSON is invalid", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={{}} />,
+        this.container
+      );
 
-      expect(instance.getNewJsonState('{')).toEqual({
-        jsonError: 'SyntaxError: Unexpected end of input',
+      expect(instance.getNewJsonState("{")).toEqual({
+        jsonError: "SyntaxError: Unexpected end of input",
         jsonMeta: [],
-        jsonText: '{',
+        jsonText: "{",
         jsonValue: {}
       });
     });
 
-    it('should return the correct state on new JSON', function () {
-      const instance = ReactDOM.render((
-        <JSONEditor value={{}} />
-      ), this.container);
+    it("should return the correct state on new JSON", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={{}} />,
+        this.container
+      );
 
       expect(instance.getNewJsonState('[\n"foo"\n]')).toEqual({
         jsonError: null,
@@ -247,14 +244,13 @@ describe('JSONEditor', function () {
             line: 2,
             path: [0],
             position: [2, 7],
-            type: 'literal',
-            value: 'foo'
+            type: "literal",
+            value: "foo"
           }
         ],
         jsonText: '[\n"foo"\n]',
-        jsonValue: ['foo']
+        jsonValue: ["foo"]
       });
     });
   });
-
 });

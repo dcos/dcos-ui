@@ -1,30 +1,32 @@
-import Config from '../config/Config';
-import Maths from '../utils/Maths';
+import Config from "../config/Config";
+import Maths from "../utils/Maths";
 
 const MesosSummaryUtil = {
-
   sumResources(resourceList) {
-    return resourceList.reduce(function (memo, resource) {
-      if (resource == null) {
+    return resourceList.reduce(
+      function(memo, resource) {
+        if (resource == null) {
+          return memo;
+        }
+
+        Object.keys(memo).forEach(function(key) {
+          memo[key] = memo[key] + resource[key];
+        });
+
         return memo;
-      }
-
-      Object.keys(memo).forEach(function (key) {
-        memo[key] = memo[key] + resource[key];
-      });
-
-      return memo;
-    }, {cpus: 0, mem: 0, disk: 0});
+      },
+      { cpus: 0, mem: 0, disk: 0 }
+    );
   },
 
   stateResourcesToResourceStates(stateResources) {
     // Transpose from [{date, resources, totalResources}, ...]
     // to {resource: [{date, value, percentage}, ...], resource: ...}
-    const resources = {cpus: [], mem: [], disk: []};
+    const resources = { cpus: [], mem: [], disk: [] };
     const resourceTypes = Object.keys(resources);
 
-    stateResources.forEach(function (stateResource) {
-      resourceTypes.forEach(function (resourceType) {
+    stateResources.forEach(function(stateResource) {
+      resourceTypes.forEach(function(resourceType) {
         let percentage = null, value = null;
 
         if (stateResource.resources != null) {
@@ -45,7 +47,7 @@ const MesosSummaryUtil = {
   },
 
   filterHostsByService(hosts, frameworkId) {
-    return hosts.filter(function (host) {
+    return hosts.filter(function(host) {
       return host.framework_ids.includes(frameworkId);
     });
   },
@@ -59,9 +61,9 @@ const MesosSummaryUtil = {
       reverseRange.push(-i);
     }
 
-    return reverseRange.map(function (i) {
+    return reverseRange.map(function(i) {
       return Object.assign(MesosSummaryUtil.getEmptyState(), {
-        date: currentDate + (i * Config.getRefreshRate())
+        date: currentDate + i * Config.getRefreshRate()
       });
     });
   },
@@ -70,8 +72,8 @@ const MesosSummaryUtil = {
     return {
       frameworks: [],
       slaves: [],
-      used_resources: {cpus: 0, mem: 0, disk: 0},
-      total_resources: {cpus: 0, mem: 0, disk: 0}
+      used_resources: { cpus: 0, mem: 0, disk: 0 },
+      total_resources: { cpus: 0, mem: 0, disk: 0 }
     };
   },
 
@@ -79,14 +81,13 @@ const MesosSummaryUtil = {
     var length = data.length;
     var timeNow = Date.now() + timeStep;
 
-    return data.map(function (datum, i) {
+    return data.map(function(datum, i) {
       var timeDelta = (-length + i) * timeStep;
       datum.date = timeNow + timeDelta;
 
       return datum;
     });
   }
-
 };
 
 module.exports = MesosSummaryUtil;

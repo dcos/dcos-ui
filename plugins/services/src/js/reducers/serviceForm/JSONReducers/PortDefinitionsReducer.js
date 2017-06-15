@@ -2,17 +2,17 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../../src/js/constants/TransactionTypes';
-import {PROTOCOLS} from '../../../constants/PortDefinitionConstants';
+} from "../../../../../../../src/js/constants/TransactionTypes";
+import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
 
 const FIELDS = [
-  'hostPort',
-  'labels',
-  'loadBalanced',
-  'name',
-  'servicePort',
-  'vip',
-  'vipPort'
+  "hostPort",
+  "labels",
+  "loadBalanced",
+  "name",
+  "servicePort",
+  "vip",
+  "vipPort"
 ];
 
 /**
@@ -24,12 +24,12 @@ const FIELDS = [
  * @return {Object[]} new portDefinitions with action performed on it
  */
 function PortDefinitionsReducer(state = [], action) {
-  const {type, path = [], value} = action;
+  const { type, path = [], value } = action;
   const [base, index, field, subfield] = path;
-  const joinedPath = path.join('.');
+  const joinedPath = path.join(".");
 
-  if (base === 'portDefinitions') {
-    if (joinedPath === 'portDefinitions') {
+  if (base === "portDefinitions") {
+    if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
           state.push({
@@ -47,10 +47,7 @@ function PortDefinitionsReducer(state = [], action) {
           });
           break;
         case REMOVE_ITEM:
-          state = state.filter(function (
-            item,
-            index
-          ) {
+          state = state.filter(function(item, index) {
             return index !== value;
           });
           break;
@@ -62,7 +59,7 @@ function PortDefinitionsReducer(state = [], action) {
         state[index][field] = value;
       }
 
-      if (field === 'protocol' && PROTOCOLS.includes(subfield)) {
+      if (field === "protocol" && PROTOCOLS.includes(subfield)) {
         state[index].protocol[subfield] = value;
       }
     }

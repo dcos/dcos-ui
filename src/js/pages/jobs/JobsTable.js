@@ -1,25 +1,23 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import prettycron from 'prettycron';
-import React from 'react';
-import {ResourceTableUtil} from 'foundation-ui';
-import {Table, Tooltip} from 'reactjs-components';
+import classNames from "classnames";
+import { Link } from "react-router";
+import prettycron from "prettycron";
+import React from "react";
+import { ResourceTableUtil } from "foundation-ui";
+import { Table, Tooltip } from "reactjs-components";
 
-import Icon from '../../components/Icon';
-import JobStates from '../../constants/JobStates';
-import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
-import TableUtil from '../../utils/TableUtil';
-import Tree from '../../structs/Tree';
+import Icon from "../../components/Icon";
+import JobStates from "../../constants/JobStates";
+import JobTableHeaderLabels from "../../constants/JobTableHeaderLables";
+import TableUtil from "../../utils/TableUtil";
+import Tree from "../../structs/Tree";
 
-const METHODS_TO_BIND = [
-  'renderHeadline'
-];
+const METHODS_TO_BIND = ["renderHeadline"];
 
 class JobsTable extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -28,8 +26,8 @@ class JobsTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col style={{width: '20%'}} />
-        <col style={{width: '20%'}} />
+        <col style={{ width: "20%" }} />
+        <col style={{ width: "20%" }} />
       </colgroup>
     );
   }
@@ -43,22 +41,24 @@ class JobsTable extends React.Component {
         className,
         heading,
         headerClassName: className,
-        prop: 'name',
+        prop: "name",
         render: this.renderHeadline,
         sortable: true,
         sortFunction: this.sortJobNames
-      }, {
+      },
+      {
         className,
         heading,
         headerClassName: className,
-        prop: 'status',
+        prop: "status",
         render: this.renderStatusColumn,
         sortable: false
-      }, {
+      },
+      {
         className,
         heading,
         headerClassName: className,
-        prop: 'lastRun',
+        prop: "lastRun",
         render: this.renderLastRunStatusColumn
       }
     ];
@@ -66,7 +66,7 @@ class JobsTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData() {
-    return this.props.jobs.map(function (job) {
+    return this.props.jobs.map(function(job) {
       const isGroup = job instanceof Tree;
       let lastRun = {};
       let schedules = null;
@@ -99,11 +99,11 @@ class JobsTable extends React.Component {
   sortJobNames(prop, direction) {
     let score = 1;
 
-    if (direction === 'desc') {
+    if (direction === "desc") {
       score = -1;
     }
 
-    return function (a, b) {
+    return function(a, b) {
       // Hoist group trees to the top
       if (a.isGroup && !b.isGroup) {
         return score * -1;
@@ -116,7 +116,7 @@ class JobsTable extends React.Component {
   }
 
   renderHeadline(prop, job) {
-    let {id, isGroup, name, schedules} = job;
+    let { id, isGroup, name, schedules } = job;
     let itemImage = null;
     let scheduleIcon = null;
 
@@ -128,7 +128,8 @@ class JobsTable extends React.Component {
           className="icon-margin-right"
           color="grey"
           id="folder"
-          size="mini" />
+          size="mini"
+        />
       );
     } else {
       itemImage = (
@@ -136,7 +137,8 @@ class JobsTable extends React.Component {
           className="icon-margin-right"
           color="grey"
           id="page-document"
-          size="mini" />
+          size="mini"
+        />
       );
     }
 
@@ -149,11 +151,9 @@ class JobsTable extends React.Component {
             wrapperClassName="tooltip-wrapper icon icon-margin-left"
             content={prettycron.toString(schedule.cron)}
             maxWidth={250}
-            wrapText={true}>
-            <Icon
-              color="grey"
-              id="repeat"
-              size="mini" />
+            wrapText={true}
+          >
+            <Icon color="grey" id="repeat" size="mini" />
           </Tooltip>
         );
       }
@@ -162,12 +162,13 @@ class JobsTable extends React.Component {
     return (
       <div className="job-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to={`/jobs/${id}`}
-          className="table-cell-icon">
+        <Link to={`/jobs/${id}`} className="table-cell-icon">
           {itemImage}
         </Link>
-        <Link to={`/jobs/${id}`}
-          className="table-cell-link-primary table-cell-value flex-box flex-box-col">
+        <Link
+          to={`/jobs/${id}`}
+          className="table-cell-link-primary table-cell-value flex-box flex-box-col"
+        >
           <span className="text-overflow">
             {name}
           </span>
@@ -178,10 +179,10 @@ class JobsTable extends React.Component {
   }
 
   renderLastRunStatusColumn(prop, row) {
-    const {lastFailureAt, lastSuccessAt, status} = row[prop];
+    const { lastFailureAt, lastSuccessAt, status } = row[prop];
     const statusClasses = classNames({
-      'text-success': status === 'Success',
-      'text-danger': status === 'Failed'
+      "text-success": status === "Success",
+      "text-danger": status === "Failed"
     });
     const nodes = [];
     const statusNode = <span className={statusClasses}>{status}</span>;
@@ -209,16 +210,14 @@ class JobsTable extends React.Component {
     }
 
     return (
-      <Tooltip
-        wrapperClassName="tooltip-wrapper"
-        content={nodes}>
+      <Tooltip wrapperClassName="tooltip-wrapper" content={nodes}>
         {statusNode}
       </Tooltip>
     );
   }
 
   renderStatusColumn(prop, col) {
-    const {[prop]:statusKey, isGroup} = col;
+    const { [prop]: statusKey, isGroup } = col;
     if (isGroup) {
       return null;
     }
@@ -226,9 +225,9 @@ class JobsTable extends React.Component {
     const jobState = JobStates[statusKey];
 
     const statusClasses = classNames({
-      'text-success': jobState.stateTypes.includes('success'),
-      'text-danger': jobState.stateTypes.includes('failure'),
-      'text-color-white': jobState.stateTypes.includes('active')
+      "text-success": jobState.stateTypes.includes("success"),
+      "text-danger": jobState.stateTypes.includes("failure"),
+      "text-color-white": jobState.stateTypes.includes("active")
     });
 
     return <span className={statusClasses}>{jobState.displayName}</span>;
@@ -242,7 +241,8 @@ class JobsTable extends React.Component {
         columns={this.getColumns()}
         data={this.getData()}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: 'name', order: 'asc'}} />
+        sortBy={{ prop: "name", order: "asc" }}
+      />
     );
   }
 }

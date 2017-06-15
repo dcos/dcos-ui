@@ -1,25 +1,25 @@
-import Item from '../../../../../src/js/structs/Item';
-import PodContainer from './PodContainer';
-import PodContainerStatus from '../constants/PodContainerStatus';
-import PodInstanceStatus from '../constants/PodInstanceStatus';
-import PodInstanceState from '../constants/PodInstanceState';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
+import Item from "../../../../../src/js/structs/Item";
+import PodContainer from "./PodContainer";
+import PodContainerStatus from "../constants/PodContainerStatus";
+import PodInstanceStatus from "../constants/PodInstanceStatus";
+import PodInstanceState from "../constants/PodInstanceState";
+import StringUtil from "../../../../../src/js/utils/StringUtil";
 
 module.exports = class PodInstance extends Item {
   getAgentAddress() {
-    return this.get('agentHostname') || '';
+    return this.get("agentHostname") || "";
   }
 
   getContainers() {
-    const containers = this.get('containers') || [];
+    const containers = this.get("containers") || [];
 
-    return containers.map((container) => {
+    return containers.map(container => {
       return new PodContainer(container);
     });
   }
 
   getId() {
-    return this.get('id') || '';
+    return this.get("id") || "";
   }
 
   getName() {
@@ -28,7 +28,7 @@ module.exports = class PodInstance extends Item {
 
   getStatus() {
     // API returns mix of uppercase and lowercase depending on status :(
-    return this.get('status').toLowerCase();
+    return this.get("status").toLowerCase();
   }
 
   getInstanceStatus() {
@@ -54,14 +54,15 @@ module.exports = class PodInstance extends Item {
         return PodInstanceStatus.UNHEALTHY;
 
       case PodInstanceState.TERMINAL:
-
         // If all containers are in completed state, mark us as completed
         const containers = this.getContainers();
-        const isFinished = (containers.length > 0) && containers.every(
-          function (container) {
-            return container.getContainerStatus() === PodContainerStatus.FINISHED;
-          }
-        );
+        const isFinished =
+          containers.length > 0 &&
+          containers.every(function(container) {
+            return (
+              container.getContainerStatus() === PodContainerStatus.FINISHED
+            );
+          });
 
         if (isFinished) {
           return PodInstanceStatus.FINISHED;
@@ -77,22 +78,25 @@ module.exports = class PodInstance extends Item {
   }
 
   getLastChanged() {
-    return new Date(this.get('lastChanged'));
+    return new Date(this.get("lastChanged"));
   }
 
   getLastUpdated() {
-    return new Date(this.get('lastUpdated'));
+    return new Date(this.get("lastUpdated"));
   }
 
   getResources() {
-    const resources = this.get('resources') || {};
+    const resources = this.get("resources") || {};
 
-    return Object.assign({
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0
-    }, resources);
+    return Object.assign(
+      {
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      },
+      resources
+    );
   }
 
   hasHealthChecks() {
@@ -110,7 +114,7 @@ module.exports = class PodInstance extends Item {
 
     // Otherwise ALL container must have health checks in order to be
     // considered healthy.
-    return containers.every(function (container) {
+    return containers.every(function(container) {
       return container.hasHealthChecks();
     });
   }
@@ -120,7 +124,7 @@ module.exports = class PodInstance extends Item {
       return false;
     }
 
-    return this.getContainers().every(function (container) {
+    return this.getContainers().every(function(container) {
       return container.isHealthy();
     });
   }
@@ -128,15 +132,17 @@ module.exports = class PodInstance extends Item {
   isRunning() {
     const status = this.getStatus();
 
-    return (status === PodInstanceState.STABLE) ||
-           (status === PodInstanceState.DEGRADED);
+    return (
+      status === PodInstanceState.STABLE || status === PodInstanceState.DEGRADED
+    );
   }
 
   isStaging() {
     const status = this.getStatus();
 
-    return (status === PodInstanceState.PENDING) ||
-           (status === PodInstanceState.STAGING);
+    return (
+      status === PodInstanceState.PENDING || status === PodInstanceState.STAGING
+    );
   }
 
   isTerminating() {

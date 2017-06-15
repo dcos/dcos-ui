@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const ConfigurationMapSection = (props) => {
+const ConfigurationMapSection = props => {
   return (
     <div className="configuration-map-section">
       {props.children}

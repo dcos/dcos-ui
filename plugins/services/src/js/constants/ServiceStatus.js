@@ -1,5 +1,5 @@
-import ServiceStatusLabels from './ServiceStatusLabels';
-import ServiceStatusTypes from './ServiceStatusTypes';
+import ServiceStatusLabels from "./ServiceStatusLabels";
+import ServiceStatusTypes from "./ServiceStatusTypes";
 
 var SERVICE_STATUS = {
   RUNNING: {

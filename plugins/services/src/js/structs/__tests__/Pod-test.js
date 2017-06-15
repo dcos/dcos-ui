@@ -1,126 +1,108 @@
-jest.dontMock('../../../../../../tests/_fixtures/pods/PodFixture');
+jest.dontMock("../../../../../../tests/_fixtures/pods/PodFixture");
 
-const Pod = require('../Pod');
+const Pod = require("../Pod");
 
-const HealthStatus = require('../../constants/HealthStatus');
-const PodFixture = require('../../../../../../tests/_fixtures/pods/PodFixture');
-const ServiceImages = require('../../constants/ServiceImages');
-const ServiceStatus = require('../../constants/ServiceStatus');
+const HealthStatus = require("../../constants/HealthStatus");
+const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
+const ServiceImages = require("../../constants/ServiceImages");
+const ServiceStatus = require("../../constants/ServiceStatus");
 
-describe('Pod', function () {
-
-  describe('#constructor', function () {
-
-    it('should correctly create instances', function () {
+describe("Pod", function() {
+  describe("#constructor", function() {
+    it("should correctly create instances", function() {
       const instance = new Pod(Object.assign({}, PodFixture));
       expect(instance.get()).toEqual(PodFixture);
     });
-
   });
 
-  describe('#countRunningInstances', function () {
-
-    it('should return the correct value', function () {
+  describe("#countRunningInstances", function() {
+    it("should return the correct value", function() {
       const pod = new Pod(PodFixture);
       expect(pod.countRunningInstances()).toEqual(2);
     });
 
-    it('should return the correct default value', function () {
+    it("should return the correct default value", function() {
       const pod = new Pod();
       expect(pod.countRunningInstances()).toEqual(0);
     });
-
   });
 
-  describe('#countNonTerminalInstances', function () {
-
-    it('should return the correct value', function () {
+  describe("#countNonTerminalInstances", function() {
+    it("should return the correct value", function() {
       const pod = new Pod(PodFixture);
       expect(pod.countNonTerminalInstances()).toEqual(3);
     });
 
-    it('should return the correct default value', function () {
+    it("should return the correct default value", function() {
       const pod = new Pod();
       expect(pod.countNonTerminalInstances()).toEqual(0);
     });
-
   });
 
-  describe('#countTotalInstances', function () {
-
-    it('should return the correct value', function () {
+  describe("#countTotalInstances", function() {
+    it("should return the correct value", function() {
       const pod = new Pod(PodFixture);
       expect(pod.countTotalInstances()).toEqual(3);
     });
 
-    it('should return the correct default value', function () {
+    it("should return the correct default value", function() {
       const pod = new Pod();
       expect(pod.countTotalInstances()).toEqual(0);
     });
-
   });
 
-  describe('#getHealth', function () {
-
-    it('should return the correct value when DEGRADED', function () {
-      const pod = new Pod({ status: 'degraded' });
+  describe("#getHealth", function() {
+    it("should return the correct value when DEGRADED", function() {
+      const pod = new Pod({ status: "degraded" });
       expect(pod.getHealth()).toEqual(HealthStatus.UNHEALTHY);
     });
 
-    it('should return the correct value when STABLE', function () {
-      const pod = new Pod({ status: 'stable' });
+    it("should return the correct value when STABLE", function() {
+      const pod = new Pod({ status: "stable" });
       expect(pod.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
-    it('should return the correct default value', function () {
+    it("should return the correct default value", function() {
       const pod = new Pod();
       expect(pod.getHealth()).toEqual(HealthStatus.NA);
     });
-
   });
 
-  describe('#getImages', function () {
-
-    it('should return the correct value', function () {
+  describe("#getImages", function() {
+    it("should return the correct value", function() {
       const pod = new Pod();
       expect(pod.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
-
   });
 
-  describe('#getInstancesCount', function () {
-
-    it('should pass-through from specs', function () {
+  describe("#getInstancesCount", function() {
+    it("should pass-through from specs", function() {
       const pod = new Pod(PodFixture);
-      expect(pod.getInstancesCount()).toEqual(pod.getSpec().getScalingInstances());
+      expect(pod.getInstancesCount()).toEqual(
+        pod.getSpec().getScalingInstances()
+      );
     });
-
   });
 
-  describe('#getLabels', function () {
-
-    it('should pass-through from specs', function () {
+  describe("#getLabels", function() {
+    it("should pass-through from specs", function() {
       const pod = new Pod(PodFixture);
       expect(pod.getLabels()).toEqual(pod.getSpec().getLabels());
     });
-
   });
 
-  describe('#getMesosId', function () {
-
-    it('returns correct id', function () {
+  describe("#getMesosId", function() {
+    it("returns correct id", function() {
       const pod = new Pod({
-        id: '/test/cmd'
+        id: "/test/cmd"
       });
 
-      expect(pod.getMesosId()).toEqual('test_cmd');
+      expect(pod.getMesosId()).toEqual("test_cmd");
     });
-
   });
 
-  describe('#getResources', function () {
-
-    it('should return correct resource data', function () {
+  describe("#getResources", function() {
+    it("should return correct resource data", function() {
       const pod = new Pod({
         spec: {
           containers: [
@@ -134,7 +116,7 @@ describe('Pod', function () {
             }
           ],
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           }
         }
@@ -148,7 +130,7 @@ describe('Pod', function () {
       });
     });
 
-    it('should multiply resource by the number instances', function () {
+    it("should multiply resource by the number instances", function() {
       const pod = new Pod({
         spec: {
           containers: [
@@ -162,7 +144,7 @@ describe('Pod', function () {
             }
           ],
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 2
           }
         }
@@ -174,95 +156,80 @@ describe('Pod', function () {
         disk: 8
       });
     });
-
   });
 
-  describe('#getServiceStatus', function () {
-
-    it('should properly detect SUSPENDED', function () {
+  describe("#getServiceStatus", function() {
+    it("should properly detect SUSPENDED", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 0
           }
         },
-        instances: [
-        ]
+        instances: []
       });
 
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.SUSPENDED);
     });
 
-    it('should properly detect DEPLOYING', function () {
+    it("should properly detect DEPLOYING", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 2
           }
         },
-        instances: [
-          { status: 'stable' }
-        ]
+        instances: [{ status: "stable" }]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
     });
 
-    it('should properly detect RUNNING', function () {
+    it("should properly detect RUNNING", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           }
         },
-        instances: [
-          { status: 'stable' }
-        ]
+        instances: [{ status: "stable" }]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it('should properly detect NA', function () {
+    it("should properly detect NA", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           }
         },
-        instances: [
-          { status: 'pending' }
-        ]
+        instances: [{ status: "pending" }]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.NA);
     });
-
   });
 
-  describe('#getTasksSummary', function () {
-
-    it('should properly count healthy instances', function () {
+  describe("#getTasksSummary", function() {
+    it("should properly count healthy instances", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           },
-          containers: [
-            { }
-          ]
+          containers: [{}]
         },
         instances: [
           {
-            status: 'stable',
+            status: "stable",
             containers: [
               {
-                status: 'stable',
-                endpoints: [
-                  { name: 'nginx', healthy: true }
-                ]
+                status: "stable",
+                endpoints: [{ name: "nginx", healthy: true }]
               }
             ]
           }
@@ -279,26 +246,22 @@ describe('Pod', function () {
       });
     });
 
-    it('should properly count unhealthy instances', function () {
+    it("should properly count unhealthy instances", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           },
-          containers: [
-            { }
-          ]
+          containers: [{}]
         },
         instances: [
           {
-            status: 'stable',
+            status: "stable",
             containers: [
               {
-                status: 'stable',
-                endpoints: [
-                  { name: 'nginx', healthy: false }
-                ]
+                status: "stable",
+                endpoints: [{ name: "nginx", healthy: false }]
               }
             ]
           }
@@ -315,26 +278,22 @@ describe('Pod', function () {
       });
     });
 
-    it('should properly count unknown instances', function () {
+    it("should properly count unknown instances", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           },
-          containers: [
-            { }
-          ]
+          containers: [{}]
         },
         instances: [
           {
-            status: 'stable',
+            status: "stable",
             containers: [
               {
-                status: 'stable',
-                endpoints: [
-                  { name: 'nginx' }
-                ]
+                status: "stable",
+                endpoints: [{ name: "nginx" }]
               }
             ]
           }
@@ -351,26 +310,22 @@ describe('Pod', function () {
       });
     });
 
-    it('should properly count staged instances', function () {
+    it("should properly count staged instances", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           },
-          containers: [
-            { }
-          ]
+          containers: [{}]
         },
         instances: [
           {
-            status: 'pending',
+            status: "pending",
             containers: [
               {
-                status: 'pending',
-                endpoints: [
-                  { name: 'nginx' }
-                ]
+                status: "pending",
+                endpoints: [{ name: "nginx" }]
               }
             ]
           }
@@ -387,37 +342,31 @@ describe('Pod', function () {
       });
     });
 
-    it('should properly count over-capacity instances', function () {
+    it("should properly count over-capacity instances", function() {
       const pod = new Pod({
         spec: {
           scaling: {
-            kind: 'fixed',
+            kind: "fixed",
             instances: 1
           },
-          containers: [
-            { }
-          ]
+          containers: [{}]
         },
         instances: [
           {
-            status: 'stable',
+            status: "stable",
             containers: [
               {
-                status: 'stable',
-                endpoints: [
-                  { name: 'nginx' }
-                ]
+                status: "stable",
+                endpoints: [{ name: "nginx" }]
               }
             ]
           },
           {
-            status: 'stable',
+            status: "stable",
             containers: [
               {
-                status: 'stable',
-                endpoints: [
-                  { name: 'nginx' }
-                ]
+                status: "stable",
+                endpoints: [{ name: "nginx" }]
               }
             ]
           }
@@ -433,7 +382,5 @@ describe('Pod', function () {
         tasksOverCapacity: 1
       });
     });
-
   });
-
 });

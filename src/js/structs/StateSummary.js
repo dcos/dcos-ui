@@ -1,22 +1,23 @@
-import MesosSummaryUtil from '../utils/MesosSummaryUtil';
-import ServicesList from '../../../plugins/services/src/js/structs/ServicesList';
-import NodesList from './NodesList';
+import MesosSummaryUtil from "../utils/MesosSummaryUtil";
+import ServicesList
+  from "../../../plugins/services/src/js/structs/ServicesList";
+import NodesList from "./NodesList";
 
 module.exports = class StateSummary {
   constructor(options = {}) {
     this.snapshot = {
       frameworks: [],
       slaves: [],
-      cluster: '',
-      hostname: ''
+      cluster: "",
+      hostname: ""
     };
 
     this.metadata = {
       date: undefined,
       successfulSnapshot: true,
-      serviceUsedResources: {cpus: 0, mem: 0, disk: 0},
-      slaveUsedResources: {cpus: 0, mem: 0, disk: 0},
-      slaveTotalResources: {cpus: 0, mem: 0, disk: 0}
+      serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
+      slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
+      slaveTotalResources: { cpus: 0, mem: 0, disk: 0 }
     };
     const snapshot = options.snapshot || this.snapshot;
     // Only place where we normalize server data
@@ -34,21 +35,21 @@ module.exports = class StateSummary {
     // Store computed data – this is something we may not need to store
     this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      slaves.map(function (slave) {
+      slaves.map(function(slave) {
         return slave.resources;
       })
     );
 
     this.metadata.slaveUsedResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      slaves.map(function (slave) {
+      slaves.map(function(slave) {
         return slave.used_resources;
       })
     );
 
     const frameworks = this.snapshot.frameworks || [];
     this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
-      frameworks.map(function (framework) {
+      frameworks.map(function(framework) {
         return framework.used_resources;
       })
     );
@@ -63,17 +64,17 @@ module.exports = class StateSummary {
   }
 
   getActiveSlaves() {
-    return this.snapshot.slaves.filter(function (slave) {
-      return (slave.active === true);
+    return this.snapshot.slaves.filter(function(slave) {
+      return slave.active === true;
     });
   }
 
   getServiceList() {
-    return new ServicesList({items: this.snapshot.frameworks});
+    return new ServicesList({ items: this.snapshot.frameworks });
   }
 
   getNodesList() {
-    return new NodesList({items: this.snapshot.slaves});
+    return new NodesList({ items: this.snapshot.slaves });
   }
 
   getSlaveTotalResources() {

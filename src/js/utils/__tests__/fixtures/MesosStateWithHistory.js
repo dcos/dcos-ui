@@ -10,76 +10,76 @@ const timestamp08 = 1008;
 module.exports = {
   frameworks: [
     {
-      name: 'marathon',
+      name: "marathon",
       completed_tasks: [
         {
-          id: 'pod-p0.instance-inst-a1.container-c1',
-          name: 'c1',
-          state: 'TASK_RUNNING',
-          resources: {cpus:0.1, mem:16, disk:16},
+          id: "pod-p0.instance-inst-a1.container-c1",
+          name: "c1",
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.1, mem: 16, disk: 16 },
           statuses: [
             {
-              state: 'TASK_STAGING',
+              state: "TASK_STAGING",
               timestamp: timestamp01
             },
             {
-              state: 'TASK_RUNNING',
+              state: "TASK_RUNNING",
               timestamp: timestamp02
             }
           ]
         },
         {
-          id: 'pod-p0.instance-inst-a1.container-c2',
-          name: 'c2',
-          state: 'TASK_RUNNING',
-          resources: {cpus:0.1, mem:16, disk:0},
+          id: "pod-p0.instance-inst-a1.container-c2",
+          name: "c2",
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.1, mem: 16, disk: 0 },
           statuses: [
             {
-              state: 'TASK_STAGING',
+              state: "TASK_STAGING",
               timestamp: timestamp03
             },
             {
-              state: 'TASK_RUNNING',
+              state: "TASK_RUNNING",
               timestamp: timestamp04
             }
           ]
         },
         {
-          id: 'pod-p0.instance-inst-a1.container-c3',
-          name: 'c3',
-          state: 'TASK_RUNNING',
-          resources: {cpus:0.2, mem:16, disk:0},
+          id: "pod-p0.instance-inst-a1.container-c3",
+          name: "c3",
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.2, mem: 16, disk: 0 },
           statuses: [
             {
-              state: 'TASK_STAGING',
+              state: "TASK_STAGING",
               timestamp: timestamp05
             },
             {
-              state: 'TASK_RUNNING',
+              state: "TASK_RUNNING",
               timestamp: timestamp06
             }
           ]
         },
         {
-          id: 'pod-p0.instance-inst-a2.container-c4',
-          name: 'c4',
-          state: 'TASK_RUNNING',
-          resources: {cpus:0.1, mem:16, gpus:1},
+          id: "pod-p0.instance-inst-a2.container-c4",
+          name: "c4",
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.1, mem: 16, gpus: 1 },
           statuses: [
             {
-              state: 'TASK_RUNNING',
+              state: "TASK_RUNNING",
               timestamp: timestamp07
             }
           ]
         },
         {
-          id: 'pod-p1.instance-inst-a1.container-c1',
-          name: 'c1',
-          state: 'TASK_RUNNING',
-          resources: {cpus:0.1, mem:16, disk:0},
+          id: "pod-p1.instance-inst-a1.container-c1",
+          name: "c1",
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.1, mem: 16, disk: 0 },
           statuses: [
             {
-              state: 'TASK_RUNNING',
+              state: "TASK_RUNNING",
               timestamp: timestamp08
             }
           ]

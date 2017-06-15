@@ -1,48 +1,48 @@
-import classNames from 'classnames';
-import {ResourceTableUtil} from 'foundation-ui';
-import {routerShape, Link} from 'react-router';
-import React from 'react';
-import {Tooltip} from 'reactjs-components';
+import classNames from "classnames";
+import { ResourceTableUtil } from "foundation-ui";
+import { routerShape, Link } from "react-router";
+import React from "react";
+import { Tooltip } from "reactjs-components";
 
-import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
-import Icon from '../../../../../../src/js/components/Icon';
-import TableUtil from '../../../../../../src/js/utils/TableUtil';
-import TaskStates from '../../constants/TaskStates';
-import TaskHealthStates from '../../constants/TaskHealthStates';
-import TaskTableHeaderLabels from '../../constants/TaskTableHeaderLabels';
-import TaskTableUtil from '../../utils/TaskTableUtil';
-import TaskUtil from '../../utils/TaskUtil';
-import Units from '../../../../../../src/js/utils/Units';
+import CheckboxTable from "../../../../../../src/js/components/CheckboxTable";
+import Icon from "../../../../../../src/js/components/Icon";
+import TableUtil from "../../../../../../src/js/utils/TableUtil";
+import TaskStates from "../../constants/TaskStates";
+import TaskHealthStates from "../../constants/TaskHealthStates";
+import TaskTableHeaderLabels from "../../constants/TaskTableHeaderLabels";
+import TaskTableUtil from "../../utils/TaskTableUtil";
+import TaskUtil from "../../utils/TaskUtil";
+import Units from "../../../../../../src/js/utils/Units";
 
 const tableColumnClasses = {
-  checkbox: 'task-table-column-checkbox',
-  id: 'task-table-column-primary',
-  name: 'task-table-column-name',
-  host: 'task-table-column-host-address',
-  status: 'task-table-column-status',
-  health: 'task-table-column-health',
-  logs: 'task-table-column-logs',
-  cpus: 'task-table-column-cpus',
-  mem: 'task-table-column-mem',
-  updated: 'task-table-column-updated',
-  version: 'task-table-column-version'
+  checkbox: "task-table-column-checkbox",
+  id: "task-table-column-primary",
+  name: "task-table-column-name",
+  host: "task-table-column-host-address",
+  status: "task-table-column-status",
+  health: "task-table-column-health",
+  logs: "task-table-column-logs",
+  cpus: "task-table-column-cpus",
+  mem: "task-table-column-mem",
+  updated: "task-table-column-updated",
+  version: "task-table-column-version"
 };
 
 const METHODS_TO_BIND = [
-  'getStatusValue',
-  'renderHeadline',
-  'renderHost',
-  'renderLog',
-  'renderStatus',
-  'renderStats',
-  'renderVersion'
+  "getStatusValue",
+  "renderHeadline",
+  "renderHost",
+  "renderLog",
+  "renderStatus",
+  "renderStats",
+  "renderVersion"
 ];
 
 class TaskTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -61,23 +61,23 @@ class TaskTable extends React.Component {
 
   getClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
-      'highlight': prop === sortBy.prop,
-      'clickable': row == null // this is a header
+      highlight: prop === sortBy.prop,
+      clickable: row == null // this is a header
     });
   }
 
   getColumns() {
     var className = this.getClassName;
     var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
-    const sortFunction = TaskTableUtil.getSortFunction('id');
+    const sortFunction = TaskTableUtil.getSortFunction("id");
 
     return [
       {
         className,
         headerClassName: className,
         heading,
-        prop: 'id',
-        render: this.renderHeadline({primary: true}),
+        prop: "id",
+        render: this.renderHeadline({ primary: true }),
         sortable: true,
         sortFunction
       },
@@ -85,8 +85,8 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'name',
-        render: this.renderHeadline({secondary: true}),
+        prop: "name",
+        render: this.renderHeadline({ secondary: true }),
         sortable: true,
         sortFunction
       },
@@ -94,7 +94,7 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'host',
+        prop: "host",
         render: this.renderHost,
         sortable: true,
         sortFunction
@@ -105,7 +105,7 @@ class TaskTable extends React.Component {
         getValue: this.getStatusValue,
         headerClassName: className,
         heading,
-        prop: 'status',
+        prop: "status",
         render: this.renderStatus,
         sortable: true,
         sortFunction
@@ -116,7 +116,7 @@ class TaskTable extends React.Component {
         getValue: this.getStatusValue,
         headerClassName: className,
         heading,
-        prop: 'health',
+        prop: "health",
         render: this.renderHealth,
         sortable: true,
         sortFunction
@@ -126,7 +126,7 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'logs',
+        prop: "logs",
         render: this.renderLog,
         sortable: false,
         sortFunction
@@ -137,7 +137,7 @@ class TaskTable extends React.Component {
         getValue: this.getStatValue,
         headerClassName: className,
         heading,
-        prop: 'cpus',
+        prop: "cpus",
         render: this.renderStats,
         sortable: true,
         sortFunction
@@ -148,7 +148,7 @@ class TaskTable extends React.Component {
         getValue: this.getStatValue,
         headerClassName: className,
         heading,
-        prop: 'mem',
+        prop: "mem",
         render: this.renderStats,
         sortable: true,
         sortFunction
@@ -157,7 +157,7 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'updated',
+        prop: "updated",
         render: ResourceTableUtil.renderUpdated,
         sortable: true,
         sortFunction
@@ -168,10 +168,10 @@ class TaskTable extends React.Component {
         getValue: this.getVersionValue,
         headerClassName: className,
         heading,
-        prop: 'version',
+        prop: "version",
         render: this.renderVersion,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction('id', (task) => {
+        sortFunction: TableUtil.getSortFunction("id", task => {
           const version = this.getVersionValue(task);
           if (version == null) {
             return null;
@@ -203,11 +203,13 @@ class TaskTable extends React.Component {
 
   getDisabledItemsMap(tasks) {
     return tasks
-      .filter(function (task) {
-        return TaskStates[task.state].stateTypes.includes('completed')
-          || !task.isStartedByMarathon;
+      .filter(function(task) {
+        return (
+          TaskStates[task.state].stateTypes.includes("completed") ||
+          !task.isStartedByMarathon
+        );
       })
-      .reduce(function (acc, task) {
+      .reduce(function(acc, task) {
         acc[task.id] = true;
 
         return acc;
@@ -215,25 +217,24 @@ class TaskTable extends React.Component {
   }
 
   getInactiveItemsMap(tasks) {
-    return tasks
-      .reduce(function (acc, task) {
-        if (TaskStates[task.state].stateTypes.includes('completed')) {
-          acc[task.id] = true;
-        }
+    return tasks.reduce(function(acc, task) {
+      if (TaskStates[task.state].stateTypes.includes("completed")) {
+        acc[task.id] = true;
+      }
 
-        return acc;
-      }, {});
+      return acc;
+    }, {});
   }
 
   renderHeadline(options) {
-    const anchorClasses = classNames('text-overflow', {
-      'table-cell-link-primary': options.primary,
-      'table-cell-link-secondary': options.secondary
+    const anchorClasses = classNames("text-overflow", {
+      "table-cell-link-primary": options.primary,
+      "table-cell-link-secondary": options.secondary
     });
 
     return (prop, task) => {
       const title = task[prop];
-      const {id, nodeID} = this.props.params;
+      const { id, nodeID } = this.props.params;
 
       let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}`;
       if (nodeID != null) {
@@ -244,10 +245,7 @@ class TaskTable extends React.Component {
         <div className="flex-box flex-box-align-vertical-center
           table-cell-flex-box">
           <div className="table-cell-value flex-box flex-box-col">
-            <Link
-              className={anchorClasses}
-              to={linkTo}
-              title={title}>
+            <Link className={anchorClasses} to={linkTo} title={title}>
               {title}
             </Link>
           </div>
@@ -258,7 +256,7 @@ class TaskTable extends React.Component {
 
   renderLog(prop, task) {
     const title = task.name || task.id;
-    const {id, nodeID} = this.props.params;
+    const { id, nodeID } = this.props.params;
 
     let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
     if (nodeID != null) {
@@ -268,11 +266,11 @@ class TaskTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
-        <Tooltip content="View logs"
-          wrapperClassName="tooltip-wrapper text-align-center description">
-          <Link
-            to={linkTo}
-            title={title}>
+        <Tooltip
+          content="View logs"
+          wrapperClassName="tooltip-wrapper text-align-center description"
+        >
+          <Link to={linkTo} title={title}>
             <Icon color="grey" id="page-document" size="mini" />
           </Link>
         </Tooltip>
@@ -282,14 +280,15 @@ class TaskTable extends React.Component {
 
   renderHost(prop, task) {
     if (!task.hostname) {
-      return 'N/A';
+      return "N/A";
     }
 
     return (
       <Link
         className="table-cell-link-secondary text-overflow"
         to={`/nodes/${task.slave_id}`}
-        title={task.hostname}>
+        title={task.hostname}
+      >
         {task.hostname}
       </Link>
     );
@@ -318,14 +317,14 @@ class TaskTable extends React.Component {
   }
 
   renderHealth(prop, task) {
-    const {state} = task;
+    const { state } = task;
 
-    const dangerState = TaskStates[state].stateTypes.includes('failure');
-    const activeState = TaskStates[state].stateTypes.includes('active');
+    const dangerState = TaskStates[state].stateTypes.includes("failure");
+    const activeState = TaskStates[state].stateTypes.includes("active");
 
-    const healthy = (task.health === TaskHealthStates.HEALTHY);
-    const unhealthy = (task.health === TaskHealthStates.UNHEALTHY);
-    const unknown = (task.health === TaskHealthStates.UNKNOWN);
+    const healthy = task.health === TaskHealthStates.HEALTHY;
+    const unhealthy = task.health === TaskHealthStates.UNHEALTHY;
+    const unknown = task.health === TaskHealthStates.UNKNOWN;
 
     let tooltipContent = TaskHealthStates.HEALTHY;
 
@@ -334,19 +333,19 @@ class TaskTable extends React.Component {
     }
 
     if (!activeState || unknown) {
-      tooltipContent = 'No health checks available';
+      tooltipContent = "No health checks available";
     }
 
-    const failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
-    const running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
+    const failing = ["TASK_ERROR", "TASK_FAILED"].includes(state);
+    const running = ["TASK_RUNNING", "TASK_STARTING"].includes(state);
 
     const statusClass = classNames({
-      'dot': true,
-      'flush': true,
-      'inactive': !activeState,
-      'success': healthy && running,
-      'running': unknown && running,
-      'danger': dangerState || unhealthy || failing
+      dot: true,
+      flush: true,
+      inactive: !activeState,
+      success: healthy && running,
+      running: unknown && running,
+      danger: dangerState || unhealthy || failing
     });
 
     return (
@@ -355,7 +354,7 @@ class TaskTable extends React.Component {
         <div className="table-cell-icon table-cell-task-dot
           task-status-indicator">
           <Tooltip anchor="center" content={tooltipContent}>
-            <span className={statusClass}></span>
+            <span className={statusClass} />
           </Tooltip>
         </div>
       </div>
@@ -379,7 +378,7 @@ class TaskTable extends React.Component {
   }
 
   render() {
-    const {checkedItemsMap, className, onCheckboxChange, tasks} = this.props;
+    const { checkedItemsMap, className, onCheckboxChange, tasks } = this.props;
 
     return (
       <CheckboxTable
@@ -391,9 +390,10 @@ class TaskTable extends React.Component {
         inactiveItemsMap={this.getInactiveItemsMap(tasks)}
         getColGroup={this.getColGroup}
         onCheckboxChange={onCheckboxChange}
-        sortBy={{prop: 'updated', order: 'desc'}}
+        sortBy={{ prop: "updated", order: "desc" }}
         sortOrder="desc"
-        sortProp="updated" />
+        sortProp="updated"
+      />
     );
   }
 }
@@ -411,7 +411,7 @@ TaskTable.propTypes = {
 };
 
 TaskTable.defaultProps = {
-  className: 'table table-borderless-outer table-borderless-inner-columns flush-bottom',
+  className: "table table-borderless-outer table-borderless-inner-columns flush-bottom",
   tasks: []
 };
 

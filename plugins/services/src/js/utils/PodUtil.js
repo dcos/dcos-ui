@@ -1,8 +1,7 @@
-import PodInstance from '../structs/PodInstance';
-import PodInstanceList from '../structs/PodInstanceList';
+import PodInstance from "../structs/PodInstance";
+import PodInstanceList from "../structs/PodInstanceList";
 
 var PodUtil = {
-
   /**
    * Returns true if the container given matches
    * the free-text given.
@@ -36,7 +35,7 @@ var PodUtil = {
       return true;
     }
 
-    return instance.getContainers().some(function (container) {
+    return instance.getContainers().some(function(container) {
       return PodUtil.isContainerMatchingText(container, text);
     });
   },
@@ -62,54 +61,58 @@ var PodUtil = {
 
     // De-compose PodInstances into plain objects, so we always operate
     // with plain objects
-    const podInstancesMap =
-        podInstances.reduceItems(function (memo, podInstance) {
-          memo[podInstance.getId()] = podInstance.get();
+    const podInstancesMap = podInstances.reduceItems(function(
+      memo,
+      podInstance
+    ) {
+      memo[podInstance.getId()] = podInstance.get();
 
-          return memo;
-        }, {});
+      return memo;
+    }, {});
 
     // Then merge historical instance information in the pod instance map
-    const combinedInstanceMap =
-        historicalInstances.reduce(function (memo, historicalInstance) {
-          const podInstance = memo[historicalInstance.id];
-          if (podInstance === undefined) {
-            memo[historicalInstance.id] = historicalInstance;
+    const combinedInstanceMap = historicalInstances.reduce(function(
+      memo,
+      historicalInstance
+    ) {
+      const podInstance = memo[historicalInstance.id];
+      if (podInstance === undefined) {
+        memo[historicalInstance.id] = historicalInstance;
 
-            return memo;
-          }
+        return memo;
+      }
 
-          let combinedContainers = [].concat(
-              podInstance.containers,
-              historicalInstance.containers
-          );
+      let combinedContainers = [].concat(
+        podInstance.containers,
+        historicalInstance.containers
+      );
 
-          // Filter combined container list to remove potential duplicates
-          const containerIds = new Map();
-          combinedContainers =
-              combinedContainers.filter(function ({containerId}) {
-                if (!containerIds.has(containerId)) {
-                  containerIds.set(containerId);
+      // Filter combined container list to remove potential duplicates
+      const containerIds = new Map();
+      combinedContainers = combinedContainers.filter(function({ containerId }) {
+        if (!containerIds.has(containerId)) {
+          containerIds.set(containerId);
 
-                  return true;
-                }
+          return true;
+        }
 
-                return false;
-              });
+        return false;
+      });
 
-          podInstance.containers = combinedContainers;
+      podInstance.containers = combinedContainers;
 
-          return memo;
-        }, podInstancesMap);
+      return memo;
+    }, podInstancesMap);
 
     // Re-compose PodInstances from plain objects
-    const instances = Object.values(combinedInstanceMap).map(function (instance) {
+    const instances = Object.values(combinedInstanceMap).map(function(
+      instance
+    ) {
       return new PodInstance(instance);
     });
 
-    return new PodInstanceList({items: instances});
+    return new PodInstanceList({ items: instances });
   }
-
 };
 
 module.exports = PodUtil;

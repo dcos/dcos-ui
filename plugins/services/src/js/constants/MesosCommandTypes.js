@@ -1,4 +1,4 @@
 module.exports = {
-  SHELL: 'SHELL',
-  ARGV: 'ARGV'
+  SHELL: "SHELL",
+  ARGV: "ARGV"
 };

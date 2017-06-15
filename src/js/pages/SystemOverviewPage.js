@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Icon from '../components/Icon';
+import Icon from "../components/Icon";
 
 class SystemOverviewPage extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class SystemOverviewPage extends React.Component {
 }
 
 SystemOverviewPage.routeConfig = {
-  label: 'System Overview',
+  label: "System Overview",
   icon: <Icon id="cluster-inverse" size="small" family="product" />,
   matches: /^\/system-overview/
 };

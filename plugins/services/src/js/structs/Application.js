@@ -1,12 +1,12 @@
-import ApplicationSpec from './ApplicationSpec';
-import Config from '../../../../../src/js/config/Config';
-import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
-import FrameworkUtil from '../utils/FrameworkUtil';
-import HealthStatus from '../constants/HealthStatus';
-import Service from './Service';
-import ServiceStatus from '../constants/ServiceStatus';
-import TaskStats from './TaskStats';
-import VolumeList from './VolumeList';
+import ApplicationSpec from "./ApplicationSpec";
+import Config from "../../../../../src/js/config/Config";
+import { cleanServiceJSON } from "../../../../../src/js/utils/CleanJSONUtil";
+import FrameworkUtil from "../utils/FrameworkUtil";
+import HealthStatus from "../constants/HealthStatus";
+import Service from "./Service";
+import ServiceStatus from "../constants/ServiceStatus";
+import TaskStats from "./TaskStats";
+import VolumeList from "./VolumeList";
 
 module.exports = class Application extends Service {
   constructor() {
@@ -25,7 +25,7 @@ module.exports = class Application extends Service {
   }
 
   getDeployments() {
-    return this.get('deployments');
+    return this.get("deployments");
   }
 
   /**
@@ -39,7 +39,11 @@ module.exports = class Application extends Service {
    * @override
    */
   getHealth() {
-    const {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
+    const {
+      tasksHealthy,
+      tasksUnhealthy,
+      tasksRunning
+    } = this.getTasksSummary();
     const healthChecks = this.getSpec().getHealthChecks();
 
     if (tasksUnhealthy > 0) {
@@ -68,7 +72,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getInstancesCount() {
-    return this.get('instances') || 0;
+    return this.get("instances") || 0;
   }
 
   /**
@@ -87,7 +91,7 @@ module.exports = class Application extends Service {
   }
 
   getLastTaskFailure() {
-    return this.get('lastTaskFailure');
+    return this.get("lastTaskFailure");
   }
 
   getMetadata() {
@@ -95,15 +99,15 @@ module.exports = class Application extends Service {
   }
 
   getName() {
-    return this.getId().split('/').pop();
+    return this.getId().split("/").pop();
   }
 
   getPorts() {
-    return this.get('ports');
+    return this.get("ports");
   }
 
   getResidency() {
-    return this.get('residency');
+    return this.get("residency");
   }
 
   getStatus() {
@@ -119,14 +123,12 @@ module.exports = class Application extends Service {
    * @override
    */
   getServiceStatus() {
-    const {tasksRunning} = this.getTasksSummary();
+    const { tasksRunning } = this.getTasksSummary();
     const deployments = this.getDeployments();
     const queue = this.getQueue();
 
     const instances = this.getInstancesCount();
-    if (instances === 0 &&
-      tasksRunning === 0
-    ) {
+    if (instances === 0 && tasksRunning === 0) {
       return ServiceStatus.SUSPENDED;
     }
 
@@ -154,53 +156,59 @@ module.exports = class Application extends Service {
    */
   getTasksSummary() {
     const healthData = {
-      tasksHealthy: this.get('tasksHealthy'),
-      tasksStaged: this.get('tasksStaged'),
-      tasksUnhealthy: this.get('tasksUnhealthy'),
-      tasksUnknown: Math.max(0, this.get('tasksRunning') -
-        this.get('tasksHealthy') - this.get('tasksUnhealthy'))
+      tasksHealthy: this.get("tasksHealthy"),
+      tasksStaged: this.get("tasksStaged"),
+      tasksUnhealthy: this.get("tasksUnhealthy"),
+      tasksUnknown: Math.max(
+        0,
+        this.get("tasksRunning") -
+          this.get("tasksHealthy") -
+          this.get("tasksUnhealthy")
+      )
     };
 
-    const tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {
+    const tasksSum = Object.keys(healthData).reduce(function(sum, healthItem) {
       return sum + healthData[healthItem];
     }, 0);
 
-    healthData.tasksOverCapacity =
-      Math.max(0, tasksSum - this.getInstancesCount());
+    healthData.tasksOverCapacity = Math.max(
+      0,
+      tasksSum - this.getInstancesCount()
+    );
 
-    healthData.tasksRunning = this.get('tasksRunning');
+    healthData.tasksRunning = this.get("tasksRunning");
 
     return healthData;
   }
 
   getTaskStats() {
-    return new TaskStats(this.get('taskStats'));
+    return new TaskStats(this.get("taskStats"));
   }
 
   getQueue() {
-    return this.get('queue');
+    return this.get("queue");
   }
 
   getVersion() {
-    return this.get('version');
+    return this.get("version");
   }
 
   getVersions() {
-    return this.get('versions') || new Map();
+    return this.get("versions") || new Map();
   }
 
   getVersionInfo() {
-    const currentVersionID = this.get('version');
-    const {lastConfigChangeAt, lastScalingAt} = this.get('versionInfo');
+    const currentVersionID = this.get("version");
+    const { lastConfigChangeAt, lastScalingAt } = this.get("versionInfo");
 
-    return {lastConfigChangeAt, lastScalingAt, currentVersionID};
+    return { lastConfigChangeAt, lastScalingAt, currentVersionID };
   }
 
   /**
    * @override
    */
   getVolumes() {
-    return new VolumeList({items: this.get('volumes') || []});
+    return new VolumeList({ items: this.get("volumes") || [] });
   }
 
   /**
@@ -220,7 +228,5 @@ module.exports = class Application extends Service {
     }
 
     return `${Config.rootUrl}/service/${serviceName}/`;
-
   }
-
 };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
 
 /**
  * Render a boolean value as a <ConfigurationMapValue>, with it's values being
@@ -9,7 +10,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
  */
 class ConfigurationMapBooleanValue extends React.Component {
   render() {
-    let {defaultValue, options, value} = this.props;
+    let { defaultValue, options, value } = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {
@@ -34,8 +35,8 @@ class ConfigurationMapBooleanValue extends React.Component {
 ConfigurationMapBooleanValue.defaultProps = {
   defaultValue: <em>Not Configured</em>,
   options: {
-    truthy: 'Enabled',
-    falsy: 'Disabled'
+    truthy: "Enabled",
+    falsy: "Disabled"
   },
   value: null
 };

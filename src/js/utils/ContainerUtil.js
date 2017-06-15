@@ -7,11 +7,7 @@ const ContainerUtil = {
    * @return {Object} updated action errors
    */
   adjustActionErrors(actionErrors, actionType, error) {
-    return Object.assign(
-      {},
-      actionErrors,
-      {[actionType]: error}
-    );
+    return Object.assign({}, actionErrors, { [actionType]: error });
   },
   /**
    * Sets pending action to true/false
@@ -21,11 +17,7 @@ const ContainerUtil = {
    * @return {Object} updated pending actions
    */
   adjustPendingActions(pendingActions, actionType, isPending) {
-    return Object.assign(
-      {},
-      pendingActions,
-      {[actionType]: isPending}
-    );
+    return Object.assign({}, pendingActions, { [actionType]: isPending });
   }
 };
 

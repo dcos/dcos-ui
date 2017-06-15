@@ -1,13 +1,11 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import Config from '../config/Config';
+import Config from "../config/Config";
 
 function getDefaultMessage() {
   const slackLink = (
-    <a
-      href={Config.slackChannel}
-      target="_blank">
+    <a href={Config.slackChannel} target="_blank">
       Slack channel
     </a>
   );
@@ -19,18 +17,25 @@ function getDefaultMessage() {
 
   return (
     <p className="text-align-center flush-bottom">
-      You can also join us on our {slackLink} or send us an email at {supportLink}.
+      You can also join us on our
+      {" "}
+      {slackLink}
+      {" "}
+      or send us an email at
+      {" "}
+      {supportLink}
+      .
     </p>
   );
 }
 
 class RequestErrorMsg extends React.Component {
   render() {
-    let {columnClasses, header, message} = this.props;
+    let { columnClasses, header, message } = this.props;
 
     columnClasses = classNames(
-      'column-small-8 column-small-offset-2',
-      'column-medium-6 column-medium-offset-3',
+      "column-small-8 column-small-offset-2",
+      "column-medium-6 column-medium-offset-3",
       columnClasses
     );
 
@@ -49,7 +54,7 @@ class RequestErrorMsg extends React.Component {
 
 RequestErrorMsg.defaultProps = {
   columnClasses: {},
-  header: 'Cannot Connect With The Server',
+  header: "Cannot Connect With The Server",
   message: getDefaultMessage()
 };
 

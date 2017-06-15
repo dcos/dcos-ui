@@ -1,11 +1,10 @@
-jest.dontMock('../DSLFilter');
-jest.dontMock('../DSLFilterList');
-const DSLFilter = require('../DSLFilter');
-const DSLFilterList = require('../DSLFilterList');
+jest.dontMock("../DSLFilter");
+jest.dontMock("../DSLFilterList");
+const DSLFilter = require("../DSLFilter");
+const DSLFilterList = require("../DSLFilterList");
 
-describe('DSLFilterList', function () {
-
-  it('should return only matching filters', function () {
+describe("DSLFilterList", function() {
+  it("should return only matching filters", function() {
     class MatchFilter extends DSLFilter {
       filterCanHandle() {
         return false;
@@ -24,9 +23,6 @@ describe('DSLFilterList', function () {
 
     filters = filters.add(matchInst, unmatchInst);
 
-    expect(filters.getMatchingFilters(0, {})).toEqual([
-      matchInst
-    ]);
+    expect(filters.getMatchingFilters(0, {})).toEqual([matchInst]);
   });
-
 });

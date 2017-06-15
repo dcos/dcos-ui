@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMap from '../../../components/ConfigurationMap';
-import ConfigurationMapLabel from '../../../components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../components/ConfigurationMapValue';
-import Overlay from '../../../structs/Overlay';
+import ConfigurationMap from "../../../components/ConfigurationMap";
+import ConfigurationMapLabel from "../../../components/ConfigurationMapLabel";
+import ConfigurationMapRow from "../../../components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "../../../components/ConfigurationMapSection";
+import ConfigurationMapValue from "../../../components/ConfigurationMapValue";
+import Overlay from "../../../structs/Overlay";
 
 class VirtualNetworkDetailsTab extends React.Component {
   render() {
-    const {overlay} = this.props;
+    const { overlay } = this.props;
 
     return (
       <div className="container">

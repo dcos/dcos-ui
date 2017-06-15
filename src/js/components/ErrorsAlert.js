@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Alert from './Alert';
-import {getUnanchoredErrorMessage} from '../utils/ErrorMessageUtil';
+import Alert from "./Alert";
+import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
 
-const ErrorsAlert = function (props) {
-  const {errors, hideTopLevelErrors, pathMapping} = props;
+const ErrorsAlert = function(props) {
+  const { errors, hideTopLevelErrors, pathMapping } = props;
   let showErrors = errors;
 
   if (hideTopLevelErrors) {
-    showErrors = showErrors.filter(function (error) {
+    showErrors = showErrors.filter(function(error) {
       return error.path.length === 0;
     });
   }

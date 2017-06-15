@@ -1,15 +1,13 @@
-import {DCOSStore} from 'foundation-ui';
-import React from 'react';
+import { DCOSStore } from "foundation-ui";
+import React from "react";
 
-import ServiceItemNotFound from '../../components/ServiceItemNotFound';
-import VolumeDetail from './VolumeDetail';
-import Loader from '../../../../../../src/js/components/Loader';
+import ServiceItemNotFound from "../../components/ServiceItemNotFound";
+import VolumeDetail from "./VolumeDetail";
+import Loader from "../../../../../../src/js/components/Loader";
 
-import {
-  DCOS_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
+import { DCOS_CHANGE } from "../../../../../../src/js/constants/EventTypes";
 
-const METHODS_TO_BIND = ['onStoreChange'];
+const METHODS_TO_BIND = ["onStoreChange"];
 
 class ServiceVolumeContainer extends React.Component {
   constructor() {
@@ -20,7 +18,7 @@ class ServiceVolumeContainer extends React.Component {
       lastUpdate: 0
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -35,9 +33,10 @@ class ServiceVolumeContainer extends React.Component {
 
   onStoreChange() {
     // Throttle updates from DCOSStore
-    if (Date.now() - this.state.lastUpdate > 1000
-      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
-
+    if (
+      Date.now() - this.state.lastUpdate > 1000 ||
+      (DCOSStore.serviceDataReceived && this.state.isLoading)
+    ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
@@ -46,7 +45,7 @@ class ServiceVolumeContainer extends React.Component {
   }
 
   render() {
-    const {id, volumeID} = this.props.params;
+    const { id, volumeID } = this.props.params;
     const serviceId = decodeURIComponent(id);
     const service = DCOSStore.serviceTree.findItemById(serviceId);
     const volumeId = decodeURIComponent(volumeID);
@@ -58,18 +57,18 @@ class ServiceVolumeContainer extends React.Component {
     if (!service) {
       return (
         <ServiceItemNotFound
-          message={`The service with the ID of "${id}" could not be found.`} />
+          message={`The service with the ID of "${id}" could not be found.`}
+        />
       );
     }
 
-    const volume = service.getVolumes().findItem((volume) => {
+    const volume = service.getVolumes().findItem(volume => {
       return volume.getId() === volumeId;
     });
 
     if (!volume) {
       return (
-        <ServiceItemNotFound
-          message={`Volume '${volumeId}' was not found.`} />
+        <ServiceItemNotFound message={`Volume '${volumeId}' was not found.`} />
       );
     }
 

@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-import Units from '../../../../../src/js/utils/Units';
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
+import Units from "../../../../../src/js/utils/Units";
 
 /**
  * Render a size value as a <ConfigurationMapValue>, with it's values being
@@ -13,8 +14,15 @@ import Units from '../../../../../src/js/utils/Units';
  */
 class ConfigurationMapSizeValue extends React.Component {
   render() {
-    const {decimals, defaultValue, multiplier, scale, threshold, units,
-      value} = this.props;
+    const {
+      decimals,
+      defaultValue,
+      multiplier,
+      scale,
+      threshold,
+      units,
+      value
+    } = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {
@@ -23,10 +31,7 @@ class ConfigurationMapSizeValue extends React.Component {
 
     return (
       <ConfigurationMapValue>
-        {Units.filesize(
-          value * scale,
-          decimals, threshold, multiplier, units
-        )}
+        {Units.filesize(value * scale, decimals, threshold, multiplier, units)}
       </ConfigurationMapValue>
     );
   }
@@ -36,9 +41,9 @@ ConfigurationMapSizeValue.defaultProps = {
   decimals: 2,
   defaultValue: <em>Not Configured</em>,
   multiplier: 1024,
-  scale: (1024 * 1024),
+  scale: 1024 * 1024,
   threshold: 800,
-  units: ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'],
+  units: ["B", "KiB", "MiB", "GiB", "TiB", "PiB"],
   value: 0
 };
 

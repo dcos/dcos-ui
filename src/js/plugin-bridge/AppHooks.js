@@ -1,17 +1,13 @@
 module.exports = {
-  actions: [
-    'pluginsConfigured'
-  ],
+  actions: ["pluginsConfigured"],
 
-  filters: [
-    'hasCapability'
-  ],
+  filters: ["hasCapability"],
 
   initialize(SDK) {
-    this.actions.forEach((action) => {
+    this.actions.forEach(action => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
-    this.filters.forEach((filter) => {
+    this.filters.forEach(filter => {
       SDK.Hooks.addFilter(filter, this[filter].bind(this));
     });
 
@@ -25,6 +21,6 @@ module.exports = {
 
   pluginsConfigured() {
     // Filter the Application's configuration
-    this.SDK.Hooks.applyFilter('applicationConfiguration', this.SDK.config);
+    this.SDK.Hooks.applyFilter("applicationConfiguration", this.SDK.config);
   }
 };

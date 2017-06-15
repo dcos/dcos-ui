@@ -1,19 +1,22 @@
-import React from 'react';
-import {Link} from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
-import Breadcrumb from '../../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../../components/BreadcrumbTextContent';
-import MesosStateStore from '../../../stores/MesosStateStore';
-import Page from '../../../components/Page';
-import TaskDetail from '../../../../../plugins/services/src/js/pages/task-details/TaskDetail';
-import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
+import Breadcrumb from "../../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
+import MesosStateStore from "../../../stores/MesosStateStore";
+import Page from "../../../components/Page";
+import TaskDetail
+  from "../../../../../plugins/services/src/js/pages/task-details/TaskDetail";
+import VirtualNetworksStore from "../../../stores/VirtualNetworksStore";
 
-const dontScrollRoutes = [
-  /\/files\/view.*$/,
-  /\/logs.*$/
-];
+const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
-const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
+const NetworksDetailTaskBreadcrumbs = ({
+  overlayID,
+  overlay,
+  taskID,
+  task
+}) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
@@ -70,19 +73,19 @@ const NetworksDetailTaskBreadcrumbs = ({overlayID, overlay, taskID, task}) => {
 
 class VirtualNetworkTaskPage extends React.Component {
   render() {
-    const {location, params, routes} = this.props;
-    const {overlayName, taskID} = params;
+    const { location, params, routes } = this.props;
+    const { overlayName, taskID } = params;
 
     const routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
     const tabs = [
-      {label: 'Details', routePath: routePrefix + '/details'},
-      {label: 'Files', routePath: routePrefix + '/files'},
-      {label: 'Logs', routePath: routePrefix + '/logs'}
+      { label: "Details", routePath: routePrefix + "/details" },
+      { label: "Files", routePath: routePrefix + "/files" },
+      { label: "Logs", routePath: routePrefix + "/logs" }
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-    const overlay = VirtualNetworksStore.getOverlays().findItem((overlay) => {
+    const overlay = VirtualNetworksStore.getOverlays().findItem(overlay => {
       return overlay.getName() === overlayName;
     });
 
@@ -93,22 +96,20 @@ class VirtualNetworkTaskPage extends React.Component {
           overlayID={overlayName}
           overlay={overlay}
           taskID={taskID}
-          taskName={task.getName()} />
+          taskName={task.getName()}
+        />
       );
     } else {
       breadcrumbs = <NetworksDetailTaskBreadcrumbs />;
     }
 
-    const dontScroll = dontScrollRoutes.some((regex) => {
+    const dontScroll = dontScrollRoutes.some(regex => {
       return regex.test(location.pathname);
     });
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header
-          breadcrumbs={breadcrumbs}
-          tabs={tabs}
-          iconID="Networks"/>
+        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="Networks" />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

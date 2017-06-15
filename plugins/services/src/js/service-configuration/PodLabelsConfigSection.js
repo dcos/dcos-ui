@@ -1,34 +1,36 @@
-import React from 'react';
+import React from "react";
 
 import {
   getSharedIconWithLabel,
   getContainerNameWithIcon
-} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
+} from "../utils/ServiceConfigDisplayUtil";
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
+import ConfigurationMapHeading
+  from "../../../../../src/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "../../../../../src/js/components/ConfigurationMapSection";
 
 class PodLabelsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: 'Key',
-        prop: 'key'
+        heading: "Key",
+        prop: "key"
       },
       {
-        heading: 'Value',
-        prop: 'value'
+        heading: "Value",
+        prop: "value"
       },
       {
-        heading: 'Container',
-        prop: 'container'
+        heading: "Container",
+        prop: "container"
       }
     ];
   }
 
   render() {
-    const {onEditClick} = this.props;
-    const {labels = {}, containers = []} = this.props.appConfig;
+    const { onEditClick } = this.props;
+    const { labels = {}, containers = [] } = this.props.appConfig;
 
     let combinedLabels = [];
 
@@ -45,7 +47,7 @@ class PodLabelsConfigSection extends React.Component {
     }
 
     combinedLabels = containers.reduce((memo, container) => {
-      const {labels = {}} = container;
+      const { labels = {} } = container;
 
       if (labels != null) {
         return Object.keys(labels).reduce((cvMemo, key) => {
@@ -71,11 +73,12 @@ class PodLabelsConfigSection extends React.Component {
         <ConfigurationMapHeading level={1}>Labels</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
           <ConfigurationMapTable
-            columnDefaults={{hideIfEmpty: true}}
+            columnDefaults={{ hideIfEmpty: true }}
             columns={this.getColumns()}
             data={combinedLabels}
             onEditClick={onEditClick}
-            tabViewID="multienvironment" />
+            tabViewID="multienvironment"
+          />
         </ConfigurationMapSection>
       </div>
     );

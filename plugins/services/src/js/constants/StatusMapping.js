@@ -1,5 +1,5 @@
 const StatusMapping = {
-  'Running': 'service-running-state'
+  Running: "service-running-state"
 };
 
 module.exports = StatusMapping;

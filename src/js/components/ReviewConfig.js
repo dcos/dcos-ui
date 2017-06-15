@@ -1,12 +1,13 @@
-import GeminiScrollbar from 'react-gemini-scrollbar';
-import React from 'react';
+import GeminiScrollbar from "react-gemini-scrollbar";
+import React from "react";
 
-import ConfigurationMap from './ConfigurationMap';
-import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
-import HashMapDisplay from './HashMapDisplay';
-import Icon from './Icon';
-import Image from './Image';
-import ScrollbarUtil from '../utils/ScrollbarUtil';
+import ConfigurationMap from "./ConfigurationMap";
+import defaultServiceImage
+  from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
+import HashMapDisplay from "./HashMapDisplay";
+import Icon from "./Icon";
+import Image from "./Image";
+import ScrollbarUtil from "../utils/ScrollbarUtil";
 
 class ReviewConfig extends React.Component {
   componentDidMount() {
@@ -23,12 +24,12 @@ class ReviewConfig extends React.Component {
       packageName,
       packageVersion
     } = this.props;
-    const fileName = 'config.json';
+    const fileName = "config.json";
     const configString = JSON.stringify(configuration, null, 2);
-    const ieDownloadConfig = function () {
+    const ieDownloadConfig = function() {
       // Download if on IE
       if (global.navigator.msSaveOrOpenBlob) {
-        const blob = new Blob([configString], {type: 'application/json'});
+        const blob = new Blob([configString], { type: "application/json" });
         global.navigator.msSaveOrOpenBlob(blob, fileName);
       }
     };
@@ -43,7 +44,8 @@ class ReviewConfig extends React.Component {
                   <div className="icon icon-medium icon-image-container icon-app-container icon-default-white">
                     <Image
                       fallbackSrc={defaultServiceImage}
-                      src={packageIcon} />
+                      src={packageIcon}
+                    />
                   </div>
                 </div>
                 <div className="media-object-item">
@@ -62,7 +64,8 @@ class ReviewConfig extends React.Component {
               className="button button-small button-stroke button-rounded"
               onClick={ieDownloadConfig}
               download={fileName}
-              href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}>
+              href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
+            >
               <Icon id="download" size="mini" /> Download config.json
             </a>
           </div>
@@ -94,7 +97,7 @@ class ReviewConfig extends React.Component {
 }
 
 ReviewConfig.defaultProps = {
-  className: 'modal-install-package-body-and-header'
+  className: "modal-install-package-body-and-header"
 };
 
 ReviewConfig.propTypes = {

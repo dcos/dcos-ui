@@ -1,5 +1,5 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
 class SideTabs extends React.Component {
   constructor() {
@@ -11,19 +11,22 @@ class SideTabs extends React.Component {
   }
 
   handleTabClick(title) {
-    const {state: {dropdownOpen}, props: {onTabClick, selectedTab}} = this;
+    const {
+      state: { dropdownOpen },
+      props: { onTabClick, selectedTab }
+    } = this;
 
     if (title === selectedTab) {
-      this.setState({dropdownOpen: !dropdownOpen});
+      this.setState({ dropdownOpen: !dropdownOpen });
     } else {
-      this.setState({dropdownOpen: false});
+      this.setState({ dropdownOpen: false });
     }
     // Trigger on both open and close to make sure to trigger gemini update
     onTabClick(title);
   }
 
   getSelectedTabTitle(selectedTab, tabs) {
-    const selectedTabDefinition = tabs.find(function (tab) {
+    const selectedTabDefinition = tabs.find(function(tab) {
       return tab.selectValue === selectedTab;
     });
 
@@ -33,27 +36,33 @@ class SideTabs extends React.Component {
   }
 
   getTabs() {
-    const {selectedTab, tabs} = this.props;
+    const { selectedTab, tabs } = this.props;
 
     return tabs.map((tab, index) => {
-      const {title, selectValue, definition} = tab;
+      const { title, selectValue, definition } = tab;
 
       // Check if at least one field has errors
-      const hasErrors = definition && definition.reduce(function (lastErrors, field) {
-        return lastErrors || !!field.showError;
-      }, false);
+      const hasErrors =
+        definition &&
+        definition.reduce(function(lastErrors, field) {
+          return lastErrors || !!field.showError;
+        }, false);
 
       // Prepare classes
-      const classes = classNames('multiple-form-modal-sidebar-menu-item clickable visible-block', {
-        'selected': selectValue === selectedTab || title === selectedTab,
-        'has-errors': hasErrors
-      });
+      const classes = classNames(
+        "multiple-form-modal-sidebar-menu-item clickable visible-block",
+        {
+          selected: selectValue === selectedTab || title === selectedTab,
+          "has-errors": hasErrors
+        }
+      );
 
       return (
         <li
           className={classes}
           key={index}
-          onClick={this.handleTabClick.bind(this, selectValue)}>
+          onClick={this.handleTabClick.bind(this, selectValue)}
+        >
           {title}
         </li>
       );
@@ -61,21 +70,28 @@ class SideTabs extends React.Component {
   }
 
   render() {
-    const {props: {className, selectedTab, tabs}, state: {dropdownOpen}} = this;
+    const {
+      props: { className, selectedTab, tabs },
+      state: { dropdownOpen }
+    } = this;
 
-    const classes = classNames('list-unstyled multiple-form-modal-sidebar-menu', {
-      'is-hidden': !dropdownOpen
-    });
+    const classes = classNames(
+      "list-unstyled multiple-form-modal-sidebar-menu",
+      {
+        "is-hidden": !dropdownOpen
+      }
+    );
 
-    const caretClasses = classNames('caret caret--desc caret--visible', {
-      'dropup': dropdownOpen
+    const caretClasses = classNames("caret caret--desc caret--visible", {
+      dropup: dropdownOpen
     });
 
     return (
       <div className={className}>
         <span
           className="multiple-form-modal-sidebar-menu-item multiple-form-modal-sidebar-collapsed-header clickable visible-mini"
-          onClick={this.handleTabClick.bind(this, selectedTab)}>
+          onClick={this.handleTabClick.bind(this, selectedTab)}
+        >
           {this.getSelectedTabTitle(selectedTab, tabs)}
           <span className={caretClasses} />
         </span>
@@ -88,7 +104,7 @@ class SideTabs extends React.Component {
 }
 
 SideTabs.defaultProps = {
-  className: 'multiple-form-modal-sidebar-tabs',
+  className: "multiple-form-modal-sidebar-tabs",
   onTabClick() {},
   tabs: []
 };

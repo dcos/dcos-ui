@@ -1,80 +1,76 @@
-import {DCOSStore} from 'foundation-ui';
-import React, {PropTypes} from 'react';
-import {routerShape} from 'react-router';
+import { DCOSStore } from "foundation-ui";
+import React, { PropTypes } from "react";
+import { routerShape } from "react-router";
 
-import ActionKeys from '../../constants/ActionKeys';
-import MarathonActions from '../../events/MarathonActions';
-import Pod from '../../structs/Pod';
-import PodDetail from '../pod-detail/PodDetail';
-import Service from '../../structs/Service';
-import ServiceActionItem from '../../constants/ServiceActionItem';
-import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
-import ServiceDetail from '../service-detail/ServiceDetail';
-import ServiceItemNotFound from '../../components/ServiceItemNotFound';
-import ServiceModals from '../../components/modals/ServiceModals';
-import ServiceTree from '../../structs/ServiceTree';
-import ServiceTreeView from './ServiceTreeView';
+import ActionKeys from "../../constants/ActionKeys";
+import MarathonActions from "../../events/MarathonActions";
+import Pod from "../../structs/Pod";
+import PodDetail from "../pod-detail/PodDetail";
+import Service from "../../structs/Service";
+import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
+import ServiceDetail from "../service-detail/ServiceDetail";
+import ServiceItemNotFound from "../../components/ServiceItemNotFound";
+import ServiceModals from "../../components/modals/ServiceModals";
+import ServiceTree from "../../structs/ServiceTree";
+import ServiceTreeView from "./ServiceTreeView";
 
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import AppDispatcher from '../../../../../../src/js/events/AppDispatcher';
-import ContainerUtil from '../../../../../../src/js/utils/ContainerUtil';
-import Icon from '../../../../../../src/js/components/Icon';
-import Loader from '../../../../../../src/js/components/Loader';
-import Page from '../../../../../../src/js/components/Page';
-import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import MesosStateStore from "../../../../../../src/js/stores/MesosStateStore";
+import AppDispatcher from "../../../../../../src/js/events/AppDispatcher";
+import ContainerUtil from "../../../../../../src/js/utils/ContainerUtil";
+import Icon from "../../../../../../src/js/components/Icon";
+import Loader from "../../../../../../src/js/components/Loader";
+import Page from "../../../../../../src/js/components/Page";
+import RequestErrorMsg
+  from "../../../../../../src/js/components/RequestErrorMsg";
 
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-import DSLFilterList from '../../../../../../src/js/structs/DSLFilterList';
-import ServiceAttributeIsFilter from '../../filters/ServiceAttributeIsFilter';
+import DSLExpression from "../../../../../../src/js/structs/DSLExpression";
+import DSLFilterList from "../../../../../../src/js/structs/DSLFilterList";
+import ServiceAttributeIsFilter from "../../filters/ServiceAttributeIsFilter";
 import ServiceAttributeHealthFilter
-  from '../../filters/ServiceAttributeHealthFilter';
-import ServiceAttributeNoHealthchecksFilter from '../../filters/ServiceAttributeNoHealthchecksFilter';
-import ServiceNameTextFilter from '../../filters/ServiceNameTextFilter';
-import ServiceAttributeIsPodFilter from '../../filters/ServiceAttributeIsPodFilter';
-import ServiceAttributeIsUniverseFilter from '../../filters/ServiceAttributeIsUniverseFilter';
-import ServiceAttributeHasVolumesFilter from '../../filters/ServiceAttributeHasVolumesFilter';
+  from "../../filters/ServiceAttributeHealthFilter";
+import ServiceAttributeNoHealthchecksFilter
+  from "../../filters/ServiceAttributeNoHealthchecksFilter";
+import ServiceNameTextFilter from "../../filters/ServiceNameTextFilter";
+import ServiceAttributeIsPodFilter
+  from "../../filters/ServiceAttributeIsPodFilter";
+import ServiceAttributeIsUniverseFilter
+  from "../../filters/ServiceAttributeIsUniverseFilter";
+import ServiceAttributeHasVolumesFilter
+  from "../../filters/ServiceAttributeHasVolumesFilter";
 
 import {
   DCOS_CHANGE,
   MESOS_STATE_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
+} from "../../../../../../src/js/constants/EventTypes";
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
-
   REQUEST_MARATHON_GROUP_CREATE_ERROR,
   REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
-
   REQUEST_MARATHON_GROUP_DELETE_ERROR,
   REQUEST_MARATHON_GROUP_DELETE_SUCCESS,
-
   REQUEST_MARATHON_GROUP_EDIT_ERROR,
   REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
-
   REQUEST_MARATHON_SERVICE_DELETE_ERROR,
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
-
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
-
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
-} from '../../constants/ActionTypes';
+} from "../../constants/ActionTypes";
 
 import {
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
-
   MARATHON_GROUPS_CHANGE,
   MARATHON_GROUPS_ERROR,
-
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
-
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR
-} from '../../constants/EventTypes';
+} from "../../constants/EventTypes";
 
 const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeHealthFilter(),
@@ -94,7 +90,6 @@ const SERVICE_FILTERS = new DSLFilterList([
  * @return {Object} updated fetch errors
  */
 function countFetchErrors(fetchErrors, action) {
-
   switch (action.type) {
     case MARATHON_DEPLOYMENTS_ERROR:
     case MARATHON_GROUPS_ERROR:
@@ -118,18 +113,18 @@ function countFetchErrors(fetchErrors, action) {
 }
 
 const METHODS_TO_BIND = [
-  'handleServerAction',
-  'handleFilterExpressionChange',
-  'handleModalClose',
-  'clearActionError',
-  'createGroup',
-  'revertDeployment',
-  'deleteGroup',
-  'editGroup',
-  'deleteService',
-  'editService',
-  'restartService',
-  'onStoreChange'
+  "handleServerAction",
+  "handleFilterExpressionChange",
+  "handleModalClose",
+  "clearActionError",
+  "createGroup",
+  "revertDeployment",
+  "deleteGroup",
+  "editGroup",
+  "deleteService",
+  "editService",
+  "restartService",
+  "onStoreChange"
 ];
 
 class ServicesContainer extends React.Component {
@@ -145,7 +140,7 @@ class ServicesContainer extends React.Component {
       pendingActions: {}
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -155,7 +150,7 @@ class ServicesContainer extends React.Component {
 
     // Don't block the whole screen if Mesos state is not there
     // Mesos state is needed to aggregate frameworks resources correctly
-    MesosStateStore.addChangeListener(MESOS_STATE_CHANGE, function () {});
+    MesosStateStore.addChangeListener(MESOS_STATE_CHANGE, function() {});
 
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.
@@ -183,8 +178,8 @@ class ServicesContainer extends React.Component {
   }
 
   propsToState(props) {
-    const itemId = decodeURIComponent(props.params.id || '/');
-    const filterQuery = props.location.query['q'] || '';
+    const itemId = decodeURIComponent(props.params.id || "/");
+    const filterQuery = props.location.query["q"] || "";
 
     this.setState({
       filterExpression: new DSLExpression(filterQuery),
@@ -194,9 +189,10 @@ class ServicesContainer extends React.Component {
 
   onStoreChange() {
     // Throttle updates from DCOSStore
-    if (Date.now() - this.state.lastUpdate > 1000
-      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
-
+    if (
+      Date.now() - this.state.lastUpdate > 1000 ||
+      (DCOSStore.serviceDataReceived && this.state.isLoading)
+    ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
@@ -247,16 +243,17 @@ class ServicesContainer extends React.Component {
   }
 
   handleServerAction(payload) {
-    const {action} = payload;
+    const { action } = payload;
 
     // Increment/clear fetching errors based on action
     const fetchErrors = countFetchErrors(
-      Object.assign({}, this.state.fetchErrors), action
+      Object.assign({}, this.state.fetchErrors),
+      action
     );
 
     // Only set state if fetchErrors changed
     if (fetchErrors) {
-      this.setState({fetchErrors});
+      this.setState({ fetchErrors });
     }
 
     switch (action.type) {
@@ -315,15 +312,15 @@ class ServicesContainer extends React.Component {
     if (key) {
       this.clearActionError(key);
     }
-    this.setState({modal: {}});
+    this.setState({ modal: {} });
   }
 
   handleFilterExpressionChange(filterExpression) {
-    const {router} = this.context;
-    const {location: {pathname}} = this.props;
-    router.push({pathname, query: {q: filterExpression.value}});
+    const { router } = this.context;
+    const { location: { pathname } } = this.props;
+    router.push({ pathname, query: { q: filterExpression.value } });
 
-    this.setState({filterExpression});
+    this.setState({ filterExpression });
   }
 
   fetchData() {
@@ -336,14 +333,18 @@ class ServicesContainer extends React.Component {
    * @param {String} actionType
    */
   setPendingAction(actionType) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, true
+        pendingActions,
+        actionType,
+        true
       )
     });
   }
@@ -355,14 +356,18 @@ class ServicesContainer extends React.Component {
    * @param  {Any} error
    */
   unsetPendingAction(actionType, error = null) {
-    const {actionErrors, pendingActions} = this.state;
+    const { actionErrors, pendingActions } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, error
+        actionErrors,
+        actionType,
+        error
       ),
       pendingActions: ContainerUtil.adjustPendingActions(
-        pendingActions, actionType, false
+        pendingActions,
+        actionType,
+        false
       )
     });
 
@@ -373,11 +378,13 @@ class ServicesContainer extends React.Component {
   }
 
   clearActionError(actionType) {
-    const {actionErrors} = this.state;
+    const { actionErrors } = this.state;
 
     this.setState({
       actionErrors: ContainerUtil.adjustActionErrors(
-        actionErrors, actionType, null
+        actionErrors,
+        actionType,
+        null
       )
     });
   }
@@ -386,19 +393,19 @@ class ServicesContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, {id})
+        modal: Object.assign({}, props, { id })
       });
     };
 
     return {
       createGroup: () => set(ServiceActionItem.CREATE_GROUP),
       // All methods below work on ServiceTree and Service types
-      deleteService: (props) => set(ServiceActionItem.DESTROY, props),
-      editService: (props) => set(ServiceActionItem.EDIT, props),
-      restartService: (props) => set(ServiceActionItem.RESTART, props),
-      resumeService: (props) => set(ServiceActionItem.RESUME, props),
-      scaleService: (props) => set(ServiceActionItem.SCALE, props),
-      suspendService: (props) => set(ServiceActionItem.SUSPEND, props)
+      deleteService: props => set(ServiceActionItem.DESTROY, props),
+      editService: props => set(ServiceActionItem.EDIT, props),
+      restartService: props => set(ServiceActionItem.RESTART, props),
+      resumeService: props => set(ServiceActionItem.RESUME, props),
+      scaleService: props => set(ServiceActionItem.SCALE, props),
+      suspendService: props => set(ServiceActionItem.SUSPEND, props)
     };
   }
 
@@ -428,7 +435,8 @@ class ServicesContainer extends React.Component {
         clearError={this.clearActionError}
         onClose={this.handleModalClose}
         pendingActions={this.state.pendingActions}
-        modalProps={modalProps} />
+        modalProps={modalProps}
+      />
     );
   }
 
@@ -438,24 +446,19 @@ class ServicesContainer extends React.Component {
       return this.props.children;
     }
 
-    const {children, params, routes} = this.props;
-    const {
-      fetchErrors,
-      filterExpression,
-      isLoading,
-      itemId
-    } = this.state;
+    const { children, params, routes } = this.props;
+    const { fetchErrors, filterExpression, isLoading, itemId } = this.state;
 
     let item;
     // Find item in root tree
-    if (itemId === '/') {
+    if (itemId === "/") {
       item = DCOSStore.serviceTree;
     } else {
       item = DCOSStore.serviceTree.findItemById(itemId);
     }
 
     // Check if a single endpoint has failed more than 3 times
-    const fetchError = Object.values(fetchErrors).some(function (errorCount) {
+    const fetchError = Object.values(fetchErrors).some(function(errorCount) {
       return errorCount > 3;
     });
 
@@ -476,9 +479,7 @@ class ServicesContainer extends React.Component {
 
     if (item instanceof Pod) {
       return (
-        <PodDetail
-          actions={this.getActions()}
-          pod={item}>
+        <PodDetail actions={this.getActions()} pod={item}>
           {this.getModals(item)}
           {children}
         </PodDetail>
@@ -493,7 +494,8 @@ class ServicesContainer extends React.Component {
           clearError={this.clearActionError}
           params={params}
           routes={routes}
-          service={item}>
+          service={item}
+        >
           {this.getModals(item)}
           {children}
         </ServiceDetail>
@@ -502,12 +504,13 @@ class ServicesContainer extends React.Component {
 
     // Show Tree
     if (item instanceof ServiceTree) {
-      const isEmpty = (item.getItems().length === 0);
+      const isEmpty = item.getItems().length === 0;
       let filteredServices = item;
 
       if (filterExpression.defined) {
         filteredServices = filterExpression.filter(
-          SERVICE_FILTERS, filteredServices.flattenItems()
+          SERVICE_FILTERS,
+          filteredServices.flattenItems()
         );
       }
 
@@ -521,7 +524,8 @@ class ServicesContainer extends React.Component {
           params={params}
           routes={routes}
           services={filteredServices.getItems()}
-          serviceTree={item}>
+          serviceTree={item}
+        >
           {this.getModals(item)}
           {children}
         </ServiceTreeView>
@@ -533,7 +537,8 @@ class ServicesContainer extends React.Component {
       <Page>
         <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
         <ServiceItemNotFound
-          message={`The service with the ID of "${itemId}" could not be found.`} />
+          message={`The service with the ID of "${itemId}" could not be found.`}
+        />
       </Page>
     );
   }
@@ -563,7 +568,7 @@ ServicesContainer.contextTypes = {
 };
 
 ServicesContainer.routeConfig = {
-  label: 'Services',
+  label: "Services",
   icon: <Icon id="services" size="small" family="product" />,
   matches: /^\/services\/overview/
 };

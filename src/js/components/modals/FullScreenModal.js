@@ -1,20 +1,20 @@
-import classNames from 'classnames';
-import {Modal} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Modal } from "reactjs-components";
+import React from "react";
 
-import Util from '../../utils/Util';
+import Util from "../../utils/Util";
 
 class FullScreenModal extends React.Component {
   render() {
-    const {props} = this;
+    const { props } = this;
     const geminiClasses = classNames({
-      'gm-scrollbar-container-flex': props.useGemini !== false
+      "gm-scrollbar-container-flex": props.useGemini !== false
     });
 
     let modalHeight = null;
 
     if (props.useGemini) {
-      modalHeight = '100%';
+      modalHeight = "100%";
     }
 
     return (
@@ -26,7 +26,8 @@ class FullScreenModal extends React.Component {
         showHeader={true}
         showFooter={false}
         transitionNameModal="modal-full-screen"
-        {...Util.omit(props, ['children'])}>
+        {...Util.omit(props, ["children"])}
+      >
         {props.children}
       </Modal>
     );

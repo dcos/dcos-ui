@@ -1,30 +1,30 @@
-jest.dontMock('../ConfigurationMap');
-jest.dontMock('../ReviewConfig');
+jest.dontMock("../ConfigurationMap");
+jest.dontMock("../ReviewConfig");
 
 /* eslint-disable no-unused-vars */
-const React = require('react');
+const React = require("react");
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
+const ReactDOM = require("react-dom");
 
-const ConfigurationMap = require('../ConfigurationMap');
-const ReviewConfig = require('../ReviewConfig');
+const ConfigurationMap = require("../ConfigurationMap");
+const ReviewConfig = require("../ReviewConfig");
 
-describe('ReviewConfig', function () {
-  beforeEach(function () {
-    this.container = global.document.createElement('div');
+describe("ReviewConfig", function() {
+  beforeEach(function() {
+    this.container = global.document.createElement("div");
   });
 
-  afterEach(function () {
+  afterEach(function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#getDefinitionReview', function () {
-    it('renders a configuration map', function () {
+  describe("#getDefinitionReview", function() {
+    it("renders a configuration map", function() {
       var configuration = {
-        'foo': {
-          'bar': 'baz',
-          'qux': 'quux',
-          'corgly': 'grault'
+        foo: {
+          bar: "baz",
+          qux: "quux",
+          corgly: "grault"
         }
       };
 

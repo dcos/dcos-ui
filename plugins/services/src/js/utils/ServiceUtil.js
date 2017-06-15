@@ -1,28 +1,29 @@
-import {Hooks} from 'PluginSDK';
-import deepEqual from 'deep-equal';
+import { Hooks } from "PluginSDK";
+import deepEqual from "deep-equal";
 
-import Application from '../structs/Application';
-import ApplicationSpec from '../structs/ApplicationSpec';
-import ContainerConstants from '../constants/ContainerConstants';
-import Framework from '../structs/Framework';
-import FrameworkSpec from '../structs/FrameworkSpec';
-import {MESOS_HTTP} from '../constants/HealthCheckProtocols';
-import Pod from '../structs/Pod';
-import PodSpec from '../structs/PodSpec';
-import Service from '../structs/Service';
-import ServiceValidatorUtil from '../utils/ServiceValidatorUtil';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-import VolumeConstants from '../constants/VolumeConstants';
+import Application from "../structs/Application";
+import ApplicationSpec from "../structs/ApplicationSpec";
+import ContainerConstants from "../constants/ContainerConstants";
+import Framework from "../structs/Framework";
+import FrameworkSpec from "../structs/FrameworkSpec";
+import { MESOS_HTTP } from "../constants/HealthCheckProtocols";
+import Pod from "../structs/Pod";
+import PodSpec from "../structs/PodSpec";
+import Service from "../structs/Service";
+import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
+import VolumeConstants from "../constants/VolumeConstants";
 
-const getFindPropertiesRecursive = function (service, item) {
-  return Object.keys(item).reduce(function (memo, subItem) {
-
-    if (item[subItem].type === 'group') {
-      Object.keys(item[subItem].properties).forEach(function (key) {
+const getFindPropertiesRecursive = function(service, item) {
+  return Object.keys(item).reduce(function(memo, subItem) {
+    if (item[subItem].type === "group") {
+      Object.keys(item[subItem].properties).forEach(function(key) {
         memo[key] = item[subItem].properties[key].default;
 
-        if (item[subItem].properties[key].getter &&
-          !!item[subItem].properties[key].getter(service)) {
+        if (
+          item[subItem].properties[key].getter &&
+          !!item[subItem].properties[key].getter(service)
+        ) {
           memo[key] = item[subItem].properties[key].getter(service);
         }
       });
@@ -30,8 +31,11 @@ const getFindPropertiesRecursive = function (service, item) {
       return memo;
     }
 
-    if (item[subItem].type === 'object') {
-      memo[subItem] = getFindPropertiesRecursive(service, item[subItem].properties);
+    if (item[subItem].type === "object") {
+      memo[subItem] = getFindPropertiesRecursive(
+        service,
+        item[subItem].properties
+      );
 
       return memo;
     }
@@ -47,24 +51,22 @@ const getFindPropertiesRecursive = function (service, item) {
 };
 
 // Removes redundant attributes
-const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
-  const properties = healthCheckSchema
-    .properties
-    .healthChecks
-    .itemShape
-    .properties;
+const pruneHealthCheckAttributes = function(healthCheckSchema, healthCheck) {
+  const properties =
+    healthCheckSchema.properties.healthChecks.itemShape.properties;
 
-  return Object.keys(properties).reduce(function (memo, prop) {
-    if (!properties[prop].shouldShow
-      || properties[prop].shouldShow(healthCheck)) {
-
-      if (prop === 'command') {
-        memo[prop] = {value: healthCheck[prop]};
+  return Object.keys(properties).reduce(function(memo, prop) {
+    if (
+      !properties[prop].shouldShow ||
+      properties[prop].shouldShow(healthCheck)
+    ) {
+      if (prop === "command") {
+        memo[prop] = { value: healthCheck[prop] };
 
         return memo;
       }
 
-      if (prop === 'portType') {
+      if (prop === "portType") {
         return memo;
       }
 
@@ -76,7 +78,6 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-
   createServiceFromResponse(data) {
     if (ServiceValidatorUtil.isPodResponse(data)) {
       return new Pod(data);
@@ -90,11 +91,11 @@ const ServiceUtil = {
       return new Application(data);
     }
 
-    throw Error('Unknown service response: '+JSON.stringify(data));
+    throw Error("Unknown service response: " + JSON.stringify(data));
   },
 
   createSpecFromDefinition(data) {
-    console.warn('ServieUtil.createSpecFromDefinition has been deprecated.');
+    console.warn("ServieUtil.createSpecFromDefinition has been deprecated.");
     if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
       return new PodSpec(data);
     }
@@ -107,11 +108,11 @@ const ServiceUtil = {
       return new ApplicationSpec(data);
     }
 
-    throw Error('Unknown service response: '+JSON.stringify(data));
+    throw Error("Unknown service response: " + JSON.stringify(data));
   },
 
   createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
-    console.warn('ServieUtil.createSpecFromFormModel has been deprecated.');
+    console.warn("ServieUtil.createSpecFromFormModel has been deprecated.");
     if (formModel != null) {
       const {
         general,
@@ -135,22 +136,21 @@ const ServiceUtil = {
 
       if (optional != null) {
         definition.executor = optional.executor;
-        definition.fetch = optional.uris &&
-          optional.uris.split(',')
-            .map(function (uri) {
-              return {uri: uri.trim()};
-            });
-        definition.constraints = optional.constraints &&
-          optional.constraints.split(',')
-            .map(function (item) {
-              return item.split(':');
-            });
+        definition.fetch =
+          optional.uris &&
+          optional.uris.split(",").map(function(uri) {
+            return { uri: uri.trim() };
+          });
+        definition.constraints =
+          optional.constraints &&
+          optional.constraints.split(",").map(function(item) {
+            return item.split(":");
+          });
         definition.acceptedResourceRoles =
           optional.acceptedResourceRoles &&
-            optional.acceptedResourceRoles.split(',')
-              .map(function (item) {
-                return item.trim();
-              });
+          optional.acceptedResourceRoles.split(",").map(function(item) {
+            return item.trim();
+          });
         definition.user = optional.user;
       }
 
@@ -165,12 +165,10 @@ const ServiceUtil = {
             containerSettings.forcePullImage;
         }
         if (containerSettings.privileged != null) {
-          definition.container.docker.privileged =
-            containerSettings.privileged;
+          definition.container.docker.privileged = containerSettings.privileged;
         }
         if (containerSettings.parameters != null) {
-          definition.container.docker.parameters =
-            containerSettings.parameters;
+          definition.container.docker.parameters = containerSettings.parameters;
         }
       }
 
@@ -182,43 +180,43 @@ const ServiceUtil = {
           definition.container = {};
         }
 
-        if (definition.container.docker &&
-          definition.container.docker.image) {
-
+        if (definition.container.docker && definition.container.docker.image) {
           type = ContainerConstants.type.DOCKER;
 
           if (volumes.dockerVolumes) {
             volumesList = volumesList.concat(
               volumes.dockerVolumes
-              .filter(function ({containerPath, hostPath}) {
-                return containerPath != null && hostPath != null;
-              })
-              .map(function ({containerPath, hostPath, mode}) {
-                return {
-                  containerPath,
-                  hostPath,
-                  mode: VolumeConstants.mode[mode]
-                };
-              })
+                .filter(function({ containerPath, hostPath }) {
+                  return containerPath != null && hostPath != null;
+                })
+                .map(function({ containerPath, hostPath, mode }) {
+                  return {
+                    containerPath,
+                    hostPath,
+                    mode: VolumeConstants.mode[mode]
+                  };
+                })
             );
           }
         }
 
         if (volumes.externalVolumes) {
-          const externalVolumes = volumes.externalVolumes
-            .map(function ({containerPath, externalName}) {
-              return {
-                containerPath,
-                external: {
-                  name: externalName,
-                  provider: 'dvdi',
-                  options: {
-                    'dvdi/driver': 'rexray'
-                  }
-                },
-                mode: 'RW'
-              };
-            });
+          const externalVolumes = volumes.externalVolumes.map(function({
+            containerPath,
+            externalName
+          }) {
+            return {
+              containerPath,
+              external: {
+                name: externalName,
+                provider: "dvdi",
+                options: {
+                  "dvdi/driver": "rexray"
+                }
+              },
+              mode: "RW"
+            };
+          });
 
           if (externalVolumes.length) {
             volumesList = volumesList.concat(externalVolumes);
@@ -232,14 +230,16 @@ const ServiceUtil = {
         }
 
         if (volumes.localVolumes) {
-          const localVolumes = volumes.localVolumes
-            .map(function ({containerPath, size}) {
-              return {
-                containerPath,
-                persistent: {size},
-                mode: VolumeConstants.mode.rw
-              };
-            });
+          const localVolumes = volumes.localVolumes.map(function({
+            containerPath,
+            size
+          }) {
+            return {
+              containerPath,
+              persistent: { size },
+              mode: VolumeConstants.mode.rw
+            };
+          });
 
           if (localVolumes.length) {
             volumesList = volumesList.concat(localVolumes);
@@ -250,7 +250,7 @@ const ServiceUtil = {
               };
               definition.residency = {
                 relaunchEscalationTimeoutSeconds: 10,
-                taskLostBehavior: 'WAIT_FOREVER'
+                taskLostBehavior: "WAIT_FOREVER"
               };
             }
           }
@@ -263,7 +263,7 @@ const ServiceUtil = {
       }
 
       if (labels != null && labels.labels != null) {
-        definition.labels = labels.labels.reduce(function (memo, item) {
+        definition.labels = labels.labels.reduce(function(memo, item) {
           if (item.key == null) {
             return memo;
           }
@@ -272,7 +272,7 @@ const ServiceUtil = {
           // so make sure empty environment variables are not left unrendered
           let value = item.value;
           if (value == null) {
-            value = '';
+            value = "";
           }
 
           memo[item.key] = value;
@@ -282,37 +282,42 @@ const ServiceUtil = {
       }
 
       if (healthChecks != null && healthChecks.healthChecks != null) {
-        definition.healthChecks = healthChecks.healthChecks
-          .reduce(function (memo, healthCheck) {
-            // Only set defaults if user has changed a value in the form.
-            // I.e. user has intent to create a healthCheck.
-            const hasSetValue = Object.values(healthCheck).some(function (value) {
-              return value != null && value !== false;
-            });
+        definition.healthChecks = healthChecks.healthChecks.reduce(function(
+          memo,
+          healthCheck
+        ) {
+          // Only set defaults if user has changed a value in the form.
+          // I.e. user has intent to create a healthCheck.
+          const hasSetValue = Object.values(healthCheck).some(function(value) {
+            return value != null && value !== false;
+          });
 
-            if (hasSetValue) {
-              if (healthCheck.portType == null) {
-                healthCheck.portType = 'PORT_INDEX';
-              }
-              if (healthCheck.protocol == null) {
-                healthCheck.protocol = MESOS_HTTP;
-              }
-
-              memo.push(
-                pruneHealthCheckAttributes(
-                  schema.properties.healthChecks, healthCheck
-                )
-              );
+          if (hasSetValue) {
+            if (healthCheck.portType == null) {
+              healthCheck.portType = "PORT_INDEX";
+            }
+            if (healthCheck.protocol == null) {
+              healthCheck.protocol = MESOS_HTTP;
             }
 
-            return memo;
-          }, []);
+            memo.push(
+              pruneHealthCheckAttributes(
+                schema.properties.healthChecks,
+                healthCheck
+              )
+            );
+          }
+
+          return memo;
+        }, []);
       }
 
-      if (environmentVariables != null && environmentVariables.environmentVariables != null) {
-        definition.env = environmentVariables.environmentVariables
-          .reduce(function (variableMap, variable) {
-
+      if (
+        environmentVariables != null &&
+        environmentVariables.environmentVariables != null
+      ) {
+        definition.env = environmentVariables.environmentVariables.reduce(
+          function(variableMap, variable) {
             if (variable.key == null) {
               return variableMap;
             }
@@ -321,53 +326,63 @@ const ServiceUtil = {
             // so make sure empty environment variables are not left unrendered
             let value = variable.value;
             if (value == null) {
-              value = '';
+              value = "";
             }
 
             // Pass it through the registered plugins, with key upper cased
             variableMap[variable.key.toUpperCase()] = Hooks.applyFilter(
-              'serviceVariableValue',
+              "serviceVariableValue",
               value,
               variable,
               definition
             );
 
             return variableMap;
-          }, {});
+          },
+          {}
+        );
       }
 
       if (networking != null) {
-        const isContainerApp = containerSettings != null && containerSettings.image != null;
+        const isContainerApp =
+          containerSettings != null && containerSettings.image != null;
 
-        const networkType = networking.networkType || 'host';
+        const networkType = networking.networkType || "host";
 
         if (networking.ports != null) {
-          networking.ports = networking.ports.filter(function (port) {
-            return port.name != null || port.lbPort != null || port.loadBalanced;
+          networking.ports = networking.ports.filter(function(port) {
+            return (
+              port.name != null || port.lbPort != null || port.loadBalanced
+            );
           });
         }
 
         if (networking.ports != null && networking.ports.length) {
-          if (networkType === 'host' || !isContainerApp) {
+          if (networkType === "host" || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length) {
-              definition.portDefinitions = networking.ports.map(function (port, index) {
-                const portMapping = {protocol: 'tcp'};
+              definition.portDefinitions = networking.ports.map(function(
+                port,
+                index
+              ) {
+                const portMapping = { protocol: "tcp" };
                 // Ensure that lbPort is an int
                 const lbPort = parseInt(port.lbPort || 0, 10);
 
-                if (networkType === 'host') {
+                if (networkType === "host") {
                   portMapping.port = 0;
                 }
                 if (port.loadBalanced === true) {
-                  if (networkType === 'host') {
+                  if (networkType === "host") {
                     portMapping.port = lbPort;
                   }
                   if (general != null) {
                     portMapping.labels = {};
-                    portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
+                    portMapping.labels[
+                      `VIP_${index}`
+                    ] = `${general.id}:${lbPort}`;
                   }
-                } else if (lbPort != null && /^\d*$/.test(lbPort) ) {
+                } else if (lbPort != null && /^\d*$/.test(lbPort)) {
                   portMapping.port = lbPort;
                 }
                 if (port.protocol != null) {
@@ -382,8 +397,8 @@ const ServiceUtil = {
             }
           } else {
             definition.container.docker.portMappings = [];
-            networking.ports.forEach(function (port, index) {
-              const portMapping = {containerPort: 0, protocol: 'tcp'};
+            networking.ports.forEach(function(port, index) {
+              const portMapping = { containerPort: 0, protocol: "tcp" };
 
               if (port.protocol != null) {
                 portMapping.protocol = port.protocol;
@@ -400,23 +415,27 @@ const ServiceUtil = {
 
               if (ValidatorUtil.isDefined(port.servicePort)) {
                 portMapping.servicePort = port.servicePort;
-              } else if (port.loadBalanced === true && networkType !== 'bridge') {
+              } else if (
+                port.loadBalanced === true &&
+                networkType !== "bridge"
+              ) {
                 portMapping.servicePort = lbPort;
               }
 
               if (port.loadBalanced === true) {
                 portMapping.labels = {};
                 if (general != null) {
-                  portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
+                  portMapping.labels[
+                    `VIP_${index}`
+                  ] = `${general.id}:${lbPort}`;
                 }
               }
 
-              if (['host', 'bridge'].includes(networkType)) {
+              if (["host", "bridge"].includes(networkType)) {
                 definition.container.docker.portMappings.push(portMapping);
               }
 
-              if (!['host', 'bridge'].includes(networkType)) {
-
+              if (!["host", "bridge"].includes(networkType)) {
                 if (port.expose) {
                   portMapping.hostPort = port.hostPort || 0;
                 }
@@ -428,22 +447,22 @@ const ServiceUtil = {
         }
 
         if (isContainerApp) {
-          if (networkType === 'host') {
-            definition.container.docker.network = 'HOST';
-            delete(definition.ipAddress);
-          } else if (networkType === 'bridge') {
-            definition.container.docker.network = 'BRIDGE';
-            delete(definition.ipAddress);
+          if (networkType === "host") {
+            definition.container.docker.network = "HOST";
+            delete definition.ipAddress;
+          } else if (networkType === "bridge") {
+            definition.container.docker.network = "BRIDGE";
+            delete definition.ipAddress;
           } else {
-            definition.container.docker.network = 'USER';
-            definition.ipAddress = {networkName: networkType};
-            delete(definition.portDefinitions);
+            definition.container.docker.network = "USER";
+            definition.ipAddress = { networkName: networkType };
+            delete definition.portDefinitions;
           }
         }
       }
     }
 
-    definition = Object.keys(definition).reduce(function (memo, key) {
+    definition = Object.keys(definition).reduce(function(memo, key) {
       if (!ValidatorUtil.isEmpty(definition[key])) {
         memo[key] = definition[key];
       } else {
@@ -457,7 +476,7 @@ const ServiceUtil = {
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
-    console.warn('ServieUtil.createFormModelFromSchema has been deprecated.');
+    console.warn("ServieUtil.createFormModelFromSchema has been deprecated.");
 
     return getFindPropertiesRecursive(service, schema.properties);
   },
@@ -468,10 +487,7 @@ const ServiceUtil = {
     }
 
     // Only compare the service specs as everything else is status data
-    return deepEqual(
-      serviceA.getSpec(),
-      serviceB.getSpec()
-    );
+    return deepEqual(serviceA.getSpec(), serviceB.getSpec());
   },
 
   getBaseID(serviceID) {
@@ -483,19 +499,14 @@ const ServiceUtil = {
     // `/group/another-group` will be given by `getId` except on root then the
     // return value of `getId` would be `/` so in most cases we want to append a
     // `/` so that the user can begin typing the `id` of their application.
-    return serviceID.replace(/^(\/.+)$/, '$1/');
+    return serviceID.replace(/^(\/.+)$/, "$1/");
   },
 
   getDefinitionFromSpec(spec) {
     const definition = spec.toJSON();
 
     if (spec instanceof ApplicationSpec) {
-      Hooks.applyFilter(
-        'serviceToAppDefinition',
-        definition,
-        spec
-      );
-
+      Hooks.applyFilter("serviceToAppDefinition", definition, spec);
     }
 
     return definition;
@@ -514,7 +525,7 @@ const ServiceUtil = {
   },
 
   getServiceNameFromTaskID(taskID) {
-    const serviceName = taskID.split('.')[0].split('_');
+    const serviceName = taskID.split(".")[0].split("_");
 
     return serviceName[serviceName.length - 1];
   },
@@ -529,7 +540,7 @@ const ServiceUtil = {
       return [];
     }
 
-    return Object.keys(labels).map((key) => ({key, value: labels[key]}));
+    return Object.keys(labels).map(key => ({ key, value: labels[key] }));
   }
 };
 

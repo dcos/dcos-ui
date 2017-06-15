@@ -1,5 +1,5 @@
-import List from '../structs/List';
-import Item from '../structs/Item';
+import List from "../structs/List";
+import Item from "../structs/Item";
 
 const StructUtil = {
   /**
@@ -13,7 +13,7 @@ const StructUtil = {
     var copy;
 
     // Handle the 3 simple types, and null or undefined
-    if (obj == null || typeof obj !== 'object') {
+    if (obj == null || typeof obj !== "object") {
       return obj;
     }
     // Extract underlying array object

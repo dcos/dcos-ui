@@ -1,32 +1,32 @@
-import classNames from 'classnames/dedupe';
-import {Form, Tooltip} from 'reactjs-components';
-import GeminiScrollbar from 'react-gemini-scrollbar';
-import mixin from 'reactjs-mixin';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import { Form, Tooltip } from "reactjs-components";
+import GeminiScrollbar from "react-gemini-scrollbar";
+import mixin from "reactjs-mixin";
+import React from "react";
 
-import Icon from './Icon';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import ScrollbarUtil from '../utils/ScrollbarUtil';
-import SideTabs from './SideTabs';
+import Icon from "./Icon";
+import InternalStorageMixin from "../mixins/InternalStorageMixin";
+import ScrollbarUtil from "../utils/ScrollbarUtil";
+import SideTabs from "./SideTabs";
 
 const METHODS_TO_BIND = [
-  'getTriggerSubmit',
-  'handleFormError',
-  'handleTabClick',
-  'handleExternalSubmit'
+  "getTriggerSubmit",
+  "handleFormError",
+  "handleTabClick",
+  "handleExternalSubmit"
 ];
 
 class TabForm extends mixin(InternalStorageMixin) {
   constructor() {
     super();
 
-    this.state = {currentTab: '', renderGemini: false};
+    this.state = { currentTab: "", renderGemini: false };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
-    this.triggerSubmit = function () {};
+    this.triggerSubmit = function() {};
   }
 
   componentWillMount() {
@@ -36,13 +36,13 @@ class TabForm extends mixin(InternalStorageMixin) {
     const currentTab =
       this.props.defaultTab || Object.keys(this.props.definition)[0];
 
-    this.setState({currentTab});
+    this.setState({ currentTab });
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
   componentDidMount() {
     /* eslint-disable react/no-did-mount-set-state */
-    this.setState({renderGemini: true});
+    this.setState({ renderGemini: true });
     /* eslint-enable react/no-did-mount-set-state */
   }
 
@@ -55,11 +55,11 @@ class TabForm extends mixin(InternalStorageMixin) {
 
   handleTabClick(currentTab) {
     this.props.onTabClick(...arguments);
-    this.setState({currentTab});
+    this.setState({ currentTab });
   }
 
   handleFormError() {
-    this.internalStorage_update({isFormValidated: false});
+    this.internalStorage_update({ isFormValidated: false });
   }
 
   handleFormSubmit(formKey, formModel) {
@@ -68,7 +68,7 @@ class TabForm extends mixin(InternalStorageMixin) {
 
   handleExternalSubmit() {
     this.buildModel();
-    const {isFormValidated} = this.internalStorage_get();
+    const { isFormValidated } = this.internalStorage_get();
 
     if (isFormValidated) {
       this.props.onSubmit(this.model);
@@ -82,9 +82,9 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   buildModel() {
-    this.internalStorage_update({isFormValidated: true});
+    this.internalStorage_update({ isFormValidated: true });
 
-    Object.keys(this.props.definition).forEach((formKey) => {
+    Object.keys(this.props.definition).forEach(formKey => {
       this.submitMap[formKey]();
     });
   }
@@ -118,7 +118,8 @@ class TabForm extends mixin(InternalStorageMixin) {
               wrapperClassName="tooltip-wrapper media-object-item"
               wrapText={true}
               maxWidth={300}
-              scrollContainer=".gm-scroll-view">
+              scrollContainer=".gm-scroll-view"
+            >
               <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </div>
@@ -137,9 +138,9 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   getSideContent(multipleDefinition) {
-    const {currentTab} = this.state;
+    const { currentTab } = this.state;
     const classes = classNames(
-      'multiple-form-left-column',
+      "multiple-form-left-column",
       this.props.navigationContentClassNames
     );
 
@@ -148,7 +149,8 @@ class TabForm extends mixin(InternalStorageMixin) {
         <SideTabs
           onTabClick={this.handleTabClick}
           selectedTab={currentTab}
-          tabs={Object.values(multipleDefinition)} />
+          tabs={Object.values(multipleDefinition)}
+        />
       </div>
     );
   }
@@ -157,22 +159,24 @@ class TabForm extends mixin(InternalStorageMixin) {
     const currentTab = this.state.currentTab;
     const multipleDefinition = this.props.definition;
     const multipleDefinitionClasses = classNames(
-      'multiple-form-right-column',
+      "multiple-form-right-column",
       this.props.formContentClassNames
     );
     const formRowClass = this.props.formRowClass;
 
     const panels = Object.keys(multipleDefinition).map((formKey, i) => {
-      const formPanelClassSet = classNames('form-panel', {
-        'hidden': currentTab !== formKey
+      const formPanelClassSet = classNames("form-panel", {
+        hidden: currentTab !== formKey
       });
 
-      const {definition, description, title} = multipleDefinition[formKey];
-      const formDefinition = [{
-        render: this.getHeader.bind(this, title, description)
-      }].concat(definition);
+      const { definition, description, title } = multipleDefinition[formKey];
+      const formDefinition = [
+        {
+          render: this.getHeader.bind(this, title, description)
+        }
+      ].concat(definition);
 
-      const formRowClassSet = classNames('row', formRowClass, formKey);
+      const formRowClassSet = classNames("row", formRowClass, formKey);
 
       return (
         <div key={i} className={formPanelClassSet}>
@@ -184,7 +188,8 @@ class TabForm extends mixin(InternalStorageMixin) {
             onChange={this.props.onChange}
             onError={this.handleFormError}
             onSubmit={this.handleFormSubmit.bind(this, formKey)}
-            useExternalErrors={true} />
+            useExternalErrors={true}
+          />
         </div>
       );
     });
@@ -203,14 +208,15 @@ class TabForm extends mixin(InternalStorageMixin) {
       <GeminiScrollbar
         autoshow={true}
         className={multipleDefinitionClasses}
-        ref="geminiForms">
+        ref="geminiForms"
+      >
         {panels}
       </GeminiScrollbar>
     );
   }
 
   render() {
-    const classNameSet = classNames('multiple-form', this.props.className);
+    const classNameSet = classNames("multiple-form", this.props.className);
 
     return (
       <div className={classNameSet}>
@@ -222,7 +228,7 @@ class TabForm extends mixin(InternalStorageMixin) {
 }
 
 TabForm.defaultProps = {
-  defaultTab: '',
+  defaultTab: "",
   getTriggerSubmit() {},
   onChange() {},
   onError() {},

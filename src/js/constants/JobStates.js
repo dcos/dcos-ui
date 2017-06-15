@@ -1,35 +1,35 @@
 const JobStates = {
   INITIAL: {
-    stateTypes: ['active'],
-    displayName: 'Starting'
+    stateTypes: ["active"],
+    displayName: "Starting"
   },
   STARTING: {
-    stateTypes: ['active'],
-    displayName: 'Starting'
+    stateTypes: ["active"],
+    displayName: "Starting"
   },
   ACTIVE: {
-    stateTypes: ['active'],
-    displayName: 'Running'
+    stateTypes: ["active"],
+    displayName: "Running"
   },
   FAILED: {
-    stateTypes: ['completed', 'failure'],
-    displayName: 'Failed'
+    stateTypes: ["completed", "failure"],
+    displayName: "Failed"
   },
   SUCCESS: {
-    stateTypes: ['success'],
-    displayName: 'Success'
+    stateTypes: ["success"],
+    displayName: "Success"
   },
   COMPLETED: {
-    stateTypes: ['success'],
-    displayName: 'Completed'
+    stateTypes: ["success"],
+    displayName: "Completed"
   },
   SCHEDULED: {
     stateTypes: [],
-    displayName: 'Scheduled'
+    displayName: "Scheduled"
   },
   UNSCHEDULED: {
     stateTypes: [],
-    displayName: 'Unscheduled'
+    displayName: "Unscheduled"
   }
 };
 

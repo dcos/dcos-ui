@@ -1,15 +1,25 @@
-const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'];
-const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
+const HEIGHT_ATTRIBUTES = [
+  "paddingTop",
+  "paddingBottom",
+  "borderTopWidth",
+  "borderBottomWidth"
+];
+const WIDTH_ATTRIBUTES = [
+  "paddingLeft",
+  "paddingRight",
+  "borderLeftWidth",
+  "borderRightWidth"
+];
 
-const matchesFn = (function () {
-  const el = global.document.querySelector('body');
+const matchesFn = (function() {
+  const el = global.document.querySelector("body");
   const names = [
-    'matches',
-    'matchesSelector',
-    'msMatchesSelector',
-    'oMatchesSelector',
-    'mozMatchesSelector',
-    'webkitMatchesSelector'
+    "matches",
+    "matchesSelector",
+    "msMatchesSelector",
+    "oMatchesSelector",
+    "mozMatchesSelector",
+    "webkitMatchesSelector"
   ];
 
   for (let i = 0; i < names.length; i++) {
@@ -23,8 +33,8 @@ const matchesFn = (function () {
 
 var DOMUtils = {
   appendScript(el, code) {
-    const scriptNode = global.document.createElement('script');
-    scriptNode.type = 'text/javascript';
+    const scriptNode = global.document.createElement("script");
+    scriptNode.type = "text/javascript";
 
     try {
       scriptNode.appendChild(global.document.createTextNode(code));
@@ -59,13 +69,13 @@ var DOMUtils = {
 
   getComputedDimensions(obj) {
     var compstyle;
-    if (typeof global.getComputedStyle === 'undefined') {
+    if (typeof global.getComputedStyle === "undefined") {
       compstyle = obj.currentStyle;
     } else {
       compstyle = global.getComputedStyle(obj);
     }
 
-    var computeInnerBound = function (acc, key) {
+    var computeInnerBound = function(acc, key) {
       var val = parseInt(compstyle[key], 10);
       if (Number.isNaN(val)) {
         return acc;
@@ -74,15 +84,9 @@ var DOMUtils = {
       }
     };
 
-    var width = WIDTH_ATTRIBUTES.reduce(
-      computeInnerBound,
-      obj.offsetWidth
-    );
+    var width = WIDTH_ATTRIBUTES.reduce(computeInnerBound, obj.offsetWidth);
 
-    var height = HEIGHT_ATTRIBUTES.reduce(
-      computeInnerBound,
-      obj.offsetHeight
-    );
+    var height = HEIGHT_ATTRIBUTES.reduce(computeInnerBound, obj.offsetHeight);
 
     return {
       width,
@@ -129,15 +133,15 @@ var DOMUtils = {
     const endTime = Date.now() + scrollDuration;
 
     function step() {
-      setTimeout(function () {
+      setTimeout(function() {
         const distanceFromTop = DOMUtils.getDistanceFromTop(container);
         if (distanceFromTop !== targetY && endTime >= Date.now()) {
           requestAnimationFrame(step);
           scrollCount = scrollCount + 1;
-          scrollMargin = cosParameter -
-            (cosParameter * Math.cos(scrollCount * scrollStep));
+          scrollMargin =
+            cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
           container.scrollTop = distanceFromTop + scrollMargin;
-        } else if (typeof callback === 'function') {
+        } else if (typeof callback === "function") {
           callback();
         }
       }, 15);
@@ -146,10 +150,10 @@ var DOMUtils = {
 
   whichTransitionEvent(el) {
     var transitions = {
-      'transition': 'transitionend',
-      'OTransition': 'oTransitionEnd',
-      'MozTransition': 'transitionend',
-      'WebkitTransition': 'webkitTransitionEnd'
+      transition: "transitionend",
+      OTransition: "oTransitionEnd",
+      MozTransition: "transitionend",
+      WebkitTransition: "webkitTransitionEnd"
     };
 
     for (var t in transitions) {
@@ -160,11 +164,11 @@ var DOMUtils = {
   },
 
   isElementOnTop(el) {
-    const {left, top, height, width} = el.getBoundingClientRect();
+    const { left, top, height, width } = el.getBoundingClientRect();
     const elAtPoint = global.document.elementFromPoint(
       // The coords of the middle of the element.
-      left + (width / 2),
-      top + (height / 2)
+      left + width / 2,
+      top + height / 2
     );
 
     // If elAtPoint is null, then the element is off the screen. We return true

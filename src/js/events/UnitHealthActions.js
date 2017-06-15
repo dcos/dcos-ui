@@ -1,4 +1,4 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
 import {
   REQUEST_HEALTH_UNITS_SUCCESS,
@@ -9,12 +9,11 @@ import {
   REQUEST_HEALTH_UNIT_NODES_ERROR,
   REQUEST_HEALTH_UNIT_NODE_SUCCESS,
   REQUEST_HEALTH_UNIT_NODE_ERROR
-} from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import Config from "../config/Config";
 
 const UnitHealthActions = {
-
   fetchUnits() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units`,
@@ -101,10 +100,10 @@ const UnitHealthActions = {
 };
 
 if (Config.useFixtures) {
-  const unitsFixture = require('../../../tests/_fixtures/unit-health/units.json');
-  const unitFixture = require('../../../tests/_fixtures/unit-health/unit.json');
-  const unitNodesFixture = require('../../../tests/_fixtures/unit-health/unit-nodes.json');
-  const unitNodeFixture = require('../../../tests/_fixtures/unit-health/unit-node.json');
+  const unitsFixture = require("../../../tests/_fixtures/unit-health/units.json");
+  const unitFixture = require("../../../tests/_fixtures/unit-health/unit.json");
+  const unitNodesFixture = require("../../../tests/_fixtures/unit-health/unit-nodes.json");
+  const unitNodeFixture = require("../../../tests/_fixtures/unit-health/unit-node.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
@@ -112,20 +111,25 @@ if (Config.useFixtures) {
 
   global.actionTypes.UnitHealthActions = {
     fetchUnits: {
-      event: 'success', success: {response: unitsFixture}
+      event: "success",
+      success: { response: unitsFixture }
     },
-    fetchUnit: {event: 'success', success: {response: unitFixture}},
+    fetchUnit: { event: "success", success: { response: unitFixture } },
     fetchUnitNodes: {
-      event: 'success', success: {response: unitNodesFixture}
+      event: "success",
+      success: { response: unitNodesFixture }
     },
     fetchUnitNode: {
-      event: 'success', success: {response: unitNodeFixture}
+      event: "success",
+      success: { response: unitNodeFixture }
     }
   };
 
-  Object.keys(global.actionTypes.UnitHealthActions).forEach(function (method) {
+  Object.keys(global.actionTypes.UnitHealthActions).forEach(function(method) {
     UnitHealthActions[method] = RequestUtil.stubRequest(
-      UnitHealthActions, 'UnitHealthActions', method
+      UnitHealthActions,
+      "UnitHealthActions",
+      method
     );
   });
 }

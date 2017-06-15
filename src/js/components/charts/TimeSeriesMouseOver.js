@@ -1,11 +1,10 @@
-import d3 from 'd3';
-import React from 'react';
+import d3 from "d3";
+import React from "react";
 
-import Maths from '../../utils/Maths';
+import Maths from "../../utils/Maths";
 
 var TimeSeriesMouseOver = React.createClass({
-
-  displayName: 'TimeSeriesMouseOver',
+  displayName: "TimeSeriesMouseOver",
 
   propTypes: {
     addMouseHandler: React.PropTypes.func.isRequired,
@@ -35,10 +34,12 @@ var TimeSeriesMouseOver = React.createClass({
       y: e.clientY || e.pageY
     };
 
-    if (mouse.x < boundingBox.left ||
+    if (
+      mouse.x < boundingBox.left ||
       mouse.y < boundingBox.top ||
       mouse.x > boundingBox.right ||
-      mouse.y > boundingBox.bottom) {
+      mouse.y > boundingBox.bottom
+    ) {
       return false;
     }
 
@@ -63,35 +64,37 @@ var TimeSeriesMouseOver = React.createClass({
     // how many data points we don't show
     var hiddenDataPoints = 1;
     // find the data point at the given mouse position
-    var index = mouse.x *
+    var index =
+      mouse.x *
       (firstDataSet.values.length - hiddenDataPoints - 1) /
-      (props.width);
+      props.width;
     index = Math.round(index + hiddenDataPoints);
 
-    d3.select(this.refs.xMousePosition)
-      .transition()
-        .duration(50)
-        .attr('x1', mouse.x)
-        .attr('x2', mouse.x);
-
-    d3.select(this.refs.yMousePosition)
-      .transition()
-        .duration(50)
-        .attr('y1', props.yScale(firstDataSet.values[index][props.y]))
-        .attr('y2', props.yScale(firstDataSet.values[index][props.y]));
-
-    d3.select(this.refs.yAxisCurrent)
+    d3
+      .select(this.refs.xMousePosition)
       .transition()
       .duration(50)
-      .attr('y', props.yScale(firstDataSet.values[index][props.y]))
+      .attr("x1", mouse.x)
+      .attr("x2", mouse.x);
+
+    d3
+      .select(this.refs.yMousePosition)
+      .transition()
+      .duration(50)
+      .attr("y1", props.yScale(firstDataSet.values[index][props.y]))
+      .attr("y2", props.yScale(firstDataSet.values[index][props.y]));
+
+    d3
+      .select(this.refs.yAxisCurrent)
+      .transition()
+      .duration(50)
+      .attr("y", props.yScale(firstDataSet.values[index][props.y]))
       // Default to 0 if state is unsuccessful.
       .text((firstDataSet.values[index][props.y] || 0) + props.yCaption);
 
     // An extra -2 on each because we show the extra data point at the end
 
-    var _index = mouse.x *
-      (firstDataSet.values.length - 1) /
-      (props.width);
+    var _index = mouse.x * (firstDataSet.values.length - 1) / props.width;
 
     var mappedValue = Maths.mapValue(Math.round(_index), {
       min: firstDataSet.values.length - hiddenDataPoints,
@@ -104,16 +107,17 @@ var TimeSeriesMouseOver = React.createClass({
     value = Math.round(value);
 
     var characterWidth = 7;
-    var xPosition = mouse.x - (value.toString().length * characterWidth);
+    var xPosition = mouse.x - value.toString().length * characterWidth;
     if (value === 0) {
       xPosition += characterWidth / 2;
     } else {
-      value = '-' + value + 's';
+      value = "-" + value + "s";
     }
-    d3.select(this.refs.xAxisCurrent)
+    d3
+      .select(this.refs.xAxisCurrent)
       .transition()
       .duration(50)
-      .attr('x', xPosition)
+      .attr("x", xPosition)
       // Default to 0 if state is unsuccessful.
       .text(value || 0);
   },
@@ -121,8 +125,8 @@ var TimeSeriesMouseOver = React.createClass({
   handleMouseOut() {
     d3.select(this.refs.yMousePosition).interrupt();
     d3.select(this.refs.xMousePosition).interrupt();
-    d3.select(this.refs.xAxisCurrent).text('');
-    d3.select(this.refs.yAxisCurrent).text('');
+    d3.select(this.refs.xAxisCurrent).text("");
+    d3.select(this.refs.yAxisCurrent).text("");
   },
 
   render() {
@@ -138,28 +142,30 @@ var TimeSeriesMouseOver = React.createClass({
             ref="xAxisCurrent"
             dy=".71em"
             y="9"
-            transform={'translate(0,' + height + ')'}>
-          </text>
+            transform={"translate(0," + height + ")"}
+          />
         </g>
         <g className="y axis">
           <text
             className="current-value shadow"
             ref="yAxisCurrent"
-            style={{textAnchor: 'end'}}
+            style={{ textAnchor: "end" }}
             dy=".32em"
-            x="-9">
-          </text>
+            x="-9"
+          />
         </g>
         <line
           className="chart-cursor-position-marker"
           ref="xMousePosition"
           y1={0}
-          y2={height} />
+          y2={height}
+        />
         <line
           className="chart-cursor-position-marker"
           ref="yMousePosition"
           x1={0}
-          x2={this.props.width} />
+          x2={this.props.width}
+        />
       </g>
     );
   }

@@ -1,28 +1,31 @@
-import {DCOSStore} from 'foundation-ui';
-import {routerShape, Link} from 'react-router';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { DCOSStore } from "foundation-ui";
+import { routerShape, Link } from "react-router";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../components/Breadcrumb';
-import BreadcrumbTextContent from '../components/BreadcrumbTextContent';
-import ComponentList from '../components/ComponentList';
-import Config from '../config/Config';
-import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
-import HostTimeSeriesChart from '../components/charts/HostTimeSeriesChart';
-import Icon from '../components/Icon';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import MesosSummaryStore from '../stores/MesosSummaryStore';
-import Page from '../components/Page';
-import Panel from '../components/Panel';
-import ResourceTimeSeriesChart from '../components/charts/ResourceTimeSeriesChart';
-import ServiceList from '../../../plugins/services/src/js/components/ServiceList';
-import StringUtil from '../utils/StringUtil';
-import TasksChart from '../components/charts/TasksChart';
-import SidebarActions from '../events/SidebarActions';
-import UnitHealthStore from '../stores/UnitHealthStore';
+import Breadcrumb from "../components/Breadcrumb";
+import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
+import ComponentList from "../components/ComponentList";
+import Config from "../config/Config";
+import HealthSorting
+  from "../../../plugins/services/src/js/constants/HealthSorting";
+import HostTimeSeriesChart from "../components/charts/HostTimeSeriesChart";
+import Icon from "../components/Icon";
+import InternalStorageMixin from "../mixins/InternalStorageMixin";
+import MesosSummaryStore from "../stores/MesosSummaryStore";
+import Page from "../components/Page";
+import Panel from "../components/Panel";
+import ResourceTimeSeriesChart
+  from "../components/charts/ResourceTimeSeriesChart";
+import ServiceList
+  from "../../../plugins/services/src/js/components/ServiceList";
+import StringUtil from "../utils/StringUtil";
+import TasksChart from "../components/charts/TasksChart";
+import SidebarActions from "../events/SidebarActions";
+import UnitHealthStore from "../stores/UnitHealthStore";
 
 function getMesosState() {
-  const states = MesosSummaryStore.get('states');
+  const states = MesosSummaryStore.get("states");
   const last = states.lastSuccessful();
 
   return {
@@ -48,14 +51,13 @@ const DashboardBreadcrumbs = () => {
 };
 
 var DashboardPage = React.createClass({
-
-  displayName: 'DashboardPage',
+  displayName: "DashboardPage",
 
   mixins: [InternalStorageMixin, StoreMixin],
 
   statics: {
     routeConfig: {
-      label: 'Dashboard',
+      label: "Dashboard",
       icon: <Icon id="graph-inverse" size="small" family="product" />,
       matches: /^\/dashboard/
     },
@@ -82,9 +84,13 @@ var DashboardPage = React.createClass({
 
   componentWillMount() {
     this.store_listeners = [
-      {name: 'dcos', events: ['change'], suppressUpdate: true },
-      {name: 'summary', events: ['success', 'error'], suppressUpdate: false},
-      {name: 'unitHealth', events: ['success', 'error'], suppressUpdate: false}
+      { name: "dcos", events: ["change"], suppressUpdate: true },
+      { name: "summary", events: ["success", "error"], suppressUpdate: false },
+      {
+        name: "unitHealth",
+        events: ["success", "error"],
+        suppressUpdate: false
+      }
     ];
 
     this.internalStorage_set({
@@ -105,7 +111,7 @@ var DashboardPage = React.createClass({
   getServicesList() {
     const services = DCOSStore.serviceTree.getServices().getItems();
 
-    const sortedServices = services.sort(function (service, other) {
+    const sortedServices = services.sort(function(service, other) {
       const health = service.getHealth();
       const otherHealth = other.getHealth();
 
@@ -125,11 +131,10 @@ var DashboardPage = React.createClass({
       return null;
     }
 
-    var componentCountWord = StringUtil.pluralize('Component', componentCount);
+    var componentCountWord = StringUtil.pluralize("Component", componentCount);
 
     return (
-      <Link to="/components"
-        className="button button-rounded button-stroke">
+      <Link to="/components" className="button button-rounded button-stroke">
         {`View all ${componentCount} ${componentCountWord}`}
       </Link>
     );
@@ -139,17 +144,15 @@ var DashboardPage = React.createClass({
     const servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
     if (!servicesCount) {
       return null;
-
     }
-    var textContent = 'View all ';
+    var textContent = "View all ";
     if (servicesCount > this.props.servicesListLength) {
-      textContent += servicesCount + ' ';
+      textContent += servicesCount + " ";
     }
-    textContent += 'Services';
+    textContent += "Services";
 
     return (
-      <Link to="/services"
-        className="button button-rounded button-stroke">
+      <Link to="/services" className="button button-rounded button-stroke">
         {textContent}
       </Link>
     );
@@ -164,7 +167,7 @@ var DashboardPage = React.createClass({
   },
 
   render() {
-    const columnClasses = 'column-12 column-small-6 column-large-4';
+    const columnClasses = "column-12 column-small-6 column-large-4";
     var data = this.internalStorage_get();
 
     return (
@@ -174,79 +177,92 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('CPU Allocation')}>
+              heading={this.getHeading("CPU Allocation")}
+            >
               <ResourceTimeSeriesChart
                 colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
                 mode="cpus"
-                refreshRate={Config.getRefreshRate()} />
+                refreshRate={Config.getRefreshRate()}
+              />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Memory Allocation')}>
+              heading={this.getHeading("Memory Allocation")}
+            >
               <ResourceTimeSeriesChart
                 colorIndex={6}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
                 mode="mem"
-                refreshRate={Config.getRefreshRate()} />
+                refreshRate={Config.getRefreshRate()}
+              />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Disk Allocation')}>
+              heading={this.getHeading("Disk Allocation")}
+            >
               <ResourceTimeSeriesChart
                 colorIndex={3}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
                 mode="disk"
-                refreshRate={Config.getRefreshRate()} />
+                refreshRate={Config.getRefreshRate()}
+              />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
-              heading={this.getHeading('Services Health')}
+              heading={this.getHeading("Services Health")}
               footer={this.getViewAllServicesBtn()}
-              footerClass="text-align-center">
+              footerClass="text-align-center"
+            >
               <ServiceList
                 healthProcessed={DCOSStore.serviceDataReceived}
-                services={this.getServicesList()} />
+                services={this.getServicesList()}
+              />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart panel"
-              heading={this.getHeading('Tasks')}>
+              heading={this.getHeading("Tasks")}
+            >
               <TasksChart tasks={data.tasks} />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-component-health panel"
-              heading={this.getHeading('Component Health')}
+              heading={this.getHeading("Component Health")}
               footer={this.getViewAllComponentsButton()}
-              footerClass="text-align-center">
+              footerClass="text-align-center"
+            >
               <ComponentList
                 displayCount={this.props.componentsListLength}
-                units={this.getUnits()} />
+                units={this.getUnits()}
+              />
             </Panel>
           </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading('Nodes')}>
+              heading={this.getHeading("Nodes")}
+            >
               <HostTimeSeriesChart
                 data={data.activeNodes}
                 currentValue={data.hostCount}
-                refreshRate={Config.getRefreshRate()} />
+                refreshRate={Config.getRefreshRate()}
+              />
             </Panel>
           </div>
         </div>

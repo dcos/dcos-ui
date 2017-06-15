@@ -1,21 +1,21 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
-import Config from '../config/Config';
-import GetSetBaseStore from './GetSetBaseStore';
-import {VISIBILITY_CHANGE} from '../constants/EventTypes';
+import Config from "../config/Config";
+import GetSetBaseStore from "./GetSetBaseStore";
+import { VISIBILITY_CHANGE } from "../constants/EventTypes";
 
 // Use visibility API to check if current tab is active or not
-const Visibility = (function () {
+const Visibility = (function() {
   let stateKey;
   const keys = {
-    hidden: 'visibilitychange',
-    webkitHidden: 'webkitvisibilitychange',
-    mozHidden: 'mozvisibilitychange',
-    msHidden: 'msvisibilitychange'
+    hidden: "visibilitychange",
+    webkitHidden: "webkitvisibilitychange",
+    mozHidden: "mozvisibilitychange",
+    msHidden: "msvisibilitychange"
   };
 
   // Find first key available on document
-  Object.keys(keys).some(function (key) {
+  Object.keys(keys).some(function(key) {
     if (key in global.document) {
       stateKey = key;
 
@@ -68,24 +68,23 @@ class VisibilityStore extends GetSetBaseStore {
   }
 
   isTabVisible() {
-    return this.get('isTabVisible');
+    return this.get("isTabVisible");
   }
 
   isInactive() {
-    return this.get('isInactive');
+    return this.get("isInactive");
   }
 
   onVisibilityChange() {
     const isTabVisible = Visibility.getVisibility();
 
-    this.set({isTabVisible});
+    this.set({ isTabVisible });
     this.emit(VISIBILITY_CHANGE);
 
-    if (!this.get('isInactive') && !this.timeOut && !this.get('isTabVisible')) {
+    if (!this.get("isInactive") && !this.timeOut && !this.get("isTabVisible")) {
       this.timeOut = setTimeout(() => {
-        this.set({isInactive: true});
+        this.set({ isInactive: true });
         this.emit(VISIBILITY_CHANGE);
-
       }, Config.setInactiveAfter || 0);
     }
 
@@ -95,17 +94,16 @@ class VisibilityStore extends GetSetBaseStore {
         this.timeOut = null;
       }
 
-      if (this.get('isInactive')) {
-        this.set({isInactive: false});
+      if (this.get("isInactive")) {
+        this.set({ isInactive: false });
         this.emit(VISIBILITY_CHANGE);
       }
     }
   }
 
   get storeID() {
-    return 'visibility';
+    return "visibility";
   }
-
 }
 
 module.exports = new VisibilityStore();

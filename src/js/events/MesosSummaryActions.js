@@ -1,5 +1,5 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
-import {Hooks} from 'PluginSDK';
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import { Hooks } from "PluginSDK";
 
 import {
   REQUEST_SUMMARY_HISTORY_SUCCESS,
@@ -7,11 +7,11 @@ import {
   REQUEST_SUMMARY_SUCCESS,
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING
-} from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
-import TimeScales from '../constants/TimeScales';
-import MesosSummaryUtil from '../utils/MesosSummaryUtil';
+} from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import Config from "../config/Config";
+import TimeScales from "../constants/TimeScales";
+import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 
 var _historyServiceOnline = true;
 
@@ -24,9 +24,11 @@ function testHistoryServerResponse(response) {
   // If the response is an empty object, that means something is whack
   // Fall back to making requests to Mesos
   // TODO (DCOS-7764): This should be improved to validate against a schema
-  if (!Object.keys(responseToTest).length ||
-      !Array.isArray(responseToTest.frameworks) ||
-      !Array.isArray(responseToTest.slaves)) {
+  if (
+    !Object.keys(responseToTest).length ||
+    !Array.isArray(responseToTest.frameworks) ||
+    !Array.isArray(responseToTest.slaves)
+  ) {
     _historyServiceOnline = false;
   }
 }
@@ -44,7 +46,7 @@ function testHistoryOnline() {
   });
 }
 
-function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
+function requestFromHistoryServer(resolve, reject, timeScale = "last") {
   const url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
   let successEventType = REQUEST_SUMMARY_SUCCESS;
 
@@ -70,7 +72,9 @@ function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
       requestFromMesos(resolve, reject);
     },
     hangingRequestCallback() {
-      AppDispatcher.handleServerAction({type: REQUEST_SUMMARY_HISTORY_ONGOING});
+      AppDispatcher.handleServerAction({
+        type: REQUEST_SUMMARY_HISTORY_ONGOING
+      });
     }
   });
 }
@@ -94,24 +98,27 @@ function requestFromMesos(resolve, reject) {
       reject();
     },
     hangingRequestCallback() {
-      AppDispatcher.handleServerAction({type: REQUEST_SUMMARY_ONGOING});
+      AppDispatcher.handleServerAction({ type: REQUEST_SUMMARY_ONGOING });
     }
   });
 }
 
 var MesosSummaryActions = {
-
   fetchSummary: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function (timeScale) {
+    function(resolve, reject) {
+      return function(timeScale) {
         const canAccessHistoryAPI = Hooks.applyFilter(
-          'hasCapability', false, 'historyServiceAPI'
+          "hasCapability",
+          false,
+          "historyServiceAPI"
         );
 
         if (!_historyServiceOnline || !canAccessHistoryAPI) {
           const canAccessMesosAPI = Hooks.applyFilter(
-            'hasCapability', false, 'mesosAPI'
+            "hasCapability",
+            false,
+            "mesosAPI"
           );
           if (canAccessMesosAPI) {
             requestFromMesos(resolve, reject);
@@ -126,9 +133,8 @@ var MesosSummaryActions = {
         }
       };
     },
-    {delayAfterCount: Config.delayAfterErrorCount}
+    { delayAfterCount: Config.delayAfterErrorCount }
   )
-
 };
 
 module.exports = MesosSummaryActions;

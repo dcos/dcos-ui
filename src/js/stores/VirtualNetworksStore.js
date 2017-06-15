@@ -1,19 +1,19 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
-import AppDispatcher from '../events/AppDispatcher';
+import AppDispatcher from "../events/AppDispatcher";
 import {
   VIRTUAL_NETWORKS_CHANGE,
   VIRTUAL_NETWORKS_REQUEST_ERROR
-} from '../constants/EventTypes';
+} from "../constants/EventTypes";
 import {
   REQUEST_VIRTUAL_NETWORKS_SUCCESS,
   REQUEST_VIRTUAL_NETWORKS_ERROR,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import BaseStore from './BaseStore';
-import Config from '../config/Config';
-import OverlayList from '../structs/OverlayList';
-import VirtualNetworksActions from '../events/VirtualNetworksActions';
+} from "../constants/ActionTypes";
+import BaseStore from "./BaseStore";
+import Config from "../config/Config";
+import OverlayList from "../structs/OverlayList";
+import VirtualNetworksActions from "../events/VirtualNetworksActions";
 
 let fetchInterval = null;
 
@@ -21,7 +21,7 @@ class VirtualNetworksStore extends BaseStore {
   constructor() {
     super(...arguments);
 
-    this.data = {overlays: []};
+    this.data = { overlays: [] };
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -37,7 +37,7 @@ class VirtualNetworksStore extends BaseStore {
     });
 
     // Handle app actions
-    this.dispatcherIndex = AppDispatcher.register(({source, action}) => {
+    this.dispatcherIndex = AppDispatcher.register(({ source, action }) => {
       if (source !== SERVER_ACTION) {
         return false;
       }
@@ -95,16 +95,14 @@ class VirtualNetworksStore extends BaseStore {
   }
 
   getOverlays() {
-    return new OverlayList(
-      {items: this.data.overlays}
-    );
+    return new OverlayList({ items: this.data.overlays });
   }
 
   fetch() {
     return VirtualNetworksActions.fetch(...arguments);
   }
 
-  processVirtualNetworks({overlays, vtep_mac_oui, vtep_subnet} = {}) {
+  processVirtualNetworks({ overlays, vtep_mac_oui, vtep_subnet } = {}) {
     this.data.overlays = overlays || [];
     this.data.vtep_mac_oui = vtep_mac_oui;
     this.data.vtep_subnet = vtep_subnet;
@@ -116,7 +114,7 @@ class VirtualNetworksStore extends BaseStore {
   }
 
   get storeID() {
-    return 'virtualNetworks';
+    return "virtualNetworks";
   }
 }
 

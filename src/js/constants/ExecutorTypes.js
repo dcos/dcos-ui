@@ -1,5 +1,5 @@
 const ExecutorTypes = {
-  DEFAULT: 'DEFAULT'
+  DEFAULT: "DEFAULT"
 };
 
 module.exports = ExecutorTypes;

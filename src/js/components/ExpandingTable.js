@@ -1,16 +1,16 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Table} from 'reactjs-components';
+import classNames from "classnames";
+import React from "react";
+import { Table } from "reactjs-components";
 
-import Util from '../utils/Util';
+import Util from "../utils/Util";
 
-const WHITESPACE = '\u00A0';
+const WHITESPACE = "\u00A0";
 
 class ExpandingTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {expandedRows: {}};
+    this.state = { expandedRows: {} };
   }
 
   defaultRenderer(prop, row) {
@@ -28,25 +28,25 @@ class ExpandingTable extends React.Component {
       expandedRows[rowID] = true;
     }
 
-    this.setState({expandedRows});
+    this.setState({ expandedRows });
   }
 
   getColumns(columns) {
     // Replace the #render method on each column.
-    return columns.map((column) => {
-      return Object.assign({}, column, {render: this.getRenderer(column)});
+    return columns.map(column => {
+      return Object.assign({}, column, { render: this.getRenderer(column) });
     });
   }
 
   getRenderer(column) {
     // Get the column's #render method if it exists. Otherwise use our default.
     const renderFn = column.render || this.defaultRenderer;
-    const {expandAll} = this.props;
+    const { expandAll } = this.props;
 
     return (prop, row) => {
       const hasChildren = !!row.children;
-      const isExpanded = !!this.state.expandedRows[this.getRowID(row)]
-                       || expandAll;
+      const isExpanded =
+        !!this.state.expandedRows[this.getRowID(row)] || expandAll;
 
       // Render the column's top-level item.
       let cellContent = [
@@ -66,7 +66,7 @@ class ExpandingTable extends React.Component {
       if (hasChildren && isExpanded) {
         cellContent = cellContent.concat(
           row.children.map((child, childIndex) => {
-            let cellValue = renderFn(prop, child, {isParent: false});
+            let cellValue = renderFn(prop, child, { isParent: false });
 
             if (cellValue == null) {
               cellValue = WHITESPACE;
@@ -77,8 +77,8 @@ class ExpandingTable extends React.Component {
                 {cellValue}
               </div>
             );
-          }
-        ));
+          })
+        );
       }
 
       return cellContent;
@@ -90,7 +90,7 @@ class ExpandingTable extends React.Component {
   }
 
   render() {
-    const {props} = this;
+    const { props } = this;
     const classes = classNames(props.className, {
       [`table-align-${props.alignCells}`]: props.alignCells != null
     });
@@ -99,21 +99,22 @@ class ExpandingTable extends React.Component {
     return (
       <TableComponent
         className={classes}
-        {...Util.omit(props, ['alignCells', 'className', 'childRowClassName'])}
-        columns={this.getColumns(props.columns)} />
+        {...Util.omit(props, ["alignCells", "className", "childRowClassName"])}
+        columns={this.getColumns(props.columns)}
+      />
     );
   }
 }
 
 ExpandingTable.defaultProps = {
-  alignCells: 'top',
-  childRowClassName: 'text-overflow',
+  alignCells: "top",
+  childRowClassName: "text-overflow",
   expandAll: false,
   tableComponent: Table
 };
 
 ExpandingTable.propTypes = {
-  alignCells: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
+  alignCells: React.PropTypes.oneOf(["top", "middle", "bottom"]),
   childRowClassName: React.PropTypes.string,
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,

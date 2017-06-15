@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function CreateServiceModalServicePickerOptionContent({children}) {
+function CreateServiceModalServicePickerOptionContent({ children }) {
   return (
     <h5 className="flush text-align-center">
       {children}

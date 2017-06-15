@@ -1,6 +1,6 @@
 module.exports = {
   mode: {
-    rw: 'RW',
-    ro: 'RO'
+    rw: "RW",
+    ro: "RO"
   }
 };

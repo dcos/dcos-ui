@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class ClickToSelect extends React.Component {
   constructor() {
@@ -12,9 +12,7 @@ class ClickToSelect extends React.Component {
 
   render() {
     return (
-      <span
-        onClick={this.selectAll}
-        ref="node">
+      <span onClick={this.selectAll} ref="node">
         {this.props.children}
       </span>
     );

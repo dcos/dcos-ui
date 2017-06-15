@@ -1,14 +1,11 @@
-import Clipboard from 'clipboard';
-import React, {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import {Tooltip} from 'reactjs-components';
+import Clipboard from "clipboard";
+import React, { PropTypes } from "react";
+import ReactDOM from "react-dom";
+import { Tooltip } from "reactjs-components";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
-const METHODS_TO_BIND = [
-  'handleCopy',
-  'handleCopyIconMouseEnter'
-];
+const METHODS_TO_BIND = ["handleCopy", "handleCopyIconMouseEnter"];
 
 class ClipboardTrigger extends React.Component {
   constructor() {
@@ -18,14 +15,15 @@ class ClipboardTrigger extends React.Component {
       hasCopiedToClipboard: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
     if (this.refs.copyButton) {
-      this.clipboard = new Clipboard(ReactDOM.findDOMNode(this.refs.copyButton),
+      this.clipboard = new Clipboard(
+        ReactDOM.findDOMNode(this.refs.copyButton),
         {
           text: () => {
             return this.props.copyText;
@@ -33,7 +31,7 @@ class ClipboardTrigger extends React.Component {
         }
       );
 
-      this.clipboard.on('success', this.handleCopy);
+      this.clipboard.on("success", this.handleCopy);
     }
   }
 
@@ -44,14 +42,15 @@ class ClipboardTrigger extends React.Component {
   }
 
   getTriggerContent() {
-    const {children, className} = this.props;
+    const { children, className } = this.props;
 
     if (children != null) {
       return (
         <span
           className={className}
           onMouseEnter={this.handleCopyIconMouseEnter}
-          ref="copyButton">
+          ref="copyButton"
+        >
           {children}
         </span>
       );
@@ -64,12 +63,13 @@ class ClipboardTrigger extends React.Component {
         className={`clickable icon-clipboard ${className}`}
         color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter}
-        ref="copyButton" />
+        ref="copyButton"
+      />
     );
   }
 
   handleCopy() {
-    this.setState({hasCopiedToClipboard: true});
+    this.setState({ hasCopiedToClipboard: true });
 
     if (this.props.onTextCopy) {
       this.props.onTextCopy();
@@ -77,12 +77,12 @@ class ClipboardTrigger extends React.Component {
   }
 
   handleCopyIconMouseEnter() {
-    this.setState({hasCopiedToClipboard: false});
+    this.setState({ hasCopiedToClipboard: false });
   }
 
   render() {
-    const {copiedText, tooltipContent, useTooltip} = this.props;
-    const {hasCopiedToClipboard} = this.state;
+    const { copiedText, tooltipContent, useTooltip } = this.props;
+    const { hasCopiedToClipboard } = this.state;
 
     if (useTooltip) {
       const text = hasCopiedToClipboard ? copiedText : tooltipContent;
@@ -99,8 +99,8 @@ class ClipboardTrigger extends React.Component {
 }
 
 ClipboardTrigger.defaultProps = {
-  copiedText: 'Copied!',
-  tooltipContent: 'Copy to clipboard'
+  copiedText: "Copied!",
+  tooltipContent: "Copy to clipboard"
 };
 
 ClipboardTrigger.propTypes = {

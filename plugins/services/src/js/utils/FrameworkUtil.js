@@ -1,13 +1,15 @@
-import ServiceImages from '../constants/ServiceImages';
-import Util from '../../../../../src/js/utils/Util';
+import ServiceImages from "../constants/ServiceImages";
+import Util from "../../../../../src/js/utils/Util";
 
 // You might be tempted to merge FrameworkUtil into ServiceUtil, but that will
 // cause a circular dependency with ServiceUtil and struct/Service.
 const FrameworkUtil = {
   getImageSizeFromImagesObject(images, size) {
-    if (images == null ||
+    if (
+      images == null ||
       images[`icon-${size}`] == null ||
-      images[`icon-${size}`].length === 0) {
+      images[`icon-${size}`].length === 0
+    ) {
       return null;
     }
 
@@ -20,7 +22,10 @@ const FrameworkUtil = {
    * @returns {object} metadata
    */
   getMetadataFromLabels(labels) {
-    if (Util.findNestedPropertyInObject(labels, 'DCOS_PACKAGE_METADATA.length') == null) {
+    if (
+      Util.findNestedPropertyInObject(labels, "DCOS_PACKAGE_METADATA.length") ==
+      null
+    ) {
       return {};
     }
 
@@ -41,9 +46,11 @@ const FrameworkUtil = {
    * if all is not available in given object.
    */
   getServiceImages(images) {
-    if (this.getImageSizeFromImagesObject(images, 'small') == null ||
-      this.getImageSizeFromImagesObject(images, 'medium') == null ||
-      this.getImageSizeFromImagesObject(images, 'large') == null) {
+    if (
+      this.getImageSizeFromImagesObject(images, "small") == null ||
+      this.getImageSizeFromImagesObject(images, "medium") == null ||
+      this.getImageSizeFromImagesObject(images, "large") == null
+    ) {
       return ServiceImages.NA_IMAGES;
     }
 

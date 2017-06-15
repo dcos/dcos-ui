@@ -1,4 +1,4 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
 import {
   REQUEST_METRONOME_JOB_DELETE_ERROR,
@@ -19,16 +19,16 @@ import {
   REQUEST_METRONOME_JOB_CREATE_ERROR,
   REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS,
   REQUEST_METRONOME_JOB_STOP_RUN_ERROR
-} from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import MetronomeUtil from '../utils/MetronomeUtil';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "./AppDispatcher";
+import MetronomeUtil from "../utils/MetronomeUtil";
+import Config from "../config/Config";
 
 const MetronomeActions = {
   createJob(data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v0/scheduled-jobs`,
-      method: 'POST',
+      method: "POST",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -47,14 +47,14 @@ const MetronomeActions = {
 
   fetchJobs: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
+    function(resolve, reject) {
+      return function() {
         RequestUtil.json({
           url: `${Config.metronomeAPI}/v1/jobs`,
           data: [
-            {name: 'embed', value: 'activeRuns'},
-            {name: 'embed', value: 'schedules'},
-            {name: 'embed', value: 'historySummary'}
+            { name: "embed", value: "activeRuns" },
+            { name: "embed", value: "schedules" },
+            { name: "embed", value: "historySummary" }
           ],
           success(response) {
             try {
@@ -88,16 +88,16 @@ const MetronomeActions = {
         });
       };
     },
-    {delayAfterCount: Config.delayAfterErrorCount}
+    { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   fetchJobDetail(jobID) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
       data: [
-        {name: 'embed', value: 'activeRuns'},
-        {name: 'embed', value: 'history'},
-        {name: 'embed', value: 'schedules'}
+        { name: "embed", value: "activeRuns" },
+        { name: "embed", value: "history" },
+        { name: "embed", value: "schedules" }
       ],
       success(response) {
         AppDispatcher.handleServerAction({
@@ -127,7 +127,7 @@ const MetronomeActions = {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}` +
         `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
-      method: 'DELETE',
+      method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DELETE_SUCCESS,
@@ -148,7 +148,7 @@ const MetronomeActions = {
   updateJob(jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v0/scheduled-jobs/${jobID}`,
-      method: 'PUT',
+      method: "PUT",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -168,7 +168,7 @@ const MetronomeActions = {
   runJob(jobID) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/runs`,
-      method: 'POST',
+      method: "POST",
       data: {},
       success() {
         AppDispatcher.handleServerAction({
@@ -186,12 +186,13 @@ const MetronomeActions = {
   },
 
   stopJobRun(jobID, jobRunID) {
-    const url = `${Config.metronomeAPI}/v1/jobs/${jobID}` +
+    const url =
+      `${Config.metronomeAPI}/v1/jobs/${jobID}` +
       `/runs/${jobRunID}/actions/stop`;
 
     RequestUtil.json({
       url,
-      method: 'POST',
+      method: "POST",
       data: {},
       success() {
         AppDispatcher.handleServerAction({
@@ -211,7 +212,7 @@ const MetronomeActions = {
   updateSchedule(jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
-      method: 'PUT',
+      method: "PUT",
       data,
       success() {
         AppDispatcher.handleServerAction({
@@ -232,8 +233,8 @@ const MetronomeActions = {
 };
 
 if (Config.useFixtures) {
-  const jobFixture = require('../../../tests/_fixtures/metronome/job.json');
-  const jobsFixture = require('../../../tests/_fixtures/metronome/jobs.json');
+  const jobFixture = require("../../../tests/_fixtures/metronome/job.json");
+  const jobsFixture = require("../../../tests/_fixtures/metronome/jobs.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
@@ -241,28 +242,36 @@ if (Config.useFixtures) {
 
   global.actionTypes.MetronomeActions = {
     deleteJob: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     fetchJobDetail: {
-      event: 'success', success: {response: jobFixture}
+      event: "success",
+      success: { response: jobFixture }
     },
     fetchJobs: {
-      event: 'success', success: {response: jobsFixture}
+      event: "success",
+      success: { response: jobsFixture }
     },
     runJob: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     stopJobRun: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     },
     updateSchedule: {
-      event: 'success', success: {response: {}}
+      event: "success",
+      success: { response: {} }
     }
   };
 
-  Object.keys(global.actionTypes.MetronomeActions).forEach(function (method) {
+  Object.keys(global.actionTypes.MetronomeActions).forEach(function(method) {
     MetronomeActions[method] = RequestUtil.stubRequest(
-      MetronomeActions, 'MetronomeActions', method
+      MetronomeActions,
+      "MetronomeActions",
+      method
     );
   });
 }

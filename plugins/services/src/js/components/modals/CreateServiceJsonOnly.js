@@ -1,19 +1,16 @@
-import React, {PropTypes} from 'react';
-import deepEqual from 'deep-equal';
+import React, { PropTypes } from "react";
+import deepEqual from "deep-equal";
 
-import ApplicationSpec from '../../structs/ApplicationSpec';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import {SYNTAX_ERROR} from '../../constants/ServiceErrorTypes';
-import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import PodSpec from '../../structs/PodSpec';
-import ServiceUtil from '../../utils/ServiceUtil';
-import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
+import ApplicationSpec from "../../structs/ApplicationSpec";
+import FieldHelp from "../../../../../../src/js/components/form/FieldHelp";
+import FieldLabel from "../../../../../../src/js/components/form/FieldLabel";
+import { SYNTAX_ERROR } from "../../constants/ServiceErrorTypes";
+import JSONEditor from "../../../../../../src/js/components/JSONEditor";
+import PodSpec from "../../structs/PodSpec";
+import ServiceUtil from "../../utils/ServiceUtil";
+import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const METHODS_TO_BIND = [
-  'handleJSONChange',
-  'handleJSONErrorStateChange'
-];
+const METHODS_TO_BIND = ["handleJSONChange", "handleJSONErrorStateChange"];
 
 class CreateServiceJsonOnly extends React.Component {
   constructor() {
@@ -23,7 +20,7 @@ class CreateServiceJsonOnly extends React.Component {
       appConfig: ServiceUtil.getServiceJSON(this.props.service)
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -32,7 +29,7 @@ class CreateServiceJsonOnly extends React.Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    const {service} = nextProps;
+    const { service } = nextProps;
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(service);
     // Make sure to not set state unless the service has actually changed
@@ -67,8 +64,8 @@ class CreateServiceJsonOnly extends React.Component {
    * @param {Boolean} errorState - True if there are JSON syntax errors
    */
   handleJSONErrorStateChange(errorState) {
-    const {errors, onErrorsChange} = this.props;
-    const hasJsonError = errors.some(function (error) {
+    const { errors, onErrorsChange } = this.props;
+    const hasJsonError = errors.some(function(error) {
       return error.type === SYNTAX_ERROR;
     });
 
@@ -79,7 +76,7 @@ class CreateServiceJsonOnly extends React.Component {
           path: [],
           type: SYNTAX_ERROR,
           variables: {},
-          message: 'The input entered is not a valid JSON string'
+          message: "The input entered is not a valid JSON string"
         }
       ]);
     }
@@ -91,8 +88,8 @@ class CreateServiceJsonOnly extends React.Component {
   }
 
   render() {
-    const {appConfig} = this.state;
-    const {errors, onPropertyChange} = this.props;
+    const { appConfig } = this.state;
+    const { errors, onPropertyChange } = this.props;
 
     return (
       <div className="create-service-modal-json-only container container-wide">
@@ -112,7 +109,8 @@ class CreateServiceJsonOnly extends React.Component {
             showGutter={true}
             showPrintMargin={false}
             theme="monokai"
-            value={appConfig} />
+            value={appConfig}
+          />
         </div>
       </div>
     );

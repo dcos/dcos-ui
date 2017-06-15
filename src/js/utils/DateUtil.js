@@ -1,27 +1,26 @@
-import moment from 'moment';
+import moment from "moment";
 
 const DEFAULT_MULTIPLICANTS = {
-  'ms'  : 1,
-  'sec' : 1000,
-  'min' : 60000,
-  'h'   : 3600000,
-  'd'   : 86400000
+  ms: 1,
+  sec: 1000,
+  min: 60000,
+  h: 3600000,
+  d: 86400000
 };
 
 const DateUtil = {
-
   /*
    * Composes a string expression by de-composing the given time in milliseconds
    * into it's sub-multiplicants. For example:
    *
    * 11002 = 11002 ms (11 sec, 2 ms)
    */
-  msToMultiplicants(ms, multiplicants=DEFAULT_MULTIPLICANTS) {
+  msToMultiplicants(ms, multiplicants = DEFAULT_MULTIPLICANTS) {
     const expressionComponents = [];
     const multiplicantKeys = Object.keys(multiplicants);
 
     // Start applying biggest to smallest fit
-    for (let i=multiplicantKeys.length-1; i>=0; --i) {
+    for (let i = multiplicantKeys.length - 1; i >= 0; --i) {
       const unitName = multiplicantKeys[i];
       const unitSize = multiplicants[unitName];
       const fullFits = Math.floor(ms / unitSize);
@@ -41,7 +40,7 @@ const DateUtil = {
    * @return {String} time string with the format 'MM-DD-YYYY [at] h:mma'
    */
   msToDateStr(ms) {
-    return moment(ms).format('MM-DD-YYYY [at] h:mma');
+    return moment(ms).format("MM-DD-YYYY [at] h:mma");
   },
 
   /**
@@ -50,7 +49,7 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
   msToUTCDate(ms) {
-    return moment(ms).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+    return moment(ms).utc().format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
   },
 
   /**
@@ -59,7 +58,7 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
   msToLogTime(ms) {
-    return moment(ms).utc().format('YYYY-MM-DD hh:mm:ss');
+    return moment(ms).utc().format("YYYY-MM-DD hh:mm:ss");
   },
 
   /**
@@ -81,7 +80,7 @@ const DateUtil = {
     return moment(str).valueOf();
   },
 
-  getDuration(time, formatKey = 'seconds') {
+  getDuration(time, formatKey = "seconds") {
     return moment.duration(time, formatKey).humanize();
   }
 };

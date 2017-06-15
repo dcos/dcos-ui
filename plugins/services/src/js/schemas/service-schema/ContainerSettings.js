@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import ContainerValidatorUtil from '../../utils/ContainerValidatorUtil';
+import ContainerValidatorUtil from "../../utils/ContainerValidatorUtil";
 
 const ContainerSettings = {
-  title: 'Container Settings',
-  description: 'Configure your Docker Container. You can configure your Docker volumes in the Volumes tab and your Docker ports in the Network tab.',
-  type: 'object',
+  title: "Container Settings",
+  description: "Configure your Docker Container. You can configure your Docker volumes in the Volumes tab and your Docker ports in the Network tab.",
+  type: "object",
   properties: {
     basic: {
-      type: 'group',
+      type: "group",
       properties: {
         image: {
           description: (
             <span>
-              {'Configure your Docker container. Use '}
+              {"Configure your Docker container. Use "}
               <a href="https://hub.docker.com/explore/" target="_blank">
                 DockerHub
               </a> to find popular repositories.
             </span>
           ),
-          title: 'Container Image',
-          type: 'string',
+          title: "Container Image",
+          type: "string",
           getter(service) {
             const container = service.getContainerSettings();
             if (container && container.docker && container.docker.image) {
@@ -30,18 +30,21 @@ const ContainerSettings = {
 
             return null;
           },
-          externalValidator({containerSettings}, definition) {
-            const {image} = containerSettings;
+          externalValidator({ containerSettings }, definition) {
+            const { image } = containerSettings;
 
-            if (image == null ||
-              ContainerValidatorUtil.isValidDockerImage(image)) {
+            if (
+              image == null ||
+              ContainerValidatorUtil.isValidDockerImage(image)
+            ) {
               return true;
             }
 
-            definition.showError = 'Container Image  must not contain ' +
-              'whitespace and should not contain any other characters ' +
-              'than lowercase letters, digits, hyphens, underscores, ' +
-              'and colons.';
+            definition.showError =
+              "Container Image  must not contain " +
+              "whitespace and should not contain any other characters " +
+              "than lowercase letters, digits, hyphens, underscores, " +
+              "and colons.";
 
             return false;
           }
@@ -49,17 +52,15 @@ const ContainerSettings = {
       }
     },
     flags: {
-      type: 'group',
+      type: "group",
       properties: {
         privileged: {
-          label: 'Extend runtime privileges',
+          label: "Extend runtime privileges",
           showLabel: false,
-          type: 'boolean',
+          type: "boolean",
           getter(service) {
             const container = service.getContainerSettings();
-            if (container && container.docker &&
-              container.docker.privileged
-            ) {
+            if (container && container.docker && container.docker.privileged) {
               return container.docker.privileged;
             }
 
@@ -67,12 +68,14 @@ const ContainerSettings = {
           }
         },
         forcePullImage: {
-          label: 'Force pull image on launch',
+          label: "Force pull image on launch",
           showLabel: false,
-          type: 'boolean',
+          type: "boolean",
           getter(service) {
             const container = service.getContainerSettings();
-            if (container && container.docker &&
+            if (
+              container &&
+              container.docker &&
               container.docker.forcePullImage
             ) {
               return container.docker.forcePullImage;
@@ -84,25 +87,24 @@ const ContainerSettings = {
       }
     },
     parameters: {
-      title: 'Docker Parameters',
+      title: "Docker Parameters",
       description: (
         <span>
-          {'Supply options for the '}
+          {"Supply options for the "}
           <a
             href="https://docs.docker.com/engine/reference/commandline/run/"
-            target="_blank">
+            target="_blank"
+          >
             docker run
           </a> command executed by the Mesos containerizer.
         </span>
       ),
-      type: 'array',
+      type: "array",
       duplicable: true,
-      addLabel: 'Add Parameter',
+      addLabel: "Add Parameter",
       getter(service) {
         const container = service.getContainerSettings();
-        if (container && container.docker &&
-          container.docker.parameters
-        ) {
+        if (container && container.docker && container.docker.parameters) {
           return container.docker.parameters;
         }
 
@@ -111,12 +113,12 @@ const ContainerSettings = {
       itemShape: {
         properties: {
           key: {
-            title: 'Key',
-            type: 'string'
+            title: "Key",
+            type: "string"
           },
           value: {
-            title: 'Value',
-            type: 'string'
+            title: "Value",
+            type: "string"
           }
         }
       }

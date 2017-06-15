@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import HealthSorting from '../constants/HealthSorting';
-import MarathonStore from '../stores/MarathonStore';
-import TableUtil from '../../../../../src/js/utils/TableUtil';
-import TaskStatusSortingOrder from '../constants/TaskStatusSortingOrder';
-import Util from '../../../../../src/js/utils/Util';
+import HealthSorting from "../constants/HealthSorting";
+import MarathonStore from "../stores/MarathonStore";
+import TableUtil from "../../../../../src/js/utils/TableUtil";
+import TaskStatusSortingOrder from "../constants/TaskStatusSortingOrder";
+import Util from "../../../../../src/js/utils/Util";
 
 function getUpdatedTimestamp(model) {
   const lastStatus = Util.last(model.statuses);
@@ -16,24 +16,24 @@ function getUpdatedTimestamp(model) {
 
 const TaskTableUtil = {
   getSortFunction(tieBreakerProp) {
-    return TableUtil.getSortFunction(tieBreakerProp, function (item, prop) {
-      const hasGetter = typeof item.get === 'function';
+    return TableUtil.getSortFunction(tieBreakerProp, function(item, prop) {
+      const hasGetter = typeof item.get === "function";
 
-      if (prop === 'updated') {
+      if (prop === "updated") {
         return getUpdatedTimestamp(item) || 0;
       }
 
-      if (prop === 'health') {
+      if (prop === "health") {
         return HealthSorting[
-          MarathonStore.getServiceHealth(item.get('name')).key
+          MarathonStore.getServiceHealth(item.get("name")).key
         ];
       }
 
-      if (prop === 'status' && !hasGetter) {
+      if (prop === "status" && !hasGetter) {
         return TaskStatusSortingOrder[item.state];
       }
 
-      if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
+      if (prop === "cpus" || prop === "mem" || prop === "disk") {
         // This is necessary for tasks, since they are not structs
         let value = item[prop];
 

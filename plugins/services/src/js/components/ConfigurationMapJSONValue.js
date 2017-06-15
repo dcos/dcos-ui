@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
 
 /**
  * Render a JSON object as a <ConfigurationMapValue>, within the
@@ -9,7 +10,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
  */
 class ConfigurationMapJSONValue extends React.Component {
   render() {
-    const {defaultValue, value} = this.props;
+    const { defaultValue, value } = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {

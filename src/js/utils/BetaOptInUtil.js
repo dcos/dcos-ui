@@ -1,8 +1,8 @@
-import Util from './Util';
+import Util from "./Util";
 
 // SDK sets/reads this property within package config.
-const BETA_OPTIN_PROPERTY_NAME = 'beta-optin';
-const DOT_NOTATION_SCHEMA_PATH = 'properties.service.properties.beta-optin';
+const BETA_OPTIN_PROPERTY_NAME = "beta-optin";
+const DOT_NOTATION_SCHEMA_PATH = "properties.service.properties.beta-optin";
 
 const BetaOptInUtil = {
   /**
@@ -44,16 +44,16 @@ const BetaOptInUtil = {
     }
 
     const filteredConfig = Util.deepCopy(configSchema);
-    const service = filteredConfig['properties']['service'];
+    const service = filteredConfig["properties"]["service"];
 
     // Filter out required property as this will cause validation
     // errors in the schema form if we remove the beta-optin schema Object
     if (Array.isArray(service.required)) {
-      service.required = service.required.filter(function (key) {
+      service.required = service.required.filter(function(key) {
         return key !== BETA_OPTIN_PROPERTY_NAME;
       });
     }
-    delete service['properties'][BETA_OPTIN_PROPERTY_NAME];
+    delete service["properties"][BETA_OPTIN_PROPERTY_NAME];
 
     return filteredConfig;
   },
@@ -72,11 +72,11 @@ const BetaOptInUtil = {
 
     const betaConfig = Util.deepCopy(config);
 
-    if (!Util.isObject(betaConfig['service'])) {
-      betaConfig['service'] = {};
+    if (!Util.isObject(betaConfig["service"])) {
+      betaConfig["service"] = {};
     }
 
-    betaConfig['service'][BETA_OPTIN_PROPERTY_NAME] = true;
+    betaConfig["service"][BETA_OPTIN_PROPERTY_NAME] = true;
 
     return betaConfig;
   }

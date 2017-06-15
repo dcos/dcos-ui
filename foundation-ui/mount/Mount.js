@@ -1,12 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import {MountService} from './index';
-import {CHANGE} from './MountEvent';
-import ReactUtil from '../utils/ReactUtil';
+import { MountService } from "./index";
+import { CHANGE } from "./MountEvent";
+import ReactUtil from "../utils/ReactUtil";
 
-const METHODS_TO_BIND = [
-  'onMountServiceChange'
-];
+const METHODS_TO_BIND = ["onMountServiceChange"];
 
 /**
  * A component to use as a mount point to incorporate views/components provided
@@ -31,7 +29,7 @@ class Mount extends React.Component {
       components: MountService.findComponentsWithType(this.props.type)
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -41,13 +39,13 @@ class Mount extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {type} = nextProps;
+    const { type } = nextProps;
 
     if (this.props.type === type) {
       return;
     }
 
-    this.setState({components: MountService.findComponentsWithType(type)});
+    this.setState({ components: MountService.findComponentsWithType(type) });
   }
 
   componentWillUnmount() {
@@ -59,12 +57,12 @@ class Mount extends React.Component {
       return;
     }
 
-    this.setState({components: MountService.findComponentsWithType(type)});
+    this.setState({ components: MountService.findComponentsWithType(type) });
   }
 
   render() {
-    const {alwaysWrap, children, limit, wrapper} = this.props;
-    const {components} = this.state;
+    const { alwaysWrap, children, limit, wrapper } = this.props;
+    const { components } = this.state;
 
     // Filter consumed props to only pass on a "clean" set of props
     const filteredProps = Object.keys(this.props).reduce((props, key) => {
@@ -77,12 +75,11 @@ class Mount extends React.Component {
 
     // Limit the number of components as configured and create elements
     const elements = components.slice(0, limit).map((Component, index) => {
-      return (<Component {...filteredProps} key={index} />);
+      return <Component {...filteredProps} key={index} />;
     });
 
     // Don't render prop.children if elements is defined
     if (elements.length > 0) {
-
       // Wrap array of children in chosen wrapperComponent (default: div)
       // e.g. for table row, this would be <tr/> and elements could be a
       // set of  <td/>'s
@@ -96,7 +93,7 @@ class Mount extends React.Component {
 Mount.defaultProps = {
   alwaysWrap: false,
   limit: Number.MAX_SAFE_INTEGER,
-  wrapper: 'div'
+  wrapper: "div"
 };
 
 Mount.propTypes = {

@@ -1,5 +1,8 @@
-import {ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+import {
+  ADD_ITEM,
+  REMOVE_ITEM
+} from "../../../../../../src/js/constants/TransactionTypes";
+import Transaction from "../../../../../../src/js/structs/Transaction";
 
 /*
  * transformContainers
@@ -10,7 +13,7 @@ function transformContainers(memo, container, containerIndex) {
     return memo;
   }
 
-  const tuples = container.volumeMounts.map((mount) => {
+  const tuples = container.volumeMounts.map(mount => {
     return [containerIndex, mount];
   });
 
@@ -18,10 +21,10 @@ function transformContainers(memo, container, containerIndex) {
 }
 
 module.exports = {
-  JSONReducer(state = [], {type, path, value}) {
+  JSONReducer(state = [], { type, path, value }) {
     const [base, index, name] = path;
 
-    if (base !== 'volumeMounts') {
+    if (base !== "volumeMounts") {
       return state;
     }
 
@@ -36,7 +39,7 @@ module.exports = {
         break;
     }
 
-    if (name === 'name') {
+    if (name === "name") {
       newState[index].name = value;
     }
 
@@ -61,9 +64,13 @@ module.exports = {
         volumeIndexMap[volume.name] = volumes.push(volume.name) - 1;
 
         return memo.concat(
-          new Transaction(['volumeMounts'], volumeIndexMap[volume.name], ADD_ITEM),
           new Transaction(
-            ['volumeMounts', volumeIndexMap[volume.name], 'name'],
+            ["volumeMounts"],
+            volumeIndexMap[volume.name],
+            ADD_ITEM
+          ),
+          new Transaction(
+            ["volumeMounts", volumeIndexMap[volume.name], "name"],
             volume.name
           )
         );
@@ -76,20 +83,25 @@ module.exports = {
     const containerVolumesTransactions = containers
       .reduce(transformContainers, [])
       .reduce((memo, [containerIndex, volumeMount]) => {
-        const {name, mountPath} = volumeMount;
+        const { name, mountPath } = volumeMount;
 
         if (volumeIndexMap[name] == null) {
           volumeIndexMap[name] = volumes.push(name) - 1;
           memo = memo.concat(
-            new Transaction(['volumeMounts'], volumeIndexMap[name], ADD_ITEM),
-            new Transaction(['volumeMounts', volumeIndexMap[name], 'name'], name)
+            new Transaction(["volumeMounts"], volumeIndexMap[name], ADD_ITEM),
+            new Transaction(
+              ["volumeMounts", volumeIndexMap[name], "name"],
+              name
+            )
           );
         }
 
-        memo.push(new Transaction(
-          ['volumeMounts', volumeIndexMap[name], 'mountPath', containerIndex],
-          mountPath
-        ));
+        memo.push(
+          new Transaction(
+            ["volumeMounts", volumeIndexMap[name], "mountPath", containerIndex],
+            mountPath
+          )
+        );
 
         return memo;
       }, []);
@@ -97,24 +109,25 @@ module.exports = {
     return transactions.concat(containerVolumesTransactions);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     const [base, index, name, secondIndex] = path;
 
     let newState = state.slice();
 
-    if (base === 'containers') {
+    if (base === "containers") {
       switch (type) {
         case ADD_ITEM:
-          newState = newState.map((volumeMount) => {
-            volumeMount.mountPath.push('');
+          newState = newState.map(volumeMount => {
+            volumeMount.mountPath.push("");
 
             return volumeMount;
           });
           break;
         case REMOVE_ITEM:
-          newState = newState.map((volumeMount) => {
-            volumeMount.mountPath =
-              volumeMount.mountPath.filter((item, index) => index !== value);
+          newState = newState.map(volumeMount => {
+            volumeMount.mountPath = volumeMount.mountPath.filter(
+              (item, index) => index !== value
+            );
 
             return volumeMount;
           });
@@ -122,23 +135,23 @@ module.exports = {
       }
     }
 
-    if (base !== 'volumeMounts') {
+    if (base !== "volumeMounts") {
       return newState;
     }
 
     switch (type) {
       case ADD_ITEM:
-        newState.push({mountPath: []});
+        newState.push({ mountPath: [] });
         break;
       case REMOVE_ITEM:
         newState = newState.filter((item, index) => index !== value);
         break;
     }
 
-    if (name === 'name') {
+    if (name === "name") {
       newState[index].name = String(value);
     }
-    if (name === 'mountPath') {
+    if (name === "mountPath") {
       newState[index].mountPath[secondIndex] = String(value);
     }
 

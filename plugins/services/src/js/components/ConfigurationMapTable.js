@@ -1,9 +1,9 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import ConfigurationMapEditAction from './ConfigurationMapEditAction';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
+import ConfigurationMapEditAction from "./ConfigurationMapEditAction";
+import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil.js";
 /**
  * Optimized method to check if all row props are empty for a given column
  *
@@ -12,7 +12,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
  * @returns {Boolean} Returns `true` if all rows have empty value in this prop
  */
 function isColumnEmpty(data, prop) {
-  return data.every((row) => {
+  return data.every(row => {
     return ValidatorUtil.isEmpty(row[prop]);
   });
 }
@@ -90,53 +90,55 @@ class ConfigurationMapTable extends React.Component {
       tabViewID
     } = this.props;
 
-    columns = columns.map((column) => {
-      column = Object.assign({}, columnDefaults, column);
-      const {
-        className = '',
-        heading,
-        hideIfEmpty = false,
-        placeholder = (<em>Not Configured</em>),
-        prop,
-        render = defaultRenderFunction
-      } = column;
+    columns = columns
+      .map(column => {
+        column = Object.assign({}, columnDefaults, column);
+        const {
+          className = "",
+          heading,
+          hideIfEmpty = false,
+          placeholder = <em>Not Configured</em>,
+          prop,
+          render = defaultRenderFunction
+        } = column;
 
-      // Always use functions in order to display the sorting assets
-      if (typeof className !== 'function') {
-        column.className = ServiceConfigDisplayUtil.getColumnClassNameFn(
-          className
-        );
-      }
-      if (typeof heading !== 'function') {
-        column.heading = ServiceConfigDisplayUtil.getColumnHeadingFn(
-          heading
-        );
-      }
+        // Always use functions in order to display the sorting assets
+        if (typeof className !== "function") {
+          column.className = ServiceConfigDisplayUtil.getColumnClassNameFn(
+            className
+          );
+        }
+        if (typeof heading !== "function") {
+          column.heading = ServiceConfigDisplayUtil.getColumnHeadingFn(heading);
+        }
 
-      // Don't include columns that have an `hideIfEmpty` flag and are empty
-      if (hideIfEmpty && isColumnEmpty(data, prop)) {
-        return null;
-      }
+        // Don't include columns that have an `hideIfEmpty` flag and are empty
+        if (hideIfEmpty && isColumnEmpty(data, prop)) {
+          return null;
+        }
 
-      // Compile render function
-      column.render = columnRenderFunction.bind({placeholder, render});
+        // Compile render function
+        column.render = columnRenderFunction.bind({ placeholder, render });
 
-      return column;
-    })
-    .filter((column) => {
-      return column !== null;
-    });
+        return column;
+      })
+      .filter(column => {
+        return column !== null;
+      });
 
     if (onEditClick) {
       columns.push({
-        heading() { return null; },
-        className: 'configuration-map-action',
-        prop: 'edit',
+        heading() {
+          return null;
+        },
+        className: "configuration-map-action",
+        prop: "edit",
         render() {
           return (
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID={tabViewID} />
+              tabViewID={tabViewID}
+            />
           );
         }
       });
@@ -145,7 +147,8 @@ class ConfigurationMapTable extends React.Component {
     return (
       <Table
         className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
-        {...Object.assign({}, this.props, {columns})} />
+        {...Object.assign({}, this.props, { columns })}
+      />
     );
   }
 }

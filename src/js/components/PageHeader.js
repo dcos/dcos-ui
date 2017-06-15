@@ -1,10 +1,10 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import PageHeaderActions from './PageHeaderActions';
-import PageHeaderBreadcrumbs from './PageHeaderBreadcrumbs';
-import PageHeaderTabs from './PageHeaderTabs';
-import SidebarToggle from './SidebarToggle';
+import PageHeaderActions from "./PageHeaderActions";
+import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
+import PageHeaderTabs from "./PageHeaderTabs";
+import SidebarToggle from "./SidebarToggle";
 
 class PageHeader extends React.Component {
   render() {
@@ -22,17 +22,14 @@ class PageHeader extends React.Component {
       }
     } = this;
 
-    const classes = classNames('page-header', className);
-    const innerClasses = classNames(
-      'page-header-inner pod',
-      innerClassName
-    );
+    const classes = classNames("page-header", className);
+    const innerClasses = classNames("page-header-inner pod", innerClassName);
     const primaryContentClasses = classNames(
-      'page-header-content-section page-header-content-section-primary',
+      "page-header-content-section page-header-content-section-primary",
       primaryContentClassName
     );
     const secondaryContentClasses = classNames(
-      'page-header-content-section page-header-content-section-secondary',
+      "page-header-content-section page-header-content-section-secondary",
       secondaryContentClassName
     );
     let secondaryContentDetailElement = null;
@@ -51,9 +48,7 @@ class PageHeader extends React.Component {
           <div className={primaryContentClasses}>
             <SidebarToggle />
             {breadcrumbs}
-            <PageHeaderActions
-              actions={actions}
-              addButton={addButton} />
+            <PageHeaderActions actions={actions} addButton={addButton} />
           </div>
           <div className={secondaryContentClasses}>
             <PageHeaderTabs tabs={tabs} />

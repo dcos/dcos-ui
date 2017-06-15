@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   SERVER_ACTION,
@@ -10,7 +10,7 @@ import {
   REQUEST_HEALTH_UNIT_NODES_ERROR,
   REQUEST_HEALTH_UNIT_NODE_SUCCESS,
   REQUEST_HEALTH_UNIT_NODE_ERROR
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 import {
   HEALTH_UNIT_SUCCESS,
   HEALTH_UNIT_ERROR,
@@ -21,16 +21,16 @@ import {
   HEALTH_UNITS_ERROR,
   HEALTH_UNITS_CHANGE,
   VISIBILITY_CHANGE
-} from '../constants/EventTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import Config from '../config/Config';
-import GetSetBaseStore from './GetSetBaseStore';
-import HealthUnit from '../structs/HealthUnit';
-import HealthUnitsList from '../structs/HealthUnitsList';
-import Node from '../structs/Node';
-import NodesList from '../structs/NodesList';
-import UnitHealthActions from '../events/UnitHealthActions';
-import VisibilityStore from './VisibilityStore';
+} from "../constants/EventTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import Config from "../config/Config";
+import GetSetBaseStore from "./GetSetBaseStore";
+import HealthUnit from "../structs/HealthUnit";
+import HealthUnitsList from "../structs/HealthUnitsList";
+import Node from "../structs/Node";
+import NodesList from "../structs/NodesList";
+import UnitHealthActions from "../events/UnitHealthActions";
+import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
 
@@ -38,7 +38,8 @@ function startPolling() {
   if (requestInterval == null) {
     UnitHealthActions.fetchUnits();
     requestInterval = setInterval(
-      UnitHealthActions.fetchUnits, Config.getRefreshRate()
+      UnitHealthActions.fetchUnits,
+      Config.getRefreshRate()
     );
   }
 }
@@ -80,7 +81,7 @@ class UnitHealthStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -156,22 +157,22 @@ class UnitHealthStore extends GetSetBaseStore {
 
   getUnits() {
     return new HealthUnitsList({
-      items: this.get('units')
+      items: this.get("units")
     });
   }
 
   getUnit(id) {
-    return new HealthUnit(this.get('unitsByID')[id] || {});
+    return new HealthUnit(this.get("unitsByID")[id] || {});
   }
 
   getNodes(unitID) {
-    const nodes = this.get('nodesByUnitID')[unitID] || [];
+    const nodes = this.get("nodesByUnitID")[unitID] || [];
 
-    return new NodesList({items: nodes});
+    return new NodesList({ items: nodes });
   }
 
   getNode(nodeID) {
-    return new Node(this.get('nodesByID')[nodeID] || {});
+    return new Node(this.get("nodesByID")[nodeID] || {});
   }
 
   getDownloadURL() {
@@ -195,42 +196,41 @@ class UnitHealthStore extends GetSetBaseStore {
   }
 
   processUnits(units) {
-    this.set({units});
+    this.set({ units });
 
     this.emit(HEALTH_UNITS_CHANGE);
   }
 
   processUnit(unitData, unitID) {
-    const unitsByID = this.get('unitsByID');
+    const unitsByID = this.get("unitsByID");
     unitsByID[unitID] = unitData;
 
-    this.set({unitsByID});
+    this.set({ unitsByID });
 
     this.emit(HEALTH_UNIT_SUCCESS, unitID);
   }
 
   processNodes(nodes, unitID) {
-    const nodesByUnitID = this.get('nodesByUnitID');
+    const nodesByUnitID = this.get("nodesByUnitID");
     nodesByUnitID[unitID] = nodes;
 
-    this.set({nodesByUnitID});
+    this.set({ nodesByUnitID });
 
     this.emit(HEALTH_UNIT_NODES_SUCCESS, unitID);
   }
 
   processNode(nodeData, unitID, nodeID) {
-    const nodesByID = this.get('nodesByID');
+    const nodesByID = this.get("nodesByID");
     nodesByID[nodeID] = nodeData;
 
-    this.set({nodesByID});
+    this.set({ nodesByID });
 
     this.emit(HEALTH_UNIT_NODE_SUCCESS, unitID, nodeID);
   }
 
   get storeID() {
-    return 'unitHealth';
+    return "unitHealth";
   }
-
 }
 
 module.exports = new UnitHealthStore();

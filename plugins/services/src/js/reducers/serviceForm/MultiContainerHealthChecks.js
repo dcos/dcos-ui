@@ -2,12 +2,17 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import {COMMAND, HTTP, HTTPS, TCP} from '../../constants/HealthCheckProtocols';
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
-import MesosCommandTypes from '../../constants/MesosCommandTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
+} from "../../../../../../src/js/constants/TransactionTypes";
+import {
+  COMMAND,
+  HTTP,
+  HTTPS,
+  TCP
+} from "../../constants/HealthCheckProtocols";
+import { parseIntValue } from "../../../../../../src/js/utils/ReducerUtil";
+import MesosCommandTypes from "../../constants/MesosCommandTypes";
+import Transaction from "../../../../../../src/js/structs/Transaction";
+import ValidatorUtil from "../../../../../../src/js/utils/ValidatorUtil";
 
 /**
  * JSON Parser Fragment for `HttpHealthCheck` type
@@ -20,27 +25,19 @@ function parseHttpHealthCheck(healthCheck, path) {
   const memo = [];
 
   if (healthCheck.endpoint != null) {
-    memo.push(new Transaction(
-      path.concat(['endpoint']),
-      healthCheck.endpoint,
-      SET
-    ));
+    memo.push(
+      new Transaction(path.concat(["endpoint"]), healthCheck.endpoint, SET)
+    );
   }
 
   if (healthCheck.path != null) {
-    memo.push(new Transaction(
-      path.concat(['path']),
-      healthCheck.path,
-      SET
-    ));
+    memo.push(new Transaction(path.concat(["path"]), healthCheck.path, SET));
   }
 
   if (healthCheck.scheme != null) {
-    memo.push(new Transaction(
-      path.concat(['https']),
-      healthCheck.scheme === HTTPS,
-      SET
-    ));
+    memo.push(
+      new Transaction(path.concat(["https"]), healthCheck.scheme === HTTPS, SET)
+    );
   }
 
   return memo;
@@ -51,15 +48,15 @@ function reduceHttpHealthCheck(state, field, value) {
   newState.http = Object.assign({}, newState.http || {});
 
   switch (field) {
-    case 'endpoint':
+    case "endpoint":
       newState.http.endpoint = value;
       break;
 
-    case 'path':
+    case "path":
       newState.http.path = value;
       break;
 
-    case 'https':
+    case "https":
       if (value) {
         newState.http.scheme = HTTPS;
       } else {
@@ -76,7 +73,7 @@ function reduceFormHttpHealthCheck(state, field, value) {
   newState.http = Object.assign({}, newState.http || {});
 
   switch (field) {
-    case 'https':
+    case "https":
       newState.http.https = value;
       break;
   }
@@ -95,11 +92,9 @@ function parseTcpHealthCheck(healthCheck, path) {
   const memo = [];
 
   if (healthCheck.endpoint != null) {
-    memo.push(new Transaction(
-      path.concat(['endpoint']),
-      healthCheck.endpoint,
-      SET
-    ));
+    memo.push(
+      new Transaction(path.concat(["endpoint"]), healthCheck.endpoint, SET)
+    );
   }
 
   return memo;
@@ -110,7 +105,7 @@ function reduceTcpHealthCheck(state, field, value) {
   newState.tcp = Object.assign({}, newState.tcp || {});
 
   switch (field) {
-    case 'endpoint':
+    case "endpoint":
       newState.tcp.endpoint = value;
       break;
   }
@@ -127,35 +122,39 @@ function reduceTcpHealthCheck(state, field, value) {
  */
 function parseCommandHealthCheck(healthCheck, path) {
   const memo = [];
-  const {command={}} = healthCheck;
+  const { command = {} } = healthCheck;
 
   if (command.shell != null) {
-    memo.push(new Transaction(
-      path.concat(['command', 'type']),
-      MesosCommandTypes.SHELL,
-      SET
-    ));
+    memo.push(
+      new Transaction(
+        path.concat(["command", "type"]),
+        MesosCommandTypes.SHELL,
+        SET
+      )
+    );
 
-    memo.push(new Transaction(
-      path.concat(['command', 'value']),
-      command.shell,
-      SET
-    ));
+    memo.push(
+      new Transaction(path.concat(["command", "value"]), command.shell, SET)
+    );
   }
 
-  if ((command.argv != null) && Array.isArray(command.argv)) {
-    memo.push(new Transaction(
-      path.concat(['command', 'type']),
-      MesosCommandTypes.ARGV,
-      SET
-    ));
+  if (command.argv != null && Array.isArray(command.argv)) {
+    memo.push(
+      new Transaction(
+        path.concat(["command", "type"]),
+        MesosCommandTypes.ARGV,
+        SET
+      )
+    );
 
     // Always cast to string, since the UI cannot handle arrays
-    memo.push(new Transaction(
-      path.concat(['command', 'value']),
-      command.argv.join(' '),
-      SET
-    ));
+    memo.push(
+      new Transaction(
+        path.concat(["command", "value"]),
+        command.argv.join(" "),
+        SET
+      )
+    );
   }
 
   return memo;
@@ -168,14 +167,14 @@ function reduceCommandHealthCheck(state, field, value) {
   const command = newState.exec.command;
 
   switch (field) {
-    case 'type':
+    case "type":
       // Shell is a meta-field that denotes if we are going to populate
       // the argument or the shell field. So, if we encounter an opposite
       // field, we should convert and set-up a placeholder
       if (value === MesosCommandTypes.SHELL) {
-        command.shell = '';
-        if ((command.argv != null) && Array.isArray(command.argv)) {
-          command.shell = command.argv.join(' ');
+        command.shell = "";
+        if (command.argv != null && Array.isArray(command.argv)) {
+          command.shell = command.argv.join(" ");
           delete command.argv;
         }
 
@@ -185,7 +184,7 @@ function reduceCommandHealthCheck(state, field, value) {
       if (value === MesosCommandTypes.ARGV) {
         command.argv = [];
         if (command.shell != null) {
-          command.argv = command.shell.split(' ');
+          command.argv = command.shell.split(" ");
           delete command.shell;
         }
 
@@ -193,11 +192,11 @@ function reduceCommandHealthCheck(state, field, value) {
       }
       break;
 
-    case 'value':
+    case "value":
       // By default we are creating `shell`. Only if `argv` exists
       // we should create an array
       if (command.argv != null) {
-        command.argv = value.split(' ');
+        command.argv = value.split(" ");
       } else {
         command.shell = value;
       }
@@ -214,11 +213,11 @@ function reduceFormCommandHealthCheck(state, field, value) {
   const command = newState.exec.command;
 
   switch (field) {
-    case 'type':
+    case "type":
       command.type = value;
       break;
 
-    case 'value':
+    case "value":
       command.value = value;
       break;
   }
@@ -227,7 +226,7 @@ function reduceFormCommandHealthCheck(state, field, value) {
 }
 
 const MultiContainerHealthChecks = {
-  JSONSegmentReducer(state, {type, path, value}) {
+  JSONSegmentReducer(state, { type, path, value }) {
     const newState = Object.assign({}, state);
     const [group, field, secondField] = path;
 
@@ -235,8 +234,8 @@ const MultiContainerHealthChecks = {
     // since we cannot have more than 1 items.
     if (type === ADD_ITEM) {
       if (path.length !== 0) {
-        if (process.env.NODE_ENV !== 'production') {
-          throw new TypeError('Trying to ADD_ITEM on a wrong health path');
+        if (process.env.NODE_ENV !== "production") {
+          throw new TypeError("Trying to ADD_ITEM on a wrong health path");
         }
 
         return newState;
@@ -249,8 +248,8 @@ const MultiContainerHealthChecks = {
     // have one item.
     if (type === REMOVE_ITEM) {
       if (path.length !== 0) {
-        if (process.env.NODE_ENV !== 'production') {
-          throw new TypeError('Trying to REMOVE_ITEM on a wrong health path');
+        if (process.env.NODE_ENV !== "production") {
+          throw new TypeError("Trying to REMOVE_ITEM on a wrong health path");
         }
 
         return newState;
@@ -260,7 +259,7 @@ const MultiContainerHealthChecks = {
     }
 
     // Format object structure according to protocol switch
-    if (group === 'protocol') {
+    if (group === "protocol") {
       switch (value) {
         case COMMAND:
           newState.exec = {
@@ -290,32 +289,32 @@ const MultiContainerHealthChecks = {
 
     // Assign properties
     switch (group) {
-      case 'exec':
+      case "exec":
         return reduceCommandHealthCheck(newState, secondField, value);
 
-      case 'http':
+      case "http":
         return reduceHttpHealthCheck(newState, field, value);
 
-      case 'tcp':
+      case "tcp":
         return reduceTcpHealthCheck(newState, field, value);
 
-      case 'gracePeriodSeconds':
+      case "gracePeriodSeconds":
         newState.gracePeriodSeconds = parseIntValue(value);
         break;
 
-      case 'intervalSeconds':
+      case "intervalSeconds":
         newState.intervalSeconds = parseIntValue(value);
         break;
 
-      case 'maxConsecutiveFailures':
+      case "maxConsecutiveFailures":
         newState.maxConsecutiveFailures = parseIntValue(value);
         break;
 
-      case 'timeoutSeconds':
+      case "timeoutSeconds":
         newState.timeoutSeconds = parseIntValue(value);
         break;
 
-      case 'delaySeconds':
+      case "delaySeconds":
         newState.delaySeconds = parseIntValue(value);
         break;
     }
@@ -334,70 +333,80 @@ const MultiContainerHealthChecks = {
 
     // Parse detailed fields according to type
     if (healthCheck.http != null) {
-      memo.push(new Transaction(path.concat(['protocol']), HTTP, SET));
+      memo.push(new Transaction(path.concat(["protocol"]), HTTP, SET));
       memo = memo.concat(
-        parseHttpHealthCheck(healthCheck.http, path.concat(['http']), memo)
+        parseHttpHealthCheck(healthCheck.http, path.concat(["http"]), memo)
       );
     }
     if (healthCheck.tcp != null) {
-      memo.push(new Transaction(path.concat(['protocol']), TCP, SET));
+      memo.push(new Transaction(path.concat(["protocol"]), TCP, SET));
       memo = memo.concat(
-        parseTcpHealthCheck(healthCheck.tcp, path.concat(['tcp']), memo)
+        parseTcpHealthCheck(healthCheck.tcp, path.concat(["tcp"]), memo)
       );
     }
     if (healthCheck.exec != null) {
-      memo.push(new Transaction(path.concat(['protocol']), COMMAND, SET));
+      memo.push(new Transaction(path.concat(["protocol"]), COMMAND, SET));
       memo = memo.concat(
-        parseCommandHealthCheck(
-          healthCheck.exec, path.concat(['exec']),
-          memo
-        )
+        parseCommandHealthCheck(healthCheck.exec, path.concat(["exec"]), memo)
       );
     }
 
     // Parse generic fields
     if (healthCheck.gracePeriodSeconds != null) {
-      memo.push(new Transaction(
-        path.concat(['gracePeriodSeconds']),
-        parseIntValue(healthCheck.gracePeriodSeconds),
-        SET
-      ));
+      memo.push(
+        new Transaction(
+          path.concat(["gracePeriodSeconds"]),
+          parseIntValue(healthCheck.gracePeriodSeconds),
+          SET
+        )
+      );
     }
     if (healthCheck.intervalSeconds != null) {
-      memo.push(new Transaction(
-        path.concat(['intervalSeconds']),
-        parseIntValue(healthCheck.intervalSeconds),
-        SET
-      ));
+      memo.push(
+        new Transaction(
+          path.concat(["intervalSeconds"]),
+          parseIntValue(healthCheck.intervalSeconds),
+          SET
+        )
+      );
     }
     if (healthCheck.maxConsecutiveFailures != null) {
-      memo.push(new Transaction(
-        path.concat(['maxConsecutiveFailures']),
-        parseIntValue(healthCheck.maxConsecutiveFailures),
-        SET
-      ));
+      memo.push(
+        new Transaction(
+          path.concat(["maxConsecutiveFailures"]),
+          parseIntValue(healthCheck.maxConsecutiveFailures),
+          SET
+        )
+      );
     }
     if (healthCheck.timeoutSeconds != null) {
-      memo.push(new Transaction(
-        path.concat(['timeoutSeconds']),
-        parseIntValue(healthCheck.timeoutSeconds),
-        SET
-      ));
+      memo.push(
+        new Transaction(
+          path.concat(["timeoutSeconds"]),
+          parseIntValue(healthCheck.timeoutSeconds),
+          SET
+        )
+      );
     }
     if (healthCheck.delaySeconds != null) {
-      memo.push(new Transaction(
-        path.concat(['delaySeconds']),
-        parseIntValue(healthCheck.delaySeconds),
-        SET
-      ));
+      memo.push(
+        new Transaction(
+          path.concat(["delaySeconds"]),
+          parseIntValue(healthCheck.delaySeconds),
+          SET
+        )
+      );
     }
 
     return memo;
   },
 
-  FormReducer(state, {type, path, value}) {
-    const newState = MultiContainerHealthChecks.JSONSegmentReducer
-      .call(this, state, {type, path, value});
+  FormReducer(state, { type, path, value }) {
+    const newState = MultiContainerHealthChecks.JSONSegmentReducer.call(
+      this,
+      state,
+      { type, path, value }
+    );
 
     // Bail early on nulled cases
     if (newState == null) {
@@ -407,16 +416,16 @@ const MultiContainerHealthChecks = {
     const [group, field, secondField] = path;
 
     // Include additional fields only present in the form
-    if (group === 'protocol') {
+    if (group === "protocol") {
       newState.protocol = value;
     }
 
     // Assign detailed properties
     switch (group) {
-      case 'exec':
+      case "exec":
         return reduceFormCommandHealthCheck(newState, secondField, value);
 
-      case 'http':
+      case "http":
         return reduceFormHttpHealthCheck(newState, field, value);
     }
 

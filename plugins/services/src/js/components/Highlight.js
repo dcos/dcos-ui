@@ -1,7 +1,8 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
+import mixin from "reactjs-mixin";
+import React from "react";
 
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
+import InternalStorageMixin
+  from "../../../../../src/js/mixins/InternalStorageMixin";
 
 const MATCH_OPERATOR_RE = /[|\\{}()[\]^$+*?.]/g;
 
@@ -11,17 +12,17 @@ function regExpPropType(props, propName, componentName, location) {
 
     return new Error(
       `"Invalid ${location} '${propName}' of type '${propType}' supplied to ` +
-      `'${componentName}', expected 'RegExp'.`
+        `'${componentName}', expected 'RegExp'.`
     );
   }
 }
 
 function escapeStringRegexp(str) {
-  if (typeof str !== 'string') {
-    throw new TypeError('Expected a string');
+  if (typeof str !== "string") {
+    throw new TypeError("Expected a string");
   }
 
-  return str.replace(MATCH_OPERATOR_RE, '\\$&');
+  return str.replace(MATCH_OPERATOR_RE, "\\$&");
 }
 
 let debounceTimeout = null;
@@ -39,7 +40,7 @@ class Highlight extends mixin(InternalStorageMixin) {
       clearTimeout(debounceTimeout);
 
       const searchLength = nextProps.search.length;
-      const {searchDebounceThreshold, searchDebounceDelay} = currentProps;
+      const { searchDebounceThreshold, searchDebounceDelay } = currentProps;
       if (searchLength <= searchDebounceThreshold && searchLength > 0) {
         debounceTimeout = setTimeout(() => {
           this.forceUpdate();
@@ -53,7 +54,7 @@ class Highlight extends mixin(InternalStorageMixin) {
   }
 
   componentDidUpdate() {
-    let {highlightCount} = this.internalStorage_get();
+    let { highlightCount } = this.internalStorage_get();
     if (!this.props.search) {
       highlightCount = 0;
     }
@@ -67,7 +68,7 @@ class Highlight extends mixin(InternalStorageMixin) {
    * @return {Boolean} Whether children is a scalar or not
    */
   isScalar() {
-    return (/string|number|boolean/).test(typeof this.props.children);
+    return /string|number|boolean/.test(typeof this.props.children);
   }
 
   /**
@@ -76,7 +77,7 @@ class Highlight extends mixin(InternalStorageMixin) {
    * @return {Boolean} Whether there is a requested search or not
    */
   hasSearch() {
-    return (typeof this.props.search !== 'undefined') && this.props.search;
+    return typeof this.props.search !== "undefined" && this.props.search;
   }
 
   /**
@@ -90,13 +91,13 @@ class Highlight extends mixin(InternalStorageMixin) {
       return this.props.search;
     }
 
-    let flags = '';
+    let flags = "";
     if (!this.props.caseSensitive) {
-      flags += 'i';
+      flags += "i";
     }
 
     let search = this.props.search;
-    if (typeof this.props.search === 'string') {
+    if (typeof this.props.search === "string") {
       search = escapeStringRegexp(search);
     }
 
@@ -139,14 +140,14 @@ class Highlight extends mixin(InternalStorageMixin) {
    */
   highlightChildren(subject, search) {
     const children = [];
-    const {watching} = this.props;
+    const { watching } = this.props;
     let remaining = subject;
     let highlightCount = 0;
 
     while (remaining) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
-        this.internalStorage_set({highlightCount});
+        this.internalStorage_set({ highlightCount });
 
         return children;
       }
@@ -173,7 +174,6 @@ class Highlight extends mixin(InternalStorageMixin) {
 
       // And if there's anything left over, recursively run this method again.
       remaining = remaining.slice(boundaries.last);
-
     }
 
     return children;
@@ -228,7 +228,7 @@ class Highlight extends mixin(InternalStorageMixin) {
 
     return React.createElement(
       this.props.matchElement,
-      {key: this.count, className: this.props.matchClass},
+      { key: this.count, className: this.props.matchClass },
       string
     );
   }
@@ -239,7 +239,8 @@ class Highlight extends mixin(InternalStorageMixin) {
     return (
       <this.props.matchElement
         className={this.props.selectedMatchClass}
-        key={this.count}>
+        key={this.count}
+      >
         {string}
       </this.props.matchElement>
     );
@@ -256,11 +257,11 @@ class Highlight extends mixin(InternalStorageMixin) {
 
 Highlight.defaultProps = {
   caseSensitive: false,
-  matchElement: 'strong',
-  matchClass: 'highlight',
+  matchElement: "strong",
+  matchClass: "highlight",
   searchDebounceDelay: 500,
   searchDebounceThreshold: 2,
-  selectedMatchClass: 'highlight selected'
+  selectedMatchClass: "highlight selected"
 };
 
 Highlight.propTypes = {

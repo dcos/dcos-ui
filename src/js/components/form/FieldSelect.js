@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const FieldSelect = (props) => {
+const FieldSelect = props => {
   return (
     <span className="form-control form-control-select">
       <select {...props}>
@@ -12,7 +12,7 @@ const FieldSelect = (props) => {
 
 FieldSelect.defaultProps = {
   onChange() {},
-  value: ''
+  value: ""
 };
 
 FieldSelect.propTypes = {

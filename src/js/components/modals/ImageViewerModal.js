@@ -1,45 +1,42 @@
-import classNames from 'classnames';
-import {Modal} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Modal } from "reactjs-components";
+import React from "react";
 
-import Icon from '../Icon';
-import {keyCodes} from '../../utils/KeyboardUtil';
+import Icon from "../Icon";
+import { keyCodes } from "../../utils/KeyboardUtil";
 
-const METHODS_TO_BIND = [
-  'handleClick',
-  'handleKeyPress'
-];
+const METHODS_TO_BIND = ["handleClick", "handleKeyPress"];
 
 class ImageViewerModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {isLoadingImage: false};
+    this.state = { isLoadingImage: false };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     if (this.props.open) {
-      global.addEventListener('keydown', this.handleKeyPress, true);
+      global.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const {props} = this;
+    const { props } = this;
     if (props.open && !nextProps.open) {
       // Closes
-      global.removeEventListener('keydown', this.handleKeyPress, true);
+      global.removeEventListener("keydown", this.handleKeyPress, true);
     }
 
     if (!props.open && nextProps.open) {
       // Opens
-      global.addEventListener('keydown', this.handleKeyPress, true);
+      global.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
 
   handleKeyPress(event) {
-    const {images} = this.props;
+    const { images } = this.props;
     // Should do nothing if the key event was already consumed, or there is only
     // one or no images
     if (event.defaultPrevented || !images || images.length < 2) {
@@ -47,11 +44,11 @@ class ImageViewerModal extends React.Component {
     }
 
     if (event.keyCode === keyCodes.leftArrow) {
-      this.handleClick('left');
+      this.handleClick("left");
     }
 
     if (event.keyCode === keyCodes.rightArrow) {
-      this.handleClick('right');
+      this.handleClick("right");
     }
 
     // Consume the event for suppressing "double action".
@@ -59,11 +56,11 @@ class ImageViewerModal extends React.Component {
   }
 
   handleClick(direction) {
-    if (direction === 'left') {
+    if (direction === "left") {
       this.props.onLeftClick();
     }
 
-    if (direction === 'right') {
+    if (direction === "right") {
       this.props.onRightClick();
     }
 
@@ -71,11 +68,11 @@ class ImageViewerModal extends React.Component {
   }
 
   handleLoadingImageChange(isLoadingImage) {
-    this.setState({isLoadingImage});
+    this.setState({ isLoadingImage });
   }
 
   getSelectedImage() {
-    const {props} = this;
+    const { props } = this;
 
     return (
       <div className="fill-image-container">
@@ -83,7 +80,8 @@ class ImageViewerModal extends React.Component {
           className="fill-image"
           onLoad={this.handleLoadingImageChange.bind(this, false)}
           key={props.selectedImage}
-          src={props.images[props.selectedImage]} />
+          src={props.images[props.selectedImage]}
+        />
       </div>
     );
   }
@@ -92,13 +90,15 @@ class ImageViewerModal extends React.Component {
     return (
       <div onKeyPress={this.handleKeyPress}>
         <span
-          onClick={this.handleClick.bind(this, 'left')}
-          className="modal-image-viewer-arrow-container clickable backward">
+          onClick={this.handleClick.bind(this, "left")}
+          className="modal-image-viewer-arrow-container clickable backward"
+        >
           <Icon className="arrow" color="white" id="caret-left" size="small" />
         </span>
         <span
           className="modal-image-viewer-arrow-container clickable forward"
-          onClick={this.handleClick.bind(this, 'left')}>
+          onClick={this.handleClick.bind(this, "left")}
+        >
           <Icon className="arrow" color="white" id="caret-right" size="small" />
         </span>
       </div>
@@ -106,9 +106,9 @@ class ImageViewerModal extends React.Component {
   }
 
   render() {
-    const {props, state} = this;
+    const { props, state } = this;
     const closeIcon = <Icon id="close" size="mini" />;
-    const modalClasses = classNames('modal modal-image-viewer', {
+    const modalClasses = classNames("modal modal-image-viewer", {
       hidden: state.isLoadingImage
     });
 
@@ -122,7 +122,8 @@ class ImageViewerModal extends React.Component {
         closeButton={closeIcon}
         showFooter={props.images && props.images.length > 1}
         showHeader={false}
-        useGemini={false}>
+        useGemini={false}
+      >
         {this.getSelectedImage()}
       </Modal>
     );

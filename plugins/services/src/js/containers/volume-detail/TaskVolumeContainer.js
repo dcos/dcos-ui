@@ -1,16 +1,14 @@
-import {DCOSStore} from 'foundation-ui';
-import React from 'react';
+import { DCOSStore } from "foundation-ui";
+import React from "react";
 
-import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
-import ServiceItemNotFound from '../../components/ServiceItemNotFound';
-import VolumeDetail from './VolumeDetail';
-import Loader from '../../../../../../src/js/components/Loader';
+import MesosStateStore from "../../../../../../src/js/stores/MesosStateStore";
+import ServiceItemNotFound from "../../components/ServiceItemNotFound";
+import VolumeDetail from "./VolumeDetail";
+import Loader from "../../../../../../src/js/components/Loader";
 
-import {
-  DCOS_CHANGE
-} from '../../../../../../src/js/constants/EventTypes';
+import { DCOS_CHANGE } from "../../../../../../src/js/constants/EventTypes";
 
-const METHODS_TO_BIND = ['onStoreChange'];
+const METHODS_TO_BIND = ["onStoreChange"];
 
 class TaskVolumeContainer extends React.Component {
   constructor() {
@@ -21,7 +19,7 @@ class TaskVolumeContainer extends React.Component {
       lastUpdate: 0
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -36,9 +34,10 @@ class TaskVolumeContainer extends React.Component {
 
   onStoreChange() {
     // Throttle updates from DCOSStore
-    if (Date.now() - this.state.lastUpdate > 1000
-      || (DCOSStore.serviceDataReceived && this.state.isLoading)) {
-
+    if (
+      Date.now() - this.state.lastUpdate > 1000 ||
+      (DCOSStore.serviceDataReceived && this.state.isLoading)
+    ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
         lastUpdate: Date.now()
@@ -47,7 +46,7 @@ class TaskVolumeContainer extends React.Component {
   }
 
   render() {
-    const {taskID, volumeID} = this.props.params;
+    const { taskID, volumeID } = this.props.params;
     const task = MesosStateStore.getTaskFromTaskID(taskID);
     const service = DCOSStore.serviceTree.findItemById(task.getServiceId());
     const volumeId = decodeURIComponent(volumeID);
@@ -59,18 +58,18 @@ class TaskVolumeContainer extends React.Component {
     if (!service) {
       return (
         <ServiceItemNotFound
-          message={`The service with the ID of "${taskID}" could not be found.`} />
+          message={`The service with the ID of "${taskID}" could not be found.`}
+        />
       );
     }
 
-    const volume = service.getVolumes().findItem((volume) => {
+    const volume = service.getVolumes().findItem(volume => {
       return volume.getId() === volumeId;
     });
 
     if (!volume) {
       return (
-        <ServiceItemNotFound
-          message={`Volume '${volumeId}' was not found.`} />
+        <ServiceItemNotFound message={`Volume '${volumeId}' was not found.`} />
       );
     }
 

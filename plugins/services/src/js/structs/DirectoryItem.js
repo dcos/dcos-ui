@@ -1,9 +1,9 @@
-import Item from '../../../../../src/js/structs/Item';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
+import Item from "../../../../../src/js/structs/Item";
+import StringUtil from "../../../../../src/js/utils/StringUtil";
 
 const DISPLAY_NAMES = {
-  'stdout': 'Output (stdout)',
-  'stderr': 'Error (stderr)'
+  stdout: "Output (stdout)",
+  stderr: "Error (stderr)"
 };
 
 class DirectoryItem extends Item {
@@ -18,12 +18,12 @@ class DirectoryItem extends Item {
   }
 
   getName() {
-    return this.get('path').replace(/^.*\//, '');
+    return this.get("path").replace(/^.*\//, "");
   }
 
   isDirectory() {
     // DirectoryItem is a directory if nlink is greater than 1.
-    return this.get('nlink') > 1;
+    return this.get("nlink") > 1;
   }
 
   isLogFile() {

@@ -1,21 +1,22 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import DSLCombinerTypes from '../../../../../../src/js/constants/DSLCombinerTypes';
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
-import DSLFormWithExpressionUpdates from '../../../../../../src/js/components/DSLFormWithExpressionUpdates';
-import DSLUtil from '../../../../../../src/js/utils/DSLUtil';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import DSLCombinerTypes
+  from "../../../../../../src/js/constants/DSLCombinerTypes";
+import DSLExpression from "../../../../../../src/js/structs/DSLExpression";
+import DSLExpressionPart
+  from "../../../../../../src/js/structs/DSLExpressionPart";
+import DSLFormWithExpressionUpdates
+  from "../../../../../../src/js/components/DSLFormWithExpressionUpdates";
+import DSLUtil from "../../../../../../src/js/utils/DSLUtil";
+import FieldInput from "../../../../../../src/js/components/form/FieldInput";
+import FieldLabel from "../../../../../../src/js/components/form/FieldLabel";
+import FormGroup from "../../../../../../src/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
   text: DSLExpressionPart.fuzzy
 };
 
-const METHODS_TO_BIND = [
-  'handleTextChange'
-];
+const METHODS_TO_BIND = ["handleTextChange"];
 
 class FuzzyTextDSLSection extends React.Component {
   constructor() {
@@ -23,36 +24,34 @@ class FuzzyTextDSLSection extends React.Component {
 
     this.state = {
       data: {
-        text: ''
+        text: ""
       }
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {expression} = nextProps;
+    const { expression } = nextProps;
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
-    this.setState({data});
+    this.setState({ data });
   }
 
   handleTextChange(event) {
-    const {target} = event;
+    const { target } = event;
     event.stopPropagation();
     this.setState({
-      data: Object.assign(
-        {}, this.state.data, {
-          text: target.value
-        }
-      )
+      data: Object.assign({}, this.state.data, {
+        text: target.value
+      })
     });
   }
 
   render() {
-    const {data} = this.state;
-    const {expression, onApply, onChange} = this.props;
+    const { data } = this.state;
+    const { expression, onApply, onChange } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
 
     return (
@@ -62,7 +61,8 @@ class FuzzyTextDSLSection extends React.Component {
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
         onSubmit={onApply}
-        parts={EXPRESSION_PARTS}>
+        parts={EXPRESSION_PARTS}
+      >
 
         <FormGroup>
           <FieldLabel>Has the words</FieldLabel>
@@ -71,7 +71,8 @@ class FuzzyTextDSLSection extends React.Component {
             name="text"
             onChange={this.handleTextChange}
             placeholder="Enter words found in name"
-            value={data.text} />
+            value={data.text}
+          />
         </FormGroup>
 
       </DSLFormWithExpressionUpdates>

@@ -1,16 +1,16 @@
 const Labels = {
-  type: 'object',
-  title: 'Labels',
-  description: 'Attach metadata to jobs to expose additional information to other jobs.',
+  type: "object",
+  title: "Labels",
+  description: "Attach metadata to jobs to expose additional information to other jobs.",
   properties: {
     items: {
-      type: 'array',
+      type: "array",
       duplicable: true,
-      addLabel: 'Add Label',
+      addLabel: "Add Label",
       getter(job) {
         const labels = job.getLabels() || {};
 
-        return Object.keys(labels).map(function (key) {
+        return Object.keys(labels).map(function(key) {
           return {
             key,
             value: labels[key]
@@ -20,12 +20,12 @@ const Labels = {
       itemShape: {
         properties: {
           key: {
-            title: 'Label Name',
-            type: 'string'
+            title: "Label Name",
+            type: "string"
           },
           value: {
-            title: 'Label Value',
-            type: 'string'
+            title: "Label Value",
+            type: "string"
           }
         }
       }

@@ -1,19 +1,22 @@
-import {combineReducers, simpleReducer} from '../../../../../../src/js/utils/ReducerUtil';
-import {PROTOCOLS} from '../../constants/PortDefinitionConstants';
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
-import ContainerConstants from '../../constants/ContainerConstants';
-import Networking from '../../../../../../src/js/constants/Networking';
-import PortMappingsReducer from './JSONReducers/PortMappingsReducer';
-import VipLabelUtil from '../../utils/VipLabelUtil';
+import {
+  combineReducers,
+  simpleReducer
+} from "../../../../../../src/js/utils/ReducerUtil";
+import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
+import { SET } from "../../../../../../src/js/constants/TransactionTypes";
+import ContainerConstants from "../../constants/ContainerConstants";
+import Networking from "../../../../../../src/js/constants/Networking";
+import PortMappingsReducer from "./JSONReducers/PortMappingsReducer";
+import VipLabelUtil from "../../utils/VipLabelUtil";
 
-const {DOCKER, NONE} = ContainerConstants.type;
+const { DOCKER, NONE } = ContainerConstants.type;
 
-const {BRIDGE, HOST, USER} = Networking.type;
+const { BRIDGE, HOST, USER } = Networking.type;
 
 function getContainerSettingsReducer(name) {
-  return function (_, {type, path = [], value}) {
-    const joinedPath = path.join('.');
-    if (joinedPath === 'container.type' && Boolean(value)) {
+  return function(_, { type, path = [], value }) {
+    const joinedPath = path.join(".");
+    if (joinedPath === "container.type" && Boolean(value)) {
       this.networkType = value;
     }
     if (type === SET && joinedPath === `container.docker.${name}`) {
@@ -28,16 +31,16 @@ function getContainerSettingsReducer(name) {
 }
 
 module.exports = combineReducers({
-  privileged: getContainerSettingsReducer('privileged'),
-  forcePullImage: getContainerSettingsReducer('forcePullImage'),
-  image: simpleReducer('container.docker.image', ''),
-  network(state, {type, path = [], value}) {
+  privileged: getContainerSettingsReducer("privileged"),
+  forcePullImage: getContainerSettingsReducer("forcePullImage"),
+  image: simpleReducer("container.docker.image", ""),
+  network(state, { type, path = [], value }) {
     if (!this.containerType) {
       this.containerType = NONE;
     }
 
-    const joinedPath = path.join('.');
-    if (type === SET && joinedPath === 'container.type') {
+    const joinedPath = path.join(".");
+    if (type === SET && joinedPath === "container.type") {
       this.containerType = value;
     }
 
@@ -46,17 +49,17 @@ module.exports = combineReducers({
       return null;
     }
 
-    if (type === SET && joinedPath === 'container.docker.network') {
-      return Networking.type[value.split('.')[0]];
+    if (type === SET && joinedPath === "container.docker.network") {
+      return Networking.type[value.split(".")[0]];
     }
 
     return state;
   },
   portMappings(state, action) {
-    const {path = [], value, type} = action;
+    const { path = [], value, type } = action;
     if (!this.appState) {
       this.appState = {
-        id: '',
+        id: "",
         networkType: HOST
       };
     }
@@ -64,16 +67,16 @@ module.exports = combineReducers({
       this.containerType = NONE;
     }
 
-    const joinedPath = path.join('.');
-    if (type === SET && joinedPath === 'container.type') {
+    const joinedPath = path.join(".");
+    if (type === SET && joinedPath === "container.type") {
       this.containerType = value;
     }
 
-    if (joinedPath === 'container.docker.network' && Boolean(value)) {
-      this.appState.networkType = value.split('.')[0];
+    if (joinedPath === "container.docker.network" && Boolean(value)) {
+      this.appState.networkType = value.split(".")[0];
     }
 
-    if (joinedPath === 'id' && Boolean(value)) {
+    if (joinedPath === "id" && Boolean(value)) {
       this.appState.id = value;
     }
 
@@ -87,8 +90,10 @@ module.exports = combineReducers({
     }
 
     // We only want portMappings for networks of type BRIDGE or USER
-    if (this.appState.networkType !== BRIDGE &&
-      this.appState.networkType !== USER) {
+    if (
+      this.appState.networkType !== BRIDGE &&
+      this.appState.networkType !== USER
+    ) {
       return null;
     }
 
@@ -100,9 +105,9 @@ module.exports = combineReducers({
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       const defaultVipPort = vipPort || containerPort;
       let hostPort = Number(portDefinition.hostPort) || 0;
-      let protocol = PROTOCOLS.filter(function (protocol) {
+      let protocol = PROTOCOLS.filter(function(protocol) {
         return portDefinition.protocol[protocol];
-      }).join(',');
+      }).join(",");
 
       // Do not expose hostPort or protocol, when portMapping is turned off
       if (this.appState.networkType === USER && !portDefinition.portMapping) {

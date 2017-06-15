@@ -1,7 +1,7 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import FormGroupHeadingContent from './FormGroupHeadingContent';
+import FormGroupHeadingContent from "./FormGroupHeadingContent";
 
 function injectAsteriskNode(children) {
   const asteriskNode = (
@@ -16,8 +16,8 @@ function injectAsteriskNode(children) {
   return nextChildren;
 }
 
-function FormGroupHeading({className, children, required}) {
-  const classes = classNames('form-group-heading', className);
+function FormGroupHeading({ className, children, required }) {
+  const classes = classNames("form-group-heading", className);
 
   return (
     <div className={classes}>

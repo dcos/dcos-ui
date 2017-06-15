@@ -1,19 +1,19 @@
-import mixin from 'reactjs-mixin';
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import FormModal from '../FormModal';
-import ModalHeading from '../modals/ModalHeading';
-import ValidatorUtil from '../../utils/ValidatorUtil';
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import FormModal from "../FormModal";
+import ModalHeading from "../modals/ModalHeading";
+import ValidatorUtil from "../../utils/ValidatorUtil";
 
 const METHODS_TO_BIND = [
-  'handleAddRepository',
-  'onCosmosPackagesStoreRepositoryAddError',
-  'onCosmosPackagesStoreRepositoryAddSuccess',
-  'resetState'
+  "handleAddRepository",
+  "onCosmosPackagesStoreRepositoryAddError",
+  "onCosmosPackagesStoreRepositoryAddSuccess",
+  "resetState"
 ];
 
 class AddRepositoryFormModal extends mixin(StoreMixin) {
@@ -27,18 +27,18 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'cosmosPackages',
-        events: ['repositoryAddSuccess', 'repositoryAddError']
+        name: "cosmosPackages",
+        events: ["repositoryAddSuccess", "repositoryAddError"]
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {props} = this;
+    const { props } = this;
     if (props.open && !nextProps.open) {
       // Closes, reset state
       this.resetState();
@@ -46,7 +46,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreRepositoryAddError(errorMsg) {
-    this.setState({disableButtons: false, errorMsg});
+    this.setState({ disableButtons: false, errorMsg });
   }
 
   onCosmosPackagesStoreRepositoryAddSuccess() {
@@ -60,47 +60,51 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   getAddRepositoryFormDefinition() {
-    const {numberOfRepositories} = this.props;
+    const { numberOfRepositories } = this.props;
 
     return [
       {
-        fieldType: 'text',
-        name: 'name',
-        placeholder: 'Repository Name',
+        fieldType: "text",
+        name: "name",
+        placeholder: "Repository Name",
         required: true,
         showError: false,
         showLabel: false,
-        writeType: 'input',
-        validation() { return true; },
-        value: ''
+        writeType: "input",
+        validation() {
+          return true;
+        },
+        value: ""
       },
       {
-        fieldType: 'text',
-        name: 'uri',
-        placeholder: 'URL',
+        fieldType: "text",
+        name: "uri",
+        placeholder: "URL",
         required: true,
-        validationErrorText: 'Must be a valid url with http:// or https://',
+        validationErrorText: "Must be a valid url with http:// or https://",
         showLabel: false,
-        writeType: 'input',
+        writeType: "input",
         validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/,
-        value: ''
+        value: ""
       },
       {
-        fieldType: 'number',
-        name: 'priority',
-        placeholder: 'Priority',
+        fieldType: "number",
+        name: "priority",
+        placeholder: "Priority",
         required: false,
-        min: '0',
+        min: "0",
         max: `${numberOfRepositories}`,
-        step: '1',
+        step: "1",
         validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
         showLabel: false,
-        writeType: 'input',
+        writeType: "input",
         validation(value) {
-          return ValidatorUtil.isDefined(value) &&
-              ValidatorUtil.isNumberInRange(value, {max: numberOfRepositories});
+          return (
+            ValidatorUtil.isDefined(value) &&
+            ValidatorUtil.isNumberInRange(value, { max: numberOfRepositories })
+          );
         },
-        value: ''
+        value: ""
       }
     ];
   }
@@ -108,20 +112,20 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   getButtonDefinition() {
     return [
       {
-        text: 'Close',
-        className: 'button button-medium',
+        text: "Close",
+        className: "button button-medium",
         isClose: true
       },
       {
-        text: 'Add',
-        className: 'button button-success button-medium',
+        text: "Add",
+        className: "button button-success button-medium",
         isSubmit: true
       }
     ];
   }
 
   getErrorMessage() {
-    const {errorMsg} = this.state;
+    const { errorMsg } = this.state;
     if (!errorMsg) {
       return null;
     }
@@ -132,11 +136,11 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   resetState() {
-    this.setState({errorMsg: null, disableButtons: false});
+    this.setState({ errorMsg: null, disableButtons: false });
   }
 
   render() {
-    const {props, state} = this;
+    const { props, state } = this;
 
     return (
       <FormModal
@@ -144,15 +148,14 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         disabled={state.disableButtons}
         buttonDefinition={this.getButtonDefinition()}
         modalProps={{
-          header: (
-            <ModalHeading>Add Repository</ModalHeading>
-          ),
+          header: <ModalHeading>Add Repository</ModalHeading>,
           showHeader: true
         }}
         onChange={this.resetState}
         onClose={props.onClose}
         onSubmit={this.handleAddRepository}
-        open={props.open}>
+        open={props.open}
+      >
         {this.getErrorMessage()}
       </FormModal>
     );

@@ -1,22 +1,22 @@
-import classNames from 'classnames';
+import classNames from "classnames";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {Tooltip} from 'reactjs-components';
+import { Tooltip } from "reactjs-components";
 
-import Icon from '../../src/js/components/Icon';
-import TimeAgo from '../../src/js/components/TimeAgo';
-import Util from '../../src/js/utils/Util';
+import Icon from "../../src/js/components/Icon";
+import TimeAgo from "../../src/js/components/TimeAgo";
+import Util from "../../src/js/utils/Util";
 
 const LEFT_ALIGN_PROPS = [
-  'cpus',
-  'disk',
-  'log',
-  'mem',
-  'mtime',
-  'priority',
-  'size',
-  'version'
+  "cpus",
+  "disk",
+  "log",
+  "mem",
+  "mtime",
+  "priority",
+  "size",
+  "version"
 ];
 
 function leftAlignCaret(prop) {
@@ -32,31 +32,29 @@ function getUpdatedTimestamp(model) {
 var ResourceTableUtil = {
   getClassName(prop, sortBy, row) {
     return classNames({
-      'text-align-right': leftAlignCaret(prop)
-        || prop === 'TASK_RUNNING' || prop === 'action',
-      'hidden-small-down': leftAlignCaret(prop),
-      'active': prop === sortBy.prop,
-      'clickable': row == null // this is a header
+      "text-align-right": leftAlignCaret(prop) ||
+        prop === "TASK_RUNNING" ||
+        prop === "action",
+      "hidden-small-down": leftAlignCaret(prop),
+      active: prop === sortBy.prop,
+      clickable: row == null // this is a header
     });
   },
 
   renderHeading(config) {
-    return function (prop, order, sortBy) {
+    return function(prop, order, sortBy) {
       const title = config[prop];
       const caret = {
         before: null,
         after: null
       };
-      const caretClassSet = classNames(
-        'caret',
-        {
-          [`caret--${order}`]: order != null,
-          'caret--visible': prop === sortBy.prop
-        }
-      );
+      const caretClassSet = classNames("caret", {
+        [`caret--${order}`]: order != null,
+        "caret--visible": prop === sortBy.prop
+      });
       let helpIcon = null;
 
-      if (leftAlignCaret(prop) || prop === 'TASK_RUNNING') {
+      if (leftAlignCaret(prop) || prop === "TASK_RUNNING") {
         caret.before = <span className={caretClassSet} />;
       } else {
         caret.after = <span className={caretClassSet} />;
@@ -68,7 +66,8 @@ var ResourceTableUtil = {
             content={this.helpText}
             wrapText={true}
             interactive={true}
-            wrapperClassName="tooltip-wrapper text-align-center table-header-help-icon">
+            wrapperClassName="tooltip-wrapper text-align-center table-header-help-icon"
+          >
             <Icon id="circle-question" size="mini" color="grey" />
           </Tooltip>
         );
@@ -89,7 +88,7 @@ var ResourceTableUtil = {
     const updatedAt = getUpdatedTimestamp(model);
 
     if (updatedAt == null) {
-      return 'N/A';
+      return "N/A";
     }
 
     const ms = updatedAt.toFixed(3) * 1000;

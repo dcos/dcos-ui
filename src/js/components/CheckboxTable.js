@@ -1,31 +1,35 @@
-import classNames from 'classnames';
-import {Form, Table} from 'reactjs-components';
-import React from 'react';
-import {ResourceTableUtil} from 'foundation-ui';
+import classNames from "classnames";
+import { Form, Table } from "reactjs-components";
+import React from "react";
+import { ResourceTableUtil } from "foundation-ui";
 
-import TableUtil from '../utils/TableUtil';
+import TableUtil from "../utils/TableUtil";
 
 const PropTypes = React.PropTypes;
 
 const METHODS_TO_BIND = [
-  'getTableRowOptions',
-  'handleCheckboxChange',
-  'handleHeadingCheckboxChange',
-  'renderCheckbox',
-  'renderHeadingCheckbox'
+  "getTableRowOptions",
+  "handleCheckboxChange",
+  "handleHeadingCheckboxChange",
+  "renderCheckbox",
+  "renderHeadingCheckbox"
 ];
 
 class CheckboxTable extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
-    const {allowMultipleSelect, checkedItemsMap, onCheckboxChange} = this.props;
+    const {
+      allowMultipleSelect,
+      checkedItemsMap,
+      onCheckboxChange
+    } = this.props;
     const isChecked = eventObject.fieldValue;
     const rowID = eventObject.fieldName;
     let checkedIDs;
@@ -52,14 +56,19 @@ class CheckboxTable extends React.Component {
 
   bulkCheck(isChecked) {
     const checkedIDs = [];
-    let {data, onCheckboxChange, uniqueProperty, disabledItemsMap} = this.props;
+    let {
+      data,
+      onCheckboxChange,
+      uniqueProperty,
+      disabledItemsMap
+    } = this.props;
 
-    data = data.filter(function (datum) {
+    data = data.filter(function(datum) {
       return !disabledItemsMap[datum[uniqueProperty]];
     });
 
     if (isChecked) {
-      data.forEach(function (datum) {
+      data.forEach(function(datum) {
         checkedIDs.push(datum[uniqueProperty]);
       });
 
@@ -71,7 +80,7 @@ class CheckboxTable extends React.Component {
 
   getLabelClass() {
     return classNames(
-      'form-row-element form-element-checkbox',
+      "form-row-element form-element-checkbox",
       this.props.labelClass
     );
   }
@@ -112,19 +121,20 @@ class CheckboxTable extends React.Component {
           {
             checked,
             value: checked,
-            fieldType: 'checkbox',
+            fieldType: "checkbox",
             indeterminate,
             labelClass: this.getLabelClass(),
-            name: 'headingCheckbox',
+            name: "headingCheckbox",
             showLabel: false
           }
         ]}
-        onChange={this.handleHeadingCheckboxChange} />
+        onChange={this.handleHeadingCheckboxChange}
+      />
     );
   }
 
   renderCheckbox(prop, row) {
-    const {checkedItemsMap, disabledItemsMap, uniqueProperty} = this.props;
+    const { checkedItemsMap, disabledItemsMap, uniqueProperty } = this.props;
     const rowID = row[uniqueProperty];
 
     if (disabledItemsMap[rowID]) {
@@ -141,20 +151,23 @@ class CheckboxTable extends React.Component {
       <Form
         className="table-form-checkbox"
         formGroupClass="form-group flush-bottom"
-        definition={[{
-          checked,
-          value: checked,
-          fieldType: 'checkbox',
-          labelClass: this.getLabelClass(),
-          name: rowID,
-          showLabel: false
-        }]}
-        onChange={this.handleCheckboxChange} />
+        definition={[
+          {
+            checked,
+            value: checked,
+            fieldType: "checkbox",
+            labelClass: this.getLabelClass(),
+            name: rowID,
+            showLabel: false
+          }
+        ]}
+        onChange={this.handleCheckboxChange}
+      />
     );
   }
 
   getTableRowOptions(row) {
-    const {checkedItemsMap, uniqueProperty} = this.props;
+    const { checkedItemsMap, uniqueProperty } = this.props;
 
     const rowAttributes = {};
     // Override the key from index to our task ID to help React know, which
@@ -164,20 +177,20 @@ class CheckboxTable extends React.Component {
     }
 
     if (checkedItemsMap[row[uniqueProperty]]) {
-      return Object.assign(rowAttributes, {className: 'selected'});
+      return Object.assign(rowAttributes, { className: "selected" });
     }
 
     return rowAttributes;
   }
 
   getColumns() {
-    const {getClassName} = ResourceTableUtil;
+    const { getClassName } = ResourceTableUtil;
 
     return [
       {
         className: getClassName,
         headerClassName: getClassName,
-        prop: 'selected',
+        prop: "selected",
         render: this.renderCheckbox,
         sortable: false,
         heading: this.renderHeadingCheckbox
@@ -186,12 +199,12 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
-    const {className, data, getColGroup, sortOrder, sortProp} = this.props;
+    const { className, data, getColGroup, sortOrder, sortProp } = this.props;
     const columns = this.getColumns();
 
     const tableClassSet = classNames(
-      'table table-borderless-outer table-borderless-inner-columns',
-      'flush-bottom',
+      "table table-borderless-outer table-borderless-inner-columns",
+      "flush-bottom",
       className
     );
 
@@ -204,26 +217,21 @@ class CheckboxTable extends React.Component {
         containerSelector=".gm-scroll-view"
         data={data}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: sortProp, order: sortOrder}} />
+        sortBy={{ prop: sortProp, order: sortOrder }}
+      />
     );
   }
 }
 
 CheckboxTable.propTypes = {
   checkedItemsMap: PropTypes.object,
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   columns: PropTypes.array,
   data: PropTypes.array,
   disabledItemsMap: PropTypes.object,
   inactiveItemsMap: PropTypes.object,
   getColGroup: PropTypes.func,
-  labelClass: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  labelClass: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onCheckboxChange: PropTypes.func,
   sortProp: PropTypes.string,
   sortOrder: PropTypes.string,
@@ -240,7 +248,7 @@ CheckboxTable.defaultProps = {
   getColGroup() {},
   labelClass: {},
   onCheckboxChange() {},
-  sortOrder: 'asc'
+  sortOrder: "asc"
 };
 
 module.exports = CheckboxTable;

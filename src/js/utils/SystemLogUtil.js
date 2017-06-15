@@ -1,12 +1,12 @@
-import Config from '../config/Config';
+import Config from "../config/Config";
 
 const paramOptions = [
-  'cursor',
-  'limit',
-  'postfix',
-  'read_reverse',
-  'skip_prev',
-  'skip_next'
+  "cursor",
+  "limit",
+  "postfix",
+  "read_reverse",
+  "skip_prev",
+  "skip_next"
 ];
 
 const SystemLogUtil = {
@@ -31,19 +31,19 @@ const SystemLogUtil = {
    * @param {String} [endpoint = ''] add aditional endpoint to the url
    * @returns {String} URL for system logs request
    */
-  getUrl(nodeID, options, isStream = true, endpoint = '') {
-    const {filter = {}} = options;
+  getUrl(nodeID, options, isStream = true, endpoint = "") {
+    const { filter = {} } = options;
 
     const range = paramOptions.reduce((memo, key) => {
-      if (options[key] !== '' && options[key] != null) {
+      if (options[key] !== "" && options[key] != null) {
         memo.push(`${key}=${encodeURIComponent(options[key])}`);
       }
 
       return memo;
     }, []);
 
-    const paramsArray = Object.keys(filter).reduce(function (memo, key) {
-      if (filter[key] !== '' && filter[key] != null) {
+    const paramsArray = Object.keys(filter).reduce(function(memo, key) {
+      if (filter[key] !== "" && filter[key] != null) {
         memo.push(
           `filter=${encodeURIComponent(key)}:${encodeURIComponent(filter[key])}`
         );
@@ -52,21 +52,24 @@ const SystemLogUtil = {
       return memo;
     }, range);
 
-    let base = 'range';
+    let base = "range";
     if (isStream) {
-      base = 'stream';
+      base = "stream";
     }
 
-    const idArray = ['framework', 'executor', 'container'].reduce(function (memo, key) {
+    const idArray = ["framework", "executor", "container"].reduce(function(
+      memo,
+      key
+    ) {
       const id = `${key}ID`;
-      if (options[id] !== '' && options[id] != null) {
+      if (options[id] !== "" && options[id] != null) {
         memo.push(key, options[id]);
       }
 
       return memo;
     }, []);
 
-    return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join('/')}${endpoint}?${paramsArray.join('&')}`;
+    return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join("/")}${endpoint}?${paramsArray.join("&")}`;
   },
 
   /**
@@ -81,7 +84,7 @@ const SystemLogUtil = {
     let timeoutID;
     let accumulatedData = [];
 
-    return function () {
+    return function() {
       // Gather data for each call
       accumulatedData.push(arguments);
 
@@ -93,7 +96,7 @@ const SystemLogUtil = {
         // Clear the accumulated data array
         accumulatedData = [];
 
-        timeoutID = setTimeout(function () {
+        timeoutID = setTimeout(function() {
           // Call callback after wait with accumulatedData
           callback.call(context, accumulatedData);
           // Clear the accumulated data array

@@ -1,21 +1,22 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import classNames from "classnames/dedupe";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import BasePageHeader from '../components/PageHeader';
-import FluidGeminiScrollbar from './FluidGeminiScrollbar';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import ScrollbarUtil from '../utils/ScrollbarUtil';
-import SidebarToggle from '../components/SidebarToggle';
-import TemplateUtil from '../utils/TemplateUtil';
+import BasePageHeader from "../components/PageHeader";
+import FluidGeminiScrollbar from "./FluidGeminiScrollbar";
+import InternalStorageMixin from "../mixins/InternalStorageMixin";
+import ScrollbarUtil from "../utils/ScrollbarUtil";
+import SidebarToggle from "../components/SidebarToggle";
+import TemplateUtil from "../utils/TemplateUtil";
 
-const PageHeader = ({actions, addButton, breadcrumbs, tabs}) => {
+const PageHeader = ({ actions, addButton, breadcrumbs, tabs }) => {
   return (
     <BasePageHeader
       actions={actions}
       addButton={addButton}
       breadcrumbs={breadcrumbs}
-      tabs={tabs} />
+      tabs={tabs}
+    />
   );
 };
 
@@ -41,8 +42,7 @@ PageHeader.propTypes = {
 };
 
 var Page = React.createClass({
-
-  displayName: 'Page',
+  displayName: "Page",
 
   mixins: [InternalStorageMixin, StoreMixin],
 
@@ -66,8 +66,8 @@ var Page = React.createClass({
   componentWillMount() {
     this.store_listeners = [
       {
-        name: 'sidebar',
-        events: ['widthChange']
+        name: "sidebar",
+        events: ["widthChange"]
       }
     ];
   },
@@ -88,7 +88,8 @@ var Page = React.createClass({
     if (data.rendered === true) {
       // Avoid rendering template children twice
       return TemplateUtil.filterTemplateChildren(
-        this.constructor, this.props.children
+        this.constructor,
+        this.props.children
       );
     }
 
@@ -109,7 +110,8 @@ var Page = React.createClass({
 
   getPageHeader() {
     return TemplateUtil.getChildOfType(
-      this.props.children, this.constructor.Header
+      this.props.children,
+      this.constructor.Header
     );
   },
 
@@ -133,11 +135,14 @@ var Page = React.createClass({
   },
 
   getContent() {
-    const {dontScroll} = this.props;
-    const contentClassSet = classNames('page-body-content pod pod-tall flex',
-      'flex-direction-top-to-bottom flex-item-grow-1', {
-        'flex-item-shrink-1': dontScroll
-      });
+    const { dontScroll } = this.props;
+    const contentClassSet = classNames(
+      "page-body-content pod pod-tall flex",
+      "flex-direction-top-to-bottom flex-item-grow-1",
+      {
+        "flex-item-shrink-1": dontScroll
+      }
+    );
 
     const content = (
       <div className={contentClassSet}>
@@ -155,19 +160,22 @@ var Page = React.createClass({
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
           flex-item-shrink-1 gm-scrollbar-container-flex"
-        ref="gemini">
+        ref="gemini"
+      >
         {content}
       </FluidGeminiScrollbar>
     );
   },
 
   render() {
-    const {className, navigation, dontScroll, title} = this.props;
+    const { className, navigation, dontScroll, title } = this.props;
 
     const classSet = classNames(
-      'page flex flex-direction-top-to-bottom flex-item-grow-1', {
-        'flex-item-shrink-1': dontScroll
-      }, className
+      "page flex flex-direction-top-to-bottom flex-item-grow-1",
+      {
+        "flex-item-shrink-1": dontScroll
+      },
+      className
     );
 
     return (
@@ -179,6 +187,6 @@ var Page = React.createClass({
   }
 });
 
-TemplateUtil.defineChildren(Page, {Header: PageHeader});
+TemplateUtil.defineChildren(Page, { Header: PageHeader });
 
 module.exports = Page;

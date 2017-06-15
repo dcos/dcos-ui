@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const AlertPanelHeader = function (props) {
+const AlertPanelHeader = function(props) {
   return (
     <h3 className="flush-top">
       {props.children}

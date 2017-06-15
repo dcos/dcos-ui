@@ -1,5 +1,5 @@
-import deepEqual from 'deep-equal';
-import PluginSDK from 'PluginSDK';
+import deepEqual from "deep-equal";
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_DCOS_METADATA,
@@ -7,17 +7,17 @@ import {
   REQUEST_DCOS_BUILD_INFO_SUCCESS,
   REQUEST_METADATA,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import Config from '../config/Config';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import Config from "../config/Config";
 import {
   DCOS_METADATA_CHANGE,
   DCOS_BUILD_INFO_ERROR,
   DCOS_BUILD_INFO_CHANGE,
   METADATA_CHANGE
-} from '../constants/EventTypes';
-import GetSetBaseStore from './GetSetBaseStore';
-import MetadataActions from '../events/MetadataActions';
+} from "../constants/EventTypes";
+import GetSetBaseStore from "./GetSetBaseStore";
+import MetadataActions from "../events/MetadataActions";
 
 class MetadataStore extends GetSetBaseStore {
   constructor() {
@@ -38,7 +38,7 @@ class MetadataStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       var source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
@@ -48,22 +48,22 @@ class MetadataStore extends GetSetBaseStore {
 
       switch (action.type) {
         case REQUEST_METADATA:
-          var oldMetadata = this.get('metadata');
+          var oldMetadata = this.get("metadata");
           var metadata = action.data;
 
           // only emitting on change
           if (!deepEqual(oldMetadata, metadata)) {
-            this.set({metadata});
+            this.set({ metadata });
             this.emitChange(METADATA_CHANGE);
           }
           break;
         case REQUEST_DCOS_METADATA:
-          var oldDCOSMetadata = this.get('dcosMetadata');
+          var oldDCOSMetadata = this.get("dcosMetadata");
           var dcosMetadata = action.data;
 
           // only emitting on change
           if (!deepEqual(oldDCOSMetadata, dcosMetadata)) {
-            this.set({dcosMetadata});
+            this.set({ dcosMetadata });
             this.emitChange(DCOS_METADATA_CHANGE);
           }
           break;
@@ -71,11 +71,11 @@ class MetadataStore extends GetSetBaseStore {
           this.emitChange(DCOS_BUILD_INFO_ERROR);
           break;
         case REQUEST_DCOS_BUILD_INFO_SUCCESS:
-          const prevDCOSBuildInfo = this.get('dcosBuildInfo');
+          const prevDCOSBuildInfo = this.get("dcosBuildInfo");
           const nextDCOSBuildInfo = action.data;
 
           if (!deepEqual(prevDCOSBuildInfo, nextDCOSBuildInfo)) {
-            this.set({dcosBuildInfo: nextDCOSBuildInfo});
+            this.set({ dcosBuildInfo: nextDCOSBuildInfo });
             this.emitChange(DCOS_BUILD_INFO_CHANGE);
           }
 
@@ -117,22 +117,21 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   get version() {
-    const metadata = this.get('dcosMetadata');
+    const metadata = this.get("dcosMetadata");
 
     return metadata && metadata.version;
   }
 
   get parsedVersion() {
-    let version = (this.version) || 'latest';
-    version = version.split('-')[0];
+    let version = this.version || "latest";
+    version = version.split("-")[0];
 
-    return version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
+    return version.replace(/(.*?)\.(.*?)\..*/, "$1.$2");
   }
 
   get storeID() {
-    return 'metadata';
+    return "metadata";
   }
-
 }
 
 module.exports = new MetadataStore();

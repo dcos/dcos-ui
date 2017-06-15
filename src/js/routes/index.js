@@ -1,19 +1,19 @@
-import {Route, Redirect} from 'react-router';
-import {Hooks} from 'PluginSDK';
+import { Route, Redirect } from "react-router";
+import { Hooks } from "PluginSDK";
 
-import components from './components';
-import dashboard from './dashboard';
-import Index from '../pages/Index';
-import jobs from './jobs';
-import Network from './factories/network';
-import nodes from '../../../plugins/nodes/src/js/routes/nodes';
-import NotFoundPage from '../pages/NotFoundPage';
-import Organization from './factories/organization';
-import {RoutingService} from '../../../foundation-ui/routing';
-import services from '../../../plugins/services/src/js/routes/services';
-import settings from './settings';
-import systemOverview from './system-overview';
-import universe from './universe';
+import components from "./components";
+import dashboard from "./dashboard";
+import Index from "../pages/Index";
+import jobs from "./jobs";
+import Network from "./factories/network";
+import nodes from "../../../plugins/nodes/src/js/routes/nodes";
+import NotFoundPage from "../pages/NotFoundPage";
+import Organization from "./factories/organization";
+import { RoutingService } from "../../../foundation-ui/routing";
+import services from "../../../plugins/services/src/js/routes/services";
+import settings from "./settings";
+import systemOverview from "./system-overview";
+import universe from "./universe";
 
 // Modules that produce routes
 const routeFactories = [Organization, Network];
@@ -23,8 +23,8 @@ function getApplicationRoutes() {
   let routes = [].concat(
     {
       type: Redirect,
-      path: '/',
-      to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
+      path: "/",
+      to: Hooks.applyFilter("applicationRedirectRoute", "/dashboard")
     },
     dashboard,
     services,
@@ -37,7 +37,7 @@ function getApplicationRoutes() {
     // Plugins routes will be appended to this array
   );
 
-  routeFactories.forEach(function (routeFactory) {
+  routeFactories.forEach(function(routeFactory) {
     routes = routes.concat(routeFactory.getRoutes());
   });
 
@@ -47,7 +47,7 @@ function getApplicationRoutes() {
       children: [
         {
           type: Route,
-          id: 'index',
+          id: "index",
           children: routes,
           component: Index
         },
@@ -69,7 +69,7 @@ function getApplicationRoutes() {
           children: [
             {
               type: Route,
-              path: '*',
+              path: "*",
               component: NotFoundPage
             }
           ]
@@ -86,9 +86,9 @@ function getRoutes() {
   let routes = getApplicationRoutes();
 
   // Provide opportunity for plugins to inject routes
-  routes = Hooks.applyFilter('applicationRoutes', routes);
+  routes = Hooks.applyFilter("applicationRoutes", routes);
 
-  const indexRoute = routes[0].children.find((route) => route.id === 'index');
+  const indexRoute = routes[0].children.find(route => route.id === "index");
 
   // Register packages
   indexRoute.children = indexRoute.children.concat(

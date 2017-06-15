@@ -1,13 +1,13 @@
-import TestUtils from 'react-addons-test-utils';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {routerShape} from 'react-router';
+import TestUtils from "react-addons-test-utils";
+import React from "react";
+import ReactDOM from "react-dom";
+import { routerShape } from "react-router";
 
 const stores = {
-  CosmosPackagesStore: '../stores/CosmosPackagesStore',
-  MesosStateStore: '../stores/MesosStateStore',
-  MesosSummaryStore: '../stores/MesosSummaryStore',
-  MetadataStore: '../stores/MetadataStore'
+  CosmosPackagesStore: "../stores/CosmosPackagesStore",
+  MesosStateStore: "../stores/MesosStateStore",
+  MesosSummaryStore: "../stores/MesosSummaryStore",
+  MetadataStore: "../stores/MetadataStore"
 };
 
 // Private router stub
@@ -35,7 +35,7 @@ const JestUtil = {
   },
 
   unMockStores(storeIDs) {
-    Object.keys(stores).forEach(function (storeID) {
+    Object.keys(stores).forEach(function(storeID) {
       if (storeIDs.indexOf(storeID) === -1) {
         jest.setMock(stores[storeID], {});
       }
@@ -72,9 +72,9 @@ const JestUtil = {
       tag = [tag];
     }
 
-    return function (element) {
-      return tag.some(function (tagName) {
-        return (element.tagName === tagName);
+    return function(element) {
+      return tag.some(function(tagName) {
+        return element.tagName === tagName;
       });
     };
   },
@@ -112,16 +112,17 @@ const JestUtil = {
    */
   mockTimezone(timezone) {
     const date = new Date();
-    const timezoneOffset = (
-          new Date(date.toLocaleString(undefined, {timeZone: 'UTC'}))
-        - new Date(date.toLocaleString(undefined, {timeZone: timezone}))
-      ) / 1000 / 60;
+    const timezoneOffset =
+      (new Date(date.toLocaleString(undefined, { timeZone: "UTC" })) -
+        new Date(date.toLocaleString(undefined, { timeZone: timezone }))) /
+      1000 /
+      60;
 
     /* eslint-disable no-extend-native */
-    Date.prototype.getTimezoneOffset = function () {
+    Date.prototype.getTimezoneOffset = function() {
       return timezoneOffset;
     };
-    Date.prototype.toLocaleString = function (locale = undefined, options = {}) {
+    Date.prototype.toLocaleString = function(locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
 
       return defaultToLocaleString.call(this, locale, options);
@@ -139,28 +140,38 @@ const JestUtil = {
    * @param {object} [context]
    * @returns {React.Element} wrapped component element
    */
-  stubRouterContext(Component, props={}, routerStubs={}, contextTypes={}, context={}) {
+  stubRouterContext(
+    Component,
+    props = {},
+    routerStubs = {},
+    contextTypes = {},
+    context = {}
+  ) {
     // Create wrapper component
     class WrappedComponent extends React.Component {
-
       static get childContextTypes() {
-        return Object.assign({
-          router: routerShape,
-          routeDepth: React.PropTypes.number
-        }, contextTypes);
+        return Object.assign(
+          {
+            router: routerShape,
+            routeDepth: React.PropTypes.number
+          },
+          contextTypes
+        );
       }
 
       getChildContext() {
-        return Object.assign({
-          router: Object.assign(RouterStub, routerStubs),
-          routeDepth: 0
-        }, context);
+        return Object.assign(
+          {
+            router: Object.assign(RouterStub, routerStubs),
+            routeDepth: 0
+          },
+          context
+        );
       }
 
       render() {
-        return (<Component {...props} />);
+        return <Component {...props} />;
       }
-
     }
 
     return React.createElement(WrappedComponent);
@@ -190,10 +201,10 @@ const JestUtil = {
    * @returns {function} Returns a callback function to be passed on .reduce()
    */
   reduceTextContentOfSelector(selector) {
-    return function (strings, element) {
+    return function(strings, element) {
       const matchedElements = Array.from(element.querySelectorAll(selector));
 
-      matchedElements.forEach(function (stringElement) {
+      matchedElements.forEach(function(stringElement) {
         strings.push(stringElement.textContent);
       });
 
@@ -215,7 +226,9 @@ const JestUtil = {
       ReactDOM.render(
         this.stubRouterContext(Component, props, routerStubs),
         container
-      ), Component);
+      ),
+      Component
+    );
   },
 
   /**
@@ -228,7 +241,6 @@ const JestUtil = {
     Date.prototype.toLocaleString = defaultToLocaleString;
     /* eslint-enable no-extend-native */
   }
-
 };
 
 module.exports = JestUtil;

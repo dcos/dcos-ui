@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function getUnwrappedElements(elements) {
-  if (Array.isArray(elements) && elements.length === 1
-    && React.isValidElement(elements[0])) {
+  if (
+    Array.isArray(elements) &&
+    elements.length === 1 &&
+    React.isValidElement(elements[0])
+  ) {
     return elements[0];
   }
 
@@ -26,7 +29,7 @@ const ReactUtil = {
    *
    * @returns {ReactElement} wrapped react elements
    */
-  wrapElements(elements, wrapper = 'div', alwaysWrap = false) {
+  wrapElements(elements, wrapper = "div", alwaysWrap = false) {
     if (elements == null && !alwaysWrap) {
       return null;
     }

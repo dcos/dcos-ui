@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const FormRow = ({children}) => {
+const FormRow = ({ children }) => {
   return (
     <div className="form-row row">
       {children}

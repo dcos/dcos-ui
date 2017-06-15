@@ -1,58 +1,65 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import React, {PropTypes, Component} from 'react';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import React, { PropTypes, Component } from "react";
 
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
-import {pluralize} from '../../../../../../src/js/utils/StringUtil';
-import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
-import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
-import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
-import ArtifactsSection from '../forms/ArtifactsSection';
-import Batch from '../../../../../../src/js/structs/Batch';
-import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
-import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
-import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
-import EnvironmentFormSection from '../forms/EnvironmentFormSection';
-import ErrorMessageUtil from '../../../../../../src/js/utils/ErrorMessageUtil';
-import ErrorsAlert from '../../../../../../src/js/components/ErrorsAlert';
-import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
-import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
-import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import MultiContainerHealthChecksFormSection from '../forms/MultiContainerHealthChecksFormSection';
-import MultiContainerNetworkingFormSection from '../forms/MultiContainerNetworkingFormSection';
-import MultiContainerVolumesFormSection from '../forms/MultiContainerVolumesFormSection';
-import NetworkingFormSection from '../forms/NetworkingFormSection';
-import ServiceErrorMessages from '../../constants/ServiceErrorMessages';
-import ServiceErrorPathMapping from '../../constants/ServiceErrorPathMapping';
-import ServiceUtil from '../../utils/ServiceUtil';
-import PodSpec from '../../structs/PodSpec';
-import TabButton from '../../../../../../src/js/components/TabButton';
-import TabButtonList from '../../../../../../src/js/components/TabButtonList';
-import Tabs from '../../../../../../src/js/components/Tabs';
-import TabView from '../../../../../../src/js/components/TabView';
-import TabViewList from '../../../../../../src/js/components/TabViewList';
-import Transaction from '../../../../../../src/js/structs/Transaction';
-import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
-import VolumesFormSection from '../forms/VolumesFormSection';
+import {
+  findNestedPropertyInObject
+} from "../../../../../../src/js/utils/Util";
+import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
+import { pluralize } from "../../../../../../src/js/utils/StringUtil";
+import AdvancedSection
+  from "../../../../../../src/js/components/form/AdvancedSection";
+import AdvancedSectionContent
+  from "../../../../../../src/js/components/form/AdvancedSectionContent";
+import AdvancedSectionLabel
+  from "../../../../../../src/js/components/form/AdvancedSectionLabel";
+import ArtifactsSection from "../forms/ArtifactsSection";
+import Batch from "../../../../../../src/js/structs/Batch";
+import ContainerServiceFormSection from "../forms/ContainerServiceFormSection";
+import CreateServiceModalFormUtil from "../../utils/CreateServiceModalFormUtil";
+import DataValidatorUtil
+  from "../../../../../../src/js/utils/DataValidatorUtil";
+import EnvironmentFormSection from "../forms/EnvironmentFormSection";
+import ErrorMessageUtil from "../../../../../../src/js/utils/ErrorMessageUtil";
+import ErrorsAlert from "../../../../../../src/js/components/ErrorsAlert";
+import FluidGeminiScrollbar
+  from "../../../../../../src/js/components/FluidGeminiScrollbar";
+import GeneralServiceFormSection from "../forms/GeneralServiceFormSection";
+import HealthChecksFormSection from "../forms/HealthChecksFormSection";
+import JSONEditor from "../../../../../../src/js/components/JSONEditor";
+import MultiContainerHealthChecksFormSection
+  from "../forms/MultiContainerHealthChecksFormSection";
+import MultiContainerNetworkingFormSection
+  from "../forms/MultiContainerNetworkingFormSection";
+import MultiContainerVolumesFormSection
+  from "../forms/MultiContainerVolumesFormSection";
+import NetworkingFormSection from "../forms/NetworkingFormSection";
+import ServiceErrorMessages from "../../constants/ServiceErrorMessages";
+import ServiceErrorPathMapping from "../../constants/ServiceErrorPathMapping";
+import ServiceUtil from "../../utils/ServiceUtil";
+import PodSpec from "../../structs/PodSpec";
+import TabButton from "../../../../../../src/js/components/TabButton";
+import TabButtonList from "../../../../../../src/js/components/TabButtonList";
+import Tabs from "../../../../../../src/js/components/Tabs";
+import TabView from "../../../../../../src/js/components/TabView";
+import TabViewList from "../../../../../../src/js/components/TabViewList";
+import Transaction from "../../../../../../src/js/structs/Transaction";
+import TransactionTypes
+  from "../../../../../../src/js/constants/TransactionTypes";
+import VolumesFormSection from "../forms/VolumesFormSection";
 
 const METHODS_TO_BIND = [
-  'handleConvertToPod',
-  'handleFormChange',
-  'handleFormBlur',
-  'handleJSONChange',
-  'handleJSONPropertyChange',
-  'handleAddItem',
-  'handleRemoveItem',
-  'getNewStateForJSON'
+  "handleConvertToPod",
+  "handleFormChange",
+  "handleFormBlur",
+  "handleJSONChange",
+  "handleJSONPropertyChange",
+  "handleAddItem",
+  "handleRemoveItem",
+  "getNewStateForJSON"
 ];
 
-const KEY_VALUE_FIELDS = [
-  'env',
-  'environment',
-  'labels'
-];
+const KEY_VALUE_FIELDS = ["env", "environment", "labels"];
 
 /**
  * Since the form input fields operate on a different path than the one in the
@@ -97,7 +104,7 @@ class NewCreateServiceModalForm extends Component {
       )
     );
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -110,9 +117,12 @@ class NewCreateServiceModalForm extends Component {
     // Note: We ignore changes that might derive from the `onChange` event
     // handler. In that case the contents of nextJSON would be the same
     // as the contents of the last rendered appConfig in the state.
-    if ((this.state.isPod !== isPod) || (!deepEqual(prevJSON, nextJSON) &&
-      !deepEqual(this.state.appConfig, nextJSON) &&
-      !deepEqual(this.props.errors, nextProps.errors))) {
+    if (
+      this.state.isPod !== isPod ||
+      (!deepEqual(prevJSON, nextJSON) &&
+        !deepEqual(this.state.appConfig, nextJSON) &&
+        !deepEqual(this.props.errors, nextProps.errors))
+    ) {
       this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
     }
   }
@@ -122,13 +132,13 @@ class NewCreateServiceModalForm extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {editingFieldPath, appConfig} = this.state;
-    const {onChange, service} = this.props;
+    const { editingFieldPath, appConfig } = this.state;
+    const { onChange, service } = this.props;
 
-    const shouldUpdate = (editingFieldPath === null) && (
-      prevState.editingFieldPath !== null ||
-      !deepEqual(appConfig, prevState.appConfig)
-    );
+    const shouldUpdate =
+      editingFieldPath === null &&
+      (prevState.editingFieldPath !== null ||
+        !deepEqual(appConfig, prevState.appConfig));
     if (shouldUpdate) {
       onChange(new service.constructor(appConfig));
     }
@@ -146,7 +156,7 @@ class NewCreateServiceModalForm extends Component {
     }
 
     // Update if pod type changed
-    if (this.state.isPod !== (nextProps.service instanceof PodSpec)) {
+    if (this.state.isPod !== nextProps.service instanceof PodSpec) {
       return true;
     }
 
@@ -158,34 +168,39 @@ class NewCreateServiceModalForm extends Component {
     //
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
-    if (!deepEqual(prevJSON, nextJSON) &&
-      !deepEqual(this.state.appConfig, nextJSON)) {
+    if (
+      !deepEqual(prevJSON, nextJSON) &&
+      !deepEqual(this.state.appConfig, nextJSON)
+    ) {
       return true;
     }
 
     // Otherwise update if the state has changed
-    return (this.state.baseConfig !== nextState.baseConfig) ||
-      (this.state.batch !== nextState.batch) ||
-      (this.state.editingFieldPath !== nextState.editingFieldPath) ||
-      (this.props.activeTab !== nextProps.activeTab) ||
-      (!deepEqual(this.props.errors, nextProps.errors));
+    return (
+      this.state.baseConfig !== nextState.baseConfig ||
+      this.state.batch !== nextState.batch ||
+      this.state.editingFieldPath !== nextState.editingFieldPath ||
+      this.props.activeTab !== nextProps.activeTab ||
+      !deepEqual(this.props.errors, nextProps.errors)
+    );
   }
 
-  getNewStateForJSON(baseConfig = {},
+  getNewStateForJSON(
+    baseConfig = {},
     shouldValidate = true,
-    isPod = this.state.isPod) {
+    isPod = this.state.isPod
+  ) {
     const newState = {
       baseConfig,
       isPod
     };
 
     // Regenerate batch
-    newState.batch = this.props.jsonParserReducers(baseConfig).reduce(
-      (batch, item) => {
+    newState.batch = this.props
+      .jsonParserReducers(baseConfig)
+      .reduce((batch, item) => {
         return batch.add(item);
-      },
-      new Batch()
-    );
+      }, new Batch());
 
     // Update appConfig
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
@@ -198,8 +213,8 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleJSONPropertyChange(path) {
-    const {editedFieldPaths} = this.state;
-    const pathStr = path.join('.');
+    const { editedFieldPaths } = this.state;
+    const pathStr = path.join(".");
     if (path.length === 0) {
       return;
     }
@@ -212,8 +227,8 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormBlur(event) {
-    const {editedFieldPaths} = this.state;
-    const fieldName = event.target.getAttribute('name');
+    const { editedFieldPaths } = this.state;
+    const fieldName = event.target.getAttribute("name");
     const newState = {
       editingFieldPath: null
     };
@@ -231,17 +246,17 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormChange(event) {
-    const fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute("name");
     if (!fieldName) {
       return;
     }
 
-    let {batch} = this.state;
+    let { batch } = this.state;
     let value = event.target.value;
-    if (event.target.type === 'checkbox') {
+    if (event.target.type === "checkbox") {
       value = event.target.checked;
     }
-    const path = fieldName.split('.');
+    const path = fieldName.split(".");
     batch = batch.add(new Transaction(path, value));
 
     const newState = {
@@ -254,31 +269,31 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleAddItem(event) {
-    const {value, path} = event;
-    let {batch} = this.state;
+    const { value, path } = event;
+    let { batch } = this.state;
 
     batch = batch.add(
-      new Transaction(path.split('.'), value, TransactionTypes.ADD_ITEM)
+      new Transaction(path.split("."), value, TransactionTypes.ADD_ITEM)
     );
 
-    this.setState({batch, appConfig: this.getAppConfig(batch)});
+    this.setState({ batch, appConfig: this.getAppConfig(batch) });
   }
 
   handleRemoveItem(event) {
-    const {value, path} = event;
-    let {batch} = this.state;
+    const { value, path } = event;
+    let { batch } = this.state;
 
     batch = batch.add(
-      new Transaction(path.split('.'), value, TransactionTypes.REMOVE_ITEM)
+      new Transaction(path.split("."), value, TransactionTypes.REMOVE_ITEM)
     );
 
-    this.setState({batch, appConfig: this.getAppConfig(batch)});
+    this.setState({ batch, appConfig: this.getAppConfig(batch) });
   }
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
     // Delete all key:value fields
     // Otherwise applyPatch will duplicate keys we're changing via the form
-    KEY_VALUE_FIELDS.forEach(function (field) {
+    KEY_VALUE_FIELDS.forEach(function(field) {
       delete baseConfig[field];
     });
     const patch = batch.reduce(this.props.jsonConfigReducers, {});
@@ -296,14 +311,15 @@ class NewCreateServiceModalForm extends Component {
   getContainerList(data) {
     if (Array.isArray(data.containers) && data.containers.length !== 0) {
       return data.containers.map((item, index) => {
-        const fakeContainer = {name: item.name || `container-${index + 1}`};
+        const fakeContainer = { name: item.name || `container-${index + 1}` };
 
         return (
           <TabButton
             labelClassName="text-overflow"
             key={index}
             id={`container${index}`}
-            label={getContainerNameWithIcon(fakeContainer)} />
+            label={getContainerNameWithIcon(fakeContainer)}
+          />
         );
       });
     }
@@ -312,8 +328,8 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getContainerContent(data, errors) {
-    const {service, showAllErrors} = this.props;
-    const {containers} = data;
+    const { service, showAllErrors } = this.props;
+    const { containers } = data;
 
     if (containers == null) {
       return [];
@@ -332,7 +348,8 @@ class NewCreateServiceModalForm extends Component {
           <ErrorsAlert
             errors={this.getErrors()}
             pathMapping={ServiceErrorPathMapping}
-            hideTopLevelErrors={!showAllErrors} />
+            hideTopLevelErrors={!showAllErrors}
+          />
           <h2 className="flush-top short-bottom">
             Container
           </h2>
@@ -345,7 +362,8 @@ class NewCreateServiceModalForm extends Component {
             onAddItem={this.handleAddItem}
             onRemoveItem={this.handleRemoveItem}
             path={`containers.${index}`}
-            service={service} />
+            service={service}
+          />
 
           <AdvancedSection>
             <AdvancedSectionLabel>
@@ -361,7 +379,8 @@ class NewCreateServiceModalForm extends Component {
                 path={artifactsPath}
                 errors={artifactErrors}
                 onRemoveItem={this.handleRemoveItem}
-                onAddItem={this.handleAddItem} />
+                onAddItem={this.handleAddItem}
+              />
             </AdvancedSectionContent>
           </AdvancedSection>
         </TabView>
@@ -377,11 +396,13 @@ class NewCreateServiceModalForm extends Component {
         <TabButton
           id="healthChecks"
           label="Health Checks"
-          key="multihealthChecks" />,
+          key="multihealthChecks"
+        />,
         <TabButton
           id="environment"
           label="Environment"
-          key="multienvironment" />
+          key="multienvironment"
+        />
       ];
     }
 
@@ -394,7 +415,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getSectionContent(data, errorMap) {
-    const {showAllErrors} = this.props;
+    const { showAllErrors } = this.props;
     const errors = this.getErrors();
 
     if (this.state.isPod) {
@@ -403,48 +424,56 @@ class NewCreateServiceModalForm extends Component {
           <ErrorsAlert
             errors={errors}
             pathMapping={ServiceErrorPathMapping}
-            hideTopLevelErrors={!showAllErrors} />
+            hideTopLevelErrors={!showAllErrors}
+          />
           <MultiContainerNetworkingFormSection
             data={data}
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+            onAddItem={this.handleAddItem}
+          />
         </TabView>,
         <TabView id="volumes" key="multivolumes">
           <ErrorsAlert
             errors={errors}
             pathMapping={ServiceErrorPathMapping}
-            hideTopLevelErrors={!showAllErrors} />
+            hideTopLevelErrors={!showAllErrors}
+          />
           <MultiContainerVolumesFormSection
             data={data}
             errors={errorMap}
             handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+            onAddItem={this.handleAddItem}
+          />
         </TabView>,
         <TabView id="healthChecks" key="multihealthChecks">
           <ErrorsAlert
             errors={errors}
             pathMapping={ServiceErrorPathMapping}
-            hideTopLevelErrors={!showAllErrors} />
+            hideTopLevelErrors={!showAllErrors}
+          />
           <MultiContainerHealthChecksFormSection
             data={data}
             errors={errorMap}
             handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+            onAddItem={this.handleAddItem}
+          />
         </TabView>,
         <TabView id="environment" key="multienvironment">
           <ErrorsAlert
             errors={errors}
             pathMapping={ServiceErrorPathMapping}
-            hideTopLevelErrors={!showAllErrors} />
+            hideTopLevelErrors={!showAllErrors}
+          />
           <EnvironmentFormSection
             mountType="CreateService:MultiContainerEnvironmentFormSection"
             data={data}
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem} />
+            onAddItem={this.handleAddItem}
+          />
         </TabView>
       ];
     }
@@ -454,46 +483,54 @@ class NewCreateServiceModalForm extends Component {
         <ErrorsAlert
           errors={errors}
           pathMapping={ServiceErrorPathMapping}
-          hideTopLevelErrors={!showAllErrors} />
+          hideTopLevelErrors={!showAllErrors}
+        />
         <NetworkingFormSection
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
+          onAddItem={this.handleAddItem}
+        />
       </TabView>,
       <TabView id="volumes" key="volumes">
         <ErrorsAlert
           errors={errors}
           pathMapping={ServiceErrorPathMapping}
-          hideTopLevelErrors={!showAllErrors} />
+          hideTopLevelErrors={!showAllErrors}
+        />
         <VolumesFormSection
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
+          onAddItem={this.handleAddItem}
+        />
       </TabView>,
       <TabView id="healthChecks" key="healthChecks">
         <ErrorsAlert
           errors={errors}
           pathMapping={ServiceErrorPathMapping}
-          hideTopLevelErrors={!showAllErrors} />
+          hideTopLevelErrors={!showAllErrors}
+        />
         <HealthChecksFormSection
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
+          onAddItem={this.handleAddItem}
+        />
       </TabView>,
       <TabView id="environment" key="environment">
         <ErrorsAlert
           errors={errors}
           pathMapping={ServiceErrorPathMapping}
-          hideTopLevelErrors={!showAllErrors} />
+          hideTopLevelErrors={!showAllErrors}
+        />
         <EnvironmentFormSection
           mountType="CreateService:EnvironmentFormSection"
           data={data}
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem} />
+          onAddItem={this.handleAddItem}
+        />
       </TabView>
     ];
   }
@@ -505,19 +542,19 @@ class NewCreateServiceModalForm extends Component {
    * @returns {Array} - Returns an array of errors that passed the filter
    */
   getUnmutedErrors() {
-    const {showAllErrors} = this.props;
-    const {editedFieldPaths, editingFieldPath} = this.state;
+    const { showAllErrors } = this.props;
+    const { editedFieldPaths, editingFieldPath } = this.state;
 
-    return this.getErrors().filter(function (error) {
-      const errorPath = error.path.join('.');
+    return this.getErrors().filter(function(error) {
+      const errorPath = error.path.join(".");
 
       // Always mute the error on the field we are editing
-      if ((editingFieldPath != null) && (errorPath === editingFieldPath)) {
+      if (editingFieldPath != null && errorPath === editingFieldPath) {
         return false;
       }
 
       // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
-      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function (rule) {
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function(rule) {
         return rule.test(errorPath);
       });
 
@@ -526,7 +563,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   render() {
-    const {appConfig, batch} = this.state;
+    const { appConfig, batch } = this.state;
     const {
       activeTab,
       handleTabChange,
@@ -541,18 +578,18 @@ class NewCreateServiceModalForm extends Component {
     const errors = this.getErrors();
 
     const jsonEditorPlaceholderClasses = classNames(
-      'modal-full-screen-side-panel-placeholder',
-      {'is-visible': isJSONModeActive}
+      "modal-full-screen-side-panel-placeholder",
+      { "is-visible": isJSONModeActive }
     );
-    const jsonEditorClasses = classNames('modal-full-screen-side-panel', {
-      'is-visible': isJSONModeActive
+    const jsonEditorClasses = classNames("modal-full-screen-side-panel", {
+      "is-visible": isJSONModeActive
     });
 
     const errorMap = DataValidatorUtil.errorArrayToMap(unmutedErrors);
-    const serviceLabel = pluralize('Service', findNestedPropertyInObject(
-      appConfig,
-      'containers.length'
-    ) || 1);
+    const serviceLabel = pluralize(
+      "Service",
+      findNestedPropertyInObject(appConfig, "containers.length") || 1
+    );
 
     return (
       <div className="flex flex-item-grow-1">
@@ -562,16 +599,19 @@ class NewCreateServiceModalForm extends Component {
               <form
                 className="create-service-modal-form container container-wide"
                 onChange={this.handleFormChange}
-                onBlur={this.handleFormBlur}>
+                onBlur={this.handleFormBlur}
+              >
                 <Tabs
                   activeTab={activeTab}
                   vertical={true}
-                  handleTabChange={handleTabChange}>
+                  handleTabChange={handleTabChange}
+                >
                   <TabButtonList className="form-tabs-list">
                     <TabButton
                       id="services"
                       label={serviceLabel}
-                      key="services">
+                      key="services"
+                    >
                       {this.getContainerList(data)}
                     </TabButton>
                     {this.getSectionList()}
@@ -581,7 +621,8 @@ class NewCreateServiceModalForm extends Component {
                       <ErrorsAlert
                         errors={errors}
                         pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors} />
+                        hideTopLevelErrors={!showAllErrors}
+                      />
                       <GeneralServiceFormSection
                         errors={errorMap}
                         data={data}
@@ -589,7 +630,8 @@ class NewCreateServiceModalForm extends Component {
                         onConvertToPod={onConvertToPod}
                         service={service}
                         onRemoveItem={this.handleRemoveItem}
-                        onAddItem={this.handleAddItem} />
+                        onAddItem={this.handleAddItem}
+                      />
                     </TabView>
 
                     {this.getContainerContent(data, errorMap)}
@@ -611,7 +653,8 @@ class NewCreateServiceModalForm extends Component {
             theme="monokai"
             height="100%"
             value={appConfig}
-            width="100%" />
+            width="100%"
+          />
         </div>
       </div>
     );

@@ -2,11 +2,11 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+} from "../../../../../../src/js/constants/TransactionTypes";
+import Transaction from "../../../../../../src/js/structs/Transaction";
 
 module.exports = {
-  JSONReducer(state, {type, path, value}) {
+  JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;
     }
@@ -20,13 +20,13 @@ module.exports = {
       this.labels = [];
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (joinedPath.search('labels') !== -1) {
-      if (joinedPath === 'labels') {
+    if (joinedPath.search("labels") !== -1) {
+      if (joinedPath === "labels") {
         switch (type) {
           case ADD_ITEM:
-            this.labels.push({key: null, value: null});
+            this.labels.push({ key: null, value: null });
             break;
           case REMOVE_ITEM:
             this.labels = this.labels.filter((item, index) => {
@@ -67,7 +67,7 @@ module.exports = {
       return [];
     }
 
-    return Object.keys(state.labels).reduce(function (memo, key, index) {
+    return Object.keys(state.labels).reduce(function(memo, key, index) {
       /**
        * For the labels which are a key => value based object we want to
        * create a new item and fill it with the key and the value. So we
@@ -76,34 +76,28 @@ module.exports = {
        * 2) Set the key on the path `labels.${index}.key`
        * 3) Set the value on the path `labels.${index}.value`
        */
-      memo.push(new Transaction(['labels'], index, ADD_ITEM));
-      memo.push(new Transaction([
-        'labels',
-        index,
-        'key'
-      ], key, SET));
-      memo.push(new Transaction([
-        'labels',
-        index,
-        'value'
-      ], state.labels[key], SET));
+      memo.push(new Transaction(["labels"], index, ADD_ITEM));
+      memo.push(new Transaction(["labels", index, "key"], key, SET));
+      memo.push(
+        new Transaction(["labels", index, "value"], state.labels[key], SET)
+      );
 
       return memo;
     }, []);
   },
 
-  FormReducer(state = [], {type, path, value}) {
+  FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;
     }
 
-    const joinedPath = path.join('.');
+    const joinedPath = path.join(".");
 
-    if (joinedPath.search('labels') !== -1) {
-      if (joinedPath === 'labels') {
+    if (joinedPath.search("labels") !== -1) {
+      if (joinedPath === "labels") {
         switch (type) {
           case ADD_ITEM:
-            state.push({key: null, value: null});
+            state.push({ key: null, value: null });
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {

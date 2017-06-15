@@ -1,22 +1,21 @@
-import SearchDSL from '../../resources/grammar/SearchDSL.jison';
+import SearchDSL from "../../resources/grammar/SearchDSL.jison";
 
 /**
  * This is a high-level compnent that wraps
  */
 class DSLExpression {
-
   /**
    * Construct an immutable DSL expression
    *
    * @param {String} value - The expression string
    */
-  constructor(value='') {
+  constructor(value = "") {
     let ast = null;
     const cleanValue = value.trim();
     let filter = (filters, resultset) => resultset;
     let hasErrors = false;
 
-    if (cleanValue !== '') {
+    if (cleanValue !== "") {
       // Try to parse the expression
       try {
         const result = SearchDSL.parse(cleanValue);
@@ -58,7 +57,6 @@ class DSLExpression {
       }
     });
   }
-
 }
 
 module.exports = DSLExpression;

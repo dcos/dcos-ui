@@ -1,28 +1,29 @@
-import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
-import DSLFilter from '../../../../../src/js/structs/DSLFilter';
-import HealthStatus from '../constants/HealthStatus';
+import DSLFilterTypes from "../../../../../src/js/constants/DSLFilterTypes";
+import DSLFilter from "../../../../../src/js/structs/DSLFilter";
+import HealthStatus from "../constants/HealthStatus";
 
-const LABEL = 'is';
+const LABEL = "is";
 
 const LABEL_TO_HEALTH = {
-  healthy   : HealthStatus.HEALTHY,
-  unhealthy : HealthStatus.UNHEALTHY
+  healthy: HealthStatus.HEALTHY,
+  unhealthy: HealthStatus.UNHEALTHY
 };
 
 /**
  * This filter handles the `health:status` for services using `getHealth`
  */
 class ServiceAttribHealthFilter extends DSLFilter {
-
   /**
    * Handle all `health:XXXX` attribute filters that we can handle.
    *
    * @override
    */
   filterCanHandle(filterType, filterArguments) {
-    return filterType === DSLFilterTypes.ATTRIB &&
+    return (
+      filterType === DSLFilterTypes.ATTRIB &&
       filterArguments.label === LABEL &&
-      LABEL_TO_HEALTH[filterArguments.text.toLowerCase()] != null;
+      LABEL_TO_HEALTH[filterArguments.text.toLowerCase()] != null
+    );
   }
 
   /**
@@ -34,11 +35,10 @@ class ServiceAttribHealthFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
-    return resultset.filterItems((service) => {
+    return resultset.filterItems(service => {
       return service.getHealth() === testStatus;
     });
   }
-
 }
 
 module.exports = ServiceAttribHealthFilter;

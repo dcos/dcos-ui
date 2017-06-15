@@ -1,4 +1,4 @@
-import Objektiv from 'objektiv';
+import Objektiv from "objektiv";
 
 /**
  * Convert an object path to a lens
@@ -7,8 +7,8 @@ import Objektiv from 'objektiv';
  * @param {function} [strategy] - The trategy to chose for missing elements
  * @return {Objectiv.lens} Returns the lens to address the path
  */
-function path2lens(path, strategy=Objektiv.resolve.tryhard) {
-  return path.reduce(function (parent, segment) {
+function path2lens(path, strategy = Objektiv.resolve.tryhard) {
+  return path.reduce(function(parent, segment) {
     if (isNaN(segment)) {
       return parent.then(Objektiv.makeAttrLens(segment, strategy));
     } else {
@@ -18,7 +18,6 @@ function path2lens(path, strategy=Objektiv.resolve.tryhard) {
 }
 
 const DataValidatorUtil = {
-
   /**
    * This is a shorthand function to collect a list of validation errors for
    * the given input data, passed through an array of validation functions.
@@ -32,10 +31,8 @@ const DataValidatorUtil = {
       validatorFn = [validatorFn];
     }
 
-    return validatorFn.reduce(function (errors, validator) {
-      return errors.concat(
-        validator(inputData)
-      );
+    return validatorFn.reduce(function(errors, validator) {
+      return errors.concat(validator(inputData));
     }, []);
   },
 
@@ -47,8 +44,7 @@ const DataValidatorUtil = {
    * @returns {Object} Returns an object with the errors in the correct paths
    */
   errorArrayToMap(errors) {
-    return errors.reduce(function (errorMap, error) {
-
+    return errors.reduce(function(errorMap, error) {
       // We cannot place root errors in the map
       if (error.path.length === 0) {
         return errorMap;
@@ -67,21 +63,21 @@ const DataValidatorUtil = {
   },
 
   updateOnlyOnPath(oldList, newList, path) {
-    const pathStr = path.join('.');
-    const newErrors = newList.filter(function (error) {
-      return error.path.join('.') === pathStr;
+    const pathStr = path.join(".");
+    const newErrors = newList.filter(function(error) {
+      return error.path.join(".") === pathStr;
     });
 
     // Strip from the old error list:
     // - Errors that exist on the current path
     // - Errors that were removed with the new list
-    const cleanOldList = oldList.filter(function (error) {
-      if (error.path.join('.') === pathStr) {
+    const cleanOldList = oldList.filter(function(error) {
+      if (error.path.join(".") === pathStr) {
         return false;
       }
 
-      return newList.some(function (newError) {
-        return error.path.join('.') === newError.path.join('.');
+      return newList.some(function(newError) {
+        return error.path.join(".") === newError.path.join(".");
       });
     });
 
@@ -90,13 +86,12 @@ const DataValidatorUtil = {
   },
 
   stripErrorsOnPath(errorList, path) {
-    const pathStr = path.join('.');
+    const pathStr = path.join(".");
 
-    return errorList.filter(function (error) {
-      return error.path.join('.') !== pathStr;
+    return errorList.filter(function(error) {
+      return error.path.join(".") !== pathStr;
     });
   }
-
 };
 
 module.exports = DataValidatorUtil;

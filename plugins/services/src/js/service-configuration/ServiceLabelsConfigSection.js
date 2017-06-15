@@ -1,16 +1,17 @@
-import React from 'react';
-import {Table} from 'reactjs-components';
+import React from "react";
+import { Table } from "reactjs-components";
 
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
-import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
+import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
   * @override
   */
   shouldExcludeItem() {
-    const {labels} = this.props.appConfig;
+    const { labels } = this.props.appConfig;
 
     return labels == null || Object.keys(labels).length === 0;
   }
@@ -19,36 +20,36 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
    * @override
    */
   getDefinition() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
 
     return {
-      tabViewID: 'environment',
+      tabViewID: "environment",
       values: [
         {
-          key: 'labels',
-          heading: 'Labels',
+          key: "labels",
+          heading: "Labels",
           headingLevel: 1
         },
         {
-          key: 'labels',
+          key: "labels",
           render(labelsDataMap) {
             const columns = [
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn(),
-                prop: 'key',
+                prop: "key",
                 render: (prop, row) => {
                   return <code>{row[prop]}</code>;
                 },
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-label'
+                  "configuration-map-table-label"
                 ),
                 sortable: true
               },
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn(),
-                prop: 'value',
+                prop: "value",
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
-                  'configuration-map-table-value'
+                  "configuration-map-table-value"
                 ),
                 sortable: true
               }
@@ -56,14 +57,17 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
 
             if (onEditClick) {
               columns.push({
-                heading() { return null; },
-                className: 'configuration-map-action',
-                prop: 'edit',
+                heading() {
+                  return null;
+                },
+                className: "configuration-map-action",
+                prop: "edit",
                 render() {
                   return (
                     <ConfigurationMapEditAction
                       onEditClick={onEditClick}
-                      tabViewID="environment" />
+                      tabViewID="environment"
+                    />
                   );
                 }
               });
@@ -74,7 +78,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 labelsDataMap[labelKey]
               );
 
-              memo.push({key: labelKey, value});
+              memo.push({ key: labelKey, value });
 
               return memo;
             }, []);
@@ -84,7 +88,8 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="labels-table"
                 className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
-                data={data} />
+                data={data}
+              />
             );
           }
         }
