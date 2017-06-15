@@ -1,12 +1,10 @@
+import classNames from "classnames";
 import React from "react";
 
 const ConfigurationMapLabel = props => {
-  let labelClasses;
-  if (props.isAttribute) {
-    labelClasses = "configuration-map-label configuration-map-attribute-label";
-  } else {
-    labelClasses = "configuration-map-label";
-  }
+  const labelClasses = classNames("configuration-map-label", {
+    "configuration-map-attribute-label": props.isAttribute
+  });
 
   return (
     <div className={labelClasses}>
