@@ -271,7 +271,7 @@ class VolumesFormSection extends Component {
 
       let sizeField = (
         <Tooltip
-          content="Docker Runtime does not support size on external volumes, please select Mesos Runtime if you want to use size for external volumes."
+          content="Docker Runtime only supports the default size for implicit volumes, please select Mesos Runtime if you want to modify the size."
           width={300}
           scrollContainer=".gm-scroll-view"
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
