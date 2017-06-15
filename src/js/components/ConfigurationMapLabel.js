@@ -3,7 +3,7 @@ import React from "react";
 
 const ConfigurationMapLabel = props => {
   const labelClasses = classNames("configuration-map-label", {
-    "configuration-map-attribute-label": props.isAttribute
+    "configuration-map-label-no-text-transform": props.keepTextCase
   });
 
   return (
@@ -14,7 +14,7 @@ const ConfigurationMapLabel = props => {
 };
 
 ConfigurationMapLabel.propTypes = {
-  isAttribute: React.PropTypes.bool
+  keepTextCase: React.PropTypes.bool
 };
 
 module.exports = ConfigurationMapLabel;

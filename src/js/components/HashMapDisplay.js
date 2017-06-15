@@ -72,7 +72,7 @@ class HashMapDisplay extends React.Component {
 
       return (
         <ConfigurationMapRow key={index}>
-          <ConfigurationMapLabel isAttribute={isAttribute}>
+          <ConfigurationMapLabel keepTextCase={isAttribute}>
             {key}
           </ConfigurationMapLabel>
           <ConfigurationMapValue>{value}</ConfigurationMapValue>
