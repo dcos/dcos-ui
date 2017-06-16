@@ -125,10 +125,23 @@ RequestUtil.json = function(options = {}) {
     );
   }
 
-  // Plugins events
-  PluginSDK.Hooks.addAction("pluginsConfigured", onPluginsLoaded);
-  ConfigStore.addChangeListener(CONFIG_ERROR, onConfigurationError);
+  function startApplication() {
+    // Plugins events
+    PluginSDK.Hooks.addAction("pluginsConfigured", onPluginsLoaded);
+    ConfigStore.addChangeListener(CONFIG_ERROR, onConfigurationError);
 
-  // Load configuration
-  ConfigStore.fetchConfig();
+    // Load configuration
+    ConfigStore.fetchConfig();
+  }
+
+  if (!global.Intl) {
+    require.ensure(["intl", "intl/locale-data/jsonp/en.js"], function(require) {
+      require("intl");
+      require("intl/locale-data/jsonp/en.js");
+
+      startApplication();
+    });
+  } else {
+    startApplication();
+  }
 })();
