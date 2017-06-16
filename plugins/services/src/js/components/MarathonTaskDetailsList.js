@@ -20,11 +20,11 @@ class MarathonTaskDetailsList extends React.Component {
   }
 
   getTaskStatus(task) {
-    if (task == null || task.status == null) {
+    if (task == null || task.state == null) {
       return "Unknown";
     }
 
-    return task.status;
+    return task.state;
   }
 
   getTimeField(time) {
