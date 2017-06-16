@@ -8,6 +8,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
+import TaskStates from "../constants/TaskStates";
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
@@ -24,7 +25,7 @@ class MarathonTaskDetailsList extends React.Component {
       return "Unknown";
     }
 
-    return task.state;
+    return TaskStates[task.state].displayName;
   }
 
   getTimeField(time) {
