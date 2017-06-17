@@ -53,7 +53,8 @@ const METHODS_TO_BIND = [
   "handleFormChange",
   "handleJSONChange",
   "handleJSONPropertyChange",
-  "handleRemoveItem"
+  "handleRemoveItem",
+  "handleClickContainer"
 ];
 
 /**
@@ -288,6 +289,10 @@ class NewCreateServiceModalForm extends Component {
     );
 
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
+  }
+
+  handleClickContainer(item) {
+    this.props.handleTabChange(item);
   }
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
@@ -680,6 +685,7 @@ class NewCreateServiceModalForm extends Component {
                         onConvertToPod={onConvertToPod}
                         service={service}
                         onRemoveItem={this.handleRemoveItem}
+                        onClickContainer={this.handleClickContainer}
                         onAddItem={this.handleAddItem}
                       />
                     </TabView>

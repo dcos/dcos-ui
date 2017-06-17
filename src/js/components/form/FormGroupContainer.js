@@ -24,7 +24,7 @@ const FormGroupContainer = props => {
   }
 
   return (
-    <div className="panel pod-short">
+    <div className="panel pod-short" onClick={props.onClick}>
       <div className="pod-narrow pod-short">
         {removeButton}
         {props.children}
@@ -39,7 +39,8 @@ FormGroupContainer.defaultProps = {
 
 FormGroupContainer.propTypes = {
   children: React.PropTypes.node,
-  onRemove: React.PropTypes.func
+  onRemove: React.PropTypes.func,
+  onClick: React.PropTypes.func
 };
 
 module.exports = FormGroupContainer;
