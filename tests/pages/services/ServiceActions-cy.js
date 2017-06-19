@@ -137,7 +137,7 @@ describe("Service Actions", function() {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: []
         });
-        cy.get(".modal-body .filter-input-text").type("/sleep");
+        cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy.get(".confirm-modal").should("to.have.length", 0);
       });
@@ -149,7 +149,7 @@ describe("Service Actions", function() {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: { message: "App is locked by one or more deployments." }
         });
-        cy.get(".modal-body .filter-input-text").type("/sleep");
+        cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy
           .get(".modal-body .text-danger")
@@ -163,7 +163,7 @@ describe("Service Actions", function() {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: { message: "Not Authorized to perform this action!" }
         });
-        cy.get(".modal-body .filter-input-text").type("/sleep");
+        cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get(".confirm-modal .button-collection .button-danger").click();
         cy
           .get(".modal-body .text-danger")
@@ -183,7 +183,7 @@ describe("Service Actions", function() {
         cy
           .get(".confirm-modal .button-collection .button-danger")
           .as("dangerButton");
-        cy.get(".modal-body .filter-input-text").type("/sleep");
+        cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get("@dangerButton").should("not.have.class", "disabled");
       });
 
