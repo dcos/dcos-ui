@@ -39,6 +39,7 @@
     "dcos-dygraphs": "1.1.0-beta.3",
     "deep-equal": "1.0.1",
     "flux": "2.1.1",
+    "intl": "1.2.5",
     "less-color-lighten": "0.0.1",
     "lodash.throttle": "4.1.1",
     "md5": "2.1.0",
