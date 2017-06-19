@@ -22,6 +22,10 @@ describe("MetronomeStore", function() {
     jasmine.clock().uninstall();
     // Install our custom jasmine timers
     jasmine.clock().install();
+    // Reset store data
+    MetronomeStore.data.jobMap = new Map();
+    MetronomeStore.data.jobTree = null;
+
     MetronomeActions.fetchJobDetail = jasmine.createSpy("fetchJobDetail");
     MetronomeActions.fetchJobs = jasmine.createSpy("fetchJobs");
   });
