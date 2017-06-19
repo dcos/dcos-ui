@@ -280,9 +280,13 @@ class NewCreateServiceModalForm extends Component {
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
   }
 
-  handleRemoveItem(event) {
-    const { value, path } = event;
+  handleRemoveItem(event, e) {
+    const { value, path, noPropagate } = event;
     let { batch } = this.state;
+
+    if (noPropagate) {
+      e.stopPropagation();
+    }
 
     batch = batch.add(
       new Transaction(path.split("."), value, TransactionTypes.REMOVE_ITEM)

@@ -183,7 +183,8 @@ class GeneralServiceFormSection extends Component {
           key={index}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: index,
-            path: "containers"
+            path: "containers",
+            noPropagate: true
           })}
           onClick={this.props.onClickContainer.bind(this, `container${index}`)}
         >
