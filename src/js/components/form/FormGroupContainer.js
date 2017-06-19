@@ -24,7 +24,10 @@ const FormGroupContainer = props => {
   }
 
   return (
-    <div className="panel pod-short" onClick={props.onClick}>
+    <div
+      className="panel panel-interactive pod-short clickable"
+      onClick={props.onClick}
+    >
       <div className="pod-narrow pod-short">
         {removeButton}
         {props.children}
