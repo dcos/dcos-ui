@@ -356,7 +356,7 @@ class GeneralServiceFormSection extends Component {
             <FieldInput
               name={`constraints.${index}.fieldName`}
               type="text"
-              placeholer="hostname"
+              placeholder="hostname"
               value={constraint.fieldName}
             />
             <FieldError>{fieldNameError}</FieldError>
