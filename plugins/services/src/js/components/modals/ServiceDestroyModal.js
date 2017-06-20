@@ -103,7 +103,7 @@ class ServiceDestroyModal extends React.Component {
 
   getIsRightButtonDisabled() {
     return (
-      this.props.service.getId() !== this.state.serviceNameConfirmationValue
+      this.props.service.getName() !== this.state.serviceNameConfirmationValue
     );
   }
 
@@ -196,7 +196,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyServiceModal() {
     const { open, service, intl } = this.props;
-    const serviceName = service.getId();
+    const serviceName = service.getName();
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
 
@@ -235,6 +235,7 @@ class ServiceDestroyModal extends React.Component {
           onChange={this.handleChangeInputFieldDestroy}
           type="text"
           value={this.state.serviceNameConfirmationValue}
+          autoFocus
         />
         {this.getErrorMessage()}
       </Confirm>
