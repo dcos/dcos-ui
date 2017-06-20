@@ -819,7 +819,9 @@ class NewCreateServiceModal extends Component {
     }
 
     if (isEdit && isSpecificVersion) {
-      serviceSpec = service.getVersions().get(params.version);
+      serviceSpec = service
+        .constructor(service.getVersions().get(params.version))
+        .getSpec();
     }
 
     const newState = {
