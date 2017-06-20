@@ -1594,7 +1594,7 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 0);
       });
 
-      it.only("Should open container config when clicked", function() {
+      it("Should open container config when clicked", function() {
         cy.get(".pod-narrow.pod-short").eq(0).click();
         cy.get(".menu-tabbed-view").contains("Container Name");
       });
