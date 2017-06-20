@@ -398,6 +398,9 @@ describe("Jobs", function() {
     // Specify a schedule
     cy.root().getFormGroupInputFor("Cron Schedule *").type("* * * * *");
 
+    // Enable schedule
+    cy.contains("Enable").click();
+
     // Check JSON mode
     cy.contains("JSON mode").click();
 
