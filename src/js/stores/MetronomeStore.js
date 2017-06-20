@@ -44,6 +44,7 @@ import {
 } from "../constants/EventTypes";
 import Config from "../config/Config";
 import MetronomeActions from "../events/MetronomeActions";
+import MetronomeUtil from "../utils/MetronomeUtil";
 import Job from "../structs/Job";
 import JobTree from "../structs/JobTree";
 import VisibilityStore from "./VisibilityStore";
@@ -80,8 +81,8 @@ class MetronomeStore extends EventEmitter {
     super(...arguments);
 
     this.data = {
-      jobDetail: {},
-      jobTree: { id: "/", items: [] }
+      jobMap: new Map(),
+      jobTree: null
     };
 
     PluginSDK.addStoreConfig({
@@ -130,7 +131,8 @@ class MetronomeStore extends EventEmitter {
           this.emit(METRONOME_JOB_DELETE_SUCCESS, action.jobID);
           break;
         case REQUEST_METRONOME_JOB_DETAIL_SUCCESS:
-          this.data.jobDetail[action.jobID] = action.data;
+          this.setJob(action.data);
+
           this.emit(METRONOME_JOB_DETAIL_CHANGE);
           break;
         case REQUEST_METRONOME_JOB_DETAIL_ONGOING:
@@ -163,7 +165,8 @@ class MetronomeStore extends EventEmitter {
           this.emit(METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS, action.jobID);
           break;
         case REQUEST_METRONOME_JOBS_SUCCESS:
-          this.data.jobTree = action.data;
+          action.data.forEach(this.setJob.bind(this));
+
           this.emit(METRONOME_JOBS_CHANGE);
           break;
         case REQUEST_METRONOME_JOBS_ONGOING:
@@ -180,6 +183,17 @@ class MetronomeStore extends EventEmitter {
       VISIBILITY_CHANGE,
       this.onVisibilityStoreChange.bind(this)
     );
+  }
+
+  setJob(job) {
+    const { id } = job;
+
+    if (this.data.jobMap.has(id)) {
+      job = Object.assign({}, this.data.jobMap.get(id), job);
+    }
+
+    this.data.jobMap.set(id, job);
+    this.data.jobTree = null;
   }
 
   createJob(job) {
@@ -257,12 +271,10 @@ class MetronomeStore extends EventEmitter {
     }
   }
 
-  getJob(jobID) {
-    if (this.data.jobDetail[jobID] == null) {
-      return null;
-    }
-
-    return new Job(this.data.jobDetail[jobID]);
+  getJob(id) {
+    return this.jobTree.findItem(function(item) {
+      return item instanceof Job && item.getId() === id;
+    });
   }
 
   monitorJobDetail(jobID) {
@@ -320,7 +332,13 @@ class MetronomeStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return new JobTree(this.data.jobTree);
+    if (!(this.data.jobTree instanceof JobTree)) {
+      this.data.jobTree = new JobTree(
+        MetronomeUtil.parseJobs(Array.from(this.data.jobMap.values()))
+      );
+    }
+
+    return this.data.jobTree;
   }
 
   get storeID() {

@@ -21,7 +21,6 @@ import {
   REQUEST_METRONOME_JOB_STOP_RUN_ERROR
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
-import MetronomeUtil from "../utils/MetronomeUtil";
 import Config from "../config/Config";
 
 const MetronomeActions = {
@@ -57,20 +56,10 @@ const MetronomeActions = {
             { name: "embed", value: "historySummary" }
           ],
           success(response) {
-            try {
-              const data = MetronomeUtil.parseJobs(response);
-              AppDispatcher.handleServerAction({
-                type: REQUEST_METRONOME_JOBS_SUCCESS,
-                data
-              });
-              resolve();
-            } catch (error) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_METRONOME_JOBS_ERROR,
-                data: error
-              });
-              reject();
-            }
+            AppDispatcher.handleServerAction({
+              type: REQUEST_METRONOME_JOBS_SUCCESS,
+              data: response
+            });
           },
           error(xhr) {
             AppDispatcher.handleServerAction({
@@ -102,7 +91,7 @@ const MetronomeActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-          data: MetronomeUtil.parseJob(response),
+          data: response,
           jobID
         });
       },
