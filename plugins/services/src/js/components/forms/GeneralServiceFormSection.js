@@ -185,6 +185,7 @@ class GeneralServiceFormSection extends Component {
             value: index,
             path: "containers"
           })}
+          onClick={this.props.onClickItem.bind(this, `container${index}`)}
         >
           {item.name || `container-${index + 1}`}
         </FormGroupContainer>
@@ -668,7 +669,8 @@ GeneralServiceFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
   onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  onRemoveItem: React.PropTypes.func,
+  onClickItem: React.PropTypes.func
 };
 
 GeneralServiceFormSection.configReducers = General;

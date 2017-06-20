@@ -1583,6 +1583,22 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 2);
       });
 
+      it("Should remove a container", function() {
+        cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
+        cy
+          .get(
+            ".menu-tabbed-view .form-group-container-action-button-group .button.button-primary-link"
+          )
+          .eq(0)
+          .click();
+        cy.get(".pod-narrow.pod-short").should("to.have.length", 0);
+      });
+
+      it("Should open container config when clicked", function() {
+        cy.get(".pod-narrow.pod-short").eq(0).click();
+        cy.get(".menu-tabbed-view").contains("Container Name");
+      });
+
       it("Should contain two containers navigation under Services tab", function() {
         cy
           .get(".menu-tabbed-item-label")
