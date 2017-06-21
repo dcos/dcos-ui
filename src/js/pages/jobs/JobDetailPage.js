@@ -8,7 +8,6 @@ import React from "react";
 import { routerShape } from "react-router";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import Icon from "../../components/Icon";
 import JobConfiguration from "./JobConfiguration";
@@ -219,7 +218,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <Page>
         <Page.Header
-          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+          breadcrumbs={<JobsBreadcrumbs tree={MetronomeStore.jobTree} />}
         />
         <RequestErrorMsg />
       </Page>
@@ -230,7 +229,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <Page>
         <Page.Header
-          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
+          breadcrumbs={<JobsBreadcrumbs tree={MetronomeStore.jobTree} />}
         />
         <Loader />
       </Page>
@@ -412,7 +411,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} />}
+          breadcrumbs={
+            <JobsBreadcrumbs tree={MetronomeStore.jobTree} item={job} />
+          }
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
