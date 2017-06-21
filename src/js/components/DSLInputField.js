@@ -1,18 +1,18 @@
-import classNames from 'classnames';
-import React, {PropTypes} from 'react';
+import classNames from "classnames";
+import React, { PropTypes } from "react";
 
-import Icon from './Icon';
-import DSLExpression from '../structs/DSLExpression';
-import Util from '../utils/Util';
+import Icon from "./Icon";
+import DSLExpression from "../structs/DSLExpression";
+import Util from "../utils/Util";
 
 const DEBOUNCE_TIMEOUT = 250;
 
 const METHODS_TO_BIND = [
-  'handleBlur',
-  'handleChange',
-  'handleDebounceUpdate',
-  'handleFocus',
-  'handleInputClear'
+  "handleBlur",
+  "handleChange",
+  "handleDebounceUpdate",
+  "handleFocus",
+  "handleInputClear"
 ];
 
 /**
@@ -45,12 +45,13 @@ class DSLInputField extends React.Component {
 
     this.debounceTimer = null;
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     this.handleDebounceUpdate = Util.debounce(
-      this.handleDebounceUpdate, DEBOUNCE_TIMEOUT
+      this.handleDebounceUpdate,
+      DEBOUNCE_TIMEOUT
     );
   }
 
@@ -60,10 +61,10 @@ class DSLInputField extends React.Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    const {expression} = nextProps;
+    const { expression } = nextProps;
 
     if (expression !== this.state.expression) {
-      this.setState({expression});
+      this.setState({ expression });
     }
   }
 
@@ -73,7 +74,7 @@ class DSLInputField extends React.Component {
    * @override
    */
   componentDidUpdate(prevProps, prevState) {
-    const {focus} = this.state;
+    const { focus } = this.state;
 
     if (prevState.focus !== focus && focus && this.inputField) {
       this.inputField.focus();
@@ -138,16 +139,16 @@ class DSLInputField extends React.Component {
       return null;
     }
 
-    const {expression} = this.state;
-    const {inverseStyle} = this.props;
-    let color = 'purple';
+    const { expression } = this.state;
+    const { inverseStyle } = this.props;
+    let color = "purple";
 
     if (inverseStyle) {
-      color = 'white';
+      color = "white";
     }
 
     if (expression.hasErrors) {
-      color = 'red';
+      color = "red";
     }
 
     return (
@@ -158,7 +159,8 @@ class DSLInputField extends React.Component {
           size="mini"
           className="clickable"
           color={color}
-          onClick={this.handleInputClear} />
+          onClick={this.handleInputClear}
+        />
       </span>
     );
   }
@@ -169,7 +171,7 @@ class DSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getDropdownButton() {
-    let color = 'grey';
+    let color = "grey";
     const {
       dropdownVisible,
       hasDropdown,
@@ -182,11 +184,11 @@ class DSLInputField extends React.Component {
     }
 
     if (inverseStyle) {
-      color = 'white';
+      color = "white";
     }
 
     if (dropdownVisible) {
-      color = 'purple';
+      color = "purple";
     }
 
     return (
@@ -197,7 +199,8 @@ class DSLInputField extends React.Component {
           size="mini"
           className="clickable"
           color={color}
-          onClick={onDropdownClick} />
+          onClick={onDropdownClick}
+        />
       </span>
     );
   }
@@ -208,12 +211,12 @@ class DSLInputField extends React.Component {
    * @returns {Node} The input field
    */
   getInputField() {
-    const {expression} = this.state;
-    const {inverseStyle, placeholder} = this.props;
+    const { expression } = this.state;
+    const { inverseStyle, placeholder } = this.props;
 
     const inputClasses = classNames({
-      'form-control filter-input-text': true,
-      'form-control-inverse': inverseStyle
+      "form-control filter-input-text": true,
+      "form-control-inverse": inverseStyle
     });
 
     return (
@@ -221,56 +224,62 @@ class DSLInputField extends React.Component {
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
-        ref={(ref) => this.inputField = ref}
+        ref={ref => (this.inputField = ref)}
         type="text"
-        value={expression.value} />
+        value={expression.value}
+      />
     );
   }
 
   render() {
-    const {
-      className,
-      inputContainerClass,
-      inverseStyle
-    } = this.props;
-    const {expression, focus} = this.state;
+    const { className, inputContainerClass, inverseStyle } = this.props;
+    const { expression, focus } = this.state;
 
-    let iconColor = 'grey';
+    let iconColor = "grey";
     const iconSearchClasses = classNames({
-      'active': focus
+      active: focus
     });
 
     if (!inverseStyle && (focus || expression.defined)) {
-      iconColor = 'purple';
+      iconColor = "purple";
     }
 
     if (expression.hasErrors) {
-      iconColor = 'red';
+      iconColor = "red";
     }
 
-    const inputContainerClasses = classNames({
-      'form-control form-control-group': true,
-      'form-control-inverse': inverseStyle,
-      'focus': focus
-    }, inputContainerClass);
+    const inputContainerClasses = classNames(
+      {
+        focus,
+        "form-control form-control-group": true,
+        "form-control-inverse": inverseStyle
+      },
+      inputContainerClass
+    );
 
-    const formGroupClasses = classNames({
-      'form-group': true,
-      'form-group-danger': expression.hasErrors
-    }, className);
+    const formGroupClasses = classNames(
+      {
+        "form-group": true,
+        "form-group-danger": expression.hasErrors
+      },
+      className
+    );
 
     return (
       <div className={formGroupClasses}>
-        <div className={inputContainerClasses}
+        <div
+          className={inputContainerClasses}
           onClick={this.handleFocus}
-          onBlur={this.handleBlur}>
+          onBlur={this.handleBlur}
+        >
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
               family="system"
               id="search"
               size="mini"
               className={iconSearchClasses}
-              color={iconColor} />
+              color={iconColor}
+            />
           </span>
           {this.getInputField()}
           {this.getClearButton()}
@@ -290,14 +299,11 @@ DSLInputField.defaultProps = {
   onBlur() {},
   onDropdownClick() {},
   onFocus() {},
-  placeholder: 'Filter'
+  placeholder: "Filter"
 };
 
 DSLInputField.propTypes = {
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   dropdownVisible: PropTypes.bool,
   hasDropdown: PropTypes.bool,
   inverseStyle: PropTypes.bool,

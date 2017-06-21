@@ -1,26 +1,36 @@
-const MultiContainerEnvironmentVariables = require('../MultiContainerEnvironmentVariables');
-const {ADD_ITEM, SET} =
-  require('../../../../../../../src/js/constants/TransactionTypes');
+const MultiContainerEnvironmentVariables = require("../MultiContainerEnvironmentVariables");
+const {
+  ADD_ITEM,
+  SET
+} = require("../../../../../../../src/js/constants/TransactionTypes");
 
-describe('Environment Variables', function () {
-  describe('#JSONParser', function () {
-    it('should return an empty array', function () {
+describe("Environment Variables", function() {
+  describe("#JSONParser", function() {
+    it("should return an empty array", function() {
       expect(MultiContainerEnvironmentVariables.JSONParser({})).toEqual([]);
     });
 
-    it('should return an array of transactions', function () {
-      expect(MultiContainerEnvironmentVariables.JSONParser({environment: {FOO: 'value'}})).toEqual([
-        {type: ADD_ITEM, value: 0, path: ['env']},
-        {type: SET, value: 'FOO', path: ['env', 0, 'key']},
-        {type: SET, value: 'value', path: ['env', 0, 'value']}
+    it("should return an array of transactions", function() {
+      expect(
+        MultiContainerEnvironmentVariables.JSONParser({
+          environment: { FOO: "value" }
+        })
+      ).toEqual([
+        { type: ADD_ITEM, value: 0, path: ["env"] },
+        { type: SET, value: "FOO", path: ["env", 0, "key"] },
+        { type: SET, value: "value", path: ["env", 0, "value"] }
       ]);
     });
 
-    it('should keep complex values', function () {
-      expect(MultiContainerEnvironmentVariables.JSONParser({environment: {BAR: {secret: 'value'}}})).toEqual([
-        {type: ADD_ITEM, value: 0, path: ['env']},
-        {type: SET, value: 'BAR', path: ['env', 0, 'key']},
-        {type: SET, value: {secret: 'value'}, path: ['env', 0, 'value']}
+    it("should keep complex values", function() {
+      expect(
+        MultiContainerEnvironmentVariables.JSONParser({
+          environment: { BAR: { secret: "value" } }
+        })
+      ).toEqual([
+        { type: ADD_ITEM, value: 0, path: ["env"] },
+        { type: SET, value: "BAR", path: ["env", 0, "key"] },
+        { type: SET, value: { secret: "value" }, path: ["env", 0, "value"] }
       ]);
     });
   });

@@ -1,18 +1,18 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Tooltip} from 'reactjs-components';
+import classNames from "classnames";
+import React from "react";
+import { Tooltip } from "reactjs-components";
 
-import Config from '../../../../../src/js/config/Config';
-import Icon from '../../../../../src/js/components/Icon';
-import Units from '../../../../../src/js/utils/Units';
+import Config from "../../../../../src/js/config/Config";
+import Icon from "../../../../../src/js/components/Icon";
+import Units from "../../../../../src/js/utils/Units";
 
 const displayedResourceValues = {
-  roles: 'Role',
-  constraints: 'Constraints',
-  cpus: 'CPU',
-  mem: 'Memory',
-  disk: 'Disk',
-  ports: 'Ports'
+  roles: "Role",
+  constraints: "Constraints",
+  cpus: "CPU",
+  mem: "Memory",
+  disk: "Disk",
+  ports: "Ports"
 };
 
 const MAX_BAR_HEIGHT = 200;
@@ -37,33 +37,35 @@ function getGraphBar(resource, data, index) {
     percentageOffered = offeredCount / data.roles.offers;
   }
 
-  const barGraphMatchedClasses = classNames(
-    'funnel-graph-item-bar-matched',
-    {
-      'funnel-graph-item-bar-matched-border-top': percentageMatched > 0
-        && percentageMatched < 1
-    }
-  );
+  const barGraphMatchedClasses = classNames("funnel-graph-item-bar-matched", {
+    "funnel-graph-item-bar-matched-border-top": percentageMatched > 0 &&
+      percentageMatched < 1
+  });
 
   const offeredHeight = Math.ceil(MAX_BAR_HEIGHT * percentageOffered);
   const matchedHeight = Math.ceil(offeredHeight * percentageMatched);
 
   return (
-    <Tooltip content={getResourceTooltipContent(resource, data)}
+    <Tooltip
+      content={getResourceTooltipContent(resource, data)}
       interactive={true}
       key={index}
       width={200}
       wrapText={true}
-      wrapperClassName="funnel-graph-item">
+      wrapperClassName="funnel-graph-item"
+    >
       <div className="funnel-graph-item-bar">
         <div className="funnel-graph-item-percentage">
           {Math.ceil(percentageMatched * 100)}%
         </div>
-        <div className="funnel-graph-item-bar-offered"
-          style={{flexBasis: `${offeredHeight}px`}}>
-          <div className={barGraphMatchedClasses}
-            style={{flexBasis: `${matchedHeight}px`}}>
-          </div>
+        <div
+          className="funnel-graph-item-bar-offered"
+          style={{ flexBasis: `${offeredHeight}px` }}
+        >
+          <div
+            className={barGraphMatchedClasses}
+            style={{ flexBasis: `${matchedHeight}px` }}
+          />
         </div>
       </div>
       <div className="funnel-graph-item-label">
@@ -79,7 +81,7 @@ function getGraphBar(resource, data, index) {
   );
 }
 
-function getGraphSpacer({key, showIcon = true}) {
+function getGraphSpacer({ key, showIcon = true }) {
   let icon = null;
 
   if (showIcon) {
@@ -95,46 +97,46 @@ function getGraphSpacer({key, showIcon = true}) {
 }
 
 function getResourceTooltipContent(resource, data) {
-  let {matched, offers, requested: requestedValue} = data[resource];
+  let { matched, offers, requested: requestedValue } = data[resource];
   let docsURI = null;
   let explanatoryText = null;
 
   if (matched === 0) {
-    explanatoryText = 'did not match';
+    explanatoryText = "did not match";
   } else if (matched >= offers) {
-    explanatoryText = 'matched';
+    explanatoryText = "matched";
   } else {
-    explanatoryText = 'partially matched';
+    explanatoryText = "partially matched";
   }
 
-  if (resource === 'roles') {
+  if (resource === "roles") {
     docsURI = `${Config.mesosDocsURI}roles/`;
     explanatoryText = `The resource offer ${explanatoryText} your service's role (${requestedValue}).`;
   }
 
-  if (resource === 'constraints') {
+  if (resource === "constraints") {
     docsURI = `${Config.marathonDocsURI}constraints.html`;
     explanatoryText = `The resource offer ${explanatoryText} your service's requirements (${requestedValue}).`;
   }
 
-  if (resource === 'cpus') {
+  if (resource === "cpus") {
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
     explanatoryText = `The CPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
   }
 
-  if (resource === 'mem') {
+  if (resource === "mem") {
     requestedValue = Units.formatResource(resource, requestedValue);
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
     explanatoryText = `The memory offered ${explanatoryText} your service's requirements (${requestedValue}).`;
   }
 
-  if (resource === 'disk') {
+  if (resource === "disk") {
     requestedValue = Units.formatResource(resource, requestedValue);
     explanatoryText = `The disk space offered ${explanatoryText} your service's requirements (${requestedValue}).`;
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
   }
 
-  if (resource === 'ports') {
+  if (resource === "ports") {
     explanatoryText = `The port offered ${explanatoryText} your service's requirements (${requestedValue}).`;
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
   }
@@ -146,25 +148,23 @@ function getResourceTooltipContent(resource, data) {
   );
 }
 
-function RecentOffersSummary({data}) {
-  const funnelItems = ['roles', 'constraints', 'cpus', 'mem', 'disk', 'ports'];
+function RecentOffersSummary({ data }) {
+  const funnelItems = ["roles", "constraints", "cpus", "mem", "disk", "ports"];
   const funnelGraphItems = funnelItems.reduce((accumulator, item, index) => {
     accumulator.push(getGraphBar(item, data, index));
 
     if (index < funnelItems.length - 1) {
-      accumulator.push(getGraphSpacer({key: `spacer-${index}`}));
+      accumulator.push(getGraphSpacer({ key: `spacer-${index}` }));
     }
 
     return accumulator;
   }, []);
 
   funnelGraphItems.unshift(
-    getGraphSpacer({key: 'graph-start', showIcon: false})
+    getGraphSpacer({ key: "graph-start", showIcon: false })
   );
 
-  funnelGraphItems.push(
-    getGraphSpacer({key: 'graph-end', showIcon: false})
-  );
+  funnelGraphItems.push(getGraphSpacer({ key: "graph-end", showIcon: false }));
 
   return (
     <div className="funnel-graph pod flush-horizontal">

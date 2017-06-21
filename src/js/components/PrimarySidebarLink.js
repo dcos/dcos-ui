@@ -1,19 +1,19 @@
-import classNames from 'classnames';
-import React from 'react';
-import {Link} from 'react-router';
+import classNames from "classnames";
+import React from "react";
+import { Link } from "react-router";
 
-import Icon from './Icon';
-import NotificationStore from '../stores/NotificationStore';
+import Icon from "./Icon";
+import NotificationStore from "../stores/NotificationStore";
 
 const PrimarySidebarLink = ({
-    to,
-    children,
-    hasChildren,
-    icon,
-    isChildActive,
-    isExpanded,
-    onClick
-  }) => {
+  to,
+  children,
+  hasChildren,
+  icon,
+  isChildActive,
+  isExpanded,
+  onClick
+}) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
   let sidebarText = (
@@ -35,17 +35,19 @@ const PrimarySidebarLink = ({
 
   if (hasChildren) {
     const classes = classNames({
-      'clickable': !isChildActive,
-      'is-expanded': isExpanded
+      clickable: !isChildActive,
+      "is-expanded": isExpanded
     });
 
     return (
       <a className={classes} onClick={onClick}>
         {icon}{sidebarText}
-        <Icon className="sidebar-menu-item-expand-icon"
+        <Icon
+          className="sidebar-menu-item-expand-icon"
           family="tiny"
           id="triangle-down"
-          size="tiny" />
+          size="tiny"
+        />
       </a>
     );
   }

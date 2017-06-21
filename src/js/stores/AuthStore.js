@@ -1,4 +1,4 @@
-import PluginSDK, {Hooks} from 'PluginSDK';
+import PluginSDK, { Hooks } from "PluginSDK";
 
 import {
   REQUEST_LOGIN_SUCCESS,
@@ -6,17 +6,17 @@ import {
   REQUEST_LOGOUT_SUCCESS,
   REQUEST_LOGOUT_ERROR,
   SERVER_ACTION
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 import {
   AUTH_USER_LOGIN_CHANGED,
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGIN_ERROR,
   AUTH_USER_LOGOUT_ERROR
-} from '../constants/EventTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import AuthActions from '../events/AuthActions';
-import CookieUtils from '../utils/CookieUtils';
-import GetSetBaseStore from './GetSetBaseStore';
+} from "../constants/EventTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import AuthActions from "../events/AuthActions";
+import CookieUtils from "../utils/CookieUtils";
+import GetSetBaseStore from "./GetSetBaseStore";
 
 class AuthStore extends GetSetBaseStore {
   constructor() {
@@ -37,7 +37,7 @@ class AuthStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) =>{
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -97,7 +97,7 @@ class AuthStore extends GetSetBaseStore {
   }
 
   processLoginSuccess() {
-    Hooks.doAction('userLoginSuccess');
+    Hooks.doAction("userLoginSuccess");
     this.emit(AUTH_USER_LOGIN_CHANGED);
   }
 
@@ -106,11 +106,11 @@ class AuthStore extends GetSetBaseStore {
 
     this.emit(AUTH_USER_LOGOUT_SUCCESS);
 
-    Hooks.doAction('userLogoutSuccess');
+    Hooks.doAction("userLogoutSuccess");
   }
 
   get storeID() {
-    return 'auth';
+    return "auth";
   }
 }
 

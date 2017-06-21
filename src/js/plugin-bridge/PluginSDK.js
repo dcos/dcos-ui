@@ -1,16 +1,16 @@
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import {APPLICATION, PLUGIN_LOAD_TIMEOUT} from '../constants/PluginConstants';
-import {APP_STORE_CHANGE} from '../constants/EventTypes';
-import ActionsPubSub from './middleware/ActionsPubSub';
-import AppReducer from './AppReducer';
-import AppHooks from './AppHooks';
-import Config from '../config/Config';
-import Hooks from './Hooks';
-import PluginSDKStruct from './PluginSDKStruct';
-import Loader from './Loader';
-import PluginModules from './PluginModules';
+import { APPLICATION, PLUGIN_LOAD_TIMEOUT } from "../constants/PluginConstants";
+import { APP_STORE_CHANGE } from "../constants/EventTypes";
+import ActionsPubSub from "./middleware/ActionsPubSub";
+import AppReducer from "./AppReducer";
+import AppHooks from "./AppHooks";
+import Config from "../config/Config";
+import Hooks from "./Hooks";
+import PluginSDKStruct from "./PluginSDKStruct";
+import Loader from "./Loader";
+import PluginModules from "./PluginModules";
 
 const hooks = new Hooks();
 const initialState = {};
@@ -29,18 +29,16 @@ const reducers = {
 };
 
 // Default pass through function when devTools are not enabled
-let devToolIfEnabled = function (f) {
+let devToolIfEnabled = function(f) {
   return f;
 };
 
 // Inject middleware to observe actions and state
-if (Config.environment === 'development'
-  && Config
-  .uiConfigurationFixture
-  .uiConfiguration
-  .enableDevTools
-  && global.devToolsExtension) {
-
+if (
+  Config.environment === "development" &&
+  Config.uiConfigurationFixture.uiConfiguration.enableDevTools &&
+  global.devToolsExtension
+) {
   // Use Chrome extension if available
   // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
   devToolIfEnabled = global.devToolsExtension();
@@ -50,10 +48,7 @@ if (Config.environment === 'development'
 const Store = createStore(
   combineReducers(reducers),
   initialState,
-  compose(
-    applyMiddleware(...middleware),
-    devToolIfEnabled
-  )
+  compose(applyMiddleware(...middleware), devToolIfEnabled)
 );
 
 /**
@@ -61,14 +56,13 @@ const Store = createStore(
  *
  * @param {Object} pluginsConfig - Plugin configuration
  */
-const initialize = function (pluginsConfig) {
+const initialize = function(pluginsConfig) {
+  const { pluginsList, externalPluginsList } = Loader.getAvailablePlugins();
 
-  const {pluginsList, externalPluginsList} = Loader.getAvailablePlugins();
-
-  Object.keys(pluginsConfig).forEach(function (pluginID) {
+  Object.keys(pluginsConfig).forEach(function(pluginID) {
     // Make sure plugin is bundled
     if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
-      if (Config.environment === 'development') {
+      if (Config.environment === "development") {
         console.warn(`Plugin ${pluginID} not available in bundle`);
       }
 
@@ -79,37 +73,33 @@ const initialize = function (pluginsConfig) {
     // Default to always selecting internal plugin if same pluginID
     // exists in external plugins. This makes mocking easier.
     if (pluginID in pluginsList) {
-      pluginType = 'internalPlugin';
+      pluginType = "internalPlugin";
       path = pluginsList[pluginID];
     } else {
-      pluginType = 'externalPlugin';
+      pluginType = "externalPlugin";
       path = externalPluginsList[pluginID];
     }
     // Bootstrap if plugin enabled
     if (pluginsConfig[pluginID] && pluginsConfig[pluginID].enabled) {
-      bootstrapPlugin(
-        pluginID,
-        path,
-        pluginsConfig[pluginID],
-        pluginType);
+      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID], pluginType);
     }
   });
 
   replaceStoreReducers();
 
   // Allows plugins to do things before the application ever renders
-  const promises = hooks.applyFilter('pluginsLoadedCheck', []);
+  const promises = hooks.applyFilter("pluginsLoadedCheck", []);
   let pluginsLoaded = false;
 
-  Promise.all(promises).then(function () {
+  Promise.all(promises).then(function() {
     pluginsLoaded = true;
-    hooks.doAction('pluginsConfigured');
+    hooks.doAction("pluginsConfigured");
   });
 
   global.setTimeout(() => {
     if (!pluginsLoaded) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Failed to load plugins.');
+      if (process.env.NODE_ENV === "development") {
+        console.warn("Failed to load plugins.");
       }
     }
   }, PLUGIN_LOAD_TIMEOUT);
@@ -120,11 +110,11 @@ const initialize = function (pluginsConfig) {
  * @param  {String} pluginID Plugin pluginID
  * @return {Function}    Dispatch method
  */
-const createDispatcher = function (pluginID) {
-  return function (action) {
+const createDispatcher = function(pluginID) {
+  return function(action) {
     // Inject origin namespace if simple Object
     if (action === Object(action)) {
-      action = Object.assign({}, action, {__origin: pluginID});
+      action = Object.assign({}, action, { __origin: pluginID });
     }
     Store.dispatch(action);
   };
@@ -135,8 +125,8 @@ const createDispatcher = function (pluginID) {
  * @param  {String} moduleName - Name of module
  * @return {module}            - Required module
  */
-const getModule = function (moduleName) {
-  const foundDirs = Object.keys(PluginModules).filter(function (directory) {
+const getModule = function(moduleName) {
+  const foundDirs = Object.keys(PluginModules).filter(function(directory) {
     return moduleName in PluginModules[directory];
   });
   if (!foundDirs.length) {
@@ -151,13 +141,13 @@ const getModule = function (moduleName) {
  * Builds getter API for plugins to request application modules
  * @return {Object} - API with Get method.
  */
-const getApplicationModuleAPI = function () {
+const getApplicationModuleAPI = function() {
   return {
     get(modules) {
       if (Array.isArray(modules)) {
         // Return Object of Modules so we can use Object destructuring at the
         // other end.
-        return modules.reduce(function (acc, module) {
+        return modules.reduce(function(acc, module) {
           acc[module] = getModule(module);
 
           return acc;
@@ -176,7 +166,7 @@ const getApplicationModuleAPI = function () {
  * @param  {PluginSDK} SDK - PluginSDK
  * @return {Object}     - API for registering/requesting actions
  */
-const getActionsAPI = function (SDK) {
+const getActionsAPI = function(SDK) {
   return {
     registerActions(actions, name) {
       if (SDK.pluginID in REGISTERED_ACTIONS) {
@@ -191,7 +181,7 @@ const getActionsAPI = function (SDK) {
     },
 
     getActions(name, defaultValue) {
-      if (!name || typeof name !== 'string') {
+      if (!name || typeof name !== "string") {
         throw new Error(`Name not valid. Passed in ${name}`);
       }
       // Return Actions instantiated with SDK.
@@ -200,7 +190,9 @@ const getActionsAPI = function (SDK) {
         if (defaultValue !== undefined) {
           return defaultValue;
         }
-        throw Error(`No registered actions for ${name}. Make sure plugin is loaded or actions are registered`);
+        throw Error(
+          `No registered actions for ${name}. Make sure plugin is loaded or actions are registered`
+        );
       }
 
       return REGISTERED_ACTIONS[name];
@@ -215,10 +207,10 @@ const getActionsAPI = function (SDK) {
  * @param  {Object} definition - Store definition
  * @return {Object}            - Created store
  */
-const addStoreConfig = function (definition) {
+const addStoreConfig = function(definition) {
   if (definition) {
     if (!definition.storeID) {
-      throw new Error('Must define a valid storeID to expose events');
+      throw new Error("Must define a valid storeID to expose events");
     }
     if (definition.storeID in existingFluxStores) {
       throw new Error(`Store with ID ${definition.storeID} already exists.`);
@@ -237,8 +229,8 @@ const addStoreConfig = function (definition) {
  * @param  {String} root - root of the slice to return
  * @return {Function}      Returns state at root
  */
-const getStateRootedAt = function (root) {
-  return function () {
+const getStateRootedAt = function(root) {
+  return function() {
     return Store.getState()[root];
   };
 };
@@ -248,8 +240,8 @@ const getStateRootedAt = function (root) {
  * @param  {PluginSDK} SDK - SDK to extend
  * @param  {Object} obj  - Key value pairs to be added to SDK
  */
-const extendSDK = function (SDK, obj) {
-  Object.keys(obj).forEach(function (methodName) {
+const extendSDK = function(SDK, obj) {
+  Object.keys(obj).forEach(function(methodName) {
     SDK[methodName] = obj[methodName].bind(SDK);
   });
 };
@@ -260,8 +252,7 @@ const extendSDK = function (SDK, obj) {
  * @param  {Object} config   - Config
  * @return {PluginSDK}       - SDK for plugins
  */
-const getSDK = function (pluginID, config) {
-
+const getSDK = function(pluginID, config) {
   if (pluginID in PLUGIN_ENV_CACHE) {
     return PLUGIN_ENV_CACHE[pluginID];
   }
@@ -306,11 +297,11 @@ const getSDK = function (pluginID, config) {
  * @param  {Object} config Plugin configuration
  * @param  {String} pluginType - One of 'internal' or 'external'.
  */
-const bootstrapPlugin = function (pluginID, plugin, config, pluginType) {
+const bootstrapPlugin = function(pluginID, plugin, config, pluginType) {
   // Inject Application key constant and configOptions if specified
   const SDK = getSDK(pluginID, config);
 
-  if (typeof plugin === 'string') {
+  if (typeof plugin === "string") {
     plugin = Loader.requireModule(pluginType, plugin);
   }
 
@@ -328,8 +319,8 @@ const bootstrapPlugin = function (pluginID, plugin, config, pluginType) {
  * @param {Function} reducer    Reducer function to manage plugins state in Store
  * @param {String} pluginID     Plugin's ID
  */
-const addPluginReducer = function (reducer, pluginID) {
-  if (typeof reducer !== 'function') {
+const addPluginReducer = function(reducer, pluginID) {
+  if (typeof reducer !== "function") {
     throw new Error(`Reducer for ${pluginID} must be a function`);
   }
   reducers[pluginID] = reducer;
@@ -338,11 +329,9 @@ const addPluginReducer = function (reducer, pluginID) {
 /**
  * Replace reducers in Store
  */
-const replaceStoreReducers = function () {
+const replaceStoreReducers = function() {
   // Replace all store reducers now that we have all plugin reducers
-  Store.replaceReducer(
-    combineReducers(reducers)
-  );
+  Store.replaceReducer(combineReducers(reducers));
 };
 
 /**
@@ -351,7 +340,7 @@ const replaceStoreReducers = function () {
  * @param {String} pluginID - Plugin ID
  * @param  {Function} reducer - A reducer
  */
-const __addReducer = function (pluginID, reducer) {
+const __addReducer = function(pluginID, reducer) {
   addPluginReducer(reducer, pluginID);
   replaceStoreReducers();
 };
@@ -361,7 +350,7 @@ const __addReducer = function (pluginID, reducer) {
  * @param  {Function} callback - Function invoked with action as argument for all dispatched Actions.
  * @returns {Function} - unsubscribe
  */
-const onDispatch = function (callback) {
+const onDispatch = function(callback) {
   // Add ability to react to actions outside of a reducer.
   // This will most likely be deprecated at some point but for now it gives
   // us backwards compatibility with much of our existing dispatcher code
@@ -370,7 +359,7 @@ const onDispatch = function (callback) {
 
 // Subscribe to Store config change and call initialize with
 // new plugin configuration
-const unSubscribe = Store.subscribe(function () {
+const unSubscribe = Store.subscribe(function() {
   const configStore = Store.getState()[APPLICATION].config;
   if (configStore && configStore.config && configStore.config.uiConfiguration) {
     // unsubscribe once we have the config

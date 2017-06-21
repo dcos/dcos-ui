@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import ContainerSettings from './service-schema/ContainerSettings';
-import EnvironmentVariables from './service-schema/EnvironmentVariables';
-import General from './service-schema/General';
-import HealthChecks from './service-schema/HealthChecks';
-import Labels from './service-schema/Labels';
-import Networking from './service-schema/Networking';
-import Optional from './service-schema/Optional';
-import Volumes from './service-schema/Volumes';
+import ContainerSettings from "./service-schema/ContainerSettings";
+import EnvironmentVariables from "./service-schema/EnvironmentVariables";
+import General from "./service-schema/General";
+import HealthChecks from "./service-schema/HealthChecks";
+import Labels from "./service-schema/Labels";
+import Networking from "./service-schema/Networking";
+import Optional from "./service-schema/Optional";
+import Volumes from "./service-schema/Volumes";
 
 const ServiceSchema = {
-  type: 'object',
+  type: "object",
   properties: {
     general: General,
     containerSettings: ContainerSettings,
@@ -23,9 +23,7 @@ const ServiceSchema = {
     volumes: Volumes,
     optional: Optional
   },
-  required: [
-    'general'
-  ]
+  required: ["general"]
 };
 
 module.exports = ServiceSchema;

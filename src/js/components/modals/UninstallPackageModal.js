@@ -1,20 +1,17 @@
-import classNames from 'classnames';
-import {Confirm} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { Confirm } from "reactjs-components";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Config from '../../config/Config';
-import CosmosErrorMessage from '../CosmosErrorMessage';
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import Icon from '../Icon';
+import Config from "../../config/Config";
+import CosmosErrorMessage from "../CosmosErrorMessage";
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import Icon from "../Icon";
 
-const METHODS_TO_BIND = [
-  'handleClose',
-  'handleUninstallPackage'
-];
+const METHODS_TO_BIND = ["handleClose", "handleUninstallPackage"];
 
 class UninstallPackageModal extends mixin(StoreMixin) {
   constructor() {
@@ -28,23 +25,23 @@ class UninstallPackageModal extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'cosmosPackages',
-        events: ['uninstallError', 'uninstallSuccess'],
+        name: "cosmosPackages",
+        events: ["uninstallError", "uninstallSuccess"],
         listenAlways: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   onCosmosPackagesStoreUninstallError(packageUninstallError) {
-    this.setState({packageUninstallError, pendingUninstallRequest: false});
+    this.setState({ packageUninstallError, pendingUninstallRequest: false });
   }
 
   onCosmosPackagesStoreUninstallSuccess() {
-    const {handleUninstallFinish} = this.props;
+    const { handleUninstallFinish } = this.props;
     this.setState(
       {
         uninstallSuccess: true,
@@ -65,7 +62,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   handleUninstallPackage() {
-    const {cosmosPackage} = this.props;
+    const { cosmosPackage } = this.props;
     let appId;
     let packageName;
     let packageVersion;
@@ -75,13 +72,9 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       packageVersion = cosmosPackage.getCurrentVersion();
     }
 
-    CosmosPackagesStore.uninstallPackage(
-      packageName,
-      packageVersion,
-      appId
-    );
+    CosmosPackagesStore.uninstallPackage(packageName, packageVersion, appId);
 
-    this.setState({pendingUninstallRequest: true});
+    this.setState({ pendingUninstallRequest: true });
   }
 
   getEmptyNode() {
@@ -89,20 +82,18 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getErrorMessage() {
-    const {packageUninstallError} = this.state;
+    const { packageUninstallError } = this.state;
     if (!packageUninstallError) {
       return null;
     }
 
     return (
-      <CosmosErrorMessage
-        error={packageUninstallError}
-        flushBottom={true} />
+      <CosmosErrorMessage error={packageUninstallError} flushBottom={true} />
     );
   }
 
   getPostUninstallNotes() {
-    const {cosmosPackage} = this.props;
+    const { cosmosPackage } = this.props;
 
     if (!cosmosPackage) {
       return this.getEmptyNode();
@@ -125,7 +116,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getUninstallModalContent() {
-    const {props: {cosmosPackage}, state: {uninstallSuccess}} = this;
+    const { props: { cosmosPackage }, state: { uninstallSuccess } } = this;
 
     if (uninstallSuccess) {
       return this.getPostUninstallNotes();
@@ -137,7 +128,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
 
     const errorMessage = this.getErrorMessage();
     const paragraphTagClasses = classNames({
-      'flush-bottom': errorMessage == null
+      "flush-bottom": errorMessage == null
     });
 
     return (
@@ -154,12 +145,12 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   render() {
     const {
       handleClose,
-      props: {open},
-      state: {pendingUninstallRequest, uninstallSuccess}
+      props: { open },
+      state: { pendingUninstallRequest, uninstallSuccess }
     } = this;
 
-    const rightButtonClassName = classNames('button button-danger', {
-      'hidden': uninstallSuccess
+    const rightButtonClassName = classNames("button button-danger", {
+      hidden: uninstallSuccess
     });
 
     return (
@@ -172,7 +163,8 @@ class UninstallPackageModal extends mixin(StoreMixin) {
         leftButtonText="Close"
         rightButtonCallback={this.handleUninstallPackage}
         rightButtonClassName={rightButtonClassName}
-        rightButtonText="Uninstall">
+        rightButtonText="Uninstall"
+      >
         {this.getUninstallModalContent()}
       </Confirm>
     );

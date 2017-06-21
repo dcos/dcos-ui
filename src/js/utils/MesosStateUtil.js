@@ -1,8 +1,9 @@
-import ExecutorTypes from '../constants/ExecutorTypes';
-import PodInstanceState from '../../../plugins/services/src/js/constants/PodInstanceState';
-import Util from './Util';
+import ExecutorTypes from "../constants/ExecutorTypes";
+import PodInstanceState
+  from "../../../plugins/services/src/js/constants/PodInstanceState";
+import Util from "./Util";
 
-const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
+const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 
 // Based on the regex that marathon uses to validate task IDs,
 // but keeping only the 'instance-' prefix, that refers to pods.
@@ -12,13 +13,12 @@ const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
-  return tasks.map(function (task) {
-    return Object.assign({isStartedByMarathon: name === 'marathon'}, task);
+  return tasks.map(function(task) {
+    return Object.assign({ isStartedByMarathon: name === "marathon" }, task);
   });
 }
 
 const MesosStateUtil = {
-
   /**
    * De-compose the given task id into it's primitive components
    *
@@ -38,8 +38,8 @@ const MesosStateUtil = {
   flagMarathonTasks(state) {
     const newState = Object.assign({}, state);
 
-    newState.frameworks = state.frameworks.map(function (framework) {
-      const {tasks = [], completed_tasks = [], name} = framework;
+    newState.frameworks = state.frameworks.map(function(framework) {
+      const { tasks = [], completed_tasks = [], name } = framework;
 
       return Object.assign({}, framework, {
         tasks: setIsStartedByMarathonFlag(name, tasks),
@@ -56,10 +56,11 @@ const MesosStateUtil = {
    * @returns {{executors:Array, completed_executors:Array}|null} framework
    */
   getFramework(state, frameworkID) {
-    const {frameworks, completed_frameworks} = state;
+    const { frameworks, completed_frameworks } = state;
 
-    return [].concat(frameworks, completed_frameworks).find(
-      function (framework) {
+    return []
+      .concat(frameworks, completed_frameworks)
+      .find(function(framework) {
         return framework != null && framework.id === frameworkID;
       });
   },
@@ -71,15 +72,15 @@ const MesosStateUtil = {
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return state.frameworks.reduce(function (memo, framework) {
-      framework.tasks.forEach(function (task) {
+    return state.frameworks.reduce(function(memo, framework) {
+      framework.tasks.forEach(function(task) {
         if (memo[task.slave_id] == null) {
           memo[task.slave_id] = {};
         }
 
         var frameworkKey = task.framework_id;
         if (filter.includes(framework.id)) {
-          frameworkKey = 'other';
+          frameworkKey = "other";
         }
 
         const resources = task.resources;
@@ -87,7 +88,7 @@ const MesosStateUtil = {
           memo[task.slave_id][frameworkKey] = resources;
         } else {
           // Aggregates used resources from each executor
-          RESOURCE_KEYS.forEach(function (key) {
+          RESOURCE_KEYS.forEach(function(key) {
             memo[task.slave_id][frameworkKey][key] += resources[key];
           });
         }
@@ -100,16 +101,20 @@ const MesosStateUtil = {
   getTasksFromVirtualNetworkName(state = {}, overlayName) {
     const frameworks = state.frameworks || [];
 
-    return frameworks.reduce(function (memo, framework) {
+    return frameworks.reduce(function(memo, framework) {
       const tasks = framework.tasks || [];
 
-      return memo.concat(tasks.filter(function (task) {
-        const appPath = 'container.network_infos.0.name';
-        const podPath = 'statuses.0.container_status.network_infos.0.name';
+      return memo.concat(
+        tasks.filter(function(task) {
+          const appPath = "container.network_infos.0.name";
+          const podPath = "statuses.0.container_status.network_infos.0.name";
 
-        return Util.findNestedPropertyInObject(task, appPath) === overlayName
-            || Util.findNestedPropertyInObject(task, podPath) === overlayName;
-      }));
+          return (
+            Util.findNestedPropertyInObject(task, appPath) === overlayName ||
+            Util.findNestedPropertyInObject(task, podPath) === overlayName
+          );
+        })
+      );
     }, []);
   },
 
@@ -123,87 +128,101 @@ const MesosStateUtil = {
    */
   getPodHistoricalInstances(state, pod) {
     const frameworks = state.frameworks || [];
-    const marathonFramework = frameworks.find(function (framework) {
-      return framework.name === 'marathon';
+    const marathonFramework = frameworks.find(function(framework) {
+      return framework.name === "marathon";
     });
 
     if (!marathonFramework) {
       return [];
     }
 
-    const instancesMap = marathonFramework.completed_tasks.reduce(
-      function (memo, task) {
-        if (MesosStateUtil.isPodTaskId(task.id)) {
-          const {podID, instanceID} = MesosStateUtil.decomposePodTaskId(task.id);
-          if (podID === pod.getMesosId()) {
-            const fullInstanceID = `${podID}.instance-${instanceID}`;
-            let containerArray = memo[fullInstanceID];
-            if (containerArray === undefined) {
-              containerArray = memo[fullInstanceID] = [];
+    const instancesMap = marathonFramework.completed_tasks.reduce(function(
+      memo,
+      task
+    ) {
+      if (MesosStateUtil.isPodTaskId(task.id)) {
+        const { podID, instanceID } = MesosStateUtil.decomposePodTaskId(
+          task.id
+        );
+        if (podID === pod.getMesosId()) {
+          const fullInstanceID = `${podID}.instance-${instanceID}`;
+          let containerArray = memo[fullInstanceID];
+          if (containerArray === undefined) {
+            containerArray = memo[fullInstanceID] = [];
+          }
+
+          // The last status can give us information about the time the
+          // container was last updated, so we need the latest status item
+          const lastStatus = task.statuses.reduce(function(memo, status) {
+            if (!memo || status.timestamp > memo.timestamp) {
+              return status;
             }
 
-            // The last status can give us information about the time the
-            // container was last updated, so we need the latest status item
-            const lastStatus = task.statuses.reduce(function (memo, status) {
-              if (!memo || (status.timestamp > memo.timestamp)) {
-                return status;
-              }
+            return memo;
+          }, null);
 
-              return memo;
-            }, null);
-
-            // Add additional fields to the task structure in order to make it
-            // as close as possible to something a PodContainer will understand.
-            containerArray.push(Object.assign({
-              containerId: task.id,
-              status: task.state,
-              //
-              // NOTE: We are creating a Date object from this value, so we
-              //       should be OK with the timestamp
-              //
-              lastChanged: lastStatus.timestamp * 1000,
-              lastUpdated: lastStatus.timestamp * 1000
-            }, task));
-          }
+          // Add additional fields to the task structure in order to make it
+          // as close as possible to something a PodContainer will understand.
+          containerArray.push(
+            Object.assign(
+              {
+                containerId: task.id,
+                status: task.state,
+                //
+                // NOTE: We are creating a Date object from this value, so we
+                //       should be OK with the timestamp
+                //
+                lastChanged: lastStatus.timestamp * 1000,
+                lastUpdated: lastStatus.timestamp * 1000
+              },
+              task
+            )
+          );
         }
+      }
 
-        return memo;
-      }, {}
-    );
+      return memo;
+    }, {});
 
     // Try to compose actual PodInstance structures from the information we
     // have so far. Obviously we don't have any details, but we can populate
     // most of the UI-interesting fields by summarizing container details
-    return Object.keys(instancesMap).map(function (instanceID) {
+    return Object.keys(instancesMap).map(function(instanceID) {
       const containers = instancesMap[instanceID];
-      const summaryProperties = containers.reduce(function (memo, instance) {
-        const {resources={}, lastChanged=0} = instance;
+      const summaryProperties = containers.reduce(
+        function(memo, instance) {
+          const { resources = {}, lastChanged = 0 } = instance;
 
-        memo.resources.cpus += resources.cpus || 0;
-        memo.resources.mem += resources.mem || 0;
-        memo.resources.gpus += resources.gpus || 0;
-        memo.resources.disk += resources.disk || 0;
+          memo.resources.cpus += resources.cpus || 0;
+          memo.resources.mem += resources.mem || 0;
+          memo.resources.gpus += resources.gpus || 0;
+          memo.resources.disk += resources.disk || 0;
 
-        // TODO: Currently both lastChanged and lastUpdated are pointing to the
-        //       same timestamp. Is there any way to get more information?
-        if (lastChanged > memo.lastChanged) {
-          memo.lastChanged = lastChanged;
-          memo.lastUpdated = lastChanged;
+          // TODO: Currently both lastChanged and lastUpdated are pointing to the
+          //       same timestamp. Is there any way to get more information?
+          if (lastChanged > memo.lastChanged) {
+            memo.lastChanged = lastChanged;
+            memo.lastUpdated = lastChanged;
+          }
+
+          return memo;
+        },
+        {
+          resources: { cpus: 0, mem: 0, gpus: 0, disk: 0 },
+          lastChanged: 0,
+          lastUpdated: 0
         }
-
-        return memo;
-      }, {
-        resources: { cpus:0, mem:0, gpus:0, disk:0 },
-        lastChanged: 0,
-        lastUpdated: 0
-      });
+      );
 
       // Compose something as close as possible to what `PodInstance` understand
-      return Object.assign({
-        id: instanceID,
-        status: PodInstanceState.TERMINAL,
-        containers
-      }, summaryProperties);
+      return Object.assign(
+        {
+          id: instanceID,
+          status: PodInstanceState.TERMINAL,
+          containers
+        },
+        summaryProperties
+      );
     });
   },
 
@@ -213,39 +232,43 @@ const MesosStateUtil = {
    * @param {string} path
    * @returns {string} task path
    */
-  getTaskPath(state, task, path = '') {
-    const {id:taskID, framework_id:frameworkID, executor_id:executorID} = task;
+  getTaskPath(state, task, path = "") {
+    const {
+      id: taskID,
+      framework_id: frameworkID,
+      executor_id: executorID
+    } = task;
     const framework = MesosStateUtil.getFramework(state, frameworkID);
     if (state == null || task == null || framework == null) {
-      return '';
+      return "";
     }
 
-    let taskPath = '';
+    let taskPath = "";
     // Find matching executor or task to construct the task path
-    [].concat(framework.executors, framework.completed_executors)
-        .every(function (executor) {
-          if (executor.id === executorID || executor.id === taskID) {
-
-            // Use the executor task path construct if it's a "pod" / TaskGroup
-            // executor (type: DEFAULT), otherwise fallback to the default
-            // app/framework behavior.
-            if (executor.type === ExecutorTypes.DEFAULT) {
-              // For a detail documentation on how to construct the task path
-              // please see: https://reviews.apache.org/r/52376/
-              taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
-
-              return false;
-            }
-
-            // Simply use the executors directory for "apps" and "frameworks",
-            // as well as any other executor
-            taskPath = `${executor.directory}/${path}`;
+    []
+      .concat(framework.executors, framework.completed_executors)
+      .every(function(executor) {
+        if (executor.id === executorID || executor.id === taskID) {
+          // Use the executor task path construct if it's a "pod" / TaskGroup
+          // executor (type: DEFAULT), otherwise fallback to the default
+          // app/framework behavior.
+          if (executor.type === ExecutorTypes.DEFAULT) {
+            // For a detail documentation on how to construct the task path
+            // please see: https://reviews.apache.org/r/52376/
+            taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
 
             return false;
           }
 
-          return true;
-        });
+          // Simply use the executors directory for "apps" and "frameworks",
+          // as well as any other executor
+          taskPath = `${executor.directory}/${path}`;
+
+          return false;
+        }
+
+        return true;
+      });
 
     return taskPath;
   },
@@ -253,7 +276,7 @@ const MesosStateUtil = {
   getTaskContainerID(task) {
     let container = Util.findNestedPropertyInObject(
       task,
-      'statuses.0.container_status.container_id'
+      "statuses.0.container_status.container_id"
     );
 
     if (!container || !container.value) {
@@ -266,7 +289,7 @@ const MesosStateUtil = {
       container = container.parent;
     }
 
-    return containerIDs.reverse().join('.');
+    return containerIDs.reverse().join(".");
   },
 
   /**

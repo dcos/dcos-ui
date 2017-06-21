@@ -1,16 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMap from '../../components/ConfigurationMap';
-import ConfigurationMapHeading from '../../components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../components/ConfigurationMapValue';
-import HashMapDisplay from '../../components/HashMapDisplay';
-import Job from '../../structs/Job';
+import ConfigurationMap from "../../components/ConfigurationMap";
+import ConfigurationMapHeading from "../../components/ConfigurationMapHeading";
+import ConfigurationMapLabel from "../../components/ConfigurationMapLabel";
+import ConfigurationMapRow from "../../components/ConfigurationMapRow";
+import ConfigurationMapSection from "../../components/ConfigurationMapSection";
+import ConfigurationMapValue from "../../components/ConfigurationMapValue";
+import HashMapDisplay from "../../components/HashMapDisplay";
+import Job from "../../structs/Job";
 
 class JobConfiguration extends React.Component {
-
   getSchedule(job) {
     const lastSchedule = job.getSchedules()[0];
 
@@ -18,7 +17,7 @@ class JobConfiguration extends React.Component {
       return lastSchedule.cron;
     }
 
-    return 'No schedule available.';
+    return "No schedule available.";
   }
 
   getGeneralSection(job) {
@@ -160,15 +159,11 @@ class JobConfiguration extends React.Component {
   }
 
   getLabelSection(job) {
-    return (
-      <HashMapDisplay
-        hash={job.getLabels()}
-        headline="Labels" />
-    );
+    return <HashMapDisplay hash={job.getLabels()} headline="Labels" />;
   }
 
   render() {
-    const {job} = this.props;
+    const { job } = this.props;
 
     return (
       <div className="container">

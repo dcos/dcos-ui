@@ -1,31 +1,30 @@
-import classNames from 'classnames';
-import deepEqual from 'deep-equal';
-import React from 'react';
+import classNames from "classnames";
+import deepEqual from "deep-equal";
+import React from "react";
 
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Config from '../config/Config';
-import ConfigStore from '../stores/ConfigStore';
-import EventTypes from '../constants/EventTypes';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import MetadataStore from '../stores/MetadataStore';
-import Modals from '../components/Modals';
-import RequestErrorMsg from '../components/RequestErrorMsg';
-import ServerErrorModal from '../components/ServerErrorModal';
-import Sidebar from '../components/Sidebar';
-import SidebarActions from '../events/SidebarActions';
-import SidebarStore from '../stores/SidebarStore';
+import Config from "../config/Config";
+import ConfigStore from "../stores/ConfigStore";
+import EventTypes from "../constants/EventTypes";
+import InternalStorageMixin from "../mixins/InternalStorageMixin";
+import MetadataStore from "../stores/MetadataStore";
+import Modals from "../components/Modals";
+import RequestErrorMsg from "../components/RequestErrorMsg";
+import ServerErrorModal from "../components/ServerErrorModal";
+import Sidebar from "../components/Sidebar";
+import SidebarActions from "../events/SidebarActions";
+import SidebarStore from "../stores/SidebarStore";
 
 function getSidebarState() {
   return {
-    isDocked: SidebarStore.get('isDocked'),
-    isVisible: SidebarStore.get('isVisible')
+    isDocked: SidebarStore.get("isDocked"),
+    isVisible: SidebarStore.get("isVisible")
   };
 }
 
 var Index = React.createClass({
-
-  displayName: 'Index',
+  displayName: "Index",
 
   mixins: [InternalStorageMixin, StoreMixin],
 
@@ -33,7 +32,7 @@ var Index = React.createClass({
     return {
       mesosSummaryErrorCount: 0,
       showErrorModal: false,
-      modalErrorMsg: '',
+      modalErrorMsg: "",
       configErrorCount: 0
     };
   },
@@ -44,11 +43,13 @@ var Index = React.createClass({
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
-    this.store_listeners = [{
-      name: 'summary',
-      events: ['success', 'error'],
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        name: "summary",
+        events: ["success", "error"],
+        suppressUpdate: true
+      }
+    ];
 
     const state = getSidebarState();
     this.internalStorage_set(state);
@@ -56,28 +57,29 @@ var Index = React.createClass({
 
   componentDidMount() {
     SidebarStore.addChangeListener(
-      EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
+      EventTypes.SIDEBAR_CHANGE,
+      this.onSideBarChange
     );
-    global.addEventListener('resize', SidebarActions.close);
+    global.addEventListener("resize", SidebarActions.close);
 
-    ConfigStore.addChangeListener(
-      EventTypes.CONFIG_ERROR, this.onConfigError
-    );
+    ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
   },
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(deepEqual(this.props, nextProps) &&
-        deepEqual(this.state, nextState));
+      deepEqual(this.state, nextState));
   },
 
   componentWillUnmount() {
     SidebarStore.removeChangeListener(
-      EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
+      EventTypes.SIDEBAR_CHANGE,
+      this.onSideBarChange
     );
-    global.removeEventListener('resize', SidebarActions.close);
+    global.removeEventListener("resize", SidebarActions.close);
 
     ConfigStore.removeChangeListener(
-      EventTypes.CONFIG_ERROR, this.onConfigError
+      EventTypes.CONFIG_ERROR,
+      this.onConfigError
     );
   },
 
@@ -87,7 +89,7 @@ var Index = React.createClass({
   },
 
   onConfigError() {
-    this.setState({configErrorCount: this.state.configErrorCount + 1});
+    this.setState({ configErrorCount: this.state.configErrorCount + 1 });
 
     if (this.state.configErrorCount < Config.delayAfterErrorCount) {
       ConfigStore.fetchConfig();
@@ -97,7 +99,7 @@ var Index = React.createClass({
   onSummaryStoreSuccess() {
     // Reset count as we've just received a successful response
     if (this.state.mesosSummaryErrorCount > 0) {
-      this.setState({mesosSummaryErrorCount: 0});
+      this.setState({ mesosSummaryErrorCount: 0 });
     }
   },
 
@@ -128,13 +130,13 @@ var Index = React.createClass({
   },
 
   render() {
-    var {isDocked, isVisible} = this.internalStorage_get();
+    var { isDocked, isVisible } = this.internalStorage_get();
     const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
-    var classSet = classNames('application-wrapper', {
-      'sidebar-visible': isVisible,
-      'sidebar-docked': isDocked
+    var classSet = classNames("application-wrapper", {
+      "sidebar-visible": isVisible,
+      "sidebar-docked": isDocked
     });
 
     return (
@@ -144,7 +146,8 @@ var Index = React.createClass({
         {this.props.children}
         <Modals
           showErrorModal={this.state.showErrorModal}
-          modalErrorMsg={this.state.modalErrorMsg} />
+          modalErrorMsg={this.state.modalErrorMsg}
+        />
         <ServerErrorModal />
       </div>
     );

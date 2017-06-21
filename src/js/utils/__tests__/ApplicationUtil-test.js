@@ -1,15 +1,13 @@
-jest.dontMock('../../stores/MesosSummaryStore');
+jest.dontMock("../../stores/MesosSummaryStore");
 
-const ApplicationUtil = require('../ApplicationUtil');
-const Config = require('../../config/Config');
-const EventTypes = require('../../constants/EventTypes');
-const MesosSummaryStore = require('../../stores/MesosSummaryStore');
+const ApplicationUtil = require("../ApplicationUtil");
+const Config = require("../../config/Config");
+const EventTypes = require("../../constants/EventTypes");
+const MesosSummaryStore = require("../../stores/MesosSummaryStore");
 
-describe('ApplicationUtil', function () {
-
-  describe('#invokeAfterPageLoad', function () {
-
-    beforeEach(function () {
+describe("ApplicationUtil", function() {
+  describe("#invokeAfterPageLoad", function() {
+    beforeEach(function() {
       // Clean up application timers.
       jasmine.clock().uninstall();
       // Install our custom jasmine timers.
@@ -17,16 +15,16 @@ describe('ApplicationUtil', function () {
       jasmine.clock().mockDate(new Date(2016, 3, 19));
     });
 
-    afterEach(function () {
+    afterEach(function() {
       // Clean up application timers.
       jasmine.clock().uninstall();
     });
 
-    it('should call callback right away', function () {
-      const handler = jasmine.createSpy('handler');
+    it("should call callback right away", function() {
+      const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = function () {
+      global.getPageLoadedTime = function() {
         return now - Config.applicationRenderDelay;
       };
 
@@ -36,11 +34,11 @@ describe('ApplicationUtil', function () {
       expect(handler).toHaveBeenCalled();
     });
 
-    it('should call after time has elapsed', function () {
-      const handler = jasmine.createSpy('handler');
+    it("should call after time has elapsed", function() {
+      const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = function () {
+      global.getPageLoadedTime = function() {
         return now;
       };
 
@@ -52,19 +50,15 @@ describe('ApplicationUtil', function () {
       jasmine.clock().tick(Config.applicationRenderDelay);
       expect(handler).toHaveBeenCalled();
     });
-
   });
 
-  describe('#beginTemporaryPolling', function () {
-
-    it('calls callback once event is emitted', function () {
-      const handler = jasmine.createSpy('handler');
+  describe("#beginTemporaryPolling", function() {
+    it("calls callback once event is emitted", function() {
+      const handler = jasmine.createSpy("handler");
       ApplicationUtil.beginTemporaryPolling(handler);
       expect(handler).not.toBeCalled();
       MesosSummaryStore.emit(EventTypes.MESOS_SUMMARY_CHANGE);
       expect(handler).toBeCalled();
     });
-
   });
-
 });

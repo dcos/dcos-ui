@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import Alert from './Alert';
-import ErrorPaths from '../../../plugins/services/src/js/constants/ErrorPaths';
+import Alert from "./Alert";
+import ErrorPaths from "../../../plugins/services/src/js/constants/ErrorPaths";
 
 const REPOSITORY_ERRORS = [
-  'EmptyPackageImport',
-  'IndexNotFound',
-  'InvalidRepositoryUri',
-  'PackageFileMissing',
-  'PackageFileNotJson',
-  'RepositoryNotPresent',
-  'RepositoryUriConnection',
-  'RepositoryUriSyntax'
+  "EmptyPackageImport",
+  "IndexNotFound",
+  "InvalidRepositoryUri",
+  "PackageFileMissing",
+  "PackageFileNotJson",
+  "RepositoryNotPresent",
+  "RepositoryUriConnection",
+  "RepositoryUriSyntax"
 ];
 
 class CosmosErrorMessage extends React.Component {
   getMessage() {
-    const {error} = this.props;
+    const { error } = this.props;
     if (!error) {
-      return 'An unknown error occurred';
+      return "An unknown error occurred";
     }
 
     // Append reference to repository page, since repository related errors
     // can occur at any request to Cosmos
-    const {type, message} = error;
+    const { type, message } = error;
 
     if (REPOSITORY_ERRORS.includes(type)) {
       return this.appendRepositoryLink(message);
@@ -33,16 +33,16 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getDetails() {
-    const {error} = this.props;
+    const { error } = this.props;
     if (!error) {
       return null;
     }
 
     // Return early if we have some well-known or an unknown type
-    if (typeof error === 'string') {
+    if (typeof error === "string") {
       return [error];
     }
-    if (typeof error !== 'object') {
+    if (typeof error !== "object") {
       return null;
     }
 
@@ -56,28 +56,28 @@ class CosmosErrorMessage extends React.Component {
     }
 
     // Get an array of array of errors for every individual path
-    const errorsDetails = error.data.errors.map(function (errorDetail) {
+    const errorsDetails = error.data.errors.map(function(errorDetail) {
       // Return early on unexpected error object format
       if (!errorDetail) {
         return [];
       }
-      if (typeof errorDetail !== 'object') {
+      if (typeof errorDetail !== "object") {
         return [String(errorDetail)];
       }
 
       // Extract details
-      const {path = '/', errors = []} = errorDetail;
+      const { path = "/", errors = [] } = errorDetail;
       if (!errors || !Array.isArray(errors)) {
         return [];
       }
 
-      return errors.map(function (error) {
-        return (ErrorPaths[path] || path)+'.'+error;
+      return errors.map(function(error) {
+        return (ErrorPaths[path] || path) + "." + error;
       });
     });
 
     // Flatten elements in array and return
-    return errorsDetails.reduce(function (a, b) {
+    return errorsDetails.reduce(function(a, b) {
       return a.concat(b);
     });
   }
@@ -86,9 +86,9 @@ class CosmosErrorMessage extends React.Component {
     return (
       <span>
         <strong>{`${message}. `}</strong><br />
-        {'You can go to the '}
+        {"You can go to the "}
         <a href="/#/settings/repositories/">Repositories Settings</a>
-        {' page to change installed repositories.'}
+        {" page to change installed repositories."}
       </span>
     );
   }
@@ -108,7 +108,7 @@ class CosmosErrorMessage extends React.Component {
 }
 
 CosmosErrorMessage.defaultProps = {
-  error: {message: 'Please try again.'},
+  error: { message: "Please try again." },
   flushBottom: false
 };
 

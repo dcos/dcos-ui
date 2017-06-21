@@ -1,5 +1,5 @@
 function toLowerCaseIfString(item) {
-  if (typeof item === 'string') {
+  if (typeof item === "string") {
     return item.toLowerCase();
   }
 
@@ -18,15 +18,15 @@ var TableUtil = {
   getRowHeight() {
     const defaultRowSize = 29;
     const definitionList = {
-      mini: {screen: 480, rowHeight: 32},
-      small: {screen: 768, rowHeight: 37},
-      medium: {screen: 992, rowHeight: 45},
-      large: {screen: 1270, rowHeight: 52}
+      mini: { screen: 480, rowHeight: 32 },
+      small: { screen: 768, rowHeight: 37 },
+      medium: { screen: 992, rowHeight: 45 },
+      large: { screen: 1270, rowHeight: 52 }
     };
 
     let rowHeight = null;
     const windowWidth = global.innerWidth;
-    Object.keys(definitionList).forEach(function (size) {
+    Object.keys(definitionList).forEach(function(size) {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;
       }
@@ -67,8 +67,8 @@ var TableUtil = {
    * between two items
    */
   getSortFunction(tieBreakerProp, getProperty) {
-    return function (prop, order) {
-      return function (a, b) {
+    return function(prop, order) {
+      return function(a, b) {
         return TableUtil.compareValues(
           getProperty(a, prop, order),
           getProperty(b, prop, order),

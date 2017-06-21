@@ -1,8 +1,7 @@
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
-import ServiceErrorTypes from '../constants/ServiceErrorTypes';
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
+import ServiceErrorTypes from "../constants/ServiceErrorTypes";
 
 const MarathonErrorUtil = {
-
   /**
    * Try to guess an error type from it's contents
    *
@@ -11,7 +10,6 @@ const MarathonErrorUtil = {
    */
   // eslint-disable-next-line no-unused-vars
   getErrorType(message) {
-
     // Check for 'service is deploying' error messages
     if (/force=true/.test(message)) {
       return ServiceErrorTypes.SERVICE_DEPLOYING;
@@ -38,7 +36,7 @@ const MarathonErrorUtil = {
     }
 
     // `error` could be a string, if the error has no details
-    if (typeof error === 'string') {
+    if (typeof error === "string") {
       return [
         {
           path: [],
@@ -50,15 +48,16 @@ const MarathonErrorUtil = {
     }
 
     // Both `details` and `errors` can be missing
-    if (ValidatorUtil.isEmpty(error.details) &&
-      ValidatorUtil.isEmpty(error.message)) {
-
+    if (
+      ValidatorUtil.isEmpty(error.details) &&
+      ValidatorUtil.isEmpty(error.message)
+    ) {
       // `null` is a special case
       if (error.message === null) {
         return [
           {
             path: [],
-            message: 'An unknown error occurred (Marathon did not provide any description)',
+            message: "An unknown error occurred (Marathon did not provide any description)",
             type: ServiceErrorTypes.GENERIC,
             variables: {}
           }
@@ -69,8 +68,10 @@ const MarathonErrorUtil = {
     }
 
     // Only `details` can be missing
-    if (ValidatorUtil.isEmpty(error.details) &&
-      !ValidatorUtil.isEmpty(error.message)) {
+    if (
+      ValidatorUtil.isEmpty(error.details) &&
+      !ValidatorUtil.isEmpty(error.message)
+    ) {
       return [
         {
           path: [],
@@ -82,7 +83,7 @@ const MarathonErrorUtil = {
     }
 
     // `details` can be a string
-    if (typeof error.details === 'string') {
+    if (typeof error.details === "string") {
       return [
         {
           path: [],
@@ -98,8 +99,7 @@ const MarathonErrorUtil = {
     }
 
     // `details` can be an array of errors
-    return error.details.reduce(function (memo, {errors, path}) {
-
+    return error.details.reduce(function(memo, { errors, path }) {
       // Convert marathon path components to a dot-separated string
       // and then split it into an array
       //
@@ -111,20 +111,18 @@ const MarathonErrorUtil = {
 
       // Don't create array with empty first item when we have an empty path
       let pathComponents = [];
-      if (pathString !== '') {
-        pathComponents = pathString
-          .split('/')
-          .map(function (component) {
-            if (ValidatorUtil.isNumber(component)) {
-              return Number(component);
-            }
+      if (pathString !== "") {
+        pathComponents = pathString.split("/").map(function(component) {
+          if (ValidatorUtil.isNumber(component)) {
+            return Number(component);
+          }
 
-            return component;
-          });
+          return component;
+        });
       }
 
       // For every error, create the correct message
-      return errors.reduce(function (memo, errorMessage) {
+      return errors.reduce(function(memo, errorMessage) {
         memo.push({
           path: pathComponents,
           message: errorMessage,
@@ -136,7 +134,6 @@ const MarathonErrorUtil = {
       }, memo);
     }, []);
   }
-
 };
 
 module.exports = MarathonErrorUtil;

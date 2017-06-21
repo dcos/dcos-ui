@@ -1,23 +1,26 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import DSLCombinerTypes from '../../../../../../src/js/constants/DSLCombinerTypes';
-import DSLExpression from '../../../../../../src/js/structs/DSLExpression';
-import DSLExpressionPart from '../../../../../../src/js/structs/DSLExpressionPart';
-import DSLFormWithExpressionUpdates from '../../../../../../src/js/components/DSLFormWithExpressionUpdates';
-import DSLUtil from '../../../../../../src/js/utils/DSLUtil';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import DSLCombinerTypes
+  from "../../../../../../src/js/constants/DSLCombinerTypes";
+import DSLExpression from "../../../../../../src/js/structs/DSLExpression";
+import DSLExpressionPart
+  from "../../../../../../src/js/structs/DSLExpressionPart";
+import DSLFormWithExpressionUpdates
+  from "../../../../../../src/js/components/DSLFormWithExpressionUpdates";
+import DSLUtil from "../../../../../../src/js/utils/DSLUtil";
+import FieldInput from "../../../../../../src/js/components/form/FieldInput";
+import FieldLabel from "../../../../../../src/js/components/form/FieldLabel";
+import FormGroup from "../../../../../../src/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
-  is_pod: DSLExpressionPart.attribute('is', 'pod'),
-  is_universe: DSLExpressionPart.attribute('is', 'universe'),
-  has_volumes: DSLExpressionPart.attribute('has', 'volumes')
+  is_pod: DSLExpressionPart.attribute("is", "pod"),
+  is_universe: DSLExpressionPart.attribute("is", "universe"),
+  has_volumes: DSLExpressionPart.attribute("has", "volumes")
 };
 
 class ServiceOtherDSLSection extends React.Component {
   render() {
-    const {expression, onChange} = this.props;
+    const { expression, onChange } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
@@ -28,7 +31,8 @@ class ServiceOtherDSLSection extends React.Component {
         groupCombiner={DSLCombinerTypes.AND}
         itemCombiner={DSLCombinerTypes.OR}
         onChange={onChange}
-        parts={EXPRESSION_PARTS}>
+        parts={EXPRESSION_PARTS}
+      >
 
         <label>Other</label>
         <div className="row">
@@ -39,7 +43,8 @@ class ServiceOtherDSLSection extends React.Component {
                   checked={data.is_universe}
                   disabled={!enabled}
                   name="is_universe"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 Universe
               </FieldLabel>
             </FormGroup>
@@ -49,7 +54,8 @@ class ServiceOtherDSLSection extends React.Component {
                   checked={data.is_pod}
                   disabled={!enabled}
                   name="is_pod"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 Pod
               </FieldLabel>
             </FormGroup>
@@ -61,7 +67,8 @@ class ServiceOtherDSLSection extends React.Component {
                   checked={data.has_volumes}
                   disabled={!enabled}
                   name="has_volumes"
-                  type="checkbox" />
+                  type="checkbox"
+                />
                 Volumes
               </FieldLabel>
             </FormGroup>

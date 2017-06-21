@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
-import ActionsModal from './ActionsModal';
-import UserStore from '../../stores/UserStore';
+import ActionsModal from "./ActionsModal";
+import UserStore from "../../stores/UserStore";
 
 class UsersActionsModal extends ActionsModal {
   constructor() {
@@ -11,12 +11,11 @@ class UsersActionsModal extends ActionsModal {
 
     this.store_listeners = [
       {
-        name: 'user',
-        events: ['deleteError', 'deleteSuccess'],
+        name: "user",
+        events: ["deleteError", "deleteSuccess"],
         suppressUpdate: true
       }
     ];
-
   }
 
   onUserStoreDeleteError(requestError) {
@@ -28,16 +27,16 @@ class UsersActionsModal extends ActionsModal {
   }
 
   handleButtonConfirm() {
-    const {itemID, selectedItems} = this.props;
-    const itemsByID = selectedItems.map(function (item) {
+    const { itemID, selectedItems } = this.props;
+    const itemsByID = selectedItems.map(function(item) {
       return item[itemID];
     });
 
-    itemsByID.forEach(function (userID) {
+    itemsByID.forEach(function(userID) {
       UserStore.deleteUser(userID);
     });
 
-    this.setState({pendingRequest: true, requestErrors: []});
+    this.setState({ pendingRequest: true, requestErrors: [] });
   }
 }
 

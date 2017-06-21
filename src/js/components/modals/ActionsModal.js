@@ -1,21 +1,21 @@
-import {Confirm, Dropdown} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { Confirm, Dropdown } from "reactjs-components";
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import ModalHeading from './ModalHeading';
-import StringUtil from '../../utils/StringUtil';
-import Util from '../../utils/Util';
+import ModalHeading from "./ModalHeading";
+import StringUtil from "../../utils/StringUtil";
+import Util from "../../utils/Util";
 
 const METHODS_TO_BIND = [
-  'handleButtonCancel',
-  'handleButtonConfirm',
-  'handleItemSelection',
-  'onActionError',
-  'onActionSuccess'
+  "handleButtonCancel",
+  "handleButtonConfirm",
+  "handleItemSelection",
+  "onActionError",
+  "onActionSuccess"
 ];
 
-const DEFAULT_ID = 'DEFAULT';
+const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
 class ActionsModal extends mixin(StoreMixin) {
@@ -30,7 +30,7 @@ class ActionsModal extends mixin(StoreMixin) {
       validationError: null
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -42,7 +42,7 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const {requestsRemaining, requestErrors} = nextState;
+    const { requestsRemaining, requestErrors } = nextState;
 
     if (requestsRemaining === 0 && !requestErrors.length) {
       this.handleButtonCancel();
@@ -50,7 +50,7 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   componentDidUpdate() {
-    const {requestsRemaining} = this.state;
+    const { requestsRemaining } = this.state;
 
     if (requestsRemaining === 0) {
       /* eslint-disable react/no-did-update-set-state */
@@ -97,8 +97,8 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContents() {
-    const {itemType} = this.props;
-    const {requestErrors, validationError} = this.state;
+    const { itemType } = this.props;
+    const { requestErrors, validationError } = this.state;
 
     return (
       <div className="text-align-center">
@@ -111,9 +111,9 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContentsText() {
-    const {actionText, itemID, selectedItems} = this.props;
+    const { actionText, itemID, selectedItems } = this.props;
 
-    let selectedItemsString = '';
+    let selectedItemsString = "";
     if (selectedItems.length === 1) {
       selectedItemsString = selectedItems[0][itemID];
     } else {
@@ -122,10 +122,10 @@ class ActionsModal extends mixin(StoreMixin) {
 
       // Create a string concatenating n-1 items
       const selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      const itemIDs = selectedItemsShownMinusOne.map(function (item) {
+      const itemIDs = selectedItemsShownMinusOne.map(function(item) {
         return item[itemID];
       });
-      itemIDs.forEach(function (_itemID) {
+      itemIDs.forEach(function(_itemID) {
         selectedItemsString += `${_itemID}, `;
       });
 
@@ -136,14 +136,15 @@ class ActionsModal extends mixin(StoreMixin) {
           selectedItemsString += `and ${Util.last(selectedItems)[itemID]} `;
         }
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
-        selectedItemsString += 'and 1 other ';
+        selectedItemsString += "and 1 other ";
       } else {
         const overflow = selectedItems.length - ITEMS_DISPLAYED;
         selectedItemsString += `and ${overflow} others `;
       }
       if (actionText.phraseFirst) {
         selectedItemsString = selectedItemsString.slice(
-          0, selectedItemsString.length - 1
+          0,
+          selectedItemsString.length - 1
         );
       }
     }
@@ -155,7 +156,7 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getDropdown(itemType) {
-    if (this.props.action === 'delete') {
+    if (this.props.action === "delete") {
       return null;
     }
 
@@ -172,21 +173,20 @@ class ActionsModal extends mixin(StoreMixin) {
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
-        wrapperClassName="dropdown text-align-left" />
+        wrapperClassName="dropdown text-align-left"
+      />
     );
   }
 
   getErrorMessage(error) {
     if (error != null) {
-      return (
-        <p className="text-error-state">{error}</p>
-      );
+      return <p className="text-error-state">{error}</p>;
     }
   }
 
   getRequestErrorMessage(errors) {
     if (errors.length > 0) {
-      const errorMap = errors.reduce(function (memo, error) {
+      const errorMap = errors.reduce(function(memo, error) {
         if (memo[error] == null) {
           memo[error] = 0;
         }
@@ -196,14 +196,11 @@ class ActionsModal extends mixin(StoreMixin) {
       }, {});
 
       // Compose error messages
-      const errorMessages = Object.keys(errorMap).map(function (error, index) {
+      const errorMessages = Object.keys(errorMap).map(function(error, index) {
         const repeatTimes = errorMap[error];
 
         if (repeatTimes === 1) {
-          return (
-            <p className="text-error-state" key={index}>{error}</p>
-          );
-
+          return <p className="text-error-state" key={index}>{error}</p>;
         } else {
           return (
             <p className="text-error-state" key={index}>
@@ -213,7 +210,6 @@ class ActionsModal extends mixin(StoreMixin) {
               {` ${error}`}
             </p>
           );
-
         }
       });
 
@@ -250,7 +246,8 @@ class ActionsModal extends mixin(StoreMixin) {
         rightButtonText={StringUtil.capitalize(action)}
         showHeader={true}
         useGemini={false}
-        {...props}>
+        {...props}
+      >
         {this.getActionsModalContents()}
       </Confirm>
     );

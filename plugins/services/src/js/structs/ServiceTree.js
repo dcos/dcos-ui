@@ -1,14 +1,14 @@
-import Framework from './Framework';
-import HealthSorting from '../constants/HealthSorting';
-import HealthStatus from '../constants/HealthStatus';
-import List from '../../../../../src/js/structs/List';
-import Pod from './Pod';
-import Service from './Service';
-import ServiceOther from '../constants/ServiceOther';
-import ServiceStatus from '../constants/ServiceStatus';
-import ServiceUtil from '../utils/ServiceUtil';
-import Tree from '../../../../../src/js/structs/Tree';
-import VolumeList from '../structs/VolumeList';
+import Framework from "./Framework";
+import HealthSorting from "../constants/HealthSorting";
+import HealthStatus from "../constants/HealthStatus";
+import List from "../../../../../src/js/structs/List";
+import Pod from "./Pod";
+import Service from "./Service";
+import ServiceOther from "../constants/ServiceOther";
+import ServiceStatus from "../constants/ServiceStatus";
+import ServiceUtil from "../utils/ServiceUtil";
+import Tree from "../../../../../src/js/structs/Tree";
+import VolumeList from "../structs/VolumeList";
 
 module.exports = class ServiceTree extends Tree {
   /**
@@ -26,34 +26,33 @@ module.exports = class ServiceTree extends Tree {
   constructor(options = {}) {
     super(options);
 
-    this.id = '/';
-    if (options.id || typeof options.id == 'string') {
+    this.id = "/";
+    if (options.id || typeof options.id == "string") {
       this.id = options.id;
     }
 
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
-    this.list = this.list.map((item) => {
+    this.list = this.list.map(item => {
       if (item instanceof ServiceTree || item instanceof Service) {
         return item;
       }
 
       // Check item properties and convert items with an items array (sub trees)
       // into ServiceTree instances.
-      if ((item.items != null && Array.isArray(item.items))) {
+      if (item.items != null && Array.isArray(item.items)) {
         return new this.constructor(
-          Object.assign({filterProperties: this.getFilterProperties()}, item)
+          Object.assign({ filterProperties: this.getFilterProperties() }, item)
         );
       }
 
       // Create the appropriate service according to definition
       return ServiceUtil.createServiceFromResponse(item);
-
     });
   }
 
   getDeployments() {
-    return this.reduceItems(function (deployments, item) {
+    return this.reduceItems(function(deployments, item) {
       if (item instanceof Service && item.getDeployments() != null) {
         deployments = deployments.concat(item.getDeployments());
       }
@@ -67,7 +66,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getHealth() {
-    return this.reduceItems(function (aggregatedHealth, item) {
+    return this.reduceItems(function(aggregatedHealth, item) {
       if (item instanceof Service) {
         const health = item.getHealth();
         if (HealthSorting[aggregatedHealth.key] > HealthSorting[health.key]) {
@@ -94,7 +93,7 @@ module.exports = class ServiceTree extends Tree {
       return null;
     }
 
-    return service.tasks.find(function (task) {
+    return service.tasks.find(function(task) {
       return task.id === taskID;
     });
   }
@@ -108,7 +107,7 @@ module.exports = class ServiceTree extends Tree {
       return this;
     }
 
-    return this.findItem(function (item) {
+    return this.findItem(function(item) {
       return item.getId() === id;
     });
   }
@@ -118,8 +117,8 @@ module.exports = class ServiceTree extends Tree {
    * @return {Service} matching Service
    */
   findServiceByName(name) {
-    return this.findItem(function (item) {
-      return (item.getName() === name && item instanceof Service);
+    return this.findItem(function(item) {
+      return item.getName() === name && item instanceof Service;
     });
   }
 
@@ -129,9 +128,12 @@ module.exports = class ServiceTree extends Tree {
 
     if (filter) {
       if (filter.ids) {
-        services = services.filter(function (service) {
-          return this.ids.indexOf(service.id) !== -1;
-        }, {ids: filter.ids});
+        services = services.filter(
+          function(service) {
+            return this.ids.indexOf(service.id) !== -1;
+          },
+          { ids: filter.ids }
+        );
       }
 
       if (filter.id) {
@@ -141,15 +143,19 @@ module.exports = class ServiceTree extends Tree {
           }
         });
 
-        services = this.flattenItems().filterItemsByText(filter.id, filterProperties).getItems();
+        services = this.flattenItems()
+          .filterItemsByText(filter.id, filterProperties)
+          .getItems();
       }
 
       if (Array.isArray(filter.health) && filter.health.length !== 0) {
-        services = services.reduce(function (memo, service) {
-          filter.health.forEach(function (healthValue) {
+        services = services.reduce(function(memo, service) {
+          filter.health.forEach(function(healthValue) {
             if (service instanceof ServiceTree) {
               memo = memo.concat(
-                service.filterItemsByFilter({health: [healthValue]}).getItems()
+                service
+                  .filterItemsByFilter({ health: [healthValue] })
+                  .getItems()
               );
 
               return;
@@ -165,11 +171,11 @@ module.exports = class ServiceTree extends Tree {
       }
 
       if (Array.isArray(filter.labels) && filter.labels.length > 0) {
-        services = services.reduce(function (memo, service) {
-          filter.labels.forEach(function (label) {
+        services = services.reduce(function(memo, service) {
+          filter.labels.forEach(function(label) {
             if (service instanceof ServiceTree) {
               memo = memo.concat(
-                service.filterItemsByFilter({labels: [label]}).getItems()
+                service.filterItemsByFilter({ labels: [label] }).getItems()
               );
 
               return;
@@ -178,14 +184,14 @@ module.exports = class ServiceTree extends Tree {
             let serviceLabels = service.getLabels();
 
             if (service instanceof Service) {
-              serviceLabels = ServiceUtil.convertServiceLabelsToArray(
-                service
-              );
+              serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
             }
 
-            const hasLabel = serviceLabels.some(function (serviceLabel) {
-              return serviceLabel.key === label.key &&
-                serviceLabel.value === label.value;
+            const hasLabel = serviceLabels.some(function(serviceLabel) {
+              return (
+                serviceLabel.key === label.key &&
+                serviceLabel.value === label.value
+              );
             });
 
             if (hasLabel) {
@@ -198,12 +204,12 @@ module.exports = class ServiceTree extends Tree {
       }
 
       if (Array.isArray(filter.other) && filter.other.length !== 0) {
-        services = services.reduce(function (memo, service) {
-          filter.other.forEach(function (otherKey) {
+        services = services.reduce(function(memo, service) {
+          filter.other.forEach(function(otherKey) {
             if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
               if (service instanceof ServiceTree) {
                 memo = memo.concat(
-                  service.filterItemsByFilter({other: [otherKey]}).getItems()
+                  service.filterItemsByFilter({ other: [otherKey] }).getItems()
                 );
               }
 
@@ -223,7 +229,7 @@ module.exports = class ServiceTree extends Tree {
             if (parseInt(otherKey, 10) === ServiceOther.PODS.key) {
               if (service instanceof ServiceTree) {
                 memo = memo.concat(
-                  service.filterItemsByFilter({other: [otherKey]}).getItems()
+                  service.filterItemsByFilter({ other: [otherKey] }).getItems()
                 );
               }
 
@@ -238,11 +244,13 @@ module.exports = class ServiceTree extends Tree {
       }
 
       if (Array.isArray(filter.status) && filter.status.length !== 0) {
-        services = services.reduce(function (memo, service) {
-          filter.status.some(function (statusValue) {
+        services = services.reduce(function(memo, service) {
+          filter.status.some(function(statusValue) {
             if (service instanceof ServiceTree) {
               memo = memo.concat(
-                service.filterItemsByFilter({status: [statusValue]}).getItems()
+                service
+                  .filterItemsByFilter({ status: [statusValue] })
+                  .getItems()
               );
 
               return;
@@ -258,20 +266,23 @@ module.exports = class ServiceTree extends Tree {
       }
     }
 
-    const {uniques} = services.reduce(function (memo, service) {
-      if (!(service.getId() in memo.serviceIds)) {
-        memo.serviceIds[service.getId()] = true;
-        memo.uniques.push(service);
-      }
+    const { uniques } = services.reduce(
+      function(memo, service) {
+        if (!(service.getId() in memo.serviceIds)) {
+          memo.serviceIds[service.getId()] = true;
+          memo.uniques.push(service);
+        }
 
-      return memo;
-    }, {uniques: [], serviceIds: {}});
+        return memo;
+      },
+      { uniques: [], serviceIds: {} }
+    );
 
-    return new this.constructor(Object.assign({}, this, {items: uniques}));
+    return new this.constructor(Object.assign({}, this, { items: uniques }));
   }
 
   getInstancesCount() {
-    return this.reduceItems(function (instances, item) {
+    return this.reduceItems(function(instances, item) {
       if (item instanceof Service) {
         instances += item.getInstancesCount();
       }
@@ -281,21 +292,24 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getName() {
-    return this.getId().split('/').pop();
+    return this.getId().split("/").pop();
   }
 
   getResources() {
-    return this.reduceItems(function (resources, item) {
-      if (item instanceof Service) {
-        const {cpus = 0, mem = 0, disk = 0} = item.getResources();
+    return this.reduceItems(
+      function(resources, item) {
+        if (item instanceof Service) {
+          const { cpus = 0, mem = 0, disk = 0 } = item.getResources();
 
-        resources.cpus += cpus;
-        resources.mem += mem;
-        resources.disk += disk;
-      }
+          resources.cpus += cpus;
+          resources.mem += mem;
+          resources.disk += disk;
+        }
 
-      return resources;
-    }, {cpus: 0, mem: 0, disk: 0});
+        return resources;
+      },
+      { cpus: 0, mem: 0, disk: 0 }
+    );
   }
 
   getStatus() {
@@ -308,7 +322,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceStatus() {
-    return this.reduceItems(function (serviceTreeStatus, item) {
+    return this.reduceItems(function(serviceTreeStatus, item) {
       if (item instanceof Service) {
         const status = item.getServiceStatus();
         if (status == null) {
@@ -325,7 +339,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServices() {
-    const items = this.reduceItems(function (services, item) {
+    const items = this.reduceItems(function(services, item) {
       if (item instanceof Service) {
         services.push(item);
       }
@@ -333,37 +347,46 @@ module.exports = class ServiceTree extends Tree {
       return services;
     }, []);
 
-    return new List({items});
+    return new List({ items });
   }
 
   getTasksSummary() {
-    return this.reduceItems(function (taskSummary, item) {
-      if (item instanceof Service) {
-        const {
-          tasksHealthy = 0,
-          tasksRunning = 0,
-          tasksOverCapacity = 0,
-          tasksStaged = 0,
-          tasksUnhealthy = 0
-        } = item.getTasksSummary();
+    return this.reduceItems(
+      function(taskSummary, item) {
+        if (item instanceof Service) {
+          const {
+            tasksHealthy = 0,
+            tasksRunning = 0,
+            tasksOverCapacity = 0,
+            tasksStaged = 0,
+            tasksUnhealthy = 0
+          } = item.getTasksSummary();
 
-        taskSummary.tasksHealthy += tasksHealthy;
-        taskSummary.tasksRunning += tasksRunning;
-        taskSummary.tasksStaged += tasksStaged;
-        taskSummary.tasksUnhealthy += tasksUnhealthy;
-        taskSummary.tasksUnknown += tasksRunning -
-          tasksHealthy - tasksUnhealthy;
+          taskSummary.tasksHealthy += tasksHealthy;
+          taskSummary.tasksRunning += tasksRunning;
+          taskSummary.tasksStaged += tasksStaged;
+          taskSummary.tasksUnhealthy += tasksUnhealthy;
+          taskSummary.tasksUnknown +=
+            tasksRunning - tasksHealthy - tasksUnhealthy;
 
-        taskSummary.tasksOverCapacity += tasksOverCapacity;
+          taskSummary.tasksOverCapacity += tasksOverCapacity;
+        }
+
+        return taskSummary;
+      },
+      {
+        tasksHealthy: 0,
+        tasksRunning: 0,
+        tasksStaged: 0,
+        tasksUnhealthy: 0,
+        tasksUnknown: 0,
+        tasksOverCapacity: 0
       }
-
-      return taskSummary;
-    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0,
-      tasksUnknown: 0, tasksOverCapacity: 0});
+    );
   }
 
   getFrameworks() {
-    return this.reduceItems(function (frameworks, item) {
+    return this.reduceItems(function(frameworks, item) {
       if (item instanceof Framework) {
         frameworks.push(item);
       }
@@ -373,7 +396,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getVolumes() {
-    const items = this.reduceItems(function (serviceTreeVolumes, item) {
+    const items = this.reduceItems(function(serviceTreeVolumes, item) {
       if (item instanceof Service) {
         const itemVolumes = item.getVolumes().getItems();
         if (itemVolumes && itemVolumes.length) {
@@ -384,19 +407,23 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeVolumes;
     }, []);
 
-    return new VolumeList({items});
+    return new VolumeList({ items });
   }
 
   getLabels() {
-    return this.reduceItems(function (serviceTreeLabels, item) {
-      ServiceUtil.convertServiceLabelsToArray(item)
-        .forEach(function ({key, value}) {
-          if (serviceTreeLabels.findIndex(function (label) {
+    return this.reduceItems(function(serviceTreeLabels, item) {
+      ServiceUtil.convertServiceLabelsToArray(item).forEach(function({
+        key,
+        value
+      }) {
+        if (
+          serviceTreeLabels.findIndex(function(label) {
             return label.key === key && label.value === value;
-          }) < 0) {
-            serviceTreeLabels = serviceTreeLabels.concat([{key, value}]);
-          }
-        });
+          }) < 0
+        ) {
+          serviceTreeLabels = serviceTreeLabels.concat([{ key, value }]);
+        }
+      });
 
       return serviceTreeLabels;
     }, []);

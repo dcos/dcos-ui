@@ -1,24 +1,24 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { Link } from "react-router";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {ResourceTableUtil} from 'foundation-ui';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
-import {Table} from 'reactjs-components';
+import { ResourceTableUtil } from "foundation-ui";
+import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Table } from "reactjs-components";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import FilterBar from '../../components/FilterBar';
-import FilterHeadline from '../../components/FilterHeadline';
-import FilterButtons from '../../components/FilterButtons';
-import FilterInputText from '../../components/FilterInputText';
-import Page from '../../components/Page';
-import StringUtil from '../../utils/StringUtil';
-import TableUtil from '../../utils/TableUtil';
-import UnitHealthStore from '../../stores/UnitHealthStore';
-import UnitHealthUtil from '../../utils/UnitHealthUtil';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import FilterButtons from "../../components/FilterButtons";
+import FilterInputText from "../../components/FilterInputText";
+import Page from "../../components/Page";
+import StringUtil from "../../utils/StringUtil";
+import TableUtil from "../../utils/TableUtil";
+import UnitHealthStore from "../../stores/UnitHealthStore";
+import UnitHealthUtil from "../../utils/UnitHealthUtil";
 
 const UnitHealthBreadcrumbs = () => {
   const crumbs = [
@@ -33,32 +33,31 @@ const UnitHealthBreadcrumbs = () => {
 };
 
 const METHODS_TO_BIND = [
-  'handleHealthFilterChange',
-  'handleSearchStringChange',
-  'renderUnit',
-  'renderHealth',
-  'resetFilter'
+  "handleHealthFilterChange",
+  "handleSearchStringChange",
+  "renderUnit",
+  "renderHealth",
+  "resetFilter"
 ];
 
 class UnitsHealthTab extends mixin(StoreMixin) {
-
   constructor() {
     super(...arguments);
 
     this.store_listeners = [
       {
-        name: 'unitHealth',
-        events: ['success', 'error'],
+        name: "unitHealth",
+        events: ["success", "error"],
         suppressUpdate: false
       }
     ];
 
     this.state = {
-      healthFilter: 'all',
-      searchString: ''
+      healthFilter: "all",
+      searchString: ""
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     }, this);
   }
@@ -68,15 +67,17 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     UnitHealthStore.fetchUnits();
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   renderUnit(prop, unit) {
     return (
       <div className="text-overflow">
-        <Link to={`/components/${unit.get('id')}`}
-          className="table-cell-link-primary">
+        <Link
+          to={`/components/${unit.get("id")}`}
+          className="table-cell-link-primary"
+        >
           {unit.getTitle()}
         </Link>
       </div>
@@ -95,14 +96,14 @@ class UnitsHealthTab extends mixin(StoreMixin) {
 
   getButtonContent(filterName, count) {
     const dotClassSet = classNames({
-      'dot': filterName !== 'all',
-      'danger': filterName === 'unhealthy',
-      'success': filterName === 'healthy'
+      dot: filterName !== "all",
+      danger: filterName === "unhealthy",
+      success: filterName === "healthy"
     });
 
     return (
       <span className="badge-container button-align-content label flush">
-        <span className={dotClassSet}></span>
+        <span className={dotClassSet} />
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
@@ -114,8 +115,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '75%'}} />
-        <col style={{width: '25%'}} />
+        <col style={{ width: "75%" }} />
+        <col style={{ width: "25%" }} />
       </colgroup>
     );
   }
@@ -128,8 +129,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({name: 'NAME'}),
-        prop: 'name',
+        heading: ResourceTableUtil.renderHeading({ name: "NAME" }),
+        prop: "name",
         render: this.renderUnit,
         sortable: true,
         sortFunction
@@ -137,8 +138,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({health: 'HEALTH'}),
-        prop: 'health',
+        heading: ResourceTableUtil.renderHeading({ health: "HEALTH" }),
+        prop: "health",
         render: this.renderHealth,
         sortable: true,
         sortFunction
@@ -147,26 +148,28 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   }
 
   handleHealthFilterChange(healthFilter) {
-    this.setState({healthFilter});
+    this.setState({ healthFilter });
   }
 
   getVisibleData(data, searchString, healthFilter) {
-    return data.filter({title: searchString, health: healthFilter}).getItems();
+    return data
+      .filter({ title: searchString, health: healthFilter })
+      .getItems();
   }
 
   resetFilter() {
     this.setState({
-      searchString: '',
-      healthFilter: 'all'
+      searchString: "",
+      healthFilter: "all"
     });
   }
 
   render() {
     const data = UnitHealthStore.getUnits();
     const dataItems = data.getItems();
-    const {healthFilter, searchString} = this.state;
+    const { healthFilter, searchString } = this.state;
     const visibleData = this.getVisibleData(data, searchString, healthFilter);
-    const dataHealth = dataItems.map(function (unit) {
+    const dataHealth = dataItems.map(function(unit) {
       return unit.getHealth();
     });
 
@@ -177,26 +180,30 @@ class UnitsHealthTab extends mixin(StoreMixin) {
           <div className="units-health-table-header">
             <FilterHeadline
               currentLength={visibleData.length}
-              isFiltering={healthFilter !== 'all' || searchString !== ''}
+              isFiltering={healthFilter !== "all" || searchString !== ""}
               name="Component"
               onReset={this.resetFilter}
-              totalLength={dataItems.length} />
+              totalLength={dataItems.length}
+            />
             <FilterBar rightAlignLastNChildren={1}>
               <FilterInputText
                 className="flush-bottom"
                 searchString={searchString}
-                handleFilterChange={this.handleSearchStringChange} />
+                handleFilterChange={this.handleSearchStringChange}
+              />
               <FilterButtons
                 renderButtonContent={this.getButtonContent}
-                filters={['all', 'healthy', 'unhealthy']}
+                filters={["all", "healthy", "unhealthy"]}
                 filterByKey="title"
                 onFilterChange={this.handleHealthFilterChange}
                 itemList={dataHealth}
-                selectedFilter={healthFilter} />
+                selectedFilter={healthFilter}
+              />
               <a
                 href={UnitHealthStore.getDownloadURL()}
                 className="button button-primary"
-                target="_blank">
+                target="_blank"
+              >
                 Download Snapshot
               </a>
             </FilterBar>
@@ -210,8 +217,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               containerSelector=".gm-scroll-view"
               data={visibleData}
               itemHeight={TableUtil.getRowHeight()}
-              sortBy={{prop: 'health', order: 'asc'}}
-              />
+              sortBy={{ prop: "health", order: "asc" }}
+            />
           </div>
         </div>
       </Page>
@@ -220,7 +227,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
 }
 
 UnitsHealthTab.routeConfig = {
-  label: 'Components',
+  label: "Components",
   matches: /^\/components\/overview/
 };
 

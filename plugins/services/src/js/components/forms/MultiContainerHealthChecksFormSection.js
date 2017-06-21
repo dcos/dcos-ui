@@ -1,23 +1,30 @@
-import React, {Component} from 'react';
-import {Tooltip} from 'reactjs-components';
-import Objektiv from 'objektiv';
+import React, { Component } from "react";
+import { Tooltip } from "reactjs-components";
+import Objektiv from "objektiv";
 
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
-import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
-import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
-import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
-import {HTTP, TCP, COMMAND} from '../../constants/HealthCheckProtocols';
+import AddButton from "../../../../../../src/js/components/form/AddButton";
+import AdvancedSection
+  from "../../../../../../src/js/components/form/AdvancedSection";
+import AdvancedSectionContent
+  from "../../../../../../src/js/components/form/AdvancedSectionContent";
+import AdvancedSectionLabel
+  from "../../../../../../src/js/components/form/AdvancedSectionLabel";
+import FieldError from "../../../../../../src/js/components/form/FieldError";
+import FieldInput from "../../../../../../src/js/components/form/FieldInput";
+import FieldLabel from "../../../../../../src/js/components/form/FieldLabel";
+import FieldSelect from "../../../../../../src/js/components/form/FieldSelect";
+import FieldTextarea
+  from "../../../../../../src/js/components/form/FieldTextarea";
+import FormGroup from "../../../../../../src/js/components/form/FormGroup";
+import FormGroupContainer
+  from "../../../../../../src/js/components/form/FormGroupContainer";
+import FormGroupHeading
+  from "../../../../../../src/js/components/form/FormGroupHeading";
+import FormGroupHeadingContent
+  from "../../../../../../src/js/components/form/FormGroupHeadingContent";
+import FormRow from "../../../../../../src/js/components/form/FormRow";
+import Icon from "../../../../../../src/js/components/Icon";
+import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 
 class MultiContainerHealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, path, errorsLens) {
@@ -62,7 +69,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FormRow>
             <FormGroup
               className="column-3"
-              showError={Boolean(errors.gracePeriodSeconds)}>
+              showError={Boolean(errors.gracePeriodSeconds)}
+            >
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -74,7 +82,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapText={true}>
+                      wrapText={true}
+                    >
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
                   </FormGroupHeadingContent>
@@ -85,12 +94,14 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="300"
-                value={healthCheck.gracePeriodSeconds} />
+                value={healthCheck.gracePeriodSeconds}
+              />
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
               className="column-3"
-              showError={Boolean(errors.intervalSeconds)}>
+              showError={Boolean(errors.intervalSeconds)}
+            >
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -102,7 +113,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapText={true}>
+                      wrapText={true}
+                    >
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
                   </FormGroupHeadingContent>
@@ -113,12 +125,14 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="60"
-                value={healthCheck.intervalSeconds} />
+                value={healthCheck.intervalSeconds}
+              />
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
             <FormGroup
               className="column-3"
-              showError={Boolean(errors.timeoutSeconds)}>
+              showError={Boolean(errors.timeoutSeconds)}
+            >
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -130,7 +144,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapText={true}>
+                      wrapText={true}
+                    >
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
                   </FormGroupHeadingContent>
@@ -141,12 +156,14 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="20"
-                value={healthCheck.timeoutSeconds} />
+                value={healthCheck.timeoutSeconds}
+              />
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
             <FormGroup
               className="column-3"
-              showError={Boolean(errors.maxConsecutiveFailures)}>
+              showError={Boolean(errors.maxConsecutiveFailures)}
+            >
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -158,7 +175,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                       interactive={true}
                       maxWidth={300}
                       scrollContainer=".gm-scroll-view"
-                      wrapText={true}>
+                      wrapText={true}
+                    >
                       <Icon color="grey" id="circle-question" size="mini" />
                     </Tooltip>
                   </FormGroupHeadingContent>
@@ -169,7 +187,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                 type="number"
                 min="0"
                 placeholder="3"
-                value={healthCheck.maxConsecutiveFailures} />
+                value={healthCheck.maxConsecutiveFailures}
+              />
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
           </FormRow>
@@ -183,17 +202,18 @@ class MultiContainerHealthChecksFormSection extends Component {
       return null;
     }
 
-    const {exec} = healthCheck;
+    const { exec } = healthCheck;
     const errors = errorsLens
-      .attr('exec', {})
-      .attr('command', {})
+      .attr("exec", {})
+      .attr("command", {})
       .get(this.props.errors);
 
     return (
       <FormRow>
         <FormGroup
           className="column-12"
-          showError={Boolean(errors.shell || errors.argv)}>
+          showError={Boolean(errors.shell || errors.argv)}
+        >
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -204,7 +224,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldTextarea
             name={`${path}.exec.command.value`}
             type="text"
-            value={exec && exec.command.value}/>
+            value={exec && exec.command.value}
+          />
           <FieldError>{errors.shell || errors.argv}</FieldError>
         </FormGroup>
       </FormRow>
@@ -216,7 +237,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       return [];
     }
 
-    return container.endpoints.map((endpoint) => {
+    return container.endpoints.map(endpoint => {
       return (
         <option key={endpoint} value={endpoint.name}>
           {endpoint.name}
@@ -230,9 +251,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       return null;
     }
 
-    const errors = errorsLens
-      .at('http', {})
-      .get(this.props.errors);
+    const errors = errorsLens.at("http", {}).get(this.props.errors);
 
     const endpointHelpText = (
       <span>Select a service endpoint that you configured in Networking.</span>
@@ -244,11 +263,9 @@ class MultiContainerHealthChecksFormSection extends Component {
       </span>
     );
 
-    return [(
+    return [
       <FormRow key="path">
-        <FormGroup
-          className="column-6"
-          showError={false}>
+        <FormGroup className="column-6" showError={false}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -261,7 +278,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                   maxWidth={300}
                   scrollContainer=".gm-scroll-view"
                   wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-                  wrapText={true}>
+                  wrapText={true}
+                >
                   <Icon color="grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
@@ -269,14 +287,13 @@ class MultiContainerHealthChecksFormSection extends Component {
           </FieldLabel>
           <FieldSelect
             name={`${path}.http.endpoint`}
-            value={String(healthCheck.http.endpoint)}>
+            value={String(healthCheck.http.endpoint)}
+          >
             <option value="">Select Endpoint</option>
             {this.getEndpoints(container)}
           </FieldSelect>
         </FormGroup>
-        <FormGroup
-          className="column-6"
-          showError={Boolean(errors.path)}>
+        <FormGroup className="column-6" showError={Boolean(errors.path)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -288,7 +305,8 @@ class MultiContainerHealthChecksFormSection extends Component {
                   interactive={true}
                   maxWidth={300}
                   scrollContainer=".gm-scroll-view"
-                  wrapText={true}>
+                  wrapText={true}
+                >
                   <Icon color="grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
@@ -297,25 +315,25 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldInput
             name={`${path}.http.path`}
             type="text"
-            value={healthCheck.http.path} />
+            value={healthCheck.http.path}
+          />
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
-      </FormRow>
-    ),
-    (
+      </FormRow>,
       <FormRow key="HTTPS">
         <FormGroup showError={false} className="column-12">
           <FieldLabel>
             <FieldInput
               checked={healthCheck.http.https}
               name={`${path}.http.https`}
-              type="checkbox" />
+              type="checkbox"
+            />
             Make HTTPS
           </FieldLabel>
           <FieldError>{errors.protocol}</FieldError>
         </FormGroup>
       </FormRow>
-    )];
+    ];
   }
 
   getTCPFields(healthCheck, container, path) {
@@ -325,9 +343,7 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     return (
       <FormRow key="path">
-        <FormGroup
-          className="column-12"
-          showError={false}>
+        <FormGroup className="column-12" showError={false}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -337,7 +353,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           </FieldLabel>
           <FieldSelect
             name={`${path}.tcp.endpoint`}
-            value={String(healthCheck.tcp.endpoint)}>
+            value={String(healthCheck.tcp.endpoint)}
+          >
             <option value="">Select Endpoint</option>
             {this.getEndpoints(container)}
           </FieldSelect>
@@ -347,18 +364,18 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   getHealthChecksBody(container, index) {
-    const {healthCheck} = container;
+    const { healthCheck } = container;
     const path = `containers.${index}.healthCheck`;
-    const errorsLens = Objektiv.attr('containers', [])
+    const errorsLens = Objektiv.attr("containers", [])
       .at(index, {})
-      .attr('healthCheck', {});
+      .attr("healthCheck", {});
 
     if (healthCheck == null) {
       return (
         <div>
-          <AddButton onClick={this.props.onAddItem.bind(
-              this, {path, value: index})
-            }>
+          <AddButton
+            onClick={this.props.onAddItem.bind(this, { path, value: index })}
+          >
             Add Health Check
           </AddButton>
         </div>
@@ -367,10 +384,11 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     const tooltipContent = (
       <span>
-        {'You have several protocol options. '}
+        {"You have several protocol options. "}
         <a
           href="https://mesosphere.github.io/marathon/docs/health-checks.html"
-          target="_blank">
+          target="_blank"
+        >
           More Information
         </a>.
       </span>
@@ -378,7 +396,8 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     return (
       <FormGroupContainer
-        onRemove={this.props.onRemoveItem.bind(this, {path})}>
+        onRemove={this.props.onRemoveItem.bind(this, { path })}
+      >
         <FormRow>
           <FormGroup className="column-6">
             <FieldLabel>
@@ -393,14 +412,14 @@ class MultiContainerHealthChecksFormSection extends Component {
                     maxWidth={300}
                     scrollContainer=".gm-scroll-view"
                     wrapperClassName="tooltip-wrapper text-align-center"
-                    wrapText={true}>
+                    wrapText={true}
+                  >
                     <Icon color="grey" id="circle-question" size="mini" />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
-            <FieldSelect name={`${path}.protocol`}
-              value={healthCheck.protocol}>
+            <FieldSelect name={`${path}.protocol`} value={healthCheck.protocol}>
               <option value="">Select Protocol</option>
               <option value={COMMAND}>Command</option>
               <option value={HTTP}>HTTP</option>
@@ -418,7 +437,6 @@ class MultiContainerHealthChecksFormSection extends Component {
 
   getContainerHealthChecks(containers) {
     return containers.map((container, index) => {
-
       return (
         <div key={container.name}>
           <div className="form-row-element">
@@ -440,7 +458,7 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   render() {
-    const {data, handleTabChange} = this.props;
+    const { data, handleTabChange } = this.props;
     const tooltipContent = (
       <span>
         {`A health check passes if (1) its HTTP response code is between 200
@@ -448,7 +466,8 @@ class MultiContainerHealthChecksFormSection extends Component {
         timeoutSeconds period. `}
         <a
           href="https://mesosphere.github.io/marathon/docs/health-checks.html"
-          target="_blank">
+          target="_blank"
+        >
           More Information
         </a>.
       </span>
@@ -465,7 +484,8 @@ class MultiContainerHealthChecksFormSection extends Component {
             maxWidth={300}
             scrollContainer=".gm-scroll-view"
             wrapperClassName="tooltip-wrapper text-align-center"
-            wrapText={true}>
+            wrapText={true}
+          >
             <Icon color="grey" id="circle-question" size="mini" />
           </Tooltip>
         </FormGroupHeadingContent>
@@ -479,13 +499,14 @@ class MultiContainerHealthChecksFormSection extends Component {
             {heading}
           </h2>
           <p>
-            {'Please '}
+            {"Please "}
             <a
-              onClick={handleTabChange.bind(null, 'services')}
-              className="clickable">
+              onClick={handleTabChange.bind(null, "services")}
+              className="clickable"
+            >
               add a container
             </a>
-            {' before configuring health checks.'}
+            {" before configuring health checks."}
           </p>
         </div>
       );
@@ -498,7 +519,7 @@ class MultiContainerHealthChecksFormSection extends Component {
         </h2>
         <p>
           Health checks may be specified per application to be run against
-          the application{'\''}s instances.
+          the application{"'"}s instances.
         </p>
         {this.getContainerHealthChecks(data.containers)}
       </div>

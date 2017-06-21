@@ -1,26 +1,27 @@
-import deepEqual from 'deep-equal';
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {routerShape} from 'react-router';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import deepEqual from "deep-equal";
+import mixin from "reactjs-mixin";
+import React from "react";
+import { routerShape } from "react-router";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CompositeState from '../../../../../../../src/js/structs/CompositeState';
-import MesosStateStore from '../../../../../../../src/js/stores/MesosStateStore';
-import NodesGridView from '../../../components/NodesGridView';
-import QueryParamsMixin from '../../../../../../../src/js/mixins/QueryParamsMixin';
+import CompositeState from "../../../../../../../src/js/structs/CompositeState";
+import MesosStateStore
+  from "../../../../../../../src/js/stores/MesosStateStore";
+import NodesGridView from "../../../components/NodesGridView";
+import QueryParamsMixin
+  from "../../../../../../../src/js/mixins/QueryParamsMixin";
 
 const MAX_SERVICES_TO_SHOW = 32;
-const METHODS_TO_BIND=['handleShowServices'];
+const METHODS_TO_BIND = ["handleShowServices"];
 const OTHER_SERVICES_COLOR = 32;
 
 class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
-
   constructor() {
     super(...arguments);
 
     this.state = {
       filteredNodes: [],
-      filters: {health: 'all', name: '', service: null},
+      filters: { health: "all", name: "", service: null },
       hasLoadingError: false,
       hiddenServices: [],
       mesosStateErrorCount: 0,
@@ -32,29 +33,29 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     };
     this.store_listeners = [
       {
-        events: ['success'],
+        events: ["success"],
         listenAlways: false,
-        name: 'nodeHealth',
+        name: "nodeHealth",
         suppressUpdate: true
       },
       {
-        events: ['success', 'error'],
-        name: 'state',
+        events: ["success", "error"],
+        name: "state",
         suppressUpdate: true
       }
     ];
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(props) {
-    const {services, location: {query}} = props;
-    const ids = services.map(function (service) {
+    const { services, location: { query } } = props;
+    const ids = services.map(function(service) {
       return service.id;
     });
 
-    const {serviceColors} = this.state;
+    const { serviceColors } = this.state;
 
     if (!deepEqual(Object.keys(serviceColors), ids)) {
       this.computeServiceColors(services);
@@ -62,8 +63,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     }
 
     const filters = {
-      health: query.filterHealth || 'all',
-      name: query.searchString || '',
+      health: query.filterHealth || "all",
+      name: query.searchString || "",
       service: query.filterService || null
     };
     this.setFilters(filters);
@@ -72,7 +73,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   computeServiceColors(services) {
     var colors = {};
 
-    services.forEach(function (service, index) {
+    services.forEach(function(service, index) {
       // Drop all others into the same 'other' color
       if (index < MAX_SERVICES_TO_SHOW) {
         colors[service.id] = index;
@@ -81,15 +82,15 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       }
     });
 
-    this.setState({serviceColors: colors});
+    this.setState({ serviceColors: colors });
   }
 
   computeShownServices(services) {
-    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(function (service) {
+    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(function(service) {
       return service.id;
     });
 
-    this.setState({hiddenServices: hidden});
+    this.setState({ hiddenServices: hidden });
   }
 
   getFilteredNodes(filters = this.state.filters) {
@@ -97,32 +98,35 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   setFilters(newFilters, callback) {
-    if (newFilters.service === '') {
+    if (newFilters.service === "") {
       newFilters.service = null;
     }
     const filters = Object.assign({}, this.state.filters, newFilters);
     const filteredNodes = this.getFilteredNodes(filters);
 
-    this.setState({filters, filteredNodes}, callback);
+    this.setState({ filters, filteredNodes }, callback);
   }
 
   handleShowServices(value) {
-    this.setState({showServices: value});
+    this.setState({ showServices: value });
   }
 
   onStateStoreSuccess() {
-    const {hiddenServices} = this.state;
-    const resourcesByFramework = MesosStateStore.getHostResourcesByFramework(hiddenServices);
-    const receivedEmptyMesosState = Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
-    this.setState({resourcesByFramework, receivedEmptyMesosState});
+    const { hiddenServices } = this.state;
+    const resourcesByFramework = MesosStateStore.getHostResourcesByFramework(
+      hiddenServices
+    );
+    const receivedEmptyMesosState =
+      Object.keys(MesosStateStore.get("lastMesosState")).length === 0;
+    this.setState({ resourcesByFramework, receivedEmptyMesosState });
   }
 
   onStateStoreError() {
     const mesosStateErrorCount = this.state.mesosStateErrorCount + 1;
     if (mesosStateErrorCount > 3) {
-      this.setState({mesosStateErrorCount, hasLoadingError: true});
+      this.setState({ mesosStateErrorCount, hasLoadingError: true });
     } else {
-      this.setState({mesosStateErrorCount});
+      this.setState({ mesosStateErrorCount });
     }
   }
 
@@ -145,7 +149,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       showServices
     } = this.state;
 
-    const {services, selectedResource} = this.props;
+    const { services, selectedResource } = this.props;
 
     return (
       <NodesGridView
@@ -159,7 +163,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
         selectedResource={selectedResource}
         serviceColors={serviceColors}
         services={services}
-        showServices={showServices} />
+        showServices={showServices}
+      />
     );
   }
 }

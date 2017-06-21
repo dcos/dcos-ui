@@ -1,4 +1,4 @@
-import Item from './Item';
+import Item from "./Item";
 
 module.exports = class Overlay extends Item {
   constructor(options = {}, ...args) {
@@ -11,14 +11,14 @@ module.exports = class Overlay extends Item {
   }
 
   getName() {
-    return this.get('info').name;
+    return this.get("info").name;
   }
 
   getPrefix() {
-    return this.get('info').prefix;
+    return this.get("info").prefix;
   }
 
   getSubnet() {
-    return this.get('info').subnet;
+    return this.get("info").subnet;
   }
 };

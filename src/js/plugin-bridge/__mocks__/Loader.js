@@ -1,4 +1,4 @@
-import path from 'path';
+import path from "path";
 
 let _plugins = {};
 let _externalPlugins = {};
@@ -8,13 +8,13 @@ const Mocks = {};
 
 let pluginsList;
 let externalPluginsList;
-const pluginsDir = 'plugins';
+const pluginsDir = "plugins";
 const externalPluginsDir = path.resolve(
-  process.env.npm_config_externalplugins || 'plugins'
+  process.env.npm_config_externalplugins || "plugins"
 );
 
 try {
-  pluginsList = require('PLUGINS');
+  pluginsList = require("PLUGINS");
 } catch (err) {
   pluginsList = {};
 }
@@ -35,7 +35,7 @@ function __getAvailablePlugins() {
 function __setMockPlugins(plugins) {
   _plugins = {};
   _externalPlugins = {};
-  Object.keys(plugins).forEach(function (pluginID) {
+  Object.keys(plugins).forEach(function(pluginID) {
     if (pluginID in externalPluginsList) {
       _externalPlugins[pluginID] = plugins[pluginID];
     } else {
@@ -54,19 +54,19 @@ function __requireModule(dir, name) {
     return Mocks[name];
   }
 
-  if (dir === 'navigation' || dir === 'routing') {
-    return require(path.resolve('./foundation-ui', `${dir}/${name}`));
+  if (dir === "navigation" || dir === "routing") {
+    return require(path.resolve("./foundation-ui", `${dir}/${name}`));
   }
 
-  if (dir === 'internalPlugin') {
+  if (dir === "internalPlugin") {
     return require(path.resolve(pluginsDir, name));
   }
 
-  if (dir === 'externalPlugin') {
+  if (dir === "externalPlugin") {
     return require(path.resolve(externalPluginsDir, name));
   }
 
-  return require(path.resolve('./src/js', `${dir}/${name}`));
+  return require(path.resolve("./src/js", `${dir}/${name}`));
 }
 
 // Add custom methods for testing
@@ -74,7 +74,7 @@ Plugins.__setMockPlugins = __setMockPlugins;
 
 // Rewire so PluginSDK loads the mocked version. But still provide access
 // to original method for PluginTestUtils to load actual plugins
-Plugins.__getAvailablePlugins = function () {
+Plugins.__getAvailablePlugins = function() {
   return {
     pluginsList,
     externalPluginsList

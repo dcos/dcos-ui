@@ -1,16 +1,15 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-import BarChart from './BarChart';
-import Chart from './Chart';
-import ResourcesUtil from '../../utils/ResourcesUtil';
+import BarChart from "./BarChart";
+import Chart from "./Chart";
+import ResourcesUtil from "../../utils/ResourcesUtil";
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
 
 const ResourceBarChart = React.createClass({
-
-  displayName: 'ResourceBarChart',
+  displayName: "ResourceBarChart",
 
   propTypes: {
     onResourceSelectionChange: React.PropTypes.func.isRequired,
@@ -26,9 +25,9 @@ const ResourceBarChart = React.createClass({
     return {
       itemCount: 0,
       totalResources: {},
-      y: 'percentage',
+      y: "percentage",
       refreshRate: 0,
-      resourceType: ''
+      resourceType: ""
     };
   },
 
@@ -41,12 +40,14 @@ const ResourceBarChart = React.createClass({
 
     const selectedResource = props.selectedResource;
 
-    return [{
-      id: 'used_resources',
-      name: selectedResource + ' allocated',
-      colorIndex: ResourcesUtil.getResourceColor(selectedResource),
-      values: props.resources[selectedResource]
-    }];
+    return [
+      {
+        id: "used_resources",
+        name: selectedResource + " allocated",
+        colorIndex: ResourcesUtil.getResourceColor(selectedResource),
+        values: props.resources[selectedResource]
+      }
+    ];
   },
 
   getMaxY() {
@@ -67,16 +68,17 @@ const ResourceBarChart = React.createClass({
     const resourceColors = ResourcesUtil.getResourceColors();
     const resourceLabels = ResourcesUtil.getResourceLabels();
 
-    return ResourcesUtil.getDefaultResources().map((resource) => {
-      const classSet = classNames('button button-stroke', {
-        'active': selectedResource === resource
+    return ResourcesUtil.getDefaultResources().map(resource => {
+      const classSet = classNames("button button-stroke", {
+        active: selectedResource === resource
       });
 
       return (
         <button
           key={resource}
           className={`${classSet} path-color-${resourceColors[resource]}`}
-          onClick={this.handleSelectedResourceChange.bind(this, resource)}>
+          onClick={this.handleSelectedResourceChange.bind(this, resource)}
+        >
           {resourceLabels[resource]}
         </button>
       );
@@ -85,13 +87,18 @@ const ResourceBarChart = React.createClass({
 
   getBarChart() {
     return (
-      <Chart calcHeight={function (w) { return w / WIDTH_HEIGHT_RATIO; }}>
+      <Chart
+        calcHeight={function(w) {
+          return w / WIDTH_HEIGHT_RATIO;
+        }}
+      >
         <BarChart
           data={this.getData()}
           maxY={this.getMaxY()}
           ticksY={4}
           y={this.props.y}
-          refreshRate={this.props.refreshRate} />
+          refreshRate={this.props.refreshRate}
+        />
       </Chart>
     );
   },
@@ -106,7 +113,7 @@ const ResourceBarChart = React.createClass({
           {headline}
         </h4>
         <p className="flush">
-          {this.props.itemCount + ' Total ' + this.props.resourceType}
+          {this.props.itemCount + " Total " + this.props.resourceType}
         </p>
       </div>
     );

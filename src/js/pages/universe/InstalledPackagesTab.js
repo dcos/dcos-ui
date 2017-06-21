@@ -1,18 +1,18 @@
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import FilterInputText from '../../components/FilterInputText';
-import Loader from '../../components/Loader';
-import PackagesTable from '../../components/PackagesTable';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import FilterInputText from "../../components/FilterInputText";
+import Loader from "../../components/Loader";
+import PackagesTable from "../../components/PackagesTable";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
 
 const InstalledPackagesBreadcrumbs = () => {
   const crumbs = [
@@ -26,9 +26,7 @@ const InstalledPackagesBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = [
-  'handleSearchStringChange'
-];
+const METHODS_TO_BIND = ["handleSearchStringChange"];
 
 class InstalledPackagesTab extends mixin(StoreMixin) {
   constructor() {
@@ -37,18 +35,18 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
     this.state = {
       hasError: false,
       isLoading: true,
-      searchString: ''
+      searchString: ""
     };
 
     this.store_listeners = [
       {
-        name: 'cosmosPackages',
-        events: ['installedError', 'installedSuccess'],
+        name: "cosmosPackages",
+        events: ["installedError", "installedSuccess"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -59,15 +57,15 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreInstalledError() {
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 
   onCosmosPackagesStoreInstalledSuccess() {
-    this.setState({hasError: false, isLoading: false});
+    this.setState({ hasError: false, isLoading: false });
   }
 
-  handleSearchStringChange(searchString = '') {
-    this.setState({searchString});
+  handleSearchStringChange(searchString = "") {
+    this.setState({ searchString });
   }
 
   getErrorScreen() {
@@ -79,7 +77,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
   }
 
   render() {
-    const {hasError, isLoading, searchString} = this.state;
+    const { hasError, isLoading, searchString } = this.state;
     let content = null;
 
     if (hasError) {
@@ -87,8 +85,9 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
     } else if (isLoading) {
       content = this.getLoadingScreen();
     } else {
-      const packages = CosmosPackagesStore.getInstalledPackages()
-        .filterItemsByText(searchString);
+      const packages = CosmosPackagesStore.getInstalledPackages().filterItemsByText(
+        searchString
+      );
 
       content = (
         <div>
@@ -97,7 +96,8 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
               className="flex-grow"
               placeholder="Search"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange} />
+              handleFilterChange={this.handleSearchStringChange}
+            />
           </div>
           <PackagesTable packages={packages} filter={searchString} />
         </div>
@@ -114,7 +114,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
 }
 
 InstalledPackagesTab.routeConfig = {
-  label: 'Installed',
+  label: "Installed",
   matches: /^\/universe\/installed-packages/
 };
 

@@ -1,7 +1,7 @@
-import List from '../../../../../src/js/structs/List';
-import Item from '../../../../../src/js/structs/Item';
+import List from "../../../../../src/js/structs/List";
+import Item from "../../../../../src/js/structs/Item";
 
-const PAGE_SIZE = 8 * 4096;  // 32kb of data or 8 'pages'
+const PAGE_SIZE = 8 * 4096; // 32kb of data or 8 'pages'
 const DEFAULT_OPTIONS = {
   end: -1,
   initialized: false,
@@ -13,7 +13,7 @@ function truncateItemData(itemData, sizeDiff) {
   // Truncate to fit within maxFileSize
   itemData = itemData.substring(sizeDiff);
   // Truncate to first newline
-  const newLineIndex = itemData.indexOf('\n') + 1;
+  const newLineIndex = itemData.indexOf("\n") + 1;
 
   return itemData.substring(newLineIndex);
   // Update currentSize accordingly
@@ -25,7 +25,7 @@ class LogBuffer extends List {
 
     this.configuration = Object.assign({}, DEFAULT_OPTIONS);
 
-    Object.keys(DEFAULT_OPTIONS).forEach((key) => {
+    Object.keys(DEFAULT_OPTIONS).forEach(key => {
       if (Object.prototype.hasOwnProperty.call(options, key)) {
         this.configuration[key] = options[key];
       }
@@ -33,7 +33,8 @@ class LogBuffer extends List {
   }
 
   // Public API
-  initialize(offset) { // The point we are reading from in the log file
+  initialize(offset) {
+    // The point we are reading from in the log file
     let end = this.getEnd(); // pointing to end of currently stored log
     let start = this.getStart(); // pointing to start of currently stored log
 
@@ -50,8 +51,8 @@ class LogBuffer extends List {
   }
 
   prepend(entry) {
-    const data = entry.get('data');
-    const offset = entry.get('offset');
+    const data = entry.get("data");
+    const offset = entry.get("offset");
 
     let start = this.getStart();
     let end = this.getEnd();
@@ -63,7 +64,7 @@ class LogBuffer extends List {
 
     start = offset;
 
-    this.list.unshift(new Item({data, start}));
+    this.list.unshift(new Item({ data, start }));
     this.configuration.start = start;
     this.configuration.end = end;
 
@@ -72,17 +73,17 @@ class LogBuffer extends List {
   }
 
   add(entry) {
-    let data = entry.get('data');
+    let data = entry.get("data");
     const end = this.getEnd();
     // The point we are reading from in the log file
-    let offset = entry.get('offset');
+    let offset = entry.get("offset");
     let start = this.getStart();
 
     // Truncate to the first newline from beginning of received data,
     // if this is the first request and the data received is not from the
     // beginning of the log
     if (start === end && offset !== 0) {
-      const index = data.indexOf('\n') + 1;
+      const index = data.indexOf("\n") + 1;
       offset += index;
       data = data.substring(index);
       start = offset; // Adjust the actual start too!
@@ -93,7 +94,7 @@ class LogBuffer extends List {
     this.configuration.start = start;
 
     // Add log entry
-    super.add(new Item({data, offset}));
+    super.add(new Item({ data, offset }));
     this.truncate();
   }
 
@@ -102,9 +103,11 @@ class LogBuffer extends List {
   }
 
   getFullLog() {
-    return this.getItems().map(function (item) {
-      return item.get('data');
-    }).join('');
+    return this.getItems()
+      .map(function(item) {
+        return item.get("data");
+      })
+      .join("");
   }
 
   getStart() {
@@ -145,7 +148,7 @@ class LogBuffer extends List {
     }
 
     const item = items[index];
-    let itemData = item.get('data');
+    let itemData = item.get("data");
     const originalDatasize = itemData.length;
 
     itemData = truncateItemData(itemData, sizeDiff);
@@ -154,7 +157,7 @@ class LogBuffer extends List {
     if (itemData.length > 0) {
       items[index] = new Item({
         data: itemData,
-        offset: item.get('offset')
+        offset: item.get("offset")
       });
     } else {
       this.list.splice(index, 1);

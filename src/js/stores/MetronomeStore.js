@@ -1,5 +1,5 @@
-import {EventEmitter} from 'events';
-import PluginSDK from 'PluginSDK';
+import { EventEmitter } from "events";
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_METRONOME_JOB_CREATE_ERROR,
@@ -21,8 +21,8 @@ import {
   REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
 import {
   METRONOME_JOB_CREATE_ERROR,
   METRONOME_JOB_CREATE_SUCCESS,
@@ -41,18 +41,18 @@ import {
   METRONOME_JOBS_CHANGE,
   METRONOME_JOBS_ERROR,
   VISIBILITY_CHANGE
-} from '../constants/EventTypes';
-import Config from '../config/Config';
-import MetronomeActions from '../events/MetronomeActions';
-import Job from '../structs/Job';
-import JobTree from '../structs/JobTree';
-import VisibilityStore from './VisibilityStore';
+} from "../constants/EventTypes";
+import Config from "../config/Config";
+import MetronomeActions from "../events/MetronomeActions";
+import Job from "../structs/Job";
+import JobTree from "../structs/JobTree";
+import VisibilityStore from "./VisibilityStore";
 
 let requestInterval;
 const jobDetailFetchTimers = {};
 
 function pauseJobDetailMonitors() {
-  Object.keys(jobDetailFetchTimers).forEach(function (jobID) {
+  Object.keys(jobDetailFetchTimers).forEach(function(jobID) {
     global.clearInterval(jobDetailFetchTimers[jobID]);
     jobDetailFetchTimers[jobID] = null;
   });
@@ -81,7 +81,7 @@ class MetronomeStore extends EventEmitter {
 
     this.data = {
       jobDetail: {},
-      jobTree: {id: '/', items: []}
+      jobTree: { id: "/", items: [] }
     };
 
     PluginSDK.addStoreConfig({
@@ -112,7 +112,7 @@ class MetronomeStore extends EventEmitter {
     });
 
     // Handle app actions
-    this.dispatcherIndex = AppDispatcher.register(({source, action}) => {
+    this.dispatcherIndex = AppDispatcher.register(({ source, action }) => {
       if (source !== SERVER_ACTION) {
         return false;
       }
@@ -171,7 +171,6 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOBS_ERROR:
           this.emit(METRONOME_JOBS_ERROR);
           break;
-
       }
 
       return true;
@@ -226,8 +225,9 @@ class MetronomeStore extends EventEmitter {
       return null;
     }
 
-    this.updateSchedule(jobID,
-      Object.assign({}, schedule, {enabled: isEnabled})
+    this.updateSchedule(
+      jobID,
+      Object.assign({}, schedule, { enabled: isEnabled })
     );
   }
 
@@ -283,7 +283,7 @@ class MetronomeStore extends EventEmitter {
 
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive()) {
-      Object.keys(jobDetailFetchTimers).forEach((jobID) => {
+      Object.keys(jobDetailFetchTimers).forEach(jobID => {
         this.monitorJobDetail(jobID);
       });
 
@@ -310,7 +310,7 @@ class MetronomeStore extends EventEmitter {
       return;
     }
 
-    Object.keys(jobDetailFetchTimers).forEach(function (fetchTimerID) {
+    Object.keys(jobDetailFetchTimers).forEach(function(fetchTimerID) {
       global.clearInterval(jobDetailFetchTimers[fetchTimerID]);
       delete jobDetailFetchTimers[fetchTimerID];
     });
@@ -324,7 +324,7 @@ class MetronomeStore extends EventEmitter {
   }
 
   get storeID() {
-    return 'metronome';
+    return "metronome";
   }
 }
 

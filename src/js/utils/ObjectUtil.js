@@ -1,5 +1,4 @@
 module.exports = {
-
   /**
    * This function adds the given mark to the provided object.
    * Note that this will replace the value of a previous mark.
@@ -9,7 +8,7 @@ module.exports = {
    * @return {Object} Returns the passed object
    */
   markObject(obj, mark) {
-    Object.defineProperty(obj, '___object_mark___', {
+    Object.defineProperty(obj, "___object_mark___", {
       value: mark,
       enumerable: false,
       writable: true
@@ -28,5 +27,4 @@ module.exports = {
   objectHasMark(obj, mark) {
     return obj.___object_mark___ === mark;
   }
-
 };

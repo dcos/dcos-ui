@@ -1,6 +1,6 @@
-import Config from '../config/Config';
+import Config from "../config/Config";
 
 export default {
-  statusHelpLink:`${Config.marathonDocsURI}marathon-ui` +
-    '.html#application-status-reference'
+  statusHelpLink: `${Config.marathonDocsURI}marathon-ui` +
+    ".html#application-status-reference"
 };

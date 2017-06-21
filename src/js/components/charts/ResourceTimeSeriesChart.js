@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Chart from './Chart';
-import TimeSeriesChart from './TimeSeriesChart';
-import TimeSeriesLabel from './TimeSeriesLabel';
-import Units from '../../utils/Units';
+import Chart from "./Chart";
+import TimeSeriesChart from "./TimeSeriesChart";
+import TimeSeriesLabel from "./TimeSeriesLabel";
+import Units from "../../utils/Units";
 
 var ResourceTimeSeriesChart = React.createClass({
-
-  displayName: 'ResourceTimeSeriesChart',
+  displayName: "ResourceTimeSeriesChart",
 
   propTypes: {
     colorIndex: React.PropTypes.number.isRequired,
@@ -27,19 +26,24 @@ var ResourceTimeSeriesChart = React.createClass({
   getData() {
     var props = this.props;
 
-    return [{
-      name: 'Alloc',
-      colorIndex: this.props.colorIndex,
-      values: props.usedResourcesStates[props.mode]
-    }];
+    return [
+      {
+        name: "Alloc",
+        colorIndex: this.props.colorIndex,
+        values: props.usedResourcesStates[props.mode]
+      }
+    ];
   },
 
   getHeadline(usedValue, totalValue) {
-    if (this.props.mode === 'cpus') {
-      return usedValue + ' of ' + totalValue + ' Shares';
+    if (this.props.mode === "cpus") {
+      return usedValue + " of " + totalValue + " Shares";
     } else {
-      return Units.filesize(usedValue * 1024 * 1024, 0) + ' of ' +
-        Units.filesize(totalValue * 1024 * 1024, 0);
+      return (
+        Units.filesize(usedValue * 1024 * 1024, 0) +
+        " of " +
+        Units.filesize(totalValue * 1024 * 1024, 0)
+      );
     }
   },
 
@@ -52,7 +56,8 @@ var ResourceTimeSeriesChart = React.createClass({
           data={this.getData()}
           maxY={100}
           y="percentage"
-          refreshRate={props.refreshRate} />
+          refreshRate={props.refreshRate}
+        />
       </Chart>
     );
   },
@@ -65,9 +70,11 @@ var ResourceTimeSeriesChart = React.createClass({
 
     return (
       <div className="chart">
-        <TimeSeriesLabel colorIndex={this.props.colorIndex}
+        <TimeSeriesLabel
+          colorIndex={this.props.colorIndex}
           currentValue={percentage}
-          subHeading={this.getHeadline(usedValue, totalValue)} />
+          subHeading={this.getHeadline(usedValue, totalValue)}
+        />
         {this.getChart()}
       </div>
     );

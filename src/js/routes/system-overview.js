@@ -1,13 +1,13 @@
-import {Route, IndexRoute} from 'react-router';
+import { Route, IndexRoute } from "react-router";
 
-import SystemOverviewPage from '../pages/SystemOverviewPage';
-import OverviewDetailTab from '../pages/system/OverviewDetailTab';
+import SystemOverviewPage from "../pages/SystemOverviewPage";
+import OverviewDetailTab from "../pages/system/OverviewDetailTab";
 
 const systemOverviewRoutes = {
   type: Route,
-  path: 'system-overview',
+  path: "system-overview",
   component: SystemOverviewPage,
-  category: 'system',
+  category: "system",
   isInSidebar: true,
   children: [
     {

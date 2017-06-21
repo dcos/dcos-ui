@@ -1,6 +1,7 @@
-import Item from './Item';
-import FrameworkUtil from '../../../plugins/services/src/js/utils/FrameworkUtil';
-import Util from '../utils/Util';
+import Item from "./Item";
+import FrameworkUtil
+  from "../../../plugins/services/src/js/utils/FrameworkUtil";
+import Util from "../utils/Util";
 
 class UniversePackage extends Item {
   getActiveBlock() {
@@ -12,13 +13,13 @@ class UniversePackage extends Item {
   }
 
   getAppId() {
-    return this.get('appId');
+    return this.get("appId");
   }
 
   getAppIdName() {
     let appId = this.getAppId();
     // Remove initial slash if present
-    if (appId.charAt(0) === '/') {
+    if (appId.charAt(0) === "/") {
       appId = appId.slice(1);
     }
 
@@ -30,11 +31,11 @@ class UniversePackage extends Item {
   }
 
   getConfig() {
-    return this.get('config');
+    return this.get("config");
   }
 
   getDescription() {
-    return this.get('description');
+    return this.get("description");
   }
 
   getDecisionPointCount() {
@@ -43,62 +44,62 @@ class UniversePackage extends Item {
 
   getIcons() {
     return FrameworkUtil.getServiceImages(
-      Util.findNestedPropertyInObject(this.get('resource'), 'images')
+      Util.findNestedPropertyInObject(this.get("resource"), "images")
     );
   }
 
   getName() {
-    return this.get('name');
+    return this.get("name");
   }
 
   getScreenshots() {
     return Util.findNestedPropertyInObject(
-      this.get('resource'),
-      'images.screenshots'
+      this.get("resource"),
+      "images.screenshots"
     );
   }
 
   getLicenses() {
-    return this.get('licenses') || [];
+    return this.get("licenses") || [];
   }
 
   getMaintainer() {
-    return this.get('maintainer');
+    return this.get("maintainer");
   }
 
   getPreInstallNotes() {
-    return this.get('preInstallNotes');
+    return this.get("preInstallNotes");
   }
 
   getPostInstallNotes() {
-    return this.get('postInstallNotes');
+    return this.get("postInstallNotes");
   }
 
   getPostUninstallNotes() {
-    return this.get('postUninstallNotes');
+    return this.get("postUninstallNotes");
   }
 
   getSCM() {
-    return this.get('scm');
+    return this.get("scm");
   }
 
   getCurrentVersion() {
-    return this.get('currentVersion');
+    return this.get("currentVersion");
   }
 
   getTags() {
-    return this.get('tags') || [];
+    return this.get("tags") || [];
   }
 
   isCLIOnly() {
     return !Util.findNestedPropertyInObject(
-      this.get('marathon'),
-      'v2AppMustacheTemplate'
+      this.get("marathon"),
+      "v2AppMustacheTemplate"
     );
   }
 
   isSelected() {
-    return this.get('selected');
+    return this.get("selected");
   }
 }
 

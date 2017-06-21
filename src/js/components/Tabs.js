@@ -1,14 +1,14 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-import TabButtonList from './TabButtonList';
+import TabButtonList from "./TabButtonList";
 
 class Tabs extends React.Component {
   getChildren() {
-    const {props} = this;
+    const { props } = this;
 
-    return React.Children.map(props.children, (tabElement) => {
-      const newTabProps = {activeTab: props.activeTab};
+    return React.Children.map(props.children, tabElement => {
+      const newTabProps = { activeTab: props.activeTab };
 
       if (tabElement.type === TabButtonList) {
         newTabProps.onChange = props.handleTabChange;
@@ -20,8 +20,8 @@ class Tabs extends React.Component {
   }
 
   render() {
-    const classes = classNames('menu-tabbed-container', this.props.className, {
-      'menu-tabbed-container-vertical': this.props.vertical
+    const classes = classNames("menu-tabbed-container", this.props.className, {
+      "menu-tabbed-container-vertical": this.props.vertical
     });
 
     return (

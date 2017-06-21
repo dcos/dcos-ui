@@ -1,5 +1,5 @@
-import Overlay from './Overlay';
-import List from './List';
+import Overlay from "./Overlay";
+import List from "./List";
 
 class OverlayList extends List {}
 

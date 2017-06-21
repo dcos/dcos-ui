@@ -1,48 +1,54 @@
-import classNames from 'classnames';
-import {DCOSStore, ResourceTableUtil} from 'foundation-ui';
-import {Confirm, Table} from 'reactjs-components';
-import {Link} from 'react-router';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { DCOSStore, ResourceTableUtil } from "foundation-ui";
+import { Confirm, Table } from "reactjs-components";
+import { Link } from "react-router";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import AlertPanel from '../../../../../../src/js/components/AlertPanel';
-import AlertPanelHeader from '../../../../../../src/js/components/AlertPanelHeader';
-import Breadcrumb from '../../../../../../src/js/components/Breadcrumb';
-import BreadcrumbTextContent from '../../../../../../src/js/components/BreadcrumbTextContent';
-import CollapsingString from '../../../../../../src/js/components/CollapsingString';
-import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
-import Loader from '../../../../../../src/js/components/Loader';
-import MarathonActions from '../../events/MarathonActions';
-import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
-import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
-import Page from '../../../../../../src/js/components/Page';
-import StatusBar from '../../../../../../src/js/components/StatusBar';
-import StringUtil from '../../../../../../src/js/utils/StringUtil';
-import TimeAgo from '../../../../../../src/js/components/TimeAgo';
+import AlertPanel from "../../../../../../src/js/components/AlertPanel";
+import AlertPanelHeader
+  from "../../../../../../src/js/components/AlertPanelHeader";
+import Breadcrumb from "../../../../../../src/js/components/Breadcrumb";
+import BreadcrumbTextContent
+  from "../../../../../../src/js/components/BreadcrumbTextContent";
+import CollapsingString
+  from "../../../../../../src/js/components/CollapsingString";
+import defaultServiceImage
+  from "../../../img/icon-service-default-small@2x.png";
+import Loader from "../../../../../../src/js/components/Loader";
+import MarathonActions from "../../events/MarathonActions";
+import ModalHeading
+  from "../../../../../../src/js/components/modals/ModalHeading";
+import NestedServiceLinks
+  from "../../../../../../src/js/components/NestedServiceLinks";
+import Page from "../../../../../../src/js/components/Page";
+import StatusBar from "../../../../../../src/js/components/StatusBar";
+import StringUtil from "../../../../../../src/js/utils/StringUtil";
+import TimeAgo from "../../../../../../src/js/components/TimeAgo";
 
 const columnHeading = ResourceTableUtil.renderHeading({
-  id: 'AFFECTED SERVICES',
-  startTime: 'STARTED',
-  location: 'LOCATION',
-  status: 'STATUS',
-  action: ''
+  id: "AFFECTED SERVICES",
+  startTime: "STARTED",
+  location: "LOCATION",
+  status: "STATUS",
+  action: ""
 });
-const COLLAPSING_COLUMNS = ['location', 'startTime', 'action'];
+const COLLAPSING_COLUMNS = ["location", "startTime", "action"];
 const METHODS_TO_BIND = [
-  'renderAffectedServices',
-  'renderAffectedServicesList',
-  'renderLocation',
-  'renderStartTime',
-  'renderStatus',
-  'renderAction',
-  'handleRollbackClick',
-  'handleRollbackCancel',
-  'handleRollbackConfirm',
-  'onMarathonStoreDeploymentRollbackSuccess',
-  'onMarathonStoreDeploymentRollbackError'
+  "renderAffectedServices",
+  "renderAffectedServicesList",
+  "renderLocation",
+  "renderStartTime",
+  "renderStatus",
+  "renderAction",
+  "handleRollbackClick",
+  "handleRollbackCancel",
+  "handleRollbackConfirm",
+  "onMarathonStoreDeploymentRollbackSuccess",
+  "onMarathonStoreDeploymentRollbackError"
 ];
 
 // collapsing columns are tightly coupled to the left-align caret property;
@@ -50,7 +56,7 @@ const METHODS_TO_BIND = [
 function columnClassNameGetter(prop, sortBy, row) {
   const classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
   if (COLLAPSING_COLUMNS.includes(prop)) {
-    return classNames(classSet, 'hidden-small-down');
+    return classNames(classSet, "hidden-small-down");
   }
 
   return classSet;
@@ -69,29 +75,30 @@ const DeploymentsBreadcrumbs = () => {
 };
 
 class DeploymentsTab extends mixin(StoreMixin) {
-
   constructor() {
     super(...arguments);
 
     this.state = {};
     this.store_listeners = [
-      {name: 'dcos', events: ['change'], suppressUpdate: false},
+      { name: "dcos", events: ["change"], suppressUpdate: false },
       {
-        name: 'marathon',
-        events: ['deploymentRollbackSuccess', 'deploymentRollbackError'],
+        name: "marathon",
+        events: ["deploymentRollbackSuccess", "deploymentRollbackError"],
         suppressUpdate: true
       }
     ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     }, this);
   }
 
   onMarathonStoreDeploymentRollbackSuccess(data) {
-    const {deploymentToRollback} = this.state;
-    if (deploymentToRollback != null &&
-        deploymentToRollback.getId() === data.originalDeploymentID) {
+    const { deploymentToRollback } = this.state;
+    if (
+      deploymentToRollback != null &&
+      deploymentToRollback.getId() === data.originalDeploymentID
+    ) {
       this.setState({
         awaitingRevertDeploymentResponse: false,
         deploymentToRollback: null,
@@ -101,9 +108,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   onMarathonStoreDeploymentRollbackError(data) {
-    const {deploymentToRollback} = this.state;
-    if (deploymentToRollback != null &&
-        deploymentToRollback.getId() === data.originalDeploymentID) {
+    const { deploymentToRollback } = this.state;
+    if (
+      deploymentToRollback != null &&
+      deploymentToRollback.getId() === data.originalDeploymentID
+    ) {
       this.setState({
         awaitingRevertDeploymentResponse: false,
         deploymentRollbackError: data.error
@@ -128,7 +137,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       return;
     }
 
-    return serviceIds.map(function (serviceId) {
+    return serviceIds.map(function(serviceId) {
       return (
         <dd key={`stale_${serviceId}`}>
           <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
@@ -141,15 +150,16 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderAffectedServicesList(services) {
-    return services.map(function (service) {
+    return services.map(function(service) {
       const id = encodeURIComponent(service.getId());
-      const image = service.getImages()['icon-small'];
+      const image = service.getImages()["icon-small"];
 
       return (
         <dd key={`service_${id}`}>
           <Link
             to={`/services/overview/${id}`}
-            className="deployment-service-name table-cell-link-primary">
+            className="deployment-service-name table-cell-link-primary"
+          >
             <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
               <img src={image} />
             </span>
@@ -162,14 +172,15 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderLocation(prop, deployment) {
     const services = deployment.getAffectedServices();
-    const items = services.map(function (service, index) {
+    const items = services.map(function(service, index) {
       return (
         <li key={index}>
           <NestedServiceLinks
             serviceID={service.getId()}
             className="deployment-breadcrumb"
             majorLinkClassName="deployment-breadcrumb-service-id"
-            minorLinkWrapperClassName="deployment-breadcrumb-crumb" />
+            minorLinkWrapperClassName="deployment-breadcrumb-crumb"
+          />
         </li>
       );
     });
@@ -185,7 +196,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <TimeAgo
         className="deployment-start-time"
-        time={deployment.getStartTime()} />
+        time={deployment.getStartTime()}
+      />
     );
   }
 
@@ -198,15 +210,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     let currentActions = {};
     if (deployment.currentActions && deployment.currentActions.length > 0) {
-      currentActions =
-        deployment.currentActions.reduce(function (memo, action) {
-          memo[action.app] = action.action;
+      currentActions = deployment.currentActions.reduce(function(memo, action) {
+        memo[action.app] = action.action;
 
-          return memo;
-        }, {});
+        return memo;
+      }, {});
     }
 
-    const items = services.map(function (service, index) {
+    const items = services.map(function(service, index) {
       let statusText = service.getStatus();
       if (currentActions[service.id] != null) {
         statusText += ` (${currentActions[service.id]})`;
@@ -223,33 +234,35 @@ class DeploymentsTab extends mixin(StoreMixin) {
       <div>
         {statusBar}
         <span className="deployment-step">{title}</span>
-        <ol className="deployment-status-list list-unstyled flush-bottom">{items}</ol>
+        <ol className="deployment-status-list list-unstyled flush-bottom">
+          {items}
+        </ol>
       </div>
     );
   }
 
   renderStatusBar(currentStep, totalSteps) {
     const data = [
-      {className: 'color-4', value: currentStep - 1},
-      {className: 'staged', value: 1},
-      {className: '', value: totalSteps - currentStep}
+      { className: "color-4", value: currentStep - 1 },
+      { className: "staged", value: 1 },
+      { className: "", value: totalSteps - currentStep }
     ];
 
-    return (
-      <StatusBar className="status-bar--large" data={data} />
-    );
+    return <StatusBar className="status-bar--large" data={data} />;
   }
 
   renderAction(prop, deployment) {
     if (deployment != null) {
-      let linkText = 'Rollback';
+      let linkText = "Rollback";
       if (deployment.isStarting()) {
-        linkText = linkText + ' & Remove';
+        linkText = linkText + " & Remove";
       }
 
       return (
-        <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
-          onClick={this.handleRollbackClick.bind(null, deployment)}>
+        <a
+          className="deployment-rollback button button-link button-danger table-display-on-row-hover"
+          onClick={this.handleRollbackClick.bind(null, deployment)}
+        >
           {linkText}
         </a>
       );
@@ -257,7 +270,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   handleRollbackClick(deployment) {
-    this.setState({deploymentToRollback: deployment});
+    this.setState({ deploymentToRollback: deployment });
   }
 
   handleRollbackCancel() {
@@ -269,9 +282,9 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   handleRollbackConfirm() {
-    const {deploymentToRollback} = this.state;
+    const { deploymentToRollback } = this.state;
     if (deploymentToRollback != null) {
-      this.setState({awaitingRevertDeploymentResponse: true});
+      this.setState({ awaitingRevertDeploymentResponse: true });
       MarathonActions.revertDeployment(deploymentToRollback.getId());
     }
   }
@@ -281,31 +294,31 @@ class DeploymentsTab extends mixin(StoreMixin) {
       {
         className: columnClassNameGetter,
         heading: columnHeading,
-        prop: 'id',
+        prop: "id",
         render: this.renderAffectedServices
       },
       {
         className: columnClassNameGetter,
         heading: columnHeading,
-        prop: 'location',
+        prop: "location",
         render: this.renderLocation
       },
       {
         className: columnClassNameGetter,
         heading: columnHeading,
-        prop: 'startTime',
+        prop: "startTime",
         render: this.renderStartTime
       },
       {
         className: columnClassNameGetter,
         heading: columnHeading,
-        prop: 'status',
+        prop: "status",
         render: this.renderStatus
       },
       {
         className: columnClassNameGetter,
         heading: columnHeading,
-        prop: 'action',
+        prop: "action",
         render: this.renderAction
       }
     ];
@@ -314,11 +327,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '300px'}} />
+        <col style={{ width: "300px" }} />
         <col className="hidden-small-down" />
-        <col className="hidden-small-down" style={{width: '120px'}} />
-        <col style={{width: '240px'}} />
-        <col className="hidden-small-down" style={{width: '160px'}} />
+        <col className="hidden-small-down" style={{ width: "120px" }} />
+        <col style={{ width: "240px" }} />
+        <col className="hidden-small-down" style={{ width: "160px" }} />
       </colgroup>
     );
   }
@@ -326,7 +339,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderEmpty() {
     return (
       <Page>
-        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs/>} />
+        <Page.Header breadcrumbs={<DeploymentsBreadcrumbs />} />
         <AlertPanel>
           <AlertPanelHeader>No active deployments</AlertPanelHeader>
           <p className="flush">Active deployments will be shown here.</p>
@@ -341,7 +354,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderPopulated(deploymentsItems) {
     const deploymentsCount = deploymentsItems.length;
-    const deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
+    const deploymentsLabel = StringUtil.pluralize(
+      "Deployment",
+      deploymentsCount
+    );
 
     return (
       <Page>
@@ -354,7 +370,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
             flush-bottom deployments-table"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
-          data={deploymentsItems.slice()} />
+          data={deploymentsItems.slice()}
+        />
         {this.renderRollbackModal()}
       </Page>
     );
@@ -385,7 +402,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
           rightButtonText="Continue Rollback"
-          showHeader={true}>
+          showHeader={true}
+        >
           <div className="text-align-center">
             <p>{this.getRollbackModalText(deploymentToRollback)}</p>
             {this.renderRollbackError(deploymentRollbackError)}
@@ -396,16 +414,17 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   getRollbackModalText(deploymentToRollback) {
-    const serviceNames = deploymentToRollback.getAffectedServices()
-      .map(function (service) {
+    const serviceNames = deploymentToRollback
+      .getAffectedServices()
+      .map(function(service) {
         return StringUtil.capitalize(service.getName());
       });
     const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
     const serviceCount = serviceNames.length;
 
-    const service = StringUtil.pluralize('service', serviceCount);
-    const its = (serviceCount === 1) ? 'its' : 'their';
-    const version = StringUtil.pluralize('version', serviceCount);
+    const service = StringUtil.pluralize("service", serviceCount);
+    const its = serviceCount === 1 ? "its" : "their";
+    const version = StringUtil.pluralize("version", serviceCount);
 
     if (deploymentToRollback.isStarting()) {
       return `This will stop the current deployment of ${listOfServiceNames}
@@ -440,11 +459,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
       return this.renderPopulated(deployments);
     }
   }
-
 }
 
 DeploymentsTab.routeConfig = {
-  label: 'Deployments',
+  label: "Deployments",
   matches: /^\/services\/deployments/
 };
 

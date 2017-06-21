@@ -1,5 +1,5 @@
-import List from './List';
-import UniversePackage from './UniversePackage';
+import List from "./List";
+import UniversePackage from "./UniversePackage";
 
 class UniverseInstalledPackagesList extends List {
   constructor(options = {}) {
@@ -16,7 +16,7 @@ class UniverseInstalledPackagesList extends List {
           return item.getName();
         },
         tags(item) {
-          return item.getTags().join(' ');
+          return item.getTags().join(" ");
         }
       };
     }
@@ -25,7 +25,7 @@ class UniverseInstalledPackagesList extends List {
     super(options, ...Array.prototype.slice(arguments, 1));
 
     // Replace list items instances of UniversePackage.
-    this.list = this.list.map(function (item) {
+    this.list = this.list.map(function(item) {
       if (item instanceof UniversePackage) {
         return item;
       } else {

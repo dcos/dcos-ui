@@ -1,22 +1,23 @@
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import ConfigurationMap from '../../../components/ConfigurationMap';
-import ConfigurationMapHeading from '../../../components/ConfigurationMapHeading';
-import ConfigurationMapRow from '../../../components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../components/ConfigurationMapSection';
+import ConfigurationMap from "../../../components/ConfigurationMap";
+import ConfigurationMapHeading
+  from "../../../components/ConfigurationMapHeading";
+import ConfigurationMapRow from "../../../components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "../../../components/ConfigurationMapSection";
 
-import {documentationURI} from '../../../config/Config';
+import { documentationURI } from "../../../config/Config";
 
 class NodeInfoPanel extends React.Component {
-
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
   render() {
-    const {summary, docsURL, output} = this.props;
+    const { summary, docsURL, output } = this.props;
 
     return (
       <div className="container">
@@ -46,7 +47,6 @@ class NodeInfoPanel extends React.Component {
       </div>
     );
   }
-
 }
 
 NodeInfoPanel.propTypes = {

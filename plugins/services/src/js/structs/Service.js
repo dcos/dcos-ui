@@ -1,22 +1,22 @@
-import HealthStatus from '../constants/HealthStatus';
-import Item from '../../../../../src/js/structs/Item';
+import HealthStatus from "../constants/HealthStatus";
+import Item from "../../../../../src/js/structs/Item";
 
-import ServiceImages from '../constants/ServiceImages';
-import ServiceStatus from '../constants/ServiceStatus';
-import ServiceSpec from './ServiceSpec';
-import VolumeList from './VolumeList';
+import ServiceImages from "../constants/ServiceImages";
+import ServiceStatus from "../constants/ServiceStatus";
+import ServiceSpec from "./ServiceSpec";
+import VolumeList from "./VolumeList";
 
 module.exports = class Service extends Item {
   getId() {
-    return this.get('id') || '';
+    return this.get("id") || "";
   }
 
   getMesosId() {
-    return this.getId().split('/').slice(1).reverse().join('.');
+    return this.getId().split("/").slice(1).reverse().join(".");
   }
 
   getName() {
-    return this.getId().split('/').pop();
+    return this.getId().split("/").pop();
   }
 
   getSpec() {
@@ -32,7 +32,7 @@ module.exports = class Service extends Item {
   }
 
   getVolumes() {
-    return new VolumeList({items: []});
+    return new VolumeList({ items: [] });
   }
 
   getStatus() {
@@ -77,8 +77,12 @@ module.exports = class Service extends Item {
 
   getResources() {
     const instances = this.getInstancesCount();
-    const {cpus = 0, mem = 0, gpus = 0, disk = 0} =
-      this.getSpec().getResources();
+    const {
+      cpus = 0,
+      mem = 0,
+      gpus = 0,
+      disk = 0
+    } = this.getSpec().getResources();
 
     return {
       cpus: cpus * instances,

@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Chart from './Chart';
-import TimeSeriesChart from './TimeSeriesChart';
-import TimeSeriesLabel from './TimeSeriesLabel';
-import ValueTypes from '../../constants/ValueTypes';
+import Chart from "./Chart";
+import TimeSeriesChart from "./TimeSeriesChart";
+import TimeSeriesLabel from "./TimeSeriesLabel";
+import ValueTypes from "../../constants/ValueTypes";
 
 var HostTimeSeriesChart = React.createClass({
-
-  displayName: 'HostTimeSeriesChart',
+  displayName: "HostTimeSeriesChart",
 
   propTypes: {
     data: React.PropTypes.array.isRequired,
@@ -26,13 +25,12 @@ var HostTimeSeriesChart = React.createClass({
   getMaxY() {
     var props = this.props;
     var roundUpValue = props.roundUpValue;
-    const slavesCounts = props.data.map(function (agent) {
+    const slavesCounts = props.data.map(function(agent) {
       return agent.slavesCount;
     });
     const maxSlavesCount = Math.max(...slavesCounts);
 
-    var maxY = maxSlavesCount +
-      (roundUpValue - (maxSlavesCount % roundUpValue));
+    var maxY = maxSlavesCount + (roundUpValue - maxSlavesCount % roundUpValue);
 
     if (maxY < props.minMaxY) {
       maxY = props.minMaxY;
@@ -42,11 +40,13 @@ var HostTimeSeriesChart = React.createClass({
   },
 
   getData(props) {
-    return [{
-      name: 'Nodes',
-      colorIndex: 4,
-      values: props.data
-    }];
+    return [
+      {
+        name: "Nodes",
+        colorIndex: 4,
+        values: props.data
+      }
+    ];
   },
 
   getChart(props) {
@@ -57,7 +57,8 @@ var HostTimeSeriesChart = React.createClass({
           maxY={this.getMaxY()}
           refreshRate={props.refreshRate}
           y="slavesCount"
-          yFormat={ValueTypes.ABSOLUTE} />
+          yFormat={ValueTypes.ABSOLUTE}
+        />
       </Chart>
     );
   },
@@ -70,8 +71,9 @@ var HostTimeSeriesChart = React.createClass({
         <TimeSeriesLabel
           colorIndex={4}
           currentValue={props.currentValue}
-          subHeading={'Connected Nodes'}
-          y="slavesCount" />
+          subHeading={"Connected Nodes"}
+          y="slavesCount"
+        />
         {this.getChart(props)}
       </div>
     );

@@ -1,25 +1,27 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import React from 'react';
-import {Table} from 'reactjs-components';
+import classNames from "classnames";
+import { Link } from "react-router";
+import React from "react";
+import { Table } from "reactjs-components";
 
-import {reconstructPathFromRoutes} from '../../../../../src/js/utils/RouterUtil';
-import Volume from '../structs/Volume';
-import VolumeStatus from '../constants/VolumeStatus';
+import {
+  reconstructPathFromRoutes
+} from "../../../../../src/js/utils/RouterUtil";
+import Volume from "../structs/Volume";
+import VolumeStatus from "../constants/VolumeStatus";
 
-const METHODS_TO_BIND = ['renderIDColumn'];
+const METHODS_TO_BIND = ["renderIDColumn"];
 
 class VolumeTable extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   getData(volumes) {
-    return volumes.map(function (volume) {
+    return volumes.map(function(volume) {
       return {
         id: volume.getId(),
         host: volume.getHost(),
@@ -35,47 +37,44 @@ class VolumeTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '30%'}} />
-        <col style={{width: '10%'}} />
-        <col style={{width: '10%'}} />
-        <col style={{width: '10%'}} />
-        <col style={{width: '10%'}} />
-        <col style={{width: '5%'}} />
-        <col style={{width: '10%'}} />
+        <col style={{ width: "30%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "10%" }} />
       </colgroup>
     );
   }
 
   getColumnClassName(prop, sortBy, row) {
     return classNames({
-      'active': prop === sortBy.prop,
-      'clickable': row == null
+      active: prop === sortBy.prop,
+      clickable: row == null
     });
   }
 
   getColumnHeading(prop, order, sortBy) {
-    const caretClassNames = classNames(
-      'caret',
-      {
-        [`caret--${order}`]: order != null,
-        'caret--visible': prop === sortBy.prop
-      }
-    );
+    const caretClassNames = classNames("caret", {
+      [`caret--${order}`]: order != null,
+      "caret--visible": prop === sortBy.prop
+    });
 
     const headingStrings = {
-      id: 'ID',
-      host: 'HOST',
-      type: 'TYPE',
-      path: 'PATH',
-      size: 'SIZE',
-      mode: 'MODE',
-      status: 'STATUS'
+      id: "ID",
+      host: "HOST",
+      type: "TYPE",
+      path: "PATH",
+      size: "SIZE",
+      mode: "MODE",
+      status: "STATUS"
     };
 
     return (
       <span>
         {headingStrings[prop]}
-        <span className={caretClassNames}></span>
+        <span className={caretClassNames} />
       </span>
     );
   }
@@ -85,44 +84,44 @@ class VolumeTable extends React.Component {
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'id',
+        prop: "id",
         render: this.renderIDColumn,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'host',
+        prop: "host",
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'type',
+        prop: "type",
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'path',
+        prop: "path",
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'size',
+        prop: "size",
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'mode',
+        prop: "mode",
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
-        prop: 'status',
+        prop: "status",
         render: this.renderStatusColumn,
         sortable: true
       }
@@ -131,17 +130,19 @@ class VolumeTable extends React.Component {
 
   renderIDColumn(prop, row) {
     const id = row[prop];
-    const {nodeID, taskID} = this.props.params;
+    const { nodeID, taskID } = this.props.params;
     const volumeID = encodeURIComponent(id);
     const serviceID = encodeURIComponent(this.props.params.id);
     const currentroutePath = reconstructPathFromRoutes(this.props.routes);
     let routePath = null;
 
-    if (currentroutePath === '/services/overview/:id') {
+    if (currentroutePath === "/services/overview/:id") {
       routePath = `/services/overview/${serviceID}/volumes/${volumeID}`;
-    } else if (currentroutePath === '/services/overview/:id/tasks/:taskID/volumes') {
+    } else if (
+      currentroutePath === "/services/overview/:id/tasks/:taskID/volumes"
+    ) {
       routePath = `/services/overview/${serviceID}/tasks/${taskID}/volumes/${volumeID}`;
-    } else if (currentroutePath === '/nodes/:nodeID/tasks/:taskID/volumes') {
+    } else if (currentroutePath === "/nodes/:nodeID/tasks/:taskID/volumes") {
       routePath = `/nodes/${nodeID}/tasks/${taskID}/volumes/${volumeID}`;
     }
 
@@ -151,8 +152,8 @@ class VolumeTable extends React.Component {
   renderStatusColumn(prop, row) {
     const value = row[prop];
     const classes = classNames({
-      'text-danger': value === VolumeStatus.DETACHED,
-      'text-success': value === VolumeStatus.ATTACHED
+      "text-danger": value === VolumeStatus.DETACHED,
+      "text-success": value === VolumeStatus.ATTACHED
     });
 
     return (
@@ -169,10 +170,10 @@ class VolumeTable extends React.Component {
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.getData(this.props.service.getVolumes().getItems())}
-        sortBy={{ prop: 'id', order: 'asc' }} />
+        sortBy={{ prop: "id", order: "asc" }}
+      />
     );
   }
-
 }
 
 VolumeTable.propTypes = {

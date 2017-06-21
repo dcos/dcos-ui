@@ -1,8 +1,8 @@
-import React from 'react';
-import {routerShape} from 'react-router';
+import React from "react";
+import { routerShape } from "react-router";
 
-import Icon from '../components/Icon';
-import SidebarActions from '../events/SidebarActions';
+import Icon from "../components/Icon";
+import SidebarActions from "../events/SidebarActions";
 
 class JobsPage extends React.Component {
   render() {
@@ -15,12 +15,12 @@ JobsPage.contextTypes = {
 };
 
 JobsPage.routeConfig = {
-  label: 'Jobs',
+  label: "Jobs",
   icon: <Icon id="jobs-inverse" size="small" family="product" />,
   matches: /^\/jobs/
 };
 
-JobsPage.willTransitionTo = function () {
+JobsPage.willTransitionTo = function() {
   SidebarActions.close();
 };
 

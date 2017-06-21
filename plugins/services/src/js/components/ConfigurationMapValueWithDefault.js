@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil.js";
 
 /**
  * Render a defaultValue value if the value is empty or falsy.
  */
 class ConfigurationMapValueWithDefault extends React.Component {
   render() {
-    const {defaultValue, value} = this.props;
+    const { defaultValue, value } = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {

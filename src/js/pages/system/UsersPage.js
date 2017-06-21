@@ -1,23 +1,20 @@
-import {Hooks} from 'PluginSDK';
-import mixin from 'reactjs-mixin';
-import {Link} from 'react-router';
+import { Hooks } from "PluginSDK";
+import mixin from "reactjs-mixin";
+import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Breadcrumb from '../../components/Breadcrumb';
-import BreadcrumbTextContent from '../../components/BreadcrumbTextContent';
-import Loader from '../../components/Loader';
-import OrganizationTab from './OrganizationTab';
-import Page from '../../components/Page';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
-import UsersStore from '../../stores/UsersStore';
+import Breadcrumb from "../../components/Breadcrumb";
+import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import Loader from "../../components/Loader";
+import OrganizationTab from "./OrganizationTab";
+import Page from "../../components/Page";
+import RequestErrorMsg from "../../components/RequestErrorMsg";
+import UsersStore from "../../stores/UsersStore";
 
-const METHODS_TO_BIND = [
-  'onUsersStoreSuccess',
-  'onUsersStoreError'
-];
+const METHODS_TO_BIND = ["onUsersStoreSuccess", "onUsersStoreError"];
 
 const UsersBreadcrumbs = () => {
   const crumbs = [
@@ -35,8 +32,8 @@ class UsersPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = Hooks.applyFilter('usersPageStoreListeners', [
-      {name: 'users', events: ['success', 'error'], suppressUpdate: true}
+    this.store_listeners = Hooks.applyFilter("usersPageStoreListeners", [
+      { name: "users", events: ["success", "error"], suppressUpdate: true }
     ]);
 
     this.state = {
@@ -44,7 +41,7 @@ class UsersPage extends mixin(StoreMixin) {
       usersStoreSuccess: false
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -73,7 +70,7 @@ class UsersPage extends mixin(StoreMixin) {
   }
 
   handleSearchStringChange(searchString) {
-    this.setState({searchString});
+    this.setState({ searchString });
   }
 
   getLoadingScreen() {
@@ -89,9 +86,7 @@ class UsersPage extends mixin(StoreMixin) {
     // We want to always render the portals (side panel and modal),
     // so only this part is showing loading and error screen.
     if (this.state.usersStoreError) {
-      return (
-        <RequestErrorMsg />
-      );
+      return <RequestErrorMsg />;
     }
 
     if (!this.state.usersStoreSuccess) {
@@ -100,13 +95,15 @@ class UsersPage extends mixin(StoreMixin) {
 
     const items = UsersStore.getUsers().getItems();
 
-    return Hooks.applyFilter('usersPageContent',
+    return Hooks.applyFilter(
+      "usersPageContent",
       <OrganizationTab
         key="organization-tab"
         items={items}
         itemID="uid"
-        itemName="user" />,
-        this
+        itemName="user"
+      />,
+      this
     );
   }
 
@@ -120,7 +117,7 @@ UsersPage.propTypes = {
 };
 
 UsersPage.routeConfig = {
-  label: 'Users',
+  label: "Users",
   matches: /^\/organization\/users/
 };
 

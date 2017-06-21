@@ -1,14 +1,16 @@
-import React from 'react';
-import {Link} from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
-import Breadcrumb from '../../../../../src/js/components/Breadcrumb';
-import BreadcrumbTextContent from '../../../../../src/js/components/BreadcrumbTextContent';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import PageHeaderBreadcrumbs from '../../../../../src/js/components/PageHeaderBreadcrumbs';
-import UnitHealthStore from '../../../../../src/js/stores/UnitHealthStore';
+import Breadcrumb from "../../../../../src/js/components/Breadcrumb";
+import BreadcrumbTextContent
+  from "../../../../../src/js/components/BreadcrumbTextContent";
+import CompositeState from "../../../../../src/js/structs/CompositeState";
+import PageHeaderBreadcrumbs
+  from "../../../../../src/js/components/PageHeaderBreadcrumbs";
+import UnitHealthStore from "../../../../../src/js/stores/UnitHealthStore";
 
-const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
-  const trimmedNodeID = decodeURIComponent(nodeID).replace(/^\//, '');
+const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
+  const trimmedNodeID = decodeURIComponent(nodeID).replace(/^\//, "");
   const encodedNodeID = encodeURIComponent(trimmedNodeID);
   const crumbs = [
     <Breadcrumb key={-1} title="Nodes">
@@ -20,9 +22,7 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
   let node;
 
   if (nodeID != null && trimmedNodeID.length > 0) {
-    node = CompositeState.getNodesList().filter(
-        {ids: [nodeID]}
-    ).last();
+    node = CompositeState.getNodesList().filter({ ids: [nodeID] }).last();
     crumbs.push(
       <Breadcrumb key="hostname" title={node.hostname}>
         <BreadcrumbTextContent>
@@ -54,8 +54,9 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
       <Breadcrumb key="unit-health" title={unitTitle}>
         <BreadcrumbTextContent>
           <Link
-            to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get('id')}`}
-            key={-1}>
+            to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get("id")}`}
+            key={-1}
+          >
             {`${unitTitle} `}
             <span className={healthStatus.classNames}>
               ({healthStatus.title})
@@ -67,7 +68,6 @@ const NodeBreadcrumbs = ({nodeID, taskID, taskName, unitID}) => {
   }
 
   return <PageHeaderBreadcrumbs iconID="servers" breadcrumbs={crumbs} />;
-
 };
 
 module.exports = NodeBreadcrumbs;

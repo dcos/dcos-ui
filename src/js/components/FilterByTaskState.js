@@ -1,10 +1,9 @@
-import {Dropdown} from 'reactjs-components';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import React from "react";
 
-const defaultID = 'all';
+const defaultID = "all";
 
 class FilterByTaskState extends React.Component {
-
   constructor() {
     super();
 
@@ -16,22 +15,22 @@ class FilterByTaskState extends React.Component {
   }
 
   getItemHtml(item) {
-    return (
-      <span>{item.name}</span>
-    );
+    return <span>{item.name}</span>;
   }
 
   getDropdownItems() {
-    const items = [{
-      id: defaultID,
-      name: 'All Tasks',
-      value: 'all',
-      count: this.props.totalTasksCount
-    }].concat(this.props.statuses);
+    const items = [
+      {
+        id: defaultID,
+        name: "All Tasks",
+        value: "all",
+        count: this.props.totalTasksCount
+      }
+    ].concat(this.props.statuses);
 
-    return items.map(function (status) {
+    return items.map(function(status) {
       const selectedHtml = this.getItemHtml(status);
-      const dropdownHtml = (<a>{selectedHtml}</a>);
+      const dropdownHtml = <a>{selectedHtml}</a>;
 
       const item = {
         id: status.value,
@@ -54,7 +53,7 @@ class FilterByTaskState extends React.Component {
   }
 
   render() {
-    const {className, currentStatus, dropdownMenuClassName} = this.props;
+    const { className, currentStatus, dropdownMenuClassName } = this.props;
 
     return (
       <Dropdown
@@ -69,7 +68,8 @@ class FilterByTaskState extends React.Component {
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
-        transitionName="dropdown-menu" />
+        transitionName="dropdown-menu"
+      />
     );
   }
 }
@@ -90,8 +90,8 @@ FilterByTaskState.defaultProps = {
   statuses: [],
   totalHostsCount: 0,
 
-  className: 'button dropdown-toggle text-align-left',
-  dropdownMenuClassName: 'dropdown-menu'
+  className: "button dropdown-toggle text-align-left",
+  dropdownMenuClassName: "dropdown-menu"
 };
 
 module.exports = FilterByTaskState;

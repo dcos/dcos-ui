@@ -1,29 +1,32 @@
 // Provide webpack contexts for smarter build. Without these,
 // webpack will try to be smart and auto create the contexts,
 // doubling the built output
-const requirePlugin = require.context('../../../plugins', true, /index/);
-const requireConfig = require.context('../config', false);
-const requireEvents = require.context('../events', false);
-const requireSystemPages = require.context('../pages/system', false);
-const requireStores = require.context('../stores', false);
-const requireStructs = require.context('../structs', false);
-const requireUtils = require.context('../utils', false);
-const requireMixins = require.context('../mixins', false);
-const requireConstants = require.context('../constants', false);
-const requireComponents = require.context('../components', false);
-const requireCharts = require.context('../components/charts', false);
-const requireIcons = require.context('../components/icons', false);
-const requireModals = require.context('../components/modals', false);
-const requireForm = require.context('../components/form', false);
+const requirePlugin = require.context("../../../plugins", true, /index/);
+const requireConfig = require.context("../config", false);
+const requireEvents = require.context("../events", false);
+const requireSystemPages = require.context("../pages/system", false);
+const requireStores = require.context("../stores", false);
+const requireStructs = require.context("../structs", false);
+const requireUtils = require.context("../utils", false);
+const requireMixins = require.context("../mixins", false);
+const requireConstants = require.context("../constants", false);
+const requireComponents = require.context("../components", false);
+const requireCharts = require.context("../components/charts", false);
+const requireIcons = require.context("../components/icons", false);
+const requireModals = require.context("../components/modals", false);
+const requireForm = require.context("../components/form", false);
 // Foundation
-const requireRouting = require.context('../../../foundation-ui/routing', false);
-const requireNavigation = require.context('../../../foundation-ui/navigation', false);
-const requireFoundation = require.context('../../../foundation-ui', false);
-let requireExternalPlugin = function () {
+const requireRouting = require.context("../../../foundation-ui/routing", false);
+const requireNavigation = require.context(
+  "../../../foundation-ui/navigation",
+  false
+);
+const requireFoundation = require.context("../../../foundation-ui", false);
+let requireExternalPlugin = function() {
   return {};
 };
 try {
-  requireExternalPlugin = require.context('EXTERNAL_PLUGINS', true, /index/);
+  requireExternalPlugin = require.context("EXTERNAL_PLUGINS", true, /index/);
 } catch (err) {}
 
 let pluginsList;
@@ -31,7 +34,7 @@ let externalPluginsList;
 
 // Try loading the list of plugins.
 try {
-  pluginsList = requirePlugin('./index');
+  pluginsList = requirePlugin("./index");
 } catch (err) {
   // No plugins
   pluginsList = {};
@@ -39,7 +42,7 @@ try {
 
 // Try loading the list of plugins.
 try {
-  externalPluginsList = requireExternalPlugin('./index');
+  externalPluginsList = requireExternalPlugin("./index");
 } catch (err) {
   externalPluginsList = {};
 }
@@ -61,7 +64,7 @@ function getAvailablePlugins() {
 function removeDir(dirs, atIndex) {
   dirs.splice(atIndex, 1);
 
-  return dirs.join('/');
+  return dirs.join("/");
 }
 
 /**
@@ -70,15 +73,15 @@ function removeDir(dirs, atIndex) {
  * @return {module}      - result of require
  */
 function pluckComponent(path) {
-  const dirs = path.split('/');
+  const dirs = path.split("/");
   switch (dirs[1]) {
-    case 'charts':
+    case "charts":
       return requireCharts(removeDir(dirs, 1));
-    case 'icons':
+    case "icons":
       return requireIcons(removeDir(dirs, 1));
-    case 'modals':
+    case "modals":
       return requireModals(removeDir(dirs, 1));
-    case 'form':
+    case "form":
       return requireForm(removeDir(dirs, 1));
     default:
       return requireComponents(path);
@@ -92,35 +95,35 @@ function pluckComponent(path) {
  * @return {module}      - result of require
  */
 function requireModule(dir, name) {
-  const path = './' + name;
+  const path = "./" + name;
   switch (dir) {
-    case 'config':
+    case "config":
       return requireConfig(path);
-    case 'constants':
+    case "constants":
       return requireConstants(path);
-    case 'events':
+    case "events":
       return requireEvents(path);
-    case 'routing':
+    case "routing":
       return requireRouting(path);
-    case 'foundation-ui':
+    case "foundation-ui":
       return requireFoundation(path);
-    case 'systemPages':
+    case "systemPages":
       return requireSystemPages(path);
-    case 'stores':
+    case "stores":
       return requireStores(path);
-    case 'structs':
+    case "structs":
       return requireStructs(path);
-    case 'utils':
+    case "utils":
       return requireUtils(path);
-    case 'mixins':
+    case "mixins":
       return requireMixins(path);
-    case 'navigation':
+    case "navigation":
       return requireNavigation(path);
-    case 'components':
+    case "components":
       return pluckComponent(path);
-    case 'externalPlugin':
+    case "externalPlugin":
       return requireExternalPlugin(path);
-    case 'internalPlugin':
+    case "internalPlugin":
       return requirePlugin(path);
     default:
       throw Error(`No loader for directory: ${dir}`);

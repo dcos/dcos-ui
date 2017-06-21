@@ -1,5 +1,4 @@
 const DefaultErrorMessages = [
-
   //
   // The following rule will match every message path, behaving
   // like the default sink if a path is not found.
@@ -35,128 +34,128 @@ const DefaultErrorMessages = [
 
   {
     path: /.*/,
-    type: 'ENUM',
-    message: 'Must be one of {{values}}'
+    type: "ENUM",
+    message: "Must be one of {{values}}"
   },
   {
     path: /.*/,
-    type: 'ITEMS_MAX',
-    message: 'Must contain at most {{value}} items in the array'
+    type: "ITEMS_MAX",
+    message: "Must contain at most {{value}} items in the array"
   },
   {
     path: /.*/,
-    type: 'ITEMS_MIN',
-    message: 'Must contain at least {{value}} items in the array'
+    type: "ITEMS_MIN",
+    message: "Must contain at least {{value}} items in the array"
   },
   {
     path: /.*/,
-    type: 'ITEMS_UNIQUE',
-    message: 'Must contain only unique items'
+    type: "ITEMS_UNIQUE",
+    message: "Must contain only unique items"
   },
   {
     path: /.*/,
-    type: 'LENGTH_MAX',
-    message: 'Must be at most {{value}} characters long'
+    type: "LENGTH_MAX",
+    message: "Must be at most {{value}} characters long"
   },
   {
     path: /.*/,
-    type: 'LENGTH_MIN',
-    message: 'Must be at least {{value}} characters long'
+    type: "LENGTH_MIN",
+    message: "Must be at least {{value}} characters long"
   },
   {
     path: /.*/,
-    type: 'NUMBER_MAX',
-    message: 'Must be smaller than or equal to {{value}}'
+    type: "NUMBER_MAX",
+    message: "Must be smaller than or equal to {{value}}"
   },
   {
     path: /.*/,
-    type: 'NUMBER_MIN',
-    message: 'Must be bigger than or equal to {{value}}'
+    type: "NUMBER_MIN",
+    message: "Must be bigger than or equal to {{value}}"
   },
   {
     path: /.*/,
-    type: 'NUMBER_MULTIPLEOF',
-    message: 'Must be multiple of {{value}}'
+    type: "NUMBER_MULTIPLEOF",
+    message: "Must be multiple of {{value}}"
   },
   {
     path: /.*/,
-    type: 'NUMBER_TYPE',
-    message: 'Must be of type `{{type}}`'
+    type: "NUMBER_TYPE",
+    message: "Must be of type `{{type}}`"
   },
   {
     path: /.*/,
-    type: 'PROPS_MAX',
-    message: 'Must contain at most {{value}} properties'
+    type: "PROPS_MAX",
+    message: "Must contain at most {{value}} properties"
   },
   {
     path: /.*/,
-    type: 'PROPS_MIN',
-    message: 'Must contain at least {{value}} properties'
+    type: "PROPS_MIN",
+    message: "Must contain at least {{value}} properties"
   },
   {
     path: /.*/,
-    type: 'PROP_ADDITIONAL_PROPS',
-    message: 'Contains extraneous property `{{name}}`'
+    type: "PROP_ADDITIONAL_PROPS",
+    message: "Contains extraneous property `{{name}}`"
   },
   {
     path: /.*/,
-    type: 'PROP_IS_MISSING',
-    message: 'Must be defined'
+    type: "PROP_IS_MISSING",
+    message: "Must be defined"
   },
   {
     path: /.*/,
-    type: 'PROP_MISSING',
-    message: 'Must define property `{{name}}`'
+    type: "PROP_MISSING",
+    message: "Must define property `{{name}}`"
   },
   {
     path: /.*/,
-    type: 'PROP_MISSING_MATCH',
-    message: 'Must contain a property that matches `{{pattern}}`'
+    type: "PROP_MISSING_MATCH",
+    message: "Must contain a property that matches `{{pattern}}`"
   },
   {
     path: /.*/,
-    type: 'STRING_PATTERN',
-    message: 'Must match the pattern `{{pattern}}`'
+    type: "STRING_PATTERN",
+    message: "Must match the pattern `{{pattern}}`"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_ARRAY',
-    message: 'Must be an array'
+    type: "TYPE_NOT_ARRAY",
+    message: "Must be an array"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_BOOLEAN',
-    message: 'Must be a boolean value'
+    type: "TYPE_NOT_BOOLEAN",
+    message: "Must be a boolean value"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_DATETIME',
-    message: 'Must be a date/time string'
+    type: "TYPE_NOT_DATETIME",
+    message: "Must be a date/time string"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_INTEGER',
-    message: 'Must be an integer number'
+    type: "TYPE_NOT_INTEGER",
+    message: "Must be an integer number"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_NULL',
-    message: 'Must be null'
+    type: "TYPE_NOT_NULL",
+    message: "Must be null"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_NUMBER',
-    message: 'Must be a number'
+    type: "TYPE_NOT_NUMBER",
+    message: "Must be a number"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_OBJECT',
-    message: 'Must be an object'
+    type: "TYPE_NOT_OBJECT",
+    message: "Must be an object"
   },
   {
     path: /.*/,
-    type: 'TYPE_NOT_STRING',
-    message: 'Must be a string'
+    type: "TYPE_NOT_STRING",
+    message: "Must be a string"
   },
 
   //
@@ -166,8 +165,8 @@ const DefaultErrorMessages = [
 
   {
     path: /.*/,
-    type: 'ALREADY_EXISTS',
-    message: 'Already Exists'
+    type: "ALREADY_EXISTS",
+    message: "Already Exists"
   },
 
   //
@@ -179,10 +178,9 @@ const DefaultErrorMessages = [
    */
   {
     path: /.*/,
-    type: 'VALUE_SHAPE',
-    message: 'Must be a certain shape: {{shape}}'
+    type: "VALUE_SHAPE",
+    message: "Must be a certain shape: {{shape}}"
   }
-
 ];
 
 module.exports = DefaultErrorMessages;

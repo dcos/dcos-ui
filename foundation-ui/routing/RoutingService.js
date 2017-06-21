@@ -1,7 +1,7 @@
-import {Route, Redirect} from 'react-router';
-import {EventEmitter} from 'events';
+import { Route, Redirect } from "react-router";
+import { EventEmitter } from "events";
 
-import {ROUTING_CHANGE} from './EventTypes';
+import { ROUTING_CHANGE } from "./EventTypes";
 
 function throwError(error) {
   if (global.__DEV__) {
@@ -10,7 +10,6 @@ function throwError(error) {
 }
 
 class RoutingService extends EventEmitter {
-
   constructor() {
     super();
 
@@ -44,7 +43,7 @@ class RoutingService extends EventEmitter {
         this.deferredTasks = [];
 
         // If Task is unable to resolve at this point of time it will re-defer itself
-        tasks.forEach((args) => {
+        tasks.forEach(args => {
           this.instance.registerTab.apply(this.instance, args);
         });
       }
@@ -75,10 +74,10 @@ class RoutingService extends EventEmitter {
    */
   registerPage(path, component) {
     if (!path || !component) {
-      return throwError(new Error('Please provide all required arguments'));
+      return throwError(new Error("Please provide all required arguments"));
     }
 
-    const existingPage = this.definition.find((route) => route.path === path);
+    const existingPage = this.definition.find(route => route.path === path);
 
     if (existingPage && existingPage.component === component) {
       return;
@@ -106,10 +105,10 @@ class RoutingService extends EventEmitter {
    */
   registerTab(pagePath, tabPath, component) {
     if (!pagePath || !tabPath || !component) {
-      return throwError(new Error('Please provide all required arguments'));
+      return throwError(new Error("Please provide all required arguments"));
     }
 
-    const page = this.definition.find((route) => route.path === pagePath);
+    const page = this.definition.find(route => route.path === pagePath);
 
     if (!page) {
       return this.defer(arguments);
@@ -119,12 +118,14 @@ class RoutingService extends EventEmitter {
       page.children = [];
     }
 
-    const existingTab = page.children.find((route) => route.path === tabPath);
+    const existingTab = page.children.find(route => route.path === tabPath);
 
     if (existingTab && existingTab.component === component) {
       return;
     } else if (existingTab) {
-      return throwError(new Error(`Attempt to override a tab at ${pagePath}/${tabPath}!`));
+      return throwError(
+        new Error(`Attempt to override a tab at ${pagePath}/${tabPath}!`)
+      );
     }
 
     page.children.push({
@@ -145,14 +146,18 @@ class RoutingService extends EventEmitter {
    * @return {undefined}
    */
   registerRedirect(path, to) {
-    const existingRedirect = this.definition.find((route) => {
+    const existingRedirect = this.definition.find(route => {
       return route.type === Redirect && route.path === path;
     });
 
     if (existingRedirect && existingRedirect.to === to) {
       return;
     } else if (existingRedirect) {
-      return throwError(new Error(`Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`));
+      return throwError(
+        new Error(
+          `Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`
+        )
+      );
     }
 
     this.definition.push({
@@ -163,7 +168,6 @@ class RoutingService extends EventEmitter {
 
     this.instance.emit(ROUTING_CHANGE);
   }
-
 }
 
 module.exports = RoutingService;

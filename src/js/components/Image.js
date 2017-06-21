@@ -1,10 +1,10 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import classNames from "classnames/dedupe";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Util from '../utils/Util';
+import Util from "../utils/Util";
 
-const METHODS_TO_BIND = ['onImageError'];
+const METHODS_TO_BIND = ["onImageError"];
 
 class Image extends React.Component {
   constructor() {
@@ -14,13 +14,13 @@ class Image extends React.Component {
       imageErrorCount: 0
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {src, fallbackSrc} = this.props;
+    const { src, fallbackSrc } = this.props;
     let newSrc;
     if (src !== nextProps.src) {
       newSrc = nextProps.src;
@@ -34,25 +34,25 @@ class Image extends React.Component {
     if (newSrc) {
       const image = ReactDOM.findDOMNode(this);
       image.src = newSrc;
-      this.setState({imageErrorCount: 0});
+      this.setState({ imageErrorCount: 0 });
     }
   }
 
   onImageError(event) {
-    const {props: {fallbackSrc}, state: {imageErrorCount}} = this;
+    const { props: { fallbackSrc }, state: { imageErrorCount } } = this;
 
     if (imageErrorCount === 0) {
       event.target.src = fallbackSrc;
     }
 
     // Both src and fallback failed
-    this.setState({imageErrorCount: imageErrorCount + 1});
+    this.setState({ imageErrorCount: imageErrorCount + 1 });
   }
 
   render() {
-    const {props, state: {imageErrorCount}} = this;
+    const { props, state: { imageErrorCount } } = this;
     const classes = classNames(
-      {'hidden': imageErrorCount > 1},
+      { hidden: imageErrorCount > 1 },
       props.className
     );
 
@@ -60,7 +60,8 @@ class Image extends React.Component {
       <img
         className={classes}
         onError={this.onImageError}
-        {...Util.omit(props, ['className'])} />
+        {...Util.omit(props, ["className"])}
+      />
     );
   }
 }

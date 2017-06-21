@@ -1,32 +1,33 @@
-import {Hooks} from 'PluginSDK';
-import React from 'react';
+import { Hooks } from "PluginSDK";
+import React from "react";
 
-import FormUtil from '../../../../../src/js/utils/FormUtil';
-import HostUtil from '../utils/HostUtil';
-import Networking from '../../../../../src/js/constants/Networking';
-import Icon from '../../../../../src/js/components/Icon';
-import SchemaForm from '../../../../../src/js/components/SchemaForm';
-import SchemaFormUtil from '../../../../../src/js/utils/SchemaFormUtil';
-import SchemaUtil from '../../../../../src/js/utils/SchemaUtil';
-import StringUtil from '../../../../../src/js/utils/StringUtil';
-import VirtualNetworksStore from '../../../../../src/js/stores/VirtualNetworksStore';
+import FormUtil from "../../../../../src/js/utils/FormUtil";
+import HostUtil from "../utils/HostUtil";
+import Networking from "../../../../../src/js/constants/Networking";
+import Icon from "../../../../../src/js/components/Icon";
+import SchemaForm from "../../../../../src/js/components/SchemaForm";
+import SchemaFormUtil from "../../../../../src/js/utils/SchemaFormUtil";
+import SchemaUtil from "../../../../../src/js/utils/SchemaUtil";
+import StringUtil from "../../../../../src/js/utils/StringUtil";
+import VirtualNetworksStore
+  from "../../../../../src/js/stores/VirtualNetworksStore";
 
 const METHODS_TO_BIND = [
-  'handleFormChange',
-  'onVirtualNetworksStoreSuccess',
-  'validateForm'
+  "handleFormChange",
+  "onVirtualNetworksStoreSuccess",
+  "validateForm"
 ];
 
 const DUPLICABLE_FIELDS_TO_WATCH = {
   healthChecks: {
-    fields: ['protocol', 'portType'],
+    fields: ["protocol", "portType"],
     forceUpdate: true
   },
   ports: {
-    fields: ['loadBalanced', 'protocol'],
+    fields: ["loadBalanced", "protocol"],
     // Watch name to update the virtual network port exposure
     // Watch lbPort to update Service Address port on bridged networks
-    blurOnly: ['name', 'lbPort'],
+    blurOnly: ["name", "lbPort"],
     forceUpdate: true
   }
 };
@@ -44,14 +45,14 @@ class ServiceForm extends SchemaForm {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
-    this.store_listeners = Hooks.applyFilter('serviceFormStoreListeners', [
+    this.store_listeners = Hooks.applyFilter("serviceFormStoreListeners", [
       {
-        name: 'virtualNetworks',
-        events: ['success'],
+        name: "virtualNetworks",
+        events: ["success"],
         suppressUpdate: true
       }
     ]);
@@ -64,7 +65,7 @@ class ServiceForm extends SchemaForm {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    Hooks.doAction('serviceFormMount', this);
+    Hooks.doAction("serviceFormMount", this);
     // Update definition and build model
     this.updateDefinitions();
     this.recalculateFormModelAndRender(true, 0);
@@ -76,33 +77,41 @@ class ServiceForm extends SchemaForm {
 
   shouldUpdateDefinition(changes, eventType, fieldName) {
     const propKey = FormUtil.getPropKey(fieldName);
-    const blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(function (item) {
+    const blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(function(
+      item
+    ) {
       return item.blurOnly && item.blurOnly.includes(propKey);
     });
 
-    return Object.keys(changes).some(function (changeKey) {
-      const tab = FormUtil.getProp(changeKey);
+    return (
+      Object.keys(changes).some(function(changeKey) {
+        const tab = FormUtil.getProp(changeKey);
 
-      return ((tab in DUPLICABLE_FIELDS_TO_WATCH)
-        && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
-        && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate))
-        || ((fieldName in FIELDS_TO_WATCH
-        && FIELDS_TO_WATCH[fieldName].forceUpdate));
-
-    }) || (eventType === 'blur' && blurChange);
+        return (
+          (tab in DUPLICABLE_FIELDS_TO_WATCH &&
+            (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey) &&
+              DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate)) ||
+          (fieldName in FIELDS_TO_WATCH &&
+            FIELDS_TO_WATCH[fieldName].forceUpdate)
+        );
+      }) ||
+      (eventType === "blur" && blurChange)
+    );
   }
 
   handleFormChange(changes, eventObj) {
-    const {eventType, fieldName} = eventObj;
+    const { eventType, fieldName } = eventObj;
     const shouldUpdateDefinition = this.shouldUpdateDefinition(
-      changes, eventType, fieldName
+      changes,
+      eventType,
+      fieldName
     );
 
-    if (eventType === 'change' || shouldUpdateDefinition) {
+    if (eventType === "change" || shouldUpdateDefinition) {
       this.recalculateFormModelAndRender(shouldUpdateDefinition);
     }
 
-    Hooks.doAction('serviceFormChange', ...arguments);
+    Hooks.doAction("serviceFormChange", ...arguments);
     // Handle the form change in the way service needs here.
     this.props.onChange(...arguments);
   }
@@ -112,10 +121,10 @@ class ServiceForm extends SchemaForm {
 
     let validated = true;
     // Apply all validations.
-    FormUtil.forEachDefinition(this.multipleDefinition, function (definition) {
+    FormUtil.forEachDefinition(this.multipleDefinition, function(definition) {
       definition.showError = false;
 
-      if (typeof definition.externalValidator !== 'function') {
+      if (typeof definition.externalValidator !== "function") {
         return;
       }
 
@@ -140,18 +149,18 @@ class ServiceForm extends SchemaForm {
 
   getNetworkingDescriptionDefinition(model) {
     return {
-      name: 'ports-description',
+      name: "ports-description",
       render: () => {
-        const {networkType} = this.getNetworkingConfiguration(model);
+        const { networkType } = this.getNetworkingConfiguration(model);
         let hostNetworkingDefinition = null;
-        const {ports} = model.networking;
+        const { ports } = model.networking;
         let serviceAddressNetworkingDefinition = null;
 
         if (ports == null) {
           return null;
         }
 
-        const hasLoadBalanced = ports.some(function (port) {
+        const hasLoadBalanced = ports.some(function(port) {
           return port.loadBalanced;
         });
 
@@ -160,15 +169,13 @@ class ServiceForm extends SchemaForm {
         }
 
         // Build out the Host ports that get dynamically created
-        if (networkType === 'host') {
-          let portMapping = ports.map(function (port, index) {
+        if (networkType === "host") {
+          let portMapping = ports.map(function(port, index) {
             return `$PORT${index}`;
           });
           portMapping = StringUtil.humanizeArray(portMapping, {
             wrapValueFunction(value, index) {
-              return (
-                <strong key={index}>{value}</strong>
-              );
+              return <strong key={index}>{value}</strong>;
             }
           });
 
@@ -185,17 +192,19 @@ class ServiceForm extends SchemaForm {
         if (serviceAddress) {
           serviceAddress += Networking.L4LB_ADDRESS;
 
-          const addresses = ports.filter(function (port) {
-            return port.lbPort !== 0;
-          }).map(function (port, index) {
-            return (
-              <li key={index}>
-                <strong>
-                  {`${serviceAddress}:${port.lbPort}`}
-                </strong>
-              </li>
-            );
-          });
+          const addresses = ports
+            .filter(function(port) {
+              return port.lbPort !== 0;
+            })
+            .map(function(port, index) {
+              return (
+                <li key={index}>
+                  <strong>
+                    {`${serviceAddress}:${port.lbPort}`}
+                  </strong>
+                </li>
+              );
+            });
 
           serviceAddressNetworkingDefinition = (
             <div>
@@ -209,8 +218,10 @@ class ServiceForm extends SchemaForm {
           );
         }
 
-        if (hostNetworkingDefinition == null &&
-          serviceAddressNetworkingDefinition == null) {
+        if (
+          hostNetworkingDefinition == null &&
+          serviceAddressNetworkingDefinition == null
+        ) {
           return null;
         }
 
@@ -218,7 +229,8 @@ class ServiceForm extends SchemaForm {
           <div
             className="media-object-spacing-wrapper media-object-spacing-super-narrow"
             key="ports-description"
-            style={{marginBottom: '20px'}}>
+            style={{ marginBottom: "20px" }}
+          >
             <div className="media-object">
               <div className="media-object-item">
                 <Icon color="blue" id="circle-question" size="mini" />
@@ -235,21 +247,23 @@ class ServiceForm extends SchemaForm {
   }
 
   updateDefinitions() {
-    const {model} = this.internalStorage_get();
-    const {networking, volumes} = this.multipleDefinition;
-    const {containerSettings} = model;
+    const { model } = this.internalStorage_get();
+    const { networking, volumes } = this.multipleDefinition;
+    const { containerSettings } = model;
 
-    const showDockerVolumes = containerSettings &&
-      containerSettings.image != null && containerSettings.image !== '';
+    const showDockerVolumes =
+      containerSettings &&
+      containerSettings.image != null &&
+      containerSettings.image !== "";
 
     let endIndex = -1;
     let startIndex = -1;
 
-    volumes.definition.forEach(function (item, index) {
-      if (item.prop === 'localVolumes') {
+    volumes.definition.forEach(function(item, index) {
+      if (item.prop === "localVolumes") {
         startIndex = index + 1;
       }
-      if (item.prop === 'dockerVolumes') {
+      if (item.prop === "dockerVolumes") {
         endIndex = index + 1;
       }
     });
@@ -260,7 +274,7 @@ class ServiceForm extends SchemaForm {
       });
     }
     // Get new value if it was set
-    const {dockerVolumesDefinition} = this.internalStorage_get();
+    const { dockerVolumesDefinition } = this.internalStorage_get();
 
     if (showDockerVolumes && endIndex < 0) {
       volumes.definition.splice(startIndex, 0, ...dockerVolumesDefinition);
@@ -268,28 +282,30 @@ class ServiceForm extends SchemaForm {
       volumes.definition.splice(startIndex, dockerVolumesDefinition.length);
     }
     if (networking) {
-      const {networkType} = this.props.schema.properties.networking.properties;
+      const {
+        networkType
+      } = this.props.schema.properties.networking.properties;
 
       const virtualNetworks = VirtualNetworksStore.getOverlays()
-        .mapItems(function (overlay) {
+        .mapItems(function(overlay) {
           const name = overlay.getName();
 
-          return {html: `Virtual Network: ${name}`, id: name};
-        }).getItems();
+          return { html: `Virtual Network: ${name}`, id: name };
+        })
+        .getItems();
 
-      const networkDescriptionDefinition =
-        this.getNetworkingDescriptionDefinition(model);
+      const networkDescriptionDefinition = this.getNetworkingDescriptionDefinition(
+        model
+      );
 
-      networking.definition.forEach(function (definition) {
-
+      networking.definition.forEach(function(definition) {
         if (definition.name === networkDescriptionDefinition.name) {
           Object.assign(definition, networkDescriptionDefinition);
         }
 
-        if (definition.name === 'networkType') {
+        if (definition.name === "networkType") {
           definition.options = [].concat(networkType.options, virtualNetworks);
         }
-
       });
 
       const definition = networking.definition;
@@ -297,19 +313,24 @@ class ServiceForm extends SchemaForm {
 
       for (let i = definition.length - 1; i >= 0; i--) {
         const currentDefinition = definition[i];
-        if ((FormUtil.isFieldInstanceOfProp('ports', currentDefinition)
-          && FormUtil.getPropKey(currentDefinition.name) === 'expose')
-          || currentDefinition.name === 'expose-endpoints') {
-
+        if (
+          (FormUtil.isFieldInstanceOfProp("ports", currentDefinition) &&
+            FormUtil.getPropKey(currentDefinition.name) === "expose") ||
+          currentDefinition.name === "expose-endpoints"
+        ) {
           firstCheckboxIndex = i;
         }
       }
 
       const checkboxes = this.getExposeNetworkingCheckboxes();
       const label = {
-        name: 'expose-endpoints',
+        name: "expose-endpoints",
         render() {
-          return <label key="expose-endpoints">Expose endpoints on host network</label>;
+          return (
+            <label key="expose-endpoints">
+              Expose endpoints on host network
+            </label>
+          );
         }
       };
 
@@ -320,7 +341,6 @@ class ServiceForm extends SchemaForm {
       if (checkboxes.length) {
         definition.push(label, ...checkboxes);
       }
-
     }
   }
 
@@ -349,24 +369,27 @@ class ServiceForm extends SchemaForm {
       const model = {};
       const formModel = this.triggerTabFormSubmit();
 
-      Object.keys(formModel).forEach(function (key) {
+      Object.keys(formModel).forEach(function(key) {
         model[key] = FormUtil.modelToCombinedProps(formModel[key]);
       });
 
-      model.environmentVariables = model.environmentVariables.environmentVariables;
+      model.environmentVariables =
+        model.environmentVariables.environmentVariables;
       model.labels = model.labels.labels;
       model.healthChecks = model.healthChecks.healthChecks;
-      if (!['host', 'bridge'].includes(model.networking.networkType) &&
-        model.networking.ports) {
+      if (
+        !["host", "bridge"].includes(model.networking.networkType) &&
+        model.networking.ports
+      ) {
         // Set expose to true as default
-        model.networking.ports.map(function (port) {
+        model.networking.ports.map(function(port) {
           port.expose = port.expose || false;
 
           return port;
         });
       }
-      const {dockerVolumesDefinition = null} = this.internalStorage_get();
-      this.internalStorage_set({model, dockerVolumesDefinition});
+      const { dockerVolumesDefinition = null } = this.internalStorage_get();
+      this.internalStorage_set({ model, dockerVolumesDefinition });
 
       if (shouldUpdateDefinition) {
         SchemaFormUtil.mergeModelIntoDefinition(
@@ -376,7 +399,7 @@ class ServiceForm extends SchemaForm {
         );
 
         // Provide opportunity to do action after update, before re-render
-        Hooks.doAction('serviceFormUpdate', this);
+        Hooks.doAction("serviceFormUpdate", this);
         this.updateDefinitions();
         this.forceUpdate();
       }
@@ -384,17 +407,17 @@ class ServiceForm extends SchemaForm {
   }
 
   getNetworkingConfiguration(model) {
-    const networkType = (model.networking.networkType || 'host').toLowerCase();
-    const isUserMode = model.networking
-      && !['host', 'bridge'].includes(networkType);
+    const networkType = (model.networking.networkType || "host").toLowerCase();
+    const isUserMode =
+      model.networking && !["host", "bridge"].includes(networkType);
 
-    return {networkType, isUserMode};
+    return { networkType, isUserMode };
   }
 
   getExposeNetworkingCheckboxes() {
-    const {model} = this.internalStorage_get();
+    const { model } = this.internalStorage_get();
     const definitionGroup = [];
-    const {isUserMode} = this.getNetworkingConfiguration(model);
+    const { isUserMode } = this.getNetworkingConfiguration(model);
     const networkingDefinition = this.multipleDefinition.networking.definition;
     // First port definition in networking definition is at index 2
     let portDefinitionIndex = 2;
@@ -402,7 +425,7 @@ class ServiceForm extends SchemaForm {
     // TODO: We need to refactor this as the current impl. is highly error prone
     // -> Use the port name to map fields (it's required to be unique)
     if (model.networking && model.networking.ports && isUserMode) {
-      model.networking.ports.forEach(function (port) {
+      model.networking.ports.forEach(function(port) {
         const portDefinition = networkingDefinition[portDefinitionIndex++];
 
         if (!Array.isArray(portDefinition)) {
@@ -413,19 +436,18 @@ class ServiceForm extends SchemaForm {
         const propName = FormUtil.getPropIndex(portDefinition[0].name);
 
         definitionGroup.push({
-          fieldType: 'checkbox',
+          fieldType: "checkbox",
           id: `ports[${propID}].expose`,
           name: `ports[${propName}].expose`,
-          placeholder: '',
+          placeholder: "",
           required: false,
           showError: false,
-          writeType: 'input',
+          writeType: "input",
           value: port.expose || false,
-          valueType: 'boolean',
+          valueType: "boolean",
           label: `${port.name} (${port.lbPort || 0}/${port.protocol})`,
           checked: false
         });
-
       });
     }
 
@@ -433,9 +455,9 @@ class ServiceForm extends SchemaForm {
   }
 
   getNewDefinition() {
-    let {model, schema} = this.props;
+    let { model, schema } = this.props;
 
-    schema = Hooks.applyFilter('serviceFormSchema', schema);
+    schema = Hooks.applyFilter("serviceFormSchema", schema);
 
     const definition = SchemaUtil.schemaToMultipleDefinition({
       schema,
@@ -452,7 +474,7 @@ class ServiceForm extends SchemaForm {
     );
 
     // Append definitions
-    const {networking} = definition;
+    const { networking } = definition;
     if (networking) {
       networking.definition.push(
         this.getNetworkingDescriptionDefinition(model)
@@ -460,8 +482,8 @@ class ServiceForm extends SchemaForm {
     }
 
     if (model) {
-      const {dockerVolumesDefinition = null} = this.internalStorage_get();
-      this.internalStorage_set({model, dockerVolumesDefinition});
+      const { dockerVolumesDefinition = null } = this.internalStorage_get();
+      this.internalStorage_set({ model, dockerVolumesDefinition });
     }
 
     return definition;
@@ -469,8 +491,8 @@ class ServiceForm extends SchemaForm {
 }
 
 ServiceForm.defaultProps = {
-  className: 'multiple-form',
-  defaultTab: '',
+  className: "multiple-form",
+  defaultTab: "",
   getTriggerSubmit() {},
   onChange() {},
   onTabChange() {},

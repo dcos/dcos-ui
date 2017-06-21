@@ -1,5 +1,5 @@
-import HealthSorting from '../constants/HealthSorting';
-import ServiceTree from '../structs/ServiceTree';
+import HealthSorting from "../constants/HealthSorting";
+import ServiceTree from "../structs/ServiceTree";
 
 /**
  * Compare number values
@@ -11,7 +11,7 @@ import ServiceTree from '../structs/ServiceTree';
 function numberCompareFunction(a, b) {
   const delta = a - b;
 
-  return (delta) / Math.abs(delta || 1);
+  return delta / Math.abs(delta || 1);
 }
 
 /**
@@ -61,10 +61,7 @@ function healthCompareFunction(a, b) {
  * is the same as "b" in sort order.
  */
 function cpusCompareFunction(a, b) {
-  return numberCompareFunction(
-    a.getResources().cpus,
-    b.getResources().cpus
-  );
+  return numberCompareFunction(a.getResources().cpus, b.getResources().cpus);
 }
 
 /**
@@ -75,10 +72,7 @@ function cpusCompareFunction(a, b) {
  * is the same as "b" in sort order.
  */
 function memCompareFunction(a, b) {
-  return numberCompareFunction(
-    a.getResources().mem,
-    b.getResources().mem
-  );
+  return numberCompareFunction(a.getResources().mem, b.getResources().mem);
 }
 
 /**
@@ -89,10 +83,7 @@ function memCompareFunction(a, b) {
  * is the same as "b" in sort order.
  */
 function diskCompareFunction(a, b) {
-  return numberCompareFunction(
-    a.getResources().disk,
-    b.getResources().disk
-  );
+  return numberCompareFunction(a.getResources().disk, b.getResources().disk);
 }
 
 /**
@@ -102,20 +93,20 @@ function diskCompareFunction(a, b) {
  */
 function getCompareFunctionByProp(prop) {
   switch (prop) {
-    case 'name':
+    case "name":
       return nameCompareFunction;
-    case 'tasks':
+    case "tasks":
       return taskCompareFunction;
-    case 'status':
+    case "status":
       return healthCompareFunction;
-    case 'cpus':
+    case "cpus":
       return cpusCompareFunction;
-    case 'mem':
+    case "mem":
       return memCompareFunction;
-    case 'disk':
+    case "disk":
       return diskCompareFunction;
     default:
-      return function () {
+      return function() {
         return 0;
       };
   }
@@ -129,25 +120,23 @@ const ServiceTableUtil = {
    * @returns {function} prop compare function
    */
   propCompareFunctionFactory(prop, direction) {
-
     const compareFunction = getCompareFunctionByProp(prop);
     let score = 1;
 
-    if (direction === 'desc') {
+    if (direction === "desc") {
       score = -1;
     }
 
-    return function (a, b) {
+    return function(a, b) {
       // Hoist service trees to the top
-      if ((a instanceof ServiceTree) && !(b instanceof ServiceTree)) {
+      if (a instanceof ServiceTree && !(b instanceof ServiceTree)) {
         return score * -1;
-      } else if ((b instanceof ServiceTree) && !(a instanceof ServiceTree)) {
+      } else if (b instanceof ServiceTree && !(a instanceof ServiceTree)) {
         return score;
       }
 
       return compareFunction(a, b);
     };
-
   }
 };
 

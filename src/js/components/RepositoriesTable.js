@@ -1,27 +1,28 @@
-import classNames from 'classnames';
-import {Confirm, Table} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
+import classNames from "classnames";
+import { Confirm, Table } from "reactjs-components";
+import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {ResourceTableUtil} from 'foundation-ui';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { ResourceTableUtil } from "foundation-ui";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CollapsingString from './CollapsingString';
-import Config from '../config/Config';
-import CosmosPackagesStore from '../stores/CosmosPackagesStore';
-import List from '../structs/List';
-import ModalHeading from './modals/ModalHeading';
-import RepositoriesTableHeaderLabels from '../constants/RepositoriesTableHeaderLabels';
-import TableUtil from '../utils/TableUtil';
+import CollapsingString from "./CollapsingString";
+import Config from "../config/Config";
+import CosmosPackagesStore from "../stores/CosmosPackagesStore";
+import List from "../structs/List";
+import ModalHeading from "./modals/ModalHeading";
+import RepositoriesTableHeaderLabels
+  from "../constants/RepositoriesTableHeaderLabels";
+import TableUtil from "../utils/TableUtil";
 
 const METHODS_TO_BIND = [
-  'getHeadline',
-  'getPriority',
-  'getRemoveButton',
-  'handleDeleteCancel',
-  'handleDeleteRepository',
-  'handleOpenConfirm'
+  "getHeadline",
+  "getPriority",
+  "getRemoveButton",
+  "handleDeleteCancel",
+  "handleDeleteRepository",
+  "handleOpenConfirm"
 ];
 
 class RepositoriesTable extends mixin(StoreMixin) {
@@ -34,19 +35,21 @@ class RepositoriesTable extends mixin(StoreMixin) {
       pendingRequest: false
     };
 
-    this.store_listeners = [{
-      name: 'cosmosPackages',
-      events: ['repositoryDeleteError', 'repositoryDeleteSuccess'],
-      listenAlways: true
-    }];
+    this.store_listeners = [
+      {
+        name: "cosmosPackages",
+        events: ["repositoryDeleteError", "repositoryDeleteSuccess"],
+        listenAlways: true
+      }
+    ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   onCosmosPackagesStoreRepositoryDeleteError(error) {
-    this.setState({repositoryRemoveError: error, pendingRequest: false});
+    this.setState({ repositoryRemoveError: error, pendingRequest: false });
   }
 
   onCosmosPackagesStoreRepositoryDeleteSuccess() {
@@ -59,38 +62,39 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   handleOpenConfirm(repositoryToRemove) {
-    this.setState({repositoryToRemove});
+    this.setState({ repositoryToRemove });
   }
 
   handleDeleteCancel() {
-    this.setState({repositoryToRemove: null});
+    this.setState({ repositoryToRemove: null });
   }
 
   handleDeleteRepository() {
-    const {repositoryToRemove} = this.state;
+    const { repositoryToRemove } = this.state;
     CosmosPackagesStore.deleteRepository(
-      repositoryToRemove.get('name'),
-      repositoryToRemove.get('url')
+      repositoryToRemove.get("name"),
+      repositoryToRemove.get("url")
     );
 
-    this.setState({pendingRequest: true});
+    this.setState({ pendingRequest: true });
   }
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'active': prop === sortBy.prop,
-      'clickable': row == null, // this is a header
-      'text-align-right': prop === 'priority'
+      active: prop === sortBy.prop,
+      clickable: row == null, // this is a header
+      "text-align-right": prop === "priority"
     });
   }
 
   getColumns() {
-    const {repositories} = this.props;
+    const { repositories } = this.props;
     const getClassName = this.getClassName;
-    const heading = ResourceTableUtil
-      .renderHeading(RepositoriesTableHeaderLabels);
-    const sortFunction = TableUtil.getSortFunction('uri', function (item, prop) {
-      if (prop === 'priority') {
+    const heading = ResourceTableUtil.renderHeading(
+      RepositoriesTableHeaderLabels
+    );
+    const sortFunction = TableUtil.getSortFunction("uri", function(item, prop) {
+      if (prop === "priority") {
         return repositories.getPriority(item);
       }
 
@@ -102,7 +106,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'name',
+        prop: "name",
         render: this.getHeadline,
         sortable: true,
         sortFunction
@@ -111,7 +115,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'uri',
+        prop: "uri",
         render: this.getUri,
         sortable: true,
         sortFunction
@@ -120,7 +124,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'priority',
+        prop: "priority",
         render: this.getPriority,
         sortable: true,
         sortFunction
@@ -129,7 +133,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
         className: getClassName,
         headerClassName: getClassName,
         heading() {},
-        prop: 'removed',
+        prop: "removed",
         render: this.getRemoveButton,
         sortable: false
       }
@@ -139,24 +143,22 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '30%'}} />
+        <col style={{ width: "30%" }} />
         <col />
-        <col style={{width: '112px'}} />
-        <col style={{width: '85px'}} />
+        <col style={{ width: "112px" }} />
+        <col style={{ width: "85px" }} />
       </colgroup>
     );
   }
 
   getUri(prop, repository) {
-    return (
-      <CollapsingString string={repository.get('uri')} />
-    );
+    return <CollapsingString string={repository.get("uri")} />;
   }
 
   getHeadline(prop, repository) {
     return (
       <div className="table-cell-emphasized text-overflow">
-        {repository.get('name')}
+        {repository.get("name")}
       </div>
     );
   }
@@ -170,7 +172,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
       <div className="flex-align-right">
         <a
           className="button button-link button-danger table-display-on-row-hover"
-          onClick={this.handleOpenConfirm.bind(this, repositoryToRemove)}>
+          onClick={this.handleOpenConfirm.bind(this, repositoryToRemove)}
+        >
           Remove
         </a>
       </div>
@@ -178,18 +181,16 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   getRemoveModalContent() {
-    const {repositoryRemoveError, repositoryToRemove} = this.state;
-    let repositoryLabel = 'This repository';
-    if (repositoryToRemove && repositoryToRemove.get('name')) {
-      repositoryLabel = repositoryToRemove.get('name');
+    const { repositoryRemoveError, repositoryToRemove } = this.state;
+    let repositoryLabel = "This repository";
+    if (repositoryToRemove && repositoryToRemove.get("name")) {
+      repositoryLabel = repositoryToRemove.get("name");
     }
 
     let error = null;
 
     if (repositoryRemoveError != null) {
-      error = (
-        <p className="text-error-state">{repositoryRemoveError}</p>
-      );
+      error = <p className="text-error-state">{repositoryRemoveError}</p>;
     }
 
     return (
@@ -203,7 +204,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   render() {
-    const {props, state} = this;
+    const { props, state } = this;
     const heading = (
       <ModalHeading>
         Are you sure?
@@ -217,7 +218,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={props.repositories.getItems().slice()}
-          sortBy={{prop: 'priority', order: 'asc'}} />
+          sortBy={{ prop: "priority", order: "asc" }}
+        />
         <Confirm
           closeByBackdropClick={true}
           disabled={state.pendingRequest}
@@ -228,7 +230,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
           rightButtonText="Remove Repository"
-          showHeader={true}>
+          showHeader={true}
+        >
           {this.getRemoveModalContent()}
         </Confirm>
       </div>

@@ -1,8 +1,8 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-const ModalHeading = (props) => {
-  const {align, children, className, flush, level} = props;
+const ModalHeading = props => {
+  const { align, children, className, flush, level } = props;
 
   return React.createElement(
     `h${level}`,
@@ -10,7 +10,7 @@ const ModalHeading = (props) => {
       className: classNames(
         `text-align-${align}`,
         {
-          'flush': flush
+          flush
         },
         className
       )
@@ -20,13 +20,13 @@ const ModalHeading = (props) => {
 };
 
 ModalHeading.defaultProps = {
-  align: 'center',
+  align: "center",
   flush: true,
   level: 2
 };
 
 ModalHeading.propTypes = {
-  align: React.PropTypes.oneOf(['left', 'right', 'center']),
+  align: React.PropTypes.oneOf(["left", "right", "center"]),
   children: React.PropTypes.node.isRequired,
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,

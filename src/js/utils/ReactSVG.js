@@ -1,10 +1,10 @@
-import DOMProperty from 'react/lib/DOMProperty';
+import DOMProperty from "react/lib/DOMProperty";
 
-var svgAttrs = ['dominant-baseline', 'shape-rendering', 'mask'];
+var svgAttrs = ["dominant-baseline", "shape-rendering", "mask"];
 // hack for getting react to render svg attributes
 DOMProperty.injection.injectDOMPropertyConfig({
   DOMAttributeNames: {
-    fillRule: 'fill-rule'
+    fillRule: "fill-rule"
   },
   isCustomAttribute(attribute) {
     return svgAttrs.includes(attribute);

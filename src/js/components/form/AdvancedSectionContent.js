@@ -1,8 +1,8 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-const AdvancedSectionContent = ({className, children}) => {
-  const classes = classNames('advanced-section-content', className);
+const AdvancedSectionContent = ({ className, children }) => {
+  const classes = classNames("advanced-section-content", className);
 
   return (
     <div className={classes}>

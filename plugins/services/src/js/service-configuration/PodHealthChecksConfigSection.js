@@ -1,41 +1,45 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapDurationValue from '../components/ConfigurationMapDurationValue';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import {getContainerNameWithIcon} from '../utils/ServiceConfigDisplayUtil';
-import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
+import ConfigurationMapDurationValue
+  from "../components/ConfigurationMapDurationValue";
+import ConfigurationMapHeading
+  from "../../../../../src/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "../../../../../src/js/components/ConfigurationMapSection";
+import { getContainerNameWithIcon } from "../utils/ServiceConfigDisplayUtil";
+import ConfigurationMapValueWithDefault
+  from "../components/ConfigurationMapValueWithDefault";
 
 const COMMON_COLUMNS = [
   {
-    heading: 'Grace Period',
-    prop: 'gracePeriod',
+    heading: "Grace Period",
+    prop: "gracePeriod",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: 'Interval',
-    prop: 'interval',
+    heading: "Interval",
+    prop: "interval",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: 'Timeout',
-    prop: 'timeout',
+    heading: "Timeout",
+    prop: "timeout",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: 'Max Failures',
-    prop: 'maxFailures'
+    heading: "Max Failures",
+    prop: "maxFailures"
   },
   {
-    heading: 'Container',
-    prop: 'container'
+    heading: "Container",
+    prop: "container"
   }
 ];
 
@@ -43,8 +47,8 @@ class PodHealthChecksConfigSection extends React.Component {
   getCommandColumns() {
     return [
       {
-        heading: 'Command',
-        prop: 'command'
+        heading: "Command",
+        prop: "command"
       }
     ].concat(COMMON_COLUMNS);
   }
@@ -64,62 +68,65 @@ class PodHealthChecksConfigSection extends React.Component {
   getEndpointsColumns() {
     return [
       {
-        heading: 'Service Endpoint',
-        prop: 'endpoint'
+        heading: "Service Endpoint",
+        prop: "endpoint"
       },
       {
-        heading: 'Proto',
-        prop: 'protocol'
+        heading: "Proto",
+        prop: "protocol"
       },
       {
-        heading: 'Path',
-        prop: 'path'
+        heading: "Path",
+        prop: "path"
       }
     ].concat(COMMON_COLUMNS);
   }
 
   render() {
-    const {onEditClick} = this.props;
-    const {containers = []} = this.props.appConfig;
-    const healthChecks = containers.reduce((memo, container) => {
-      const {healthCheck} = container;
+    const { onEditClick } = this.props;
+    const { containers = [] } = this.props.appConfig;
+    const healthChecks = containers.reduce(
+      (memo, container) => {
+        const { healthCheck } = container;
 
-      if (!healthCheck) {
-        return memo;
-      }
-
-      const spec = {
-        interval: healthCheck.intervalSeconds,
-        gracePeriod: healthCheck.gracePeriodSeconds,
-        maxFailures: healthCheck.maxConsecutiveFailures,
-        timeout: healthCheck.timeoutSeconds,
-        container: getContainerNameWithIcon(container)
-      };
-
-      if (healthCheck.exec != null) {
-        spec.command = healthCheck.exec.command.shell;
-        if (healthCheck.exec.command.argv) {
-          spec.command = healthCheck.exec.command.argv.join(' ');
+        if (!healthCheck) {
+          return memo;
         }
 
-        memo.command.push(spec);
-      }
+        const spec = {
+          interval: healthCheck.intervalSeconds,
+          gracePeriod: healthCheck.gracePeriodSeconds,
+          maxFailures: healthCheck.maxConsecutiveFailures,
+          timeout: healthCheck.timeoutSeconds,
+          container: getContainerNameWithIcon(container)
+        };
 
-      if (healthCheck.http != null) {
-        spec.endpoint = healthCheck.http.endpoint;
-        spec.path = healthCheck.http.path;
-        spec.protocol = healthCheck.http.scheme || 'http';
-        memo.endpoints.push(spec);
-      }
+        if (healthCheck.exec != null) {
+          spec.command = healthCheck.exec.command.shell;
+          if (healthCheck.exec.command.argv) {
+            spec.command = healthCheck.exec.command.argv.join(" ");
+          }
 
-      if (healthCheck.tcp != null) {
-        spec.endpoint = healthCheck.tcp.endpoint;
-        spec.protocol = 'tcp';
-        memo.endpoints.push(spec);
-      }
+          memo.command.push(spec);
+        }
 
-      return memo;
-    }, {endpoints: [], command: []});
+        if (healthCheck.http != null) {
+          spec.endpoint = healthCheck.http.endpoint;
+          spec.path = healthCheck.http.path;
+          spec.protocol = healthCheck.http.scheme || "http";
+          memo.endpoints.push(spec);
+        }
+
+        if (healthCheck.tcp != null) {
+          spec.endpoint = healthCheck.tcp.endpoint;
+          spec.protocol = "tcp";
+          memo.endpoints.push(spec);
+        }
+
+        return memo;
+      },
+      { endpoints: [], command: [] }
+    );
 
     if (!healthChecks.endpoints.length && !healthChecks.command.length) {
       return null;
@@ -131,7 +138,7 @@ class PodHealthChecksConfigSection extends React.Component {
           Health Checks
         </ConfigurationMapHeading>
 
-        {(healthChecks.endpoints.length !== 0) && (
+        {healthChecks.endpoints.length !== 0 &&
           <div>
             <ConfigurationMapHeading level={2}>
               Service Endpoint Health Checks
@@ -142,26 +149,26 @@ class PodHealthChecksConfigSection extends React.Component {
                 columns={this.getEndpointsColumns()}
                 data={healthChecks.endpoints}
                 onEditClick={onEditClick}
-                tabViewID="multihealthChecks" />
+                tabViewID="multihealthChecks"
+              />
             </ConfigurationMapSection>
-          </div>
-        )}
+          </div>}
 
-        {(healthChecks.command.length !== 0) && (
+        {healthChecks.command.length !== 0 &&
           <div>
             <ConfigurationMapHeading level={2}>
               Command Health Checks
             </ConfigurationMapHeading>
             <ConfigurationMapSection key="pod-general-section">
               <ConfigurationMapTable
-                columnDefaults={{hideIfEmpty: true}}
+                columnDefaults={{ hideIfEmpty: true }}
                 columns={this.getCommandColumns()}
                 data={healthChecks.command}
                 onEditClick={onEditClick}
-                tabViewID="multihealthChecks" />
+                tabViewID="multihealthChecks"
+              />
             </ConfigurationMapSection>
-          </div>
-        )}
+          </div>}
 
       </div>
     );

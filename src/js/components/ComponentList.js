@@ -1,38 +1,40 @@
-import classNames from 'classnames';
-import {Link} from 'react-router';
-import {List} from 'reactjs-components';
-import React from 'react';
+import classNames from "classnames";
+import { Link } from "react-router";
+import { List } from "reactjs-components";
+import React from "react";
 
-import HealthTypes from '../../../plugins/services/src/js/constants/HealthTypes';
+import HealthTypes
+  from "../../../plugins/services/src/js/constants/HealthTypes";
 
 class ComponentList extends React.Component {
-
   getComponentListContent(units) {
-    return units.map(function (unit) {
+    return units.map(function(unit) {
       const health = unit.getHealth();
-      const healthClasses = classNames('text-align-right', health.classNames);
-      const unitID = unit.get('id');
+      const healthClasses = classNames("text-align-right", health.classNames);
+      const unitID = unit.get("id");
 
       return {
         content: [
           {
-            className: 'dashboard-health-list-item-description text-overflow',
+            className: "dashboard-health-list-item-description text-overflow",
             content: (
-              <Link to={`/components/${unitID}`}
-                className="dashboard-health-list-item-cell emphasis">
+              <Link
+                to={`/components/${unitID}`}
+                className="dashboard-health-list-item-cell emphasis"
+              >
                 {unit.getTitle()}
               </Link>
             ),
-            tag: 'span'
+            tag: "span"
           },
           {
-            className: 'dashboard-health-list-health-label',
+            className: "dashboard-health-list-health-label",
             content: (
               <div key="health" className={healthClasses}>
                 {health.title}
               </div>
             ),
-            tag: 'div'
+            tag: "div"
           }
         ]
       };
@@ -41,7 +43,7 @@ class ComponentList extends React.Component {
 
   getVisibleComponents(units, displayCount) {
     // HealthTypes gives the sorting weight.
-    units = units.sort(function (a, b) {
+    units = units.sort(function(a, b) {
       const aHealth = a.getHealth().title.toUpperCase();
       const bHealth = b.getHealth().title.toUpperCase();
       const comparison = HealthTypes[aHealth] - HealthTypes[bHealth];
@@ -86,7 +88,7 @@ class ComponentList extends React.Component {
       return this.getErrorMessage();
     }
 
-    const {displayCount} = this.props;
+    const { displayCount } = this.props;
     const visibleUnits = this.getVisibleComponents(units, displayCount);
 
     const content = this.getComponentListContent(visibleUnits);
@@ -96,7 +98,8 @@ class ComponentList extends React.Component {
         <List
           className="list list-unstyled"
           content={content}
-          transition={false} />
+          transition={false}
+        />
       </div>
     );
   }

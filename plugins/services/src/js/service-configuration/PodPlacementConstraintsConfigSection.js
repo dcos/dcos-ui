@@ -1,25 +1,27 @@
-import React from 'react';
+import React from "react";
 
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import PlacementConstraintsUtil from '../utils/PlacementConstraintsUtil';
+import { findNestedPropertyInObject } from "../../../../../src/js/utils/Util";
+import ConfigurationMapTable from "../components/ConfigurationMapTable";
+import ConfigurationMapHeading
+  from "../../../../../src/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection
+  from "../../../../../src/js/components/ConfigurationMapSection";
+import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: 'Field Name',
-        prop: 'fieldName'
+        heading: "Field Name",
+        prop: "fieldName"
       },
       {
-        heading: 'Operator',
-        prop: 'operator'
+        heading: "Operator",
+        prop: "operator"
       },
       {
-        heading: 'Value',
-        prop: 'value'
+        heading: "Value",
+        prop: "value"
       }
     ];
   }
@@ -27,20 +29,20 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   getConstraints() {
     const constraints = findNestedPropertyInObject(
       this.props.appConfig,
-      'scheduling.placement.constraints'
+      "scheduling.placement.constraints"
     ) || [];
 
-    return constraints.map(function ({fieldName, operator, value}) {
+    return constraints.map(function({ fieldName, operator, value }) {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
         value = <em>Not Applicable</em>;
       }
 
-      return {fieldName, operator, value};
+      return { fieldName, operator, value };
     });
   }
 
   render() {
-    const {onEditClick} = this.props;
+    const { onEditClick } = this.props;
     const constraints = this.getConstraints();
     // Since we are stateless component we will need to return something for react
     // so we are using the `<noscript>` tag as placeholder.
@@ -58,7 +60,8 @@ class PodPlacementConstraintsConfigSection extends React.Component {
             columns={this.getColumns()}
             data={constraints}
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapSection>
       </div>
     );

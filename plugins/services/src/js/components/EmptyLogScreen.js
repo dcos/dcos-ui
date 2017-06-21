@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-function EmptyLogScreen({logName}) {
+function EmptyLogScreen({ logName }) {
   // Append space if logName is defined
-  logName = logName && (logName + ' ');
+  logName = logName && logName + " ";
 
   return (
     <div className="flex-grow horizontal-center vertical-center">

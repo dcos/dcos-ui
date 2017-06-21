@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import Breadcrumb from './Breadcrumb';
-import Icon from './Icon';
+import Breadcrumb from "./Breadcrumb";
+import Icon from "./Icon";
 
 function BreadcrumbCaret() {
   return (

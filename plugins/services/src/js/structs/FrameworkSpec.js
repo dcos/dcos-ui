@@ -1,5 +1,3 @@
-import ApplicationSpec from './ApplicationSpec';
+import ApplicationSpec from "./ApplicationSpec";
 
-module.exports = class FrameworkSpec extends ApplicationSpec {
-
-};
+module.exports = class FrameworkSpec extends ApplicationSpec {};

@@ -1,10 +1,10 @@
-import DeepEqual from 'deep-equal';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import DeepEqual from "deep-equal";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import DOMUtils from '../utils/DOMUtils';
+import DOMUtils from "../utils/DOMUtils";
 
-const METHODS_TO_BIND = ['updateDimensions'];
+const METHODS_TO_BIND = ["updateDimensions"];
 
 class CollapsingString extends React.Component {
   constructor() {
@@ -16,15 +16,15 @@ class CollapsingString extends React.Component {
       stringWidth: null
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
     if (global != null) {
-      global.addEventListener('resize', this.updateDimensions);
-      global.addEventListener('focus', this.updateDimensions);
+      global.addEventListener("resize", this.updateDimensions);
+      global.addEventListener("focus", this.updateDimensions);
     }
 
     this.updateDimensions();
@@ -36,8 +36,8 @@ class CollapsingString extends React.Component {
 
   componentWillUnmount() {
     if (global != null) {
-      global.removeEventListener('resize', this.updateDimensions);
-      global.removeEventListener('focus', this.updateDimensions);
+      global.removeEventListener("resize", this.updateDimensions);
+      global.removeEventListener("focus", this.updateDimensions);
     }
   }
 
@@ -46,8 +46,9 @@ class CollapsingString extends React.Component {
       return false;
     }
 
-    return !DeepEqual(this.state, nextState)
-      || !DeepEqual(this.props, nextProps);
+    return (
+      !DeepEqual(this.state, nextState) || !DeepEqual(this.props, nextProps)
+    );
   }
 
   getParentWidth() {
@@ -92,14 +93,21 @@ class CollapsingString extends React.Component {
 
     // Return early if the parent width is 0, or the string isn't collapsed
     // and the parent is growing.
-    if (parentWidth === 0 || (this.state.parentWidth != null
-      && parentWidth >= this.state.parentWidth && !this.state.collapsed)) {
+    if (
+      parentWidth === 0 ||
+      (this.state.parentWidth != null &&
+        parentWidth >= this.state.parentWidth &&
+        !this.state.collapsed)
+    ) {
       return;
     }
 
     // Return early if the string is collapsed and the parent is shrinking.
-    if (this.state.parentWidth != null && parentWidth <= this.state.parentWidth
-      && this.state.collapsed) {
+    if (
+      this.state.parentWidth != null &&
+      parentWidth <= this.state.parentWidth &&
+      this.state.collapsed
+    ) {
       return;
     }
 
@@ -122,7 +130,7 @@ class CollapsingString extends React.Component {
     let stringEnding = null;
 
     if (endLength == null) {
-      endLength = Math.floor(fullString.length * 1/3);
+      endLength = Math.floor(fullString.length * 1 / 3);
     }
 
     if (this.state.collapsed) {
@@ -150,11 +158,11 @@ class CollapsingString extends React.Component {
 }
 
 CollapsingString.defaultProps = {
-  fullStringClassName: 'collapsing-string-full-string',
-  truncatedStringEndClassName: 'collapsing-string-truncated-end',
-  truncatedStringStartClassName: 'collapsing-string-truncated-start',
-  truncatedWrapperClassName: 'collapsing-string-truncated-wrapper',
-  wrapperClassName: 'collapsing-string'
+  fullStringClassName: "collapsing-string-full-string",
+  truncatedStringEndClassName: "collapsing-string-truncated-end",
+  truncatedStringStartClassName: "collapsing-string-truncated-start",
+  truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
+  wrapperClassName: "collapsing-string"
 };
 
 CollapsingString.propTypes = {

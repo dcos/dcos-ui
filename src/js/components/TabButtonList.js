@@ -1,15 +1,15 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
 class TabButtonList extends React.Component {
   getChildren() {
-    const {activeTab, children, onChange} = this.props;
+    const { activeTab, children, onChange } = this.props;
 
     return React.Children.map(children, (tab, index) => {
       if (tab === null) {
         return tab;
       }
-      const tabProps = {activeTab, onClick: onChange};
+      const tabProps = { activeTab, onClick: onChange };
 
       if (tab.props.id === activeTab || (!activeTab && index === 0)) {
         tabProps.active = true;
@@ -20,11 +20,11 @@ class TabButtonList extends React.Component {
   }
 
   render() {
-    const {className, vertical} = this.props;
+    const { className, vertical } = this.props;
     const classes = classNames(
-      'menu-tabbed',
+      "menu-tabbed",
       {
-        'menu-tabbed-vertical': vertical
+        "menu-tabbed-vertical": vertical
       },
       className
     );

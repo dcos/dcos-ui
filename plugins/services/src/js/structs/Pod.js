@@ -1,11 +1,11 @@
-import HealthStatus from '../constants/HealthStatus';
-import PodInstanceList from './PodInstanceList';
-import PodSpec from './PodSpec';
-import PodState from '../constants/PodState';
-import PodTerminationHistoryList from './PodTerminationHistoryList';
-import Service from './Service';
-import ServiceStatus from '../constants/ServiceStatus';
-import ServiceImages from '../constants/ServiceImages';
+import HealthStatus from "../constants/HealthStatus";
+import PodInstanceList from "./PodInstanceList";
+import PodSpec from "./PodSpec";
+import PodState from "../constants/PodState";
+import PodTerminationHistoryList from "./PodTerminationHistoryList";
+import Service from "./Service";
+import ServiceStatus from "../constants/ServiceStatus";
+import ServiceImages from "../constants/ServiceImages";
 
 module.exports = class Pod extends Service {
   constructor() {
@@ -19,11 +19,11 @@ module.exports = class Pod extends Service {
     // all the properties it gets as a properties of this object
     // and we want to avoid any naming collisions.
     //
-    this._spec = new PodSpec(this.get('spec'));
+    this._spec = new PodSpec(this.get("spec"));
   }
 
   countRunningInstances() {
-    return this.getInstanceList().reduceItems(function (counter, instance) {
+    return this.getInstanceList().reduceItems(function(counter, instance) {
       if (instance.isRunning()) {
         return counter + 1;
       }
@@ -33,7 +33,7 @@ module.exports = class Pod extends Service {
   }
 
   countNonTerminalInstances() {
-    return this.getInstanceList().reduceItems(function (counter, instance) {
+    return this.getInstanceList().reduceItems(function(counter, instance) {
       if (!instance.isTerminating()) {
         return counter + 1;
       }
@@ -43,7 +43,7 @@ module.exports = class Pod extends Service {
   }
 
   countTotalInstances() {
-    return (this.get('instances') || []).length;
+    return (this.get("instances") || []).length;
   }
 
   /**
@@ -56,24 +56,22 @@ module.exports = class Pod extends Service {
   getMesosId() {
     const id = this.getId().substr(1);
 
-    return id.replace(/\//g, '_');
+    return id.replace(/\//g, "_");
   }
 
   /**
    * @override
    */
   getHealth() {
-    switch (this.get('status')) {
+    switch (this.get("status")) {
       // DEGRADED - The number of STABLE pod instances is less than the number
       // of desired instances.
       case PodState.DEGRADED:
         return HealthStatus.UNHEALTHY;
-
       // STABLE   - All launched pod instances have started and, if health
       // checks were specified, are all healthy.
       case PodState.STABLE:
         return HealthStatus.HEALTHY;
-
       // TERMINAL - Marathon is tearing down all of the instances for this pod.
       case PodState.TERMINAL:
         return HealthStatus.NA;
@@ -99,11 +97,11 @@ module.exports = class Pod extends Service {
   }
 
   getInstanceList() {
-    return new PodInstanceList({items: this.get('instances') || []});
+    return new PodInstanceList({ items: this.get("instances") || [] });
   }
 
   getQueue() {
-    return this.get('queue');
+    return this.get("queue");
   }
 
   /**
@@ -114,11 +112,11 @@ module.exports = class Pod extends Service {
   }
 
   getLastChanged() {
-    return new Date(this.get('lastChanged'));
+    return new Date(this.get("lastChanged"));
   }
 
   getLastUpdated() {
-    return new Date(this.get('lastUpdated'));
+    return new Date(this.get("lastUpdated"));
   }
 
   /**
@@ -129,7 +127,7 @@ module.exports = class Pod extends Service {
     const runningInstances = this.countRunningInstances();
     const nonterminalInstances = this.countNonTerminalInstances();
 
-    if ((nonterminalInstances === 0) && (scalingInstances === 0)) {
+    if (nonterminalInstances === 0 && scalingInstances === 0) {
       return ServiceStatus.SUSPENDED;
     }
 
@@ -164,7 +162,7 @@ module.exports = class Pod extends Service {
       tasksOverCapacity: 0
     };
 
-    this.getInstanceList().mapItems(function (instance) {
+    this.getInstanceList().mapItems(function(instance) {
       if (instance.isRunning()) {
         taskSummary.tasksRunning++;
         if (instance.hasHealthChecks()) {
@@ -176,7 +174,6 @@ module.exports = class Pod extends Service {
         } else {
           taskSummary.tasksUnknown++;
         }
-
       } else if (instance.isStaging()) {
         taskSummary.tasksStaged++;
       }
@@ -194,8 +191,7 @@ module.exports = class Pod extends Service {
 
   getTerminationHistoryList() {
     return new PodTerminationHistoryList({
-      items: this.get('terminationHistory') || []
+      items: this.get("terminationHistory") || []
     });
   }
-
 };

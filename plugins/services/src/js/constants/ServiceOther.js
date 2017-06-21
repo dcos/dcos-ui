@@ -1,5 +1,5 @@
-import ServiceOtherLabels from './ServiceOtherLabels';
-import ServiceOtherTypes from './ServiceOtherTypes';
+import ServiceOtherLabels from "./ServiceOtherLabels";
+import ServiceOtherTypes from "./ServiceOtherTypes";
 
 var SERVICE_OTHER = {
   UNIVERSE: {

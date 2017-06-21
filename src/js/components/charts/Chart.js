@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import React from "react";
+import ReactDOM from "react-dom";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import DOMUtils from '../../utils/DOMUtils';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import DOMUtils from "../../utils/DOMUtils";
+import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
 var Chart = React.createClass({
-
-  displayName: 'Chart',
+  displayName: "Chart",
 
   mixins: [InternalStorageMixin, StoreMixin],
 
@@ -26,13 +25,13 @@ var Chart = React.createClass({
   componentWillMount() {
     this.store_listeners = [
       {
-        name: 'sidebar',
-        events: ['widthChange'],
+        name: "sidebar",
+        events: ["widthChange"],
         suppressUpdate: false
       }
     ];
 
-    this.internalStorage_set({width: null});
+    this.internalStorage_set({ width: null });
   },
 
   componentDidMount() {
@@ -46,7 +45,7 @@ var Chart = React.createClass({
     } else {
       this.updateWidth();
     }
-    global.addEventListener('resize', this.updateWidth);
+    global.addEventListener("resize", this.updateWidth);
   },
 
   shouldComponentUpdate() {
@@ -54,7 +53,7 @@ var Chart = React.createClass({
   },
 
   componentWillUnmount() {
-    global.removeEventListener('resize', this.updateWidth);
+    global.removeEventListener("resize", this.updateWidth);
   },
 
   onSidebarStoreWidthChange() {
@@ -82,7 +81,7 @@ var Chart = React.createClass({
     if (width != null) {
       var calcHeight = this.props.calcHeight;
 
-      if (typeof calcHeight === 'function') {
+      if (typeof calcHeight === "function") {
         height = calcHeight(width);
       }
 
@@ -90,17 +89,11 @@ var Chart = React.createClass({
       if (Array.isArray(children)) {
         height = height / children.length;
 
-        return children.map(function (child) {
-          return React.cloneElement(
-            child,
-            {width, height}
-          );
+        return children.map(function(child) {
+          return React.cloneElement(child, { width, height });
         });
       } else {
-        return React.cloneElement(
-          children,
-          {width, height}
-        );
+        return React.cloneElement(children, { width, height });
       }
     }
   },

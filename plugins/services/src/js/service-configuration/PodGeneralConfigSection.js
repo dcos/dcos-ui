@@ -1,15 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapEditAction from '../components/ConfigurationMapEditAction';
-import ConfigurationMapHeading from '../../../../../src/js/components/ConfigurationMapHeading';
-import ConfigurationMapLabel from '../../../../../src/js/components/ConfigurationMapLabel';
-import ConfigurationMapRow from '../../../../../src/js/components/ConfigurationMapRow';
-import ConfigurationMapSection from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ConfigurationMapValueWithDefault from '../components/ConfigurationMapValueWithDefault';
-import DurationValue from '../components/ConfigurationMapDurationValue';
-import Units from '../../../../../src/js/utils/Units';
-import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
+import ConfigurationMapEditAction
+  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapHeading
+  from "../../../../../src/js/components/ConfigurationMapHeading";
+import ConfigurationMapLabel
+  from "../../../../../src/js/components/ConfigurationMapLabel";
+import ConfigurationMapRow
+  from "../../../../../src/js/components/ConfigurationMapRow";
+import ConfigurationMapSection
+  from "../../../../../src/js/components/ConfigurationMapSection";
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ConfigurationMapValueWithDefault
+  from "../components/ConfigurationMapValueWithDefault";
+import DurationValue from "../components/ConfigurationMapDurationValue";
+import Units from "../../../../../src/js/utils/Units";
+import { findNestedPropertyInObject } from "../../../../../src/js/utils/Util";
 
 /**
  * Summarize the resources of every container, including the containers and
@@ -19,25 +26,28 @@ import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
  * @param {Object} appConfig - The application configuration
  * @returns {Node|String} Returns the contents to be rendered
  */
-function getContainerResourceSummary(resource, {containers = []}) {
-  const summary = containers.reduce((memo, {name, resources = {}}) => {
-    const value = resources[resource];
-    if (value) {
-      memo.value += value;
-      memo.parts.push(
-        `${Units.formatResource(resource, value)} ${name}`
-      );
-    }
+function getContainerResourceSummary(resource, { containers = [] }) {
+  const summary = containers.reduce(
+    (memo, { name, resources = {} }) => {
+      const value = resources[resource];
+      if (value) {
+        memo.value += value;
+        memo.parts.push(`${Units.formatResource(resource, value)} ${name}`);
+      }
 
-    return memo;
-  }, {value: 0, parts: []});
+      return memo;
+    },
+    { value: 0, parts: [] }
+  );
 
   if (!summary.value) {
     return <em>Not Supported</em>;
   }
 
-  return `${Units.formatResource(resource, summary.value)} `+
-   `(${summary.parts.join(', ')})`;
+  return (
+    `${Units.formatResource(resource, summary.value)} ` +
+    `(${summary.parts.join(", ")})`
+  );
 }
 
 /**
@@ -49,7 +59,7 @@ function getContainerResourceSummary(resource, {containers = []}) {
  *                        scaling policy
  */
 function getInstances(appConfig) {
-  if (appConfig.scaling && appConfig.scaling.kind === 'fixed') {
+  if (appConfig.scaling && appConfig.scaling.kind === "fixed") {
     let expr = `${appConfig.scaling.instances}`;
     if (appConfig.scaling.maxInstances) {
       expr += ` (Max ${appConfig.scaling.maxInstances})`;
@@ -61,19 +71,29 @@ function getInstances(appConfig) {
   return null;
 }
 
-const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
+const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
   const fields = {
     instances: getInstances(appConfig),
-    backoff: findNestedPropertyInObject(appConfig,
-      'scheduling.backoff.backoff'),
-    backoffFactor: findNestedPropertyInObject(appConfig,
-      'scheduling.backoff.backoffFactor'),
-    maxLaunchDelay: findNestedPropertyInObject(appConfig,
-      'scheduling.backoff.maxLaunchDelay'),
-    minimumHealthCapacity: findNestedPropertyInObject(appConfig,
-      'scheduling.upgrade.minimumHealthCapacity'),
-    maximumOverCapacity: findNestedPropertyInObject(appConfig,
-      'scheduling.upgrade.maximumOverCapacity')
+    backoff: findNestedPropertyInObject(
+      appConfig,
+      "scheduling.backoff.backoff"
+    ),
+    backoffFactor: findNestedPropertyInObject(
+      appConfig,
+      "scheduling.backoff.backoffFactor"
+    ),
+    maxLaunchDelay: findNestedPropertyInObject(
+      appConfig,
+      "scheduling.backoff.maxLaunchDelay"
+    ),
+    minimumHealthCapacity: findNestedPropertyInObject(
+      appConfig,
+      "scheduling.upgrade.minimumHealthCapacity"
+    ),
+    maximumOverCapacity: findNestedPropertyInObject(
+      appConfig,
+      "scheduling.upgrade.maximumOverCapacity"
+    )
   };
 
   return (
@@ -85,85 +105,87 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
           <ConfigurationMapValue value={appConfig.id} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
           <ConfigurationMapValueWithDefault value={fields.instances} />
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getContainerResourceSummary('cpus', appConfig)}
+            {getContainerResourceSummary("cpus", appConfig)}
           </ConfigurationMapValue>
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getContainerResourceSummary('mem', appConfig)}
+            {getContainerResourceSummary("mem", appConfig)}
           </ConfigurationMapValue>
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getContainerResourceSummary('disk', appConfig)}
+            {getContainerResourceSummary("disk", appConfig)}
           </ConfigurationMapValue>
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getContainerResourceSummary('gpu', appConfig)}
+            {getContainerResourceSummary("gpu", appConfig)}
           </ConfigurationMapValue>
           <ConfigurationMapEditAction
             onEditClick={onEditClick}
-            tabViewID="services" />
+            tabViewID="services"
+          />
         </ConfigurationMapRow>
-        {Boolean(fields.backoff) && (
+        {Boolean(fields.backoff) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
-            <DurationValue
-              units="sec"
-              value={fields.backoff} />
+            <DurationValue units="sec" value={fields.backoff} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="services" />
-          </ConfigurationMapRow>
-        )}
-        {Boolean(fields.backoffFactor) && (
+              tabViewID="services"
+            />
+          </ConfigurationMapRow>}
+        {Boolean(fields.backoffFactor) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.backoffFactor} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="services" />
-          </ConfigurationMapRow>
-        )}
-        {Boolean(fields.maxLaunchDelay) && (
+              tabViewID="services"
+            />
+          </ConfigurationMapRow>}
+        {Boolean(fields.maxLaunchDelay) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Backoff Max Launch Delay
             </ConfigurationMapLabel>
-            <DurationValue
-              units="sec"
-              value={fields.maxLaunchDelay} />
+            <DurationValue units="sec" value={fields.maxLaunchDelay} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="services" />
-          </ConfigurationMapRow>
-        )}
-        {Boolean(fields.minimumHealthCapacity) && (
+              tabViewID="services"
+            />
+          </ConfigurationMapRow>}
+        {Boolean(fields.minimumHealthCapacity) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Upgrade Min Health Capacity
@@ -171,10 +193,10 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
             <ConfigurationMapValue value={fields.minimumHealthCapacity} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="services" />
-          </ConfigurationMapRow>
-        )}
-        {Boolean(fields.maximumOverCapacity) && (
+              tabViewID="services"
+            />
+          </ConfigurationMapRow>}
+        {Boolean(fields.maximumOverCapacity) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>
               Upgrade Max Overcapacity
@@ -182,9 +204,9 @@ const PodGeneralConfigSection = ({appConfig, onEditClick}) => {
             <ConfigurationMapValue value={fields.maximumOverCapacity} />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="services" />
-          </ConfigurationMapRow>
-        )}
+              tabViewID="services"
+            />
+          </ConfigurationMapRow>}
       </ConfigurationMapSection>
     </div>
   );

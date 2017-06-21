@@ -1,19 +1,17 @@
-import classNames from 'classnames';
-import PureRender from 'react-addons-pure-render-mixin';
-import React, {PropTypes} from 'react';
+import classNames from "classnames";
+import PureRender from "react-addons-pure-render-mixin";
+import React, { PropTypes } from "react";
 
-import StringUtil from '../utils/StringUtil';
+import StringUtil from "../utils/StringUtil";
 
-const METHODS_TO_BIND = [
-  'handleReset'
-];
+const METHODS_TO_BIND = ["handleReset"];
 
 class FilterHeadline extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -24,30 +22,41 @@ class FilterHeadline extends React.Component {
   }
 
   render() {
-    let {className, currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
+    let {
+      className,
+      currentLength,
+      inverseStyle,
+      isFiltering,
+      name,
+      totalLength
+    } = this.props;
     const hideFilteredClasses =
       (isFiltering == null && currentLength === totalLength) ||
       (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
-    const filteredClassSet = classNames('flush', {
-      'inverse': inverseStyle,
-      'hidden': hideFilteredClasses
+    const filteredClassSet = classNames("flush", {
+      inverse: inverseStyle,
+      hidden: hideFilteredClasses
     });
 
-    const unfilteredClassSet = classNames('flush', {
-      'inverse': inverseStyle,
-      'hidden': !hideFilteredClasses
+    const unfilteredClassSet = classNames("flush", {
+      inverse: inverseStyle,
+      hidden: !hideFilteredClasses
     });
 
-    const anchorClassSet = classNames('clickable flush-top', {
-      'inverse': inverseStyle,
-      'hidden': hideFilteredClasses
+    const anchorClassSet = classNames("clickable flush-top", {
+      inverse: inverseStyle,
+      hidden: hideFilteredClasses
     });
 
-    const listClassSet = classNames('filter-headline list list-unstyled list-inline h4 flush-left flush-top', {
-      'inverse': inverseStyle
-    }, className);
+    const listClassSet = classNames(
+      "filter-headline list list-unstyled list-inline h4 flush-left flush-top",
+      {
+        inverse: inverseStyle
+      },
+      className
+    );
 
     return (
       <ul className={listClassSet}>

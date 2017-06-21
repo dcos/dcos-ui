@@ -1,27 +1,31 @@
-import {Tooltip} from 'reactjs-components';
-import React, {Component} from 'react';
-import Objektiv from 'objektiv';
+import { Tooltip } from "reactjs-components";
+import React, { Component } from "react";
+import Objektiv from "objektiv";
 
-import {getContainerNameWithIcon} from '../../utils/ServiceConfigDisplayUtil';
-import AddButton from '../../../../../../src/js/components/form/AddButton';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldInput from '../../../../../../src/js/components/form/FieldInput';
-import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import FormGroupHeading from '../../../../../../src/js/components/form/FormGroupHeading';
-import FormGroupHeadingContent from '../../../../../../src/js/components/form/FormGroupHeadingContent';
-import FormRow from '../../../../../../src/js/components/form/FormRow';
-import Icon from '../../../../../../src/js/components/Icon';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
-import {FormReducer as volumeMounts} from '../../reducers/serviceForm/MultiContainerVolumes';
+import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
+import AddButton from "../../../../../../src/js/components/form/AddButton";
+import FieldError from "../../../../../../src/js/components/form/FieldError";
+import FieldInput from "../../../../../../src/js/components/form/FieldInput";
+import FieldLabel from "../../../../../../src/js/components/form/FieldLabel";
+import FormGroup from "../../../../../../src/js/components/form/FormGroup";
+import FormGroupContainer
+  from "../../../../../../src/js/components/form/FormGroupContainer";
+import FormGroupHeading
+  from "../../../../../../src/js/components/form/FormGroupHeading";
+import FormGroupHeadingContent
+  from "../../../../../../src/js/components/form/FormGroupHeadingContent";
+import FormRow from "../../../../../../src/js/components/form/FormRow";
+import Icon from "../../../../../../src/js/components/Icon";
+import MetadataStore from "../../../../../../src/js/stores/MetadataStore";
+import {
+  FormReducer as volumeMounts
+} from "../../reducers/serviceForm/MultiContainerVolumes";
 
-const errorsLens = Objektiv.attr('container', {}).attr('volumes', []);
+const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
 class MultiContainerVolumesFormSection extends Component {
-
   getContainerMounts(containers, volumeMountIndex) {
-    const {volumeMounts} = this.props.data;
+    const { volumeMounts } = this.props.data;
 
     return containers.map((container, containerIndex) => {
       let containersLabel = null;
@@ -60,7 +64,8 @@ class MultiContainerVolumesFormSection extends Component {
             <FieldInput
               name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
               type="text"
-              value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}/>
+              value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}
+            />
           </FormGroup>
         </FormRow>
       );
@@ -76,17 +81,17 @@ class MultiContainerVolumesFormSection extends Component {
    * @return {Array} elements
    */
   getVolumesMountLines(data, offset) {
-    const {containers} = this.props.data;
+    const { containers } = this.props.data;
 
     return data.map((volumes, key) => {
       const nameError = errorsLens
         .at(key + offset, {})
-        .attr('volumes', {})
-        .get(this.props.errors)
-        .name;
-      const removeHandler = this.props.onRemoveItem.bind(
-        this, {value: key, path: 'volumeMounts'}
-      );
+        .attr("volumes", {})
+        .get(this.props.errors).name;
+      const removeHandler = this.props.onRemoveItem.bind(this, {
+        value: key,
+        path: "volumeMounts"
+      });
 
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
@@ -102,7 +107,8 @@ class MultiContainerVolumesFormSection extends Component {
               <FieldInput
                 name={`volumeMounts.${key}.name`}
                 type="text"
-                value={volumes.name}/>
+                value={volumes.name}
+              />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </FormRow>
@@ -115,8 +121,8 @@ class MultiContainerVolumesFormSection extends Component {
   getHeadline() {
     const tooltipContent = (
       <span>
-        {'DC/OS offers several storage options. '}
-        <a href={MetadataStore.buildDocsURI('/usage/storage/')} target="_blank">
+        {"DC/OS offers several storage options. "}
+        <a href={MetadataStore.buildDocsURI("/usage/storage/")} target="_blank">
           More information
         </a>.
       </span>
@@ -134,7 +140,8 @@ class MultiContainerVolumesFormSection extends Component {
               interactive={true}
               maxWidth={300}
               scrollContainer=".gm-scroll-view"
-              wrapText={true}>
+              wrapText={true}
+            >
               <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
@@ -144,20 +151,21 @@ class MultiContainerVolumesFormSection extends Component {
   }
 
   render() {
-    const {data, handleTabChange} = this.props;
+    const { data, handleTabChange } = this.props;
 
     if (!data.containers || !data.containers.length) {
       return (
         <div>
           {this.getHeadline()}
           <p>
-            {'Please '}
+            {"Please "}
             <a
-              onClick={handleTabChange.bind(null, 'services')}
-              className="clickable">
+              onClick={handleTabChange.bind(null, "services")}
+              className="clickable"
+            >
               add a container
             </a>
-            {' before configuring Volumes.'}
+            {" before configuring Volumes."}
           </p>
         </div>
       );
@@ -177,9 +185,12 @@ class MultiContainerVolumesFormSection extends Component {
         </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>
-          <AddButton onClick={this.props.onAddItem.bind(
-              this, {value: data.volumeMounts.length, path: 'volumeMounts'}
-            )}>
+          <AddButton
+            onClick={this.props.onAddItem.bind(this, {
+              value: data.volumeMounts.length,
+              path: "volumeMounts"
+            })}
+          >
             Add Ephemeral Volume
           </AddButton>
         </div>

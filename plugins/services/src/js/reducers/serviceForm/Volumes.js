@@ -1,12 +1,12 @@
-import {parseIntValue} from '../../../../../../src/js/utils/ReducerUtil';
+import { parseIntValue } from "../../../../../../src/js/utils/ReducerUtil";
 import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
-} from '../../../../../../src/js/constants/TransactionTypes';
+} from "../../../../../../src/js/constants/TransactionTypes";
 
-const mapLocalVolumes = function (volume) {
-  if (volume.type === 'PERSISTENT') {
+const mapLocalVolumes = function(volume) {
+  if (volume.type === "PERSISTENT") {
     return {
       persistent: volume.persistent,
       mode: volume.mode,
@@ -21,23 +21,26 @@ const mapLocalVolumes = function (volume) {
   };
 };
 
-const mapExternalVolumes = function (volume) {
-  if (this.docker &&
-    this.dockerType === 'DOCKER' && volume.external.size != null) {
-    return Object.assign({},
-      volume,
-      {external: Object.assign({}, volume.external, {size: null})});
+const mapExternalVolumes = function(volume) {
+  if (
+    this.docker &&
+    this.dockerType === "DOCKER" &&
+    volume.external.size != null
+  ) {
+    return Object.assign({}, volume, {
+      external: Object.assign({}, volume.external, { size: null })
+    });
   }
 
   return volume;
 };
 
-const filterHostVolumes = function (volume) {
-  return volume.type !== 'HOST' || this.docker;
+const filterHostVolumes = function(volume) {
+  return volume.type !== "HOST" || this.docker;
 };
 
 // NB: This is being used as FormReducer and JSONReducer
-function reduceVolumes(state, {type, path, value}) {
+function reduceVolumes(state, { type, path, value }) {
   if (path == null) {
     return state;
   }
@@ -61,39 +64,38 @@ function reduceVolumes(state, {type, path, value}) {
   }
 
   if (this.dockerType == null) {
-    this.dockerType = 'DOCKER';
+    this.dockerType = "DOCKER";
   }
 
-  const joinedPath = path.join('.');
+  const joinedPath = path.join(".");
 
-  if (joinedPath === 'container.docker.image') {
-    this.docker = value !== '';
+  if (joinedPath === "container.docker.image") {
+    this.docker = value !== "";
   }
 
-  if (joinedPath === 'container.type') {
-    this.docker = value !== 'NONE';
+  if (joinedPath === "container.type") {
+    this.docker = value !== "NONE";
     this.dockerType = value;
   }
 
-  if (path[0] === 'externalVolumes') {
-    if (joinedPath === 'externalVolumes') {
+  if (path[0] === "externalVolumes") {
+    if (joinedPath === "externalVolumes") {
       switch (type) {
         case ADD_ITEM:
           this.externalVolumes.push({
             containerPath: null,
             external: {
               name: null,
-              provider: 'dvdi',
-              options: {'dvdi/driver': 'rexray'}
+              provider: "dvdi",
+              options: { "dvdi/driver": "rexray" }
             },
-            mode: 'RW'
+            mode: "RW"
           });
           break;
         case REMOVE_ITEM:
-          this.externalVolumes =
-            this.externalVolumes.filter((item, index) => {
-              return index !== value;
-            });
+          this.externalVolumes = this.externalVolumes.filter((item, index) => {
+            return index !== value;
+          });
           break;
       }
 
@@ -113,7 +115,8 @@ function reduceVolumes(state, {type, path, value}) {
         this.localVolumes
           .filter(filterHostVolumes.bind(this))
           .map(mapLocalVolumes),
-        this.externalVolumes);
+        this.externalVolumes
+      );
     }
 
     const index = path[1];
@@ -127,8 +130,10 @@ function reduceVolumes(state, {type, path, value}) {
     if (type === SET && `externalVolumes.${index}.name` === joinedPath) {
       this.externalVolumes[index].external.name = String(value);
     }
-    if (type === SET &&
-      `externalVolumes.${index}.containerPath` === joinedPath) {
+    if (
+      type === SET &&
+      `externalVolumes.${index}.containerPath` === joinedPath
+    ) {
       this.externalVolumes[index].containerPath = String(value);
     }
     if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
@@ -139,14 +144,14 @@ function reduceVolumes(state, {type, path, value}) {
     }
   }
 
-  if (joinedPath.search('localVolumes') !== -1) {
-    if (joinedPath === 'localVolumes') {
+  if (joinedPath.search("localVolumes") !== -1) {
+    if (joinedPath === "localVolumes") {
       switch (type) {
         case ADD_ITEM:
           this.localVolumes.push({
             containerPath: null,
-            persistent: {size: null},
-            mode: 'RW'
+            persistent: { size: null },
+            mode: "RW"
           });
           break;
         case REMOVE_ITEM:
@@ -160,7 +165,8 @@ function reduceVolumes(state, {type, path, value}) {
         this.localVolumes
           .filter(filterHostVolumes.bind(this))
           .map(mapLocalVolumes),
-        this.externalVolumes);
+        this.externalVolumes
+      );
     }
 
     const index = path[1];
@@ -182,12 +188,9 @@ function reduceVolumes(state, {type, path, value}) {
   }
 
   return [].concat(
-    this.localVolumes
-      .filter(filterHostVolumes.bind(this))
-      .map(mapLocalVolumes),
-    this.externalVolumes.map(
-      mapExternalVolumes.bind(this)
-    ));
+    this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes),
+    this.externalVolumes.map(mapExternalVolumes.bind(this))
+  );
 }
 
 module.exports = {

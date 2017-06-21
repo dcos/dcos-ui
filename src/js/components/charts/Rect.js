@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const PropTypes = React.PropTypes;
 
@@ -13,18 +13,19 @@ class Rect extends React.Component {
   }
 
   transitionRect(props) {
-    const {transitionDuration, transform} = props;
+    const { transitionDuration, transform } = props;
     const el = ReactDOM.findDOMNode(this);
 
-    d3.select(el)
+    d3
+      .select(el)
       .transition()
       .duration(transitionDuration)
-      .ease('linear')
-      .attr('transform', transform);
+      .ease("linear")
+      .attr("transform", transform);
   }
 
   render() {
-    const {width, height, x, y, fill, className} = this.props;
+    const { width, height, x, y, fill, className } = this.props;
 
     return (
       <rect
@@ -33,7 +34,8 @@ class Rect extends React.Component {
         x={x}
         y={y}
         fill={fill}
-        className={className} />
+        className={className}
+      />
     );
   }
 }

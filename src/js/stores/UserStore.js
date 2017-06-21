@@ -1,21 +1,21 @@
-import EventEmitter from 'events';
-import PluginSDK from 'PluginSDK';
+import EventEmitter from "events";
+import PluginSDK from "PluginSDK";
 
-import AppDispatcher from '../events/AppDispatcher';
+import AppDispatcher from "../events/AppDispatcher";
 import {
   REQUEST_USER_CREATE_SUCCESS,
   REQUEST_USER_CREATE_ERROR,
   REQUEST_USER_DELETE_SUCCESS,
   REQUEST_USER_DELETE_ERROR,
   SERVER_ACTION
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 import {
   USER_CREATE_SUCCESS,
   USER_CREATE_ERROR,
   USER_DELETE_SUCCESS,
   USER_DELETE_ERROR
-} from '../constants/EventTypes';
-import UsersActions from '../events/UsersActions';
+} from "../constants/EventTypes";
+import UsersActions from "../events/UsersActions";
 
 /**
  * This store will keep track of users and their details
@@ -39,7 +39,7 @@ class UserStore extends EventEmitter {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -85,9 +85,8 @@ class UserStore extends EventEmitter {
   }
 
   get storeID() {
-    return 'user';
+    return "user";
   }
-
 }
 
 module.exports = new UserStore();

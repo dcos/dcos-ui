@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
-import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
+import ConfigurationMapValue
+  from "../../../../../src/js/components/ConfigurationMapValue";
+import ValidatorUtil from "../../../../../src/js/utils/ValidatorUtil";
 
 /**
  * Render a multiline value as a <ConfigurationMapValue>, within the
@@ -9,7 +10,7 @@ import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
  */
 class ConfigurationMapMultilineValue extends React.Component {
   render() {
-    const {value, defaultValue} = this.props;
+    const { value, defaultValue } = this.props;
 
     // Bail early with default if empty
     if (ValidatorUtil.isEmpty(value)) {
@@ -26,7 +27,7 @@ class ConfigurationMapMultilineValue extends React.Component {
 
 ConfigurationMapMultilineValue.defaultProps = {
   defaultValue: <em>Not Configured</em>,
-  value: ''
+  value: ""
 };
 
 ConfigurationMapMultilineValue.propTypes = {

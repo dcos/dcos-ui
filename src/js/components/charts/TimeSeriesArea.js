@@ -1,10 +1,9 @@
-import d3 from 'd3';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import d3 from "d3";
+import React from "react";
+import ReactDOM from "react-dom";
 
 var TimeSeriesArea = React.createClass({
-
-  displayName: 'TimeSeriesArea',
+  displayName: "TimeSeriesArea",
 
   propTypes: {
     className: React.PropTypes.string,
@@ -17,20 +16,23 @@ var TimeSeriesArea = React.createClass({
   componentDidMount() {
     var props = this.props;
 
-    d3.select(ReactDOM.findDOMNode(this))
+    d3
+      .select(ReactDOM.findDOMNode(this))
       .transition()
       .duration(props.transitionTime)
-      .ease('linear')
-      .attr('transform', 'translate(' + props.position + ')');
+      .ease("linear")
+      .attr("transform", "translate(" + props.position + ")");
   },
 
   componentWillReceiveProps(props) {
-    d3.select(ReactDOM.findDOMNode(this)).interrupt()
-      .attr('transform', null)
+    d3
+      .select(ReactDOM.findDOMNode(this))
+      .interrupt()
+      .attr("transform", null)
       .transition()
       .duration(props.transitionTime)
-      .ease('linear')
-      .attr('transform', 'translate(' + props.position + ')');
+      .ease("linear")
+      .attr("transform", "translate(" + props.position + ")");
   },
 
   render() {
@@ -38,8 +40,8 @@ var TimeSeriesArea = React.createClass({
 
     return (
       <g>
-        <path className={'area ' + className} d={this.props.path} />
-        <path className={'line ' + className} d={this.props.line} />
+        <path className={"area " + className} d={this.props.path} />
+        <path className={"line " + className} d={this.props.line} />
       </g>
     );
   }

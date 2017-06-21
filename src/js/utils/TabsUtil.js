@@ -1,10 +1,9 @@
-import classNames from 'classnames';
+import classNames from "classnames";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
 const TabsUtil = {
-
   /**
    * Renders tabs for a given array
    * This needs to be in a util because we can
@@ -18,10 +17,10 @@ const TabsUtil = {
   getTabs(tabs, currentTab, getElement) {
     const tabSet = Object.keys(tabs);
 
-    return tabSet.map(function (tab, index) {
+    return tabSet.map(function(tab, index) {
       const tabClass = classNames({
-        'menu-tabbed-item': true,
-        'active': !!currentTab && currentTab.startsWith(tab)
+        "menu-tabbed-item": true,
+        active: !!currentTab && currentTab.startsWith(tab)
       });
 
       return (
@@ -41,16 +40,15 @@ const TabsUtil = {
     const comparator = (a, b) => b[1] - a[1];
 
     return Object.keys(tabs)
-      .map((key) => [key, tabs[key].priority || 0])
+      .map(key => [key, tabs[key].priority || 0])
       .sort(comparator)
-      .map((val) => val[0])
+      .map(val => val[0])
       .reduce((acc, curr) => {
         acc[curr] = tabs[curr].content;
 
         return acc;
       }, {});
   }
-
 };
 
 module.exports = TabsUtil;

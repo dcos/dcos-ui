@@ -1,24 +1,25 @@
-import DSLFilterTypes from '../../../../../src/js/constants/DSLFilterTypes';
-import DSLFilter from '../../../../../src/js/structs/DSLFilter';
-import Pod from '../structs/Pod';
+import DSLFilterTypes from "../../../../../src/js/constants/DSLFilterTypes";
+import DSLFilter from "../../../../../src/js/structs/DSLFilter";
+import Pod from "../structs/Pod";
 
-const LABEL = 'is';
-const LABEL_TEXT = 'pod';
+const LABEL = "is";
+const LABEL_TEXT = "pod";
 
 /**
  * This filter handles the `is:pod` for filtering pod instances
  */
 class ServiceAttributeIsPodFilter extends DSLFilter {
-
   /**
    * Handle all `is:pod` attribute filters.
    *
    * @override
    */
   filterCanHandle(filterType, filterArguments) {
-    return filterType === DSLFilterTypes.ATTRIB &&
+    return (
+      filterType === DSLFilterTypes.ATTRIB &&
       filterArguments.label === LABEL &&
-      filterArguments.text.toLowerCase() === LABEL_TEXT;
+      filterArguments.text.toLowerCase() === LABEL_TEXT
+    );
   }
 
   /**
@@ -27,11 +28,10 @@ class ServiceAttributeIsPodFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset) {
-    return resultset.filterItems((service) => {
+    return resultset.filterItems(service => {
       return service instanceof Pod;
     });
   }
-
 }
 
 module.exports = ServiceAttributeIsPodFilter;

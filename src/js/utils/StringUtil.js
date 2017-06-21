@@ -1,15 +1,15 @@
-import marked from 'marked';
+import marked from "marked";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
 
 const StringUtil = {
-  arrayToJoinedString(array = [], separator = ', ') {
+  arrayToJoinedString(array = [], separator = ", ") {
     if (Array.isArray(array)) {
       return array.join(separator);
     }
 
-    return '';
+    return "";
   },
 
   getSearchTokens(searchString) {
@@ -17,29 +17,31 @@ const StringUtil = {
       return [];
     }
 
-    return String(searchString)
-      .toLowerCase()
-      // split on non-word characters and slash
-      .split(/[^\w/]/)
-      .filter(Boolean);
+    return (
+      String(searchString)
+        .toLowerCase()
+        // split on non-word characters and slash
+        .split(/[^\w/]/)
+        .filter(Boolean)
+    );
   },
 
   filterByString(objects, getter, searchString) {
     const searchItems = this.getSearchTokens(searchString);
 
-    if (typeof getter === 'function') {
-      return objects.filter((obj) => {
-        return searchItems.some((item) => {
-          return this.getSearchTokens(getter(obj)).some((token) => {
+    if (typeof getter === "function") {
+      return objects.filter(obj => {
+        return searchItems.some(item => {
+          return this.getSearchTokens(getter(obj)).some(token => {
             return token.startsWith(item);
           });
         });
       });
     }
 
-    return objects.filter((obj) => {
-      return searchItems.some((item) => {
-        return this.getSearchTokens(obj[getter]).some((token) => {
+    return objects.filter(obj => {
+      return searchItems.some(item => {
+        return this.getSearchTokens(obj[getter]).some(token => {
           return token.startsWith(item);
         });
       });
@@ -47,7 +49,7 @@ const StringUtil = {
   },
 
   escapeForRegExp(str) {
-    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
   },
 
   isUrl(str) {
@@ -56,10 +58,12 @@ const StringUtil = {
 
   isEmail(str) {
     // https://news.ycombinator.com/item?id=8360786
-    return !!str &&
+    return (
+      !!str &&
       str.length > 3 &&
-      str.indexOf('@') !== -1 &&
-      str.indexOf('.') !== -1;
+      str.indexOf("@") !== -1 &&
+      str.indexOf(".") !== -1
+    );
   },
 
   pluralize(string, arity) {
@@ -68,20 +72,20 @@ const StringUtil = {
     }
 
     if (string.length === 0) {
-      return '';
+      return "";
     }
 
     arity = parseInt(arity, 10);
 
     if (arity !== 1) {
-      string = string.replace(/y$/, 'ie') + 's';
+      string = string.replace(/y$/, "ie") + "s";
     }
 
     return string;
   },
 
   capitalize(string) {
-    if (typeof string !== 'string') {
+    if (typeof string !== "string") {
       return null;
     }
 
@@ -89,7 +93,7 @@ const StringUtil = {
   },
 
   lowercase(string) {
-    if (typeof string !== 'string') {
+    if (typeof string !== "string") {
       return null;
     }
 
@@ -97,16 +101,19 @@ const StringUtil = {
   },
 
   humanizeArray(array, options) {
-    options = Object.assign({
-      serialComma: true,
-      wrapValueFunction: false
-    }, options);
+    options = Object.assign(
+      {
+        serialComma: true,
+        wrapValueFunction: false
+      },
+      options
+    );
 
     const length = array.length;
-    let conjunction = ' and ';
+    let conjunction = " and ";
 
     if (length === 0) {
-      return '';
+      return "";
     }
 
     if (length === 1) {
@@ -132,26 +139,26 @@ const StringUtil = {
     const head = array.slice(0, -1);
     const tail = array.slice(-1)[0];
     if (options.serialComma) {
-      conjunction = ', and ';
+      conjunction = ", and ";
     }
 
     if (options.wrapValueFunction) {
-      const jsx = head.reduce(function (memo, value, index) {
+      const jsx = head.reduce(function(memo, value, index) {
         memo.push(options.wrapValueFunction(value, index));
 
         if (index !== head.length - 1) {
-          memo.push(', ');
+          memo.push(", ");
         }
 
         return memo;
       }, []);
 
       jsx.push(conjunction);
-      jsx.push(options.wrapValueFunction(tail, 'tail'));
+      jsx.push(options.wrapValueFunction(tail, "tail"));
 
       return jsx;
     } else {
-      return head.join(', ') + conjunction + tail;
+      return head.join(", ") + conjunction + tail;
     }
   },
 
@@ -162,15 +169,15 @@ const StringUtil = {
 
     const __html = marked(
       // Remove any tabs, that will create code blocks
-      text.replace('\t', ' '),
-      {gfm: true, tables: false, sanitize: true}
+      text.replace("\t", " "),
+      { gfm: true, tables: false, sanitize: true }
     );
 
     if (!__html) {
       return null;
     }
 
-    return {__html};
+    return { __html };
   },
 
   /**
@@ -183,23 +190,24 @@ const StringUtil = {
    *                           word tokens.
    * @return {String}        - Human-readable title.
    */
-  idToTitle(id, splitBy=[], replace={}, removeConsecutive) {
-
+  idToTitle(id, splitBy = [], replace = {}, removeConsecutive) {
     if (splitBy.length === 0) {
-      return id.reduce((title, word, i, words) => {
-        if (removeConsecutive && (i > 0) && (word === words[i - 1])) {
-          return title;
-        }
-        word = replace[word] || this.capitalize(word.toLowerCase().trim());
+      return id
+        .reduce((title, word, i, words) => {
+          if (removeConsecutive && i > 0 && word === words[i - 1]) {
+            return title;
+          }
+          word = replace[word] || this.capitalize(word.toLowerCase().trim());
 
-        return `${title} ${word}`;
-      }, '').trim();
+          return `${title} ${word}`;
+        }, "")
+        .trim();
     }
 
-    const splitID = id.reduce(function (accumulated, element) {
+    const splitID = id.reduce(function(accumulated, element) {
       const splitWords = element.split(splitBy.shift());
 
-      splitWords.map(function (token) {
+      splitWords.map(function(token) {
         accumulated.push(token);
       });
 

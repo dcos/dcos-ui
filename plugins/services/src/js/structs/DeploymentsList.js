@@ -1,5 +1,5 @@
-import List from '../../../../../src/js/structs/List';
-import Deployment from './Deployment';
+import List from "../../../../../src/js/structs/List";
+import Deployment from "./Deployment";
 
 /**
  * A typed {@link List} of {@link Deployment}s.

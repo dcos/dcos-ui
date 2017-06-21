@@ -1,14 +1,14 @@
-import UnitHealthStatus from '../constants/UnitHealthStatus';
-import TableUtil from '../utils/TableUtil';
+import UnitHealthStatus from "../constants/UnitHealthStatus";
+import TableUtil from "../utils/TableUtil";
 
 const UnitHealthUtil = {
   getHealthSortFunction(...args) {
-    return TableUtil.getSortFunction('id', function (item, prop) {
-      if (prop === 'health') {
+    return TableUtil.getSortFunction("id", function(item, prop) {
+      if (prop === "health") {
         return UnitHealthUtil.getHealthSorting(item);
       }
 
-      if (prop === 'id' || prop === 'name') {
+      if (prop === "id" || prop === "name") {
         return item.getTitle();
       }
 
@@ -27,8 +27,8 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    const healthKey = Object.keys(UnitHealthStatus).find(function (key) {
-      return (UnitHealthStatus[key].value === health);
+    const healthKey = Object.keys(UnitHealthStatus).find(function(key) {
+      return UnitHealthStatus[key].value === health;
     });
 
     return UnitHealthStatus[healthKey] || UnitHealthStatus.NA;
@@ -43,15 +43,14 @@ const UnitHealthUtil = {
   filterByHealth(items, health) {
     health = health.toLowerCase();
 
-    if (health === 'all') {
+    if (health === "all") {
       return items;
     }
 
-    return items.filter(function (datum) {
+    return items.filter(function(datum) {
       return datum.getHealth().title.toLowerCase() === health;
     });
   }
-
 };
 
 module.exports = UnitHealthUtil;

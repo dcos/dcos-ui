@@ -1,5 +1,5 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
 class ToggleButton extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class ToggleButton extends React.Component {
       onChange
     } = this.props;
 
-    const textClassName = {'muted': !checked};
+    const textClassName = { muted: !checked };
 
     return (
       <label className={classNames(className)}>
@@ -20,7 +20,8 @@ class ToggleButton extends React.Component {
           checked={checked}
           name="checkbox"
           onChange={onChange}
-          type="checkbox" />
+          type="checkbox"
+        />
         <span className={classNames(textClassName)}>{children}</span>
       </label>
     );
@@ -30,7 +31,7 @@ class ToggleButton extends React.Component {
 ToggleButton.defaultProps = {
   checked: false,
   onChange() {},
-  checkboxClassName: 'toggle-button'
+  checkboxClassName: "toggle-button"
 };
 
 ToggleButton.propTypes = {

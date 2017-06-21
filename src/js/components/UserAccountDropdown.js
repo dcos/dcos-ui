@@ -1,17 +1,17 @@
-import {Dropdown} from 'reactjs-components';
-import React from 'react';
+import { Dropdown } from "reactjs-components";
+import React from "react";
 
-import UserAccountDropdownTrigger from './UserAccountDropdownTrigger';
+import UserAccountDropdownTrigger from "./UserAccountDropdownTrigger";
 
 class UserAccountDropdown extends React.Component {
   getMenuItems() {
     return [
       {
-        className: 'hidden',
+        className: "hidden",
         html: (
           <UserAccountDropdownTrigger primaryContent={this.props.clusterName} />
         ),
-        id: 'dropdown-trigger',
+        id: "dropdown-trigger",
         selectable: false
       }
     ].concat(this.props.menuItems);
@@ -25,14 +25,16 @@ class UserAccountDropdown extends React.Component {
 
   render() {
     return (
-      <Dropdown buttonClassName="user-account-dropdown-button text-no-transform"
+      <Dropdown
+        buttonClassName="user-account-dropdown-button text-no-transform"
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}
         onItemSelection={this.handleItemSelection}
         persistentID="dropdown-trigger"
         transition={true}
-        wrapperClassName="user-account-dropdown dropdown header flex-item-shrink-0" />
+        wrapperClassName="user-account-dropdown dropdown header flex-item-shrink-0"
+      />
     );
   }
 }

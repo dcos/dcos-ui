@@ -1,16 +1,16 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import ActionKeys from '../../constants/ActionKeys';
-import ServiceTree from '../../structs/ServiceTree';
+import ActionKeys from "../../constants/ActionKeys";
+import ServiceTree from "../../structs/ServiceTree";
 
-import ServiceActionItem from '../../constants/ServiceActionItem';
-import ServiceDestroyModal from './ServiceDestroyModal';
-import ServiceGroupFormModal from './ServiceGroupFormModal';
-import ServiceRestartModal from './ServiceRestartModal';
-import ServiceResumeModal from './ServiceResumeModal';
-import ServiceScaleFormModal from './ServiceScaleFormModal';
-import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
-import ServiceSuspendModal from './ServiceSuspendModal';
+import ServiceActionItem from "../../constants/ServiceActionItem";
+import ServiceDestroyModal from "./ServiceDestroyModal";
+import ServiceGroupFormModal from "./ServiceGroupFormModal";
+import ServiceRestartModal from "./ServiceRestartModal";
+import ServiceResumeModal from "./ServiceResumeModal";
+import ServiceScaleFormModal from "./ServiceScaleFormModal";
+import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
+import ServiceSuspendModal from "./ServiceSuspendModal";
 
 class ServiceModals extends React.Component {
   getGroupModal() {
@@ -24,7 +24,7 @@ class ServiceModals extends React.Component {
     } = this.props;
 
     const key = ActionKeys.GROUP_CREATE;
-    const {service} = modalProps;
+    const { service } = modalProps;
 
     return (
       <ServiceGroupFormModal
@@ -34,32 +34,23 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         parentGroupId={service.getId()}
         open={modalProps.id === ServiceActionItem.CREATE_GROUP}
-        onClose={() => onClose(key)} />
+        onClose={() => onClose(key)}
+      />
     );
   }
 
   getDestroyModal() {
-    const {
-      actionErrors,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
+    const { actionErrors, onClose, modalProps, pendingActions } = this.props;
 
-    const {service} = modalProps;
+    const { service } = modalProps;
     const isGroup = service instanceof ServiceTree;
 
-    let deleteItem = (force) => this.props.actions.deleteService(
-      service,
-      force
-    );
+    let deleteItem = force => this.props.actions.deleteService(service, force);
     let key = ActionKeys.SERVICE_DELETE;
 
     if (isGroup) {
-      deleteItem = (force) => this.props.actions.deleteGroup(
-        service.getId(),
-        force
-      );
+      deleteItem = force =>
+        this.props.actions.deleteGroup(service.getId(), force);
       key = ActionKeys.GROUP_DELETE;
     }
 
@@ -70,7 +61,8 @@ class ServiceModals extends React.Component {
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.DESTROY}
         onClose={() => onClose(key)}
-        service={service} />
+        service={service}
+      />
     );
   }
 
@@ -84,7 +76,7 @@ class ServiceModals extends React.Component {
     } = this.props;
 
     const key = ActionKeys.SERVICE_RESTART;
-    const {service} = modalProps;
+    const { service } = modalProps;
 
     return (
       <ServiceRestartModal
@@ -93,7 +85,8 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         open={modalProps.id === ServiceActionItem.RESTART}
         onClose={() => onClose(key)}
-        service={service} />
+        service={service}
+      />
     );
   }
 
@@ -107,14 +100,17 @@ class ServiceModals extends React.Component {
     } = this.props;
 
     const key = ActionKeys.SERVICE_EDIT;
-    const {service} = modalProps;
+    const { service } = modalProps;
 
-    const resumeService = (instances, force) => actions.editService(
-      service,
-      ServiceSpecUtil.setServiceInstances(
-        service.getSpec(),
-        parseInt(instances, 10)
-      ), force);
+    const resumeService = (instances, force) =>
+      actions.editService(
+        service,
+        ServiceSpecUtil.setServiceInstances(
+          service.getSpec(),
+          parseInt(instances, 10)
+        ),
+        force
+      );
 
     return (
       <ServiceResumeModal
@@ -123,35 +119,38 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         open={modalProps.id === ServiceActionItem.RESUME}
         onClose={() => onClose(key)}
-        service={service} />
+        service={service}
+      />
     );
   }
 
   getScaleModal() {
-    const {
-      actionErrors,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
+    const { actionErrors, onClose, modalProps, pendingActions } = this.props;
 
-    const {service} = modalProps;
+    const { service } = modalProps;
     const isGroup = service instanceof ServiceTree;
 
     let key = ActionKeys.SERVICE_EDIT;
-    let scaleItem = (instances, force) => this.props.actions.editService(
-      service,
-      ServiceSpecUtil.setServiceInstances(
-        service.getSpec(),
-        parseInt(instances, 10)
-      ), force);
+    let scaleItem = (instances, force) =>
+      this.props.actions.editService(
+        service,
+        ServiceSpecUtil.setServiceInstances(
+          service.getSpec(),
+          parseInt(instances, 10)
+        ),
+        force
+      );
 
     if (isGroup) {
       key = ActionKeys.GROUP_EDIT;
-      scaleItem = (instances, force) => this.props.actions.editGroup({
-        id: service.id,
-        scaleBy: parseInt(instances, 10)
-      }, force);
+      scaleItem = (instances, force) =>
+        this.props.actions.editGroup(
+          {
+            id: service.id,
+            scaleBy: parseInt(instances, 10)
+          },
+          force
+        );
     }
 
     return (
@@ -161,34 +160,35 @@ class ServiceModals extends React.Component {
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.SCALE}
         onClose={() => onClose(key)}
-        service={service} />
+        service={service}
+      />
     );
   }
 
   getSuspendModal() {
-    const {
-      actionErrors,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
+    const { actionErrors, onClose, modalProps, pendingActions } = this.props;
 
-    const {service} = modalProps;
+    const { service } = modalProps;
     const isGroup = service instanceof ServiceTree;
 
     let key = ActionKeys.SERVICE_EDIT;
-    let suspendItem = (force) => this.props.actions.editService(
-      service,
-      ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
-      force
-    );
+    let suspendItem = force =>
+      this.props.actions.editService(
+        service,
+        ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
+        force
+      );
 
     if (isGroup) {
       key = ActionKeys.GROUP_EDIT;
-      suspendItem = (force) => this.props.actions.editGroup({
-        id: service.getId(),
-        scaleBy: 0
-      }, force);
+      suspendItem = force =>
+        this.props.actions.editGroup(
+          {
+            id: service.getId(),
+            scaleBy: 0
+          },
+          force
+        );
     }
 
     return (
@@ -198,7 +198,8 @@ class ServiceModals extends React.Component {
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.SUSPEND}
         onClose={() => onClose(key)}
-        service={service} />
+        service={service}
+      />
     );
   }
 

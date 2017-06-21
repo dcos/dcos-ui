@@ -1,24 +1,23 @@
-import React from 'react';
-import {routerShape} from 'react-router';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import React from "react";
+import { routerShape } from "react-router";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Icon from '../../../../../src/js/components/Icon';
-import RouterUtil from '../../../../../src/js/utils/RouterUtil';
-import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
+import Icon from "../../../../../src/js/components/Icon";
+import RouterUtil from "../../../../../src/js/utils/RouterUtil";
+import TabsMixin from "../../../../../src/js/mixins/TabsMixin";
 
 var ServicesPage = React.createClass({
-
   contextTypes: {
     router: routerShape
   },
 
   mixins: [TabsMixin, StoreMixin],
 
-  displayName: 'ServicesPage',
+  displayName: "ServicesPage",
 
   statics: {
     routeConfig: {
-      label: 'Services',
+      label: "Services",
       icon: <Icon id="services-inverse" size="small" family="product" />,
       matches: /^\/services/
     }
@@ -26,17 +25,17 @@ var ServicesPage = React.createClass({
 
   getInitialState() {
     return {
-      currentTab: '/services/overview'
+      currentTab: "/services/overview"
     };
   },
 
   componentWillMount() {
     this.store_listeners = [
-      {name: 'notification', events: ['change'], suppressUpdate: false}
+      { name: "notification", events: ["change"], suppressUpdate: false }
     ];
     this.tabs_tabs = {
-      '/services/overview': 'Services',
-      '/services/deployments': 'Deployments'
+      "/services/overview": "Services",
+      "/services/deployments": "Deployments"
     };
     this.updateCurrentTab();
   },
@@ -48,12 +47,12 @@ var ServicesPage = React.createClass({
   updateCurrentTab() {
     let currentTab = RouterUtil.reconstructPathFromRoutes(this.props.routes);
     // `/services/overview` tab also contains routes for '/services/overview/:id'
-    if (currentTab === '/services/overview/:id' || currentTab == null) {
-      currentTab = '/services/overview';
+    if (currentTab === "/services/overview/:id" || currentTab == null) {
+      currentTab = "/services/overview";
     }
 
     if (this.state.currentTab !== currentTab) {
-      this.setState({currentTab});
+      this.setState({ currentTab });
     }
   },
 
@@ -72,7 +71,6 @@ var ServicesPage = React.createClass({
   render() {
     return this.props.children;
   }
-
 });
 
 module.exports = ServicesPage;

@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
@@ -34,17 +34,15 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS
-} from '../constants/ActionTypes';
-import {
-  SERVER_ACTION
-} from '../../../../../src/js/constants/ActionTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import Config from '../../../../../src/js/config/Config';
-import DeploymentsList from '../structs/DeploymentsList';
-import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
-import HealthStatus from '../constants/HealthStatus';
-import MarathonActions from '../events/MarathonActions';
+} from "../constants/ActionTypes";
+import { SERVER_ACTION } from "../../../../../src/js/constants/ActionTypes";
+import AppDispatcher from "../../../../../src/js/events/AppDispatcher";
+import CompositeState from "../../../../../src/js/structs/CompositeState";
+import Config from "../../../../../src/js/config/Config";
+import DeploymentsList from "../structs/DeploymentsList";
+import GetSetBaseStore from "../../../../../src/js/stores/GetSetBaseStore";
+import HealthStatus from "../constants/HealthStatus";
+import MarathonActions from "../events/MarathonActions";
 import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
@@ -81,11 +79,11 @@ import {
   MARATHON_TASK_KILL_ERROR,
   MARATHON_TASK_KILL_SUCCESS,
   VISIBILITY_CHANGE
-} from '../constants/EventTypes';
-import Service from '../structs/Service';
-import ServiceImages from '../constants/ServiceImages';
-import ServiceTree from '../structs/ServiceTree';
-import VisibilityStore from '../../../../../src/js/stores/VisibilityStore';
+} from "../constants/EventTypes";
+import Service from "../structs/Service";
+import ServiceImages from "../constants/ServiceImages";
+import ServiceTree from "../structs/ServiceTree";
+import VisibilityStore from "../../../../../src/js/stores/VisibilityStore";
 
 let requestInterval = null;
 let shouldEmbedLastUnusedOffers = false;
@@ -108,7 +106,7 @@ function poll() {
   const options = {};
 
   if (shouldEmbedLastUnusedOffers) {
-    options.params = '?embed=lastUnusedOffers';
+    options.params = "?embed=lastUnusedOffers";
   }
 
   MarathonActions.fetchGroups();
@@ -161,7 +159,7 @@ class MarathonStore extends GetSetBaseStore {
         taskKillError: MARATHON_TASK_KILL_ERROR
       },
       unmountWhen(store, event) {
-        if (event === 'appsSuccess') {
+        if (event === "appsSuccess") {
           return store.hasProcessedApps();
         }
 
@@ -170,7 +168,7 @@ class MarathonStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -315,10 +313,12 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   shouldPoll() {
-    return this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
+    return (
+      this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_QUEUE_CHANGE) > 0 ||
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
-      this.listenerCount(MARATHON_APPS_CHANGE) > 0;
+      this.listenerCount(MARATHON_APPS_CHANGE) > 0
+    );
   }
 
   changeService() {
@@ -378,7 +378,7 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   hasProcessedApps() {
-    return Object.keys(this.get('apps')).length > 0;
+    return Object.keys(this.get("apps")).length > 0;
   }
 
   getFrameworkHealth(app) {
@@ -397,12 +397,12 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getInstanceInfo() {
-    return this.get('info');
+    return this.get("info");
   }
 
   getServiceHealth(name) {
     const appName = name.toLowerCase();
-    const marathonApps = this.get('apps');
+    const marathonApps = this.get("apps");
 
     if (!marathonApps[appName]) {
       return HealthStatus.NA;
@@ -414,7 +414,7 @@ class MarathonStore extends GetSetBaseStore {
   getServiceImages(name) {
     const appName = name.toLowerCase();
     let appImages = null;
-    const marathonApps = this.get('apps');
+    const marathonApps = this.get("apps");
 
     if (marathonApps[appName]) {
       appImages = marathonApps[appName].images;
@@ -426,7 +426,7 @@ class MarathonStore extends GetSetBaseStore {
   getServiceInstalledTime(name) {
     const appName = name.toLowerCase();
     let appInstalledTime = null;
-    const marathonApps = this.get('apps');
+    const marathonApps = this.get("apps");
 
     if (marathonApps[appName]) {
       appInstalledTime = marathonApps[appName].snapshot.version;
@@ -437,7 +437,7 @@ class MarathonStore extends GetSetBaseStore {
 
   getServiceVersion(name) {
     const appName = name.toLowerCase();
-    const marathonApps = this.get('apps');
+    const marathonApps = this.get("apps");
 
     if (marathonApps[appName]) {
       return this.getVersion(marathonApps[appName].snapshot);
@@ -447,9 +447,11 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getVersion(app) {
-    if (app == null ||
+    if (
+      app == null ||
       app.labels == null ||
-      app.labels.DCOS_PACKAGE_VERSION == null) {
+      app.labels.DCOS_PACKAGE_VERSION == null
+    ) {
       return null;
     }
 
@@ -457,18 +459,18 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   getServiceFromName(name) {
-    return this.get('apps')[name];
+    return this.get("apps")[name];
   }
 
   processMarathonInfoRequest(info) {
-    this.set({info});
+    this.set({ info });
     this.emit(MARATHON_INSTANCE_INFO_SUCCESS);
   }
 
   processMarathonGroups(data) {
     const groups = new ServiceTree(data);
 
-    const apps = groups.reduceItems(function (map, item) {
+    const apps = groups.reduceItems(function(map, item) {
       if (item instanceof Service) {
         map[item.getName().toLowerCase()] = {
           health: item.getHealth(),
@@ -496,8 +498,8 @@ class MarathonStore extends GetSetBaseStore {
       images: ServiceImages.MARATHON_IMAGES
     };
 
-    this.set({apps});
-    this.set({groups});
+    this.set({ apps });
+    this.set({ groups });
 
     CompositeState.addMarathonApps(apps);
 
@@ -511,8 +513,8 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonDeployments(data) {
-    const deployments = new DeploymentsList({items: data});
-    this.set({deployments});
+    const deployments = new DeploymentsList({ items: data });
+    this.set({ deployments });
     this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
   }
 
@@ -523,11 +525,12 @@ class MarathonStore extends GetSetBaseStore {
   processMarathonDeploymentRollback(data) {
     const id = data.originalDeploymentID;
     if (id != null) {
-      const deployments = this.get('deployments')
-        .filterItems(function (deployment) {
-          return deployment.getId() !== id;
-        });
-      this.set({deployments});
+      const deployments = this.get("deployments").filterItems(function(
+        deployment
+      ) {
+        return deployment.getId() !== id;
+      });
+      this.set({ deployments });
       this.emit(MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, data);
       this.emit(MARATHON_DEPLOYMENTS_CHANGE);
     }
@@ -552,12 +555,12 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonServiceVersions(service) {
-    let {serviceID, versions} = service;
-    versions = versions.reduce(function (map, version) {
+    let { serviceID, versions } = service;
+    versions = versions.reduce(function(map, version) {
       return map.set(version);
     }, new Map());
 
-    this.emit(MARATHON_SERVICE_VERSIONS_CHANGE, {serviceID, versions});
+    this.emit(MARATHON_SERVICE_VERSIONS_CHANGE, { serviceID, versions });
   }
 
   processMarathonServiceVersionsError() {
@@ -565,9 +568,13 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonServiceVersion(service) {
-    const {serviceID, version, versionID} = service;
+    const { serviceID, version, versionID } = service;
     // TODO (orlandohohmeier): Convert version into typed version struct
-    this.emit(MARATHON_SERVICE_VERSION_CHANGE, {serviceID, versionID, version});
+    this.emit(MARATHON_SERVICE_VERSION_CHANGE, {
+      serviceID,
+      versionID,
+      version
+    });
   }
 
   processMarathonServiceVersionError() {
@@ -575,7 +582,7 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   get storeID() {
-    return 'marathon';
+    return "marathon";
   }
 
   setShouldEmbedLastUnusedOffers(value) {

@@ -1,22 +1,22 @@
-import classNames from 'classnames';
-import mixin from 'reactjs-mixin';
-import {Modal} from 'reactjs-components';
+import classNames from "classnames";
+import mixin from "reactjs-mixin";
+import { Modal } from "reactjs-components";
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import {Hooks} from 'PluginSDK';
+import { Hooks } from "PluginSDK";
 
-import ModalHeading from './modals/ModalHeading';
+import ModalHeading from "./modals/ModalHeading";
 
-const METHODS_TO_BIND = ['handleModalClose', 'handleServerError'];
+const METHODS_TO_BIND = ["handleModalClose", "handleServerError"];
 
 function getEventsFromStoreListeners(storeListeners) {
   const events = [];
 
-  storeListeners.forEach((store) => {
-    store.events.forEach((storeEvent) => {
+  storeListeners.forEach(store => {
+    store.events.forEach(storeEvent => {
       events.push(this.store_getChangeFunctionName(store.name, storeEvent));
     });
   });
@@ -33,14 +33,14 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
       errors: []
     };
 
-    this.store_listeners = Hooks.applyFilter('serverErrorModalListeners', []);
+    this.store_listeners = Hooks.applyFilter("serverErrorModalListeners", []);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     const events = getEventsFromStoreListeners.call(this, this.store_listeners);
-    events.forEach((event) => {
+    events.forEach(event => {
       this[event] = this.handleServerError;
     });
   }
@@ -54,7 +54,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
   handleServerError(errorMessage) {
     if (!errorMessage) {
-      throw 'No error message defined!';
+      throw "No error message defined!";
     }
 
     const isLocked = errorMessage && /force=true/.test(errorMessage);
@@ -78,12 +78,12 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   getContent() {
-    const {errors} = this.state;
+    const { errors } = this.state;
     const lastErrorIndex = errors.length - 1;
-    const errorMessages = errors.map(function (error, index) {
-      const errorMessageClass = classNames('text-align-center', {
+    const errorMessages = errors.map(function(error, index) {
+      const errorMessageClass = classNames("text-align-center", {
         // Last error message doesn't have margin bottom.
-        'flush-bottom': index === lastErrorIndex
+        "flush-bottom": index === lastErrorIndex
       });
 
       return (
@@ -116,7 +116,8 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
         showHeader={true}
         showFooter={true}
         footer={this.getFooter()}
-        header={header}>
+        header={header}
+      >
         {this.getContent()}
       </Modal>
     );

@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from "react";
 
-import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
+import BreadcrumbSegmentLink from "./BreadcrumbSegmentLink";
 
 class BreadcrumbSegment extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ class BreadcrumbSegment extends React.Component {
   }
 
   getCrumbLabel() {
-    return '';
+    return "";
   }
 
   /**
@@ -23,8 +23,8 @@ class BreadcrumbSegment extends React.Component {
    * @return {String} Crumb label
    */
   getBackupCrumbLabel() {
-    const {params, routes, routePath} = this.props;
-    const route = routes.find(function (eachRoute) {
+    const { params, routes, routePath } = this.props;
+    const route = routes.find(function(eachRoute) {
       return eachRoute.path === routePath;
     });
 
@@ -49,7 +49,7 @@ class BreadcrumbSegment extends React.Component {
   }
 
   render() {
-    let label = '';
+    let label = "";
 
     if (this.state.isLoadingCrumb) {
       label = this.getBackupCrumbLabel();
@@ -62,9 +62,7 @@ class BreadcrumbSegment extends React.Component {
       params: this.props.params
     };
 
-    return (
-      <BreadcrumbSegmentLink label={label} route={route} />
-    );
+    return <BreadcrumbSegmentLink label={label} route={route} />;
   }
 }
 

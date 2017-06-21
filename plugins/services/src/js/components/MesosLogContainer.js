@@ -1,19 +1,19 @@
-import mixin from 'reactjs-mixin';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import mixin from "reactjs-mixin";
+import React from "react";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import LogView from './LogView';
-import Loader from '../../../../../src/js/components/Loader';
-import MesosLogStore from '../stores/MesosLogStore';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
-import {APPEND} from '../../../../../src/js/constants/SystemLogTypes';
+import LogView from "./LogView";
+import Loader from "../../../../../src/js/components/Loader";
+import MesosLogStore from "../stores/MesosLogStore";
+import RequestErrorMsg from "../../../../../src/js/components/RequestErrorMsg";
+import TaskDirectoryStore from "../stores/TaskDirectoryStore";
+import { APPEND } from "../../../../../src/js/constants/SystemLogTypes";
 
 const METHODS_TO_BIND = [
-  'handleGoToWorkingDirectory',
-  'handleFetchPreviousLog',
-  'onMesosLogStoreError',
-  'onMesosLogStoreSuccess'
+  "handleGoToWorkingDirectory",
+  "handleFetchPreviousLog",
+  "onMesosLogStoreError",
+  "onMesosLogStoreSuccess"
 ];
 
 class MesosLogContainer extends mixin(StoreMixin) {
@@ -28,20 +28,22 @@ class MesosLogContainer extends mixin(StoreMixin) {
       hasLoadingError: 0
     };
 
-    this.store_listeners = [{
-      events: ['success', 'error'],
-      name: 'mesosLog',
-      suppressUpdate: true
-    }];
+    this.store_listeners = [
+      {
+        events: ["success", "error"],
+        name: "mesosLog",
+        suppressUpdate: true
+      }
+    ];
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    const {filePath, task} = this.props;
+    const { filePath, task } = this.props;
     if (!filePath) {
       return;
     }
@@ -51,7 +53,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    const {props} = this;
+    const { props } = this;
     if (props.filePath === nextProps.filePath) {
       return;
     }
@@ -97,27 +99,27 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
     return (
       // Check filePath
-      (filePath !== nextProps.filePath) ||
+      filePath !== nextProps.filePath ||
       // Check logName
-      (logName !== nextProps.logName) ||
+      logName !== nextProps.logName ||
       // Check highlightText
-      (highlightText !== nextProps.highlightText) ||
+      highlightText !== nextProps.highlightText ||
       // Check watching
-      (watching !== nextProps.watching) ||
+      watching !== nextProps.watching ||
       // Check watching
-      (onCountChange !== nextProps.onCountChange) ||
+      onCountChange !== nextProps.onCountChange ||
       // Check task (slave_id is the only property being used)
-      (task.slave_id !== nextProps.task.slave_id) ||
+      task.slave_id !== nextProps.task.slave_id ||
       // Check direction
-      (direction !== nextState.direction) ||
+      direction !== nextState.direction ||
       // Check hasLoadingError
-      (hasLoadingError !== nextState.hasLoadingError) ||
+      hasLoadingError !== nextState.hasLoadingError ||
       // Check isFetchingPrevious
-      (isFetchingPrevious !== nextState.isFetchingPrevious) ||
+      isFetchingPrevious !== nextState.isFetchingPrevious ||
       // Check isLoading
-      (isLoading !== nextState.isLoading) ||
+      isLoading !== nextState.isLoading ||
       // Check fullLog at the end, as this could be a long string
-      (fullLog !== nextState.fullLog)
+      fullLog !== nextState.fullLog
     );
   }
 
@@ -136,7 +138,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
   onMesosLogStoreSuccess(path, direction) {
     // Check the filePath before we reload
-    const {filePath} = this.props;
+    const { filePath } = this.props;
     if (path !== filePath) {
       // This event is not for our filePath
       return;
@@ -155,19 +157,19 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   handleGoToWorkingDirectory() {
-    TaskDirectoryStore.setPath(this.props.task, '');
+    TaskDirectoryStore.setPath(this.props.task, "");
   }
 
   handleFetchPreviousLog(props = this.props) {
-    const {isFetchingPrevious} = this.state;
-    const {task, filePath} = props;
+    const { isFetchingPrevious } = this.state;
+    const { task, filePath } = props;
     // Ongoing previous log fetch, wait for that to complete
     if (isFetchingPrevious) {
       return;
     }
 
     MesosLogStore.getPreviousLogs(task.slave_id, filePath);
-    this.setState({isFetchingPrevious: true});
+    this.setState({ isFetchingPrevious: true });
   }
 
   getErrorScreen() {
@@ -182,7 +184,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       onCountChange,
       watching
     } = this.props;
-    const {direction, fullLog} = this.state;
+    const { direction, fullLog } = this.state;
 
     if (!logName) {
       return this.getEmptyDirectoryScreen();
@@ -197,7 +199,8 @@ class MesosLogContainer extends mixin(StoreMixin) {
         highlightText={highlightText}
         logName={logName}
         onCountChange={onCountChange}
-        watching={watching} />
+        watching={watching}
+      />
     );
   }
 
@@ -216,7 +219,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   render() {
-    const {hasLoadingError, isLoading} = this.state;
+    const { hasLoadingError, isLoading } = this.state;
 
     if (hasLoadingError >= 3) {
       return this.getErrorScreen();
@@ -235,7 +238,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
 }
 
 MesosLogContainer.defaultProps = {
-  highlightText: ''
+  highlightText: ""
 };
 
 MesosLogContainer.propTypes = {

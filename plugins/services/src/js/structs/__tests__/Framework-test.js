@@ -1,80 +1,73 @@
-jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
+jest.dontMock("../../../../../../src/js/stores/MesosStateStore");
 
-const JestUtil = require('../../../../../../src/js/utils/JestUtil');
+const JestUtil = require("../../../../../../src/js/utils/JestUtil");
 
-JestUtil.unMockStores(['MesosStateStore']);
+JestUtil.unMockStores(["MesosStateStore"]);
 
-const MesosStateStore = require('../../../../../../src/js/stores/MesosStateStore');
+const MesosStateStore = require("../../../../../../src/js/stores/MesosStateStore");
 
-const Framework = require('../Framework');
+const Framework = require("../Framework");
 
-describe('Framework', function () {
-
-  describe('#getNodeIDs', function () {
-
-    it('returns ids of nodes the service is running on', function () {
-      const framework = new Framework({slave_ids: [1, 2, 3]});
+describe("Framework", function() {
+  describe("#getNodeIDs", function() {
+    it("returns ids of nodes the service is running on", function() {
+      const framework = new Framework({ slave_ids: [1, 2, 3] });
       expect(framework.getNodeIDs()).toEqual([1, 2, 3]);
     });
-
   });
 
-  describe('#getResourceID', function () {
-
-    it('returns the correct resource id when there is no name', function () {
+  describe("#getResourceID", function() {
+    it("returns the correct resource id when there is no name", function() {
       const framework = new Framework();
-      expect(framework.getResourceID()).toEqual('dcos:adminrouter:service:');
+      expect(framework.getResourceID()).toEqual("dcos:adminrouter:service:");
     });
 
-    it('returns the correct resource id when there is a name', function () {
-      const framework = new Framework({name: 'foo'});
-      expect(framework.getResourceID()).toEqual('dcos:adminrouter:service:foo');
+    it("returns the correct resource id when there is a name", function() {
+      const framework = new Framework({ name: "foo" });
+      expect(framework.getResourceID()).toEqual("dcos:adminrouter:service:foo");
     });
 
-    it('returns the correct resource id when name is complex', function () {
-      const framework = new Framework({name: 'foo-adsf-2'});
-      expect(framework.getResourceID())
-        .toEqual('dcos:adminrouter:service:foo-adsf-2');
+    it("returns the correct resource id when name is complex", function() {
+      const framework = new Framework({ name: "foo-adsf-2" });
+      expect(framework.getResourceID()).toEqual(
+        "dcos:adminrouter:service:foo-adsf-2"
+      );
     });
-
   });
 
-  describe('#getUsageStats', function () {
-
-    it('returns an object containing the value for the resource', function () {
-      const framework = new Framework({used_resources: {cpus: 1, mem: 512}});
-      expect(framework.getUsageStats('cpus').value).toEqual(1);
-      expect(framework.getUsageStats('mem').value).toEqual(512);
+  describe("#getUsageStats", function() {
+    it("returns an object containing the value for the resource", function() {
+      const framework = new Framework({
+        used_resources: { cpus: 1, mem: 512 }
+      });
+      expect(framework.getUsageStats("cpus").value).toEqual(1);
+      expect(framework.getUsageStats("mem").value).toEqual(512);
     });
-
   });
 
-  describe('#getName', function () {
-
-    it('returns correct name', function () {
+  describe("#getName", function() {
+    it("returns correct name", function() {
       const service = new Framework({
-        id: '/test/framework',
+        id: "/test/framework",
         labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: 'Framework'
+          DCOS_PACKAGE_FRAMEWORK_NAME: "Framework"
         }
       });
 
-      expect(service.getName()).toEqual('Framework');
+      expect(service.getName()).toEqual("Framework");
     });
 
-    it('returns basename if framework name is undefined', function () {
+    it("returns basename if framework name is undefined", function() {
       const service = new Framework({
-        id: '/test/framework'
+        id: "/test/framework"
       });
 
-      expect(service.getName()).toEqual('framework');
+      expect(service.getName()).toEqual("framework");
     });
-
   });
 
-  describe('#getTasksSummary', function () {
-
-    it('returns correct task summary', function () {
+  describe("#getTasksSummary", function() {
+    it("returns correct task summary", function() {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -93,7 +86,7 @@ describe('Framework', function () {
       });
     });
 
-    it('returns correct task summary for overcapacity', function () {
+    it("returns correct task summary for overcapacity", function() {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -112,7 +105,7 @@ describe('Framework', function () {
       });
     });
 
-    it('returns correct task summary with framework data', function () {
+    it("returns correct task summary with framework data", function() {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -131,12 +124,10 @@ describe('Framework', function () {
         tasksOverCapacity: 0
       });
     });
-
   });
 
-  describe('#getInstancesCount', function () {
-
-    it('returns correct instances', function () {
+  describe("#getInstancesCount", function() {
+    it("returns correct instances", function() {
       const service = new Framework({
         instances: 1
       });
@@ -144,7 +135,7 @@ describe('Framework', function () {
       expect(service.getInstancesCount()).toEqual(1);
     });
 
-    it('returns correct instances with Framework data', function () {
+    it("returns correct instances with Framework data", function() {
       const service = new Framework({
         instances: 1,
         TASK_RUNNING: 1
@@ -152,24 +143,22 @@ describe('Framework', function () {
 
       expect(service.getInstancesCount()).toEqual(1);
     });
-
   });
 
-  describe('#getResources', function () {
-
-    it('aggregates child task resources properly', function () {
-      MesosStateStore.getTasksByService = function () {
+  describe("#getResources", function() {
+    it("aggregates child task resources properly", function() {
+      MesosStateStore.getTasksByService = function() {
         return [
           {
-            id: '/fake_1',
+            id: "/fake_1",
             isStartedByMarathon: true,
-            state: 'TASK_RUNNING',
-            resources: {cpus: 0.2, mem: 300, gpus: 0, disk: 0}
+            state: "TASK_RUNNING",
+            resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
           },
           {
-            id: '/fake_2',
-            state: 'TASK_RUNNING',
-            resources: {cpus: 0.8, mem: 700, gpus: 0, disk: 0}
+            id: "/fake_2",
+            state: "TASK_RUNNING",
+            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
           }
         ];
       };
@@ -187,7 +176,5 @@ describe('Framework', function () {
         disk: 0
       });
     });
-
   });
-
 });

@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from "classnames";
+import React from "react";
 
-const ConfigurationMapValue = (props) => {
-  const classes = classNames('configuration-map-value', {
-    'configuration-map-value-stacked': props.stacked
+const ConfigurationMapValue = props => {
+  const classes = classNames("configuration-map-value", {
+    "configuration-map-value-stacked": props.stacked
   });
 
   return (

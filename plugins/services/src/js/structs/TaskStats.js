@@ -1,23 +1,22 @@
-import Item from '../../../../../src/js/structs/Item';
-import List from '../../../../../src/js/structs/List';
-import TaskStat from './TaskStat';
+import Item from "../../../../../src/js/structs/Item";
+import List from "../../../../../src/js/structs/List";
+import TaskStat from "./TaskStat";
 
 const functionMap = {
-  withLatestConfig: 'getStatsForTasksWithLatestConfig',
-  startedAfterLastScaling: 'getStatsForTasksStaredAfterLastScaling',
-  withOutdatedConfig: 'getStatsForTasksWithOutdatedConfig',
-  totalSummary: 'getStatsForAllTasks'
+  withLatestConfig: "getStatsForTasksWithLatestConfig",
+  startedAfterLastScaling: "getStatsForTasksStaredAfterLastScaling",
+  withOutdatedConfig: "getStatsForTasksWithOutdatedConfig",
+  totalSummary: "getStatsForAllTasks"
 };
 
 class TaskStats extends Item {
-
   /**
    * @return {TaskStat} task statistic about all tasks that run with the same
    * config as the latest app version.
    */
   getStatsForTasksWithLatestConfig() {
-    const stat = this.get('withLatestConfig') || {};
-    stat.name = 'withLatestConfig';
+    const stat = this.get("withLatestConfig") || {};
+    stat.name = "withLatestConfig";
 
     return new TaskStat(stat);
   }
@@ -27,8 +26,8 @@ class TaskStats extends Item {
    * the last scaling or restart operation.
    */
   getStatsForTasksStaredAfterLastScaling() {
-    const stat = this.get('startedAfterLastScaling') || {};
-    stat.name = 'startedAfterLastScaling';
+    const stat = this.get("startedAfterLastScaling") || {};
+    stat.name = "startedAfterLastScaling";
 
     return new TaskStat(stat);
   }
@@ -39,8 +38,8 @@ class TaskStats extends Item {
    * operation.
    */
   getStatsForTasksWithOutdatedConfig() {
-    const stat = this.get('withOutdatedConfig') || {};
-    stat.name = 'withOutdatedConfig';
+    const stat = this.get("withOutdatedConfig") || {};
+    stat.name = "withOutdatedConfig";
 
     return new TaskStat(stat);
   }
@@ -49,8 +48,8 @@ class TaskStats extends Item {
    * @return {TaskStat} task statistics about all tasks
    */
   getStatsForAllTasks() {
-    const stat = this.get('totalSummary') || {};
-    stat.name = 'totalSummary';
+    const stat = this.get("totalSummary") || {};
+    stat.name = "totalSummary";
 
     return new TaskStat(stat);
   }
@@ -61,17 +60,15 @@ class TaskStats extends Item {
   getList() {
     const items = [];
 
-    Object.keys(functionMap).forEach((key) => {
+    Object.keys(functionMap).forEach(key => {
       const stat = this[functionMap[key]]();
       if (!stat.isEmpty()) {
         items.push(stat);
       }
     });
 
-    return new List({items});
+    return new List({ items });
   }
-
 }
 
 module.exports = TaskStats;
-

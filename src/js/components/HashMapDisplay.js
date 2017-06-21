@@ -1,11 +1,11 @@
-import PureRender from 'react-addons-pure-render-mixin';
-import React from 'react';
+import PureRender from "react-addons-pure-render-mixin";
+import React from "react";
 
-import ConfigurationMapHeading from './ConfigurationMapHeading';
-import ConfigurationMapLabel from './ConfigurationMapLabel';
-import ConfigurationMapRow from './ConfigurationMapRow';
-import ConfigurationMapSection from './ConfigurationMapSection';
-import ConfigurationMapValue from './ConfigurationMapValue';
+import ConfigurationMapHeading from "./ConfigurationMapHeading";
+import ConfigurationMapLabel from "./ConfigurationMapLabel";
+import ConfigurationMapRow from "./ConfigurationMapRow";
+import ConfigurationMapSection from "./ConfigurationMapSection";
+import ConfigurationMapValue from "./ConfigurationMapValue";
 
 class HashMapDisplay extends React.Component {
   constructor() {
@@ -14,31 +14,36 @@ class HashMapDisplay extends React.Component {
   }
 
   getHeadline() {
-    const {headline, headlineClassName, headingLevel} = this.props;
+    const { headline, headlineClassName, headingLevel } = this.props;
     if (!headline) {
       return null;
     }
 
     // Wrap in headline element and classes
     return (
-      <ConfigurationMapHeading className={headlineClassName}
-        level={headingLevel}>
+      <ConfigurationMapHeading
+        className={headlineClassName}
+        level={headingLevel}
+      >
         {headline}
       </ConfigurationMapHeading>
     );
   }
 
   getItems() {
-    const {hash, headingLevel, renderKeys} = this.props;
+    const { hash, headingLevel, renderKeys } = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
 
       // Check whether we are trying to render an object that is not a
       // React component
-      if (typeof value === 'object' && !Array.isArray(value) &&
-        value !== null && !React.isValidElement(value)) {
-
+      if (
+        typeof value === "object" &&
+        !Array.isArray(value) &&
+        value !== null &&
+        !React.isValidElement(value)
+      ) {
         // Increase the heading level for each nested description list, making
         // ensuring we don't surpass heading level 6.
         const nextHeadingLevel = Math.min(headingLevel + 1, 6);
@@ -49,11 +54,12 @@ class HashMapDisplay extends React.Component {
             hash={value}
             headingLevel={nextHeadingLevel}
             key={index}
-            headline={key} />
+            headline={key}
+          />
         );
       }
 
-      if (typeof value === 'boolean') {
+      if (typeof value === "boolean") {
         value = value.toString();
       }
 
@@ -72,7 +78,7 @@ class HashMapDisplay extends React.Component {
   }
 
   render() {
-    const {hash} = this.props;
+    const { hash } = this.props;
     if (!hash || Object.keys(hash).length === 0) {
       return null;
     }
@@ -88,7 +94,7 @@ class HashMapDisplay extends React.Component {
 
 HashMapDisplay.defaultProps = {
   headingLevel: 1,
-  key: '',
+  key: "",
   renderKeys: {}
 };
 

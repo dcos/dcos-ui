@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_CLUSTER_CCID_ERROR,
@@ -6,16 +6,16 @@ import {
   REQUEST_CONFIG_ERROR,
   REQUEST_CONFIG_SUCCESS,
   SERVER_ACTION
-} from '../constants/ActionTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import ConfigActions from '../events/ConfigActions';
+} from "../constants/ActionTypes";
+import AppDispatcher from "../events/AppDispatcher";
+import ConfigActions from "../events/ConfigActions";
 import {
   CLUSTER_CCID_ERROR,
   CLUSTER_CCID_SUCCESS,
   CONFIG_ERROR,
   CONFIG_LOADED
-} from '../constants/EventTypes';
-import GetSetBaseStore from './GetSetBaseStore';
+} from "../constants/EventTypes";
+import GetSetBaseStore from "./GetSetBaseStore";
 
 class ConfigStore extends GetSetBaseStore {
   constructor() {
@@ -41,7 +41,7 @@ class ConfigStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -75,12 +75,12 @@ class ConfigStore extends GetSetBaseStore {
   }
 
   processConfigSuccess(config) {
-    this.set({config});
+    this.set({ config });
     this.emit(CONFIG_LOADED);
   }
 
   processCCIDSuccess(ccid) {
-    this.set({ccid});
+    this.set({ ccid });
     this.emit(CLUSTER_CCID_SUCCESS);
   }
 
@@ -93,7 +93,7 @@ class ConfigStore extends GetSetBaseStore {
   }
 
   get storeID() {
-    return 'config';
+    return "config";
   }
 }
 

@@ -1,10 +1,9 @@
-import DSLFilterTypes from '../constants/DSLFilterTypes';
-import {CombinerNode, FilterNode} from '../structs/DSLASTNodes';
+import DSLFilterTypes from "../constants/DSLFilterTypes";
+import { CombinerNode, FilterNode } from "../structs/DSLASTNodes";
 
 const ENDING_WHITESPACE = /\s+$/;
 
 const DSLUtil = {
-
   /**
    * Checks if the given expression can be processed by the UI
    *
@@ -12,8 +11,9 @@ const DSLUtil = {
    * @returns {Boolean} Returns the expression state
    */
   canFormProcessExpression(expression) {
-    const hasGroups = (expression.value.indexOf('(') !== -1);
-    const repeatingStatus = DSLUtil.reduceAstFilters(expression.ast,
+    const hasGroups = expression.value.indexOf("(") !== -1;
+    const repeatingStatus = DSLUtil.reduceAstFilters(
+      expression.ast,
       (memo, filter) => {
         if (memo.isRepeating) {
           return memo;
@@ -37,7 +37,7 @@ const DSLUtil = {
 
         return memo;
       },
-      {isRepeating: false, found: {}}
+      { isRepeating: false, found: {} }
     );
 
     // We can process an expression only if we have no groups if we
@@ -56,10 +56,12 @@ const DSLUtil = {
   canProcessParts(expression, partFilters) {
     const propNames = Object.keys(partFilters);
 
-    return propNames.every((prop) => {
+    return propNames.every(prop => {
       const matchAgainst = partFilters[prop];
       const matchingNodes = DSLUtil.findNodesByFilter(
-        expression.ast, matchAgainst);
+        expression.ast,
+        matchAgainst
+      );
 
       // NOTE: Be aware that the entire form should be disabled if the
       //       expression is difficult for the UI to process. This means
@@ -68,23 +70,18 @@ const DSLUtil = {
       //       You can use `DSLUtil.canFormProcessExpression` for this.
 
       switch (matchAgainst.filterType) {
-
         // Attrib nodes can only handle 1 match
         case DSLFilterTypes.ATTRIB:
           return matchingNodes.length <= 1;
-
         // Exact nodes can only handle 1 match
         case DSLFilterTypes.EXACT:
           return matchingNodes.length <= 1;
-
         // We are concatenating all fuzzy-matching nodes into a string
         // so we have no problem if we have more than one.
         case DSLFilterTypes.FUZZY:
           return true;
-
       }
     });
-
   },
 
   /**
@@ -96,33 +93,34 @@ const DSLUtil = {
    * @returns {Array} Returns an array of FilterNodes tha match filter
    */
   findNodesByFilter(ast, filter) {
-    return DSLUtil.reduceAstFilters(ast, (memo, astFilter) => {
-      const {
-        filterParams,
-        filterType
-      } = astFilter;
-      const {
-        filterParams: compareFilterParams,
-        filterType: compareFilterType
-      } = filter;
+    return DSLUtil.reduceAstFilters(
+      ast,
+      (memo, astFilter) => {
+        const { filterParams, filterType } = astFilter;
+        const {
+          filterParams: compareFilterParams,
+          filterType: compareFilterType
+        } = filter;
 
-      // Require types to match
-      if (filterType !== compareFilterType) {
+        // Require types to match
+        if (filterType !== compareFilterType) {
+          return memo;
+        }
+
+        // Require only testing properties to match
+        const compareParamNames = Object.keys(compareFilterParams);
+        const comparePropMatches = compareParamNames.every(prop => {
+          return filterParams[prop] === compareFilterParams[prop];
+        });
+
+        if (compareParamNames.length === 0 || comparePropMatches) {
+          return memo.concat(astFilter);
+        }
+
         return memo;
-      }
-
-      // Require only testing properties to match
-      const compareParamNames = Object.keys(compareFilterParams);
-      const comparePropMatches = compareParamNames.every((prop) => {
-        return filterParams[prop] === compareFilterParams[prop];
-      });
-
-      if ((compareParamNames.length === 0) || comparePropMatches) {
-        return memo.concat(astFilter);
-      }
-
-      return memo;
-    }, []);
+      },
+      []
+    );
   },
 
   /**
@@ -132,7 +130,7 @@ const DSLUtil = {
    * @returns {String} The string representation of the node
    */
   getNodeString(node) {
-    const {filterParams, filterType} = node;
+    const { filterParams, filterType } = node;
     switch (filterType) {
       case DSLFilterTypes.ATTRIB:
         return `${filterParams.label}:${filterParams.text}`;
@@ -163,17 +161,18 @@ const DSLUtil = {
     return propNames.reduce((memo, prop) => {
       const matchAgainst = partFilters[prop];
       const matchingNodes = DSLUtil.findNodesByFilter(
-        expression.ast, matchAgainst);
+        expression.ast,
+        matchAgainst
+      );
 
       switch (matchAgainst.filterType) {
         //
         // Properties created through attribute filter will get a boolean value
         //
         case DSLFilterTypes.ATTRIB:
-          memo[prop] = (matchingNodes.length === 1);
+          memo[prop] = matchingNodes.length === 1;
 
           return memo;
-
         //
         // Properties created through exact filter will get a string value
         //
@@ -187,7 +186,6 @@ const DSLUtil = {
           memo[prop] = matchingNodes[0].filterParams.text;
 
           return memo;
-
         //
         // Properties created through fuzzy filter will get a string value,
         // composed by joining together any individual item in the string
@@ -200,8 +198,8 @@ const DSLUtil = {
           }
 
           memo[prop] = matchingNodes
-            .map((ast) => ast.filterParams.text)
-            .join(' ');
+            .map(ast => ast.filterParams.text)
+            .join(" ");
 
           // Also append whatever whitespace remains at the end of the raw value
           //
@@ -215,10 +213,8 @@ const DSLUtil = {
           }
 
           return memo;
-
       }
     }, {});
-
   },
 
   /**
@@ -249,7 +245,6 @@ const DSLUtil = {
 
     return memo;
   }
-
 };
 
 module.exports = DSLUtil;

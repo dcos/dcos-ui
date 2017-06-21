@@ -1,23 +1,23 @@
-import classNames from 'classnames/dedupe';
-import React from 'react';
+import classNames from "classnames/dedupe";
+import React from "react";
 
-const METHODS_TO_BIND = ['handleClick'];
+const METHODS_TO_BIND = ["handleClick"];
 
 class TabButton extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   getChildren() {
-    const {activeTab, children, onClick} = this.props;
+    const { activeTab, children, onClick } = this.props;
 
-    return React.Children.map(children, (tabChild) => {
+    return React.Children.map(children, tabChild => {
       if (tabChild.type === TabButton) {
-        return React.cloneElement(tabChild, {activeTab, onClick});
+        return React.cloneElement(tabChild, { activeTab, onClick });
       }
 
       return tabChild;
@@ -33,15 +33,22 @@ class TabButton extends React.Component {
   }
 
   render() {
-    const {active, activeTab, className, label, labelClassName, id} = this.props;
+    const {
+      active,
+      activeTab,
+      className,
+      label,
+      labelClassName,
+      id
+    } = this.props;
     const classes = classNames(
-      'menu-tabbed-item',
+      "menu-tabbed-item",
       {
-        'active': active || activeTab === id
+        active: active || activeTab === id
       },
       className
     );
-    const labelClasses = classNames('menu-tabbed-item-label', labelClassName);
+    const labelClasses = classNames("menu-tabbed-item-label", labelClassName);
 
     return (
       <div className={classes}>

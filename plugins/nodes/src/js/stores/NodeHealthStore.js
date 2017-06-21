@@ -1,4 +1,4 @@
-import PluginSDK from 'PluginSDK';
+import PluginSDK from "PluginSDK";
 
 import {
   SERVER_ACTION,
@@ -10,7 +10,7 @@ import {
   REQUEST_HEALTH_NODE_UNIT_SUCCESS,
   REQUEST_HEALTH_NODES_ERROR,
   REQUEST_HEALTH_NODES_SUCCESS
-} from '../../../../../src/js/constants/ActionTypes';
+} from "../../../../../src/js/constants/ActionTypes";
 import {
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
@@ -21,17 +21,17 @@ import {
   HEALTH_NODES_CHANGE,
   HEALTH_NODES_ERROR,
   VISIBILITY_CHANGE
-} from '../../../../../src/js/constants/EventTypes';
-import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import Config from '../../../../../src/js/config/Config';
-import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
-import HealthUnit from '../../../../../src/js/structs/HealthUnit';
-import HealthUnitsList from '../../../../../src/js/structs/HealthUnitsList';
-import Node from '../../../../../src/js/structs/Node';
-import NodeHealthActions from '../../../../../src/js/events/NodeHealthActions';
-import NodesList from '../../../../../src/js/structs/NodesList';
-import VisibilityStore from '../../../../../src/js/stores/VisibilityStore';
+} from "../../../../../src/js/constants/EventTypes";
+import AppDispatcher from "../../../../../src/js/events/AppDispatcher";
+import CompositeState from "../../../../../src/js/structs/CompositeState";
+import Config from "../../../../../src/js/config/Config";
+import GetSetBaseStore from "../../../../../src/js/stores/GetSetBaseStore";
+import HealthUnit from "../../../../../src/js/structs/HealthUnit";
+import HealthUnitsList from "../../../../../src/js/structs/HealthUnitsList";
+import Node from "../../../../../src/js/structs/Node";
+import NodeHealthActions from "../../../../../src/js/events/NodeHealthActions";
+import NodesList from "../../../../../src/js/structs/NodesList";
+import VisibilityStore from "../../../../../src/js/stores/VisibilityStore";
 
 let requestInterval = null;
 
@@ -39,7 +39,8 @@ function startPolling() {
   if (requestInterval == null) {
     NodeHealthActions.fetchNodes();
     requestInterval = setInterval(
-      NodeHealthActions.fetchNodes, Config.getRefreshRate()
+      NodeHealthActions.fetchNodes,
+      Config.getRefreshRate()
     );
   }
 }
@@ -81,7 +82,7 @@ class NodeHealthStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register((payload) => {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -156,22 +157,22 @@ class NodeHealthStore extends GetSetBaseStore {
 
   getNodes() {
     return new NodesList({
-      items: this.get('nodes')
+      items: this.get("nodes")
     });
   }
 
   getNode(id) {
-    return new Node(this.get('nodesByID')[id] || {});
+    return new Node(this.get("nodesByID")[id] || {});
   }
 
   getUnits(nodeID) {
-    const units = this.get('unitsByNodeID')[nodeID] || [];
+    const units = this.get("unitsByNodeID")[nodeID] || [];
 
-    return new HealthUnitsList({items: units});
+    return new HealthUnitsList({ items: units });
   }
 
   getUnit(unitID) {
-    return new HealthUnit(this.get('unitsByID')[unitID] || []);
+    return new HealthUnit(this.get("unitsByID")[unitID] || []);
   }
 
   fetchNodes() {
@@ -191,7 +192,7 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   processNodes(nodes) {
-    this.set({nodes});
+    this.set({ nodes });
 
     CompositeState.addNodeHealth(nodes);
 
@@ -199,36 +200,35 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 
   processNode(nodeData, nodeID) {
-    const nodesByID = this.get('nodesByID');
+    const nodesByID = this.get("nodesByID");
     nodesByID[nodeID] = nodeData;
 
-    this.set({nodesByID});
+    this.set({ nodesByID });
 
     this.emit(HEALTH_NODE_SUCCESS, nodeID);
   }
 
   processUnits(units, nodeID) {
-    const unitsByNodeID = this.get('unitsByNodeID');
+    const unitsByNodeID = this.get("unitsByNodeID");
     unitsByNodeID[nodeID] = units;
 
-    this.set({unitsByNodeID});
+    this.set({ unitsByNodeID });
 
     this.emit(HEALTH_NODE_UNITS_SUCCESS, nodeID);
   }
 
   processUnit(unitData, nodeID, unitID) {
-    const unitsByID = this.get('unitsByID');
+    const unitsByID = this.get("unitsByID");
     unitsByID[unitID] = unitData;
 
-    this.set({unitsByID});
+    this.set({ unitsByID });
 
     this.emit(HEALTH_NODE_UNIT_SUCCESS, nodeID, unitID);
   }
 
   get storeID() {
-    return 'nodeHealth';
+    return "nodeHealth";
   }
-
 }
 
 module.exports = new NodeHealthStore();

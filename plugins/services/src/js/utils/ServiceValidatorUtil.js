@@ -1,20 +1,23 @@
 const ServiceValidatorUtil = {
   isValidServiceID(serviceID) {
-    if (typeof serviceID !== 'string' || serviceID === '') {
+    if (typeof serviceID !== "string" || serviceID === "") {
       return false;
     }
 
     // This RegExp is taken from the ID field explanation described here:
     // https://mesosphere.github.io/marathon/docs/rest-api.html#post-v2-apps
     const serviceIDSegmentPattern = new RegExp(
-      '^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])[.])' +
-      '*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$'
+      "^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])[.])" +
+        "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
     );
 
-    return serviceID.split('/').every(function (segment, index) {
-      return (index === 0 && (segment == null || segment === '')) ||
-        segment === '.' || segment === '..' ||
-        serviceIDSegmentPattern.test(segment);
+    return serviceID.split("/").every(function(segment, index) {
+      return (
+        (index === 0 && (segment == null || segment === "")) ||
+        segment === "." ||
+        segment === ".." ||
+        serviceIDSegmentPattern.test(segment)
+      );
     });
   },
 
@@ -25,8 +28,10 @@ const ServiceValidatorUtil = {
    * @returns {boolean} - True if the response refers to a pod
    */
   isPodResponse(data) {
-    return typeof data.spec === 'object' &&
-           ServiceValidatorUtil.isPodSpecDefinition(data.spec);
+    return (
+      typeof data.spec === "object" &&
+      ServiceValidatorUtil.isPodSpecDefinition(data.spec)
+    );
   },
 
   /**
@@ -57,7 +62,7 @@ const ServiceValidatorUtil = {
     return ServiceValidatorUtil.isApplicationResponse(data);
   },
 
- /**
+  /**
    * Checks if the given server response is a framework
    *
    * @param {object} data - The server response
@@ -66,8 +71,11 @@ const ServiceValidatorUtil = {
   isFrameworkResponse(data) {
     // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
     // should be converted to an Application or Framework instance.
-    return ServiceValidatorUtil.isApplicationResponse(data) &&
-      data.labels && data.labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+    return (
+      ServiceValidatorUtil.isApplicationResponse(data) &&
+      data.labels &&
+      data.labels.DCOS_PACKAGE_FRAMEWORK_NAME
+    );
   },
 
   // Applications and frameworks have no different semantics

@@ -1,18 +1,17 @@
-jest.dontMock('../CollapsingPanel');
-jest.dontMock('../CollapsingPanelContent');
-jest.dontMock('../CollapsingPanelHeader');
+jest.dontMock("../CollapsingPanel");
+jest.dontMock("../CollapsingPanelContent");
+jest.dontMock("../CollapsingPanelHeader");
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
+const React = require("react");
+const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
 
-const CollapsingPanel = require('../CollapsingPanel');
-const CollapsingPanelContent = require('../CollapsingPanelContent');
-const CollapsingPanelHeader = require('../CollapsingPanelHeader');
+const CollapsingPanel = require("../CollapsingPanel");
+const CollapsingPanelContent = require("../CollapsingPanelContent");
+const CollapsingPanelHeader = require("../CollapsingPanelHeader");
 
-describe('TabButtons', function () {
-
-  beforeEach(function () {
+describe("TabButtons", function() {
+  beforeEach(function() {
     this.instance = TestUtils.renderIntoDocument(
       <CollapsingPanel>
         <CollapsingPanelHeader>Foo</CollapsingPanelHeader>
@@ -21,8 +20,10 @@ describe('TabButtons', function () {
     );
   });
 
-  it('should toggle state when clicking on the header', function () {
-    const header = ReactDOM.findDOMNode(this.instance).querySelector('.panel-cell-header');
+  it("should toggle state when clicking on the header", function() {
+    const header = ReactDOM.findDOMNode(this.instance).querySelector(
+      ".panel-cell-header"
+    );
 
     expect(this.instance.state.isExpanded).toEqual(false);
     TestUtils.Simulate.click(header);
@@ -31,13 +32,12 @@ describe('TabButtons', function () {
     expect(this.instance.state.isExpanded).toEqual(false);
   });
 
-  it('should not render the content when the panel is collapsed', function () {
+  it("should not render the content when the panel is collapsed", function() {
     const node = ReactDOM.findDOMNode(this.instance);
-    const header = node.querySelector('.panel-cell-header');
+    const header = node.querySelector(".panel-cell-header");
 
-    expect(node.textContent).toEqual('Foo');
+    expect(node.textContent).toEqual("Foo");
     TestUtils.Simulate.click(header);
-    expect(node.textContent).toEqual('FooBar');
+    expect(node.textContent).toEqual("FooBar");
   });
-
 });

@@ -1,25 +1,25 @@
-import {DCOSStore} from 'foundation-ui';
+import { DCOSStore } from "foundation-ui";
 
-import CompositeState from '../../../../../src/js/structs/CompositeState';
-import TaskHealthStates from '../constants/TaskHealthStates';
+import CompositeState from "../../../../../src/js/structs/CompositeState";
+import TaskHealthStates from "../constants/TaskHealthStates";
 
 function getTaskHealthFromMesos(task) {
   if (task.statuses == null) {
     return null;
   }
 
-  const healths = task.statuses.map(function (status) {
+  const healths = task.statuses.map(function(status) {
     return status.healthy;
   });
 
-  const healthDataExists = healths.length > 0 && healths.every(
-    function (health) {
-      return typeof health !== 'undefined';
-    }
-  );
+  const healthDataExists =
+    healths.length > 0 &&
+    healths.every(function(health) {
+      return typeof health !== "undefined";
+    });
 
   if (healthDataExists) {
-    return healths.some(function (health) {
+    return healths.some(function(health) {
       return health;
     });
   }
@@ -31,10 +31,10 @@ function getTaskHealthFromMarathon(task) {
   const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
 
   if (marathonTask != null) {
-    const {healthCheckResults} = marathonTask;
+    const { healthCheckResults } = marathonTask;
 
     if (healthCheckResults != null && healthCheckResults.length > 0) {
-      return healthCheckResults.every(function (result) {
+      return healthCheckResults.every(function(result) {
         return result.alive;
       });
     }
@@ -74,9 +74,11 @@ function mergeVersion(task) {
 }
 
 function mergeHostname(task) {
-  const node = CompositeState.getNodesList().filter({
-    ids: [task.slave_id]
-  }).last();
+  const node = CompositeState.getNodesList()
+    .filter({
+      ids: [task.slave_id]
+    })
+    .last();
 
   if (node) {
     task.hostname = node.hostname;

@@ -1,10 +1,9 @@
-import PodSpec from '../structs/PodSpec';
-import ApplicationSpec from '../structs/ApplicationSpec';
-import FrameworkSpec from '../structs/FrameworkSpec';
-import Util from '../../../../../src/js/utils/Util';
+import PodSpec from "../structs/PodSpec";
+import ApplicationSpec from "../structs/ApplicationSpec";
+import FrameworkSpec from "../structs/FrameworkSpec";
+import Util from "../../../../../src/js/utils/Util";
 
 var ServiceSpecUtil = {
-
   /**
    * Creates a new PodSpec with the scaling specifications
    * changed to fixed, and with the number of instances defined
@@ -19,9 +18,9 @@ var ServiceSpecUtil = {
     if (!newSpec.scaling) {
       newSpec.scaling = {};
     }
-    if (newSpec.scaling.kind !== 'fixed') {
+    if (newSpec.scaling.kind !== "fixed") {
       newSpec.scaling = {
-        kind: 'fixed',
+        kind: "fixed",
         instances: 1
       };
     }
@@ -78,7 +77,6 @@ var ServiceSpecUtil = {
       return ServiceSpecUtil.setApplicationInstances(spec, instancesCount);
     }
   }
-
 };
 
 module.exports = ServiceSpecUtil;
