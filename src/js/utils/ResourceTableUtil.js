@@ -15,8 +15,7 @@ const LEFT_ALIGN_PROPS = [
   "mem",
   "mtime",
   "priority",
-  "size",
-  "version"
+  "size"
 ];
 
 function leftAlignCaret(prop) {

@@ -63,7 +63,7 @@ class TaskTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
       highlight: prop === sortBy.prop,
-      clickable: row == null // this is a header
+      clickable: row == null && prop !== "logs" // this is a header
     });
   }
 
@@ -130,8 +130,7 @@ class TaskTable extends React.Component {
         heading,
         prop: "logs",
         render: this.renderLog,
-        sortable: false,
-        sortFunction
+        sortable: false
       },
       {
         cacheCell: true,
