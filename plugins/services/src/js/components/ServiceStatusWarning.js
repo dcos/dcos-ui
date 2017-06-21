@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -52,6 +53,13 @@ class ServiceStatusWarning extends Component {
   }
 
   getTooltip(content) {
+    let icon = <Icon color="red" id="yield" size="mini" />;
+
+    if (this.props.item instanceof Service) {
+      const servicePath = encodeURIComponent(this.props.item.getId());
+      icon = <Link to={`/services/detail/${servicePath}/debug`}>{icon}</Link>;
+    }
+
     return (
       <Tooltip
         content={content}
@@ -59,7 +67,7 @@ class ServiceStatusWarning extends Component {
         wrapText={true}
         wrapperClassName="tooltip-wrapper status-waiting-indicator"
       >
-        <Icon color="red" id="yield" size="mini" />
+        {icon}
       </Tooltip>
     );
   }
