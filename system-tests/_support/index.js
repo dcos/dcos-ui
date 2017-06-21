@@ -169,18 +169,14 @@ Cypress.addChildCommand("contents", function(elements) {
  */
 Cypress.addChildCommand("setJSON", function(elements, JSONString) {
   if (elements.length != null && JSONString) {
-    elements.map(function(index, element) {
+    elements.each(function(index, element) {
       const doc = element.ownerDocument;
       const win = doc.defaultView || doc.parentWindow;
       if (win.ace) {
         win.ace.edit(element.id).setValue(JSONString);
       }
-
-      return element;
     });
   }
-
-  return elements;
 });
 
 /**
