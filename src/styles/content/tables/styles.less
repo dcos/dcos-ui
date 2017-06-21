@@ -106,7 +106,6 @@
     // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
     max-width: 0;
     vertical-align: middle;
-    word-wrap: break-word;
 
     &.active {
       background-color: inherit;
@@ -188,6 +187,10 @@
   .table-cell-short {
     padding-bottom: @table-cell-padding-bottom * 3/4;
     padding-top: @table-cell-padding-top * 3/4;
+  }
+
+  .table-cell-word-wrap {
+    word-wrap: break-word;
   }
 
   // When VirtualList is used, the first and last rows in tbody are the
