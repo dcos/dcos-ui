@@ -48,16 +48,6 @@ module.exports = class JobTree extends Tree {
     return this.id;
   }
 
-  /**
-   * @param {string} id
-   * @return {Job|JobTree} matching item
-   */
-  findItemById(id) {
-    return this.findItem(function(item) {
-      return item.getId() === id;
-    });
-  }
-
   getName() {
     return this.getId().split(".").pop();
   }
