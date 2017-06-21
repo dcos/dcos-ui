@@ -161,6 +161,7 @@ describe("Service Form Modal", function() {
     const SERVICE_SPEC = {
       id: "/sleep",
       cmd: "sleep 3000",
+      constraints: [],
       instances: 1,
       cpus: 1,
       mem: 128,
@@ -217,7 +218,13 @@ describe("Service Form Modal", function() {
           protocol: "tcp"
         }
       ],
-      requirePorts: false
+      requirePorts: false,
+      storeUrls: [],
+      readinessChecks: [],
+      networks: [],
+      healthChecks: [],
+      fetch: [],
+      dependencies: []
     };
 
     beforeEach(function() {
