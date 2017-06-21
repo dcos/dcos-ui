@@ -90,11 +90,14 @@ function getBreadcrumb(item, details = true) {
   );
 }
 
-const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
-  const elements = tree
+function getBreadcrumbList(tree, item, details) {
+  if (item == null) {
+    return [];
+  }
+
+  return tree
     .filterItems(function(currentItem) {
       return (
-        item != null &&
         item.getId() === currentItem.getId() &&
         item.constructor === currentItem.constructor
       );
@@ -102,10 +105,12 @@ const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
     .reduceItems(function(acc, currentItem) {
       return acc.concat(getBreadcrumb(currentItem, details));
     }, []);
+}
 
+const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
   const breadcrumbs = [].concat(
     getBreadcrumb(tree, details),
-    elements,
+    getBreadcrumbList(tree, item, details),
     React.Children.toArray(children)
   );
 
