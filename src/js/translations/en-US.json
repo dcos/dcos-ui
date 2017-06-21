@@ -75,6 +75,6 @@
   "SERVICES.DEPLOYMENT_MODAL_HEADING": "{deploymentsCount} Active {deploymentsCount, plural, =1 {Deployment} other {Deployments}}",
   "SERVICE_ACTIONS.DELETE_SERVICE": "In order to delete ",
   "SERVICE_ACTIONS.DELETE_SERVICE_2": " please type service name.",
-  "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK": "In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the documentation ",
+  "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK": "In order to delete a service, you must use the DC/OS CLI to perform this command. Refer to the ",
   "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK_2": " for complete instructions or copy and paste this command into your CLI."
 }
