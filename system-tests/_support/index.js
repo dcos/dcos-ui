@@ -105,7 +105,7 @@ Cypress.addChildCommand("getTableRowThatContains", function(
 Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
   const matchedRows = elements.find("tr");
   const headings = matchedRows.eq(0).find("th");
-  let columnIndex = parseInt(columNameOrIndex);
+  let columnIndex = parseInt(columNameOrIndex, 10);
 
   if (Number.isNaN(columnIndex)) {
     const compareName = String(columNameOrIndex).toLowerCase();
@@ -157,6 +157,26 @@ Cypress.addChildCommand("contents", function(elements) {
       }
     })
     .get();
+});
+
+/**
+ * Sets given JSONString as value for ACE Editor
+ *
+ * This function will set the given text as value for ACE Editor
+ *
+ * @param {jQuery.Element} elements - The DOM scope to search within
+ * @param {String} JSONString - JSON Code as String
+ */
+Cypress.addChildCommand("setJSON", function(elements, JSONString) {
+  if (elements.length != null && JSONString) {
+    elements.each(function(index, element) {
+      const doc = element.ownerDocument;
+      const win = doc.defaultView || doc.parentWindow;
+      if (win.ace) {
+        win.ace.edit(element.id).setValue(JSONString);
+      }
+    });
+  }
 });
 
 /**
