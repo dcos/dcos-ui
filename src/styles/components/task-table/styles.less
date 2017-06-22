@@ -59,7 +59,12 @@
 
     &-cpus,
     &-mem {
-      text-align: right;
+
+      // Extra specificity is necessary to override external vendor styles.
+      td&,
+      th& {
+        text-align: right;
+      }
     }
   }
 }

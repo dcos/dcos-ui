@@ -92,10 +92,15 @@
 
     &.clickable {
 
+      .caret {
+        display: inline-block;
+        visibility: hidden;
+      }
+
       &:hover {
 
         .caret {
-          display: inline-block;
+          visibility: visible;
         }
       }
     }
