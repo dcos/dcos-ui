@@ -1,5 +1,7 @@
 {
-  "packagingVersion": "2.0",
-  "name": "marathon",
-  "version": "0.11.1"
+  "package": {
+    "packagingVersion": "2.0",
+    "name": "marathon",
+    "version": "0.11.1"
+  }
 }

@@ -133,9 +133,9 @@ describe("CosmosPackagesStore", function() {
     it("should return the packageDetails it was given", function() {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var pkg = CosmosPackagesStore.getPackageDetails();
-      expect(pkg.getName()).toEqual(this.packageDescribeFixture.name);
+      expect(pkg.getName()).toEqual(this.packageDescribeFixture.package.name);
       expect(pkg.getCurrentVersion()).toEqual(
-        this.packageDescribeFixture.version
+        this.packageDescribeFixture.package.version
       );
     });
 
