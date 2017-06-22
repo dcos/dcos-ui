@@ -1928,6 +1928,7 @@ describe("Services", function() {
           instances: 1,
           container: {
             type: "DOCKER",
+            volumes: [],
             docker: {
               image: containerImage
             },
@@ -1950,7 +1951,10 @@ describe("Services", function() {
               mode: "container"
             }
           ],
-          requirePorts: false
+          requirePorts: false,
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
