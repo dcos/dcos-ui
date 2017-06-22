@@ -388,19 +388,23 @@ describe("Services", function() {
         {
           id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
           instances: 1,
+          networks: [
+            {
+              mode: "container/bridge"
+            }
+          ],
           container: {
             type: "DOCKER",
             docker: {
-              image: "nginx",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  containerPort: 80,
-                  hostPort: 0,
-                  protocol: "tcp"
-                }
-              ]
-            }
+              image: "nginx"
+            },
+            portMappings: [
+              {
+                containerPort: 80,
+                hostPort: 0,
+                protocol: "tcp"
+              }
+            ]
           },
           cpus: 0.1,
           mem: 32,
@@ -453,7 +457,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Network")
         .configurationMapValue("Network Type")
-        .contains("BRIDGE");
+        .contains("container/bridge");
 
       cy
         .root()
@@ -589,20 +593,24 @@ describe("Services", function() {
           cpus: 0.1,
           instances: 1,
           mem: 32,
+          networks: [
+            {
+              mode: "container/bridge"
+            }
+          ],
           container: {
             type: "DOCKER",
             docker: {
-              image: "python:3",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  name: "http",
-                  hostPort: 0,
-                  containerPort: 8080,
-                  protocol: "tcp"
-                }
-              ]
-            }
+              image: "python:3"
+            },
+            portMappings: [
+              {
+                name: "http",
+                hostPort: 0,
+                containerPort: 8080,
+                protocol: "tcp"
+              }
+            ]
           }
         }
       ]);
@@ -646,7 +654,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Network")
         .configurationMapValue("Network Type")
-        .contains("BRIDGE");
+        .contains("container/bridge");
       cy
         .root()
         .configurationSection("Service Endpoints")
@@ -1151,20 +1159,20 @@ describe("Services", function() {
               path: "/"
             }
           ],
+          networks: [{ mode: "container/bridge" }],
           container: {
             type: "DOCKER",
             docker: {
-              image: "nginx",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  name: "http",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                }
-              ]
-            }
+              image: "nginx"
+            },
+            portMappings: [
+              {
+                name: "http",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              }
+            ]
           }
         }
       ]);
