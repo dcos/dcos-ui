@@ -29,6 +29,7 @@ import {
   SUSPEND
 } from "../../constants/ServiceActionItem";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
+import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import ServiceStatusWarning from "../../components/ServiceStatusWarning";
 import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
 import ServiceTableUtil from "../../utils/ServiceTableUtil";
@@ -329,11 +330,14 @@ class ServicesTable extends React.Component {
   renderStatus(prop, service) {
     const instancesCount = service.getInstancesCount();
     const serviceId = service.getId();
-    const serviceStatus = service.getStatus();
-    const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
+    const serviceStatusText = service.getStatus();
+    const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
+    const { key: serviceStatusKey } = service.getServiceStatus();
     const tasksSummary = service.getTasksSummary();
     const tasksRunning = service.getTaskCount();
-    const isDeploying = serviceStatus === "Deploying";
+    const isDeploying =
+      serviceStatusKey === ServiceStatusTypes.WAITING ||
+      serviceStatusKey === ServiceStatusTypes.DEPLOYING;
 
     const conciseOverview = tasksRunning === instancesCount
       ? ` (${tasksRunning})`
@@ -354,7 +358,9 @@ class ServicesTable extends React.Component {
           />
         </span>
         <span className="status-bar-text">
-          <span className={serviceStatusClassSet}>{serviceStatus}</span>
+          <span className={serviceStatusClassSet}>
+            {serviceStatusText}
+          </span>
           <span className="hidden-large-down">{verboseOverview}</span>
           <span className="hidden-jumbo-up">{conciseOverview}</span>
           <ServiceStatusWarning item={service} />
