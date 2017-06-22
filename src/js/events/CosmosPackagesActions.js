@@ -121,14 +121,14 @@ const CosmosPackagesActions = {
   fetchPackageDescription(packageName, packageVersion) {
     RequestUtil.json({
       contentType: getContentType("describe", "request", "v1"),
-      headers: { Accept: getContentType("describe", "response") },
+      headers: { Accept: getContentType("describe", "response", "v3") },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({ packageName, packageVersion }),
-      success(cosmosPackage) {
+      success(response) {
+        const cosmosPackage = response.package;
         if (!cosmosPackage.currentVersion && cosmosPackage.version) {
           cosmosPackage.currentVersion = cosmosPackage.version;
-          delete cosmosPackage.version;
         }
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
