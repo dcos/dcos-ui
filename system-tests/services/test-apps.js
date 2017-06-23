@@ -60,7 +60,17 @@ describe("Services", function() {
           cmd: cmdline,
           cpus: 0.1,
           mem: 10,
-          instances: 1
+          instances: 1,
+          portDefinitions: [],
+          container: {
+            type: "MESOS",
+            volumes: []
+          },
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -228,6 +238,14 @@ describe("Services", function() {
           cpus: 0.1,
           mem: 10,
           instances: 1,
+          portDefinitions: [],
+          container: {
+            type: "MESOS",
+            volumes: []
+          },
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
           fetch: [
             {
               uri: "http://lorempicsum.com/simpsons/600/400/1"
@@ -238,7 +256,8 @@ describe("Services", function() {
             {
               uri: "http://lorempicsum.com/simpsons/600/400/3"
             }
-          ]
+          ],
+          constraints: []
         }
       ]);
 
@@ -390,17 +409,17 @@ describe("Services", function() {
           instances: 1,
           container: {
             type: "DOCKER",
+            volumes: [],
             docker: {
-              image: "nginx",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  containerPort: 80,
-                  hostPort: 0,
-                  protocol: "tcp"
-                }
-              ]
-            }
+              image: "nginx"
+            },
+            portMappings: [
+              {
+                containerPort: 80,
+                hostPort: 0,
+                protocol: "tcp"
+              }
+            ]
           },
           cpus: 0.1,
           mem: 32,
@@ -411,7 +430,15 @@ describe("Services", function() {
                 value: "sleep 5; exit 0"
               }
             }
-          ]
+          ],
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container/bridge"
+            }
+          ],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -452,8 +479,8 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Network")
-        .configurationMapValue("Network Type")
-        .contains("BRIDGE");
+        .configurationMapValue("Network Mode")
+        .contains("container/bridge");
 
       cy
         .root()
@@ -591,19 +618,28 @@ describe("Services", function() {
           mem: 32,
           container: {
             type: "DOCKER",
+            volumes: [],
             docker: {
-              image: "python:3",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  name: "http",
-                  hostPort: 0,
-                  containerPort: 8080,
-                  protocol: "tcp"
-                }
-              ]
+              image: "python:3"
+            },
+            portMappings: [
+              {
+                containerPort: 8080,
+                hostPort: 0,
+                protocol: "tcp",
+                name: "http"
+              }
+            ]
+          },
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container/bridge"
             }
-          }
+          ],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -645,8 +681,8 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Network")
-        .configurationMapValue("Network Type")
-        .contains("BRIDGE");
+        .configurationMapValue("Network Mode")
+        .contains("container/bridge");
       cy
         .root()
         .configurationSection("Service Endpoints")
@@ -798,7 +834,17 @@ describe("Services", function() {
             snake_case: "test",
             lowercase: "test",
             UPPERCASE: "test"
-          }
+          },
+          portDefinitions: [],
+          container: {
+            type: "MESOS",
+            volumes: []
+          },
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -974,7 +1020,13 @@ describe("Services", function() {
               }
             ],
             type: "MESOS"
-          }
+          },
+          portDefinitions: [],
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -1154,18 +1206,26 @@ describe("Services", function() {
           container: {
             type: "DOCKER",
             docker: {
-              image: "nginx",
-              network: "BRIDGE",
-              portMappings: [
-                {
-                  name: "http",
-                  hostPort: 0,
-                  containerPort: 80,
-                  protocol: "tcp"
-                }
-              ]
+              image: "nginx"
+            },
+            portMappings: [
+              {
+                name: "http",
+                hostPort: 0,
+                containerPort: 80,
+                protocol: "tcp"
+              }
+            ],
+            volumes: []
+          },
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container/bridge"
             }
-          }
+          ],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -1383,7 +1443,17 @@ describe("Services", function() {
             snake_case: "test",
             lowercase: "test",
             UPPERCASE: "test"
-          }
+          },
+          portDefinitions: [],
+          container: {
+            type: "MESOS",
+            volumes: []
+          },
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -1562,7 +1632,13 @@ describe("Services", function() {
           residency: {
             relaunchEscalationTimeoutSeconds: 10,
             taskLostBehavior: "WAIT_FOREVER"
-          }
+          },
+          portDefinitions: [],
+          requirePorts: false,
+          networks: [],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
         }
       ]);
 
@@ -1732,22 +1808,29 @@ describe("Services", function() {
           container: {
             type: "DOCKER",
             docker: {
-              image: containerImage,
-              network: "USER",
-              portMappings: [
-                {
-                  name: "http",
-                  containerPort: 8080,
-                  labels: {
-                    VIP_0: `/${Cypress.env("TEST_UUID")}/${serviceName}:8080`
-                  }
+              image: containerImage
+            },
+            portMappings: [
+              {
+                name: "http",
+                containerPort: 8080,
+                labels: {
+                  VIP_0: `/${Cypress.env("TEST_UUID")}/${serviceName}:8080`
                 }
-              ]
-            }
+              }
+            ],
+            volumes: []
           },
-          ipAddress: {
-            networkName: "dcos"
-          }
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container",
+              name: "dcos"
+            }
+          ],
+          fetch: [],
+          constraints: [],
+          healthChecks: []
         }
       ]);
 
@@ -1804,8 +1887,8 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Network")
-        .configurationMapValue("Network Type")
-        .contains("USER");
+        .configurationMapValue("Network Mode")
+        .contains("container");
 
       cy
         .root()
