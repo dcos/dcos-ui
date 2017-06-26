@@ -87,4 +87,43 @@ describe("Tasks Table", function() {
       });
     });
   });
+
+  context.only("Service tasks checkbox", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-service-with-executor-task"
+      });
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
+      cy.get("table tr").find(".form-element-checkbox").as("checkboxes");
+    });
+
+    function assertCheckboxLength() {
+      cy.get("@checkboxes").should("have.length", 2);
+    }
+
+    it("Select all tasks available", function() {
+      assertCheckboxLength();
+      cy.get("@checkboxes").eq(0).click();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(true);
+      });
+    });
+
+    it("Select first task available", function() {
+      assertCheckboxLength();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(false);
+      });
+      cy.get("@checkboxes").eq(1).click();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].checked).to.equal(true);
+      });
+    });
+  });
 });
