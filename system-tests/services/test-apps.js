@@ -771,6 +771,410 @@ describe("Services", function() {
         .should("have.value", "http");
     });
 
+    it("should create an app with ucr config and docker container", function() {
+      const serviceName = "app-with-ucr-config-and-docker-container";
+      const cmdline = "python3 -m http.server 8080";
+
+      // Select 'Single Container'
+      cy.contains("Single Container").click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
+
+      // Hack to allow entering decimals in number fields
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "text");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "number");
+
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+      // Select mesos runtime
+      selectMesosRuntime();
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
+
+      // Check JSON view
+      cy.contains("JSON Editor").click();
+
+      // Check contents of the JSON editor
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.5,
+          instances: 1,
+          mem: 32,
+          container: {
+            type: "MESOS",
+            volumes: [],
+            docker: {
+              image: "python:3"
+            },
+            portMappings: [
+              {
+                containerPort: 8080,
+                hostPort: 0,
+                protocol: "tcp",
+                name: "http"
+              }
+            ]
+          },
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container/bridge"
+            }
+          ],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
+        }
+      ]);
+
+      // Click Review and Run
+      cy.contains("Review & Run").click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.5");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("python:3");
+
+      cy
+        .root()
+        .configurationSection("Network")
+        .configurationMapValue("Network Mode")
+        .contains("container/bridge");
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("http")
+        .should("exist");
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("8080")
+        .should("exist");
+
+      // Run service
+      cy.get("button.button-primary").contains("Run Service").click();
+
+      // Wait for the table and the service to appear
+      cy
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      // Get the table row and wait until it's Running
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "python:3");
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "BRIDGE");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "8080");
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
+    });
+
+    it("should create an app with ucr config and command", function() {
+      const serviceName = "app-with-ucr-config-and-command";
+      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+
+      // Select 'Single Container'
+      cy.contains("Single Container").click();
+
+      // Fill-in the input elements
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+
+      // Hack to allow entering decimals in number fields
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "text");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").invoke("attr", "type", "number");
+
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+      // Select mesos runtime
+      selectMesosRuntime();
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
+
+      // Check JSON view
+      cy.contains("JSON Editor").click();
+
+      // Check contents of the JSON editor
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
+          cmd: cmdline,
+          cpus: 0.5,
+          instances: 1,
+          mem: 32,
+          container: {
+            type: "MESOS",
+            volumes: [],
+            portMappings: [
+              {
+                containerPort: 8080,
+                hostPort: 0,
+                protocol: "tcp",
+                name: "http"
+              }
+            ]
+          },
+          requirePorts: false,
+          networks: [
+            {
+              mode: "container/bridge"
+            }
+          ],
+          healthChecks: [],
+          fetch: [],
+          constraints: []
+        }
+      ]);
+
+      // Click Review and Run
+      cy.contains("Review & Run").click();
+
+      // Verify the review screen
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Service ID")
+        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Runtime")
+        .contains("Mesos Runtime");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("CPU")
+        .contains("0.5");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Memory")
+        .contains("32 MiB");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Disk")
+        .contains("Not Configured");
+      cy
+        .root()
+        .configurationSection("General")
+        .configurationMapValue("Container Image")
+        .contains("Not Supported");
+
+      cy
+        .root()
+        .configurationSection("Network")
+        .configurationMapValue("Network Mode")
+        .contains("container/bridge");
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("http")
+        .should("exist");
+      cy
+        .root()
+        .configurationSection("Service Endpoints")
+        .getTableRowThatContains("8080")
+        .should("exist");
+
+      // Run service
+      cy.get("button.button-primary").contains("Run Service").click();
+
+      // Wait for the table and the service to appear
+      cy
+        .get(".page-body-content table")
+        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      // Get the table row and wait until it's Running
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+
+      // Now click on the name
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get("a.table-cell-link-primary")
+        .contains(serviceName)
+        .click();
+
+      // open edit screen
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+
+      // check if values are as expected
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+
+      cy
+        .root()
+        .getFormGroupInputFor("Container Image")
+        .should("have.value", "");
+      //
+      // TODO: Due to a bug in cypress you cannot type values with dots
+      // cy
+      //   .get('input[name=cpus]')
+      //   .type('{selectall}0.5');
+      //
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .should("have.value", "32");
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
+
+      // Select Networking section
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
+
+      // Select "Bridge"
+      cy
+        .root()
+        .getFormGroupInputFor("Network Type")
+        .should("have.value", "BRIDGE");
+
+      // Click "Add Service Endpoint"
+      cy.contains("Add Service Endpoint").click();
+
+      // Setup HTTP endpoint
+      cy
+        .root()
+        .getFormGroupInputFor("Container Port")
+        .should("have.value", "8080");
+      cy
+        .root()
+        .getFormGroupInputFor("Service Endpoint Name")
+        .should("have.value", "http");
+    });
+
     it("should create an app with environment variables", function() {
       const serviceName = "app-with-environment-variables";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
