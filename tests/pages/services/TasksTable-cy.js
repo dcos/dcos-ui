@@ -88,7 +88,7 @@ describe("Tasks Table", function() {
     });
   });
 
-  context.only("Service tasks checkbox", function() {
+  context("Service tasks checkbox", function() {
     beforeEach(function() {
       cy.configureCluster({
         mesos: "1-service-with-executor-task"
@@ -104,6 +104,10 @@ describe("Tasks Table", function() {
     it("Select all tasks available", function() {
       assertCheckboxLength();
       cy.get("@checkboxes").eq(0).click();
+      cy.get("@checkboxes").eq(0).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal("headingCheckbox");
+        expect($checkbox[0].checked).to.equal(true);
+      });
       cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
         expect($checkbox[0].name).to.equal(
           "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
