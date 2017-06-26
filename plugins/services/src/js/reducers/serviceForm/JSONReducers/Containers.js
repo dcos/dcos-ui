@@ -81,7 +81,7 @@ function containersParser(state) {
   }
 
   return state.containers.reduce((memo, item, index) => {
-    memo.push(new Transaction(["containers"], index, ADD_ITEM));
+    memo.push(new Transaction(["containers"], item, ADD_ITEM));
     if (item.name) {
       memo.push(new Transaction(["containers", index, "name"], item.name));
     }
@@ -140,7 +140,7 @@ function containersParser(state) {
         memo.push(
           new Transaction(
             ["containers", index, "artifacts"],
-            artifactIndex,
+            artifact,
             ADD_ITEM
           )
         );
@@ -166,7 +166,7 @@ function containersParser(state) {
         memo = memo.concat([
           new Transaction(
             ["containers", index, "endpoints"],
-            endpointIndex,
+            endpoint,
             ADD_ITEM
           ),
           new Transaction(
@@ -285,7 +285,11 @@ function containersParser(state) {
 }
 
 module.exports = {
-  JSONReducer(state = [], { type, path = [], value }) {
+  JSONReducer(state = [], { type, path = [], value }, containerIndex) {
+    if (containerIndex === 0) {
+      state = [];
+    }
+
     const [base, index, field, subField] = path;
 
     if (this.networkType == null) {
@@ -312,11 +316,17 @@ module.exports = {
 
     if (!path.includes("containers") && !path.includes("volumeMounts")) {
       return state.map((container, index) => {
-        container.endpoints = mapEndpoints(
-          this.endpoints[index],
-          this.networkType,
-          this.appState
-        );
+        if (
+          this.endpoints &&
+          this.endpoints[index] &&
+          this.endpoints[index].length !== 0
+        ) {
+          container.endpoints = mapEndpoints(
+            this.endpoints[index],
+            this.networkType,
+            this.appState
+          );
+        }
 
         return container;
       });
@@ -400,11 +410,17 @@ module.exports = {
       });
     }
     newState = newState.map((container, index) => {
-      container.endpoints = mapEndpoints(
-        this.endpoints[index],
-        this.networkType,
-        this.appState
-      );
+      if (
+        this.endpoints &&
+        this.endpoints[index] &&
+        this.endpoints[index].length !== 0
+      ) {
+        container.endpoints = mapEndpoints(
+          this.endpoints[index],
+          this.networkType,
+          this.appState
+        );
+      }
 
       return container;
     });
@@ -461,6 +477,9 @@ module.exports = {
       newState[index] = Object.assign({}, newState[index], {
         image: { id: value, kind: "DOCKER" }
       });
+      if (value === "") {
+        delete newState[index].image;
+      }
     }
 
     return newState;

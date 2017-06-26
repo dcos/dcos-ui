@@ -32,15 +32,14 @@ module.exports = {
 
     switch (type) {
       case ADD_ITEM:
-        const endpointDefinition = Object.assign(
-          {},
-          defaultEndpointsFieldValues
-        );
-        endpointDefinition.protocol = Object.assign(
-          {},
-          defaultEndpointsFieldValues.protocol
-        );
-        newState[index].push(endpointDefinition);
+        let newEndpoint = value;
+
+        if (value == null) {
+          newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
+        }
+
+        newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
+        newState[index].push(newEndpoint);
         break;
       case REMOVE_ITEM:
         newState[index] = newState[index].filter((item, index) => {

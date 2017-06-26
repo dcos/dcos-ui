@@ -10,10 +10,10 @@ describe("Containers", function() {
         it("should have one endpoint", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           expect(batch.reduce(Containers.FormReducer.bind({}))).toEqual([
@@ -46,10 +46,10 @@ describe("Containers", function() {
         it("should have one endpoint with name", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -86,10 +86,10 @@ describe("Containers", function() {
         it("should have one endpoint with name and a hostport", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -137,12 +137,12 @@ describe("Containers", function() {
         it("should set the protocol right", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "HOST"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -182,12 +182,12 @@ describe("Containers", function() {
         it("should set protocol to unknown value", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "HOST"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -230,12 +230,12 @@ describe("Containers", function() {
         it("should have one endpoint", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           expect(batch.reduce(Containers.FormReducer.bind({}))).toEqual([
@@ -268,12 +268,12 @@ describe("Containers", function() {
         it("should have one endpoint with name", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -310,12 +310,12 @@ describe("Containers", function() {
         it("should have one endpoint with name and a hostport", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -363,12 +363,12 @@ describe("Containers", function() {
         it("should set the protocol right", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -408,12 +408,12 @@ describe("Containers", function() {
         it("should set protocol to unknown value", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -454,12 +454,12 @@ describe("Containers", function() {
         it("should set the right container Port", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -499,13 +499,13 @@ describe("Containers", function() {
         it("should set the right vip", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
           batch = batch.add(new Transaction(["id"], "/foobar"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -552,13 +552,13 @@ describe("Containers", function() {
         it("should set the right custom vip", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
           batch = batch.add(new Transaction(["id"], "/foobar"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -612,13 +612,13 @@ describe("Containers", function() {
         it("should set the right vip after id change", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
           batch = batch.add(new Transaction(["id"], "/foobar"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -667,13 +667,13 @@ describe("Containers", function() {
         it("should set the right custom vip even after id change", function() {
           let batch = new Batch();
 
-          batch = batch.add(new Transaction(["containers"], 0, ADD_ITEM));
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
 
           batch = batch.add(new Transaction(["networks", 0], "CONTAINER.foo"));
           batch = batch.add(new Transaction(["id"], "/foobar"));
 
           batch = batch.add(
-            new Transaction(["containers", 0, "endpoints"], 0, ADD_ITEM)
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
           );
 
           batch = batch.add(
@@ -731,21 +731,21 @@ describe("Containers", function() {
     describe("artifacts", function() {
       it("emits correct form data", function() {
         const batch = new Batch([
-          new Transaction(["containers"], 0, ADD_ITEM),
-          new Transaction(["containers", 0, "artifacts"], 0, ADD_ITEM),
+          new Transaction(["containers"], null, ADD_ITEM),
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
           new Transaction(
             ["containers", 0, "artifacts", 0, "uri"],
             "http://mesosphere.io",
             SET
           ),
-          new Transaction(["containers", 0, "artifacts"], 1, ADD_ITEM),
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
           new Transaction(
             ["containers", 0, "artifacts", 1, "uri"],
             "http://mesosphere.com",
             SET
           ),
-          new Transaction(["containers", 0, "artifacts"], 2, ADD_ITEM),
-          new Transaction(["containers", 0, "artifacts"], 3, ADD_ITEM)
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM)
         ]);
 
         expect(batch.reduce(Containers.FormReducer.bind({}))).toEqual([
