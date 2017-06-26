@@ -82,7 +82,7 @@ import {
   MARATHON_TASK_KILL_SUCCESS,
   VISIBILITY_CHANGE
 } from "../constants/EventTypes";
-import Service from "../structs/Service";
+import Framework from "../structs/Framework";
 import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
@@ -472,8 +472,8 @@ class MarathonStore extends GetSetBaseStore {
     const groups = new ServiceTree(data);
 
     const apps = groups.reduceItems(function(map, item) {
-      if (item instanceof Service) {
-        map[item.getName().toLowerCase()] = {
+      if (item instanceof Framework) {
+        map[item.getFrameworkName().toLowerCase()] = {
           health: item.getHealth(),
           images: item.getImages(),
           snapshot: item.get()

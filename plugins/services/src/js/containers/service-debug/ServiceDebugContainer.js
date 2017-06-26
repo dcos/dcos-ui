@@ -212,8 +212,7 @@ class ServiceDebugContainer extends React.Component {
     const { service } = this.props;
 
     if (this.isFramework(service)) {
-      const { labels = {} } = service;
-      const frameworkName = labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+      const frameworkName = service.getPackageName();
 
       return this.getRecentOfferSummaryDisabledText(frameworkName);
     }
