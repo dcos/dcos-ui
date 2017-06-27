@@ -1,5 +1,16 @@
 & when (@packages-view-enabled) {
 
+  .package-action-buttons {
+    text-align: left;
+  }
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .package-action-buttons {
+      text-align: right;
+    }
+  }
+
   .install-package-modal-package-notes {
     max-width: 100%;
 
