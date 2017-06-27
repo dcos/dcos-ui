@@ -1,9 +1,10 @@
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
+import { omit } from "#SRC/js/utils/Util";
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
 import ContainerConstants from "../../../constants/ContainerConstants";
 
-const { type: { MESOS } } = ContainerConstants;
+const { type: { MESOS, DOCKER } } = ContainerConstants;
 
 const mapLocalVolumes = function(volume) {
   if (volume.type === "PERSISTENT") {
@@ -19,6 +20,16 @@ const mapLocalVolumes = function(volume) {
     hostPath: volume.hostPath,
     mode: volume.mode
   };
+};
+
+const mapExternalVolumes = function(volume) {
+  if (this.runtimeType === DOCKER && volume.external.size != null) {
+    return Object.assign({}, volume, {
+      external: omit(volume.external, ["size"])
+    });
+  }
+
+  return volume;
 };
 
 function reduceVolumes(state, { type, path, value }) {
@@ -44,18 +55,23 @@ function reduceVolumes(state, { type, path, value }) {
     this.unknownVolumes = [];
   }
 
-  if (this.docker == null) {
-    this.docker = false;
+  if (this.dockerImage == null) {
+    this.dockerImage = false;
+  }
+
+  if (this.runtimeType == null) {
+    this.runtimeType = MESOS;
   }
 
   const joinedPath = path.join(".");
 
   if (joinedPath === "container.docker.image") {
-    this.docker = value !== "";
+    this.dockerImage = value !== "";
   }
 
   if (joinedPath === "container.type") {
-    this.docker = value !== MESOS;
+    this.dockerImage = value !== MESOS;
+    this.runtimeType = value;
   }
 
   if (joinedPath === "unknownVolumes" && type === ADD_ITEM) {
@@ -177,7 +193,7 @@ function reduceVolumes(state, { type, path, value }) {
 
   return [].concat(
     this.localVolumes.map(mapLocalVolumes),
-    this.externalVolumes,
+    this.externalVolumes.map(mapExternalVolumes.bind(this)),
     this.unknownVolumes
   );
 }

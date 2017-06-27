@@ -7,6 +7,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -16,12 +17,16 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
+import ContainerConstants from "../../constants/ContainerConstants";
+
 import {
   FormReducer as externalVolumes
 } from "../../reducers/serviceForm/FormReducers/ExternalVolumes";
 import {
   FormReducer as localVolumes
 } from "../../reducers/serviceForm/FormReducers/LocalVolumes";
+
+const { type: { DOCKER } } = ContainerConstants;
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
@@ -242,6 +247,38 @@ class VolumesFormSection extends Component {
         .at(key + offset, {})
         .get(this.props.errors).containerPath;
 
+      const runtimeType = findNestedPropertyInObject(
+        this.props.data,
+        "container.type"
+      );
+
+      let sizeField = (
+        <Tooltip
+          content="Docker Runtime only supports the default size for implicit volumes, please select Mesos Runtime if you want to modify the size."
+          width={300}
+          scrollContainer=".gm-scroll-view"
+          wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+          wrapText={true}
+        >
+          <FieldInput
+            name={`externalVolumes.${key}.size`}
+            type="number"
+            disabled={true}
+            value={""}
+          />
+        </Tooltip>
+      );
+
+      if (runtimeType !== DOCKER) {
+        sizeField = (
+          <FieldInput
+            name={`externalVolumes.${key}.size`}
+            type="number"
+            value={volume.size}
+          />
+        );
+      }
+
       return (
         <FormGroupContainer
           key={key}
@@ -276,11 +313,7 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldInput
-                name={`externalVolumes.${key}.size`}
-                type="number"
-                value={volume.size}
-              />
+              {sizeField}
               <FieldError>{sizeError}</FieldError>
             </FormGroup>
             <FormGroup
