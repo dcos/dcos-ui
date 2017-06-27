@@ -940,12 +940,7 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "python:3");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+
       cy
         .root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -960,9 +955,6 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Network Type")
         .should("have.value", "BRIDGE");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
       cy
@@ -1140,12 +1132,7 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+
       cy
         .root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -1160,9 +1147,6 @@ describe("Services", function() {
         .root()
         .getFormGroupInputFor("Network Type")
         .should("have.value", "BRIDGE");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
       cy
