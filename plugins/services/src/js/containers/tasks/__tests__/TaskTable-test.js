@@ -59,7 +59,7 @@ describe("TaskTable", function() {
     });
   });
 
-  it("it does not pass a uniqueProperty to CheckboxTable", function() {
+  it("it pass a uniqueProperty to CheckboxTable", function() {
     const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
     const result = TestUtils.renderIntoDocument(component);
     const table = TestUtils.findRenderedComponentWithType(
