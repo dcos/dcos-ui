@@ -242,7 +242,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getTermsConditionUrl() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    if (cosmosPackage.selected) {
+    if (cosmosPackage.isCertified()) {
       return "https://mesosphere.com/catalog-terms-conditions/#certified-services";
     } else {
       return "https://mesosphere.com/catalog-terms-conditions/#community-services";
