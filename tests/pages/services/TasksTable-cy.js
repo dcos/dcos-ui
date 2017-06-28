@@ -101,22 +101,36 @@ describe("Tasks Table", function() {
       cy.get("@checkboxes").should("have.length", 2);
     }
 
-    it("Select all tasks available", function() {
+    function assertActionButtons() {
+      cy
+        .get(".filter-bar .button-collection .button-link > span")
+        .eq(0)
+        .contains("Restart");
+      cy.get(".button-collection .button-link > span").eq(1).contains("Stop");
+    }
+
+    it("Select all tasks available and confirm action buttons exist", function() {
       assertCheckboxLength();
       cy.get("@checkboxes").eq(0).click();
-      cy.get("@checkboxes").eq(0).find("input").should(function($checkbox) {
-        expect($checkbox[0].name).to.equal("headingCheckbox");
-        expect($checkbox[0].checked).to.equal(true);
-      });
+      cy
+        .wait(3000)
+        .get("@checkboxes")
+        .eq(0)
+        .find("input")
+        .should(function($checkbox) {
+          expect($checkbox[0].name).to.equal("headingCheckbox");
+          expect($checkbox[0].checked).to.equal(true);
+        });
       cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
         expect($checkbox[0].name).to.equal(
           "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
         );
         expect($checkbox[0].checked).to.equal(true);
       });
+      assertActionButtons();
     });
 
-    it("Select first task available", function() {
+    it("Select first task available and confirm action buttons exist", function() {
       assertCheckboxLength();
       cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
         expect($checkbox[0].name).to.equal(
@@ -125,9 +139,15 @@ describe("Tasks Table", function() {
         expect($checkbox[0].checked).to.equal(false);
       });
       cy.get("@checkboxes").eq(1).click();
-      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
-        expect($checkbox[0].checked).to.equal(true);
-      });
+      cy
+        .wait(3000)
+        .get("@checkboxes")
+        .eq(1)
+        .find("input")
+        .should(function($checkbox) {
+          expect($checkbox[0].checked).to.equal(true);
+        });
+      assertActionButtons();
     });
   });
 });

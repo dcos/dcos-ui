@@ -11,6 +11,8 @@ jest.dontMock("../TaskTable");
 const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
+const TestUtils = require("react-addons-test-utils");
+const CheckboxTable = require("#SRC/js/components/CheckboxTable");
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const JestUtil = require("#SRC/js/utils/JestUtil");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
@@ -55,6 +57,17 @@ describe("TaskTable", function() {
       ];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
+  });
+
+  it("it does not pass a uniqueProperty to CheckboxTable", function() {
+    const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
+    const result = TestUtils.renderIntoDocument(component);
+    const table = TestUtils.findRenderedComponentWithType(
+      result,
+      CheckboxTable
+    );
+
+    expect(table.props.uniqueProperty).toEqual("id");
   });
 
   afterEach(function() {
