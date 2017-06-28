@@ -112,15 +112,10 @@ describe("Tasks Table", function() {
     it("Select all tasks available and confirm action buttons exist", function() {
       assertCheckboxLength();
       cy.get("@checkboxes").eq(0).click();
-      cy
-        .wait(3000)
-        .get("@checkboxes")
-        .eq(0)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].name).to.equal("headingCheckbox");
-          expect($checkbox[0].checked).to.equal(true);
-        });
+      cy.get("@checkboxes").eq(0).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal("headingCheckbox");
+        expect($checkbox[0].checked).to.equal(true);
+      });
       cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
         expect($checkbox[0].name).to.equal(
           "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
@@ -139,14 +134,9 @@ describe("Tasks Table", function() {
         expect($checkbox[0].checked).to.equal(false);
       });
       cy.get("@checkboxes").eq(1).click();
-      cy
-        .wait(3000)
-        .get("@checkboxes")
-        .eq(1)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].checked).to.equal(true);
-        });
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].checked).to.equal(true);
+      });
       assertActionButtons();
     });
   });
