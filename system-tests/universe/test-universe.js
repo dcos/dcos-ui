@@ -177,9 +177,6 @@ describe("Universe", function() {
     cy.get(".modal.confirm-modal input").type(serviceName);
     cy.get(".modal.confirm-modal").contains("Delete").click();
 
-    // Give it a bit of time to dissapear from service list
-    cy.wait(3000);
-
     cy
       .get(".page-body-content table")
       .contains(serviceName)
