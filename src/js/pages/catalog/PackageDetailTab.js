@@ -323,7 +323,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
                 <small>
-                  By deploying you agree to {" "}
+                  By deploying you agree to the {" "}
                   <a
                     href={this.getTermsConditionUrl()}
                     target="_blank"
