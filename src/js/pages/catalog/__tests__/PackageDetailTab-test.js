@@ -50,7 +50,7 @@ describe("PackageDetailTab", function() {
 
     it("should call handler when install button is clicked", function() {
       var installButton = ReactDOM.findDOMNode(this.instance).querySelector(
-        ".button.button-success"
+        ".button.button-primary"
       );
       TestUtils.Simulate.click(installButton);
 
