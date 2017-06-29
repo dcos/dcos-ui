@@ -25,6 +25,7 @@ import RouterUtil from "./utils/RouterUtil";
 import enUS from "./translations/en-US.json";
 
 const domElement = global.document.getElementById("application");
+const navigatorLanguage = "en-US";
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
@@ -89,7 +90,7 @@ RequestUtil.json = function(options = {}) {
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
-            <IntlProvider locale={navigator.language} messages={enUS}>
+            <IntlProvider locale={navigatorLanguage} messages={enUS}>
               <Router history={hashHistory} routes={routes} />
             </IntlProvider>
           </Provider>
