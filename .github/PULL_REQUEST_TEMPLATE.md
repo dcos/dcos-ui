@@ -14,7 +14,8 @@
 - [ ] Did you add a JIRA issue in a commit message or as part of the branch name?
 - [ ] Did you add new unit tests?
 - [ ] Did you add new integration tests?
-- [ ] If this contain wording, did you use i18n? if not why?
+- [ ] Did you add new system tests?
+- [ ] If this contains wording, did you use i18n? If not, why?
 - [ ] If this is a regression, did you write a test to catch this in the future?
 
 <!-- More info can be found by clicking the "guidelines for contributing" link above. -->
