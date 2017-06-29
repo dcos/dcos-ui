@@ -79,6 +79,12 @@ class InstallPackageModal
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     const { props } = this;
+
+    // Return early if open prop did not change
+    if (props.open === nextProps.open) {
+      return;
+    }
+
     // If closing
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
@@ -95,6 +101,8 @@ class InstallPackageModal
 
       return;
     }
+
+    // If opening
 
     if (nextProps.isBetaPackage) {
       this.setState({
