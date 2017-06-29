@@ -224,13 +224,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <div className="button-collection">
         <button
-          className="button button-primary button-link"
+          className="button button-outline"
           onClick={this.handleConfigureInstallModalOpen}
         >
           Configure
         </button>
         <button
-          className="button button-success"
+          className="button button-primary"
           onClick={this.handleInstallModalOpen}
         >
           Deploy
@@ -322,8 +322,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
-                <p>
-                  By Deploying, you agree to {" "}
+                <small>
+                  By deploying you agree to {" "}
                   <a
                     href={this.getTermsConditionUrl()}
                     target="_blank"
@@ -331,7 +331,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   >
                     terms and conditions
                   </a>
-                </p>
+                </small>
               </div>
             </div>
           </div>
