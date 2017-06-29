@@ -180,6 +180,6 @@ describe("Universe", function() {
     cy
       .get(".page-body-content table")
       .contains(serviceName)
-      .should("have.length", 0);
+      .should("not.exist");
   });
 });
