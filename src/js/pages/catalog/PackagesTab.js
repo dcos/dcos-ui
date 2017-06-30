@@ -169,7 +169,7 @@ class PackagesTab extends mixin(StoreMixin) {
       <div className="pod flush-top flush-horizontal clearfix">
         <h4 className="short flush-top">Certified Services</h4>
         <p className="tall flush-top">
-          Certified services have been tested and are guaranteed to work with DC/OS.
+          Certified packages are verified by Mesosphere for interoperability with DC/OS.
         </p>
         <div className="panel-grid row">
           {this.getPackageGrid(packages)}
@@ -185,7 +185,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     let subtitle = (
       <p className="tall flush-top">
-        Community services have not been tested extensively with DC/OS.
+        Community packages are unverified and unreviewed content from the community.
       </p>
     );
     let title = "Community Services";
