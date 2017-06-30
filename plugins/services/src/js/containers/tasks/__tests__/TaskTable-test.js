@@ -57,19 +57,17 @@ describe("TaskTable", function() {
       ];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
+  });
 
-    it("it does not pass a uniqueProperty to CheckboxTable", function() {
-      const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
-      const result = TestUtils.renderIntoDocument(component);
-      const table = TestUtils.findRenderedComponentWithType(
-        result,
-        CheckboxTable
-      );
-      // TODO: Should not look at 'id' until tasks are sure to have unique IDs
-      // this test can be removed (and we can add 'id') once tasks IDs are sure
-      // to be unique
-      expect(table.props.uniqueProperty).toEqual(undefined);
-    });
+  it("it pass a uniqueProperty to CheckboxTable", function() {
+    const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
+    const result = TestUtils.renderIntoDocument(component);
+    const table = TestUtils.findRenderedComponentWithType(
+      result,
+      CheckboxTable
+    );
+
+    expect(table.props.uniqueProperty).toEqual("id");
   });
 
   afterEach(function() {
