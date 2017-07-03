@@ -13,7 +13,7 @@ describe("Jobs", function() {
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
-    cy.visitUrl("jobs");
+    cy.visitUrl("jobs/overview");
 
     // Click 'Create a job'
     // Note: The current group contains no jobs
@@ -55,7 +55,7 @@ describe("Jobs", function() {
     cy.contains("Create Job").click();
 
     // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/${Cypress.env("TEST_UUID")}`);
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
 
     // Wait for the table and the service to appear
     cy
@@ -90,7 +90,7 @@ describe("Jobs", function() {
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
-    cy.visitUrl("jobs");
+    cy.visitUrl("jobs/overview");
 
     // Click 'Create a job'
     // Note: The current group contains the previous job
@@ -145,7 +145,7 @@ describe("Jobs", function() {
     cy.contains("Create Job").click();
 
     // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/${Cypress.env("TEST_UUID")}`);
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
 
     // Wait for the table and the service to appear
     cy
@@ -195,7 +195,7 @@ describe("Jobs", function() {
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
-    cy.visitUrl("jobs");
+    cy.visitUrl("jobs/overview");
 
     // Click 'Create a job'
     // Note: The current group contains the previous jobs
@@ -276,7 +276,7 @@ describe("Jobs", function() {
     cy.contains("Create Job").click();
 
     // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/${Cypress.env("TEST_UUID")}`);
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
 
     // Wait for the table and the service to appear
     cy
@@ -364,7 +364,7 @@ describe("Jobs", function() {
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
-    cy.visitUrl("jobs");
+    cy.visitUrl("jobs/overview");
 
     // Click 'Create a job'
     // Note: The current group contains the previous jobs
@@ -429,7 +429,7 @@ describe("Jobs", function() {
     cy.contains("Create Job").click();
 
     // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/${Cypress.env("TEST_UUID")}`);
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
 
     // Wait for the table and the service to appear
     cy

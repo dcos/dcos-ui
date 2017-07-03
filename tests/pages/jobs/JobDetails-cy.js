@@ -5,7 +5,7 @@ describe("Job Details", function() {
       mesos: "1-for-each-health",
       nodeHealth: true
     });
-    cy.visitUrl({ url: "/jobs/foo" });
+    cy.visitUrl({ url: "/jobs/detail/foo" });
   });
 
   context("Job Details Header", function() {

@@ -6,7 +6,7 @@ describe("Job Actions", function() {
         mesos: "1-for-each-health",
         nodeHealth: true
       });
-      cy.visitUrl({ url: "/jobs/foo" });
+      cy.visitUrl({ url: "/jobs/detail/foo" });
 
       cy.get(".page-header-actions .dropdown").click();
       cy.get(".dropdown-menu-items").contains("Edit").click();

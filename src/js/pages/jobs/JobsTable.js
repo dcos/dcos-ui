@@ -116,27 +116,26 @@ class JobsTable extends React.Component {
   }
 
   renderHeadline(prop, job) {
-    let { id, isGroup, name, schedules } = job;
-    let itemImage = null;
+    const { id, isGroup, name, schedules } = job;
     let scheduleIcon = null;
-
-    id = encodeURIComponent(id);
+    let url = `/jobs/detail/${encodeURIComponent(id)}`;
+    let itemImage = (
+      <Icon
+        className="icon-margin-right"
+        color="grey"
+        id="page-document"
+        size="mini"
+      />
+    );
 
     if (isGroup) {
+      url = `/jobs/overview/${encodeURIComponent(id)}`;
+
       itemImage = (
         <Icon
           className="icon-margin-right"
           color="grey"
           id="folder"
-          size="mini"
-        />
-      );
-    } else {
-      itemImage = (
-        <Icon
-          className="icon-margin-right"
-          color="grey"
-          id="page-document"
           size="mini"
         />
       );
@@ -162,11 +161,11 @@ class JobsTable extends React.Component {
     return (
       <div className="job-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to={`/jobs/${id}`} className="table-cell-icon">
+        <Link to={url} className="table-cell-icon">
           {itemImage}
         </Link>
         <Link
-          to={`/jobs/${id}`}
+          to={url}
           className="table-cell-link-primary table-cell-value flex-box flex-box-col"
         >
           <span className="text-overflow">

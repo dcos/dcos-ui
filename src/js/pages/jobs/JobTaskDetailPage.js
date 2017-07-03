@@ -19,7 +19,7 @@ class JobTaskDetailPage extends React.Component {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
 
-    const routePrefix = `/jobs/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/jobs/detail/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       { label: "Details", routePath: routePrefix + "/details" },
       { label: "Files", routePath: routePrefix + "/files" },
@@ -38,7 +38,7 @@ class JobTaskDetailPage extends React.Component {
         <JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} details={false}>
           <Breadcrumb key="task-name" title={task.getName()}>
             <BreadcrumbTextContent>
-              <Link to={`/jobs/${id}/tasks/${task.getId()}`}>
+              <Link to={`/jobs/detail/${id}/tasks/${task.getId()}`}>
                 {task.getName()}
               </Link>
             </BreadcrumbTextContent>

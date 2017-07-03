@@ -1,70 +1,86 @@
 /**
- * Parse an item into a Job or JobTree - This method will create sub trees if
- * needed to insert the item at the correct location
- * (based on id/path matching).
- * @param {{
- *          id:string,
- *          items:array<({id:string, items:array}|*)>,
- * }} parent tree to add item to
- * @param {{id:string}} item job to add to parent
- * @param {[type]} jobsAlreadyAdded hash of id and jobs of jobs that
- * have already been added to the parent
+ * Pattern to extract the parent id (e.g. "a.b") from an item id (e.g. "a.b.c")
+ * by matching everything except the last bit (e.g. ".c")
+ *
+ * @type {RegExp}
  */
-function addJob(parent, item, jobsAlreadyAdded) {
-  const { id } = parent;
+const PARENT_ID_REGEXP = /.*?(?=\.?[^.]+\.?$)/;
 
-  const itemId = item.id;
+/**
+ * Get the parent id (e.g. "a.b") from the item id (e.g. "a.b.c")
+ *
+ * @param {string} itemId
+ * @return {string} the items parent id
+ */
+function getParentId(itemId) {
+  const [parentId = ""] = itemId.match(PARENT_ID_REGEXP);
 
-  if (itemId.startsWith(".") || itemId.endsWith(".")) {
+  return parentId;
+}
+
+/**
+ * Add a job to the respective namespace based on the id property.
+ *
+ * @param {{id:string}} job
+ * @param {Map} jobMap hash map of all jobs that have already
+ * been created
+ * @param {Map} namespaceMap hash map of all namespaces that have already
+ * been created
+ * @return {{id:string}} job
+ */
+function addJob(job, jobMap, namespaceMap) {
+  const { id } = job;
+
+  if (id.startsWith(".") || id.endsWith(".")) {
     throw new Error(
-      `Id (${itemId}) must not start with a leading dot (".") ` +
+      `Id (${id}) must not start with a leading dot (".") ` +
         "and should not end with a dot."
     );
   }
 
-  if (!itemId.startsWith(id)) {
-    throw new Error(`item id (${itemId}) doesn't match tree id (${id})`);
+  // Check if the item (namespace or job) has already been added and merge with
+  // existing one
+  if (jobMap.has(id)) {
+    job = Object.assign(jobMap.get(id), job);
+    jobMap.set(id, job);
+
+    return job;
   }
 
-  // Check if the item (group or job) has already been added
-  if (jobsAlreadyAdded[itemId]) {
-    // handle merge data for job, not for group
-    item = Object.assign(jobsAlreadyAdded[itemId], item);
+  const parentNamespace = getNamespaceWithId(getParentId(id), namespaceMap);
 
-    return;
+  // Add job to the parent namespace and jobs map
+  parentNamespace.items.push(job);
+  jobMap.set(id, job);
+
+  return job;
+}
+
+/**
+ * Get a namespace with the respective id and create sub namespaces if needed.
+ *
+ * @param {String} namespaceId
+ * @param {Map} namespaceMap hash map of all namespaces that have already
+ * been created
+ * @return {{id:string, items:[]}} namespace
+ */
+function getNamespaceWithId(namespaceId, namespaceMap) {
+  // Check if the item (namespace or job) has already been added
+  if (namespaceMap.has(namespaceId)) {
+    return namespaceMap.get(namespaceId);
   }
 
-  // Get the parent id (e.g. group) by matching everything but the item
-  // name including the preceding dot "." (e.g. ".name").
-  const [parentId] = itemId.match(/.*?(?=\.?[^.]+\.?$)/);
+  const namespace = { id: namespaceId, items: [] };
+  const parentNamespace = getNamespaceWithId(
+    getParentId(namespaceId),
+    namespaceMap
+  );
 
-  if (parentId == null) {
-    return;
-  }
+  // Save namespace and link with parent
+  namespaceMap.set(namespaceId, namespace);
+  parentNamespace.items.push(namespace);
 
-  // Add item to the current tree if it's the actual parent tree
-  if (id === parentId) {
-    // Initialize items, if they don't already exist, before push
-    if (!parent.items) {
-      parent.items = [];
-    }
-
-    // Store child as added
-    jobsAlreadyAdded[item.id] = item;
-    parent.items.push(MetronomeUtil.parseJob(item));
-
-    return;
-  }
-
-  // Find or create corresponding parent tree and add it to the tree
-  let subParent = jobsAlreadyAdded[parentId];
-  if (!subParent) {
-    subParent = { id: parentId, items: [] };
-    addJob(parent, subParent, jobsAlreadyAdded);
-  }
-
-  // Add item to parent tree
-  addJob(subParent, item, jobsAlreadyAdded);
+  return namespace;
 }
 
 const MetronomeUtil = {
@@ -75,23 +91,26 @@ const MetronomeUtil = {
    * @return {{
    *          id:string,
    *          items:array<({id:string, items:array}|*)>,
-   * }} jobs and groups in a tree structure
+   * }} jobs and namespaces in a tree structure
    */
   parseJobs(jobs) {
-    const rootTree = { id: "" };
-    const jobsAlreadyAdded = {
-      [rootTree.id]: rootTree
-    };
+    const namespacesMap = new Map();
+    const jobsMap = new Map();
+    const rootNamespace = { id: "", items: [] };
+
+    // Add initial root namespace. N.B. The namespaces must be added to the map
+    // without the "%" prefix.
+    namespacesMap.set("", rootNamespace);
 
     if (!Array.isArray(jobs)) {
       jobs = [jobs];
     }
 
     jobs.forEach(function(job) {
-      addJob(rootTree, job, jobsAlreadyAdded);
+      addJob(MetronomeUtil.parseJob(job), jobsMap, namespacesMap);
     });
 
-    return rootTree;
+    return rootNamespace;
   },
 
   parseJob(job) {

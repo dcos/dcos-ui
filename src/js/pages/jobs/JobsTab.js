@@ -211,11 +211,6 @@ class JobsTab extends mixin(StoreMixin) {
       return this.getJobTreeView(item, modal);
     }
 
-    // JobDetailPage
-    if (this.props.params.id) {
-      return this.props.children;
-    }
-
     // Render empty panel
     return (
       <Page>
@@ -235,11 +230,11 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let { id } = this.props.params;
-    id = decodeURIComponent(id);
-
-    // Find item in root tree and default to root tree if there is no match
-    const item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
+    const id = decodeURIComponent(this.props.params.id);
+    const jobTree =
+      DCOSStore.jobTree.findItem(function(item) {
+        return item instanceof JobTree && item.id === id;
+      }) || DCOSStore.jobTree;
 
     const modal = (
       <JobFormModal
@@ -248,7 +243,7 @@ class JobsTab extends mixin(StoreMixin) {
       />
     );
 
-    return this.getContents(item, modal);
+    return this.getContents(jobTree, modal);
   }
 }
 

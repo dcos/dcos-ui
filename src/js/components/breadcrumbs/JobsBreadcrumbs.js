@@ -73,11 +73,14 @@ function getItemSchedule(item) {
 function getBreadcrumb(item, details = true) {
   const id = item.getId();
   const name = item.getName();
+  const link = item instanceof Job
+    ? `/jobs/detail/${id}`
+    : `/jobs/overview/${id}`;
 
   return (
     <Breadcrumb key={id} title="Jobs">
       <BreadcrumbTextContent>
-        <Link to={`/jobs/${id}`}>
+        <Link to={link}>
           {name === "" ? "Jobs" : name}
         </Link>
       </BreadcrumbTextContent>
@@ -87,18 +90,27 @@ function getBreadcrumb(item, details = true) {
   );
 }
 
-const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
-  const elements = tree
+function getBreadcrumbList(tree, item, details) {
+  if (item == null) {
+    return [];
+  }
+
+  return tree
     .filterItems(function(currentItem) {
-      return item != null && item.getId() === currentItem.getId();
+      return (
+        item.getId() === currentItem.getId() &&
+        item.constructor === currentItem.constructor
+      );
     })
     .reduceItems(function(acc, currentItem) {
       return acc.concat(getBreadcrumb(currentItem, details));
     }, []);
+}
 
+const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
   const breadcrumbs = [].concat(
     getBreadcrumb(tree, details),
-    elements,
+    getBreadcrumbList(tree, item, details),
     React.Children.toArray(children)
   );
 
