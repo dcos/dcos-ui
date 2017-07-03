@@ -148,7 +148,7 @@ class ServiceDestroyModal extends React.Component {
 
   getDestroyFrameworkModal() {
     const { open, service, intl } = this.props;
-    const serviceName = service.getId();
+    const packageName = service.getPackageName();
 
     return (
       <Modal
@@ -185,7 +185,7 @@ class ServiceDestroyModal extends React.Component {
             <pre className="prettyprint flush-bottom">
               dcos package uninstall
               {" "}
-              {serviceName.replace("/", "")} --app-id={serviceName}
+              {packageName} --app-id={service.getId()}
             </pre>
           </ClickToSelect>
         </div>

@@ -45,24 +45,45 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getName", function() {
+  describe("#getPackageName", function() {
     it("returns correct name", function() {
       const service = new Framework({
         id: "/test/framework",
         labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: "Framework"
+          DCOS_PACKAGE_NAME: "Framework"
         }
       });
 
-      expect(service.getName()).toEqual("Framework");
+      expect(service.getPackageName()).toEqual("Framework");
     });
 
-    it("returns basename if framework name is undefined", function() {
+    it("returns undefined if package name is undefined", function() {
       const service = new Framework({
         id: "/test/framework"
       });
 
-      expect(service.getName()).toEqual("framework");
+      expect(service.getPackageName()).toEqual(undefined);
+    });
+  });
+
+  describe("#getFrameworkName", function() {
+    it("returns correct name", function() {
+      const service = new Framework({
+        id: "/test/framework",
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: "group/Framework"
+        }
+      });
+
+      expect(service.getFrameworkName()).toEqual("group/Framework");
+    });
+
+    it("returns undefined if package name is undefined", function() {
+      const service = new Framework({
+        id: "/test/framework"
+      });
+
+      expect(service.getFrameworkName()).toEqual(undefined);
     });
   });
 
