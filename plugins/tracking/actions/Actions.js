@@ -3,10 +3,10 @@ import md5 from "md5";
 import { hashHistory, match } from "react-router";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import Config from "#SRC/js/config/Config";
+import Util from "#SRC/js/utils/Util";
 
 const SDK = require("../SDK").getSDK();
-
-const { Config, Util } = SDK.get(["Config", "Util"]);
 
 var Actions = {
   previousFakePageLog: "",

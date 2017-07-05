@@ -5,31 +5,20 @@ import React from "react";
 import { Redirect, Route, hashHistory } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import AccessDeniedPage from "#SRC/js/components/AccessDeniedPage";
+import ApplicationUtil from "#SRC/js/utils/ApplicationUtil";
+import Authenticated from "#SRC/js/components/Authenticated";
+import AuthStore from "#SRC/js/stores/AuthStore";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
+import CookieUtils from "#SRC/js/utils/CookieUtils";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
+import UsersPage from "#SRC/js/pages/system/UsersPage";
+
 import AuthenticatedUserAccountDropdown
   from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";
 
 const SDK = require("./SDK").getSDK();
-
-const {
-  AccessDeniedPage,
-  ApplicationUtil,
-  Authenticated,
-  AuthStore,
-  ConfigStore,
-  CookieUtils,
-  RouterUtil,
-  UsersPage
-} = SDK.get([
-  "AccessDeniedPage",
-  "ApplicationUtil",
-  "AuthStore",
-  "Authenticated",
-  "ConfigStore",
-  "CookieUtils",
-  "RouterUtil",
-  "UsersPage"
-]);
 
 let configResponseCallback = null;
 const defaultOrganizationRoute = {

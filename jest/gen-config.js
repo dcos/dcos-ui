@@ -52,6 +52,7 @@ var config = {
     'src/js/constants',
     'src/js/plugin-bridge/AppReducer',
     'src/js/plugin-bridge/Hooks',
+    'src/js/plugin-bridge/Loader',
     'src/js/plugin-bridge/middleware',
     'src/js/plugin-bridge/PluginSDK',
     'src/js/plugin-bridge/PluginTestUtils',

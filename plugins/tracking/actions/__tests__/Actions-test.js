@@ -1,3 +1,4 @@
+jest.dontMock("#SRC/js/utils/Util");
 jest.dontMock("../Actions");
 
 jest.setMock("react-router", {
@@ -13,8 +14,6 @@ const PluginTestUtils = require("PluginTestUtils");
 const SDK = PluginTestUtils.getSDK("tracking", { enabled: true });
 require("../../SDK").setSDK(SDK);
 const Actions = require("../Actions");
-
-PluginTestUtils.dontMock(["Util"]);
 
 global.analytics = {
   initialized: true,
