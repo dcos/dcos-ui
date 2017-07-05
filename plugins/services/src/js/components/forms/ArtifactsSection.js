@@ -5,6 +5,7 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
 import Icon from "#SRC/js/components/Icon";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -66,11 +67,13 @@ class ArtifactsSection extends Component {
         <FormRow key={`${path}.${index}`}>
           <FormGroup className="column-12" showError={Boolean(error)}>
             {label}
-            <FieldInput
-              name={`${path}.${index}.uri`}
-              placeholder="http://example.com"
-              value={item.uri}
-            />
+            <FieldAutofocus>
+              <FieldInput
+                name={`${path}.${index}.uri`}
+                placeholder="http://example.com"
+                value={item.uri}
+              />
+            </FieldAutofocus>
             <FieldError>{error}</FieldError>
           </FormGroup>
           <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>

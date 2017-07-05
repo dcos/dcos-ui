@@ -6,6 +6,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import { SET } from "#SRC/js/constants/TransactionTypes";
 import AddButton from "#SRC/js/components/form/AddButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -280,13 +281,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               key="vip-port"
               showError={Boolean(vipPortError)}
             >
-              <FieldInput
-                min="1"
-                placeholder={placeholder}
-                name={`portDefinitions.${index}.vipPort`}
-                type="number"
-                value={vipPort}
-              />
+              <FieldAutofocus>
+                <FieldInput
+                  min="1"
+                  placeholder={placeholder}
+                  name={`portDefinitions.${index}.vipPort`}
+                  type="number"
+                  value={vipPort}
+                />
+              </FieldAutofocus>
             </FormGroup>
           </FormRow>
           <FormRow>
@@ -385,12 +388,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           Container Port
         </FieldLabel>
-        <FieldInput
-          min="0"
-          name={`portDefinitions.${index}.containerPort`}
-          type="number"
-          value={portDefinition.containerPort}
-        />
+        <FieldAutofocus>
+          <FieldInput
+            min="0"
+            name={`portDefinitions.${index}.containerPort`}
+            type="number"
+            value={portDefinition.containerPort}
+          />
+        </FieldAutofocus>
         <FieldError>{containerPortError}</FieldError>
       </FormGroup>
     );
@@ -488,11 +493,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldInput
-                name={`portDefinitions.${index}.name`}
-                type="text"
-                value={endpoint.name}
-              />
+              <FieldAutofocus>
+                <FieldInput
+                  name={`portDefinitions.${index}.name`}
+                  type="text"
+                  value={endpoint.name}
+                />
+              </FieldAutofocus>
               <FieldError>{nameError}</FieldError>
             </FormGroup>
             {this.getPortMappingCheckbox(endpoint, networkType, index)}

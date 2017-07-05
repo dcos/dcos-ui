@@ -40,6 +40,12 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen").should("to.have.length", 1);
       });
 
+      it("Should Autofocus on the Service ID input field", function() {
+        openServiceModal();
+        openServiceForm();
+        cy.focused().should("have.attr", "name").and("eq", "id");
+      });
+
       it("contains the right group id in the form modal", function() {
         openServiceModal();
         openServiceForm();
@@ -636,6 +642,11 @@ describe("Service Form Modal", function() {
           .click();
 
         cy
+          .focused()
+          .should("have.attr", "name")
+          .and("eq", "constraints.0.fieldName");
+
+        cy
           .get('.menu-tabbed-view input[name="constraints.0.fieldName"')
           .should(function($inputElement) {
             const $wrappingLabel = $inputElement.closest(".form-group");
@@ -777,6 +788,10 @@ describe("Service Form Modal", function() {
             .get("@tabView")
             .find('.form-control[name="fetch.0.uri"]')
             .should("exist");
+        });
+
+        it("Should Autofocus on the first input element of the Artifact", function() {
+          cy.focused().should("have.attr", "name").and("eq", "fetch.0.uri");
         });
 
         it("Should remove row when remove button clicked", function() {
@@ -930,6 +945,13 @@ describe("Service Form Modal", function() {
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
+        it("Should Autofocus on the service endpoint name", function() {
+          cy
+            .focused()
+            .should("have.attr", "name")
+            .and("eq", "portDefinitions.0.name");
+        });
+
         it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {
           cy
             .get("@tabView")
@@ -1023,6 +1045,11 @@ describe("Service Form Modal", function() {
             cy.get('select[name="networks.0.network"]').select("BRIDGE");
 
             cy
+              .focused()
+              .should("have.attr", "name")
+              .and("eq", "portDefinitions.0.containerPort");
+
+            cy
               .get("@tabView")
               .find('.form-control[name="portDefinitions.0.containerPort"]')
               .should("exist");
@@ -1059,6 +1086,11 @@ describe("Service Form Modal", function() {
             cy
               .get('select[name="networks.0.network"]')
               .select("CONTAINER.dcos-1");
+
+            cy
+              .focused()
+              .should("have.attr", "name")
+              .and("eq", "portDefinitions.0.containerPort");
 
             cy
               .get("@tabView")
@@ -1170,6 +1202,11 @@ describe("Service Form Modal", function() {
             .find('select[name="localVolumes.0.type"]')
             .select("PERSISTENT");
 
+          cy
+            .focused()
+            .should("have.attr", "name")
+            .and("eq", "localVolumes.0.size");
+
           // Size input
           cy
             .get("@tabView")
@@ -1209,6 +1246,11 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add External Volume" link clicked', function() {
+          // Name input focused
+          cy
+            .focused()
+            .should("have.attr", "name")
+            .and("eq", "externalVolumes.0.name");
           // Name input
           cy
             .get("@tabView")
@@ -1286,6 +1328,12 @@ describe("Service Form Modal", function() {
             cy.get("select").select("COMMAND");
           });
 
+        // Command input focused
+        cy
+          .focused()
+          .should("have.attr", "name")
+          .and("eq", "healthChecks.0.command");
+
         // Command input
         cy
           .get("@tabView")
@@ -1337,6 +1385,12 @@ describe("Service Form Modal", function() {
             });
 
           toggleAdvancedHealthCheckSettings();
+
+          // Grace Period focused
+          cy
+            .focused()
+            .should("have.attr", "name")
+            .and("eq", "healthChecks.0.gracePeriodSeconds");
 
           // Grace Period
           cy
@@ -1420,6 +1474,8 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Environment Variable" link clicked', function() {
+          // Key focused
+          cy.focused().should("have.attr", "name").and("eq", "env.0.key");
           // Key
           cy
             .get("@tabView")
@@ -1452,6 +1508,8 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Label" link clicked', function() {
+          // Key focused
+          cy.focused().should("have.attr", "name").and("eq", "labels.0.key");
           // Key
           cy
             .get("@tabView")

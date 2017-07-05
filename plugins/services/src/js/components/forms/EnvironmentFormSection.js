@@ -4,6 +4,7 @@ import React, { Component } from "react";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -57,7 +58,13 @@ class EnvironmentFormSection extends Component {
           <FormRow key={key}>
             <FormGroup className="column-6" required={false}>
               {keyLabel}
-              <FieldInput name={`env.${key}.key`} type="text" value={env.key} />
+              <FieldAutofocus>
+                <FieldInput
+                  name={`env.${key}.key`}
+                  type="text"
+                  value={env.key}
+                />
+              </FieldAutofocus>
               <span className="emphasis form-colon">:</span>
             </FormGroup>
             <FormGroup
@@ -117,11 +124,13 @@ class EnvironmentFormSection extends Component {
         <FormRow key={key}>
           <FormGroup className="column-6">
             {keyLabel}
-            <FieldInput
-              name={`labels.${key}.key`}
-              type="text"
-              value={label.key}
-            />
+            <FieldAutofocus>
+              <FieldInput
+                name={`labels.${key}.key`}
+                type="text"
+                value={label.key}
+              />
+            </FieldAutofocus>
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup

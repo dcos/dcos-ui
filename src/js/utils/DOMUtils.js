@@ -194,6 +194,20 @@ var DOMUtils = {
     const parentTop = parentNode.getBoundingClientRect().top;
 
     return elTop - parentTop;
+  },
+
+  getInputElement(node) {
+    if (!node || !(node instanceof HTMLElement)) {
+      return null;
+    }
+    const inputTypes = ["input", "textarea"];
+    if (inputTypes.includes(node.nodeName.toLowerCase())) {
+      return node;
+    } else {
+      node = node.querySelector(inputTypes.join(", "));
+    }
+
+    return node;
   }
 };
 

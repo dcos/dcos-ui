@@ -7,6 +7,7 @@ import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
 import AdvancedSectionContent
   from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
@@ -102,13 +103,15 @@ class HealthChecksFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldInput
-                name={`healthChecks.${key}.gracePeriodSeconds`}
-                type="number"
-                min="0"
-                placeholder="300"
-                value={healthCheck.gracePeriodSeconds}
-              />
+              <FieldAutofocus>
+                <FieldInput
+                  name={`healthChecks.${key}.gracePeriodSeconds`}
+                  type="number"
+                  min="0"
+                  placeholder="300"
+                  value={healthCheck.gracePeriodSeconds}
+                />
+              </FieldAutofocus>
               <FieldError>{errors.gracePeriodSeconds}</FieldError>
             </FormGroup>
             <FormGroup
@@ -227,11 +230,13 @@ class HealthChecksFormSection extends Component {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldTextarea
-            name={`healthChecks.${key}.command`}
-            type="text"
-            value={healthCheck.command}
-          />
+          <FieldAutofocus>
+            <FieldTextarea
+              name={`healthChecks.${key}.command`}
+              type="text"
+              value={healthCheck.command}
+            />
+          </FieldAutofocus>
           <FieldError>{errors.value}</FieldError>
         </FormGroup>
       </FormRow>
@@ -313,11 +318,13 @@ class HealthChecksFormSection extends Component {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput
-            name={`healthChecks.${key}.path`}
-            type="text"
-            value={healthCheck.path}
-          />
+          <FieldAutofocus>
+            <FieldInput
+              name={`healthChecks.${key}.path`}
+              type="text"
+              value={healthCheck.path}
+            />
+          </FieldAutofocus>
           <FieldError>{errors.path}</FieldError>
         </FormGroup>
       </FormRow>,

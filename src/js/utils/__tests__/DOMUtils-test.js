@@ -283,4 +283,65 @@ describe("DOMUtils", function() {
       this.element.parentNode = prevParentNode;
     });
   });
+
+  describe("#getInputElement", function() {
+    function buildElementWithNoInput() {
+      global.document.body.innerHTML = "<div><span>Only text here</span></div>";
+
+      return global.document.body.querySelector("div");
+    }
+    function buildElementInput() {
+      global.document.body.innerHTML =
+        "<div><span><input type='text' /></span></div>";
+
+      return global.document.body.querySelector("div");
+    }
+    function buildElementTextarea() {
+      global.document.body.innerHTML =
+        "<div><span><textarea></textarea></span></div>";
+
+      return global.document.body.querySelector("div");
+    }
+
+    const input = buildElementInput();
+    const textarea = buildElementTextarea();
+
+    it("returns null if DOM element is without an input/ textarea", function() {
+      expect(DOMUtils.getInputElement(buildElementWithNoInput())).toEqual(null);
+    });
+
+    it("returns null if empty string is entered", function() {
+      expect(DOMUtils.getInputElement("")).toEqual(null);
+    });
+    it("returns null if a string is entered", function() {
+      expect(DOMUtils.getInputElement("asdf")).toEqual(null);
+    });
+    it("returns null if an array is entered", function() {
+      expect(DOMUtils.getInputElement([1, 2, 3])).toEqual(null);
+    });
+    it("returns null if null entered", function() {
+      expect(null).toEqual(null);
+    });
+
+    it("returns input element if DOM element is an input", function() {
+      const returnValue = DOMUtils.getInputElement(
+        input.querySelector("input")
+      );
+      expect(returnValue.nodeName.toLowerCase()).toEqual("input");
+    });
+    it("returns textarea element if DOM element is an textarea", function() {
+      const returnValue = DOMUtils.getInputElement(
+        textarea.querySelector("textarea")
+      );
+      expect(returnValue.nodeName.toLowerCase()).toEqual("textarea");
+    });
+    it("returns input element if DOM element has an input", function() {
+      const returnValue = DOMUtils.getInputElement(input);
+      expect(returnValue.nodeName.toLowerCase()).toEqual("input");
+    });
+    it("returns textarea element if DOM element has an textarea", function() {
+      const returnValue = DOMUtils.getInputElement(textarea);
+      expect(returnValue.nodeName.toLowerCase()).toEqual("textarea");
+    });
+  });
 });
