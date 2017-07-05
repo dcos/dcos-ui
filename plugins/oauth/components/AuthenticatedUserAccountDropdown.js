@@ -1,12 +1,9 @@
 import React from "react";
 
-const SDK = require("../SDK").getSDK();
-
-const { AuthStore, UserAccountDropdown, UserAccountDropdownTrigger } = SDK.get([
-  "AuthStore",
-  "UserAccountDropdown",
-  "UserAccountDropdownTrigger"
-]);
+import AuthStore from "#SRC/js/stores/AuthStore";
+import UserAccountDropdown from "#SRC/js/components/UserAccountDropdown";
+import UserAccountDropdownTrigger
+  from "#SRC/js/components/UserAccountDropdownTrigger";
 
 class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
   getUserLabel() {

@@ -4,9 +4,10 @@ import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Modal } from "reactjs-components";
 
-const SDK = require("../SDK").getSDK();
+import AuthStore from "#SRC/js/stores/AuthStore";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-const { AuthStore, MetadataStore } = SDK.get(["AuthStore", "MetadataStore"]);
+const SDK = require("../SDK").getSDK();
 
 const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
 

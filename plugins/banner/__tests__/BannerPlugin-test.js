@@ -1,3 +1,5 @@
+jest.dontMock("#SRC/js/components/Icon");
+jest.dontMock("#SRC/js/utils/DOMUtils");
 jest.dontMock("../hooks");
 
 /* eslint-disable no-unused-vars */
@@ -6,8 +8,6 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const TestUtils = require("react-addons-test-utils");
 const PluginTestUtils = require("PluginTestUtils");
-
-PluginTestUtils.dontMock(["Icon", "DOMUtils"]);
 
 const SDK = PluginTestUtils.getSDK("banner", { enabled: true });
 require("../SDK").setSDK(SDK);
