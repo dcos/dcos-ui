@@ -7,12 +7,24 @@ module.exports = {
     state = [{ mode: Networking.type.HOST.toLowerCase() }],
     { type, path, value }
   ) {
-    const index = path[1] || 0;
+    const [element, index = 0, field] = path;
 
     const newState = state.slice();
-    if (path[0] === "networks") {
+    if (element === "networks") {
       if (type === ADD_ITEM && index !== 0) {
         newState.push(value || { mode: Networking.type.HOST.toLowerCase() });
+
+        return newState;
+      }
+
+      if (type === SET && field === "name") {
+        newState[index].name = value;
+
+        return newState;
+      }
+
+      if (type === SET && field === "mode") {
+        newState[index].mode = value.toLowerCase();
 
         return newState;
       }
@@ -79,12 +91,24 @@ module.exports = {
   },
 
   FormReducer(state = [{ mode: Networking.type.HOST }], { type, path, value }) {
-    const index = path[1] || 0;
+    const [element, index = 0, field] = path;
 
     const newState = state.slice();
-    if (path[0] === "networks") {
+    if (element === "networks") {
       if (type === ADD_ITEM && index !== 0) {
-        newState.push({ mode: Networking.type.HOST });
+        newState.push(value || { mode: Networking.type.HOST });
+
+        return newState;
+      }
+
+      if (type === SET && field === "name") {
+        newState[index].name = value;
+
+        return newState;
+      }
+
+      if (type === SET && field === "mode") {
+        newState[index].mode = value;
 
         return newState;
       }

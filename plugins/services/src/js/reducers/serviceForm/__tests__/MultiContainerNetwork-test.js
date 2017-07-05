@@ -1,6 +1,7 @@
 const MultiContainerNetwork = require("../MultiContainerNetwork");
 const Networking = require("#SRC/js/constants/Networking");
 const Batch = require("#SRC/js/structs/Batch");
+const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Transaction = require("#SRC/js/structs/Transaction");
 
 describe("MultiContainerNetwork", function() {
@@ -45,6 +46,53 @@ describe("MultiContainerNetwork", function() {
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
         { mode: "host" }
+      ]);
+    });
+
+    it("creates the right network object", function() {
+      let batch = new Batch();
+
+      batch = batch.add(
+        new Transaction(
+          ["networks", 0],
+          { mode: Networking.type.CONTAINER, name: "foo" },
+          ADD_ITEM
+        )
+      );
+      batch = batch.add(
+        new Transaction(["networks", 0, "mode"], `${Networking.type.CONTAINER}`)
+      );
+      batch = batch.add(new Transaction(["networks", 0, "name"], "foo"));
+
+      expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
+        {
+          mode: "container",
+          name: "foo"
+        }
+      ]);
+    });
+  });
+  describe("#FORMReducer", function() {
+    it("creates the right network object", function() {
+      let batch = new Batch();
+
+      batch = batch.add(
+        new Transaction(
+          ["networks", 0],
+          { mode: Networking.type.CONTAINER, name: "foo" },
+          ADD_ITEM
+        )
+      );
+      batch = batch.add(
+        new Transaction(["networks", 0, "mode"], `${Networking.type.CONTAINER}`)
+      );
+      batch = batch.add(new Transaction(["networks", 0, "name"], "foo"));
+
+      expect(batch.reduce(MultiContainerNetwork.FormReducer.bind({}))).toEqual([
+        {
+          mode: "CONTAINER",
+          name: "foo"
+        }
       ]);
     });
   });
