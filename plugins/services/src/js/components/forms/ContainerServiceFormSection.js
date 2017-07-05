@@ -13,7 +13,6 @@ import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
-import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import {
   FormReducer as ContainerReducer
@@ -97,9 +96,7 @@ class ContainerServiceFormSection extends Component {
           " to find more. You can also enter an image from your private registry. "
         }
         <a
-          href={MetadataStore.buildDocsURI(
-            "/usage/tutorials/registry/#docs-article"
-          )}
+          href="https://github.com/dcos/examples/tree/master/registry/1.8"
           target="_blank"
         >
           More information
