@@ -302,9 +302,16 @@ describe("DOMUtils", function() {
 
       return global.document.body.querySelector("div");
     }
+    function buildElementWithTwoTextareas() {
+      global.document.body.innerHTML =
+        "<div><span><textarea></textarea><textarea></textarea></span></div>";
+
+      return global.document.body.querySelector("div");
+    }
 
     const input = buildElementInput();
     const textarea = buildElementTextarea();
+    const textareas = buildElementWithTwoTextareas();
 
     it("returns null if DOM element is without an input/ textarea", function() {
       expect(DOMUtils.getInputElement(buildElementWithNoInput())).toEqual(null);
@@ -341,6 +348,10 @@ describe("DOMUtils", function() {
     });
     it("returns textarea element if DOM element has an textarea", function() {
       const returnValue = DOMUtils.getInputElement(textarea);
+      expect(returnValue.nodeName.toLowerCase()).toEqual("textarea");
+    });
+    it("returns textarea element if DOM element has two textareas", function() {
+      const returnValue = DOMUtils.getInputElement(textareas);
       expect(returnValue.nodeName.toLowerCase()).toEqual("textarea");
     });
   });

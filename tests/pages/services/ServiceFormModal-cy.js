@@ -1082,11 +1082,6 @@ describe("Service Form Modal", function() {
               .select("CONTAINER.dcos-1");
 
             cy
-              .focused()
-              .should("have.attr", "name")
-              .and("eq", "portDefinitions.0.containerPort");
-
-            cy
               .get("@tabView")
               .find('.form-control[name="portDefinitions.0.containerPort"]')
               .should("exist");
