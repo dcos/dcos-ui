@@ -66,7 +66,14 @@ describe("Services", function() {
             {
               mode: "host"
             }
-          ]
+          ],
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -292,7 +299,14 @@ describe("Services", function() {
             {
               mode: "host"
             }
-          ]
+          ],
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -533,7 +547,14 @@ describe("Services", function() {
               name: "dcos",
               mode: "container"
             }
-          ]
+          ],
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -780,7 +801,14 @@ describe("Services", function() {
             {
               mode: "host"
             }
-          ]
+          ],
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -1007,7 +1035,14 @@ describe("Services", function() {
               name: "dcos",
               mode: "container"
             }
-          ]
+          ],
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -1223,7 +1258,13 @@ describe("Services", function() {
             {
               name: "test"
             }
-          ]
+          ],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
         }
       ]);
 
@@ -1445,6 +1486,13 @@ describe("Services", function() {
             snake_case: "test",
             lowercase: "test",
             UPPERCASE: "test"
+          },
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
           }
         }
       ]);
@@ -1691,6 +1739,13 @@ describe("Services", function() {
             snake_case: "test",
             lowercase: "test",
             UPPERCASE: "test"
+          },
+          volumes: [],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
           }
         }
       ]);
@@ -1887,7 +1942,14 @@ describe("Services", function() {
                 }
               }
             }
-          ]
+          ],
+          "volumes": [],
+          "fetch": [],
+          "scheduling": {
+            "placement": {
+              "constraints": []
+            }
+          }
         }`
       );
 
