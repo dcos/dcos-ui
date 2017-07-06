@@ -397,7 +397,11 @@ describe("Service Form Modal", function() {
       beforeEach(function() {
         // Edit form
         cy.contains(".form-group", "Service ID").within(function() {
-          cy.get("input.form-control").clear().type("/test-back-button-prompt");
+          cy
+            .get("input.form-control")
+            .focus()
+            .clear()
+            .type("/test-back-button-prompt");
         });
       });
 

@@ -11,7 +11,7 @@ class FieldAutofocus extends React.Component {
       return;
     }
     const input = DOMUtils.getInputElement(ReactDOM.findDOMNode(this));
-    if (!input) {
+    if (!input || input === document.activeElement) {
       return;
     }
     lockFieldAutofocus = true;
