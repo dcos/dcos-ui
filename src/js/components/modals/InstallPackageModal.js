@@ -394,7 +394,7 @@ class InstallPackageModal
     let error;
     if (descriptionError) {
       error = (
-        <p className="text-danger text-small text-align-center">
+        <p className="text-danger small text-align-center">
           {descriptionError}
         </p>
       );
