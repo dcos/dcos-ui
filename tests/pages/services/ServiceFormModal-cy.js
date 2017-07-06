@@ -1014,11 +1014,6 @@ describe("Service Form Modal", function() {
 
             cy
               .get("@tabView")
-              .find('.form-control[name="portDefinitions.0.containerPort"]')
-              .should("not.exist");
-
-            cy
-              .get("@tabView")
               .find('.form-control[name="portDefinitions.0.name"]')
               .should("exist");
 
@@ -1047,11 +1042,6 @@ describe("Service Form Modal", function() {
         context("type: BRIDGE", function() {
           it('should show "Container Port" and "Protocol"', function() {
             cy.get('select[name="networks.0.network"]').select("BRIDGE");
-
-            cy
-              .focused()
-              .should("have.attr", "name")
-              .and("eq", "portDefinitions.0.containerPort");
 
             cy
               .get("@tabView")
@@ -1206,11 +1196,6 @@ describe("Service Form Modal", function() {
             .find('select[name="localVolumes.0.type"]')
             .select("PERSISTENT");
 
-          cy
-            .focused()
-            .should("have.attr", "name")
-            .and("eq", "localVolumes.0.size");
-
           // Size input
           cy
             .get("@tabView")
@@ -1332,12 +1317,6 @@ describe("Service Form Modal", function() {
             cy.get("select").select("COMMAND");
           });
 
-        // Command input focused
-        cy
-          .focused()
-          .should("have.attr", "name")
-          .and("eq", "healthChecks.0.command");
-
         // Command input
         cy
           .get("@tabView")
@@ -1389,12 +1368,6 @@ describe("Service Form Modal", function() {
             });
 
           toggleAdvancedHealthCheckSettings();
-
-          // Grace Period focused
-          cy
-            .focused()
-            .should("have.attr", "name")
-            .and("eq", "healthChecks.0.gracePeriodSeconds");
 
           // Grace Period
           cy
