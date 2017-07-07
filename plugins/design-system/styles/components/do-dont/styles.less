@@ -1,0 +1,21 @@
+& when (@do-dont-enabled) {
+
+  .do-dont-panel {
+    margin-bottom: @do-dont-panel-margin-bottom;
+  }
+
+  .do-dont-heading {
+    margin-top: 0;
+    padding-top: @do-dont-heading-padding-top;
+
+    &.red {
+      border-top: 5px solid @do-dont-red;
+      color: @do-dont-red;
+    }
+
+    &.green {
+      border-top: 5px solid @do-dont-green;
+      color: @do-dont-green;
+    }
+  }
+}
