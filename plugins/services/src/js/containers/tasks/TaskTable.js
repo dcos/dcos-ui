@@ -322,7 +322,7 @@ class TaskTable extends React.Component {
 
     const dangerState = TaskStates[state].stateTypes.includes("failure");
     const activeState = TaskStates[state].stateTypes.includes("active");
-    const transitional = ["TASK_KILLING"].includes(state);
+    const transitional = ["TASK_KILLING", "TASK_STARTING", "TASK_STAGING"].includes(state);
 
     const healthy = task.health === TaskHealthStates.HEALTHY;
     const unhealthy = task.health === TaskHealthStates.UNHEALTHY;
