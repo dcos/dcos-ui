@@ -90,12 +90,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   getVersionsActions() {
-    const versions = this.props.service.getVersions();
-
-    if (versions.size < 2) {
-      return null;
-    }
-
     return (
       <div className="pod flush-top flush-right flush-left">
         <div className="button-collection">
@@ -109,9 +103,19 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   getRollbackButtons() {
     const { service } = this.props;
     const { selectedVersionID } = this.state;
+    let applyButton = null;
 
-    if (service.getVersion() === selectedVersionID) {
-      return null;
+    if (service.getVersion() !== selectedVersionID) {
+      applyButton = (
+        <button
+          className="button button-stroke"
+          disabled={isSDKService(service)}
+          key="version-button-apply"
+          onClick={() => this.handleApplyButtonClick()}
+        >
+          Apply
+        </button>
+      );
     }
 
     return [
@@ -123,20 +127,17 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       >
         Edit
       </button>,
-      <button
-        className="button button-stroke"
-        disabled={isSDKService(service)}
-        key="version-button-apply"
-        onClick={() => this.handleApplyButtonClick()}
-      >
-        Apply
-      </button>
+      applyButton
     ];
   }
 
   getVersionsDropdown() {
     const { service } = this.props;
     const versions = service.getVersions();
+
+    if (versions.size < 2) {
+      return null;
+    }
 
     const versionItems = Array.from(versions.keys())
       .sort((a, b) => {
