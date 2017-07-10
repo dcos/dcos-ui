@@ -214,7 +214,7 @@ describe("Service Form Modal", function() {
       killSelection: "YOUNGEST_FIRST",
       portDefinitions: [
         {
-          port: 0,
+          port: 10000,
           protocol: "tcp"
         }
       ],
