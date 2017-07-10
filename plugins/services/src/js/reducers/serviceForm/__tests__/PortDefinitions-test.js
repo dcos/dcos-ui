@@ -100,7 +100,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("should default port value to 0 if portsAutoAssign", function() {
+    it("should retain port value if portsAutoAssign is set to true", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portsAutoAssign"], true));
@@ -109,7 +109,7 @@ describe("PortDefinitions", function() {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 0, protocol: "tcp", labels: null }
+        { name: null, port: 100, protocol: "tcp", labels: null }
       ]);
     });
 
