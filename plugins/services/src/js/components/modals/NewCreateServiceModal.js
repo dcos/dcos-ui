@@ -100,9 +100,6 @@ const APP_VALIDATORS = [
   MarathonAppValidators.validateConstraints,
   MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
-  MarathonAppValidators.mustNotContainMarathonHTTPSHealthChecks,
-  MarathonAppValidators.mustNotContainMarathonHTTPHealthChecks,
-  MarathonAppValidators.mustNotContainMarathonTCPHealthChecks,
   VipLabelsValidators.mustContainPort
 ];
 
