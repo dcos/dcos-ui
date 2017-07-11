@@ -103,7 +103,12 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   getRollbackButtons() {
     const { service } = this.props;
     const { selectedVersionID } = this.state;
+    const config = service.getVersions().get(selectedVersionID);
     let applyButton = null;
+
+    if (config == null) {
+      return null;
+    }
 
     if (service.getVersion() !== selectedVersionID) {
       applyButton = (
