@@ -36,20 +36,4 @@ describe("JobTree", function() {
       expect(this.instance.getItems()[2] instanceof Job).toEqual(true);
     });
   });
-  describe("#findItemById", function() {
-    beforeEach(function() {
-      this.instance = new JobTree({
-        id: "",
-        items: [{ id: "foo", items: [] }, { id: "alpha" }]
-      });
-    });
-
-    it("should find matching item", function() {
-      expect(this.instance.findItemById("alpha").getId()).toEqual("alpha");
-    });
-
-    it("should find matching subtree", function() {
-      expect(this.instance.findItemById("foo").getId()).toEqual("foo");
-    });
-  });
 });

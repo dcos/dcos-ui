@@ -104,7 +104,7 @@ class PodNetworkConfigSection extends React.Component {
             />
             <ConfigurationMapEditAction
               onEditClick={onEditClick}
-              tabViewID="multinetworking"
+              tabViewID="networking"
             />
           </ConfigurationMapRow>
 
@@ -117,7 +117,7 @@ class PodNetworkConfigSection extends React.Component {
             columns={this.getColumns()}
             data={endpoints}
             onEditClick={onEditClick}
-            tabViewID="multinetworking"
+            tabViewID="networking"
           />
 
         </ConfigurationMapSection>

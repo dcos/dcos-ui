@@ -1708,5 +1708,19 @@ describe("Service Form Modal", function() {
         .siblings()
         .should("to.have.length", 2);
     });
+
+    it("Should show network form when clicking on Network Configuration Edit", function() {
+      cy.get(".menu-tabbed-item").contains("Networking").click();
+      cy.get(".menu-tabbed-view .button.button-primary-link").first().click();
+      cy.get('input[name="containers.0.endpoints.0.name"]').type("test");
+      // Click review and run
+      cy
+        .get(".modal-full-screen-actions")
+        .contains("button", "Review & Run")
+        .click();
+      // Click edit to view form
+      cy.get("a.button.button-link").eq(-1).click({ force: true });
+      cy.get(".menu-tabbed-view").contains("Networking");
+    });
   });
 });

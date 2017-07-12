@@ -1,6 +1,6 @@
 # Contributing
 
-## Indice
+## Index
 - [Commits](#commits)
   - [Commit Message](#commit-message)
   - [Subject](#subjet)
@@ -188,7 +188,7 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
   * Installing SublimeLinter is straightforward using Sublime Package Manager, see [instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html#installing-via-pc)
   * SublimeLinter-eslint needs a global eslint in your system, see [instructions](https://github.com/roadhump/SublimeLinter-eslint#sublimelinter-eslint)
 
-3. Syntax Highlihgting for files containing JSX
+3. Syntax Highlighting for files containing JSX
 
   * Install Babel using Sublime Package Manager, see [instructions](https://github.com/babel/babel-sublime). From here you can decide to use Babel for all .js files. See their docs for that. If you don't want to do that, continue reading.
   * Installing ApplySyntax using Sublime Package Manager, see [instructions](https://github.com/facelessuser/ApplySyntax)
