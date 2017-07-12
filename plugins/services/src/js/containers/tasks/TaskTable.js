@@ -322,6 +322,11 @@ class TaskTable extends React.Component {
 
     const dangerState = TaskStates[state].stateTypes.includes("failure");
     const activeState = TaskStates[state].stateTypes.includes("active");
+    const transitional = [
+      "TASK_KILLING",
+      "TASK_STARTING",
+      "TASK_STAGING"
+    ].includes(state);
 
     const healthy = task.health === TaskHealthStates.HEALTHY;
     const unhealthy = task.health === TaskHealthStates.UNHEALTHY;
@@ -333,7 +338,7 @@ class TaskTable extends React.Component {
       tooltipContent = TaskHealthStates.UNHEALTHY;
     }
 
-    if (!activeState || unknown) {
+    if (!activeState || unknown || transitional) {
       tooltipContent = "No health checks available";
     }
 
@@ -343,7 +348,7 @@ class TaskTable extends React.Component {
     const statusClass = classNames({
       dot: true,
       flush: true,
-      inactive: !activeState,
+      inactive: !activeState || transitional,
       success: healthy && running,
       running: unknown && running,
       danger: dangerState || unhealthy || failing
