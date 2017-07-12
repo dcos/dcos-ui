@@ -150,7 +150,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const { service, tasks } = this.props;
     const { checkedItems } = this.state;
 
-    if (!Object.keys(checkedItems).length) {
+    if (!Object.keys(checkedItems).length || service == null) {
       return null;
     }
 
