@@ -2,8 +2,6 @@ import classNames from "classnames/dedupe";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Util from "../utils/Util";
-
 const METHODS_TO_BIND = ["onImageError"];
 
 class Image extends React.Component {
@@ -57,17 +55,13 @@ class Image extends React.Component {
     );
 
     return (
-      <img
-        className={classes}
-        onError={this.onImageError}
-        {...Util.omit(props, ["className"])}
-      />
+      <img src={props.src} className={classes} onError={this.onImageError} />
     );
   }
 }
 
 Image.propTypes = {
-  src: React.PropTypes.string,
+  src: React.PropTypes.string.required,
   fallbackSrc: React.PropTypes.string,
 
   // Classes

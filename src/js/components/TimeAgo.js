@@ -1,7 +1,6 @@
 import React from "react";
 
 import DateUtil from "../utils/DateUtil";
-import Util from "../utils/Util";
 
 const SECOND = 1000;
 const MINUTE = 60 * MINUTE;
@@ -71,9 +70,9 @@ class TimeAgo extends React.Component {
 
     return (
       <time
+        className={this.props.className}
         title={DateUtil.msToUTCDate(time)}
         dateTime={DateUtil.msToUTCDate(time)}
-        {...Util.omit(this.props, ["prefix", "suppressSuffix", "time"])}
       >
         {prefixString}{relativeTime}
       </time>
@@ -88,6 +87,7 @@ TimeAgo.defaultProps = {
 
 TimeAgo.propTypes = {
   autoUpdate: React.PropTypes.bool,
+  className: React.PropTypes.string,
   prefix: React.PropTypes.node,
   suppressSuffix: React.PropTypes.bool,
   time: React.PropTypes.oneOfType([
