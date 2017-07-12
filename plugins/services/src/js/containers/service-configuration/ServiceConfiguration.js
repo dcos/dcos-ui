@@ -135,10 +135,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const { service } = this.props;
     const versions = service.getVersions();
 
-    if (versions.size < 2) {
-      return null;
-    }
-
     const versionItems = Array.from(versions.keys())
       .sort((a, b) => {
         return new Date(a) - new Date(b);
