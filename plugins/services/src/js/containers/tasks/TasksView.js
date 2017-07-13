@@ -3,6 +3,7 @@ import mixin from "reactjs-mixin";
 import { Tooltip } from "reactjs-components";
 import React from "react";
 
+import DCOSStore from "../../../../../../foundation-ui/stores/DCOSStore";
 import FilterBar from "../../../../../../src/js/components/FilterBar";
 import FilterButtons from "../../../../../../src/js/components/FilterButtons";
 import FilterHeadline from "../../../../../../src/js/components/FilterHeadline";
@@ -11,7 +12,6 @@ import FilterInputText
 import GraphQLTaskUtil from "../../utils/GraphQLTaskUtil";
 import Icon from "../../../../../../src/js/components/Icon";
 import SaveStateMixin from "../../../../../../src/js/mixins/SaveStateMixin";
-import Service from "../../structs/Service";
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import StringUtil from "../../../../../../src/js/utils/StringUtil";
 import TaskStates from "../../constants/TaskStates";
@@ -147,7 +147,7 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   getStopButtons() {
-    const { service, tasks } = this.props;
+    const { tasks } = this.props;
     const { checkedItems } = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -155,8 +155,11 @@ class TasksView extends mixin(SaveStateMixin) {
     }
 
     // Only allow restarting the task if the service isn't deploying.
-    const isDeploying =
-      service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING;
+    const isDeploying = Object.keys(checkedItems).some(function(taskId) {
+      const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+
+      return service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING;
+    });
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks.some(
       task => task.id in checkedItems && task.schedulerTask
@@ -286,7 +289,6 @@ TasksView.propTypes = {
   params: React.PropTypes.object.isRequired,
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
-  service: React.PropTypes.instanceOf(Service).isRequired,
   tasks: React.PropTypes.array
 };
 

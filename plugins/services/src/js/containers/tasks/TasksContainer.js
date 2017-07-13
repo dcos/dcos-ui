@@ -2,7 +2,6 @@ import React, { PropTypes } from "react";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
-import Service from "../../structs/Service";
 import ServiceActionItem from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
 import TasksView from "./TasksView";
@@ -181,11 +180,7 @@ class TasksContainer extends React.Component {
   render() {
     return (
       <div>
-        <TasksView
-          service={this.props.service}
-          params={this.props.params}
-          tasks={this.props.tasks}
-        />
+        <TasksView params={this.props.params} tasks={this.props.tasks} />
         {this.getModals()}
       </div>
     );
@@ -201,7 +196,6 @@ TasksContainer.childContextTypes = {
 };
 
 TasksContainer.propTypes = {
-  service: PropTypes.instanceOf(Service).isRequired,
   tasks: PropTypes.array.isRequired,
   params: PropTypes.object.isRequired
 };
