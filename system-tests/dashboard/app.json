@@ -1,0 +1,21 @@
+{
+  "id": "/dashboard-test-service",
+  "instances": 1,
+  "portDefinitions": [],
+  "container": {
+    "docker": {
+      "image": "nginx"
+    },
+    "type": "DOCKER",
+    "volumes": []
+  },
+  "cpus": 0.1,
+  "mem": 10,
+  "requirePorts": false,
+  "networks": [],
+  "healthChecks": [],
+  "fetch": [],
+  "constraints": [],
+  "disk": 10,
+  "cmd": "while true; do echo 'test' ; sleep 100 ; done"
+}
