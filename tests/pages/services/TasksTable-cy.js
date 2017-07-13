@@ -93,7 +93,7 @@ describe("Tasks Table", function() {
       cy.configureCluster({
         mesos: "1-service-with-executor-task"
       });
-      cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
+      cy.visitUrl({ url: "/services/overview/%2Fcassandra" });
       cy.get("table tr").find(".form-element-checkbox").as("checkboxes");
     });
 
