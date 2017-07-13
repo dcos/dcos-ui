@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Objektiv from "objektiv";
 
 import AddButton from "#SRC/js/components/form/AddButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -66,11 +67,13 @@ class VolumesFormSection extends Component {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput
-            name={`localVolumes.${key}.size`}
-            type="number"
-            value={volume.size}
-          />
+          <FieldAutofocus>
+            <FieldInput
+              name={`localVolumes.${key}.size`}
+              type="number"
+              value={volume.size}
+            />
+          </FieldAutofocus>
           <FieldError>{sizeError}</FieldError>
         </FormGroup>
         <FormGroup className="column-6" showError={Boolean(containerPathError)}>
@@ -135,10 +138,12 @@ class VolumesFormSection extends Component {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput
-            name={`localVolumes.${key}.hostPath`}
-            value={volume.hostPath}
-          />
+          <FieldAutofocus>
+            <FieldInput
+              name={`localVolumes.${key}.hostPath`}
+              value={volume.hostPath}
+            />
+          </FieldAutofocus>
           <FieldError>{hostPathError}</FieldError>
         </FormGroup>
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
@@ -296,11 +301,13 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldInput
-                name={`externalVolumes.${key}.name`}
-                type="text"
-                value={volume.name}
-              />
+              <FieldAutofocus>
+                <FieldInput
+                  name={`externalVolumes.${key}.name`}
+                  type="text"
+                  value={volume.name}
+                />
+              </FieldAutofocus>
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </FormRow>

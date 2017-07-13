@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Objektiv from "objektiv";
 
 import AddButton from "#SRC/js/components/form/AddButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -155,11 +156,13 @@ class MultiContainerVolumesFormSection extends Component {
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
-            <FieldInput
-              name={`volumeMounts.${key}.hostPath`}
-              type="text"
-              value={volumes.hostPath}
-            />
+            <FieldAutofocus>
+              <FieldInput
+                name={`volumeMounts.${key}.hostPath`}
+                type="text"
+                value={volumes.hostPath}
+              />
+            </FieldAutofocus>
           </FormGroup>
         </FormRow>
       );
