@@ -235,7 +235,7 @@ CheckboxTable.propTypes = {
   onCheckboxChange: PropTypes.func,
   sortProp: PropTypes.string,
   sortOrder: PropTypes.string,
-  uniqueProperty: PropTypes.string
+  uniqueProperty: PropTypes.string.isRequired
 };
 
 CheckboxTable.defaultProps = {
