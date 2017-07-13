@@ -10,6 +10,7 @@ import AdvancedSectionContent
   from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -354,12 +355,14 @@ class GeneralServiceFormSection extends Component {
             showError={Boolean(fieldNameError)}
           >
             {fieldLabel}
-            <FieldInput
-              name={`constraints.${index}.fieldName`}
-              type="text"
-              placeholder="hostname"
-              value={constraint.fieldName}
-            />
+            <FieldAutofocus>
+              <FieldInput
+                name={`constraints.${index}.fieldName`}
+                type="text"
+                placeholder="hostname"
+                value={constraint.fieldName}
+              />
+            </FieldAutofocus>
             <FieldError>{fieldNameError}</FieldError>
           </FormGroup>
           <FormGroup
@@ -585,7 +588,9 @@ class GeneralServiceFormSection extends Component {
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
-            <FieldInput name="id" type="text" value={data.id} />
+            <FieldAutofocus>
+              <FieldInput name="id" type="text" value={data.id} />
+            </FieldAutofocus>
             <FieldHelp>
               Give your service a unique name within the cluster, e.g. my-service.
             </FieldHelp>

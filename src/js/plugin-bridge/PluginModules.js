@@ -79,6 +79,7 @@ module.exports = {
     DetailViewHeader: "DetailViewHeader",
     DetailViewSectionHeading: "DetailViewSectionHeading",
     DCOSLogo: "DCOSLogo",
+    FieldAutofocus: "form/FieldAutofocus",
     FilterBar: "FilterBar",
     FilterButtons: "FilterButtons",
     FilterHeadline: "FilterHeadline",
