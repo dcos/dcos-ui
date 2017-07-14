@@ -87,4 +87,57 @@ describe("Tasks Table", function() {
       });
     });
   });
+
+  context("Service tasks checkbox", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-service-with-executor-task"
+      });
+      cy.visitUrl({ url: "/services/overview/%2Fcassandra" });
+      cy.get("table tr").find(".form-element-checkbox").as("checkboxes");
+    });
+
+    function assertCheckboxLength() {
+      cy.get("@checkboxes").should("have.length", 2);
+    }
+
+    function assertActionButtons() {
+      cy
+        .get(".filter-bar .button-collection .button-link > span")
+        .eq(0)
+        .contains("Restart");
+      cy.get(".button-collection .button-link > span").eq(1).contains("Stop");
+    }
+
+    it("Select all tasks available and confirm action buttons exist", function() {
+      assertCheckboxLength();
+      cy.get("@checkboxes").eq(0).click();
+      cy.get("@checkboxes").eq(0).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal("headingCheckbox");
+        expect($checkbox[0].checked).to.equal(true);
+      });
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(true);
+      });
+      assertActionButtons();
+    });
+
+    it("Select first task available and confirm action buttons exist", function() {
+      assertCheckboxLength();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(false);
+      });
+      cy.get("@checkboxes").eq(1).click();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].checked).to.equal(true);
+      });
+      assertActionButtons();
+    });
+  });
 });

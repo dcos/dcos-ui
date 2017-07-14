@@ -393,6 +393,7 @@ class TaskTable extends React.Component {
         sortBy={{ prop: "updated", order: "desc" }}
         sortOrder="desc"
         sortProp="updated"
+        uniqueProperty="id"
       />
     );
   }
