@@ -202,21 +202,17 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     );
   }
 
-  getLoader() {
-    return (
-      <div className="container">
-        <Loader />
-      </div>
-    );
-  }
-
   render() {
     const { errors, service } = this.props;
     const { selectedVersionID } = this.state;
     const config = service.getVersions().get(selectedVersionID);
 
     if (config == null) {
-      return this.getLoader();
+      return (
+        <div className="container">
+          <Loader />
+        </div>
+      );
     }
 
     return (
