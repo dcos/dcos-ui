@@ -4,7 +4,7 @@ const NetworkValidatorUtil = {
   isValidPort(value) {
     return (
       ValidatorUtil.isInteger(value) &&
-      ValidatorUtil.isNumberInRange(value, { min: 1, max: 65535 })
+      ValidatorUtil.isNumberInRange(value, { min: 0, max: 65535 })
     );
   }
 };
