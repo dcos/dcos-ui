@@ -112,6 +112,47 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
+    it("translates messages with no detail errors", function() {
+      const marathonError = {
+        message: "Some error",
+        details: [
+          {
+            path: "/some/property"
+          }
+        ]
+      };
+
+      expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
+        {
+          path: ["some", "property"],
+          message: "Some error",
+          type: ServiceErrorTypes.GENERIC,
+          variables: {}
+        }
+      ]);
+    });
+
+    it("translates messages with empty detail errors", function() {
+      const marathonError = {
+        message: "Some error",
+        details: [
+          {
+            errors: [],
+            path: "/some/property"
+          }
+        ]
+      };
+
+      expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
+        {
+          path: ["some", "property"],
+          message: "Some error",
+          type: ServiceErrorTypes.GENERIC,
+          variables: {}
+        }
+      ]);
+    });
+
     it("should properly translate marathon paths with index", function() {
       const marathonError = {
         message: "Some error",
