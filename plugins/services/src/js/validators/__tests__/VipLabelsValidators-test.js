@@ -70,7 +70,7 @@ describe("VipLabelsValidators", function() {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message: "Port should be an integrer less than or equal to 65535",
+            message: "Port should be an integer less than or equal to 65535",
             path: ["container", "docker", "portMappings", 0, "labels", "VIP_0"]
           }
         ]);
