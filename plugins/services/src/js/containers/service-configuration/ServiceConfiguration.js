@@ -108,7 +108,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     if (service.getVersion() !== selectedVersionID) {
       applyButton = (
         <button
-          className="button button-stroke"
+          className="button button-primary-link"
           disabled={isSDKService(service)}
           key="version-button-apply"
           onClick={() => this.handleApplyButtonClick()}
@@ -120,7 +120,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     return [
       <button
-        className="button button-stroke"
+        className="button button-primary-link"
         disabled={isSDKService(service)}
         key="version-button-edit"
         onClick={() => this.handleEditButtonClick()}
