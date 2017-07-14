@@ -3,6 +3,7 @@ import mixin from "reactjs-mixin";
 import { Tooltip } from "reactjs-components";
 import React from "react";
 
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterButtons from "#SRC/js/components/FilterButtons";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -11,7 +12,6 @@ import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-import Service from "../../structs/Service";
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import GraphQLTaskUtil from "../../utils/GraphQLTaskUtil";
 import TaskStates from "../../constants/TaskStates";
@@ -147,7 +147,7 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   getStopButtons() {
-    const { service, tasks } = this.props;
+    const { tasks } = this.props;
     const { checkedItems } = this.state;
 
     if (!Object.keys(checkedItems).length) {
@@ -155,8 +155,12 @@ class TasksView extends mixin(SaveStateMixin) {
     }
 
     // Only allow restarting the task if the service isn't deploying.
-    const isDeploying =
-      service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING;
+    const isDeploying = Object.keys(checkedItems).some(function(taskId) {
+      const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+
+      return service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING;
+    });
+
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks.some(
       task => task.id in checkedItems && task.schedulerTask
@@ -286,7 +290,6 @@ TasksView.propTypes = {
   params: React.PropTypes.object.isRequired,
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
-  service: React.PropTypes.instanceOf(Service).isRequired,
   tasks: React.PropTypes.array
 };
 
