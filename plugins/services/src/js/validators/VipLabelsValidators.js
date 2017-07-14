@@ -29,7 +29,7 @@ function checkServiceEndpoints(ports, pathPrefix) {
       if (!NetworkValidatorUtil.isValidPort(vipPort)) {
         return errorsMemo.concat({
           path: pathPrefix.concat([index, "labels", label]),
-          message: "Port should be an integrer less than or equal to 65535"
+          message: "Port should be an integer less than or equal to 65535"
         });
       }
 
