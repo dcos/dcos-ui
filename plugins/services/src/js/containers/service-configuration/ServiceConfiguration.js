@@ -90,12 +90,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   }
 
   getVersionsActions() {
-    const versions = this.props.service.getVersions();
-
-    if (versions.size < 2) {
-      return null;
-    }
-
     return (
       <div className="pod flush-top flush-right flush-left">
         <div className="button-collection">
@@ -109,28 +103,31 @@ class ServiceConfiguration extends mixin(StoreMixin) {
   getRollbackButtons() {
     const { service } = this.props;
     const { selectedVersionID } = this.state;
+    let applyButton = null;
 
-    if (service.getVersion() === selectedVersionID) {
-      return null;
+    if (service.getVersion() !== selectedVersionID) {
+      applyButton = (
+        <button
+          className="button button-primary-link"
+          disabled={isSDKService(service)}
+          key="version-button-apply"
+          onClick={() => this.handleApplyButtonClick()}
+        >
+          Apply
+        </button>
+      );
     }
 
     return [
       <button
-        className="button button-stroke"
+        className="button button-primary-link"
         disabled={isSDKService(service)}
         key="version-button-edit"
         onClick={() => this.handleEditButtonClick()}
       >
         Edit
       </button>,
-      <button
-        className="button button-stroke"
-        disabled={isSDKService(service)}
-        key="version-button-apply"
-        onClick={() => this.handleApplyButtonClick()}
-      >
-        Apply
-      </button>
+      applyButton
     ];
   }
 
@@ -209,18 +206,19 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const { errors, service } = this.props;
     const { selectedVersionID } = this.state;
     const config = service.getVersions().get(selectedVersionID);
-    let content = null;
 
     if (config == null) {
-      content = <Loader />;
-    } else {
-      content = <ServiceConfigDisplay appConfig={config} errors={errors} />;
+      return (
+        <div className="container">
+          <Loader />
+        </div>
+      );
     }
 
     return (
       <div className="container">
         {this.getVersionsActions()}
-        {content}
+        <ServiceConfigDisplay appConfig={config} errors={errors} />
       </div>
     );
   }
