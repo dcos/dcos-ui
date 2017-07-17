@@ -116,7 +116,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 render(prop, row) {
                   return appDefinition.requirePorts
                     ? getDisplayValue(row[prop])
-                    : <em>Auto Assigned</em>;
+                    : "Auto Assigned";
                 },
                 sortable: true
               },
