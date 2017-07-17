@@ -29,7 +29,9 @@ import {
 import {
   JSONParser as volumeMounts
 } from "./serviceForm/MultiContainerVolumes";
-import { JSONParser as containers } from "./serviceForm/Containers";
+import {
+  JSONParser as containers
+} from "./serviceForm/JSONReducers/Containers";
 
 module.exports = [
   simpleParser(["id"]),

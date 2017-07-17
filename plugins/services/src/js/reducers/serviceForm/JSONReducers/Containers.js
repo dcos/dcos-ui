@@ -1,53 +1,32 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
-import {
-  combineReducers,
-  parseIntValue,
-  simpleFloatReducer,
-  simpleReducer
-} from "#SRC/js/utils/ReducerUtil";
+import { combineReducers, simpleFloatReducer } from "#SRC/js/utils/ReducerUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
-import Networking from "#SRC/js/constants/Networking";
 import Transaction from "#SRC/js/structs/Transaction";
+import Networking from "#SRC/js/constants/Networking";
 
-import { DEFAULT_POD_CONTAINER } from "../../constants/DefaultPod";
-import { FormReducer as volumeMountsReducer } from "./MultiContainerVolumes";
+import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
+import {
+  JSONReducer as volumeMountsReducer
+} from "./MultiContainerVolumeMounts";
+import { JSONReducer as endpointsJSONReducer } from "./Endpoints";
+import {
+  JSONReducer as multiContainerArtifactsJSONReducer
+} from "./MultiContainerArtifacts";
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
-  JSONSegmentParser as multiContainerHealthCheckParser,
-  FormReducer as multiContainerHealthFormReducer
-} from "./MultiContainerHealthChecks";
-import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
-import VipLabelUtil from "../../utils/VipLabelUtil";
+  JSONSegmentParser as multiContainerHealthCheckParser
+} from "../MultiContainerHealthChecks";
+import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
+import VipLabelUtil from "../../../utils/VipLabelUtil";
 
 const { CONTAINER, HOST } = Networking.type;
-
-const containerReducer = combineReducers({
-  cpus: simpleReducer("resources.cpus"),
-  mem: simpleReducer("resources.mem"),
-  disk: simpleReducer("resources.disk")
-});
 
 const containerFloatReducer = combineReducers({
   cpus: simpleFloatReducer("resources.cpus"),
   mem: simpleFloatReducer("resources.mem"),
   disk: simpleFloatReducer("resources.disk")
 });
-
-const defaultEndpointsFieldValues = {
-  automaticPort: true,
-  containerPort: null,
-  hostPort: null,
-  labels: null,
-  loadBalanced: false,
-  name: null,
-  protocol: {
-    tcp: true,
-    udp: false
-  },
-  servicePort: null,
-  vip: null
-};
 
 function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
@@ -310,7 +289,8 @@ module.exports = {
     if (containerIndex === 0) {
       state = [];
     }
-    const [base, index, field, secondIndex, name, subField] = path;
+
+    const [base, index, field, subField] = path;
 
     if (this.networkType == null) {
       this.networkType = HOST;
@@ -339,10 +319,10 @@ module.exports = {
         if (
           this.endpoints &&
           this.endpoints[index] &&
-          this.endpoints[index].endpoints
+          this.endpoints[index].length !== 0
         ) {
           container.endpoints = mapEndpoints(
-            this.endpoints[index].endpoints,
+            this.endpoints[index],
             this.networkType,
             this.appState
           );
@@ -373,16 +353,11 @@ module.exports = {
     if (joinedPath === "containers") {
       switch (type) {
         case ADD_ITEM:
-          let newItem = value;
+          const name = `container-${newState.length + 1}`;
 
-          if (value == null) {
-            const name = `container-${newState.length + 1}`;
-            newItem = Object.assign({}, DEFAULT_POD_CONTAINER, { name });
-          }
-
-          newState.push(newItem);
+          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
           this.cache.push({});
-          this.endpoints.push({});
+          this.endpoints.push([]);
           break;
         case REMOVE_ITEM:
           newState = newState.filter((item, index) => {
@@ -420,67 +395,28 @@ module.exports = {
           });
       }
 
-      if (this.volumeMounts.length === 0 && container.volumeMounts != null) {
-        container.volumeMounts = [];
-      }
-
       return container;
     });
 
     if (field === "endpoints") {
-      if (this.endpoints[index].endpoints == null) {
-        this.endpoints[index].endpoints = [];
+      if (this.endpoints[index] == null) {
+        this.endpoints[index] = [];
       }
 
-      switch (type) {
-        case ADD_ITEM:
-          let newEndpoint = value;
-
-          if (value == null) {
-            newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
-          }
-
-          newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
-          this.endpoints[index].endpoints.push(newEndpoint);
-          break;
-        case REMOVE_ITEM:
-          this.endpoints[index].endpoints = this.endpoints[
-            index
-          ].endpoints.filter((item, index) => {
-            return index !== value;
-          });
-          break;
-      }
-
-      const fieldNames = [
-        "name",
-        "automaticPort",
-        "loadBalanced",
-        "labels",
-        "vip"
-      ];
-      const numericalFieldNames = ["containerPort", "hostPort"];
-
-      if (type === SET && name === "protocol") {
-        this.endpoints[index].endpoints[secondIndex].protocol[subField] = value;
-      }
-      if (type === SET && fieldNames.includes(name)) {
-        this.endpoints[index].endpoints[secondIndex][name] = value;
-      }
-      if (type === SET && numericalFieldNames.includes(name)) {
-        this.endpoints[index].endpoints[secondIndex][name] = parseIntValue(
-          value
-        );
-      }
+      this.endpoints = endpointsJSONReducer(this.endpoints, {
+        type,
+        path,
+        value
+      });
     }
     newState = newState.map((container, index) => {
       if (
         this.endpoints &&
         this.endpoints[index] &&
-        this.endpoints[index].endpoints
+        this.endpoints[index].length !== 0
       ) {
         container.endpoints = mapEndpoints(
-          this.endpoints[index].endpoints,
+          this.endpoints[index],
           this.networkType,
           this.appState
         );
@@ -506,32 +442,13 @@ module.exports = {
       if (this.artifactState == null) {
         this.artifactState = [];
       }
-      if (this.artifactState[index] == null) {
-        this.artifactState[index] = [];
-      }
-
-      switch (type) {
-        case ADD_ITEM:
-          this.artifactState[index].push(
-            Object.assign({}, value || { uri: null })
-          );
-          break;
-        case REMOVE_ITEM:
-          this.artifactState[index] = this.artifactState[
-            index
-          ].filter((item, index) => {
-            return index !== value;
-          });
-          break;
-        case SET:
-          this.artifactState[index][secondIndex][name] = value;
-          break;
-      }
 
       // Filter empty values and assign to state
-      this.artifactState.forEach((item, index) => {
-        newState[index].artifacts = item.filter(({ uri }) => !isEmpty(uri));
-      });
+      multiContainerArtifactsJSONReducer
+        .call(this.artifactState, null, { type, path, value })
+        .forEach((item, index) => {
+          newState[index].artifacts = item.filter(({ uri }) => !isEmpty(uri));
+        });
     }
 
     if (type === SET && joinedPath === `containers.${index}.name`) {
@@ -552,7 +469,7 @@ module.exports = {
       newState[index].resources = containerFloatReducer.call(
         this.cache[index],
         newState[index].resources,
-        { type, value, path: path.slice(2) }
+        { type, value, path: [field, subField] }
       );
     }
 
@@ -563,166 +480,6 @@ module.exports = {
       if (value === "") {
         delete newState[index].image;
       }
-    }
-
-    return newState;
-  },
-
-  FormReducer(state, { type, path = [], value }) {
-    // eslint-disable-next-line no-unused-vars
-    const [_, index, field, secondIndex, name, subField] = path;
-
-    if (!path.includes("containers")) {
-      return state;
-    }
-
-    if (this.cache == null) {
-      this.cache = [];
-    }
-
-    if (this.healthCheckState == null) {
-      this.healthCheckState = [];
-    }
-
-    if (!state) {
-      state = [];
-    }
-
-    let newState = state.slice();
-    const joinedPath = path.join(".");
-
-    if (joinedPath === "containers") {
-      switch (type) {
-        case ADD_ITEM:
-          const name = `container-${newState.length + 1}`;
-
-          let newItem = value;
-
-          if (value == null) {
-            newItem = Object.assign({}, DEFAULT_POD_CONTAINER, { name });
-          }
-
-          if (newItem.endpoints != null) {
-            newItem.endpoints = [];
-          }
-          newState.push(newItem);
-          this.cache.push({});
-          break;
-        case REMOVE_ITEM:
-          newState = newState.filter((item, index) => {
-            return index !== value;
-          });
-          this.cache = this.cache.filter((item, index) => {
-            return index !== value;
-          });
-          break;
-      }
-
-      return newState;
-    }
-
-    if (field === "endpoints") {
-      if (newState[index].endpoints == null) {
-        newState[index].endpoints = [];
-      }
-
-      switch (type) {
-        case ADD_ITEM:
-          const endpointDefinition = Object.assign(
-            {},
-            defaultEndpointsFieldValues
-          );
-          endpointDefinition.protocol = Object.assign(
-            {},
-            defaultEndpointsFieldValues.protocol
-          );
-          newState[index].endpoints.push(endpointDefinition);
-          break;
-        case REMOVE_ITEM:
-          newState[index].endpoints = newState[
-            index
-          ].endpoints.filter((item, index) => {
-            return index !== value;
-          });
-          break;
-      }
-
-      const fieldNames = ["name", "automaticPort", "loadBalanced", "vip"];
-      const numericalFieldNames = ["containerPort", "hostPort"];
-
-      if (type === SET && name === "protocol") {
-        newState[index].endpoints[secondIndex].protocol[subField] = value;
-      }
-      if (type === SET && fieldNames.includes(name)) {
-        newState[index].endpoints[secondIndex][name] = value;
-      }
-      if (type === SET && numericalFieldNames.includes(name)) {
-        newState[index].endpoints[secondIndex][name] = parseIntValue(value);
-      }
-    }
-
-    if (field === "healthCheck") {
-      if (this.healthCheckState[index] == null) {
-        this.healthCheckState[index] = {};
-      }
-
-      newState[index].healthCheck = multiContainerHealthFormReducer.call(
-        this.healthCheckState[index],
-        newState[index].healthCheck,
-        { type, path: path.slice(3), value }
-      );
-    }
-
-    if (field === "artifacts") {
-      if (newState[index].artifacts == null) {
-        newState[index].artifacts = [];
-      }
-
-      switch (type) {
-        case ADD_ITEM:
-          newState[index].artifacts.push({ uri: null });
-          break;
-        case REMOVE_ITEM:
-          newState[index].artifacts = newState[
-            index
-          ].artifacts.filter((item, index) => {
-            return index !== value;
-          });
-          break;
-        case SET:
-          newState[index].artifacts[secondIndex][name] = value;
-          break;
-      }
-    }
-
-    if (type === SET && joinedPath === `containers.${index}.name`) {
-      newState[index].name = value;
-    }
-
-    if (
-      type === SET &&
-      joinedPath === `containers.${index}.exec.command.shell`
-    ) {
-      newState[index].exec = Object.assign({}, newState[index].exec, {
-        command: { shell: value }
-      });
-    }
-
-    if (type === SET && field === "resources") {
-      // Do not parse numbers, as user might be in the middle of
-      // entering a number. 0.0 would then equal 0, yielding it impossible to
-      // enter, e.g. 0.001
-      newState[index].resources = containerReducer.call(
-        this.cache[index],
-        newState[index].resources,
-        { type, value, path: path.slice(2) }
-      );
-    }
-
-    if (type === SET && joinedPath === `containers.${index}.image.id`) {
-      newState[index] = Object.assign({}, newState[index], {
-        image: { id: value }
-      });
     }
 
     return newState;

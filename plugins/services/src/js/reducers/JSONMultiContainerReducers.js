@@ -3,7 +3,9 @@ import { simpleReducer } from "#SRC/js/utils/ReducerUtil";
 import {
   JSONReducer as constraints
 } from "./serviceForm/MultiContainerConstraints";
-import { JSONReducer as containers } from "./serviceForm/Containers";
+import {
+  JSONReducer as containers
+} from "./serviceForm/JSONReducers/Containers";
 import {
   JSONReducer as environment
 } from "./serviceForm/JSONReducers/EnvironmentVariables";
