@@ -1,38 +1,12 @@
 require("../_support/utils/ServicesUtil");
-const { Timeouts } = require("../_support/constants");
+const { createService, deleteService } = require("../_support/index");
 
 // same parameters as defined in app.json
+const SERVICE_JSON_PATH = "/dcos-ui/system-tests/dashboard/app.json";
 const SERVICE_NAME = "dashboard-test-service";
 const SERVICE_CPUS = 0.1;
 const SERVICE_MEM = 10;
 const SERVICE_DISK = 10;
-
-function deleteService() {
-  cy.exec(
-    `dcos marathon app remove /${Cypress.env("TEST_UUID")}/${SERVICE_NAME}`
-  );
-  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy.get(".page-body-content table").contains(SERVICE_NAME).should("not.exist");
-}
-
-function createService() {
-  cy.exec(
-    `sed 's/dashboard-test-service/${Cypress.env("TEST_UUID")}\\/dashboard-test-service/g' /dcos-ui/system-tests/dashboard/app.json | dcos marathon app add`
-  );
-  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-
-  cy
-    .get(".page-body-content table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-    .contains(SERVICE_NAME, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-    .should("exist");
-  cy
-    .get(".page-body-content table")
-    .getTableRowThatContains(SERVICE_NAME)
-    .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-    .should("exist");
-}
 
 function getAllocationElementFor(name) {
   return cy
@@ -61,14 +35,14 @@ describe("Dashboard", function() {
     });
 
     afterEach(() => {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.window().then(win => {
         win.location.href = "about:blank";
       });
     });
 
     it("increments CPU usage when service is started", function() {
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
@@ -79,7 +53,7 @@ describe("Dashboard", function() {
     });
 
     it("increments memory usage when service is started", function() {
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
@@ -90,7 +64,7 @@ describe("Dashboard", function() {
     });
 
     it("increments disk usage when service is started", function() {
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
@@ -101,7 +75,7 @@ describe("Dashboard", function() {
     });
 
     it("new service shows in services list on dashboard when started", function() {
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
 
       cy
@@ -113,7 +87,7 @@ describe("Dashboard", function() {
     });
 
     it("new service increments task count in dashboard", function() {
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();
@@ -132,7 +106,7 @@ describe("Dashboard", function() {
         expect(parseFloat($label.text())).to.equal(0);
       });
 
-      createService();
+      createService(SERVICE_NAME, SERVICE_JSON_PATH);
       cy.visitUrl("dashboard");
       label = getAllocationElementFor("CPU Allocation");
       label.should(function($label) {
@@ -147,7 +121,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements CPU usage when service is stopped", function() {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
@@ -158,7 +132,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements memory usage when service is stopped", function() {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
@@ -169,7 +143,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements disk usage when service is stopped", function() {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
@@ -180,7 +154,7 @@ describe("Dashboard", function() {
     });
 
     it("new service disapears in services list on dashboard when stopped", function() {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.visitUrl("dashboard");
 
       cy
@@ -192,7 +166,7 @@ describe("Dashboard", function() {
     });
 
     it("new service decrements task count in dashboard when removed", function() {
-      deleteService();
+      deleteService(SERVICE_NAME);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();
