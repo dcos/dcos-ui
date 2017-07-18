@@ -18,12 +18,9 @@
   "license": "Apache-2.0",
   "engines": {
     "node": "4.4.x",
-    "npm": "3.9.x"
+    "npm": "3.10.x"
   },
-  "browserslist": [
-    "last 2 versions",
-    "ie 11"
-  ],
+  "browserslist": ["last 2 versions", "ie 11"],
   "config": {
     "port": 4200,
     "externalplugins": ""
