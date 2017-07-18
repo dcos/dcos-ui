@@ -1,4 +1,5 @@
 const StringUtil = require("./utils/StringUtil");
+const { Timeouts } = require("./constants");
 
 /**
  * Visit the specified (Routed) URL
@@ -216,3 +217,43 @@ Cypress.addChildCommand("triggerHover", function(elements) {
     }
   }
 });
+
+/**
+ * Launches a new service using the dcos CLI
+ *
+ * @param {String} serviceName - The service name which will launch
+ * @param {String} serviceJsonPath - The path to JSON file for service definition
+ *
+ */
+export function createService(serviceName, serviceJsonPath) {
+  cy.exec(
+    `sed 's/${serviceName}/${Cypress.env("TEST_UUID")}\\/${serviceName}/g' ${serviceJsonPath} | dcos marathon app add`
+  );
+  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
+
+  cy
+    .get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+    .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+    .should("exist");
+  cy
+    .get(".page-body-content table")
+    .getTableRowThatContains(serviceName)
+    .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+    .should("exist");
+}
+
+/**
+ * Deletes a service using the dcos CLI
+ *
+ * @param {String} serviceName - The service name which it will delete
+ *
+ */
+export function deleteService(serviceName) {
+  cy.exec(
+    `dcos marathon app remove /${Cypress.env("TEST_UUID")}/${serviceName}`
+  );
+  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
+  cy.get(".page-body-content table").contains(serviceName).should("not.exist");
+}
