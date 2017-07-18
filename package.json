@@ -20,10 +20,7 @@
     "node": "4.4.x",
     "npm": "3.9.x"
   },
-  "browserslist": [
-    "last 2 versions",
-    "ie 11"
-  ],
+  "browserslist": ["last 2 versions", "ie 11"],
   "config": {
     "port": 4200,
     "externalplugins": ""
@@ -77,6 +74,7 @@
     "babel-register": "6.24.1",
     "babel-runtime": "6.23.0",
     "colors": "1.1.2",
+    "compression-webpack-plugin": "0.4.0",
     "css-loader": "0.23.1",
     "eslint": "3.15.0",
     "eslint-config-dcos": "github:dcos/javascript#v0.2.1",
@@ -131,9 +129,8 @@
     "clean": "rm -rf dist",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
-    "prebuild-assets": "./node_modules/.bin/gulp checkDependencies && npm install compression-webpack-plugin@latest",
+    "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
-    "postbuild-assets": "rm -rf node_modules/compression-webpack-plugin",
     "build": "npm run lint && npm test && npm run build-assets && npm run validate-build",
     "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
     "lint": "npm run stylelint && npm run eslint",
