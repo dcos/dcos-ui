@@ -63,9 +63,9 @@ module.exports = {
     return this.portDefinitions.map((portDefinition, index) => {
       const { name } = portDefinition;
       const vipLabel = `VIP_${index}`;
-      const hostPort = this.appState.portsAutoAssign
-        ? 0
-        : Number(portDefinition.hostPort);
+      const hostPort = portDefinition && portDefinition.hostPort
+        ? Number(portDefinition.hostPort)
+        : 0;
       const defaultVipPort = hostPort !== 0 ? hostPort : null;
       const vipPort = portDefinition.vipPort || defaultVipPort;
       const protocol = PROTOCOLS.filter(function(protocol) {
