@@ -86,6 +86,9 @@ function containersParser(state) {
       memo.push(new Transaction(["containers", index, "name"], item.name));
     }
 
+    if (item.image) {
+      memo.push(new Transaction(["containers", index, "image"], item.image));
+    }
     if (item.image && item.image.id) {
       memo.push(
         new Transaction(["containers", index, "image", "id"], item.image.id)
@@ -344,6 +347,10 @@ module.exports = {
       this.endpoints = [];
     }
 
+    if (this.image == null) {
+      this.image = {};
+    }
+
     if (this.volumeMounts == null) {
       this.volumeMounts = [];
     }
@@ -473,9 +480,14 @@ module.exports = {
       );
     }
 
+    if (type === SET && joinedPath === `containers.${index}.image`) {
+      newState[index].image = this.image = Object.assign({}, this.image, value);
+    }
+
     if (type === SET && joinedPath === `containers.${index}.image.id`) {
-      newState[index] = Object.assign({}, newState[index], {
-        image: { id: value, kind: "DOCKER" }
+      newState[index].image = this.image = Object.assign({}, this.image, {
+        id: value,
+        kind: "DOCKER"
       });
       if (value === "") {
         delete newState[index].image;

@@ -1130,6 +1130,39 @@ describe("Container", function() {
     });
   });
 
+  describe("#Unknown Values", function() {
+    it("keep docker unknown values", function() {
+      expect(
+        Container.JSONParser({
+          container: {
+            docker: {
+              image: "nginx",
+              pullConfig: {
+                some: "value"
+              }
+            }
+          }
+        })
+          .reduce(function(batch, transaction) {
+            return batch.add(transaction);
+          }, new Batch())
+          .reduce(Container.JSONReducer.bind({}), {})
+      ).toEqual({
+        portMappings: null,
+        docker: {
+          image: "nginx",
+          forcePullImage: null,
+          privileged: null,
+          pullConfig: {
+            some: "value"
+          }
+        },
+        type: "MESOS",
+        volumes: []
+      });
+    });
+  });
+
   describe("Volumes", function() {
     it("should return an empty array if no volumes are set", function() {
       const batch = new Batch();

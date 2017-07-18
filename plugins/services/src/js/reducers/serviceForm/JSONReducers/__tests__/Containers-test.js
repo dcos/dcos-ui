@@ -79,6 +79,105 @@ describe("Containers", function() {
           }
         ]);
       });
+
+      it("creates a complete image object", function() {
+        const batch = [
+          new Transaction(
+            ["containers"],
+            {
+              image: {
+                id: "nginx",
+                kind: "DOCKER",
+                pullConfig: {
+                  some: "value"
+                }
+              }
+            },
+            ADD_ITEM
+          ),
+          new Transaction(
+            ["containers", 0, "image"],
+            {
+              id: "nginx",
+              kind: "DOCKER",
+              pullConfig: {
+                some: "value"
+              }
+            },
+            SET
+          ),
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+        ].reduce(function(batch, transaction) {
+          return batch.add(transaction);
+        }, new Batch());
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 },
+            image: {
+              id: "nginx",
+              kind: "DOCKER",
+              pullConfig: {
+                some: "value"
+              }
+            }
+          }
+        ]);
+      });
+
+      it("creates a complete image object without loosing unknown", function() {
+        const batch = [
+          new Transaction(
+            ["containers"],
+            {
+              image: {
+                id: "nginx",
+                kind: "DOCKER",
+                pullConfig: {
+                  some: "value"
+                }
+              }
+            },
+            ADD_ITEM
+          ),
+          new Transaction(
+            ["containers", 0, "image"],
+            {
+              id: "nginx",
+              kind: "DOCKER",
+              pullConfig: {
+                some: "value"
+              }
+            },
+            SET
+          ),
+          new Transaction(["containers", 0, "image", "id"], "", SET),
+          new Transaction(
+            ["containers", 0, "artifacts"],
+            { uri: "http://mesosphere.io" },
+            ADD_ITEM
+          ),
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+        ].reduce(function(batch, transaction) {
+          return batch.add(transaction);
+        }, new Batch());
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 },
+            artifacts: [],
+            image: {
+              id: "nginx",
+              kind: "DOCKER",
+              pullConfig: {
+                some: "value"
+              }
+            }
+          }
+        ]);
+      });
     });
 
     describe("endpoints", function() {
@@ -898,6 +997,50 @@ describe("Containers", function() {
           )
         ]);
       });
+    });
+
+    it("stores complete image object", function() {
+      expect(
+        Containers.JSONParser({
+          containers: [
+            {
+              image: {
+                id: "nginx",
+                kind: "DOCKER",
+                pullConfig: {
+                  some: "value"
+                }
+              }
+            }
+          ]
+        })
+      ).toEqual([
+        new Transaction(
+          ["containers"],
+          {
+            image: {
+              id: "nginx",
+              kind: "DOCKER",
+              pullConfig: {
+                some: "value"
+              }
+            }
+          },
+          ADD_ITEM
+        ),
+        new Transaction(
+          ["containers", 0, "image"],
+          {
+            id: "nginx",
+            kind: "DOCKER",
+            pullConfig: {
+              some: "value"
+            }
+          },
+          SET
+        ),
+        new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+      ]);
     });
   });
 });

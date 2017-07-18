@@ -11,6 +11,7 @@ function getContainerSettingsReducer(name) {
     if (joinedPath === "container.type" && Boolean(value)) {
       this.networkType = value;
     }
+
     if (type === SET && joinedPath === `container.docker.${name}`) {
       this.value = Boolean(value);
     }
