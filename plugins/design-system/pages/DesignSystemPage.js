@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles/shame.less";
 
 const SDK = require("../SDK").getSDK();
 
