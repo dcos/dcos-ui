@@ -1,6 +1,5 @@
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { HTTP, HTTPS, TCP } from "../constants/HealthCheckProtocols";
 import {
   PROP_CONFLICT,
   PROP_DEPRECATED,
@@ -166,84 +165,6 @@ const MarathonAppValidators = {
       };
 
       return [{ path: ["uris"], message, type, variables }];
-    }
-
-    // No errors
-    return [];
-  },
-
-  /**
-   * @param {Object} app - The data to validate
-   * @returns {Array} Returns an array with validation errors
-   */
-  mustNotContainMarathonHTTPHealthChecks(app) {
-    if (
-      ValidatorUtil.isDefined(app.healthChecks) &&
-      app.healthChecks.find(function(healthCheck) {
-        return HTTP === healthCheck.protocol;
-      })
-    ) {
-      const message =
-        "Marathon protocols `HTTP` deprecated. Please use" +
-        " `MESOS_HTTP instead";
-      const type = PROP_DEPRECATED;
-      const variables = {
-        name: "healthChecks"
-      };
-
-      return [{ path: ["healthChecks"], message, type, variables }];
-    }
-
-    // No errors
-    return [];
-  },
-
-  /**
-   * @param {Object} app - The data to validate
-   * @returns {Array} Returns an array with validation errors
-   */
-  mustNotContainMarathonHTTPSHealthChecks(app) {
-    if (
-      ValidatorUtil.isDefined(app.healthChecks) &&
-      app.healthChecks.find(function(healthCheck) {
-        return HTTPS === healthCheck.protocol;
-      })
-    ) {
-      const message =
-        "Marathon protocols `HTTPS` deprecated. Please use" +
-        " `MESOS_HTTPS instead";
-      const type = PROP_DEPRECATED;
-      const variables = {
-        name: "healthChecks"
-      };
-
-      return [{ path: ["healthChecks"], message, type, variables }];
-    }
-
-    // No errors
-    return [];
-  },
-
-  /**
-   * @param {Object} app - The data to validate
-   * @returns {Array} Returns an array with validation errors
-   */
-  mustNotContainMarathonTCPHealthChecks(app) {
-    if (
-      ValidatorUtil.isDefined(app.healthChecks) &&
-      app.healthChecks.find(function(healthCheck) {
-        return TCP === healthCheck.protocol;
-      })
-    ) {
-      const message =
-        "Marathon protocols `TCP` deprecated. Please use" +
-        " `MESOS_TCP instead";
-      const type = PROP_DEPRECATED;
-      const variables = {
-        name: "healthChecks"
-      };
-
-      return [{ path: ["healthChecks"], message, type, variables }];
     }
 
     // No errors
