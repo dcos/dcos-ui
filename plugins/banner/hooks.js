@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
+import Icon from "#SRC/js/components/Icon";
+import DOMUtils from "#SRC/js/utils/DOMUtils";
 
 const SDK = require("./SDK").getSDK();
-
-const { Icon, DOMUtils } = SDK.get(["Icon", "DOMUtils"]);
 
 module.exports = {
   configuration: {

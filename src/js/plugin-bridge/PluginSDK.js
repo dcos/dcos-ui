@@ -10,7 +10,6 @@ import Config from "../config/Config";
 import Hooks from "./Hooks";
 import PluginSDKStruct from "./PluginSDKStruct";
 import Loader from "./Loader";
-import PluginModules from "./PluginModules";
 
 const hooks = new Hooks();
 const initialState = {};
@@ -117,45 +116,6 @@ const createDispatcher = function(pluginID) {
       action = Object.assign({}, action, { __origin: pluginID });
     }
     Store.dispatch(action);
-  };
-};
-
-/**
- * Finds module by name, builds its path and requires it
- * @param  {String} moduleName - Name of module
- * @return {module}            - Required module
- */
-const getModule = function(moduleName) {
-  const foundDirs = Object.keys(PluginModules).filter(function(directory) {
-    return moduleName in PluginModules[directory];
-  });
-  if (!foundDirs.length) {
-    throw new Error(`Module ${moduleName} does not exist.`);
-  }
-  const dir = foundDirs[0];
-
-  return Loader.requireModule(dir, PluginModules[dir][moduleName]);
-};
-
-/**
- * Builds getter API for plugins to request application modules
- * @return {Object} - API with Get method.
- */
-const getApplicationModuleAPI = function() {
-  return {
-    get(modules) {
-      if (Array.isArray(modules)) {
-        // Return Object of Modules so we can use Object destructuring at the
-        // other end.
-        return modules.reduce(function(acc, module) {
-          acc[module] = getModule(module);
-
-          return acc;
-        }, {});
-      }
-
-      return getModule(modules);
-    }
   };
 };
 
@@ -282,8 +242,6 @@ const getSDK = function(pluginID, config) {
 
   extendSDK(SDK, getActionsAPI(SDK));
 
-  extendSDK(SDK, getApplicationModuleAPI());
-
   PLUGIN_ENV_CACHE[pluginID] = SDK;
 
   return SDK;
@@ -297,13 +255,9 @@ const getSDK = function(pluginID, config) {
  * @param  {Object} config Plugin configuration
  * @param  {String} pluginType - One of 'internal' or 'external'.
  */
-const bootstrapPlugin = function(pluginID, plugin, config, pluginType) {
+const bootstrapPlugin = function(pluginID, plugin, config) {
   // Inject Application key constant and configOptions if specified
   const SDK = getSDK(pluginID, config);
-
-  if (typeof plugin === "string") {
-    plugin = Loader.requireModule(pluginType, plugin);
-  }
 
   const pluginReducer = plugin(SDK);
 

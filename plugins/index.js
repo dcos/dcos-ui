@@ -1,5 +1,9 @@
+import banner from "./banner/index";
+import tracking from "./tracking/index";
+import oauth from "./oauth/index";
+
 module.exports = {
-  banner: "banner/index",
-  tracking: "tracking/index",
-  oauth: "oauth/index"
+  banner,
+  tracking,
+  oauth
 };

@@ -1,9 +1,7 @@
+jest.dontMock("#SRC/js/stores/MesosStateStore");
+jest.dontMock("#SRC/js/stores/MesosSummaryStore");
 jest.dontMock("../ServerErrorModal");
 jest.dontMock("../modals/ModalHeading");
-
-const PluginTestUtils = require("PluginTestUtils");
-
-PluginTestUtils.dontMock(["MesosStateStore", "MesosSummaryStore"]);
 
 /* eslint-disable no-unused-vars */
 const React = require("react");
