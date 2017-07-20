@@ -87,6 +87,11 @@ const containerJSONReducer = combineReducers({
     );
 
     const joinedPath = path && path.join(".");
+
+    if (type === SET && joinedPath === "container.docker") {
+      this.internalState = Object.assign({}, this.internalState, value);
+    }
+
     if (type === SET && joinedPath === "container.type") {
       this.containerType = value;
     }
@@ -312,6 +317,7 @@ module.exports = {
 
       return new Transaction(["container", "type"], value);
     },
+    simpleParser(["container", DOCKER.toLowerCase()]),
     simpleParser(["container", DOCKER.toLowerCase(), "image"]),
     simpleParser(["container", MESOS.toLowerCase(), "image"]),
     simpleParser(["container", DOCKER.toLowerCase(), "forcePullImage"]),
