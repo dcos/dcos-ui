@@ -99,7 +99,7 @@ const MarathonErrorUtil = {
     }
 
     // `details` can be an array of errors
-    return error.details.reduce(function(memo, { errors, path }) {
+    return error.details.reduce(function(memo, { errors = [], path }) {
       // Convert marathon path components to a dot-separated string
       // and then split it into an array
       //
@@ -119,6 +119,10 @@ const MarathonErrorUtil = {
 
           return component;
         });
+      }
+
+      if (errors.length === 0) {
+        errors = errors.concat(error.message);
       }
 
       // For every error, create the correct message
