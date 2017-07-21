@@ -188,6 +188,14 @@ module.exports = {
       return null;
     }
 
+    if (
+      newState.type == null &&
+      newState.docker == null &&
+      ValidatorUtil.isEmpty(newState.volumes)
+    ) {
+      return null;
+    }
+
     return newState;
   },
 
