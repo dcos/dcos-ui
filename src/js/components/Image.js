@@ -61,7 +61,7 @@ class Image extends React.Component {
 }
 
 Image.propTypes = {
-  src: React.PropTypes.string.required,
+  src: React.PropTypes.string.isRequired,
   fallbackSrc: React.PropTypes.string,
 
   // Classes
