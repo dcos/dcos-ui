@@ -68,13 +68,14 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
           flip="horizontal"
           size="mini"
           type="lineSpinFadeLoader"
+          supressHorizontalCenter="true"
         />
-        <span className="button--deployments__copy">
+        <div className="button--deployments__copy">
           <FormattedMessage
             id="SERVICES.DEPLOYMENT_COUNT"
             values={{ deploymentsCount }}
           />
-        </span>
+        </div>
         <DeploymentsModal
           isOpen={this.state.isOpen}
           onClose={this.handleModalClose}
