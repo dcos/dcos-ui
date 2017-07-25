@@ -261,6 +261,13 @@ module.exports = {
       delete newState.docker;
     }
 
+    if (
+      ValidatorUtil.isEmpty(newState.docker.image) &&
+      newState.type !== DOCKER
+    ) {
+      delete newState.docker;
+    }
+
     if (ValidatorUtil.isEmpty(newState.type)) {
       newState.type = null;
     }
