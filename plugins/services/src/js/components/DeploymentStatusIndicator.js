@@ -68,7 +68,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
           flip="horizontal"
           size="mini"
           type="lineSpinFadeLoader"
-          supressHorizontalCenter="true"
+          suppressHorizontalCenter={true}
         />
         <div className="button--deployments__copy">
           <FormattedMessage
