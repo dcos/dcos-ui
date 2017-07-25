@@ -1,12 +1,27 @@
 require("../_support/utils/ServicesUtil");
 const { createService, deleteService } = require("../_support/index");
 
-// same parameters as defined in app.json
-const SERVICE_JSON_PATH = "/dcos-ui/system-tests/dashboard/app.json";
-const SERVICE_NAME = "dashboard-test-service";
-const SERVICE_CPUS = 0.1;
-const SERVICE_MEM = 10;
-const SERVICE_DISK = 10;
+const serviceDefinition = {
+  id: `/${Cypress.env("TEST_UUID")}/dashboard-test-service`,
+  instances: 1,
+  portDefinitions: [],
+  container: {
+    docker: {
+      image: "nginx"
+    },
+    type: "DOCKER",
+    volumes: []
+  },
+  cpus: 0.1,
+  mem: 10,
+  requirePorts: false,
+  networks: [],
+  healthChecks: [],
+  fetch: [],
+  constraints: [],
+  disk: 10,
+  cmd: "while true; do echo 'test' ; sleep 100 ; done"
+};
 
 function getAllocationElementFor(name) {
   return cy
@@ -35,59 +50,62 @@ describe("Dashboard", function() {
     });
 
     afterEach(() => {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.window().then(win => {
         win.location.href = "about:blank";
       });
     });
 
     it("increments CPU usage when service is started", function() {
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
       label.should(function($label) {
         const newValue = parseFloat($label.text());
-        expect(newValue).to.eq(SERVICE_CPUS);
+        expect(newValue).to.eq(serviceDefinition.cpus);
       });
     });
 
     it("increments memory usage when service is started", function() {
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
       label.should(function($label) {
         const newValue = parseFloat($label.text());
-        expect(newValue).to.eq(SERVICE_MEM);
+        expect(newValue).to.eq(serviceDefinition.mem);
       });
     });
 
     it("increments disk usage when service is started", function() {
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
       label.should(function($label) {
         const newValue = parseFloat($label.text());
-        expect(newValue).to.eq(SERVICE_DISK);
+        expect(newValue).to.eq(serviceDefinition.disk);
       });
     });
 
     it("new service shows in services list on dashboard when started", function() {
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
+      const serviceName = serviceDefinition.id.substring(
+        serviceDefinition.id.lastIndexOf("/") + 1
+      );
       cy
         .get(".panel-header")
         .contains("Services Health")
         .parents(".panel")
         .find("li")
-        .contains(SERVICE_NAME);
+        .contains(serviceName);
     });
 
     it("new service increments task count in dashboard", function() {
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();
@@ -106,11 +124,11 @@ describe("Dashboard", function() {
         expect(parseFloat($label.text())).to.equal(0);
       });
 
-      createService(SERVICE_NAME, SERVICE_JSON_PATH);
+      createService(serviceDefinition);
       cy.visitUrl("dashboard");
       label = getAllocationElementFor("CPU Allocation");
       label.should(function($label) {
-        expect(parseFloat($label.text())).to.equal(SERVICE_CPUS);
+        expect(parseFloat($label.text())).to.equal(serviceDefinition.cpus);
       });
     });
 
@@ -121,7 +139,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements CPU usage when service is stopped", function() {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
@@ -132,7 +150,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements memory usage when service is stopped", function() {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
@@ -143,7 +161,7 @@ describe("Dashboard", function() {
     });
 
     it("decrements disk usage when service is stopped", function() {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
@@ -154,19 +172,22 @@ describe("Dashboard", function() {
     });
 
     it("new service disapears in services list on dashboard when stopped", function() {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
+      const serviceName = serviceDefinition.id.substring(
+        serviceDefinition.id.lastIndexOf("/") + 1
+      );
       cy
         .get(".panel-header")
         .contains("Services Health")
         .parents(".panel")
-        .contains(SERVICE_NAME)
+        .contains(serviceName)
         .should("not.exist");
     });
 
     it("new service decrements task count in dashboard when removed", function() {
-      deleteService(SERVICE_NAME);
+      deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();

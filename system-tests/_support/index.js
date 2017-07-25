@@ -219,23 +219,27 @@ Cypress.addChildCommand("triggerHover", function(elements) {
 });
 
 /**
- * Launches a new service using the dcos CLI
+ * Launches a new service in group TEST_UUID using the dcos CLI
  *
- * @param {String} serviceName - The service name which will launch
- * @param {String} serviceJsonPath - The path to JSON file for service definition
+ * @param {Object} serviceDefinition - The service JSON definition file
  *
  */
-export function createService(serviceName, serviceJsonPath) {
+export function createService(serviceDefinition) {
   cy.exec(
-    `sed 's/${serviceName}/${Cypress.env("TEST_UUID")}\\/${serviceName}/g' ${serviceJsonPath} | dcos marathon app add`
+    `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
   );
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
 
+  const serviceName = serviceDefinition.id.substring(
+    serviceDefinition.id.lastIndexOf("/") + 1
+  );
   cy
     .get(".page-body-content table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-    .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+    .contains(serviceName, {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
     .should("exist");
   cy
     .get(".page-body-content table")
@@ -245,15 +249,15 @@ export function createService(serviceName, serviceJsonPath) {
 }
 
 /**
- * Deletes a service using the dcos CLI
+ * Deletes a service from group TEST_UUID using the dcos CLI
  *
- * @param {String} serviceName - The service name which it will delete
+ * @param {String} serviceId - The service id which it will delete
  *
  */
-export function deleteService(serviceName) {
-  cy.exec(
-    `dcos marathon app remove /${Cypress.env("TEST_UUID")}/${serviceName}`
-  );
+export function deleteService(serviceId) {
+  cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
+
+  const serviceName = serviceId.substring(serviceId.lastIndexOf("/") + 1);
   cy.get(".page-body-content table").contains(serviceName).should("not.exist");
 }
