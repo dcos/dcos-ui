@@ -261,7 +261,6 @@ class VolumesFormSection extends Component {
         <Tooltip
           content="Docker Runtime only supports the default size for implicit volumes, please select Mesos Runtime if you want to modify the size."
           width={300}
-          scrollContainer=".gm-scroll-view"
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
           wrapText={true}
         >
