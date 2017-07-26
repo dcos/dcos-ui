@@ -219,45 +219,56 @@ Cypress.addChildCommand("triggerHover", function(elements) {
 });
 
 /**
- * Launches a new service in group TEST_UUID using the dcos CLI
+ * Launches a new service using the dcos CLI. Service must be created
+ * in the TEST_UUID group.
  *
  * @param {Object} serviceDefinition - The service JSON definition file
  *
  */
 export function createService(serviceDefinition) {
+  const idParts = serviceDefinition.id.split("/");
+  if (idParts.length !== 3) {
+    throw new Error("Must include leading slash in service id");
+  }
+  if (idParts[1] !== Cypress.env("TEST_UUID")) {
+    throw new Error("Service must be in the TEST_UUID group");
+  }
+
   cy.exec(
     `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
   );
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-
-  const serviceName = serviceDefinition.id.substring(
-    serviceDefinition.id.lastIndexOf("/") + 1
-  );
   cy
     .get(".page-body-content table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-    .contains(serviceName, {
+    .contains(idParts[2], {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
     .should("exist");
   cy
     .get(".page-body-content table")
-    .getTableRowThatContains(serviceName)
+    .getTableRowThatContains(idParts[2])
     .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
     .should("exist");
 }
 
 /**
- * Deletes a service from group TEST_UUID using the dcos CLI
+ * Deletes a service from group TEST_UUID using the dcos CLI.
  *
  * @param {String} serviceId - The service id which it will delete
  *
  */
 export function deleteService(serviceId) {
+  const idParts = serviceId.split("/");
+  if (idParts.length !== 3) {
+    throw new Error("Must include leading slash in service id");
+  }
+  if (idParts[1] !== Cypress.env("TEST_UUID")) {
+    throw new Error("Service must be in the TEST_UUID group");
+  }
+
   cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-
-  const serviceName = serviceId.substring(serviceId.lastIndexOf("/") + 1);
-  cy.get(".page-body-content table").contains(serviceName).should("not.exist");
+  cy.get(".page-body-content table").contains(idParts[2]).should("not.exist");
 }
