@@ -13,15 +13,10 @@ const Container = require("../Container");
 
 describe("Container", function() {
   describe("#JSONReducer", function() {
-    it("should return a null container as default object", function() {
+    it("returns a null container as default object without docker object", function() {
       const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: null,
         volumes: []
@@ -203,11 +198,6 @@ describe("Container", function() {
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: null,
         volumes: []
@@ -306,11 +296,6 @@ describe("Container", function() {
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: null,
         volumes: []
@@ -479,11 +464,6 @@ describe("Container", function() {
         batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
           portMappings: null,
           type: null,
           volumes: []
@@ -994,11 +974,6 @@ describe("Container", function() {
         );
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          docker: {
-            forcePullImage: null,
-            image: "",
-            privileged: null
-          },
           portMappings: null,
           type: "MESOS",
           volumes: []
@@ -1022,11 +997,6 @@ describe("Container", function() {
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
             portMappings: [
               {
                 containerPort: 0,
@@ -1071,11 +1041,6 @@ describe("Container", function() {
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
             portMappings: [
               {
                 containerPort: 0,
@@ -1107,11 +1072,6 @@ describe("Container", function() {
           );
 
           expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-            docker: {
-              forcePullImage: null,
-              image: "",
-              privileged: null
-            },
             portMappings: [
               {
                 containerPort: 0,
@@ -1126,6 +1086,39 @@ describe("Container", function() {
             volumes: []
           });
         });
+      });
+    });
+
+    it("removes docker if no image is present", function() {
+      let batch = Container.JSONParser({
+        container: {
+          docker: {
+            image: "nginx",
+            pullConfig: {
+              some: "value"
+            }
+          }
+        }
+      }).reduce(function(batch, transaction) {
+        return batch.add(transaction);
+      }, new Batch());
+
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "", SET)
+      );
+
+      expect(
+        batch.reduce(Container.JSONReducer.bind({}), {
+          docker: {
+            image: "alpine",
+            forcePull: true
+          },
+          type: "DOCKER"
+        })
+      ).toEqual({
+        type: "MESOS",
+        portMappings: null,
+        volumes: []
       });
     });
   });
@@ -1168,11 +1161,6 @@ describe("Container", function() {
       const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: null,
         volumes: []
@@ -1188,11 +1176,6 @@ describe("Container", function() {
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: "MESOS",
         volumes: [
@@ -1213,11 +1196,6 @@ describe("Container", function() {
       batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: "MESOS",
         volumes: [
@@ -1246,11 +1224,6 @@ describe("Container", function() {
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: "MESOS",
         volumes: [
@@ -1288,11 +1261,6 @@ describe("Container", function() {
       batch = batch.add(new Transaction(["localVolumes"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-        docker: {
-          forcePullImage: null,
-          image: "",
-          privileged: null
-        },
         portMappings: null,
         type: null,
         volumes: []

@@ -1,6 +1,5 @@
 import { simpleParser } from "#SRC/js/utils/ParserUtil";
 
-import { JSONParser as container } from "./serviceForm/Container";
 import {
   JSONParser as constraints
 } from "./serviceForm/MultiContainerConstraints";
@@ -42,7 +41,6 @@ module.exports = [
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
   constraints,
-  container,
   containers,
   environmentVariables,
   externalVolumes,
