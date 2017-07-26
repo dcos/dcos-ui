@@ -67,20 +67,18 @@ const initialize = function(pluginsConfig) {
 
       return;
     }
-    let pluginType;
+
     let path;
     // Default to always selecting internal plugin if same pluginID
     // exists in external plugins. This makes mocking easier.
     if (pluginID in pluginsList) {
-      pluginType = "internalPlugin";
       path = pluginsList[pluginID];
     } else {
-      pluginType = "externalPlugin";
       path = externalPluginsList[pluginID];
     }
     // Bootstrap if plugin enabled
     if (pluginsConfig[pluginID] && pluginsConfig[pluginID].enabled) {
-      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID], pluginType);
+      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID]);
     }
   });
 
