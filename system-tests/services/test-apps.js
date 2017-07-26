@@ -1679,7 +1679,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Host Port")
         .contents()
-        .should("deep.equal", ["0"]);
+        .should("deep.equal", ["Auto Assigned"]);
 
       // Run service
       cy.get("button.button-primary").contains("Run Service").click();
@@ -2314,7 +2314,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Host Port")
         .contents()
-        .should("deep.equal", ["Not Configured"]);
+        .should("deep.equal", ["Auto Assigned"]);
 
       cy
         .root()
@@ -2515,7 +2515,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Host Port")
         .contents()
-        .should("deep.equal", ["Not Configured", "4200"]);
+        .should("deep.equal", ["Auto Assigned", "Auto Assigned"]);
 
       cy
         .root()
