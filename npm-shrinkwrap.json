@@ -1653,11 +1653,6 @@
         }
       }
     },
-    "config-chain": {
-      "version": "1.1.11",
-      "from": "config-chain@>=1.1.5 <1.2.0",
-      "resolved": "https://registry.npmjs.org/config-chain/-/config-chain-1.1.11.tgz"
-    },
     "connect": {
       "version": "2.30.2",
       "from": "connect@>=2.30.0 <3.0.0",
@@ -2507,11 +2502,6 @@
       "from": "editions@>=1.1.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/editions/-/editions-1.3.3.tgz"
     },
-    "editorconfig": {
-      "version": "0.13.2",
-      "from": "editorconfig@>=0.13.2 <0.14.0",
-      "resolved": "https://registry.npmjs.org/editorconfig/-/editorconfig-0.13.2.tgz"
-    },
     "ee-first": {
       "version": "1.1.1",
       "from": "ee-first@1.1.1",
@@ -2766,7 +2756,7 @@
     },
     "eslint-config-airbnb": {
       "version": "10.0.1",
-      "from": "eslint-config-airbnb@>=10.0.1 <11.0.0",
+      "from": "eslint-config-airbnb@10.0.1",
       "resolved": "https://registry.npmjs.org/eslint-config-airbnb/-/eslint-config-airbnb-10.0.1.tgz"
     },
     "eslint-config-airbnb-base": {
@@ -5259,11 +5249,6 @@
       "from": "js-base64@>=2.1.9 <3.0.0",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.1.9.tgz"
     },
-    "js-beautify": {
-      "version": "1.6.14",
-      "from": "js-beautify@latest",
-      "resolved": "https://registry.npmjs.org/js-beautify/-/js-beautify-1.6.14.tgz"
-    },
     "js-tokens": {
       "version": "1.0.3",
       "from": "js-tokens@>=1.0.1 <2.0.0",
@@ -5982,11 +5967,6 @@
       "version": "1.1.0",
       "from": "lpad-align@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/lpad-align/-/lpad-align-1.1.0.tgz"
-    },
-    "lru-cache": {
-      "version": "3.2.0",
-      "from": "lru-cache@>=3.2.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-3.2.0.tgz"
     },
     "lrucache": {
       "version": "0.2.0",
@@ -7053,11 +7033,6 @@
       "from": "promise-polyfill@>=5.1.0 <6.0.0",
       "resolved": "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-5.2.1.tgz"
     },
-    "proto-list": {
-      "version": "1.2.4",
-      "from": "proto-list@>=1.2.1 <1.3.0",
-      "resolved": "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz"
-    },
     "proxy-addr": {
       "version": "1.0.10",
       "from": "proxy-addr@>=1.0.10 <1.1.0",
@@ -7067,11 +7042,6 @@
       "version": "0.0.0",
       "from": "prr@>=0.0.0 <0.1.0",
       "resolved": "https://registry.npmjs.org/prr/-/prr-0.0.0.tgz"
-    },
-    "pseudomap": {
-      "version": "1.0.2",
-      "from": "pseudomap@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz"
     },
     "public-encrypt": {
       "version": "4.0.0",
@@ -7861,11 +7831,6 @@
       "version": "0.1.0",
       "from": "shellwords@>=0.1.0 <0.2.0",
       "resolved": "https://registry.npmjs.org/shellwords/-/shellwords-0.1.0.tgz"
-    },
-    "sigmund": {
-      "version": "1.0.1",
-      "from": "sigmund@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/sigmund/-/sigmund-1.0.1.tgz"
     },
     "signal-exit": {
       "version": "2.1.2",

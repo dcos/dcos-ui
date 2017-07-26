@@ -181,6 +181,45 @@ const StringUtil = {
   },
 
   /**
+   * Format the provided HTML with proper line breaks and indentations
+   *
+   * @param  {String} text - HTML markup
+   * @return {String}      - Formatted HTML markup
+   */
+  formatMarkdown(text) {
+    if (typeof text !== "string") {
+      return text;
+    }
+
+    const format = function(node, level) {
+      const indentBefore = new Array(level++ + 1).join("  ");
+      const indentAfter = new Array(level - 1).join("  ");
+      let textNode;
+
+      for (let i = 0; i < node.children.length; i++) {
+        textNode = document.createTextNode("\n" + indentBefore);
+        if (level !== 1) {
+          node.insertBefore(textNode, node.children[i]);
+        }
+
+        format(node.children[i], level);
+
+        if (node.lastElementChild === node.children[i]) {
+          textNode = document.createTextNode("\n" + indentAfter);
+          node.appendChild(textNode);
+        }
+      }
+
+      return node;
+    };
+
+    const div = document.createElement("div");
+    div.innerHTML = text.trim();
+
+    return format(div, 0).innerHTML;
+  },
+
+  /**
    * @param {Array} id       - An array that, when concatenated, represents an ID.
    * @param {Array} splitBy  - Tokens to split id by.
    * @param {Object} replace - Keys are words to replace, with value of the word

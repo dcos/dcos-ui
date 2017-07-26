@@ -267,4 +267,67 @@ describe("StringUtil", function() {
       ).toEqual("one, two and three");
     });
   });
+
+  describe("#formatMarkdown", function() {
+    it("should format single-level markdown", function() {
+      var text = "<div></div>";
+      expect(StringUtil.formatMarkdown(text)).toEqual(text + "\n");
+    });
+
+    it("should format two-level markdown", function() {
+      var text = "<div><p>Foo</p></div>";
+      var formattedText = "<div>\n  <p>Foo</p>\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format three-level markdown", function() {
+      var text = "<div><p><span>Foo</span></p></div>";
+      var formattedText =
+        "<div>\n  <p>\n    <span>Foo</span>\n  </p>\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format two-level markdown with multiple siblings", function() {
+      var text = "<div><p>Foo</p><p>Bar</p></div>";
+      var formattedText = "<div>\n  <p>Foo</p>\n  <p>Bar</p>\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format three-level markdown with multiple siblings", function() {
+      var text = "<div><p><span>Foo</span><span>Bar</span></p></div>";
+      var formattedText =
+        "<div>\n  <p>\n    <span>Foo</span>\n    <span>Bar</span>\n  </p>\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format two-level markdown siblings", function() {
+      var text = "<div><p><span>Foo</span></p><p><span>Bar</span></p></div>";
+      var formattedText =
+        "<div>\n  <p>\n    <span>Foo</span>\n  </p>\n  <p>\n    <span>Bar</span>\n  </p>\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format markdown with inner text", function() {
+      var text = "<div><p></p>Foo</div>";
+      var formattedText = "<div>\n  <p></p>Foo\n</div>\n";
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should format markdown with attributes", function() {
+      var text = '<div class="foo"><p class="bar">Foo</p></div>';
+      var formattedText =
+        '<div class="foo">\n  <p class="bar">Foo</p>\n</div>\n';
+      expect(StringUtil.formatMarkdown(text)).toEqual(formattedText);
+    });
+
+    it("should return input if not a string", function() {
+      var input = null;
+      expect(StringUtil.formatMarkdown(input)).toEqual(input);
+    });
+
+    it("should return input if text only", function() {
+      var input = "Foo";
+      expect(StringUtil.formatMarkdown(input)).toEqual(input);
+    });
+  });
 });
