@@ -52,7 +52,9 @@ class Loader extends React.Component {
   render() {
     const { className, innerClassName, flip, size, type } = this.props;
     const config = typeMap[type] || typeMap.ballScale;
-    const classes = classNames("loader horizontal-center", className);
+    const classes = classNames("loader", className, {
+      "horizontal-center": !this.props.suppressHorizontalCenter
+    });
 
     const innerClasses = classNames(
       config.className,
@@ -77,7 +79,8 @@ class Loader extends React.Component {
 Loader.defaultProps = {
   className: "",
   innerClassName: "",
-  type: "ballScale"
+  type: "ballScale",
+  suppressHorizontalCenter: false
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -87,6 +90,7 @@ const classPropType = React.PropTypes.oneOfType([
 ]);
 
 Loader.propTypes = {
+  suppressHorizontalCenter: React.PropTypes.bool,
   className: classPropType,
   flip: React.PropTypes.oneOf(["horizontal"]),
   innerClassName: classPropType,
