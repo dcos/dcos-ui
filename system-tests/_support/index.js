@@ -225,7 +225,7 @@ Cypress.addChildCommand("triggerHover", function(elements) {
  *
  */
 function validateServiceId(id) {
-  if (id[0] !== "/") {
+  if (!id.startsWith("/")) {
     throw new Error("Must include leading slash in service id");
   }
   const idParts = id.split("/");
