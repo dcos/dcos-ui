@@ -1,7 +1,60 @@
+import path from "path";
 import PluginSDK from "PluginSDK";
-import JestUtil from "../utils/JestUtil";
 import Loader from "./Loader";
-import PluginModules from "./PluginModules";
+
+let _plugins = {};
+let _externalPlugins = {};
+
+let pluginsList;
+let externalPluginsList;
+const externalPluginsDir = path.resolve(
+  process.env.npm_config_externalplugins || "plugins"
+);
+
+try {
+  pluginsList = require("#PLUGINS");
+} catch (err) {
+  pluginsList = {};
+}
+
+try {
+  externalPluginsList = require(externalPluginsDir);
+} catch (err) {
+  externalPluginsList = {};
+}
+
+function __getAvailablePlugins() {
+  return {
+    pluginsList: _plugins,
+    externalPluginsList: _externalPlugins
+  };
+}
+
+function __setMockPlugins(plugins) {
+  _plugins = {};
+  _externalPlugins = {};
+  Object.keys(plugins).forEach(function(pluginID) {
+    if (pluginID in externalPluginsList) {
+      _externalPlugins[pluginID] = plugins[pluginID];
+    } else {
+      _plugins[pluginID] = plugins[pluginID];
+    }
+  });
+}
+
+// Add custom methods for testing
+Loader.__setMockPlugins = __setMockPlugins;
+
+// Rewire so PluginSDK loads the mocked version. But still provide access
+// to original method for PluginTestUtils to load actual plugins
+Loader.__getAvailablePlugins = function() {
+  return {
+    pluginsList,
+    externalPluginsList
+  };
+};
+
+Loader.getAvailablePlugins = __getAvailablePlugins;
 
 /**
  * Loads whatever plugins are passed in. Could be Mocks
@@ -70,19 +123,6 @@ function getSDK(pluginID, config, loadPlugin = false) {
 }
 
 /**
- * Set a mock for a module which would normally be returned by
- * PluginSDK.get().
- * @param {String} name - name of module
- * @param {any} mock - value representing the mock
- * @returns {mock} - the mock that was passed in
- */
-function setMock(name, mock) {
-  Loader.__setMockModule(name, mock);
-
-  return mock;
-}
-
-/**
  * Add reducer to Store. Could be an actual plugin reducer or a mock for test
  * cases that require specific state.
  * @param {String} root    - Root key for which reducer will manage state
@@ -92,42 +132,11 @@ function addReducer(root, reducer) {
   PluginSDK.__addReducer(root, reducer);
 }
 
-/**
- * Takes an Array or String representing a module name{s) that need unMocking,
- * finds the directory of the file and calls jest.dontMock on path.
- * @param  {Array|String} moduleNames - Names of modules to dontMock
-
- */
-function dontMock(moduleNames) {
-  if (Array.isArray(moduleNames)) {
-    moduleNames.forEach(dontMock);
-
-    return;
-  }
-  // Just one module to mock
-  var name = moduleNames;
-  // Try unmocking store first
-  if (JestUtil.dontMockStore(name)) {
-    return;
-  }
-  // Assuming modules have unique names
-  const foundType = Object.keys(PluginModules).filter(moduleType => {
-    return name in PluginModules[moduleType];
-  });
-  if (!foundType.length) {
-    throw new Error(`Module ${name} does not exist.`);
-  }
-  const modulePath = `../${foundType[0]}/${PluginModules[foundType[0]][name]}`;
-  jest.dontMock(modulePath);
-}
-
 const TestUtils = {
   addReducer,
   getSDK,
-  dontMock,
   loadPlugins,
-  loadPluginsByName,
-  setMock
+  loadPluginsByName
 };
 
 module.exports = TestUtils;
