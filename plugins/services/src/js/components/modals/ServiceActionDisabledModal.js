@@ -235,9 +235,9 @@ class ServiceActionDisabledModal extends React.Component {
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            'options.json'
           </a>
-          {" "}
+          .{" "}
           {intl.formatMessage({
             id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2"
           })}
