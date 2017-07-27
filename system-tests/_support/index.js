@@ -219,23 +219,46 @@ Cypress.addChildCommand("triggerHover", function(elements) {
 });
 
 /**
- * Launches a new service using the dcos CLI
+ * Checks that a service id abides by format: /<test-UUID>/service-name
  *
- * @param {String} serviceName - The service name which will launch
- * @param {String} serviceJsonPath - The path to JSON file for service definition
+ * @param {String} id - serviceId to validate
  *
  */
-export function createService(serviceName, serviceJsonPath) {
+function validateServiceId(id) {
+  if (!id.startsWith("/")) {
+    throw new Error("Must include leading slash in service id");
+  }
+  const idParts = id.split("/");
+  if (idParts[1] !== Cypress.env("TEST_UUID")) {
+    throw new Error("Service must be in the TEST_UUID group");
+  }
+  if (idParts.length !== 3) {
+    throw new Error("Must deploy service directly in TEST_UUID group");
+  }
+}
+
+/**
+ * Launches a new service using the dcos CLI. Service must be created
+ * directly in the TEST_UUID group. Ex: /<TEST-UUID>/test-service
+ *
+ * @param {Object} serviceDefinition - The service JSON definition file
+ *
+ */
+export function createService(serviceDefinition) {
+  validateServiceId(serviceDefinition.id);
+  const serviceName = serviceDefinition.id.split("/").pop();
+
   cy.exec(
-    `sed 's/${serviceName}/${Cypress.env("TEST_UUID")}\\/${serviceName}/g' ${serviceJsonPath} | dcos marathon app add`
+    `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
   );
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-
   cy
     .get(".page-body-content table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-    .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+    .contains(serviceName, {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
     .should("exist");
   cy
     .get(".page-body-content table")
@@ -245,15 +268,16 @@ export function createService(serviceName, serviceJsonPath) {
 }
 
 /**
- * Deletes a service using the dcos CLI
+ * Deletes a service from group TEST_UUID using the dcos CLI.
  *
- * @param {String} serviceName - The service name which it will delete
+ * @param {String} serviceId - The service id which it will delete
  *
  */
-export function deleteService(serviceName) {
-  cy.exec(
-    `dcos marathon app remove /${Cypress.env("TEST_UUID")}/${serviceName}`
-  );
+export function deleteService(serviceId) {
+  validateServiceId(serviceId);
+  const serviceName = serviceId.split("/").pop();
+
+  cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
   cy.get(".page-body-content table").contains(serviceName).should("not.exist");
 }
