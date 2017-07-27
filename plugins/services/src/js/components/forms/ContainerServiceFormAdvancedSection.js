@@ -226,7 +226,7 @@ class ContainerServiceFormAdvancedSection extends Component {
               </FormGroupHeadingContent>
             </FieldLabel>
             <FieldInput
-              min="0.001"
+              min="0"
               name={diskPath}
               step="any"
               type="number"
