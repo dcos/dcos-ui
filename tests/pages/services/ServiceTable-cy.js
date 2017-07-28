@@ -236,7 +236,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -256,7 +256,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -276,7 +276,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -301,7 +301,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -366,7 +366,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy
@@ -390,7 +390,7 @@ describe("Service Table", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy
