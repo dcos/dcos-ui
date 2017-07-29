@@ -231,9 +231,9 @@ describe("Service Table", function() {
         .should("to.have.length", 1);
 
       cy
-        .get(".modal pre")
+        .get(".modal-body")
         .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
+          "Editing this service is only available on Mesosphere Enterprise DC/OS."
         );
 
       cy.get(".modal button").contains("Close").click();
