@@ -433,7 +433,11 @@ describe("Services", function() {
       cy.root().get(".menu-tabbed-item").contains("Services").should("exist");
 
       // Select second container
-      cy.root().get(".menu-tabbed-item").contains("second-container").click();
+      cy
+        .root()
+        .get(".menu-tabbed-item")
+        .contains("second-container")
+        .click({ force: true });
 
       // Configure container
       cy
