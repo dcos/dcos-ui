@@ -231,7 +231,6 @@ class ServicesTable extends React.Component {
   }
 
   renderServiceActions(prop, service) {
-    const isSDK = isSDKService(service);
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
     const isSingleInstanceApp = service.getLabels()
@@ -240,6 +239,16 @@ class ServicesTable extends React.Component {
     const scaleTextID = isGroup
       ? ServiceActionLabels.scale_by
       : ServiceActionLabels[SCALE];
+    const restartObj = {
+      className: classNames({
+        hidden: isPod || isGroup || instancesCount === 0
+      }),
+      id: RESTART,
+      html: this.props.intl.formatMessage({
+        id: ServiceActionLabels[RESTART]
+      })
+    };
+    const isSDK = isSDKService(service) ? [] : [restartObj];
 
     const dropdownItems = [
       {
@@ -266,16 +275,8 @@ class ServicesTable extends React.Component {
         }),
         id: SCALE,
         html: this.props.intl.formatMessage({ id: scaleTextID })
-      },
-      {
-        className: classNames({
-          hidden: isSDK || isPod || isGroup || instancesCount === 0
-        }),
-        id: RESTART,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[RESTART]
-        })
-      },
+      }
+    ].concat(isSDK, [
       {
         className: classNames({
           hidden: instancesCount === 0
@@ -304,7 +305,7 @@ class ServicesTable extends React.Component {
           </span>
         )
       }
-    ];
+    ]);
 
     return (
       <Tooltip content="More actions">
