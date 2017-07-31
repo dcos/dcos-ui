@@ -5,16 +5,25 @@ source .env/bin/activate
 
 # Install DC/OS CLI in the sandbox so we can setup and teardown our tests
 if [ `uname -s` == "Darwin" ]; then
-  curl https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-1.9/dcos -o .env/bin/dcos
+  curl https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-1.10/dcos -o .env/bin/dcos
 else
-  curl https://downloads.dcos.io/binaries/cli/linux/x86-64/dcos-1.9/dcos -o .env/bin/dcos
+  curl https://downloads.dcos.io/binaries/cli/linux/x86-64/dcos-1.10/dcos -o .env/bin/dcos
 fi
 chmod +x .env/bin/dcos
 
 # Configure DC/OS CLI
-dcos config set core.dcos_url $CLUSTER_URL
-dcos config set core.ssl_verify False
-echo dcos_acs_token = \"$CLUSTER_AUTH_TOKEN\" >> ~/.dcos/dcos.toml
+CONFIG_DIR=~/.dcos
+CONFIG_FILE=${CONFIG_DIR}/dcos.toml
+mkdir -p ${CONFIG_DIR}
+cat << EOF > ${CONFIG_FILE}
+  [core]
+  ssl_verify = "false"
+  reporting = true
+  timeout = 5
+  dcos_url = "${CLUSTER_URL}"
+  dcos_acs_token = "${CLUSTER_AUTH_TOKEN}"
+EOF
+chmod 600 ${CONFIG_FILE}
 
 # Install cypress if missing
 if ! hash cypress 2>/dev/null; then
