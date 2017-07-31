@@ -22,6 +22,7 @@ const handleItemSelection = item => {
 
 const getDropdownItemFromComponent = (child, index) => {
   return {
+    className: child.props.className,
     onItemSelect: child.props.onItemSelect,
     html: child,
     id: index

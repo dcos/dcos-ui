@@ -309,21 +309,10 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the restart dialog", function() {
+    it("restart should not exist", function() {
       openDropdown("sdk-sleep");
-      clickDropdownAction("Restart");
 
-      cy
-        .get(".modal-header")
-        .contains("Restart Service")
-        .should("have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains("dcos marathon app restart /services/sdk-sleep");
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
+      cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
     });
   });
 

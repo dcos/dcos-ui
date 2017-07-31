@@ -1,4 +1,5 @@
 import { injectIntl } from "react-intl";
+import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
@@ -161,6 +162,7 @@ class ServiceDetail extends mixin(TabsMixin) {
   getActions() {
     const { service } = this.props;
     const instanceCount = service.getInstancesCount();
+    const isSDK = isSDKService(service);
 
     const actions = [];
 
@@ -185,7 +187,10 @@ class ServiceDetail extends mixin(TabsMixin) {
     if (instanceCount > 0) {
       actions.push({
         label: "Restart",
-        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
+        onItemSelect: this.onActionsItemSelection.bind(this, RESTART),
+        className: classNames({
+          hidden: isSDK
+        })
       });
     }
     if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {

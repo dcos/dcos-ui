@@ -231,6 +231,7 @@ class ServicesTable extends React.Component {
   }
 
   renderServiceActions(prop, service) {
+    const isSDK = isSDKService(service);
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
     const isSingleInstanceApp = service.getLabels()
@@ -268,7 +269,7 @@ class ServicesTable extends React.Component {
       },
       {
         className: classNames({
-          hidden: isPod || isGroup || instancesCount === 0
+          hidden: isSDK || isPod || isGroup || instancesCount === 0
         }),
         id: RESTART,
         html: this.props.intl.formatMessage({
