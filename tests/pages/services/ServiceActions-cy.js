@@ -170,7 +170,7 @@ describe("Service Actions", function() {
           .should("to.have.text", "Not Authorized to perform this action!");
       });
 
-      it("reenables button after faulty request", function() {
+      it("re-enables button after faulty request", function() {
         cy.route({
           method: "DELETE",
           status: 403,
@@ -267,7 +267,7 @@ describe("Service Actions", function() {
         .should("to.have.text", "Not Authorized to perform this action!");
     });
 
-    it("reenables button after faulty request", function() {
+    it("re-enables button after faulty request", function() {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -361,7 +361,7 @@ describe("Service Actions", function() {
         .should("to.have.text", "Not Authorized to perform this action!");
     });
 
-    it("reenables button after faulty request", function() {
+    it("re-enables button after faulty request", function() {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -500,7 +500,7 @@ describe("Service Actions", function() {
         .should("to.have.text", "Not Authorized to perform this action!");
     });
 
-    it("reenables button after faulty request", function() {
+    it("re-enables button after faulty request", function() {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -567,7 +567,7 @@ describe("Service Actions", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -586,7 +586,7 @@ describe("Service Actions", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -605,7 +605,7 @@ describe("Service Actions", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();
@@ -629,7 +629,7 @@ describe("Service Actions", function() {
       cy
         .get(".modal pre")
         .contains(
-          "dcos test --name=/services/sdk-sleep update --options=test-options.json"
+          "dcos test --name=/services/sdk-sleep update start --options=options.json"
         );
 
       cy.get(".modal button").contains("Close").click();

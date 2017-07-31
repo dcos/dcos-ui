@@ -49,7 +49,7 @@ class ServiceActionDisabledModal extends React.Component {
 
     // For everything SDK, not other packages
     if (isSDKService(service)) {
-      return `dcos ${packageName} --name=${serviceID} update --options=${packageName}-options.json`;
+      return `dcos ${packageName} --name=${serviceID} update start --options=options.json`;
     }
 
     return `dcos marathon app update ${serviceID} options.json`;
@@ -235,9 +235,9 @@ class ServiceActionDisabledModal extends React.Component {
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            options.json
           </a>
-          {" "}
+          .{" "}
           {intl.formatMessage({
             id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2"
           })}
