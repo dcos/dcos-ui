@@ -206,8 +206,9 @@ class TaskTable extends React.Component {
     return tasks
       .filter(function(task) {
         return (
-          TaskStates[task.state].stateTypes.includes("completed") ||
-          !task.isStartedByMarathon
+          task.state !== "TASK_UNREACHABLE" &&
+          (TaskStates[task.state].stateTypes.includes("completed") ||
+            !task.isStartedByMarathon)
         );
       })
       .reduce(function(acc, task) {

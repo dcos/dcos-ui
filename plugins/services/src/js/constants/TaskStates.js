@@ -70,7 +70,7 @@ const TaskStates = {
   },
 
   TASK_UNREACHABLE: {
-    stateTypes: ["completed", "failure"],
+    stateTypes: ["active", "failure"],
     displayName: "Unreachable"
   },
 
