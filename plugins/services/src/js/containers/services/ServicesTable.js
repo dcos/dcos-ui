@@ -239,54 +239,58 @@ class ServicesTable extends React.Component {
     const scaleTextID = isGroup
       ? ServiceActionLabels.scale_by
       : ServiceActionLabels[SCALE];
-    const restartObj = {
-      className: classNames({
-        hidden: isPod || isGroup || instancesCount === 0
-      }),
-      id: RESTART,
-      html: this.props.intl.formatMessage({
-        id: ServiceActionLabels[RESTART]
-      })
-    };
-    const isSDK = isSDKService(service) ? [] : [restartObj];
+    const isSDK = isSDKService(service);
 
-    const dropdownItems = [
-      {
-        className: "hidden",
-        id: MORE,
-        html: "",
-        selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
-      },
-      {
-        className: classNames({
-          hidden: !this.hasWebUI(service)
-        }),
+    const actions = [];
+
+    actions.push({
+      className: "hidden",
+      id: MORE,
+      html: "",
+      selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+    });
+
+    if (this.hasWebUI(service)) {
+      actions.push({
         id: OPEN,
         html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
-      },
-      {
-        className: classNames({ hidden: isGroup }),
+      });
+    }
+
+    if (!isGroup) {
+      actions.push({
         id: EDIT,
         html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
-      },
-      {
-        className: classNames({
-          hidden: (isGroup && instancesCount === 0) || isSingleInstanceApp
-        }),
+      });
+    }
+
+    if (!isGroup && instancesCount > 0 && !isSingleInstanceApp) {
+      actions.push({
         id: SCALE,
         html: this.props.intl.formatMessage({ id: scaleTextID })
-      }
-    ].concat(isSDK, [
-      {
-        className: classNames({
-          hidden: instancesCount === 0
-        }),
+      });
+    }
+
+    if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
+      actions.push({
+        id: RESTART,
+        html: this.props.intl.formatMessage({
+          id: ServiceActionLabels[RESTART]
+        })
+      });
+    }
+
+    if (instancesCount > 0) {
+      actions.push({
         id: SUSPEND,
         html: this.props.intl.formatMessage({
           id: ServiceActionLabels[SUSPEND]
         })
-      },
-      {
+      });
+    }
+
+    if (!isGroup && instancesCount === 0) {
+      actions.push({
         className: classNames({
           hidden: isGroup || instancesCount > 0
         }),
@@ -294,18 +298,19 @@ class ServicesTable extends React.Component {
         html: this.props.intl.formatMessage({
           id: ServiceActionLabels[RESUME]
         })
-      },
-      {
-        id: DELETE,
-        html: (
-          <span className="text-danger">
-            {this.props.intl.formatMessage({
-              id: ServiceActionLabels[DELETE]
-            })}
-          </span>
-        )
-      }
-    ]);
+      });
+    }
+
+    actions.push({
+      id: DELETE,
+      html: (
+        <span className="text-danger">
+          {this.props.intl.formatMessage({
+            id: ServiceActionLabels[DELETE]
+          })}
+        </span>
+      )
+    });
 
     return (
       <Tooltip content="More actions">
@@ -316,7 +321,7 @@ class ServicesTable extends React.Component {
           dropdownMenuListClassName="dropdown-menu-list"
           dropdownMenuListItemClassName="clickable"
           wrapperClassName="dropdown flush-bottom table-cell-icon"
-          items={dropdownItems}
+          items={actions}
           persistentID={MORE}
           onItemSelection={this.onActionsItemSelection.bind(this, service)}
           scrollContainer=".gm-scroll-view"
