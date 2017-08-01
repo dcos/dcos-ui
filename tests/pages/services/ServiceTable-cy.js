@@ -51,10 +51,7 @@ describe("Service Table", function() {
     it("hides the suspend option in the service action dropdown", function() {
       openDropdown("sleep");
 
-      cy
-        .get(".dropdown-menu-items li")
-        .contains("Suspend")
-        .should("have.class", "hidden");
+      cy.get(".dropdown-menu-items li").contains("Suspend").should("not.exist");
     });
 
     it("shows the resume option in the service action dropdown", function() {
