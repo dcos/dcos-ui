@@ -17,7 +17,7 @@ class CreateServicePickerCatalogOption extends React.Component {
       <CreateServiceModalServicePickerOption
         columnClasses={columnClasses}
         onOptionSelect={onOptionSelect.bind(null, {
-          route: "catalog",
+          route: "/catalog",
           type: "redirect"
         })}
       >
