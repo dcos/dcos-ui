@@ -293,9 +293,6 @@ class ServicesTable extends React.Component {
 
     if (!isGroup && instancesCount === 0) {
       actions.push({
-        className: classNames({
-          hidden: isGroup || instancesCount > 0
-        }),
         id: RESUME,
         html: this.props.intl.formatMessage({
           id: ServiceActionLabels[RESUME]
