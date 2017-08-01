@@ -264,7 +264,9 @@ class ServicesTable extends React.Component {
       });
     }
 
-    if ((!isGroup && instancesCount > 0) || !isSingleInstanceApp) {
+    // isSingleInstanceApp = Framework main scheduler
+    // instancesCount = service instances
+    if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
       actions.push({
         id: SCALE,
         html: this.props.intl.formatMessage({ id: scaleTextID })
