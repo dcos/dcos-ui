@@ -11,6 +11,7 @@ import FilterInputText from "#SRC/js/components/FilterInputText";
 import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import GraphQLTaskUtil from "../../utils/GraphQLTaskUtil";
@@ -161,6 +162,13 @@ class TasksView extends mixin(SaveStateMixin) {
       return service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING;
     });
 
+    const isSDK = Object.keys(checkedItems).some(function(taskId) {
+      const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+      const isSDK = isSDKService(service);
+
+      return isSDK;
+    });
+
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks.some(
       task => task.id in checkedItems && task.schedulerTask
@@ -173,7 +181,7 @@ class TasksView extends mixin(SaveStateMixin) {
     let handleRestartClick = function() {};
     let handleStopClick = function() {};
 
-    if (!isDeploying) {
+    if (!isDeploying || !isSDK) {
       handleRestartClick = this.handleActionClick.bind(this, "restart");
     }
 
@@ -182,7 +190,7 @@ class TasksView extends mixin(SaveStateMixin) {
     }
 
     const restartButtonClasses = classNames("button button-link", {
-      disabled: isDeploying
+      disabled: isDeploying || isSDK
     });
     const stopButtonClasses = classNames("button button-link", {
       disabled: hasSchedulerTask
@@ -192,7 +200,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <div className="button-collection flush-bottom">
         <Tooltip
           content="Restarting tasks is not supported while the service is deploying."
-          suppress={!isDeploying}
+          suppress={!isDeploying || isSDK}
           width={200}
           wrapperClassName="button-group"
           wrapText={true}
