@@ -637,20 +637,12 @@ describe("Service Actions", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the restart dialog", function() {
-      clickHeaderAction("Restart");
-
+    it("restart should not exist", function() {
       cy
-        .get(".modal-header")
-        .contains("Restart Service")
-        .should("have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains("dcos marathon app restart /services/sdk-sleep");
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
+        .get(".page-header-actions .dropdown")
+        .click()
+        .contains("restart")
+        .should("not.exist");
     });
   });
 });

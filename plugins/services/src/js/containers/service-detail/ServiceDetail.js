@@ -161,6 +161,7 @@ class ServiceDetail extends mixin(TabsMixin) {
   getActions() {
     const { service } = this.props;
     const instanceCount = service.getInstancesCount();
+    const isSDK = isSDKService(service);
 
     const actions = [];
 
@@ -182,7 +183,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
-    if (instanceCount > 0) {
+    if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: "Restart",
         onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
