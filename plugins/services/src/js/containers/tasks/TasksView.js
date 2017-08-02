@@ -164,9 +164,8 @@ class TasksView extends mixin(SaveStateMixin) {
 
     const isSDK = Object.keys(checkedItems).some(function(taskId) {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
-      const isSDK = isSDKService(service);
 
-      return isSDK;
+      return isSDKService(service);
     });
 
     // Only show Stop if a scheduler task isn't selected
