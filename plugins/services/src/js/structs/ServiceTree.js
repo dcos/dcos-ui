@@ -119,7 +119,10 @@ module.exports = class ServiceTree extends Tree {
    */
   findServiceByName(name) {
     return this.findItem(function(item) {
-      return item.getName() === name && item instanceof Service;
+      return (
+        (item instanceof Framework && item.getFrameworkName() === name) ||
+        (item instanceof Service && item.getName() === name)
+      );
     });
   }
 
