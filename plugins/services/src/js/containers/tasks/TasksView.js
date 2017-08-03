@@ -180,7 +180,7 @@ class TasksView extends mixin(SaveStateMixin) {
     let handleRestartClick = function() {};
     let handleStopClick = function() {};
 
-    if (!isDeploying || !isSDK) {
+    if (!isDeploying && !isSDK) {
       handleRestartClick = this.handleActionClick.bind(this, "restart");
     }
 
