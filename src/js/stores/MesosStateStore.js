@@ -1,9 +1,12 @@
 import PluginSDK from "PluginSDK";
 
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+
 import AppDispatcher from "../events/AppDispatcher";
 import ActionTypes from "../constants/ActionTypes";
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
+import DCOSStore from "./DCOSStore";
 import Framework from "../../../plugins/services/src/js/structs/Framework";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
@@ -44,6 +47,20 @@ function stopPolling() {
 function assignSchedulerTaskField(task, schedulerTasks) {
   if (schedulerTasks.some(({ id }) => task.id === id)) {
     return Object.assign({}, task, { schedulerTask: true });
+  }
+
+  return task;
+}
+
+/**
+ * Assigns a property to task if it belongs to an SDK service.
+ * @param  {Object} task
+ * @param  {Array} service task belongs to
+ * @return {Object} task
+ */
+function flagSDKTask(task, service) {
+  if (isSDKService(service)) {
+    return Object.assign({}, task, { sdkTask: true });
   }
 
   return task;
@@ -194,18 +211,24 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const services = this.get("lastMesosState").frameworks || [];
+    const frameworks = this.get("lastMesosState").frameworks || [];
     const memberTasks = {};
 
     const schedulerTasks = this.getSchedulerTasks();
 
-    services.forEach(service => {
-      service.tasks.forEach(function(task) {
+    frameworks.forEach(framework => {
+      framework.tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
-          memberTasks[task.id] = assignSchedulerTaskField(task, schedulerTasks);
+          // Need to get service from Marathon because we need the labels
+          const service = DCOSStore.serviceTree.findServiceByName(
+            framework.name
+          );
+          task = assignSchedulerTaskField(task, schedulerTasks);
+          task = flagSDKTask(task, service);
+          memberTasks[task.id] = task;
         }
       });
-      service.completed_tasks.forEach(function(task) {
+      framework.completed_tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
           memberTasks[task.id] = task;
         }
@@ -293,7 +316,8 @@ class MesosStateStore extends GetSetBaseStore {
       if (service instanceof Framework && name === serviceName) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks));
+          .map(task => assignSchedulerTaskField(task, schedulerTasks))
+          .map(task => flagSDKTask(task, service));
       }
 
       // Filter marathon tasks by service name
@@ -302,7 +326,8 @@ class MesosStateStore extends GetSetBaseStore {
           .concat(completed_tasks)
           .filter(({ name }) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks));
+          .map(task => assignSchedulerTaskField(task, schedulerTasks))
+          .map(task => flagSDKTask(task, service));
       }
 
       return serviceTasks;
