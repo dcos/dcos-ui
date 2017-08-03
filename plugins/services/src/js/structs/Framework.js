@@ -1,4 +1,5 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import {
   ROUTE_ACCESS_PREFIX,
@@ -32,6 +33,7 @@ module.exports = class Framework extends Application {
   }
 
   getTasksSummary() {
+    const isSDK = isSDKService(this);
     // TODO: Circular reference workaround DCOS_OSS-783
     const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
@@ -47,7 +49,7 @@ module.exports = class Framework extends Application {
       }
       if (task.statuses != null) {
         return task.statuses.reduce(function(memo, status) {
-          if (status.healthy) {
+          if (status.healthy || (isSDK && status.healthy === undefined)) {
             memo.tasksHealthy++;
             memo.tasksUnknown--;
           }
