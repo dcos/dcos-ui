@@ -219,10 +219,13 @@ class MesosStateStore extends GetSetBaseStore {
     frameworks.forEach(framework => {
       framework.tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
-          // Need to get service from Marathon because we need the labels
-          const service = DCOSStore.serviceTree.findServiceByName(
-            framework.name
-          );
+          // Need to get service from Marathon because we need the labels.
+          const service = DCOSStore.serviceTree.findItem(function(item) {
+            return (
+              item instanceof Framework &&
+              item.getFrameworkName() === framework.name
+            );
+          });
           task = assignSchedulerTaskField(task, schedulerTasks);
           task = flagSDKTask(task, service);
           memberTasks[task.id] = task;
