@@ -283,14 +283,18 @@ class MesosStateStore extends GetSetBaseStore {
     }
 
     const schedulerTasks = this.getSchedulerTasks();
+    const serviceIsFramework = service && service instanceof Framework;
+    const serviceFrameworkName = serviceIsFramework
+      ? service.getFrameworkName()
+      : serviceName;
 
     // Combine framework (if matching framework was found) and filtered
     // Marathon tasks. This will give you a list of framework tasks including
     // the scheduler tasks or a list of Marathon application tasks.
     return frameworks.reduce(function(serviceTasks, framework) {
       const { tasks = [], completed_tasks = {}, name } = framework;
-      // Include tasks from framework match, if service is a Framework
-      if (service instanceof Framework && name === serviceName) {
+
+      if (serviceIsFramework && serviceFrameworkName === name) {
         return serviceTasks
           .concat(tasks, completed_tasks)
           .map(task => assignSchedulerTaskField(task, schedulerTasks));
