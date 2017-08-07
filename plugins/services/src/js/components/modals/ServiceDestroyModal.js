@@ -197,16 +197,10 @@ class ServiceDestroyModal extends React.Component {
   getDestroyServiceModal() {
     const { open, service, intl } = this.props;
     const serviceName = service.getName();
+    const serviceLabel = this.getServiceLabel();
 
     let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
-
-    if (service instanceof Pod) {
-      itemText += " Pod";
-    }
-
-    if (service instanceof ServiceTree) {
-      itemText += " Group";
-    }
+    itemText += ` ${serviceLabel}`;
 
     return (
       <Confirm
@@ -226,9 +220,14 @@ class ServiceDestroyModal extends React.Component {
             id: "SERVICE_ACTIONS.DELETE_SERVICE"
           })}
           <strong>{serviceName}</strong>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_2"
-          })}
+          {intl.formatMessage(
+            {
+              id: "SERVICE_ACTIONS.DELETE_SERVICE_2"
+            },
+            {
+              label: serviceLabel.toLowerCase()
+            }
+          )}
         </p>
         <input
           className="form-control filter-input-text"
@@ -260,6 +259,20 @@ class ServiceDestroyModal extends React.Component {
         {this.props.subHeaderContent}
       </p>
     );
+  }
+
+  getServiceLabel() {
+    const { service } = this.props;
+
+    if (service instanceof Pod) {
+      return "Pod";
+    }
+
+    if (service instanceof ServiceTree) {
+      return "Group";
+    }
+
+    return "Service";
   }
 
   render() {
