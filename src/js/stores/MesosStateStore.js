@@ -134,8 +134,13 @@ class MesosStateStore extends GetSetBaseStore {
     const taskIndex = {};
 
     lastMesosState.frameworks.forEach(function(service) {
-      const tasks = service.tasks.concat(service.completed_tasks);
-      tasks.forEach(function(task) {
+      const {
+        tasks = [],
+        completed_tasks = [],
+        unreachable_tasks = []
+      } = service;
+
+      tasks.concat(completed_tasks, unreachable_tasks).forEach(function(task) {
         taskIndex[task.id] = task;
       });
     });
@@ -264,8 +269,9 @@ class MesosStateStore extends GetSetBaseStore {
     if (framework) {
       const activeTasks = framework.tasks || [];
       const completedTasks = framework.completed_tasks || [];
+      const unreachableTasks = framework.unreachable_tasks || [];
 
-      return activeTasks.concat(completedTasks);
+      return activeTasks.concat(completedTasks, unreachableTasks);
     }
 
     return [];
@@ -292,8 +298,13 @@ class MesosStateStore extends GetSetBaseStore {
     // Marathon tasks. This will give you a list of framework tasks including
     // the scheduler tasks or a list of Marathon application tasks.
     return frameworks.reduce(function(serviceTasks, framework) {
-      const { tasks = [], completed_tasks = {}, name } = framework;
-
+      const {
+        tasks = [],
+        completed_tasks = [],
+        unreachable_tasks = [],
+        name
+      } = framework;
+      // Include tasks from framework match, if service is a Framework
       if (serviceIsFramework && serviceFrameworkName === name) {
         return serviceTasks
           .concat(tasks, completed_tasks)
@@ -303,7 +314,7 @@ class MesosStateStore extends GetSetBaseStore {
       // Filter marathon tasks by service name
       if (name === "marathon") {
         return tasks
-          .concat(completed_tasks)
+          .concat(completed_tasks, unreachable_tasks)
           .filter(({ name }) => name === mesosTaskName)
           .concat(serviceTasks)
           .map(task => assignSchedulerTaskField(task, schedulerTasks));
