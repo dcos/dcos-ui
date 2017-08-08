@@ -178,6 +178,65 @@ describe("Containers", function() {
           }
         ]);
       });
+
+      it("sets forcePull correctly for multiple containers", function() {
+        const batch = [
+          new Transaction(["containers"], {}, ADD_ITEM),
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET),
+          new Transaction(["containers", 0, "image", "forcePull"], true, SET)
+        ].reduce(function(batch, transaction) {
+          return batch.add(transaction);
+        }, new Batch());
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 },
+            image: {
+              id: "nginx",
+              kind: "DOCKER",
+              forcePull: true
+            }
+          }
+        ]);
+      });
+
+      it("deletes the image object once id is set to empty and the forcePull to false", function() {
+        const batch = [
+          new Transaction(["containers"], {}, ADD_ITEM),
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET),
+          new Transaction(["containers", 0, "image", "forcePull"], true, SET),
+          new Transaction(["containers", 0, "image", "id"], "", SET),
+          new Transaction(["containers", 0, "image", "forcePull"], false, SET)
+        ].reduce(function(batch, transaction) {
+          return batch.add(transaction);
+        }, new Batch());
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 }
+          }
+        ]);
+      });
+
+      it("removes image object if forcePull is set to true and id is set to empty", function() {
+        const batch = [
+          new Transaction(["containers"], {}, ADD_ITEM),
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET),
+          new Transaction(["containers", 0, "image", "forcePull"], true, SET),
+          new Transaction(["containers", 0, "image", "id"], "", SET)
+        ].reduce(function(batch, transaction) {
+          return batch.add(transaction);
+        }, new Batch());
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 }
+          }
+        ]);
+      });
     });
 
     describe("endpoints", function() {

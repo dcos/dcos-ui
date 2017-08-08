@@ -37,6 +37,8 @@ import MultiContainerNetworkingFormSection
   from "../forms/MultiContainerNetworkingFormSection";
 import MultiContainerVolumesFormSection
   from "../forms/MultiContainerVolumesFormSection";
+import MultiContainerFormAdvancedSection
+  from "../forms/MultiContainerFormAdvancedSection";
 import NetworkingFormSection from "../forms/NetworkingFormSection";
 import PodSpec from "../../structs/PodSpec";
 import ServiceErrorMessages from "../../constants/ServiceErrorMessages";
@@ -373,10 +375,10 @@ class NewCreateServiceModalForm extends Component {
               More Settings
             </AdvancedSectionLabel>
             <AdvancedSectionContent>
-              <h3 className="short-top short-bottom">
-                Advanced Settings
-              </h3>
-              <p>Advanced settings of the container</p>
+              <MultiContainerFormAdvancedSection
+                data={data}
+                path={`containers.${index}`}
+              />
               <ArtifactsSection
                 data={artifacts}
                 path={artifactsPath}

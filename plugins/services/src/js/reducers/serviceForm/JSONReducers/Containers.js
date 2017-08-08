@@ -94,6 +94,14 @@ function containersParser(state) {
         new Transaction(["containers", index, "image", "id"], item.image.id)
       );
     }
+    if (item.image && item.image.forcePull) {
+      memo.push(
+        new Transaction(
+          ["containers", index, "image", "forcePull"],
+          item.image.forcePull
+        )
+      );
+    }
     if (item.resources != null) {
       const { resources } = item;
       if (resources.cpus != null) {
@@ -287,6 +295,10 @@ function containersParser(state) {
   }, []);
 }
 
+function shouldDeleteContainerImage(image) {
+  return image == null || !image.id;
+}
+
 module.exports = {
   JSONReducer(state = [], { type, path = [], value }, containerIndex) {
     if (containerIndex === 0) {
@@ -343,12 +355,12 @@ module.exports = {
       this.cache = [];
     }
 
-    if (this.endpoints == null) {
-      this.endpoints = [];
+    if (this.images == null) {
+      this.images = {};
     }
 
-    if (this.image == null) {
-      this.image = {};
+    if (this.endpoints == null) {
+      this.endpoints = [];
     }
 
     if (this.volumeMounts == null) {
@@ -481,15 +493,36 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === `containers.${index}.image`) {
-      newState[index].image = this.image = Object.assign({}, this.image, value);
+      newState[index].image = this.images[index] = Object.assign(
+        {},
+        newState[index].image,
+        value
+      );
     }
 
     if (type === SET && joinedPath === `containers.${index}.image.id`) {
-      newState[index].image = this.image = Object.assign({}, this.image, {
-        id: value,
-        kind: "DOCKER"
-      });
-      if (value === "") {
+      newState[index].image = this.images[index] = Object.assign(
+        {},
+        this.images[index],
+        {
+          id: value,
+          kind: "DOCKER"
+        }
+      );
+      if (shouldDeleteContainerImage(newState[index].image)) {
+        delete newState[index].image;
+      }
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
+      newState[index].image = this.images[index] = Object.assign(
+        {},
+        this.images[index],
+        {
+          forcePull: value
+        }
+      );
+      if (shouldDeleteContainerImage(newState[index].image)) {
         delete newState[index].image;
       }
     }
