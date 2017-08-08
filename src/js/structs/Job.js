@@ -2,6 +2,7 @@ import { cleanJobJSON } from "../utils/CleanJSONUtil";
 import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 import JobRunList from "./JobRunList";
+import JobStatus from "../constants/JobStatus";
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
@@ -72,7 +73,7 @@ module.exports = class Job extends Item {
 
   getLastRunStatus() {
     let { lastFailureAt, lastSuccessAt } = this.getLastRunsSummary();
-    let status = "N/A";
+    let status = JobStatus["N/A"].displayName;
     let time = null;
 
     if (lastFailureAt !== null) {
@@ -85,10 +86,10 @@ module.exports = class Job extends Item {
 
     if (lastFailureAt !== null || lastSuccessAt !== null) {
       if (lastFailureAt > lastSuccessAt) {
-        status = "Failed";
+        status = JobStatus["Failed"].displayName;
         time = lastFailureAt;
       } else {
-        status = "Success";
+        status = JobStatus["Success"].displayName;
         time = lastSuccessAt;
       }
     }

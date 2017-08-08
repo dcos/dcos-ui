@@ -6,12 +6,13 @@ import { Table, Tooltip } from "reactjs-components";
 
 import Icon from "../../components/Icon";
 import JobStates from "../../constants/JobStates";
+import JobStatus from "../../constants/JobStatus";
 import JobTableHeaderLabels from "../../constants/JobTableHeaderLables";
 import ResourceTableUtil from "../../utils/ResourceTableUtil";
 import TableUtil from "../../utils/TableUtil";
 import Tree from "../../structs/Tree";
 
-const METHODS_TO_BIND = ["renderHeadline"];
+const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
 
 class JobsTable extends React.Component {
   constructor() {
@@ -44,7 +45,7 @@ class JobsTable extends React.Component {
         prop: "name",
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: this.sortJobNames
+        sortFunction: this.jobSortFunction
       },
       {
         className,
@@ -52,14 +53,17 @@ class JobsTable extends React.Component {
         headerClassName: className,
         prop: "status",
         render: this.renderStatusColumn,
-        sortable: false
+        sortable: true,
+        sortFunction: this.jobSortFunction
       },
       {
         className,
         heading,
         headerClassName: className,
         prop: "lastRun",
-        render: this.renderLastRunStatusColumn
+        render: this.renderLastRunStatusColumn,
+        sortable: true,
+        sortFunction: this.jobSortFunction
       }
     ];
   }
@@ -96,7 +100,22 @@ class JobsTable extends React.Component {
     });
   }
 
-  sortJobNames(prop, direction) {
+  getCompareFunctionByProp(prop) {
+    switch (prop) {
+      case "name":
+        return (a, b) => a.name.localeCompare(b.name);
+      case "status":
+        return (a, b) =>
+          JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
+      case "lastRun":
+        return (a, b) =>
+          JobStatus[a.lastRun.status].sortOrder -
+          JobStatus[b.lastRun.status].sortOrder;
+    }
+  }
+
+  jobSortFunction(prop, direction) {
+    const compareFunction = this.getCompareFunctionByProp(prop);
     let score = 1;
 
     if (direction === "desc") {
@@ -111,7 +130,7 @@ class JobsTable extends React.Component {
         return score;
       }
 
-      return a.name.localeCompare(b.name);
+      return compareFunction(a, b);
     };
   }
 

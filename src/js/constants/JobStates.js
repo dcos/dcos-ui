@@ -1,35 +1,47 @@
+/**
+* Sort order is ordered by most important (lowest number, top of list)
+* to least important (largest number, bottom of list)
+*/
 const JobStates = {
   INITIAL: {
     stateTypes: ["active"],
-    displayName: "Starting"
+    displayName: "Starting",
+    sortOrder: 3
   },
   STARTING: {
     stateTypes: ["active"],
-    displayName: "Starting"
+    displayName: "Starting",
+    sortOrder: 3
   },
   ACTIVE: {
     stateTypes: ["active"],
-    displayName: "Running"
+    displayName: "Running",
+    sortOrder: 4
   },
   FAILED: {
     stateTypes: ["completed", "failure"],
-    displayName: "Failed"
+    displayName: "Failed",
+    sortOrder: 0
   },
   SUCCESS: {
     stateTypes: ["success"],
-    displayName: "Success"
+    displayName: "Success",
+    sortOrder: 6
   },
   COMPLETED: {
     stateTypes: ["success"],
-    displayName: "Completed"
+    displayName: "Completed",
+    sortOrder: 5
   },
   SCHEDULED: {
     stateTypes: [],
-    displayName: "Scheduled"
+    displayName: "Scheduled",
+    sortOrder: 2
   },
   UNSCHEDULED: {
     stateTypes: [],
-    displayName: "Unscheduled"
+    displayName: "Unscheduled",
+    sortOrder: 1
   }
 };
 
