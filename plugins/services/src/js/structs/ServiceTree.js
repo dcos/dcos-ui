@@ -113,16 +113,6 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
-  /**
-   * @param {string} name
-   * @return {Service} matching Service
-   */
-  findServiceByName(name) {
-    return this.findItem(function(item) {
-      return item.getName() === name && item instanceof Service;
-    });
-  }
-
   // TODO @pierlo-upitup MARATHON-1030: refactor for more generic usage
   filterItemsByFilter(filter) {
     let services = this.getItems();

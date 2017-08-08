@@ -45,6 +45,7 @@ function getTaskHealthFromMarathon(task) {
 
 function mergeHealth(task) {
   let health = TaskHealthStates.UNKNOWN;
+
   let taskHealth = getTaskHealthFromMesos(task);
 
   if (taskHealth === null) {
@@ -56,6 +57,14 @@ function mergeHealth(task) {
   }
   if (taskHealth === false) {
     health = TaskHealthStates.UNHEALTHY;
+  }
+
+  if (
+    health === TaskHealthStates.UNKNOWN &&
+    task.sdkTask &&
+    task.state === "TASK_RUNNING"
+  ) {
+    health = TaskHealthStates.HEALTHY;
   }
 
   task.health = health;
