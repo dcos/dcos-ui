@@ -29,6 +29,7 @@ var config = {
     '/node_modules/',
     '/.module-cache/'
   ],
+  'moduleDirectories': ["node_modules","packages"],
   'timers': 'fake',
   'coverageReporters': ["json", "lcov", "cobertura", "text"],
   // We need this to override jest's default ['/node_modules/']
@@ -60,6 +61,7 @@ var config = {
     'src/js/stores/GetSetBaseStore',
     'src/js/structs',
     'src/js/utils',
+    'packages',
     'plugins',
     'react',
     'reactjs-components',
