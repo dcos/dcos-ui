@@ -75,6 +75,7 @@ class CliInstallModal extends React.Component {
     }
 
     const instructions = [
+      `[ -d /usr/local/bin ] || sudo mkdir -p /usr/local/bin`,
       `curl ${downloadUrl} -o dcos`,
       `sudo mv dcos /usr/local/bin`,
       `sudo chmod +x /usr/local/bin/dcos`,
