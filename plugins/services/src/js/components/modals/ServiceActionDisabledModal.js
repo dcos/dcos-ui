@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react";
 import { injectIntl } from "react-intl";
+import { MountService } from "foundation-ui";
 import { Modal } from "reactjs-components";
 
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
@@ -219,31 +220,23 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceEditMessage() {
-    const { intl } = this.props;
-    const command = this.getUpdateCommand();
+    const { intl, service } = this.props;
 
     return (
-      <div>
-        <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_1"
-          })}
+      <MountService.Mount
+        type={"ServiceEditMessage:Modal"}
+        intl={intl}
+        service={service}
+      >
+        <div className="center">
+          Editing this service is only available on
           {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/config-universe-service"
-            )}
-            target="_blank"
-          >
-            options.json
+          <a href="https://mesosphere.com/product/" target="_blank">
+            Mesosphere Enterprise DC/OS
           </a>
-          .{" "}
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2"
-          })}
-        </p>
-        {this.getClipboardTrigger(command)}
-      </div>
+          .
+        </div>
+      </MountService.Mount>
     );
   }
 
