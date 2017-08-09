@@ -19,3 +19,5 @@ jest/test-results
 webpack/proxy.dev.js
 src/resources/raml
 .vscode/
+.chrome/
+.envrc
