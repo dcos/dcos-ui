@@ -223,7 +223,7 @@ class ServiceDestroyModal extends React.Component {
           <strong>{serviceName}</strong>
           {" "}
           {serviceLabel.toLowerCase()}.
-          Please type ("
+          Type ("
           <strong>{serviceName}</strong>
           ") below to confirm you want to delete the
           {" "}
