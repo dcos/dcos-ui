@@ -106,12 +106,8 @@ class ServiceRestartModal extends React.Component {
 
   render() {
     const { isPending, onClose, open, service, restartService } = this.props;
-    let serviceName = "";
+    const serviceName = service.getName();
     const serviceLabel = this.getServiceLabel();
-
-    if (service) {
-      serviceName = service.getName();
-    }
 
     return (
       <Confirm

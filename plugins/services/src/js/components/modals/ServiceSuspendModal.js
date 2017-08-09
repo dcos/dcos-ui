@@ -107,11 +107,7 @@ class ServiceSuspendModal extends React.Component {
   render() {
     const { isPending, onClose, open, service, suspendItem } = this.props;
     const serviceLabel = this.getServiceLabel();
-    let serviceName = "";
-
-    if (service) {
-      serviceName = service.getName();
-    }
+    const serviceName = service.getName();
 
     return (
       <Confirm
