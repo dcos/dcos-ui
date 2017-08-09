@@ -304,8 +304,8 @@ describe("Service Actions", function() {
 
     it("opens the correct service suspend dialog", function() {
       cy
-        .get(".confirm-modal p .emphasize")
-        .contains("/cassandra-healthy")
+        .get(".confirm-modal p strong")
+        .contains("cassandra-healthy")
         .should("to.have.length", 1);
     });
 

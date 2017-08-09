@@ -5,6 +5,7 @@ import PureRender from "react-addons-pure-render-mixin";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
 import AppLockedMessage from "./AppLockedMessage";
+import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
@@ -79,38 +80,64 @@ class ServiceRestartModal extends React.Component {
     );
   }
 
-  render() {
-    const { isPending, onClose, open, service, restartService } = this.props;
+  getServiceLabel() {
+    const { service } = this.props;
 
-    const heading = (
+    if (service instanceof Pod) {
+      return "Pod";
+    }
+
+    if (service instanceof ServiceTree) {
+      return "Group";
+    }
+
+    return "Service";
+  }
+
+  getModalHeading() {
+    const serviceLabel = this.getServiceLabel();
+
+    return (
       <ModalHeading>
-        Restart Service
+        Restart {serviceLabel}
       </ModalHeading>
     );
+  }
+
+  render() {
+    const { isPending, onClose, open, service, restartService } = this.props;
     let serviceName = "";
+    const serviceLabel = this.getServiceLabel();
 
     if (service) {
-      serviceName = service.getId();
+      serviceName = service.getName();
     }
 
     return (
       <Confirm
         disabled={isPending}
-        header={heading}
+        header={this.getModalHeading()}
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        rightButtonText="Restart Service"
+        rightButtonText={`Restart ${serviceLabel}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={() =>
           restartService(service, this.shouldForceUpdate())}
         showHeader={true}
       >
         <p>
-          Are you sure you want to restart
+          Restarting the
           {" "}
-          <span className="emphasize">{serviceName}</span>
-          ?
+          <strong>{serviceName}</strong>
+          {" "}
+          {serviceLabel.toLowerCase()}
+          {" "}
+          will remove all currently running instances of the
+          {" "}
+          {serviceLabel.toLowerCase()}
+          {" "}
+          and then attempt to create new instances identical to those removed.
         </p>
         {this.getErrorMessage()}
       </Confirm>

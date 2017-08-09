@@ -80,34 +80,46 @@ class ServiceSuspendModal extends React.Component {
     );
   }
 
-  render() {
-    const { isPending, onClose, open, service, suspendItem } = this.props;
-
-    let itemText = "Service";
-    let serviceName = "";
+  getServiceLabel() {
+    const { service } = this.props;
 
     if (service instanceof Pod) {
-      itemText = "Pod";
+      return "Pod";
     }
 
     if (service instanceof ServiceTree) {
-      itemText = "Group";
+      return "Group";
     }
 
-    if (service) {
-      serviceName = service.getId();
-    }
+    return "Service";
+  }
 
-    const heading = (
+  getModalHeading() {
+    const serviceLabel = this.getServiceLabel();
+
+    return (
       <ModalHeading>
-        Suspend {itemText}
+        Suspend {serviceLabel}
       </ModalHeading>
     );
+  }
+
+  render() {
+    const { isPending, onClose, open, service, suspendItem } = this.props;
+
+    let itemText = "";
+    let serviceName = "";
+    const serviceLabel = this.getServiceLabel();
+    itemText += ` ${serviceLabel}`;
+
+    if (service) {
+      serviceName = service.getName();
+    }
 
     return (
       <Confirm
         disabled={isPending}
-        header={heading}
+        header={this.getModalHeading()}
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
@@ -116,11 +128,17 @@ class ServiceSuspendModal extends React.Component {
         showHeader={true}
       >
         <p>
-          Are you sure you want to suspend
+          Suspending the
           {" "}
-          <span className="emphasize">{serviceName}</span>
+          <strong>{serviceName}</strong>
           {" "}
-          by scaling to 0 instances?
+          {serviceLabel.toLowerCase()}
+          {" "}
+          will remove all currently running instances of the
+          {" "}
+          {serviceLabel.toLowerCase()}.
+          {" "}
+          The {serviceLabel.toLowerCase()} will not be deleted.
         </p>
         {this.getErrorMessage()}
       </Confirm>
