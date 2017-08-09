@@ -106,11 +106,8 @@ class ServiceSuspendModal extends React.Component {
 
   render() {
     const { isPending, onClose, open, service, suspendItem } = this.props;
-
-    let itemText = "";
-    let serviceName = "";
     const serviceLabel = this.getServiceLabel();
-    itemText += ` ${serviceLabel}`;
+    let serviceName = "";
 
     if (service) {
       serviceName = service.getName();
@@ -123,7 +120,7 @@ class ServiceSuspendModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        rightButtonText={`Suspend ${itemText}`}
+        rightButtonText={`Suspend ${serviceLabel}`}
         rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}
         showHeader={true}
       >

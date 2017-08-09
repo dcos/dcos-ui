@@ -198,9 +198,7 @@ class ServiceDestroyModal extends React.Component {
     const { open, service } = this.props;
     const serviceName = service.getName();
     const serviceLabel = this.getServiceLabel();
-
-    let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
-    itemText += ` ${serviceLabel}`;
+    const itemText = `${StringUtil.capitalize(UserActions.DELETE)} ${serviceLabel}`;
 
     return (
       <Confirm
