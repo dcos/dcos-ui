@@ -118,8 +118,14 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === `containers.${index}.image.id`) {
-      newState[index] = Object.assign({}, newState[index], {
-        image: { id: value }
+      newState[index].image = Object.assign({}, newState[index].image, {
+        id: value
+      });
+    }
+
+    if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
+      newState[index].image = Object.assign({}, newState[index].image, {
+        forcePull: value
       });
     }
 
