@@ -62,6 +62,15 @@ describe("Service Form Modal", function() {
         });
       });
 
+      it("redirects to the catalog page after click install package", function() {
+        openServiceModal();
+        cy
+          .get(".create-service-modal-service-picker-option")
+          .contains("Install a Package")
+          .click();
+        cy.url().should("contain", "/catalog");
+      });
+
       it("remembers the selected form tab when switching back from JSON", function() {
         openServiceModal();
         openServiceForm();
