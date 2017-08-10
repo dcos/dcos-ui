@@ -63,6 +63,10 @@ class HashMapDisplay extends React.Component {
         value = value.toString();
       }
 
+      if (Array.isArray(value)) {
+        value = value.join(", ");
+      }
+
       // Check if we need to render a component in the dt
       if (Object.prototype.hasOwnProperty.call(renderKeys, key)) {
         key = renderKeys[key];
