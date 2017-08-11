@@ -195,18 +195,10 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyServiceModal() {
-    const { open, service, intl } = this.props;
+    const { open, service } = this.props;
     const serviceName = service.getName();
-
-    let itemText = `${StringUtil.capitalize(UserActions.DELETE)}`;
-
-    if (service instanceof Pod) {
-      itemText += " Pod";
-    }
-
-    if (service instanceof ServiceTree) {
-      itemText += " Group";
-    }
+    const serviceLabel = this.getServiceLabel();
+    const itemText = `${StringUtil.capitalize(UserActions.DELETE)} ${serviceLabel}`;
 
     return (
       <Confirm
@@ -222,13 +214,18 @@ class ServiceDestroyModal extends React.Component {
         showHeader={true}
       >
         <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE"
-          })}
+          This action
+          {" "}
+          <strong>CANNOT</strong> be undone. This will permanently delete the
+          {" "}
           <strong>{serviceName}</strong>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_2"
-          })}
+          {" "}
+          {serviceLabel.toLowerCase()}.
+          Type ("
+          <strong>{serviceName}</strong>
+          ") below to confirm you want to delete the
+          {" "}
+          {serviceLabel.toLowerCase()}.
         </p>
         <input
           className="form-control filter-input-text"
@@ -243,9 +240,11 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getModalHeading() {
+    const serviceLabel = this.getServiceLabel();
+
     return (
       <ModalHeading className="text-danger">
-        {StringUtil.capitalize(UserActions.DELETE)}
+        {StringUtil.capitalize(UserActions.DELETE)} {serviceLabel}
       </ModalHeading>
     );
   }
@@ -260,6 +259,20 @@ class ServiceDestroyModal extends React.Component {
         {this.props.subHeaderContent}
       </p>
     );
+  }
+
+  getServiceLabel() {
+    const { service } = this.props;
+
+    if (service instanceof Pod) {
+      return "Pod";
+    }
+
+    if (service instanceof ServiceTree) {
+      return "Group";
+    }
+
+    return "Service";
   }
 
   render() {
