@@ -3,7 +3,7 @@ FROM mesosphere/dcos-system-test-driver:latest
 # Specify the component versions to use
 ENV CYPRESS_VERSION="0.19.1" \
     NODE_VERSION="4.4.7" \
-    NPM_VERSION="3.9" \
+    NPM_VERSION="3.10" \
     JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Expose the 4200 port
@@ -19,7 +19,7 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 # Install required components & prepare environment
 RUN set -x \
 
-  # Install node 4.4.7 & npm 3.9
+  # Install node 4.4.7 & npm 3.10
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
 

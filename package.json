@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "engines": {
     "node": "4.4.x",
-    "npm": "3.9.x"
+    "npm": "3.10.x"
   },
   "browserslist": ["last 2 versions", "ie 11"],
   "config": {
@@ -127,7 +127,7 @@
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
-    "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
+    "fix-shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
