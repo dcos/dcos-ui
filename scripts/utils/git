@@ -68,3 +68,13 @@ install_hooks() {
 get_staged_files_with_name(){
   echo $(git diff --staged --name-only -- "$1")
 }
+
+# Get the fork point
+# This util will compare the provided <ref> (defaults to HEAD),
+# with either "origin/master" (default) or the configured base (.gitbase)
+# Example: get_fork_point HEAD
+get_fork_point(){
+  local base=$(cat .gitbase 2>/dev/null || echo "origin/master")
+
+  echo $(git merge-base --fork-point ${base} $1)
+}
