@@ -17,7 +17,7 @@ CONFIG_FILE=${CONFIG_DIR}/dcos.toml
 mkdir -p ${CONFIG_DIR}
 cat << EOF > ${CONFIG_FILE}
   [core]
-  ssl_verify = "false"
+  ssl_verify = false
   reporting = true
   timeout = 5
   dcos_url = "${CLUSTER_URL}"
