@@ -167,7 +167,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div className="pod flush-top flush-horizontal clearfix">
-        <h4 className="short flush-top">Certified Services</h4>
+        <h4 className="short flush-top">Certified</h4>
         <p className="tall flush-top">
           Certified packages are verified by Mesosphere for interoperability with DC/OS.
         </p>
@@ -188,7 +188,7 @@ class PackagesTab extends mixin(StoreMixin) {
         Community packages are unverified and unreviewed content from the community.
       </p>
     );
-    let title = "Community Services";
+    let title = "Community";
     const isSearchActive = this.state.searchString !== "";
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
