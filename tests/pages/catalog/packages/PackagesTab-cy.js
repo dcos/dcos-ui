@@ -113,15 +113,12 @@ describe("Packages Tab", function() {
     });
 
     it("should hide certified panels", function() {
-      cy
-        .get("h4")
-        .contains("Certified Services")
-        .should(function($certifiedHeading) {
-          expect($certifiedHeading.length).to.equal(0);
-        });
+      cy.get("h4").contains("Certified").should(function($certifiedHeading) {
+        expect($certifiedHeading.length).to.equal(0);
+      });
     });
 
-    it("should should only cassandra in panels", function() {
+    it("should show only cassandra in panels", function() {
       cy.get(".panel").should(function($panels) {
         expect($panels.length).to.equal(1);
       });
@@ -133,7 +130,7 @@ describe("Packages Tab", function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
       cy
         .get("h4")
-        .contains("Certified Services")
+        .contains("Certified")
         .closest(".pod")
         .find(".panel")
         .as("panels");
