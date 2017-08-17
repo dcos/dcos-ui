@@ -196,14 +196,14 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
-    if (instanceCount > 0) {
+    if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: "Suspend",
         onItemSelect: this.onActionsItemSelection.bind(this, SUSPEND)
       });
     }
 
-    if (instanceCount === 0) {
+    if (instanceCount === 0 && !isSDK) {
       actions.push({
         label: "Resume",
         onItemSelect: this.onActionsItemSelection.bind(this, RESUME)

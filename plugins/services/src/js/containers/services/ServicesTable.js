@@ -282,7 +282,7 @@ class ServicesTable extends React.Component {
       });
     }
 
-    if (instancesCount > 0) {
+    if (instancesCount > 0 && !isSDK) {
       actions.push({
         id: SUSPEND,
         html: this.props.intl.formatMessage({
@@ -291,7 +291,7 @@ class ServicesTable extends React.Component {
       });
     }
 
-    if (!isGroup && instancesCount === 0) {
+    if (!isGroup && instancesCount === 0 && !isSDK) {
       actions.push({
         id: RESUME,
         html: this.props.intl.formatMessage({

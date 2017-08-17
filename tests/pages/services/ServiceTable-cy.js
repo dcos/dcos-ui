@@ -241,55 +241,16 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the suspend dialog", function() {
-      openDropdown("sdk-sleep");
-      clickDropdownAction("Suspend");
-
-      cy
-        .get(".modal-header")
-        .contains("Suspend Service")
-        .should("to.have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
-    it("opens the resume dialog", function() {
-      cy.configureCluster({
-        mesos: "1-suspended-sdk-service",
-        nodeHealth: true
-      });
-
-      openDropdown("sdk-sleep");
-      clickDropdownAction("Resume");
-
-      cy
-        .get(".modal-header")
-        .contains("Resume Service")
-        .should("have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
     it("restart should not exist", function() {
       openDropdown("sdk-sleep");
 
       cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
+    });
+
+    it("suspend should not exist", function() {
+      openDropdown("sdk-sleep");
+
+      cy.get(".dropdown-menu-items").contains("suspend").should("not.exist");
     });
   });
 
@@ -327,30 +288,6 @@ describe("Service Table", function() {
       cy
         .get(".modal-header")
         .contains("Scale Group")
-        .should("to.have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
-
-      cy
-        .get(".modal pre")
-        .contains("dcos marathon app update /services/sleep options.json");
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
-    it("opens the suspend dialog", function() {
-      openDropdown("services");
-      clickDropdownAction("Suspend");
-
-      cy
-        .get(".modal-header")
-        .contains("Suspend Group")
         .should("to.have.length", 1);
 
       cy

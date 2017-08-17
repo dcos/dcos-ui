@@ -594,54 +594,19 @@ describe("Service Actions", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the suspend dialog", function() {
-      clickHeaderAction("Suspend");
-
-      cy
-        .get(".modal-header")
-        .contains("Suspend Service")
-        .should("to.have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
-    it("opens the resume dialog", function() {
-      cy.configureCluster({
-        mesos: "1-suspended-sdk-service",
-        nodeHealth: true
-      });
-
-      clickHeaderAction("Resume");
-
-      cy
-        .get(".modal-header")
-        .contains("Resume Service")
-        .should("have.length", 1);
-
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
     it("restart should not exist", function() {
       cy
         .get(".page-header-actions .dropdown")
         .click()
         .contains("restart")
+        .should("not.exist");
+    });
+
+    it("suspend should not exist", function() {
+      cy
+        .get(".page-header-actions .dropdown")
+        .click()
+        .contains("suspend")
         .should("not.exist");
     });
   });
