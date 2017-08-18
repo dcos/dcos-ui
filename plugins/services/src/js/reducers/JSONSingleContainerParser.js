@@ -49,6 +49,5 @@ module.exports = [
   portMappings, // Note: must come after portDefinitions, as it uses its information!
   requirePorts,
   residency,
-  fetch,
   unknownVolumes
 ];
