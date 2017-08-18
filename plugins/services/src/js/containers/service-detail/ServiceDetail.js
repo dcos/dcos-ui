@@ -167,6 +167,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     if (
       service instanceof Service &&
+      !isSDKService(service) &&
       service.getWebURL() != null &&
       service.getWebURL() !== ""
     ) {

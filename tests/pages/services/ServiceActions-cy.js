@@ -7,16 +7,13 @@ describe("Service Actions", function() {
   }
 
   context("Open Service Action", function() {
-    beforeEach(function() {
+    it('displays the "Open Service" option for services that have a web UI', function() {
       cy.configureCluster({
         mesos: "1-for-each-health",
         nodeHealth: true
       });
-
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-    });
 
-    it('displays the "Open Service" option for services that have a web UI', function() {
       cy.get(".page-header-actions .dropdown").click();
       cy
         .get(".dropdown-menu-items")
@@ -26,8 +23,28 @@ describe("Service Actions", function() {
         });
     });
 
-    it('does not display the "Open Service" option for services that have a web UI', function() {
+    it('does not display the "Open Service" option for services that do not have a web UI', function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true
+      });
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-unhealthy" });
+
+      cy.get(".page-header-actions .dropdown").click();
+      cy
+        .get(".dropdown-menu-items")
+        .contains("Open Service")
+        .should(function($menuItem) {
+          expect($menuItem.length).to.equal(0);
+        });
+    });
+
+    it('does not display the "Open Service" option for SDK services', function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/detail/%2Fservices%2Fsdk-sleep" });
 
       cy.get(".page-header-actions .dropdown").click();
       cy
