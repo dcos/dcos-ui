@@ -3,6 +3,7 @@ import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
 import { Link, routerShape } from "react-router";
 import React, { PropTypes } from "react";
+import { Hooks } from "PluginSDK";
 
 import Icon from "#SRC/js/components/Icon";
 import Links from "#SRC/js/constants/Links";
@@ -82,10 +83,14 @@ class ServicesTable extends React.Component {
         }) != null;
     }
 
+    // We still want to support the `open` action to display the web view
     if (
-      // We still want to support the `open` action to display the web view
-      actionItem.id !== OPEN &&
-      (containsSDKService || isSDKService(service))
+      (containsSDKService || isSDKService(service)) &&
+      !Hooks.applyFilter(
+        "isEnabledSDKAction",
+        actionItem.id === EDIT || actionItem.id === OPEN,
+        actionItem.id
+      )
     ) {
       this.handleActionDisabledModalOpen(service, actionItem.id);
     } else {

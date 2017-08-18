@@ -1,6 +1,7 @@
 import mixin from "reactjs-mixin";
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
+import { Hooks } from "PluginSDK";
 
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -85,7 +86,14 @@ class PodDetail extends mixin(TabsMixin) {
     }
 
     // We still want to support the `open` action to display the web view
-    if (actionID !== OPEN && (containsSDKService || isSDKService(pod))) {
+    if (
+      (containsSDKService || isSDKService(pod)) &&
+      !Hooks.applyFilter(
+        "isEnabledSDKAction",
+        actionID === EDIT || actionID === OPEN,
+        actionID
+      )
+    ) {
       this.handleActionDisabledModalOpen(actionID);
     } else {
       this.handleServiceAction(actionID);

@@ -573,25 +573,6 @@ describe("Service Actions", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the edit dialog", function() {
-      clickHeaderAction("Edit");
-
-      cy
-        .get(".modal-header")
-        .contains("Edit Service")
-        .should("to.have.length", 1);
-
-      cy
-        .get(".modal-body")
-        .contains(
-          "Editing this service is only available on Mesosphere Enterprise DC/OS."
-        );
-
-      cy.get(".modal button").contains("Close").click();
-
-      cy.get(".modal").should("not.exist");
-    });
-
     it("opens the scale dialog", function() {
       clickHeaderAction("Scale");
 
