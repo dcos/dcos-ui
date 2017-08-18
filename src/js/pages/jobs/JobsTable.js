@@ -166,7 +166,7 @@ class JobsTable extends React.Component {
       if (schedule.enabled) {
         scheduleIcon = (
           <Tooltip
-            wrapperClassName="tooltip-wrapper icon icon-margin-left"
+            wrapperClassName="tooltip-wrapper icon-margin-left"
             content={prettycron.toString(schedule.cron)}
             maxWidth={250}
             wrapText={true}
