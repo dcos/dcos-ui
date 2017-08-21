@@ -1,5 +1,3 @@
-import MesosOperatorApiClient from "./src/MesosOperatorApiClient";
+import MesosEventManager from "./src/translator/";
 
-module.exports = {
-  MesosOperatorApiClient
-};
+module.exports = MesosEventManager;

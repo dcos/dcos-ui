@@ -1,7 +1,6 @@
 import PluginSDK from "PluginSDK";
 
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-import EventStream from "../../../packages/dcos-event-stream/index";
 
 import AppDispatcher from "../events/AppDispatcher";
 import ActionTypes from "../constants/ActionTypes";
@@ -21,9 +20,6 @@ import Task from "../../../plugins/services/src/js/structs/Task";
 import VisibilityStore from "./VisibilityStore";
 
 var requestInterval = null;
-console.log(`${Config.historyServer}/mesos/api/v1`);
-var client = new EventStream.MesosOperatorApiClient();
-client.connect({ path: `${Config.historyServer}/mesos/api/v1` });
 
 function startPolling() {
   if (requestInterval == null) {

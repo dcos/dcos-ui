@@ -1,15 +1,7 @@
-/**
- * http://mesos.apache.org/documentation/latest/operator-http-api/
- */
 const EVENT_TYPES = {
-  SUBSCRIBED: "SUBSCRIBED",
-  TASK_ADDED: "TASK_ADDED",
-  TASK_UPDATED: "TASK_UPDATED",
-  FRAMEWORK_ADDED: "FRAMEWORK_ADDED",
-  FRAMEWORK_UPDATED: "FRAMEWORK_UPDATED",
-  FRAMEWORK_REMOVED: "FRAMEWORK_REMOVED",
-  AGENT_ADDED: "AGENT_ADDED",
-  AGENT_REMOVED: "AGENT_REMOVED"
+  ADD: Symbol("ADD"),
+  UPDATE: Symbol("UPDATE"),
+  REMOVE: Symbol("REMOVE")
 };
 
 module.exports = EVENT_TYPES;
