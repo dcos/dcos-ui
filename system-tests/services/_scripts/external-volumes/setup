@@ -26,7 +26,7 @@ cat <<EOF | dcos marathon app add
       {
         "containerPath": "data",
         "external": {
-          "name": "integration-test-dcos-ui-$TEST_UUID-exvolsingle",
+          "name": "dcos-system-test-${TEST_UUID}-external-volumes-single",
           "provider": "dvdi",
           "options": {
             "dvdi/driver": "rexray"
