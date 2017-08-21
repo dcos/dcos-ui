@@ -33,4 +33,4 @@
     scripts:
       setup: ./services/_scripts/setup; ./services/_scripts/external-volumes/setup
       run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec services/test-environment.js --spec services/test-external-volumes.js
-      teardown: ./services/_scripts/teardown; ./services/_scripts/external-volumes/teardown
+      teardown: ./services/_scripts/teardown

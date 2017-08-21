@@ -1,20 +1,5 @@
 #!/bin/bash
 
-if [ -z "$REGION" ]; then
-  echo "Error: Please specify the REGION environment variable"
-  exit 1
-fi
-
-if [ -z "$ACCESS_KEY_ID" ]; then
-  echo "Error: Please specify the ACCESS_KEY_ID environment variable"
-  exit 1
-fi
-
-if [ -z "$SECRET_ACCESS_KEY" ]; then
-  echo "Error: Please specify the SECRET_ACCESS_KEY environment variable"
-  exit 1
-fi
-
 # create app with external volumes
 cat <<EOF | dcos marathon app add
 {
@@ -26,7 +11,7 @@ cat <<EOF | dcos marathon app add
       {
         "containerPath": "data",
         "external": {
-          "name": "integration-test-dcos-ui-$TEST_UUID-exvolsingle",
+          "name": "dcos-system-test-${TEST_UUID}-external-volumes-single",
           "provider": "dvdi",
           "options": {
             "dvdi/driver": "rexray"

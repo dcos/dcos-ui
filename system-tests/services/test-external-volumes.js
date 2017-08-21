@@ -24,7 +24,7 @@ describe("Services", function() {
       const serviceName = "app-with-external-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
-      const volumeName = `integration-test-dcos-ui-${Cypress.env("TEST_UUID")}`;
+      const volumeName = `dcos-system-test-${Cypress.env("TEST_UUID")}-${serviceName}`;
 
       // Select 'Single Container'
       cy.contains("Single Container").click();
