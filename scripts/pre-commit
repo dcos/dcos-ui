@@ -27,9 +27,9 @@ then
 fi
 
 # Test staged JavaScript files
-# if [ -n "${staged_javascript_files}" ]
-# then
-#   header "Test staged JavaScript files.."
-#   npm run test --silent -- --findRelatedTests \
-#     ${staged_javascript_files} || exit $?
-# fi
+if [ -n "${staged_javascript_files}" ]
+then
+  header "Test staged JavaScript files.."
+  npm run test --silent -- --findRelatedTests \
+    ${staged_javascript_files} || exit $?
+fi
