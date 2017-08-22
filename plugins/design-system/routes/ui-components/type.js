@@ -1,6 +1,6 @@
 import { navigation, routing } from "foundation-ui";
 
-import ComponentPage from "../../pages/ui-components/ComponentPage";
+import ComponentPage from "../../pages/ComponentPage";
 
 import OverviewTab from "../../pages/ui-components/type/tabs/OverviewTab";
 import CodeTab from "../../pages/ui-components/type/tabs/CodeTab";
