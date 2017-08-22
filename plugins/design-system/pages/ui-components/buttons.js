@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
-import imageButtonTooltip from "../../../../img/button-tooltip.gif";
+import imageButtonTooltip from "../../img/button-tooltip.gif";
 
 class Buttons extends Component {
   render() {
