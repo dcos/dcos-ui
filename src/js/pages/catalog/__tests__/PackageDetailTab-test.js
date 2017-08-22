@@ -13,6 +13,7 @@ const Config = require("../../../config/Config");
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 require("../../../stores/CosmosPackagesStore");
+// const CosmosPackagesStore = require("#SRC/js/stores/CosmosPackagesStore");
 Config.useFixtures = configUseFixtures;
 /* eslint-enable import/newline-after-import */
 
@@ -200,6 +201,17 @@ describe("PackageDetailTab", function() {
       this.instance.render();
       expect(this.instance.getLoadingScreen).toHaveBeenCalled();
     });
+
+    // it("should call getLoadingScreen when cosmosPackageVersions is null", function() {
+    //   // mock CosmosPackagesStore
+    //   CosmosPackagesStore.getPackageVersions = function() {
+    //     return null;
+    //   };
+    //   this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
+
+    //   this.instance.render();
+    //   expect(this.instance.getLoadingScreen).toHaveBeenCalled();
+    // });
 
     it("ignores getLoadingScreen when not loading", function() {
       this.instance.state.isLoading = false;
