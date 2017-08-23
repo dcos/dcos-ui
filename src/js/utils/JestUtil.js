@@ -42,13 +42,6 @@ const JestUtil = {
     });
   },
 
-  dontMockStore(storeID) {
-    if (storeID in stores) {
-      jest.dontMock(stores[storeID]);
-
-      return true;
-    }
-  },
   /**
    * Generates a callback function to a filter() call that will
    * keep only DOMElements matching the given tag name(s)
