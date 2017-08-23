@@ -4,7 +4,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 
 import ServicesContainer from "../containers/services/ServicesContainer";
-import NewCreateServiceModal from "../components/modals/NewCreateServiceModal";
+import CreateServiceModal from "../components/modals/CreateServiceModal";
 import ServicesPage from "../pages/ServicesPage";
 import ServiceTaskDetailPage from "../pages/task-details/ServiceTaskDetailPage";
 import ServiceVolumeContainer
@@ -44,7 +44,7 @@ const serviceRoutes = [
           {
             type: Route,
             path: "create",
-            component: NewCreateServiceModal
+            component: CreateServiceModal
           },
           {
             type: Route,
@@ -53,7 +53,7 @@ const serviceRoutes = [
               {
                 type: Route,
                 path: "create",
-                component: NewCreateServiceModal
+                component: CreateServiceModal
               }
             ]
           }
@@ -73,12 +73,12 @@ const serviceRoutes = [
           {
             type: Route,
             path: "create",
-            component: NewCreateServiceModal
+            component: CreateServiceModal
           },
           {
             type: Route,
             path: "edit(/:version)",
-            component: NewCreateServiceModal
+            component: CreateServiceModal
           },
           // This route needs to be rendered outside of the tabs that are
           // rendered in the service-task-details route.
