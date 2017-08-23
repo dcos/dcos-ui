@@ -94,7 +94,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.retrievePackageInfo();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    const { version } = this.props.location.query;
+
+    if (version === prevProps.location.query.version) {
+      return false;
+    }
+
     this.retrievePackageInfo();
   }
 
