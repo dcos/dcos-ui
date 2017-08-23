@@ -45,9 +45,8 @@ import CreateServiceJsonOnly from "./CreateServiceJsonOnly";
 import EnvironmentFormSection from "../forms/EnvironmentFormSection";
 import MarathonAppValidators from "../../validators/MarathonAppValidators";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
-import NewCreateServiceModalServicePicker
-  from "./NewCreateServiceModalServicePicker";
-import NewCreateServiceModalForm from "./NewCreateServiceModalForm";
+import CreateServiceModalServicePicker from "./CreateServiceModalServicePicker";
+import CreateServiceModalForm from "./CreateServiceModalForm";
 import ServiceConfigDisplay
   from "../../service-configuration/ServiceConfigDisplay";
 import GeneralServiceFormSection from "../forms/GeneralServiceFormSection";
@@ -105,7 +104,7 @@ const APP_VALIDATORS = [
 
 const POD_VALIDATORS = [PodValidators.Pod, VipLabelsValidators.mustContainPort];
 
-class NewCreateServiceModal extends Component {
+class CreateServiceModal extends Component {
   constructor() {
     super(...arguments);
 
@@ -607,7 +606,7 @@ class NewCreateServiceModal extends Component {
 
     if (servicePickerActive) {
       return (
-        <NewCreateServiceModalServicePicker
+        <CreateServiceModalServicePicker
           onServiceSelect={this.handleServiceSelection}
         />
       );
@@ -692,7 +691,7 @@ class NewCreateServiceModal extends Component {
       }
 
       return (
-        <NewCreateServiceModalForm
+        <CreateServiceModalForm
           activeTab={this.state.activeTab}
           errors={this.getAllErrors()}
           jsonParserReducers={jsonParserReducers}
@@ -888,7 +887,7 @@ class NewCreateServiceModal extends Component {
         onClose={closeAction}
         useGemini={useGemini}
         open={isOpen}
-        {...Util.omit(props, Object.keys(NewCreateServiceModal.propTypes))}
+        {...Util.omit(props, Object.keys(CreateServiceModal.propTypes))}
       >
         {this.getModalContent()}
         <Confirm
@@ -912,13 +911,13 @@ class NewCreateServiceModal extends Component {
   }
 }
 
-NewCreateServiceModal.contextTypes = {
+CreateServiceModal.contextTypes = {
   router: routerShape
 };
 
-NewCreateServiceModal.propTypes = {
+CreateServiceModal.propTypes = {
   params: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
 
-module.exports = NewCreateServiceModal;
+module.exports = CreateServiceModal;

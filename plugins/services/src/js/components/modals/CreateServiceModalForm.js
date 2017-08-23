@@ -74,7 +74,7 @@ const CONSTANTLY_UNMUTED_ERRORS = [
   /^localVolumes\.[0-9]+\./
 ];
 
-class NewCreateServiceModalForm extends Component {
+class CreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
 
@@ -722,7 +722,7 @@ class NewCreateServiceModalForm extends Component {
   }
 }
 
-NewCreateServiceModalForm.defaultProps = {
+CreateServiceModalForm.defaultProps = {
   errors: [],
   handleTabChange() {},
   isJSONModeActive: false,
@@ -731,7 +731,7 @@ NewCreateServiceModalForm.defaultProps = {
   showAllErrors: false
 };
 
-NewCreateServiceModalForm.propTypes = {
+CreateServiceModalForm.propTypes = {
   activeTab: PropTypes.string,
   errors: PropTypes.array,
   handleTabChange: PropTypes.func,
@@ -742,4 +742,4 @@ NewCreateServiceModalForm.propTypes = {
   showAllErrors: PropTypes.bool
 };
 
-module.exports = NewCreateServiceModalForm;
+module.exports = CreateServiceModalForm;
