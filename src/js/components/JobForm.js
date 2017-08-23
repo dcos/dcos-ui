@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import FormUtil from "../utils/FormUtil";
@@ -20,6 +21,16 @@ const FIELDS_TO_WATCH = {
   }
 };
 
+type Props = {
+  className?: string,
+  defaultTab?: string,
+  isEdit?: boolean,
+  getTriggerSubmit?: Function,
+  onChange?: Function,
+  onTabChange?: Function,
+  schema?: Object
+};
+
 class JobForm extends SchemaForm {
   constructor() {
     super(...arguments);
@@ -28,6 +39,8 @@ class JobForm extends SchemaForm {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentWillMount() {
     this.multipleDefinition = this.getNewDefinition();
@@ -150,16 +163,6 @@ JobForm.defaultProps = {
   onChange() {},
   onTabChange() {},
   schema: {}
-};
-
-JobForm.propTypes = {
-  className: React.PropTypes.string,
-  defaultTab: React.PropTypes.string,
-  isEdit: React.PropTypes.bool,
-  getTriggerSubmit: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onTabChange: React.PropTypes.func,
-  schema: React.PropTypes.object
 };
 
 module.exports = JobForm;

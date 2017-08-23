@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import { Form, Tooltip } from "reactjs-components";
 import GeminiScrollbar from "react-gemini-scrollbar";
@@ -16,6 +17,20 @@ const METHODS_TO_BIND = [
   "handleExternalSubmit"
 ];
 
+type Props = {
+  className?: classPropType,
+  defaultTab?: string,
+  definition: Object,
+  formContentClassNames?: classPropType,
+  formRowClass?: classPropType,
+  getTriggerSubmit?: Function,
+  navigationContentClassNames?: classPropType,
+  onError?: Function,
+  onChange?: Function,
+  onSubmit?: Function,
+  onTabClick?: Function
+};
+
 class TabForm extends mixin(InternalStorageMixin) {
   constructor() {
     super();
@@ -28,6 +43,8 @@ class TabForm extends mixin(InternalStorageMixin) {
 
     this.triggerSubmit = function() {};
   }
+
+
 
   componentWillMount() {
     this.model = {};
@@ -240,19 +257,5 @@ const classPropType = React.PropTypes.oneOfType([
   React.PropTypes.object,
   React.PropTypes.string
 ]);
-
-TabForm.propTypes = {
-  className: classPropType,
-  defaultTab: React.PropTypes.string,
-  definition: React.PropTypes.object.isRequired,
-  formContentClassNames: classPropType,
-  formRowClass: classPropType,
-  getTriggerSubmit: React.PropTypes.func,
-  navigationContentClassNames: classPropType,
-  onError: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func,
-  onTabClick: React.PropTypes.func
-};
 
 module.exports = TabForm;

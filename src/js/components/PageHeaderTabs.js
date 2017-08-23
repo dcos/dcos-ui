@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link, routerShape } from "react-router";
 import React from "react";
@@ -5,6 +6,15 @@ import React from "react";
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
 const METHODS_TO_BIND = ["handleNavigationItemSelection"];
+
+type Props = {
+  tabs?: Array<{
+    isActive?: boolean,
+    label: number | string | React.Element | Array<any>,
+    routePath?: string,
+    callback?: Function
+  }>
+};
 
 class PageHeaderTabs extends React.Component {
   constructor() {
@@ -14,6 +24,8 @@ class PageHeaderTabs extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleNavigationItemSelection(navItem) {
     const { callback, routePath } = navItem;
@@ -116,17 +128,6 @@ PageHeaderTabs.contextTypes = {
 
 PageHeaderTabs.defaultProps = {
   tabs: []
-};
-
-PageHeaderTabs.propTypes = {
-  tabs: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      isActive: React.PropTypes.bool,
-      label: React.PropTypes.node.isRequired,
-      routePath: React.PropTypes.string,
-      callback: React.PropTypes.func
-    })
-  )
 };
 
 module.exports = PageHeaderTabs;

@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
 
@@ -89,6 +90,13 @@ function placementConstraintLabel(name, tooltipText, options = {}) {
   );
 }
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class GeneralServiceFormSection extends Component {
   constructor() {
     super(...arguments);
@@ -99,6 +107,8 @@ class GeneralServiceFormSection extends Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleConvertToPod() {
     this.props.onConvertToPod();
@@ -664,13 +674,6 @@ GeneralServiceFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-GeneralServiceFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 GeneralServiceFormSection.configReducers = General;

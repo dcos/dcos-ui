@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 import PureRender from "react-addons-pure-render-mixin";
 
@@ -6,6 +7,15 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
 const METHODS_TO_BIND = ["handleNewGroupSubmit"];
+
+type Props = {
+  clearError: Function,
+  createGroup: Function,
+  errors?: string,
+  isPending: boolean,
+  parentGroupId?: string,
+  onClose: Function,
+};
 
 class ServiceGroupFormModal extends React.Component {
   constructor() {
@@ -17,6 +27,8 @@ class ServiceGroupFormModal extends React.Component {
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
+
+
 
   componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;
@@ -105,14 +117,5 @@ class ServiceGroupFormModal extends React.Component {
     );
   }
 }
-
-ServiceGroupFormModal.propTypes = {
-  clearError: PropTypes.func.isRequired,
-  createGroup: PropTypes.func.isRequired,
-  errors: PropTypes.string,
-  isPending: PropTypes.bool.isRequired,
-  parentGroupId: PropTypes.string,
-  onClose: PropTypes.func.isRequired
-};
 
 module.exports = ServiceGroupFormModal;

@@ -1,3 +1,4 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
@@ -16,11 +17,15 @@ import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Units from "#SRC/js/utils/Units";
 
+type Props = { node: Node };
+
 class NodeDetailTab extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
+
+
 
   render() {
     const { node } = this.props;
@@ -98,9 +103,5 @@ class NodeDetailTab extends React.Component {
     );
   }
 }
-
-NodeDetailTab.propTypes = {
-  node: React.PropTypes.instanceOf(Node).isRequired
-};
 
 module.exports = NodeDetailTab;

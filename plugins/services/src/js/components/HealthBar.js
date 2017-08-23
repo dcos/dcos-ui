@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -6,7 +7,21 @@ import StatusBar from "#SRC/js/components/StatusBar";
 
 import HealthBarStates from "../constants/HealthBarStates";
 
+type Props = {
+  isDeploying?: boolean,
+  instancesCount?: number,
+  tasksSummary: {
+    tasksRunning?: number,
+    tasksHealthy?: number,
+    tasksOverCapacity?: number,
+    tasksStaged?: number,
+    tasksUnhealthy?: number,
+    tasksUnknown?: number,
+  },
+};
+
 class HealthBar extends React.Component {
+
   getMappedTasksSummary(tasksSummary) {
     return Object.keys(tasksSummary)
       .filter(function(task) {
@@ -103,19 +118,6 @@ class HealthBar extends React.Component {
 HealthBar.defaultProps = {
   isDeploying: false,
   instancesCount: null
-};
-
-HealthBar.propTypes = {
-  isDeploying: React.PropTypes.bool,
-  instancesCount: React.PropTypes.number,
-  tasksSummary: React.PropTypes.shape({
-    tasksRunning: React.PropTypes.number,
-    tasksHealthy: React.PropTypes.number,
-    tasksOverCapacity: React.PropTypes.number,
-    tasksStaged: React.PropTypes.number,
-    tasksUnhealthy: React.PropTypes.number,
-    tasksUnknown: React.PropTypes.number
-  }).isRequired
 };
 
 module.exports = HealthBar;

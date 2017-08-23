@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -26,7 +27,10 @@ const columns = [
   }
 ];
 
-const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
+type Props = { onEditClick?: Function };
+
+const PodEnvironmentVariablesConfigSection = (props: Props) => {
+  const { appConfig, onEditClick } = props;
   const { environment = {}, containers = [] } = appConfig;
 
   if (!environment || !containers) {
@@ -81,10 +85,6 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
       </ConfigurationMapSection>
     </div>
   );
-};
-
-PodEnvironmentVariablesConfigSection.propTypes = {
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodEnvironmentVariablesConfigSection;

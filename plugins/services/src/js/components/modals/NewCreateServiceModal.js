@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import deepEqual from "deep-equal";
 import React, { Component, PropTypes } from "react";
@@ -915,11 +916,6 @@ class NewCreateServiceModal extends Component {
 
 NewCreateServiceModal.contextTypes = {
   router: routerShape
-};
-
-NewCreateServiceModal.propTypes = {
-  params: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
 };
 
 module.exports = NewCreateServiceModal;

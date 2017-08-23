@@ -1,3 +1,4 @@
+/* @flow */
 import { Tooltip } from "reactjs-components";
 import { MountService } from "foundation-ui";
 import React, { Component } from "react";
@@ -21,7 +22,16 @@ import {
   FormReducer as labels
 } from "../../reducers/serviceForm/FormReducers/Labels";
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+  mountType?: string,
+};
+
 class EnvironmentFormSection extends Component {
+
   getEnvironmentLines(data) {
     const errors = this.props.errors.env || {};
 
@@ -276,14 +286,6 @@ EnvironmentFormSection.defaultProps = {
   onAddItem() {},
   onRemoveItem() {},
   mountType: "CreateService:EnvironmentFormSection"
-};
-
-EnvironmentFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  mountType: React.PropTypes.string
 };
 
 EnvironmentFormSection.configReducers = {

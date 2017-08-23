@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -27,7 +28,10 @@ function getNetworkType(networkType, appDefinition) {
   return networkName != null ? Networking.type.USER : networkType;
 }
 
+type Props = {};
+
 class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
+
   /**
    * @override
    */

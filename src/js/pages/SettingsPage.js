@@ -1,8 +1,12 @@
+/* @flow */
 import React from "react";
 
 import Icon from "../components/Icon";
 
+type Props = {};
+
 class SettingsPage extends React.Component {
+
   render() {
     return this.props.children;
   }

@@ -1,3 +1,4 @@
+/* @flow */
 import Ace from "react-ace";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";
@@ -469,13 +470,6 @@ JobFormModal.defaultProps = {
   job: new Job(),
   onClose() {},
   open: false
-};
-
-JobFormModal.propTypes = {
-  isEdit: React.PropTypes.bool,
-  job: React.PropTypes.instanceOf(Job),
-  open: React.PropTypes.bool,
-  onClose: React.PropTypes.func
 };
 
 module.exports = JobFormModal;

@@ -1,3 +1,4 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
@@ -13,6 +14,29 @@ const HEALTH_FILTER_BUTTONS = ["all", "healthy", "unhealthy"];
 
 const METHODS_TO_BIND = ["onResetFilter"];
 
+type Props = {
+  byServiceFilter?: string,
+  filterButtonContent?: Function,
+  filterInputText?: number | string | React.Element | Array<any>,
+  filterItemList: Array<any>,
+  filteredNodeCount: number,
+  handleFilterChange: Function,
+  hosts: Array<any>,
+  isFiltering?: boolean,
+  nodeCount: number,
+  onFilterChange?: Function,
+  onResetFilter: Function,
+  onResourceSelectionChange: Function,
+  refreshRate: number,
+  selectedFilter?: string,
+  selectedResource: string,
+  services: Array<any>,
+  totalHostsResources: Object,
+  totalNodeCount: number,
+  totalResources: Object,
+  viewTypeRadioButtons: number | string | React.Element | Array<any>,
+};
+
 class HostsPageContent extends React.Component {
   constructor() {
     super(...arguments);
@@ -22,6 +46,8 @@ class HostsPageContent extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onResetFilter() {
     this.props.onResetFilter(...arguments);
@@ -103,28 +129,5 @@ class HostsPageContent extends React.Component {
     );
   }
 }
-
-HostsPageContent.propTypes = {
-  byServiceFilter: React.PropTypes.string,
-  filterButtonContent: React.PropTypes.func,
-  filterInputText: React.PropTypes.node,
-  filterItemList: React.PropTypes.array.isRequired,
-  filteredNodeCount: React.PropTypes.number.isRequired,
-  handleFilterChange: React.PropTypes.func.isRequired,
-  hosts: React.PropTypes.array.isRequired,
-  isFiltering: React.PropTypes.bool,
-  nodeCount: React.PropTypes.number.isRequired,
-  onFilterChange: React.PropTypes.func,
-  onResetFilter: React.PropTypes.func.isRequired,
-  onResourceSelectionChange: React.PropTypes.func.isRequired,
-  refreshRate: React.PropTypes.number.isRequired,
-  selectedFilter: React.PropTypes.string,
-  selectedResource: React.PropTypes.string.isRequired,
-  services: React.PropTypes.array.isRequired,
-  totalHostsResources: React.PropTypes.object.isRequired,
-  totalNodeCount: React.PropTypes.number.isRequired,
-  totalResources: React.PropTypes.object.isRequired,
-  viewTypeRadioButtons: React.PropTypes.node.isRequired
-};
 
 module.exports = HostsPageContent;

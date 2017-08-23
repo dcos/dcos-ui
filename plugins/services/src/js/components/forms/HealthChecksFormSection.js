@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
@@ -32,7 +33,15 @@ import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 const errorsLens = Objektiv.attr("healthChecks", []);
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class HealthChecksFormSection extends Component {
+
   getAdvancedSettings(healthCheck, key) {
     if (
       healthCheck.protocol !== COMMAND &&
@@ -492,13 +501,6 @@ HealthChecksFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-HealthChecksFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 HealthChecksFormSection.configReducers = {

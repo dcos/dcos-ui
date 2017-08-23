@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -18,6 +19,11 @@ const METHODS_TO_BIND = [
   "handleSelectionChange"
 ];
 
+type Props = {
+  instances: PodInstanceList,
+  pod: Pod,
+};
+
 class PodInstancesView extends React.Component {
   constructor() {
     super(...arguments);
@@ -34,6 +40,8 @@ class PodInstancesView extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getInstanceFilterStatus(instance) {
     const status = instance.getInstanceStatus();
@@ -166,11 +174,6 @@ PodInstancesView.contextTypes = {
     killPodInstances: React.PropTypes.func.isRequired
   }).isRequired,
   router: routerShape
-};
-
-PodInstancesView.propTypes = {
-  instances: React.PropTypes.instanceOf(PodInstanceList).isRequired,
-  pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 
 module.exports = PodInstancesView;

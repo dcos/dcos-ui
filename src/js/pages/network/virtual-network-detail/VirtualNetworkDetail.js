@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
 /* eslint-disable no-unused-vars */

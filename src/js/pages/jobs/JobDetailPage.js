@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -43,6 +44,8 @@ const DIALOGS = {
   DESTROY: "destroy"
 };
 
+type Props = {};
+
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   constructor() {
     super(...arguments);
@@ -83,6 +86,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

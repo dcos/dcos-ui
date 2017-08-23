@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import ActionKeys from "../../constants/ActionKeys";
@@ -12,7 +13,17 @@ import ServiceScaleFormModal from "./ServiceScaleFormModal";
 import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
 import ServiceSuspendModal from "./ServiceSuspendModal";
 
+type Props = {
+  actionErrors: Object,
+  actions?: actionPropTypes,
+  clearError: Function,
+  onClose: Function,
+  modalProps?: Object,
+  pendingActions?: Object,
+};
+
 class ServiceModals extends React.Component {
+
   getGroupModal() {
     const {
       actions,
@@ -225,14 +236,5 @@ const actionPropTypes = PropTypes.shape({
   deleteService: PropTypes.func,
   restartService: PropTypes.func
 }).isRequired;
-
-ServiceModals.propTypes = {
-  actionErrors: PropTypes.object.isRequired,
-  actions: actionPropTypes,
-  clearError: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  modalProps: PropTypes.object,
-  pendingActions: PropTypes.object
-};
 
 module.exports = ServiceModals;

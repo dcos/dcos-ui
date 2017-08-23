@@ -1,3 +1,4 @@
+/* @flow */
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
@@ -25,11 +26,15 @@ const NetworkingBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
 };
 
+type Props = {};
+
 class NetworkPage extends mixin(TabsMixin) {
   constructor() {
     super(...arguments);
     this.state = {};
   }
+
+
 
   componentWillMount() {
     super.componentWillMount(...arguments);

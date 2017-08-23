@@ -1,9 +1,26 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import CollapsingString from "./CollapsingString";
 
+type Props = {
+  actionButtons?: Array<React.Element>,
+  icon?: number | string | React.Element | Array<any>,
+  navigationTabs?: number | string | React.Element | Array<any>,
+  subTitle?: number | string | React.Element | Array<any>,
+  title?: string,
+  className?: classPropType,
+  detailViewHeaderClassNames?: classPropType,
+  detailViewHeaderContentHeadingClassNames?: classPropType,
+  detailViewHeaderContentWrapperClassNames?: classPropType,
+  titleClassName?: classPropType,
+  iconClassName?: classPropType,
+  subTitleClassName?: classPropType
+};
+
 class DetailViewHeader extends React.Component {
+
   getIcon() {
     const { icon, iconClassName } = this.props;
 
@@ -126,22 +143,6 @@ const classPropType = React.PropTypes.oneOfType([
 
 DetailViewHeader.defaultProps = {
   actionButtons: []
-};
-
-DetailViewHeader.propTypes = {
-  actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
-  icon: React.PropTypes.node,
-  navigationTabs: React.PropTypes.node,
-  subTitle: React.PropTypes.node,
-  title: React.PropTypes.string,
-
-  className: classPropType,
-  detailViewHeaderClassNames: classPropType,
-  detailViewHeaderContentHeadingClassNames: classPropType,
-  detailViewHeaderContentWrapperClassNames: classPropType,
-  titleClassName: classPropType,
-  iconClassName: classPropType,
-  subTitleClassName: classPropType
 };
 
 module.exports = DetailViewHeader;

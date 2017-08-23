@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import React from "react";
@@ -39,6 +40,14 @@ const METHODS_TO_BIND = [
   "renderVersion"
 ];
 
+type Props = {
+  checkedItemsMap?: Object,
+  className?: string,
+  onCheckboxChange?: Function,
+  params: Object,
+  tasks: Array<any>,
+};
+
 class TaskTable extends React.Component {
   constructor() {
     super(...arguments);
@@ -47,6 +56,8 @@ class TaskTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getStatValue(task, prop) {
     return task.resources[prop];
@@ -402,14 +413,6 @@ class TaskTable extends React.Component {
 
 TaskTable.contextTypes = {
   router: routerShape.isRequired
-};
-
-TaskTable.propTypes = {
-  checkedItemsMap: React.PropTypes.object,
-  className: React.PropTypes.string,
-  onCheckboxChange: React.PropTypes.func,
-  params: React.PropTypes.object.isRequired,
-  tasks: React.PropTypes.array.isRequired
 };
 
 TaskTable.defaultProps = {

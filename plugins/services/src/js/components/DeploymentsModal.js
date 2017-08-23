@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Confirm, Dropdown, Modal } from "reactjs-components";
 import { hashHistory } from "react-router";
@@ -60,6 +61,8 @@ function columnClassNameGetter(prop, sortBy, row) {
   );
 }
 
+type Props = {};
+
 class DeploymentsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -78,6 +81,8 @@ class DeploymentsModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     }, this);
   }
+
+
 
   onMarathonStoreDeploymentRollbackSuccess(data) {
     const { deploymentToRollback } = this.state;

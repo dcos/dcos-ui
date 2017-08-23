@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -28,7 +29,13 @@ function getNetworkTypes(networks) {
   return networks.map(({ mode }) => NETWORK_MODE_NAME[mode]).join(", ");
 }
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class PodNetworkConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -128,11 +135,6 @@ class PodNetworkConfigSection extends React.Component {
 
 PodNetworkConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodNetworkConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodNetworkConfigSection;

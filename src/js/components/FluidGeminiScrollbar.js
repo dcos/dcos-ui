@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import React from "react";
@@ -32,12 +33,16 @@ import Util from "../utils/Util";
 let componentMountCount = 0;
 let styleElement = null;
 
+type Props = { className?: string | Object };
+
 class FluidGeminiScrollbar extends React.Component {
   constructor() {
     super(...arguments);
 
     this.geminiRef = null;
   }
+
+
 
   componentDidMount() {
     // If the browser's scrollbar width is larger than zero and this is the
@@ -110,12 +115,5 @@ class FluidGeminiScrollbar extends React.Component {
     );
   }
 }
-
-FluidGeminiScrollbar.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object
-  ])
-};
 
 module.exports = FluidGeminiScrollbar;

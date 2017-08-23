@@ -1,3 +1,4 @@
+/* @flow */
 import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 import React, { PropTypes } from "react";
@@ -292,15 +293,6 @@ ServiceDetail.contextTypes = {
     openService: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-ServiceDetail.propTypes = {
-  actions: PropTypes.object.isRequired,
-  clearError: PropTypes.func,
-  errors: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  service: PropTypes.instanceOf(Service).isRequired,
-  children: PropTypes.node
 };
 
 module.exports = injectIntl(ServiceDetail);

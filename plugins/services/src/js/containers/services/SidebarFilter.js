@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Form } from "reactjs-components";
 import React from "react";
@@ -214,15 +215,5 @@ class SidebarFilter extends React.Component {
     );
   }
 }
-
-SidebarFilter.propTypes = {
-  countByValue: React.PropTypes.object.isRequired,
-  filters: React.PropTypes.object.isRequired,
-  filterLabels: React.PropTypes.object.isRequired,
-  filterType: React.PropTypes.string.isRequired,
-  filterValues: React.PropTypes.object.isRequired,
-  handleFilterChange: React.PropTypes.func.isRequired,
-  title: React.PropTypes.string
-};
 
 module.exports = SidebarFilter;

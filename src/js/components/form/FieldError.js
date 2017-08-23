@@ -1,9 +1,15 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import { omit } from "../../utils/Util";
 
-const FieldError = props => {
+type Props = {
+  // Classes
+  className?: Array<any> | Object | string
+};
+
+const FieldError = (props: Props) => {
   const { className } = props;
   const classes = classNames("form-control-feedback", className);
 
@@ -13,15 +19,6 @@ const FieldError = props => {
       {...omit(props, Object.keys(FieldError.propTypes))}
     />
   );
-};
-
-FieldError.propTypes = {
-  // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = FieldError;

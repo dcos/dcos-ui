@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -9,7 +10,13 @@ import ConfigurationMapSection
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class PodPlacementConstraintsConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -71,11 +78,6 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
 PodPlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodPlacementConstraintsConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodPlacementConstraintsConfigSection;

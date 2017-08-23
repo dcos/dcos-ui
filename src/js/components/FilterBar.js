@@ -1,11 +1,21 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
+
+type Props = {
+  className?: string,
+  rightAlignLastNChildren?: number,
+  leftChildrenClass?: string,
+  rightChildrenClass?: string
+};
 
 class FilterBar extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
+
+
 
   getFilterBarLeft(filterItems, rightAlignCount) {
     if (filterItems.length === rightAlignCount) {
@@ -59,13 +69,6 @@ class FilterBar extends React.Component {
     );
   }
 }
-
-FilterBar.propTypes = {
-  className: React.PropTypes.string,
-  rightAlignLastNChildren: React.PropTypes.number,
-  leftChildrenClass: React.PropTypes.string,
-  rightChildrenClass: React.PropTypes.string
-};
 
 FilterBar.defaultProps = {
   className: "filter-bar",

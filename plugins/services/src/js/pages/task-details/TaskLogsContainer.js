@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -11,6 +12,14 @@ import Task from "../../structs/Task";
 import TaskDirectory from "../../structs/TaskDirectory";
 import TaskFileViewer from "./TaskFileViewer";
 import TaskSystemLogsContainer from "./TaskSystemLogsContainer";
+
+type Props = {
+  directory?: TaskDirectory,
+  params?: Object,
+  routes?: Array<any>,
+  selectedLogFile?: Object,
+  task?: Task,
+};
 
 class TaskLogsContainer extends mixin(StoreMixin) {
   constructor() {
@@ -27,6 +36,8 @@ class TaskLogsContainer extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   componentWillMount() {
     // We already have a configuration, so stop loading. No need to fetch
@@ -78,13 +89,5 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-TaskLogsContainer.propTypes = {
-  directory: React.PropTypes.instanceOf(TaskDirectory),
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array,
-  selectedLogFile: React.PropTypes.object,
-  task: React.PropTypes.instanceOf(Task)
-};
 
 module.exports = TaskLogsContainer;

@@ -1,7 +1,15 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
+type Props = {
+  activeTab?: string,
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string
+};
+
 class TabViewList extends React.Component {
+
   getChildren() {
     const { activeTab, children } = this.props;
 
@@ -27,15 +35,5 @@ class TabViewList extends React.Component {
     );
   }
 }
-
-TabViewList.propTypes = {
-  activeTab: React.PropTypes.string,
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOf([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
-};
 
 module.exports = TabViewList;

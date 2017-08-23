@@ -1,6 +1,10 @@
+/* @flow */
 import React from "react";
 
+type Props = { title?: string };
+
 class BreadcrumbTextContent extends React.Component {
+
   render() {
     if (!this.props.children) {
       return <noscript />;
@@ -13,9 +17,5 @@ class BreadcrumbTextContent extends React.Component {
     );
   }
 }
-
-BreadcrumbTextContent.propTypes = {
-  title: React.PropTypes.string
-};
 
 module.exports = BreadcrumbTextContent;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -13,7 +14,10 @@ import Units from "#SRC/js/utils/Units";
 
 import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
 
+type Props = {};
+
 class DeclinedOffersTable extends React.Component {
+
   areResourcesUnmatched(requestedResource, receivedResource) {
     if (Array.isArray(receivedResource)) {
       return receivedResource.includes(requestedResource);

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -7,6 +8,14 @@ import Icon from "./Icon";
  * Methods to bind in 'this' context
  */
 const METHODS_TO_BIND = ["toggleExpanded"];
+
+type Props = {
+  className?: string,
+  details?: Array<any>,
+  expanded?: boolean,
+  message?: number | string | React.Element | Array<any>,
+  onToggle?: Function
+};
 
 /**
  * An error bar component commonly used in the ServiceForm and the JobsForm
@@ -43,6 +52,8 @@ class CollapsibleErrorMessage extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   /**
    * Set the default expanded state from the properties
@@ -200,14 +211,6 @@ CollapsibleErrorMessage.defaultProps = {
   expanded: false,
   message: "",
   onToggle() {}
-};
-
-CollapsibleErrorMessage.propTypes = {
-  className: React.PropTypes.string,
-  details: React.PropTypes.array,
-  expanded: React.PropTypes.bool,
-  message: React.PropTypes.node,
-  onToggle: React.PropTypes.func
 };
 
 module.exports = CollapsibleErrorMessage;

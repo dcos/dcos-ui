@@ -1,9 +1,17 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import { omit } from "../../utils/Util";
 
-const FieldTextarea = props => {
+type Props = {
+  onChange?: Function,
+  value?: number | string,
+  // Classes
+  className?: Array<any> | Object | string
+};
+
+const FieldTextarea = (props: Props) => {
   const { className } = props;
   const classes = classNames("form-control", className);
 
@@ -13,21 +21,6 @@ const FieldTextarea = props => {
 FieldTextarea.defaultProps = {
   onChange() {},
   value: ""
-};
-
-FieldTextarea.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
-  ]),
-
-  // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = FieldTextarea;

@@ -1,9 +1,18 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import Icon from "./Icon";
 
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  isExpanded?: boolean,
+  onClick?: Function
+};
+
 class CollapsingPanelHeader extends React.Component {
+
   getStateIndicator() {
     let iconID = "caret-down";
 
@@ -28,16 +37,5 @@ class CollapsingPanelHeader extends React.Component {
     );
   }
 }
-
-CollapsingPanelHeader.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  isExpanded: React.PropTypes.bool,
-  onClick: React.PropTypes.func
-};
 
 module.exports = CollapsingPanelHeader;

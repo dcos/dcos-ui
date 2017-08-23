@@ -1,3 +1,4 @@
+/* @flow */
 import browserInfo from "browser-info";
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
@@ -15,6 +16,14 @@ const osTypes = {
   Linux: "linux"
 };
 
+type Props = {
+  title: string,
+  subHeaderContent?: string,
+  showFooter: boolean,
+  footer?: number | string | React.Element | Array<any>,
+  onClose: Function,
+};
+
 class CliInstallModal extends React.Component {
   constructor() {
     super(...arguments);
@@ -30,6 +39,8 @@ class CliInstallModal extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleSelectedOSChange(selectedOS) {
     this.setState({ selectedOS });
@@ -202,13 +213,5 @@ class CliInstallModal extends React.Component {
     );
   }
 }
-
-CliInstallModal.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  subHeaderContent: React.PropTypes.string,
-  showFooter: React.PropTypes.bool.isRequired,
-  footer: React.PropTypes.node,
-  onClose: React.PropTypes.func.isRequired
-};
 
 module.exports = CliInstallModal;

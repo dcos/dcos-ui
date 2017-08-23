@@ -1,9 +1,16 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import FilterInputText from "#SRC/js/components/FilterInputText";
 import ServiceFilterTypes from "../../constants/ServiceFilterTypes";
 
+type Props = {
+  filters?: Object,
+  handleFilterChange: Function,
+};
+
 class ServiceSearchFilter extends React.Component {
+
   shouldComponentUpdate(nextProps) {
     return nextProps.filters.searchString !== this.props.filters.searchString;
   }
@@ -27,10 +34,5 @@ class ServiceSearchFilter extends React.Component {
     );
   }
 }
-
-ServiceSearchFilter.propTypes = {
-  filters: PropTypes.object,
-  handleFilterChange: PropTypes.func.isRequired
-};
 
 module.exports = ServiceSearchFilter;

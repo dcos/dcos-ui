@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
@@ -77,11 +78,5 @@ class FuzzyTextDSLSection extends React.Component {
     );
   }
 }
-
-FuzzyTextDSLSection.propTypes = {
-  onApply: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
-};
 
 module.exports = FuzzyTextDSLSection;

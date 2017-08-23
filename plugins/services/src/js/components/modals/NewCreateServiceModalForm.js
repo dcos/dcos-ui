@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import deepEqual from "deep-equal";
 import React, { PropTypes, Component } from "react";
@@ -719,17 +720,6 @@ NewCreateServiceModalForm.defaultProps = {
   onChange() {},
   onErrorStateChange() {},
   showAllErrors: false
-};
-
-NewCreateServiceModalForm.propTypes = {
-  activeTab: PropTypes.string,
-  errors: PropTypes.array,
-  handleTabChange: PropTypes.func,
-  isJSONModeActive: PropTypes.bool,
-  onChange: PropTypes.func,
-  onErrorStateChange: PropTypes.func,
-  service: PropTypes.object,
-  showAllErrors: PropTypes.bool
 };
 
 module.exports = NewCreateServiceModalForm;

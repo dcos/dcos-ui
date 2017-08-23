@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -34,6 +35,8 @@ const METHODS_TO_BIND = [
 
 const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
+type Props = { overlay?: Overlay };
+
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -56,6 +59,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onStateStoreError(errorMessage) {
     this.setState({ tasksDataReceived: true, errorMessage });
@@ -311,10 +316,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
 VirtualNetworkTaskTab.contextTypes = {
   router: routerShape
-};
-
-VirtualNetworkTaskTab.propTypes = {
-  overlay: React.PropTypes.instanceOf(Overlay)
 };
 
 module.exports = VirtualNetworkTaskTab;

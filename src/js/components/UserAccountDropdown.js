@@ -1,9 +1,13 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import React from "react";
 
 import UserAccountDropdownTrigger from "./UserAccountDropdownTrigger";
 
+type Props = {};
+
 class UserAccountDropdown extends React.Component {
+
   getMenuItems() {
     return [
       {

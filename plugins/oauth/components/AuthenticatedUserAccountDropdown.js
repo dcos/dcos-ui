@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 const SDK = require("../SDK").getSDK();
@@ -8,7 +9,10 @@ const { AuthStore, UserAccountDropdown, UserAccountDropdownTrigger } = SDK.get([
   "UserAccountDropdownTrigger"
 ]);
 
+type Props = {};
+
 class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
+
   getUserLabel() {
     const user = AuthStore.getUser();
 

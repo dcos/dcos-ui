@@ -1,3 +1,4 @@
+/* @flow */
 import TestUtils from "react-addons-test-utils";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -149,6 +150,7 @@ const JestUtil = {
   ) {
     // Create wrapper component
     class WrappedComponent extends React.Component {
+
       static get childContextTypes() {
         return Object.assign(
           {

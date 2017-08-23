@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
@@ -18,7 +19,15 @@ function getTitle(children) {
   return null;
 }
 
-function FormGroupHeadingContent({ className, children, primary, title }) {
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  primary?: boolean,
+  title?: string,
+};
+
+function FormGroupHeadingContent(props: Props) {
+  const { className, children, primary, title } = props;
   if (children == null) {
     return <noscript />;
   }
@@ -40,17 +49,6 @@ function FormGroupHeadingContent({ className, children, primary, title }) {
 
 FormGroupHeadingContent.defaultProps = {
   primary: false
-};
-
-FormGroupHeadingContent.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  primary: React.PropTypes.bool,
-  title: React.PropTypes.string
 };
 
 module.exports = FormGroupHeadingContent;

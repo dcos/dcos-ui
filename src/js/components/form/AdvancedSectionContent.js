@@ -1,7 +1,14 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
-const AdvancedSectionContent = ({ className, children }) => {
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+};
+
+const AdvancedSectionContent = (props: Props) => {
+  const { className, children } = props;
   const classes = classNames("advanced-section-content", className);
 
   return (
@@ -9,15 +16,6 @@ const AdvancedSectionContent = ({ className, children }) => {
       {children}
     </div>
   );
-};
-
-AdvancedSectionContent.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = AdvancedSectionContent;

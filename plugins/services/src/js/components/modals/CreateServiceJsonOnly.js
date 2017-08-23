@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 import deepEqual from "deep-equal";
 
@@ -122,14 +123,6 @@ CreateServiceJsonOnly.defaultProps = {
   onChange() {},
   onErrorsChange() {},
   onPropertyChange() {}
-};
-
-CreateServiceJsonOnly.propTypes = {
-  errors: PropTypes.array.isRequired,
-  onChange: PropTypes.func,
-  onErrorsChange: PropTypes.func,
-  onPropertyChange: PropTypes.func,
-  service: PropTypes.object
 };
 
 module.exports = CreateServiceJsonOnly;

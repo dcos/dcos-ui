@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import React from "react";
@@ -26,6 +27,14 @@ const METHODS_TO_BIND = [
   "validateForm"
 ];
 
+type Props = {
+  getTriggerSubmit?: Function,
+  schema?: Object,
+  packageIcon?: string,
+  packageName?: string,
+  packageVersion?: string
+};
+
 class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   constructor() {
     super();
@@ -39,6 +48,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     this.triggerSubmit = function() {};
     this.isValidated = true;
   }
+
+
 
   componentWillMount() {
     super.componentWillMount(...arguments);
@@ -430,14 +441,6 @@ SchemaForm.defaultProps = {
   getTriggerSubmit() {},
   onChange() {},
   schema: {}
-};
-
-SchemaForm.propTypes = {
-  getTriggerSubmit: React.PropTypes.func,
-  schema: React.PropTypes.object,
-  packageIcon: React.PropTypes.string,
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string
 };
 
 module.exports = SchemaForm;

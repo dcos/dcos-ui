@@ -1,3 +1,4 @@
+/* @flow */
 jest.dontMock("../MountService");
 /* eslint-disable no-unused-vars */
 const React = require("react");
@@ -13,7 +14,11 @@ describe("MountService", function() {
     "Provided component/type ReactComponent/type" +
     "combination is already registered";
 
-  class ReactComponent extends React.Component {}
+  type Props = {};
+
+  class ReactComponent extends React.Component {
+
+  }
   const FunctionalComponent = function() {};
 
   beforeEach(function() {

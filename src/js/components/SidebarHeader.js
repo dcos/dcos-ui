@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { MountService } from "foundation-ui";
 import React from "react";
@@ -11,6 +12,8 @@ import SidebarActions from "../events/SidebarActions";
 import UserAccountDropdown from "./UserAccountDropdown";
 
 const METHODS_TO_BIND = ["handleItemSelect", "handleTextCopy"];
+
+type Props = {};
 
 class SidebarHeader extends mixin(StoreMixin) {
   constructor() {
@@ -42,6 +45,8 @@ class SidebarHeader extends mixin(StoreMixin) {
       "Sidebar:UserAccountDropdown"
     );
   }
+
+
 
   getClusterName() {
     const states = MesosSummaryStore.get("states");

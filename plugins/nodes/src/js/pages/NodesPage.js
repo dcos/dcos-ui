@@ -1,8 +1,12 @@
+/* @flow */
 import React from "react";
 
 import Icon from "#SRC/js/components/Icon";
 
+type Props = {};
+
 class NodesPage extends React.Component {
+
   render() {
     return this.props.children;
   }

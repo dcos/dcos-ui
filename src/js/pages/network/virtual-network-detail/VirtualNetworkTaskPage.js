@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Link } from "react-router";
 
@@ -71,7 +72,13 @@ const NetworksDetailTaskBreadcrumbs = ({
   return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
 };
 
+type Props = {
+  params?: Object,
+  routes?: Array<any>,
+};
+
 class VirtualNetworkTaskPage extends React.Component {
+
   render() {
     const { location, params, routes } = this.props;
     const { overlayName, taskID } = params;
@@ -117,10 +124,5 @@ class VirtualNetworkTaskPage extends React.Component {
     );
   }
 }
-
-VirtualNetworkTaskPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
-};
 
 module.exports = VirtualNetworkTaskPage;

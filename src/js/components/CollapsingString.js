@@ -1,3 +1,4 @@
+/* @flow */
 import DeepEqual from "deep-equal";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -5,6 +6,20 @@ import ReactDOM from "react-dom";
 import DOMUtils from "../utils/DOMUtils";
 
 const METHODS_TO_BIND = ["updateDimensions"];
+
+type Props = {
+  // The number of characters to keep visible at the end of the string.
+  endLength?: number,
+  fullStringClassName?: string,
+  // The selector for the parent whose width should be referenced. By default,
+  // the node's direct parent will be used.
+  parentSelector?: string,
+  string: string,
+  truncatedStringEndClassName?: string,
+  truncatedStringStartClassName?: string,
+  truncatedWrapperClassName?: string,
+  wrapperClassName?: string
+};
 
 class CollapsingString extends React.Component {
   constructor() {
@@ -20,6 +35,8 @@ class CollapsingString extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     if (global != null) {
@@ -163,20 +180,6 @@ CollapsingString.defaultProps = {
   truncatedStringStartClassName: "collapsing-string-truncated-start",
   truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
   wrapperClassName: "collapsing-string"
-};
-
-CollapsingString.propTypes = {
-  // The number of characters to keep visible at the end of the string.
-  endLength: React.PropTypes.number,
-  fullStringClassName: React.PropTypes.string,
-  // The selector for the parent whose width should be referenced. By default,
-  // the node's direct parent will be used.
-  parentSelector: React.PropTypes.string,
-  string: React.PropTypes.string.isRequired,
-  truncatedStringEndClassName: React.PropTypes.string,
-  truncatedStringStartClassName: React.PropTypes.string,
-  truncatedWrapperClassName: React.PropTypes.string,
-  wrapperClassName: React.PropTypes.string
 };
 
 module.exports = CollapsingString;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -6,7 +7,21 @@ import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
 import PageHeaderTabs from "./PageHeaderTabs";
 import SidebarToggle from "./SidebarToggle";
 
+type Props = {
+  addButton?: Array<Object> | Object,
+  actions?: Array<any>,
+  breadcrumbs: number | string | React.Element | Array<any>,
+  className?: classProps,
+  innerClassName?: classProps,
+  primaryContentClassName?: classProps,
+  secondaryContentClassName?: classProps,
+  secondaryContentDetail?: number | string | React.Element | Array<any>,
+  supplementalContent?: number | string | React.Element | Array<any>,
+  tabs?: Array<any>
+};
+
 class PageHeader extends React.Component {
+
   render() {
     const {
       props: {
@@ -74,22 +89,6 @@ const classProps = React.PropTypes.oneOfType([
 PageHeader.defaultProps = {
   actions: [],
   tabs: []
-};
-
-PageHeader.propTypes = {
-  addButton: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.object),
-    React.PropTypes.object
-  ]),
-  actions: React.PropTypes.array,
-  breadcrumbs: React.PropTypes.node.isRequired,
-  className: classProps,
-  innerClassName: classProps,
-  primaryContentClassName: classProps,
-  secondaryContentClassName: classProps,
-  secondaryContentDetail: React.PropTypes.node,
-  supplementalContent: React.PropTypes.node,
-  tabs: React.PropTypes.array
 };
 
 PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;

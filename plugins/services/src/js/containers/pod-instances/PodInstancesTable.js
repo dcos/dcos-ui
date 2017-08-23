@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import deepEqual from "deep-equal";
 import React from "react";
@@ -481,14 +482,6 @@ PodInstancesTable.defaultProps = {
   inverseStyle: false,
   onSelectionChange() {},
   pod: null
-};
-
-PodInstancesTable.propTypes = {
-  filterText: React.PropTypes.string,
-  instances: React.PropTypes.instanceOf(PodInstanceList),
-  inverseStyle: React.PropTypes.bool,
-  onSelectionChange: React.PropTypes.func,
-  pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 
 module.exports = PodInstancesTable;

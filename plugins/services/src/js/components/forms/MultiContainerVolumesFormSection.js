@@ -1,3 +1,4 @@
+/* @flow */
 import { Tooltip } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
@@ -24,7 +25,16 @@ import VolumeConstants from "../../constants/VolumeConstants";
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  handleTabChange?: Function,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class MultiContainerVolumesFormSection extends Component {
+
   getContainerMounts(containers, volumeMountIndex) {
     const { volumeMounts } = this.props.data;
 
@@ -242,14 +252,6 @@ MultiContainerVolumesFormSection.defaultProps = {
   handleTabChange() {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-MultiContainerVolumesFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  handleTabChange: React.PropTypes.func,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 MultiContainerVolumesFormSection.configReducers = {

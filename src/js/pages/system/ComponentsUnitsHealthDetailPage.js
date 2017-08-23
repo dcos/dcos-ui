@@ -1,3 +1,4 @@
+/* @flow */
 import { Link } from "react-router";
 import React from "react";
 
@@ -49,7 +50,10 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
 };
 
+type Props = {};
+
 class ComponentsUnitHealthDetailPage extends React.Component {
+
   render() {
     const { unitID, unitNodeID } = this.props.params;
 

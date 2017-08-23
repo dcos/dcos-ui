@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router";
@@ -15,7 +16,13 @@ import Page from "#SRC/js/components/Page";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import VolumeStatus from "../../constants/VolumeStatus";
 
+type Props = {
+  service: Object,
+  volume: Object,
+};
+
 class VolumeDetail extends React.Component {
+
   getSizeLabel() {
     if (this.props.volume.type === "External") {
       return "Size (GiB)";
@@ -121,10 +128,5 @@ class VolumeDetail extends React.Component {
     );
   }
 }
-
-VolumeDetail.propTypes = {
-  service: React.PropTypes.object.isRequired,
-  volume: React.PropTypes.object.isRequired
-};
 
 module.exports = VolumeDetail;

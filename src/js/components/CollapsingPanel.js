@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -5,6 +6,11 @@ import CollapsingPanelContent from "./CollapsingPanelContent";
 import CollapsingPanelHeader from "./CollapsingPanelHeader";
 
 const METHODS_TO_BIND = ["handleHeadingClick"];
+
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string
+};
 
 class CollapsingPanel extends React.Component {
   constructor() {
@@ -18,6 +24,8 @@ class CollapsingPanel extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleHeadingClick() {
     this.setState({ isExpanded: !this.state.isExpanded });
@@ -50,14 +58,5 @@ class CollapsingPanel extends React.Component {
     );
   }
 }
-
-CollapsingPanel.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
-};
 
 module.exports = CollapsingPanel;

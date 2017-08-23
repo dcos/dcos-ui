@@ -1,9 +1,16 @@
+/* @flow */
 import React from "react";
 
 import Alert from "./Alert";
 import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
 
-const ErrorsAlert = function(props) {
+type Props = {
+  errors?: Array<any>,
+  hideTopLevelErrors?: boolean,
+  pathMapping?: Array<any>
+};
+
+const ErrorsAlert = function(props: Props) {
   const { errors, hideTopLevelErrors, pathMapping } = props;
   let showErrors = errors;
 
@@ -53,12 +60,6 @@ ErrorsAlert.defaultProps = {
   errors: [],
   hideTopLevelErrors: false,
   pathMapping: []
-};
-
-ErrorsAlert.propTypes = {
-  errors: React.PropTypes.array,
-  hideTopLevelErrors: React.PropTypes.bool,
-  pathMapping: React.PropTypes.array
 };
 
 module.exports = ErrorsAlert;

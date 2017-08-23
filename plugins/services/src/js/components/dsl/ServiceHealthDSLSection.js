@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
@@ -16,7 +17,13 @@ const EXPRESSION_PARTS = {
   no_healthchecks: DSLExpressionPart.attribute("no", "healthchecks")
 };
 
+type Props = {
+  onChange: Function,
+  expression: DSLExpression,
+};
+
 class ServiceHealthDSLSection extends React.Component {
+
   render() {
     const { expression, onChange } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
@@ -74,10 +81,5 @@ class ServiceHealthDSLSection extends React.Component {
     );
   }
 }
-
-ServiceHealthDSLSection.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
-};
 
 module.exports = ServiceHealthDSLSection;

@@ -1,9 +1,20 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import TabButtonList from "./TabButtonList";
 
+type Props = {
+  // Optional variable to set active tab from owner component
+  activeTab?: string,
+  children: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  handleTabChange: Function,
+  vertical?: boolean
+};
+
 class Tabs extends React.Component {
+
   getChildren() {
     const { props } = this;
 
@@ -31,18 +42,5 @@ class Tabs extends React.Component {
     );
   }
 }
-
-Tabs.propTypes = {
-  // Optional variable to set active tab from owner component
-  activeTab: React.PropTypes.string,
-  children: React.PropTypes.node.isRequired,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  handleTabChange: React.PropTypes.func.isRequired,
-  vertical: React.PropTypes.bool
-};
 
 module.exports = Tabs;

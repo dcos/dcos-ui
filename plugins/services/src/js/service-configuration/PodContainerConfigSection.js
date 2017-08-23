@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -34,12 +35,19 @@ function getCommand(containerConfig) {
   return null;
 }
 
-const PodContainerConfigSection = ({
-  containerConfig,
-  appConfig,
-  onEditClick,
-  index
-}) => {
+type Props = {
+  index?: number,
+  onEditClick?: Function,
+};
+
+const PodContainerConfigSection = (props: Props) => {
+  const {
+    containerConfig,
+    appConfig,
+    onEditClick,
+    index
+  } = props;
+
   const fields = {
     command: getCommand(containerConfig),
     resources: containerConfig.resources || {},
@@ -148,11 +156,6 @@ const PodContainerConfigSection = ({
 
     </ConfigurationMapSection>
   );
-};
-
-PodContainerConfigSection.propTypes = {
-  index: React.PropTypes.number,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodContainerConfigSection;

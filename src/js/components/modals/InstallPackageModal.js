@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -645,14 +646,6 @@ InstallPackageModal.defaultProps = {
   isBetaPackage: false,
   onClose() {},
   open: false
-};
-
-InstallPackageModal.propTypes = {
-  advancedConfig: React.PropTypes.bool,
-  cosmosPackage: React.PropTypes.instanceOf(UniversePackage).isRequired,
-  isBetaPackage: React.PropTypes.bool,
-  open: React.PropTypes.bool,
-  onClose: React.PropTypes.func
 };
 
 module.exports = InstallPackageModal;

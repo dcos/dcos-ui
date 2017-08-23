@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
@@ -21,7 +22,16 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  handleTabChange?: Function,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class MultiContainerHealthChecksFormSection extends Component {
+
   getAdvancedSettings(healthCheck, path, errorsLens) {
     const errors = errorsLens.get(this.props.errors);
 
@@ -520,14 +530,6 @@ MultiContainerHealthChecksFormSection.defaultProps = {
   handleTabChange() {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-MultiContainerHealthChecksFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  handleTabChange: React.PropTypes.func,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 module.exports = MultiContainerHealthChecksFormSection;

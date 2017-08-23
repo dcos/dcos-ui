@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import throttle from "lodash.throttle";
@@ -329,15 +330,6 @@ LogView.defaultProps = {
   highlightText: "",
   fetchPreviousLogs() {},
   onCountChange() {}
-};
-
-LogView.propTypes = {
-  hasLoadedTop: React.PropTypes.bool,
-  highlightText: React.PropTypes.string,
-  fetchPreviousLogs: React.PropTypes.func,
-  onCountChange: React.PropTypes.func,
-  logName: React.PropTypes.string,
-  watching: React.PropTypes.number
 };
 
 module.exports = LogView;

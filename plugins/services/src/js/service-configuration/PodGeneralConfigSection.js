@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -69,7 +70,10 @@ function getInstances(appConfig) {
   return null;
 }
 
-const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
+type Props = { onEditClick?: Function };
+
+const PodGeneralConfigSection = (props: Props) => {
+  const { appConfig, onEditClick } = props;
   const fields = {
     instances: getInstances(appConfig),
     backoff: findNestedPropertyInObject(
@@ -208,10 +212,6 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
       </ConfigurationMapSection>
     </div>
   );
-};
-
-PodGeneralConfigSection.propTypes = {
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodGeneralConfigSection;

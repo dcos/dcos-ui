@@ -1,9 +1,20 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import { findNestedPropertyInObject, omit } from "../../utils/Util";
 
-const FieldLabel = props => {
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  // Vertically center the element based on the height of input fields
+  matchInputHeight?: boolean,
+  // Optional boolean to show a required indicator
+  required?: boolean,
+  // Classes
+  className?: Array<any> | Object | string
+};
+
+const FieldLabel = (props: Props) => {
   const { children, className, matchInputHeight, required } = props;
   let isToggle = false;
   React.Children.forEach(children, child => {
@@ -41,21 +52,6 @@ const FieldLabel = props => {
       {label}
     </div>
   );
-};
-
-FieldLabel.propTypes = {
-  children: React.PropTypes.node,
-  // Vertically center the element based on the height of input fields
-  matchInputHeight: React.PropTypes.bool,
-  // Optional boolean to show a required indicator
-  required: React.PropTypes.bool,
-
-  // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = FieldLabel;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
@@ -58,6 +59,11 @@ const METHODS_TO_BIND = [
   "renderServiceActions"
 ];
 
+type Props = {
+  isFiltered?: boolean,
+  services?: Array<any>,
+};
+
 class ServicesTable extends React.Component {
   constructor() {
     super(...arguments);
@@ -68,6 +74,8 @@ class ServicesTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onActionsItemSelection(service, actionItem) {
     const isGroup = service instanceof ServiceTree;
@@ -505,11 +513,6 @@ ServicesTable.contextTypes = {
 ServicesTable.defaultProps = {
   isFiltered: false,
   services: []
-};
-
-ServicesTable.propTypes = {
-  isFiltered: PropTypes.bool,
-  services: PropTypes.array
 };
 
 module.exports = injectIntl(ServicesTable);

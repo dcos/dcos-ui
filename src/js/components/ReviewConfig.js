@@ -1,3 +1,4 @@
+/* @flow */
 import GeminiScrollbar from "react-gemini-scrollbar";
 import React from "react";
 
@@ -9,7 +10,16 @@ import Icon from "./Icon";
 import Image from "./Image";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 
+type Props = {
+  className?: string,
+  configuration: Object,
+  packageIcon?: string,
+  packageName?: string,
+  packageVersion?: string
+};
+
 class ReviewConfig extends React.Component {
+
   componentDidMount() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
@@ -98,14 +108,6 @@ class ReviewConfig extends React.Component {
 
 ReviewConfig.defaultProps = {
   className: "modal-install-package-body-and-header"
-};
-
-ReviewConfig.propTypes = {
-  className: React.PropTypes.string,
-  configuration: React.PropTypes.object.isRequired,
-  packageIcon: React.PropTypes.string,
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string
 };
 
 module.exports = ReviewConfig;

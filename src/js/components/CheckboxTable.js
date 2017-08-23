@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Form, Table } from "reactjs-components";
 import React from "react";
@@ -15,6 +16,21 @@ const METHODS_TO_BIND = [
   "renderHeadingCheckbox"
 ];
 
+type Props = {
+  checkedItemsMap?: Object,
+  className?: string | Object,
+  columns?: Array<any>,
+  data?: Array<any>,
+  disabledItemsMap?: Object,
+  inactiveItemsMap?: Object,
+  getColGroup?: Function,
+  labelClass?: string | Object,
+  onCheckboxChange?: Function,
+  sortProp?: string,
+  sortOrder?: string,
+  uniqueProperty?: string
+};
+
 class CheckboxTable extends React.Component {
   constructor() {
     super();
@@ -23,6 +39,8 @@ class CheckboxTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
     const {
@@ -225,21 +243,6 @@ class CheckboxTable extends React.Component {
     );
   }
 }
-
-CheckboxTable.propTypes = {
-  checkedItemsMap: PropTypes.object,
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  columns: PropTypes.array,
-  data: PropTypes.array,
-  disabledItemsMap: PropTypes.object,
-  inactiveItemsMap: PropTypes.object,
-  getColGroup: PropTypes.func,
-  labelClass: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onCheckboxChange: PropTypes.func,
-  sortProp: PropTypes.string,
-  sortOrder: PropTypes.string,
-  uniqueProperty: PropTypes.string
-};
 
 CheckboxTable.defaultProps = {
   allowMultipleSelect: true,

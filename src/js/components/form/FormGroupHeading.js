@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
@@ -16,7 +17,14 @@ function injectAsteriskNode(children) {
   return nextChildren;
 }
 
-function FormGroupHeading({ className, children, required }) {
+type Props = {
+  children: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  required?: boolean,
+};
+
+function FormGroupHeading(props: Props) {
+  const { className, children, required } = props;
   const classes = classNames("form-group-heading", className);
 
   return (
@@ -28,16 +36,6 @@ function FormGroupHeading({ className, children, required }) {
 
 FormGroupHeading.defaultProps = {
   required: false
-};
-
-FormGroupHeading.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  required: React.PropTypes.bool
 };
 
 module.exports = FormGroupHeading;

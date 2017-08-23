@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -15,7 +16,14 @@ function renderByProperty(prop, directoryItem) {
   return directoryItem.get(prop);
 }
 
+type Props = {
+  directoryPath?: string,
+  onOpenLogClick?: Function,
+  files?: Array<any>,
+};
+
 class TaskDirectoryTable extends React.Component {
+
   handleTaskClick(path) {
     this.props.onFileClick(path);
   }
@@ -215,12 +223,6 @@ class TaskDirectoryTable extends React.Component {
 TaskDirectoryTable.defaultProps = {
   onOpenLogClick() {},
   files: []
-};
-
-TaskDirectoryTable.propTypes = {
-  directoryPath: React.PropTypes.string,
-  onOpenLogClick: React.PropTypes.func,
-  files: React.PropTypes.array
 };
 
 module.exports = TaskDirectoryTable;

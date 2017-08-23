@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import Alert from "#SRC/js/components/Alert";
@@ -21,7 +22,10 @@ function renderContainers(appConfig, handleEditClick) {
   });
 }
 
-const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
+type Props = { onEditClick?: Function };
+
+const PodContainersConfigSection = (props: Props) => {
+  const { appConfig, onEditClick } = props;
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
@@ -40,10 +44,6 @@ const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
       {renderContainers(appConfig, onEditClick)}
     </div>
   );
-};
-
-PodContainersConfigSection.propTypes = {
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodContainersConfigSection;

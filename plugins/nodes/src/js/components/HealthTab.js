@@ -1,3 +1,4 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 import { hashHistory } from "react-router";
@@ -20,7 +21,13 @@ const METHODS_TO_BIND = [
   "resetFilter"
 ];
 
-class HealthTab extends React.Component {
+type Props = {
+  node: Object,
+  units: Object,
+  params: Object
+};
+
+class HealthTab extends React.Component<Props> {
   constructor() {
     super(...arguments);
 
@@ -172,11 +179,5 @@ class HealthTab extends React.Component {
     );
   }
 }
-
-HealthTab.propTypes = {
-  node: React.PropTypes.object.isRequired,
-  units: React.PropTypes.object.isRequired,
-  params: React.PropTypes.object.isRequired
-};
 
 module.exports = HealthTab;

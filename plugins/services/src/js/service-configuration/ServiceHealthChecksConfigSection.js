@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -34,7 +35,10 @@ function renderDuration(prop, row) {
   );
 }
 
+type Props = {};
+
 class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
+
   /**
    * @override
    */

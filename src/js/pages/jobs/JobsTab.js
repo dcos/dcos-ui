@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React from "react";
 import { routerShape } from "react-router";

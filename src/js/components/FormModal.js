@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import { Form, Modal } from "reactjs-components";
 import React from "react";
@@ -8,6 +9,21 @@ const METHODS_TO_BIND = [
   "handleError"
 ];
 
+type Props = {
+  buttonDefinition?: Array<any>,
+  children?: number | string | React.Element | Array<any>,
+  contentClasses?: Array<any> | Object | string,
+  contentFooter?: number | string | React.Element | Array<any>,
+  definition?: Array<any>,
+  disabled?: boolean,
+  extraFooterContent?: number | string | React.Element | Array<any>,
+  modalProps?: Object,
+  onChange?: Function,
+  onClose: Function,
+  onSubmit?: Function,
+  open?: boolean
+};
+
 class FormModal extends React.Component {
   constructor() {
     super();
@@ -17,6 +33,8 @@ class FormModal extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     this.focusOnField();
@@ -164,25 +182,6 @@ FormModal.defaultProps = {
   onClose() {},
   open: false,
   modalProps: {}
-};
-
-FormModal.propTypes = {
-  buttonDefinition: React.PropTypes.array,
-  children: React.PropTypes.node,
-  contentClasses: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  contentFooter: React.PropTypes.node,
-  definition: React.PropTypes.array,
-  disabled: React.PropTypes.bool,
-  extraFooterContent: React.PropTypes.node,
-  modalProps: React.PropTypes.object,
-  onChange: React.PropTypes.func,
-  onClose: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func,
-  open: React.PropTypes.bool
 };
 
 module.exports = FormModal;

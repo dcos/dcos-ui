@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
@@ -9,6 +10,8 @@ import ServiceItemNotFound from "../../components/ServiceItemNotFound";
 import VolumeDetail from "./VolumeDetail";
 
 const METHODS_TO_BIND = ["onStoreChange"];
+
+type Props = { params: Object };
 
 class TaskVolumeContainer extends React.Component {
   constructor() {
@@ -23,6 +26,8 @@ class TaskVolumeContainer extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
@@ -76,9 +81,5 @@ class TaskVolumeContainer extends React.Component {
     return <VolumeDetail service={service} volume={volume} />;
   }
 }
-
-TaskVolumeContainer.propTypes = {
-  params: React.PropTypes.object.isRequired
-};
 
 module.exports = TaskVolumeContainer;

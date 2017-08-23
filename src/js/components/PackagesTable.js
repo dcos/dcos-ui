@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -20,6 +21,8 @@ const METHODS_TO_BIND = [
   "handleUninstallFinish"
 ];
 
+type Props = { packages: Object };
+
 class PackagesTable extends React.Component {
   constructor() {
     super();
@@ -32,6 +35,8 @@ class PackagesTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleUninstallClick(packageToUninstall) {
     this.setState({ packageToUninstall });
@@ -160,10 +165,6 @@ class PackagesTable extends React.Component {
 
 PackagesTable.defaultProps = {
   packages: new UniversePackagesList()
-};
-
-PackagesTable.propTypes = {
-  packages: React.PropTypes.object.isRequired
 };
 
 module.exports = PackagesTable;

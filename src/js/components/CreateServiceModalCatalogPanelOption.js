@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import packageServiceImage
@@ -9,7 +10,13 @@ import CreateServiceModalServicePickerOptionContent
 import CreateServiceModalServicePickerOptionImage
   from "./CreateServiceModalServicePickerOptionImage";
 
+type Props = {
+  columnClasses?: string,
+  onOptionSelect?: Function
+};
+
 class CreateServicePickerCatalogOption extends React.Component {
+
   render() {
     const { columnClasses, onOptionSelect } = this.props;
 
@@ -29,10 +36,5 @@ class CreateServicePickerCatalogOption extends React.Component {
     );
   }
 }
-
-CreateServicePickerCatalogOption.propTypes = {
-  columnClasses: React.PropTypes.string,
-  onOptionSelect: React.PropTypes.func
-};
 
 module.exports = CreateServicePickerCatalogOption;

@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import DateUtil from "../utils/DateUtil";
@@ -8,6 +9,13 @@ const MINUTE = 60 * MINUTE;
 const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
 const METHODS_TO_BIND = ["updateTime"];
+
+type Props = {
+  autoUpdate?: boolean,
+  prefix?: number | string | React.Element | Array<any>,
+  suppressSuffix?: boolean,
+  time?: Object | number
+};
 
 class TimeAgo extends React.Component {
   constructor() {
@@ -26,6 +34,8 @@ class TimeAgo extends React.Component {
       );
     }
   }
+
+
 
   componentWillUnmount() {
     if (this.state.interval) {
@@ -84,16 +94,6 @@ class TimeAgo extends React.Component {
 TimeAgo.defaultProps = {
   autoUpdate: true,
   suppressSuffix: false
-};
-
-TimeAgo.propTypes = {
-  autoUpdate: React.PropTypes.bool,
-  prefix: React.PropTypes.node,
-  suppressSuffix: React.PropTypes.bool,
-  time: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.number
-  ])
 };
 
 module.exports = TimeAgo;

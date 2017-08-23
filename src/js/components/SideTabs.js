@@ -1,5 +1,13 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
+
+type Props = {
+  className?: string,
+  onTabClick?: Function,
+  selectedTab?: string,
+  tabs?: Array<any>
+};
 
 class SideTabs extends React.Component {
   constructor() {
@@ -9,6 +17,8 @@ class SideTabs extends React.Component {
       dropdownOpen: false
     };
   }
+
+
 
   handleTabClick(title) {
     const {
@@ -107,13 +117,6 @@ SideTabs.defaultProps = {
   className: "multiple-form-modal-sidebar-tabs",
   onTabClick() {},
   tabs: []
-};
-
-SideTabs.propTypes = {
-  className: React.PropTypes.string,
-  onTabClick: React.PropTypes.func,
-  selectedTab: React.PropTypes.string,
-  tabs: React.PropTypes.array
 };
 
 module.exports = SideTabs;

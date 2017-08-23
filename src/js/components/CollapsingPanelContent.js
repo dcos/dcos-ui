@@ -1,7 +1,14 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string
+};
+
 class CollapsingPanelContent extends React.Component {
+
   render() {
     const classes = classNames(
       "panel-cell panel-cell-content",
@@ -15,14 +22,5 @@ class CollapsingPanelContent extends React.Component {
     );
   }
 }
-
-CollapsingPanelContent.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
-};
 
 module.exports = CollapsingPanelContent;

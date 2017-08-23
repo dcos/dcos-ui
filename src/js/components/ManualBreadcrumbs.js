@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import DeepEqual from "deep-equal";
 import React, { PropTypes } from "react";
@@ -9,6 +10,11 @@ import Icon from "./Icon";
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
+
+type Props = {
+  breadcrumbClasses?: Array<any> | Object | string,
+  crumbs?: Array<any>
+};
 
 class ManualBreadcrumbs extends React.Component {
   constructor() {
@@ -22,6 +28,8 @@ class ManualBreadcrumbs extends React.Component {
 
     this.handleResize = this.handleResize.bind(this);
   }
+
+
 
   componentDidMount() {
     if (global != null) {
@@ -194,15 +202,6 @@ class ManualBreadcrumbs extends React.Component {
 
 ManualBreadcrumbs.defaultProps = {
   crumbs: []
-};
-
-ManualBreadcrumbs.propTypes = {
-  breadcrumbClasses: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  crumbs: PropTypes.array
 };
 
 module.exports = ManualBreadcrumbs;

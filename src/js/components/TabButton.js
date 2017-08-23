@@ -1,7 +1,17 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 const METHODS_TO_BIND = ["handleClick"];
+
+type Props = {
+  active?: boolean,
+  children?: number | string | React.Element | Array<any>,
+  className?: classProps,
+  id: string,
+  label?: number | string | React.Element | Array<any>,
+  labelClassName?: classProps
+};
 
 class TabButton extends React.Component {
   constructor() {
@@ -11,6 +21,8 @@ class TabButton extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getChildren() {
     const { activeTab, children, onClick } = this.props;
@@ -66,14 +78,5 @@ const classProps = React.PropTypes.oneOfType([
   React.PropTypes.object,
   React.PropTypes.string
 ]);
-
-TabButton.propTypes = {
-  active: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  className: classProps,
-  id: React.PropTypes.string.isRequired,
-  label: React.PropTypes.node,
-  labelClassName: classProps
-};
 
 module.exports = TabButton;

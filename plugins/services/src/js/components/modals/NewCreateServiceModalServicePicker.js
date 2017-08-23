@@ -1,3 +1,4 @@
+/* @flow */
 import { MountService } from "foundation-ui";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -59,7 +60,10 @@ function JSONOption({ columnClasses, onOptionSelect }) {
 
 const OPTIONS = [JSONOption, MultiContainerOption, SingleContainerOption];
 
+type Props = { onServiceSelect?: Function };
+
 class NewCreateServiceModalServicePicker extends React.Component {
+
   componentDidMount() {
     OPTIONS.forEach(function(component, index) {
       MountService.MountService.registerComponent(
@@ -96,9 +100,5 @@ class NewCreateServiceModalServicePicker extends React.Component {
     );
   }
 }
-
-NewCreateServiceModalServicePicker.propTypes = {
-  onServiceSelect: React.PropTypes.func
-};
 
 module.exports = NewCreateServiceModalServicePicker;

@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -29,6 +30,13 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 const { CONTAINER, HOST } = Networking.type;
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -45,6 +53,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   onVirtualNetworksStoreSuccess() {
     this.forceUpdate();
@@ -543,13 +553,6 @@ MultiContainerNetworkingFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-MultiContainerNetworkingFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 MultiContainerNetworkingFormSection.configReducers = {

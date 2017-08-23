@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -37,6 +38,8 @@ const METHODS_TO_BIND = [
   "resetFilter"
 ];
 
+type Props = {};
+
 class VirtualNetworksTabContent extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -59,6 +62,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleSearchStringChange(searchString = "") {
     this.setState({ searchString });

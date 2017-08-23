@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown } from "reactjs-components";
 import deepEqual from "deep-equal";
@@ -37,6 +38,15 @@ function getLogParameters(task, options) {
   );
 }
 
+type Props = {
+  filePath?: string,
+  highlightText?: string,
+  logName?: string,
+  onCountChange?: Function,
+  task: Object,
+  watching?: number,
+};
+
 class TaskSystemLogsContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -62,6 +72,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   /**
    * @override
@@ -360,23 +372,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   }
 }
 
-TaskSystemLogsContainer.propTypes = {
-  task: React.PropTypes.shape({
-    slave_id: React.PropTypes.string
-  })
-};
-
 TaskSystemLogsContainer.defaultProps = {
   highlightText: ""
-};
-
-TaskSystemLogsContainer.propTypes = {
-  filePath: React.PropTypes.string,
-  highlightText: React.PropTypes.string,
-  logName: React.PropTypes.string,
-  onCountChange: React.PropTypes.func,
-  task: React.PropTypes.object.isRequired,
-  watching: React.PropTypes.number
 };
 
 module.exports = TaskSystemLogsContainer;

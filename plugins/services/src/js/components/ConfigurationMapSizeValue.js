@@ -1,8 +1,19 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import Units from "#SRC/js/utils/Units";
+
+type Props = {
+  decimals?: number,
+  defaultValue?: string | number | string | React.Element | Array<any>,
+  multiplier?: number,
+  scale?: number,
+  threshold?: number,
+  units?: Array<any>,
+  value?: number,
+};
 
 /**
  * Render a size value as a <ConfigurationMapValue>, with it's values being
@@ -12,6 +23,7 @@ import Units from "#SRC/js/utils/Units";
  * and you can file-tune it through it's properties.
  */
 class ConfigurationMapSizeValue extends React.Component {
+
   render() {
     const {
       decimals,
@@ -44,19 +56,6 @@ ConfigurationMapSizeValue.defaultProps = {
   threshold: 800,
   units: ["B", "KiB", "MiB", "GiB", "TiB", "PiB"],
   value: 0
-};
-
-ConfigurationMapSizeValue.propTypes = {
-  decimals: React.PropTypes.number,
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  multiplier: React.PropTypes.number,
-  scale: React.PropTypes.number,
-  threshold: React.PropTypes.number,
-  units: React.PropTypes.array,
-  value: React.PropTypes.number
 };
 
 module.exports = ConfigurationMapSizeValue;

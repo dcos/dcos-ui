@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -6,7 +7,10 @@ import ConfigurationMapEditAction
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
+type Props = {};
+
 class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
+
   /**
   * @override
   */

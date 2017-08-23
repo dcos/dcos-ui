@@ -1,7 +1,14 @@
+/* @flow */
 import { Link, formatPattern } from "react-router";
 import React, { PropTypes } from "react";
 
+type Props = {
+  label: string,
+  route?: Object
+};
+
 class BreadcrumbSegmentLink extends React.Component {
+
   render() {
     const { props } = this;
     const content = props.label;
@@ -29,10 +36,5 @@ class BreadcrumbSegmentLink extends React.Component {
     }
   }
 }
-
-BreadcrumbSegmentLink.propTypes = {
-  label: PropTypes.string.isRequired,
-  route: PropTypes.object
-};
 
 module.exports = BreadcrumbSegmentLink;

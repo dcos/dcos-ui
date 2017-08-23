@@ -1,13 +1,23 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
 import NodeInfoPanel from "./NodeInfoPanel";
+
+type Props = {
+  docsURL?: string,
+  hostIP?: string,
+  output?: string,
+  summary?: string
+};
 
 class UnitsHealthNodeDetailPanel extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
+
+
 
   render() {
     const { summary, docsURL, output } = this.props;
@@ -21,12 +31,5 @@ class UnitsHealthNodeDetailPanel extends React.Component {
     );
   }
 }
-
-UnitsHealthNodeDetailPanel.propTypes = {
-  docsURL: React.PropTypes.string,
-  hostIP: React.PropTypes.string,
-  output: React.PropTypes.string,
-  summary: React.PropTypes.string
-};
 
 module.exports = UnitsHealthNodeDetailPanel;

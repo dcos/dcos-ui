@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -16,7 +17,10 @@ import {
 
 const { type: { DOCKER, MESOS }, labelMap } = ContainerConstants;
 
+type Props = {};
+
 class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
+
   /**
    * @override
    */

@@ -1,3 +1,4 @@
+/* @flow */
 import ReactDOM from "react-dom";
 import React from "react";
 import { Link } from "react-router";
@@ -19,6 +20,13 @@ import ServiceTree from "../structs/ServiceTree";
 const BREADCRUMB_CONTENT_MARGIN = 7;
 const METHODS_TO_BIND = ["checkBreadcrumbOverflow", "handleViewportResize"];
 
+type Props = {
+  extra?: Array<number | string | React.Element | Array<any>>,
+  serviceID?: string,
+  taskID?: string,
+  taskName?: string,
+};
+
 class ServiceBreadcrumbs extends React.Component {
   constructor() {
     super();
@@ -37,6 +45,8 @@ class ServiceBreadcrumbs extends React.Component {
 
     this.handleViewportResize = Util.debounce(this.handleViewportResize, 100);
   }
+
+
 
   componentDidMount() {
     this.checkBreadcrumbOverflow();
@@ -253,13 +263,6 @@ class ServiceBreadcrumbs extends React.Component {
 
 ServiceBreadcrumbs.defaultProps = {
   serviceID: ""
-};
-
-ServiceBreadcrumbs.propTypes = {
-  extra: React.PropTypes.arrayOf(React.PropTypes.node),
-  serviceID: React.PropTypes.string,
-  taskID: React.PropTypes.string,
-  taskName: React.PropTypes.string
 };
 
 module.exports = ServiceBreadcrumbs;

@@ -1,10 +1,14 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
 import Icon from "../components/Icon";
 import SidebarActions from "../events/SidebarActions";
 
+type Props = {};
+
 class JobsPage extends React.Component {
+
   render() {
     return this.props.children;
   }

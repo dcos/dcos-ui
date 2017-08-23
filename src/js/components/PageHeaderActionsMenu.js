@@ -1,3 +1,4 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import React from "react";
 
@@ -28,7 +29,15 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = ({ anchorRight, children, iconID }) => {
+type Props = {
+  // anchorRight gets passed to Dropdown. It's truthy here unlike in the Dropdown.
+  anchorRight?: boolean,
+  children?: Array<{ props?: { onItemSelect?: Function } }>,
+  iconID?: string
+};
+
+const PageHeaderActionsMenu = (props: Props) => {
+  const { anchorRight, children, iconID } = props;
   return (
     <Dropdown
       anchorRight={anchorRight}
@@ -47,19 +56,6 @@ const PageHeaderActionsMenu = ({ anchorRight, children, iconID }) => {
 PageHeaderActionsMenu.defaultProps = {
   anchorRight: true,
   iconID: "ellipsis-vertical"
-};
-
-PageHeaderActionsMenu.propTypes = {
-  // anchorRight gets passed to Dropdown. It's truthy here unlike in the Dropdown.
-  anchorRight: React.PropTypes.bool,
-  children: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      props: React.PropTypes.shape({
-        onItemSelect: React.PropTypes.func
-      })
-    })
-  ),
-  iconID: React.PropTypes.string
 };
 
 module.exports = PageHeaderActionsMenu;

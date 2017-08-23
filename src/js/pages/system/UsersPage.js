@@ -1,3 +1,4 @@
+/* @flow */
 import { Hooks } from "PluginSDK";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
@@ -28,6 +29,8 @@ const UsersBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
 };
 
+type Props = { params?: Object };
+
 class UsersPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -45,6 +48,8 @@ class UsersPage extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount();
@@ -111,10 +116,6 @@ class UsersPage extends mixin(StoreMixin) {
     return this.getContents();
   }
 }
-
-UsersPage.propTypes = {
-  params: React.PropTypes.object
-};
 
 UsersPage.routeConfig = {
   label: "Users",

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React, { PropTypes } from "react";
 
@@ -300,19 +301,6 @@ DSLInputField.defaultProps = {
   onDropdownClick() {},
   onFocus() {},
   placeholder: "Filter"
-};
-
-DSLInputField.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  dropdownVisible: PropTypes.bool,
-  hasDropdown: PropTypes.bool,
-  inverseStyle: PropTypes.bool,
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  onDropdownClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  placeholder: PropTypes.string,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
 module.exports = DSLInputField;

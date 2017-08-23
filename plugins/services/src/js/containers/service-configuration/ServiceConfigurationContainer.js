@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -42,12 +43,6 @@ class ServiceConfigurationContainer extends React.Component {
 
 ServiceConfigurationContainer.defaultProps = {
   errors: []
-};
-
-ServiceConfigurationContainer.propTypes = {
-  onEditClick: React.PropTypes.func,
-  errors: React.PropTypes.array,
-  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceConfigurationContainer;

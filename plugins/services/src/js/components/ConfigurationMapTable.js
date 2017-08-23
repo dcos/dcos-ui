@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -54,6 +55,11 @@ function defaultRenderFunction(prop, row) {
   return <span>{value.toString()}</span>;
 }
 
+type Props = {
+  onEditClick?: Function,
+  tabViewID?: string,
+};
+
 /**
  * This stateless table component provides some additional functionality
  * to the underlaying <Table /> component, trying to be as least intrusive
@@ -82,6 +88,7 @@ function defaultRenderFunction(prop, row) {
  * @returns {Node} Returns the rendered table component
  */
 class ConfigurationMapTable extends React.Component {
+
   render() {
     let {
       columns = [],
@@ -153,10 +160,5 @@ class ConfigurationMapTable extends React.Component {
     );
   }
 }
-
-ConfigurationMapTable.propTypes = {
-  onEditClick: React.PropTypes.func,
-  tabViewID: React.PropTypes.string
-};
 
 module.exports = ConfigurationMapTable;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown } from "reactjs-components";
 import { FormattedMessage } from "react-intl";
@@ -13,7 +14,14 @@ import ServiceActionItem from "../../constants/ServiceActionItem";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import StatusMapping from "../../constants/StatusMapping";
 
+type Props = {
+  onActionsItemSelection: Function,
+  service: Service,
+  tabs?: Array<any>,
+};
+
 class ServiceInfo extends React.Component {
+
   getActionButtons() {
     const { service } = this.props;
 
@@ -187,11 +195,5 @@ class ServiceInfo extends React.Component {
     );
   }
 }
-
-ServiceInfo.propTypes = {
-  onActionsItemSelection: React.PropTypes.func.isRequired,
-  service: React.PropTypes.instanceOf(Service).isRequired,
-  tabs: React.PropTypes.array
-};
 
 module.exports = ServiceInfo;

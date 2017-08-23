@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 import { injectIntl } from "react-intl";
 import { Modal } from "reactjs-components";
@@ -554,15 +555,5 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 }
-
-ServiceActionDisabledModal.propTypes = {
-  actionID: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ])
-};
 
 module.exports = injectIntl(ServiceActionDisabledModal);

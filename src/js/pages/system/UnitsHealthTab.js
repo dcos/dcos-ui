@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -40,6 +41,8 @@ const METHODS_TO_BIND = [
   "resetFilter"
 ];
 
+type Props = {};
+
 class UnitsHealthTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -61,6 +64,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     }, this);
   }
+
+
 
   componentDidMount() {
     super.componentDidMount();

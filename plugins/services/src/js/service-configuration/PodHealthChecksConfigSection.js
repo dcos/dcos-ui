@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -44,7 +45,13 @@ const COMMON_COLUMNS = [
   }
 ];
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class PodHealthChecksConfigSection extends React.Component {
+
   getCommandColumns() {
     return [
       {
@@ -178,11 +185,6 @@ class PodHealthChecksConfigSection extends React.Component {
 
 PodHealthChecksConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodHealthChecksConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodHealthChecksConfigSection;

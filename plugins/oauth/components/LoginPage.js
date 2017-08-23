@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 import mixin from "reactjs-mixin";
@@ -10,7 +11,10 @@ const { AuthStore, MetadataStore } = SDK.get(["AuthStore", "MetadataStore"]);
 
 const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
 
+type Props = {};
+
 class LoginPage extends mixin(StoreMixin) {
+
   componentWillMount() {
     super.componentWillMount();
 

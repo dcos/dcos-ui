@@ -1,10 +1,24 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import { Link } from "react-router";
 import React, { PropTypes } from "react";
 
 import Icon from "./Icon";
 
+type Props = {
+  serviceID: string,
+  taskID?: string,
+  // Classes
+  className?: classPropType,
+  majorLinkAnchorClassName?: classPropType,
+  majorLinkClassName?: classPropType,
+  minorLinkAnchorClassName?: classPropType,
+  minorLinkClassName?: classPropType,
+  minorLinkWrapperClassName?: classPropType
+};
+
 class NestedServiceLinks extends React.Component {
+
   getMinorLink(label, params, key, minorLinkClasses, minorLinkAnchorClasses) {
     return (
       <div key={key} className="table-cell-value">
@@ -171,17 +185,5 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-NestedServiceLinks.propTypes = {
-  serviceID: PropTypes.string.isRequired,
-  taskID: PropTypes.string,
-  // Classes
-  className: classPropType,
-  majorLinkAnchorClassName: classPropType,
-  majorLinkClassName: classPropType,
-  minorLinkAnchorClassName: classPropType,
-  minorLinkClassName: classPropType,
-  minorLinkWrapperClassName: classPropType
-};
 
 module.exports = NestedServiceLinks;

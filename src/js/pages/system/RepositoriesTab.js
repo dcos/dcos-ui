@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -41,6 +42,8 @@ const METHODS_TO_BIND = [
   "handleOpenAddRepository"
 ];
 
+type Props = {};
+
 class RepositoriesTab extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -64,6 +67,8 @@ class RepositoriesTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

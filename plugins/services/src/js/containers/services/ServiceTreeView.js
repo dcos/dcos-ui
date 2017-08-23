@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
@@ -22,7 +23,18 @@ import ServiceStatusDSLSection
   from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
 
+type Props = {
+  filters: DSLFilterList,
+  filterExpression: DSLExpression,
+  isEmpty?: boolean,
+  children?: number | string | React.Element | Array<any>,
+  onFilterExpressionChange?: Function,
+  services: Array<Service | ServiceTree>,
+  serviceTree?: ServiceTree,
+};
+
 class ServiceTreeView extends React.Component {
+
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
 
@@ -128,21 +140,6 @@ ServiceTreeView.contextTypes = {
 ServiceTreeView.defaultProps = {
   onFilterExpressionChange() {},
   isEmpty: false
-};
-
-ServiceTreeView.propTypes = {
-  filters: PropTypes.instanceOf(DSLFilterList).isRequired,
-  filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
-  isEmpty: PropTypes.bool,
-  children: PropTypes.node,
-  onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.instanceOf(Service),
-      PropTypes.instanceOf(ServiceTree)
-    ])
-  ).isRequired,
-  serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
 module.exports = ServiceTreeView;

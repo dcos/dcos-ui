@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -46,6 +47,8 @@ const SystemOverviewBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
 };
 
+type Props = {};
+
 class OverviewDetailTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -78,6 +81,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

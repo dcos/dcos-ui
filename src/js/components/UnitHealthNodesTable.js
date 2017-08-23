@@ -1,3 +1,4 @@
+/* @flow */
 import { Link } from "react-router";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -9,6 +10,11 @@ import UnitHealthUtil from "../utils/UnitHealthUtil";
 
 const METHODS_TO_BIND = ["renderHealth", "renderNode", "renderNodeRole"];
 
+type Props = {
+  nodes: Array<any>,
+  params?: Object
+};
+
 class UnitHealthNodesTable extends React.Component {
   constructor() {
     super();
@@ -17,6 +23,8 @@ class UnitHealthNodesTable extends React.Component {
       this[method] = this[method].bind(this);
     }, this);
   }
+
+
 
   getColGroup() {
     return (
@@ -125,10 +133,5 @@ class UnitHealthNodesTable extends React.Component {
     );
   }
 }
-
-UnitHealthNodesTable.propTypes = {
-  nodes: React.PropTypes.array.isRequired,
-  params: React.PropTypes.object
-};
 
 module.exports = UnitHealthNodesTable;

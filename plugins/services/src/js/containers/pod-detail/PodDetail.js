@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
@@ -254,11 +255,6 @@ PodDetail.contextTypes = {
     deleteService: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-PodDetail.propTypes = {
-  children: PropTypes.node,
-  pod: React.PropTypes.instanceOf(Pod)
 };
 
 module.exports = PodDetail;

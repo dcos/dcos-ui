@@ -1,9 +1,23 @@
+/* @flow */
 import React from "react";
 import ReactDOM from "react-dom";
 
 const PropTypes = React.PropTypes;
 
+type Props = {
+  width?: number,
+  height?: number,
+  x?: number,
+  y?: number,
+  fill?: string,
+  className?: string,
+  transitionDuration?: number,
+  transform?: string,
+  key?: any
+};
+
 class Rect extends React.Component {
+
   componentDidMount() {
     this.transitionRect(this.props);
   }
@@ -39,17 +53,5 @@ class Rect extends React.Component {
     );
   }
 }
-
-Rect.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  fill: PropTypes.string,
-  className: PropTypes.string,
-  transitionDuration: PropTypes.number,
-  transform: PropTypes.string,
-  key: PropTypes.any
-};
 
 module.exports = Rect;

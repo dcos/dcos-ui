@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown } from "reactjs-components";
 import React from "react";
@@ -211,11 +212,5 @@ class SidebarLabelsFilters extends React.Component {
     );
   }
 }
-
-SidebarLabelsFilters.propTypes = {
-  handleFilterChange: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.object.isRequired,
-  services: PropTypes.array.isRequired
-};
 
 module.exports = SidebarLabelsFilters;

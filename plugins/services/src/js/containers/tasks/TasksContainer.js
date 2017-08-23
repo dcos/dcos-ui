@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
@@ -22,6 +23,12 @@ const METHODS_TO_BIND = [
   "killTasks"
 ];
 
+type Props = {
+  service: Service,
+  tasks: Array<any>,
+  params: Object,
+};
+
 class TasksContainer extends React.Component {
   constructor() {
     super(...arguments);
@@ -35,6 +42,8 @@ class TasksContainer extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     // Listen for server actions so we can update state immediately
@@ -198,12 +207,6 @@ TasksContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     killTasks: PropTypes.func
   })
-};
-
-TasksContainer.propTypes = {
-  service: PropTypes.instanceOf(Service).isRequired,
-  tasks: PropTypes.array.isRequired,
-  params: PropTypes.object.isRequired
 };
 
 module.exports = TasksContainer;

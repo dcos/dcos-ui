@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -9,13 +10,17 @@ import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarToggle from "../components/SidebarToggle";
 import TemplateUtil from "../utils/TemplateUtil";
 
-const PageHeader = ({
-  actions,
-  addButton,
-  breadcrumbs,
-  supplementalContent,
-  tabs
-}) => {
+type Props = {
+  actions?: Array<any>,
+  addButton?: Array<Object> | Object,
+  breadcrumbs?: number | string | React.Element | Array<any>,
+  supplementalContent?: number | string | React.Element | Array<any>,
+  tabs?: Array<any>
+};
+
+const PageHeader = (props: Props) => {
+  const { actions, addButton, breadcrumbs, supplementalContent, tabs } = props;
+
   return (
     <BasePageHeader
       actions={actions}
@@ -36,17 +41,6 @@ TemplateUtil.defineChildren(PageHeader, {
 PageHeader.defaultProps = {
   actions: [],
   tabs: []
-};
-
-PageHeader.propTypes = {
-  actions: React.PropTypes.array,
-  addButton: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.object),
-    React.PropTypes.object
-  ]),
-  breadcrumbs: React.PropTypes.node,
-  supplementalContent: React.PropTypes.node,
-  tabs: React.PropTypes.array
 };
 
 var Page = React.createClass({

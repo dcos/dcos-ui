@@ -1,9 +1,16 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
-const EmptyServiceTree = function({ onCreateGroup, onCreateService }) {
+type Props = {
+  onCreateGroup?: Function,
+  onCreateService?: Function,
+};
+
+const EmptyServiceTree = function(props: Props) {
+  const { onCreateGroup, onCreateService } = props;
   const footer = (
     <div className="button-collection flush-bottom">
       <button className="button button-stroke" onClick={onCreateGroup}>
@@ -29,11 +36,6 @@ const EmptyServiceTree = function({ onCreateGroup, onCreateService }) {
 EmptyServiceTree.defaultProps = {
   onCreateGroup: () => {},
   onCreateService: () => {}
-};
-
-EmptyServiceTree.propTypes = {
-  onCreateGroup: PropTypes.func,
-  onCreateService: PropTypes.func
 };
 
 module.exports = EmptyServiceTree;

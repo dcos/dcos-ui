@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import prettycron from "prettycron";
@@ -13,6 +14,8 @@ import Tree from "../../structs/Tree";
 
 const METHODS_TO_BIND = ["renderHeadline"];
 
+type Props = { jobs: Array<any> };
+
 class JobsTable extends React.Component {
   constructor() {
     super();
@@ -21,6 +24,8 @@ class JobsTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getColGroup() {
     return (
@@ -245,9 +250,5 @@ class JobsTable extends React.Component {
     );
   }
 }
-
-JobsTable.propTypes = {
-  jobs: React.PropTypes.array.isRequired
-};
 
 module.exports = JobsTable;

@@ -1,3 +1,4 @@
+/* @flow */
 import { Confirm, Modal } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
@@ -274,21 +275,6 @@ class ServiceDestroyModal extends React.Component {
 
 ServiceDestroyModal.contextTypes = {
   router: routerShape
-};
-
-ServiceDestroyModal.propTypes = {
-  deleteItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  intl: intlShape.isRequired,
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(Framework),
-    PropTypes.instanceOf(Pod),
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
 };
 
 module.exports = injectIntl(ServiceDestroyModal);

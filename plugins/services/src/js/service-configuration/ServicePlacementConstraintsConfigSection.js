@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -8,7 +9,13 @@ import ConfigurationMapSection
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class ServicePlacementConstraintsConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -68,11 +75,6 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
 
 ServicePlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-ServicePlacementConstraintsConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = ServicePlacementConstraintsConfigSection;

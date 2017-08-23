@@ -1,9 +1,18 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
 import Icon from "./Icon";
 
-const Alert = ({ children, flushBottom, showIcon, type }) => {
+type Props = {
+  children: number | string | React.Element | Array<any>,
+  flushBottom?: boolean,
+  showIcon?: boolean,
+  type?: "danger" | "success"
+};
+
+const Alert = (props: Props) => {
+  const { children, flushBottom, showIcon, type } = props;
   const classes = classNames("alert", {
     [`alert-${type}`]: type != null,
     "flush-bottom": flushBottom === true
@@ -37,13 +46,6 @@ Alert.defaultProps = {
   flushBottom: false,
   showIcon: true,
   type: "danger"
-};
-
-Alert.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  flushBottom: React.PropTypes.bool,
-  showIcon: React.PropTypes.bool,
-  type: React.PropTypes.oneOf(["danger", "success"])
 };
 
 module.exports = Alert;

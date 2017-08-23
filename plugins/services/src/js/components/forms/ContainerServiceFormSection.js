@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -41,7 +42,16 @@ const podPaths = {
   type: "{basePath}.type"
 };
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+  path?: string,
+};
+
 class ContainerServiceFormSection extends Component {
+
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
       return podPaths[fieldName].replace("{basePath}", basePath);
@@ -241,14 +251,6 @@ ContainerServiceFormSection.defaultProps = {
   onAddItem() {},
   onRemoveItem() {},
   path: "container"
-};
-
-ContainerServiceFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  path: React.PropTypes.string
 };
 
 ContainerServiceFormSection.configReducers = {

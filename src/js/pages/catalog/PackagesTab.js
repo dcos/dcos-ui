@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
@@ -53,6 +54,8 @@ if (shouldRenderCatalogOption) {
   );
 }
 
+type Props = {};
+
 class PackagesTab extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -76,6 +79,8 @@ class PackagesTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

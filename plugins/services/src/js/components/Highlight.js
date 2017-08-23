@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React from "react";
 
@@ -26,11 +27,24 @@ function escapeStringRegexp(str) {
 
 let debounceTimeout = null;
 
+type Props = {
+  search: string | number | boolean | regExpPropType,
+  caseSensitive?: boolean,
+  matchElement?: string,
+  matchClass?: string,
+  searchDebounceDelay?: number,
+  searchDebounceThreshold?: number,
+  selectedMatchClass?: string,
+  watching?: number,
+};
+
 class Highlight extends mixin(InternalStorageMixin) {
   constructor() {
     super(...arguments);
     this.count = 0;
   }
+
+
 
   shouldComponentUpdate(nextProps) {
     const currentProps = this.props;
@@ -261,22 +275,6 @@ Highlight.defaultProps = {
   searchDebounceDelay: 500,
   searchDebounceThreshold: 2,
   selectedMatchClass: "highlight selected"
-};
-
-Highlight.propTypes = {
-  search: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.bool,
-    regExpPropType
-  ]).isRequired,
-  caseSensitive: React.PropTypes.bool,
-  matchElement: React.PropTypes.string,
-  matchClass: React.PropTypes.string,
-  searchDebounceDelay: React.PropTypes.number,
-  searchDebounceThreshold: React.PropTypes.number,
-  selectedMatchClass: React.PropTypes.string,
-  watching: React.PropTypes.number
 };
 
 module.exports = Highlight;

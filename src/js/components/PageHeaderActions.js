@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -20,7 +21,16 @@ const getDropdownAction = (action, index) => {
   );
 };
 
+type Props = {
+  addButton?: Array<menuActionsProps> | menuActionsProps,
+  actions?: Array<
+    number | string | React.Element | Array<any> | menuActionsProps
+  >,
+  supplementalContent?: number | string | React.Element | Array<any>
+};
+
 class PageHeaderActions extends React.Component {
+
   renderActionsMenu() {
     const { actions } = this.props;
 
@@ -107,16 +117,5 @@ const menuActionsProps = React.PropTypes.shape({
   onItemSelect: React.PropTypes.func.isRequired,
   label: React.PropTypes.node.isRequired
 });
-
-PageHeaderActions.propTypes = {
-  addButton: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(menuActionsProps),
-    menuActionsProps
-  ]),
-  actions: React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([React.PropTypes.node, menuActionsProps])
-  ),
-  supplementalContent: React.PropTypes.node
-};
 
 module.exports = PageHeaderActions;

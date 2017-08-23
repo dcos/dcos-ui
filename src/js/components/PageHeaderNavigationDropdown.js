@@ -1,9 +1,19 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import React from "react";
 
 import Icon from "./Icon";
 
+type Props = {
+  items?: Array<{
+    id: number | string,
+    isActive: boolean,
+    label: number | string | React.Element | Array<any>
+  }>
+};
+
 class PageHeaderNavigationDropdown extends React.Component {
+
   getActiveItemID() {
     const { items } = this.props;
     const activeTab = items.find(function(item) {
@@ -73,19 +83,6 @@ class PageHeaderNavigationDropdown extends React.Component {
 
 PageHeaderNavigationDropdown.defaultProps = {
   items: []
-};
-
-PageHeaderNavigationDropdown.propTypes = {
-  items: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-      ]).isRequired,
-      isActive: React.PropTypes.bool.isRequired,
-      label: React.PropTypes.node.isRequired
-    })
-  )
 };
 
 module.exports = PageHeaderNavigationDropdown;

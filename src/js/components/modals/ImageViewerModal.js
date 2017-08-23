@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import React from "react";
@@ -132,13 +133,6 @@ class ImageViewerModal extends React.Component {
 
 ImageViewerModal.defaultProps = {
   images: []
-};
-
-ImageViewerModal.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string),
-  onLeftClick: React.PropTypes.func.isRequired,
-  onRightClick: React.PropTypes.func.isRequired,
-  onClose: React.PropTypes.func.isRequired
 };
 
 module.exports = ImageViewerModal;

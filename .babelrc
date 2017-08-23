@@ -1,5 +1,5 @@
 {
-  plugins: ['transform-runtime'],
+  plugins: ['transform-runtime', 'transform-class-properties'],
   presets: ['es2015', 'react', 'flow']
 }
 

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Confirm, Table } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -27,6 +28,8 @@ const METHODS_TO_BIND = [
   "handleOpenConfirm"
 ];
 
+type Props = { repositories: Object };
+
 class RepositoriesTable extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -49,6 +52,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onCosmosPackagesStoreRepositoryDeleteError(error) {
     this.setState({ repositoryRemoveError: error, pendingRequest: false });
@@ -243,10 +248,6 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
 RepositoriesTable.defaultProps = {
   repositories: new List()
-};
-
-RepositoriesTable.propTypes = {
-  repositories: React.PropTypes.object.isRequired
 };
 
 module.exports = RepositoriesTable;

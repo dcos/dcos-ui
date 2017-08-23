@@ -1,3 +1,4 @@
+/* @flow */
 import { Hooks } from "PluginSDK";
 import React from "react";
 
@@ -41,6 +42,15 @@ const FIELDS_TO_WATCH = {
   }
 };
 
+type Props = {
+  className?: string,
+  defaultTab?: string,
+  getTriggerSubmit?: Function,
+  onChange?: Function,
+  onTabChange?: Function,
+  schema?: Object,
+};
+
 class ServiceForm extends SchemaForm {
   constructor() {
     super(...arguments);
@@ -57,6 +67,8 @@ class ServiceForm extends SchemaForm {
       }
     ]);
   }
+
+
 
   componentWillMount() {
     this.multipleDefinition = this.getNewDefinition();
@@ -497,15 +509,6 @@ ServiceForm.defaultProps = {
   onChange() {},
   onTabChange() {},
   schema: {}
-};
-
-ServiceForm.propTypes = {
-  className: React.PropTypes.string,
-  defaultTab: React.PropTypes.string,
-  getTriggerSubmit: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onTabChange: React.PropTypes.func,
-  schema: React.PropTypes.object
 };
 
 module.exports = ServiceForm;

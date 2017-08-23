@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import DSLFilterList from "../structs/DSLFilterList";
@@ -11,6 +12,13 @@ const METHODS_TO_BIND = [
   "handleIgnoreClick",
   "handleDropdownClose"
 ];
+
+type Props = {
+  expression: DSLExpression,
+  filters: DSLFilterList,
+  formSections?: Array<any>,
+  onChange?: Function
+};
 
 /**
  * This component interactively edits a DSL expression and calls back with the
@@ -28,6 +36,8 @@ class DSLFilterField extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   /**
    * Listen for body-wide events for dismissing the panel
@@ -128,13 +138,6 @@ class DSLFilterField extends React.Component {
 DSLFilterField.defaultProps = {
   formSections: [],
   onChange() {}
-};
-
-DSLFilterField.propTypes = {
-  expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  filters: PropTypes.instanceOf(DSLFilterList).isRequired,
-  formSections: PropTypes.array,
-  onChange: PropTypes.func
 };
 
 module.exports = DSLFilterField;

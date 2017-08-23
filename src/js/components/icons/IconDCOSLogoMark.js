@@ -1,6 +1,10 @@
+/* @flow */
 import React from "react";
 
+type Props = { className?: string };
+
 class IconDCOSLogoMark extends React.Component {
+
   render() {
     return (
       <svg
@@ -19,10 +23,6 @@ class IconDCOSLogoMark extends React.Component {
 
 IconDCOSLogoMark.defaultProps = {
   className: "icon icon-logo-mark"
-};
-
-IconDCOSLogoMark.propTypes = {
-  className: React.PropTypes.string
 };
 
 module.exports = IconDCOSLogoMark;

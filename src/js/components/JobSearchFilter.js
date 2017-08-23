@@ -1,9 +1,16 @@
+/* @flow */
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
 import FilterInputText from "./FilterInputText";
 
+type Props = {
+  onChange: Function,
+  value?: string
+};
+
 class JobSearchFilter extends React.Component {
+
   render() {
     return (
       <FilterInputText
@@ -15,10 +22,5 @@ class JobSearchFilter extends React.Component {
     );
   }
 }
-
-JobSearchFilter.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string
-};
 
 module.exports = JobSearchFilter;

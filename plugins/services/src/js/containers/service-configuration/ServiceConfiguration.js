@@ -1,3 +1,4 @@
+/* @flow */
 import { Dropdown, Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import React from "react";
@@ -27,6 +28,12 @@ function fetchVersion(service, versionID) {
   }
 }
 
+type Props = {
+  onEditClick: Function,
+  errors?: Array<any>,
+  service: Service,
+};
+
 class ServiceConfiguration extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -41,6 +48,8 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentWillMount() {
     const { service } = this.props;
@@ -232,12 +241,6 @@ ServiceConfiguration.contextTypes = {
 
 ServiceConfiguration.defaultProps = {
   errors: []
-};
-
-ServiceConfiguration.propTypes = {
-  onEditClick: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.array,
-  service: React.PropTypes.instanceOf(Service).isRequired
 };
 
 module.exports = ServiceConfiguration;

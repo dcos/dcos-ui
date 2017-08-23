@@ -1,10 +1,14 @@
+/* @flow */
 import React from "react";
 
 import Pod from "../../structs/Pod";
 import ServiceConfigDisplay
   from "../../service-configuration/ServiceConfigDisplay";
 
+type Props = { pod?: Pod };
+
 class PodConfigurationTabView extends React.Component {
+
   render() {
     const spec = this.props.pod.getSpec();
     const localeVersion = new Date(spec.getVersion()).toLocaleString();
@@ -20,9 +24,5 @@ class PodConfigurationTabView extends React.Component {
     );
   }
 }
-
-PodConfigurationTabView.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod)
-};
 
 module.exports = PodConfigurationTabView;

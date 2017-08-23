@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -12,7 +13,10 @@ import ServiceTree from "../structs/ServiceTree";
 
 const UNABLE_TO_LAUNCH_TIMEOUT = 1000 * 60 * 30; // 30 minutes
 
+type Props = { item?: Service | ServiceTree | Pod };
+
 class ServiceStatusWarning extends Component {
+
   getDeclinedOffersWarning(item) {
     if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(item)) {
       const timeWaiting =
@@ -102,13 +106,5 @@ class ServiceStatusWarning extends Component {
     );
   }
 }
-
-ServiceStatusWarning.propTypes = {
-  item: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Service),
-    React.PropTypes.instanceOf(ServiceTree),
-    React.PropTypes.instanceOf(Pod)
-  ])
-};
 
 module.exports = ServiceStatusWarning;

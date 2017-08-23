@@ -1,3 +1,4 @@
+/* @flow */
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
@@ -10,11 +11,19 @@ import ConfigurationMapSection
 
 import { documentationURI } from "../../../config/Config";
 
+type Props = {
+  docsURL?: string,
+  output?: string,
+  summary?: string,
+};
+
 class NodeInfoPanel extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
+
+
 
   render() {
     const { summary, docsURL, output } = this.props;
@@ -48,12 +57,6 @@ class NodeInfoPanel extends React.Component {
     );
   }
 }
-
-NodeInfoPanel.propTypes = {
-  docsURL: React.PropTypes.string,
-  output: React.PropTypes.string,
-  summary: React.PropTypes.string
-};
 
 NodeInfoPanel.defaultProps = {
   docsURL: documentationURI

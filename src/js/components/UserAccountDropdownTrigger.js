@@ -1,8 +1,15 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import Icon from "./Icon";
+
+type Props = {
+  clusterName?: number | string | React.Element | Array<any>,
+  onUpdate?: Function,
+  showCaret?: boolean
+};
 
 class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {
@@ -16,6 +23,8 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   componentDidUpdate() {
     if (this.props.onUpdate) {
@@ -55,12 +64,6 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
 
 UserAccountDropdownTrigger.defaultProps = {
   showCaret: false
-};
-
-UserAccountDropdownTrigger.propTypes = {
-  clusterName: React.PropTypes.node,
-  onUpdate: React.PropTypes.func,
-  showCaret: React.PropTypes.bool
 };
 
 module.exports = UserAccountDropdownTrigger;

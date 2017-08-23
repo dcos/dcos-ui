@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -11,7 +12,13 @@ import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
 
+type Props = {
+  data?: Array<{ uri?: string }>,
+  path?: string,
+};
+
 class ArtifactsSection extends Component {
+
   getArtifactsLabel() {
     const tooltipContent = (
       <span>
@@ -108,14 +115,5 @@ class ArtifactsSection extends Component {
     );
   }
 }
-
-ArtifactsSection.propTypes = {
-  data: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      uri: React.PropTypes.string
-    })
-  ),
-  path: React.PropTypes.string
-};
 
 module.exports = ArtifactsSection;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -6,8 +7,20 @@ import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
 const METHODS_TO_BIND = ["handleHeadingClick"];
 
-class AdvancedSection extends React.Component {
-  constructor(props) {
+type DefaultProps = {};
+
+type Props = {
+  initialIsExpanded?: boolean,
+  children?: "*",
+  className?: Array<any> | Object | string
+};
+
+type State = {
+  isExpanded?: boolean
+};
+
+class AdvancedSection extends React.Component<DefaultProps, Props, State> {
+  constructor(props: Props) {
     super(...arguments);
 
     this.state = { isExpanded: props.initialIsExpanded === true };
@@ -48,15 +61,5 @@ class AdvancedSection extends React.Component {
     );
   }
 }
-
-AdvancedSection.propTypes = {
-  initialIsExpanded: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
-};
 
 module.exports = AdvancedSection;

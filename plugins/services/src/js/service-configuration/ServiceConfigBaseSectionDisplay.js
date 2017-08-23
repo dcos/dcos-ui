@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -13,7 +14,10 @@ import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapEditAction
   from "../components/ConfigurationMapEditAction";
 
+type Props = {};
+
 class ServiceConfigBaseSectionDisplay extends React.Component {
+
   shouldExcludeItem() {
     return false;
   }

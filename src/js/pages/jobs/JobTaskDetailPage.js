@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import TaskDetail
@@ -8,7 +9,13 @@ import Page from "../../components/Page";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
+type Props = {
+  params?: Object,
+  routes?: Array<any>
+};
+
 class JobTaskDetailPage extends React.Component {
+
   render() {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
@@ -49,10 +56,5 @@ class JobTaskDetailPage extends React.Component {
     );
   }
 }
-
-JobTaskDetailPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
-};
 
 module.exports = JobTaskDetailPage;

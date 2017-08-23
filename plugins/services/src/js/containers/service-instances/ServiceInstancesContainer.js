@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { MountService } from "foundation-ui";
 import React from "react";
@@ -10,6 +11,11 @@ import Service from "../../structs/Service";
 import TasksContainer from "../tasks/TasksContainer";
 
 const METHODS_TO_BIND = ["onStateStoreSuccess", "onStateStoreError"];
+
+type Props = {
+  service?: Service,
+  params: Object,
+};
 
 class ServiceInstancesContainer extends mixin(StoreMixin) {
   constructor() {
@@ -28,6 +34,8 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onStateStoreSuccess() {
     // Throttle updates
@@ -83,10 +91,5 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-ServiceInstancesContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Service),
-  params: React.PropTypes.object.isRequired
-};
 
 module.exports = ServiceInstancesContainer;

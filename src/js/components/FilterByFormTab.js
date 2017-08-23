@@ -1,5 +1,12 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import React from "react";
+
+type Props = {
+  currentTab?: string,
+  handleFilterChange?: Function,
+  tabs: Array<any>
+};
 
 class FilterByFormTab extends React.Component {
   constructor() {
@@ -7,6 +14,8 @@ class FilterByFormTab extends React.Component {
 
     this.onItemSelection = this.onItemSelection.bind(this);
   }
+
+
 
   onItemSelection(obj) {
     this.props.handleFilterChange(obj.value);
@@ -59,12 +68,6 @@ class FilterByFormTab extends React.Component {
     );
   }
 }
-
-FilterByFormTab.propTypes = {
-  currentTab: React.PropTypes.string,
-  handleFilterChange: React.PropTypes.func,
-  tabs: React.PropTypes.array.isRequired
-};
 
 FilterByFormTab.defaultProps = {
   currentTab: "",

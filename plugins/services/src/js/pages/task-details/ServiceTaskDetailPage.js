@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -8,7 +9,13 @@ import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
+type Props = {
+  params?: Object,
+  routes?: Array<any>,
+};
+
 class ServiceTaskDetailPage extends React.Component {
+
   render() {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
@@ -48,10 +55,5 @@ class ServiceTaskDetailPage extends React.Component {
     );
   }
 }
-
-ServiceTaskDetailPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
-};
 
 module.exports = ServiceTaskDetailPage;

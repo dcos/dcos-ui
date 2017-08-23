@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";

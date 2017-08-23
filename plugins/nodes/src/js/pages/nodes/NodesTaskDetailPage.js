@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -13,6 +14,11 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
+type Props = {
+  params?: Object,
+  routes?: Array<any>,
+};
+
 class NodesTaskDetailPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -25,6 +31,8 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   render() {
     const { location, params, routes } = this.props;
@@ -65,10 +73,5 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-NodesTaskDetailPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
-};
 
 module.exports = NodesTaskDetailPage;

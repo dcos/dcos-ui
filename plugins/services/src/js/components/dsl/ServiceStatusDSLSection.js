@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
@@ -18,7 +19,13 @@ const EXPRESSION_PARTS = {
   is_waiting: DSLExpressionPart.attribute("is", "waiting")
 };
 
+type Props = {
+  onChange: Function,
+  expression: DSLExpression,
+};
+
 class ServiceStatusDSLSection extends React.Component {
+
   render() {
     const { expression, onChange } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
@@ -94,10 +101,5 @@ class ServiceStatusDSLSection extends React.Component {
     );
   }
 }
-
-ServiceStatusDSLSection.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
-};
 
 module.exports = ServiceStatusDSLSection;

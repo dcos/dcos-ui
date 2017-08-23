@@ -1,3 +1,4 @@
+/* @flow */
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import React from "react";
@@ -7,6 +8,14 @@ import MetronomeStore from "../../stores/MetronomeStore";
 import ModalHeading from "../modals/ModalHeading";
 
 const METHODS_TO_BIND = ["handleButtonConfirm"];
+
+type Props = {
+  jobID: string,
+  onClose: Function,
+  onSuccess?: Function,
+  open: boolean,
+  selectedItems: Array<any>,
+};
 
 class JobStopRunModal extends mixin(StoreMixin) {
   constructor() {
@@ -28,6 +37,8 @@ class JobStopRunModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleButtonConfirm() {
     const { selectedItems, jobID } = this.props;
@@ -120,14 +131,6 @@ class JobStopRunModal extends mixin(StoreMixin) {
 
 JobStopRunModal.defaultProps = {
   onSuccess() {}
-};
-
-JobStopRunModal.propTypes = {
-  jobID: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  onSuccess: React.PropTypes.func,
-  open: React.PropTypes.bool.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
 };
 
 module.exports = JobStopRunModal;

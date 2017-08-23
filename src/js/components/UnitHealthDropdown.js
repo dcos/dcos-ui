@@ -1,3 +1,4 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
@@ -10,12 +11,21 @@ const DEFAULT_ITEM = {
   selectedHtml: "All Health Checks"
 };
 
+type Props = {
+  className?: string,
+  dropdownMenuClassName?: string,
+  initialID?: string,
+  onHealthSelection?: Function
+};
+
 class UnitHealthDropdown extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
     this.state = { dropdownItems: this.getDropdownItems() };
   }
+
+
 
   getDropdownItems() {
     const keys = Object.keys(UnitHealthStatus).filter(function(key) {
@@ -67,13 +77,6 @@ class UnitHealthDropdown extends React.Component {
     );
   }
 }
-
-UnitHealthDropdown.propTypes = {
-  className: React.PropTypes.string,
-  dropdownMenuClassName: React.PropTypes.string,
-  initialID: React.PropTypes.string,
-  onHealthSelection: React.PropTypes.func
-};
 
 UnitHealthDropdown.defaultProps = {
   className: "button dropdown-toggle text-align-left",

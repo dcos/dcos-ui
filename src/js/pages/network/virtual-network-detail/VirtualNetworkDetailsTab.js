@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMap from "../../../components/ConfigurationMap";
@@ -8,7 +9,10 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "../../../components/ConfigurationMapValue";
 import Overlay from "../../../structs/Overlay";
 
+type Props = { overlay?: Overlay };
+
 class VirtualNetworkDetailsTab extends React.Component {
+
   render() {
     const { overlay } = this.props;
 
@@ -38,9 +42,5 @@ class VirtualNetworkDetailsTab extends React.Component {
     );
   }
 }
-
-VirtualNetworkDetailsTab.propTypes = {
-  overlay: React.PropTypes.instanceOf(Overlay)
-};
 
 module.exports = VirtualNetworkDetailsTab;

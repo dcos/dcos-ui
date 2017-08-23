@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import ServiceFilterTypes from "../../constants/ServiceFilterTypes";
@@ -10,7 +11,15 @@ import HealthLabels from "../../constants/HealthLabels";
 import SidebarLabelsFilter from "./SidebarLabelsFilter";
 import SidebarFilter from "./SidebarFilter";
 
+type Props = {
+  countByValue: Object,
+  filters: Object,
+  handleFilterChange: Function,
+  services: Array<any>,
+};
+
 class ServiceSidebarFilters extends React.Component {
+
   render() {
     const { props } = this;
     const { countByValue, filters } = props;
@@ -49,12 +58,5 @@ class ServiceSidebarFilters extends React.Component {
     );
   }
 }
-
-ServiceSidebarFilters.propTypes = {
-  countByValue: PropTypes.object.isRequired,
-  filters: PropTypes.object.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
-  services: PropTypes.array.isRequired
-};
 
 module.exports = ServiceSidebarFilters;

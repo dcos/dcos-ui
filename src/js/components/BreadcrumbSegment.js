@@ -1,6 +1,13 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import BreadcrumbSegmentLink from "./BreadcrumbSegmentLink";
+
+type Props = {
+  params: Object,
+  routes: Array<any>,
+  routePath: string
+};
 
 class BreadcrumbSegment extends React.Component {
   constructor() {
@@ -10,6 +17,8 @@ class BreadcrumbSegment extends React.Component {
       isLoadingCrumb: true
     };
   }
+
+
 
   getCrumbLabel() {
     return "";
@@ -65,11 +74,5 @@ class BreadcrumbSegment extends React.Component {
     return <BreadcrumbSegmentLink label={label} route={route} />;
   }
 }
-
-BreadcrumbSegment.propTypes = {
-  params: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired,
-  routePath: PropTypes.string.isRequired
-};
 
 module.exports = BreadcrumbSegment;

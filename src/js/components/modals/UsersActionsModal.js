@@ -1,9 +1,18 @@
+/* @flow */
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
 
 import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";
+
+type Props = {
+  action: string,
+  actionText: Object,
+  itemID: string,
+  onClose: Function,
+  selectedItems: Array<any>,
+};
 
 class UsersActionsModal extends ActionsModal {
   constructor() {
@@ -17,6 +26,8 @@ class UsersActionsModal extends ActionsModal {
       }
     ];
   }
+
+
 
   onUserStoreDeleteError(requestError) {
     this.onActionError(requestError);
@@ -39,13 +50,5 @@ class UsersActionsModal extends ActionsModal {
     this.setState({ pendingRequest: true, requestErrors: [] });
   }
 }
-
-UsersActionsModal.propTypes = {
-  action: React.PropTypes.string.isRequired,
-  actionText: React.PropTypes.object.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
-};
 
 module.exports = UsersActionsModal;

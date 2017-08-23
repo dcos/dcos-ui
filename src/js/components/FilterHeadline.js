@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import PureRender from "react-addons-pure-render-mixin";
 import React, { PropTypes } from "react";
@@ -5,6 +6,18 @@ import React, { PropTypes } from "react";
 import StringUtil from "../utils/StringUtil";
 
 const METHODS_TO_BIND = ["handleReset"];
+
+type Props = {
+  className?: string,
+  currentLength: number,
+  inverseStyle?: boolean,
+  // Optional prop used to force the "Clear" button to show even when n of n
+  // items are currently displayed.
+  isFiltering?: boolean,
+  name: string,
+  onReset: Function,
+  totalLength: number
+};
 
 class FilterHeadline extends React.Component {
   constructor() {
@@ -15,6 +28,8 @@ class FilterHeadline extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleReset(e) {
     e.preventDefault();
@@ -78,18 +93,6 @@ class FilterHeadline extends React.Component {
 
 FilterHeadline.defaultProps = {
   inverseStyle: false
-};
-
-FilterHeadline.propTypes = {
-  className: PropTypes.string,
-  currentLength: PropTypes.number.isRequired,
-  inverseStyle: PropTypes.bool,
-  // Optional prop used to force the "Clear" button to show even when n of n
-  // items are currently displayed.
-  isFiltering: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-  totalLength: PropTypes.number.isRequired
 };
 
 module.exports = FilterHeadline;

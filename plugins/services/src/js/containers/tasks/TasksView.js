@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Tooltip } from "reactjs-components";
@@ -280,14 +281,6 @@ TasksView.defaultProps = {
   inverseStyle: false,
   itemID: "",
   tasks: []
-};
-
-TasksView.propTypes = {
-  params: React.PropTypes.object.isRequired,
-  inverseStyle: React.PropTypes.bool,
-  itemID: React.PropTypes.string,
-  service: React.PropTypes.instanceOf(Service).isRequired,
-  tasks: React.PropTypes.array
 };
 
 module.exports = TasksView;

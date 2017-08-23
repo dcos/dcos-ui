@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMap from "../../components/ConfigurationMap";
@@ -9,7 +10,10 @@ import ConfigurationMapValue from "../../components/ConfigurationMapValue";
 import HashMapDisplay from "../../components/HashMapDisplay";
 import Job from "../../structs/Job";
 
+type Props = { job: Job };
+
 class JobConfiguration extends React.Component {
+
   getSchedule(job) {
     const lastSchedule = job.getSchedules()[0];
 
@@ -177,9 +181,5 @@ class JobConfiguration extends React.Component {
     );
   }
 }
-
-JobConfiguration.propTypes = {
-  job: React.PropTypes.instanceOf(Job).isRequired
-};
 
 module.exports = JobConfiguration;

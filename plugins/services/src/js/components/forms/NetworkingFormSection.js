@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -34,6 +35,13 @@ const { MESOS } = ContainerConstants.type;
 
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class NetworkingFormSection extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -50,6 +58,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   onVirtualNetworksStoreSuccess() {
     this.forceUpdate();
@@ -752,13 +762,6 @@ NetworkingFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-NetworkingFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 NetworkingFormSection.configReducers = {

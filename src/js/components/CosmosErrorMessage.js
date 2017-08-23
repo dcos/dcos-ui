@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import Alert from "./Alert";
@@ -14,7 +15,17 @@ const REPOSITORY_ERRORS = [
   "RepositoryUriSyntax"
 ];
 
+type Props = {
+  error?: {
+    message?: number | string | React.Element | Array<any>,
+    type?: string,
+    data?: Object
+  },
+  flushBottom?: boolean
+};
+
 class CosmosErrorMessage extends React.Component {
+
   getMessage() {
     const { error } = this.props;
     if (!error) {
@@ -110,15 +121,6 @@ class CosmosErrorMessage extends React.Component {
 CosmosErrorMessage.defaultProps = {
   error: { message: "Please try again." },
   flushBottom: false
-};
-
-CosmosErrorMessage.propTypes = {
-  error: React.PropTypes.shape({
-    message: React.PropTypes.node,
-    type: React.PropTypes.string,
-    data: React.PropTypes.object
-  }),
-  flushBottom: React.PropTypes.bool
 };
 
 module.exports = CosmosErrorMessage;

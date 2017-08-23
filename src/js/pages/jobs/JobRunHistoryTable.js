@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import React from "react";
@@ -41,6 +42,8 @@ function calculateRunTime(startedAt, finishedAt) {
   return finishedAt - startedAt;
 }
 
+type Props = { params?: Object };
+
 class JobRunHistoryTable extends React.Component {
   constructor() {
     super(...arguments);
@@ -54,6 +57,8 @@ class JobRunHistoryTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleItemCheck(idsChecked) {
     const checkedItems = {};
@@ -396,9 +401,5 @@ class JobRunHistoryTable extends React.Component {
     );
   }
 }
-
-JobRunHistoryTable.propTypes = {
-  params: React.PropTypes.object
-};
 
 module.exports = JobRunHistoryTable;

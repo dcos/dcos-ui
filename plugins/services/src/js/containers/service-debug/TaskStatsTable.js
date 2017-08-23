@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -24,7 +25,10 @@ const headerMapping = {
   getMedianLifeTime: "MEDIAN LIFETIME"
 };
 
+type Props = {};
+
 class TaskStatsTable extends React.Component {
+
   getClassName(prop, sortBy) {
     const shouldAlignRight =
       taskStatus.includes(prop) || prop === "getMedianLifeTime";

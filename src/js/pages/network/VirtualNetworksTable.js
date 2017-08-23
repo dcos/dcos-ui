@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import React from "react";
@@ -11,7 +12,10 @@ const headerMapping = {
   prefix: "Agent Prefix Length"
 };
 
+type Props = { overlays?: OverlayList };
+
 class VirtualNetworksTable extends React.Component {
+
   getClassName(prop, sortBy) {
     return classNames({
       active: prop === sortBy.prop
@@ -99,10 +103,6 @@ class VirtualNetworksTable extends React.Component {
 
 VirtualNetworksTable.contextTypes = {
   router: routerShape
-};
-
-VirtualNetworksTable.propTypes = {
-  overlays: React.PropTypes.instanceOf(OverlayList)
 };
 
 module.exports = VirtualNetworksTable;

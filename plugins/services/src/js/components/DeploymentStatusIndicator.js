@@ -1,3 +1,4 @@
+/* @flow */
 import { FormattedMessage } from "react-intl";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
@@ -85,7 +86,5 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
 }
 
 DeploymentStatusIndicator.defaultProps = {};
-
-DeploymentStatusIndicator.propTypes = {};
 
 module.exports = DeploymentStatusIndicator;

@@ -1,7 +1,17 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
+type Props = {
+  activeTab?: string,
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  onChange?: Function,
+  vertical?: boolean
+};
+
 class TabButtonList extends React.Component {
+
   getChildren() {
     const { activeTab, children, onChange } = this.props;
 
@@ -36,17 +46,5 @@ class TabButtonList extends React.Component {
     );
   }
 }
-
-TabButtonList.propTypes = {
-  activeTab: React.PropTypes.string,
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  onChange: React.PropTypes.func,
-  vertical: React.PropTypes.bool
-};
 
 module.exports = TabButtonList;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
@@ -49,6 +50,8 @@ const METHODS_TO_BIND = [
   "handleInstallModalOpen"
 ];
 
+type Props = {};
+
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -77,6 +80,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

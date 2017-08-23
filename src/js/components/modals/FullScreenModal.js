@@ -1,10 +1,17 @@
+/* @flow */
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import React from "react";
 
 import Util from "../../utils/Util";
 
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  useGemini?: boolean,
+};
+
 class FullScreenModal extends React.Component {
+
   render() {
     const { props } = this;
     const geminiClasses = classNames({
@@ -36,11 +43,6 @@ class FullScreenModal extends React.Component {
 
 FullScreenModal.defaultProps = {
   useGemini: true
-};
-
-FullScreenModal.propTypes = {
-  children: React.PropTypes.node,
-  useGemini: React.PropTypes.bool
 };
 
 module.exports = FullScreenModal;

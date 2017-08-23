@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -29,7 +30,14 @@ function getDefaultMessage() {
   );
 }
 
+type Props = {
+  columnClasses?: Array<any> | Object | string,
+  header?: number | string | React.Element | Array<any>,
+  message?: number | string | React.Element | Array<any>
+};
+
 class RequestErrorMsg extends React.Component {
+
   render() {
     let { columnClasses, header, message } = this.props;
 
@@ -56,16 +64,6 @@ RequestErrorMsg.defaultProps = {
   columnClasses: {},
   header: "Cannot Connect With The Server",
   message: getDefaultMessage()
-};
-
-RequestErrorMsg.propTypes = {
-  columnClasses: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  header: React.PropTypes.node,
-  message: React.PropTypes.node
 };
 
 module.exports = RequestErrorMsg;

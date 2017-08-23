@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -12,7 +13,14 @@ const BOOLEAN_OPTIONS = {
   falsy: "FALSE"
 };
 
+type Props = {
+  artifacts?: Array<any>,
+  index?: number,
+  onEditClick?: Function,
+};
+
 class PodContainerArtifactsConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -92,12 +100,6 @@ class PodContainerArtifactsConfigSection extends React.Component {
 
 PodContainerArtifactsConfigSection.defaultProps = {
   artifacts: []
-};
-
-PodContainerArtifactsConfigSection.propTypes = {
-  artifacts: React.PropTypes.array,
-  index: React.PropTypes.number,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodContainerArtifactsConfigSection;

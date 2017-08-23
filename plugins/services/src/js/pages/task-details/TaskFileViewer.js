@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown, Tooltip } from "reactjs-components";
 import React from "react";
@@ -12,12 +13,21 @@ import SearchLog from "../../components/SearchLog";
 import TaskDirectory from "../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
+type Props = {
+  directory?: TaskDirectory,
+  limitLogFiles?: Array<string>,
+  selectedLogFile?: Object,
+  task?: Object,
+};
+
 class TaskFileViewer extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = { currentFile: null };
   }
+
+
 
   shouldComponentUpdate(nextProps, nextState) {
     const curProps = this.props;
@@ -230,13 +240,6 @@ TaskFileViewer.contextTypes = {
 TaskFileViewer.defaultProps = {
   limitLogFiles: [],
   task: {}
-};
-
-TaskFileViewer.propTypes = {
-  directory: React.PropTypes.instanceOf(TaskDirectory),
-  limitLogFiles: React.PropTypes.arrayOf(React.PropTypes.string),
-  selectedLogFile: React.PropTypes.object,
-  task: React.PropTypes.object
 };
 
 module.exports = TaskFileViewer;

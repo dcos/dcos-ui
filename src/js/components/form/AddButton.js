@@ -1,9 +1,18 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import Icon from "../Icon";
 
-function AddButton({ children, className, icon, onClick }) {
+type Props = {
+  children?: "*",
+  onClick?: Function,
+  className?: Array<any> | Object | string,
+  icon?: "*"
+};
+
+function AddButton(props: Props) {
+  const { children, className, icon, onClick } = props;
   const classes = classNames(
     "button button-primary-link button-flush",
     className
@@ -21,17 +30,6 @@ function AddButton({ children, className, icon, onClick }) {
 
 AddButton.defaultProps = {
   icon: <Icon color="purple" id="plus" size="tiny" />
-};
-
-AddButton.propTypes = {
-  children: React.PropTypes.node,
-  onClick: React.PropTypes.func,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  icon: React.PropTypes.node
 };
 
 module.exports = AddButton;

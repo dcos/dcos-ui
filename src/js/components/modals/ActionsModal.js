@@ -1,3 +1,4 @@
+/* @flow */
 import { Confirm, Dropdown } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import React from "react";
@@ -18,6 +19,15 @@ const METHODS_TO_BIND = [
 const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
+type Props = {
+  action: string,
+  actionText: Object,
+  itemID: string,
+  itemType: string,
+  onClose: Function,
+  selectedItems: Array<any>,
+};
+
 class ActionsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -34,6 +44,8 @@ class ActionsModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentWillMount() {
     this.setState({
@@ -261,14 +273,5 @@ class ActionsModal extends mixin(StoreMixin) {
     );
   }
 }
-
-ActionsModal.propTypes = {
-  action: React.PropTypes.string.isRequired,
-  actionText: React.PropTypes.object.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  itemType: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
-};
 
 module.exports = ActionsModal;

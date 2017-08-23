@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 /* eslint-disable no-unused-vars */
@@ -14,6 +15,8 @@ const TELEMETRY_NOTIFICATION =
   "Because telemetry is disabled you must manually notify users of ACL changes.";
 
 const METHODS_TO_BIND = ["handleNewUserSubmit", "onUserStoreCreateSuccess"];
+
+type Props = {};
 
 class UserFormModal extends mixin(StoreMixin) {
   constructor() {
@@ -37,6 +40,8 @@ class UserFormModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onUserStoreCreateSuccess() {
     this.setState({

@@ -1,3 +1,4 @@
+/* @flow */
 import deepEqual from "deep-equal";
 import mixin from "reactjs-mixin";
 import React from "react";

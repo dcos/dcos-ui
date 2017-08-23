@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -5,7 +6,12 @@ import Icon from "../Icon";
 import StringUtil from "../../utils/StringUtil";
 import UserActions from "../../constants/UserActions";
 
-const FormGroupContainer = props => {
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  onRemove?: Function
+};
+
+const FormGroupContainer = (props: Props) => {
   let removeButton = null;
   if (props.onRemove != null) {
     removeButton = (
@@ -35,11 +41,6 @@ const FormGroupContainer = props => {
 
 FormGroupContainer.defaultProps = {
   onRemove: null
-};
-
-FormGroupContainer.propTypes = {
-  children: React.PropTypes.node,
-  onRemove: React.PropTypes.func
 };
 
 module.exports = FormGroupContainer;

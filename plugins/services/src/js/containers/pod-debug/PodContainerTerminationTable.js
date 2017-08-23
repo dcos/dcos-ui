@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -13,6 +14,11 @@ const METHODS_TO_BIND = [
   "renderColumnTerminationMessage"
 ];
 
+type Props = {
+  className?: string,
+  containers: Array<any>,
+};
+
 class PodContainerTerminationTable extends React.Component {
   constructor() {
     super(...arguments);
@@ -21,6 +27,8 @@ class PodContainerTerminationTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getColumns() {
     const { getClassName } = ResourceTableUtil;
@@ -115,11 +123,6 @@ class PodContainerTerminationTable extends React.Component {
 PodContainerTerminationTable.defaultProps = {
   className: "table table-borderless-outer table-borderless-inner-columns flush-bottom",
   containers: []
-};
-
-PodContainerTerminationTable.propTypes = {
-  className: React.PropTypes.string,
-  containers: React.PropTypes.array.isRequired
 };
 
 module.exports = PodContainerTerminationTable;

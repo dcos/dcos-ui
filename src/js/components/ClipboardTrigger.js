@@ -1,3 +1,4 @@
+/* @flow */
 import Clipboard from "clipboard";
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
@@ -6,6 +7,16 @@ import { Tooltip } from "reactjs-components";
 import Icon from "./Icon";
 
 const METHODS_TO_BIND = ["handleCopy", "handleCopyIconMouseEnter"];
+
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: string,
+  copiedText?: number | string | React.Element | Array<any>,
+  copyText?: number | string | React.Element | Array<any>,
+  onTextCopy?: Function,
+  tooltipContent?: number | string | React.Element | Array<any>,
+  useTooltip?: boolean
+};
 
 class ClipboardTrigger extends React.Component {
   constructor() {
@@ -19,6 +30,8 @@ class ClipboardTrigger extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     if (this.refs.copyButton) {
@@ -101,16 +114,6 @@ class ClipboardTrigger extends React.Component {
 ClipboardTrigger.defaultProps = {
   copiedText: "Copied!",
   tooltipContent: "Copy to clipboard"
-};
-
-ClipboardTrigger.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  copiedText: PropTypes.node,
-  copyText: PropTypes.node,
-  onTextCopy: PropTypes.func,
-  tooltipContent: PropTypes.node,
-  useTooltip: PropTypes.bool
 };
 
 module.exports = ClipboardTrigger;

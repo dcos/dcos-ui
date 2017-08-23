@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import classNames from "classnames/dedupe";
 
@@ -48,7 +49,17 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 }
 
+type Props = {
+  className?: Array<any> | Object | string,
+  scale?: number,
+  data: Array<{
+    className?: string,
+    value: number
+  }>
+};
+
 class StatusBar extends React.Component {
+
   getBars(data) {
     let max = data.reduce(function(sum, item) {
       return sum + item.value;
@@ -113,21 +124,6 @@ class StatusBar extends React.Component {
 
 StatusBar.defaultProps = {
   scale: 0
-};
-
-StatusBar.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  scale: React.PropTypes.number,
-  data: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      className: React.PropTypes.string,
-      value: React.PropTypes.number.isRequired
-    })
-  ).isRequired
 };
 
 module.exports = StatusBar;

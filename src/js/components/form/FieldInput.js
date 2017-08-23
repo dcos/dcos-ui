@@ -1,9 +1,19 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
 import { omit } from "../../utils/Util";
 
-const FieldInput = props => {
+type Props = {
+  type?: string,
+  onChange?: Function,
+  checked?: boolean,
+  value?: number | string,
+  // Classes
+  className?: Array<any> | Object | string
+};
+
+const FieldInput = (props: Props) => {
   const { className, type } = props;
   const classes = classNames("form-control", className);
 
@@ -23,23 +33,6 @@ const FieldInput = props => {
 FieldInput.defaultProps = {
   onChange() {},
   value: ""
-};
-
-FieldInput.propTypes = {
-  type: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  checked: React.PropTypes.bool,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
-  ]),
-
-  // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = FieldInput;

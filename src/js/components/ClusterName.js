@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -9,6 +10,8 @@ import PluginSDK from "PluginSDK";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 
 const { Hooks } = PluginSDK;
+
+type Props = {};
 
 class ClusterName extends mixin(StoreMixin) {
   constructor() {
@@ -22,6 +25,8 @@ class ClusterName extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   render() {
     const states = MesosSummaryStore.get("states");

@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -57,6 +58,8 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
   return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
 };
 
+type Props = {};
+
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -75,6 +78,8 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

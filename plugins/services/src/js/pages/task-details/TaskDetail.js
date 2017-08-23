@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -364,11 +365,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
 TaskDetail.contextTypes = {
   router: routerShape
-};
-
-TaskDetail.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
 };
 
 module.exports = TaskDetail;

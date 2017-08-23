@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+/* @flow */
+import React from "react";
 
 import { MountService } from "./index";
 import { CHANGE } from "./MountEvent";
@@ -94,14 +95,6 @@ Mount.defaultProps = {
   alwaysWrap: false,
   limit: Number.MAX_SAFE_INTEGER,
   wrapper: "div"
-};
-
-Mount.propTypes = {
-  alwaysWrap: PropTypes.bool,
-  limit: PropTypes.number,
-  children: PropTypes.element,
-  type: PropTypes.string.isRequired,
-  wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
 module.exports = Mount;

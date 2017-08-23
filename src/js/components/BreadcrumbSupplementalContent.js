@@ -1,7 +1,11 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
+type Props = { hasStatusBar?: boolean };
+
 class BreadcrumbSupplementalContent extends React.Component {
+
   render() {
     const { children, hasStatusBar } = this.props;
 
@@ -24,10 +28,6 @@ class BreadcrumbSupplementalContent extends React.Component {
 
 BreadcrumbSupplementalContent.defaultProps = {
   hasStatusBar: false
-};
-
-BreadcrumbSupplementalContent.propTypes = {
-  hasStatusBar: React.PropTypes.bool
 };
 
 module.exports = BreadcrumbSupplementalContent;

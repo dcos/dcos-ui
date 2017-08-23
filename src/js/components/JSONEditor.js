@@ -1,3 +1,4 @@
+/* @flow */
 import AceEditor from "react-ace";
 import React from "react";
 import deepEqual from "deep-equal";
@@ -509,25 +510,6 @@ JSONEditor.defaultProps = {
   onPropertyChange() {},
   value: {},
   width: "100%"
-};
-
-JSONEditor.propTypes = {
-  errors: React.PropTypes.array,
-  editorProps: React.PropTypes.object,
-  height: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ]),
-  onBlur: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onErrorStateChange: React.PropTypes.func,
-  onFocus: React.PropTypes.func,
-  onPropertyChange: React.PropTypes.func,
-  value: React.PropTypes.object,
-  width: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ])
 };
 
 module.exports = JSONEditor;

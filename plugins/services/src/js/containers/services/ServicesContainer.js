@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 import { routerShape } from "react-router";
 
@@ -594,11 +595,6 @@ ServicesContainer.childContextTypes = {
     suspendService: PropTypes.func,
     openServiceUI: PropTypes.func
   })
-};
-
-ServicesContainer.propTypes = {
-  params: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
 };
 
 ServicesContainer.contextTypes = {

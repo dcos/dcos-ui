@@ -1,6 +1,13 @@
+/* @flow */
 import React from "react";
 
-const ConfigurationMapEditAction = ({ tabViewID, onEditClick }) => {
+type Props = {
+  onEditClick?: Function,
+  tabViewID?: string,
+};
+
+const ConfigurationMapEditAction = (props: Props) => {
+  const { tabViewID, onEditClick } = props;
   if (!onEditClick) {
     return <noscript />;
   }
@@ -13,11 +20,6 @@ const ConfigurationMapEditAction = ({ tabViewID, onEditClick }) => {
       Edit
     </a>
   );
-};
-
-ConfigurationMapEditAction.propTypes = {
-  onEditClick: React.PropTypes.func,
-  tabViewID: React.PropTypes.string
 };
 
 module.exports = ConfigurationMapEditAction;

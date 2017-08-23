@@ -1,3 +1,4 @@
+/* @flow */
 import { Confirm } from "reactjs-components";
 import React, { PropTypes } from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -159,17 +160,5 @@ class ServiceResumeModal extends React.Component {
     );
   }
 }
-
-ServiceResumeModal.propTypes = {
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  resumeService: PropTypes.func.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 module.exports = ServiceResumeModal;

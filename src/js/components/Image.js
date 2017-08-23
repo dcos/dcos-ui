@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -65,17 +66,5 @@ class Image extends React.Component {
     );
   }
 }
-
-Image.propTypes = {
-  src: React.PropTypes.string,
-  fallbackSrc: React.PropTypes.string,
-
-  // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
-};
 
 module.exports = Image;

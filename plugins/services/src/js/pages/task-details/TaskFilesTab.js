@@ -1,6 +1,14 @@
+/* @flow */
 import React from "react";
 
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  directory?: Object,
+  task?: Object,
+};
+
 class TaskFilesTab extends React.Component {
+
   render() {
     const { children, directory, onOpenLogClick, task } = this.props;
 
@@ -16,12 +24,6 @@ class TaskFilesTab extends React.Component {
     );
   }
 }
-
-TaskFilesTab.propTypes = {
-  children: React.PropTypes.node,
-  directory: React.PropTypes.object,
-  task: React.PropTypes.object
-};
 
 TaskFilesTab.defaultProps = {
   task: {}

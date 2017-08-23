@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import React from "react";
@@ -9,6 +10,12 @@ import VolumeStatus from "../constants/VolumeStatus";
 
 const METHODS_TO_BIND = ["renderIDColumn"];
 
+type Props = {
+  volumes?: Array<Volume>,
+  params: Object,
+  routes: Array<any>,
+};
+
 class VolumeTable extends React.Component {
   constructor() {
     super();
@@ -17,6 +24,8 @@ class VolumeTable extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getData(volumes) {
     return volumes.map(function(volume) {
@@ -173,11 +182,5 @@ class VolumeTable extends React.Component {
     );
   }
 }
-
-VolumeTable.propTypes = {
-  volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume)),
-  params: React.PropTypes.object.isRequired,
-  routes: React.PropTypes.array.isRequired
-};
 
 module.exports = VolumeTable;

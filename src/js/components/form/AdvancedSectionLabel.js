@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -13,7 +14,15 @@ function getStateIndicator(isExpanded) {
   return <Icon id={iconID} color="purple" family="tiny" size="tiny" />;
 }
 
-const AdvancedSectionLabel = ({ className, children, isExpanded, onClick }) => {
+type Props = {
+  children?: number | string | React.Element | Array<any>,
+  className?: Array<any> | Object | string,
+  isExpanded?: boolean,
+  onClick?: Function,
+};
+
+const AdvancedSectionLabel = (props: Props) => {
+  const { className, children, isExpanded, onClick } = props;
   const classes = classNames(
     "advanced-section-label clickable button button-primary-link button-flush",
     className
@@ -27,17 +36,6 @@ const AdvancedSectionLabel = ({ className, children, isExpanded, onClick }) => {
       </span>
     </a>
   );
-};
-
-AdvancedSectionLabel.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  isExpanded: React.PropTypes.bool,
-  onClick: React.PropTypes.func
 };
 
 module.exports = AdvancedSectionLabel;

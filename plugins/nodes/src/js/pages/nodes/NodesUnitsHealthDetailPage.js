@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -10,6 +11,8 @@ import UnitHealthStore from "#SRC/js/stores/UnitHealthStore";
 
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
+type Props = {};
+
 class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -21,6 +24,8 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
       }
     ];
   }
+
+
 
   componentDidMount() {
     super.componentDidMount(...arguments);

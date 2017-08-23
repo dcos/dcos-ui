@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -5,7 +6,10 @@ import Node from "#SRC/js/structs/Node";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 import HealthTab from "../../components/HealthTab";
 
+type Props = { node: Node };
+
 class NodeDetailHealthTab extends React.Component {
+
   render() {
     const { node } = this.props;
     const units = NodeHealthStore.getUnits(node.hostname);
@@ -16,10 +20,6 @@ class NodeDetailHealthTab extends React.Component {
 
 NodeDetailHealthTab.contextTypes = {
   router: routerShape
-};
-
-NodeDetailHealthTab.propTypes = {
-  node: React.PropTypes.instanceOf(Node).isRequired
 };
 
 module.exports = NodeDetailHealthTab;

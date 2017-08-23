@@ -1,13 +1,24 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+
+type Props = {
+  defaultValue?: string | number | string | React.Element | Array<any>,
+  options?: {
+    truthy?: any,
+    falsy?: any,
+  },
+  value?: any,
+};
 
 /**
  * Render a boolean value as a <ConfigurationMapValue>, with it's values being
  * selected from an `options` array.
  */
 class ConfigurationMapBooleanValue extends React.Component {
+
   render() {
     let { defaultValue, options, value } = this.props;
 
@@ -38,18 +49,6 @@ ConfigurationMapBooleanValue.defaultProps = {
     falsy: "Disabled"
   },
   value: null
-};
-
-ConfigurationMapBooleanValue.propTypes = {
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  options: React.PropTypes.shape({
-    truthy: React.PropTypes.any,
-    falsy: React.PropTypes.any
-  }),
-  value: React.PropTypes.any
 };
 
 module.exports = ConfigurationMapBooleanValue;

@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -11,7 +12,13 @@ import {
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class PodLabelsConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -88,11 +95,6 @@ class PodLabelsConfigSection extends React.Component {
 
 PodLabelsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodLabelsConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodLabelsConfigSection;

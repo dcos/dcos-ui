@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
 
@@ -6,6 +7,8 @@ const METHODS_TO_BIND = [
   "handleImageViewerLeftClick",
   "handleImageViewerRightClick"
 ];
+
+type Props = { images?: Array<string> };
 
 class ImageViewer extends React.Component {
   constructor() {
@@ -17,6 +20,8 @@ class ImageViewer extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   handleImageViewerModalClose() {
     this.setState({ selectedImage: null });
@@ -87,10 +92,6 @@ class ImageViewer extends React.Component {
 
 ImageViewer.defaultProps = {
   images: []
-};
-
-ImageViewer.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string)
 };
 
 module.exports = ImageViewer;

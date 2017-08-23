@@ -1,7 +1,17 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
+type Props = {
+  checked?: boolean,
+  children?: number | string | React.Element | Array<any>,
+  onChange?: Function,
+  checkboxClassName?: Array<any> | Object | string,
+  className?: Array<any> | Object | string
+};
+
 class ToggleButton extends React.Component {
+
   render() {
     const {
       checkboxClassName,
@@ -32,23 +42,6 @@ ToggleButton.defaultProps = {
   checked: false,
   onChange() {},
   checkboxClassName: "toggle-button"
-};
-
-ToggleButton.propTypes = {
-  checked: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  onChange: React.PropTypes.func,
-
-  checkboxClassName: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ])
 };
 
 module.exports = ToggleButton;

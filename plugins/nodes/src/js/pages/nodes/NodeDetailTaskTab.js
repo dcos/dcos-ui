@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -9,6 +10,8 @@ import TasksContainer
   from "../../../../../services/src/js/containers/tasks/TasksContainer";
 
 const METHODS_TO_BIND = ["onStoreChange"];
+
+type Props = {};
 
 class NodeDetailTaskTab extends React.Component {
   constructor() {
@@ -23,6 +26,8 @@ class NodeDetailTaskTab extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);

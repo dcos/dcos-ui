@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -161,10 +162,5 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     );
   }
 }
-
-AddRepositoryFormModal.propTypes = {
-  numberOfRepositories: React.PropTypes.number.isRequired,
-  open: React.PropTypes.bool
-};
 
 module.exports = AddRepositoryFormModal;

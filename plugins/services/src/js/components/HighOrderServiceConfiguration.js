@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import Pod from "../structs/Pod";
@@ -7,7 +8,12 @@ import Service from "../structs/Service";
 import ServiceConfigurationContainer
   from "../containers/service-configuration/ServiceConfigurationContainer";
 
-const HighOrderServiceConfiguration = function(props) {
+type Props = {
+  errors?: Array<any>,
+  service?: Pod | Service,
+};
+
+const HighOrderServiceConfiguration = function(props: Props) {
   const { errors, onEditClick, service } = props;
   if (service instanceof Pod) {
     return <PodConfigurationContainer pod={service} />;
@@ -20,14 +26,6 @@ const HighOrderServiceConfiguration = function(props) {
       service={service}
     />
   );
-};
-
-HighOrderServiceConfiguration.propTypes = {
-  errors: React.PropTypes.array,
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Pod),
-    React.PropTypes.instanceOf(Service)
-  ])
 };
 
 module.exports = HighOrderServiceConfiguration;

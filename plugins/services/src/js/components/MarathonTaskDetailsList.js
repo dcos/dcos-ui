@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -9,7 +10,10 @@ import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
+type Props = { taskID: string };
+
 class MarathonTaskDetailsList extends React.Component {
+
   getTaskPorts(task) {
     const { ports } = task;
     if (!ports || !ports.length) {
@@ -187,9 +191,5 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 }
-
-MarathonTaskDetailsList.propTypes = {
-  taskID: React.PropTypes.string.isRequired
-};
 
 module.exports = MarathonTaskDetailsList;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -173,12 +174,6 @@ class SearchLog extends React.Component {
 
 SearchLog.defaultProps = {
   logFiles: []
-};
-
-SearchLog.propTypes = {
-  logFiles: React.PropTypes.array,
-  actions: React.PropTypes.node,
-  children: React.PropTypes.node
 };
 
 module.exports = SearchLog;

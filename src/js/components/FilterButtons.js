@@ -1,7 +1,23 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
+type Props = {
+  filters?: Array<any>,
+  // The key in itemList that is being filtered
+  filterByKey?: string,
+  inverseStyle?: boolean,
+  itemList: Array<any>,
+  // A function that returns the onClick for a filter button given the filter.
+  onFilterChange?: Function,
+  // Optional function to generate button text. args: (filter, count)
+  renderButtonContent?: Function,
+  // The filter in props.filters that is currently selected.
+  selectedFilter?: string
+};
+
 class FilterButtons extends React.Component {
+
   getCount(items) {
     const counts = {};
 
@@ -73,20 +89,6 @@ FilterButtons.defaultProps = {
   renderButtonContent(title) {
     return title;
   }
-};
-
-FilterButtons.propTypes = {
-  filters: React.PropTypes.array,
-  // The key in itemList that is being filtered
-  filterByKey: React.PropTypes.string,
-  inverseStyle: React.PropTypes.bool,
-  itemList: React.PropTypes.array.isRequired,
-  // A function that returns the onClick for a filter button given the filter.
-  onFilterChange: React.PropTypes.func,
-  // Optional function to generate button text. args: (filter, count)
-  renderButtonContent: React.PropTypes.func,
-  // The filter in props.filters that is currently selected.
-  selectedFilter: React.PropTypes.string
 };
 
 module.exports = FilterButtons;

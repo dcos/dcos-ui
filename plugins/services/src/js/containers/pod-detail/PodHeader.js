@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import { Dropdown } from "reactjs-components";
 import React from "react";
@@ -14,6 +15,15 @@ import PodActionItem from "../../constants/PodActionItem";
 
 const METHODS_TO_BIND = ["handleDropdownAction"];
 
+type Props = {
+  onDestroy?: Function,
+  onEdit?: Function,
+  onScale?: Function,
+  onSuspend?: Function,
+  pod: Pod,
+  tabs?: Array<any>,
+};
+
 class PodHeader extends React.Component {
   constructor() {
     super(...arguments);
@@ -22,6 +32,8 @@ class PodHeader extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   getActionButtons() {
     var { pod } = this.props;
@@ -183,15 +195,6 @@ PodHeader.defaultProps = {
   onSuspend() {},
   pod: null,
   tabs: []
-};
-
-PodHeader.propTypes = {
-  onDestroy: React.PropTypes.func,
-  onEdit: React.PropTypes.func,
-  onScale: React.PropTypes.func,
-  onSuspend: React.PropTypes.func,
-  pod: React.PropTypes.instanceOf(Pod).isRequired,
-  tabs: React.PropTypes.array
 };
 
 module.exports = PodHeader;

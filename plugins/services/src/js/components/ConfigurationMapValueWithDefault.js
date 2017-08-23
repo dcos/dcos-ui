@@ -1,12 +1,19 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
 
+type Props = {
+  value?: any,
+  defaultValue?: string | number | string | React.Element | Array<any>,
+};
+
 /**
  * Render a defaultValue value if the value is empty or falsy.
  */
 class ConfigurationMapValueWithDefault extends React.Component {
+
   render() {
     const { defaultValue, value } = this.props;
 
@@ -26,14 +33,6 @@ class ConfigurationMapValueWithDefault extends React.Component {
 ConfigurationMapValueWithDefault.defaultProps = {
   value: undefined,
   defaultValue: <em>Not Configured</em>
-};
-
-ConfigurationMapValueWithDefault.propTypes = {
-  value: React.PropTypes.any,
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ])
 };
 
 module.exports = ConfigurationMapValueWithDefault;

@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames/dedupe";
 import React from "react";
 
@@ -42,7 +43,16 @@ const typeMap = {
   // triangleSkewSpin: {className: 'triangle-skew-spin', divCount: 1}
 };
 
+type Props = {
+  className?: classPropType,
+  flip?: "horizontal",
+  innerClassName?: classPropType,
+  size?: "small" | "mini",
+  type?: "ballBeat" | "ballScale" | "ballSpinFadeLoader" | "lineSpinFadeLoader"
+};
+
 class Loader extends React.Component {
+
   getDivs(length) {
     return Array.from({ length }).map(function(_, index) {
       return <div className="loader-element" key={index} />;
@@ -85,18 +95,5 @@ const classPropType = React.PropTypes.oneOfType([
   React.PropTypes.object,
   React.PropTypes.string
 ]);
-
-Loader.propTypes = {
-  className: classPropType,
-  flip: React.PropTypes.oneOf(["horizontal"]),
-  innerClassName: classPropType,
-  size: React.PropTypes.oneOf(["small", "mini"]),
-  type: React.PropTypes.oneOf([
-    "ballBeat",
-    "ballScale",
-    "ballSpinFadeLoader",
-    "lineSpinFadeLoader"
-  ])
-};
 
 module.exports = Loader;

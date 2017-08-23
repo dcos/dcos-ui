@@ -1,3 +1,4 @@
+/* @flow */
 import { Tooltip } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
@@ -25,7 +26,15 @@ import {
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
+type Props = {
+  data?: Object,
+  errors?: Object,
+  onAddItem?: Function,
+  onRemoveItem?: Function,
+};
+
 class VolumesFormSection extends Component {
+
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== "PERSISTENT") {
       return null;
@@ -441,13 +450,6 @@ VolumesFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-VolumesFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
 };
 
 VolumesFormSection.configReducers = {

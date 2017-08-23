@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import deepEqual from "deep-equal";
 
@@ -9,6 +10,12 @@ const METHODS_TO_BIND = [
   "getShowHideLink",
   "handlePortsToggle"
 ];
+
+type Props = {
+  portLimit?: number,
+  task?: Object,
+  node?: Object,
+};
 
 class TaskEndpointsList extends React.Component {
   constructor() {
@@ -22,6 +29,8 @@ class TaskEndpointsList extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -160,12 +169,6 @@ class TaskEndpointsList extends React.Component {
 
 TaskEndpointsList.defaultProps = {
   portLimit: 3
-};
-
-TaskEndpointsList.propTypes = {
-  portLimit: React.PropTypes.number,
-  task: React.PropTypes.object,
-  node: React.PropTypes.object
 };
 
 module.exports = TaskEndpointsList;

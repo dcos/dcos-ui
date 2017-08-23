@@ -1,13 +1,20 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+
+type Props = {
+  defaultValue?: string | number | string | React.Element | Array<any>,
+  value?: string,
+};
 
 /**
  * Render a multiline value as a <ConfigurationMapValue>, within the
  * appropriate formatting.
  */
 class ConfigurationMapMultilineValue extends React.Component {
+
   render() {
     const { value, defaultValue } = this.props;
 
@@ -27,14 +34,6 @@ class ConfigurationMapMultilineValue extends React.Component {
 ConfigurationMapMultilineValue.defaultProps = {
   defaultValue: <em>Not Configured</em>,
   value: ""
-};
-
-ConfigurationMapMultilineValue.propTypes = {
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  value: React.PropTypes.string
 };
 
 module.exports = ConfigurationMapMultilineValue;

@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
@@ -26,6 +27,8 @@ const METHODS_TO_BIND = [
   "killPodInstances"
 ];
 
+type Props = { pod?: Pod };
+
 class PodInstancesContainer extends React.Component {
   constructor() {
     super(...arguments);
@@ -40,6 +43,8 @@ class PodInstancesContainer extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     MesosStateStore.addChangeListener(
@@ -232,10 +237,6 @@ PodInstancesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     killPodInstances: PropTypes.func
   })
-};
-
-PodInstancesContainer.propTypes = {
-  pod: PropTypes.instanceOf(Pod)
 };
 
 module.exports = PodInstancesContainer;

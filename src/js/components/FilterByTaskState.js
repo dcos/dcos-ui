@@ -1,7 +1,17 @@
+/* @flow */
 import { Dropdown } from "reactjs-components";
 import React from "react";
 
 const defaultID = "all";
+
+type Props = {
+  currentStatus?: string,
+  handleFilterChange?: Function,
+  statuses: Array<any>,
+  totalTasksCount: number,
+  className?: string,
+  dropdownMenuClassName?: string
+};
 
 class FilterByTaskState extends React.Component {
   constructor() {
@@ -9,6 +19,8 @@ class FilterByTaskState extends React.Component {
 
     this.onItemSelection = this.onItemSelection.bind(this);
   }
+
+
 
   onItemSelection(obj) {
     this.props.handleFilterChange(obj.value);
@@ -73,16 +85,6 @@ class FilterByTaskState extends React.Component {
     );
   }
 }
-
-FilterByTaskState.propTypes = {
-  currentStatus: React.PropTypes.string,
-  handleFilterChange: React.PropTypes.func,
-  statuses: React.PropTypes.array.isRequired,
-  totalTasksCount: React.PropTypes.number.isRequired,
-
-  className: React.PropTypes.string,
-  dropdownMenuClassName: React.PropTypes.string
-};
 
 FilterByTaskState.defaultProps = {
   currentStatus: defaultID,

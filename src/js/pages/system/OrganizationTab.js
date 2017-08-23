@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Dropdown, Form, Table } from "reactjs-components";
 import { Hooks } from "PluginSDK";
@@ -516,11 +517,5 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     );
   }
 }
-
-OrganizationTab.propTypes = {
-  items: React.PropTypes.array.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  itemName: React.PropTypes.string.isRequired
-};
 
 module.exports = OrganizationTab;

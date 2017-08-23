@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Link } from "react-router";
 import React from "react";
@@ -7,7 +8,13 @@ import Breadcrumb from "./Breadcrumb";
 import BreadcrumbCaret from "./BreadcrumbCaret";
 import Icon from "./Icon";
 
+type Props = {
+  iconID: string,
+  breadcrumbs: Array<number | string | React.Element | Array<any>>
+};
+
 class PageHeaderBreadcrumbs extends React.Component {
+
   getCaret(key) {
     return <BreadcrumbCaret key={`caret-${key}`} />;
   }
@@ -69,10 +76,5 @@ class PageHeaderBreadcrumbs extends React.Component {
     );
   }
 }
-
-PageHeaderBreadcrumbs.propTypes = {
-  iconID: React.PropTypes.string.isRequired,
-  breadcrumbs: React.PropTypes.arrayOf(React.PropTypes.node).isRequired
-};
 
 module.exports = PageHeaderBreadcrumbs;

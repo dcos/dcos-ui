@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { MountService } from "foundation-ui";
 
@@ -71,7 +72,14 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({ MOUNT_TYPE, COMPONENTS }) => {
   });
 });
 
+type Props = {
+  appConfig: Object,
+  errors?: Array<any>,
+  onEditClick?: Function,
+};
+
 class ServiceConfigDisplay extends React.Component {
+
   getMountType() {
     if (this.props.appConfig instanceof PodSpec) {
       return "CreateService:ServiceConfigDisplay:Pod";
@@ -109,12 +117,6 @@ class ServiceConfigDisplay extends React.Component {
 
 ServiceConfigDisplay.defaultProps = {
   errors: []
-};
-
-ServiceConfigDisplay.propTypes = {
-  appConfig: React.PropTypes.object.isRequired,
-  errors: React.PropTypes.array,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = ServiceConfigDisplay;

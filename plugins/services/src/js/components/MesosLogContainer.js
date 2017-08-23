@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -232,14 +233,6 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
 MesosLogContainer.defaultProps = {
   highlightText: ""
-};
-
-MesosLogContainer.propTypes = {
-  filePath: React.PropTypes.string,
-  highlightText: React.PropTypes.string,
-  logName: React.PropTypes.string,
-  task: React.PropTypes.object.isRequired,
-  watching: React.PropTypes.number
 };
 
 module.exports = MesosLogContainer;

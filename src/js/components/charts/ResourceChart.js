@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import BarChart from "../../components/charts/BarChart";
@@ -10,7 +11,14 @@ import Util from "../../utils/Util";
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
 
+type Props = {
+  className?: string,
+  resourceName?: string,
+  resources?: Object
+};
+
 class ResourceChart extends React.Component {
+
   getResourceChart(resource, totalResources) {
     const colorIndex = ResourcesUtil.getResourceColor(resource);
     const resourceLabel = ResourcesUtil.getResourceLabel(resource);
@@ -92,12 +100,6 @@ class ResourceChart extends React.Component {
 
 ResourceChart.defaultProps = {
   className: "column-12 column-small-4"
-};
-
-ResourceChart.propTypes = {
-  className: React.PropTypes.string,
-  resourceName: React.PropTypes.string,
-  resources: React.PropTypes.object
 };
 
 module.exports = ResourceChart;

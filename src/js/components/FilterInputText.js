@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React, { PropTypes } from "react";
 
@@ -12,6 +13,14 @@ const METHODS_TO_BIND = [
   "handleInputClear"
 ];
 
+type Props = {
+  handleFilterChange: Function,
+  inverseStyle?: boolean,
+  placeholder?: string,
+  searchString?: string,
+  sideText?: number | string | React.Element | Array<any>
+};
+
 class FilterInputText extends React.Component {
   constructor() {
     super(...arguments);
@@ -24,6 +33,8 @@ class FilterInputText extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     const { focus } = this.state;
@@ -160,14 +171,6 @@ FilterInputText.defaultProps = {
   placeholder: "Filter",
   searchString: "",
   sideText: null
-};
-
-FilterInputText.propTypes = {
-  handleFilterChange: PropTypes.func.isRequired,
-  inverseStyle: PropTypes.bool,
-  placeholder: PropTypes.string,
-  searchString: PropTypes.string,
-  sideText: PropTypes.node
 };
 
 module.exports = FilterInputText;

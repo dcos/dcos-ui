@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -18,7 +19,10 @@ import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskEndpointsList from "../../components/TaskEndpointsList";
 
+type Props = { task?: Object };
+
 class TaskDetailsTab extends React.Component {
+
   getContainerInfo(task) {
     if (task == null || !task.container) {
       return null;
@@ -194,10 +198,6 @@ class TaskDetailsTab extends React.Component {
     );
   }
 }
-
-TaskDetailsTab.propTypes = {
-  task: React.PropTypes.object
-};
 
 TaskDetailsTab.defaultProps = {
   task: {}

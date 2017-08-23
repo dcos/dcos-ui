@@ -1,12 +1,21 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
 import DSLExpression from "../structs/DSLExpression";
+
+type Props = {
+  onApply?: Function,
+  onChange?: Function,
+  sections: Array<any>,
+  expression: DSLExpression
+};
 
 /**
  * This component wraps one or more DSLOptionSection components and
  * handles the transparent mutation of the expression based on user actions.
  */
 class DSLForm extends React.Component {
+
   /**
    * @override
    */
@@ -37,13 +46,6 @@ class DSLForm extends React.Component {
 DSLForm.defaultProps = {
   onApply() {},
   onChange() {}
-};
-
-DSLForm.propTypes = {
-  onApply: PropTypes.func,
-  onChange: PropTypes.func,
-  sections: PropTypes.array.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
 module.exports = DSLForm;

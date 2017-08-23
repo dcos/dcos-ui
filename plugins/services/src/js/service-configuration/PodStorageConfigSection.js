@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import ConfigurationMapHeading
@@ -14,7 +15,13 @@ const BOOLEAN_OPTIONS = {
   falsy: "FALSE"
 };
 
+type Props = {
+  appConfig?: Object,
+  onEditClick?: Function,
+};
+
 class PodStorageConfigSection extends React.Component {
+
   getColumns() {
     return [
       {
@@ -124,11 +131,6 @@ class PodStorageConfigSection extends React.Component {
 
 PodStorageConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodStorageConfigSection.propTypes = {
-  appConfig: React.PropTypes.object,
-  onEditClick: React.PropTypes.func
 };
 
 module.exports = PodStorageConfigSection;

@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -22,6 +23,8 @@ import RecentOffersSummary from "../../components/RecentOffersSummary";
 
 const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
 
+type Props = { pod?: Pod };
+
 class PodDebugTabView extends React.Component {
   constructor() {
     super(...arguments);
@@ -30,6 +33,8 @@ class PodDebugTabView extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);
@@ -260,10 +265,6 @@ class PodDebugTabView extends React.Component {
 
 PodDebugTabView.contextTypes = {
   router: routerShape
-};
-
-PodDebugTabView.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod)
 };
 
 module.exports = PodDebugTabView;

@@ -1,3 +1,4 @@
+/* @flow */
 import { Confirm } from "reactjs-components";
 import React, { PropTypes } from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -149,16 +150,6 @@ KillTaskModal.defaultProps = {
   action: "restart",
   killTasks: () => {},
   selectedItems: []
-};
-
-KillTaskModal.propTypes = {
-  action: PropTypes.string,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  killTasks: PropTypes.func,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedItems: PropTypes.array
 };
 
 module.exports = KillTaskModal;

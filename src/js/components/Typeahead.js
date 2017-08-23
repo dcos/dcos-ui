@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import InnerTypeahead from "mesosphere-react-typeahead";
 /* eslint-disable no-unused-vars */
@@ -6,7 +7,23 @@ import React, { PropTypes } from "react";
 
 import FilterInputText from "./FilterInputText";
 
+type Props = {
+  emptyLabel?: string,
+  labelKey: string,
+  onDropdownItemSelection?: Function,
+  handleFilterChange: Function,
+  inverseStyle?: boolean,
+  items?: Array<{
+    id?: string,
+    name?: number | string | React.Element | Array<any>
+  }>,
+  selected?: Array<any>,
+  placeholder?: string,
+  searchString: string
+};
+
 class Typeahead extends FilterInputText {
+
   // Use this method to clear the input field with a ref.
   // See: https://github.com/mesosphere/react-typeahead#public-methods
   handleInputClear() {
@@ -66,23 +83,6 @@ Typeahead.defaultProps = {
   items: [],
   selected: [],
   placeholder: "Filter"
-};
-
-Typeahead.propTypes = {
-  emptyLabel: PropTypes.string,
-  labelKey: PropTypes.string.isRequired,
-  onDropdownItemSelection: PropTypes.func,
-  handleFilterChange: PropTypes.func.isRequired,
-  inverseStyle: PropTypes.bool,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.node
-    })
-  ),
-  selected: PropTypes.array,
-  placeholder: PropTypes.string,
-  searchString: PropTypes.string.isRequired
 };
 
 module.exports = Typeahead;

@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from "react";
 import PureRender from "react-addons-pure-render-mixin";
 
@@ -172,17 +173,5 @@ class ServiceScaleFormModal extends React.Component {
     );
   }
 }
-
-ServiceScaleFormModal.propTypes = {
-  scaleItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 module.exports = ServiceScaleFormModal;

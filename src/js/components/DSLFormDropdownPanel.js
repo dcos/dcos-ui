@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React, { PropTypes } from "react";
 
@@ -96,14 +97,6 @@ DSLFormDropdownPanel.defaultProps = {
   isVisible: false,
   onChange() {},
   onClose() {}
-};
-
-DSLFormDropdownPanel.propTypes = {
-  expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  isVisible: PropTypes.bool,
-  onChange: PropTypes.func,
-  onClose: PropTypes.func,
-  sections: PropTypes.array.isRequired
 };
 
 module.exports = DSLFormDropdownPanel;

@@ -1,9 +1,19 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 
 import Util from "../utils/Util";
 
+type Props = {
+  className?: Array<any> | Object | string,
+  color?: string,
+  family?: "product" | "system" | "tiny",
+  id: string,
+  size?: "tiny" | "mini" | "small" | "medium" | "large" | "jumbo"
+};
+
 class Icon extends React.Component {
+
   render() {
     const { props } = this;
 
@@ -35,25 +45,6 @@ class Icon extends React.Component {
 Icon.defaultProps = {
   family: "system",
   size: "medium"
-};
-
-Icon.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  color: React.PropTypes.string,
-  family: React.PropTypes.oneOf(["product", "system", "tiny"]),
-  id: React.PropTypes.string.isRequired,
-  size: React.PropTypes.oneOf([
-    "tiny",
-    "mini",
-    "small",
-    "medium",
-    "large",
-    "jumbo"
-  ])
 };
 
 module.exports = Icon;

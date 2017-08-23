@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -12,6 +13,13 @@ import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
 import Icon from "../Icon";
 
 const METHODS_TO_BIND = ["handleClose", "handleUninstallPackage"];
+
+type Props = {
+  cosmosPackage?: Object,
+  handleUninstallFinish?: Function,
+  onClose?: Function,
+  open?: boolean,
+};
 
 class UninstallPackageModal extends mixin(StoreMixin) {
   constructor() {
@@ -35,6 +43,8 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   onCosmosPackagesStoreUninstallError(packageUninstallError) {
     this.setState({ packageUninstallError, pendingUninstallRequest: false });
@@ -175,13 +185,6 @@ UninstallPackageModal.defaultProps = {
   handleUninstallFinish() {},
   onClose() {},
   open: false
-};
-
-UninstallPackageModal.propTypes = {
-  cosmosPackage: React.PropTypes.object,
-  handleUninstallFinish: React.PropTypes.func,
-  onClose: React.PropTypes.func,
-  open: React.PropTypes.bool
 };
 
 module.exports = UninstallPackageModal;

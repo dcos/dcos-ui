@@ -1,3 +1,4 @@
+/* @flow */
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -144,19 +145,6 @@ ExpandingTable.defaultProps = {
   expandAll: false,
   expandRowsByDefault: false,
   tableComponent: Table
-};
-
-ExpandingTable.propTypes = {
-  alignCells: React.PropTypes.oneOf(["top", "middle", "bottom"]),
-  childRowClassName: React.PropTypes.string,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  expandAll: React.PropTypes.bool,
-  expandRowsByDefault: React.PropTypes.bool,
-  tableComponent: React.PropTypes.func
 };
 
 module.exports = ExpandingTable;

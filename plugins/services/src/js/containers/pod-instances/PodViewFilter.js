@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import FilterBar from "#SRC/js/components/FilterBar";
@@ -11,6 +12,18 @@ const METHODS_TO_BIND = [
   "handleSearchStringChange"
 ];
 
+type Props = {
+  filter?: {
+    text?: string,
+    status?: string,
+  },
+  items?: Array<any>,
+  inverseStyle?: boolean,
+  onFilterChange?: Function,
+  statusMapper?: Function,
+  statusChoices?: Array<any>,
+};
+
 class PodViewFilter extends React.Component {
   constructor() {
     super(...arguments);
@@ -19,6 +32,8 @@ class PodViewFilter extends React.Component {
       this[method] = this[method].bind(this);
     }, this);
   }
+
+
 
   handleStatusFilterChange(filterByStatus) {
     this.props.onFilterChange(
@@ -102,18 +117,6 @@ PodViewFilter.defaultProps = {
     return "";
   },
   statusChoices: []
-};
-
-PodViewFilter.propTypes = {
-  filter: React.PropTypes.shape({
-    text: React.PropTypes.string,
-    status: React.PropTypes.string
-  }),
-  items: React.PropTypes.array,
-  inverseStyle: React.PropTypes.bool,
-  onFilterChange: React.PropTypes.func,
-  statusMapper: React.PropTypes.func,
-  statusChoices: React.PropTypes.array
 };
 
 module.exports = PodViewFilter;

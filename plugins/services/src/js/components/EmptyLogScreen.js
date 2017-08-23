@@ -1,6 +1,10 @@
+/* @flow */
 import React, { PropTypes } from "react";
 
-function EmptyLogScreen({ logName }) {
+type Props = { logName?: string };
+
+function EmptyLogScreen(props: Props) {
+  let { logName } = props;
   // Append space if logName is defined
   logName = logName && logName + " ";
 
@@ -15,9 +19,5 @@ function EmptyLogScreen({ logName }) {
     </div>
   );
 }
-
-EmptyLogScreen.propTypes = {
-  logName: PropTypes.string
-};
 
 module.exports = EmptyLogScreen;

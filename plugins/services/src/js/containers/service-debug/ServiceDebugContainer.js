@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -21,6 +22,8 @@ import TaskStatsTable from "./TaskStatsTable";
 
 const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
 
+type Props = { service?: Service };
+
 class ServiceDebugContainer extends React.Component {
   constructor() {
     super(...arguments);
@@ -29,6 +32,8 @@ class ServiceDebugContainer extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);
@@ -368,10 +373,6 @@ class ServiceDebugContainer extends React.Component {
 
 ServiceDebugContainer.contextTypes = {
   router: routerShape
-};
-
-ServiceDebugContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceDebugContainer;

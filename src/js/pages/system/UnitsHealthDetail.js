@@ -1,3 +1,4 @@
+/* @flow */
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -53,6 +54,8 @@ const METHODS_TO_BIND = [
   "resetFilter"
 ];
 
+type Props = {};
+
 class UnitsHealthDetail extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -77,6 +80,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
   }
+
+
 
   componentDidMount() {
     super.componentDidMount();

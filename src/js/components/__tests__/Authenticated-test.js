@@ -1,3 +1,4 @@
+/* @flow */
 jest.dontMock("../Authenticated");
 jest.dontMock("../../stores/AuthStore");
 jest.dontMock("../../events/AuthActions");
@@ -10,7 +11,10 @@ const Authenticated = require("../Authenticated");
 const AuthStore = require("../../stores/AuthStore");
 const Hooks = require("PluginSDK").Hooks;
 
+type Props = {};
+
 class FakeComponent extends React.Component {
+
   render() {
     return <div>fakeComponent</div>;
   }
