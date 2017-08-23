@@ -1,5 +1,3 @@
-jest.dontMock("../VisibilityStore");
-
 const VISIBILITY_CHANGE = require("../../constants/EventTypes")
   .VISIBILITY_CHANGE;
 const VisibilityStore = require("../VisibilityStore");

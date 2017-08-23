@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/components/CollapsingString");
-jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
-jest.dontMock("../NodesGridView");
-jest.dontMock("#SRC/js/stores/MesosStateStore");
-jest.dontMock("#SRC/js/utils/Util");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

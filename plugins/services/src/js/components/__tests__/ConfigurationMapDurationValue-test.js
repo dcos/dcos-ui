@@ -1,5 +1,3 @@
-jest.dontMock("../ConfigurationMapDurationValue");
-jest.dontMock("#SRC/js/components/ConfigurationMapValue");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 const ReactDOM = require("react-dom");

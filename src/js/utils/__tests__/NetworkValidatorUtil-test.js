@@ -1,5 +1,3 @@
-jest.dontMock("../NetworkValidatorUtil");
-
 const NetworkValidatorUtil = require("../NetworkValidatorUtil");
 
 describe("NetworkValidatorUtil", function() {

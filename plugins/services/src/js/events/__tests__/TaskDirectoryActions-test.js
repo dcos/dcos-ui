@@ -1,7 +1,3 @@
-jest.dontMock("../TaskDirectoryActions");
-jest.dontMock("#SRC/js/events/AppDispatcher");
-jest.dontMock("#SRC/js/config/Config");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");

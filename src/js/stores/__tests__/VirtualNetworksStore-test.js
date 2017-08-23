@@ -1,7 +1,3 @@
-jest.dontMock("../VirtualNetworksStore");
-jest.dontMock("../../events/AppDispatcher");
-jest.dontMock("../../events/VirtualNetworksActions");
-
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../../events/AppDispatcher");
 const EventTypes = require("../../constants/EventTypes");

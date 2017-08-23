@@ -1,7 +1,3 @@
-jest.dontMock("../UniversePackage");
-jest.dontMock("../UniversePackagesList");
-jest.dontMock("../../utils/Util");
-
 const UniversePackage = require("../UniversePackage");
 const UniversePackagesList = require("../UniversePackagesList");
 

@@ -1,5 +1,3 @@
-jest.dontMock("../ServiceUtil");
-
 const ServiceUtil = require("../ServiceUtil");
 
 describe("ServiceUtil", function() {

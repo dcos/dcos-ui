@@ -1,7 +1,3 @@
-jest.dontMock("../AppReducer");
-jest.dontMock("../../config/Config");
-jest.dontMock("../../stores/ConfigStore");
-
 const deepEqual = require("deep-equal");
 
 const EventTypes = require("../../constants/EventTypes");

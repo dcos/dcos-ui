@@ -1,5 +1,3 @@
-jest.dontMock("../TableUtil");
-
 const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore");
 const TableUtil = require("../TableUtil");
 const Util = require("../Util");

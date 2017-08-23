@@ -1,6 +1,3 @@
-jest.dontMock("../Maths");
-jest.dontMock("../Units");
-
 const Units = require("../Units");
 
 describe("Units", function() {

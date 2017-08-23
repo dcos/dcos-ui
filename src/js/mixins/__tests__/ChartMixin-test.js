@@ -1,5 +1,3 @@
-jest.dontMock("../ChartMixin");
-
 const ChartMixin = require("../ChartMixin");
 
 describe("ChartMixin", function() {

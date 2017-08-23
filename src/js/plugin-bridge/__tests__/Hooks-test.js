@@ -1,5 +1,3 @@
-jest.dontMock("../Hooks");
-
 const Hooks = require("../Hooks");
 
 describe("HooksAPI", function() {

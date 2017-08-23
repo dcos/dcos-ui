@@ -1,5 +1,3 @@
-jest.dontMock("../ServiceConfigUtil");
-
 const ServiceConfigUtil = require("../ServiceConfigUtil");
 
 describe("ServiceConfigUtil", function() {

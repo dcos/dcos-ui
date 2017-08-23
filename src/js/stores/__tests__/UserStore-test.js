@@ -1,6 +1,3 @@
-jest.dontMock("../UserStore");
-jest.dontMock("../../events/UsersActions");
-
 const UserStore = require("../UserStore");
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../../events/AppDispatcher");

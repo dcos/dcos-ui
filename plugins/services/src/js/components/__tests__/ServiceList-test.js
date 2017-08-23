@@ -1,6 +1,3 @@
-jest.dontMock("../../structs/ServiceTree");
-jest.dontMock("../ServiceList");
-jest.dontMock("../../stores/MarathonStore");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

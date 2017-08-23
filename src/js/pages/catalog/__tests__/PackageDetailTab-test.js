@@ -1,12 +1,3 @@
-jest.dontMock("../PackageDetailTab");
-jest.dontMock("../../../components/FluidGeminiScrollbar");
-jest.dontMock("../../../components/Page");
-jest.dontMock("../../../components/Panel");
-jest.dontMock("../../../mixins/InternalStorageMixin");
-jest.dontMock("../../../components/modals/InstallPackageModal");
-jest.dontMock("../../../stores/CosmosPackagesStore");
-jest.dontMock("../../../../../tests/_fixtures/cosmos/package-describe.json");
-
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 /* eslint-disable import/newline-after-import */
 const Config = require("../../../config/Config");

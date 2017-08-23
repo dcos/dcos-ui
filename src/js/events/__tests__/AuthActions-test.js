@@ -1,6 +1,3 @@
-jest.dontMock("query-string");
-jest.dontMock("../AuthActions");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");

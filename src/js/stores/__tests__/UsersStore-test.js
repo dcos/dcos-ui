@@ -1,6 +1,3 @@
-jest.dontMock("../UsersStore");
-jest.dontMock("../../../../tests/_fixtures/acl/users-unicode.json");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const UsersStore = require("../UsersStore");

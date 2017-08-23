@@ -1,7 +1,3 @@
-jest.dontMock("../DialChart");
-jest.dontMock("../DialSlice");
-jest.dontMock("../../../mixins/InternalStorageMixin");
-jest.dontMock("classnames");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

@@ -1,7 +1,3 @@
-jest.dontMock("../../constants/EventTypes");
-jest.dontMock("../ConfigStore");
-jest.dontMock("../../constants/EventTypes");
-
 const EventTypes = require("../../constants/EventTypes");
 const ConfigStore = require("../ConfigStore");
 

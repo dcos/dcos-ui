@@ -1,4 +1,3 @@
-jest.dontMock("../NavigationService");
 const NavigationService = require("../NavigationService");
 
 describe("NavigationService", function() {

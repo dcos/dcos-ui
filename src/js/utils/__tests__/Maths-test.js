@@ -1,5 +1,3 @@
-jest.dontMock("../Maths");
-
 const Maths = require("../Maths");
 
 describe("Maths", function() {

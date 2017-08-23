@@ -1,5 +1,3 @@
-jest.dontMock("../../../../../../tests/_fixtures/pods/PodFixture");
-
 const PodInstance = require("../PodInstance");
 const PodInstanceStatus = require("../../constants/PodInstanceStatus");
 

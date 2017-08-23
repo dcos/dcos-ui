@@ -1,5 +1,3 @@
-jest.dontMock("#SRC/js/stores/MesosStateStore");
-
 const JestUtil = require("#SRC/js/utils/JestUtil");
 
 JestUtil.unMockStores(["MesosStateStore"]);

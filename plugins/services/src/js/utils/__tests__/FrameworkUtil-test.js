@@ -1,6 +1,3 @@
-jest.dontMock("../FrameworkUtil");
-jest.dontMock("../../constants/ServiceImages");
-
 const ServiceImages = require("../../constants/ServiceImages");
 const FrameworkUtil = require("../FrameworkUtil");
 

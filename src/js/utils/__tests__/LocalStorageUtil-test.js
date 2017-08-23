@@ -1,5 +1,3 @@
-jest.dontMock("../LocalStorageUtil");
-
 const LocalStorageUtil = require("../LocalStorageUtil");
 
 describe("LocalStorageUtil", function() {

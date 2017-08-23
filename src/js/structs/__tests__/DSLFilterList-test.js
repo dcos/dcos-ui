@@ -1,5 +1,3 @@
-jest.dontMock("../DSLFilter");
-jest.dontMock("../DSLFilterList");
 const DSLFilter = require("../DSLFilter");
 const DSLFilterList = require("../DSLFilterList");
 

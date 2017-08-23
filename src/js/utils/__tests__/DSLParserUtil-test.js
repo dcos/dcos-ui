@@ -1,5 +1,3 @@
-jest.dontMock("../DSLParserUtil");
-jest.dontMock("../../structs/List");
 const DSLASTNodes = require("../../structs/DSLASTNodes");
 const DSLCombinerTypes = require("../../constants/DSLCombinerTypes");
 const DSLFilter = require("../../structs/DSLFilter");

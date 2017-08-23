@@ -1,8 +1,3 @@
-jest.dontMock("../../utils/UnitHealthUtil");
-jest.dontMock("../../utils/MesosSummaryUtil");
-jest.dontMock("../../utils/StringUtil");
-jest.dontMock("../../utils/Util");
-
 const HealthUnit = require("../HealthUnit");
 const HealthUnitsList = require("../HealthUnitsList");
 

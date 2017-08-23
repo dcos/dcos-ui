@@ -1,6 +1,3 @@
-jest.dontMock("../TabButton");
-jest.dontMock("../TabButtonList");
-
 const React = require("react");
 const TestUtils = require("react-addons-test-utils");
 

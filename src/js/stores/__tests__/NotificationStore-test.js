@@ -1,5 +1,3 @@
-jest.dontMock("../NotificationStore");
-
 const NOTIFICATION_CHANGE = require("../../constants/EventTypes")
   .NOTIFICATION_CHANGE;
 const NotificationStore = require("../NotificationStore");

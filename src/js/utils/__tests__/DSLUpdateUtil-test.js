@@ -1,9 +1,3 @@
-jest.dontMock("../DSLParserUtil");
-jest.dontMock("../DSLUpdateUtil");
-jest.dontMock("../DSLUtil");
-jest.dontMock("../../structs/DSLExpression");
-jest.dontMock("../../../resources/grammar/SearchDSL.jison");
-
 const DSLASTNodes = require("../../structs/DSLASTNodes");
 const DSLCombinerTypes = require("../../constants/DSLCombinerTypes");
 const DSLExpression = require("../../structs/DSLExpression");

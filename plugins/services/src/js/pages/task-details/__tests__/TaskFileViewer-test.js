@@ -1,9 +1,3 @@
-jest.dontMock("#SRC/js/components/Icon");
-jest.dontMock("../../../components/MesosLogContainer");
-jest.dontMock("#SRC/js/components/RequestErrorMsg");
-jest.dontMock("../TaskFileViewer");
-jest.dontMock("#SRC/js/components/FilterBar");
-
 const JestUtil = require("#SRC/js/utils/JestUtil");
 
 JestUtil.unMockStores(["TaskDirectoryStore", "MesosLogStore"]);

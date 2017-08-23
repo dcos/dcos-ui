@@ -1,12 +1,3 @@
-jest.unmock("moment");
-jest.unmock("#SRC/js/components/CollapsingString");
-jest.unmock("#SRC/js/components/FluidGeminiScrollbar");
-jest.unmock("#SRC/js/components/Page");
-jest.unmock("#SRC/js/components/TimeAgo");
-jest.unmock("#SRC/js/mixins/InternalStorageMixin");
-jest.unmock("../DeploymentsModal");
-jest.unmock("../../structs/Deployment");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

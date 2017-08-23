@@ -1,7 +1,3 @@
-jest.dontMock("../DirectoryItem");
-jest.dontMock("../TaskDirectory");
-jest.dontMock("#SRC/js/utils/Util");
-
 const DirectoryItem = require("../DirectoryItem");
 const TaskDirectory = require("../TaskDirectory");
 

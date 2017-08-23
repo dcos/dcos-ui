@@ -1,9 +1,3 @@
-jest.dontMock("../SearchDSL.jison");
-jest.dontMock("../../../js/utils/DSLParserUtil");
-jest.dontMock("../../../js/structs/DSLFilter");
-jest.dontMock("../../../js/structs/DSLFilterList");
-jest.dontMock("../../../js/structs/List");
-
 const DSLFilterTypes = require("../../../js/constants/DSLFilterTypes");
 const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
 const DSLFilter = require("../../../js/structs/DSLFilter");

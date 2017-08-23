@@ -1,5 +1,3 @@
-jest.dontMock("../../constants/UnitHealthStatus");
-
 const HealthUnit = require("../HealthUnit");
 const UnitHealthStatus = require("../../constants/UnitHealthStatus");
 const UnitHealthTypes = require("../../constants/UnitHealthTypes");

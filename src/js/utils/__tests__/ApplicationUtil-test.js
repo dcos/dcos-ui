@@ -1,5 +1,3 @@
-jest.dontMock("../../stores/MesosSummaryStore");
-
 const ApplicationUtil = require("../ApplicationUtil");
 const Config = require("../../config/Config");
 const EventTypes = require("../../constants/EventTypes");

@@ -1,5 +1,3 @@
-jest.dontMock("../BetaOptInUtil");
-
 const BetaOptInUtil = require("../BetaOptInUtil");
 
 describe("BetaOptInUtil", function() {

@@ -1,5 +1,3 @@
-jest.dontMock("../ConfigurationMapEditAction");
-jest.dontMock("../ConfigurationMapTable");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 const ReactDOM = require("react-dom");

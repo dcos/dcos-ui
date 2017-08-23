@@ -1,5 +1,3 @@
-jest.dontMock("../StringUtil");
-
 const StringUtil = require("../StringUtil");
 
 describe("StringUtil", function() {

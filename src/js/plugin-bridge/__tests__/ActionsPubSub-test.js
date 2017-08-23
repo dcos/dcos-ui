@@ -1,5 +1,3 @@
-jest.dontMock("../middleware/ActionsPubSub");
-
 const APPLICATION = require("../../constants/PluginConstants").APPLICATION;
 const PluginSDK = require("PluginSDK");
 

@@ -1,5 +1,3 @@
-jest.dontMock("../DateUtil");
-
 const DateUtil = require("../DateUtil");
 
 describe("DateUtil", function() {

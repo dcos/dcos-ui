@@ -1,7 +1,3 @@
-jest.dontMock("../DSLExpression");
-jest.dontMock("../DSLASTNodes");
-jest.dontMock("../../../resources/grammar/SearchDSL.jison");
-
 const DSLExpression = require("../DSLExpression");
 const DSLASTNodes = require("../DSLASTNodes");
 

@@ -1,5 +1,3 @@
-jest.dontMock("../InternalStorageMixin");
-
 const InternalStorageMixin = require("../InternalStorageMixin");
 
 describe("InternalStorageMixin", function() {

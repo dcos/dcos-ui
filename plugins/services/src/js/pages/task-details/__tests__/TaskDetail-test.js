@@ -1,13 +1,3 @@
-jest.dontMock("../TaskFilesTab");
-jest.dontMock("../TaskDetail");
-jest.dontMock("../../../stores/MarathonStore");
-
-jest.dontMock("#SRC/js/stores/DCOSStore");
-jest.dontMock("#SRC/js/stores/MesosStateStore");
-jest.dontMock("#SRC/js/stores/MesosSummaryStore");
-jest.dontMock("#SRC/js/components/Page");
-jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
-
 const JestUtil = require("#SRC/js/utils/JestUtil");
 
 JestUtil.unMockStores([

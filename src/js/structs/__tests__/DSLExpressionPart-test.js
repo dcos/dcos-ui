@@ -1,4 +1,3 @@
-jest.dontMock("../DSLExpressionPart");
 const DSLFilterTypes = require("../../constants/DSLFilterTypes");
 const DSLExpressionPart = require("../DSLExpressionPart");
 

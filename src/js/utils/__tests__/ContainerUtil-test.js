@@ -1,5 +1,3 @@
-jest.dontMock("../ContainerUtil");
-
 const ContainerUtil = require("../ContainerUtil");
 
 describe("#adjustActionErrors", function() {

@@ -1,9 +1,3 @@
-jest.dontMock("../UnitHealthStore");
-jest.dontMock("../../config/Config");
-jest.dontMock("../../events/AppDispatcher");
-jest.dontMock("../../events/UnitHealthActions");
-jest.dontMock("../../../../tests/_fixtures/unit-health/units.json");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");

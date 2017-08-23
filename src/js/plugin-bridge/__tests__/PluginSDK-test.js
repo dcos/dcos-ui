@@ -1,8 +1,3 @@
-jest.dontMock("../AppReducer");
-jest.dontMock("../../config/Config");
-jest.dontMock("../../stores/ConfigStore");
-jest.dontMock("../../utils/StructUtil");
-
 const deepEqual = require("deep-equal");
 
 const PluginSDK = require("PluginSDK");

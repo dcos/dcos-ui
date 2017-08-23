@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/stores/MesosStateStore");
-jest.dontMock("#SRC/js/stores/MesosSummaryStore");
-jest.dontMock("../ServerErrorModal");
-jest.dontMock("../modals/ModalHeading");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

@@ -1,6 +1,3 @@
-jest.dontMock("#SRC/js/utils/Util");
-jest.dontMock("../Actions");
-
 jest.setMock("react-router", {
   hashHistory: {
     location: "/foo",
