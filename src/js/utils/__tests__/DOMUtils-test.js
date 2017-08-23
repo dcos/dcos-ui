@@ -204,51 +204,6 @@ describe("DOMUtils", function() {
     });
   });
 
-  describe("#isElementOnTop", function() {
-    beforeEach(function() {
-      this.element = {
-        getBoundingClientRect() {
-          return {
-            top: 100,
-            left: 200,
-            height: 20,
-            width: 40
-          };
-        },
-        contains(el) {
-          return this === el;
-        }
-      };
-      this.prevElementFromPoint = global.document.elementFromPoint;
-    });
-
-    afterEach(function() {
-      global.document.elementFromPoint = this.prevElementFromPoint;
-    });
-
-    it("should return false if element is not at coord", function() {
-      global.document.elementFromPoint = function() {
-        return {
-          contains() {
-            return false;
-          }
-        };
-      };
-
-      const result = DOMUtils.isElementOnTop(this.element);
-      expect(result).toEqual(false);
-    });
-
-    it("should return true if element is at coord", function() {
-      global.document.elementFromPoint = () => {
-        return this.element;
-      };
-
-      const result = DOMUtils.isElementOnTop(this.element);
-      expect(result).toEqual(true);
-    });
-  });
-
   describe("#getDistanceFromTopOfParent", function() {
     beforeEach(function() {
       this.element = {

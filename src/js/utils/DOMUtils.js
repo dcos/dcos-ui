@@ -163,26 +163,6 @@ var DOMUtils = {
     }
   },
 
-  isElementOnTop(el) {
-    const { left, top, height, width } = el.getBoundingClientRect();
-    const elAtPoint = global.document.elementFromPoint(
-      // The coords of the middle of the element.
-      left + width / 2,
-      top + height / 2
-    );
-
-    // If elAtPoint is null, then the element is off the screen. We return true
-    // here.
-    if (elAtPoint == null) {
-      return true;
-    }
-
-    // We need to also use #contains because the elAtPoint may be a child.
-    // We also need to check if elAtPoint contains el because it might select
-    // the parent even if the el is showing.
-    return el === elAtPoint || el.contains(elAtPoint) || elAtPoint.contains(el);
-  },
-
   getDistanceFromTopOfParent(el) {
     const elTop = el.getBoundingClientRect().top;
 
