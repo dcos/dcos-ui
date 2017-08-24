@@ -320,6 +320,7 @@ if (Config.useFixtures) {
   const packagesListFixture = require("../../../tests/_fixtures/cosmos/packages-list.json");
   const packagesSearchFixture = require("../../../tests/_fixtures/cosmos/packages-search.json");
   const packagesRepositoriesFixture = require("../../../tests/_fixtures/cosmos/packages-repositories.json");
+  const packageListVersionsFixture = require("../../../tests/_fixtures/cosmos/package-list-versions.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
@@ -329,6 +330,10 @@ if (Config.useFixtures) {
     fetchPackageDescription: {
       event: "success",
       success: { response: packageDescribeFixture }
+    },
+    fetchPackageVersions: {
+      event: "success",
+      success: { response: packageListVersionsFixture }
     },
     fetchInstalledPackages: {
       event: "success",

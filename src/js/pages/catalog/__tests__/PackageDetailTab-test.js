@@ -6,22 +6,22 @@ jest.dontMock("../../../mixins/InternalStorageMixin");
 jest.dontMock("../../../components/modals/InstallPackageModal");
 jest.dontMock("../../../stores/CosmosPackagesStore");
 jest.dontMock("../../../../../tests/_fixtures/cosmos/package-describe.json");
+jest.dontMock(
+  "../../../../../tests/_fixtures/cosmos/package-list-versions.json"
+);
+jest.dontMock("#SRC/js/structs/UniversePackage.js");
 
-// Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
-/* eslint-disable import/newline-after-import */
-const Config = require("../../../config/Config");
-var configUseFixtures = Config.useFixtures;
-Config.useFixtures = true;
-require("../../../stores/CosmosPackagesStore");
-// const CosmosPackagesStore = require("#SRC/js/stores/CosmosPackagesStore");
-Config.useFixtures = configUseFixtures;
-/* eslint-enable import/newline-after-import */
+const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-list-versions.json")
+  .package;
+const packageVersionsFixtures = require("../../../../../tests/_fixtures/cosmos/package-list-versions.json")
+  .results;
+const UniversePackage = require("#SRC/js/structs/UniversePackage.js");
+var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
 
 const PackageDetailTab = require("../PackageDetailTab");
 
@@ -41,21 +41,27 @@ describe("PackageDetailTab", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe("#handleInstallModalOpen", function() {
-    beforeEach(function() {
-      this.instance.handleInstallModalOpen = jasmine.createSpy(
-        "handleInstallModalOpen"
+  describe("#retrievePackageInfo", function() {
+    it("call fetchPackageVersions with package name", function() {
+      CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
+        "fetchPackageVersions"
       );
-      jest.runAllTimers();
+
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageVersions).toHaveBeenCalledWith(
+        "marathon"
+      );
     });
-
-    it("should call handler when install button is clicked", function() {
-      var installButton = ReactDOM.findDOMNode(this.instance).querySelector(
-        ".button.button-primary"
+    it("call fetchPackageDescription with package name and package version", function() {
+      CosmosPackagesStore.fetchPackageDescription = jasmine.createSpy(
+        "fetchPackageDescription"
       );
-      TestUtils.Simulate.click(installButton);
 
-      expect(this.instance.handleInstallModalOpen).toHaveBeenCalled();
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageDescription).toHaveBeenCalledWith(
+        "marathon",
+        1
+      );
     });
   });
 
@@ -202,20 +208,31 @@ describe("PackageDetailTab", function() {
       expect(this.instance.getLoadingScreen).toHaveBeenCalled();
     });
 
-    // it("should call getLoadingScreen when cosmosPackageVersions is null", function() {
-    //   // mock CosmosPackagesStore
-    //   CosmosPackagesStore.getPackageVersions = function() {
-    //     return null;
-    //   };
-    //   this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
+    it("should call getLoadingScreen when cosmosPackageVersions is null", function() {
+      this.instance.state.isLoading = false;
+      this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
-    //   this.instance.render();
-    //   expect(this.instance.getLoadingScreen).toHaveBeenCalled();
-    // });
+      CosmosPackagesStore.getPackageDetails = jest.fn(() => {
+        return true;
+      });
+      CosmosPackagesStore.getPackageVersions = function() {
+        return null;
+      };
+
+      this.instance.render();
+      expect(this.instance.getLoadingScreen).toHaveBeenCalled();
+    });
 
     it("ignores getLoadingScreen when not loading", function() {
       this.instance.state.isLoading = false;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
+
+      CosmosPackagesStore.getPackageDetails = jest.fn(() => {
+        return new UniversePackage(packageDescribeFixtures);
+      });
+      CosmosPackagesStore.getPackageVersions = jest.fn(() => {
+        return new UniversePackage(packageVersionsFixtures);
+      });
 
       this.instance.render();
       expect(this.instance.getLoadingScreen).not.toHaveBeenCalled();
