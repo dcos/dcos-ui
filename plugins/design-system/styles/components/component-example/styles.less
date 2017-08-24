@@ -1,0 +1,112 @@
+& when (@component-example-enabled) {
+
+  .ace_editor {
+
+    .ace_scrollbar-v {
+      overflow-y: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0.7em;
+    }
+
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 100, 100, 0.8);
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: rgba(100, 100, 100, 0.4);
+    }
+  }
+
+  .code-example-wrapper {
+    background-color: @code-example-wrapper-background-color;
+    border-left: 1px solid @code-example-border-color;
+    border-right: 1px solid @code-example-border-color;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+
+    &.header {
+      background: @code-example-header-color;
+      border-bottom: 1px solid @code-example-border-color;
+      border-top: 1px solid @code-example-border-color;
+      padding-top: 20px;
+    }
+
+    &.footer {
+      border-bottom: 1px solid @code-example-border-color;
+
+      .code-example-footer-content {
+
+        button {
+          float: right;
+
+          .icon {
+            margin-bottom: 2px;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .code-example-heading {
+    background: @code-example-editor-color;
+    height: 35px;
+    padding-top: @code-example-heading-top-padding;
+
+    &.tabs {
+      height: @code-example-tab-height * 2;
+      padding-top: @code-example-heading-top-padding * 2;
+
+      .tooltip-wrapper {
+        margin-right: 15px;
+      }
+    }
+
+    &.single {
+
+      .tooltip-wrapper {
+        margin-right: 25px;
+        top: 15px;
+      }
+    }
+
+    .tooltip-wrapper {
+      float: right;
+      z-index: 5;
+    }
+
+    .code-example-tabbed-item {
+      background: @code-example-tab-color;
+      border: 1px solid @code-example-border-color;
+      cursor: pointer;
+      display: inline-block;
+      height: @code-example-tab-height;
+      text-align: center;
+      width: @code-example-tab-height * 2;
+
+      &:first-child {
+        margin-left: 20px;
+      }
+
+      &.active {
+        background: @code-example-tab-active-color;
+      }
+
+      .code-example-tabbed-item-label {
+        align-items: center;
+        display: inline-flex;
+        font-size: 0.9rem;
+        min-height: @code-example-tab-height;
+      }
+    }
+  }
+}
