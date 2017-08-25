@@ -28,7 +28,7 @@ class PackageDetailVersionsDropdown extends Component {
     const sortedPackageVersions = Object.keys(packageVersions).sort();
 
     return (
-      <FormGroup className="column-4 flush-left">
+      <FormGroup className="column-5">
         <FieldSelect
           name="packageVersions"
           value={currentVersion}

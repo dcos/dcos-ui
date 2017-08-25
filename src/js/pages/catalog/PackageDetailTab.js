@@ -209,13 +209,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="column-3">
-        <span className=" badge-container selected-badge">
-          <span className={badgeClasses}>
-            {badgeCopy}
-          </span>
+      <span className="column-3 badge-container selected-badge">
+        <span className={badgeClasses}>
+          {badgeCopy}
         </span>
-      </div>
+      </span>
     );
   }
 
@@ -283,6 +281,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const name = cosmosPackage.getName();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
+    const version = cosmosPackage.getCurrentVersion();
 
     const definition = [
       {
@@ -333,15 +332,18 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 </div>
               </div>
               <div className="media-object-item media-object-item-grow">
-                <h1 className="short flush-top">
-                  {name}
-                </h1>
-                <div className="row">
-                  {this.getPackageBadge(cosmosPackage)}
+                <div className="flex flex-direction-left-to-right">
+                  <h1 className="short flush-top">
+                    {name}
+                  </h1>
                   <PackageDetailVersionsDropdown
                     cosmosPackage={cosmosPackage}
                     cosmosPackageVersions={cosmosPackageVersions}
                   />
+                </div>
+                <div className="row">
+                  {this.getPackageBadge(cosmosPackage)}
+                  <small>{version}</small>
                 </div>
               </div>
               <div className="media-object-item package-action-buttons">
