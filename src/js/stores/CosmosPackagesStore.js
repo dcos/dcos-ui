@@ -6,6 +6,8 @@ import CosmosPackagesActions from "../events/CosmosPackagesActions";
 import {
   COSMOS_DESCRIBE_CHANGE,
   COSMOS_DESCRIBE_ERROR,
+  COSMOS_LIST_VERSIONS_CHANGE,
+  COSMOS_LIST_VERSIONS_ERROR,
   COSMOS_INSTALL_ERROR,
   COSMOS_INSTALL_SUCCESS,
   COSMOS_LIST_CHANGE,
@@ -24,6 +26,8 @@ import {
 import {
   REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR,
   REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
+  REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
+  REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
   REQUEST_COSMOS_PACKAGE_INSTALL_ERROR,
   REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS,
   REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR,
@@ -53,6 +57,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
     this.getSet_data = {
       availablePackages: [],
       packageDetails: null,
+      packageVersions: null,
       installedPackages: [],
       repositories: []
     };
@@ -65,6 +70,8 @@ class CosmosPackagesStore extends GetSetBaseStore {
         availableSuccess: COSMOS_SEARCH_CHANGE,
         descriptionSuccess: COSMOS_DESCRIBE_CHANGE,
         descriptionError: COSMOS_DESCRIBE_ERROR,
+        listVersionsSuccess: COSMOS_LIST_VERSIONS_CHANGE,
+        listVersionsError: COSMOS_LIST_VERSIONS_ERROR,
         installedSuccess: COSMOS_LIST_CHANGE,
         installedError: COSMOS_LIST_ERROR,
 
@@ -109,6 +116,12 @@ class CosmosPackagesStore extends GetSetBaseStore {
             action.packageName,
             action.packageVersion
           );
+          break;
+        case REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS:
+          this.processPackageListVersionsSuccess(data);
+          break;
+        case REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR:
+          this.processPackageListVersionsError(data);
           break;
         case REQUEST_COSMOS_PACKAGES_LIST_SUCCESS:
           this.processInstalledPackagesSuccess(
@@ -223,6 +236,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
     return CosmosPackagesActions.fetchPackageDescription(...arguments);
   }
 
+  fetchPackageVersions() {
+    return CosmosPackagesActions.fetchPackageVersions(...arguments);
+  }
+
   installPackage() {
     return CosmosPackagesActions.installPackage(...arguments);
   }
@@ -263,6 +280,15 @@ class CosmosPackagesStore extends GetSetBaseStore {
     return null;
   }
 
+  getPackageVersions() {
+    const packageVersions = this.get("packageVersions");
+    if (packageVersions) {
+      return new UniversePackage(packageVersions);
+    }
+
+    return null;
+  }
+
   getRepositories() {
     return new RepositoryList({ items: this.get("repositories") });
   }
@@ -297,6 +323,18 @@ class CosmosPackagesStore extends GetSetBaseStore {
     this.set({ packageDetails: null });
 
     this.emit(COSMOS_DESCRIBE_ERROR, error, name, version);
+  }
+
+  processPackageListVersionsSuccess(packageVersions) {
+    this.set({ packageVersions });
+
+    this.emit(COSMOS_LIST_VERSIONS_CHANGE, name);
+  }
+
+  processPackageListVersionsError(error) {
+    this.set({ packageVersions: null });
+
+    this.emit(COSMOS_LIST_VERSIONS_ERROR, error);
   }
 
   processRepositoriesSuccess(repositories) {

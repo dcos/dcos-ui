@@ -87,6 +87,10 @@ class UniversePackage extends Item {
     return this.get("currentVersion");
   }
 
+  getAllVersions() {
+    return this.get();
+  }
+
   getTags() {
     return this.get("tags") || [];
   }

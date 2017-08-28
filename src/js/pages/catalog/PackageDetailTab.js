@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Dropdown } from "reactjs-components";
 
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -46,8 +47,29 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
 const METHODS_TO_BIND = [
   "handleInstallModalClose",
   "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen"
+  "handleInstallModalOpen",
+  "handlePackageVersionChange"
 ];
+
+const formatPackageVersions = versions => {
+  return Object.keys(versions)
+    .sort((a, b) => {
+      if (+versions[a] > +versions[b]) {
+        return 1;
+      }
+      if (+versions[a] < +versions[b]) {
+        return -1;
+      }
+
+      return 0;
+    })
+    .map(version => {
+      return {
+        html: version,
+        id: version
+      };
+    });
+};
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -62,14 +84,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: "cosmosPackages",
-        events: ["descriptionError", "descriptionSuccess"],
-        unmountWhen(store, event) {
-          if (event === "descriptionSuccess") {
-            return !!CosmosPackagesStore.get("packageDetails");
-          }
-        },
-        listenAlways: false,
-        suppressUpdate: true
+        events: [
+          "descriptionError",
+          "descriptionSuccess",
+          "listVersionsSuccess",
+          "listVersionsError"
+        ],
+        suppressUpdate: false
       }
     ];
 
@@ -78,13 +99,29 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-
+  retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
+
+    // fetch package versions available
+    CosmosPackagesStore.fetchPackageVersions(packageName);
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    this.retrievePackageInfo();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { version } = this.props.location.query;
+
+    if (version === prevProps.location.query.version) {
+      return false;
+    }
+
+    this.retrievePackageInfo();
   }
 
   onCosmosPackagesStoreDescriptionError() {
@@ -184,7 +221,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  getPackageBadge(cosmosPackage, version) {
+  getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
     const badgeCopy = isCertified ? "Certified" : "Community";
     const badgeClasses = classNames("badge badge-large badge-rounded", {
@@ -192,11 +229,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
 
     return (
-      <span className="badge-container selected-badge">
+      <span className="column-3 badge-container selected-badge">
         <span className={badgeClasses}>
           {badgeCopy}
         </span>
-        <small>{version}</small>
       </span>
     );
   }
@@ -249,6 +285,35 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
   }
 
+  handlePackageVersionChange(packageOpt) {
+    const packageVersion = packageOpt.id;
+    const originalPath = global.location.hash.split("?")[0];
+    const selectedVersion = `${originalPath}?version=${packageVersion}`;
+
+    global.location.replace(selectedVersion);
+  }
+
+  getPackageVersionsDropdown() {
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
+    const selectedVersion = cosmosPackage.getCurrentVersion();
+    const packageVersions = cosmosPackageVersions.getAllVersions();
+    const formattedPackageVersions = formatPackageVersions(packageVersions);
+
+    return (
+      <Dropdown
+        buttonClassName="button button-link dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        onItemSelection={this.handlePackageVersionChange}
+        items={formattedPackageVersions}
+        initialID={selectedVersion}
+        transition={true}
+        wrapperClassName="dropdown"
+      />
+    );
+  }
+
   render() {
     const { props, state } = this;
 
@@ -257,12 +322,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    if (state.isLoading || !cosmosPackage) {
+    const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
+    if (state.isLoading || !cosmosPackage || !cosmosPackageVersions) {
       return this.getLoadingScreen();
     }
 
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
 
@@ -315,10 +380,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 </div>
               </div>
               <div className="media-object-item media-object-item-grow">
-                <h1 className="short flush-top">
-                  {name}
-                </h1>
-                <p>{this.getPackageBadge(cosmosPackage, version)}</p>
+                <div className="flex flex-direction-left-to-right">
+                  <h1 className="short flush-top">
+                    {name}
+                  </h1>
+                  {this.getPackageVersionsDropdown()}
+                </div>
+                <div className="row">
+                  {this.getPackageBadge(cosmosPackage)}
+                </div>
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
