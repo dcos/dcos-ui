@@ -5,9 +5,8 @@ import { Link } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Dropdown } from "reactjs-components";
 
-import PackageDetailVersionsDropdown
-  from "#SRC/js/components/PackageDetailVersionsDropdown";
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -48,8 +47,29 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
 const METHODS_TO_BIND = [
   "handleInstallModalClose",
   "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen"
+  "handleInstallModalOpen",
+  "handlePackageVersionChange"
 ];
+
+const formatPackageVersions = versions => {
+  return Object.keys(versions)
+    .sort((a, b) => {
+      if (+versions[a] > +versions[b]) {
+        return 1;
+      }
+      if (+versions[a] < +versions[b]) {
+        return -1;
+      }
+
+      return 0;
+    })
+    .map(version => {
+      return {
+        html: version,
+        id: version
+      };
+    });
+};
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -265,6 +285,35 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
   }
 
+  handlePackageVersionChange(packageOpt) {
+    const packageVersion = packageOpt.id;
+    const originalPath = global.location.hash.split("?")[0];
+    const selectedVersion = `${originalPath}?version=${packageVersion}`;
+
+    global.location.replace(selectedVersion);
+  }
+
+  getPackageVersionsDropdown() {
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
+    const selectedVersion = cosmosPackage.getCurrentVersion();
+    const packageVersions = cosmosPackageVersions.getAllVersions();
+    const formattedPackageVersions = formatPackageVersions(packageVersions);
+
+    return (
+      <Dropdown
+        buttonClassName="button button-link dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        onItemSelection={this.handlePackageVersionChange}
+        items={formattedPackageVersions}
+        initialID={selectedVersion}
+        transition={true}
+        wrapperClassName="dropdown"
+      />
+    );
+  }
+
   render() {
     const { props, state } = this;
 
@@ -281,7 +330,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const name = cosmosPackage.getName();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
-    const version = cosmosPackage.getCurrentVersion();
 
     const definition = [
       {
@@ -336,14 +384,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   <h1 className="short flush-top">
                     {name}
                   </h1>
-                  <PackageDetailVersionsDropdown
-                    cosmosPackage={cosmosPackage}
-                    cosmosPackageVersions={cosmosPackageVersions}
-                  />
+                  {this.getPackageVersionsDropdown()}
                 </div>
                 <div className="row">
                   {this.getPackageBadge(cosmosPackage)}
-                  <small>{version}</small>
                 </div>
               </div>
               <div className="media-object-item package-action-buttons">
