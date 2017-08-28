@@ -6,7 +6,6 @@ import TimeSeriesLabel from './TimeSeriesLabel';
 import Units from '../../utils/Units';
 
 var ResourceTimeSeriesChart = React.createClass({
-
   displayName: 'ResourceTimeSeriesChart',
 
   propTypes: {
@@ -25,25 +24,32 @@ var ResourceTimeSeriesChart = React.createClass({
   },
 
   getData() {
-    var props = this.props;
-    return [{
-      name: 'Alloc',
-      colorIndex: this.props.colorIndex,
-      values: props.usedResourcesStates[props.mode]
-    }];
+    const { colorIndex, usedResourcesStates, mode } = this.props;
+
+    return [
+      {
+        name: 'Alloc',
+        colorIndex,
+        values: usedResourcesStates[mode]
+      }
+    ];
   },
 
   getHeadline(usedValue, totalValue) {
-    if (this.props.mode === 'cpus') {
+    const { mode } = this.props;
+    if (mode === 'cpus') {
       return usedValue + ' of ' + totalValue + ' Shares';
     } else {
-      return Units.filesize(usedValue * 1024 * 1024, 0) + ' of ' +
-        Units.filesize(totalValue * 1024 * 1024, 0);
+      return (
+        Units.filesize(usedValue * 1024 * 1024, 0) +
+        ' of ' +
+        Units.filesize(totalValue * 1024 * 1024, 0)
+      );
     }
   },
 
   getChart() {
-    var props = this.props;
+    const { refreshRate } = this.props;
 
     return (
       <Chart>
@@ -51,22 +57,25 @@ var ResourceTimeSeriesChart = React.createClass({
           data={this.getData()}
           maxY={100}
           y="percentage"
-          refreshRate={props.refreshRate} />
+          refreshRate={refreshRate}
+        />
       </Chart>
     );
   },
 
   render() {
-    var props = this.props;
-    var usedValue = props.usedResources[props.mode];
-    var totalValue = props.totalResources[props.mode];
-    let percentage = Math.round(100 * usedValue / totalValue) || 0;
+    const { colorIndex, mode, usedResources, totalResources } = this.props;
+    const usedValue = +(Math.round(usedResources[mode] + 'e+2') + 'e-2');
+    const totalValue = +(Math.round(totalResources[mode] + 'e+2') + 'e-2');
+    const percentage = Math.round(100 * usedValue / totalValue) || 0;
 
     return (
       <div className="chart">
-        <TimeSeriesLabel colorIndex={this.props.colorIndex}
+        <TimeSeriesLabel
+          colorIndex={colorIndex}
           currentValue={percentage}
-          subHeading={this.getHeadline(usedValue, totalValue)} />
+          subHeading={this.getHeadline(usedValue, totalValue)}
+        />
         {this.getChart()}
       </div>
     );
