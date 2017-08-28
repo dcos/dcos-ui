@@ -220,6 +220,126 @@ describe("CosmosPackagesActions", function() {
     });
   });
 
+  describe("#fetchPackageVersions", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
+      CosmosPackagesActions.fetchPackageVersions("foo");
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it("dispatches the correct action when successful", function() {
+      const id = AppDispatcher.register(function(payload) {
+        const action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS
+        );
+      });
+
+      this.configuration.success({
+        results: {
+          "1.0.2": "0"
+        }
+      });
+    });
+
+    it("dispatches with the correct data when successful", function() {
+      const id = AppDispatcher.register(function(payload) {
+        const action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual({ "1.0.2": "0" });
+      });
+
+      this.configuration.success({
+        results: {
+          "1.0.2": "0"
+        }
+      });
+    });
+
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR
+        );
+      });
+
+      this.configuration.error({
+        responseJSON: {
+          results: {
+            "1.0.2": "0"
+          }
+        }
+      });
+    });
+
+    it("dispatches with error message when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual("An error has occurred.");
+      });
+
+      this.configuration.error({
+        responseJSON: {
+          results: {
+            "1.0.2": "0"
+          }
+        }
+      });
+    });
+
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          responseJSON: {
+            results: {
+              "1.0.2": "0"
+            }
+          }
+        });
+      });
+
+      this.configuration.error({
+        responseJSON: {
+          results: {
+            "1.0.2": "0"
+          }
+        }
+      });
+    });
+
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual(
+        Config.cosmosAPIPrefix + "/list-versions"
+      );
+    });
+
+    it("sends query in request body", function() {
+      expect(JSON.parse(this.configuration.data)).toEqual({
+        packageName: "foo",
+        includePackageVersions: false
+      });
+    });
+
+    it("sends query in request body, even if it is undefined", function() {
+      CosmosPackagesActions.fetchPackageVersions();
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      expect(JSON.parse(this.configuration.data)).toEqual({
+        packageName: undefined,
+        includePackageVersions: false
+      });
+    });
+
+    it("sends a POST request", function() {
+      expect(this.configuration.method).toEqual("POST");
+    });
+  });
+
   describe("#fetchPackageDescription", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");

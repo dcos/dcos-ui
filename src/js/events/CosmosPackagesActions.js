@@ -16,7 +16,9 @@ import {
   REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
   REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
   REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
-  REQUEST_COSMOS_REPOSITORY_DELETE_ERROR
+  REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
+  REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
+  REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -127,9 +129,8 @@ const CosmosPackagesActions = {
       data: JSON.stringify({ packageName, packageVersion }),
       success(response) {
         const cosmosPackage = response.package;
-        if (!cosmosPackage.currentVersion && cosmosPackage.version) {
-          cosmosPackage.currentVersion = cosmosPackage.version;
-        }
+
+        cosmosPackage.currentVersion = cosmosPackage.version;
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: cosmosPackage,
@@ -143,6 +144,35 @@ const CosmosPackagesActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
           packageVersion,
+          xhr
+        });
+      }
+    });
+  },
+
+  fetchPackageVersions(packageName) {
+    // necessary for the backend
+    // even though it's not in use
+    const includePackageVersions = false;
+
+    RequestUtil.json({
+      contentType: getContentType("list-versions", "request", "v1"),
+      headers: { Accept: getContentType("list-versions", "response", "v1") },
+      method: "POST",
+      url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list-versions`,
+      data: JSON.stringify({ packageName, includePackageVersions }),
+      success(response) {
+        const packageVersions = response.results;
+
+        AppDispatcher.handleServerAction({
+          type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
+          data: packageVersions
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
           xhr
         });
       }
@@ -290,6 +320,7 @@ if (Config.useFixtures) {
   const packagesListFixture = require("../../../tests/_fixtures/cosmos/packages-list.json");
   const packagesSearchFixture = require("../../../tests/_fixtures/cosmos/packages-search.json");
   const packagesRepositoriesFixture = require("../../../tests/_fixtures/cosmos/packages-repositories.json");
+  const packageListVersionsFixture = require("../../../tests/_fixtures/cosmos/package-list-versions.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
@@ -299,6 +330,10 @@ if (Config.useFixtures) {
     fetchPackageDescription: {
       event: "success",
       success: { response: packageDescribeFixture }
+    },
+    fetchPackageVersions: {
+      event: "success",
+      success: { response: packageListVersionsFixture }
     },
     fetchInstalledPackages: {
       event: "success",
