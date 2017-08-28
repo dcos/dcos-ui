@@ -48,10 +48,6 @@ var Chart = React.createClass({
     global.addEventListener("resize", this.updateWidth);
   },
 
-  shouldComponentUpdate() {
-    return DOMUtils.isElementOnTop(ReactDOM.findDOMNode(this));
-  },
-
   componentWillUnmount() {
     global.removeEventListener("resize", this.updateWidth);
   },
