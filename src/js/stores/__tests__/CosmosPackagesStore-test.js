@@ -192,6 +192,106 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
+  describe("#fetchPackageVersions", function() {
+    const packageVersions = {
+      results: {
+        "0.4.0": "2",
+        "0.3.0": "1",
+        "0.2.1": "0"
+      }
+    };
+
+    beforeEach(function() {
+      this.requestFn = RequestUtil.json;
+      RequestUtil.json = function(handlers) {
+        handlers.success(Object.assign({}, packageVersions));
+      };
+      this.packageListVersionsFixture = Object.assign({}, packageVersions);
+    });
+
+    afterEach(function() {
+      RequestUtil.json = this.requestFn;
+    });
+
+    it("should return an instance of UniversePackage", function() {
+      CosmosPackagesStore.fetchPackageVersions("foo");
+      const packageVersions = CosmosPackagesStore.getPackageVersions();
+      expect(packageVersions instanceof UniversePackage).toBeTruthy();
+    });
+
+    it("should return all package versions it was given", function() {
+      CosmosPackagesStore.fetchPackageVersions("foo");
+      const packageVersions = CosmosPackagesStore.getPackageVersions();
+      expect(Object.keys(packageVersions.getAllVersions()).length).toEqual(
+        Object.keys(this.packageListVersionsFixture.results).length
+      );
+    });
+
+    it("send correct body", function() {
+      RequestUtil.json = jasmine.createSpy("RequestUtil#json");
+      CosmosPackagesStore.fetchPackageVersions("foo");
+      expect(
+        JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data)
+      ).toEqual({
+        packageName: "foo",
+        includePackageVersions: false
+      });
+    });
+
+    describe("dispatcher", function() {
+      it("stores packageVersions when event is dispatched", function() {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
+          data: {
+            "0.4.0": "2",
+            "0.3.0": "1",
+            "0.2.1": "0"
+          }
+        });
+
+        const packageVersions = Object.keys(
+          CosmosPackagesStore.getPackageVersions().getAllVersions()
+        );
+        expect(packageVersions[0]).toEqual("0.4.0");
+        expect(packageVersions[1]).toEqual("0.3.0");
+        expect(packageVersions[2]).toEqual("0.2.1");
+      });
+
+      it("dispatches the correct event upon success", function() {
+        const mockedFn = jest.genMockFunction();
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_LIST_VERSIONS_CHANGE,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
+          data: {
+            "0.4.0": "2",
+            "0.3.0": "1",
+            "0.2.1": "0"
+          }
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it("dispatches the correct event upon error", function() {
+        const mockedFn = jasmine.createSpy("mockedFn");
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_LIST_VERSIONS_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
+          data: "error"
+        });
+
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(["error"]);
+      });
+    });
+  });
+
   describe("#fetchInstalledPackages", function() {
     beforeEach(function() {
       this.requestFn = RequestUtil.json;
