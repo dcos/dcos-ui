@@ -59,6 +59,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
       availablePackages: [],
       packagesVersions: {},
       packageDetails: null,
+      packageVersions: null,
       installedPackages: [],
       repositories: []
     };
