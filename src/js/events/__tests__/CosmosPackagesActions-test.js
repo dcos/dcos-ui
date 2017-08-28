@@ -327,11 +327,11 @@ describe("CosmosPackagesActions", function() {
     });
 
     it("sends query in request body, even if it is undefined", function() {
-      CosmosPackagesActions.fetchPackageDescription();
+      CosmosPackagesActions.fetchPackageVersions();
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data)).toEqual({
         packageName: undefined,
-        includePackageVersions: undefined
+        includePackageVersions: false
       });
     });
 
