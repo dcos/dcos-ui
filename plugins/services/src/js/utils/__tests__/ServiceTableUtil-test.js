@@ -1,6 +1,3 @@
-jest.dontMock("../ServiceTableUtil");
-jest.dontMock("../../structs/Application");
-
 const Application = require("../../structs/Application");
 const ServiceTableUtil = require("../ServiceTableUtil");
 const ServiceTree = require("../../structs/ServiceTree");

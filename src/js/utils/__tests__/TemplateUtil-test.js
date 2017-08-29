@@ -1,4 +1,3 @@
-jest.dontMock("../TemplateUtil");
 const React = require("react");
 const TemplateUtil = require("../TemplateUtil");
 

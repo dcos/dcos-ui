@@ -1,10 +1,3 @@
-jest.dontMock("../../constants/ActionTypes");
-jest.dontMock("../../constants/EventTypes");
-jest.dontMock("../../events/AppDispatcher");
-jest.dontMock("../SystemLogStore");
-jest.dontMock("../../constants/EventTypes");
-jest.dontMock("../../constants/SystemLogTypes");
-
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../../events/AppDispatcher");
 const EventTypes = require("../../constants/EventTypes");

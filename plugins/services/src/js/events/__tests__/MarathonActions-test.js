@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/events/AppDispatcher");
-jest.dontMock("#SRC/js/events/UnitHealthActions");
-jest.dontMock("#SRC/js/config/Config");
-jest.dontMock("../../constants/ActionTypes");
-
 const Hooks = require("PluginSDK").Hooks;
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 

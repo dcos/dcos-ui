@@ -1,5 +1,3 @@
-jest.dontMock("../ValidatorUtil");
-
 describe("ValidatorUtil", function() {
   const ValidatorUtil = require("../ValidatorUtil");
 

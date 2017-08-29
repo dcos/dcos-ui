@@ -1,5 +1,3 @@
-jest.dontMock("../TaskTableUtil");
-
 const Service = require("../../structs/Service");
 const TaskTableUtil = require("../TaskTableUtil");
 

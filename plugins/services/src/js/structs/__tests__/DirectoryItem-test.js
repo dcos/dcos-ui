@@ -1,5 +1,3 @@
-jest.dontMock("../DirectoryItem");
-
 const DirectoryItem = require("../DirectoryItem");
 
 describe("DirectoryItem", function() {

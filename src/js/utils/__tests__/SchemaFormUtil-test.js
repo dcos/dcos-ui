@@ -1,5 +1,3 @@
-jest.dontMock("../SchemaFormUtil");
-
 const SchemaFormUtil = require("../SchemaFormUtil");
 
 describe("SchemaFormUtil", function() {

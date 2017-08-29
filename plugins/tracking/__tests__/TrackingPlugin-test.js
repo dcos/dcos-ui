@@ -1,6 +1,3 @@
-jest.dontMock("../index");
-jest.dontMock("../hooks");
-
 jest.setMock("react-router", {
   hashHistory: {
     location: { pathname: "/foo" },

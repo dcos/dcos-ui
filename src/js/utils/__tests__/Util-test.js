@@ -1,5 +1,3 @@
-jest.dontMock("../Util");
-
 const Util = require("../Util");
 
 describe("Util", function() {

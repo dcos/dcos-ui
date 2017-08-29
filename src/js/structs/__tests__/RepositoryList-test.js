@@ -1,7 +1,3 @@
-jest.dontMock("../Item");
-jest.dontMock("../RepositoryList");
-jest.dontMock("../../utils/Util");
-
 const Item = require("../Item");
 const RepositoryList = require("../RepositoryList");
 

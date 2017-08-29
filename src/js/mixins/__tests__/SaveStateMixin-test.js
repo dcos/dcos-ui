@@ -1,6 +1,3 @@
-jest.dontMock("../SaveStateMixin");
-jest.dontMock("../../stores/UserSettingsStore");
-
 const SaveStateMixin = require("../SaveStateMixin");
 const UserSettingsStore = require("../../stores/UserSettingsStore");
 

@@ -1,6 +1,3 @@
-jest.dontMock("objektiv");
-jest.dontMock("../ServicesContainer");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

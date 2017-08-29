@@ -1,7 +1,3 @@
-jest.dontMock("../StructUtil");
-jest.dontMock("../../structs/List");
-jest.dontMock("../../structs/Item");
-
 const deepEqual = require("deep-equal");
 const Item = require("../../structs/Item");
 const List = require("../../structs/List");

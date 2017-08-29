@@ -1,8 +1,3 @@
-jest.dontMock("../MesosSummaryStore");
-jest.dontMock("../../utils/MesosSummaryUtil");
-jest.dontMock("../../utils/StringUtil");
-jest.dontMock("../../utils/Util");
-
 const MesosSummaryStore = require("../MesosSummaryStore");
 const Framework = require("../../../../plugins/services/src/js/structs/Framework");
 

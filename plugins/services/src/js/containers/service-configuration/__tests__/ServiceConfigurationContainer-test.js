@@ -1,8 +1,3 @@
-jest.dontMock("../ServiceConfigurationContainer");
-jest.dontMock("../../../service-configuration/ServiceConfigDisplay");
-jest.dontMock("#SRC/js/components/ErrorsAlert");
-jest.dontMock("#SRC/js/components/ConfigurationMap");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

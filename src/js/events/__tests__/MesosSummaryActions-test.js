@@ -1,9 +1,3 @@
-jest.dontMock("../../constants/ActionTypes");
-jest.dontMock("../AppDispatcher");
-jest.dontMock("../../config/Config");
-jest.dontMock("../MesosSummaryActions");
-jest.dontMock("../../constants/TimeScales");
-
 const Hooks = require("PluginSDK").Hooks;
 
 jest.setMock("react-router", {

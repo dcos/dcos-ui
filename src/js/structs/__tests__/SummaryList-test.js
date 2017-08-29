@@ -1,7 +1,3 @@
-jest.dontMock("../../utils/MesosSummaryUtil");
-jest.dontMock("../../utils/Maths");
-jest.dontMock("../../utils/Util");
-
 const SummaryList = require("../SummaryList");
 const StateSummary = require("../StateSummary");
 

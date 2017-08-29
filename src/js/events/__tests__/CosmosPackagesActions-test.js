@@ -1,8 +1,3 @@
-jest.dontMock("../CosmosPackagesActions");
-jest.dontMock("../AppDispatcher");
-jest.dontMock("../../config/Config");
-jest.dontMock("../../constants/ActionTypes");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../AppDispatcher");

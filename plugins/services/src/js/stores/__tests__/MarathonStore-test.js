@@ -1,10 +1,3 @@
-jest.dontMock("../../constants/EventTypes");
-jest.dontMock("../../constants/HealthLabels");
-jest.dontMock("../MarathonStore");
-jest.dontMock("./fixtures/MockAppMetadata");
-jest.dontMock("./fixtures/MockMarathonResponse.json");
-jest.dontMock("../../structs/DeploymentsList");
-
 const DeploymentsList = require("../../structs/DeploymentsList");
 const EventTypes = require("../../constants/EventTypes");
 const HealthLabels = require("../../constants/HealthLabels");

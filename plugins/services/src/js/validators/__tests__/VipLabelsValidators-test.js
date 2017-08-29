@@ -1,4 +1,3 @@
-jest.unmock("../VipLabelsValidators");
 const VipLabelsValidators = require("../VipLabelsValidators");
 
 describe("VipLabelsValidators", function() {

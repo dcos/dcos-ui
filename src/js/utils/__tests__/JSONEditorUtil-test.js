@@ -1,5 +1,3 @@
-jest.dontMock("../JSONEditorUtil");
-
 const JSONEditorUtil = require("../JSONEditorUtil");
 
 describe("JSONEditorUtil", function() {

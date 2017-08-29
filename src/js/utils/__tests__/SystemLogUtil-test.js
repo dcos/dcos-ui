@@ -1,5 +1,3 @@
-jest.dontMock("../SystemLogUtil");
-
 const SystemLogUtil = require("../SystemLogUtil");
 
 describe("SystemLogUtil", function() {

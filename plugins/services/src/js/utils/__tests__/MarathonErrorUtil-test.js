@@ -1,5 +1,3 @@
-jest.dontMock("../MarathonErrorUtil");
-
 const MarathonErrorUtil = require("../MarathonErrorUtil");
 const ServiceErrorTypes = require("../../constants/ServiceErrorTypes");
 

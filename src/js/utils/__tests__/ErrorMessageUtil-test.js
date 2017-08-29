@@ -1,5 +1,3 @@
-jest.dontMock("../ErrorMessageUtil");
-
 const ErrorMessageUtil = require("../ErrorMessageUtil");
 
 describe("ErrorMessageUtil", function() {

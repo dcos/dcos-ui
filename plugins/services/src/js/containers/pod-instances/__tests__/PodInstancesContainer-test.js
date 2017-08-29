@@ -1,19 +1,3 @@
-jest.dontMock("../../../structs/Pod");
-jest.dontMock("../../../structs/PodInstanceList");
-jest.dontMock("../../../structs/PodInstance");
-jest.dontMock("../../../structs/PodContainer");
-jest.dontMock("../../../../../../../tests/_fixtures/pods/PodFixture");
-jest.dontMock("#SRC/js/components/CheckboxTable");
-jest.dontMock("#SRC/js/components/CollapsingString");
-jest.dontMock("#SRC/js/components/ExpandingTable");
-jest.dontMock("#SRC/js/components/FilterBar");
-jest.dontMock("#SRC/js/components/FilterInputText");
-jest.dontMock("#SRC/js/components/FilterButtons");
-jest.dontMock("#SRC/js/components/TimeAgo");
-jest.dontMock("../PodViewFilter");
-jest.dontMock("../PodInstancesContainer");
-jest.dontMock("../PodInstancesTable");
-
 const JestUtil = require("#SRC/js/utils/JestUtil");
 /* eslint-disable no-unused-vars */
 const React = require("react");

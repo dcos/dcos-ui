@@ -1,5 +1,3 @@
-jest.dontMock("../FormUtil");
-
 const FormUtil = require("../FormUtil");
 
 describe("FormUtil", function() {

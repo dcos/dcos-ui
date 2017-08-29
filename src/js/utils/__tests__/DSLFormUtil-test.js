@@ -1,7 +1,3 @@
-jest.dontMock("../DSLFormUtil");
-jest.dontMock("../../structs/DSLExpressionPart");
-jest.dontMock("../../structs/DSLASTNodes");
-
 const DSLFilterTypes = require("../../constants/DSLFilterTypes");
 const DSLFormUtil = require("../DSLFormUtil");
 const DSLExpressionPart = require("../../structs/DSLExpressionPart");

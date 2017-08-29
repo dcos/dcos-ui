@@ -1,5 +1,3 @@
-jest.dontMock("../VipLabelUtil");
-
 const VipLabelUtil = require("../VipLabelUtil");
 
 const appID = "/some-app";

@@ -1,15 +1,4 @@
 jest.mock("../../../utils/ScrollbarUtil");
-jest.dontMock("../PackagesTab");
-jest.dontMock("../CatalogPackageOption");
-jest.dontMock("../../../utils/Util");
-jest.dontMock("../../../components/FluidGeminiScrollbar");
-jest.dontMock("../../../components/SchemaForm");
-jest.dontMock("../../../components/Page");
-jest.dontMock("../../../components/Panel");
-jest.dontMock("../../../components/modals/InstallPackageModal");
-jest.dontMock("../../../mixins/InternalStorageMixin");
-jest.dontMock("../../../stores/CosmosPackagesStore");
-jest.dontMock("../../../../../tests/_fixtures/cosmos/packages-search.json");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");

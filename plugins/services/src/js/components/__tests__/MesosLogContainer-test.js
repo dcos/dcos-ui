@@ -1,10 +1,3 @@
-jest.dontMock("../Highlight");
-jest.dontMock("../MesosLogContainer");
-jest.dontMock("../LogView");
-jest.dontMock("#SRC/js/structs/Item");
-jest.dontMock("#SRC/js/components/Loader");
-jest.dontMock("../../structs/LogBuffer");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

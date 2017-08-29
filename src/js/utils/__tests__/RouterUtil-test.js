@@ -1,6 +1,3 @@
-jest.dontMock("query-string");
-jest.dontMock("../RouterUtil");
-
 const ReactRouter = require("react-router");
 const ReactTestUtils = require("react-addons-test-utils");
 

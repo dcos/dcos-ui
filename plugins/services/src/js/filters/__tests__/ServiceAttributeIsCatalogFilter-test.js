@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/structs/DSLFilterList");
-jest.dontMock("#SRC/resources/grammar/SearchDSL.jison");
-jest.dontMock("../ServiceAttributeIsCatalogFilter");
-jest.dontMock("#SRC/js/structs/List");
-
 var Application = require("../../structs/Application");
 var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var Framework = require("../../structs/Framework");

@@ -1,6 +1,3 @@
-jest.dontMock("objektiv");
-jest.dontMock("../DataValidatorUtil");
-
 const DataValidatorUtil = require("../DataValidatorUtil");
 
 describe("DataValidatorUtil", function() {

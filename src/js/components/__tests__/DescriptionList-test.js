@@ -1,10 +1,3 @@
-jest.dontMock("../ConfigurationMapLabel");
-jest.dontMock("../ConfigurationMapRow");
-jest.dontMock("../ConfigurationMapHeading");
-jest.dontMock("../ConfigurationMapSection");
-jest.dontMock("../ConfigurationMapValue");
-jest.dontMock("../HashMapDisplay");
-jest.dontMock("../DetailViewSectionHeading");
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

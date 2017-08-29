@@ -1,7 +1,3 @@
-jest.dontMock("../ServiceUtil");
-jest.dontMock("../../structs/Service");
-jest.dontMock("../../constants/VolumeConstants");
-
 const Application = require("../../structs/Application");
 const ApplicationSpec = require("../../structs/ApplicationSpec");
 const Framework = require("../../structs/Framework");

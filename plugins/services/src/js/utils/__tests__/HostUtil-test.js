@@ -1,5 +1,3 @@
-jest.dontMock("../HostUtil");
-
 const HostUtil = require("../HostUtil");
 
 describe("HostUtil", function() {

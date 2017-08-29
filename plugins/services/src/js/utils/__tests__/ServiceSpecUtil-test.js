@@ -1,6 +1,3 @@
-jest.dontMock("../ServiceSpecUtil");
-jest.dontMock("../../structs/PodSpec");
-
 const ApplicationSpec = require("../../structs/ApplicationSpec");
 const FrameworkSpec = require("../../structs/FrameworkSpec");
 const PodSpec = require("../../structs/PodSpec");

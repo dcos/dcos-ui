@@ -1,5 +1,3 @@
-jest.dontMock("../QueryParamsMixin");
-
 const QueryParamsMixin = require("../QueryParamsMixin");
 
 describe("QueryParamsMixin", function() {

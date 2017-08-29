@@ -1,8 +1,5 @@
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 jest.mock("../MesosSummaryStore");
-jest.dontMock("../DCOSStore");
-jest.dontMock("../../structs/SummaryList");
-jest.dontMock("../../structs/StateSummary");
 
 const DCOSStore = require("../DCOSStore");
 const EventTypes = require("../../constants/EventTypes");

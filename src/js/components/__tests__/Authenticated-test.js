@@ -1,7 +1,3 @@
-jest.dontMock("../Authenticated");
-jest.dontMock("../../stores/AuthStore");
-jest.dontMock("../../events/AuthActions");
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const TestUtils = require("react-addons-test-utils");

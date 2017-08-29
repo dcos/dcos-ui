@@ -1,7 +1,3 @@
-jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
-jest.dontMock("../Highlight");
-jest.dontMock("../LogView");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

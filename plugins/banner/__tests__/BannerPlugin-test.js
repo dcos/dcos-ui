@@ -1,7 +1,3 @@
-jest.dontMock("#SRC/js/components/Icon");
-jest.dontMock("#SRC/js/utils/DOMUtils");
-jest.dontMock("../hooks");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

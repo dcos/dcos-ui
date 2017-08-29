@@ -1,8 +1,3 @@
-jest.dontMock("../SystemLogActions");
-jest.dontMock("../../events/AppDispatcher");
-jest.dontMock("../../constants/ActionTypes");
-jest.dontMock("../../utils/SystemLogUtil");
-
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");

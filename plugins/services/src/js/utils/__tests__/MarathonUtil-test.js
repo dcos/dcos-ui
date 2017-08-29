@@ -1,5 +1,3 @@
-jest.dontMock("../MarathonUtil");
-
 const MarathonUtil = require("../MarathonUtil");
 
 describe("MarathonUtil", function() {

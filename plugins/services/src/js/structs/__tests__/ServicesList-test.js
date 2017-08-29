@@ -1,6 +1,3 @@
-jest.dontMock("#SRC/js/utils/StringUtil");
-jest.dontMock("#SRC/js/utils/Util");
-
 const Framework = require("../Framework");
 const ServicesList = require("../ServicesList");
 

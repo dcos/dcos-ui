@@ -1,4 +1,3 @@
-jest.dontMock("../RoutingService");
 const RoutingService = require("../RoutingService");
 const ReactRouter = require("react-router");
 

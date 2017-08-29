@@ -1,9 +1,3 @@
-jest.dontMock("../DSLParserUtil");
-jest.dontMock("../DSLUtil");
-jest.dontMock("../../structs/DSLExpression");
-jest.dontMock("../../structs/DSLExpressionPart");
-jest.dontMock("../../../resources/grammar/SearchDSL.jison");
-
 const DSLASTNodes = require("../../structs/DSLASTNodes");
 const DSLExpression = require("../../structs/DSLExpression");
 const DSLExpressionPart = require("../../structs/DSLExpressionPart");

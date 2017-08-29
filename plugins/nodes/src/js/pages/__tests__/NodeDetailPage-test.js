@@ -1,12 +1,3 @@
-jest.dontMock("#SRC/js/components/charts/Chart");
-jest.dontMock("#SRC/js/mixins/InternalStorageMixin");
-jest.dontMock("#SRC/js/mixins/TabsMixin");
-jest.dontMock("#SRC/js/stores/MesosSummaryStore");
-jest.dontMock("../nodes/NodeDetailPage");
-jest.dontMock("#SRC/js/components/RequestErrorMsg");
-jest.dontMock("#SRC/js/structs/CompositeState");
-jest.dontMock("#SRC/js/components/Page");
-
 const JestUtil = require("#SRC/js/utils/JestUtil");
 
 JestUtil.unMockStores(["MesosSummaryStore", "MesosStateStore"]);

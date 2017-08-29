@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/components/CollapsingString");
-jest.dontMock("#SRC/js/utils/Util");
-jest.dontMock("#SRC/js/utils/ResourcesUtil");
-jest.dontMock("../NodesGridDials");
-
 const deepEqual = require("deep-equal");
 /* eslint-disable no-unused-vars */
 const React = require("react");

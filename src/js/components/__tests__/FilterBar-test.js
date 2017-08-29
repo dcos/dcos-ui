@@ -1,5 +1,3 @@
-jest.dontMock("../FilterBar");
-
 const React = require("react");
 const TestUtils = require("react-addons-test-utils");
 

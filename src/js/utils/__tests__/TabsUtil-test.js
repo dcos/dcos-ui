@@ -1,5 +1,3 @@
-jest.dontMock("../TabsUtil");
-
 const TabsUtil = require("../TabsUtil");
 
 describe("TabsUtil", function() {

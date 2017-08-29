@@ -1,5 +1,3 @@
-jest.dontMock("../SchemaUtil");
-
 const SchemaUtil = require("../SchemaUtil");
 
 describe("SchemaUtil", function() {

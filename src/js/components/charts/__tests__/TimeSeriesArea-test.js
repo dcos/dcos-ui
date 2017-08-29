@@ -5,11 +5,6 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const TestUtils = require("react-addons-test-utils");
 
-jest.dontMock("./fixtures/MockTimeSeriesData.json");
-jest.dontMock("../../../mixins/ChartMixin");
-jest.dontMock("../TimeSeriesChart");
-jest.dontMock("../TimeSeriesArea");
-
 const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");
 const TimeSeriesArea = require("../TimeSeriesArea");
 

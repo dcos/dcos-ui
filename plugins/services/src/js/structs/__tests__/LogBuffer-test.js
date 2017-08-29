@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/structs/Item");
-jest.dontMock("#SRC/js/structs/List");
-jest.dontMock("../LogBuffer");
-jest.dontMock("#SRC/js/utils/Util");
-
 const Item = require("#SRC/js/structs/Item");
 const List = require("#SRC/js/structs/List");
 const LogBuffer = require("../LogBuffer");

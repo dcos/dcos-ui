@@ -1,11 +1,3 @@
-jest.dontMock("../MetronomeStore");
-jest.dontMock("../../events/AppDispatcher");
-jest.dontMock("../../events/MetronomeActions");
-jest.dontMock("../../structs/Job");
-jest.dontMock("../../structs/JobTree");
-jest.dontMock("../../../../tests/_fixtures/metronome/jobs.json");
-jest.dontMock("../../../../tests/_fixtures/metronome/job.json");
-
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../../events/AppDispatcher");
 const MetronomeActions = require("../../events/MetronomeActions");

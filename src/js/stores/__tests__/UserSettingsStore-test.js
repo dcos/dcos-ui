@@ -1,6 +1,3 @@
-jest.dontMock("../../utils/LocalStorageUtil");
-jest.dontMock("../UserSettingsStore");
-
 const LocalStorageUtil = require("../../utils/LocalStorageUtil");
 const UserSettingsStore = require("../UserSettingsStore");
 

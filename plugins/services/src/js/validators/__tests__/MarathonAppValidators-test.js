@@ -1,4 +1,3 @@
-jest.unmock("../MarathonAppValidators");
 const MarathonAppValidators = require("../MarathonAppValidators");
 const {
   PROP_MISSING_ONE,

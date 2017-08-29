@@ -1,5 +1,3 @@
-jest.dontMock("../JSONUtil");
-
 const JSONUtil = require("../JSONUtil");
 
 describe("JSONUtil", function() {

@@ -1,5 +1,3 @@
-jest.dontMock("../DOMUtils");
-
 const DOMUtils = require("../DOMUtils");
 
 describe("DOMUtils", function() {

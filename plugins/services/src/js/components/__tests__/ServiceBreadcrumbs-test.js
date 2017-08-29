@@ -1,10 +1,5 @@
-jest.dontMock("#SRC/js/components/Breadcrumb");
-jest.dontMock("#SRC/js/components/BreadcrumbCaret");
-jest.dontMock("#SRC/js/components/BreadcrumbTextContent");
-jest.dontMock("#SRC/js/components/BreadcrumbSupplementalContent");
-jest.dontMock("#SRC/js/components/PageHeaderBreadcrumbs");
-jest.dontMock("../ServiceBreadcrumbs");
-jest.dontMock("../../structs/Service");
+jest.mock("#SRC/js/stores/DCOSStore");
+
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */

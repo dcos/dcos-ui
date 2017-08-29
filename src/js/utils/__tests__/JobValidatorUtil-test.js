@@ -1,5 +1,3 @@
-jest.dontMock("../JobValidatorUtil");
-
 const JobValidatorUtil = require("../JobValidatorUtil");
 
 describe("JobValidatorUtil", function() {

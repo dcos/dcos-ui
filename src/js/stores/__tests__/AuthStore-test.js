@@ -1,6 +1,3 @@
-jest.dontMock("../AuthStore");
-jest.dontMock("../../events/AuthActions");
-
 const cookie = require("cookie");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 

@@ -1,5 +1,3 @@
-jest.dontMock("../MesosStateStore");
-
 const MesosStateUtil = require("../../utils/MesosStateUtil");
 const Pod = require("../../../../plugins/services/src/js/structs/Pod");
 const Framework = require("../../../../plugins/services/src/js/structs/Framework");

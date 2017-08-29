@@ -1,9 +1,4 @@
-jest.dontMock("../jobs/JobsTab");
-jest.dontMock("../../mixins/InternalStorageMixin");
-jest.dontMock("../../mixins/SaveStateMixin");
-jest.dontMock("../../components/Page");
-jest.mock("../../stores/UserSettingsStore");
-jest.mock("../../mixins/QueryParamsMixin");
+jest.mock("#SRC/js/stores/DCOSStore");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");

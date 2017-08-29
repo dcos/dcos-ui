@@ -1,8 +1,3 @@
-jest.dontMock("#SRC/js/structs/DSLFilterList");
-jest.dontMock("#SRC/resources/grammar/SearchDSL.jison");
-jest.dontMock("../ServiceNameTextFilter");
-jest.dontMock("#SRC/js/structs/List");
-
 var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
 var ServiceNameTextFilter = require("../ServiceNameTextFilter");

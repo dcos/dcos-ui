@@ -1,11 +1,4 @@
-jest.dontMock("moment");
-
-jest.dontMock("#SRC/js/components/CollapsingString");
-jest.dontMock("#SRC/js/stores/MesosStateStore");
-
-jest.dontMock("./fixtures/MockTasks.json");
-jest.dontMock("../../../constants/TaskStates");
-jest.dontMock("../TaskTable");
+jest.mock("#SRC/js/stores/DCOSStore");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");

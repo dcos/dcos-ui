@@ -1,7 +1,3 @@
-jest.dontMock("../TimeSeriesChart");
-jest.dontMock("../../../mixins/ChartMixin");
-jest.dontMock("../../../mixins/InternalStorageMixin");
-
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */
