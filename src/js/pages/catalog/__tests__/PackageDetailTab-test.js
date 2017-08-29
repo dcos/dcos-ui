@@ -11,7 +11,7 @@ jest.dontMock(
 );
 jest.dontMock("#SRC/js/structs/UniversePackage.js");
 
-const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-list-versions.json")
+const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
   .package;
 const packageVersionsFixtures = require("../../../../../tests/_fixtures/cosmos/package-list-versions.json")
   .results;
