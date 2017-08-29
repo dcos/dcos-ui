@@ -249,6 +249,12 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       })
       .route({
         method: "POST",
+        url: /package\/list-versions/,
+        status: 200,
+        response: "fx:cosmos/package-list-versions"
+      })
+      .route({
+        method: "POST",
         url: /package\/search/,
         status: 200,
         response: "fx:cosmos/packages-search"

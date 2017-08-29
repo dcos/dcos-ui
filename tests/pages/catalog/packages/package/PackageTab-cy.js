@@ -21,20 +21,20 @@ describe("Package Detail Tab", function() {
       .eq(0)
       .should(
         "contain",
-        "A cluster-wide init and control system for services in cgroups or Docker containers."
+        "A container orchestration platform for Mesos and DCOS"
       )
       .get("@information")
       .eq(1)
       .should(
         "contain",
-        "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service."
+        "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service."
       )
       .get("@information")
       .eq(2)
       .should("contain", "SCM: https://github.com/mesosphere/marathon.git")
       .get("@information")
       .eq(3)
-      .should("contain", "Maintainer: help@dcos.io")
+      .should("contain", "Maintainer: support@mesosphere.io")
       .get("@information")
       .eq(4)
       .should(

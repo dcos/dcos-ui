@@ -37,7 +37,16 @@
       "images": {
         "icon-small": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-small.png",
         "icon-medium": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-medium.png",
-        "icon-large": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-large.png"
+        "icon-large": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-large.png",
+        "screenshots": [
+          "https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png",
+          "https://beingasysadmin.files.wordpress.com/2014/06/marathon2.png",
+          "https://mesosphere.github.io/presentations/mug-ericsson-2014/assets/marathon-logo.jpg",
+          "https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png",
+          "http://www.clker.com/cliparts/0/f/d/b/12917289761851255679earth-map-huge.jpg",
+          "https://mesosphere.github.io/presentations/mug-ericsson-2014/assets/marathon-logo.jpg",
+          "http://33.media.tumblr.com/9ff4e10667237a30d89f55f13fc5b45b/tumblr_inline_mksdnegnw31qz4rgp.gif"
+        ]
       }
     },
     "config": {
@@ -79,7 +88,7 @@
             },
             "uris": {
               "default": [
-                
+
               ],
               "description": "List of URIs that will be downloaded and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
               "items": {
