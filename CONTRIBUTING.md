@@ -15,6 +15,7 @@
   - [Translation IDs](#translation-ids)
   - [Translation Strings](#translation-strings)
   - [New Translation files](#new-translation-files)
+- [Packages](#packages)
 
 ## Commits
 
@@ -247,3 +248,7 @@ Keep in mind that React-intl follows the React pattern where everything is a com
 ### New translation files
 
 When adding a new translation file store in `src/js/translations` directory and give it a name based on the language code e.g `en-us` (United States) `en-ie` (Ireland).
+
+## Packages
+
+Documentation can be found [here](packages/README.md)
