@@ -296,7 +296,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
-    const selectedVersion = cosmosPackage.getCurrentVersion();
+    const selectedVersion = cosmosPackage.getVersion();
     const packageVersions = cosmosPackageVersions.getAllVersions();
     const formattedPackageVersions = formatPackageVersions(packageVersions);
 
