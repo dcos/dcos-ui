@@ -268,9 +268,7 @@ describe("CosmosPackagesActions", function() {
 
       this.configuration.error({
         responseJSON: {
-          results: {
-            "1.0.2": "0"
-          }
+          description: "not able to finish the request"
         }
       });
     });
@@ -279,14 +277,12 @@ describe("CosmosPackagesActions", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual("An error has occurred.");
+        expect(action.data).toEqual("not able to finish the request");
       });
 
       this.configuration.error({
         responseJSON: {
-          results: {
-            "1.0.2": "0"
-          }
+          description: "not able to finish the request"
         }
       });
     });
@@ -297,6 +293,7 @@ describe("CosmosPackagesActions", function() {
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           responseJSON: {
+            description: "not able to finish the request",
             results: {
               "1.0.2": "0"
             }
@@ -306,6 +303,7 @@ describe("CosmosPackagesActions", function() {
 
       this.configuration.error({
         responseJSON: {
+          description: "not able to finish the request",
           results: {
             "1.0.2": "0"
           }

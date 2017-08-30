@@ -130,7 +130,6 @@ const CosmosPackagesActions = {
       success(response) {
         const cosmosPackage = response.package;
 
-        cosmosPackage.currentVersion = cosmosPackage.version;
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: cosmosPackage,

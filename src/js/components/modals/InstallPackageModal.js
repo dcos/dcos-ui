@@ -212,7 +212,7 @@ class InstallPackageModal
     const { betaTermsAccepted } = this.state;
     const { cosmosPackage, isBetaPackage } = this.props;
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
+    const version = cosmosPackage.getVersion();
     let configuration = this.getPackageConfiguration();
 
     if (isBetaPackage && betaTermsAccepted) {
@@ -377,7 +377,7 @@ class InstallPackageModal
     const { cosmosPackage } = this.props;
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
+    const version = cosmosPackage.getVersion();
     const truncated = this.state.truncatedPreInstallNotes;
     const packageVersionClasses = classNames({
       "flush-bottom": !preInstallNotes
@@ -457,7 +457,7 @@ class InstallPackageModal
     const { pendingRequest } = this.internalStorage_get();
     const { cosmosPackage } = this.props;
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
+    const version = cosmosPackage.getVersion();
     let buttonText = "Deploy";
 
     if (pendingRequest) {
@@ -584,7 +584,7 @@ class InstallPackageModal
     }
 
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
+    const version = cosmosPackage.getVersion();
     const advancedConfigClasses = classNames(
       "modal-install-package-body-and-header",
       {

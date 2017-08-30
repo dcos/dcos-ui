@@ -23,7 +23,7 @@ import StringUtil from "../../utils/StringUtil";
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   const name = cosmosPackage.getName();
-  const version = cosmosPackage.getCurrentVersion();
+  const version = cosmosPackage.getVersion();
 
   const crumbs = [
     <Breadcrumb key={0} title="Catalog">
@@ -262,7 +262,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getCurrentVersion();
+    const version = cosmosPackage.getVersion();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
 

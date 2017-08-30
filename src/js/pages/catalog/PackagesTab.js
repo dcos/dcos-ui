@@ -95,7 +95,7 @@ class PackagesTab extends mixin(StoreMixin) {
     this.context.router.push({
       pathname: `/catalog/packages/${cosmosPackage.getName()}`,
       query: {
-        version: cosmosPackage.getCurrentVersion()
+        version: cosmosPackage.getVersion()
       }
     });
   }
@@ -143,7 +143,7 @@ class PackagesTab extends mixin(StoreMixin) {
             {cosmosPackage.getName()}
           </div>
           <small className="flush">
-            {cosmosPackage.getCurrentVersion()}
+            {cosmosPackage.getVersion()}
           </small>
         </CatalogPackageOption>
       );

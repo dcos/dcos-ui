@@ -134,7 +134,7 @@ describe("CosmosPackagesStore", function() {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var pkg = CosmosPackagesStore.getPackageDetails();
       expect(pkg.getName()).toEqual(this.packageDescribeFixture.package.name);
-      expect(pkg.getCurrentVersion()).toEqual(
+      expect(pkg.getVersion()).toEqual(
         this.packageDescribeFixture.package.version
       );
     });

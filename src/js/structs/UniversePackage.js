@@ -83,8 +83,8 @@ class UniversePackage extends Item {
     return this.get("scm");
   }
 
-  getCurrentVersion() {
-    return this.get("currentVersion");
+  getVersion() {
+    return this.get("version");
   }
 
   getTags() {
