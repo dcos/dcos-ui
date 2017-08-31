@@ -7,6 +7,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Dropdown } from "reactjs-components";
 
+import { replaceQueryInPathString } from "#SRC/js/utils/RouterUtil";
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -287,10 +288,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   handlePackageVersionChange(packageOpt) {
     const packageVersion = packageOpt.id;
-    const originalPath = global.location.hash.split("?")[0];
-    const selectedVersion = `${originalPath}?version=${packageVersion}`;
+    const newPathname = replaceQueryInPathString({
+      pathname: global.location.hash,
+      query: "version",
+      value: packageVersion
+    });
 
-    global.location.replace(selectedVersion);
+    global.location.replace(newPathname);
   }
 
   getPackageVersionsDropdown() {

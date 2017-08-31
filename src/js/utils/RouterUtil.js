@@ -18,6 +18,28 @@ function findRedirect(queryString) {
 
 const RouterUtil = {
   /**
+   * Replace query in url path
+   * options = {
+   *    pathname: "http://localhost:4200/#/catalog/packages/arangodb3?version=1.0.0&_k=ed535h",
+   *    query: "version",
+   *    value: "test"
+   * }
+   *
+   * Output: http://localhost:4200/#/catalog/packages/arangodb3?version=test&_k=ed535h
+   *
+   * @param {Object} options object config
+   * @returns {String} string with new query value
+   */
+  replaceQueryInPathString(options) {
+    if (!options.pathname || !options.query || !options.value) {
+      return null;
+    }
+    const regex = new RegExp(`(${options.query}=)[^&]+`);
+
+    return options.pathname.replace(regex, "$1" + options.value);
+  },
+
+  /**
    * Parse the url and find the query string (?)
    * before or after the #
    *
