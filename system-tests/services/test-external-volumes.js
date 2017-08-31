@@ -38,9 +38,9 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Mesos Runtime
+      // Select Universal Container Runtime (UCR)
       cy.contains("More Settings").click();
-      cy.contains("Mesos Runtime").click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
 
       // Select Volumes section
       cy.root().get(".menu-tabbed-item").contains("Volumes").click();
@@ -101,7 +101,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
