@@ -208,21 +208,6 @@ describe("PackageDetailTab", function() {
       expect(this.instance.getLoadingScreen).toHaveBeenCalled();
     });
 
-    it("should call getLoadingScreen when cosmosPackageVersions is null", function() {
-      this.instance.state.isLoading = false;
-      this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
-
-      CosmosPackagesStore.getPackageDetails = jest.fn(() => {
-        return true;
-      });
-      CosmosPackagesStore.getPackageVersions = function() {
-        return null;
-      };
-
-      this.instance.render();
-      expect(this.instance.getLoadingScreen).toHaveBeenCalled();
-    });
-
     it("ignores getLoadingScreen when not loading", function() {
       this.instance.state.isLoading = false;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
