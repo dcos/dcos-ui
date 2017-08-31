@@ -84,9 +84,11 @@ class UniversePackage extends Item {
   }
 
   getVersion() {
-    // backport because some actions are removing
-    // version and replacing the package obj with currentVersion
     return this.get("version") || this.get("currentVersion");
+  }
+
+  getPackageByName(packageName) {
+    return this.get()[packageName] || {};
   }
 
   getTags() {

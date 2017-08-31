@@ -52,7 +52,12 @@ const METHODS_TO_BIND = [
   "handlePackageVersionChange"
 ];
 
-const formatPackageVersions = versions => {
+const formatPackageVersions = selectedPackage => {
+  if (selectedPackage.packageVersions == null) {
+    return [];
+  }
+  const versions = selectedPackage.packageVersions;
+
   return Object.keys(versions)
     .sort((a, b) => {
       if (+versions[a] > +versions[b]) {
@@ -103,9 +108,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
   retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
+    const cosmosPackages = CosmosPackagesStore.getPackages();
+    const selectedPackage = cosmosPackages.getPackageByName(packageName);
 
-    // fetch package versions available
-    CosmosPackagesStore.fetchPackageVersions(packageName);
+    // fetch package versions available only if not cached
+    if (Object.keys(selectedPackage).length < 1) {
+      CosmosPackagesStore.fetchPackageVersions(packageName);
+    }
+
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
@@ -299,10 +309,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
+    const packageName = cosmosPackage.getName();
+    const cosmosPackages = CosmosPackagesStore.getPackages();
     const selectedVersion = cosmosPackage.getVersion();
-    const packageVersions = cosmosPackageVersions.getAllVersions();
-    const formattedPackageVersions = formatPackageVersions(packageVersions);
+    const selectedPackage = cosmosPackages.getPackageByName(packageName);
+    const formattedPackageVersions = formatPackageVersions(selectedPackage);
 
     return (
       <Dropdown

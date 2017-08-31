@@ -52,6 +52,26 @@ describe("PackageDetailTab", function() {
         "marathon"
       );
     });
+
+    it("do NOT call fetchPackageVersions when package versions is cached", function() {
+      CosmosPackagesStore.getPackages = jest.fn(() => {
+        return new UniversePackage({
+          marathon: {
+            packageVersions: {
+              "1": "1"
+            }
+          }
+        });
+      });
+
+      CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
+        "fetchPackageVersions"
+      );
+
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageVersions).not.toHaveBeenCalled();
+    });
+
     it("call fetchPackageDescription with package name and package version", function() {
       CosmosPackagesStore.fetchPackageDescription = jasmine.createSpy(
         "fetchPackageDescription"
