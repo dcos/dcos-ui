@@ -326,8 +326,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    const cosmosPackageVersions = CosmosPackagesStore.getPackageVersions();
-    if (state.isLoading || !cosmosPackage || !cosmosPackageVersions) {
+    if (state.isLoading || !cosmosPackage) {
       return this.getLoadingScreen();
     }
 
