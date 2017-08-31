@@ -208,4 +208,33 @@ describe("RouterUtil", function() {
       expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
     });
   });
+
+  describe("#replaceQueryInPathString", function() {
+    it("replace query in pathname", function() {
+      const options = {
+        pathname: "http://localhost:4200/#/catalog/packages/arangodb3?version=1.0.0&_k=ed535h",
+        query: "version",
+        value: "another-one"
+      };
+      const expectedResult =
+        "http://localhost:4200/#/catalog/packages/arangodb3?version=another-one&_k=ed535h";
+
+      expect(RouterUtil.replaceQueryInPathString(options)).toEqual(
+        expectedResult
+      );
+    });
+
+    it("return null when options are empty, null or undefined", function() {
+      const options = {
+        pathname: "",
+        query: null,
+        value: undefined
+      };
+      const expectedResult = null;
+
+      expect(RouterUtil.replaceQueryInPathString(options)).toEqual(
+        expectedResult
+      );
+    });
+  });
 });
