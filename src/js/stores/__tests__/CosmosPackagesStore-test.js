@@ -215,14 +215,15 @@ describe("CosmosPackagesStore", function() {
 
     it("should return an instance of UniversePackage", function() {
       CosmosPackagesStore.fetchPackageVersions("foo");
-      const packageVersions = CosmosPackagesStore.getPackageVersions();
+      const packageVersions = CosmosPackagesStore.getPackages();
       expect(packageVersions instanceof UniversePackage).toBeTruthy();
     });
 
     it("should return all package versions it was given", function() {
-      CosmosPackagesStore.fetchPackageVersions("foo");
-      const packageVersions = CosmosPackagesStore.getPackageVersions();
-      expect(Object.keys(packageVersions.getAllVersions()).length).toEqual(
+      const packageName = "foo";
+      CosmosPackagesStore.fetchPackageVersions(packageName);
+      const packages = CosmosPackagesStore.getPackages().get();
+      expect(Object.keys(packages[packageName].packageVersions).length).toEqual(
         Object.keys(this.packageListVersionsFixture.results).length
       );
     });
@@ -239,22 +240,26 @@ describe("CosmosPackagesStore", function() {
     });
 
     describe("dispatcher", function() {
-      it("stores packageVersions when event is dispatched", function() {
+      it("stores packageVersions and packageName when event is dispatched", function() {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
           data: {
             "0.4.0": "2",
             "0.3.0": "1",
             "0.2.1": "0"
-          }
+          },
+          packageName: "foo"
         });
 
-        const packageVersions = Object.keys(
-          CosmosPackagesStore.getPackageVersions().getAllVersions()
-        );
-        expect(packageVersions[0]).toEqual("0.4.0");
-        expect(packageVersions[1]).toEqual("0.3.0");
-        expect(packageVersions[2]).toEqual("0.2.1");
+        expect(CosmosPackagesStore.getPackages().get()).toEqual({
+          foo: {
+            packageVersions: {
+              "0.3.0": "1",
+              "0.4.0": "2",
+              "0.2.1": "0"
+            }
+          }
+        });
       });
 
       it("dispatches the correct event upon success", function() {

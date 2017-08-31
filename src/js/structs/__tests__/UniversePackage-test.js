@@ -59,4 +59,27 @@ describe("UniversePackage", function() {
       expect(pkg.getMaintainer()).toEqual(undefined);
     });
   });
+
+  describe("#getAllVersions", function() {
+    it("returns package versions by package name", function() {
+      const pkg = new UniversePackage({
+        foo: {
+          packageVersions: {
+            "0.4.0": "2",
+            "0.3.0": "1",
+            "0.2.1": "0"
+          }
+        }
+      });
+      const selectedPackage = pkg.getPackageByName("foo");
+
+      expect(selectedPackage).toEqual({
+        packageVersions: {
+          "0.4.0": "2",
+          "0.3.0": "1",
+          "0.2.1": "0"
+        }
+      });
+    });
+  });
 });

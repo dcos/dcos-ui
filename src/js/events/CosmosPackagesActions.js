@@ -165,7 +165,8 @@ const CosmosPackagesActions = {
 
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
-          data: packageVersions
+          data: packageVersions,
+          packageName
         });
       },
       error(xhr) {

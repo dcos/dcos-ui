@@ -252,6 +252,20 @@ describe("CosmosPackagesActions", function() {
       });
     });
 
+    it("dispatches with the correct package name when successful", function() {
+      const id = AppDispatcher.register(function(payload) {
+        const action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.packageName).toEqual("foo");
+      });
+
+      this.configuration.success({
+        results: {
+          "1.0.2": "0"
+        }
+      });
+    });
+
     it("dispatches the correct action when unsuccessful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
