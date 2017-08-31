@@ -5,6 +5,6 @@ module.exports = {
   },
   labelMap: {
     DOCKER: "Docker Engine",
-    MESOS: "Mesos Runtime"
+    MESOS: "Universal Container Runtime (UCR)"
   }
 };
