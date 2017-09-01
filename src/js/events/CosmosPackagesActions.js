@@ -342,7 +342,7 @@ const CosmosPackagesActions = {
     });
   },
 
-  uninstallPackage(packageName, packageVersion, appId, all = false) {
+  uninstallPackage(packageName, appId, all = false) {
     RequestUtil.json({
       contentType: getContentType({
         action: "uninstall",
@@ -360,13 +360,12 @@ const CosmosPackagesActions = {
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/uninstall`,
-      data: JSON.stringify({ packageName, packageVersion, appId, all }),
+      data: JSON.stringify({ packageName, appId, all }),
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
           data: response,
           packageName,
-          packageVersion,
           appId
         });
       },
@@ -375,7 +374,6 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
-          packageVersion,
           appId,
           xhr
         });
