@@ -668,7 +668,6 @@ describe("CosmosPackagesActions", function() {
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
         expect(action.packageName).toEqual("foo");
-        expect(action.packageVersion).toEqual("bar");
       });
 
       this.configuration.success({ bar: "baz" });
@@ -746,7 +745,7 @@ describe("CosmosPackagesActions", function() {
   describe("#uninstallPackage", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
-      CosmosPackagesActions.uninstallPackage("foo", "bar", "baz", true);
+      CosmosPackagesActions.uninstallPackage("foo", "baz", true);
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -826,7 +825,6 @@ describe("CosmosPackagesActions", function() {
       expect(JSON.parse(this.configuration.data)).toEqual({
         appId: "baz",
         packageName: "foo",
-        packageVersion: "bar",
         all: true
       });
     });

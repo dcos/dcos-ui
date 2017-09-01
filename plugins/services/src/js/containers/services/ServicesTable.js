@@ -85,6 +85,7 @@ class ServicesTable extends React.Component {
 
     // We still want to support the `open` action to display the web view
     if (
+      actionItem.id !== DELETE &&
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",
@@ -223,8 +224,7 @@ class ServicesTable extends React.Component {
       : `/services/detail/${id}`;
 
     return (
-      <div className="service-table-heading flex-box
-        flex-box-align-vertical-center table-cell-flex-box">
+      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
         <Link className="table-cell-icon" to={serviceLink}>
           {this.getImage(service)}
         </Link>

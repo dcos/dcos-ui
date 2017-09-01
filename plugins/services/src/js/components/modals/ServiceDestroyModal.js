@@ -1,4 +1,4 @@
-import { Confirm, Modal } from "reactjs-components";
+import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
 import React, { PropTypes } from "react";
@@ -7,7 +7,6 @@ import { injectIntl, intlShape } from "react-intl";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
-import ClickToSelect from "#SRC/js/components/ClickToSelect";
 
 import AppLockedMessage from "./AppLockedMessage";
 import Framework from "../../structs/Framework";
@@ -146,54 +145,6 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
-  getDestroyFrameworkModal() {
-    const { open, service, intl } = this.props;
-    const packageName = service.getPackageName();
-
-    return (
-      <Modal
-        header={this.getModalHeading()}
-        footer={this.getCloseButton()}
-        modalClass="modal"
-        onClose={this.handleModalClose}
-        open={open}
-        showHeader={true}
-        showFooter={true}
-        subHeader={this.getSubHeader()}
-      >
-        <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK"
-          })}
-          <a
-            href="https://docs.mesosphere.com/service-docs/"
-            target="_blank"
-            title={intl.formatMessage({
-              id: "COMMON.DOCUMENTATION_TITLE"
-            })}
-          >
-            {intl.formatMessage({
-              id: "COMMON.DOCUMENTATION"
-            })}
-          </a>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK_2"
-          })}
-        </p>
-        <div className="flush-top snippet-wrapper">
-          <ClickToSelect>
-            <pre className="prettyprint flush-bottom">
-              dcos package uninstall
-              {" "}
-              {packageName} --app-id={service.getId()}
-            </pre>
-          </ClickToSelect>
-        </div>
-        {this.getErrorMessage()}
-      </Modal>
-    );
-  }
-
   getDestroyServiceModal() {
     const { open, service } = this.props;
     const serviceName = service.getName();
@@ -276,12 +227,6 @@ class ServiceDestroyModal extends React.Component {
   }
 
   render() {
-    const { service } = this.props;
-
-    if (service instanceof Framework) {
-      return this.getDestroyFrameworkModal();
-    }
-
     return this.getDestroyServiceModal();
   }
 }
