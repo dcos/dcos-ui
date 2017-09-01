@@ -19,8 +19,7 @@ const REDIRECT_DELAY = 300;
 const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
-  "handleRightButtonClick",
-  "handleChangeInputGroupDestroy"
+  "handleRightButtonClick"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -29,8 +28,7 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: "",
-      forceDeleteGroupWithServices: false
+      serviceNameConfirmationValue: ""
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -38,12 +36,6 @@ class ServiceDestroyModal extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  isGroupWithServices() {
-    const { service } = this.props;
-
-    return service instanceof ServiceTree && service.list.length > 0;
   }
 
   componentWillUpdate(nextProps) {
@@ -87,10 +79,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   shouldForceUpdate() {
-    return (
-      (this.state.errorMsg && /force=true/.test(this.state.errorMsg)) ||
-      this.state.forceDeleteGroupWithServices
-    );
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
   handleModalClose() {
@@ -108,12 +97,6 @@ class ServiceDestroyModal extends React.Component {
   handleChangeInputFieldDestroy(event) {
     this.setState({
       serviceNameConfirmationValue: event.target.value
-    });
-  }
-
-  handleChangeInputGroupDestroy(event) {
-    this.setState({
-      forceDeleteGroupWithServices: event.target.checked
     });
   }
 
@@ -162,30 +145,6 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
-  getGroupHeader() {
-    if (!this.isGroupWithServices()) {
-      return;
-    }
-
-    return (
-      <div className="modal-service-delete-center">
-        <p>
-          This group needs to be empty to delete it. Please delete any services in the group first.
-        </p>
-        <p>
-          <label className="modal-service-delete-force">
-            <input
-              type="checkbox"
-              checked={this.state.forceDeleteGroupWithServices}
-              onChange={this.handleChangeInputGroupDestroy}
-            />
-            <b>FORCE DELETE SERVICES IN GROUP</b>
-          </label>
-        </p>
-      </div>
-    );
-  }
-
   getDestroyServiceModal() {
     const { open, service } = this.props;
     const serviceName = service.getName();
@@ -205,39 +164,27 @@ class ServiceDestroyModal extends React.Component {
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        {this.getGroupHeader()}
-        {(!this.isGroupWithServices() ||
-          this.state.forceDeleteGroupWithServices) &&
-          <div className="modal-service-delete-center">
-            <p>
-              This action
-              {" "}
-              <strong>CANNOT</strong>
-              {" "}
-              be undone. This will permanently delete the
-              {" "}
-              <strong>{serviceName}</strong>
-              {" "}
-              {serviceLabel.toLowerCase()}
-              {this.state.forceDeleteGroupWithServices &&
-                <span>and any services in the group</span>}
-              .
-            </p>
-            <p>
-              Type ("
-              <strong>{serviceName}</strong>
-              ") below to confirm you want to delete the
-              {" "}
-              {serviceLabel.toLowerCase()}.
-            </p>
-            <input
-              className="form-control filter-input-text"
-              onChange={this.handleChangeInputFieldDestroy}
-              type="text"
-              value={this.state.serviceNameConfirmationValue}
-              autoFocus
-            />
-          </div>}
+        <p>
+          This action
+          {" "}
+          <strong>CANNOT</strong> be undone. This will permanently delete the
+          {" "}
+          <strong>{serviceName}</strong>
+          {" "}
+          {serviceLabel.toLowerCase()}.
+          Type ("
+          <strong>{serviceName}</strong>
+          ") below to confirm you want to delete the
+          {" "}
+          {serviceLabel.toLowerCase()}.
+        </p>
+        <input
+          className="form-control filter-input-text"
+          onChange={this.handleChangeInputFieldDestroy}
+          type="text"
+          value={this.state.serviceNameConfirmationValue}
+          autoFocus
+        />
         {this.getErrorMessage()}
       </Confirm>
     );
