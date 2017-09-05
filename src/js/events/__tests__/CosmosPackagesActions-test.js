@@ -431,6 +431,120 @@ describe("CosmosPackagesActions", function() {
     });
   });
 
+  describe("#fetchServiceDescription", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
+      CosmosPackagesActions.fetchServiceDescription("foo");
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it("dispatches the correct action when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS
+        );
+      });
+
+      this.configuration.success({ package: { bar: "baz" } });
+    });
+
+    it("dispatches with the correct data when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual({ bar: "baz" });
+      });
+
+      this.configuration.success({ package: { bar: "baz" } });
+    });
+
+    it("dispatches with serviceId when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.serviceId).toEqual("foo");
+      });
+
+      this.configuration.success({ package: { bar: "baz" } });
+    });
+
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR
+        );
+      });
+
+      this.configuration.error({ responseJSON: { description: "bar" } });
+    });
+
+    it("dispatches with the correct data when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual("bar");
+      });
+
+      this.configuration.error({ responseJSON: { description: "bar" } });
+    });
+
+    it("dispatches with serviceId when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.serviceId).toEqual("foo");
+      });
+
+      this.configuration.error({ responseJSON: { description: "bar" } });
+    });
+
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        });
+      });
+
+      this.configuration.error({
+        foo: "bar",
+        responseJSON: { description: "baz" }
+      });
+    });
+
+    it("calls #json from the RequestUtil", function() {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual("/cosmos/service/describe");
+    });
+
+    it("sends query in request body", function() {
+      expect(JSON.parse(this.configuration.data)).toEqual({
+        appId: "foo"
+      });
+    });
+
+    it("sends query in request body, even if it is undefined", function() {
+      CosmosPackagesActions.fetchPackageDescription();
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      expect(JSON.parse(this.configuration.data)).toEqual({
+        appId: undefined
+      });
+    });
+
+    it("sends a POST request", function() {
+      expect(this.configuration.method).toEqual("POST");
+    });
+  });
+
   describe("#installPackage", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
