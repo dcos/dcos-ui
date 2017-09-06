@@ -1,7 +1,7 @@
 const UniversePackagesVersions = require("../UniversePackagesVersions");
 
 describe("UniversePackagesVersions", function() {
-  describe("#getPackageByName", function() {
+  describe("#getPackageVersionsByName", function() {
     let UniversePackageVersions;
 
     beforeEach(function() {
@@ -17,7 +17,7 @@ describe("UniversePackagesVersions", function() {
     });
 
     it("get package by name", function() {
-      const packageVersions = UniversePackageVersions.getPackageByName(
+      const packageVersions = UniversePackageVersions.getPackageVersionsByName(
         "marathon"
       );
       const expectedResult = ["2.0.0", "1.4.1", "1.1.0"];
@@ -26,7 +26,7 @@ describe("UniversePackagesVersions", function() {
     });
 
     it("package versions are sorted by", function() {
-      const packageVersions = UniversePackageVersions.getPackageByName(
+      const packageVersions = UniversePackageVersions.getPackageVersionsByName(
         "marathon"
       );
 
