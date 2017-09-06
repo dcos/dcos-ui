@@ -84,7 +84,9 @@ class ServicesTable extends React.Component {
     }
 
     // We still want to support the `open` action to display the web view
-    if (
+    if (actionItem.id === EDIT && isSDKService(service)) {
+      this.editSDKService(service);
+    } else if (
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",
@@ -96,6 +98,14 @@ class ServicesTable extends React.Component {
     } else {
       this.handleServiceAction(service, actionItem.id);
     }
+  }
+
+  // todo, collab with Philipp to figure out the way we wanna do this
+  editSDKService(service) {
+    const { router } = this.context;
+    router.push(
+      `/services/detail/${encodeURIComponent(service.getId())}/frameworkconfiguration/`
+    );
   }
 
   handleServiceAction(service, actionID) {

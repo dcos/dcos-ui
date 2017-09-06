@@ -1,0 +1,24 @@
+& when (@field-input-enabled) {
+
+  input.field-input-number-narrow {
+    width: 25%;
+  }
+
+  input.field-input-text-narrow {
+    width: 50%;
+  }
+
+  & when (@layout-screen-small-enabled) {
+
+    @media (max-width: @layout-screen-small-min-width) {
+
+      input.field-input-number-narrow {
+        width: 50%;
+      }
+
+      input.field-input-text-narrow {
+        width: 100%;
+      }
+    }
+  }
+}
