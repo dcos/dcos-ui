@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Dropdown } from "reactjs-components";
+import { Dropdown, Tooltip } from "reactjs-components";
 
 import { replaceQueryInPathString } from "#SRC/js/utils/RouterUtil";
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
@@ -78,6 +78,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  isSelectedVersionLoading() {
+    const { version } = this.props.location.query;
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+
+    return cosmosPackage.getVersion() !== version;
   }
 
   retrievePackageInfo() {
@@ -226,6 +233,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getInstallButtons(cosmosPackage) {
+    const tooltipContent = "loading selected version";
+
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
@@ -247,18 +256,34 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <div className="button-collection">
-        <button
-          className="button button-outline"
-          onClick={this.handleConfigureInstallModalOpen}
+        <Tooltip
+          wrapperClassName="button-group"
+          wrapText={true}
+          content={tooltipContent}
+          suppress={!this.isSelectedVersionLoading()}
         >
-          Configure
-        </button>
-        <button
-          className="button button-primary"
-          onClick={this.handleInstallModalOpen}
+          <button
+            disabled={this.isSelectedVersionLoading()}
+            className="button button-outline"
+            onClick={this.handleConfigureInstallModalOpen}
+          >
+            Configure
+          </button>
+        </Tooltip>
+        <Tooltip
+          wrapperClassName="button-group"
+          wrapText={true}
+          content={tooltipContent}
+          suppress={!this.isSelectedVersionLoading()}
         >
-          Deploy
-        </button>
+          <button
+            disabled={this.isSelectedVersionLoading()}
+            className="button button-primary"
+            onClick={this.handleInstallModalOpen}
+          >
+            Deploy
+          </button>
+        </Tooltip>
       </div>
     );
   }
@@ -313,6 +338,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
         transition={true}
         wrapperClassName="dropdown"
       />
+    );
+  }
+
+  getPackageDescription(definition, cosmosPackage) {
+    return (
+      <div className="pod flush-horizontal flush-bottom">
+        {this.getItems(definition, this.getItem)}
+        <ImageViewer images={cosmosPackage.getScreenshots()} />
+      </div>
     );
   }
 
@@ -406,10 +440,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
             </div>
           </div>
-          <div className="pod flush-horizontal flush-bottom">
-            {this.getItems(definition, this.getItem)}
-            <ImageViewer images={cosmosPackage.getScreenshots()} />
-          </div>
+          {this.isSelectedVersionLoading()
+            ? this.getLoadingScreen()
+            : this.getPackageDescription(definition, cosmosPackage)}
         </div>
         <InstallPackageModal
           open={state.openInstallModal}
