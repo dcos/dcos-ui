@@ -5,7 +5,7 @@ describe("Package Detail Tab", function() {
         mesos: "1-task-healthy",
         universePackages: true
       })
-      .visitUrl({ url: "/catalog/packages/marathon?packageVersion=0.11.1" });
+      .visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
   });
 
   it("displays package information on package page", function() {
