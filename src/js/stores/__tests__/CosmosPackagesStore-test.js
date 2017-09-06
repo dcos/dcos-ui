@@ -9,6 +9,7 @@ const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");
 const packagesSearchFixture = require("./fixtures/MockPackagesSearchResponse.json");
 const ActionTypes = require("../../constants/ActionTypes");
 const UniversePackage = require("../../structs/UniversePackage");
+const UniversePackagesVersions = require("../../structs/UniversePackagesVersions");
 const UniverseInstalledPackagesList = require("../../structs/UniverseInstalledPackagesList");
 const UniversePackagesList = require("../../structs/UniversePackagesList");
 
@@ -215,14 +216,14 @@ describe("CosmosPackagesStore", function() {
 
     it("should return an instance of UniversePackage", function() {
       CosmosPackagesStore.fetchPackageVersions("foo");
-      const packageVersions = CosmosPackagesStore.getPackages();
-      expect(packageVersions instanceof UniversePackage).toBeTruthy();
+      const packageVersions = CosmosPackagesStore.getPackagesVersions();
+      expect(packageVersions instanceof UniversePackagesVersions).toBeTruthy();
     });
 
     it("should return all package versions it was given", function() {
       const packageName = "foo";
       CosmosPackagesStore.fetchPackageVersions(packageName);
-      const packages = CosmosPackagesStore.getPackages().get();
+      const packages = CosmosPackagesStore.getPackagesVersions().get();
       expect(Object.keys(packages[packageName].packageVersions).length).toEqual(
         Object.keys(this.packageListVersionsFixture.results).length
       );
@@ -251,7 +252,7 @@ describe("CosmosPackagesStore", function() {
           packageName: "foo"
         });
 
-        expect(CosmosPackagesStore.getPackages().get()).toEqual({
+        expect(CosmosPackagesStore.getPackagesVersions().get()).toEqual({
           foo: {
             packageVersions: {
               "0.3.0": "1",

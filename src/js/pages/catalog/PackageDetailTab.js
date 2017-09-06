@@ -52,31 +52,6 @@ const METHODS_TO_BIND = [
   "handlePackageVersionChange"
 ];
 
-const formatPackageVersions = selectedPackage => {
-  if (selectedPackage.packageVersions == null) {
-    return [];
-  }
-  const versions = selectedPackage.packageVersions;
-
-  return Object.keys(versions)
-    .sort((a, b) => {
-      if (+versions[a] > +versions[b]) {
-        return 1;
-      }
-      if (+versions[a] < +versions[b]) {
-        return -1;
-      }
-
-      return 0;
-    })
-    .map(version => {
-      return {
-        html: version,
-        id: version
-      };
-    });
-};
-
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -108,8 +83,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
-    const cosmosPackages = CosmosPackagesStore.getPackages();
-    const selectedPackage = cosmosPackages.getPackageByName(packageName);
+    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
+    const selectedPackage = cosmosPackagesVersions.getPackageByName(
+      packageName
+    );
 
     // fetch package versions available only if not cached
     if (Object.keys(selectedPackage).length < 1) {
@@ -310,10 +287,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const packageName = cosmosPackage.getName();
-    const cosmosPackages = CosmosPackagesStore.getPackages();
+    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
     const selectedVersion = cosmosPackage.getVersion();
-    const selectedPackage = cosmosPackages.getPackageByName(packageName);
-    const formattedPackageVersions = formatPackageVersions(selectedPackage);
+    const selectedPackageVersions = cosmosPackagesVersions
+      .getPackageByName(packageName)
+      .map(version => {
+        return {
+          html: version,
+          id: version
+        };
+      });
+
+    if (selectedPackageVersions.length === 0) {
+      return null;
+    }
 
     return (
       <Dropdown
@@ -321,7 +308,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         onItemSelection={this.handlePackageVersionChange}
-        items={formattedPackageVersions}
+        items={selectedPackageVersions}
         initialID={selectedVersion}
         transition={true}
         wrapperClassName="dropdown"

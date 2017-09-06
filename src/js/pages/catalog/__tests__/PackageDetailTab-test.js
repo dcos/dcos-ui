@@ -13,9 +13,8 @@ jest.dontMock("#SRC/js/structs/UniversePackage.js");
 
 const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
   .package;
-const packageVersionsFixtures = require("../../../../../tests/_fixtures/cosmos/package-list-versions.json")
-  .results;
-const UniversePackage = require("#SRC/js/structs/UniversePackage.js");
+const UniversePackage = require("#SRC/js/structs/UniversePackage");
+const UniversePackagesVersions = require("#SRC/js/structs/UniversePackagesVersions");
 var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
 /* eslint-disable no-unused-vars */
@@ -54,8 +53,8 @@ describe("PackageDetailTab", function() {
     });
 
     it("do NOT call fetchPackageVersions when package versions is cached", function() {
-      CosmosPackagesStore.getPackages = jest.fn(() => {
-        return new UniversePackage({
+      CosmosPackagesStore.getPackagesVersions = jest.fn(() => {
+        return new UniversePackagesVersions({
           marathon: {
             packageVersions: {
               "1": "1"
@@ -234,9 +233,6 @@ describe("PackageDetailTab", function() {
 
       CosmosPackagesStore.getPackageDetails = jest.fn(() => {
         return new UniversePackage(packageDescribeFixtures);
-      });
-      CosmosPackagesStore.getPackageVersions = jest.fn(() => {
-        return new UniversePackage(packageVersionsFixtures);
       });
 
       this.instance.render();

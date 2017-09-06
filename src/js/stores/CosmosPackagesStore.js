@@ -48,6 +48,7 @@ import RepositoryList from "../structs/RepositoryList";
 import UniverseInstalledPackagesList
   from "../structs/UniverseInstalledPackagesList";
 import UniversePackage from "../structs/UniversePackage";
+import UniversePackagesVersions from "../structs/UniversePackagesVersions";
 import UniversePackagesList from "../structs/UniversePackagesList";
 
 class CosmosPackagesStore extends GetSetBaseStore {
@@ -56,7 +57,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
     this.getSet_data = {
       availablePackages: [],
-      packages: {},
+      packagesVersions: {},
       packageDetails: null,
       installedPackages: [],
       repositories: []
@@ -121,7 +122,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
           this.processPackageListVersionsSuccess(data, action.packageName);
           break;
         case REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR:
-          this.processPackageListVersionsError(data);
+          this.processPackageListVersionsError(data, action.packageName);
           break;
         case REQUEST_COSMOS_PACKAGES_LIST_SUCCESS:
           this.processInstalledPackagesSuccess(
@@ -280,10 +281,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
     return null;
   }
 
-  getPackages() {
-    const packages = this.get("packages");
-    if (packages) {
-      return new UniversePackage(packages);
+  getPackagesVersions() {
+    const packagesVersions = this.get("packagesVersions");
+    if (packagesVersions) {
+      return new UniversePackagesVersions(packagesVersions);
     }
 
     return null;
@@ -326,19 +327,23 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   processPackageListVersionsSuccess(packageVersions, packageName) {
-    const packages = Object.assign({}, this.get("packages"), {
+    const packagesVersions = Object.assign({}, this.get("packagesVersions"), {
       [packageName]: {
         packageVersions
       }
     });
 
-    this.set({ packages });
+    this.set({ packagesVersions });
 
     this.emit(COSMOS_LIST_VERSIONS_CHANGE, packageName);
   }
 
-  processPackageListVersionsError(error) {
-    this.set({ packageVersions: null });
+  processPackageListVersionsError(error, packageName) {
+    const packagesVersions = Object.assign({}, this.get("packagesVersions"), {
+      [packageName]: null
+    });
+
+    this.set({ packagesVersions });
 
     this.emit(COSMOS_LIST_VERSIONS_ERROR, error);
   }
