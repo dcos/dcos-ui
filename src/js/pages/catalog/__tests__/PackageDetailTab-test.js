@@ -1,17 +1,26 @@
-// Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
-/* eslint-disable import/newline-after-import */
-const Config = require("../../../config/Config");
-var configUseFixtures = Config.useFixtures;
-Config.useFixtures = true;
-require("../../../stores/CosmosPackagesStore");
-Config.useFixtures = configUseFixtures;
-/* eslint-enable import/newline-after-import */
+jest.dontMock("../PackageDetailTab");
+jest.dontMock("../../../components/FluidGeminiScrollbar");
+jest.dontMock("../../../components/Page");
+jest.dontMock("../../../components/Panel");
+jest.dontMock("../../../mixins/InternalStorageMixin");
+jest.dontMock("../../../components/modals/InstallPackageModal");
+jest.dontMock("../../../stores/CosmosPackagesStore");
+jest.dontMock("../../../../../tests/_fixtures/cosmos/package-describe.json");
+jest.dontMock(
+  "../../../../../tests/_fixtures/cosmos/package-list-versions.json"
+);
+jest.dontMock("#SRC/js/structs/UniversePackage.js");
+
+const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
+  .package;
+const UniversePackage = require("#SRC/js/structs/UniversePackage");
+const UniversePackagesVersions = require("#SRC/js/structs/UniversePackagesVersions");
+var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
 
 const PackageDetailTab = require("../PackageDetailTab");
 
@@ -31,21 +40,47 @@ describe("PackageDetailTab", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe("#handleInstallModalOpen", function() {
-    beforeEach(function() {
-      this.instance.handleInstallModalOpen = jasmine.createSpy(
-        "handleInstallModalOpen"
+  describe("#retrievePackageInfo", function() {
+    it("call fetchPackageVersions with package name", function() {
+      CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
+        "fetchPackageVersions"
       );
-      jest.runAllTimers();
+
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageVersions).toHaveBeenCalledWith(
+        "marathon"
+      );
     });
 
-    it("should call handler when install button is clicked", function() {
-      var installButton = ReactDOM.findDOMNode(this.instance).querySelector(
-        ".button.button-primary"
-      );
-      TestUtils.Simulate.click(installButton);
+    it("do NOT call fetchPackageVersions when package versions is cached", function() {
+      CosmosPackagesStore.getPackagesVersions = jest.fn(() => {
+        return new UniversePackagesVersions({
+          marathon: {
+            packageVersions: {
+              "1": "1"
+            }
+          }
+        });
+      });
 
-      expect(this.instance.handleInstallModalOpen).toHaveBeenCalled();
+      CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
+        "fetchPackageVersions"
+      );
+
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageVersions).not.toHaveBeenCalled();
+    });
+
+    it("call fetchPackageDescription with package name and package version", function() {
+      CosmosPackagesStore.fetchPackageDescription = jasmine.createSpy(
+        "fetchPackageDescription"
+      );
+
+      this.instance.retrievePackageInfo();
+      expect(CosmosPackagesStore.fetchPackageDescription).toHaveBeenCalledWith(
+        "marathon",
+        1
+      );
     });
   });
 
@@ -193,8 +228,15 @@ describe("PackageDetailTab", function() {
     });
 
     it("ignores getLoadingScreen when not loading", function() {
+      this.instance.isSelectedVersionLoading = function() {
+        return false;
+      };
       this.instance.state.isLoading = false;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
+
+      CosmosPackagesStore.getPackageDetails = jest.fn(() => {
+        return new UniversePackage(packageDescribeFixtures);
+      });
 
       this.instance.render();
       expect(this.instance.getLoadingScreen).not.toHaveBeenCalled();

@@ -5,7 +5,9 @@ import { Link } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Dropdown, Tooltip } from "reactjs-components";
 
+import { replaceQueryInPathString } from "#SRC/js/utils/RouterUtil";
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -46,7 +48,8 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
 const METHODS_TO_BIND = [
   "handleInstallModalClose",
   "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen"
+  "handleInstallModalOpen",
+  "handlePackageVersionChange"
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -62,14 +65,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: "cosmosPackages",
-        events: ["descriptionError", "descriptionSuccess"],
-        unmountWhen(store, event) {
-          if (event === "descriptionSuccess") {
-            return !!CosmosPackagesStore.get("packageDetails");
-          }
-        },
-        listenAlways: false,
-        suppressUpdate: true
+        events: [
+          "descriptionError",
+          "descriptionSuccess",
+          "listVersionsSuccess",
+          "listVersionsError"
+        ],
+        suppressUpdate: false
       }
     ];
 
@@ -78,13 +80,43 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  isSelectedVersionLoading() {
+    const { version } = this.props.location.query;
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
+    return cosmosPackage.getVersion() !== version;
+  }
+
+  retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
+    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
+    const selectedPackage = cosmosPackagesVersions.getPackageVersionsByName(
+      packageName
+    );
+
+    // fetch package versions available only if not cached
+    if (Object.keys(selectedPackage).length < 1) {
+      CosmosPackagesStore.fetchPackageVersions(packageName);
+    }
+
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    this.retrievePackageInfo();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { version } = this.props.location.query;
+
+    if (version === prevProps.location.query.version) {
+      return false;
+    }
+
+    this.retrievePackageInfo();
   }
 
   onCosmosPackagesStoreDescriptionError() {
@@ -184,7 +216,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  getPackageBadge(cosmosPackage, version) {
+  getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
     const badgeCopy = isCertified ? "Certified" : "Community";
     const badgeClasses = classNames("badge badge-large badge-rounded", {
@@ -192,16 +224,17 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
 
     return (
-      <span className="badge-container selected-badge">
+      <span className="column-3 badge-container selected-badge">
         <span className={badgeClasses}>
           {badgeCopy}
         </span>
-        <small>{version}</small>
       </span>
     );
   }
 
   getInstallButtons(cosmosPackage) {
+    const tooltipContent = "loading selected version";
+
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
@@ -223,18 +256,34 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <div className="button-collection">
-        <button
-          className="button button-outline"
-          onClick={this.handleConfigureInstallModalOpen}
+        <Tooltip
+          wrapperClassName="button-group"
+          wrapText={true}
+          content={tooltipContent}
+          suppress={!this.isSelectedVersionLoading()}
         >
-          Configure
-        </button>
-        <button
-          className="button button-primary"
-          onClick={this.handleInstallModalOpen}
+          <button
+            disabled={this.isSelectedVersionLoading()}
+            className="button button-outline"
+            onClick={this.handleConfigureInstallModalOpen}
+          >
+            Configure
+          </button>
+        </Tooltip>
+        <Tooltip
+          wrapperClassName="button-group"
+          wrapText={true}
+          content={tooltipContent}
+          suppress={!this.isSelectedVersionLoading()}
         >
-          Deploy
-        </button>
+          <button
+            disabled={this.isSelectedVersionLoading()}
+            className="button button-primary"
+            onClick={this.handleInstallModalOpen}
+          >
+            Deploy
+          </button>
+        </Tooltip>
       </div>
     );
   }
@@ -247,6 +296,58 @@ class PackageDetailTab extends mixin(StoreMixin) {
     } else {
       return "https://mesosphere.com/catalog-terms-conditions/#community-services";
     }
+  }
+
+  handlePackageVersionChange(packageOpt) {
+    const packageVersion = packageOpt.id;
+    const newPathname = replaceQueryInPathString({
+      pathname: global.location.hash,
+      query: "version",
+      value: packageVersion
+    });
+
+    global.location.replace(newPathname);
+  }
+
+  getPackageVersionsDropdown() {
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const packageName = cosmosPackage.getName();
+    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
+    const selectedVersion = cosmosPackage.getVersion();
+    const selectedPackageVersions = cosmosPackagesVersions
+      .getPackageVersionsByName(packageName)
+      .map(version => {
+        return {
+          html: version,
+          id: version
+        };
+      });
+
+    if (selectedPackageVersions.length === 0) {
+      return null;
+    }
+
+    return (
+      <Dropdown
+        buttonClassName="button button-link dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        onItemSelection={this.handlePackageVersionChange}
+        items={selectedPackageVersions}
+        initialID={selectedVersion}
+        transition={true}
+        wrapperClassName="dropdown"
+      />
+    );
+  }
+
+  getPackageDescription(definition, cosmosPackage) {
+    return (
+      <div className="pod flush-horizontal flush-bottom">
+        {this.getItems(definition, this.getItem)}
+        <ImageViewer images={cosmosPackage.getScreenshots()} />
+      </div>
+    );
   }
 
   render() {
@@ -262,7 +363,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const name = cosmosPackage.getName();
-    const version = cosmosPackage.getVersion();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
 
@@ -315,10 +415,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 </div>
               </div>
               <div className="media-object-item media-object-item-grow">
-                <h1 className="short flush-top">
-                  {name}
-                </h1>
-                <p>{this.getPackageBadge(cosmosPackage, version)}</p>
+                <div className="flex flex-direction-left-to-right">
+                  <h1 className="short flush-top">
+                    {name}
+                  </h1>
+                  {this.getPackageVersionsDropdown()}
+                </div>
+                <div className="row">
+                  {this.getPackageBadge(cosmosPackage)}
+                </div>
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
@@ -335,10 +440,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
             </div>
           </div>
-          <div className="pod flush-horizontal flush-bottom">
-            {this.getItems(definition, this.getItem)}
-            <ImageViewer images={cosmosPackage.getScreenshots()} />
-          </div>
+          {this.isSelectedVersionLoading()
+            ? this.getLoadingScreen()
+            : this.getPackageDescription(definition, cosmosPackage)}
         </div>
         <InstallPackageModal
           open={state.openInstallModal}
