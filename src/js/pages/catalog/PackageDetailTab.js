@@ -84,7 +84,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
     const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
-    const selectedPackage = cosmosPackagesVersions.getPackageByName(
+    const selectedPackage = cosmosPackagesVersions.getPackageVersionsByName(
       packageName
     );
 
@@ -290,7 +290,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
     const selectedVersion = cosmosPackage.getVersion();
     const selectedPackageVersions = cosmosPackagesVersions
-      .getPackageByName(packageName)
+      .getPackageVersionsByName(packageName)
       .map(version => {
         return {
           html: version,

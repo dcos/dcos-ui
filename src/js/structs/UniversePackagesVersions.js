@@ -19,7 +19,7 @@ const sortPackageVersions = selectedPackage => {
 };
 
 class UniversePackagesVersions extends Item {
-  getPackageByName(packageName) {
+  getPackageVersionsByName(packageName) {
     return sortPackageVersions(this.get()[packageName] || {});
   }
 }

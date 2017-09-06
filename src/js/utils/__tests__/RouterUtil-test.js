@@ -236,5 +236,17 @@ describe("RouterUtil", function() {
         expectedResult
       );
     });
+
+    it("doesn't replace when query value is empty", function() {
+      const options = {
+        pathname: "http://localhost:4200/#/catalog/packages/arangodb3?version=&_k=ed535h",
+        query: "version",
+        value: "another-one"
+      };
+
+      expect(RouterUtil.replaceQueryInPathString(options)).toEqual(
+        "http://localhost:4200/#/catalog/packages/arangodb3?version=&_k=ed535h"
+      );
+    });
   });
 });
