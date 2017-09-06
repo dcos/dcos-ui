@@ -157,7 +157,7 @@ describe("CosmosPackagesStore", function() {
       it("dispatches the correct event upon success", function() {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
-          EventTypes.COSMOS_DESCRIBE_CHANGE,
+          EventTypes.COSMOS_PACKAGE_DESCRIBE_CHANGE,
           mockedFn
         );
         AppDispatcher.handleServerAction({
@@ -173,7 +173,7 @@ describe("CosmosPackagesStore", function() {
       it("dispatches the correct event upon error", function() {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
-          EventTypes.COSMOS_DESCRIBE_ERROR,
+          EventTypes.COSMOS_PACKAGE_DESCRIBE_ERROR,
           mockedFn
         );
         AppDispatcher.handleServerAction({
@@ -298,6 +298,90 @@ describe("CosmosPackagesStore", function() {
 
         expect(mockedFn.calls.count()).toEqual(1);
         expect(mockedFn.calls.mostRecent().args).toEqual(["error"]);
+      });
+    });
+  });
+
+  describe("#fetchServiceDescription", function() {
+    beforeEach(function() {
+      this.requestFn = RequestUtil.json;
+      RequestUtil.json = function(handlers) {
+        handlers.success(Object.assign({}, packageDescribeFixture));
+      };
+      this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
+    });
+
+    afterEach(function() {
+      RequestUtil.json = this.requestFn;
+    });
+
+    it("should return an instance of UniversePackage", function() {
+      CosmosPackagesStore.fetchServiceDescription("foo");
+      var serviceDetails = CosmosPackagesStore.getServiceDetails();
+      expect(serviceDetails instanceof UniversePackage).toBeTruthy();
+    });
+
+    it("should return the packageDetails it was given", function() {
+      CosmosPackagesStore.fetchServiceDescription("foo");
+      var serviceDetails = CosmosPackagesStore.getServiceDetails();
+      expect(serviceDetails.getName()).toEqual(
+        this.packageDescribeFixture.package.name
+      );
+      expect(serviceDetails.getVersion()).toEqual(
+        this.packageDescribeFixture.package.version
+      );
+    });
+
+    it("should pass though query parameters", function() {
+      RequestUtil.json = jasmine.createSpy("RequestUtil#json");
+      CosmosPackagesStore.fetchServiceDescription("foo");
+      expect(
+        JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data)
+      ).toEqual({ appId: "foo" });
+    });
+
+    describe("dispatcher", function() {
+      it("stores packageDetails when event is dispatched", function() {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
+          data: { gid: "foo", bar: "baz" },
+          serviceId: "foo"
+        });
+
+        var serviceDetails = CosmosPackagesStore.getServiceDetails();
+        expect(serviceDetails.get("gid")).toEqual("foo");
+        expect(serviceDetails.get("bar")).toEqual("baz");
+      });
+
+      it("dispatches the correct event upon success", function() {
+        var mockedFn = jest.genMockFunction();
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_SERVICE_DESCRIBE_CHANGE,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
+          data: { gid: "foo", bar: "baz" },
+          serviceId: "foo"
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it("dispatches the correct event upon error", function() {
+        var mockedFn = jasmine.createSpy("mockedFn");
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_SERVICE_DESCRIBE_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
+          data: "error",
+          serviceId: "foo"
+        });
+
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(["error", "foo"]);
       });
     });
   });

@@ -67,8 +67,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
       {
         name: "cosmosPackages",
         events: [
-          "descriptionError",
-          "descriptionSuccess",
+          "packageDescriptionError",
+          "packageDescriptionSuccess",
           "listVersionsSuccess",
           "listVersionsError"
         ],
@@ -121,11 +121,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  onCosmosPackagesStoreDescriptionError() {
+  onCosmosPackagesStorePackageDescriptionError() {
     this.setState({ hasError: true });
   }
 
-  onCosmosPackagesStoreDescriptionSuccess() {
+  onCosmosPackagesStorePackageDescriptionSuccess() {
     this.setState({
       hasError: false,
       isLoading: false,
