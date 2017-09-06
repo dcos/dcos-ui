@@ -228,6 +228,9 @@ describe("PackageDetailTab", function() {
     });
 
     it("ignores getLoadingScreen when not loading", function() {
+      this.instance.isSelectedVersionLoading = function() {
+        return false;
+      };
       this.instance.state.isLoading = false;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
