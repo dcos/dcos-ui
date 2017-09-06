@@ -107,7 +107,7 @@ class ContainerServiceFormAdvancedSection extends Component {
     if (gpusDisabled) {
       inputNode = (
         <Tooltip
-          content="Docker Engine does not support GPU resources, please select Mesos Runtime if you want to use GPU resources."
+          content="Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources."
           interactive={true}
           maxWidth={300}
           wrapText={true}

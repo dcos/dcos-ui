@@ -50,7 +50,7 @@ const containerRuntimes = {
   },
   [MESOS]: {
     label: <span>{labelMap[MESOS]}</span>,
-    helpText: "Universal Container Runtime (UCR) using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
+    helpText: "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
   }
 };
 
@@ -429,10 +429,12 @@ class GeneralServiceFormSection extends Component {
     const runtimeTooltipContent = (
       <span>
         {
-          "You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. "
+          "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. "
         }
         <a
-          href={MetadataStore.buildDocsURI("/usage/containerizers/")}
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/containerizers/"
+          )}
           target="_blank"
         >
           More information
@@ -461,7 +463,7 @@ class GeneralServiceFormSection extends Component {
         </h3>
         <p>
           The container runtime is responsible for running your service. We
-          support the Mesos and Docker containerizers.
+          support the Docker Engine and Universal Container Runtime (UCR).
         </p>
         <FormGroup showError={Boolean(typeErrors)}>
           {this.getRuntimeSelections(data)}
@@ -485,7 +487,7 @@ class GeneralServiceFormSection extends Component {
     if (!isEmpty(gpus) && gpus !== 0) {
       isDisabled[DOCKER] = true;
       disabledTooltipContent =
-        "Docker Engine does not support GPU resources, please select Mesos Runtime if you want to use GPU resources.";
+        "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources.";
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {

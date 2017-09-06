@@ -259,7 +259,7 @@ class VolumesFormSection extends Component {
 
       let sizeField = (
         <Tooltip
-          content="Docker Runtime only supports the default size for implicit volumes, please select Mesos Runtime if you want to modify the size."
+          content="Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size."
           width={300}
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
           wrapText={true}

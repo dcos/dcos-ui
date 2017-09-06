@@ -825,7 +825,7 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Switching to Mesos Runtime", function() {
+      context("Switching to Universal Container Runtime (UCR)", function() {
         beforeEach(function() {
           // Set viewport so we have side-by-side JSON editor
           cy.viewport("macbook-15");
@@ -835,7 +835,7 @@ describe("Service Form Modal", function() {
             .contains("JSON Editor")
             .click();
 
-          cy.get("label").contains("Mesos Runtime").click();
+          cy.get("label").contains("Universal Container Runtime (UCR)").click();
         });
 
         it("should switch from Docker to Mesos correctly", function() {
@@ -855,7 +855,7 @@ describe("Service Form Modal", function() {
     context("Service: Networking", function() {
       /**
        * Clicks the runtime option under more settings
-       * @param {String} runtimeText one of ['Docker Engine', 'Mesos Runtime']
+       * @param {String} runtimeText one of ['Docker Engine', 'Universal Container Runtime (UCR)']
        */
       function setRuntime(runtimeText) {
         cy.get("a.clickable").contains("More Settings").click();
@@ -905,8 +905,8 @@ describe("Service Form Modal", function() {
             .should("not.have.attr", "disabled");
         });
 
-        it('should have all available types when "Mesos Runtime" selected', function() {
-          setRuntime("Mesos Runtime");
+        it('should have all available types when "Universal Container Runtime (UCR)" selected', function() {
+          setRuntime("Universal Container Runtime (UCR)");
           clickNetworkingTab();
 
           cy

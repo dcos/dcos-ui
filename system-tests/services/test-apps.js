@@ -11,10 +11,6 @@ describe("Services", function() {
       cy.server().route("POST", /\/service\/marathon\/v2\/apps/).as("appsReq");
     });
 
-    function clickElementByText(text) {
-      cy.contains(text).click();
-    }
-
     afterEach(() => {
       cy.window().then(win => {
         win.location.href = "about:blank";
@@ -22,8 +18,8 @@ describe("Services", function() {
     });
 
     function selectMesosRuntime() {
-      clickElementByText("More Settings");
-      clickElementByText("Mesos Runtime");
+      cy.contains("More Settings").click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
     }
 
     it("should create a simple app", function() {
@@ -47,7 +43,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Check JSON view
@@ -87,7 +83,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -147,7 +143,7 @@ describe("Services", function() {
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      // Test Mesos Runtime again? should be tested before...
+      // Test Universal Container Runtime (UCR) again? should be tested before...
     });
 
     it("should fail create the same app name again", function() {
@@ -166,7 +162,7 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Check JSON view
@@ -210,7 +206,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Use some artifacts
@@ -274,7 +270,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -793,7 +789,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Select Networking section
@@ -860,7 +856,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -988,7 +984,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Select Networking section
@@ -1052,7 +1048,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -1180,7 +1176,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Select Environment section
@@ -1249,7 +1245,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -1603,7 +1599,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Select Environment section
@@ -1672,7 +1668,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
@@ -1796,7 +1792,7 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select mesos runtime
+      // Select Universal Container Runtime (UCR)
       selectMesosRuntime();
 
       // Select Volumes section
@@ -1857,7 +1853,7 @@ describe("Services", function() {
         .root()
         .configurationSection("General")
         .configurationMapValue("Container Runtime")
-        .contains("Mesos Runtime");
+        .contains("Universal Container Runtime (UCR)");
       cy
         .root()
         .configurationSection("General")
