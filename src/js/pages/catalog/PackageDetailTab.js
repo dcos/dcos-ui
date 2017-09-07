@@ -192,14 +192,27 @@ class PackageDetailTab extends mixin(StoreMixin) {
     let content = value;
 
     if (StringUtil.isEmail(value)) {
-      content = <a key={key} href={`mailto:${value}`}>{value}</a>;
+      content = (
+        <a key={key} href={`mailto:${value}`}>
+          {value}
+        </a>
+      );
     }
 
     if (StringUtil.isUrl(value)) {
-      content = <a key={key} href={value} target="_blank">{value}</a>;
+      content = (
+        <a key={key} href={value} target="_blank">
+          {value}
+        </a>
+      );
     }
 
-    return <p key={key} className="short">{`${label}: `}{content}</p>;
+    return (
+      <p key={key} className="short">
+        {`${label}: `}
+        {content}
+      </p>
+    );
   }
 
   mapLicenses(licenses) {
@@ -222,9 +235,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <span className="column-3 badge-container selected-badge">
-        <span className={badgeClasses}>
-          {badgeCopy}
-        </span>
+        <span className={badgeClasses}>{badgeCopy}</span>
       </span>
     );
   }
@@ -251,16 +262,18 @@ class PackageDetailTab extends mixin(StoreMixin) {
       );
     }
 
+    const isLoadingSelectedVersion = this.isSelectedVersionLoading();
+
     return (
       <div className="button-collection">
         <Tooltip
           wrapperClassName="button-group"
           wrapText={true}
           content={tooltipContent}
-          suppress={!this.isSelectedVersionLoading()}
+          suppress={!isLoadingSelectedVersion}
         >
           <button
-            disabled={this.isSelectedVersionLoading()}
+            disabled={isLoadingSelectedVersion}
             className="button button-outline"
             onClick={this.handleConfigureInstallModalOpen}
           >
@@ -271,10 +284,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
           wrapperClassName="button-group"
           wrapText={true}
           content={tooltipContent}
-          suppress={!this.isSelectedVersionLoading()}
+          suppress={!isLoadingSelectedVersion}
         >
           <button
-            disabled={this.isSelectedVersionLoading()}
+            disabled={isLoadingSelectedVersion}
             className="button button-primary"
             onClick={this.handleInstallModalOpen}
           >
@@ -416,14 +429,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item media-object-item-grow">
                 <div className="flex flex-direction-left-to-right">
-                  <h1 className="short flush-top">
-                    {name}
-                  </h1>
+                  <h1 className="short flush-top">{name}</h1>
                   {this.getPackageVersionsDropdown()}
                 </div>
-                <div className="row">
-                  {this.getPackageBadge(cosmosPackage)}
-                </div>
+                <div className="row">{this.getPackageBadge(cosmosPackage)}</div>
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
