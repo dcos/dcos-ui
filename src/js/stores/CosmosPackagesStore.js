@@ -48,7 +48,7 @@ import RepositoryList from "../structs/RepositoryList";
 import UniverseInstalledPackagesList
   from "../structs/UniverseInstalledPackagesList";
 import UniversePackage from "../structs/UniversePackage";
-import UniversePackagesVersions from "../structs/UniversePackagesVersions";
+import UniversePackageVersions from "../structs/UniversePackageVersions";
 import UniversePackagesList from "../structs/UniversePackagesList";
 
 class CosmosPackagesStore extends GetSetBaseStore {
@@ -282,10 +282,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
     return null;
   }
 
-  getPackagesVersions() {
+  getPackageVersions(packageName) {
     const packagesVersions = this.get("packagesVersions");
-    if (packagesVersions) {
-      return new UniversePackagesVersions(packagesVersions);
+    if (packagesVersions && packagesVersions[packageName]) {
+      return new UniversePackageVersions(packagesVersions[packageName]);
     }
 
     return null;
@@ -341,7 +341,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
   processPackageListVersionsError(error, packageName) {
     const packagesVersions = Object.assign({}, this.get("packagesVersions"), {
-      [packageName]: {}
+      [packageName]: null
     });
 
     this.set({ packagesVersions });

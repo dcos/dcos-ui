@@ -90,13 +90,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
-    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
-    const selectedPackage = cosmosPackagesVersions.getPackageVersionsByName(
-      packageName
-    );
+    const packageVersions = CosmosPackagesStore.getPackageVersions(packageName);
 
     // fetch package versions available only if not cached
-    if (Object.keys(selectedPackage).length < 1) {
+    if (packageVersions == null) {
       CosmosPackagesStore.fetchPackageVersions(packageName);
     }
 
@@ -312,18 +309,21 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const packageName = cosmosPackage.getName();
-    const cosmosPackagesVersions = CosmosPackagesStore.getPackagesVersions();
-    const selectedVersion = cosmosPackage.getVersion();
-    const selectedPackageVersions = cosmosPackagesVersions
-      .getPackageVersionsByName(packageName)
-      .map(version => {
-        return {
-          html: version,
-          id: version
-        };
-      });
+    const packageVersions = CosmosPackagesStore.getPackageVersions(packageName);
 
-    if (selectedPackageVersions.length === 0) {
+    if (packageVersions == null) {
+      return null;
+    }
+
+    const selectedVersion = cosmosPackage.getVersion();
+    const availableVersions = packageVersions.getVersions().map(version => {
+      return {
+        html: version,
+        id: version
+      };
+    });
+
+    if (availableVersions.length === 0) {
       return null;
     }
 
@@ -333,7 +333,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         onItemSelection={this.handlePackageVersionChange}
-        items={selectedPackageVersions}
+        items={availableVersions}
         initialID={selectedVersion}
         transition={true}
         wrapperClassName="dropdown"

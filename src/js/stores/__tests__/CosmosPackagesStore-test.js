@@ -9,7 +9,7 @@ const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");
 const packagesSearchFixture = require("./fixtures/MockPackagesSearchResponse.json");
 const ActionTypes = require("../../constants/ActionTypes");
 const UniversePackage = require("../../structs/UniversePackage");
-const UniversePackagesVersions = require("../../structs/UniversePackagesVersions");
+const UniversePackageVersions = require("../../structs/UniversePackageVersions");
 const UniverseInstalledPackagesList = require("../../structs/UniverseInstalledPackagesList");
 const UniversePackagesList = require("../../structs/UniversePackagesList");
 
@@ -216,15 +216,21 @@ describe("CosmosPackagesStore", function() {
 
     it("should return an instance of UniversePackage", function() {
       CosmosPackagesStore.fetchPackageVersions("foo");
-      const packageVersions = CosmosPackagesStore.getPackagesVersions();
-      expect(packageVersions instanceof UniversePackagesVersions).toBeTruthy();
+      const packageVersions = CosmosPackagesStore.getPackageVersions("foo");
+      expect(packageVersions instanceof UniversePackageVersions).toBeTruthy();
+    });
+
+    it("should return an null if packageName not in packageVersions", function() {
+      CosmosPackagesStore.fetchPackageVersions("foo");
+      const packageVersions = CosmosPackagesStore.getPackageVersions("bar");
+      expect(packageVersions).toEqual(null);
     });
 
     it("should return all package versions it was given", function() {
       const packageName = "foo";
       CosmosPackagesStore.fetchPackageVersions(packageName);
-      const packages = CosmosPackagesStore.getPackagesVersions().get();
-      expect(Object.keys(packages[packageName].packageVersions).length).toEqual(
+      const versions = CosmosPackagesStore.getPackageVersions("foo");
+      expect(Object.keys(versions.getVersions()).length).toEqual(
         Object.keys(this.packageListVersionsFixture.results).length
       );
     });
@@ -252,13 +258,11 @@ describe("CosmosPackagesStore", function() {
           packageName: "foo"
         });
 
-        expect(CosmosPackagesStore.getPackagesVersions().get()).toEqual({
-          foo: {
-            packageVersions: {
-              "0.3.0": "1",
-              "0.4.0": "2",
-              "0.2.1": "0"
-            }
+        expect(CosmosPackagesStore.getPackageVersions("foo").get()).toEqual({
+          packageVersions: {
+            "0.3.0": "1",
+            "0.4.0": "2",
+            "0.2.1": "0"
           }
         });
       });
@@ -327,11 +331,9 @@ describe("CosmosPackagesStore", function() {
 
     it("stores the installedPackages it was given", function() {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
-      var installedPackage = CosmosPackagesStore.getInstalledPackages().getItems()[
-        0
-      ];
-      expect(installedPackage.getName()).toEqual("marathon");
-      expect(installedPackage.getAppId()).toEqual("/marathon-user");
+      var installedPackages = CosmosPackagesStore.getInstalledPackages().getItems();
+      expect(installedPackages[0].getName()).toEqual("marathon");
+      expect(installedPackages[0].getAppId()).toEqual("/marathon-user");
     });
 
     it("should pass though query parameters", function() {

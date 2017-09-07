@@ -1,20 +1,7 @@
-jest.dontMock("../PackageDetailTab");
-jest.dontMock("../../../components/FluidGeminiScrollbar");
-jest.dontMock("../../../components/Page");
-jest.dontMock("../../../components/Panel");
-jest.dontMock("../../../mixins/InternalStorageMixin");
-jest.dontMock("../../../components/modals/InstallPackageModal");
-jest.dontMock("../../../stores/CosmosPackagesStore");
-jest.dontMock("../../../../../tests/_fixtures/cosmos/package-describe.json");
-jest.dontMock(
-  "../../../../../tests/_fixtures/cosmos/package-list-versions.json"
-);
-jest.dontMock("#SRC/js/structs/UniversePackage.js");
-
 const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
   .package;
 const UniversePackage = require("#SRC/js/structs/UniversePackage");
-const UniversePackagesVersions = require("#SRC/js/structs/UniversePackagesVersions");
+const UniversePackageVersions = require("#SRC/js/structs/UniversePackageVersions");
 var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
 /* eslint-disable no-unused-vars */
@@ -53,12 +40,10 @@ describe("PackageDetailTab", function() {
     });
 
     it("do NOT call fetchPackageVersions when package versions is cached", function() {
-      CosmosPackagesStore.getPackagesVersions = jest.fn(() => {
-        return new UniversePackagesVersions({
-          marathon: {
-            packageVersions: {
-              "1": "1"
-            }
+      CosmosPackagesStore.getPackageVersions = jest.fn(() => {
+        return new UniversePackageVersions({
+          packageVersions: {
+            "1": "1"
           }
         });
       });
