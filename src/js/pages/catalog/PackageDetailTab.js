@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -7,7 +8,6 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Dropdown, Tooltip } from "reactjs-components";
 
-import { replaceQueryInPathString } from "#SRC/js/utils/RouterUtil";
 import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -90,6 +90,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   retrievePackageInfo() {
     const { packageName } = this.props.params;
     const { version } = this.props.location.query;
+
     const packageVersions = CosmosPackagesStore.getPackageVersions(packageName);
 
     // fetch package versions available only if not cached
@@ -136,6 +137,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.setState({ openInstallModal: true, advancedConfig: true });
   }
 
+  handlePackageVersionChange(selection) {
+    this.redirectToPackageVersion(selection.id);
+  }
+
+  redirectToPackageVersion(version) {
+    const query = Object.assign({}, this.props.location.query, {
+      version
+    });
+
+    global.location.replace(
+      `#${this.props.location.pathname}?${qs.stringify(query)}`
+    );
+  }
+
   getErrorScreen() {
     return <RequestErrorMsg />;
   }
@@ -170,7 +185,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     if (typeof value === "string") {
-      value = <p className="flush">{value}</p>;
+      value = (
+        <p className="flush">
+          {value}
+        </p>
+      );
     }
 
     return (
@@ -178,7 +197,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
         className="pod pod-shorter flush-top flush-right flush-left"
         key={key}
       >
-        <h5 className="short-bottom">{label}</h5>
+        <h5 className="short-bottom">
+          {label}
+        </h5>
+
         {value}
       </div>
     );
@@ -235,7 +257,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <span className="column-3 badge-container selected-badge">
-        <span className={badgeClasses}>{badgeCopy}</span>
+        <span className={badgeClasses}>
+          {badgeCopy}
+        </span>
       </span>
     );
   }
@@ -306,17 +330,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     } else {
       return "https://mesosphere.com/catalog-terms-conditions/#community-services";
     }
-  }
-
-  handlePackageVersionChange(packageOpt) {
-    const packageVersion = packageOpt.id;
-    const newPathname = replaceQueryInPathString({
-      pathname: global.location.hash,
-      query: "version",
-      value: packageVersion
-    });
-
-    global.location.replace(newPathname);
   }
 
   getPackageVersionsDropdown() {
@@ -429,10 +442,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item media-object-item-grow">
                 <div className="flex flex-direction-left-to-right">
-                  <h1 className="short flush-top">{name}</h1>
+                  <h1 className="short flush-top">
+                    {name}
+                  </h1>
                   {this.getPackageVersionsDropdown()}
                 </div>
-                <div className="row">{this.getPackageBadge(cosmosPackage)}</div>
+                <div className="row">
+                  {this.getPackageBadge(cosmosPackage)}
+                </div>
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
