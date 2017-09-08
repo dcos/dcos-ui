@@ -360,7 +360,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         dropdownMenuListClassName="dropdown-menu-list"
         onItemSelection={this.handlePackageVersionChange}
         items={availableVersions}
-        initialID={selectedVersion}
+        persistentID={selectedVersion}
         transition={true}
         wrapperClassName="dropdown"
       />
