@@ -54,12 +54,14 @@ const METHODS_TO_BIND = [
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       hasError: 0,
       openInstallModal: false,
-      isLoading: true
+      isLoading: true,
+      isLoadingSelectedVersion: false,
+      isLoadingVersions: false
     };
 
     this.store_listeners = [
@@ -71,7 +73,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           "listVersionsSuccess",
           "listVersionsError"
         ],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 
@@ -80,41 +82,44 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  isSelectedVersionLoading() {
-    const { version } = this.props.location.query;
+  retrievePackageInfo(packageName, version) {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-
-    return cosmosPackage.getVersion() !== version;
-  }
-
-  retrievePackageInfo() {
-    const { packageName } = this.props.params;
-    const { version } = this.props.location.query;
-
     const packageVersions = CosmosPackagesStore.getPackageVersions(packageName);
 
-    // fetch package versions available only if not cached
+    // Fetch package versions if necessary
     if (packageVersions == null) {
+      this.setState({ isLoadingVersions: true });
+
       CosmosPackagesStore.fetchPackageVersions(packageName);
     }
+    // Fetch new description if name or version changed
+    if (
+      cosmosPackage == null ||
+      packageName !== cosmosPackage.getName() ||
+      version !== cosmosPackage.getVersion()
+    ) {
+      this.setState({ isLoadingSelectedVersion: true });
 
-    // Fetch package description
-    CosmosPackagesStore.fetchPackageDescription(packageName, version);
+      CosmosPackagesStore.fetchPackageDescription(packageName, version);
+    }
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    this.retrievePackageInfo();
+
+    this.retrievePackageInfo(
+      this.props.params.packageName,
+      this.props.location.query.version
+    );
   }
 
-  componentDidUpdate(prevProps) {
-    const { version } = this.props.location.query;
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(...arguments);
 
-    if (version === prevProps.location.query.version) {
-      return false;
-    }
-
-    this.retrievePackageInfo();
+    this.retrievePackageInfo(
+      nextProps.params.packageName,
+      nextProps.location.query.version
+    );
   }
 
   onCosmosPackagesStoreDescriptionError() {
@@ -122,7 +127,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreDescriptionSuccess() {
-    this.setState({ hasError: false, isLoading: false });
+    this.setState({
+      hasError: false,
+      isLoading: false,
+      isLoadingSelectedVersion: false
+    });
+  }
+
+  onCosmosPackagesStoreListVersionsSuccess() {
+    this.setState({ isLoadingVersions: false });
   }
 
   handleInstallModalClose() {
@@ -138,12 +151,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handlePackageVersionChange(selection) {
-    this.redirectToPackageVersion(selection.id);
-  }
-
-  redirectToPackageVersion(version) {
     const query = Object.assign({}, this.props.location.query, {
-      version
+      version: selection.id
     });
 
     global.location.replace(
@@ -200,7 +209,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
         <h5 className="short-bottom">
           {label}
         </h5>
-
         {value}
       </div>
     );
@@ -265,7 +273,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getInstallButtons(cosmosPackage) {
-    const tooltipContent = "loading selected version";
+    const tooltipContent = "Loading selected version";
 
     if (cosmosPackage.isCLIOnly()) {
       return (
@@ -286,7 +294,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       );
     }
 
-    const isLoadingSelectedVersion = this.isSelectedVersionLoading();
+    const { isLoadingSelectedVersion } = this.state;
 
     return (
       <div className="button-collection">
@@ -295,6 +303,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           wrapText={true}
           content={tooltipContent}
           suppress={!isLoadingSelectedVersion}
+          width={200}
         >
           <button
             disabled={isLoadingSelectedVersion}
@@ -309,6 +318,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           wrapText={true}
           content={tooltipContent}
           suppress={!isLoadingSelectedVersion}
+          width={200}
         >
           <button
             disabled={isLoadingSelectedVersion}
@@ -466,7 +476,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
             </div>
           </div>
-          {this.isSelectedVersionLoading()
+          {state.isLoadingSelectedVersion
             ? this.getLoadingScreen()
             : this.getPackageDescription(definition, cosmosPackage)}
         </div>

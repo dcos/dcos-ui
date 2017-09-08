@@ -33,7 +33,7 @@ describe("PackageDetailTab", function() {
         "fetchPackageVersions"
       );
 
-      this.instance.retrievePackageInfo();
+      this.instance.retrievePackageInfo("marathon", 1);
       expect(CosmosPackagesStore.fetchPackageVersions).toHaveBeenCalledWith(
         "marathon"
       );
@@ -61,7 +61,7 @@ describe("PackageDetailTab", function() {
         "fetchPackageDescription"
       );
 
-      this.instance.retrievePackageInfo();
+      this.instance.retrievePackageInfo("marathon", 1);
       expect(CosmosPackagesStore.fetchPackageDescription).toHaveBeenCalledWith(
         "marathon",
         1
@@ -217,6 +217,7 @@ describe("PackageDetailTab", function() {
         return false;
       };
       this.instance.state.isLoading = false;
+      this.instance.state.isLoadingSelectedVersion = false;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
       CosmosPackagesStore.getPackageDetails = jest.fn(() => {
