@@ -99,11 +99,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handleInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: false });
+    this.setState({ openInstallModal: true });
   }
 
   handleConfigureInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: true });
+    this.setState({ openInstallModal: true });
   }
 
   getErrorScreen() {
@@ -342,7 +342,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
         <InstallPackageModal
           open={state.openInstallModal}
           cosmosPackage={cosmosPackage}
-          advancedConfig={state.advancedConfig}
           onClose={this.handleInstallModalClose}
         />
       </Page>

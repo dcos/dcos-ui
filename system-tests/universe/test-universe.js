@@ -25,7 +25,8 @@ describe("Universe", function() {
     cy.contains("Deploy").click();
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Success");
+    cy.get(".modal").contains("Review and Deploy").click();
+    cy.get(".modal").contains("Deploy").click();
     cy.get(".modal").contains("Go To Service").click();
 
     // Go to the root services page
@@ -52,6 +53,10 @@ describe("Universe", function() {
     // Click the easy deploy
     cy.contains("Deploy").click();
 
+    // Wait for the new service to deploy
+    cy.get(".modal").contains("Review and Deploy").click();
+    cy.get(".modal").contains("Deploy").click();
+
     // Should give error that package already installed
     cy
       .get(".alert-danger")
@@ -72,6 +77,8 @@ describe("Universe", function() {
     cy.contains("Deploy").click();
 
     // Wait for the new service to deploy
+    cy.get(".modal").contains("Review and Deploy").click();
+    cy.get(".modal").contains("Deploy").click();
     cy.get(".modal").contains("Success");
     cy.get(".modal").contains("Go To Service").click();
 

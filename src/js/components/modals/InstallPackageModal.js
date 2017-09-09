@@ -37,7 +37,7 @@ class InstallPackageModal
     super(...arguments);
 
     this.tabs_tabs = {
-      defaultInstall: "DefaultInstall",
+      installError: "InstallError",
       advancedInstall: "AdvancedInstall",
       reviewAdvancedConfig: "ReviewAdvancedConfig",
       packageInstalled: "PackageInstalled"
@@ -51,7 +51,7 @@ class InstallPackageModal
     });
 
     this.state = {
-      currentTab: "defaultInstall",
+      currentTab: "advancedInstall",
       schemaIncorrect: false,
       truncatedPreInstallNotes: true
     };
@@ -92,20 +92,10 @@ class InstallPackageModal
       // Reset our trigger submit for advanced install
       this.triggerAdvancedSubmit = undefined;
       this.setState({
-        currentTab: "defaultInstall",
+        currentTab: "advancedInstall",
         truncatedPreInstallNotes: true
       });
-
-      return;
     }
-
-    if (nextProps.advancedConfig) {
-      this.setState({ currentTab: "advancedInstall" });
-
-      return;
-    }
-
-    this.handleInstallPackage();
   }
 
   componentDidUpdate() {
@@ -139,7 +129,7 @@ class InstallPackageModal
       installError,
       pendingRequest: false
     });
-    this.setState({ currentTab: "defaultInstall" });
+    this.setState({ currentTab: "installError" });
   }
 
   onCosmosPackagesStoreInstallSuccess(name, version, appId) {
@@ -300,12 +290,8 @@ class InstallPackageModal
     );
   }
 
-  renderDefaultInstallTabView() {
-    const {
-      descriptionError,
-      pendingRequest,
-      installError
-    } = this.internalStorage_get();
+  renderInstallErrorTabView() {
+    const { descriptionError, installError } = this.internalStorage_get();
     const { cosmosPackage } = this.props;
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
     const name = cosmosPackage.getName();
@@ -317,10 +303,6 @@ class InstallPackageModal
 
     if (installError) {
       return this.getInstallErrorScreen();
-    }
-
-    if (pendingRequest) {
-      return this.getLoadingScreen();
     }
 
     let error;
@@ -575,13 +557,11 @@ class InstallPackageModal
 }
 
 InstallPackageModal.defaultProps = {
-  advancedConfig: false,
   onClose() {},
   open: false
 };
 
 InstallPackageModal.propTypes = {
-  advancedConfig: React.PropTypes.bool,
   cosmosPackage: React.PropTypes.instanceOf(UniversePackage).isRequired,
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func
