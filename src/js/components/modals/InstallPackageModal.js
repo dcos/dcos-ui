@@ -4,7 +4,6 @@ import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import CosmosErrorHeader from "../CosmosErrorHeader";
 import CosmosErrorMessage from "../CosmosErrorMessage";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
@@ -25,7 +24,6 @@ const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
 const METHODS_TO_BIND = [
   "getAdvancedSubmit",
-  "handleAcceptBetaTerms",
   "handleChangeTab",
   "handleInstallPackage",
   "handleAdvancedFormChange",
@@ -39,7 +37,6 @@ class InstallPackageModal
     super(...arguments);
 
     this.tabs_tabs = {
-      betaTerms: "BetaTerms",
       defaultInstall: "DefaultInstall",
       advancedInstall: "AdvancedInstall",
       reviewAdvancedConfig: "ReviewAdvancedConfig",
@@ -102,20 +99,6 @@ class InstallPackageModal
       return;
     }
 
-    // If opening
-
-    if (nextProps.isBetaPackage) {
-      this.setState({
-        betaTermsAccepted: false,
-        betaOptInProperties: BetaOptInUtil.getProperty(
-          nextProps.cosmosPackage.getConfig()
-        ),
-        currentTab: "betaTerms"
-      });
-
-      return;
-    }
-
     if (nextProps.advancedConfig) {
       this.setState({ currentTab: "advancedInstall" });
 
@@ -168,20 +151,6 @@ class InstallPackageModal
     this.setState({ currentTab: "packageInstalled" });
   }
 
-  handleAcceptBetaTerms() {
-    if (this.props.advancedConfig) {
-      // Accept terms and move to advanced install tab
-      this.setState({
-        betaTermsAccepted: true,
-        currentTab: "advancedInstall"
-      });
-
-      return;
-    }
-    // Auto-install
-    this.setState({ betaTermsAccepted: true }, this.handleInstallPackage);
-  }
-
   handleAdvancedFormChange(formObject) {
     this.internalStorage_update({ hasFormErrors: !formObject.isValidated });
     this.forceUpdate();
@@ -209,15 +178,10 @@ class InstallPackageModal
   }
 
   handleInstallPackage() {
-    const { betaTermsAccepted } = this.state;
-    const { cosmosPackage, isBetaPackage } = this.props;
+    const { cosmosPackage } = this.props;
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getVersion();
-    let configuration = this.getPackageConfiguration();
-
-    if (isBetaPackage && betaTermsAccepted) {
-      configuration = BetaOptInUtil.setBetaOptIn(configuration);
-    }
+    const configuration = this.getPackageConfiguration();
 
     CosmosPackagesStore.installPackage(name, version, configuration);
     this.internalStorage_update({ pendingRequest: true });
@@ -333,38 +297,6 @@ class InstallPackageModal
       <span>
         {ellipses} {text}
       </span>
-    );
-  }
-
-  renderBetaTermsTabView() {
-    const { title, description } = this.state.betaOptInProperties;
-
-    return (
-      <div>
-        <div className="modal-body">
-          <div className="horizontal-center">
-            <h2 className="flush-top">
-              {title}
-            </h2>
-            <p className="text-align-center">
-              {description}
-            </p>
-          </div>
-        </div>
-        <div className="modal-footer">
-          <div className="button-collection button-collection-align-horizontal-center flush-bottom">
-            <button className="button" onClick={this.props.onClose}>
-              Cancel
-            </button>
-            <button
-              className="button button-success"
-              onClick={this.handleAcceptBetaTerms}
-            >
-              Accept
-            </button>
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -570,19 +502,13 @@ class InstallPackageModal
 
   getModalContents() {
     const { currentTab, schemaIncorrect } = this.state;
-    const { cosmosPackage, isBetaPackage } = this.props;
+    const { cosmosPackage } = this.props;
 
     if (schemaIncorrect) {
       return this.getIncorrectSchemaWarning(cosmosPackage);
     }
 
-    let schema = cosmosPackage.getConfig();
-
-    if (isBetaPackage) {
-      // Remove beta opt-in from schema for better UX
-      schema = BetaOptInUtil.filterProperty(cosmosPackage.getConfig());
-    }
-
+    const schema = cosmosPackage.getConfig();
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getVersion();
     const advancedConfigClasses = classNames(
@@ -650,7 +576,6 @@ class InstallPackageModal
 
 InstallPackageModal.defaultProps = {
   advancedConfig: false,
-  isBetaPackage: false,
   onClose() {},
   open: false
 };
@@ -658,7 +583,6 @@ InstallPackageModal.defaultProps = {
 InstallPackageModal.propTypes = {
   advancedConfig: React.PropTypes.bool,
   cosmosPackage: React.PropTypes.instanceOf(UniversePackage).isRequired,
-  isBetaPackage: React.PropTypes.bool,
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func
 };
