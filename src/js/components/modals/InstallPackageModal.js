@@ -357,10 +357,10 @@ class InstallPackageModal
           </button>
           <button
             disabled={pendingRequest || hasFormErrors}
-            className="button button-success"
+            className="button button-primary"
             onClick={this.handleChangeTab.bind(this, "reviewAdvancedConfig")}
           >
-            Review and Deploy
+            Review & Run
           </button>
         </div>
       </div>
@@ -372,7 +372,7 @@ class InstallPackageModal
     const { cosmosPackage } = this.props;
     const name = cosmosPackage.getName();
     const version = cosmosPackage.getVersion();
-    let buttonText = "Deploy";
+    let buttonText = "Run Service";
 
     if (pendingRequest) {
       buttonText = "Deploying...";
