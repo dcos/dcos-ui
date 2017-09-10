@@ -16,6 +16,7 @@ import Loader from "../Loader";
 import ReviewConfig from "../ReviewConfig";
 import SchemaForm from "../SchemaForm";
 import SchemaUtil from "../../utils/SchemaUtil";
+import SchemaFormUtil from "../../utils/SchemaFormUtil";
 import StringUtil from "../../utils/StringUtil";
 import TabsMixin from "../../mixins/TabsMixin";
 import UniversePackage from "../../structs/UniversePackage";
@@ -196,23 +197,25 @@ class InstallPackageModal
     const { advancedConfiguration } = this.internalStorage_get();
     const { currentTab } = this.state;
     const { cosmosPackage } = this.props;
-
     const isAdvancedInstall =
       currentTab === "advancedInstall" || currentTab === "reviewAdvancedConfig";
 
-    if (isAdvancedInstall && advancedConfiguration) {
+    if (!isAdvancedInstall) {
+      return {};
+    }
+
+    if (advancedConfiguration) {
       return advancedConfiguration;
     }
 
-    if (isAdvancedInstall && !advancedConfiguration) {
-      return SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition({
-          schema: cosmosPackage.getConfig()
-        })
-      );
-    }
+    const definitions = SchemaUtil.schemaToMultipleDefinition({
+      schema: cosmosPackage.getConfig()
+    });
 
-    return {};
+    return SchemaFormUtil.processFormModel(
+      SchemaUtil.definitionToJSONDocument(definitions),
+      definitions
+    );
   }
 
   getLoadingScreen() {
