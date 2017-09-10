@@ -195,14 +195,7 @@ class InstallPackageModal
 
   getPackageConfiguration() {
     const { advancedConfiguration } = this.internalStorage_get();
-    const { currentTab } = this.state;
     const { cosmosPackage } = this.props;
-    const isAdvancedInstall =
-      currentTab === "advancedInstall" || currentTab === "reviewAdvancedConfig";
-
-    if (!isAdvancedInstall) {
-      return {};
-    }
 
     if (advancedConfiguration) {
       return advancedConfiguration;
