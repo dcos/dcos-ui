@@ -22,7 +22,7 @@ describe("Universe", function() {
     cy.contains("Certified");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
 
     // Wait for the new service to deploy
     cy.get(".modal").contains("Review and Deploy").click();
@@ -51,7 +51,7 @@ describe("Universe", function() {
     cy.contains("Certified");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
 
     // Wait for the new service to deploy
     cy.get(".modal").contains("Review and Deploy").click();
@@ -74,7 +74,7 @@ describe("Universe", function() {
     cy.contains("Community");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
 
     // Wait for the new service to deploy
     cy.get(".modal").contains("Review and Deploy").click();
@@ -104,7 +104,7 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Certified");
 
-    cy.contains("Configure").click();
+    cy.contains("Review & Run").click();
 
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);
@@ -136,7 +136,7 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Community");
 
-    cy.contains("Configure").click();
+    cy.contains("Review & Run").click();
 
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);

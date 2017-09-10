@@ -42,11 +42,7 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = [
-  "handleInstallModalClose",
-  "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen"
-];
+const METHODS_TO_BIND = ["handleInstallModalClose", "handleInstallModalOpen"];
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -99,10 +95,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handleInstallModalOpen() {
-    this.setState({ openInstallModal: true });
-  }
-
-  handleConfigureInstallModalOpen() {
     this.setState({ openInstallModal: true });
   }
 
@@ -223,16 +215,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <div className="button-collection">
         <button
-          className="button button-outline"
-          onClick={this.handleConfigureInstallModalOpen}
-        >
-          Configure
-        </button>
-        <button
           className="button button-primary"
           onClick={this.handleInstallModalOpen}
         >
-          Deploy
+          Review & Run
         </button>
       </div>
     );
