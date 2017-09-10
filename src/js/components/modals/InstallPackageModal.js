@@ -51,7 +51,7 @@ class InstallPackageModal
     });
 
     this.state = {
-      currentTab: "advancedInstall",
+      currentTab: "reviewAdvancedConfig",
       schemaIncorrect: false,
       truncatedPreInstallNotes: true
     };
@@ -92,7 +92,7 @@ class InstallPackageModal
       // Reset our trigger submit for advanced install
       this.triggerAdvancedSubmit = undefined;
       this.setState({
-        currentTab: "advancedInstall",
+        currentTab: "reviewAdvancedConfig",
         truncatedPreInstallNotes: true
       });
     }
@@ -388,19 +388,24 @@ class InstallPackageModal
         />
         <div className="modal-footer">
           <div className="button-collection flush-bottom">
-            <button
-              className="button"
-              onClick={this.handleChangeTab.bind(this, "advancedInstall")}
-            >
-              Back
+            <button className="button" onClick={this.handleModalClose}>
+              Cancel
             </button>
-            <button
-              disabled={pendingRequest}
-              className="button button-success"
-              onClick={this.handleInstallPackage}
-            >
-              {buttonText}
-            </button>
+            <div className="button-collection flush">
+              <button
+                className="button button-outline"
+                onClick={this.handleChangeTab.bind(this, "advancedInstall")}
+              >
+                Edit
+              </button>
+              <button
+                disabled={pendingRequest}
+                className="button button-primary"
+                onClick={this.handleInstallPackage}
+              >
+                {buttonText}
+              </button>
+            </div>
           </div>
         </div>
       </div>
