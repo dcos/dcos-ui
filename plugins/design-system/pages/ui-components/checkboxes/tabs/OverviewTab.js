@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Do from "../../../../components/do-dont/Do";
+import Dont from "../../../../components/do-dont/Dont";
+import DoDontPanel from "../../../../components/do-dont/DoDontPanel";
 
 class OverviewTab extends Component {
   render() {
@@ -79,6 +82,70 @@ class OverviewTab extends Component {
           </tbody>
         </table>
         <h2>Best Practices</h2>
+        <DoDontPanel>
+          <Do
+            description={`Here is some content.
+            Here is some content.
+            Here is some content.
+            Here is some content.
+            Here is some content.
+            Here is some content.`}
+          >
+            <button className="button button-primary" type="button">
+              Primary Button
+            </button>
+          </Do>
+          <p>
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+          </p>
+        </DoDontPanel>
+        <DoDontPanel>
+          <p>
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+            Here we have extra content.
+          </p>
+          <Dont description="Hello">
+            <button className="button button-primary" type="button">
+              Primary Button
+            </button>
+          </Dont>
+        </DoDontPanel>
+        <DoDontPanel>
+          <Do description="Yes">
+            <button className="button button-primary" type="button">
+              Primary Button
+            </button>
+          </Do>
+          <Dont description="Hello">
+            <button className="button button-primary" type="button">
+              Primary Button
+            </button>
+          </Dont>
+        </DoDontPanel>
+        <DoDontPanel>
+          <Do description="Yes">
+            <button className="button button-primary" type="button">
+              Primary Button
+            </button>
+          </Do>
+        </DoDontPanel>
+        <p>
+          Here we have some content.
+          Here we have some content.
+          Here we have some content.
+          Here we have some content.
+          Here we have some content.
+          Here we have some content.
+        </p>
       </div>
     );
   }
