@@ -310,6 +310,22 @@ describe("CosmosPackagesActions", function() {
       });
     });
 
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        });
+      });
+
+      this.configuration.error({
+        foo: "bar",
+        responseJSON: { description: "baz" }
+      });
+    });
+
     it("fetches data from the correct URL", function() {
       expect(this.configuration.url).toEqual(
         Config.cosmosAPIPrefix + "/list-versions"

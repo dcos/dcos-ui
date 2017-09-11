@@ -173,7 +173,8 @@ const CosmosPackagesActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          packageName
+          packageName,
+          xhr
         });
       }
     });
