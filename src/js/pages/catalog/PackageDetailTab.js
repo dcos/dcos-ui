@@ -6,7 +6,6 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import BetaOptInUtil from "../../utils/BetaOptInUtil";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
@@ -43,11 +42,7 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = [
-  "handleInstallModalClose",
-  "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen"
-];
+const METHODS_TO_BIND = ["handleInstallModalClose", "handleInstallModalOpen"];
 
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor() {
@@ -100,11 +95,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handleInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: false });
-  }
-
-  handleConfigureInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: true });
+    this.setState({ openInstallModal: true });
   }
 
   getErrorScreen() {
@@ -224,16 +215,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <div className="button-collection">
         <button
-          className="button button-outline"
-          onClick={this.handleConfigureInstallModalOpen}
-        >
-          Configure
-        </button>
-        <button
           className="button button-primary"
           onClick={this.handleInstallModalOpen}
         >
-          Deploy
+          Review & Run
         </button>
       </div>
     );
@@ -343,8 +328,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
         <InstallPackageModal
           open={state.openInstallModal}
           cosmosPackage={cosmosPackage}
-          advancedConfig={state.advancedConfig}
-          isBetaPackage={BetaOptInUtil.isBeta(cosmosPackage.getConfig())}
           onClose={this.handleInstallModalClose}
         />
       </Page>

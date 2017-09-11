@@ -22,10 +22,10 @@ describe("Universe", function() {
     cy.contains("Certified");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Success");
+    cy.get(".modal").contains("Run Service").click();
     cy.get(".modal").contains("Go To Service").click();
 
     // Go to the root services page
@@ -50,7 +50,10 @@ describe("Universe", function() {
     cy.contains("Certified");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
+
+    // Wait for the new service to deploy
+    cy.get(".modal").contains("Run Service").click();
 
     // Should give error that package already installed
     cy
@@ -69,9 +72,10 @@ describe("Universe", function() {
     cy.contains("Community");
 
     // Click the easy deploy
-    cy.contains("Deploy").click();
+    cy.contains("Review & Run").click();
 
     // Wait for the new service to deploy
+    cy.get(".modal").contains("Run Service").click();
     cy.get(".modal").contains("Success");
     cy.get(".modal").contains("Go To Service").click();
 
@@ -97,14 +101,15 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Certified");
 
-    cy.contains("Configure").click();
+    cy.contains("Review & Run").click();
 
+    cy.get(".modal").contains("Edit").click();
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review and Deploy").click();
-    cy.get(".modal").contains("Deploy").click();
+    cy.get(".modal").contains("Review & Run").click();
+    cy.get(".modal").contains("Run Service").click();
     cy.get(".modal").contains("Go To Service").click();
 
     // Go to the root services page
@@ -129,14 +134,15 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Community");
 
-    cy.contains("Configure").click();
+    cy.contains("Review & Run").click();
 
+    cy.get(".modal").contains("Edit").click();
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review and Deploy").click();
-    cy.get(".modal").contains("Deploy").click();
+    cy.get(".modal").contains("Review & Run").click();
+    cy.get(".modal").contains("Run Service").click();
     cy.get(".modal").contains("Go To Service").click();
 
     // Go to the root services page

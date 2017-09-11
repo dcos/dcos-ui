@@ -268,7 +268,7 @@ const SchemaUtil = {
 
     Object.keys(schemaProperties).forEach(function(topLevelProp) {
       const topLevelPropertyObject = schemaProperties[topLevelProp];
-      const secondLevelProperties = topLevelPropertyObject.properties;
+      const secondLevelProperties = topLevelPropertyObject.properties || {};
       const requiredProps = topLevelPropertyObject.required;
       const definitionForm = (multipleDefinition[topLevelProp] = {});
 

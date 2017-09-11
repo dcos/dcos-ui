@@ -150,7 +150,7 @@ describe("Packages Tab", function() {
 
     it("should open the modal when the panel button is clicked", function() {
       cy.get(".panel").contains("arangodb").click();
-      cy.get(".button.button-primary").contains("Deploy").click();
+      cy.get(".button.button-primary").contains("Review & Run").click();
 
       cy.get(".modal").should(function($modal) {
         expect($modal.length).to.equal(1);

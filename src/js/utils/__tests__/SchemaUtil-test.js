@@ -48,6 +48,29 @@ describe("SchemaUtil", function() {
       });
     });
 
+    describe("schema with no second level properties", function() {
+      const $scope = {};
+      beforeEach(function() {
+        var schema = {
+          properties: {
+            application: {
+              description: "This is a description"
+            }
+          }
+        };
+
+        $scope.subheaderRender = jasmine.createSpy();
+        $scope.result = SchemaUtil.schemaToMultipleDefinition({
+          schema,
+          renderSubheader: $scope.subheaderRender
+        });
+      });
+
+      it("creates the definition", function() {
+        expect($scope.result.application.definition).toEqual([]);
+      });
+    });
+
     describe("nested schema", function() {
       beforeEach(function() {
         var schema = {
