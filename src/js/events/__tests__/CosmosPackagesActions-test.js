@@ -252,6 +252,20 @@ describe("CosmosPackagesActions", function() {
       });
     });
 
+    it("dispatches with the correct package name when successful", function() {
+      const id = AppDispatcher.register(function(payload) {
+        const action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.packageName).toEqual("foo");
+      });
+
+      this.configuration.success({
+        results: {
+          "1.0.2": "0"
+        }
+      });
+    });
+
     it("dispatches the correct action when unsuccessful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -282,27 +296,33 @@ describe("CosmosPackagesActions", function() {
       });
     });
 
+    it("dispatches the package name when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.packageName).toEqual("foo");
+      });
+
+      this.configuration.error({
+        responseJSON: {
+          description: "not able to finish the request"
+        }
+      });
+    });
+
     it("dispatches the xhr when unsuccessful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
-          responseJSON: {
-            description: "not able to finish the request",
-            results: {
-              "1.0.2": "0"
-            }
-          }
+          foo: "bar",
+          responseJSON: { description: "baz" }
         });
       });
 
       this.configuration.error({
-        responseJSON: {
-          description: "not able to finish the request",
-          results: {
-            "1.0.2": "0"
-          }
-        }
+        foo: "bar",
+        responseJSON: { description: "baz" }
       });
     });
 

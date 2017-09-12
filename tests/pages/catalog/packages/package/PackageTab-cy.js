@@ -5,7 +5,7 @@ describe("Package Detail Tab", function() {
         mesos: "1-task-healthy",
         universePackages: true
       })
-      .visitUrl({ url: "/catalog/packages/marathon?packageVersion=0.11.1" });
+      .visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
   });
 
   it("displays package information on package page", function() {
@@ -21,20 +21,20 @@ describe("Package Detail Tab", function() {
       .eq(0)
       .should(
         "contain",
-        "A cluster-wide init and control system for services in cgroups or Docker containers."
+        "A container orchestration platform for Mesos and DCOS"
       )
       .get("@information")
       .eq(1)
       .should(
         "contain",
-        "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service."
+        "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service."
       )
       .get("@information")
       .eq(2)
       .should("contain", "SCM: https://github.com/mesosphere/marathon.git")
       .get("@information")
       .eq(3)
-      .should("contain", "Maintainer: help@dcos.io")
+      .should("contain", "Maintainer: support@mesosphere.io")
       .get("@information")
       .eq(4)
       .should(
@@ -90,5 +90,19 @@ describe("Package Detail Tab", function() {
         "src",
         "https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png"
       );
+  });
+
+  it("dropdown display all versions available", function() {
+    cy.get(".dropdown-toggle").click();
+    cy.get(".is-selectable").should("have.length", 4);
+  });
+
+  it("select available version on dropdown", function() {
+    cy.get(".dropdown-toggle").click();
+    cy.get(".is-selectable").eq(3).click();
+    cy.window().then(function(window) {
+      const result = window.location.hash.includes("0.2.1");
+      expect(result).to.equal(true);
+    });
   });
 });

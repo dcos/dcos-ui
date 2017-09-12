@@ -2,14 +2,12 @@
   "packages": [
     {
       "name": "arangodb3",
-      "currentVersion": "3.1.x",
+      "currentVersion": "1.4.6",
       "versions": {
-        "1.0.2": 2,
-        "1.0.3": 3,
-        "3.1.x": 5,
-        "1.0.0": 0,
-        "1.0.4": 4,
-        "1.0.1": 1
+        "1.4.6": 3,
+        "0.4.0": 2,
+        "0.3.0": 1,
+        "0.2.1": 0
       },
       "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions. Guidance on how to install can be found here: https://github.com/dcos/examples/tree/master/arangodb",
       "framework": true,
