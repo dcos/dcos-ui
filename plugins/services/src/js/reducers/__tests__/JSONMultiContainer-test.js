@@ -34,7 +34,7 @@ describe("JSONMultiContainer", function() {
               {
                 name: "nginx",
                 hostPort: 0,
-                protocol: [],
+                protocol: ["tcp"],
                 labels: {
                   VIP_0: "1.2.3.4:80"
                 }
@@ -50,7 +50,7 @@ describe("JSONMultiContainer", function() {
               {
                 name: "nginx",
                 hostPort: 0,
-                protocol: [],
+                protocol: ["udp", "tcp"],
                 labels: {
                   VIP_0: "1.2.3.4:80"
                 }
