@@ -173,7 +173,14 @@ function containersParser(state) {
     if (item.endpoints != null && item.endpoints.length !== 0) {
       const networkMode = findNestedPropertyInObject(state, "networks.0.mode");
 
-      item.endpoints.forEach((endpoint, endpointIndex) => {
+      item.endpoints.forEach((_endpoint, endpointIndex) => {
+        const endpoint = Object.assign({}, _endpoint);
+        // Internal representation of protocols field differs from the JSON
+        // Thus we need to delete the field from the ADD_ITEM value so that
+        // JSONReducer isn't confused by it
+        const endpointProtocol = endpoint.protocol;
+        delete endpoint["protocol"];
+
         memo = memo.concat([
           new Transaction(
             ["containers", index, "endpoints"],
@@ -249,7 +256,7 @@ function containersParser(state) {
           }
         }
 
-        const protocols = endpoint.protocol || [];
+        const protocols = endpointProtocol || [];
         PROTOCOLS.forEach(protocol => {
           memo.push(
             new Transaction(
