@@ -44,7 +44,7 @@ class InstallPackageModal
     };
 
     this.internalStorage_set({
-      descriptionError: null,
+      packageDescriptionError: null,
       hasFormErrors: false,
       installError: null,
       pendingRequest: false
@@ -60,8 +60,8 @@ class InstallPackageModal
       {
         name: "cosmosPackages",
         events: [
-          "descriptionError",
-          "descriptionSuccess",
+          "packageDescriptionError",
+          "packageDescriptionSuccess",
           "installError",
           "installSuccess"
         ]
@@ -85,7 +85,7 @@ class InstallPackageModal
     // If closing
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
-        descriptionError: null,
+        packageDescriptionError: null,
         installError: null,
         pendingRequest: false
       });
@@ -116,12 +116,12 @@ class InstallPackageModal
     }
   }
 
-  onCosmosPackagesStoreDescriptionError(descriptionError) {
-    this.internalStorage_update({ descriptionError });
+  onCosmosPackagesStorePackageDescriptionError(packageDescriptionError) {
+    this.internalStorage_update({ packageDescriptionError });
     this.forceUpdate();
   }
 
-  onCosmosPackagesStoreDescriptionSuccess() {
+  onCosmosPackagesStorePackageDescriptionSuccess() {
     const { cosmosPackage } = this.props;
     const schemaIncorrect = !SchemaUtil.validateSchema(
       cosmosPackage.getConfig()
@@ -302,7 +302,7 @@ class InstallPackageModal
 
   renderDefaultInstallTabView() {
     const {
-      descriptionError,
+      packageDescriptionError,
       pendingRequest,
       installError
     } = this.internalStorage_get();
@@ -324,10 +324,10 @@ class InstallPackageModal
     }
 
     let error;
-    if (descriptionError) {
+    if (packageDescriptionError) {
       error = (
         <p className="text-danger small text-align-center">
-          {descriptionError}
+          {packageDescriptionError}
         </p>
       );
     }

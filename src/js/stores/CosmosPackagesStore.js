@@ -4,8 +4,10 @@ import GetSetBaseStore from "./GetSetBaseStore";
 import AppDispatcher from "../events/AppDispatcher";
 import CosmosPackagesActions from "../events/CosmosPackagesActions";
 import {
-  COSMOS_DESCRIBE_CHANGE,
-  COSMOS_DESCRIBE_ERROR,
+  COSMOS_PACKAGE_DESCRIBE_CHANGE,
+  COSMOS_PACKAGE_DESCRIBE_ERROR,
+  COSMOS_SERVICE_DESCRIBE_CHANGE,
+  COSMOS_SERVICE_DESCRIBE_ERROR,
   COSMOS_LIST_VERSIONS_CHANGE,
   COSMOS_LIST_VERSIONS_ERROR,
   COSMOS_INSTALL_ERROR,
@@ -42,6 +44,8 @@ import {
   REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
   REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
   REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
+  REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
+  REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
   SERVER_ACTION
 } from "../constants/ActionTypes";
 import RepositoryList from "../structs/RepositoryList";
@@ -59,6 +63,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
       availablePackages: [],
       packagesVersions: {},
       packageDetails: null,
+      serviceDetails: null,
       packageVersions: null,
       installedPackages: [],
       repositories: []
@@ -70,8 +75,8 @@ class CosmosPackagesStore extends GetSetBaseStore {
       events: {
         availableError: COSMOS_SEARCH_ERROR,
         availableSuccess: COSMOS_SEARCH_CHANGE,
-        descriptionSuccess: COSMOS_DESCRIBE_CHANGE,
-        descriptionError: COSMOS_DESCRIBE_ERROR,
+        packageDescriptionSuccess: COSMOS_PACKAGE_DESCRIBE_CHANGE,
+        packageDescriptionError: COSMOS_PACKAGE_DESCRIBE_ERROR,
         listVersionsSuccess: COSMOS_LIST_VERSIONS_CHANGE,
         listVersionsError: COSMOS_LIST_VERSIONS_ERROR,
         installedSuccess: COSMOS_LIST_CHANGE,
@@ -87,7 +92,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
         repositoryAddSuccess: COSMOS_REPOSITORY_ADD_SUCCESS,
         repositoryAddError: COSMOS_REPOSITORY_ADD_ERROR,
         repositoryDeleteSuccess: COSMOS_REPOSITORY_DELETE_SUCCESS,
-        repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR
+        repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR,
+
+        serviceDescriptionSuccess: COSMOS_SERVICE_DESCRIBE_CHANGE,
+        serviceDescriptionError: COSMOS_SERVICE_DESCRIBE_ERROR
       },
       unmountWhen(store, event) {
         return event === "availableSuccess";
@@ -211,6 +219,12 @@ class CosmosPackagesStore extends GetSetBaseStore {
             action.uri
           );
           break;
+        case REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS:
+          this.processServiceDescriptionSuccess(data, action.serviceId);
+          break;
+        case REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR:
+          this.processServiceDescriptionError(data, action.serviceId);
+          break;
       }
 
       return true;
@@ -240,6 +254,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
   fetchPackageVersions() {
     return CosmosPackagesActions.fetchPackageVersions(...arguments);
+  }
+
+  fetchServiceDescription() {
+    return CosmosPackagesActions.fetchServiceDescription(...arguments);
   }
 
   installPackage() {
@@ -282,6 +300,15 @@ class CosmosPackagesStore extends GetSetBaseStore {
     return null;
   }
 
+  getServiceDetails() {
+    const serviceDetails = this.get("serviceDetails");
+    if (serviceDetails) {
+      return new UniversePackage(serviceDetails);
+    }
+
+    return null;
+  }
+
   getPackageVersions(packageName) {
     const packagesVersions = this.get("packagesVersions");
     if (packagesVersions && packagesVersions[packageName]) {
@@ -318,13 +345,13 @@ class CosmosPackagesStore extends GetSetBaseStore {
   processPackageDescriptionSuccess(cosmosPackage, name, version) {
     this.set({ packageDetails: cosmosPackage });
 
-    this.emit(COSMOS_DESCRIBE_CHANGE, name, version);
+    this.emit(COSMOS_PACKAGE_DESCRIBE_CHANGE, name, version);
   }
 
   processPackageDescriptionError(error, name, version) {
     this.set({ packageDetails: null });
 
-    this.emit(COSMOS_DESCRIBE_ERROR, error, name, version);
+    this.emit(COSMOS_PACKAGE_DESCRIBE_ERROR, error, name, version);
   }
 
   processPackageListVersionsSuccess(packageVersions, packageName) {
@@ -353,6 +380,18 @@ class CosmosPackagesStore extends GetSetBaseStore {
     this.set({ repositories });
 
     this.emit(COSMOS_REPOSITORIES_SUCCESS);
+  }
+
+  processServiceDescriptionSuccess(cosmosPackage, name) {
+    this.set({ serviceDetails: cosmosPackage });
+
+    this.emit(COSMOS_SERVICE_DESCRIBE_CHANGE, name);
+  }
+
+  processServiceDescriptionError(error, name) {
+    this.set({ serviceDetails: null });
+
+    this.emit(COSMOS_SERVICE_DESCRIBE_ERROR, error, name);
   }
 
   get storeID() {
