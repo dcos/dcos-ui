@@ -14,10 +14,10 @@ const SDKEndpointsActions = {
     RequestUtil.json({
       url,
       method: "GET",
-      success(xhr) {
+      success(endpoints) {
         AppDispatcher.handleServerAction({
           type: REQUEST_SDK_ENDPOINTS_SUCCESS,
-          data: { serviceId, endpoints: xhr }
+          data: { serviceId, endpoints }
         });
       },
       error(xhr) {
