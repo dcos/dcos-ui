@@ -9,20 +9,6 @@ describe("SDKEndpointsActions", function() {
   describe("#fetchEndpoints", function() {
     const serviceId = "foo";
 
-    context("#dispatcher", function() {
-      it("dispatches the loading action first", function() {
-        SDKEndpointsActions.fetchEndpoints(serviceId);
-
-        const id = AppDispatcher.register(function(payload) {
-          const action = payload.action;
-          AppDispatcher.unregister(id);
-          expect(action.type).toEqual(
-            ActionTypes.REQUEST_SDK_ENDPOINTS_LOADING
-          );
-        });
-      });
-    });
-
     context("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
