@@ -8,8 +8,7 @@ import {
   REQUEST_SDK_ENDPOINTS_SUCCESS,
   REQUEST_SDK_ENDPOINTS_ERROR,
   REQUEST_SDK_ENDPOINT_SUCCESS,
-  REQUEST_SDK_ENDPOINT_ERROR,
-  REQUEST_SDK_ENDPOINTS_LOADING
+  REQUEST_SDK_ENDPOINT_ERROR
 } from "../constants/ActionTypes";
 
 import SDKEndpointActions from "../events/SDKEndpointActions";
@@ -59,13 +58,6 @@ class SDKEndpointStore extends GetSetBaseStore {
             endpoints: [],
             totalLoadingEndpointsCount: -1,
             error: data.error
-          });
-          break;
-        case REQUEST_SDK_ENDPOINTS_LOADING:
-          this.setService(data.serviceId, {
-            endpoints: [],
-            totalLoadingEndpointsCount: -1,
-            error: null
           });
           break;
       }
