@@ -113,21 +113,6 @@ describe("SDKEndpointStore", function() {
   });
 
   describe("dispatcher", function() {
-    it("call setService with correct args when REQUEST_SDK_ENDPOINTS_LOADING dispatched", function() {
-      spyOn(SDKEndpointStore, "setService");
-
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_SDK_ENDPOINTS_LOADING,
-        data: { serviceId }
-      });
-
-      expect(SDKEndpointStore.setService).toHaveBeenCalledWith(serviceId, {
-        endpoints: [],
-        totalLoadingEndpointsCount: -1,
-        error: null
-      });
-    });
-
     it("call setService with correct args when REQUEST_SDK_ENDPOINTS_ERROR is dispatched", function() {
       spyOn(SDKEndpointStore, "setService");
 
