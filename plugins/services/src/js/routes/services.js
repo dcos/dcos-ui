@@ -21,6 +21,8 @@ import HighOrderServiceConfiguration
   from "../components/HighOrderServiceConfiguration";
 import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
 import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
+import HighOrderServiceConnection
+  from "../components/HighOrderServiceConnection";
 
 const serviceRoutes = [
   {
@@ -110,6 +112,12 @@ const serviceRoutes = [
             title: "Instances",
             path: "tasks",
             component: HighOrderServiceInstances
+          },
+          {
+            type: Route,
+            path: "endpoints",
+            title: "Endpoints",
+            component: HighOrderServiceConnection
           },
           {
             type: Redirect,
