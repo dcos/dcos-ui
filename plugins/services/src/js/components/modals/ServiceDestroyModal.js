@@ -19,7 +19,8 @@ const REDIRECT_DELAY = 300;
 const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
-  "handleRightButtonClick"
+  "handleRightButtonClick",
+  "handleChangeInputForceDeleteGroupWithServices"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -28,7 +29,8 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: ""
+      serviceNameConfirmationValue: "",
+      forceDeleteGroupWithServices: this.isGroupWithServices()
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -36,6 +38,12 @@ class ServiceDestroyModal extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  isGroupWithServices() {
+    const { service } = this.props;
+
+    return service instanceof ServiceTree && service.list.length > 0;
   }
 
   componentWillUpdate(nextProps) {
@@ -79,7 +87,10 @@ class ServiceDestroyModal extends React.Component {
   }
 
   shouldForceUpdate() {
-    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
+    return (
+      (this.state.errorMsg && /force=true/.test(this.state.errorMsg)) ||
+      this.state.forceDeleteGroupWithServices
+    );
   }
 
   handleModalClose() {
@@ -97,6 +108,12 @@ class ServiceDestroyModal extends React.Component {
   handleChangeInputFieldDestroy(event) {
     this.setState({
       serviceNameConfirmationValue: event.target.value
+    });
+  }
+
+  handleChangeInputForceDeleteGroupWithServices(event) {
+    this.setState({
+      forceDeleteGroupWithServices: event.target.checked
     });
   }
 
@@ -145,6 +162,29 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
+  getGroupHeader() {
+    if (!this.isGroupWithServices()) {
+      return;
+    }
+
+    return (
+      <div>
+        <p>
+          This group needs to be empty to delete it. Please delete any services in the group first.
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            checked={this.state.forceDeleteGroupWithServices}
+            onChange={this.handleChangeInputForceDeleteGroupWithServices}
+          />
+          {" "}
+          FORCE DELETE SERVICES IN GROUP
+        </p>
+      </div>
+    );
+  }
+
   getDestroyServiceModal() {
     const { open, service } = this.props;
     const serviceName = service.getName();
@@ -164,27 +204,34 @@ class ServiceDestroyModal extends React.Component {
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        <p>
-          This action
-          {" "}
-          <strong>CANNOT</strong> be undone. This will permanently delete the
-          {" "}
-          <strong>{serviceName}</strong>
-          {" "}
-          {serviceLabel.toLowerCase()}.
-          Type ("
-          <strong>{serviceName}</strong>
-          ") below to confirm you want to delete the
-          {" "}
-          {serviceLabel.toLowerCase()}.
-        </p>
-        <input
-          className="form-control filter-input-text"
-          onChange={this.handleChangeInputFieldDestroy}
-          type="text"
-          value={this.state.serviceNameConfirmationValue}
-          autoFocus
-        />
+        {this.getGroupHeader()}
+        {(!this.isGroupWithServices() ||
+          this.state.forceDeleteGroupWithServices) &&
+          <div>
+            <p>
+              This action
+              {" "}
+              <strong>CANNOT</strong>
+              {" "}
+              be undone. This will permanently delete the
+              {" "}
+              <strong>{serviceName}</strong>
+              {" "}
+              {serviceLabel.toLowerCase()}.
+              Type ("
+              <strong>{serviceName}</strong>
+              ") below to confirm you want to delete the
+              {" "}
+              {serviceLabel.toLowerCase()}.
+            </p>
+            <input
+              className="form-control filter-input-text"
+              onChange={this.handleChangeInputFieldDestroy}
+              type="text"
+              value={this.state.serviceNameConfirmationValue}
+              autoFocus
+            />
+          </div>}
         {this.getErrorMessage()}
       </Confirm>
     );
