@@ -234,7 +234,8 @@ class ServiceDetail extends mixin(TabsMixin) {
     const tabs = [
       { label: "Instances", routePath: `${routePrefix}/tasks` },
       { label: "Configuration", routePath: `${routePrefix}/configuration` },
-      { label: "Debug", routePath: `${routePrefix}/debug` }
+      { label: "Debug", routePath: `${routePrefix}/debug` },
+      { label: "Endpoints", routePath: `${routePrefix}/endpoints` }
     ];
 
     if (this.hasVolumes()) {
