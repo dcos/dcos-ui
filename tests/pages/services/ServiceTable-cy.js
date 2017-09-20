@@ -269,17 +269,17 @@ describe("Service Table", function() {
 
       cy
         .get(".modal-header")
-        .contains("Group Delete")
+        .contains("Delete Group")
         .should("to.have.length", 1);
 
       cy
         .get(".modal-body")
         .contains(
-          "Must delete /services/sdk-sleep service before destroying the group"
+          "This group needs to be empty to delete it. Please delete any services in the group first."
         );
       cy.get(".modal .filter-input-text").should("not.exist");
 
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button").contains("OK").click();
 
       cy.get(".modal").should("not.exist");
     });
