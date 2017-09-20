@@ -1,0 +1,14 @@
+{
+  "name": "connections",
+  "main": "index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/dcos/dcos-ui/",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "19.0.2",
+    "jest-cli": "16.0.2"
+  }
+}
