@@ -27,7 +27,9 @@ const GroupContainsFrameworksModal = props => {
       showFooter={true}
       showHeader={true}
     >
-      This group needs to be empty to delete it. Please delete any services in the group first.
+      <div className="modal-service-delete-center">
+        This group needs to be empty to delete it. Please delete any services in the group first.
+      </div>
     </Modal>
   );
 };

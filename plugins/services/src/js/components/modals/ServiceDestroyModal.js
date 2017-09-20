@@ -30,7 +30,7 @@ class ServiceDestroyModal extends React.Component {
     this.state = {
       errorMsg: null,
       serviceNameConfirmationValue: "",
-      forceDeleteGroupWithServices: this.isGroupWithServices()
+      forceDeleteGroupWithServices: false
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -168,18 +168,19 @@ class ServiceDestroyModal extends React.Component {
     }
 
     return (
-      <div>
+      <div className="modal-service-delete-center">
         <p>
           This group needs to be empty to delete it. Please delete any services in the group first.
         </p>
         <p>
-          <input
-            type="checkbox"
-            checked={this.state.forceDeleteGroupWithServices}
-            onChange={this.handleChangeInputForceDeleteGroupWithServices}
-          />
-          {" "}
-          FORCE DELETE SERVICES IN GROUP
+          <label className="modal-service-delete-force">
+            <input
+              type="checkbox"
+              checked={this.state.forceDeleteGroupWithServices}
+              onChange={this.handleChangeInputForceDeleteGroupWithServices}
+            />
+            <b>FORCE DELETE SERVICES IN GROUP</b>
+          </label>
         </p>
       </div>
     );
@@ -207,7 +208,7 @@ class ServiceDestroyModal extends React.Component {
         {this.getGroupHeader()}
         {(!this.isGroupWithServices() ||
           this.state.forceDeleteGroupWithServices) &&
-          <div>
+          <div className="modal-service-delete-center">
             <p>
               This action
               {" "}
@@ -217,7 +218,12 @@ class ServiceDestroyModal extends React.Component {
               {" "}
               <strong>{serviceName}</strong>
               {" "}
-              {serviceLabel.toLowerCase()}.
+              {serviceLabel.toLowerCase()}
+              {this.state.forceDeleteGroupWithServices &&
+                <span>and any services in the group</span>}
+              .
+            </p>
+            <p>
               Type ("
               <strong>{serviceName}</strong>
               ") below to confirm you want to delete the
