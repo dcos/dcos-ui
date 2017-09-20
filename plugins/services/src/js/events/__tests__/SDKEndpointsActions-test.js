@@ -34,24 +34,30 @@ describe("SDKEndpointsActions", function() {
         const id = AppDispatcher.register(function(payload) {
           const action = payload.action;
           AppDispatcher.unregister(id);
-          expect(action.type).toEqual(
-            ActionTypes.REQUEST_SDK_ENDPOINTS_SUCCESS
-          );
+          expect(action).toEqual({
+            type: ActionTypes.REQUEST_SDK_ENDPOINTS_SUCCESS,
+            data: {
+              serviceId: "foo",
+              endpoints: ["endpoint1", "endpoint2"]
+            }
+          });
         });
 
-        this.configuration.success({
-          serviceId
-        });
+        this.configuration.success(["endpoint1", "endpoint2"]);
       });
 
       it("dispatches the correct action when unsuccessful", function() {
         var id = AppDispatcher.register(function(payload) {
           var action = payload.action;
           AppDispatcher.unregister(id);
-          expect(action.type).toEqual(ActionTypes.REQUEST_SDK_ENDPOINTS_ERROR);
+          expect(action).toEqual({
+            data: { error: {}, serviceId: "foo" },
+            type: "REQUEST_SDK_ENDPOINTS_ERROR",
+            xhr: { error: {}, serviceId: "foo" }
+          });
         });
 
-        this.configuration.error({ message: "error" });
+        this.configuration.error({ error: {}, serviceId: "foo" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -115,7 +121,15 @@ describe("SDKEndpointsActions", function() {
       const id = AppDispatcher.register(function(payload) {
         const action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type).toEqual(ActionTypes.REQUEST_SDK_ENDPOINT_SUCCESS);
+        expect(action).toEqual({
+          type: ActionTypes.REQUEST_SDK_ENDPOINT_SUCCESS,
+          data: {
+            contentType: "application/json",
+            endpointData: { data: "some data" },
+            endpointName: "arangodb",
+            serviceId: "foo"
+          }
+        });
       });
 
       mockXhr.onreadystatechange();
@@ -128,7 +142,13 @@ describe("SDKEndpointsActions", function() {
       const id = AppDispatcher.register(function(payload) {
         const action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type).toEqual(ActionTypes.REQUEST_SDK_ENDPOINT_ERROR);
+        expect(action).toEqual({
+          type: ActionTypes.REQUEST_SDK_ENDPOINT_ERROR,
+          data: {
+            error: '{"data":"some data"}',
+            serviceId: "foo"
+          }
+        });
       });
 
       mockXhr.onreadystatechange();
