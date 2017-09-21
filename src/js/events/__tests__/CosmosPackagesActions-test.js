@@ -565,6 +565,84 @@ describe("CosmosPackagesActions", function() {
     });
   });
 
+  describe("#updateService", function() {
+    beforeEach(function() {
+      spyOn(RequestUtil, "json");
+      CosmosPackagesActions.updateService("foo", { cpus: 3 });
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it("dispatches the correct action when successful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS
+        );
+      });
+
+      this.configuration.success({ package: { bar: "baz" } });
+    });
+
+    it("dispatches the correct action when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_ERROR
+        );
+      });
+
+      this.configuration.error({ responseJSON: { description: "bar" } });
+    });
+
+    it("dispatches with the correct data when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual({ description: "bar" });
+      });
+
+      this.configuration.error({ responseJSON: { description: "bar" } });
+    });
+
+    it("dispatches the xhr when unsuccessful", function() {
+      var id = AppDispatcher.register(function(payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.xhr).toEqual({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        });
+      });
+
+      this.configuration.error({
+        foo: "bar",
+        responseJSON: { description: "baz" }
+      });
+    });
+
+    it("calls #json from the RequestUtil", function() {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it("fetches data from the correct URL", function() {
+      expect(this.configuration.url).toEqual("/cosmos/service/update");
+    });
+
+    it("sends query in request body", function() {
+      expect(JSON.parse(this.configuration.data)).toEqual({
+        appId: "foo",
+        options: { cpus: 3 },
+        replace: true
+      });
+    });
+
+    it("sends a POST request", function() {
+      expect(this.configuration.method).toEqual("POST");
+    });
+  });
+
   describe("#installPackage", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");

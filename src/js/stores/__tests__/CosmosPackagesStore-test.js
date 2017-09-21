@@ -386,6 +386,56 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
+  describe("#updateService", function() {
+    beforeEach(function() {
+      this.requestFn = RequestUtil.json;
+      RequestUtil.json = function(handlers) {
+        handlers.success(Object.assign({}, packageDescribeFixture));
+      };
+      this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
+    });
+
+    afterEach(function() {
+      RequestUtil.json = this.requestFn;
+    });
+
+    it("should pass though query parameters", function() {
+      RequestUtil.json = jasmine.createSpy("RequestUtil#json");
+      CosmosPackagesStore.updateService("foo", { cpus: 3 });
+      expect(
+        JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data)
+      ).toEqual({ appId: "foo", options: { cpus: 3 }, replace: true });
+    });
+
+    describe("dispatcher", function() {
+      it("dispatches the correct event upon success", function() {
+        var mockedFn = jest.genMockFunction();
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_SERVICE_UPDATE_SUCCESS,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it("dispatches the correct event upon error", function() {
+        var mockedFn = jasmine.createSpy("mockedFn");
+        CosmosPackagesStore.addChangeListener(
+          EventTypes.COSMOS_SERVICE_UPDATE_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_ERROR
+        });
+
+        expect(mockedFn.calls.count()).toEqual(1);
+      });
+    });
+  });
+
   describe("#fetchInstalledPackages", function() {
     beforeEach(function() {
       this.requestFn = RequestUtil.json;
