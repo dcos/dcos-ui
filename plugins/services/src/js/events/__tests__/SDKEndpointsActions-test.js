@@ -134,30 +134,27 @@ describe("SDKEndpointsActions", function() {
       mockXhr.success();
     });
 
-    it.only(
-      "dispatches the correct action when successful text returned",
-      function() {
-        SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
+    it("dispatches the correct action when successful text returned", function() {
+      SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
-        const id = AppDispatcher.register(function(payload) {
-          const action = payload.action;
-          AppDispatcher.unregister(id);
-          expect(action).toEqual({
-            type: ActionTypes.REQUEST_SDK_ENDPOINT_SUCCESS,
-            data: {
-              contentType: "text/plain",
-              endpointData: "endpoint raw string",
-              endpointName: "arangodb",
-              serviceId: "foo"
-            }
-          });
+      const id = AppDispatcher.register(function(payload) {
+        const action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action).toEqual({
+          type: ActionTypes.REQUEST_SDK_ENDPOINT_SUCCESS,
+          data: {
+            contentType: "text/plain",
+            endpointData: "endpoint raw string",
+            endpointName: "arangodb",
+            serviceId: "foo"
+          }
         });
+      });
 
-        mockXhr.getResponseHeader = () => "text/plain";
-        mockXhr.response = "endpoint raw string";
-        mockXhr.success();
-      }
-    );
+      mockXhr.getResponseHeader = () => "text/plain";
+      mockXhr.response = "endpoint raw string";
+      mockXhr.success();
+    });
 
     it("dispatches the correct action when unsuccessful", function() {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
