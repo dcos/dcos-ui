@@ -1,5 +1,4 @@
-import { RequestUtil } from "mesosphere-shared-reactjs";
-
+const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const Config = require("#SRC/js/config/Config");
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
