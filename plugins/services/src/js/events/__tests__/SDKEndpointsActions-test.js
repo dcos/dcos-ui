@@ -1,4 +1,4 @@
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
 const Config = require("#SRC/js/config/Config");
 const ActionTypes = require("../../constants/ActionTypes");
@@ -132,7 +132,7 @@ describe("SDKEndpointsActions", function() {
         });
       });
 
-      mockXhr.onreadystatechange();
+      mockXhr.success();
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -151,7 +151,7 @@ describe("SDKEndpointsActions", function() {
         });
       });
 
-      mockXhr.onreadystatechange();
+      mockXhr.error();
     });
   });
 });

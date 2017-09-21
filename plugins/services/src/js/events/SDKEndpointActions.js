@@ -38,35 +38,33 @@ const SDKEndpointsActions = {
     const request = new XMLHttpRequest();
 
     request.open("GET", url);
-    request.onreadystatechange = function() {
-      if (request.readyState !== 4) {
-        return;
-      }
 
-      if (request.status < 400) {
-        const contentType = request.getResponseHeader("Content-Type");
+    request.success = function() {
+      const contentType = request.getResponseHeader("Content-Type");
 
-        AppDispatcher.handleServerAction({
-          type: REQUEST_SDK_ENDPOINT_SUCCESS,
-          data: {
-            serviceId,
-            endpointData: contentType.includes("json")
-              ? JSON.parse(request.response)
-              : request.response,
-            contentType,
-            endpointName
-          }
-        });
-      } else {
-        AppDispatcher.handleServerAction({
-          type: REQUEST_SDK_ENDPOINT_ERROR,
-          data: {
-            serviceId,
-            error: request.response
-          }
-        });
-      }
+      AppDispatcher.handleServerAction({
+        type: REQUEST_SDK_ENDPOINT_SUCCESS,
+        data: {
+          serviceId,
+          endpointData: contentType.includes("json")
+            ? JSON.parse(request.response)
+            : request.response,
+          contentType,
+          endpointName
+        }
+      });
     };
+
+    request.error = function() {
+      AppDispatcher.handleServerAction({
+        type: REQUEST_SDK_ENDPOINT_ERROR,
+        data: {
+          serviceId,
+          error: request.response
+        }
+      });
+    };
+
     request.send();
   }
 };
