@@ -31,7 +31,9 @@ export default class XHRConnection extends AbstractConnection {
     const {
       method = "GET",
       body = null,
-      headers = {},
+      headers = {
+        Accept: "application/json"
+      },
       responseType = "json",
       timeout = 0
     } = options;
