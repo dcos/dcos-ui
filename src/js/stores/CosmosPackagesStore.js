@@ -8,6 +8,8 @@ import {
   COSMOS_PACKAGE_DESCRIBE_ERROR,
   COSMOS_SERVICE_DESCRIBE_CHANGE,
   COSMOS_SERVICE_DESCRIBE_ERROR,
+  COSMOS_SERVICE_UPDATE_SUCCESS,
+  COSMOS_SERVICE_UPDATE_ERROR,
   COSMOS_LIST_VERSIONS_CHANGE,
   COSMOS_LIST_VERSIONS_ERROR,
   COSMOS_INSTALL_ERROR,
@@ -46,6 +48,8 @@ import {
   REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
   REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
   REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
+  REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
+  REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
   SERVER_ACTION
 } from "../constants/ActionTypes";
 import RepositoryList from "../structs/RepositoryList";
@@ -95,7 +99,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
         repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR,
 
         serviceDescriptionSuccess: COSMOS_SERVICE_DESCRIBE_CHANGE,
-        serviceDescriptionError: COSMOS_SERVICE_DESCRIBE_ERROR
+        serviceDescriptionError: COSMOS_SERVICE_DESCRIBE_ERROR,
+
+        serviceUpdateSuccess: COSMOS_SERVICE_UPDATE_SUCCESS,
+        serviceUpdateError: COSMOS_SERVICE_UPDATE_ERROR
       },
       unmountWhen(store, event) {
         return event === "availableSuccess";
@@ -225,6 +232,12 @@ class CosmosPackagesStore extends GetSetBaseStore {
         case REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR:
           this.processServiceDescriptionError(data, action.serviceId);
           break;
+        case REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS:
+          this.emit(COSMOS_SERVICE_UPDATE_SUCCESS);
+          break;
+        case REQUEST_COSMOS_SERVICE_UPDATE_ERROR:
+          this.emit(COSMOS_SERVICE_UPDATE_ERROR);
+          break;
       }
 
       return true;
@@ -278,6 +291,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
   deleteRepository() {
     return CosmosPackagesActions.deleteRepository(...arguments);
+  }
+
+  updateService() {
+    return CosmosPackagesActions.updateService(...arguments);
   }
 
   /* Reducers */
