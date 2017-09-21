@@ -12,6 +12,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Icon from "#SRC/js/components/Icon";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
@@ -21,7 +22,8 @@ import ServiceActionDisabledModal
 
 const METHODS_TO_BIND = [
   "handleOpenEditConfigurationModal",
-  "handleActionDisabledModalClose"
+  "handleActionDisabledModalClose",
+  "handleTextCopy"
 ];
 
 class SDKServiceConnectionContainer extends React.Component {
@@ -29,13 +31,19 @@ class SDKServiceConnectionContainer extends React.Component {
     super(...arguments);
 
     this.state = {
-      actionDisabledModalOpen: false
+      actionDisabledModalOpen: false,
+      copiedCommand: false
     };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
+
+  handleTextCopy(copiedCommand) {
+    this.setState({ copiedCommand });
+  }
+
   handleOpenEditConfigurationModal() {
     this.setState({
       actionDisabledModalOpen: true
@@ -50,6 +58,24 @@ class SDKServiceConnectionContainer extends React.Component {
     SDKEndpointActions.fetchEndpoints(this.props.service.getId());
   }
 
+  getClipboardTrigger(command) {
+    return (
+      <div className="code-copy-wrapper">
+        <div className="code-copy-icon tight">
+          <ClipboardTrigger
+            className="clickable"
+            copyText={command}
+            onTextCopy={this.handleTextCopy.bind(this, command)}
+            useTooltip={true}
+          >
+            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
+          </ClipboardTrigger>
+        </div>
+        {command}
+      </div>
+    );
+  }
+
   getJSONEndpoint(endpoint) {
     return (
       <ConfigurationMapSection>
@@ -61,20 +87,24 @@ class SDKServiceConnectionContainer extends React.Component {
             Address
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {endpoint.getAddress()}
+            <span>{this.getClipboardTrigger(endpoint.getAddress())}</span>
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             DNS
           </ConfigurationMapLabel>
-          <ConfigurationMapValue> {endpoint.getDns()} </ConfigurationMapValue>
+          <ConfigurationMapValue>
+            {this.getClipboardTrigger(endpoint.getDns())}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             VIP
           </ConfigurationMapLabel>
-          <ConfigurationMapValue> {endpoint.getVip()} </ConfigurationMapValue>
+          <ConfigurationMapValue>
+            {this.getClipboardTrigger(endpoint.getVip())}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
     );

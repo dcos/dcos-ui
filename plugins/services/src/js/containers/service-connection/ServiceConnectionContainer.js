@@ -11,20 +11,32 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
+import Icon from "#SRC/js/components/Icon";
+
 import Service from "../../structs/Service";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
-const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
+const METHODS_TO_BIND = ["handleOpenEditConfigurationModal", "handleTextCopy"];
 
 class ServiceConnectionContainer extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      copiedCommand: false
+    };
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
+
+  handleTextCopy(copiedCommand) {
+    this.setState({ copiedCommand });
+  }
+
   handleOpenEditConfigurationModal() {
     const { router } = this.context;
     router.push(
@@ -32,22 +44,41 @@ class ServiceConnectionContainer extends React.Component {
     );
   }
 
+  getClipboardTrigger(command) {
+    return (
+      <div className="code-copy-wrapper">
+        <div className="code-copy-icon tight">
+          <ClipboardTrigger
+            className="clickable"
+            copyText={command}
+            onTextCopy={this.handleTextCopy.bind(this, command)}
+            useTooltip={true}
+          >
+            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
+          </ClipboardTrigger>
+        </div>
+        {command}
+      </div>
+    );
+  }
+
   getProtocolValue(portDefinition) {
     let protocol = portDefinition.protocol || "";
+    if (protocol instanceof Array) {
+      protocol = protocol.join(", ");
+    }
     protocol = protocol.replace(/,\s*/g, ", ");
 
-    return (
-      <ConfigurationMapValue>{getDisplayValue(protocol)}</ConfigurationMapValue>
-    );
+    return this.getClipboardTrigger(getDisplayValue(protocol));
   }
 
   getHostPortValue(portDefinition) {
     const service = this.props.service;
     const hostPort = service.requirePorts
-      ? getDisplayValue(portDefinition.hostPort)
+      ? this.getClipboardTrigger(getDisplayValue(portDefinition.hostPort))
       : "Auto Assigned";
 
-    return <ConfigurationMapValue>{hostPort}</ConfigurationMapValue>;
+    return <span>{hostPort}</span>;
   }
 
   getLoadBalancedAddressValue(portDefinition) {
@@ -55,14 +86,12 @@ class ServiceConnectionContainer extends React.Component {
     const vipLabel = ServiceConfigUtil.findVIPLabel(labels);
 
     if (vipLabel) {
-      return (
-        <ConfigurationMapValue>
-          {ServiceConfigUtil.buildHostNameFromVipLabel(labels[vipLabel], port)}
-        </ConfigurationMapValue>
+      return this.getClipboardTrigger(
+        ServiceConfigUtil.buildHostNameFromVipLabel(labels[vipLabel], port)
       );
     }
 
-    return <ConfigurationMapValue><em>Not Enabled</em></ConfigurationMapValue>;
+    return <em>Not Enabled</em>;
   }
 
   getPortDefinitionDetails(portDefinition) {
@@ -72,35 +101,50 @@ class ServiceConnectionContainer extends React.Component {
           <ConfigurationMapLabel>
             Protocol
           </ConfigurationMapLabel>
-          {this.getProtocolValue(portDefinition)}
+          <ConfigurationMapValue>
+            {this.getProtocolValue(portDefinition)}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             Container Port
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getDisplayValue(portDefinition.containerPort)}
+            {!portDefinition.containerPort ||
+              portDefinition.containerPort === ""
+              ? getDisplayValue(portDefinition.containerPort)
+              : this.getClipboardTrigger(
+                  getDisplayValue(portDefinition.containerPort)
+                )}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             Host Port
           </ConfigurationMapLabel>
-          {this.getHostPortValue(portDefinition)}
+          <ConfigurationMapValue>
+            {this.getHostPortValue(portDefinition)}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             Service Port
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {getDisplayValue(portDefinition.servicePort)}
+            {!portDefinition.servicePort || portDefinition.servicePort === ""
+              ? getDisplayValue(portDefinition.servicePort)
+              : this.getClipboardTrigger(
+                  getDisplayValue(portDefinition.servicePort)
+                )}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             Load Balanced Address
           </ConfigurationMapLabel>
-          {this.getLoadBalancedAddressValue(portDefinition)}
+          <ConfigurationMapValue>
+            {this.getLoadBalancedAddressValue(portDefinition)}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
       </div>
     );
@@ -140,6 +184,16 @@ class ServiceConnectionContainer extends React.Component {
         instance.containers.forEach(container => {
           endpoints = endpoints.concat(container.endpoints);
         });
+      });
+    }
+
+    if (
+      service.spec &&
+      service.spec.containers &&
+      service.spec.containers.length > 0
+    ) {
+      service.spec.containers.forEach(container => {
+        endpoints = endpoints.concat(container.endpoints);
       });
     }
 
