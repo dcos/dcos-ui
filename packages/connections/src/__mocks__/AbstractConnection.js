@@ -2,8 +2,8 @@ const OriginalAbstractConnection = require.requireActual(
   "../AbstractConnection"
 ).default;
 
-const AbstractConnection = function() {
-  this.url = null;
+const AbstractConnection = function(url) {
+  this.url = url;
   this.state = OriginalAbstractConnection.INIT;
   this.open = jest.fn(() => {
     this.state = OriginalAbstractConnection.OPEN;
