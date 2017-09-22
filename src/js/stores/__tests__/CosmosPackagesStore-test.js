@@ -5,6 +5,7 @@ const Config = require("../../config/Config");
 const EventTypes = require("../../constants/EventTypes");
 const CosmosPackagesStore = require("../CosmosPackagesStore");
 const packageDescribeFixture = require("./fixtures/MockPackageDescribeResponse.json");
+const serviceDescribeFixture = require("./fixtures/MockServiceDescribeResponse.json");
 const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");
 const packagesSearchFixture = require("./fixtures/MockPackagesSearchResponse.json");
 const ActionTypes = require("../../constants/ActionTypes");
@@ -306,30 +307,34 @@ describe("CosmosPackagesStore", function() {
     beforeEach(function() {
       this.requestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
-        handlers.success(Object.assign({}, packageDescribeFixture));
+        handlers.success(Object.assign({}, serviceDescribeFixture));
       };
-      this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
+      this.serviceDescribeFixture = Object.assign({}, serviceDescribeFixture);
     });
 
     afterEach(function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return an instance of UniversePackage", function() {
+    it("should return the field package within response", function() {
       CosmosPackagesStore.fetchServiceDescription("foo");
-      var serviceDetails = CosmosPackagesStore.getServiceDetails();
-      expect(serviceDetails instanceof UniversePackage).toBeTruthy();
+      var response = CosmosPackagesStore.getServiceDetails();
+      var packageField = response.package;
+      expect(packageField.name).toEqual("marathon");
     });
 
-    it("should return the packageDetails it was given", function() {
+    it("should return the field resolvedOptions within the response", function() {
       CosmosPackagesStore.fetchServiceDescription("foo");
-      var serviceDetails = CosmosPackagesStore.getServiceDetails();
-      expect(serviceDetails.getName()).toEqual(
-        this.packageDescribeFixture.package.name
-      );
-      expect(serviceDetails.getVersion()).toEqual(
-        this.packageDescribeFixture.package.version
-      );
+      var response = CosmosPackagesStore.getServiceDetails();
+      var resolvedOptions = response.resolvedOptions;
+      expect(resolvedOptions.name).toEqual("marathon-1");
+    });
+
+    it("should return the field userProvidedOptions within the response", function() {
+      CosmosPackagesStore.fetchServiceDescription("foo");
+      var response = CosmosPackagesStore.getServiceDetails();
+      var userOptions = response.userProvidedOptions;
+      expect(userOptions.name).toEqual("marathon-1");
     });
 
     it("should pass though query parameters", function() {
@@ -349,8 +354,8 @@ describe("CosmosPackagesStore", function() {
         });
 
         var serviceDetails = CosmosPackagesStore.getServiceDetails();
-        expect(serviceDetails.get("gid")).toEqual("foo");
-        expect(serviceDetails.get("bar")).toEqual("baz");
+        expect(serviceDetails["gid"]).toEqual("foo");
+        expect(serviceDetails["bar"]).toEqual("baz");
       });
 
       it("dispatches the correct event upon success", function() {

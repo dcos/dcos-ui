@@ -318,12 +318,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   getServiceDetails() {
-    const serviceDetails = this.get("serviceDetails");
-    if (serviceDetails) {
-      return new UniversePackage(serviceDetails);
-    }
-
-    return null;
+    return this.get("serviceDetails");
   }
 
   getPackageVersions(packageName) {
