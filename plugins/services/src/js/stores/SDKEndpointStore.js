@@ -66,8 +66,14 @@ class SDKEndpointStore extends GetSetBaseStore {
     });
   }
 
+  getEndpointServices() {
+    const services = this.get("services");
+
+    return Object.assign({}, services);
+  }
+
   getEndpointService(serviceId) {
-    const service = this.get("services")[serviceId];
+    const service = this.getEndpointServices()[serviceId];
 
     if (!service || !service.endpoints) {
       return null;
@@ -83,18 +89,17 @@ class SDKEndpointStore extends GetSetBaseStore {
       });
     });
 
-    return Object.assign({}, service, {
-      endpoints: sdkEndpointList
-    });
+    service.endpoints = sdkEndpointList;
+
+    return service;
   }
 
   setServiceEndpoints(serviceId, serviceData) {
-    const services = Object.assign({}, this.get("services"), {
-      [serviceId]: {
-        endpoints: serviceData.endpoints,
-        error: serviceData.error
-      }
-    });
+    const services = this.getEndpointServices();
+    services[serviceId] = {
+      endpoints: serviceData.endpoints,
+      error: serviceData.error
+    };
     this.set({ services });
   }
 
@@ -116,16 +121,14 @@ class SDKEndpointStore extends GetSetBaseStore {
   }
 
   processNewEndpoint(serviceId, endpointName, endpointData, contentType) {
-    const service = this.get("services")[serviceId];
+    const service = this.getEndpointServices()[serviceId];
     if (!service && !service.endpoints[endpointName]) {
       return;
     }
-
-    const newEndpoints = Object.assign({}, service.endpoints);
-    newEndpoints[endpointName] = { endpointData, contentType };
+    service.endpoints[endpointName] = { endpointData, contentType };
 
     this.setServiceEndpoints(serviceId, {
-      endpoints: newEndpoints,
+      endpoints: service.endpoints,
       error: ""
     });
   }
