@@ -67,9 +67,20 @@ class SDKEndpointStore extends GetSetBaseStore {
   }
 
   getEndpointServices() {
-    const services = this.get("services");
+    const services = Object.assign({}, this.get("services"));
 
-    return Object.assign({}, services);
+    Object.keys(services).forEach(serviceId => {
+      const service = Object.assign({}, services[serviceId]);
+      Object.keys(service.endpoints).forEach(endpointName => {
+        service.endpoints[endpointName] = Object.assign(
+          {},
+          service.endpoints[endpointName]
+        );
+      });
+      services[serviceId] = service;
+    });
+
+    return services;
   }
 
   getEndpointService(serviceId) {
@@ -100,6 +111,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       endpoints: serviceData.endpoints,
       error: serviceData.error
     };
+
     this.set({ services });
   }
 
@@ -122,7 +134,7 @@ class SDKEndpointStore extends GetSetBaseStore {
 
   processNewEndpoint(serviceId, endpointName, endpointData, contentType) {
     const service = this.getEndpointServices()[serviceId];
-    if (!service && !service.endpoints[endpointName]) {
+    if (!service || !service.endpoints[endpointName]) {
       return;
     }
     service.endpoints[endpointName] = { endpointData, contentType };
