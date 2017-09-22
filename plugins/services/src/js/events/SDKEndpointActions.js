@@ -39,7 +39,7 @@ const SDKEndpointsActions = {
 
     request.open("GET", url);
 
-    request.success = function() {
+    request.onload = function() {
       const contentType = request.getResponseHeader("Content-Type");
 
       AppDispatcher.handleServerAction({
@@ -55,7 +55,7 @@ const SDKEndpointsActions = {
       });
     };
 
-    request.error = function() {
+    request.onerror = function() {
       AppDispatcher.handleServerAction({
         type: REQUEST_SDK_ENDPOINT_ERROR,
         data: {
