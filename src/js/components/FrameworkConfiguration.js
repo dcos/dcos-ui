@@ -37,7 +37,12 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: "cosmosPackages",
-        events: ["serviceDescriptionError", "serviceDescriptionSuccess"]
+        events: [
+          "serviceDescriptionError",
+          "serviceDescriptionSuccess",
+          "serviceUpdateSuccess",
+          "serviceUpdateError"
+        ]
       }
     ];
 
@@ -45,27 +50,16 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreServiceDescriptionSuccess() {
-    const packageDetails = CosmosPackagesStore.getServiceDetails();
+    const fullPackage = CosmosPackagesStore.getServiceDetails();
+    const packageDetails = fullPackage.package;
     const activeTab = Object.keys(packageDetails.config.properties)[0];
-    const formData = this.initializeFormData(packageDetails.config);
+    const formData = fullPackage.resolvedOptions;
 
     this.setState({ packageDetails, activeTab, formData });
   }
 
-  initializeFormData(value) {
-    if (!Util.isObject(value)) {
-      return value;
-    }
-    if (!value.properties) {
-      return value.default;
-    }
-
-    const defaults = {};
-    Object.keys(value.properties).forEach(property => {
-      defaults[property] = this.initializeFormData(value.properties[property]);
-    });
-
-    return defaults;
+  onCosmosPackagesStoreServiceUpdateSuccess() {
+    this.handleConfirmGoBack();
   }
 
   onFormDataChange(formData) {
@@ -253,7 +247,14 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   handleServiceReview() {
-    this.setState({ reviewActive: true });
+    const { reviewActive, formData } = this.state;
+    const { params } = this.props;
+
+    if (reviewActive) {
+      CosmosPackagesStore.updateService(params.id, formData);
+    } else {
+      this.setState({ reviewActive: true });
+    }
   }
 
   handleConfirmGoBack() {
