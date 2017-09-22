@@ -18,6 +18,8 @@ class SDKEndpointStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 
+    const self = this;
+
     this.getSet_data = {
       services: {}
     };
@@ -28,7 +30,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    this.dispatcherIndex = AppDispatcher.register(function(payload) {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -36,17 +38,16 @@ class SDKEndpointStore extends GetSetBaseStore {
       const { type, data } = payload.action;
       switch (type) {
         case REQUEST_SDK_ENDPOINTS_SUCCESS:
-          this.processNewEndpoints(data.serviceId, data.endpoints);
+          self.processNewEndpoints(data.serviceId, data.endpoints);
           break;
         case REQUEST_SDK_ENDPOINTS_ERROR:
-          this.setService(data.serviceId, {
+          self.setServiceEndpoints(data.serviceId, {
             endpoints: [],
-            totalLoadingEndpointsCount: -1,
             error: data.error.description
           });
           break;
         case REQUEST_SDK_ENDPOINT_SUCCESS:
-          this.processNewEndpoint(
+          self.processNewEndpoint(
             data.serviceId,
             data.endpointName,
             data.endpointData,
@@ -54,9 +55,8 @@ class SDKEndpointStore extends GetSetBaseStore {
           );
           break;
         case REQUEST_SDK_ENDPOINT_ERROR:
-          this.setService(data.serviceId, {
+          self.setServiceEndpoints(data.serviceId, {
             endpoints: [],
-            totalLoadingEndpointsCount: -1,
             error: data.error
           });
           break;
@@ -66,7 +66,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     });
   }
 
-  getSDKEndpointService(serviceId) {
+  getEndpointService(serviceId) {
     const service = this.get("services")[serviceId];
 
     if (!service || !service.endpoints) {
@@ -88,31 +88,29 @@ class SDKEndpointStore extends GetSetBaseStore {
     });
   }
 
-  setService(serviceId, serviceData) {
+  setServiceEndpoints(serviceId, serviceData) {
     const services = Object.assign({}, this.get("services"), {
       [serviceId]: {
         endpoints: serviceData.endpoints,
-        totalLoadingEndpointsCount: serviceData.totalLoadingEndpointsCount,
         error: serviceData.error
       }
     });
     this.set({ services });
   }
 
-  processNewEndpoints(serviceId, endpointsArr) {
-    const endpoints = endpointsArr.reduce(function(acc, curr) {
-      acc[curr] = {};
+  processNewEndpoints(serviceId, endpointsArray) {
+    const endpoints = endpointsArray.reduce(function(acc, endpointName) {
+      acc[endpointName] = {};
 
       return acc;
     }, {});
 
-    this.setService(serviceId, {
+    this.setServiceEndpoints(serviceId, {
       endpoints,
-      totalLoadingEndpointsCount: endpointsArr.length,
       error: ""
     });
 
-    endpointsArr.forEach(function(endpoint) {
+    endpointsArray.forEach(function(endpoint) {
       SDKEndpointActions.fetchEndpoint(serviceId, endpoint);
     }, this);
   }
@@ -126,9 +124,8 @@ class SDKEndpointStore extends GetSetBaseStore {
     const newEndpoints = Object.assign({}, service.endpoints);
     newEndpoints[endpointName] = { endpointData, contentType };
 
-    this.setService(serviceId, {
+    this.setServiceEndpoints(serviceId, {
       endpoints: newEndpoints,
-      totalLoadingEndpointsCount: service.totalLoadingEndpointsCount,
       error: ""
     });
   }

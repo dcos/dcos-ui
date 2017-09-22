@@ -17,7 +17,6 @@ const serviceData = {
       contentType: "application/json"
     }
   ],
-  totalLoadingEndpointsCount: 3,
   error: ""
 };
 const endpoints = [
@@ -33,11 +32,10 @@ describe("SDKEndpointStore", function() {
   it("stores service by id", function() {
     const service = {
       endpoints: [],
-      totalLoadingEndpointsCount: -1,
       error: null
     };
 
-    SDKEndpointStore.setService(serviceId, service);
+    SDKEndpointStore.setServiceEndpoints(serviceId, service);
 
     const services = SDKEndpointStore.get("services");
 
@@ -49,14 +47,11 @@ describe("SDKEndpointStore", function() {
   it("return an instance of SDKServiceEndpoint", function() {
     const service = {
       endpoints: [serviceData.endpoints[0]],
-      totalLoadingEndpointsCount: -1,
       error: null
     };
 
-    SDKEndpointStore.setService(serviceId, service);
-    const SDKEndpointService = SDKEndpointStore.getSDKEndpointService(
-      serviceId
-    );
+    SDKEndpointStore.setServiceEndpoints(serviceId, service);
+    const SDKEndpointService = SDKEndpointStore.getEndpointService(serviceId);
 
     expect(
       SDKEndpointService.endpoints[0] instanceof SDKServiceEndpoint
@@ -77,11 +72,10 @@ describe("SDKEndpointStore", function() {
       endpoints: {
         [endpoints[0]]: {}
       },
-      totalLoadingEndpointsCount: 3,
       error: ""
     };
 
-    SDKEndpointStore.setService(serviceId, service);
+    SDKEndpointStore.setServiceEndpoints(serviceId, service);
     SDKEndpointStore.processNewEndpoint(
       serviceId,
       "coordinator-http",
@@ -103,18 +97,17 @@ describe("SDKEndpointStore", function() {
           contentType: "application/text"
         })
       ],
-      totalLoadingEndpointsCount: 3,
       error: ""
     };
 
-    expect(SDKEndpointStore.getSDKEndpointService(serviceId)).toEqual(
+    expect(SDKEndpointStore.getEndpointService(serviceId)).toEqual(
       expectedResult
     );
   });
 
   describe("dispatcher", function() {
     it("call setService with correct args when REQUEST_SDK_ENDPOINTS_ERROR is dispatched", function() {
-      spyOn(SDKEndpointStore, "setService");
+      spyOn(SDKEndpointStore, "setServiceEndpoints");
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SDK_ENDPOINTS_ERROR,
@@ -126,9 +119,10 @@ describe("SDKEndpointStore", function() {
         }
       });
 
-      expect(SDKEndpointStore.setService).toHaveBeenCalledWith(serviceId, {
+      expect(
+        SDKEndpointStore.setServiceEndpoints
+      ).toHaveBeenCalledWith(serviceId, {
         endpoints: [],
-        totalLoadingEndpointsCount: -1,
         error: "error message"
       });
     });
@@ -169,7 +163,7 @@ describe("SDKEndpointStore", function() {
     });
 
     it("call setService when REQUEST_SDK_ENDPOINT_SUCCESS is dispatched ", function() {
-      spyOn(SDKEndpointStore, "setService");
+      spyOn(SDKEndpointStore, "setServiceEndpoints");
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SDK_ENDPOINT_ERROR,
@@ -179,9 +173,10 @@ describe("SDKEndpointStore", function() {
         }
       });
 
-      expect(SDKEndpointStore.setService).toHaveBeenCalledWith(serviceId, {
+      expect(
+        SDKEndpointStore.setServiceEndpoints
+      ).toHaveBeenCalledWith(serviceId, {
         endpoints: [],
-        totalLoadingEndpointsCount: -1,
         error: "error message"
       });
     });

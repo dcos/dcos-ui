@@ -19,8 +19,8 @@ class SDKServiceEndpoint extends Item {
   }
   getAddress() {
     const endpointData = this.get("endpointData");
-    if (!endpointData.address) {
-      return null;
+    if (endpointData && !endpointData.address) {
+      return "";
     }
 
     return Array.isArray(endpointData.address)
@@ -29,8 +29,8 @@ class SDKServiceEndpoint extends Item {
   }
   getDns() {
     const endpointData = this.get("endpointData");
-    if (!endpointData.dns) {
-      return null;
+    if (endpointData && !endpointData.dns) {
+      return "";
     }
 
     return Array.isArray(endpointData.dns)

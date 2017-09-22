@@ -64,12 +64,12 @@ describe("SDKEndpointsActions", function() {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
-            responseJSON: { description: "foo" }
+            error: { description: "foo" }
           });
         });
 
         this.configuration.error({
-          responseJSON: { description: "foo" }
+          error: { description: "foo" }
         });
       });
     });
@@ -131,7 +131,7 @@ describe("SDKEndpointsActions", function() {
         });
       });
 
-      mockXhr.success();
+      mockXhr.onload();
     });
 
     it("dispatches the correct action when successful text returned", function() {
@@ -153,7 +153,7 @@ describe("SDKEndpointsActions", function() {
 
       mockXhr.getResponseHeader = () => "text/plain";
       mockXhr.response = "endpoint raw string";
-      mockXhr.success();
+      mockXhr.onload();
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -172,7 +172,7 @@ describe("SDKEndpointsActions", function() {
         });
       });
 
-      mockXhr.error();
+      mockXhr.onerror();
     });
   });
 });
