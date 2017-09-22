@@ -9,8 +9,8 @@ class SDKServiceEndpoint extends Item {
   }
   getVip() {
     const endpointData = this.get("endpointData");
-    if (!endpointData.vip) {
-      return null;
+    if (endpointData && !endpointData.vip) {
+      return "";
     }
 
     return Array.isArray(endpointData.vip)
