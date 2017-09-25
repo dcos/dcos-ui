@@ -1,9 +1,10 @@
 var NodesTableHeaderLabels = {
-  health: "HEALTH",
   cpus: "CPU",
   disk: "DISK",
+  health: "HEALTH",
   hostname: "HOSTNAME",
   mem: "MEM",
+  region: "REGION",
   TASK_RUNNING: "TOTAL TASKS"
 };
 

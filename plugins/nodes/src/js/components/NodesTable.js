@@ -34,9 +34,18 @@ var NodesTable = React.createClass({
     };
   },
 
+  renderRegion(_prop, node) {
+    const name = node.getRegionName() || "\u2014";
+
+    return (
+      <span>
+        {name}
+      </span>
+    );
+  },
+
   renderHeadline(prop, node) {
     let headline = node.get(prop);
-
     if (!node.isActive()) {
       headline = (
         <Tooltip anchor="start" content="Connection to node lost">
@@ -106,6 +115,10 @@ var NodesTable = React.createClass({
         return UnitHealthUtil.getHealthSorting(node);
       }
 
+      if (prop === "region") {
+        return node.getRegionName() || "\u2014";
+      }
+
       return node.get(prop);
     });
 
@@ -115,6 +128,15 @@ var NodesTable = React.createClass({
         headerClassName: className,
         prop: "hostname",
         render: this.renderHeadline,
+        sortable: true,
+        sortFunction,
+        heading
+      },
+      {
+        className,
+        headerClassName: className,
+        prop: "region",
+        render: this.renderRegion,
         sortable: true,
         sortFunction,
         heading
