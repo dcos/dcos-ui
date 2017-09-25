@@ -208,4 +208,21 @@ describe("RouterUtil", function() {
       expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
     });
   });
+
+  describe("#getResourceDownloadPath", function() {
+    it("constructs path correctly", function() {
+      const path = RouterUtil.getResourceDownloadPath(
+        "text/plain",
+        "text.txt",
+        "Some Text"
+      );
+      expect(path).toEqual(
+        "data:text/plain;content-disposition=attachment;filename=text.txt;charset=utf-8,Some%20Text"
+      );
+    });
+    it("returns empty string when data is not declared", function() {
+      const path = RouterUtil.getResourceDownloadPath("text/plain", "text.txt");
+      expect(path).toEqual("");
+    });
+  });
 });

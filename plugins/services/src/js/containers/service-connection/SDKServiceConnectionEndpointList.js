@@ -13,6 +13,7 @@ import Icon from "#SRC/js/components/Icon";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
@@ -120,7 +121,11 @@ class SDKServiceConnectionEndpointList extends React.Component {
           <a
             className="active endpoint-download"
             download={endpoint.getEndpointName()}
-            href={`data:text/plain;content-disposition=attachment;filename=${endpoint.getEndpointName()};charset=utf-8,${encodeURIComponent(endpoint.getEndpointData())}`}
+            href={RouterUtil.getResourceDownloadPath(
+              "text/plain",
+              endpoint.getEndpointName(),
+              endpoint.getEndpointData()
+            )}
           >
             <span>
               <Icon
@@ -151,6 +156,12 @@ class SDKServiceConnectionEndpointList extends React.Component {
     });
   }
 
+  getFileEndpointRows(fileEndpoints) {
+    return fileEndpoints.map(endpoint => {
+      return this.getFileEndpoint(endpoint);
+    });
+  }
+
   getFileEndpoints(endpoints) {
     const fileEndpoints = endpoints.filter(endpoint => {
       return !endpoint.isJSON();
@@ -165,9 +176,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
         <ConfigurationMapHeading>
           Files
         </ConfigurationMapHeading>
-        {fileEndpoints.map(endpoint => {
-          return this.getFileEndpoint(endpoint);
-        })}
+        {this.getFileEndpointRows(fileEndpoints)}
       </ConfigurationMapSection>
     );
   }
@@ -192,8 +201,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
         <p className="tall">
           There are no endpoints currently configured for
           {" "}
-          {this.props.service.getId()}
-          .You can edit the configuration to add service endpoints.
+          {this.props.service.getId()}.
+          {" "}
+          You can edit the configuration to add service endpoints.
         </p>
         {this.getAlertPanelFooter()}
       </AlertPanel>

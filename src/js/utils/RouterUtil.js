@@ -157,6 +157,22 @@ const RouterUtil = {
       .join("/");
 
     return `/${path}`;
+  },
+
+  /**
+   * Returns a download path for the resource specified
+   *
+   * @param  {String} dataType Data Type of the file to download. e.x. text/plain
+   * @param {String} filename The filename of the file to download
+   * @param {String} data The data included in the file
+   * @returns {String} path - The download path, once clicked it will download the file specified
+   */
+  getResourceDownloadPath(dataType, filename, data) {
+    if (dataType && filename && data) {
+      return `data:${dataType};content-disposition=attachment;filename=${filename};charset=utf-8,${encodeURIComponent(data)}`;
+    }
+
+    return "";
   }
 };
 
