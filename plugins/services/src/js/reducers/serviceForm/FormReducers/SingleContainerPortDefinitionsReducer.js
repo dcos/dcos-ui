@@ -28,21 +28,22 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
     if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
-          state.push(
-            value || {
-              hostPort: null,
-              labels: null,
-              loadBalanced: false,
-              name: null,
-              protocol: {
-                tcp: true,
-                udp: false
-              },
-              servicePort: null,
-              vip: null,
-              vipPort: null
-            }
-          );
+          const definition = {
+            hostPort: null,
+            labels: null,
+            loadBalanced: false,
+            name: null,
+            protocol: {
+              tcp: false,
+              udp: false
+            },
+            servicePort: null,
+            vip: null,
+            vipPort: null
+          };
+          const defaults = { protocol: { tcp: true } };
+
+          state.push(Object.assign(definition, value || defaults));
           break;
         case REMOVE_ITEM:
           state = state.filter(function(item, index) {
@@ -58,6 +59,10 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
       }
 
       if (field === "protocol" && PROTOCOLS.includes(subfield)) {
+        if (state[index].protocol == null) {
+          state[index].protocol = {};
+        }
+
         state[index].protocol[subfield] = value;
       }
     }
