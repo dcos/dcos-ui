@@ -11,7 +11,7 @@ import ServiceResumeModal from "./ServiceResumeModal";
 import ServiceScaleFormModal from "./ServiceScaleFormModal";
 import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
 import ServiceSuspendModal from "./ServiceSuspendModal";
-import GroupContainsFrameworksModal from "./GroupContainsFrameworksModal";
+import DisabledGroupDestroyModal from "./DisabledGroupDestroyModal";
 
 class ServiceModals extends React.Component {
   getGroupModal() {
@@ -40,13 +40,12 @@ class ServiceModals extends React.Component {
     );
   }
 
-  getCannotDestroyGroupModal(groupFrameworks) {
+  getDisabledGroupDestroyModal() {
     const { onClose, modalProps } = this.props;
     const key = ActionKeys.GROUP_DELETE;
 
     return (
-      <GroupContainsFrameworksModal
-        services={groupFrameworks}
+      <DisabledGroupDestroyModal
         onClose={() => onClose(key)}
         isOpen={modalProps.id === ServiceActionItem.DELETE}
       />
@@ -68,7 +67,7 @@ class ServiceModals extends React.Component {
         : [];
 
       if (groupFrameworks.length > 0) {
-        return this.getCannotDestroyGroupModal(groupFrameworks);
+        return this.getDisabledGroupDestroyModal();
       }
 
       deleteItem = force => this.props.actions.deleteGroup(service, force);

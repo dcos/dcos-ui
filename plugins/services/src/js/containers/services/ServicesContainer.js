@@ -434,6 +434,9 @@ class ServicesContainer extends React.Component {
   getModals(service) {
     const modalProps = Object.assign({}, this.state.modal);
 
+    // This is needed to refresh the state of the service from the store once the
+    // modal is loaded. In our delete group modal for example we need feedback
+    // of the service while it is being deleted
     if (!modalProps.service) {
       modalProps.service = service;
     } else {
