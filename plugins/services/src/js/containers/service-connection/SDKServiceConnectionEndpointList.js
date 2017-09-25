@@ -26,7 +26,7 @@ const METHODS_TO_BIND = [
   "handleTextCopy"
 ];
 
-class SDKServiceConnectionContainer extends React.Component {
+class SDKServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -267,4 +267,4 @@ class SDKServiceConnectionContainer extends React.Component {
   }
 }
 
-module.exports = SDKServiceConnectionContainer;
+module.exports = SDKServiceConnectionEndpointList;

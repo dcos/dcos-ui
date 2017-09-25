@@ -17,7 +17,7 @@ import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
-class ServiceConnectionContainer extends React.Component {
+class ServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -176,14 +176,14 @@ class ServiceConnectionContainer extends React.Component {
   }
 }
 
-ServiceConnectionContainer.propTypes = {
+ServiceConnectionEndpointList.propTypes = {
   onEditClick: React.PropTypes.func,
   errors: React.PropTypes.array,
   service: React.PropTypes.instanceOf(Service)
 };
 
-ServiceConnectionContainer.contextTypes = {
+ServiceConnectionEndpointList.contextTypes = {
   router: routerShape
 };
 
-module.exports = ServiceConnectionContainer;
+module.exports = ServiceConnectionEndpointList;
