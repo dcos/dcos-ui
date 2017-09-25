@@ -90,6 +90,26 @@ class ServiceConnectionEndpointList extends React.Component {
     return <em>Not Enabled</em>;
   }
 
+  getContainerPortValue(portDefinition) {
+    if (portDefinition.containerPort) {
+      return this.getClipboardTrigger(
+        getDisplayValue(portDefinition.containerPort)
+      );
+    }
+
+    return getDisplayValue(portDefinition.containerPort);
+  }
+
+  getServicePortValue(portDefinition) {
+    if (portDefinition.servicePort) {
+      return this.getClipboardTrigger(
+        getDisplayValue(portDefinition.servicePort)
+      );
+    }
+
+    return getDisplayValue(portDefinition.servicePort);
+  }
+
   getPortDefinitionDetails(portDefinition) {
     return (
       <div>
@@ -106,12 +126,7 @@ class ServiceConnectionEndpointList extends React.Component {
             Container Port
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {!portDefinition.containerPort ||
-              portDefinition.containerPort === ""
-              ? getDisplayValue(portDefinition.containerPort)
-              : this.getClipboardTrigger(
-                  getDisplayValue(portDefinition.containerPort)
-                )}
+            {this.getContainerPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
@@ -127,11 +142,7 @@ class ServiceConnectionEndpointList extends React.Component {
             Service Port
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {!portDefinition.servicePort || portDefinition.servicePort === ""
-              ? getDisplayValue(portDefinition.servicePort)
-              : this.getClipboardTrigger(
-                  getDisplayValue(portDefinition.servicePort)
-                )}
+            {this.getServicePortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
