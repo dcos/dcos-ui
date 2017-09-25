@@ -25,6 +25,7 @@ class ServiceConnectionEndpointList extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
   handleOpenEditConfigurationModal() {
     const { router } = this.context;
     router.push(
@@ -158,8 +159,9 @@ class ServiceConnectionEndpointList extends React.Component {
           <p className="tall">
             There are no endpoints currently configured for
             {" "}
-            {this.props.service.getId()}
-            .You can edit the configuration to add service endpoints.
+            {this.props.service.getId()}.
+            {" "}
+            You can edit the configuration to add service endpoints.
           </p>
           {this.getAlertPanelFooter()}
         </AlertPanel>
