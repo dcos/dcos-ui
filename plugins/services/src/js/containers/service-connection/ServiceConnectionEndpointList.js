@@ -33,10 +33,6 @@ class ServiceConnectionEndpointList extends React.Component {
     });
   }
 
-  handleTextCopy(copiedCommand) {
-    this.setState({ copiedCommand });
-  }
-
   handleOpenEditConfigurationModal() {
     const { router } = this.context;
     router.push(
