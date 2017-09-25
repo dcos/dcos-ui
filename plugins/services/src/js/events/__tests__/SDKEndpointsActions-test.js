@@ -106,7 +106,7 @@ describe("SDKEndpointsActions", function() {
       expect(mockXhr.open).toHaveBeenCalled();
     });
 
-    it("call open with GET request method and correct url", function() {
+    it("calls open with GET request method and correct url", function() {
       const url = `/service/${serviceId}/v1/endpoints/${endpointName}`;
 
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);

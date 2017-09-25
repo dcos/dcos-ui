@@ -44,7 +44,7 @@ describe("SDKEndpointStore", function() {
     });
   });
 
-  it("return an instance of SDKServiceEndpoint", function() {
+  it("returns an instance of SDKServiceEndpoint", function() {
     const service = {
       endpoints: [serviceData.endpoints[0]],
       error: null
@@ -58,7 +58,7 @@ describe("SDKEndpointStore", function() {
     ).toBeTruthy();
   });
 
-  it("fetch endpoints", function() {
+  it("fetches endpoints", function() {
     spyOn(SDKEndpointActions, "fetchEndpoint");
 
     SDKEndpointStore.processNewEndpoints(serviceId, endpoints);
@@ -66,7 +66,7 @@ describe("SDKEndpointStore", function() {
     expect(SDKEndpointActions.fetchEndpoint).toHaveBeenCalledTimes(5);
   });
 
-  it("set new endpoint to service", function() {
+  it("sets new endpoint to service", function() {
     const endpoint = serviceData.endpoints[0];
     const service = {
       endpoints: {
@@ -106,7 +106,7 @@ describe("SDKEndpointStore", function() {
   });
 
   describe("dispatcher", function() {
-    it("call setService with correct args when REQUEST_SDK_ENDPOINTS_ERROR is dispatched", function() {
+    it("calls setService with correct args when REQUEST_SDK_ENDPOINTS_ERROR is dispatched", function() {
       spyOn(SDKEndpointStore, "setServiceEndpoints");
 
       AppDispatcher.handleServerAction({
@@ -127,7 +127,7 @@ describe("SDKEndpointStore", function() {
       });
     });
 
-    it("call processNewEndpoints when REQUEST_SDK_ENDPOINTS_SUCCESS is dispatched ", function() {
+    it("calls processNewEndpoints when REQUEST_SDK_ENDPOINTS_SUCCESS is dispatched ", function() {
       spyOn(SDKEndpointStore, "processNewEndpoints");
 
       AppDispatcher.handleServerAction({
@@ -144,7 +144,7 @@ describe("SDKEndpointStore", function() {
       );
     });
 
-    it("call processNewEndpoint when REQUEST_SDK_ENDPOINT_SUCCESS is dispatched ", function() {
+    it("calls processNewEndpoint when REQUEST_SDK_ENDPOINT_SUCCESS is dispatched ", function() {
       const data = serviceData.endpoints[0];
 
       spyOn(SDKEndpointStore, "processNewEndpoint");
@@ -162,7 +162,7 @@ describe("SDKEndpointStore", function() {
       );
     });
 
-    it("call setService when REQUEST_SDK_ENDPOINT_SUCCESS is dispatched ", function() {
+    it("calls setService when REQUEST_SDK_ENDPOINT_SUCCESS is dispatched ", function() {
       spyOn(SDKEndpointStore, "setServiceEndpoints");
 
       AppDispatcher.handleServerAction({
