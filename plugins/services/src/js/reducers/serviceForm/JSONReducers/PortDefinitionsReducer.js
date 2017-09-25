@@ -43,20 +43,26 @@ function PortDefinitionsReducer(state = [], action) {
     if (joinedPath === "portDefinitions") {
       switch (type) {
         case ADD_ITEM:
+          const definition = {
+            hostPort: null,
+            labels: null,
+            loadBalanced: false,
+            name: null,
+            protocol: {
+              tcp: false,
+              udp: false
+            },
+            servicePort: null,
+            vip: null,
+            vipPort: null
+          };
+          const defaults = { protocol: { tcp: true } };
+
           state.push(
-            transformPortDefinition(value) || {
-              hostPort: null,
-              labels: null,
-              loadBalanced: false,
-              name: null,
-              protocol: {
-                tcp: true,
-                udp: false
-              },
-              servicePort: null,
-              vip: null,
-              vipPort: null
-            }
+            Object.assign(
+              definition,
+              transformPortDefinition(value) || defaults
+            )
           );
           break;
         case REMOVE_ITEM:
@@ -73,6 +79,10 @@ function PortDefinitionsReducer(state = [], action) {
       }
 
       if (field === "protocol" && PROTOCOLS.includes(subfield)) {
+        if (state[index].protocol == null) {
+          state[index].protocol = {};
+        }
+
         state[index].protocol[subfield] = value;
       }
     }

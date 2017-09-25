@@ -128,18 +128,48 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("should set the complex protocol value", function() {
+    it("applies protocol changes to _incomplete_ port definition", function() {
       let batch = new Batch();
-      batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(["portDefinitions", 0, "protocol", "udp"], true)
+        new Transaction(
+          ["portDefinitions"],
+          {
+            name: "http",
+            port: 0
+          },
+          ADD_ITEM
+        )
       );
       batch = batch.add(
         new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 0, protocol: "udp,tcp", labels: null }
+        { name: "http", port: 0, protocol: "tcp", labels: null }
+      ]);
+    });
+
+    it("applies protocol changes to provided port definition", function() {
+      let batch = new Batch();
+      batch = batch.add(
+        new Transaction(
+          ["portDefinitions"],
+          {
+            name: "http",
+            port: 0,
+            protocol: {
+              udp: true
+            }
+          },
+          ADD_ITEM
+        )
+      );
+      batch = batch.add(
+        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
+      );
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
+        { name: "http", port: 0, protocol: "udp,tcp", labels: null }
       ]);
     });
 

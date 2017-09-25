@@ -63,14 +63,18 @@ module.exports = {
     return this.portDefinitions.map((portDefinition, index) => {
       const { name } = portDefinition;
       const vipLabel = `VIP_${index}`;
-      const hostPort = portDefinition && portDefinition.hostPort
+      const hostPort = portDefinition.hostPort
         ? Number(portDefinition.hostPort)
         : 0;
       const defaultVipPort = hostPort !== 0 ? hostPort : null;
       const vipPort = portDefinition.vipPort || defaultVipPort;
-      const protocol = PROTOCOLS.filter(function(protocol) {
-        return portDefinition.protocol[protocol];
-      }).join(",");
+
+      let protocol = null;
+      if (portDefinition.protocol) {
+        protocol = PROTOCOLS.filter(function(protocol) {
+          return portDefinition.protocol[protocol];
+        }).join(",");
+      }
 
       const labels = VipLabelUtil.generateVipLabel(
         this.appState.id,
