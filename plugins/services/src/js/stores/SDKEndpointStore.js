@@ -3,6 +3,7 @@ import PluginSDK from "PluginSDK";
 import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
+import Util from "#SRC/js/utils/Util";
 
 import {
   REQUEST_SDK_ENDPOINTS_SUCCESS,
@@ -41,7 +42,7 @@ class SDKEndpointStore extends GetSetBaseStore {
           self.processEndpoints(data.serviceId, data.endpoints);
           break;
         case REQUEST_SDK_ENDPOINTS_ERROR:
-          self.setServiceEndpoints(data.serviceId, {
+          self.setService(data.serviceId, {
             endpoints: [],
             error: data.error.description
           });
@@ -55,7 +56,7 @@ class SDKEndpointStore extends GetSetBaseStore {
           );
           break;
         case REQUEST_SDK_ENDPOINT_ERROR:
-          self.setServiceEndpoints(data.serviceId, {
+          self.setService(data.serviceId, {
             endpoints: [],
             error: data.error
           });
@@ -67,30 +68,17 @@ class SDKEndpointStore extends GetSetBaseStore {
   }
 
   getServices() {
-    const services = Object.assign({}, this.get("services"));
-
-    Object.keys(services).forEach(serviceId => {
-      const service = Object.assign({}, services[serviceId]);
-      Object.keys(service.endpoints).forEach(endpointName => {
-        service.endpoints[endpointName] = Object.assign(
-          {},
-          service.endpoints[endpointName]
-        );
-      });
-      services[serviceId] = service;
-    });
-
-    return services;
+    return Util.deepCopy(this.get("services"));
   }
 
-  getService(serviceId) {
+  getServiceEndpoints(serviceId) {
     const service = this.getServices()[serviceId];
 
     if (!service || !service.endpoints) {
       return null;
     }
 
-    const endpoints = Object.entries(service.endpoints).map(
+    return Object.entries(service.endpoints).map(
       ([endpointName, endpoint]) =>
         new ServiceEndpoint({
           endpointName,
@@ -98,13 +86,19 @@ class SDKEndpointStore extends GetSetBaseStore {
           contentType: endpoint.contentType
         })
     );
-
-    service.endpoints = endpoints;
-
-    return service;
   }
 
-  setServiceEndpoints(serviceId, serviceData) {
+  getServiceError(serviceId) {
+    const service = this.getServices()[serviceId];
+
+    if (!service || !service.error) {
+      return "";
+    }
+
+    return service.error;
+  }
+
+  setService(serviceId, serviceData) {
     const services = this.getServices();
     services[serviceId] = {
       endpoints: serviceData.endpoints,
@@ -121,7 +115,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       return acc;
     }, {});
 
-    this.setServiceEndpoints(serviceId, {
+    this.setService(serviceId, {
       endpoints,
       error: ""
     });
@@ -138,7 +132,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     }
     service.endpoints[endpointName] = { endpointData, contentType };
 
-    this.setServiceEndpoints(serviceId, {
+    this.setService(serviceId, {
       endpoints: service.endpoints,
       error: ""
     });
