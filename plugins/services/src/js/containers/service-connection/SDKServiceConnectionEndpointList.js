@@ -236,41 +236,37 @@ class SDKServiceConnectionEndpointList extends React.Component {
       );
     }
 
-    const sdkEndpointService = SDKEndpointStore.getService(
+    const sdkServiceEndpoints = SDKEndpointStore.getServiceEndpoints(
       this.props.service.getId()
     );
 
-    const hasErrors =
-      sdkEndpointService &&
-      sdkEndpointService.error !== null &&
-      sdkEndpointService.error !== "";
+    const sdkServiceError = SDKEndpointStore.getServiceError(
+      this.props.service.getId()
+    );
 
     const endpointsLoaded =
-      sdkEndpointService &&
-      sdkEndpointService.endpoints.every(endpoint => {
+      sdkServiceEndpoints &&
+      sdkServiceEndpoints.every(endpoint => {
         return endpoint.endpointData;
       });
 
-    if ((!sdkEndpointService || !endpointsLoaded) && !hasErrors) {
+    if (!endpointsLoaded && !sdkServiceError) {
       return <Loader />;
     }
 
-    if (hasErrors) {
+    if (sdkServiceError) {
       return this.getAlertPanelSDKDeploying();
     }
 
-    if (
-      !sdkEndpointService.endpoints ||
-      sdkEndpointService.endpoints.length === 0
-    ) {
+    if (!sdkServiceEndpoints || sdkServiceEndpoints.length === 0) {
       return this.getAlertPanelNoEndpoints();
     }
 
     return (
       <div className="container">
         <ConfigurationMap>
-          {this.getJSONEndpoints(sdkEndpointService.endpoints)}
-          {this.getFileEndpoints(sdkEndpointService.endpoints)}
+          {this.getJSONEndpoints(sdkServiceEndpoints)}
+          {this.getFileEndpoints(sdkServiceEndpoints)}
         </ConfigurationMap>
       </div>
     );
