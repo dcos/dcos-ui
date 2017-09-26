@@ -236,7 +236,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
           this.emit(COSMOS_SERVICE_UPDATE_SUCCESS);
           break;
         case REQUEST_COSMOS_SERVICE_UPDATE_ERROR:
-          this.emit(COSMOS_SERVICE_UPDATE_ERROR);
+          this.emit(COSMOS_SERVICE_UPDATE_ERROR, data);
           break;
       }
 
