@@ -20,7 +20,9 @@ import {
   REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
   REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
   REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
-  REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR
+  REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
+  REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
+  REQUEST_COSMOS_SERVICE_UPDATE_ERROR
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -220,6 +222,40 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceId,
+          xhr
+        });
+      }
+    });
+  },
+
+  updateService(serviceId, options) {
+    RequestUtil.json({
+      contentType: getContentType({
+        action: "update",
+        actionType: "request",
+        entity: "service",
+        version: "v1"
+      }),
+      headers: {
+        Accept: getContentType({
+          action: "update",
+          actionType: "response",
+          entity: "service",
+          version: "v1"
+        })
+      },
+      method: "POST",
+      url: `${Config.rootUrl}/cosmos/service/update`,
+      data: JSON.stringify({ appId: serviceId, options, replace: true }),
+      success() {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }
