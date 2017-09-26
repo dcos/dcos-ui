@@ -21,12 +21,15 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Certified");
 
-    // Click the easy deploy
-    cy.contains("Deploy").click();
+    // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Click the Run Service button
+    cy.contains("Run Service").click();
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Success");
-    cy.get(".modal").contains("Go To Service").click();
+    cy.get(".modal.modal-small").contains("Success");
+    cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
     cy.get(".breadcrumbs").contains("Services").click();
@@ -49,8 +52,11 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Certified");
 
-    // Click the easy deploy
-    cy.contains("Deploy").click();
+    // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Click the Run Service button
+    cy.contains("Run Service").click();
 
     // Should give error that package already installed
     cy
@@ -68,12 +74,15 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Community");
 
-    // Click the easy deploy
-    cy.contains("Deploy").click();
+    // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Click the Run Service button
+    cy.contains("Run Service").click();
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Success");
-    cy.get(".modal").contains("Go To Service").click();
+    cy.get(".modal.modal-small").contains("Success");
+    cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
     cy.get(".breadcrumbs").contains("Services").click();
@@ -97,15 +106,19 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Certified");
 
-    cy.contains("Configure").click();
+    // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Click Edit Config button
+    cy.contains("Edit Config").click();
 
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review and Deploy").click();
-    cy.get(".modal").contains("Deploy").click();
-    cy.get(".modal").contains("Go To Service").click();
+    cy.get(".modal").contains("Review & Run").click();
+    cy.get(".modal").contains("Run Service").click();
+    cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
     cy.get(".breadcrumbs").contains("Services").click();
@@ -129,15 +142,19 @@ describe("Universe", function() {
     // Check that this package is certified
     cy.contains("Community");
 
-    cy.contains("Configure").click();
+    // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Click Edit Config button
+    cy.contains("Edit Config").click();
 
     // Find name input
     cy.get(".modal input[name=name]").clear().type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review and Deploy").click();
-    cy.get(".modal").contains("Deploy").click();
-    cy.get(".modal").contains("Go To Service").click();
+    cy.get(".modal").contains("Review & Run").click();
+    cy.get(".modal").contains("Run Service").click();
+    cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
     cy.get(".breadcrumbs").contains("Services").click();
