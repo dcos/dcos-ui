@@ -10,6 +10,8 @@ import FullScreenModalHeaderActions
   from "#SRC/js/components/modals/FullScreenModalHeaderActions";
 import FullScreenModalHeaderTitle
   from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
+import FullScreenModalHeaderSubTitle
+  from "#SRC/js/components/modals/FullScreenModalHeaderSubTitle";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
@@ -139,7 +141,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
                   </span>
                 </button>
                 <a
-                  className="button button-primary-link"
+                  className="button button-primary-link flush-right"
                   download={fileName}
                   onClick={ieDownloadConfig}
                   href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
@@ -155,6 +157,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
               hash={formData}
               renderKeys={renderKeys}
               onEditClick={this.onReviewConfigurationRowClick.bind(this)}
+              headlineClassName={"text-capitalize"}
               emptyValue={"\u2014"}
             />
           </div>
@@ -274,12 +277,11 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
           actions={this.getSecondaryActions()}
           type="secondary"
         />
-        <FullScreenModalHeaderTitle>
-          <div>
-            {reviewActive ? "Review Configuration" : "Edit Configuration"}
-            {": "}
+        <FullScreenModalHeaderTitle className="modal-full-screen-header-with-sub-title">
+          {reviewActive ? "Review Configuration" : "Edit Configuration"}
+          <FullScreenModalHeaderSubTitle>
             {packageDetails.description + " " + packageDetails.version}
-          </div>
+          </FullScreenModalHeaderSubTitle>
         </FullScreenModalHeaderTitle>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}

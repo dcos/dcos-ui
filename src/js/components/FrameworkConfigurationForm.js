@@ -219,6 +219,7 @@ export default class FrameworkConfigurationForm extends Component {
                 activeTab={activeTab}
                 handleTabChange={this.handleTabChange.bind(this)}
                 vertical={true}
+                className={"menu-tabbed-container-fixed"}
               >
                 <TabButtonList>
                   {this.getFormTabList()}
