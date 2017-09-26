@@ -3,7 +3,9 @@
 
   // Sidebar Wrapper
   .sidebar-wrapper {
-    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
     transition: width 0.25s;
     width: 0;
   }
@@ -25,6 +27,7 @@
     }
   }
 
+  // Sidebar Backdrop
   .sidebar-backdrop {
     background: @modal-backdrop-background-color;
     height: 100%;
@@ -52,6 +55,7 @@
     }
   }
 
+  // Sidebar Sections
   .sidebar-sections {
     flex: 1 0 auto;
   }
