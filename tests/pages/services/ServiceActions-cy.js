@@ -572,6 +572,21 @@ describe("Service Actions", function() {
       cy.get(".modal").should("not.exist");
     });
 
+    it("submits destroy with enter", function() {
+      clickHeaderAction("Delete");
+
+      cy
+        .get(".modal-header")
+        .contains("Delete Service")
+        .should("to.have.length", 1);
+
+      cy.get(".modal-body p").contains("sdk-sleep");
+      cy.get(".modal .filter-input-text").should("exist");
+
+      cy.get(".modal .filter-input-text").type("sdk-sleep{enter}");
+      cy.get(".modal .filter-input-text").should("be.empty");
+    });
+
     it("opens the scale dialog", function() {
       clickHeaderAction("Scale");
 

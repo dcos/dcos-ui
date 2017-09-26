@@ -20,7 +20,8 @@ const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
   "handleRightButtonClick",
-  "handleChangeInputGroupDestroy"
+  "handleChangeInputGroupDestroy",
+  "handleServiceNameInputKeyPress"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -29,8 +30,7 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: "",
-      forceDeleteGroupWithServices: false
+      serviceNameConfirmationValue: ""
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -38,12 +38,6 @@ class ServiceDestroyModal extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  isGroupWithServices() {
-    const { service } = this.props;
-
-    return service instanceof ServiceTree && service.list.length > 0;
   }
 
   componentWillUpdate(nextProps) {
@@ -87,10 +81,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   shouldForceUpdate() {
-    return (
-      (this.state.errorMsg && /force=true/.test(this.state.errorMsg)) ||
-      this.state.forceDeleteGroupWithServices
-    );
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
   handleModalClose() {
@@ -115,6 +106,12 @@ class ServiceDestroyModal extends React.Component {
     this.setState({
       forceDeleteGroupWithServices: event.target.checked
     });
+  }
+
+  handleServiceNameInputKeyPress(target) {
+    if (target.charCode === 13) {
+      this.handleRightButtonClick();
+    }
   }
 
   getIsRightButtonDisabled() {
@@ -178,6 +175,7 @@ class ServiceDestroyModal extends React.Component {
               type="checkbox"
               checked={this.state.forceDeleteGroupWithServices}
               onChange={this.handleChangeInputGroupDestroy}
+              onKeyPress={this.handleServiceNameInputKeyPress}
             />
             <b>FORCE DELETE SERVICES IN GROUP</b>
           </label>
@@ -235,6 +233,7 @@ class ServiceDestroyModal extends React.Component {
               onChange={this.handleChangeInputFieldDestroy}
               type="text"
               value={this.state.serviceNameConfirmationValue}
+              onKeyPress={this.handleServiceNameInputKeyPress}
               autoFocus
             />
           </div>}
