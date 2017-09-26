@@ -367,7 +367,7 @@ var Sidebar = React.createClass({
             ref={ref => (this.geminiRef = ref)}
           >
             <div className="sidebar-content-wrapper">
-              <div className="sidebar-sections pod pod-narrow">
+              <div className="sidebar-sections pod">
                 {this.getNavigationSections()}
               </div>
             </div>
