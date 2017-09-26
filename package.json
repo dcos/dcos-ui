@@ -20,7 +20,10 @@
     "node": "4.4.x",
     "npm": "3.9.x"
   },
-  "browserslist": ["last 2 versions", "ie 11"],
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ],
   "config": {
     "port": 4200,
     "externalplugins": ""
@@ -54,6 +57,7 @@
     "react-dom": "15.4.1",
     "react-gemini-scrollbar": "2.1.5",
     "react-intl": "2.2.3",
+    "react-jsonschema-form": "^0.50.0",
     "react-redux": "4.4.6",
     "react-router": "2.8.1",
     "reactjs-components": "0.16.0-beta.23",

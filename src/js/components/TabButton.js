@@ -1,5 +1,6 @@
 import classNames from "classnames/dedupe";
 import React from "react";
+import { Tooltip } from "reactjs-components";
 
 const METHODS_TO_BIND = ["handleClick"];
 
@@ -24,6 +25,30 @@ class TabButton extends React.Component {
     });
   }
 
+  getErrorBadge() {
+    const { showErrorBadge, count, description, onClickBadge } = this.props;
+
+    if (!showErrorBadge) {
+      return null;
+    }
+
+    return (
+      <Tooltip
+        content={description}
+        interactive={true}
+        maxWidth={300}
+        wrapText={true}
+      >
+        <span
+          className="badge badge-danger badge-rounded"
+          onClick={onClickBadge}
+        >
+          {count}
+        </span>
+      </Tooltip>
+    );
+  }
+
   handleClick(event) {
     event.stopPropagation();
 
@@ -39,7 +64,8 @@ class TabButton extends React.Component {
       className,
       label,
       labelClassName,
-      id
+      id,
+      showErrorBadge
     } = this.props;
     const classes = classNames(
       "menu-tabbed-item",
@@ -48,12 +74,17 @@ class TabButton extends React.Component {
       },
       className
     );
-    const labelClasses = classNames("menu-tabbed-item-label", labelClassName);
+    const labelClasses = classNames(
+      "menu-tabbed-item-label",
+      { "menu-tabbed-item-label-with-badge": showErrorBadge },
+      labelClassName
+    );
 
     return (
       <div className={classes}>
         <span className={labelClasses} onClick={this.handleClick}>
           {label}
+          {this.getErrorBadge()}
         </span>
         {this.getChildren()}
       </div>
@@ -73,7 +104,11 @@ TabButton.propTypes = {
   className: classProps,
   id: React.PropTypes.string.isRequired,
   label: React.PropTypes.node,
-  labelClassName: classProps
+  labelClassName: classProps,
+  showErrorBadge: React.PropTypes.bool,
+  count: React.PropTypes.number,
+  description: React.PropTypes.string,
+  onClickBadge: React.PropTypes.func
 };
 
 module.exports = TabButton;

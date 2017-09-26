@@ -1,6 +1,8 @@
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
+import ConfigurationMapEditAction
+  from "#PLUGINS/services/src/js/components/ConfigurationMapEditAction";
 import ConfigurationMapHeading from "./ConfigurationMapHeading";
 import ConfigurationMapLabel from "./ConfigurationMapLabel";
 import ConfigurationMapRow from "./ConfigurationMapRow";
@@ -31,7 +33,14 @@ class HashMapDisplay extends React.Component {
   }
 
   getItems() {
-    const { hash, headingLevel, renderKeys } = this.props;
+    const {
+      hash,
+      headingLevel,
+      renderKeys,
+      onEditClick,
+      keyPath,
+      emptyValue
+    } = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
@@ -55,6 +64,7 @@ class HashMapDisplay extends React.Component {
             headingLevel={nextHeadingLevel}
             key={index}
             headline={key}
+            keyPath={keyPath.concat(key)}
           />
         );
       }
@@ -65,6 +75,20 @@ class HashMapDisplay extends React.Component {
 
       if (Array.isArray(value)) {
         value = value.join(", ");
+      }
+
+      if (value === "" && emptyValue) {
+        value = emptyValue;
+      }
+
+      let action = null;
+      if (onEditClick) {
+        action = (
+          <ConfigurationMapEditAction
+            onEditClick={onEditClick}
+            tabViewID={keyPath.concat(key).join(".")}
+          />
+        );
       }
 
       // Check if we need to render a component in the dt
@@ -80,6 +104,7 @@ class HashMapDisplay extends React.Component {
             {key}
           </ConfigurationMapLabel>
           <ConfigurationMapValue>{value}</ConfigurationMapValue>
+          {action}
         </ConfigurationMapRow>
       );
     });
@@ -103,7 +128,8 @@ class HashMapDisplay extends React.Component {
 HashMapDisplay.defaultProps = {
   headingLevel: 1,
   key: "",
-  renderKeys: {}
+  renderKeys: {},
+  keyPath: []
 };
 
 HashMapDisplay.propTypes = {
@@ -114,7 +140,12 @@ HashMapDisplay.propTypes = {
   key: React.PropTypes.string,
   // Optional object with keys consisting of keys in `props.hash` to be
   // replaced, and with corresponding values of the replacement to be rendered.
-  renderKeys: React.PropTypes.object
+  renderKeys: React.PropTypes.object,
+  showActions: React.PropTypes.bool,
+  onEditClick: React.PropTypes.func,
+  tabViewID: React.PropTypes.string,
+  keyPath: React.PropTypes.array,
+  emptyValue: React.PropTypes.string
 };
 
 module.exports = HashMapDisplay;
