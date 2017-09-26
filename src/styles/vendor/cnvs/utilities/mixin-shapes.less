@@ -1,0 +1,43 @@
+.triangle-size-width (@direction, @width) when (@direction = 'up') {
+  border-left-width: @width / 2;
+  border-right-width: @width / 2;
+  border-top-width: 0;
+}
+
+.triangle-size-height (@direction, @height) when (@direction = 'up') {
+  border-bottom-width: @height;
+  border-top-width: 0;
+}
+
+.triangle-size-width (@direction, @width) when (@direction = 'down') {
+  border-bottom-width: 0;
+  border-left-width: @width / 2;
+  border-right-width: @width / 2;
+}
+
+.triangle-size-height (@direction, @height) when (@direction = 'down') {
+  border-bottom-width: 0;
+  border-top-width: @height;
+}
+
+.triangle-size-width (@direction, @width) when (@direction = 'left') {
+  border-left-width: 0;
+  border-right-width: @width;
+}
+
+.triangle-size-height (@direction, @height) when (@direction = 'left') {
+  border-bottom-width: @height / 2;
+  border-left-width: 0;
+  border-top-width: @height / 2;
+}
+
+.triangle-size-width (@direction, @width) when (@direction = 'right') {
+  border-left-width: @width;
+  border-right-width: 0;
+}
+
+.triangle-size-height (@direction, @height) when (@direction = 'right') {
+  border-bottom-width: @height / 2;
+  border-right-width: 0;
+  border-top-width: @height / 2;
+}
