@@ -1,10 +1,10 @@
 import Item from "#SRC/js/structs/Item";
 
-class SDKServiceEndpoint extends Item {
-  getEndpointName() {
+class ServiceEndpoint extends Item {
+  getName() {
     return this.get("endpointName");
   }
-  getEndpointData() {
+  getData() {
     return this.get("endpointData");
   }
   getVip() {
@@ -42,4 +42,4 @@ class SDKServiceEndpoint extends Item {
   }
 }
 
-module.exports = SDKServiceEndpoint;
+module.exports = ServiceEndpoint;

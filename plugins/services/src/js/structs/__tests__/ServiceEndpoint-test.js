@@ -1,8 +1,8 @@
-const SDKServiceEndpoint = require("../SDKServiceEndpoint");
+const ServiceEndpoint = require("../ServiceEndpoint");
 
-describe("SDKServiceEndpoint", function() {
+describe("ServiceEndpoint", function() {
   beforeEach(function() {
-    this.endpointJSON = new SDKServiceEndpoint({
+    this.endpointJSON = new ServiceEndpoint({
       serviceId: "/elastic",
       contentType: "application/json",
       endpointName: "master-http",
@@ -12,17 +12,17 @@ describe("SDKServiceEndpoint", function() {
         vip: "vip1"
       }
     });
-    this.endpointFile = new SDKServiceEndpoint({
+    this.endpointFile = new ServiceEndpoint({
       serviceId: "/hdfs",
       contentType: "text/plain",
       endpointName: "core-site.xml",
       endpointData: "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>"
     });
   });
-  describe("#getEndpointName", function() {
+  describe("#getName", function() {
     it("returns correct endpoint name", function() {
-      expect(this.endpointJSON.getEndpointName()).toEqual("master-http");
-      expect(this.endpointFile.getEndpointName()).toEqual("core-site.xml");
+      expect(this.endpointJSON.getName()).toEqual("master-http");
+      expect(this.endpointFile.getName()).toEqual("core-site.xml");
     });
   });
 

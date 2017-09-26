@@ -12,7 +12,7 @@ import {
 } from "../constants/ActionTypes";
 
 import SDKEndpointActions from "../events/SDKEndpointActions";
-import SDKServiceEndpoint from "../structs/SDKServiceEndpoint";
+import ServiceEndpoint from "../structs/ServiceEndpoint";
 
 class SDKEndpointStore extends GetSetBaseStore {
   constructor() {
@@ -38,7 +38,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       const { type, data } = payload.action;
       switch (type) {
         case REQUEST_SDK_ENDPOINTS_SUCCESS:
-          self.processNewEndpoints(data.serviceId, data.endpoints);
+          self.processEndpoints(data.serviceId, data.endpoints);
           break;
         case REQUEST_SDK_ENDPOINTS_ERROR:
           self.setServiceEndpoints(data.serviceId, {
@@ -47,7 +47,7 @@ class SDKEndpointStore extends GetSetBaseStore {
           });
           break;
         case REQUEST_SDK_ENDPOINT_SUCCESS:
-          self.processNewEndpoint(
+          self.processEndpoint(
             data.serviceId,
             data.endpointName,
             data.endpointData,
@@ -66,7 +66,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     });
   }
 
-  getEndpointServices() {
+  getServices() {
     const services = Object.assign({}, this.get("services"));
 
     Object.keys(services).forEach(serviceId => {
@@ -83,30 +83,29 @@ class SDKEndpointStore extends GetSetBaseStore {
     return services;
   }
 
-  getEndpointService(serviceId) {
-    const service = this.getEndpointServices()[serviceId];
+  getService(serviceId) {
+    const service = this.getServices()[serviceId];
 
     if (!service || !service.endpoints) {
       return null;
     }
 
-    const sdkEndpointList = Object.keys(service.endpoints).map(endpointName => {
-      const endpoint = service.endpoints[endpointName];
+    const endpoints = Object.entries(service.endpoints).map(
+      ([endpointName, endpoint]) =>
+        new ServiceEndpoint({
+          endpointName,
+          endpointData: endpoint.endpointData,
+          contentType: endpoint.contentType
+        })
+    );
 
-      return new SDKServiceEndpoint({
-        endpointName,
-        endpointData: endpoint.endpointData,
-        contentType: endpoint.contentType
-      });
-    });
-
-    service.endpoints = sdkEndpointList;
+    service.endpoints = endpoints;
 
     return service;
   }
 
   setServiceEndpoints(serviceId, serviceData) {
-    const services = this.getEndpointServices();
+    const services = this.getServices();
     services[serviceId] = {
       endpoints: serviceData.endpoints,
       error: serviceData.error
@@ -115,7 +114,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     this.set({ services });
   }
 
-  processNewEndpoints(serviceId, endpointsArray) {
+  processEndpoints(serviceId, endpointsArray) {
     const endpoints = endpointsArray.reduce(function(acc, endpointName) {
       acc[endpointName] = {};
 
@@ -132,8 +131,8 @@ class SDKEndpointStore extends GetSetBaseStore {
     }, this);
   }
 
-  processNewEndpoint(serviceId, endpointName, endpointData, contentType) {
-    const service = this.getEndpointServices()[serviceId];
+  processEndpoint(serviceId, endpointName, endpointData, contentType) {
+    const service = this.getServices()[serviceId];
     if (!service || !service.endpoints[endpointName]) {
       return;
     }
