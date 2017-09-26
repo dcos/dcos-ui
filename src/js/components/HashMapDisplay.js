@@ -31,7 +31,7 @@ class HashMapDisplay extends React.Component {
   }
 
   getItems() {
-    const { hash, headingLevel, renderKeys } = this.props;
+    const { hash, headingLevel, renderKeys, emptyValue } = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
@@ -65,6 +65,10 @@ class HashMapDisplay extends React.Component {
 
       if (Array.isArray(value)) {
         value = value.join(", ");
+      }
+
+      if (!value && emptyValue) {
+        value = emptyValue;
       }
 
       // Check if we need to render a component in the dt
@@ -114,7 +118,8 @@ HashMapDisplay.propTypes = {
   key: React.PropTypes.string,
   // Optional object with keys consisting of keys in `props.hash` to be
   // replaced, and with corresponding values of the replacement to be rendered.
-  renderKeys: React.PropTypes.object
+  renderKeys: React.PropTypes.object,
+  emptyValue: React.PropTypes.string
 };
 
 module.exports = HashMapDisplay;

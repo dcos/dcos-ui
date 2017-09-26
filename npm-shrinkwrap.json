@@ -6010,6 +6010,11 @@
       "from": "jsonpointer@2.0.0",
       "resolved": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-2.0.0.tgz"
     },
+    "jsonschema": {
+      "version": "1.2.0",
+      "from": "jsonschema@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/jsonschema/-/jsonschema-1.2.0.tgz"
+    },
     "JSONSelect": {
       "version": "0.4.0",
       "from": "JSONSelect@0.4.0",
@@ -6527,6 +6532,11 @@
       "version": "4.1.1",
       "from": "lodash.throttle@4.1.1",
       "resolved": "http://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
+    },
+    "lodash.topath": {
+      "version": "4.5.2",
+      "from": "lodash.topath@>=4.5.2 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.topath/-/lodash.topath-4.5.2.tgz"
     },
     "lodash.words": {
       "version": "3.2.0",
@@ -8061,6 +8071,11 @@
       "version": "2.2.3",
       "from": "react-intl@latest",
       "resolved": "https://registry.npmjs.org/react-intl/-/react-intl-2.2.3.tgz"
+    },
+    "react-jsonschema-form": {
+      "version": "0.50.0",
+      "from": "react-jsonschema-form@0.50.0",
+      "resolved": "https://registry.npmjs.org/react-jsonschema-form/-/react-jsonschema-form-0.50.0.tgz"
     },
     "react-onclickoutside": {
       "version": "5.3.3",

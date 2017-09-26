@@ -92,6 +92,18 @@ const StringUtil = {
     return string.charAt(0).toUpperCase() + string.slice(1, string.length);
   },
 
+  capitalizeEveryWord(string) {
+    if (typeof string !== "string") {
+      return null;
+    }
+
+    return string
+      .toLowerCase()
+      .split(/[_-]/)
+      .map(word => this.capitalize(word))
+      .join(" ");
+  },
+
   lowercase(string) {
     if (typeof string !== "string") {
       return null;

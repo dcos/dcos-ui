@@ -1,6 +1,7 @@
 import GeminiScrollbar from "react-gemini-scrollbar";
 import React from "react";
 
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 import ConfigurationMap from "./ConfigurationMap";
 import defaultServiceImage
   from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
@@ -26,13 +27,6 @@ class ReviewConfig extends React.Component {
     } = this.props;
     const fileName = "config.json";
     const configString = JSON.stringify(configuration, null, 2);
-    const ieDownloadConfig = function() {
-      // Download if on IE
-      if (global.navigator.msSaveOrOpenBlob) {
-        const blob = new Blob([configString], { type: "application/json" });
-        global.navigator.msSaveOrOpenBlob(blob, fileName);
-      }
-    };
 
     return (
       <div className="modal-header flex-item-shrink-0">
@@ -62,9 +56,17 @@ class ReviewConfig extends React.Component {
           <div className="column-8 text-align-right">
             <a
               className="button button-small button-stroke button-rounded"
-              onClick={ieDownloadConfig}
+              onClick={RouterUtil.triggerIEDownload.bind(
+                null,
+                fileName,
+                configString
+              )}
               download={fileName}
-              href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
+              href={RouterUtil.getResourceDownloadPath(
+                "attachment/json",
+                fileName,
+                configString
+              )}
             >
               <Icon id="download" size="mini" /> Download config.json
             </a>

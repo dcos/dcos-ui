@@ -29,6 +29,11 @@ class CosmosErrorMessage extends React.Component {
       return this.appendRepositoryLink(message);
     }
 
+    // make "Package is already installed error" better
+    if (error.type === "PackageAlreadyInstalled") {
+      return "A service with the same name already exists. Try a different name.";
+    }
+
     return message;
   }
 
