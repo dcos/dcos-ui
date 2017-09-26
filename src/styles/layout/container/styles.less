@@ -2,70 +2,64 @@
 // .container class, even though the variables are defined in CNVS. This might
 // change in the future.
 & when (@container-enabled) {
+  /* Container */
 
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: @container-width;
-    width: 100%;
-
-    &-wide {
-      max-width: @container-wide-width;
-    }
+  .container-wide {
+    .property-variant(container-wide, width);
   }
 }
 
-& when (@container-enabled) and (@layout-screen-small-enabled) {
+& when (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .container {
-      max-width: @container-width-screen-small;
+    & when not (@container-enabled = null) and not (@container-screen-small-enabled = null) {
+      /* Container */
 
-      &-wide {
-        max-width: @container-wide-width-screen-small;
+      .container-wide {
+        .property-variant(container-wide, width, null, screen-small);
       }
     }
   }
 }
 
-& when (@container-enabled) and (@layout-screen-medium-enabled) {
+& when (@layout-screen-medium-enabled) {
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .container {
-      max-width: @container-width-screen-medium;
+    & when not (@container-enabled = null) and not (@container-screen-medium-enabled = null) {
+      /* Container */
 
-      &-wide {
-        max-width: @container-wide-width-screen-medium;
+      .container-wide {
+        .property-variant(container-wide, width, null, screen-medium);
       }
     }
   }
 }
 
-& when (@container-enabled) and (@layout-screen-large-enabled) {
+& when (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .container {
-      max-width: @container-width-screen-large;
+    & when not (@container-enabled = null) and not (@container-screen-large-enabled = null) {
+      /* Container */
 
-      &-wide {
-        max-width: @container-wide-width-screen-large;
+      .container-wide {
+        .property-variant(container-wide, width, null, screen-large);
       }
     }
   }
 }
 
-& when (@container-enabled) and (@layout-screen-jumbo-enabled) {
+& when (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .container {
-      max-width: @container-width-screen-jumbo;
+    & when not (@container-enabled = null) and not (@container-screen-jumbo-enabled = null) {
+      /* Container */
 
-      &-wide {
-        max-width: @container-wide-width-screen-jumbo;
+      .container-wide {
+        .property-variant(container-wide, width, null, screen-jumbo);
       }
     }
   }
