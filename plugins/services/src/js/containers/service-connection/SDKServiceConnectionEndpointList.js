@@ -81,7 +81,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapHeading>
-          {endpoint.getEndpointName()}
+          {endpoint.getName()}
         </ConfigurationMapHeading>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
@@ -115,16 +115,16 @@ class SDKServiceConnectionEndpointList extends React.Component {
     return (
       <ConfigurationMapRow>
         <ConfigurationMapLabel>
-          {endpoint.getEndpointName()}
+          {endpoint.getName()}
         </ConfigurationMapLabel>
         <ConfigurationMapValue>
           <a
             className="active endpoint-download"
-            download={endpoint.getEndpointName()}
+            download={endpoint.getName()}
             href={RouterUtil.getResourceDownloadPath(
               "text/plain",
-              endpoint.getEndpointName(),
-              endpoint.getEndpointData()
+              endpoint.getName(),
+              endpoint.getData()
             )}
           >
             <span>
@@ -236,7 +236,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       );
     }
 
-    const sdkEndpointService = SDKEndpointStore.getEndpointService(
+    const sdkEndpointService = SDKEndpointStore.getService(
       this.props.service.getId()
     );
 
