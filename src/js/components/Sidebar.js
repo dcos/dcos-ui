@@ -148,10 +148,7 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div
-          className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
-          key={index}
-        >
+        <div className="sidebar-section" key={index}>
           {heading}
           {menuItems}
         </div>
@@ -207,7 +204,8 @@ var Sidebar = React.createClass({
 
       const itemClassSet = classNames("sidebar-menu-item", {
         selected: isParentActive && !isChildActive,
-        open: isExpanded
+        open: isExpanded,
+        expandable: hasChildren
       });
 
       return (
