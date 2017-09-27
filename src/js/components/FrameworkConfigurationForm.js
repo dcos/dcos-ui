@@ -35,6 +35,7 @@ export default class FrameworkConfigurationForm extends Component {
     const schema = packageDetails.config;
 
     const handleBadgeClick = _ => {
+      // set the path of tab error to
       console.log("clicking badge");
     };
 
@@ -58,12 +59,13 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   handleDropdownNavigationSelection(item) {
-    this.setState({ activeTab: item.id });
+    this.props.onActiveTabChange(item.id);
   }
 
   getDropdownNavigationList() {
-    const { packageDetails, activeTab } = this.props;
+    const { packageDetails, focusFieldPath } = this.props;
     const schema = packageDetails.config;
+    const activeTab = focusFieldPath[0];
 
     return Object.keys(schema.properties).map(tabName => {
       return {
@@ -75,21 +77,32 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getUiSchema() {
-    const { packageDetails, activeTab } = this.props;
+    const { packageDetails, focusFieldPath } = this.props;
     const schema = packageDetails.config;
 
+    // focus the field corresponding to keys, ex: ["service", "nodes", "name"]
+    const focus = keys => {
+      if (keys.length === 0) {
+        return {};
+      }
+
+      if (keys.length === 1) {
+        return { [keys[0]]: { "ui:autofocus": true } };
+      }
+
+      return { [keys[0]]: focus(keys.slice(1)) };
+    };
+    const uiSchema = focus(focusFieldPath);
+
     // hide all tabs not selected
-    const uiSchema = {};
     Object.keys(schema.properties).forEach(key => {
-      if (key !== activeTab) {
-        uiSchema[key] = { classNames: "hidden" };
+      if (key !== focusFieldPath[0]) {
+        if (uiSchema[key] == null) {
+          uiSchema[key] = {};
+        }
+        uiSchema[key]["classNames"] = "hidden";
       }
     });
-
-    // focus the first field of the current tab
-    uiSchema[activeTab] = {};
-    const first = Object.keys(schema.properties[activeTab].properties)[0];
-    uiSchema[activeTab][first] = { "ui:autofocus": true };
 
     return uiSchema;
   }
@@ -132,8 +145,7 @@ export default class FrameworkConfigurationForm extends Component {
   handleFormChange(form) {
     const { formData, errorSchema } = form;
 
-    console.log(formData);
-
+    // todo...will need to store more than just number of errors to focus field
     const tabErrors = {};
     Object.keys(errorSchema).forEach(tab => {
       tabErrors[tab] = this.getTotalErrorsForLevel(errorSchema[tab]);
@@ -180,8 +192,9 @@ export default class FrameworkConfigurationForm extends Component {
       packageDetails,
       jsonEditorActive,
       formData,
-      activeTab
+      focusFieldPath
     } = this.props;
+    const activeTab = focusFieldPath[0];
 
     if (packageDetails == null) {
       return <div>loading</div>;
@@ -233,7 +246,6 @@ export default class FrameworkConfigurationForm extends Component {
                   liveValidate={true}
                   validate={this.validate.bind(this)}
                   showErrorList={false}
-                  onError={_ => console.log("error happens")}
                 >
                   <div />
                 </SchemaForm>
@@ -265,6 +277,6 @@ FrameworkConfigurationForm.propTypes = {
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
   onActiveTabChange: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  formData: PropTypes.object.isRequired
+  formData: PropTypes.object.isRequired,
+  focusFieldPath: PropTypes.array.isRequired
 };

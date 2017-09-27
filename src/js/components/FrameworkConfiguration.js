@@ -32,11 +32,11 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       packageDetails: null,
       jsonEditorActive: false,
       formData: null,
-      activeTab: null,
       hasChangesApplied: false,
       isConfirmOpen: false,
       isOpen: true,
-      tabErrors: {}
+      tabErrors: {},
+      focusFieldPath: []
     };
 
     this.store_listeners = [
@@ -57,15 +57,20 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   onCosmosPackagesStoreServiceDescriptionSuccess() {
     const fullPackage = CosmosPackagesStore.getServiceDetails();
     const packageDetails = fullPackage.package;
-    const activeTab = Object.keys(packageDetails.config.properties)[0];
+
+    const schema = packageDetails.config;
+    const activeTab = Object.keys(schema.properties)[0];
+    const firstField = Object.keys(schema.properties[activeTab].properties)[0];
+    const focusFieldPath = [activeTab, firstField];
 
     // re-order the keys in resolvedOptions to same order as the JSON schema
+    // ugh...this is bad
     const formData = this.reorderResolvedOptions(
       fullPackage.resolvedOptions,
       packageDetails
     );
 
-    this.setState({ packageDetails, activeTab, formData });
+    this.setState({ packageDetails, formData, focusFieldPath });
   }
 
   // this will only be meaningful in runtimes with deterministic key order
@@ -100,26 +105,37 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onActiveTabChange(activeTab) {
-    if (deepEqual(activeTab, this.state.activeTab)) {
+    const { packageDetails, focusFieldPath } = this.state;
+    const currentActiveTab = focusFieldPath[0];
+
+    if (deepEqual(activeTab, currentActiveTab)) {
       return;
     }
 
-    this.setState({ activeTab });
+    const schema = packageDetails.config;
+    const firstField = Object.keys(schema.properties[activeTab].properties)[0];
+    const newFocusFieldPath = [activeTab, firstField];
+
+    this.setState({ focusFieldPath: newFocusFieldPath });
   }
 
   onReviewConfigurationRowClick(rowData) {
     const { tabViewID } = rowData;
 
-    const activeTab = tabViewID.split(".")[0];
+    const focusFieldPath = tabViewID.split(".");
 
-    this.setState({ reviewActive: false, activeTab });
+    this.setState({ reviewActive: false, focusFieldPath });
   }
 
   onEditConfigurationButtonClick() {
     const { packageDetails } = this.state;
-    const activeTab = Object.keys(packageDetails.config.properties)[0];
 
-    this.setState({ reviewActive: false, activeTab });
+    const schema = packageDetails.config;
+    const activeTab = Object.keys(schema.properties)[0];
+    const firstField = Object.keys(schema.properties[activeTab].properties)[0];
+    const focusFieldPath = [activeTab, firstField];
+
+    this.setState({ reviewActive: false, focusFieldPath });
   }
 
   getHashMapRenderKeys(formData, renderKeys) {
@@ -146,7 +162,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       jsonEditorActive,
       formData,
       tabErrors,
-      activeTab
+      focusFieldPath
     } = this.state;
 
     if (reviewActive) {
@@ -212,9 +228,9 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
           onFormDataChange={this.onFormDataChange.bind(this)}
           onFormErrorChange={this.onFormErrorChange.bind(this)}
           onActiveTabChange={this.onActiveTabChange.bind(this)}
-          activeTab={activeTab}
           formData={formData}
           tabErrors={tabErrors}
+          focusFieldPath={focusFieldPath}
         />
       );
     }
