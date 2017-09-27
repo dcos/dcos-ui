@@ -20,7 +20,8 @@ const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
   "handleRightButtonClick",
-  "handleChangeInputGroupDestroy"
+  "handleChangeInputGroupDestroy",
+  "handleFormSubmit"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -107,6 +108,11 @@ class ServiceDestroyModal extends React.Component {
     this.setState({
       serviceNameConfirmationValue: event.target.value
     });
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault();
+    this.handleRightButtonClick();
   }
 
   handleChangeInputGroupDestroy(event) {
@@ -250,9 +256,11 @@ class ServiceDestroyModal extends React.Component {
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        {this.getGroupHeader()}
-        {this.getServiceDeleteForm()}
-        {this.getErrorMessage()}
+        <form onSubmit={this.handleFormSubmit}>
+          {this.getGroupHeader()}
+          {this.getServiceDeleteForm()}
+          {this.getErrorMessage()}
+        </form>
       </Confirm>
     );
   }
