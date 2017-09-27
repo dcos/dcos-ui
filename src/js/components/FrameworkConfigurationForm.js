@@ -30,14 +30,43 @@ export default class FrameworkConfigurationForm extends Component {
       .join(" ");
   }
 
+  getFirstErrorFieldPath(tabName, errorSchema) {
+    const { packageDetails } = this.props;
+    const schema = packageDetails.config;
+
+    const fieldsWithErrors = Object.keys(errorSchema[tabName]).filter(field => {
+      if (
+        errorSchema[tabName][field].__errors &&
+        errorSchema[tabName][field].__errors.length > 0
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+
+    const fieldToFocus = Object.keys(
+      schema.properties[tabName].properties
+    ).find(field => {
+      return fieldsWithErrors.includes(field);
+    });
+
+    return [tabName, fieldToFocus];
+  }
+
+  handleBadgeClick(tabName, event) {
+    const { errorSchema } = this.state;
+
+    const newFocusFieldPath = this.getFirstErrorFieldPath(tabName, errorSchema);
+
+    this.props.onFocusFieldPathChange(newFocusFieldPath);
+
+    event.stopPropagation();
+  }
+
   getFormTabList() {
     const { packageDetails, tabErrors } = this.props;
     const schema = packageDetails.config;
-
-    const handleBadgeClick = _ => {
-      // set the path of tab error to
-      console.log("clicking badge");
-    };
 
     return Object.keys(schema.properties).map(tabName => {
       return (
@@ -48,7 +77,7 @@ export default class FrameworkConfigurationForm extends Component {
           showErrorBadge={tabErrors[tabName] > 0}
           count={tabErrors[tabName]}
           description={`${tabErrors[tabName]} issues need addressing`}
-          onClickBadge={handleBadgeClick}
+          onClickBadge={this.handleBadgeClick.bind(this, tabName)}
         />
       );
     });
@@ -278,5 +307,6 @@ FrameworkConfigurationForm.propTypes = {
   onFormErrorChange: PropTypes.func.isRequired,
   onActiveTabChange: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
-  focusFieldPath: PropTypes.array.isRequired
+  focusFieldPath: PropTypes.array.isRequired,
+  onFocusFieldPathChange: PropTypes.func.isRequired
 };

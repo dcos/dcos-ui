@@ -13,6 +13,7 @@ import FormGroupHeadingContent
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 
 class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
@@ -92,24 +93,35 @@ class SchemaField extends Component {
       return <option value={option}>{option}</option>;
     });
 
+    let field = (
+      <FieldSelect
+        id={name}
+        autoFocus={autofocus}
+        className={"field-select-narrow"}
+        name={name}
+        type="text"
+        value={formData}
+        onChange={event => onChange(event.target.value)}
+        onBlur={onBlur && (event => onBlur(name, event.target.value))}
+        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+      >
+        {options}
+      </FieldSelect>
+    );
+    if (autofocus) {
+      field = (
+        <FieldAutofocus>
+          {field}
+        </FieldAutofocus>
+      );
+    }
+
     return (
       <div>
         <FieldLabel>
           {this.getFieldHeading(required, name, schema.description)}
         </FieldLabel>
-        <FieldSelect
-          id={name}
-          autoFocus={autofocus}
-          className={"field-select-narrow"}
-          name={name}
-          type="text"
-          value={formData}
-          onChange={event => onChange(event.target.value)}
-          onBlur={onBlur && (event => onBlur(name, event.target.value))}
-          onFocus={onFocus && (event => onFocus(name, event.target.value))}
-        >
-          {options}
-        </FieldSelect>
+        {field}
         <FieldError>{errorMessage}</FieldError>
       </div>
     );
@@ -126,22 +138,33 @@ class SchemaField extends Component {
       onFocus
     } = props;
 
+    let field = (
+      <FieldInput
+        id={name}
+        type={"text"}
+        className={"field-input-text-narrow"}
+        autoFocus={autofocus}
+        name={name}
+        value={formData}
+        onChange={event => onChange(event.target.value)}
+        onBlur={onBlur && (event => onBlur(name, event.target.value))}
+        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+      />
+    );
+    if (autofocus) {
+      field = (
+        <FieldAutofocus>
+          {field}
+        </FieldAutofocus>
+      );
+    }
+
     return (
       <div>
         <FieldLabel>
           {this.getFieldHeading(required, name, schema.description)}
         </FieldLabel>
-        <FieldInput
-          id={name}
-          type={"text"}
-          className={"field-input-text-narrow"}
-          autoFocus={autofocus}
-          name={name}
-          value={formData}
-          onChange={event => onChange(event.target.value)}
-          onBlur={onBlur && (event => onBlur(name, event.target.value))}
-          onFocus={onFocus && (event => onFocus(name, event.target.value))}
-        />
+        {field}
         <FieldError>{errorMessage}</FieldError>
       </div>
     );
@@ -168,22 +191,33 @@ class SchemaField extends Component {
       }
     };
 
+    let field = (
+      <FieldInput
+        id={name}
+        type={"number"}
+        className={"field-input-number-narrow"}
+        autoFocus={autofocus}
+        name={name}
+        value={formData}
+        onChange={handleChange.bind(this)}
+        onBlur={onBlur && (event => onBlur(name, event.target.value))}
+        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+      />
+    );
+    if (autofocus) {
+      field = (
+        <FieldAutofocus>
+          {field}
+        </FieldAutofocus>
+      );
+    }
+
     return (
       <div>
         <FieldLabel>
           {this.getFieldHeading(required, name, schema.description)}
         </FieldLabel>
-        <FieldInput
-          id={name}
-          type={"number"}
-          className={"field-input-number-narrow"}
-          autoFocus={autofocus}
-          name={name}
-          value={formData}
-          onChange={handleChange.bind(this)}
-          onBlur={onBlur && (event => onBlur(name, event.target.value))}
-          onFocus={onFocus && (event => onFocus(name, event.target.value))}
-        />
+        {field}
         <FieldError>{errorMessage}</FieldError>
       </div>
     );

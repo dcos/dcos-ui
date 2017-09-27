@@ -104,6 +104,14 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
     this.setState({ tabErrors });
   }
 
+  onFocusFieldPathChange(focusFieldPath) {
+    if (deepEqual(focusFieldPath, this.state.focusFieldPath)) {
+      return;
+    }
+
+    this.setState({ focusFieldPath });
+  }
+
   onActiveTabChange(activeTab) {
     const { packageDetails, focusFieldPath } = this.state;
     const currentActiveTab = focusFieldPath[0];
@@ -231,6 +239,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
           formData={formData}
           tabErrors={tabErrors}
           focusFieldPath={focusFieldPath}
+          onFocusFieldPathChange={this.onFocusFieldPathChange.bind(this)}
         />
       );
     }
