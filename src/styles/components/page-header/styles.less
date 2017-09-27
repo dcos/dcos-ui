@@ -261,12 +261,20 @@
           &-primary {
             min-height: @button-height-screen-large;
             padding-left: @page-header-content-section-primary-padding-left-screen-large;
+
+            .sidebar-docked & {
+              padding-left: 0;
+            }
           }
         }
 
         &-sidebar-toggle {
           left: @page-header-sidebar-toggle-left-screen-large;
           padding: @page-header-sidebar-toggle-padding-screen-large;
+
+          .sidebar-docked & {
+            display: none;
+          }
         }
 
         &-breadcrumb {
