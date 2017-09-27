@@ -276,7 +276,7 @@
 
       &:hover {
         cursor: pointer;
-        opacity: 1.0;
+        opacity: 1;
       }
     }
   }
@@ -375,21 +375,9 @@
 
     & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
 
-      // Sidebar Wrapper
-      .sidebar-wrapper {
-
-        .sidebar-docked & {
-          width: @sidebar-width-screen-medium;
-        }
-      }
-
       // Sidebar
       .sidebar {
         width: @sidebar-width-screen-medium;
-
-        .sidebar-docked & {
-          transform: translateX(0);
-        }
       }
 
       .sidebar-overlay {
@@ -497,6 +485,10 @@
       // Sidebar
       .sidebar {
         width: @sidebar-width-screen-large;
+
+        .sidebar-docked & {
+          transform: translateX(0);
+        }
       }
 
       // Sidebar Section
