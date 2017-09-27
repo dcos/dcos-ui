@@ -41,6 +41,72 @@ describe("Node", function() {
     });
   });
 
+  describe("#getDomain", function() {
+    it("returns the domain object of the node", function() {
+      const node = new Node({
+        domain: {
+          fault_domain: {
+            region: {
+              name: "foo"
+            },
+            zone: {
+              name: "bar"
+            }
+          }
+        }
+      });
+
+      expect(node.getDomain()).toEqual({
+        fault_domain: {
+          region: {
+            name: "foo"
+          },
+          zone: {
+            name: "bar"
+          }
+        }
+      });
+    });
+  });
+
+  describe("#getRegionName", function() {
+    it("returns name of the region of the node", function() {
+      const node = new Node({
+        domain: {
+          fault_domain: {
+            region: {
+              name: "foo"
+            },
+            zone: {
+              name: "bar"
+            }
+          }
+        }
+      });
+
+      expect(node.getRegionName()).toEqual("foo");
+    });
+  });
+
+  describe("#getZoneName", function() {
+    it("returns name of the zone of the node", function() {
+      const node = new Node({
+        domain: {
+          fault_domain: {
+            region: {
+              name: "foo"
+            },
+            zone: {
+              name: "bar"
+            }
+          }
+        }
+      });
+
+      expect(node.getZoneName()).toEqual("bar");
+    });
+  });
+
   describe("#getUsageStats", function() {
     it("returns usage stats for given resource", function() {
       const node = new Node({

@@ -1,6 +1,7 @@
 import Item from "./Item";
 import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
+import { findNestedPropertyInObject } from "../utils/Util";
 
 class Node extends Item {
   getID() {
@@ -13,6 +14,24 @@ class Node extends Item {
 
   isActive() {
     return this.get("active");
+  }
+
+  getDomain() {
+    return this.get("domain");
+  }
+
+  getRegionName() {
+    return findNestedPropertyInObject(
+      this.getDomain(),
+      "fault_domain.region.name"
+    );
+  }
+
+  getZoneName() {
+    return findNestedPropertyInObject(
+      this.getDomain(),
+      "fault_domain.zone.name"
+    );
   }
 
   getUsageStats(resource) {
