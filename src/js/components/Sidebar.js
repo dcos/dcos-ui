@@ -370,9 +370,9 @@ var Sidebar = React.createClass({
               </div>
             </div>
           </GeminiScrollbar>
-          <div className="sidebar-dock-container">
+          <div className="sidebar-footer">
             <Icon
-              className="sidebar-dock-trigger"
+              className="sidebar-dock-trigger icon-white"
               size="mini"
               id={dockIconID}
               onClick={this.toggleSidebarDocking}

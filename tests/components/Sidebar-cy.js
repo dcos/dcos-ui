@@ -165,7 +165,7 @@ describe("Sidebar", function() {
           .get(0)
           .getBoundingClientRect();
 
-        cy.get(".sidebar-dock-container").then(function($dockIconContainer) {
+        cy.get(".sidebar-footer").then(function($dockIconContainer) {
           const { bottom: containerBottom } = $dockIconContainer
             .get(0)
             .getBoundingClientRect();
