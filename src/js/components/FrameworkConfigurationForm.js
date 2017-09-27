@@ -18,20 +18,8 @@ export default class FrameworkConfigurationForm extends Component {
     super(props);
 
     this.state = {
-      activeTab: props.activeTab,
-      formData: props.formData,
-      errorSchema: null,
-      tabErrors: {}
+      errorSchema: null
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { activeTab } = this.state;
-
-    if (!activeTab || nextProps.activeTab !== this.props.activeTab) {
-      const activeTab = nextProps.activeTab;
-      this.setState({ activeTab });
-    }
   }
 
   getFormattedSectionLabel(label) {
@@ -43,8 +31,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getFormTabList() {
-    const { packageDetails } = this.props;
-    const { tabErrors } = this.state;
+    const { packageDetails, tabErrors } = this.props;
     const schema = packageDetails.config;
 
     const handleBadgeClick = _ => {
@@ -67,7 +54,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   handleTabChange(activeTab) {
-    this.setState({ activeTab });
+    this.props.onActiveTabChange(activeTab);
   }
 
   handleDropdownNavigationSelection(item) {
@@ -75,8 +62,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getDropdownNavigationList() {
-    const { packageDetails } = this.props;
-    const { activeTab } = this.state;
+    const { packageDetails, activeTab } = this.props;
     const schema = packageDetails.config;
 
     return Object.keys(schema.properties).map(tabName => {
@@ -89,8 +75,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getUiSchema() {
-    const { packageDetails } = this.props;
-    const { activeTab } = this.state;
+    const { packageDetails, activeTab } = this.props;
     const schema = packageDetails.config;
 
     // hide all tabs not selected
@@ -110,7 +95,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   handleJSONChange(formData) {
-    this.setState({ formData });
+    this.props.onFormDataChange(formData);
   }
 
   writeErrors(formData, schema, isRequired, errors) {
@@ -147,6 +132,8 @@ export default class FrameworkConfigurationForm extends Component {
   handleFormChange(form) {
     const { formData, errorSchema } = form;
 
+    console.log(formData);
+
     const tabErrors = {};
     Object.keys(errorSchema).forEach(tab => {
       tabErrors[tab] = this.getTotalErrorsForLevel(errorSchema[tab]);
@@ -154,7 +141,7 @@ export default class FrameworkConfigurationForm extends Component {
 
     this.props.onFormErrorChange(tabErrors);
     this.props.onFormDataChange(formData);
-    this.setState({ formData, tabErrors, errorSchema });
+    this.setState({ errorSchema });
   }
 
   validate(formData, errors) {
@@ -189,8 +176,12 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   render() {
-    const { packageDetails, jsonEditorActive } = this.props;
-    const { activeTab, formData } = this.state;
+    const {
+      packageDetails,
+      jsonEditorActive,
+      formData,
+      activeTab
+    } = this.props;
 
     if (packageDetails == null) {
       return <div>loading</div>;
@@ -273,6 +264,7 @@ FrameworkConfigurationForm.propTypes = {
   jsonEditorActive: PropTypes.bool.isRequired,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
+  onActiveTabChange: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   formData: PropTypes.object.isRequired
 };

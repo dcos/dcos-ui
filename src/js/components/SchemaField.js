@@ -231,7 +231,7 @@ class SchemaField extends Component {
       return this.renderSelect(errorMessage, autofocus, this.props);
     } else if (schema.type === "string") {
       return this.renderTextInput(errorMessage, autofocus, this.props);
-    } else if (schema.type === "number" || schema.type === "integer") {
+    } else if (schema.type === "integer" || schema.type === "number") {
       return this.renderNumberInput(errorMessage, autofocus, this.props);
     }
   }

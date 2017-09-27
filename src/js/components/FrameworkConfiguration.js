@@ -21,6 +21,7 @@ import Util from "#SRC/js/utils/Util";
 import FrameworkConfigurationForm
   from "#SRC/js/components/FrameworkConfigurationForm";
 import Loader from "#SRC/js/components/Loader";
+import deepEqual from "deep-equal";
 
 export default class FrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
@@ -83,11 +84,27 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onFormDataChange(formData) {
+    if (deepEqual(formData, this.state.formData)) {
+      return;
+    }
+
     this.setState({ formData, hasChangesApplied: true });
   }
 
   onFormErrorChange(tabErrors) {
+    if (deepEqual(tabErrors, this.state.tabErrors)) {
+      return;
+    }
+
     this.setState({ tabErrors });
+  }
+
+  onActiveTabChange(activeTab) {
+    if (deepEqual(activeTab, this.state.activeTab)) {
+      return;
+    }
+
+    this.setState({ activeTab });
   }
 
   onReviewConfigurationRowClick(rowData) {
@@ -128,23 +145,24 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       packageDetails,
       jsonEditorActive,
       formData,
+      tabErrors,
       activeTab
     } = this.state;
 
-    const fileName = "config.json";
-    const configString = JSON.stringify(formData, null, 2);
-    const ieDownloadConfig = () => {
-      // Download if on IE
-      if (global.navigator.msSaveOrOpenBlob) {
-        const blob = new Blob([configString], { type: "application/json" });
-        global.navigator.msSaveOrOpenBlob(blob, fileName);
-      }
-    };
-
-    const renderKeys = {};
-    this.getHashMapRenderKeys(formData, renderKeys);
-
     if (reviewActive) {
+      const fileName = "config.json";
+      const configString = JSON.stringify(formData, null, 2);
+      const ieDownloadConfig = () => {
+        // Download if on IE
+        if (global.navigator.msSaveOrOpenBlob) {
+          const blob = new Blob([configString], { type: "application/json" });
+          global.navigator.msSaveOrOpenBlob(blob, fileName);
+        }
+      };
+
+      const renderKeys = {};
+      this.getHashMapRenderKeys(formData, renderKeys);
+
       return (
         <div className="flex-item-grow-1">
           <div className="container container-wide">
@@ -193,8 +211,10 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
           jsonEditorActive={jsonEditorActive}
           onFormDataChange={this.onFormDataChange.bind(this)}
           onFormErrorChange={this.onFormErrorChange.bind(this)}
+          onActiveTabChange={this.onActiveTabChange.bind(this)}
           activeTab={activeTab}
           formData={formData}
+          tabErrors={tabErrors}
         />
       );
     }
