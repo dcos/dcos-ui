@@ -1,4 +1,3 @@
-// TODO: Reduce the specificity. DCOS-11785
 & when (@sidebar-enabled) {
 
   // Sidebar Wrapper
@@ -111,7 +110,7 @@
 
       & > * {
 
-        &:not(.sidebar-menu-item-label) {
+        &:not(.sidebar-menu-item-label):not(a) {
           flex-grow: 0;
         }
 
@@ -120,7 +119,7 @@
           flex-grow: 1;
           padding-right: @sidebar-menu-item-content-padding-horizontal;
 
-          &:last-child {
+          &:last-child:not(a) {
             padding-right: 0;
           }
         }
@@ -147,7 +146,7 @@
 
         & > * {
 
-          &:not(.sidebar-menu-item-label) {
+          &:not(.sidebar-menu-item-label):not(a) {
             flex-grow: 0;
           }
 
@@ -156,7 +155,7 @@
             flex-grow: 1;
             padding-right: @sidebar-menu-item-content-padding-horizontal;
 
-            &:last-child {
+            &:last-child:not(a) {
               padding-right: 0;
             }
           }
