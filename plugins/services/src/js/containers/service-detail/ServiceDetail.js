@@ -93,7 +93,9 @@ class ServiceDetail extends mixin(TabsMixin) {
         }) != null;
     }
 
-    if (
+    if (actionID === EDIT && isSDKService(service)) {
+      this.editSDKService(service);
+    } else if (
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",
@@ -105,6 +107,14 @@ class ServiceDetail extends mixin(TabsMixin) {
     } else {
       this.handleServiceAction(actionID);
     }
+  }
+
+  // todo, collab with Philipp to figure out the way we wanna do this
+  editSDKService(service) {
+    const { router } = this.context;
+    router.push(
+      `/services/detail/${encodeURIComponent(service.getId())}/frameworkconfiguration/`
+    );
   }
 
   handleServiceAction(actionID) {

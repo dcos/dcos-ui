@@ -10,6 +10,14 @@
     }
   }
 
+  .menu-tabbed-container-fixed {
+
+    .menu-tabbed-vertical {
+      height: 100%;
+      position: fixed;
+    }
+  }
+
   .menu-tabbed {
     margin-bottom: @menu-tabbed-margin-bottom;
     margin-top: @menu-tabbed-margin-top;
@@ -154,6 +162,12 @@
         display: block;
       }
     }
+
+    &.menu-tabbed-item-label-with-badge {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 10px;
+    }
   }
 
   .form-tabs-list {
@@ -253,6 +267,13 @@
       }
     }
 
+    .menu-tabbed-container-fixed {
+
+      .menu-tabbed-view-container {
+        padding-left: @menu-tabbed-vertical-width-screen-medium + @menu-tabbed-vertical-margin-right-screen-medium;
+      }
+    }
+
     .menu-tabbed-item {
       margin-right: @menu-tabbed-horizontal-item-margin-right-screen-medium;
     }
@@ -306,6 +327,13 @@
       }
     }
 
+    .menu-tabbed-container-fixed {
+
+      .menu-tabbed-view-container {
+        padding-left: @menu-tabbed-vertical-width-screen-large + @menu-tabbed-vertical-margin-right-screen-large;
+      }
+    }
+
     .menu-tabbed-item {
       margin-right: @menu-tabbed-horizontal-item-margin-right-screen-large;
     }
@@ -356,6 +384,13 @@
       .menu-tabbed-item-label {
         padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-jumbo;
         padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-jumbo;
+      }
+    }
+
+    .menu-tabbed-container-fixed {
+
+      .menu-tabbed-view-container {
+        padding-left: @menu-tabbed-vertical-width-screen-jumbo + @menu-tabbed-vertical-margin-right-screen-jumbo;
       }
     }
 

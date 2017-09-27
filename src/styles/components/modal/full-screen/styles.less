@@ -118,6 +118,12 @@
     text-align: center;
   }
 
+  .modal-full-screen-header-with-sub-title {
+    bottom: 8px; // approximation of canvas small line-height / 2
+    height: @modal-full-screen-header-title-line-height;
+    position: relative;
+  }
+
   .modal-full-screen-actions {
     align-items: center;
     display: flex;
@@ -233,6 +239,10 @@
 
     .modal-full-screen-header-title {
       line-height: @modal-full-screen-header-title-line-height-screen-large;
+    }
+
+    .modal-full-screen-header-with-sub-title {
+      height: @modal-full-screen-header-title-line-height-screen-large;
     }
 
     .modal-full-screen-actions-primary {

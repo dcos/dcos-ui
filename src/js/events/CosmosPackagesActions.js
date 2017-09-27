@@ -209,11 +209,9 @@ const CosmosPackagesActions = {
       url: `${Config.rootUrl}/cosmos/service/describe`,
       data: JSON.stringify({ appId: serviceId }),
       success(response) {
-        const cosmosPackage = response.package;
-
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
-          data: cosmosPackage,
+          data: response,
           serviceId
         });
       },
