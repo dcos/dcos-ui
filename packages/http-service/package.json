@@ -1,0 +1,19 @@
+{
+  "name": "http-service",
+  "main": "index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "dependencies": {
+    "rxjs": "5.4.3",
+    "connection-manager": "0.1.0",
+    "connections": "0.1.0"
+  },
+  "devDependencies": {
+    "jest": "19.0.2",
+    "jest-cli": "16.0.2"
+  }
+}

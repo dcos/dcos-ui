@@ -62,6 +62,7 @@
     "reactjs-components": "0.16.0-beta.23",
     "reactjs-mixin": "0.0.2",
     "redux": "3.3.1",
+    "rxjs": "5.4.3",
     "tv4": "1.2.7"
   },
   "devDependencies": {
