@@ -84,7 +84,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onFormDataChange(formData) {
-    if (deepEqual(formData, this.state.formData)) {
+    if (deepEqual(formData, this.state.formData, { strict: true })) {
       return;
     }
 

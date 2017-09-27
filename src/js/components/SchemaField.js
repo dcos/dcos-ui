@@ -17,7 +17,7 @@ import FieldSelect from "#SRC/js/components/form/FieldSelect";
 class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
     return (
-      !deepEqual(nextProps.formData, this.props.formData) ||
+      !deepEqual(nextProps.formData, this.props.formData, { strict: true }) ||
       !deepEqual(nextProps.uiSchema, this.props.uiSchema)
     );
   }
