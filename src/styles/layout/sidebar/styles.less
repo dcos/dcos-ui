@@ -259,39 +259,25 @@
     }
   }
 
-  .sidebar-menu-item-expand-icon {
-    opacity: 0.2;
-    transform: rotate(-90deg);
-    transition: transform 0.1s;
-
-    .is-expanded & {
-      opacity: 1;
-      transform: rotate(0);
-    }
-  }
-
   .sidebar-content-wrapper {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
   }
 
-  .sidebar-dock-container {
-    border-top: 1px solid @sidebar-dock-container-border-color;
-    display: flex;
-    flex: 0 0 auto;
-    justify-content: flex-end;
-    padding: @sidebar-dock-container-padding-vertical @sidebar-dock-container-padding-horizontal;
-  }
+  .sidebar-footer {
+    .property-variant(sidebar-footer, right, null, null);
+    .property-variant(sidebar-footer, bottom, null, null);
+    position: absolute;
 
-  .sidebar-dock-trigger {
-    cursor: pointer;
-    display: none;
-    opacity: 0.75;
-    transition: opacity 0.15s;
+    .sidebar-dock-trigger {
+      align-self: flex-end;
+      opacity: 0.4;
 
-    &:hover {
-      opacity: 1;
+      &:hover {
+        cursor: pointer;
+        opacity: 1.0;
+      }
     }
   }
 }
@@ -375,8 +361,9 @@
         }
       }
 
-      .sidebar-dock-container {
-        padding: @sidebar-dock-container-padding-vertical-screen-small @sidebar-dock-container-padding-horizontal-screen-small;
+      .sidebar-footer {
+        .property-variant(sidebar-footer, right, null, screen-small);
+        .property-variant(sidebar-footer, bottom, null, screen-small);
       }
     }
   }
@@ -485,12 +472,9 @@
         }
       }
 
-      .sidebar-dock-trigger {
-        display: block;
-      }
-
-      .sidebar-dock-container {
-        padding: @sidebar-dock-container-padding-vertical-screen-medium @sidebar-dock-container-padding-horizontal-screen-medium;
+      .sidebar-footer {
+        .property-variant(sidebar-footer, right, null, screen-medium);
+        .property-variant(sidebar-footer, bottom, null, screen-medium);
       }
     }
   }
@@ -588,8 +572,9 @@
         }
       }
 
-      .sidebar-dock-container {
-        padding: @sidebar-dock-container-padding-vertical-screen-large @sidebar-dock-container-padding-horizontal-screen-large;
+      .sidebar-footer {
+        .property-variant(sidebar-footer, right, null, screen-large);
+        .property-variant(sidebar-footer, bottom, null, screen-large);
       }
     }
   }
@@ -687,8 +672,9 @@
         }
       }
 
-      .sidebar-dock-container {
-        padding: @sidebar-dock-container-padding-vertical-screen-jumbo @sidebar-dock-container-padding-horizontal-screen-jumbo;
+      .sidebar-footer {
+        .property-variant(sidebar-footer, right, null, screen-jumbo);
+        .property-variant(sidebar-footer, bottom, null, screen-jumbo);
       }
     }
   }
