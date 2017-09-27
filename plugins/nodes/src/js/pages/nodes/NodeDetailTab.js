@@ -62,6 +62,22 @@ class NodeDetailTab extends React.Component {
                 {MesosStateStore.get("lastMesosState").version}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Region
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {node.getRegionName() || "\u2014"}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                Zone
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {node.getZoneName() || "\u2014"}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
           <ConfigurationMapSection>
