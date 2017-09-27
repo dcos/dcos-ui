@@ -22,6 +22,7 @@ import FrameworkConfigurationForm
   from "#SRC/js/components/FrameworkConfigurationForm";
 import Loader from "#SRC/js/components/Loader";
 import deepEqual from "deep-equal";
+import Alert from "#SRC/js/components/Alert";
 
 export default class FrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
@@ -36,7 +37,8 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       isConfirmOpen: false,
       isOpen: true,
       tabErrors: {},
-      focusFieldPath: []
+      focusFieldPath: [],
+      updateError: null
     };
 
     this.store_listeners = [
@@ -73,6 +75,10 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
     this.setState({ packageDetails, formData, focusFieldPath });
   }
 
+  onCosmosPackagesStoreServiceDescriptionError() {
+    // todo figure out what this response looks like and what we should do
+  }
+
   // this will only be meaningful in runtimes with deterministic key order
   reorderResolvedOptions(resolvedOptions, packageDetails) {
     const order = Object.keys(packageDetails.config.properties);
@@ -85,7 +91,14 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreServiceUpdateSuccess() {
+    this.setState({ updateError: null });
     this.handleConfirmGoBack();
+  }
+
+  onCosmosPackagesStoreServiceUpdateError(response) {
+    const updateError = [response.message];
+
+    this.setState({ updateError });
   }
 
   onFormDataChange(formData) {
@@ -93,7 +106,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({ formData, hasChangesApplied: true });
+    this.setState({ formData, hasChangesApplied: true, updateError: null });
   }
 
   onFormErrorChange(tabErrors) {
@@ -170,7 +183,8 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       jsonEditorActive,
       formData,
       tabErrors,
-      focusFieldPath
+      focusFieldPath,
+      updateError
     } = this.state;
 
     if (reviewActive) {
@@ -187,9 +201,32 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
       const renderKeys = {};
       this.getHashMapRenderKeys(formData, renderKeys);
 
+      let errorsAlert = null;
+      if (updateError) {
+        const errorItems = updateError.map((message, index) => {
+          return (
+            <li key={index} className="short">
+              {message}
+            </li>
+          );
+        });
+
+        errorsAlert = (
+          <Alert>
+            <strong>There is an error with your configuration</strong>
+            <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
+              <ul className="short flush-bottom">
+                {errorItems}
+              </ul>
+            </div>
+          </Alert>
+        );
+      }
+
       return (
         <div className="flex-item-grow-1">
           <div className="container container-wide">
+            {errorsAlert}
             <div className="row">
               <div className="column-4">
                 <h1 className="flush-top">Configuration</h1>
@@ -240,6 +277,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
           tabErrors={tabErrors}
           focusFieldPath={focusFieldPath}
           onFocusFieldPathChange={this.onFocusFieldPathChange.bind(this)}
+          updateError={updateError}
         />
       );
     }
@@ -275,7 +313,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   getPrimaryActions() {
-    const { jsonEditorActive, reviewActive } = this.state;
+    const { jsonEditorActive, reviewActive, updateError } = this.state;
 
     let label = "Review & Run";
     if (reviewActive) {
@@ -287,7 +325,7 @@ export default class FrameworkConfiguration extends mixin(StoreMixin) {
         className: "button-primary flush-vertical",
         clickHandler: this.handleServiceReview.bind(this),
         label,
-        disabled: this.hasErrors()
+        disabled: this.hasErrors() || (updateError && reviewActive)
       }
     ];
 

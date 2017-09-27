@@ -12,6 +12,7 @@ import PageHeaderNavigationDropdown
   from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import SchemaField from "#SRC/js/components/SchemaField";
+import Alert from "#SRC/js/components/Alert";
 
 export default class FrameworkConfigurationForm extends Component {
   constructor(props) {
@@ -221,16 +222,11 @@ export default class FrameworkConfigurationForm extends Component {
       packageDetails,
       jsonEditorActive,
       formData,
-      focusFieldPath
+      focusFieldPath,
+      updateError
     } = this.props;
     const activeTab = focusFieldPath[0];
-
-    if (packageDetails == null) {
-      return <div>loading</div>;
-    }
-
     const schema = packageDetails.config;
-
     const jsonEditorErrors = this.getErrorsForJSONEditor();
 
     const TitleField = props => {
@@ -244,6 +240,28 @@ export default class FrameworkConfigurationForm extends Component {
     const jsonEditorClasses = classNames("modal-full-screen-side-panel", {
       "is-visible": jsonEditorActive
     });
+
+    let errorsAlert = null;
+    if (updateError) {
+      const errorItems = updateError.map((message, index) => {
+        return (
+          <li key={index} className="short">
+            {message}
+          </li>
+        );
+      });
+
+      errorsAlert = (
+        <Alert>
+          <strong>There is an error with your configuration</strong>
+          <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
+            <ul className="short flush-bottom">
+              {errorItems}
+            </ul>
+          </div>
+        </Alert>
+      );
+    }
 
     return (
       <div className="flex flex-item-grow-1">
@@ -265,19 +283,21 @@ export default class FrameworkConfigurationForm extends Component {
                 <TabButtonList>
                   {this.getFormTabList()}
                 </TabButtonList>
-                <SchemaForm
-                  className="menu-tabbed-view-container"
-                  schema={schema}
-                  formData={formData}
-                  onChange={this.handleFormChange.bind(this)}
-                  uiSchema={this.getUiSchema()}
-                  fields={{ SchemaField, TitleField }}
-                  liveValidate={true}
-                  validate={this.validate.bind(this)}
-                  showErrorList={false}
-                >
-                  <div />
-                </SchemaForm>
+                <div className="menu-tabbed-view-container">
+                  {errorsAlert}
+                  <SchemaForm
+                    schema={schema}
+                    formData={formData}
+                    onChange={this.handleFormChange.bind(this)}
+                    uiSchema={this.getUiSchema()}
+                    fields={{ SchemaField, TitleField }}
+                    liveValidate={true}
+                    validate={this.validate.bind(this)}
+                    showErrorList={false}
+                  >
+                    <div />
+                  </SchemaForm>
+                </div>
               </Tabs>
             </div>
           </div>
