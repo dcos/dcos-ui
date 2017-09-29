@@ -2,9 +2,9 @@ FROM mesosphere/dcos-system-test-driver:latest
 
 # Specify the component versions to use
 ENV CYPRESS_VERSION="0.19.1" \
-    NODE_VERSION="4.4.7" \
-    NPM_VERSION="3.9" \
-    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+  NODE_VERSION="4.4.7" \
+  NPM_VERSION="3.9" \
+  JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Expose the 4200 port
 EXPOSE 4200
@@ -40,6 +40,11 @@ RUN set -x \
 
   # Install cypress
   && cypress install --cypress-version ${CYPRESS_VERSION} \
+
+  # Install dcos-launch
+  && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74 \
+  && pip install git+git://github.com/dcos/dcos-launch.git@4a2515f4819f0a7efc051eb5ad2c5ceb34da5975 \
+  && chmod +x /usr/local/bin/dcos-launch \
 
   # Ensure entrypoint is executable
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \

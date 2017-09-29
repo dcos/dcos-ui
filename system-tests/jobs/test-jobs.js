@@ -134,7 +134,9 @@ describe("Jobs", function() {
           disk: 0,
           cmd: cmdline,
           docker: {
-            image: "python:3"
+            image: "python:3",
+            privileged: false,
+            parameters: []
           }
         },
         schedules: []

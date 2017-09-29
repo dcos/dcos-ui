@@ -3,13 +3,6 @@
 # This is a configuration script to the system-test-driver that runs the
 # integration tests against a newly provisioned DC/OS Open Cluster.
 #
-
-# Ensure CCM_AUTH_TOKEN is specified
-if [ -z "$CCM_AUTH_TOKEN" ]; then
-  echo "Error: Please specify the CCM_AUTH_TOKEN environment variable"
-  exit 1
-fi
-
 cat <<EOF
 criteria: []
 suites:
@@ -20,18 +13,18 @@ targets:
     title: Open Version
     features: []
 
-    type: ccm
-    config:
-      template: single-master.cloudformation.json
+    type: script
 
     env:
       PROXIED_CLUSTER_URL: http://127.0.0.1:4201
+      INSTALLER_URL: "${INSTALLER_URL}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       PATH: "/usr/local/bin:$PATH"
 
     scripts:
+      create: ../_scripts/launch-cluster.sh
       proxy: http-server --proxy-secure=false -p 4201 -P \$CLUSTER_URL ../../dist
       auth: ../_scripts/auth-open.py
-
-secrets:
-  ccm_auth_token: $CCM_AUTH_TOKEN
+      teardown: ../_scripts/delete-cluster.sh
 EOF
