@@ -1,0 +1,15 @@
+{
+  "downgradesTo": [],
+  "package": {
+    "packagingVersion": "2.0",
+    "name": "marathon",
+    "version": "0.11.1"
+  },
+  "resolvedOptions": {
+    "name": "marathon-1"
+  },
+  "upgradesTo": [],
+  "userProvidedOptions": {
+    "name": "marathon-1"
+  }
+}
