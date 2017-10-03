@@ -18,11 +18,6 @@
       }
     }
   }
-
-  // Add top-padding equivalent to a label
-  .form-group-without-top-label {
-    //padding-top: @body-line-height + @label-margin-bottom;
-  }
 }
 
 & when (@form-row-enabled) and (@layout-screen-small-enabled) {
@@ -50,10 +45,6 @@
         margin-top: @form-row-margin-top-screen-medium;
       }
     }
-
-    .form-group-without-top-label {
-      //padding-top: @label-line-height + @label-margin-bottom-screen-medium;
-    }
   }
 }
 
@@ -67,10 +58,6 @@
       & + .form-row {
         margin-top: @form-row-margin-top-screen-large;
       }
-    }
-
-    .form-group-without-top-label {
-      //padding-top: @label-line-height + @label-margin-bottom-screen-large;
     }
   }
 }
