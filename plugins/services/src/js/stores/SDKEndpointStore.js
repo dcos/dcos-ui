@@ -19,8 +19,6 @@ class SDKEndpointStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 
-    const self = this;
-
     this.getSet_data = {
       services: {}
     };
@@ -31,7 +29,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(function(payload) {
+    this.dispatcherIndex = AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }
@@ -39,16 +37,16 @@ class SDKEndpointStore extends GetSetBaseStore {
       const { type, data } = payload.action;
       switch (type) {
         case REQUEST_SDK_ENDPOINTS_SUCCESS:
-          self.processEndpoints(data.serviceId, data.endpoints);
+          this.processEndpoints(data.serviceId, data.endpoints);
           break;
         case REQUEST_SDK_ENDPOINTS_ERROR:
-          self.setService(data.serviceId, {
+          this.setService(data.serviceId, {
             endpoints: [],
             error: data.error.description
           });
           break;
         case REQUEST_SDK_ENDPOINT_SUCCESS:
-          self.processEndpoint(
+          this.processEndpoint(
             data.serviceId,
             data.endpointName,
             data.endpointData,
@@ -56,7 +54,7 @@ class SDKEndpointStore extends GetSetBaseStore {
           );
           break;
         case REQUEST_SDK_ENDPOINT_ERROR:
-          self.setService(data.serviceId, {
+          this.setService(data.serviceId, {
             endpoints: [],
             error: data.error
           });
@@ -136,14 +134,6 @@ class SDKEndpointStore extends GetSetBaseStore {
       endpoints: service.endpoints,
       error: ""
     });
-  }
-
-  addChangeListener(eventName, callback) {
-    this.on(eventName, callback);
-  }
-
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
   }
 
   get storeID() {
