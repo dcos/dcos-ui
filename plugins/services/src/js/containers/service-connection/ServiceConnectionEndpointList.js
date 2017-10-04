@@ -64,7 +64,7 @@ class ServiceConnectionEndpointList extends React.Component {
 
   getProtocolValue(portDefinition) {
     let protocol = portDefinition.protocol || "";
-    if (protocol instanceof Array) {
+    if (Array.isArray(protocol)) {
       protocol = protocol.join(", ");
     }
     protocol = protocol.replace(/,\s*/g, ", ");
