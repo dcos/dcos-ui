@@ -164,7 +164,7 @@ class ServiceDestroyModal extends React.Component {
 
   getGroupHeader() {
     if (!this.isGroupWithServices()) {
-      return;
+      return null;
     }
 
     return (
@@ -186,9 +186,54 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
-  getDestroyServiceModal() {
-    const { open, service } = this.props;
+  getServiceDeleteForm() {
+    const { service } = this.props;
     const serviceName = service.getName();
+    const serviceLabel = this.getServiceLabel();
+
+    if (
+      this.isGroupWithServices() &&
+      !this.state.forceDeleteGroupWithServices
+    ) {
+      return null;
+    }
+
+    return (
+      <div className="modal-service-delete-center">
+        <p>
+          This action
+          {" "}
+          <strong>CANNOT</strong>
+          {" "}
+          be undone. This will permanently delete the
+          {" "}
+          <strong>{serviceName}</strong>
+          {" "}
+          {serviceLabel.toLowerCase()}
+          {this.state.forceDeleteGroupWithServices &&
+            <span>and any services in the group</span>}
+          .
+        </p>
+        <p>
+          Type ("
+          <strong>{serviceName}</strong>
+          ") below to confirm you want to delete the
+          {" "}
+          {serviceLabel.toLowerCase()}.
+        </p>
+        <input
+          className="form-control filter-input-text"
+          onChange={this.handleChangeInputFieldDestroy}
+          type="text"
+          value={this.state.serviceNameConfirmationValue}
+          autoFocus
+        />
+      </div>
+    );
+  }
+
+  getDestroyServiceModal() {
+    const { open } = this.props;
     const serviceLabel = this.getServiceLabel();
     const itemText = `${StringUtil.capitalize(UserActions.DELETE)} ${serviceLabel}`;
 
@@ -206,38 +251,7 @@ class ServiceDestroyModal extends React.Component {
         showHeader={true}
       >
         {this.getGroupHeader()}
-        {(!this.isGroupWithServices() ||
-          this.state.forceDeleteGroupWithServices) &&
-          <div className="modal-service-delete-center">
-            <p>
-              This action
-              {" "}
-              <strong>CANNOT</strong>
-              {" "}
-              be undone. This will permanently delete the
-              {" "}
-              <strong>{serviceName}</strong>
-              {" "}
-              {serviceLabel.toLowerCase()}
-              {this.state.forceDeleteGroupWithServices &&
-                <span>and any services in the group</span>}
-              .
-            </p>
-            <p>
-              Type ("
-              <strong>{serviceName}</strong>
-              ") below to confirm you want to delete the
-              {" "}
-              {serviceLabel.toLowerCase()}.
-            </p>
-            <input
-              className="form-control filter-input-text"
-              onChange={this.handleChangeInputFieldDestroy}
-              type="text"
-              value={this.state.serviceNameConfirmationValue}
-              autoFocus
-            />
-          </div>}
+        {this.getServiceDeleteForm()}
         {this.getErrorMessage()}
       </Confirm>
     );
