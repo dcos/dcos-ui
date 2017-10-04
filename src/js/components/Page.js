@@ -14,7 +14,8 @@ const PageHeader = ({
   addButton,
   breadcrumbs,
   supplementalContent,
-  tabs
+  tabs,
+  disabledActions
 }) => {
   return (
     <BasePageHeader
@@ -23,6 +24,7 @@ const PageHeader = ({
       breadcrumbs={breadcrumbs}
       supplementalContent={supplementalContent}
       tabs={tabs}
+      disabledActions={disabledActions}
     />
   );
 };
@@ -35,7 +37,8 @@ TemplateUtil.defineChildren(PageHeader, {
 
 PageHeader.defaultProps = {
   actions: [],
-  tabs: []
+  tabs: [],
+  disabledActions: false
 };
 
 PageHeader.propTypes = {
@@ -46,7 +49,8 @@ PageHeader.propTypes = {
   ]),
   breadcrumbs: React.PropTypes.node,
   supplementalContent: React.PropTypes.node,
-  tabs: React.PropTypes.array
+  tabs: React.PropTypes.array,
+  disabledActions: React.PropTypes.bool
 };
 
 var Page = React.createClass({

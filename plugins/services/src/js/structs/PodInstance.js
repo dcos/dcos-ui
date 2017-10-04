@@ -149,4 +149,10 @@ module.exports = class PodInstance extends Item {
   isTerminating() {
     return this.getStatus() === PodInstanceState.TERMINAL;
   }
+
+  isDeleting() {
+    const env = this.get("env");
+
+    return env && env.SDK_UNINSTALL;
+  }
 };
