@@ -15,6 +15,9 @@ import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
+import Service from "../../structs/Service";
+import Pod from "../../structs/Pod";
+
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
 import { EDIT } from "../../constants/ServiceActionItem";
@@ -272,5 +275,12 @@ class SDKServiceConnectionEndpointList extends React.Component {
     );
   }
 }
+
+SDKServiceConnectionEndpointList.propTypes = {
+  service: React.PropTypes.oneOfType([
+    React.PropTypes.instanceOf(Pod),
+    React.PropTypes.instanceOf(Service)
+  ])
+};
 
 module.exports = SDKServiceConnectionEndpointList;
