@@ -2,7 +2,7 @@ import CosmosPackagesActions from "#SRC/js/events/CosmosPackagesActions";
 import MarathonActions from "./MarathonActions";
 import Framework from "../structs/Framework";
 
-const ServiceDeleteActions = {
+const ServiceActions = {
   deleteGroup(group, force) {
     const groupId = group.getId();
     MarathonActions.deleteGroup(groupId, force);
@@ -20,4 +20,4 @@ const ServiceDeleteActions = {
   }
 };
 
-module.exports = ServiceDeleteActions;
+module.exports = ServiceActions;

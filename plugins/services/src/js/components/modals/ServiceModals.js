@@ -62,9 +62,7 @@ class ServiceModals extends React.Component {
     let key = ActionKeys.SERVICE_DELETE;
 
     if (isGroup) {
-      const groupFrameworks = "getFrameworks" in service
-        ? service.getFrameworks()
-        : [];
+      const groupFrameworks = service.getFrameworks();
 
       if (groupFrameworks.length > 0) {
         return this.getDisabledGroupDestroyModal();

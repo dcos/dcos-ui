@@ -997,4 +997,41 @@ describe("ServiceTree", function() {
       expect(labels).toEqual([]);
     });
   });
+
+  describe("#getListCount", function() {
+    it("returns the correct count of list items", function() {
+      this.instance = new ServiceTree({
+        id: "/group",
+        items: [
+          {
+            id: "group/test",
+            items: []
+          },
+          {
+            id: "/group/alpha"
+          },
+          {
+            id: "/group/beta",
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
+            }
+          },
+          {
+            id: "/group/gamma",
+            labels: {
+              RANDOM_LABEL: "random"
+            }
+          },
+          new Application({ id: "a" }),
+          new Framework({ id: "b" })
+        ]
+      });
+      expect(this.instance.getListCount()).toEqual(6);
+    });
+
+    it("returns 0 for ServiceTree with no list items", function() {
+      this.instance = new ServiceTree();
+      expect(this.instance.getListCount()).toEqual(0);
+    });
+  });
 });

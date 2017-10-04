@@ -20,7 +20,7 @@ import {
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
-import ServiceDeleteActions from "../../events/ServiceDeleteActions";
+import ServiceActions from "../../events/ServiceActions";
 import Pod from "../../structs/Pod";
 import PodDetail from "../pod-detail/PodDetail";
 import Service from "../../structs/Service";
@@ -215,7 +215,7 @@ class ServicesContainer extends React.Component {
   deleteGroup() {
     this.setPendingAction(ActionKeys.GROUP_DELETE);
 
-    return ServiceDeleteActions.deleteGroup(...arguments);
+    return ServiceActions.deleteGroup(...arguments);
   }
 
   editGroup() {
@@ -227,7 +227,7 @@ class ServicesContainer extends React.Component {
   deleteService() {
     this.setPendingAction(ActionKeys.SERVICE_DELETE);
 
-    return ServiceDeleteActions.deleteService(...arguments);
+    return ServiceActions.deleteService(...arguments);
   }
 
   editService() {

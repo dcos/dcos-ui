@@ -767,7 +767,6 @@ describe("CosmosPackagesActions", function() {
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
         expect(action.packageName).toEqual("foo");
-        expect(action.packageVersion).toEqual("bar");
       });
 
       this.configuration.success({ bar: "baz" });

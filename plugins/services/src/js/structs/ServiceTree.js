@@ -429,4 +429,12 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
+
+  getListCount() {
+    if (!this.list || !Array.isArray(this.list)) {
+      return 0;
+    }
+
+    return this.list.length;
+  }
 };

@@ -2,10 +2,10 @@ const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const CosmosActionTypes = require("#SRC/js/constants/ActionTypes");
 const ActionTypes = require("../../constants/ActionTypes");
-const ServiceDeleteActions = require("../ServiceDeleteActions");
+const ServiceActions = require("../ServiceActions");
 const Framework = require("../../structs/Framework");
 
-describe("ServiceDeleteActions", function() {
+describe("ServiceActions", function() {
   describe("#deleteGroup", function() {
     const groupDefinition = {
       id: "/test",
@@ -17,7 +17,7 @@ describe("ServiceDeleteActions", function() {
     context("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
-        ServiceDeleteActions.deleteGroup(groupDefinition, false);
+        ServiceActions.deleteGroup(groupDefinition, false);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", function() {
@@ -59,7 +59,7 @@ describe("ServiceDeleteActions", function() {
     context("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
-        ServiceDeleteActions.deleteService(serviceDefinition);
+        ServiceActions.deleteService(serviceDefinition);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", function() {
@@ -104,7 +104,7 @@ describe("ServiceDeleteActions", function() {
       context("#RequestUtil", function() {
         beforeEach(function() {
           spyOn(RequestUtil, "json");
-          ServiceDeleteActions.deleteService(frameworkDefinition);
+          ServiceActions.deleteService(frameworkDefinition);
           this.configuration = RequestUtil.json.calls.mostRecent().args[0];
         });
 
