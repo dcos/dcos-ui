@@ -7,7 +7,6 @@ import Framework from "../structs/Framework";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
-import ServiceTree from "../structs/ServiceTree";
 
 const getFindPropertiesRecursive = function(service, item) {
   return Object.keys(item).reduce(function(memo, subItem) {
@@ -157,14 +156,6 @@ const ServiceUtil = {
     const labels = service.getLabels();
 
     return labels.DCOS_COMMONS_API_VERSION != null;
-  },
-
-  isGroupWithServices(service) {
-    if (service instanceof ServiceTree && service.getListCount() > 0) {
-      return true;
-    }
-
-    return false;
   }
 };
 

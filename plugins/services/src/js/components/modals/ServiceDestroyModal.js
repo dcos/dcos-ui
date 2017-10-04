@@ -13,6 +13,7 @@ import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
+import ServiceTreeUtil from "../../utils/ServiceTreeUtil";
 
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;
@@ -38,12 +39,6 @@ class ServiceDestroyModal extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  isGroupWithServices() {
-    const { service } = this.props;
-
-    return service instanceof ServiceTree && service.list.length > 0;
   }
 
   componentWillUpdate(nextProps) {
@@ -163,7 +158,9 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getGroupHeader() {
-    if (!this.isGroupWithServices()) {
+    const { service } = this.props;
+
+    if (!ServiceTreeUtil.isGroupWithServices(service)) {
       return null;
     }
 
@@ -192,7 +189,7 @@ class ServiceDestroyModal extends React.Component {
     const serviceLabel = this.getServiceLabel();
 
     if (
-      this.isGroupWithServices() &&
+      ServiceTreeUtil.isGroupWithServices(service) &&
       !this.state.forceDeleteGroupWithServices
     ) {
       return null;

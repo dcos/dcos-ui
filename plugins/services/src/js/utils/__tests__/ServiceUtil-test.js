@@ -3,7 +3,6 @@ const ApplicationSpec = require("../../structs/ApplicationSpec");
 const Framework = require("../../structs/Framework");
 const Pod = require("../../structs/Pod");
 const ServiceUtil = require("../ServiceUtil");
-const ServiceTree = require("../../structs/ServiceTree");
 
 describe("ServiceUtil", function() {
   describe("#createServiceFromResponse", function() {
@@ -227,33 +226,6 @@ describe("ServiceUtil", function() {
 
     it("returns empty string if id is undefined", function() {
       expect(ServiceUtil.getServiceIDFromTaskID()).toEqual("");
-    });
-  });
-
-  describe("#isGroupWithServices", function() {
-    it("returns false if the service is not a group", function() {
-      const service = new Framework({ id: "a" });
-      expect(ServiceUtil.isGroupWithServices(service)).toEqual(false);
-    });
-    it("returns true if is is a group with services", function() {
-      const service = new ServiceTree({
-        id: "/group",
-        items: [
-          {
-            id: "group/test",
-            items: []
-          },
-          new Application({ id: "a" }),
-          new Framework({ id: "b" })
-        ]
-      });
-      expect(ServiceUtil.isGroupWithServices(service)).toEqual(true);
-    });
-    it("returns false if is is an empty group", function() {
-      const service = new ServiceTree({
-        id: "/group"
-      });
-      expect(ServiceUtil.isGroupWithServices(service)).toEqual(false);
     });
   });
 });
