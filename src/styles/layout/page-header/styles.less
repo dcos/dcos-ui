@@ -43,6 +43,10 @@
         display: none;
       }
     }
+
+    .page-header-actions-inner {
+      display: flex;
+    }
   }
 }
 
@@ -103,6 +107,13 @@
   @media (min-width: @layout-screen-large-min-width) {
 
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
+
+      .sidebar-docked {
+
+        .page-header-sidebar-toggle {
+          display: none;
+        }
+      }
 
       .page-header {
 

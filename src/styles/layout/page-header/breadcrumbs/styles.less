@@ -1,33 +1,31 @@
-& when (@page-header-enabled) {
+& when (@page-header-breadcrumbs-enabled) {
 
   .breadcrumbs {
     align-items: center;
-    color: @page-header-breadcrumbs-color;
     display: flex;
     flex: 1 1 auto;
-    font-size: @page-header-breadcrumbs-font-size;
-    font-weight: @page-header-breadcrumbs-font-weight;
     list-style: none;
     margin-bottom: 0;
     min-width: 0;
 
     a {
-      color: @page-header-breadcrumbs-link-color;
       text-decoration: none;
 
       &:focus,
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
   }
 
   .breadcrumb {
-    // Hide all breadcrumbs on mobile devices, except the first last.
+    .element-text-size(page-header-breadcrumb, null);
+    .element-text-style(page-header-breadcrumb);
+    .property-variant(page-header-breadcrumb, height, null, null);
+    .property-variant(page-header-breadcrumb, margin-right, spacing-horizontal, null, null);
+    align-items: center;
     display: none;
     flex: 0 1 auto;
-    line-height: normal;
-    margin: 0 @page-header-breadcrumbs-margin-right 0 0;
     overflow: hidden;
     padding: 0;
     white-space: nowrap;
@@ -49,7 +47,6 @@
 
     &:last-child {
       margin-right: 0;
-      min-width: 0;
     }
 
     &--is-caret,
@@ -58,9 +55,9 @@
     }
 
     &--force-ellipsis {
-      min-width: 1.2rem;
+      //min-width: 1.2rem;
       position: relative;
-      width: 1.2rem;
+      //width: 1.2rem;
 
       .breadcrumb {
         margin-right: 0;
@@ -94,10 +91,9 @@
     }
 
     &__content {
+      .property-variant(page-header-breadcrumb-content, margin-right, spacing-horizontal, null, null);
       display: block;
       flex: 0 0 auto;
-      margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal;
-      min-width: 1.2rem;
 
       &:last-child {
         margin-right: 0;
@@ -115,28 +111,35 @@
       }
 
       &--has-status-bar {
-        color: @page-header-breadcrumbs-muted-color;
         display: flex;
         flex: 1 1 auto;
-        font-weight: @page-header-breadcrumbs-muted-font-weight;
         min-width: 0;
+
+        .tooltip-wrapper {
+          align-items: center;
+          display: flex;
+          flex: 0 1 60px;
+          width: 60px;
+        }
+
+        .status-bar {
+          flex: 1 1 auto;
+          height: 4px;
+          vertical-align: middle;
+          width: auto;
+        }
       }
     }
 
-    .emphasis {
-      color: @page-header-breadcrumbs-emphasis-color;
-      font-weight: @page-header-breadcrumbs-emphasis-font-weight;
-    }
+    a {
+      .element-text-style(page-header-breadcrumb-link);
 
-    &.inverse {
-      color: @page-header-breadcrumbs-inverse-color;
-
-      .emphasis {
-        color: @page-header-breadcrumbs-inverse-emphasis-color;
+      &:hover {
+        .element-text-style(page-header-breadcrumb-link-hover);
       }
 
-      .muted {
-        color: @page-header-breadcrumbs-inverse-muted-color;
+      &:focus {
+        .element-text-style(page-header-breadcrumb-link-hover);
       }
     }
   }
@@ -149,11 +152,13 @@
     & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
 
       .breadcrumb {
-        margin-right: @page-header-breadcrumbs-margin-right-screen-small;
+        .element-text-size(page-header-breadcrumb, screen-small);
+        .property-variant(page-header-breadcrumb, height, null, screen-small);
+        .property-variant(page-header-breadcrumb, margin-right, spacing-horizontal, null, screen-small);
 
         .push-right,
         &__content {
-          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-small;
+          .property-variant(page-header-breadcrumb-content, margin-right, spacing-horizontal, null, screen-small);
         }
       }
     }
@@ -186,8 +191,14 @@
       }
 
       .breadcrumb {
+        .element-text-size(page-header-breadcrumb, screen-medium);
+        .property-variant(page-header-breadcrumb, height, null, screen-medium);
+        .property-variant(page-header-breadcrumb, margin-right, spacing-horizontal, null, screen-medium);
         display: flex;
-        margin-right: @page-header-breadcrumbs-margin-right-screen-medium;
+
+        &__content {
+          .property-variant(page-header-breadcrumb-content, margin-right, spacing-horizontal, null, screen-medium);
+        }
 
         &:first-child {
 
@@ -215,11 +226,13 @@
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
 
       .breadcrumb {
-        margin-right: @page-header-breadcrumbs-margin-right-screen-large;
+        .element-text-size(page-header-breadcrumb, screen-large);
+        .property-variant(page-header-breadcrumb, height, null, screen-large);
+        .property-variant(page-header-breadcrumb, margin-right, spacing-horizontal, null, screen-large);
 
         .push-right,
         &__content {
-          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-large;
+          .property-variant(page-header-breadcrumb-content, margin-right, spacing-horizontal, null, screen-large);
         }
       }
     }
@@ -233,11 +246,13 @@
     & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
 
       .breadcrumb {
-        margin-right: @page-header-breadcrumbs-margin-right-screen-jumbo;
+        .element-text-size(page-header-breadcrumb, screen-jumbo);
+        .property-variant(page-header-breadcrumb, height, null, screen-jumbo);
+        .property-variant(page-header-breadcrumb, margin-right, spacing-horizontal, null, screen-jumbo);
 
         .push-right,
         &__content {
-          margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-jumbo;
+          .property-variant(page-header-breadcrumb-content, margin-right, spacing-horizontal, null, screen-jumbo);
         }
       }
     }

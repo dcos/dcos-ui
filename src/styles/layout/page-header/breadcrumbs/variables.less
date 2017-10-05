@@ -1,127 +1,108 @@
-@page-header-breadcrumbs-color: color-lighten(@neutral, 0);
-@page-header-breadcrumbs-font-weight: 500;
-
-@page-header-breadcrumbs-emphasis-color: color-lighten(@neutral, -20);
-@page-header-breadcrumbs-emphasis-font-weight: 800;
-
-@page-header-breadcrumbs-muted-color: color-lighten(@neutral, 60);
-@page-header-breadcrumbs-muted-font-weight: 300;
-
-@page-header-breadcrumbs-inverse-color: color-lighten(@neutral, 100);
-
-@page-header-breadcrumbs-inverse-emphasis-color: color-lighten(@neutral, 100);
-
-@page-header-breadcrumbs-inverse-muted-color: color-lighten(@neutral, 40);
-
-@page-header-breadcrumbs-font-size: 1.45rem;
-
-@page-header-breadcrumbs-line-height: @page-header-breadcrumbs-font-size * 1.1;
-
-@page-header-breadcrumbs-margin-top: 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-medium: 1.1 * 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-large: 1.2 * 1.7rem;
-
-@page-header-breadcrumbs-margin-bottom: 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-medium: 1.1 * 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-large: 1.2 * 1.3rem;
-
-@page-header-breadcrumbs-short-margin-top-scale: 0.5;
-@page-header-breadcrumbs-short-margin-bottom-scale: 0.5;
-
-@page-header-breadcrumbs-tall-margin-top-scale: 2;
-@page-header-breadcrumbs-tall-margin-bottom-scale: 2;
-
-@page-header-breadcrumbs-link-color: color-lighten(@neutral, 0);
-
-@page-header-breadcrumb-status-bar-height: 4px;
-@page-header-breadcrumb-status-bar-width: 60px;
-@page-header-breadcrumb-status-bar-min-width: 30px;
-
-@page-header-breadcrumb-content-supplemental-margin-horizontal: @base-spacing-unit * 1/4;
-@page-header-breadcrumb-content-supplemental-margin-horizontal-screen-small: @base-spacing-unit-screen-small * 1/4;
-@page-header-breadcrumb-content-supplemental-margin-horizontal-screen-medium: @base-spacing-unit-screen-medium * 1/4;
-@page-header-breadcrumb-content-supplemental-margin-horizontal-screen-large: @base-spacing-unit-screen-large * 1/4;
-@page-header-breadcrumb-content-supplemental-margin-horizontal-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/4;
+@page-header-breadcrumbs-enabled: @page-header-enabled;
 
 /*
- * Page Header Breadcrumbs
+ * Responsive Scaling
  */
 
-// Layout
-
-@page-header-breadcrumbs-margin-right: @base-spacing-unit * 0.25;
-@page-header-breadcrumbs-margin-right-screen-small: @base-spacing-unit-screen-small * 0.25;
-@page-header-breadcrumbs-margin-right-screen-medium: @base-spacing-unit-screen-medium * 0.25;
-@page-header-breadcrumbs-margin-right-screen-large: @base-spacing-unit-screen-large * 0.25;
-@page-header-breadcrumbs-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 0.25;
+@page-header-breadcrumbs-screen-small-enabled: @layout-screen-small-enabled;
+@page-header-breadcrumbs-screen-medium-enabled: @layout-screen-medium-enabled;
+@page-header-breadcrumbs-screen-large-enabled: @layout-screen-large-enabled;
+@page-header-breadcrumbs-screen-jumbo-enabled: @layout-screen-jumbo-enabled;
 
 /*
- * Page Header Breadcrumb
+ * Breadcrumb
  */
 
-// Text Styling
+/* Styling */
 
-/* Normal */
+@page-header-breadcrumb-color: @grey-dark;
+@page-header-breadcrumb-font-family: null;
+@page-header-breadcrumb-font-style: null;
+@page-header-breadcrumb-font-weight: 400;
+@page-header-breadcrumb-text-transform: null;
+@page-header-breadcrumb-text-shadow: null;
+@page-header-breadcrumb-text-decoration: null;
+@page-header-breadcrumb-text-rendering: null;
 
-@page-header-breadcrumbs-color: color-lighten(@neutral, 0);
-@page-header-breadcrumbs-font-weight: 400;
+/* Text Size */
 
-/* Emphasis (.emphasis) */
+// Font Size
 
-@page-header-breadcrumbs-emphasis-color: color-lighten(@neutral, -20);
-@page-header-breadcrumbs-emphasis-font-weight: 800;
+@page-header-breadcrumb-font-size: 18px;
+@page-header-breadcrumb-font-size-screen-small: null;
+@page-header-breadcrumb-font-size-screen-medium: null;
+@page-header-breadcrumb-font-size-screen-large: null;
+@page-header-breadcrumb-font-size-screen-jumbo: null;
 
-/* Muted (.muted) */
+// Line Height
 
-@page-header-breadcrumbs-muted-color: color-lighten(@neutral, 60);
-@page-header-breadcrumbs-muted-font-weight: 300;
+@page-header-breadcrumb-line-height: 24px;
+@page-header-breadcrumb-line-height-screen-small: null;
+@page-header-breadcrumb-line-height-screen-medium: null;
+@page-header-breadcrumb-line-height-screen-large: null;
+@page-header-breadcrumb-line-height-screen-jumbo: null;
 
-/* Inverse (.inverse) */
+/* Layout */
 
-@page-header-breadcrumbs-inverse-color: color-lighten(@neutral, 100);
+// Height
 
-/* Inverse Emphasis (.inverse.emphasis) */
+@page-header-breadcrumb-height: 36px;
+@page-header-breadcrumb-height-screen-small: null;
+@page-header-breadcrumb-height-screen-medium: null;
+@page-header-breadcrumb-height-screen-large: null;
+@page-header-breadcrumb-height-screen-jumbo: null;
 
-@page-header-breadcrumbs-inverse-emphasis-color: color-lighten(@neutral, 100);
+// Horizontal Spacing
 
-/* Inverse Muted (.inverse.muted) */
+@page-header-breadcrumb-spacing-horizontal: 8px;
+@page-header-breadcrumb-spacing-horizontal-screen-small: null;
+@page-header-breadcrumb-spacing-horizontal-screen-medium: null;
+@page-header-breadcrumb-spacing-horizontal-screen-large: null;
+@page-header-breadcrumb-spacing-horizontal-screen-jumbo: null;
 
-@page-header-breadcrumbs-inverse-muted-color: color-lighten(@neutral, 40);
+// Horizontal Spacing
 
-// Text Size
+@page-header-breadcrumb-content-spacing-horizontal: 8px;
+@page-header-breadcrumb-content-spacing-horizontal-screen-small: null;
+@page-header-breadcrumb-content-spacing-horizontal-screen-medium: null;
+@page-header-breadcrumb-content-spacing-horizontal-screen-large: null;
+@page-header-breadcrumb-content-spacing-horizontal-screen-jumbo: null;
 
-/* Font Size */
+/*
+ * Breadcrumb Link
+ */
 
-@page-header-breadcrumbs-font-size: 1.45rem;
+/* Styling */
 
-/* Line Height */
+// Normal
 
-@page-header-breadcrumbs-line-height: @page-header-breadcrumbs-font-size * 1.1;
+@page-header-breadcrumb-link-color: @grey-dark;
+@page-header-breadcrumb-link-font-family: null;
+@page-header-breadcrumb-link-font-style: null;
+@page-header-breadcrumb-link-font-weight: null;
+@page-header-breadcrumb-link-text-transform: null;
+@page-header-breadcrumb-link-text-shadow: null;
+@page-header-breadcrumb-link-text-decoration: none;
+@page-header-breadcrumb-link-text-rendering: null;
 
-// Layout
+// Hover
 
-/* Margin */
+@page-header-breadcrumb-link-hover-color: @grey-dark;
+@page-header-breadcrumb-link-hover-font-family: null;
+@page-header-breadcrumb-link-hover-font-style: null;
+@page-header-breadcrumb-link-hover-font-weight: null;
+@page-header-breadcrumb-link-hover-text-transform: null;
+@page-header-breadcrumb-link-hover-text-shadow: null;
+@page-header-breadcrumb-link-hover-text-decoration: none;
+@page-header-breadcrumb-link-hover-text-rendering: null;
 
-@page-header-breadcrumbs-margin-top: 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-medium: 1.1 * 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-large: 1.2 * 1.7rem;
+// Active
 
-@page-header-breadcrumbs-margin-bottom: 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-medium: 1.1 * 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-large: 1.2 * 1.3rem;
-
-/* Layout Variants */
-
-@page-header-breadcrumbs-short-margin-top-scale: 0.5;
-@page-header-breadcrumbs-short-margin-bottom-scale: 0.5;
-
-@page-header-breadcrumbs-tall-margin-top-scale: 2;
-@page-header-breadcrumbs-tall-margin-bottom-scale: 2;
-
-@page-header-breadcrumbs-link-color: color-lighten(@neutral, 0);
-
-@page-header-breadcrumb-item-icon-container-padding-left: @icon-small-width + @base-spacing-unit * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-small: @icon-small-width + @base-spacing-unit-screen-small * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-medium: @icon-small-width + @base-spacing-unit-screen-medium * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-large: @icon-small-width + @base-spacing-unit-screen-large * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-jumbo: @icon-small-width + @base-spacing-unit-screen-jumbo * 1/4;
+@page-header-breadcrumb-link-active-color: @grey-dark;
+@page-header-breadcrumb-link-active-font-family: null;
+@page-header-breadcrumb-link-active-font-style: null;
+@page-header-breadcrumb-link-active-font-weight: null;
+@page-header-breadcrumb-link-active-text-transform: null;
+@page-header-breadcrumb-link-active-text-shadow: null;
+@page-header-breadcrumb-link-active-text-decoration: none;
+@page-header-breadcrumb-link-active-text-rendering: null;
