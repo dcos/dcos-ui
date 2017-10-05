@@ -75,6 +75,20 @@ class ServicePodConnectionEndpointList extends React.Component {
     return getDisplayValue(protocol);
   }
 
+  getHostPortValue(portDefinition) {
+    if (portDefinition.hostPort === 0) {
+      return <span>Auto Assigned</span>;
+    }
+
+    const hostPortValue = portDefinition.hostPort;
+
+    if (hostPortValue) {
+      return this.getClipboardTrigger(getDisplayValue(hostPortValue));
+    }
+
+    return getDisplayValue(hostPortValue);
+  }
+
   getPortDefinitions(endpoints) {
     return endpoints.map(portDefinition => {
       return (
@@ -87,7 +101,15 @@ class ServicePodConnectionEndpointList extends React.Component {
               Protocol
             </ConfigurationMapLabel>
             <ConfigurationMapValue>
-              {this.getProtocolValue(portDefinition)}
+              <span>{this.getProtocolValue(portDefinition)}</span>
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Host Port
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {this.getHostPortValue(portDefinition)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>

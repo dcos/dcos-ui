@@ -32,7 +32,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     this.state = {
       actionDisabledModalOpen: false,
-      copiedCommand: false
+      copiedCommand: ""
     };
 
     METHODS_TO_BIND.forEach(method => {
