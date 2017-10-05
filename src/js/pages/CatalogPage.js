@@ -10,7 +10,7 @@ class CatalogPage extends React.Component {
 
 CatalogPage.routeConfig = {
   label: "Catalog",
-  icon: <Icon id="packages-inverse" size="small" family="product" />,
+  icon: <Icon id="catalog-inverse" size="small" family="product" />,
   matches: /^\/catalog/
 };
 
