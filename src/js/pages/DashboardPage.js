@@ -49,7 +49,7 @@ const DashboardBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="graph" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="dashboard" breadcrumbs={crumbs} />;
 };
 
 var DashboardPage = React.createClass({
@@ -60,7 +60,7 @@ var DashboardPage = React.createClass({
   statics: {
     routeConfig: {
       label: "Dashboard",
-      icon: <Icon id="graph-inverse" size="small" family="product" />,
+      icon: <Icon id="dashboard-inverse" size="small" family="product" />,
       matches: /^\/dashboard/
     },
 
