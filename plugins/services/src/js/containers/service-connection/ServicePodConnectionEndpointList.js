@@ -117,7 +117,6 @@ class ServicePodConnectionEndpointList extends React.Component {
               Container
             </ConfigurationMapLabel>
             <ConfigurationMapValue>
-              <Icon id="container" size="mini" color="purple" />
               <span>{portDefinition.containerName}</span>
             </ConfigurationMapValue>
           </ConfigurationMapRow>
@@ -149,7 +148,9 @@ class ServicePodConnectionEndpointList extends React.Component {
       service.spec.containers.length > 0
     ) {
       service.spec.containers.forEach(container => {
-        const containerEndpoints = container.endpoints.slice(0);
+        const containerEndpoints = container.endpoints
+          ? container.endpoints.slice(0)
+          : [];
         containerEndpoints.forEach(containerEndpoint => {
           containerEndpoint.containerName = container.name;
         });
