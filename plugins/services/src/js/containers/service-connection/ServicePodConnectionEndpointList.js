@@ -15,12 +15,11 @@ import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import Icon from "#SRC/js/components/Icon";
 
 import Service from "../../structs/Service";
-import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal", "handleTextCopy"];
 
-class ServiceConnectionEndpointList extends React.Component {
+class ServicePodConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -76,106 +75,6 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(protocol);
   }
 
-  getHostPortValue(portDefinition) {
-    const service = this.props.service;
-
-    if (!service.requirePorts) {
-      return <span>Auto Assigned</span>;
-    }
-
-    let hostPortValue = portDefinition.hostPort;
-
-    if (!hostPortValue) {
-      hostPortValue = portDefinition.port;
-    }
-
-    if (hostPortValue) {
-      return this.getClipboardTrigger(getDisplayValue(hostPortValue));
-    }
-
-    return getDisplayValue(hostPortValue);
-  }
-
-  getLoadBalancedAddressValue(portDefinition) {
-    const { port, labels } = portDefinition;
-    const vipLabel = ServiceConfigUtil.findVIPLabel(labels);
-
-    if (vipLabel) {
-      return this.getClipboardTrigger(
-        ServiceConfigUtil.buildHostNameFromVipLabel(labels[vipLabel], port)
-      );
-    }
-
-    return <em>Not Enabled</em>;
-  }
-
-  getContainerPortValue(portDefinition) {
-    const portValue = portDefinition.containerPort;
-
-    if (portValue) {
-      return this.getClipboardTrigger(getDisplayValue(portValue));
-    }
-
-    return getDisplayValue(portValue);
-  }
-
-  getServicePortValue(portDefinition) {
-    if (portDefinition.servicePort) {
-      return this.getClipboardTrigger(
-        getDisplayValue(portDefinition.servicePort)
-      );
-    }
-
-    return getDisplayValue(portDefinition.servicePort);
-  }
-
-  getPortDefinitionDetails(portDefinition) {
-    return (
-      <div>
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Protocol
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {this.getProtocolValue(portDefinition)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Container Port
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {this.getContainerPortValue(portDefinition)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Host Port
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {this.getHostPortValue(portDefinition)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Service Port
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {this.getServicePortValue(portDefinition)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Load Balanced Address
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {this.getLoadBalancedAddressValue(portDefinition)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-      </div>
-    );
-  }
-
   getPortDefinitions(endpoints) {
     return endpoints.map(portDefinition => {
       return (
@@ -183,7 +82,23 @@ class ServiceConnectionEndpointList extends React.Component {
           <ConfigurationMapHeading>
             {portDefinition.name}
           </ConfigurationMapHeading>
-          {this.getPortDefinitionDetails(portDefinition)}
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Protocol
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              {this.getProtocolValue(portDefinition)}
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
+          <ConfigurationMapRow>
+            <ConfigurationMapLabel>
+              Container
+            </ConfigurationMapLabel>
+            <ConfigurationMapValue>
+              <Icon id="container" size="mini" color="purple" />
+              <span>{portDefinition.containerName}</span>
+            </ConfigurationMapValue>
+          </ConfigurationMapRow>
         </ConfigurationMapSection>
       );
     });
@@ -205,13 +120,6 @@ class ServiceConnectionEndpointList extends React.Component {
   render() {
     const { service } = this.props;
     let endpoints = [];
-    if (service.instances && Array.isArray(service.instances)) {
-      service.instances.forEach(instance => {
-        instance.containers.forEach(container => {
-          endpoints = endpoints.concat(container.endpoints);
-        });
-      });
-    }
 
     if (
       service.spec &&
@@ -219,16 +127,12 @@ class ServiceConnectionEndpointList extends React.Component {
       service.spec.containers.length > 0
     ) {
       service.spec.containers.forEach(container => {
-        endpoints = endpoints.concat(container.endpoints);
+        const containerEndpoints = container.endpoints.slice(0);
+        containerEndpoints.forEach(containerEndpoint => {
+          containerEndpoint.containerName = container.name;
+        });
+        endpoints = endpoints.concat(containerEndpoints);
       });
-    }
-
-    if (service.portDefinitions) {
-      endpoints = endpoints.concat(service.portDefinitions);
-    }
-
-    if (service.container && service.container.portMappings) {
-      endpoints = endpoints.concat(service.container.portMappings);
     }
 
     if (!endpoints || endpoints.length === 0) {
@@ -257,14 +161,14 @@ class ServiceConnectionEndpointList extends React.Component {
   }
 }
 
-ServiceConnectionEndpointList.propTypes = {
+ServicePodConnectionEndpointList.propTypes = {
   onEditClick: React.PropTypes.func,
   errors: React.PropTypes.array,
   service: React.PropTypes.instanceOf(Service)
 };
 
-ServiceConnectionEndpointList.contextTypes = {
+ServicePodConnectionEndpointList.contextTypes = {
   router: routerShape
 };
 
-module.exports = ServiceConnectionEndpointList;
+module.exports = ServicePodConnectionEndpointList;

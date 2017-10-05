@@ -24,11 +24,7 @@ import { EDIT } from "../../constants/ServiceActionItem";
 import ServiceActionDisabledModal
   from "../../components/modals/ServiceActionDisabledModal";
 
-const METHODS_TO_BIND = [
-  "handleOpenEditConfigurationModal",
-  "handleActionDisabledModalClose",
-  "handleTextCopy"
-];
+const METHODS_TO_BIND = ["handleOpenEditConfigurationModal", "handleTextCopy"];
 
 class SDKServiceConnectionEndpointList extends React.Component {
   constructor() {
@@ -42,20 +38,18 @@ class SDKServiceConnectionEndpointList extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+
+    this.handleOpenEditConfigurationModal.bind(this, false);
   }
 
   handleTextCopy(copiedCommand) {
     this.setState({ copiedCommand });
   }
 
-  handleOpenEditConfigurationModal() {
+  handleOpenEditConfigurationModal(actionDisabledModalOpen) {
     this.setState({
-      actionDisabledModalOpen: true
+      actionDisabledModalOpen
     });
-  }
-
-  handleActionDisabledModalClose() {
-    this.setState({ actionDisabledModalOpen: false });
   }
 
   componentDidMount() {
@@ -189,7 +183,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       <div className="button-collection flush-bottom">
         <button
           className="button"
-          onClick={this.handleOpenEditConfigurationModal}
+          onClick={this.handleOpenEditConfigurationModal(true)}
         >
           Edit Configuration
         </button>
@@ -233,7 +227,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
         <ServiceActionDisabledModal
           actionID={EDIT}
           open={actionDisabledModalOpen}
-          onClose={this.handleActionDisabledModalClose}
+          onClose={this.handleOpenEditConfigurationModal(false)}
           service={this.props.service}
         />
       );
