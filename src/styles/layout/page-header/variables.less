@@ -1,7 +1,5 @@
 @page-header-enabled: true;
 
-@page-header-border-color: color-lighten(@neutral, 80);
-
 /*
  * Responsive Scaling
  */
@@ -12,120 +10,25 @@
 @page-header-screen-jumbo-enabled: @layout-screen-jumbo-enabled;
 
 /*
- * Page Header Sidebar Toggle
+ * Page Header Section
  */
 
-// Layout
+// Padding (Horizontal)
 
-@page-header-sidebar-toggle-padding: @base-spacing-unit * 0.5;
-@page-header-sidebar-toggle-padding-screen-small: @base-spacing-unit-screen-small * 0.5;
-@page-header-sidebar-toggle-padding-screen-medium: @base-spacing-unit-screen-medium * 0.5;
-@page-header-sidebar-toggle-padding-screen-large: @base-spacing-unit-screen-large * 0.5;
-@page-header-sidebar-toggle-padding-screen-jumbo: @base-spacing-unit-screen-jumbo * 0.5;
-
-@page-header-sidebar-toggle-margin-right: @base-spacing-unit * 0.25;
-@page-header-sidebar-toggle-margin-right-screen-small: @base-spacing-unit-screen-small * 0.25;
-@page-header-sidebar-toggle-margin-right-screen-medium: @base-spacing-unit-screen-medium * 0.25;
-@page-header-sidebar-toggle-margin-right-screen-large: @base-spacing-unit-screen-large * 0.25;
-@page-header-sidebar-toggle-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 0.25;
-
-@page-header-sidebar-toggle-left: @page-header-sidebar-toggle-padding * -1;
-@page-header-sidebar-toggle-left-screen-small: @page-header-sidebar-toggle-padding-screen-small * -1;
-@page-header-sidebar-toggle-left-screen-medium: @page-header-sidebar-toggle-padding-screen-medium * -1;
-@page-header-sidebar-toggle-left-screen-large: @page-header-sidebar-toggle-padding-screen-large * -1;
-@page-header-sidebar-toggle-left-screen-jumbo: @page-header-sidebar-toggle-padding-screen-jumbo * -1;
+@page-header-section-content-padding-horizontal: 12px;
+@page-header-section-content-padding-horizontal-screen-small: null;
+@page-header-section-content-padding-horizontal-screen-medium: null;
+@page-header-section-content-padding-horizontal-screen-large: null;
+@page-header-section-content-padding-horizontal-screen-jumbo: null;
 
 /*
- * Page Header Breadcrumbs
+ * Page Header Section (Primary)
  */
 
-// Layout
+// Height
 
-@page-header-breadcrumbs-margin-right: @base-spacing-unit * 0.25;
-@page-header-breadcrumbs-margin-right-screen-small: @base-spacing-unit-screen-small * 0.25;
-@page-header-breadcrumbs-margin-right-screen-medium: @base-spacing-unit-screen-medium * 0.25;
-@page-header-breadcrumbs-margin-right-screen-large: @base-spacing-unit-screen-large * 0.25;
-@page-header-breadcrumbs-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 0.25;
-
-/*
- * Page Header Content Sections
- */
-
-// Layout
-
-@page-header-content-section-primary-padding-left: @icon-mini-width + @page-header-sidebar-toggle-padding + @page-header-sidebar-toggle-margin-right;
-@page-header-content-section-primary-padding-left-screen-small: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-small + @page-header-sidebar-toggle-margin-right-screen-small;
-@page-header-content-section-primary-padding-left-screen-medium: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-medium + @page-header-sidebar-toggle-margin-right-screen-medium;
-@page-header-content-section-primary-padding-left-screen-large: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-large + @page-header-sidebar-toggle-margin-right-screen-large;
-@page-header-content-section-primary-padding-left-screen-jumbo: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-jumbo + @page-header-sidebar-toggle-margin-right-screen-jumbo;
-
-/*
- * Page Header Breadcrumb
- */
-
-// Text Styling
-
-/* Normal */
-
-@page-header-breadcrumbs-color: color-lighten(@neutral, 0);
-@page-header-breadcrumbs-font-weight: 400;
-
-/* Emphasis (.emphasis) */
-
-@page-header-breadcrumbs-emphasis-color: color-lighten(@neutral, -20);
-@page-header-breadcrumbs-emphasis-font-weight: 800;
-
-/* Muted (.muted) */
-
-@page-header-breadcrumbs-muted-color: color-lighten(@neutral, 60);
-@page-header-breadcrumbs-muted-font-weight: 300;
-
-/* Inverse (.inverse) */
-
-@page-header-breadcrumbs-inverse-color: color-lighten(@neutral, 100);
-
-/* Inverse Emphasis (.inverse.emphasis) */
-
-@page-header-breadcrumbs-inverse-emphasis-color: color-lighten(@neutral, 100);
-
-/* Inverse Muted (.inverse.muted) */
-
-@page-header-breadcrumbs-inverse-muted-color: color-lighten(@neutral, 40);
-
-// Text Size
-
-/* Font Size */
-
-@page-header-breadcrumbs-font-size: 1.45rem;
-
-/* Line Height */
-
-@page-header-breadcrumbs-line-height: @page-header-breadcrumbs-font-size * 1.1;
-
-// Layout
-
-/* Margin */
-
-@page-header-breadcrumbs-margin-top: 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-medium: 1.1 * 1.7rem;
-@page-header-breadcrumbs-margin-top-screen-large: 1.2 * 1.7rem;
-
-@page-header-breadcrumbs-margin-bottom: 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-medium: 1.1 * 1.3rem;
-@page-header-breadcrumbs-margin-bottom-screen-large: 1.2 * 1.3rem;
-
-/* Layout Variants */
-
-@page-header-breadcrumbs-short-margin-top-scale: 0.5;
-@page-header-breadcrumbs-short-margin-bottom-scale: 0.5;
-
-@page-header-breadcrumbs-tall-margin-top-scale: 2;
-@page-header-breadcrumbs-tall-margin-bottom-scale: 2;
-
-@page-header-breadcrumbs-link-color: color-lighten(@neutral, 0);
-
-@page-header-breadcrumb-item-icon-container-padding-left: @icon-small-width + @base-spacing-unit * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-small: @icon-small-width + @base-spacing-unit-screen-small * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-medium: @icon-small-width + @base-spacing-unit-screen-medium * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-large: @icon-small-width + @base-spacing-unit-screen-large * 1/4;
-@page-header-breadcrumb-item-icon-container-padding-left-screen-jumbo: @icon-small-width + @base-spacing-unit-screen-jumbo * 1/4;
+@page-header-section-primary-height: @button-height;
+@page-header-section-primary-height-screen-small: @button-height-screen-small;
+@page-header-section-primary-height-screen-medium: @button-height-screen-medium;
+@page-header-section-primary-height-screen-large: @button-height-screen-large;
+@page-header-section-primary-height-screen-jumbo: @button-height-screen-jumbo;
