@@ -81,7 +81,7 @@ class PageHeaderActions extends React.Component {
 
   render() {
     return (
-      <div className="page-header-actions">
+      <div className="page-header-actions-inner">
         {this.renderSupplementalContent()}
         <div className="button-collection-flush-bottom">
           {this.renderAddButton()}
