@@ -103,9 +103,11 @@ module.exports = Object.assign({}, webpackConfig, {
           JSON.stringify({
             cacheDirectory: "/tmp",
             // Map through resolve to fix preset loading problem
-            presets: ["babel-preset-es2015", "babel-preset-react"].map(
-              require.resolve
-            )
+            presets: [
+              "babel-preset-es2015",
+              "babel-preset-stage-3",
+              "babel-preset-react"
+            ].map(require.resolve)
           })
       },
       {
