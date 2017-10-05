@@ -41,7 +41,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      "/services/overview/:id/tasks": "Instances",
+      "/services/overview/:id/tasks": "Tasks",
       "/services/overview/:id/configuration": "Configuration",
       "/services/overview/:id/debug": "Debug"
     };
