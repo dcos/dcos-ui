@@ -24,7 +24,7 @@ class ServicePodConnectionEndpointList extends React.Component {
     super(...arguments);
 
     this.state = {
-      copiedCommand: false
+      copiedCommand: ""
     };
 
     METHODS_TO_BIND.forEach(method => {

@@ -25,7 +25,7 @@ class ServiceConnectionEndpointList extends React.Component {
     super(...arguments);
 
     this.state = {
-      copiedCommand: false
+      copiedCommand: ""
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -68,6 +68,10 @@ class ServiceConnectionEndpointList extends React.Component {
       protocol = protocol.join(", ");
     }
     protocol = protocol.replace(/,\s*/g, ", ");
+
+    if (protocol instanceof Array) {
+      protocol = protocol.join(", ");
+    }
 
     if (protocol) {
       return this.getClipboardTrigger(getDisplayValue(protocol));
