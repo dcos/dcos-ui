@@ -429,4 +429,15 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
+<<<<<<< HEAD
+=======
+
+  getListCount() {
+    if (!this.list || !Array.isArray(this.list)) {
+      return 0;
+    }
+
+    return this.list.length;
+  }
+>>>>>>> feat(ServiceDeleteActions): remove delete status for groups
 };

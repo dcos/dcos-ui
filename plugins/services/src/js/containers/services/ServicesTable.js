@@ -317,6 +317,9 @@ class ServicesTable extends React.Component {
       )
     });
 
+    const serviceIsDeleting =
+      !(service instanceof ServiceTree) && service.isDeleting();
+
     return (
       <Tooltip content="More actions">
         <Dropdown
@@ -334,7 +337,7 @@ class ServicesTable extends React.Component {
           title="More actions"
           transition={true}
           transitionName="dropdown-menu"
-          disabled={service.isDeleting()}
+          disabled={serviceIsDeleting}
         />
       </Tooltip>
     );
@@ -343,8 +346,9 @@ class ServicesTable extends React.Component {
   renderStatus(prop, service) {
     const instancesCount = service.getInstancesCount();
     const serviceId = service.getId();
-    const serviceStatusText = !(service instanceof ServiceTree) &&
-      service.isDeleting()
+    const serviceIsDeleting =
+      !(service instanceof ServiceTree) && service.isDeleting();
+    const serviceStatusText = serviceIsDeleting
       ? "Deleting"
       : service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";

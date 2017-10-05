@@ -119,8 +119,9 @@ class ServiceBreadcrumbs extends React.Component {
       return null;
     }
 
-    const isDeleting = service.isDeleting();
-    const serviceStatus = isDeleting ? "Deleting" : service.getStatus();
+    const serviceIsDeleting =
+      !(service instanceof ServiceTree) && service.isDeleting();
+    const serviceStatus = serviceIsDeleting ? "Deleting" : service.getStatus();
     const tasksSummary = service.getTasksSummary();
     const runningTasksCount = service.getTaskCount();
     const instancesCount = service.getInstancesCount();
