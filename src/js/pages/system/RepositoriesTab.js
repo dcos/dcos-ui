@@ -28,7 +28,7 @@ const RepositoriesBreadcrumbs = addButton => {
 
   return (
     <Page.Header.Breadcrumbs
-      iconID="gear"
+      iconID="settings"
       breadcrumbs={crumbs}
       addButton={addButton}
     />
