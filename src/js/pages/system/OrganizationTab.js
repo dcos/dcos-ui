@@ -53,7 +53,7 @@ const UsersBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="organization" breadcrumbs={crumbs} />;
 };
 
 class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {

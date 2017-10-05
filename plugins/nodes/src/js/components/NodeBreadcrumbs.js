@@ -65,7 +65,7 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
     );
   }
 
-  return <PageHeaderBreadcrumbs iconID="servers" breadcrumbs={crumbs} />;
+  return <PageHeaderBreadcrumbs iconID="nodes" breadcrumbs={crumbs} />;
 };
 
 module.exports = NodeBreadcrumbs;
