@@ -1,0 +1,17 @@
+& when (@field-select-enabled) {
+
+  // be more specific than the cnvs selector which speciies 100% width
+  .form-control.form-control-select.field-select-narrow {
+    width: 50%;
+  }
+
+  & when (@layout-screen-small-enabled) {
+
+    @media (max-width: @layout-screen-small-min-width) {
+
+      .form-control.form-control-select.field-select-narrow {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -83,8 +83,8 @@ class ServicesTable extends React.Component {
         }) != null;
     }
 
-    // We still want to support the `open` action to display the web view
     if (
+      actionItem.id !== EDIT &&
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",
