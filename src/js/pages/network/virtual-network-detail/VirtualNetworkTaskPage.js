@@ -109,7 +109,11 @@ class VirtualNetworkTaskPage extends React.Component {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="networking" />
+        <Page.Header
+          breadcrumbs={breadcrumbs}
+          tabs={tabs}
+          iconID="networking"
+        />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>
