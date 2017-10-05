@@ -68,7 +68,7 @@ const NetworksDetailTaskBreadcrumbs = ({
     );
   }
 
-  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
 };
 
 class VirtualNetworkTaskPage extends React.Component {
@@ -109,7 +109,7 @@ class VirtualNetworkTaskPage extends React.Component {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="Networks" />
+        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="networking" />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

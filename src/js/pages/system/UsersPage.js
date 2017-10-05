@@ -25,7 +25,7 @@ const UsersBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="organization" breadcrumbs={crumbs} />;
 };
 
 class UsersPage extends mixin(StoreMixin) {
