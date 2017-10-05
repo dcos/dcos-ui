@@ -232,7 +232,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [
-      { label: "Instances", routePath: `${routePrefix}/tasks` },
+      { label: "Tasks", routePath: `${routePrefix}/tasks` },
       { label: "Configuration", routePath: `${routePrefix}/configuration` },
       { label: "Debug", routePath: `${routePrefix}/debug` }
     ];
