@@ -57,7 +57,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="servers" />
+        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="nodes" />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>
