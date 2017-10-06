@@ -118,7 +118,7 @@ const TabsMixin = {
 
     if (hasNotification) {
       badge = (
-        <span className="badge badge-rounded">
+        <span className="badge">
           {notificationCount}
         </span>
       );
