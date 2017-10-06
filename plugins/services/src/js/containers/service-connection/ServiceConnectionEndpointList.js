@@ -209,6 +209,7 @@ class ServiceConnectionEndpointList extends React.Component {
   render() {
     const { service } = this.props;
     let endpoints = [];
+
     if (service.instances && Array.isArray(service.instances)) {
       service.instances.forEach(instance => {
         instance.containers.forEach(container => {
