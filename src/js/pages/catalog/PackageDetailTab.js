@@ -258,7 +258,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
     const badgeCopy = isCertified ? "Certified" : "Community";
-    const badgeClasses = classNames("badge badge-large badge-rounded", {
+    const badgeClasses = classNames("badge badge-large", {
       "badge--primary": isCertified
     });
 
