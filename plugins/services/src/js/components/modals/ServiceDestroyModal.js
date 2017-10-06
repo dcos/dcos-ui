@@ -1,4 +1,4 @@
-import { Confirm, Modal } from "reactjs-components";
+import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
 import React, { PropTypes } from "react";
@@ -7,7 +7,6 @@ import { injectIntl, intlShape } from "react-intl";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
-import ClickToSelect from "#SRC/js/components/ClickToSelect";
 
 import AppLockedMessage from "./AppLockedMessage";
 import Framework from "../../structs/Framework";
@@ -20,7 +19,8 @@ const REDIRECT_DELAY = 300;
 const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
-  "handleRightButtonClick"
+  "handleRightButtonClick",
+  "handleChangeInputGroupDestroy"
 ];
 
 class ServiceDestroyModal extends React.Component {
@@ -29,7 +29,8 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: ""
+      serviceNameConfirmationValue: "",
+      forceDeleteGroupWithServices: false
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -80,7 +81,14 @@ class ServiceDestroyModal extends React.Component {
   }
 
   shouldForceUpdate() {
-    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
+    return (
+      (this.state.errorMsg && /force=true/.test(this.state.errorMsg)) ||
+      this.state.forceDeleteGroupWithServices
+    );
+  }
+
+  isGroupWithServices(service) {
+    return service instanceof ServiceTree && service.getItems().length > 0;
   }
 
   handleModalClose() {
@@ -98,6 +106,12 @@ class ServiceDestroyModal extends React.Component {
   handleChangeInputFieldDestroy(event) {
     this.setState({
       serviceNameConfirmationValue: event.target.value
+    });
+  }
+
+  handleChangeInputGroupDestroy(event) {
+    this.setState({
+      forceDeleteGroupWithServices: event.target.checked
     });
   }
 
@@ -146,57 +160,80 @@ class ServiceDestroyModal extends React.Component {
     );
   }
 
-  getDestroyFrameworkModal() {
-    const { open, service, intl } = this.props;
-    const packageName = service.getPackageName();
+  getGroupHeader() {
+    const { service } = this.props;
+
+    if (!this.isGroupWithServices(service)) {
+      return null;
+    }
 
     return (
-      <Modal
-        header={this.getModalHeading()}
-        footer={this.getCloseButton()}
-        modalClass="modal"
-        onClose={this.handleModalClose}
-        open={open}
-        showHeader={true}
-        showFooter={true}
-        subHeader={this.getSubHeader()}
-      >
+      <div className="modal-service-delete-center">
         <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK"
-          })}
-          <a
-            href="https://docs.mesosphere.com/service-docs/"
-            target="_blank"
-            title={intl.formatMessage({
-              id: "COMMON.DOCUMENTATION_TITLE"
-            })}
-          >
-            {intl.formatMessage({
-              id: "COMMON.DOCUMENTATION"
-            })}
-          </a>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.DELETE_SERVICE_FRAMEWORK_2"
-          })}
+          This group needs to be empty to delete it. Please delete any services in the group first.
         </p>
-        <div className="flush-top snippet-wrapper">
-          <ClickToSelect>
-            <pre className="prettyprint flush-bottom">
-              dcos package uninstall
-              {" "}
-              {packageName} --app-id={service.getId()}
-            </pre>
-          </ClickToSelect>
-        </div>
-        {this.getErrorMessage()}
-      </Modal>
+        <p>
+          <label className="modal-service-delete-force">
+            <input
+              type="checkbox"
+              checked={this.state.forceDeleteGroupWithServices}
+              onChange={this.handleChangeInputGroupDestroy}
+            />
+            <b>FORCE DELETE SERVICES IN GROUP</b>
+          </label>
+        </p>
+      </div>
+    );
+  }
+
+  getServiceDeleteForm() {
+    const { service } = this.props;
+    const serviceName = service.getName();
+    const serviceLabel = this.getServiceLabel();
+
+    if (
+      this.isGroupWithServices(service) &&
+      !this.state.forceDeleteGroupWithServices
+    ) {
+      return null;
+    }
+
+    return (
+      <div className="modal-service-delete-center">
+        <p>
+          This action
+          {" "}
+          <strong>CANNOT</strong>
+          {" "}
+          be undone. This will permanently delete the
+          {" "}
+          <strong>{serviceName}</strong>
+          {" "}
+          {serviceLabel.toLowerCase()}
+          {this.state.forceDeleteGroupWithServices &&
+            <span>and any services in the group</span>}
+          .
+        </p>
+        <p>
+          Type ("
+          <strong>{serviceName}</strong>
+          ") below to confirm you want to delete the
+          {" "}
+          {serviceLabel.toLowerCase()}.
+        </p>
+        <input
+          className="form-control filter-input-text"
+          onChange={this.handleChangeInputFieldDestroy}
+          type="text"
+          value={this.state.serviceNameConfirmationValue}
+          autoFocus
+        />
+      </div>
     );
   }
 
   getDestroyServiceModal() {
-    const { open, service } = this.props;
-    const serviceName = service.getName();
+    const { open } = this.props;
     const serviceLabel = this.getServiceLabel();
     const itemText = `${StringUtil.capitalize(UserActions.DELETE)} ${serviceLabel}`;
 
@@ -213,27 +250,8 @@ class ServiceDestroyModal extends React.Component {
         rightButtonCallback={this.handleRightButtonClick}
         showHeader={true}
       >
-        <p>
-          This action
-          {" "}
-          <strong>CANNOT</strong> be undone. This will permanently delete the
-          {" "}
-          <strong>{serviceName}</strong>
-          {" "}
-          {serviceLabel.toLowerCase()}.
-          Type ("
-          <strong>{serviceName}</strong>
-          ") below to confirm you want to delete the
-          {" "}
-          {serviceLabel.toLowerCase()}.
-        </p>
-        <input
-          className="form-control filter-input-text"
-          onChange={this.handleChangeInputFieldDestroy}
-          type="text"
-          value={this.state.serviceNameConfirmationValue}
-          autoFocus
-        />
+        {this.getGroupHeader()}
+        {this.getServiceDeleteForm()}
         {this.getErrorMessage()}
       </Confirm>
     );
@@ -276,12 +294,6 @@ class ServiceDestroyModal extends React.Component {
   }
 
   render() {
-    const { service } = this.props;
-
-    if (service instanceof Framework) {
-      return this.getDestroyFrameworkModal();
-    }
-
     return this.getDestroyServiceModal();
   }
 }

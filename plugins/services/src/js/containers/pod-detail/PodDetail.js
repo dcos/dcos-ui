@@ -87,6 +87,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     // We still want to support the `open` action to display the web view
     if (
+      actionID !== DELETE &&
       (containsSDKService || isSDKService(pod)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",

@@ -13,9 +13,14 @@ import Loader from "#SRC/js/components/Loader";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import {
+  REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
+  REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR
+} from "#SRC/js/constants/ActionTypes";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
+import ServiceActions from "../../events/ServiceActions";
 import Pod from "../../structs/Pod";
 import PodDetail from "../pod-detail/PodDetail";
 import Service from "../../structs/Service";
@@ -210,7 +215,7 @@ class ServicesContainer extends React.Component {
   deleteGroup() {
     this.setPendingAction(ActionKeys.GROUP_DELETE);
 
-    return MarathonActions.deleteGroup(...arguments);
+    return ServiceActions.deleteGroup(...arguments);
   }
 
   editGroup() {
@@ -222,7 +227,7 @@ class ServicesContainer extends React.Component {
   deleteService() {
     this.setPendingAction(ActionKeys.SERVICE_DELETE);
 
-    return MarathonActions.deleteService(...arguments);
+    return ServiceActions.deleteService(...arguments);
   }
 
   editService() {
@@ -299,6 +304,13 @@ class ServicesContainer extends React.Component {
         break;
       case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_RESTART);
+        break;
+
+      case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
+        this.unsetPendingAction(ActionKeys.SERVICE_DELETE);
+        break;
+      case REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR:
+        this.unsetPendingAction(ActionKeys.SERVICE_EDIT, action.data);
         break;
     }
   }
@@ -422,8 +434,15 @@ class ServicesContainer extends React.Component {
   getModals(service) {
     const modalProps = Object.assign({}, this.state.modal);
 
+    // This is needed to refresh the state of the service from the store once the
+    // modal is loaded. In our delete group modal for example we need feedback
+    // of the service while it is being deleted
     if (!modalProps.service) {
       modalProps.service = service;
+    } else {
+      modalProps.service = DCOSStore.serviceTree.findItemById(
+        modalProps.service.id
+      );
     }
 
     return (
@@ -438,7 +457,7 @@ class ServicesContainer extends React.Component {
     );
   }
 
-  getEmpyPage(itemType) {
+  getEmptyPage(itemType) {
     const { itemId } = this.state;
 
     return (
@@ -561,7 +580,7 @@ class ServicesContainer extends React.Component {
     if (currentRoutePath.startsWith("/services/overview")) {
       // Not found
       if (!(item instanceof ServiceTree)) {
-        return this.getEmpyPage("group");
+        return this.getEmptyPage("group");
       }
 
       // TODO: move modals to Page
@@ -577,7 +596,7 @@ class ServicesContainer extends React.Component {
     }
 
     // Not found
-    return this.getEmpyPage("service");
+    return this.getEmptyPage("service");
   }
 }
 

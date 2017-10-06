@@ -564,11 +564,10 @@ describe("Service Actions", function() {
         .contains("Delete Service")
         .should("to.have.length", 1);
 
-      cy
-        .get(".modal pre")
-        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
+      cy.get(".modal-body p").contains("sdk-sleep");
+      cy.get(".modal .filter-input-text").should("exist");
 
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button").contains("Cancel").click();
 
       cy.get(".modal").should("not.exist");
     });

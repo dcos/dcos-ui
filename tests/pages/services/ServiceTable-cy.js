@@ -208,15 +208,14 @@ describe("Service Table", function() {
       clickDropdownAction("Delete");
 
       cy
-        .get(".modal p span")
-        .contains("/sdk-sleep")
+        .get(".modal-header")
+        .contains("Delete Service")
         .should("to.have.length", 1);
 
-      cy
-        .get(".modal pre")
-        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
+      cy.get(".modal-body p").contains("sdk-sleep");
+      cy.get(".modal .filter-input-text").should("exist");
 
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button").contains("Cancel").click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -264,19 +263,23 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    it("opens the destroy dialog", function() {
+    it("opens the cannot delete group dialog", function() {
       openDropdown("services");
       clickDropdownAction("Delete");
 
-      cy.get(".modal p span").contains("/services").should("to.have.length", 1);
+      cy
+        .get(".modal-header")
+        .contains("Delete Group")
+        .should("to.have.length", 1);
 
       cy
-        .get(".modal pre")
-        .contains("dcos package uninstall test --app-id=/services/sdk-sleep");
+        .get(".modal-body")
+        .contains(
+          "This group needs to be empty to delete it. Please delete any services in the group first."
+        );
+      cy.get(".modal .filter-input-text").should("not.exist");
 
-      cy.get(".modal pre").contains("dcos marathon group remove /services");
-
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button").contains("OK").click();
 
       cy.get(".modal").should("not.exist");
     });

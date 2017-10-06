@@ -57,7 +57,8 @@
           },
           "labels": {
             "DCOS_COMMONS_API_VERSION": "v1",
-            "DCOS_PACKAGE_NAME": "test"
+            "DCOS_PACKAGE_NAME": "test",
+            "DCOS_PACKAGE_FRAMEWORK_NAME": "/services/sdk-sleep"
           },
           "acceptedResourceRoles": null,
           "version": "2015-08-28T01:26:14.620Z",
