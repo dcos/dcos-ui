@@ -88,11 +88,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   isGroupWithServices(service) {
-    if (service instanceof ServiceTree && service.getItems().length > 0) {
-      return true;
-    }
-
-    return false;
+    return service instanceof ServiceTree && service.getItems().length > 0;
   }
 
   handleModalClose() {
