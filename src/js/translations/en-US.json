@@ -38,16 +38,6 @@
   "SERVICE_ACTIONS.SCALE_BY": "Scale By",
   "SERVICE_ACTIONS.SUSPEND": "Suspend",
 
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_1":
-    "Copy and paste this command into the CLI",
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_2": "Then, run the",
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_3":
-    "for each service to clean up reserved resources",
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_4": "Then",
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_5": "the group",
-  "SERVICE_ACTIONS.SDK_GROUP_DELETE_6":
-    "Copy the command below into the DC/OS CLI",
-
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1": "your group by",
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2": "from the DC/OS CLI",
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3": "For",
@@ -67,8 +57,6 @@
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE":
     "updating the number of instances of each service",
 
-  "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT": "framework cleaner script",
-
   "SERVICE_ACTIONS.SDK_SERVICE_RESTART":
     "Restart your service from the DC/OS CLI.",
   "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND":
@@ -79,11 +67,6 @@
     "Update the number of instances in your service's target configuration using an `options.json` file.",
   "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE":
     "Scaling to fewer instances is not supported.",
-  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_1": "You must delete",
-  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2":
-    "via the DC/OS CLI. Copy and paste this command into the CLI. See the",
-  "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3":
-    "To clean up resources reserved by your service, run the",
   "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_1":
     "To update this service's configuration, please update",
   "SERVICE_ACTIONS.SDK_SERVICE_UPDATE_PART_2": "Run the following CLI command:",
