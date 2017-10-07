@@ -3,7 +3,8 @@ var ServiceTableHeaderLabels = {
   disk: "DISK",
   mem: "MEM",
   name: "NAME",
-  status: "STATUS"
+  status: "STATUS",
+  instances: "INSTANCES"
 };
 
 module.exports = ServiceTableHeaderLabels;
