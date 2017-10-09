@@ -10,5 +10,12 @@ if [[ -d /dcos-ui-plugins ]]; then
   npm config set externalplugins ../dcos-ui-plugins
 fi
 
-# Pass through everything else
-eval $*
+#
+# Pass through commands or run `tail -f /dev/null` to keep the container alive
+# when started in background
+#
+if [[ -n $* ]]; then
+  eval $*
+else
+  tail -f /dev/null
+fi
