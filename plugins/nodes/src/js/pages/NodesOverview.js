@@ -197,7 +197,7 @@ var NodesOverview = React.createClass({
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
-        <span className="badge badge-rounded">{count || 0}</span>
+        <span className="badge">{count || 0}</span>
       </span>
     );
   },

@@ -142,7 +142,7 @@ class TasksView extends mixin(SaveStateMixin) {
         <span className="badge-container-text">
           {StringUtil.capitalize(filterName)}
         </span>
-        <span className="badge badge-rounded">{count || 0}</span>
+        <span className="badge">{count || 0}</span>
       </span>
     );
   }
