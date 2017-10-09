@@ -9,19 +9,15 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 class EditServiceModal extends Component {
   render() {
-    const { params } = this.props;
-
-    const serviceID = decodeURIComponent(params.id || "/");
+    const { id = "/" } = this.props.params;
+    const serviceID = decodeURIComponent(id);
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    let child = null;
     if (service instanceof Framework) {
-      child = <EditFrameworkConfiguration {...this.props} />;
+      return <EditFrameworkConfiguration {...this.props} />;
     } else {
-      child = <CreateServiceModal {...this.props} />;
+      return <CreateServiceModal {...this.props} />;
     }
-
-    return child;
   }
 }
 
