@@ -394,7 +394,14 @@ class ServicesTable extends React.Component {
 
   renderInstances(prop, service) {
     const instancesCount = service.getInstancesCount();
-    const content = instancesCount < 1 ? "\u2014" : instancesCount;
+    const tasksRunning = service.getTaskCount();
+    const overview = tasksRunning === instancesCount
+      ? ` ${tasksRunning}`
+      : ` ${tasksRunning}/${instancesCount}`;
+
+    const content = instancesCount == null || service.list
+      ? "\u2014"
+      : overview;
 
     return (
       <span>
