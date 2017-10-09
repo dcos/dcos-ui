@@ -497,6 +497,7 @@ const CosmosPackagesActions = {
 
 if (Config.useFixtures) {
   const packageDescribeFixture = require("../../../tests/_fixtures/cosmos/package-describe.json");
+  const serviceDescribeFixture = require("../../../tests/_fixtures/cosmos/service-describe.json");
   const packagesListFixture = require("../../../tests/_fixtures/cosmos/packages-list.json");
   const packagesSearchFixture = require("../../../tests/_fixtures/cosmos/packages-search.json");
   const packagesRepositoriesFixture = require("../../../tests/_fixtures/cosmos/packages-repositories.json");
@@ -517,7 +518,7 @@ if (Config.useFixtures) {
     },
     fetchServiceDescription: {
       event: "success",
-      success: { response: packageDescribeFixture }
+      success: { response: serviceDescribeFixture }
     },
     fetchInstalledPackages: {
       event: "success",
@@ -527,6 +528,7 @@ if (Config.useFixtures) {
       event: "success",
       success: { response: packagesSearchFixture }
     },
+    updateService: { event: "success" },
     installPackage: { event: "success" },
     uninstallPackage: { event: "success" },
     fetchRepositories: {

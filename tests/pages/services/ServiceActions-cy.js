@@ -60,7 +60,8 @@ describe("Service Actions", function() {
     beforeEach(function() {
       cy.configureCluster({
         mesos: "1-for-each-health",
-        nodeHealth: true
+        nodeHealth: true,
+        universePackages: true
       });
 
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
@@ -77,16 +78,11 @@ describe("Service Actions", function() {
 
     it("opens the correct service edit modal", function() {
       cy
-        .get('.modal .menu-tabbed-view input[name="id"]')
-        .should("to.have.value", "/cassandra-healthy");
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "cassandra-healthy");
     });
 
     it("closes modal on successful API request", function() {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/cassandra-healthy/,
-        response: []
-      });
       cy.get(".modal .modal-header .button").contains("Review & Run").click();
       cy.get(".modal .modal-header .button").contains("Run Service").click();
       cy.get(".modal").should("to.have.length", 0);
@@ -98,14 +94,14 @@ describe("Service Actions", function() {
     });
 
     it("opens confirm after edits", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
+      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
 
       cy.get(".confirm-modal").should("to.have.length", 1);
     });
 
     it("closes both confirm and edit modal after confirmation", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
+      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
       cy.get(".confirm-modal .button").contains("Discard").click();
 
@@ -114,7 +110,7 @@ describe("Service Actions", function() {
     });
 
     it("it stays in the edit modal after cancelling confirmation", function() {
-      cy.get('.modal .menu-tabbed-view input[name="cpus"]').type("5"); // Edit the cpus field
+      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
       cy.get(".confirm-modal .button").contains("Cancel").click();
 
