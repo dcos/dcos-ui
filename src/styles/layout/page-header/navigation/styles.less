@@ -10,9 +10,14 @@
     width: 100%;
   }
 
-  .page-header-navigation-tabs {
+  .page-header-navigation-tabs,
+  .page-header-navigation-tabs.menu-tabbed {
     .element-spacing(page-header-navigation-tabs, null, null);
     display: none;
+
+    &:empty {
+      display: none;
+    }
   }
 
   .page-header-navigation-dropdown {
@@ -70,7 +75,8 @@
 
     & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-small-enabled) {
 
-      .page-header-navigation-tabs {
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
         .element-spacing(page-header-navigation-tabs, null, screen-small);
       }
 
@@ -103,7 +109,8 @@
 
     & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-medium-enabled) {
 
-      .page-header-navigation-tabs {
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
         .element-spacing(page-header-navigation-tabs, null, screen-medium);
         display: block;
       }
@@ -121,7 +128,8 @@
 
     & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-large-enabled) {
 
-      .page-header-navigation-tabs {
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
         .element-spacing(page-header-navigation-tabs, null, screen-large);
       }
     }
@@ -134,7 +142,8 @@
 
     & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-jumbo-enabled) {
 
-      .page-header-navigation-tabs {
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
         .element-spacing(page-header-navigation-tabs, null, screen-jumbo);
       }
     }
