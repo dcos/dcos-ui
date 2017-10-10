@@ -35,7 +35,7 @@ class FullScreenModalHeaderActions extends React.Component {
     const { className, type } = this.props;
 
     const classes = classNames(
-      `modal-full-screen-actions modal-full-screen-actions-${type} button-collection flush-vertical`,
+      `modal-full-screen-actions modal-full-screen-actions-${type} flush-vertical`,
       className
     );
 
