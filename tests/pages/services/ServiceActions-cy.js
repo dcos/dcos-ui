@@ -117,6 +117,48 @@ describe("Service Actions", function() {
       cy.get(".confirm-modal").should("to.have.length", 0);
       cy.get(".modal").should("to.have.length", 1);
     });
+
+    it("opens and closes the JSON mode after clicking toggle", function() {
+      cy.get(".modal .modal-header span").contains("JSON Editor").click();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel.is-visible")
+        .should("to.have.length", 1);
+
+      cy.get(".modal .modal-header span").contains("JSON Editor").click();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel.is-visible")
+        .should("to.have.length", 0);
+    });
+
+    it("shows tab error badge when error in form section", function() {
+      cy.get('.modal .menu-tabbed-container input[name="cpus"]').clear();
+
+      cy
+        .get(".modal .menu-tabbed-container .badge.badge-danger")
+        .should("to.have.length", 1);
+    });
+
+    it("shows anchored error when error in form section", function() {
+      cy.get('.modal .menu-tabbed-container input[name="cpus"]').clear();
+
+      cy
+        .get(".modal .menu-tabbed-container .form-control-feedback")
+        .contains("is not of a type(s) number")
+        .should("to.have.length", 1);
+    });
+
+    it("change JSON editor contents when form content change", function() {
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .type(`{selectall}cassandra-new-name`);
+
+      cy
+        .get(".modal .modal-full-screen-side-panel .ace_line")
+        .contains("cassandra-new-name")
+        .should("to.have.length", 1);
+    });
   });
 
   context("Destroy Action", function() {
