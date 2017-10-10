@@ -79,7 +79,7 @@ describe("Service Actions", function() {
     it("opens the correct service edit modal", function() {
       cy
         .get('.modal .menu-tabbed-container input[name="name"]')
-        .should("to.have.value", "cassandra-healthy");
+        .should("to.have.value", "elastic");
     });
 
     it("closes modal on successful API request", function() {
@@ -94,14 +94,14 @@ describe("Service Actions", function() {
     });
 
     it("opens confirm after edits", function() {
-      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
 
       cy.get(".confirm-modal").should("to.have.length", 1);
     });
 
     it("closes both confirm and edit modal after confirmation", function() {
-      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
       cy.get(".confirm-modal .button").contains("Discard").click();
 
@@ -110,7 +110,7 @@ describe("Service Actions", function() {
     });
 
     it("it stays in the edit modal after cancelling confirmation", function() {
-      cy.get('.modal .menu-tabbed-container input[name="cpus"]').type("5");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
       cy.get(".confirm-modal .button").contains("Cancel").click();
 
@@ -133,7 +133,7 @@ describe("Service Actions", function() {
     });
 
     it("shows tab error badge when error in form section", function() {
-      cy.get('.modal .menu-tabbed-container input[name="cpus"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy
         .get(".modal .menu-tabbed-container .badge.badge-danger")
@@ -141,23 +141,78 @@ describe("Service Actions", function() {
     });
 
     it("shows anchored error when error in form section", function() {
-      cy.get('.modal .menu-tabbed-container input[name="cpus"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy
         .get(".modal .menu-tabbed-container .form-control-feedback")
-        .contains("is not of a type(s) number")
+        .contains("Expecting a string here")
+        .should("to.have.length", 1);
+    });
+
+    it("shows error message in JSON when form error", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel .ace_gutter-cell.ace_error")
+        .should("to.have.length", 1);
+    });
+
+    it("disables Review & Run button when error", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .modal-header button[disabled]")
+        .contains("Review & Run")
         .should("to.have.length", 1);
     });
 
     it("change JSON editor contents when form content change", function() {
       cy
         .get('.modal .menu-tabbed-container input[name="name"]')
-        .type(`{selectall}cassandra-new-name`);
+        .type(`{selectall}elast`);
 
       cy
         .get(".modal .modal-full-screen-side-panel .ace_line")
-        .contains("cassandra-new-name")
+        .contains("elast")
         .should("to.have.length", 1);
+    });
+
+    it("shows review screen when Review & Run clicked", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy
+        .get(".modal .configuration-map-label")
+        .contains("Name")
+        .should("to.have.length", 1);
+    });
+
+    it("back button on review screen goes back to form", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy.get(".modal .modal-header button").contains("Back").click();
+
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "elastic");
+    });
+
+    it("shows edit config button on review screen that opens form", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy.get(".modal button").contains("Edit Config").click();
+
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "elastic");
+    });
+
+    it("opens form when review screen row edit button clicked", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy
+        .get(".modal .configuration-map-row:first .table-display-on-row-hover")
+        .contains("Edit")
+        .click({ force: true });
     });
   });
 
