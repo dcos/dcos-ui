@@ -55,7 +55,7 @@ class ReviewConfig extends React.Component {
           </div>
           <div className="column-8 text-align-right">
             <a
-              className="button button-small button-stroke button-rounded"
+              className="button button-primary-link"
               onClick={RouterUtil.triggerIEDownload.bind(
                 null,
                 fileName,
