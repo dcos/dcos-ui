@@ -1,0 +1,277 @@
+{
+  "queue": {
+    "count": 1,
+    "delay": {
+      "timeLeftSeconds": 0,
+      "overdue": true
+    },
+    "since": "2017-10-10T01:08:52.785Z",
+    "processedOffersSummary": {
+      "processedOffersCount": 6,
+      "unusedOffersCount": 6,
+      "lastUnusedOfferAt": "2017-10-10T01:09:02.825Z",
+      "rejectSummaryLastOffers": [
+        {
+          "reason": "UnfulfilledRole",
+          "declined": 1,
+          "processed": 2
+        },
+        {
+          "reason": "UnfulfilledConstraint",
+          "declined": 0,
+          "processed": 1
+        },
+        {
+          "reason": "NoCorrespondingReservationFound",
+          "declined": 0,
+          "processed": 1
+        },
+        {
+          "reason": "InsufficientCpus",
+          "declined": 1,
+          "processed": 1
+        },
+        {
+          "reason": "InsufficientMemory",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientDisk",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientGpus",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientPorts",
+          "declined": 0,
+          "processed": 0
+        }
+      ],
+      "rejectSummaryLaunchAttempt": [
+        {
+          "reason": "UnfulfilledRole",
+          "declined": 3,
+          "processed": 6
+        },
+        {
+          "reason": "UnfulfilledConstraint",
+          "declined": 0,
+          "processed": 3
+        },
+        {
+          "reason": "NoCorrespondingReservationFound",
+          "declined": 0,
+          "processed": 3
+        },
+        {
+          "reason": "InsufficientCpus",
+          "declined": 3,
+          "processed": 3
+        },
+        {
+          "reason": "InsufficientMemory",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientDisk",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientGpus",
+          "declined": 0,
+          "processed": 0
+        },
+        {
+          "reason": "InsufficientPorts",
+          "declined": 0,
+          "processed": 0
+        }
+      ]
+    },
+    "pod": {
+      "id": "/service-pod",
+      "version": "2017-10-10T01:08:52.729Z",
+      "containers": [
+        {
+          "name": "container-1",
+          "resources": {
+            "cpus": 0.1,
+            "mem": 128,
+            "disk": 0,
+            "gpus": 0
+          },
+          "endpoints": [
+            {
+              "name": "http",
+              "hostPort": 8082,
+              "protocol": ["tcp"]
+            }
+          ]
+        },
+        {
+          "name": "container-2",
+          "resources": {
+            "cpus": 0.1,
+            "mem": 128,
+            "disk": 0,
+            "gpus": 0
+          },
+          "endpoints": [
+            {
+              "name": "http2",
+              "hostPort": 8080,
+              "protocol": ["tcp"]
+            }
+          ]
+        }
+      ],
+      "networks": [
+        {
+          "mode": "host"
+        }
+      ],
+      "scaling": {
+        "kind": "fixed",
+        "instances": 1
+      },
+      "scheduling": {
+        "backoff": {
+          "backoff": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelay": 3600
+        },
+        "upgrade": {
+          "minimumHealthCapacity": 1,
+          "maximumOverCapacity": 1
+        },
+        "killSelection": "YOUNGEST_FIRST",
+        "unreachableStrategy": {
+          "inactiveAfterSeconds": 300,
+          "expungeAfterSeconds": 600
+        }
+      },
+      "executorResources": {
+        "cpus": 0.1,
+        "mem": 32,
+        "disk": 10
+      }
+    },
+    "declinedOffers": {
+      "summary": {
+        "roles": {
+          "requested": "*",
+          "offers": 2,
+          "matched": 1
+        },
+        "constraints": {
+          "requested": "N/A",
+          "offers": 1,
+          "matched": 1
+        },
+        "cpus": {
+          "requested": 0.30000000000000004,
+          "offers": 1,
+          "matched": 0
+        },
+        "mem": {
+          "requested": 288,
+          "offers": 0,
+          "matched": 0
+        },
+        "disk": {
+          "requested": 10,
+          "offers": 0,
+          "matched": 0
+        },
+        "ports": {
+          "requested": "N/A",
+          "offers": 0,
+          "matched": 0
+        }
+      },
+      "offers": null
+    }
+  },
+  "id": "/service-pod",
+  "spec": {
+    "id": "/service-pod",
+    "version": "2017-10-10T01:08:52.729Z",
+    "containers": [
+      {
+        "name": "container-1",
+        "resources": {
+          "cpus": 0.1,
+          "mem": 128,
+          "disk": 0,
+          "gpus": 0
+        },
+        "endpoints": [
+          {
+            "name": "http",
+            "hostPort": 8082,
+            "protocol": ["tcp"]
+          }
+        ]
+      },
+      {
+        "name": "container-2",
+        "resources": {
+          "cpus": 0.1,
+          "mem": 128,
+          "disk": 0,
+          "gpus": 0
+        },
+        "endpoints": [
+          {
+            "name": "http2",
+            "hostPort": 8080,
+            "protocol": ["tcp"]
+          }
+        ]
+      }
+    ],
+    "networks": [
+      {
+        "mode": "host"
+      }
+    ],
+    "scaling": {
+      "kind": "fixed",
+      "instances": 1
+    },
+    "scheduling": {
+      "backoff": {
+        "backoff": 1,
+        "backoffFactor": 1.15,
+        "maxLaunchDelay": 3600
+      },
+      "upgrade": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "killSelection": "YOUNGEST_FIRST",
+      "unreachableStrategy": {
+        "inactiveAfterSeconds": 300,
+        "expungeAfterSeconds": 600
+      }
+    },
+    "executorResources": {
+      "cpus": 0.1,
+      "mem": 32,
+      "disk": 10
+    }
+  },
+  "status": "DEGRADED",
+  "statusSince": "2017-10-10T01:10:53.147Z",
+  "instances": [],
+  "terminationHistory": [],
+  "lastUpdated": "2017-10-10T01:10:53.147Z",
+  "lastChanged": "2017-10-10T01:10:53.147Z"
+}

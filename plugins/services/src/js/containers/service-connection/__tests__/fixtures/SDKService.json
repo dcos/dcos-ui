@@ -1,0 +1,20 @@
+{
+  "id": "/elastic",
+  "name": "elastic",
+  "pid": "scheduler-de10e96a-1d1c-45bc-8e34-ae99b972a50c@10.0.2.5:42957",
+  "labels": {
+    "DCOS_COMMONS_UNINSTALL": "true",
+    "DCOS_PACKAGE_OPTIONS": "e30=",
+    "DCOS_SERVICE_SCHEME": "http",
+    "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+    "DCOS_PACKAGE_METADATA": "",
+    "DCOS_SERVICE_NAME": "elastic",
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "elastic",
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "DCOS_PACKAGE_DEFINITION": "",
+    "DCOS_PACKAGE_VERSION": "2.0.1-5.5.1",
+    "DCOS_COMMONS_API_VERSION": "v1",
+    "DCOS_PACKAGE_NAME": "elastic",
+    "MARATHON_SINGLE_INSTANCE_APP": "true"
+  }
+}
