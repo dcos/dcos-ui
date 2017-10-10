@@ -68,7 +68,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       serviceStatus !== "Deploying"
     ) {
       SDKEndpointActions.fetchEndpoints(service.getId());
-      this.setState({ serviceStatus });
+      this.setState({ servicePreviousState: serviceStatus });
     }
   }
 
