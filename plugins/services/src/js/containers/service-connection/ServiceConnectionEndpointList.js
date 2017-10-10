@@ -9,11 +9,10 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import AlertPanel from "#SRC/js/components/AlertPanel";
-import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import Icon from "#SRC/js/components/Icon";
 
+import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import Service from "../../structs/Service";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
@@ -136,7 +135,7 @@ class ServiceConnectionEndpointList extends React.Component {
   getPortDefinitionDetails(portDefinition) {
     return (
       <div>
-        <ConfigurationMapRow>
+        <ConfigurationMapRow key="protocol">
           <ConfigurationMapLabel>
             Protocol
           </ConfigurationMapLabel>
@@ -144,7 +143,7 @@ class ServiceConnectionEndpointList extends React.Component {
             {this.getProtocolValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
-        <ConfigurationMapRow>
+        <ConfigurationMapRow key="container-port">
           <ConfigurationMapLabel>
             Container Port
           </ConfigurationMapLabel>
@@ -152,7 +151,7 @@ class ServiceConnectionEndpointList extends React.Component {
             {this.getContainerPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
-        <ConfigurationMapRow>
+        <ConfigurationMapRow key="host-port">
           <ConfigurationMapLabel>
             Host Port
           </ConfigurationMapLabel>
@@ -160,7 +159,7 @@ class ServiceConnectionEndpointList extends React.Component {
             {this.getHostPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
-        <ConfigurationMapRow>
+        <ConfigurationMapRow key="service-port">
           <ConfigurationMapLabel>
             Service Port
           </ConfigurationMapLabel>
@@ -168,7 +167,7 @@ class ServiceConnectionEndpointList extends React.Component {
             {this.getServicePortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
-        <ConfigurationMapRow>
+        <ConfigurationMapRow key="load-balanced-address">
           <ConfigurationMapLabel>
             Load Balanced Address
           </ConfigurationMapLabel>
@@ -183,7 +182,7 @@ class ServiceConnectionEndpointList extends React.Component {
   getPortDefinitions(endpoints) {
     return endpoints.map(portDefinition => {
       return (
-        <ConfigurationMapSection>
+        <ConfigurationMapSection key={portDefinition.name}>
           <ConfigurationMapHeading>
             {portDefinition.name}
           </ConfigurationMapHeading>
@@ -191,19 +190,6 @@ class ServiceConnectionEndpointList extends React.Component {
         </ConfigurationMapSection>
       );
     });
-  }
-
-  getAlertPanelFooter() {
-    return (
-      <div className="button-collection flush-bottom">
-        <button
-          className="button"
-          onClick={this.handleOpenEditConfigurationModal}
-        >
-          Edit Configuration
-        </button>
-      </div>
-    );
   }
 
   render() {
@@ -218,16 +204,6 @@ class ServiceConnectionEndpointList extends React.Component {
       });
     }
 
-    if (
-      service.spec &&
-      service.spec.containers &&
-      service.spec.containers.length > 0
-    ) {
-      service.spec.containers.forEach(container => {
-        endpoints = endpoints.concat(container.endpoints);
-      });
-    }
-
     if (service.portDefinitions) {
       endpoints = endpoints.concat(service.portDefinitions);
     }
@@ -238,17 +214,10 @@ class ServiceConnectionEndpointList extends React.Component {
 
     if (!endpoints || endpoints.length === 0) {
       return (
-        <AlertPanel>
-          <AlertPanelHeader>No Endpoints</AlertPanelHeader>
-          <p className="tall">
-            There are no endpoints currently configured for
-            {" "}
-            {this.props.service.getId()}.
-            {" "}
-            You can edit the configuration to add service endpoints.
-          </p>
-          {this.getAlertPanelFooter()}
-        </AlertPanel>
+        <ServiceNoEndpointsPanel
+          serviceId={this.props.service.getId()}
+          onClick={this.handleOpenEditConfigurationModal}
+        />
       );
     }
 

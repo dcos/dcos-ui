@@ -10,14 +10,13 @@ import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Icon from "#SRC/js/components/Icon";
-import AlertPanel from "#SRC/js/components/AlertPanel";
-import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import Service from "../../structs/Service";
 import Pod from "../../structs/Pod";
 
+import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
 import { EDIT } from "../../constants/ServiceActionItem";
@@ -189,35 +188,6 @@ class SDKServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getAlertPanelFooter() {
-    return (
-      <div className="button-collection flush-bottom">
-        <button
-          className="button"
-          onClick={this.handleOpenEditConfigurationModal.bind(this, true)}
-        >
-          Edit Configuration
-        </button>
-      </div>
-    );
-  }
-
-  getAlertPanelNoEndpoints() {
-    return (
-      <AlertPanel>
-        <AlertPanelHeader>No Endpoints</AlertPanelHeader>
-        <p className="tall">
-          There are no endpoints currently configured for
-          {" "}
-          {this.props.service.getId()}.
-          {" "}
-          You can edit the configuration to add service endpoints.
-        </p>
-        {this.getAlertPanelFooter()}
-      </AlertPanel>
-    );
-  }
-
   getAlertPanelSDKDeploying() {
     return (
       <div className="endpoint-sdk-deploying">
@@ -266,7 +236,12 @@ class SDKServiceConnectionEndpointList extends React.Component {
     }
 
     if (!sdkServiceEndpoints || sdkServiceEndpoints.length === 0) {
-      return this.getAlertPanelNoEndpoints();
+      return (
+        <ServiceNoEndpointsPanel
+          serviceId={this.props.service.getId()}
+          onClick={this.handleOpenEditConfigurationModal.bind(this, true)}
+        />
+      );
     }
 
     return (

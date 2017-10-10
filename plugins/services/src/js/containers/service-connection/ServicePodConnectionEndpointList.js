@@ -9,11 +9,10 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import AlertPanel from "#SRC/js/components/AlertPanel";
-import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import Icon from "#SRC/js/components/Icon";
 
+import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import Service from "../../structs/Service";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
@@ -92,7 +91,7 @@ class ServicePodConnectionEndpointList extends React.Component {
   getPortDefinitions(endpoints) {
     return endpoints.map(portDefinition => {
       return (
-        <ConfigurationMapSection>
+        <ConfigurationMapSection key={portDefinition.name}>
           <ConfigurationMapHeading>
             {portDefinition.name}
           </ConfigurationMapHeading>
@@ -125,19 +124,6 @@ class ServicePodConnectionEndpointList extends React.Component {
     });
   }
 
-  getAlertPanelFooter() {
-    return (
-      <div className="button-collection flush-bottom">
-        <button
-          className="button"
-          onClick={this.handleOpenEditConfigurationModal}
-        >
-          Edit Configuration
-        </button>
-      </div>
-    );
-  }
-
   render() {
     const { service } = this.props;
     let endpoints = [];
@@ -160,17 +146,10 @@ class ServicePodConnectionEndpointList extends React.Component {
 
     if (!endpoints || endpoints.length === 0) {
       return (
-        <AlertPanel>
-          <AlertPanelHeader>No Endpoints</AlertPanelHeader>
-          <p className="tall">
-            There are no endpoints currently configured for
-            {" "}
-            {this.props.service.getId()}.
-            {" "}
-            You can edit the configuration to add service endpoints.
-          </p>
-          {this.getAlertPanelFooter()}
-        </AlertPanel>
+        <ServiceNoEndpointsPanel
+          serviceId={this.props.service.getId()}
+          onClick={this.handleOpenEditConfigurationModal}
+        />
       );
     }
 
