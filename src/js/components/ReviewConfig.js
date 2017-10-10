@@ -61,7 +61,7 @@ class ReviewConfig extends React.Component {
           </div>
           <div className="column-8 text-align-right">
             <a
-              className="button button-small button-stroke button-rounded"
+              className="button button-primary-link"
               onClick={ieDownloadConfig}
               download={fileName}
               href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
