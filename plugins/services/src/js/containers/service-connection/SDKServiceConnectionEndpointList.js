@@ -32,7 +32,8 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     this.state = {
       actionDisabledModalOpen: false,
-      copiedCommand: ""
+      copiedCommand: "",
+      servicePreviousState: ""
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -53,7 +54,22 @@ class SDKServiceConnectionEndpointList extends React.Component {
   }
 
   componentDidMount() {
-    SDKEndpointActions.fetchEndpoints(this.props.service.getId());
+    const { service } = this.props;
+    SDKEndpointActions.fetchEndpoints(service.getId());
+  }
+
+  componentWillReceiveProps() {
+    const { service } = this.props;
+    const { servicePreviousState } = this.state;
+    const serviceStatus = service.getStatus();
+
+    if (
+      servicePreviousState !== serviceStatus &&
+      serviceStatus !== "Deploying"
+    ) {
+      SDKEndpointActions.fetchEndpoints(service.getId());
+      this.setState({ serviceStatus });
+    }
   }
 
   getClipboardTrigger(command) {
@@ -221,6 +237,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
   render() {
     const { actionDisabledModalOpen } = this.state;
+    const { service } = this.props;
 
     if (actionDisabledModalOpen) {
       return (
@@ -228,18 +245,16 @@ class SDKServiceConnectionEndpointList extends React.Component {
           actionID={EDIT}
           open={actionDisabledModalOpen}
           onClose={this.handleOpenEditConfigurationModal(false)}
-          service={this.props.service}
+          service={service}
         />
       );
     }
 
     const sdkServiceEndpoints = SDKEndpointStore.getServiceEndpoints(
-      this.props.service.getId()
+      service.getId()
     );
 
-    const sdkServiceError = SDKEndpointStore.getServiceError(
-      this.props.service.getId()
-    );
+    const sdkServiceError = SDKEndpointStore.getServiceError(service.getId());
 
     const endpointsLoaded =
       sdkServiceEndpoints &&
