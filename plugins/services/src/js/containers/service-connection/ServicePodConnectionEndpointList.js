@@ -147,7 +147,7 @@ class ServicePodConnectionEndpointList extends React.Component {
     if (!endpoints || endpoints.length === 0) {
       return (
         <ServiceNoEndpointsPanel
-          serviceId={this.props.service.getId()}
+          serviceId={service.getId()}
           onClick={this.handleOpenEditConfigurationModal}
         />
       );

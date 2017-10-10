@@ -238,7 +238,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
     if (!sdkServiceEndpoints || sdkServiceEndpoints.length === 0) {
       return (
         <ServiceNoEndpointsPanel
-          serviceId={this.props.service.getId()}
+          serviceId={service.getId()}
           onClick={this.handleOpenEditConfigurationModal.bind(this, true)}
         />
       );
