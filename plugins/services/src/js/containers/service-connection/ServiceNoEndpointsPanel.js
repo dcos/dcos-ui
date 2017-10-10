@@ -24,4 +24,9 @@ const ServiceNoEndpointPanel = props => {
   );
 };
 
+ServiceNoEndpointPanel.propTypes = {
+  onClick: React.PropTypes.func.isRequired,
+  serviceId: React.PropTypes.string.isRequired
+};
+
 module.exports = ServiceNoEndpointPanel;
