@@ -1,28 +1,187 @@
-@page-header-dropdown-menu-button-height: @button-height + @base-spacing-unit / 3;
-@page-header-dropdown-menu-button-height-screen-small: @button-height + @base-spacing-unit-screen-small / 3;
+@page-header-navigation-enabled: @page-header-enabled;
 
-@page-header-navigation-dropdown-border-color: color-lighten(@grey-dark, 40);
-@page-header-navigation-dropdown-item-active-color: @purple;
+/*
+ * Responsive Scaling
+ */
 
-@page-header-navigation-dropdown-margin-left: @pod-margin-left * -1;
-@page-header-navigation-dropdown-margin-left-screen-small: @pod-margin-left-screen-small * -1;
+@page-header-navigation-screen-small-enabled: @layout-screen-small-enabled;
+@page-header-navigation-screen-medium-enabled: @layout-screen-medium-enabled;
+@page-header-navigation-screen-large-enabled: @layout-screen-large-enabled;
+@page-header-navigation-screen-jumbo-enabled: @layout-screen-jumbo-enabled;
 
-@page-header-navigation-dropdown-margin-right: @pod-margin-right * -1;
-@page-header-navigation-dropdown-margin-right-screen-small: @pod-margin-right-screen-small * -1;
+/*
+ * Page Header Navigation Tabs
+ */
 
-@page-header-navigation-dropdown-padding-top: 0;
-@page-header-navigation-dropdown-padding-top-screen-small: 0;
+/* Layout */
 
-@page-header-navigation-dropdown-padding-right: @page-header-navigation-dropdown-margin-right * -1;
-@page-header-navigation-dropdown-padding-right-screen-small: @page-header-navigation-dropdown-margin-right-screen-small * -1;
+// Margin Top
 
-@page-header-navigation-dropdown-padding-bottom: 0;
-@page-header-navigation-dropdown-padding-bottom-screen-small: 0;
+@page-header-navigation-tabs-margin-top: 16px;
+@page-header-navigation-tabs-margin-top-screen-small: null;
+@page-header-navigation-tabs-margin-top-screen-medium: null;
+@page-header-navigation-tabs-margin-top-screen-large: null;
+@page-header-navigation-tabs-margin-top-screen-jumbo: 28px;
 
-@page-header-navigation-dropdown-padding-left: @page-header-navigation-dropdown-margin-left * -1;
-@page-header-navigation-dropdown-padding-left-screen-small: @page-header-navigation-dropdown-margin-left-screen-small * -1;
+// Margin Bottom
 
-@page-header-navigation-dropdown-menu-border-color: fade(@neutral, 20%);
+@page-header-navigation-tabs-margin-bottom: -25px;
+@page-header-navigation-tabs-margin-bottom-screen-small: null;
+@page-header-navigation-tabs-margin-bottom-screen-medium: null;
+@page-header-navigation-tabs-margin-bottom-screen-large: null;
+@page-header-navigation-tabs-margin-bottom-screen-jumbo: -33px;
 
-@page-header-navigation-dropdown-nested-item-padding-left: @page-header-navigation-dropdown-padding-left + @base-spacing-unit / 2;
-@page-header-navigation-dropdown-nested-item-padding-left-screen-small: @page-header-navigation-dropdown-padding-left-screen-small + @base-spacing-unit-screen-small / 2;
+// Margin Left
+
+@page-header-navigation-tabs-margin-left: null;
+@page-header-navigation-tabs-margin-left-screen-small: null;
+@page-header-navigation-tabs-margin-left-screen-medium: null;
+@page-header-navigation-tabs-margin-left-screen-large: null;
+@page-header-navigation-tabs-margin-left-screen-jumbo: null;
+
+// Margin Right
+
+@page-header-navigation-tabs-margin-right: null;
+@page-header-navigation-tabs-margin-right-screen-small: null;
+@page-header-navigation-tabs-margin-right-screen-medium: null;
+@page-header-navigation-tabs-margin-right-screen-large: null;
+@page-header-navigation-tabs-margin-right-screen-jumbo: null;
+
+// Padding Top
+
+@page-header-navigation-tabs-padding-top: null;
+@page-header-navigation-tabs-padding-top-screen-small: null;
+@page-header-navigation-tabs-padding-top-screen-medium: null;
+@page-header-navigation-tabs-padding-top-screen-large: null;
+@page-header-navigation-tabs-padding-top-screen-jumbo: null;
+
+// Padding Bottom
+
+@page-header-navigation-tabs-padding-bottom: null;
+@page-header-navigation-tabs-padding-bottom-screen-small: null;
+@page-header-navigation-tabs-padding-bottom-screen-medium: null;
+@page-header-navigation-tabs-padding-bottom-screen-large: null;
+@page-header-navigation-tabs-padding-bottom-screen-jumbo: null;
+
+// Padding Left
+
+@page-header-navigation-tabs-padding-left: null;
+@page-header-navigation-tabs-padding-left-screen-small: null;
+@page-header-navigation-tabs-padding-left-screen-medium: null;
+@page-header-navigation-tabs-padding-left-screen-large: null;
+@page-header-navigation-tabs-padding-left-screen-jumbo: null;
+
+// Padding Right
+
+@page-header-navigation-tabs-padding-right: null;
+@page-header-navigation-tabs-padding-right-screen-small: null;
+@page-header-navigation-tabs-padding-right-screen-medium: null;
+@page-header-navigation-tabs-padding-right-screen-large: null;
+@page-header-navigation-tabs-padding-right-screen-jumbo: null;
+
+/*
+ * Page Header Navigation Dropdown
+ */
+
+/* Styling */
+
+@page-header-navigation-dropdown-color: @grey-dark;
+@page-header-navigation-dropdown-font-family: null;
+@page-header-navigation-dropdown-font-style: null;
+@page-header-navigation-dropdown-font-weight: 500;
+@page-header-navigation-dropdown-text-transform: null;
+@page-header-navigation-dropdown-text-shadow: null;
+@page-header-navigation-dropdown-text-decoration: null;
+@page-header-navigation-dropdown-text-rendering: null;
+
+/* Text Size */
+
+// Font Size
+
+@page-header-navigation-dropdown-font-size: 14px;
+@page-header-navigation-dropdown-font-size-screen-small: null;
+@page-header-navigation-dropdown-font-size-screen-medium: null;
+@page-header-navigation-dropdown-font-size-screen-large: null;
+@page-header-navigation-dropdown-font-size-screen-jumbo: null;
+
+// Line Height
+
+@page-header-navigation-dropdown-line-height: 18px;
+@page-header-navigation-dropdown-line-height-screen-small: null;
+@page-header-navigation-dropdown-line-height-screen-medium: null;
+@page-header-navigation-dropdown-line-height-screen-large: null;
+@page-header-navigation-dropdown-line-height-screen-jumbo: null;
+
+/* Layout */
+
+// Height
+
+@page-header-navigation-dropdown-height: 44px;
+@page-header-navigation-dropdown-height-screen-small: null;
+@page-header-navigation-dropdown-height-screen-medium: null;
+@page-header-navigation-dropdown-height-screen-large: null;
+@page-header-navigation-dropdown-height-screen-jumbo: null;
+
+// Margin Top
+
+@page-header-navigation-dropdown-margin-top: 12px;
+@page-header-navigation-dropdown-margin-top-screen-small: null;
+@page-header-navigation-dropdown-margin-top-screen-medium: null;
+@page-header-navigation-dropdown-margin-top-screen-large: null;
+@page-header-navigation-dropdown-margin-top-screen-jumbo: null;
+
+// Margin Bottom
+
+@page-header-navigation-dropdown-margin-bottom: -24px;
+@page-header-navigation-dropdown-margin-bottom-screen-small: null;
+@page-header-navigation-dropdown-margin-bottom-screen-medium: null;
+@page-header-navigation-dropdown-margin-bottom-screen-large: null;
+@page-header-navigation-dropdown-margin-bottom-screen-jumbo: null;
+
+// Margin Left
+
+@page-header-navigation-dropdown-margin-left: -24px;
+@page-header-navigation-dropdown-margin-left-screen-small: null;
+@page-header-navigation-dropdown-margin-left-screen-medium: null;
+@page-header-navigation-dropdown-margin-left-screen-large: null;
+@page-header-navigation-dropdown-margin-left-screen-jumbo: null;
+
+// Margin Right
+
+@page-header-navigation-dropdown-margin-right: -24px;
+@page-header-navigation-dropdown-margin-right-screen-small: null;
+@page-header-navigation-dropdown-margin-right-screen-medium: null;
+@page-header-navigation-dropdown-margin-right-screen-large: null;
+@page-header-navigation-dropdown-margin-right-screen-jumbo: null;
+
+// Padding Top
+
+@page-header-navigation-dropdown-padding-top: null;
+@page-header-navigation-dropdown-padding-top-screen-small: null;
+@page-header-navigation-dropdown-padding-top-screen-medium: null;
+@page-header-navigation-dropdown-padding-top-screen-large: null;
+@page-header-navigation-dropdown-padding-top-screen-jumbo: null;
+
+// Padding Bottom
+
+@page-header-navigation-dropdown-padding-bottom: null;
+@page-header-navigation-dropdown-padding-bottom-screen-small: null;
+@page-header-navigation-dropdown-padding-bottom-screen-medium: null;
+@page-header-navigation-dropdown-padding-bottom-screen-large: null;
+@page-header-navigation-dropdown-padding-bottom-screen-jumbo: null;
+
+// Padding Left
+
+@page-header-navigation-dropdown-padding-left: 24px;
+@page-header-navigation-dropdown-padding-left-screen-small: null;
+@page-header-navigation-dropdown-padding-left-screen-medium: null;
+@page-header-navigation-dropdown-padding-left-screen-large: null;
+@page-header-navigation-dropdown-padding-left-screen-jumbo: null;
+
+// Padding Right
+
+@page-header-navigation-dropdown-padding-right: 24px;
+@page-header-navigation-dropdown-padding-right-screen-small: null;
+@page-header-navigation-dropdown-padding-right-screen-medium: null;
+@page-header-navigation-dropdown-padding-right-screen-large: null;
+@page-header-navigation-dropdown-padding-right-screen-jumbo: null;
