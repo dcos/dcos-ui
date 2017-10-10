@@ -124,7 +124,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
   getFileEndpoint(endpoint) {
     return (
-      <ConfigurationMapRow>
+      <ConfigurationMapRow key={endpoint.getName()}>
         <ConfigurationMapLabel>
           {endpoint.getName()}
         </ConfigurationMapLabel>
