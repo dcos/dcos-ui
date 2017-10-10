@@ -399,9 +399,7 @@ class ServicesTable extends React.Component {
       ? ` ${tasksRunning}`
       : ` ${tasksRunning}/${instancesCount}`;
 
-    const content = instancesCount == null || service instanceof ServiceTree
-      ? "\u2014"
-      : overview;
+    const content = instancesCount == null ? "\u2014" : overview;
 
     return (
       <span>
