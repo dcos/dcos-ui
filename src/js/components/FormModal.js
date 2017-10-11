@@ -149,12 +149,12 @@ FormModal.defaultProps = {
   buttonDefinition: [
     {
       text: "Cancel",
-      className: "button button-medium",
+      className: "button button-link",
       isClose: true
     },
     {
       text: "Create",
-      className: "button button-success button-medium",
+      className: "button button-primary",
       isSubmit: true
     }
   ],
