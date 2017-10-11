@@ -71,12 +71,12 @@ class ServiceGroupFormModal extends React.Component {
     const buttonDefinition = [
       {
         text: "Cancel",
-        className: "button button-medium",
+        className: "button button-link",
         isClose: true
       },
       {
         text: "Create Group",
-        className: "button button-success button-medium",
+        className: "button button-primary",
         isSubmit: true
       }
     ];
