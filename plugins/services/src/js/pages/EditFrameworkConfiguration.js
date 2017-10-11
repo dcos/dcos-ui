@@ -70,8 +70,9 @@ export default class EditFrameworkConfiguration extends mixin(StoreMixin) {
     this.setState({ deployErrors });
   }
 
-  handleRun(formData) {
+  handleRun() {
     const { params } = this.props;
+    const { formData } = this.state;
 
     CosmosPackagesStore.updateService(params.id, formData);
   }
