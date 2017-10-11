@@ -60,7 +60,7 @@ class PodHeader extends React.Component {
         Scale
       </button>,
       <button
-        className="button flush-bottom button-stroke"
+        className="button flush-bottom button-outline"
         key="action-button-edit"
         onClick={this.props.onEdit}
       >
@@ -69,7 +69,7 @@ class PodHeader extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-stroke dropdown-toggle"
+        buttonClassName="button button-outline dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
