@@ -639,7 +639,7 @@ class GeneralServiceFormSection extends Component {
           open={this.state.convertToPodModalOpen}
           onClose={this.handleCloseConvertToPodModal}
           leftButtonText="Cancel"
-          leftButtonClassName="button button-link"
+          leftButtonClassName="button button-primary-link"
           leftButtonCallback={this.handleCloseConvertToPodModal}
           rightButtonText="Switch to Pod"
           rightButtonClassName="button button-primary"

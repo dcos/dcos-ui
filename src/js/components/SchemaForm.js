@@ -202,7 +202,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
         className="form-row-element form-row-remove-button form-row-element-mixed-label-presence"
       >
         <button
-          className="button button-narrow button-link"
+          className="button button-narrow button-primary-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}
         >
           <Icon id="close" size="mini" />

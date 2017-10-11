@@ -250,6 +250,7 @@ class ServiceDestroyModal extends React.Component {
         open={open}
         onClose={this.handleModalClose}
         leftButtonText="Cancel"
+        leftButtonClassName="button button-primary-link"
         leftButtonCallback={this.handleModalClose}
         rightButtonText={itemText}
         rightButtonClassName="button button-danger"

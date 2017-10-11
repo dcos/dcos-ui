@@ -371,7 +371,7 @@ class InstallPackageModal
       <div className="modal-footer">
         <div className="button-collection flush-bottom">
           <button
-            className="button button-link"
+            className="button button-primary-link"
             onClick={this.handleModalClose}
           >
             Cancel
@@ -410,7 +410,7 @@ class InstallPackageModal
         <div className="modal-footer">
           <div className="button-collection flush-bottom">
             <button
-              className="button button-link"
+              className="button button-primary-link"
               onClick={this.handleChangeTab.bind(this, "advancedInstall")}
             >
               Back
