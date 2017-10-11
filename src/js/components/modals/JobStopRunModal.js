@@ -105,8 +105,9 @@ class JobStopRunModal extends mixin(StoreMixin) {
         header={this.getContentHeader(selectedItems, selectedItemsLength)}
         open={open}
         onClose={onClose}
-        leftButtonText="Close"
+        leftButtonText="Cancel"
         leftButtonCallback={onClose}
+        leftButtonClassName="button button-link"
         rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}
