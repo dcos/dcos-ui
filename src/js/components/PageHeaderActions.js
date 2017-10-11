@@ -51,7 +51,7 @@ class PageHeaderActions extends React.Component {
     if (addButton != null) {
       const { label, onItemSelect, className } = addButton;
       const buttonClasses = classNames(
-        "button button-link button-narrow",
+        "button button-primary-link button-narrow",
         className
       );
 

@@ -188,7 +188,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         onClose={this.closeDialog}
         leftButtonText="Cancel"
         leftButtonCallback={this.closeDialog}
-        leftButtonClassName="button button-link"
+        leftButtonClassName="button button-primary-link"
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleAcceptDestroyDialog.bind(
