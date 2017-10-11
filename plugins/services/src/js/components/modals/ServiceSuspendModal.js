@@ -116,6 +116,7 @@ class ServiceSuspendModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
+        leftButtonClassName="button button-link"
         rightButtonText={`Suspend ${serviceLabel}`}
         rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}
         showHeader={true}
