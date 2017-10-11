@@ -19,7 +19,7 @@ describe("Services", function() {
 
       // That should contain a 'Run a Service' button
       cy
-        .get(".page-body-content .button-success")
+        .get(".page-body-content .button-primary")
         .contains("Run a Service")
         .should("exist");
     });
