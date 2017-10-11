@@ -39,19 +39,18 @@ class ServiceConnectionEndpointList extends React.Component {
   }
 
   getProtocolValue(portDefinition) {
-    const protocol = portDefinition.protocol || "";
-    let protocolDisplayValue = "";
+    let protocol = portDefinition.protocol || "";
 
     if (Array.isArray(protocol)) {
-      protocolDisplayValue = protocol.join(", ");
+      protocol = protocol.join(", ");
     }
-    protocolDisplayValue = protocolDisplayValue.replace(/,\s*/g, ", ");
+    protocol = protocol.replace(/,\s*/g, ", ");
 
-    if (protocolDisplayValue !== "") {
-      return this.getClipboardTrigger(getDisplayValue(protocolDisplayValue));
+    if (protocol !== "") {
+      return this.getClipboardTrigger(getDisplayValue(protocol));
     }
 
-    return getDisplayValue(protocolDisplayValue);
+    return getDisplayValue(protocol);
   }
 
   getHostPortValue(portDefinition, service) {

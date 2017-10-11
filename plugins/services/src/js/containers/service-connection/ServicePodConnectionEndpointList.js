@@ -38,14 +38,14 @@ class ServicePodConnectionEndpointList extends React.Component {
   }
 
   getProtocolValue(portDefinition) {
-    const protocol = portDefinition.protocol || [];
-    const protocolDisplayValue = protocol.join(", ");
+    let protocol = portDefinition.protocol || [];
+    protocol = protocol.join(", ");
 
-    if (protocolDisplayValue !== "") {
-      return this.getClipboardTrigger(getDisplayValue(protocolDisplayValue));
+    if (protocol !== "") {
+      return this.getClipboardTrigger(getDisplayValue(protocol));
     }
 
-    return getDisplayValue(protocolDisplayValue);
+    return getDisplayValue(protocol);
   }
 
   getHostPortValue(portDefinition) {

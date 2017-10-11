@@ -3,18 +3,6 @@ import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import Icon from "#SRC/js/components/Icon";
 
 class EndpointClipboardTrigger extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {
-      copiedCommand: ""
-    };
-  }
-
-  handleTextCopy(copiedCommand) {
-    this.setState({ copiedCommand });
-  }
-
   render() {
     const { command } = this.props;
 
@@ -24,7 +12,6 @@ class EndpointClipboardTrigger extends React.Component {
           <ClipboardTrigger
             className="clickable"
             copyText={command}
-            onTextCopy={this.handleTextCopy.bind(this, command)}
             useTooltip={true}
           >
             <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
