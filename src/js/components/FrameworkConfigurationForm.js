@@ -31,48 +31,44 @@ export default class FrameworkConfigurationForm extends Component {
       .join(" ");
   }
 
-  getFirstErrorFieldPath(tabName, errorSchema) {
+  handleBadgeClick(activeTab, event) {
+    event.stopPropagation();
+
+    const { errorSchema } = this.state;
     const { packageDetails } = this.props;
-    const schema = packageDetails.config;
 
-    const fieldsWithErrors = Object.keys(errorSchema[tabName]).filter(field => {
-      if (
-        errorSchema[tabName][field].__errors &&
-        errorSchema[tabName][field].__errors.length > 0
-      ) {
-        return true;
-      }
-
-      return false;
+    const fieldsWithErrors = Object.keys(
+      errorSchema[activeTab]
+    ).filter(field => {
+      return (
+        errorSchema[activeTab][field].__errors &&
+        errorSchema[activeTab][field].__errors.length > 0
+      );
     });
 
+    // first field with errors in the current tab
+    const schema = packageDetails.getConfig();
     const fieldToFocus = Object.keys(
-      schema.properties[tabName].properties
+      schema.properties[activeTab].properties
     ).find(field => {
       return fieldsWithErrors.includes(field);
     });
 
-    return [tabName, fieldToFocus];
-  }
-
-  handleBadgeClick(tabName, event) {
-    const { errorSchema } = this.state;
-
-    const newFocusFieldPath = this.getFirstErrorFieldPath(tabName, errorSchema);
-
-    this.props.onFocusFieldPathChange(newFocusFieldPath);
-
-    event.stopPropagation();
+    this.props.onFocusFieldChange(activeTab, fieldToFocus);
   }
 
   getFormTabList() {
     const { packageDetails, formErrors } = this.props;
-    const schema = packageDetails.config;
+    const schema = packageDetails.getConfig();
 
-    return Object.keys(schema.properties).map(tabName => {
+    // the config will have 2-levels, we will render first level as the tabs
+    const tabs = Object.keys(schema.properties);
+
+    return tabs.map(tabName => {
       return (
         <TabButton
           label={this.getFormattedSectionLabel(tabName)}
+          labelClassName={"padded-right"}
           id={tabName}
           key={tabName}
           showErrorBadge={formErrors[tabName] > 0}
@@ -93,9 +89,8 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getDropdownNavigationList() {
-    const { packageDetails, focusFieldPath } = this.props;
-    const schema = packageDetails.config;
-    const activeTab = focusFieldPath[0];
+    const { packageDetails, activeTab } = this.props;
+    const schema = packageDetails.getConfig();
 
     return Object.keys(schema.properties).map(tabName => {
       return {
@@ -107,26 +102,18 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getUiSchema() {
-    const { packageDetails, focusFieldPath } = this.props;
-    const schema = packageDetails.config;
+    const { packageDetails, focusField, activeTab } = this.props;
+    const schema = packageDetails.getConfig();
 
-    // focus the field corresponding to keys, ex: ["service", "nodes", "name"]
-    const focus = keys => {
-      if (keys.length === 0) {
-        return {};
+    const uiSchema = {
+      [activeTab]: {
+        [focusField]: { "ui:autofocus": true }
       }
-
-      if (keys.length === 1) {
-        return { [keys[0]]: { "ui:autofocus": true } };
-      }
-
-      return { [keys[0]]: focus(keys.slice(1)) };
     };
-    const uiSchema = focus(focusFieldPath);
 
     // hide all tabs not selected
     Object.keys(schema.properties).forEach(key => {
-      if (key !== focusFieldPath[0]) {
+      if (key !== activeTab) {
         if (uiSchema[key] == null) {
           uiSchema[key] = {};
         }
@@ -152,7 +139,7 @@ export default class FrameworkConfigurationForm extends Component {
         );
       });
 
-      return;
+      return false;
     }
 
     if (isRequired && formData === "") {
@@ -188,7 +175,7 @@ export default class FrameworkConfigurationForm extends Component {
   validate(formData, errors) {
     const { packageDetails } = this.props;
 
-    this.writeErrors(formData, packageDetails.config, false, errors);
+    this.writeErrors(formData, packageDetails.getConfig(), false, errors);
 
     return errors;
   }
@@ -221,15 +208,20 @@ export default class FrameworkConfigurationForm extends Component {
       packageDetails,
       jsonEditorActive,
       formData,
-      focusFieldPath,
+      activeTab,
       deployErrors
     } = this.props;
-    const activeTab = focusFieldPath[0];
-    const schema = packageDetails.config;
+    const schema = packageDetails.getConfig();
     const jsonEditorErrors = this.getErrorsForJSONEditor();
 
     const TitleField = props => {
-      return <DefaultTitleField {...props} required={false} />;
+      return (
+        <DefaultTitleField
+          {...props}
+          title={this.getFormattedSectionLabel(props.title)}
+          required={false}
+        />
+      );
     };
 
     const jsonEditorPlaceholderClasses = classNames(
@@ -306,10 +298,11 @@ FrameworkConfigurationForm.propTypes = {
   packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
   jsonEditorActive: PropTypes.bool.isRequired,
   formData: PropTypes.object.isRequired,
-  focusFieldPath: PropTypes.array.isRequired,
+  focusField: PropTypes.string.isRequired,
+  activeTab: PropTypes.string.isRequired,
   deployErrors: PropTypes.object,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
   onActiveTabChange: PropTypes.func.isRequired,
-  onFocusFieldPathChange: PropTypes.func.isRequired
+  onFocusFieldChange: PropTypes.func.isRequired
 };

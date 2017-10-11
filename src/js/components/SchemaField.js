@@ -61,7 +61,7 @@ class SchemaField extends Component {
             value={option}
             name={name}
             checked={option === formData}
-            onChange={_ => onChange(option)}
+            onChange={() => onChange(option)}
           />
           {option}
         </FieldLabel>
@@ -223,7 +223,7 @@ class SchemaField extends Component {
     );
   }
 
-  getFieldHeading(required, name, description) {
+  getFieldHeading(required, name = "", description) {
     let asterisk = null;
     if (required) {
       asterisk = (
@@ -257,16 +257,23 @@ class SchemaField extends Component {
     const { schema } = this.props;
     const RADIO_SELECT_THRESHOLD = 4;
 
-    if (schema.type === "boolean") {
-      return this.renderCheckbox(errorMessage, this.props);
-    } else if (schema.enum && schema.enum.length <= RADIO_SELECT_THRESHOLD) {
-      return this.renderRadioButtons(errorMessage, this.props);
-    } else if (schema.enum && schema.enum.length > RADIO_SELECT_THRESHOLD) {
-      return this.renderSelect(errorMessage, autofocus, this.props);
-    } else if (schema.type === "string") {
-      return this.renderTextInput(errorMessage, autofocus, this.props);
-    } else if (schema.type === "integer" || schema.type === "number") {
-      return this.renderNumberInput(errorMessage, autofocus, this.props);
+    switch (schema.type) {
+      case "boolean":
+        return this.renderCheckbox(errorMessage, this.props);
+      case "string":
+        if (schema.enum && schema.enum.length <= RADIO_SELECT_THRESHOLD) {
+          return this.renderRadioButtons(errorMessage, this.props);
+        }
+
+        if (schema.enum && schema.enum.length > RADIO_SELECT_THRESHOLD) {
+          return this.renderSelect(errorMessage, autofocus, this.props);
+        }
+
+        return this.renderTextInput(errorMessage, autofocus, this.props);
+      case "integer":
+        return this.renderNumberInput(errorMessage, autofocus, this.props);
+      case "number":
+        return this.renderNumberInput(errorMessage, autofocus, this.props);
     }
   }
 

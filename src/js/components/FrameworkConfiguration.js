@@ -26,9 +26,14 @@ export default class FrameworkConfiguration extends Component {
   constructor(props) {
     super(props);
 
+    const schema = props.packageDetails.getConfig();
+    const activeTab = Object.keys(schema.properties)[0];
+    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
+
     this.state = {
       reviewActive: props.isInitialDeploy,
-      focusFieldPath: this.getFirstFieldFocusPath(),
+      activeTab,
+      focusField,
       jsonEditorActive: false,
       hasChangesApplied: false,
       isConfirmOpen: false,
@@ -46,59 +51,57 @@ export default class FrameworkConfiguration extends Component {
     this.props.onFormErrorChange(formErrors);
   }
 
-  onFocusFieldPathChange(focusFieldPath) {
-    if (deepEqual(focusFieldPath, this.state.focusFieldPath)) {
-      return;
+  onFocusFieldChange(activeTab, focusField) {
+    if (deepEqual(focusField, this.state.focusField)) {
+      return false;
     }
 
-    this.setState({ focusFieldPath });
+    this.setState({ focusField, activeTab });
   }
 
   onActiveTabChange(activeTab) {
-    const { focusFieldPath } = this.state;
+    const { currentActiveTab } = this.state;
     const { packageDetails } = this.props;
-    const currentActiveTab = focusFieldPath[0];
 
     if (deepEqual(activeTab, currentActiveTab)) {
-      return;
+      return false;
     }
 
-    const schema = packageDetails.config;
-    const firstField = Object.keys(schema.properties[activeTab].properties)[0];
-    const newFocusFieldPath = [activeTab, firstField];
+    const schema = packageDetails.getConfig();
+    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
 
-    this.setState({ focusFieldPath: newFocusFieldPath });
+    this.setState({ activeTab, focusField });
   }
 
   onReviewConfigurationRowClick(rowData) {
     const { tabViewID } = rowData;
 
-    const focusFieldPath = tabViewID.split(".");
+    const keyPath = (tabViewID || "").split(".");
+    if (keyPath.length < 2) {
+      this.onEditConfigurationButtonClick();
 
-    this.setState({ reviewActive: false, focusFieldPath });
+      return false;
+    }
+
+    const activeTab = keyPath[0];
+    const focusField = keyPath[1];
+
+    this.setState({ reviewActive: false, focusField, activeTab });
   }
 
   onEditConfigurationButtonClick() {
-    const focusFieldPath = this.getFirstFieldFocusPath();
-
-    this.setState({ reviewActive: false, focusFieldPath });
-  }
-
-  getFirstFieldFocusPath() {
     const { packageDetails } = this.props;
 
-    const schema = packageDetails.config;
-    const firstTabName = Object.keys(schema.properties)[0];
-    const firstFieldName = Object.keys(
-      schema.properties[firstTabName].properties
-    )[0];
+    const schema = packageDetails.getConfig();
+    const activeTab = Object.keys(schema.properties)[0];
+    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
 
-    return [firstTabName, firstFieldName];
+    this.setState({ reviewActive: false, activeTab, focusField });
   }
 
   getHashMapRenderKeys(formData, renderKeys) {
     if (!Util.isObject(formData)) {
-      return;
+      return false;
     }
 
     Object.keys(formData).forEach(key => {
@@ -157,16 +160,11 @@ export default class FrameworkConfiguration extends Component {
   getSecondaryActions() {
     const { reviewActive, hasChangesApplied } = this.state;
 
-    let label = "Cancel";
-    if (reviewActive && hasChangesApplied) {
-      label = "Back";
-    }
-
     return [
       {
         className: "button-stroke",
         clickHandler: this.handleGoBack.bind(this),
-        label
+        label: reviewActive && hasChangesApplied ? " Back" : "Cancel"
       }
     ];
   }
@@ -215,7 +213,12 @@ export default class FrameworkConfiguration extends Component {
   }
 
   getPageContents() {
-    const { reviewActive, jsonEditorActive, focusFieldPath } = this.state;
+    const {
+      reviewActive,
+      jsonEditorActive,
+      focusField,
+      activeTab
+    } = this.state;
     const {
       packageDetails,
       deployErrors,
@@ -224,99 +227,102 @@ export default class FrameworkConfiguration extends Component {
       formData
     } = this.props;
 
-    if (reviewActive) {
-      const fileName = "config.json";
-      const configString = JSON.stringify(formData, null, 2);
-      const ieDownloadConfig = () => {
-        // Download if on IE
-        if (global.navigator.msSaveOrOpenBlob) {
-          const blob = new Blob([configString], { type: "application/json" });
-          global.navigator.msSaveOrOpenBlob(blob, fileName);
-        }
-      };
-
-      const renderKeys = {};
-      this.getHashMapRenderKeys(formData, renderKeys);
-
-      // todo, truncate if over three lines
-      const preInstallNotes = packageDetails.getPreInstallNotes();
-      let preinstall = null;
-      if (preInstallNotes && isInitialDeploy) {
-        const preInstallNotesParsed = StringUtil.parseMarkdown(preInstallNotes);
-        preInstallNotesParsed.__html =
-          "<strong>Preinstall Notes: </strong>" + preInstallNotesParsed.__html;
-
-        preinstall = (
-          <div
-            dangerouslySetInnerHTML={preInstallNotesParsed}
-            className="flush-bottom message message-warning"
-          />
-        );
-      }
-
-      let errorsAlert = null;
-      if (deployErrors) {
-        errorsAlert = <CosmosErrorMessage error={deployErrors} />;
-      }
-
-      return (
-        <div className="flex-item-grow-1">
-          <div className="container container-wide">
-            {errorsAlert}
-            {preinstall}
-            <div className="row">
-              <div className="column-4">
-                <h1 className="flush-top">Configuration</h1>
-              </div>
-              <div className="column-8 text-align-right">
-                <button
-                  className="button button-primary-link button-inline-flex"
-                  onClick={this.onEditConfigurationButtonClick.bind(this)}
-                >
-                  <Icon id="pencil" size="mini" family="system" />
-                  <span className="form-group-heading-content">
-                    {"Edit Config"}
-                  </span>
-                </button>
-                <a
-                  className="button button-primary-link flush-right"
-                  download={fileName}
-                  onClick={ieDownloadConfig}
-                  href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
-                >
-                  <Icon id="download" size="mini" family="system" />
-                  <span className="form-group-heading-content">
-                    {"Download Config"}
-                  </span>
-                </a>
-              </div>
-            </div>
-            <HashMapDisplay
-              hash={formData}
-              renderKeys={renderKeys}
-              onEditClick={this.onReviewConfigurationRowClick.bind(this)}
-              headlineClassName={"text-capitalize"}
-              emptyValue={"\u2014"}
-            />
-          </div>
-        </div>
-      );
-    } else {
+    if (!reviewActive) {
       return (
         <FrameworkConfigurationForm
           packageDetails={packageDetails}
           jsonEditorActive={jsonEditorActive}
           formData={formData}
           formErrors={formErrors}
-          focusFieldPath={focusFieldPath}
+          focusField={focusField}
+          activeTab={activeTab}
           deployErrors={deployErrors}
           onFormDataChange={this.onFormDataChange.bind(this)}
           onFormErrorChange={this.onFormErrorChange.bind(this)}
           onActiveTabChange={this.onActiveTabChange.bind(this)}
-          onFocusFieldPathChange={this.onFocusFieldPathChange.bind(this)}
+          onFocusFieldChange={this.onFocusFieldChange.bind(this)}
         />
       );
     }
+
+    const fileName = "config.json";
+    const configString = JSON.stringify(formData, null, 2);
+    const ieDownloadConfig = () => {
+      // Download if on IE
+      if (global.navigator.msSaveOrOpenBlob) {
+        const blob = new Blob([configString], { type: "application/json" });
+        global.navigator.msSaveOrOpenBlob(blob, fileName);
+      }
+    };
+
+    const renderKeys = {};
+    this.getHashMapRenderKeys(formData, renderKeys);
+
+    // todo, truncate if over three lines
+    const preInstallNotes = packageDetails.getPreInstallNotes();
+    let preinstall = null;
+    if (preInstallNotes && isInitialDeploy) {
+      const preInstallNotesParsed = StringUtil.parseMarkdown(preInstallNotes);
+      preInstallNotesParsed.__html =
+        "<strong>Preinstall Notes: </strong>" + preInstallNotesParsed.__html;
+
+      preinstall = (
+        <div
+          dangerouslySetInnerHTML={preInstallNotesParsed}
+          className="flush-bottom message message-warning"
+        />
+      );
+    }
+
+    let errorsAlert = null;
+    if (deployErrors) {
+      errorsAlert = <CosmosErrorMessage error={deployErrors} />;
+    }
+
+    // todo use Michaels empty state component instead of hardcoded u2014
+    // todo use Bills href getResourceDownloadPath helper when it merges
+    return (
+      <div className="flex-item-grow-1">
+        <div className="container container-wide">
+          {errorsAlert}
+          {preinstall}
+          <div className="row">
+            <div className="column-4">
+              <h1 className="flush-top">Configuration</h1>
+            </div>
+            <div className="column-8 text-align-right">
+              <button
+                className="button button-primary-link button-inline-flex"
+                onClick={this.onEditConfigurationButtonClick.bind(this)}
+              >
+                <Icon id="pencil" size="mini" family="system" />
+                <span className="form-group-heading-content">
+                  {"Edit Config"}
+                </span>
+              </button>
+              <a
+                className="button button-primary-link flush-right"
+                download={fileName}
+                onClick={ieDownloadConfig}
+                href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
+              >
+                <Icon id="download" size="mini" family="system" />
+                <span className="form-group-heading-content">
+                  {"Download Config"}
+                </span>
+              </a>
+            </div>
+          </div>
+          <HashMapDisplay
+            hash={formData}
+            renderKeys={renderKeys}
+            onEditClick={this.onReviewConfigurationRowClick.bind(this)}
+            headlineClassName={"text-capitalize"}
+            emptyValue={"\u2014"}
+          />
+        </div>
+      </div>
+    );
   }
 
   getHeader() {

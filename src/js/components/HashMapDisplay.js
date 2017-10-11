@@ -143,7 +143,6 @@ HashMapDisplay.propTypes = {
   renderKeys: React.PropTypes.object,
   showActions: React.PropTypes.bool,
   onEditClick: React.PropTypes.func,
-  tabViewID: React.PropTypes.string,
   keyPath: React.PropTypes.array,
   emptyValue: React.PropTypes.string
 };
