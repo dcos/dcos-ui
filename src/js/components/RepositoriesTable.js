@@ -229,6 +229,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}
+          leftButtonClassName="button button-link"
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
           rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}
