@@ -403,7 +403,10 @@ class JobFormModal extends mixin(StoreMixin) {
 
     return (
       <div className="button-collection flush-bottom">
-        <button className="button button-link" onClick={this.handleCancel}>
+        <button
+          className="button button-primary-link"
+          onClick={this.handleCancel}
+        >
           Cancel
         </button>
         <button className="button button-primary" onClick={this.handleSubmit}>
