@@ -148,7 +148,7 @@ class ServiceResumeModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        leftButtonClassName="button button-link"
+        leftButtonClassName="button button-primary-link"
         rightButtonText="Resume Service"
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.handleConfirmation}

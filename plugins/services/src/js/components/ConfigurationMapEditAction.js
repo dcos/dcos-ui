@@ -7,7 +7,7 @@ const ConfigurationMapEditAction = ({ tabViewID, onEditClick }) => {
 
   return (
     <a
-      className="button button-link flush table-display-on-row-hover"
+      className="button button-primary-link flush table-display-on-row-hover"
       onClick={onEditClick.bind(null, { tabViewID })}
     >
       Edit

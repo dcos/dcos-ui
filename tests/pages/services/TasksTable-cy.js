@@ -103,10 +103,13 @@ describe("Tasks Table", function() {
 
     function assertActionButtons() {
       cy
-        .get(".filter-bar .button-collection .button-link > span")
+        .get(".filter-bar .button-collection .button-primary-link > span")
         .eq(0)
         .contains("Restart");
-      cy.get(".button-collection .button-link > span").eq(1).contains("Stop");
+      cy
+        .get(".button-collection .button-primary-link > span")
+        .eq(1)
+        .contains("Stop");
     }
 
     it("Select all tasks available and confirm action buttons exist", function() {

@@ -60,7 +60,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
 
     return (
       <button
-        className="button button-link button-primary button--deployments"
+        className="button button-primary-link button--deployments"
         onClick={this.handleDeploymentsButtonClick}
       >
         <Loader

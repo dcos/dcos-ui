@@ -1728,7 +1728,7 @@ describe("Service Form Modal", function() {
         .contains("button", "Review & Run")
         .click();
       // Click edit to view form
-      cy.get("a.button.button-link").eq(-1).click({ force: true });
+      cy.get("a.button.button-primary-link").eq(-1).click({ force: true });
       cy.get(".menu-tabbed-view").contains("Networking");
     });
   });

@@ -389,7 +389,7 @@ class ServiceActionDisabledModal extends React.Component {
 
     return (
       <div className="button-collection text-align-center flush-bottom">
-        <button className="button" onClick={onClose}>
+        <button className="button button-primary-link" onClick={onClose}>
           {intl.formatMessage({ id: "BUTTON.CLOSE" })}
         </button>
       </div>
