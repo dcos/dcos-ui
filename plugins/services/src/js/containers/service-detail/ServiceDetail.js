@@ -41,7 +41,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      "/services/overview/:id/tasks": "Instances",
+      "/services/overview/:id/tasks": "Tasks",
       "/services/overview/:id/configuration": "Configuration",
       "/services/overview/:id/debug": "Debug"
     };
@@ -233,7 +233,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [
-      { label: "Instances", routePath: `${routePrefix}/tasks` },
+      { label: "Tasks", routePath: `${routePrefix}/tasks` },
       { label: "Configuration", routePath: `${routePrefix}/configuration` },
       { label: "Debug", routePath: `${routePrefix}/debug` }
     ];
