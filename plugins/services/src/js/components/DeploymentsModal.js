@@ -395,6 +395,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
           leftButtonText="Cancel"
+          leftButtonClassName="button button-link"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
           rightButtonText="Continue Rollback"
