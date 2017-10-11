@@ -133,7 +133,7 @@ class KillTaskModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
-        leftButtonClassName="button button-link"
+        leftButtonClassName="button button-primary-link"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
         rightButtonClassName="button button-danger"

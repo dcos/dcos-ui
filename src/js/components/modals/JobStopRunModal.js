@@ -107,7 +107,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
         onClose={onClose}
         leftButtonText="Cancel"
         leftButtonCallback={onClose}
-        leftButtonClassName="button button-link"
+        leftButtonClassName="button button-primary-link"
         rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}

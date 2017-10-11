@@ -72,7 +72,7 @@ class UserFormModal extends mixin(StoreMixin) {
     return Hooks.applyFilter("userFormModalButtonDefinition", [
       {
         text: "Cancel",
-        className: "button button-link",
+        className: "button button-primary-link",
         isClose: true
       },
       {
