@@ -8,70 +8,7 @@
     transform: translateX(-50%);
   }
 
-  // We need to override CNVS display properies for button elements, as flex is
-  // invalid in Safari and other browsers.
-  button {
-
-    &,
-    &.button {
-      display: inline-block;
-
-      &.button-block {
-        display: block;
-      }
-
-      // to render exact same side-by-side with inline-flex siblings
-      &.button-inline-flex {
-        display: inline-flex;
-      }
-    }
-  }
-
-  // TODO: Name this animation specifically.
   .button {
-
-    &-leave,
-    &-enter,
-    &-appear {
-      opacity: 0.01;
-      transform: translate(-50%, -100%);
-      transition: transform 350ms ease-in, opacity 350ms ease-in;
-
-      &.button {
-
-        &-enter-active,
-        &-appear-active {
-          opacity: 1;
-          transform: translate(-50%, 0);
-        }
-
-        &-leave-active {
-          opacity: 0.01;
-          transform: translate(-50%, -100%);
-          transition: transform 350ms ease-in, opacity 350ms ease-in;
-        }
-      }
-    }
-
-    &-leave {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219594
-    &.button-short {
-      height: auto;
-      padding-bottom: 4px;
-      padding-top: 4px;
-    }
-
-    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219660
-    &.button-fixed-width {
-
-      &.button-fixed-width-small {
-        width: @base-spacing-unit * 3;
-      }
-    }
 
     &-up-arrow,
     &-down-arrow {
@@ -180,13 +117,6 @@
     }
   }
 
-  // TODO: Audit the need for this.
-  .button-align-content {
-    align-items: center;
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
   // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion-diff-71220632
   .button-split-content {
     text-align: left;
@@ -212,11 +142,6 @@
       align-self: center;
       flex: 0 0 auto;
     }
-  }
-
-  // TODO: Audit the need for this.
-  .button-inverse .badge {
-    background-color: @white;
   }
 }
 
