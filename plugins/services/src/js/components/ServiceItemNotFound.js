@@ -7,7 +7,7 @@ import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 const ServiceItemNotFound = function({ message }) {
   const footer = (
     <div className="button-collection flush-bottom">
-      <Link to="/services" className="button button-stroke">
+      <Link to="/services" className="button button-primary">
         View Services
       </Link>
     </div>

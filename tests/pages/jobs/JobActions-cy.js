@@ -26,7 +26,7 @@ describe("Job Actions", function() {
         delay: 0
       });
       cy
-        .get(".modal .button-collection .button-success")
+        .get(".modal .button-collection .button-primary")
         .contains("Save Job")
         .click();
       cy.get(".modal").should("to.have.length", 0);
