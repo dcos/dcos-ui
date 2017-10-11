@@ -250,6 +250,7 @@ class ActionsModal extends mixin(StoreMixin) {
         open={!!action}
         onClose={this.handleButtonCancel}
         leftButtonCallback={this.handleButtonCancel}
+        leftButtonClassName="button button-link"
         rightButtonCallback={this.handleButtonConfirm}
         rightButtonText={StringUtil.capitalize(action)}
         showHeader={true}
