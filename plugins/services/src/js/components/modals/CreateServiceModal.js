@@ -856,7 +856,7 @@ class CreateServiceModal extends Component {
 
     return [
       {
-        className: "button-stroke",
+        className: "button-link",
         clickHandler: this.handleGoBack,
         label
       }

@@ -211,7 +211,7 @@ class JobRunHistoryTable extends React.Component {
     return (
       <div className="button-collection flush-bottom">
         <div
-          className="button button-stroke button-danger"
+          className="button button-outline button-danger"
           onClick={this.handleStopClick}
         >
           Stop
