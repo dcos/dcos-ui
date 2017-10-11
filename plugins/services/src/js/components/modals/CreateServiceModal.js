@@ -896,6 +896,7 @@ class CreateServiceModal extends Component {
           open={this.state.isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
           leftButtonText="Cancel"
+          leftButtonClassName="button button-link"
           leftButtonCallback={this.handleCloseConfirmModal}
           rightButtonText="Discard"
           rightButtonClassName="button button-danger"
