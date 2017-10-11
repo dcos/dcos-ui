@@ -37,7 +37,7 @@ const PageHeaderActionsMenu = ({
   return (
     <Dropdown
       anchorRight={anchorRight}
-      buttonClassName="button button-link button-narrow"
+      buttonClassName="button button-primary-link button-narrow"
       items={getMenuItems(children, iconID)}
       onItemSelection={handleItemSelection}
       persistentID="trigger"
