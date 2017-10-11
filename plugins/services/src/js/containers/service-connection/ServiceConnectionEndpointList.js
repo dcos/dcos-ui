@@ -9,31 +9,22 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
-import Icon from "#SRC/js/components/Icon";
 
+import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
 import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import Service from "../../structs/Service";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
-const METHODS_TO_BIND = ["handleOpenEditConfigurationModal", "handleTextCopy"];
+const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
 class ServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      copiedCommand: ""
-    };
-
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  handleTextCopy(copiedCommand) {
-    this.setState({ copiedCommand });
   }
 
   handleOpenEditConfigurationModal() {
@@ -44,44 +35,26 @@ class ServiceConnectionEndpointList extends React.Component {
   }
 
   getClipboardTrigger(command) {
-    return (
-      <div className="code-copy-wrapper">
-        <div className="code-copy-icon tight">
-          <ClipboardTrigger
-            className="clickable"
-            copyText={command}
-            onTextCopy={this.handleTextCopy.bind(this, command)}
-            useTooltip={true}
-          >
-            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
-          </ClipboardTrigger>
-        </div>
-        {command}
-      </div>
-    );
+    return <EndpointClipboardTrigger command={command} />;
   }
 
   getProtocolValue(portDefinition) {
-    let protocol = portDefinition.protocol || "";
+    const protocol = portDefinition.protocol || "";
+    let protocolDisplayValue = "";
+
     if (Array.isArray(protocol)) {
-      protocol = protocol.join(", ");
+      protocolDisplayValue = protocol.join(", ");
     }
-    protocol = protocol.replace(/,\s*/g, ", ");
+    protocolDisplayValue = protocolDisplayValue.replace(/,\s*/g, ", ");
 
-    if (protocol instanceof Array) {
-      protocol = protocol.join(", ");
-    }
-
-    if (protocol) {
-      return this.getClipboardTrigger(getDisplayValue(protocol));
+    if (protocolDisplayValue !== "") {
+      return this.getClipboardTrigger(getDisplayValue(protocolDisplayValue));
     }
 
-    return getDisplayValue(protocol);
+    return getDisplayValue(protocolDisplayValue);
   }
 
-  getHostPortValue(portDefinition) {
-    const service = this.props.service;
-
+  getHostPortValue(portDefinition, service) {
     if (!service.requirePorts) {
       return <span>Auto Assigned</span>;
     }
@@ -132,7 +105,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(portDefinition.servicePort);
   }
 
-  getPortDefinitionDetails(portDefinition) {
+  getPortDefinitionDetails(portDefinition, service) {
     return (
       <div>
         <ConfigurationMapRow key="protocol">
@@ -156,7 +129,7 @@ class ServiceConnectionEndpointList extends React.Component {
             Host Port
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {this.getHostPortValue(portDefinition)}
+            {this.getHostPortValue(portDefinition, service)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="service-port">
@@ -179,14 +152,14 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getPortDefinitions(endpoints) {
+  getPortDefinitions(endpoints, service) {
     return endpoints.map(portDefinition => {
       return (
         <ConfigurationMapSection key={portDefinition.name}>
           <ConfigurationMapHeading>
             {portDefinition.name}
           </ConfigurationMapHeading>
-          {this.getPortDefinitionDetails(portDefinition)}
+          {this.getPortDefinitionDetails(portDefinition, service)}
         </ConfigurationMapSection>
       );
     });
@@ -224,7 +197,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          {this.getPortDefinitions(endpoints)}
+          {this.getPortDefinitions(endpoints, service)}
         </ConfigurationMap>
       </div>
     );

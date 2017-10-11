@@ -9,13 +9,11 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import Icon from "#SRC/js/components/Icon";
-import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import Icon from "#SRC/js/components/Icon";
 
 import Service from "../../structs/Service";
-import Pod from "../../structs/Pod";
-
+import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
 import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
@@ -23,25 +21,14 @@ import { EDIT } from "../../constants/ServiceActionItem";
 import ServiceActionDisabledModal
   from "../../components/modals/ServiceActionDisabledModal";
 
-const METHODS_TO_BIND = ["handleTextCopy"];
-
 class SDKServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
       actionDisabledModalOpen: false,
-      copiedCommand: "",
       servicePreviousState: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  handleTextCopy(copiedCommand) {
-    this.setState({ copiedCommand });
   }
 
   handleOpenEditConfigurationModal(actionDisabledModalOpen) {
@@ -67,26 +54,12 @@ class SDKServiceConnectionEndpointList extends React.Component {
   }
 
   getClipboardTrigger(command) {
-    return (
-      <div className="code-copy-wrapper">
-        <div className="code-copy-icon tight">
-          <ClipboardTrigger
-            className="clickable"
-            copyText={command}
-            onTextCopy={this.handleTextCopy.bind(this, command)}
-            useTooltip={true}
-          >
-            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
-          </ClipboardTrigger>
-        </div>
-        {command}
-      </div>
-    );
+    return <EndpointClipboardTrigger command={command} />;
   }
 
-  getJSONEndpoint(endpoint) {
+  getJSONEndpoint(endpoint, key) {
     return (
-      <ConfigurationMapSection>
+      <ConfigurationMapSection key={key}>
         <ConfigurationMapHeading>
           {endpoint.getName()}
         </ConfigurationMapHeading>
@@ -118,9 +91,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getFileEndpoint(endpoint) {
+  getFileEndpoint(endpoint, key) {
     return (
-      <ConfigurationMapRow key={endpoint.getName()}>
+      <ConfigurationMapRow key={key}>
         <ConfigurationMapLabel>
           {endpoint.getName()}
         </ConfigurationMapLabel>
@@ -150,26 +123,24 @@ class SDKServiceConnectionEndpointList extends React.Component {
   }
 
   getJSONEndpoints(endpoints) {
-    const jsonEndpoints = endpoints.filter(endpoint => {
-      return endpoint.isJSON();
-    });
-
-    if (jsonEndpoints.length === 0) {
+    if (!Array.isArray(endpoints)) {
       return null;
     }
 
-    return jsonEndpoints.map(endpoint => {
-      return this.getJSONEndpoint(endpoint);
-    });
-  }
-
-  getFileEndpointRows(fileEndpoints) {
-    return fileEndpoints.map(endpoint => {
-      return this.getFileEndpoint(endpoint);
-    });
+    return endpoints
+      .filter(endpoint => {
+        return endpoint.isJSON();
+      })
+      .map((endpoint, index) => {
+        return this.getJSONEndpoint(endpoint, index);
+      });
   }
 
   getFileEndpoints(endpoints) {
+    if (!Array.isArray(endpoints)) {
+      return null;
+    }
+
     const fileEndpoints = endpoints.filter(endpoint => {
       return !endpoint.isJSON();
     });
@@ -183,7 +154,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
         <ConfigurationMapHeading>
           Files
         </ConfigurationMapHeading>
-        {this.getFileEndpointRows(fileEndpoints)}
+        {fileEndpoints.map((endpoint, index) => {
+          return this.getFileEndpoint(endpoint, index);
+        })}
       </ConfigurationMapSection>
     );
   }
@@ -256,10 +229,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 }
 
 SDKServiceConnectionEndpointList.propTypes = {
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Pod),
-    React.PropTypes.instanceOf(Service)
-  ])
+  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = SDKServiceConnectionEndpointList;

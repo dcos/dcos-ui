@@ -24,10 +24,7 @@ const ServiceConnectionContainer = function(props) {
 };
 
 ServiceConnectionContainer.propTypes = {
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Pod),
-    React.PropTypes.instanceOf(Service)
-  ])
+  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceConnectionContainer;
