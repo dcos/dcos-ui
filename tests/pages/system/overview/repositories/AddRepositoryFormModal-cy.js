@@ -68,7 +68,7 @@ describe("Add Repository Form Modal", function() {
       cy
         .get(".page-body-content")
         .contains("tr", "Here we go!")
-        .find(".button.button-link.button-danger")
+        .find(".button.button-primary-link.button-danger")
         .invoke("show")
         .click({ force: true });
       cy

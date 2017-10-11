@@ -138,12 +138,12 @@ class ServiceScaleFormModal extends React.Component {
     const buttonDefinition = [
       {
         text: "Cancel",
-        className: "button button-medium",
+        className: "button button-primary-link",
         isClose: true
       },
       {
         text: "Scale Service",
-        className: "button button-primary button-medium",
+        className: "button button-primary",
         isSubmit: true
       }
     ];
