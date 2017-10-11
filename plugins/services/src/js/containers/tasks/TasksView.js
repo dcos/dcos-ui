@@ -6,6 +6,7 @@ import React from "react";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterButtons from "#SRC/js/components/FilterButtons";
+import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
@@ -249,6 +250,14 @@ class TasksView extends mixin(SaveStateMixin) {
 
     return (
       <div className="flex-container-col flex-grow">
+        <FilterHeadline
+          currentLength={filteredTasks.length}
+          inverseStyle={inverseStyle}
+          isFiltering={filterByStatus !== "all" || searchString !== ""}
+          onReset={this.resetFilter}
+          name={"task"}
+          totalLength={tasks.length}
+        />
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterInputText
             className="flush-bottom"

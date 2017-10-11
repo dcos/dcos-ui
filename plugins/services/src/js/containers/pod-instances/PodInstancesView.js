@@ -1,6 +1,7 @@
 import React from "react";
 import { routerShape } from "react-router";
 
+import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import Icon from "#SRC/js/components/Icon";
 import Pod from "../../structs/Pod";
 import PodInstanceList from "../../structs/PodInstanceList";
@@ -133,6 +134,13 @@ class PodInstancesView extends React.Component {
 
     return (
       <div>
+        <FilterHeadline
+          currentLength={filteredItems.getItems().length}
+          isFiltering={filter.text || filter.status !== "all"}
+          name="Instance"
+          onReset={this.handleFilterReset}
+          totalLength={instances.getItems().length}
+        />
         <PodViewFilter
           filter={filter}
           items={filteredTextItems.getItems()}
