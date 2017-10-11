@@ -387,7 +387,7 @@ class GeneralServiceFormSection extends Component {
           leftButtonText="Close"
           leftButtonCallback={this.handleCloseConvertToPodModal}
           rightButtonText="Continue"
-          rightButtonClassName="button button-success"
+          rightButtonClassName="button button-primary"
           rightButtonCallback={this.handleConvertToPod}
           showHeader={true}
         >

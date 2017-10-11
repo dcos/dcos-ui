@@ -225,7 +225,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const { streams, selectedStream } = this.state;
     const buttons = streams.map((name, index) => {
       const classes = classNames({
-        "button button-stroke": true,
+        "button button-outline": true,
         active: name === selectedStream
       });
 
@@ -306,7 +306,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     // logs with a POST request
     return (
       <a
-        className="button button-stroke"
+        className="button button-outline"
         disabled={!task}
         href={SystemLogUtil.getUrl(task.slave_id, params, false, "/download")}
         key="download"
