@@ -186,14 +186,18 @@ describe("Service Actions", function() {
         .should("to.have.length", 1);
     });
 
-    it("back button on review screen goes back to form", function() {
+    it.only("back button on review screen goes back to form", function() {
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .type(`{selectall}elast`);
+
       cy.get(".modal .modal-header button").contains("Review & Run").click();
 
       cy.get(".modal .modal-header button").contains("Back").click();
 
       cy
         .get('.modal .menu-tabbed-container input[name="name"]')
-        .should("to.have.value", "elastic");
+        .should("to.have.value", "elast");
     });
 
     it("shows edit config button on review screen that opens form", function() {
