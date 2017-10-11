@@ -42,7 +42,7 @@ describe("TaskFileViewer", function() {
         />,
         this.container
       );
-      const btn = this.container.querySelector("a.button.button-stroke");
+      const btn = this.container.querySelector("a.button.button-primary-link");
       // If btn.props.disabled = true, then disabled attribute will return an object.
       // If btn.props.disabled = false, then disabled attribute will be undefined.
       // So here we just test to see if attribute exists
@@ -50,7 +50,7 @@ describe("TaskFileViewer", function() {
     });
 
     it("should set button not disabled when file is found", function() {
-      const btn = this.container.querySelector("a.button.button-stroke");
+      const btn = this.container.querySelector("a.button.button-primary-link");
       // If btn.props.disabled = false, then disabled attribute will be undefined
       expect(btn.attributes.disabled).toEqual(undefined);
     });

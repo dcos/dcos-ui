@@ -121,11 +121,11 @@ class SearchLog extends React.Component {
       <div className="button-group button-group-directions">
         <div
           onClick={this.changeWatching.bind(this, "previous")}
-          className="button button-default button-up-arrow button-stroke"
+          className="button button-up-arrow button-outline"
         />
         <div
           onClick={this.changeWatching.bind(this, "next")}
-          className="button button-default button-down-arrow button-stroke"
+          className="button button-down-arrow button-outline"
         />
       </div>
     );

@@ -306,7 +306,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         >
           <button
             disabled={isLoadingSelectedVersion}
-            className="button button-outline"
+            className="button button-primary-link"
             onClick={this.handleConfigureInstallModalOpen}
           >
             Configure

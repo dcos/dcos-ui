@@ -97,7 +97,7 @@ class TaskFileViewer extends React.Component {
       const name = item.getName();
 
       const classes = classNames({
-        "button button-stroke": true,
+        "button button-outline": true,
         active: name === selectedName
       });
 
@@ -193,7 +193,7 @@ class TaskFileViewer extends React.Component {
       this.getSelectionComponent(selectedLogFile),
       <Tooltip key="tooltip" anchor="end" content={"Download log file"}>
         <a
-          className="button button-stroke"
+          className="button button-primary-link"
           disabled={!filePath}
           href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}
         >

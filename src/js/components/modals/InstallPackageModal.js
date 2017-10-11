@@ -351,7 +351,7 @@ class InstallPackageModal
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked horizontal-center">
             <button
-              className="button button-success button-block"
+              className="button button-primary button-block"
               onClick={this.props.onClose}
             >
               OK
@@ -370,12 +370,15 @@ class InstallPackageModal
     return (
       <div className="modal-footer">
         <div className="button-collection flush-bottom">
-          <button className="button" onClick={this.handleModalClose}>
+          <button
+            className="button button-link"
+            onClick={this.handleModalClose}
+          >
             Cancel
           </button>
           <button
             disabled={pendingRequest || hasFormErrors}
-            className="button button-success"
+            className="button button-primary"
             onClick={this.handleChangeTab.bind(this, "reviewAdvancedConfig")}
           >
             Review and Deploy
@@ -407,14 +410,14 @@ class InstallPackageModal
         <div className="modal-footer">
           <div className="button-collection flush-bottom">
             <button
-              className="button"
+              className="button button-link"
               onClick={this.handleChangeTab.bind(this, "advancedInstall")}
             >
               Back
             </button>
             <button
               disabled={pendingRequest}
-              className="button button-success"
+              className="button button-primary"
               onClick={this.handleInstallPackage}
             >
               {buttonText}
@@ -450,7 +453,7 @@ class InstallPackageModal
         <div className="modal-footer">
           <div className="button-collection button-collection-stacked horizontal-center">
             <a
-              className="button button-success button-block"
+              className="button button-primary button-block"
               href={`#/services/detail/${encodeURIComponent(appId)}`}
             >
               Go To Service
