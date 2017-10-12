@@ -16,7 +16,7 @@ const FormGroupContainer = props => {
           wrapText={true}
         >
           <a className="button button-primary-link" onClick={props.onRemove}>
-            <Icon id="close" color="grey" size="tiny" family="tiny" />
+            <Icon id="close" color="grey" size="mini" family="mini" />
           </a>
         </Tooltip>
       </div>
