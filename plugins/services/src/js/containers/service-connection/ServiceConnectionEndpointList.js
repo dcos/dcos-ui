@@ -34,10 +34,6 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getClipboardTrigger(command) {
-    return <EndpointClipboardTrigger command={command} />;
-  }
-
   getProtocolValue(portDefinition) {
     let protocol = portDefinition.protocol || "";
 
@@ -47,7 +43,7 @@ class ServiceConnectionEndpointList extends React.Component {
     protocol = protocol.replace(/,\s*/g, ", ");
 
     if (protocol !== "") {
-      return this.getClipboardTrigger(getDisplayValue(protocol));
+      return <EndpointClipboardTrigger command={getDisplayValue(protocol)} />;
     }
 
     return getDisplayValue(protocol);
@@ -65,7 +61,9 @@ class ServiceConnectionEndpointList extends React.Component {
     }
 
     if (hostPortValue) {
-      return this.getClipboardTrigger(getDisplayValue(hostPortValue));
+      return (
+        <EndpointClipboardTrigger command={getDisplayValue(hostPortValue)} />
+      );
     }
 
     return getDisplayValue(hostPortValue);
@@ -76,9 +74,12 @@ class ServiceConnectionEndpointList extends React.Component {
     const vipLabel = ServiceConfigUtil.findVIPLabel(labels);
 
     if (vipLabel) {
-      return this.getClipboardTrigger(
-        ServiceConfigUtil.buildHostNameFromVipLabel(labels[vipLabel], port)
+      const command = ServiceConfigUtil.buildHostNameFromVipLabel(
+        labels[vipLabel],
+        port
       );
+
+      return <EndpointClipboardTrigger command={command} />;
     }
 
     return <em>Not Enabled</em>;
@@ -88,7 +89,7 @@ class ServiceConnectionEndpointList extends React.Component {
     const portValue = portDefinition.containerPort;
 
     if (portValue) {
-      return this.getClipboardTrigger(getDisplayValue(portValue));
+      return <EndpointClipboardTrigger command={getDisplayValue(portValue)} />;
     }
 
     return getDisplayValue(portValue);
@@ -96,8 +97,10 @@ class ServiceConnectionEndpointList extends React.Component {
 
   getServicePortValue(portDefinition) {
     if (portDefinition.servicePort) {
-      return this.getClipboardTrigger(
-        getDisplayValue(portDefinition.servicePort)
+      return (
+        <EndpointClipboardTrigger
+          command={getDisplayValue(portDefinition.servicePort)}
+        />
       );
     }
 
