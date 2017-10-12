@@ -96,6 +96,12 @@ module.exports = class Service extends Item {
     };
   }
 
+  isDeleting() {
+    const env = this.get("env");
+
+    return env && env.SDK_UNINSTALL;
+  }
+
   toJSON() {
     return this.get();
   }

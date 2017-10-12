@@ -13,9 +13,7 @@ describe("Job Actions", function() {
     });
 
     it("opens the correct jobs edit modal", function() {
-      cy
-        .get('.modal .form-panel input[name="id"]')
-        .should("to.have.value", "foo");
+      cy.get(".modal .form-panel form input").should("to.have.value", "foo");
     });
 
     it("closes modal on successful API request", function() {

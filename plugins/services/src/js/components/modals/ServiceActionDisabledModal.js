@@ -13,7 +13,6 @@ import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceTree from "../../structs/ServiceTree";
 import {
-  DELETE,
   EDIT,
   RESTART,
   RESUME,
@@ -60,18 +59,6 @@ class ServiceActionDisabledModal extends React.Component {
     const serviceID = service ? service.getId() : "";
 
     return `dcos marathon app restart ${serviceID}`;
-  }
-
-  getDeleteCommand(service = this.props.service) {
-    const serviceID = service ? service.getId() : "";
-    const packageName = service.getLabels().DCOS_PACKAGE_NAME;
-
-    // For groups, not services
-    if (service instanceof ServiceTree) {
-      return `dcos marathon group remove ${serviceID}`;
-    }
-
-    return `dcos package uninstall ${packageName} --app-id=${serviceID}`;
   }
 
   getServiceRestartMessage() {
@@ -172,53 +159,6 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getServiceDeleteMessage() {
-    const { intl, service } = this.props;
-    const serviceID = service ? service.getId() : "";
-    const command = this.getDeleteCommand();
-
-    return (
-      <div>
-        <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_1"
-          })}
-          {" "}
-          <span className="emphasis">{serviceID}</span>
-          {" "}
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_2"
-          })}
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI("/deploying-services/uninstall/")}
-            target="_blank"
-          >
-            {intl.formatMessage({ id: "DOCS.DOCUMENTATION" })}
-          </a> for complete instructions.{" "}
-        </p>
-        {this.getClipboardTrigger(command)}
-        <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3"
-          })}
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/uninstall/#framework-cleaner"
-            )}
-            target="_blank"
-          >
-            {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
-            })}
-          </a>
-          .
-        </p>
-      </div>
-    );
-  }
-
   getServiceEditMessage() {
     const { intl, service } = this.props;
 
@@ -252,8 +192,6 @@ class ServiceActionDisabledModal extends React.Component {
         return this.getServiceResumeMessage();
       case SCALE:
         return this.getServiceScaleMessage();
-      case DELETE:
-        return this.getServiceDeleteMessage();
       case EDIT:
         return this.getServiceEditMessage();
       default:
@@ -385,72 +323,6 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getGroupDeleteMessage() {
-    const { actionID, service, intl } = this.props;
-    const serviceID = service ? service.getId() : "";
-    const { selectedServices } = this.getServiceTypes(isSDKService);
-    const packageCommand = this.getServiceListCommand(
-      selectedServices,
-      this.getDeleteCommand
-    );
-    const groupCommand = this.getDeleteCommand();
-
-    return (
-      <div>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_1" })}
-          {". "}
-          <a
-            href={MetadataStore.buildDocsURI("/deploying-services/uninstall/")}
-            target="_blank"
-          >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
-          </a>
-        </p>
-        {this.getClipboardTrigger(packageCommand)}
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_2" })}
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/uninstall/#framework-cleaner"
-            )}
-            target="_blank"
-          >
-            {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
-            })}
-          </a>
-          {" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_3" })}.
-        </p>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_4" })}
-          {", "}
-          {intl
-            .formatMessage({ id: ServiceActionLabels[actionID] })
-            .toLowerCase()}
-          {" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_5" })}
-          {" "}
-          <span className="emphasis">{serviceID}</span>
-          {": "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_6" })}.
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/cli/command-reference/dcos-marathon/dcos-marathon-group-remove/"
-            )}
-            target="_blank"
-          >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
-          </a>
-        </p>
-        {this.getClipboardTrigger(groupCommand)}
-      </div>
-    );
-  }
-
   getGroupMessage() {
     const { actionID, intl } = this.props;
 
@@ -463,8 +335,6 @@ class ServiceActionDisabledModal extends React.Component {
         return this.getGroupUpdateMessage(
           intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE" })
         );
-      case DELETE:
-        return this.getGroupDeleteMessage();
       default:
         return <noscript />;
     }

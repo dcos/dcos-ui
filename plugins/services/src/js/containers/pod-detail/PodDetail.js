@@ -235,6 +235,7 @@ class PodDetail extends mixin(TabsMixin) {
           actions={this.getActions()}
           breadcrumbs={breadcrumbs}
           tabs={this.getTabs()}
+          disabledActions={pod.isDeleting()}
         >
           <PodHeader
             onDestroy={this.handleActionDestroy}
