@@ -155,9 +155,9 @@ class ServiceConnectionEndpointList extends React.Component {
   }
 
   getPortDefinitions(endpoints, service) {
-    return endpoints.map(portDefinition => {
+    return endpoints.map((portDefinition, index) => {
       return (
-        <ConfigurationMapSection key={portDefinition.name}>
+        <ConfigurationMapSection key={index}>
           <ConfigurationMapHeading>
             {portDefinition.name}
           </ConfigurationMapHeading>
