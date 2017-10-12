@@ -1,0 +1,44 @@
+[
+  {
+    "endpointName": "coordinator-http",
+    "endpointData": {
+      "address": ["10.0.2.5:1025"],
+      "dns": ["coordinator-0-node.elastic.autoip.dcos.thisdcos.directory:1025"],
+      "vip": "coordinator.elastic.l4lb.thisdcos.directory:9200"
+    },
+    "contentType": "application/json"
+  },
+  {
+    "endpointName": "coordinator-transport",
+    "endpointData": {
+      "address": ["10.0.2.5:1026"],
+      "dns": ["coordinator-0-node.elastic.autoip.dcos.thisdcos.directory:1026"],
+      "vip": "coordinator.elastic.l4lb.thisdcos.directory:9300"
+    },
+    "contentType": "application/json"
+  },
+  {
+    "endpointName": "data-http",
+    "endpointData": {
+      "address": ["10.0.2.5:1029", "10.0.2.5:1027"],
+      "dns": [
+        "data-0-node.elastic.autoip.dcos.thisdcos.directory:1029",
+        "data-1-node.elastic.autoip.dcos.thisdcos.directory:1027"
+      ],
+      "vip": "data.elastic.l4lb.thisdcos.directory:9200"
+    },
+    "contentType": "application/json"
+  },
+  {
+    "endpointName": "data-transport",
+    "endpointData": {
+      "address": ["10.0.2.5:1030", "10.0.2.5:1028"],
+      "dns": [
+        "data-0-node.elastic.autoip.dcos.thisdcos.directory:1030",
+        "data-1-node.elastic.autoip.dcos.thisdcos.directory:1028"
+      ],
+      "vip": "data.elastic.l4lb.thisdcos.directory:9300"
+    },
+    "contentType": "application/json"
+  }
+]

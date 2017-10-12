@@ -207,7 +207,8 @@ class PodDetail extends mixin(TabsMixin) {
     return [
       { label: "Tasks", routePath: `${routePrefix}/tasks` },
       { label: "Configuration", routePath: `${routePrefix}/configuration` },
-      { label: "Debug", routePath: `${routePrefix}/debug` }
+      { label: "Debug", routePath: `${routePrefix}/debug` },
+      { label: "Endpoints", routePath: `${routePrefix}/endpoints` }
     ];
   }
 
