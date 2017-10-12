@@ -19,7 +19,8 @@ class PageHeader extends React.Component {
         secondaryContentDetail,
         secondaryContentClassName,
         supplementalContent,
-        tabs
+        tabs,
+        disabledActions
       }
     } = this;
 
@@ -53,6 +54,7 @@ class PageHeader extends React.Component {
               actions={actions}
               addButton={addButton}
               supplementalContent={supplementalContent}
+              disabledActions={disabledActions}
             />
           </div>
           <div className={secondaryContentClasses}>
@@ -73,7 +75,8 @@ const classProps = React.PropTypes.oneOfType([
 
 PageHeader.defaultProps = {
   actions: [],
-  tabs: []
+  tabs: [],
+  disabledActions: false
 };
 
 PageHeader.propTypes = {
@@ -89,7 +92,8 @@ PageHeader.propTypes = {
   secondaryContentClassName: classProps,
   secondaryContentDetail: React.PropTypes.node,
   supplementalContent: React.PropTypes.node,
-  tabs: React.PropTypes.array
+  tabs: React.PropTypes.array,
+  disabledActions: React.PropTypes.bool
 };
 
 PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;

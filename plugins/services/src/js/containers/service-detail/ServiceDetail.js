@@ -280,6 +280,7 @@ class ServiceDetail extends mixin(TabsMixin) {
           tabs={this.getTabs()}
           breadcrumbs={breadcrumbs}
           iconID="services"
+          disabledActions={service.isDeleting()}
         />
         {clonedChildren}
         <ServiceActionDisabledModal

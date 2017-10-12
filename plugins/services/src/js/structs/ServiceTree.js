@@ -429,4 +429,8 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
+
+  isDeleting() {
+    return false;
+  }
 };

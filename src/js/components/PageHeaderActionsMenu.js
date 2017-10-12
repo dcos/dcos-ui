@@ -28,7 +28,12 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = ({ anchorRight, children, iconID }) => {
+const PageHeaderActionsMenu = ({
+  anchorRight,
+  children,
+  iconID,
+  disabledActions
+}) => {
   return (
     <Dropdown
       anchorRight={anchorRight}
@@ -40,6 +45,7 @@ const PageHeaderActionsMenu = ({ anchorRight, children, iconID }) => {
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
       wrapperClassName="dropdown"
+      disabled={disabledActions}
     />
   );
 };
@@ -59,7 +65,8 @@ PageHeaderActionsMenu.propTypes = {
       })
     })
   ),
-  iconID: React.PropTypes.string
+  iconID: React.PropTypes.string,
+  disabledActions: React.PropTypes.bool
 };
 
 module.exports = PageHeaderActionsMenu;

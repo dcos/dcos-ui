@@ -124,6 +124,10 @@ module.exports = class Application extends Service {
    * @override
    */
   getServiceStatus() {
+    if (this.isDeleting()) {
+      return ServiceStatus.DELETING;
+    }
+
     const { tasksRunning } = this.getTasksSummary();
     const deployments = this.getDeployments();
     const queue = this.getQueue();

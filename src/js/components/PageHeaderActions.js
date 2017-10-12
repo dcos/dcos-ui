@@ -22,13 +22,13 @@ const getDropdownAction = (action, index) => {
 
 class PageHeaderActions extends React.Component {
   renderActionsMenu() {
-    const { actions } = this.props;
+    const { actions, disabledActions } = this.props;
 
     if (actions.length > 0) {
       const dropdownElements = actions.map(getDropdownAction);
 
       return (
-        <PageHeaderActionsMenu>
+        <PageHeaderActionsMenu disabledActions={disabledActions}>
           {dropdownElements}
         </PageHeaderActionsMenu>
       );
@@ -36,13 +36,13 @@ class PageHeaderActions extends React.Component {
   }
 
   renderAddButton() {
-    const { addButton } = this.props;
+    const { addButton, disabledActions } = this.props;
 
     if (Array.isArray(addButton) && addButton.length > 0) {
       const dropdownElements = addButton.map(getDropdownAction);
 
       return (
-        <PageHeaderActionsMenu iconID="plus">
+        <PageHeaderActionsMenu iconID="plus" disabledActions={disabledActions}>
           {dropdownElements}
         </PageHeaderActionsMenu>
       );
@@ -93,7 +93,8 @@ class PageHeaderActions extends React.Component {
 }
 
 PageHeaderActions.defaultProps = {
-  actions: []
+  actions: [],
+  disabledActions: false
 };
 
 const classProps = React.PropTypes.oneOfType([
@@ -116,7 +117,8 @@ PageHeaderActions.propTypes = {
   actions: React.PropTypes.arrayOf(
     React.PropTypes.oneOfType([React.PropTypes.node, menuActionsProps])
   ),
-  supplementalContent: React.PropTypes.node
+  supplementalContent: React.PropTypes.node,
+  disabledActions: React.PropTypes.bool
 };
 
 module.exports = PageHeaderActions;
