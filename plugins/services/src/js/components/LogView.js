@@ -1,5 +1,5 @@
 import React from "react";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { CSSTransitionGroup } from "react-transition-group";
 import throttle from "lodash.throttle";
 
 import { PREPEND } from "#SRC/js/constants/SystemLogTypes";
@@ -264,7 +264,7 @@ class LogView extends React.Component {
           {fullLog}
         </Highlight>
       </pre>,
-      <ReactCSSTransitionGroup
+      <CSSTransitionGroup
         key="log-go-down-button"
         transitionAppear={true}
         transitionName="button"
@@ -274,7 +274,7 @@ class LogView extends React.Component {
         component="div"
       >
         {this.getGoToBottomButton()}
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     ];
   }
 
