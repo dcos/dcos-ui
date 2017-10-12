@@ -1755,6 +1755,11 @@
       "from": "center-align@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/center-align/-/center-align-0.1.3.tgz"
     },
+    "chain-function": {
+      "version": "1.0.0",
+      "from": "chain-function@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/chain-function/-/chain-function-1.0.0.tgz"
+    },
     "chalk": {
       "version": "1.1.1",
       "from": "chalk@1.1.1",
@@ -2845,6 +2850,11 @@
           "resolved": "https://registry.npmjs.org/utila/-/utila-0.3.3.tgz"
         }
       }
+    },
+    "dom-helpers": {
+      "version": "3.2.1",
+      "from": "dom-helpers@>=3.2.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/dom-helpers/-/dom-helpers-3.2.1.tgz"
     },
     "dom-serializer": {
       "version": "0.1.0",
@@ -7776,6 +7786,33 @@
       "from": "promise-polyfill@>=5.1.0 <6.0.0",
       "resolved": "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-5.2.1.tgz"
     },
+    "prop-types": {
+      "version": "15.6.0",
+      "from": "prop-types@>=15.5.6 <16.0.0",
+      "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.0.tgz",
+      "dependencies": {
+        "fbjs": {
+          "version": "0.8.16",
+          "from": "fbjs@>=0.8.16 <0.9.0",
+          "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.16.tgz"
+        },
+        "js-tokens": {
+          "version": "3.0.2",
+          "from": "js-tokens@^3.0.0",
+          "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz"
+        },
+        "loose-envify": {
+          "version": "1.3.1",
+          "from": "loose-envify@^1.3.1",
+          "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
+        },
+        "object-assign": {
+          "version": "4.1.1",
+          "from": "object-assign@>=4.1.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        }
+      }
+    },
     "proxy-addr": {
       "version": "1.0.10",
       "from": "proxy-addr@>=1.0.10 <1.1.0",
@@ -7958,11 +7995,6 @@
       "from": "react-ace@3.7.0",
       "resolved": "https://registry.npmjs.org/react-ace/-/react-ace-3.7.0.tgz"
     },
-    "react-addons-css-transition-group": {
-      "version": "15.4.1",
-      "from": "react-addons-css-transition-group@15.4.1",
-      "resolved": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.1.tgz"
-    },
     "react-addons-pure-render-mixin": {
       "version": "15.4.1",
       "from": "react-addons-pure-render-mixin@15.4.1",
@@ -8069,10 +8101,27 @@
       "from": "react-transform-hmr@>=1.0.3 <2.0.0",
       "resolved": "https://registry.npmjs.org/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz"
     },
+    "react-transition-group": {
+      "version": "1.2.1",
+      "from": "react-transition-group@1.2.1",
+      "resolved": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-1.2.1.tgz",
+      "dependencies": {
+        "js-tokens": {
+          "version": "3.0.2",
+          "from": "js-tokens@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz"
+        },
+        "loose-envify": {
+          "version": "1.3.1",
+          "from": "loose-envify@>=1.3.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
+        }
+      }
+    },
     "reactjs-components": {
-      "version": "0.16.0-beta.23",
-      "from": "reactjs-components@0.16.0-beta.23",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.23.tgz"
+      "version": "0.16.0-beta.27",
+      "from": "reactjs-components@0.16.0-beta.27",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.27.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",

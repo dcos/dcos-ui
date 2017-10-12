@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import CSSTransitionGroup from "react-addons-css-transition-group";
+import { CSSTransitionGroup } from "react-transition-group";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import { Link, routerShape } from "react-router";
 import React from "react";
