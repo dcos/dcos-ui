@@ -14,6 +14,14 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
 
+const METHODS_TO_BIND = [
+  "handleDropdownNavigationSelection",
+  "handleTabChange",
+  "handleFormChange",
+  "validate",
+  "handleJSONChange",
+  "handleBadgeClick"
+];
 export default class FrameworkConfigurationForm extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +29,10 @@ export default class FrameworkConfigurationForm extends Component {
     this.state = {
       errorSchema: null
     };
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   getFormattedSectionLabel(label) {
@@ -35,7 +47,7 @@ export default class FrameworkConfigurationForm extends Component {
     event.stopPropagation();
 
     const { errorSchema } = this.state;
-    const { packageDetails } = this.props;
+    const { formData } = this.props;
 
     const fieldsWithErrors = Object.keys(
       errorSchema[activeTab]
@@ -47,10 +59,7 @@ export default class FrameworkConfigurationForm extends Component {
     });
 
     // first field with errors in the current tab
-    const schema = packageDetails.getConfig();
-    const fieldToFocus = Object.keys(
-      schema.properties[activeTab].properties
-    ).find(field => {
+    const fieldToFocus = Object.keys(formData[activeTab]).find(field => {
       return fieldsWithErrors.includes(field);
     });
 
@@ -58,13 +67,10 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getFormTabList() {
-    const { packageDetails, formErrors } = this.props;
-    const schema = packageDetails.getConfig();
+    const { formErrors, formData } = this.props;
 
     // the config will have 2-levels, we will render first level as the tabs
-    const tabs = Object.keys(schema.properties);
-
-    return tabs.map(tabName => {
+    return Object.keys(formData).map(tabName => {
       return (
         <TabButton
           label={this.getFormattedSectionLabel(tabName)}
@@ -89,10 +95,9 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getDropdownNavigationList() {
-    const { packageDetails, activeTab } = this.props;
-    const schema = packageDetails.getConfig();
+    const { formData, activeTab } = this.props;
 
-    return Object.keys(schema.properties).map(tabName => {
+    return Object.keys(formData).map(tabName => {
       return {
         id: tabName,
         isActive: activeTab === tabName,
@@ -102,8 +107,7 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   getUiSchema() {
-    const { packageDetails, focusField, activeTab } = this.props;
-    const schema = packageDetails.getConfig();
+    const { formData, focusField, activeTab } = this.props;
 
     const uiSchema = {
       [activeTab]: {
@@ -112,12 +116,12 @@ export default class FrameworkConfigurationForm extends Component {
     };
 
     // hide all tabs not selected
-    Object.keys(schema.properties).forEach(key => {
-      if (key !== activeTab) {
-        if (uiSchema[key] == null) {
-          uiSchema[key] = {};
+    Object.keys(formData).forEach(tabName => {
+      if (tabName !== activeTab) {
+        if (uiSchema[tabName] == null) {
+          uiSchema[tabName] = {};
         }
-        uiSchema[key]["classNames"] = "hidden";
+        uiSchema[tabName]["classNames"] = "hidden";
       }
     });
 
@@ -211,9 +215,8 @@ export default class FrameworkConfigurationForm extends Component {
       activeTab,
       deployErrors
     } = this.props;
-    const schema = packageDetails.getConfig();
-    const jsonEditorErrors = this.getErrorsForJSONEditor();
 
+    // nicely format titles rendered by the json-schema library
     const TitleField = props => {
       return (
         <DefaultTitleField
@@ -241,16 +244,16 @@ export default class FrameworkConfigurationForm extends Component {
       <div className="flex flex-item-grow-1">
         <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <PageHeaderNavigationDropdown
-            handleNavigationItemSelection={this.handleDropdownNavigationSelection.bind(
-              this
-            )}
+            handleNavigationItemSelection={
+              this.handleDropdownNavigationSelection
+            }
             items={this.getDropdownNavigationList()}
           />
           <div className="modal-body-padding-surrogate create-service-modal-form-container">
             <div className="create-service-modal-form container container-wide">
               <Tabs
                 activeTab={activeTab}
-                handleTabChange={this.handleTabChange.bind(this)}
+                handleTabChange={this.handleTabChange}
                 vertical={true}
                 className={"menu-tabbed-container-fixed"}
               >
@@ -260,13 +263,13 @@ export default class FrameworkConfigurationForm extends Component {
                 <div className="menu-tabbed-view-container">
                   {errorsAlert}
                   <SchemaForm
-                    schema={schema}
+                    schema={packageDetails.getConfig()}
                     formData={formData}
-                    onChange={this.handleFormChange.bind(this)}
+                    onChange={this.handleFormChange}
                     uiSchema={this.getUiSchema()}
                     fields={{ SchemaField, TitleField }}
                     liveValidate={true}
-                    validate={this.validate.bind(this)}
+                    validate={this.validate}
                     showErrorList={false}
                   >
                     <div />
@@ -279,10 +282,10 @@ export default class FrameworkConfigurationForm extends Component {
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
           <JSONEditor
-            errors={jsonEditorErrors}
+            errors={this.getErrorsForJSONEditor()}
             showGutter={true}
             showPrintMargin={false}
-            onChange={this.handleJSONChange.bind(this)}
+            onChange={this.handleJSONChange}
             theme="monokai"
             height="100%"
             value={formData}

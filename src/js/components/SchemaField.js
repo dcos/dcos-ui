@@ -224,9 +224,9 @@ class SchemaField extends Component {
   }
 
   getFieldHeading(required, name = "", description) {
-    let asterisk = null;
+    let requiredSymbol = null;
     if (required) {
-      asterisk = (
+      requiredSymbol = (
         <FormGroupHeadingContent className="text-danger" primary={false}>
           *
         </FormGroupHeadingContent>
@@ -238,7 +238,7 @@ class SchemaField extends Component {
         <FormGroupHeadingContent primary={true}>
           {name.split("_").join(" ")}
         </FormGroupHeadingContent>
-        {asterisk}
+        {requiredSymbol}
         <FormGroupHeadingContent primary={false}>
           <Tooltip
             content={description}

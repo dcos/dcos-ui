@@ -22,13 +22,25 @@ import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import FrameworkConfigurationForm
   from "#SRC/js/components/FrameworkConfigurationForm";
 
+const METHODS_TO_BIND = [
+  "handleJSONToggle",
+  "handleGoBack",
+  "handleServiceReview",
+  "onEditConfigurationButtonClick",
+  "onReviewConfigurationRowClick",
+  "onFormDataChange",
+  "onFormErrorChange",
+  "onFocusFieldChange",
+  "onActiveTabChange",
+  "handleCloseConfirmModal",
+  "handleConfirmGoBack"
+];
 export default class FrameworkConfiguration extends Component {
   constructor(props) {
     super(props);
 
-    const schema = props.packageDetails.getConfig();
-    const activeTab = Object.keys(schema.properties)[0];
-    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
+    const [activeTab] = Object.keys(props.formData);
+    const [focusField] = Object.keys(props.formData[activeTab]);
 
     this.state = {
       reviewActive: props.isInitialDeploy,
@@ -39,6 +51,10 @@ export default class FrameworkConfiguration extends Component {
       isConfirmOpen: false,
       isOpen: true
     };
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   onFormDataChange(formData) {
@@ -61,40 +77,37 @@ export default class FrameworkConfiguration extends Component {
 
   onActiveTabChange(activeTab) {
     const { currentActiveTab } = this.state;
-    const { packageDetails } = this.props;
+    const { formData } = this.props;
 
     if (deepEqual(activeTab, currentActiveTab)) {
       return false;
     }
 
-    const schema = packageDetails.getConfig();
-    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
+    const [focusField] = Object.keys(formData[activeTab]);
 
     this.setState({ activeTab, focusField });
   }
 
   onReviewConfigurationRowClick(rowData) {
-    const { tabViewID } = rowData;
+    const { tabViewID = "" } = rowData;
 
-    const keyPath = (tabViewID || "").split(".");
+    const keyPath = tabViewID.split(".");
     if (keyPath.length < 2) {
       this.onEditConfigurationButtonClick();
 
       return false;
     }
 
-    const activeTab = keyPath[0];
-    const focusField = keyPath[1];
+    const [activeTab, focusField] = keyPath;
 
     this.setState({ reviewActive: false, focusField, activeTab });
   }
 
   onEditConfigurationButtonClick() {
-    const { packageDetails } = this.props;
+    const { formData } = this.props;
 
-    const schema = packageDetails.getConfig();
-    const activeTab = Object.keys(schema.properties)[0];
-    const focusField = Object.keys(schema.properties[activeTab].properties)[0];
+    const [activeTab] = Object.keys(formData);
+    const [focusField] = Object.keys(formData[activeTab]);
 
     this.setState({ reviewActive: false, activeTab, focusField });
   }
@@ -129,11 +142,17 @@ export default class FrameworkConfiguration extends Component {
 
     if (reviewActive && hasChangesApplied) {
       this.setState({ reviewActive: false });
-    } else if (hasChangesApplied) {
-      this.setState({ isConfirmOpen: true });
-    } else {
-      this.handleConfirmGoBack();
+
+      return;
     }
+
+    if (hasChangesApplied) {
+      this.setState({ isConfirmOpen: true });
+
+      return;
+    }
+
+    this.handleConfirmGoBack();
   }
 
   handleServiceReview() {
@@ -142,9 +161,11 @@ export default class FrameworkConfiguration extends Component {
 
     if (reviewActive) {
       handleRun();
-    } else {
-      this.setState({ reviewActive: true });
+
+      return;
     }
+
+    this.setState({ reviewActive: true });
   }
 
   handleConfirmGoBack() {
@@ -163,7 +184,7 @@ export default class FrameworkConfiguration extends Component {
     return [
       {
         className: "button-stroke",
-        clickHandler: this.handleGoBack.bind(this),
+        clickHandler: this.handleGoBack,
         label: reviewActive && hasChangesApplied ? " Back" : "Cancel"
       }
     ];
@@ -186,7 +207,7 @@ export default class FrameworkConfiguration extends Component {
     const actions = [
       {
         className: "button-primary flush-vertical",
-        clickHandler: this.handleServiceReview.bind(this),
+        clickHandler: this.handleServiceReview,
         label,
         disabled: hasFormErrors ||
           (reviewActive && deployErrors && !hasChangesApplied)
@@ -200,7 +221,7 @@ export default class FrameworkConfiguration extends Component {
             className="flush"
             checkboxClassName="toggle-button toggle-button-align-left"
             checked={jsonEditorActive}
-            onChange={this.handleJSONToggle.bind(this)}
+            onChange={this.handleJSONToggle}
             key="json-editor"
           >
             JSON Editor
@@ -212,38 +233,13 @@ export default class FrameworkConfiguration extends Component {
     return actions;
   }
 
-  getPageContents() {
-    const {
-      reviewActive,
-      jsonEditorActive,
-      focusField,
-      activeTab
-    } = this.state;
+  getReviewScreen() {
     const {
       packageDetails,
       deployErrors,
-      formErrors,
       isInitialDeploy,
       formData
     } = this.props;
-
-    if (!reviewActive) {
-      return (
-        <FrameworkConfigurationForm
-          packageDetails={packageDetails}
-          jsonEditorActive={jsonEditorActive}
-          formData={formData}
-          formErrors={formErrors}
-          focusField={focusField}
-          activeTab={activeTab}
-          deployErrors={deployErrors}
-          onFormDataChange={this.onFormDataChange.bind(this)}
-          onFormErrorChange={this.onFormErrorChange.bind(this)}
-          onActiveTabChange={this.onActiveTabChange.bind(this)}
-          onFocusFieldChange={this.onFocusFieldChange.bind(this)}
-        />
-      );
-    }
 
     const fileName = "config.json";
     const configString = JSON.stringify(formData, null, 2);
@@ -293,7 +289,7 @@ export default class FrameworkConfiguration extends Component {
             <div className="column-8 text-align-right">
               <button
                 className="button button-primary-link button-inline-flex"
-                onClick={this.onEditConfigurationButtonClick.bind(this)}
+                onClick={this.onEditConfigurationButtonClick}
               >
                 <Icon id="pencil" size="mini" family="system" />
                 <span className="form-group-heading-content">
@@ -316,7 +312,7 @@ export default class FrameworkConfiguration extends Component {
           <HashMapDisplay
             hash={formData}
             renderKeys={renderKeys}
-            onEditClick={this.onReviewConfigurationRowClick.bind(this)}
+            onEditClick={this.onReviewConfigurationRowClick}
             headlineClassName={"text-capitalize"}
             emptyValue={"\u2014"}
           />
@@ -350,21 +346,50 @@ export default class FrameworkConfiguration extends Component {
   }
 
   render() {
-    const { isConfirmOpen, isOpen } = this.state;
+    const {
+      isConfirmOpen,
+      isOpen,
+      reviewActive,
+      jsonEditorActive,
+      focusField,
+      activeTab
+    } = this.state;
+    const { packageDetails, deployErrors, formErrors, formData } = this.props;
+
+    let pageContents;
+    if (reviewActive) {
+      pageContents = this.getReviewScreen();
+    } else {
+      pageContents = (
+        <FrameworkConfigurationForm
+          packageDetails={packageDetails}
+          jsonEditorActive={jsonEditorActive}
+          formData={formData}
+          formErrors={formErrors}
+          focusField={focusField}
+          activeTab={activeTab}
+          deployErrors={deployErrors}
+          onFormDataChange={this.onFormDataChange}
+          onFormErrorChange={this.onFormErrorChange}
+          onActiveTabChange={this.onActiveTabChange}
+          onFocusFieldChange={this.onFocusFieldChange}
+        />
+      );
+    }
 
     return (
       <FullScreenModal header={this.getHeader()} useGemini={true} open={isOpen}>
-        {this.getPageContents()}
+        {pageContents}
         <Confirm
           closeByBackdropClick={true}
           header={<ModalHeading>Discard Changes?</ModalHeading>}
           open={isConfirmOpen}
-          onClose={this.handleCloseConfirmModal.bind(this)}
+          onClose={this.handleCloseConfirmModal}
           leftButtonText="Cancel"
-          leftButtonCallback={this.handleCloseConfirmModal.bind(this)}
+          leftButtonCallback={this.handleCloseConfirmModal}
           rightButtonText="Discard"
           rightButtonClassName="button button-danger"
-          rightButtonCallback={this.handleConfirmGoBack.bind(this)}
+          rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}
         >
           <p>
