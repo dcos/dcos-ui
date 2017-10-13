@@ -215,6 +215,10 @@ const StringUtil = {
     }, []);
 
     return this.idToTitle(splitID, splitBy, replace, removeConsecutive);
+  },
+
+  getLongDashPlaceholder() {
+    return "\u2014";
   }
 };
 

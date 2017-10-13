@@ -7,7 +7,6 @@ import { Hooks } from "PluginSDK";
 
 import Icon from "#SRC/js/components/Icon";
 import Links from "#SRC/js/constants/Links";
-import LongDashPlaceholder from "#SRC/js/components/LongDashPlaceholder";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -400,7 +399,9 @@ class ServicesTable extends React.Component {
       ? ` ${tasksRunning}`
       : ` ${tasksRunning}/${instancesCount}`;
 
-    const content = instancesCount == null ? <LongDashPlaceholder /> : overview;
+    const content = typeof instancesCount !== "number"
+      ? StringUtil.getLongDashPlaceholder()
+      : overview;
 
     return (
       <span>
