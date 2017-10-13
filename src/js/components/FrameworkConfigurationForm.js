@@ -147,7 +147,7 @@ export default class FrameworkConfigurationForm extends Component {
     }
 
     if (isRequired && formData === "") {
-      errors.addError(`Expecting a ${schema.type} here`);
+      errors.addError(`Expecting a ${schema.type} here, eg: ${schema.default}`);
     }
   }
 
@@ -205,6 +205,24 @@ export default class FrameworkConfigurationForm extends Component {
     }
 
     return this.formatErrorForJSON(errorSchema, []);
+  }
+
+  // transforms the errors from validating against the JSON schema
+  transformErrors(errorSchema) {
+    const errorSchemaCopy = [];
+
+    errorSchema.map(error => {
+      // remove name: "type" errors because caught by the validate() function
+      if (error.name === "type") {
+        return;
+      }
+
+      // capitalize other errors (ex: regex errors
+      error.message = error.message[0].toUpperCase() + error.message.slice(1);
+      errorSchemaCopy.push(error);
+    });
+
+    return errorSchemaCopy;
   }
 
   render() {
@@ -271,6 +289,7 @@ export default class FrameworkConfigurationForm extends Component {
                     liveValidate={true}
                     validate={this.validate}
                     showErrorList={false}
+                    transformErrors={this.transformErrors.bind(this)}
                   >
                     <div />
                   </SchemaForm>

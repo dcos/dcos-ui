@@ -191,13 +191,8 @@ export default class FrameworkConfiguration extends Component {
   }
 
   getPrimaryActions() {
-    const { jsonEditorActive, reviewActive, hasChangesApplied } = this.state;
-    const { deployErrors, formErrors } = this.props;
-
-    let label = "Review & Run";
-    if (reviewActive) {
-      label = "Run Service";
-    }
+    const { jsonEditorActive, reviewActive } = this.state;
+    const { formErrors } = this.props;
 
     const hasFormErrors = Object.keys(formErrors).reduce(
       (sum, tab) => sum + formErrors[tab],
@@ -208,9 +203,8 @@ export default class FrameworkConfiguration extends Component {
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleServiceReview,
-        label,
-        disabled: hasFormErrors ||
-          (reviewActive && deployErrors && !hasChangesApplied)
+        label: reviewActive ? "Run Service" : "Review & Run",
+        disabled: hasFormErrors
       }
     ];
 
@@ -265,7 +259,7 @@ export default class FrameworkConfiguration extends Component {
       preinstall = (
         <div
           dangerouslySetInnerHTML={preInstallNotesParsed}
-          className="flush-bottom message message-warning"
+          className="pre-install-notes message message-warning"
         />
       );
     }

@@ -286,15 +286,16 @@ class SchemaField extends Component {
 
     const autofocus = uiSchema && uiSchema["ui:autofocus"];
 
-    let errorMessage = "";
+    let errorMessage;
     if (errorSchema) {
-      errorMessage = errorSchema.__errors[0];
-      // todo render more than just the first error!
+      errorMessage = errorSchema.__errors.map(error => {
+        return <p>{error}</p>;
+      });
     }
 
     return (
       <FormGroup
-        showError={Boolean(errorMessage)}
+        showError={errorMessage.length > 0}
         errorClassName="form-group-danger"
       >
         {this.getFieldContent(errorMessage, autofocus)}
