@@ -19,6 +19,7 @@ import Icon from "#SRC/js/components/Icon";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 import FrameworkConfigurationForm
   from "#SRC/js/components/FrameworkConfigurationForm";
 
@@ -237,13 +238,6 @@ export default class FrameworkConfiguration extends Component {
 
     const fileName = "config.json";
     const configString = JSON.stringify(formData, null, 2);
-    const ieDownloadConfig = () => {
-      // Download if on IE
-      if (global.navigator.msSaveOrOpenBlob) {
-        const blob = new Blob([configString], { type: "application/json" });
-        global.navigator.msSaveOrOpenBlob(blob, fileName);
-      }
-    };
 
     const renderKeys = {};
     this.getHashMapRenderKeys(formData, renderKeys);
@@ -270,7 +264,6 @@ export default class FrameworkConfiguration extends Component {
     }
 
     // todo use Michaels empty state component instead of hardcoded u2014
-    // todo use Bills href getResourceDownloadPath helper when it merges
     return (
       <div className="flex-item-grow-1">
         <div className="container container-wide">
@@ -293,8 +286,12 @@ export default class FrameworkConfiguration extends Component {
               <a
                 className="button button-primary-link flush-right"
                 download={fileName}
-                onClick={ieDownloadConfig}
-                href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}
+                onClick={RouterUtil.triggerIEDownload(fileName, configString)}
+                href={RouterUtil.getResourceDownloadPath(
+                  "attachment/json",
+                  fileName,
+                  configString
+                )}
               >
                 <Icon id="download" size="mini" family="system" />
                 <span className="form-group-heading-content">
