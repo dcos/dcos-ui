@@ -104,47 +104,52 @@ describe("Sidebar", function() {
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
     });
 
-    it("has a button with exactly the same width as the sidebar", function() {
+    it("has a click-target with exactly the same width as the sidebar", function() {
       cy.get(".sidebar").then(function($sidebar) {
         const sidebarWidth = $sidebar.get(0).getBoundingClientRect().width;
 
-        cy.get(".user-account-dropdown-button").then(function($button) {
-          expect($button.get(0).getBoundingClientRect().width).to.equal(
+        cy.get(".header-dropdown").then(function($clickTarget) {
+          expect($clickTarget.get(0).getBoundingClientRect().width).to.equal(
             sidebarWidth
           );
         });
       });
     });
 
-    it("has a button whose children are not any wider than the button itself", function() {
-      cy.get(".user-account-dropdown-button").then(function($button) {
-        const buttonWidth = $button.get(0).getBoundingClientRect().width;
+    it("has a click-target whose children are not any wider than the sidebar itself", function() {
+      cy.get(".header-dropdown").then(function($clickTarget) {
+        const targetWidth = $clickTarget.get(0).getBoundingClientRect().width;
 
-        cy.get(".user-account-dropdown-button *").then(function($children) {
+        cy.get(".header-dropdown *").then(function($children) {
           $children.each(function(index, child) {
             expect(child.getBoundingClientRect().width).to.be.lessThan(
-              buttonWidth
+              targetWidth
             );
           });
         });
       });
     });
 
-    it("shows the IP address of the cluster with a copy link", function() {
-      cy.get(".user-account-dropdown-button").click();
-      cy
-        .get(".user-account-dropdown-menu li")
-        .contains("52.34.108.176")
-        .closest("li")
-        .as("ipAddressMenuItem");
-
-      cy.get("@ipAddressMenuItem").contains("Copy").should(function($copyLink) {
-        expect($copyLink.get().length).to.equal(1);
-        /* eslint-disable no-unused-expressions */
-        expect($copyLink).to.not.be.visible;
-        /* eslint-enable no-unused-expressions */
-      });
-    });
+    /*
+    TODO: When Header Dropdown Menu has been attached to new click target
+    uncomment and adjust this test.
+    SEE: https://jira.mesosphere.com/browse/DCOS-18942
+    */
+    // it.only("shows the IP address of the cluster with a copy link", function() {
+    //   cy.get(".header-dropdown").click();
+    //   cy
+    //     .get(".user-account-dropdown-menu li")
+    //     .contains("52.34.108.176")
+    //     .closest("li")
+    //     .as("ipAddressMenuItem");
+    //
+    //   cy.get("@ipAddressMenuItem").contains("Copy").should(function($copyLink) {
+    //     expect($copyLink.get().length).to.equal(1);
+    //     /* eslint-disable no-unused-expressions */
+    //     expect($copyLink).to.not.be.visible;
+    //     /* eslint-enable no-unused-expressions */
+    //   });
+    // });
   });
 
   context("Sidebar Docking", function() {
@@ -170,7 +175,7 @@ describe("Sidebar", function() {
             .get(0)
             .getBoundingClientRect();
 
-          expect(containerBottom).to.equal(sidebarBottom);
+          expect(containerBottom).to.lessThan(sidebarBottom - 32);
 
           cy.window().then(function($window) {
             expect(containerBottom).to.equal($window.innerHeight);
