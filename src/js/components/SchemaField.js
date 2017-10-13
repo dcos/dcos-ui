@@ -289,7 +289,7 @@ class SchemaField extends Component {
     let errorMessage;
     if (errorSchema) {
       errorMessage = errorSchema.__errors.map(error => {
-        return <p>{error}</p>;
+        return <div>{error}</div>;
       });
     }
 
