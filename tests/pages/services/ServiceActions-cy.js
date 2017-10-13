@@ -186,7 +186,7 @@ describe("Service Actions", function() {
         .should("to.have.length", 1);
     });
 
-    it.only("back button on review screen goes back to form", function() {
+    it("back button on review screen goes back to form", function() {
       cy
         .get('.modal .menu-tabbed-container input[name="name"]')
         .type(`{selectall}elast`);
