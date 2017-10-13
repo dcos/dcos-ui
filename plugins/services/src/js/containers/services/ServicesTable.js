@@ -399,9 +399,7 @@ class ServicesTable extends React.Component {
       ? ` ${tasksRunning}`
       : ` ${tasksRunning}/${instancesCount}`;
 
-    const content = typeof instancesCount !== "number"
-      ? StringUtil.getLongDashPlaceholder()
-      : overview;
+    const content = isNaN(instancesCount) ? "\u2014" : overview;
 
     return (
       <span>
