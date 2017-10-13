@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from "react";
 import classNames from "classnames";
-import DefaultTitleField
-  from "react-jsonschema-form/lib/components/fields/TitleField";
 import SchemaForm from "react-jsonschema-form";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
@@ -235,14 +233,11 @@ export default class FrameworkConfigurationForm extends Component {
       deployErrors
     } = this.props;
 
-    // nicely format titles rendered by the json-schema library
     const TitleField = props => {
       return (
-        <DefaultTitleField
-          {...props}
-          title={this.getFormattedSectionLabel(props.title)}
-          required={false}
-        />
+        <h2 className="flush-top short-bottom">
+          {this.getFormattedSectionLabel(props.title)}
+        </h2>
       );
     };
 
@@ -270,7 +265,7 @@ export default class FrameworkConfigurationForm extends Component {
           />
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <div className="create-service-modal-form container container-wide">
+              <div className="framework-configuration-form create-service-modal-form container container-wide">
                 <Tabs
                   activeTab={activeTab}
                   handleTabChange={this.handleTabChange}
