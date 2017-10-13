@@ -236,7 +236,7 @@ class SchemaField extends Component {
     return (
       <FormGroupHeading>
         <FormGroupHeadingContent primary={true}>
-          {name.split("_").join(" ")}
+          {name.split(/_|-/).join(" ")}
         </FormGroupHeadingContent>
         {requiredSymbol}
         <FormGroupHeadingContent primary={false}>

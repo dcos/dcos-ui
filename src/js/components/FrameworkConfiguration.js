@@ -120,8 +120,8 @@ export default class FrameworkConfiguration extends Component {
     Object.keys(formData).forEach(key => {
       const formattedKey = key
         .toLowerCase()
-        .split("_")
-        .map(word => word[0].toUpperCase() + word.slice(1))
+        .split(/_|-/)
+        .map(word => StringUtil.capitalize(word))
         .join(" ");
 
       renderKeys[key] = formattedKey;
@@ -328,7 +328,9 @@ export default class FrameworkConfiguration extends Component {
         <FullScreenModalHeaderTitle className="modal-full-screen-header-with-sub-title">
           {reviewActive ? "Review Configuration" : "Edit Configuration"}
           <FullScreenModalHeaderSubTitle>
-            {packageDetails.description + " " + packageDetails.version}
+            {StringUtil.capitalize(packageDetails.name) +
+              " " +
+              packageDetails.version}
           </FullScreenModalHeaderSubTitle>
         </FullScreenModalHeaderTitle>
         <FullScreenModalHeaderActions

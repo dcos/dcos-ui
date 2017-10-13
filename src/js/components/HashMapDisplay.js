@@ -77,7 +77,7 @@ class HashMapDisplay extends React.Component {
         value = value.join(", ");
       }
 
-      if (value === "" && emptyValue) {
+      if (!value && emptyValue) {
         value = emptyValue;
       }
 

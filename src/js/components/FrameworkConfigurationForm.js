@@ -12,6 +12,7 @@ import PageHeaderNavigationDropdown
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
+import StringUtil from "#SRC/js/utils/StringUtil";
 
 const METHODS_TO_BIND = [
   "handleDropdownNavigationSelection",
@@ -37,8 +38,8 @@ export default class FrameworkConfigurationForm extends Component {
   getFormattedSectionLabel(label) {
     return label
       .toLowerCase()
-      .split("_")
-      .map(word => word[0].toUpperCase() + word.slice(1))
+      .split(/_|-/)
+      .map(word => StringUtil.capitalize(word))
       .join(" ");
   }
 
@@ -217,7 +218,7 @@ export default class FrameworkConfigurationForm extends Component {
       }
 
       // capitalize other errors (ex: regex errors
-      error.message = error.message[0].toUpperCase() + error.message.slice(1);
+      error.message = StringUtil.capitalize(error.message);
       errorSchemaCopy.push(error);
     });
 
