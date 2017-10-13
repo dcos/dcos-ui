@@ -286,6 +286,7 @@ export default class FrameworkConfigurationForm extends Component {
                       liveValidate={true}
                       validate={this.validate}
                       showErrorList={false}
+                      transformErrors={this.transformErrors}
                     >
                       <div />
                     </SchemaForm>
