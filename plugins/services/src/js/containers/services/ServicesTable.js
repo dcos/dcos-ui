@@ -84,6 +84,7 @@ class ServicesTable extends React.Component {
     }
 
     if (
+      actionItem.id !== EDIT &&
       actionItem.id !== DELETE &&
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
