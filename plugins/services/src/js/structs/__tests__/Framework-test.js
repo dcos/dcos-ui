@@ -266,7 +266,7 @@ describe("Framework", function() {
   });
 
   describe("#isDeleting", function() {
-    it("returns isDeleting true for framework that deleting", function() {
+    it("returns isDeleting true for framework that is deleting", function() {
       const item = new Framework({
         foo: "bar",
         baz: "qux",
@@ -274,7 +274,7 @@ describe("Framework", function() {
       });
       expect(item.isDeleting()).toEqual(true);
     });
-    it("returns isDeleting status for framework that is deleting", function() {
+    it("returns Deleting status for framework that is deleting", function() {
       const item = new Framework({
         foo: "bar",
         baz: "qux",
