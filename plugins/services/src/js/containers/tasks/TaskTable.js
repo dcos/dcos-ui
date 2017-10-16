@@ -20,6 +20,8 @@ const tableColumnClasses = {
   id: "task-table-column-primary",
   name: "task-table-column-name",
   host: "task-table-column-host-address",
+  zone: "task-table-column-zone-address",
+  region: "task-table-column-region-address",
   status: "task-table-column-status",
   health: "task-table-column-health",
   logs: "task-table-column-logs",
@@ -98,6 +100,24 @@ class TaskTable extends React.Component {
         heading,
         prop: "host",
         render: this.renderHost,
+        sortable: true,
+        sortFunction
+      },
+      {
+        className,
+        headerClassName: className,
+        heading,
+        prop: "zone",
+        render: this.renderZone,
+        sortable: true,
+        sortFunction
+      },
+      {
+        className,
+        headerClassName: className,
+        heading,
+        prop: "region",
+        render: this.renderRegion,
         sortable: true,
         sortFunction
       },
@@ -191,6 +211,8 @@ class TaskTable extends React.Component {
         <col />
         <col className={tableColumnClasses.name} />
         <col className={tableColumnClasses.host} />
+        <col className={tableColumnClasses.zone} />
+        <col className={tableColumnClasses.region} />
         <col className={tableColumnClasses.status} />
         <col className={tableColumnClasses.health} />
         <col className={tableColumnClasses.logs} />
@@ -244,8 +266,7 @@ class TaskTable extends React.Component {
       }
 
       return (
-        <div className="flex-box flex-box-align-vertical-center
-          table-cell-flex-box">
+        <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
           <div className="table-cell-value flex-box flex-box-col">
             <Link className={anchorClasses} to={linkTo} title={title}>
               {title}
@@ -292,6 +313,38 @@ class TaskTable extends React.Component {
         title={task.hostname}
       >
         {task.hostname}
+      </Link>
+    );
+  }
+
+  renderRegion(prop, task) {
+    if (!task.region) {
+      return "Primary";
+    }
+
+    return (
+      <Link
+        className="table-cell-link-secondary text-overflow"
+        to={`/nodes/${task.slave_id}`}
+        title={task.region}
+      >
+        {task.region}
+      </Link>
+    );
+  }
+
+  renderZone(prop, task) {
+    if (!task.zone) {
+      return "Primary";
+    }
+
+    return (
+      <Link
+        className="table-cell-link-secondary text-overflow"
+        to={`/nodes/${task.slave_id}`}
+        title={task.zone}
+      >
+        {task.zone}
       </Link>
     );
   }

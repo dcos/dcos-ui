@@ -2,6 +2,7 @@
 
   .task-table-column {
 
+    &-zone-address,
     &-host-address,
     &-cpus,
     &-mem,
@@ -24,6 +25,14 @@
     }
 
     &-host-address {
+      width: 120px;
+    }
+
+    &-zone-address {
+      width: 120px;
+    }
+
+    &-region-address {
       width: 120px;
     }
 
@@ -92,7 +101,7 @@
 
     .task-table-column {
 
-      &-host-address {
+      &-region-address {
         display: table-cell;
 
         col& {
@@ -109,6 +118,8 @@
 
     .task-table-column {
 
+      &-zone-address,
+      &-host-address,
       &-cpus,
       &-mem {
         display: table-cell;

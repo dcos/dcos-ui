@@ -82,7 +82,7 @@ function mergeVersion(task) {
   return task;
 }
 
-function mergeHostname(task) {
+function mergeLocation(task) {
   const node = CompositeState.getNodesList()
     .filter({
       ids: [task.slave_id]
@@ -91,6 +91,18 @@ function mergeHostname(task) {
 
   if (node) {
     task.hostname = node.hostname;
+  }
+
+  if (node.domain && node.domain.fault_domain) {
+    const region = node.domain.fault_domain.region;
+    const zone = node.domain.fault_domain.zone;
+
+    if (region && region.name) {
+      task.region = region.name;
+    }
+    if (zone && zone.name) {
+      task.zone = zone.name;
+    }
   }
 
   return task;
@@ -103,7 +115,7 @@ module.exports = {
     // Get Health from Mesos first, and fallback on Marathon
     task = mergeHealth(task);
     // Merge hostname if we can find it
-    task = mergeHostname(task);
+    task = mergeLocation(task);
 
     return task;
   }
