@@ -112,6 +112,36 @@ const TaskUtil = {
     return ipAddresses.map(function(item) {
       return item.ip_address;
     });
+  },
+
+  getRegionName(task, node, masterNode) {
+    const nodeRegionName = node.getRegionName();
+    const regionNameParts = [];
+
+    if (nodeRegionName) {
+      regionNameParts.push(nodeRegionName);
+    }
+
+    if (!nodeRegionName || nodeRegionName === masterNode.getRegionName()) {
+      regionNameParts.push("(Local)");
+    }
+
+    return regionNameParts.join(" ");
+  },
+
+  getZoneName(task, node, masterNode) {
+    const nodeZoneName = node.getZoneName();
+    const zoneNameParts = [];
+
+    if (nodeZoneName) {
+      zoneNameParts.push(nodeZoneName);
+    }
+
+    if (!nodeZoneName || nodeZoneName === masterNode.getZoneName()) {
+      zoneNameParts.push("(Local)");
+    }
+
+    return zoneNameParts.join(" ");
   }
 };
 

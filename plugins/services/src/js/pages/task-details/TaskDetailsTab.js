@@ -17,6 +17,7 @@ import Units from "#SRC/js/utils/Units";
 import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskEndpointsList from "../../components/TaskEndpointsList";
+import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
   getContainerInfo(task) {
@@ -45,6 +46,7 @@ class TaskDetailsTab extends React.Component {
 
     const services = CompositeState.getServiceList();
     const service = services.filter({ ids: [mesosTask.framework_id] }).last();
+    const masterNode = CompositeState.getNodeMaster();
     const node = CompositeState.getNodesList()
       .filter({ ids: [mesosTask.slave_id] })
       .last();
@@ -139,6 +141,22 @@ class TaskDetailsTab extends React.Component {
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         {resourceRows}
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Zone
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {TaskUtil.getZoneName(mesosTask, node, masterNode)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Region
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {TaskUtil.getRegionName(mesosTask, node, masterNode)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
       </ConfigurationMapSection>
     );
   }
