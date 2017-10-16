@@ -29,6 +29,7 @@ import {
   SCALE,
   SUSPEND
 } from "../../constants/ServiceActionItem";
+import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import ServiceStatusWarning from "../../components/ServiceStatusWarning";
@@ -317,7 +318,7 @@ class ServicesTable extends React.Component {
       )
     });
 
-    if (service.isDeleting()) {
+    if (service.getServiceStatus() === ServiceStatus.DELETING) {
       return this.renderServiceActionsDropdown(service, actions);
     }
 
@@ -345,7 +346,7 @@ class ServicesTable extends React.Component {
         title="More actions"
         transition={true}
         transitionName="dropdown-menu"
-        disabled={service.isDeleting()}
+        disabled={service.getServiceStatus() === ServiceStatus.DELETING}
       />
     );
   }

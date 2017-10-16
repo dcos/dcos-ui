@@ -124,15 +124,17 @@ module.exports = class Application extends Service {
    * @override
    */
   getServiceStatus() {
-    if (this.isDeleting()) {
+    const env = this.get("env");
+
+    if (env && env.SDK_UNINSTALL) {
       return ServiceStatus.DELETING;
     }
 
     const { tasksRunning } = this.getTasksSummary();
     const deployments = this.getDeployments();
     const queue = this.getQueue();
-
     const instances = this.getInstancesCount();
+
     if (instances === 0 && tasksRunning === 0) {
       return ServiceStatus.SUSPENDED;
     }

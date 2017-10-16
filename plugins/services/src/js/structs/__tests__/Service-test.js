@@ -69,11 +69,4 @@ describe("Service", function() {
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
   });
-
-  describe("#isDeleting", function() {
-    it("returns isDeleting false for service", function() {
-      const item = new Service({ foo: "bar", baz: "qux" });
-      expect(item.isDeleting()).toEqual(false);
-    });
-  });
 });

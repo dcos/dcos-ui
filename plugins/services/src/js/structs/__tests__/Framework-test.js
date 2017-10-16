@@ -264,23 +264,4 @@ describe("Framework", function() {
       });
     });
   });
-
-  describe("#isDeleting", function() {
-    it("returns isDeleting true for framework that is deleting", function() {
-      const item = new Framework({
-        foo: "bar",
-        baz: "qux",
-        env: { SDK_UNINSTALL: true }
-      });
-      expect(item.isDeleting()).toEqual(true);
-    });
-    it("returns Deleting status for framework that is deleting", function() {
-      const item = new Framework({
-        foo: "bar",
-        baz: "qux",
-        env: { SDK_UNINSTALL: true }
-      });
-      expect(item.getStatus()).toEqual("Deleting");
-    });
-  });
 });
