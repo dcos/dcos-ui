@@ -399,7 +399,7 @@ class ServicesTable extends React.Component {
       ? ` ${tasksRunning}`
       : ` ${tasksRunning}/${instancesCount}`;
 
-    const content = isNaN(instancesCount) ? "\u2014" : overview;
+    const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
 
     return (
       <span>
