@@ -102,7 +102,7 @@
       "disk": 0,
       "executor": "",
       "constraints": [
-
+        
       ],
       "uris": [
         "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
@@ -123,7 +123,7 @@
         }
       ],
       "storeUrls": [
-
+        
       ],
       "ports": [
         9000,
@@ -148,7 +148,7 @@
         }
       ],
       "dependencies": [
-
+        
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -176,7 +176,7 @@
       "tasksHealthy": 1,
       "tasksUnhealthy": 0,
       "deployments": [
-
+        
       ]
     }
   ]
