@@ -170,15 +170,15 @@ describe("Sidebar", function() {
           .get(0)
           .getBoundingClientRect();
 
-        cy.get(".sidebar-footer").then(function($dockIconContainer) {
-          const { bottom: containerBottom } = $dockIconContainer
+        cy.get(".sidebar-footer").then(function($sidebarFooter) {
+          const { bottom: sidebarFooterBottom } = $sidebarFooter
             .get(0)
             .getBoundingClientRect();
 
-          expect(containerBottom).to.lessThan(sidebarBottom - 32);
+          expect(sidebarFooterBottom).to.lessThan(sidebarBottom);
 
           cy.window().then(function($window) {
-            expect(containerBottom).to.equal($window.innerHeight);
+            expect(sidebarFooterBottom).to.lessThan($window.innerHeight);
           });
         });
       });
