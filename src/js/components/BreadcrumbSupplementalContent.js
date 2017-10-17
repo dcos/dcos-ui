@@ -3,7 +3,7 @@ import React from "react";
 
 class BreadcrumbSupplementalContent extends React.Component {
   render() {
-    const { children, hasStatusBar } = this.props;
+    const { children, hasProgressBar } = this.props;
 
     if (!children) {
       return null;
@@ -11,7 +11,7 @@ class BreadcrumbSupplementalContent extends React.Component {
 
     const classes = classNames(
       "breadcrumb__content breadcrumb__content--supplemental",
-      { "breadcrumb__content--has-status-bar": hasStatusBar }
+      { "breadcrumb__content--has-status-bar": hasProgressBar }
     );
 
     return (
@@ -23,11 +23,11 @@ class BreadcrumbSupplementalContent extends React.Component {
 }
 
 BreadcrumbSupplementalContent.defaultProps = {
-  hasStatusBar: false
+  hasProgressBar: false
 };
 
 BreadcrumbSupplementalContent.propTypes = {
-  hasStatusBar: React.PropTypes.bool
+  hasProgressBar: React.PropTypes.bool
 };
 
 module.exports = BreadcrumbSupplementalContent;

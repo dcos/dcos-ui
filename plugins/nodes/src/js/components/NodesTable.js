@@ -8,7 +8,7 @@ import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import NodesTableHeaderLabels from "#SRC/js/constants/NodesTableHeaderLabels";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import StatusBar from "#SRC/js/components/StatusBar";
+import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
@@ -90,7 +90,7 @@ var NodesTable = React.createClass({
 
     return (
       <span className="status-bar-with-label-wrapper">
-        <StatusBar
+        <ProgressBar
           data={[{ value, className: COLOR_CLASSNAMES[prop] }]}
           scale={100}
         />

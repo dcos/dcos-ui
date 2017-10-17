@@ -6,7 +6,7 @@ const ReactTestUtils = require("react-addons-test-utils");
 const Tooltip = require("reactjs-components").Tooltip;
 
 const HealthBar = require("../HealthBar");
-const StatusBar = require("#SRC/js/components/StatusBar");
+const ProgressBar = require("#SRC/js/components/ProgressBar");
 
 const testData = {
   tasksRunning: 3,
@@ -38,10 +38,10 @@ describe("#HealthBar", function() {
     });
   });
 
-  describe("StatusBar", function() {
-    it("should contain StatusBar Component", function() {
+  describe("ProgressBar", function() {
+    it("should contain ProgressBar Component", function() {
       expect(
-        ReactTestUtils.findRenderedComponentWithType(this.instance, StatusBar)
+        ReactTestUtils.findRenderedComponentWithType(this.instance, ProgressBar)
       ).toBeTruthy();
     });
   });

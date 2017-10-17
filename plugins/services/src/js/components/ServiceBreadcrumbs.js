@@ -62,14 +62,14 @@ class ServiceBreadcrumbs extends React.Component {
   checkBreadcrumbOverflow() {
     if (this.primaryBreadcrumbTextRef != null) {
       const availableWidth = this.getAvailableBreadcrumbWidth();
-      const statusBarWidth = this.getBreadcrumbStatusBarWidth();
+      const progressBarWidth = this.getBreadcrumbProgressBarWidth();
 
       if (availableWidth <= 0 && this.state.shouldRenderServiceStatus) {
         // Hide the status bar when the breadcrumbs are wider than the
         // container's width.
         this.setState({ shouldRenderServiceStatus: false });
       } else if (
-        availableWidth > statusBarWidth &&
+        availableWidth > progressBarWidth &&
         !this.state.shouldRenderServiceStatus
       ) {
         // Show the status bar if its width is less than the amount of available
@@ -104,7 +104,7 @@ class ServiceBreadcrumbs extends React.Component {
    *
    * @returns {Number} width in pixels
    */
-  getBreadcrumbStatusBarWidth() {
+  getBreadcrumbProgressBarWidth() {
     if (this.breadcrumbStatusRef != null) {
       this.lastStatusWidth =
         ReactDOM.findDOMNode(this.breadcrumbStatusRef).clientWidth +
@@ -143,7 +143,7 @@ class ServiceBreadcrumbs extends React.Component {
           </span>
           <ServiceStatusWarningWithDebugInformation item={service} />
         </BreadcrumbSupplementalContent>
-        <BreadcrumbSupplementalContent hasStatusBar={true}>
+        <BreadcrumbSupplementalContent hasProgressBar={true}>
           <HealthBar
             key="status-bar"
             instancesCount={instancesCount}
