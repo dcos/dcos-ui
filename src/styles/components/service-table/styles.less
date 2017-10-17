@@ -26,7 +26,16 @@
       }
 
       &-status {
-        width: 144px;
+        width: 110px;
+      }
+
+      &-instances {
+        width: 115px;
+
+        td&,
+        th& {
+          text-align: center;
+        }
       }
 
       &-cpus {
@@ -64,10 +73,24 @@
 
     .service-table {
 
+      .status-bar-indicator {
+        display: none;
+      }
+
       &-column {
 
+        &-instances {
+          width: 110px;
+        }
+
+        &-cpus,
+        &-mem,
+        &-disk {
+          width: 66px;
+        }
+
         &-status {
-          width: 160px;
+          width: 110px;
         }
       }
     }
@@ -97,7 +120,7 @@
         }
 
         &-status {
-          width: 220px;
+          width: 115px;
         }
       }
 
@@ -118,7 +141,21 @@
 
     .service-table {
 
+      .status-bar-indicator {
+        display: inline;
+      }
+
       &-column {
+
+        &-instances {
+          width: 115px;
+        }
+
+        &-cpus,
+        &-mem,
+        &-disk {
+          width: 85px;
+        }
 
         &-status {
           width: 264px;
@@ -141,7 +178,7 @@
       &-column {
 
         &-status {
-          width: 312px;
+          width: 350px;
         }
       }
     }

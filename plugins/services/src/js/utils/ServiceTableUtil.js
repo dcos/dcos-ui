@@ -87,6 +87,16 @@ function diskCompareFunction(a, b) {
 }
 
 /**
+ * Compare service instances
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
+ * @returns {Number} desc first
+ */
+function instancesCompareFunction(a, b) {
+  return numberCompareFunction(a.instances, b.instances);
+}
+
+/**
  * Get service table prop compare functions
  * @param {string} prop
  * @returns {function} prop compare function
@@ -105,6 +115,8 @@ function getCompareFunctionByProp(prop) {
       return memCompareFunction;
     case "disk":
       return diskCompareFunction;
+    case "instances":
+      return instancesCompareFunction;
     default:
       return function() {
         return 0;

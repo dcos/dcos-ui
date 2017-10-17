@@ -44,6 +44,7 @@ const StatusMapping = {
 const columnClasses = {
   name: "service-table-column-name",
   status: "service-table-column-status",
+  instances: "service-table-column-instances",
   cpus: "service-table-column-cpus",
   mem: "service-table-column-mem",
   disk: "service-table-column-disk",
@@ -403,6 +404,22 @@ class ServicesTable extends React.Component {
     );
   }
 
+  renderInstances(prop, service) {
+    const instancesCount = service.getInstancesCount();
+    const tasksRunning = service.getTaskCount();
+    const overview = tasksRunning === instancesCount
+      ? ` ${tasksRunning}`
+      : ` ${tasksRunning}/${instancesCount}`;
+
+    const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
+
+    return (
+      <span>
+        {content}
+      </span>
+    );
+  }
+
   getCellClasses(prop, sortBy, row) {
     const isHeader = row == null;
 
@@ -438,6 +455,15 @@ class ServicesTable extends React.Component {
           </span>
         ),
         render: this.renderStatus,
+        sortable: true,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
+        heading
+      },
+      {
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
+        prop: "instances",
+        render: this.renderInstances,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
@@ -487,6 +513,7 @@ class ServicesTable extends React.Component {
       <colgroup>
         <col className={columnClasses.name} />
         <col className={columnClasses.status} />
+        <col className={columnClasses.instances} />
         <col className={columnClasses.cpus} />
         <col className={columnClasses.mem} />
         <col className={columnClasses.disk} />
