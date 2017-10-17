@@ -15,6 +15,7 @@ import ActionKeys from "../../constants/ActionKeys";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
+import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
@@ -280,6 +281,9 @@ class ServiceDetail extends mixin(TabsMixin) {
           tabs={this.getTabs()}
           breadcrumbs={breadcrumbs}
           iconID="services"
+          disabledActions={
+            service.getServiceStatus() === ServiceStatus.DELETING
+          }
         />
         {clonedChildren}
         <ServiceActionDisabledModal

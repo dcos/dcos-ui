@@ -25,6 +25,9 @@ var SERVICE_STATUS = {
   WAITING: {
     key: ServiceStatusTypes.WAITING,
     displayName: ServiceStatusLabels.WAITING
+  },
+  DELETING: {
+    displayName: ServiceStatusLabels.DELETING
   }
 };
 

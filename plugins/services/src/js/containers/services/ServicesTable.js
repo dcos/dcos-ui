@@ -29,6 +29,7 @@ import {
   SCALE,
   SUSPEND
 } from "../../constants/ServiceActionItem";
+import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import ServiceStatusWarning from "../../components/ServiceStatusWarning";
@@ -317,25 +318,36 @@ class ServicesTable extends React.Component {
       )
     });
 
+    if (service.getServiceStatus() === ServiceStatus.DELETING) {
+      return this.renderServiceActionsDropdown(service, actions);
+    }
+
     return (
       <Tooltip content="More actions">
-        <Dropdown
-          anchorRight={true}
-          buttonClassName="button button-mini button-link"
-          dropdownMenuClassName="dropdown-menu"
-          dropdownMenuListClassName="dropdown-menu-list"
-          dropdownMenuListItemClassName="clickable"
-          wrapperClassName="dropdown flush-bottom table-cell-icon"
-          items={actions}
-          persistentID={MORE}
-          onItemSelection={this.onActionsItemSelection.bind(this, service)}
-          scrollContainer=".gm-scroll-view"
-          scrollContainerParentSelector=".gm-prevented"
-          title="More actions"
-          transition={true}
-          transitionName="dropdown-menu"
-        />
+        {this.renderServiceActionsDropdown(service, actions)}
       </Tooltip>
+    );
+  }
+
+  renderServiceActionsDropdown(service, actions) {
+    return (
+      <Dropdown
+        anchorRight={true}
+        buttonClassName="button button-mini button-link"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        wrapperClassName="dropdown flush-bottom table-cell-icon"
+        items={actions}
+        persistentID={MORE}
+        onItemSelection={this.onActionsItemSelection.bind(this, service)}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
+        title="More actions"
+        transition={true}
+        transitionName="dropdown-menu"
+        disabled={service.getServiceStatus() === ServiceStatus.DELETING}
+      />
     );
   }
 

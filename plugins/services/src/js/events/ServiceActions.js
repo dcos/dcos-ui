@@ -7,7 +7,7 @@ const ServiceActions = {
     const groupId = group.getId();
     MarathonActions.deleteGroup(groupId, force);
   },
-  deleteService(service) {
+  deleteService(service, force) {
     if (service instanceof Framework) {
       CosmosPackagesActions.uninstallPackage(
         service.getPackageName(),
@@ -16,7 +16,7 @@ const ServiceActions = {
 
       return;
     }
-    MarathonActions.deleteService(service);
+    MarathonActions.deleteService(service, force);
   }
 };
 

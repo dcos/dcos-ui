@@ -4,7 +4,8 @@ var ServiceStatusLabels = {
   SUSPENDED: "Suspended",
   NA: "N/A",
   DELAYED: "Delayed",
-  WAITING: "Waiting"
+  WAITING: "Waiting",
+  DELETING: "Deleting"
 };
 
 module.exports = ServiceStatusLabels;
