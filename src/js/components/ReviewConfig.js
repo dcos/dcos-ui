@@ -56,7 +56,11 @@ class ReviewConfig extends React.Component {
           <div className="column-8 text-align-right">
             <a
               className="button button-small button-stroke button-rounded"
-              onClick={RouterUtil.triggerIEDownload(fileName, configString)}
+              onClick={RouterUtil.triggerIEDownload.bind(
+                null,
+                fileName,
+                configString
+              )}
               download={fileName}
               href={RouterUtil.getResourceDownloadPath(
                 "attachment/json",

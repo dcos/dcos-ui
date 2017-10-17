@@ -286,7 +286,11 @@ export default class FrameworkConfiguration extends Component {
               <a
                 className="button button-primary-link flush-right"
                 download={fileName}
-                onClick={RouterUtil.triggerIEDownload(fileName, configString)}
+                onClick={RouterUtil.triggerIEDownload.bind(
+                  null,
+                  fileName,
+                  configString
+                )}
                 href={RouterUtil.getResourceDownloadPath(
                   "attachment/json",
                   fileName,
