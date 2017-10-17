@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
-import StatusBar from "#SRC/js/components/StatusBar";
+import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
 import HealthBarStates from "../constants/HealthBarStates";
@@ -90,7 +90,7 @@ class HealthBar extends React.Component {
 
     return (
       <Tooltip interactive={true} content={this.renderToolTip()}>
-        <StatusBar
+        <ProgressBar
           className="status-bar--large"
           data={this.getMappedTasksSummary(tasksSummary)}
           scale={instancesCount}

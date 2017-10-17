@@ -3,7 +3,7 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const StatusBar = require("../StatusBar");
+const ProgressBar = require("../ProgressBar");
 
 const testData = [
   {
@@ -18,11 +18,11 @@ const testData = [
   }
 ];
 
-describe("#StatusBar", function() {
+describe("#ProgressBar", function() {
   beforeEach(function() {
     this.container = global.document.createElement("div");
     this.instance = ReactDOM.render(
-      <StatusBar data={testData} />,
+      <ProgressBar data={testData} />,
       this.container
     );
   });
@@ -34,19 +34,19 @@ describe("#StatusBar", function() {
   describe("PropTypes", function() {
     it("should throw an error if no data prop is provided", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(<StatusBar />, this.container);
+      this.instance = ReactDOM.render(<ProgressBar />, this.container);
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
-          "The prop `data` is marked as required in `StatusBar`, but its value " +
+          "The prop `data` is marked as required in `ProgressBar`, but its value " +
           "is `undefined`.\n" +
-          "    in StatusBar"
+          "    in ProgressBar"
       );
     });
 
     it("should throw an error if a data item is missing a value", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
-        <StatusBar
+        <ProgressBar
           data={[
             {
               className: "status"
@@ -57,16 +57,16 @@ describe("#StatusBar", function() {
       );
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
-          "The prop `data[0].value` is marked as required in `StatusBar`, but its value " +
+          "The prop `data[0].value` is marked as required in `ProgressBar`, but its value " +
           "is `undefined`.\n" +
-          "    in StatusBar"
+          "    in ProgressBar"
       );
     });
 
     it("should throw an error if one data item is missing a value", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
-        <StatusBar
+        <ProgressBar
           data={[
             {
               className: "status",
@@ -81,16 +81,16 @@ describe("#StatusBar", function() {
       );
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
-          "The prop `data[1].value` is marked as required in `StatusBar`, but its value " +
+          "The prop `data[1].value` is marked as required in `ProgressBar`, but its value " +
           "is `undefined`.\n" +
-          "    in StatusBar"
+          "    in ProgressBar"
       );
     });
 
     it("should not throw an error if data does only contain a value field", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
-        <StatusBar
+        <ProgressBar
           data={[
             {
               value: 40
@@ -112,7 +112,7 @@ describe("#StatusBar", function() {
 
     it("should contain test-bar (custom)", function() {
       this.instance = ReactDOM.render(
-        <StatusBar data={testData} className="test-bar" />,
+        <ProgressBar data={testData} className="test-bar" />,
         this.container
       );
       expect(
@@ -139,7 +139,7 @@ describe("#StatusBar", function() {
 
       it("should have the class element-{index} if no classname is provided", function() {
         this.instance = ReactDOM.render(
-          <StatusBar
+          <ProgressBar
             data={[
               {
                 value: 40
@@ -179,7 +179,7 @@ describe("#StatusBar", function() {
     describe("Growing small .bar portions to be visible when below threshold", function() {
       it("should not have .bar elements < 7% width", function() {
         ReactDOM.render(
-          <StatusBar
+          <ProgressBar
             data={[
               {
                 value: 99
@@ -204,7 +204,7 @@ describe("#StatusBar", function() {
 
       it("should not have .bar elements < 7% width when using scale", function() {
         ReactDOM.render(
-          <StatusBar
+          <ProgressBar
             data={[
               {
                 value: 0

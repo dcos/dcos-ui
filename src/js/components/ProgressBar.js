@@ -5,7 +5,7 @@ import classNames from "classnames/dedupe";
 // status types so we want to keep this growth ratio relatively small.
 const GROW_RATIO = 0.07;
 // Grow anything below this threshold by stealing from the biggest portion
-const MIN_SIZE = 7; // (% of statusBar width)
+const MIN_SIZE = 7; // (% of ProgressBar width)
 
 function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   if (!indexesLessThanThreshold.length) {
@@ -48,7 +48,7 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 }
 
-class StatusBar extends React.Component {
+class ProgressBar extends React.Component {
   getBars(data) {
     let max = data.reduce(function(sum, item) {
       return sum + item.value;
@@ -111,11 +111,11 @@ class StatusBar extends React.Component {
   }
 }
 
-StatusBar.defaultProps = {
+ProgressBar.defaultProps = {
   scale: 0
 };
 
-StatusBar.propTypes = {
+ProgressBar.propTypes = {
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,
     React.PropTypes.object,
@@ -130,4 +130,4 @@ StatusBar.propTypes = {
   ).isRequired
 };
 
-module.exports = StatusBar;
+module.exports = ProgressBar;

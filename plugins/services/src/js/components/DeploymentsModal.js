@@ -19,7 +19,7 @@ import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import ServiceUtil from "#SRC/js/utils/ServiceUtil";
-import StatusBar from "#SRC/js/components/StatusBar";
+import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import UserActions from "#SRC/js/constants/UserActions";
@@ -427,7 +427,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       const currentStep = item.getCurrentStep();
       const totalSteps = item.getTotalSteps();
 
-      return this.renderStatusBar(currentStep, totalSteps);
+      return this.renderProgressBar(currentStep, totalSteps);
     }
 
     let currentActions = {};
@@ -454,14 +454,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
     return statusText;
   }
 
-  renderStatusBar(currentStep, totalSteps) {
+  renderProgressBar(currentStep, totalSteps) {
     const data = [
       { className: "color-4", value: currentStep - 1 },
       { className: "staged", value: 1 },
       { className: "", value: totalSteps - currentStep }
     ];
 
-    return <StatusBar className="status-bar--large" data={data} />;
+    return <ProgressBar className="status-bar--large" data={data} />;
   }
 
   renderTable(deploymentsItems) {
