@@ -1,7 +1,7 @@
 {
   "id": "/",
   "dependencies": [
-
+    
   ],
   "version": "2017-01-09T20:02:12.029Z",
   "apps": [
@@ -20,16 +20,16 @@
       "gpus": 0,
       "executor": "",
       "constraints": [
-
+        
       ],
       "uris": [
-
+        
       ],
       "fetch": [
-
+        
       ],
       "storeUrls": [
-
+        
       ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
@@ -62,7 +62,7 @@
         }
       ],
       "dependencies": [
-
+        
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 0,
@@ -88,7 +88,7 @@
       "version": "2017-01-09T20:02:12.029Z",
       "residency": null,
       "secrets": {
-
+        
       },
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
@@ -106,7 +106,7 @@
           "protocol": "tcp",
           "name": "health",
           "labels": {
-
+            
           }
         },
         {
@@ -114,7 +114,7 @@
           "protocol": "tcp",
           "name": "api",
           "labels": {
-
+            
           }
         }
       ],
@@ -216,7 +216,7 @@
       "args": null,
       "user": null,
       "env": {
-
+        
       },
       "instances": 1,
       "cpus": 0.01,
@@ -225,42 +225,42 @@
       "gpus": 0,
       "executor": "",
       "constraints": [
-
+        
       ],
       "uris": [
-
+        
       ],
       "fetch": [
-
+        
       ],
       "storeUrls": [
-
+        
       ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": null,
       "healthChecks": [
-
+        
       ],
       "readinessChecks": [
-
+        
       ],
       "dependencies": [
-
+        
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
       },
       "labels": {
-
+        
       },
       "ipAddress": null,
       "version": "2017-01-09T20:02:03.443Z",
       "residency": null,
       "secrets": {
-
+        
       },
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
@@ -276,7 +276,7 @@
           "port": 10000,
           "protocol": "tcp",
           "labels": {
-
+            
           }
         }
       ],
@@ -290,7 +290,7 @@
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
       "deployments": [
-
+        
       ],
       "tasks": [
         {
@@ -360,9 +360,9 @@
     }
   ],
   "groups": [
-
+    
   ],
   "pods": [
-
+    
   ]
 }
