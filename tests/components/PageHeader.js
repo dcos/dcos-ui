@@ -110,7 +110,7 @@ describe("Page Header Component", function() {
         ].getBoundingClientRect().bottom;
 
         expect(pageHeaderBottomPosition).to.equal(
-          pageHeaderActiveTabBottomPosition
+          pageHeaderActiveTabBottomPosition - 1
         );
       });
     });
