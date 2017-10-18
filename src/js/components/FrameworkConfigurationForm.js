@@ -5,7 +5,6 @@ import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
 import Util from "#SRC/js/utils/Util";
-import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditor from "#SRC/js/components/JSONEditor";
 import PageHeaderNavigationDropdown
   from "#SRC/js/components/PageHeaderNavigationDropdown";
@@ -258,45 +257,41 @@ export default class FrameworkConfigurationForm extends Component {
 
     return (
       <div className="flex flex-item-grow-1">
-        <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
-          <PageHeaderNavigationDropdown
-            handleNavigationItemSelection={
-              this.handleDropdownNavigationSelection
-            }
-            items={this.getDropdownNavigationList()}
-          />
-          <FluidGeminiScrollbar>
-            <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <div className="framework-configuration-form create-service-modal-form container container-wide">
-                <Tabs
-                  activeTab={activeTab}
-                  handleTabChange={this.handleTabChange}
-                  vertical={true}
-                  className={"menu-tabbed-container-fixed"}
-                >
-                  <TabButtonList>
-                    {this.getFormTabList()}
-                  </TabButtonList>
-                  <div className="menu-tabbed-view-container">
-                    {errorsAlert}
-                    <SchemaForm
-                      schema={packageDetails.getConfig()}
-                      formData={formData}
-                      onChange={this.handleFormChange}
-                      uiSchema={this.getUiSchema()}
-                      fields={{ SchemaField, TitleField }}
-                      liveValidate={true}
-                      validate={this.validate}
-                      showErrorList={false}
-                      transformErrors={this.transformErrors}
-                    >
-                      <div />
-                    </SchemaForm>
-                  </div>
-                </Tabs>
-              </div>
+        <PageHeaderNavigationDropdown
+          handleNavigationItemSelection={this.handleDropdownNavigationSelection}
+          items={this.getDropdownNavigationList()}
+        />
+        <div className="create-service-modal-form__scrollbar-container modal-body-offset">
+          <div className="modal-body-padding-surrogate create-service-modal-form-container">
+            <div className="framework-configuration-form create-service-modal-form container container-wide">
+              <Tabs
+                activeTab={activeTab}
+                handleTabChange={this.handleTabChange}
+                vertical={true}
+                className={"menu-tabbed-container-fixed"}
+              >
+                <TabButtonList>
+                  {this.getFormTabList()}
+                </TabButtonList>
+                <div className="menu-tabbed-view-container">
+                  {errorsAlert}
+                  <SchemaForm
+                    schema={packageDetails.getConfig()}
+                    formData={formData}
+                    onChange={this.handleFormChange}
+                    uiSchema={this.getUiSchema()}
+                    fields={{ SchemaField, TitleField }}
+                    liveValidate={true}
+                    validate={this.validate}
+                    showErrorList={false}
+                    transformErrors={this.transformErrors}
+                  >
+                    <div />
+                  </SchemaForm>
+                </div>
+              </Tabs>
             </div>
-          </FluidGeminiScrollbar>
+          </div>
         </div>
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
