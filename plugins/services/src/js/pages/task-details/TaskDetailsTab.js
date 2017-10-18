@@ -139,6 +139,22 @@ class TaskDetailsTab extends React.Component {
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         {resourceRows}
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Zone
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {node.getZoneName() || "\u2014 (Local)"}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Region
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {node.getRegionName() || "\u2014 (Local)"}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
       </ConfigurationMapSection>
     );
   }
