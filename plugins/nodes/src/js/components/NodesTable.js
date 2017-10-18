@@ -193,6 +193,7 @@ var NodesTable = React.createClass({
     return (
       <colgroup>
         <col />
+        <col />
         <col style={{ width: "100px" }} />
         <col style={{ width: "125px" }} />
         <col className="hidden-small-down" style={{ width: "135px" }} />
