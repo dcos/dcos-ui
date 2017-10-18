@@ -319,7 +319,7 @@ class TaskTable extends React.Component {
 
   renderRegion(prop, task) {
     if (!task.region) {
-      return "Primary";
+      return "\u2014 (Local)";
     }
 
     return (
@@ -335,7 +335,7 @@ class TaskTable extends React.Component {
 
   renderZone(prop, task) {
     if (!task.zone) {
-      return "Primary";
+      return "\u2014 (Local)";
     }
 
     return (
