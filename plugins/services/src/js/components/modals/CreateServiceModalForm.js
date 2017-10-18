@@ -12,7 +12,6 @@ import Batch from "#SRC/js/structs/Batch";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import ErrorMessageUtil from "#SRC/js/utils/ErrorMessageUtil";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
-import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditor from "#SRC/js/components/JSONEditor";
 import PageHeaderNavigationDropdown
   from "#SRC/js/components/PageHeaderNavigationDropdown";
@@ -650,58 +649,52 @@ class CreateServiceModalForm extends Component {
     );
 
     return (
-      <div className="flex flex-item-grow-1">
+      <div className="modal-body-padding-surrogate create-service-modal-form-container">
+        <PageHeaderNavigationDropdown
+          handleNavigationItemSelection={this.handleDropdownNavigationSelection}
+          items={navigationDropdownItems}
+        />
         <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
-          <PageHeaderNavigationDropdown
-            handleNavigationItemSelection={
-              this.handleDropdownNavigationSelection
-            }
-            items={navigationDropdownItems}
-          />
-          <FluidGeminiScrollbar>
-            <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <form
-                className="create-service-modal-form container container-wide"
-                onChange={this.handleFormChange}
-                onBlur={this.handleFormBlur}
-              >
-                <Tabs
-                  activeTab={activeTab}
-                  handleTabChange={handleTabChange}
-                  vertical={true}
-                >
-                  <TabButtonList>
-                    {tabButtonListItems}
-                  </TabButtonList>
-                  <TabViewList>
-                    <TabView id="services">
-                      <ErrorsAlert
-                        errors={errors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <GeneralServiceFormSection
-                        errors={errorMap}
-                        data={data}
-                        isEdit={isEdit}
-                        onConvertToPod={onConvertToPod}
-                        service={service}
-                        onRemoveItem={(options, event) => {
-                          event.stopPropagation();
-                          this.handleRemoveItem(options);
-                        }}
-                        onClickItem={this.handleClickItem}
-                        onAddItem={this.handleAddItem}
-                      />
-                    </TabView>
+          <form
+            className="container-wide"
+            onChange={this.handleFormChange}
+            onBlur={this.handleFormBlur}
+          >
+            <Tabs
+              activeTab={activeTab}
+              handleTabChange={handleTabChange}
+              vertical={true}
+            >
+              <TabButtonList>
+                {tabButtonListItems}
+              </TabButtonList>
+              <TabViewList>
+                <TabView id="services">
+                  <ErrorsAlert
+                    errors={errors}
+                    pathMapping={ServiceErrorPathMapping}
+                    hideTopLevelErrors={!showAllErrors}
+                  />
+                  <GeneralServiceFormSection
+                    errors={errorMap}
+                    data={data}
+                    isEdit={isEdit}
+                    onConvertToPod={onConvertToPod}
+                    service={service}
+                    onRemoveItem={(options, event) => {
+                      event.stopPropagation();
+                      this.handleRemoveItem(options);
+                    }}
+                    onClickItem={this.handleClickItem}
+                    onAddItem={this.handleAddItem}
+                  />
+                </TabView>
 
-                    {this.getContainerContent(data, errorMap)}
-                    {this.getSectionContent(data, errorMap)}
-                  </TabViewList>
-                </Tabs>
-              </form>
-            </div>
-          </FluidGeminiScrollbar>
+                {this.getContainerContent(data, errorMap)}
+                {this.getSectionContent(data, errorMap)}
+              </TabViewList>
+            </Tabs>
+          </form>
         </div>
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
