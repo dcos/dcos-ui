@@ -1,0 +1,13 @@
+export const UNKNOWN = "UNKNOWN";
+export const GET_STATE = "GET_STATE";
+export const SUBSCRIBED = "SUBSCRIBED";
+export const GET_TASKS = "GET_TASKS";
+export const TASK_ADDED = "TASK_ADDED";
+export const TASK_UPDATED = "TASK_UPDATED";
+export const GET_AGENTS = "GET_AGENTS";
+export const AGENT_ADDED = "AGENT_ADDED";
+export const AGENT_REMOVED = "AGENT_REMOVED";
+export const GET_FRAMEWORKS = "GET_FRAMEWORKS";
+export const FRAMEWORK_ADDED = "FRAMEWORK_ADDED";
+export const FRAMEWORK_UPDATED = "FRAMEWORK_UPDATED";
+export const FRAMEWORK_REMOVED = "FRAMEWORK_REMOVED";
