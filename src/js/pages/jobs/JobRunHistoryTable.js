@@ -377,7 +377,7 @@ class JobRunHistoryTable extends React.Component {
         </FilterBar>
         <ExpandingTable
           allowMultipleSelect={false}
-          className="expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="expanding-table table table-hover table-flush table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="expanding-table-child"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}

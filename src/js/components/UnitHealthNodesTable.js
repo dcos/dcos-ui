@@ -113,7 +113,7 @@ class UnitHealthNodesTable extends React.Component {
   render() {
     return (
       <Table
-        className="table table-borderless-outer
+        className="table table-flush table-borderless-outer
           table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}

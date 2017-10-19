@@ -206,7 +206,7 @@ class CheckboxTable extends React.Component {
     const columns = this.getColumns();
 
     const tableClassSet = classNames(
-      "table table-borderless-outer table-borderless-inner-columns table-hover",
+      "table table-flush table-borderless-outer table-borderless-inner-columns table-hover",
       "flush-bottom",
       className
     );

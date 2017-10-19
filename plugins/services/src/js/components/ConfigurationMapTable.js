@@ -60,7 +60,7 @@ function defaultRenderFunction(prop, row) {
  *
  * @example <caption>Example of ConfigurationMapTable</caption>
  * <ConfigurationMapTable
- *   className='table table-simple table-break-word flush-bottom'
+ *   className='table table-simple table-flush table-borderless-outer table-borderless-inner-columns table-break-word flush-bottom'
  *   columnDefaults={{
  *      hideIfEmpty: true,
  *      className: 'configuration-map-table-value'
@@ -148,7 +148,7 @@ class ConfigurationMapTable extends React.Component {
 
     return (
       <Table
-        className="table table-simple table-align-top table-break-word table-fixed-layout flush-bottom"
+        className="table table-simple table-flush table-borderless-outer table-borderless-inner-columns table-align-top table-break-word table-fixed-layout flush-bottom"
         {...Object.assign({}, this.props, { columns })}
       />
     );
