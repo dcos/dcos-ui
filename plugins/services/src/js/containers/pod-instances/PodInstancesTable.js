@@ -124,7 +124,7 @@ class PodInstancesTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
-      highlight: prop === sortBy.prop,
+      active: prop === sortBy.prop,
       clickable: row == null
     });
   }
