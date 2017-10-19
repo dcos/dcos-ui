@@ -517,7 +517,7 @@ class ServicesTable extends React.Component {
       <div>
         <Table
           buildRowOptions={this.getRowAttributes}
-          className="table service-table table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
+          className="table service-table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.props.services.slice()}

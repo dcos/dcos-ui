@@ -1,16 +1,16 @@
 var TaskTableHeaderLabels = {
   cpus: "CPU",
-  disk: "DISK",
-  host: "HOST",
-  zone: "ZONE",
-  region: "REGION",
-  mem: "MEM",
+  disk: "Disk",
+  host: "Host",
+  zone: "Zone",
+  region: "Region",
+  mem: "Mem",
   id: "ID",
-  name: "NAME",
-  status: "STATUS",
-  health: "HEALTH",
-  updated: "UPDATED",
-  version: "VERSION"
+  name: "Name",
+  status: "Status",
+  health: "Health",
+  updated: "Updated",
+  version: "Version"
 };
 
 module.exports = TaskTableHeaderLabels;
