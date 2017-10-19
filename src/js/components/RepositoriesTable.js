@@ -216,7 +216,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div>
         <Table
-          className="table table-borderless-outer table-borderless-inner-columns flush-bottom table-hover"
+          className="table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom table-hover"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={props.repositories.getItems().slice()}

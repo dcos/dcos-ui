@@ -113,7 +113,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const { inverseStyle, params } = this.props;
 
     const classSet = classNames({
-      "table table-borderless-outer table-borderless-inner-columns": true,
+      "table table-flush table-borderless-outer table-borderless-inner-columns": true,
       "flush-bottom": true,
       inverse: inverseStyle
     });

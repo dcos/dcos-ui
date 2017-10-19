@@ -470,7 +470,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       <div>
         <ExpandingTable
           childRowClassName="expanding-table-child"
-          className="deployments-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="deployments-table expanding-table table table-hover table-flush table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.getTableData(deploymentsItems)}
