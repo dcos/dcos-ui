@@ -7,7 +7,6 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import UnitHealthDropdown from "#SRC/js/components/UnitHealthDropdown";
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
@@ -55,9 +54,9 @@ class HealthTab extends React.Component {
   getColumns() {
     const classNameFn = ResourceTableUtil.getClassName;
     const headings = ResourceTableUtil.renderHeading({
-      health: "HEALTH",
-      id: "HEALTH CHECK NAME",
-      role: "ROLE"
+      health: "Health",
+      id: "Health Check",
+      role: "Role"
     });
     const sortFunction = UnitHealthUtil.getHealthSortFunction;
     const getHealthSorting = TableUtil.getHealthSortingOrder;
@@ -106,7 +105,7 @@ class HealthTab extends React.Component {
 
     return (
       <span className={health.classNames}>
-        {StringUtil.capitalize(health.title)}
+        {health.title}
       </span>
     );
   }
