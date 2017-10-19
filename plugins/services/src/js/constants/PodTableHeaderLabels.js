@@ -1,10 +1,10 @@
 module.exports = {
-  name: "NAME",
-  address: "HOST/PORT",
-  status: "STATUS",
-  health: "HEALTH",
+  name: "Name",
+  address: "Host/Port",
+  status: "Status",
+  health: "Health",
   cpus: "CPU",
-  mem: "MEM",
-  updated: "UPDATED",
-  version: "VERSION"
+  mem: "Mem",
+  updated: "Updated",
+  version: "Version"
 };

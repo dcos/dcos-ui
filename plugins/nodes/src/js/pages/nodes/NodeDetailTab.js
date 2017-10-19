@@ -43,7 +43,7 @@ class NodeDetailTab extends React.Component {
                 Active
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {StringUtil.capitalize(node.active.toString().toLowerCase())}
+                s{StringUtil.capitalize(node.active.toString().toLowerCase())}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>

@@ -1,7 +1,7 @@
 const JobTableHeaderLabels = {
-  name: "JOB NAME",
-  status: "STATUS",
-  lastRun: "LAST RUN"
+  name: "Name",
+  status: "Status",
+  lastRun: "Last Run"
 };
 
 module.exports = JobTableHeaderLabels;
