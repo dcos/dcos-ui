@@ -458,7 +458,7 @@ TaskTable.propTypes = {
 };
 
 TaskTable.defaultProps = {
-  className: "table table-borderless-outer table-borderless-inner-columns flush-bottom",
+  className: "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
   tasks: []
 };
 
