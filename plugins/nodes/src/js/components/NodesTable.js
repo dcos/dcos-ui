@@ -35,7 +35,7 @@ var NodesTable = React.createClass({
   },
 
   renderRegion(_prop, node) {
-    const name = node.getRegionName() || "\u2014 (Local)";
+    const name = node.getRegionName() || "(Local)";
 
     return (
       <span>
@@ -116,7 +116,7 @@ var NodesTable = React.createClass({
       }
 
       if (prop === "region") {
-        return node.getRegionName() || "\u2014 (Local)";
+        return node.getRegionName() || "(Local)";
       }
 
       return node.get(prop);

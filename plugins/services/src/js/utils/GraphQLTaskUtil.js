@@ -82,8 +82,10 @@ function mergeVersion(task) {
   return task;
 }
 
-function mergeLocation(task) {
-  const node = CompositeState.getNodesList()
+function mergeHostname(task) {
+  const nodeList = CompositeState.getNodesList();
+
+  const node = nodeList
     .filter({
       ids: [task.slave_id]
     })
@@ -93,17 +95,65 @@ function mergeLocation(task) {
     task.hostname = node.hostname;
   }
 
-  if (node.domain && node.domain.fault_domain) {
-    const region = node.domain.fault_domain.region;
-    const zone = node.domain.fault_domain.zone;
+  return task;
+}
 
-    if (region && region.name) {
-      task.region = region.name;
-    }
-    if (zone && zone.name) {
-      task.zone = zone.name;
-    }
+function mergeRegion(task) {
+  const nodeList = CompositeState.getNodesList();
+  const masterNode = CompositeState.getNodeMaster();
+
+  const node = nodeList
+    .filter({
+      ids: [task.slave_id]
+    })
+    .last();
+
+  if (!node) {
+    return task;
   }
+
+  const nodeRegionName = node.getRegionName();
+  const regionNameParts = [];
+
+  if (nodeRegionName) {
+    regionNameParts.push(nodeRegionName);
+  }
+
+  if (!nodeRegionName || nodeRegionName === masterNode.getRegionName()) {
+    regionNameParts.push("(Local)");
+  }
+
+  task.regionName = regionNameParts.join(" ");
+
+  return task;
+}
+
+function mergeZone(task) {
+  const nodeList = CompositeState.getNodesList();
+  const masterNode = CompositeState.getNodeMaster();
+
+  const node = nodeList
+    .filter({
+      ids: [task.slave_id]
+    })
+    .last();
+
+  if (!node) {
+    return task;
+  }
+
+  const nodeZoneName = node.getZoneName();
+  const zoneNameParts = [];
+
+  if (nodeZoneName) {
+    zoneNameParts.push(nodeZoneName);
+  }
+
+  if (!nodeZoneName || nodeZoneName === masterNode.getZoneName()) {
+    zoneNameParts.push("(Local)");
+  }
+
+  task.zoneName = zoneNameParts.join(" ");
 
   return task;
 }
@@ -115,7 +165,9 @@ module.exports = {
     // Get Health from Mesos first, and fallback on Marathon
     task = mergeHealth(task);
     // Merge hostname if we can find it
-    task = mergeLocation(task);
+    task = mergeHostname(task);
+    task = mergeZone(task);
+    task = mergeRegion(task);
 
     return task;
   }

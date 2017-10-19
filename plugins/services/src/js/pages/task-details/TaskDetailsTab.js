@@ -144,7 +144,7 @@ class TaskDetailsTab extends React.Component {
             Zone
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {node.getZoneName() || "\u2014 (Local)"}
+            {node.getZoneName()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
@@ -152,7 +152,7 @@ class TaskDetailsTab extends React.Component {
             Region
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {node.getRegionName() || "\u2014 (Local)"}
+            {node.getRegionName()}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>

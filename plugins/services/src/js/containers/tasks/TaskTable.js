@@ -318,34 +318,34 @@ class TaskTable extends React.Component {
   }
 
   renderRegion(prop, task) {
-    if (!task.region) {
-      return "\u2014 (Local)";
-    }
-
     return (
-      <Link
-        className="table-cell-link-secondary text-overflow"
-        to={`/nodes/${task.slave_id}`}
-        title={task.region}
-      >
-        {task.region}
-      </Link>
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
+        <div className="table-cell-value flex-box flex-box-col">
+          <Link
+            className="table-cell-link-secondary text-overflow"
+            to={`/nodes/${task.slave_id}`}
+            title={task.regionName}
+          >
+            {task.regionName}
+          </Link>
+        </div>
+      </div>
     );
   }
 
   renderZone(prop, task) {
-    if (!task.zone) {
-      return "\u2014 (Local)";
-    }
-
     return (
-      <Link
-        className="table-cell-link-secondary text-overflow"
-        to={`/nodes/${task.slave_id}`}
-        title={task.zone}
-      >
-        {task.zone}
-      </Link>
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
+        <div className="table-cell-value flex-box flex-box-col">
+          <Link
+            className="table-cell-link-secondary text-overflow"
+            to={`/nodes/${task.slave_id}`}
+            title={task.zoneName}
+          >
+            {task.zoneName}
+          </Link>
+        </div>
+      </div>
     );
   }
 
