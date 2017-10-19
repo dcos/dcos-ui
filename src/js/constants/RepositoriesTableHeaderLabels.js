@@ -1,6 +1,6 @@
 const RepositoriesTableHeaderLabels = {
-  name: "REPOSITORY NAME",
-  priority: "PRIORITY",
+  name: "Name",
+  priority: "Priority",
   uri: "URL"
 };
 
