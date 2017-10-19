@@ -21,3 +21,4 @@ src/resources/raml
 .vscode/
 .chrome/
 .envrc
+.env
