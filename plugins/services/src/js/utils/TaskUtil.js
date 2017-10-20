@@ -122,7 +122,10 @@ const TaskUtil = {
       regionNameParts.push(nodeRegionName);
     }
 
-    if (!nodeRegionName || nodeRegionName === masterNode.getRegionName()) {
+    if (
+      !nodeRegionName ||
+      (masterNode && nodeRegionName === masterNode.getRegionName())
+    ) {
       regionNameParts.push("(Local)");
     }
 
@@ -137,7 +140,10 @@ const TaskUtil = {
       zoneNameParts.push(nodeZoneName);
     }
 
-    if (!nodeZoneName || nodeZoneName === masterNode.getZoneName()) {
+    if (
+      !nodeZoneName ||
+      (masterNode && nodeZoneName === masterNode.getZoneName())
+    ) {
       zoneNameParts.push("(Local)");
     }
 

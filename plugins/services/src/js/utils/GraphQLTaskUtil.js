@@ -83,8 +83,9 @@ function mergeVersion(task) {
   return task;
 }
 
-function mergeHostname(task) {
+function mergeLocation(task) {
   const nodeList = CompositeState.getNodesList();
+  const masterNode = CompositeState.getNodeMaster();
 
   const node = nodeList
     .filter({
@@ -94,45 +95,9 @@ function mergeHostname(task) {
 
   if (node) {
     task.hostname = node.hostname;
+    task.zoneName = TaskUtil.getZoneName(node, masterNode);
+    task.regionName = TaskUtil.getRegionName(node, masterNode);
   }
-
-  return task;
-}
-
-function mergeRegion(task) {
-  const nodeList = CompositeState.getNodesList();
-  const masterNode = CompositeState.getNodeMaster();
-
-  const node = nodeList
-    .filter({
-      ids: [task.slave_id]
-    })
-    .last();
-
-  if (!node) {
-    return task;
-  }
-
-  task.regionName = TaskUtil.getRegionName(node, masterNode);
-
-  return task;
-}
-
-function mergeZone(task) {
-  const nodeList = CompositeState.getNodesList();
-  const masterNode = CompositeState.getNodeMaster();
-
-  const node = nodeList
-    .filter({
-      ids: [task.slave_id]
-    })
-    .last();
-
-  if (!node) {
-    return task;
-  }
-
-  task.zoneName = TaskUtil.getZoneName(node, masterNode);
 
   return task;
 }
@@ -143,10 +108,8 @@ module.exports = {
     task = mergeVersion(task);
     // Get Health from Mesos first, and fallback on Marathon
     task = mergeHealth(task);
-    // Merge hostname if we can find it
-    task = mergeHostname(task);
-    task = mergeZone(task);
-    task = mergeRegion(task);
+    // Merge hostname/ zone/ region if we can find it
+    task = mergeLocation(task);
 
     return task;
   }
