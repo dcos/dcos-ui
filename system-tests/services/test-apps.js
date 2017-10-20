@@ -177,7 +177,7 @@ describe("Services", function() {
       // Also no Error should exist
       cy
         .wait("@appsReq")
-        .get(".alert-danger")
+        .get(".message-danger")
         .contains(
           `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`
         )
