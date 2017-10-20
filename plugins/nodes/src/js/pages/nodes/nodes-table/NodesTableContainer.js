@@ -4,6 +4,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
+import NodesList from "#SRC/js/structs/NodesList";
 
 import NodesTable from "../../../components/NodesTable";
 
@@ -12,7 +13,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filteredNodes: [],
+      filteredNodes: new NodesList([]),
       filters: { health: "all", name: "", service: null },
       receivedNodeHealthResponse: false
     };
@@ -26,28 +27,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     ];
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { location: { query } } = nextProps;
-    const filters = {
-      health: query.filterHealth || "all",
-      name: query.searchString || "",
-      service: query.filterService || null
-    };
-    this.setFilters(filters);
-  }
-
   getFilteredNodes(filters = this.state.filters) {
-    return CompositeState.getNodesList().filter(filters).getItems();
-  }
-
-  setFilters(newFilters, callback) {
-    if (newFilters.service === "") {
-      newFilters.service = null;
-    }
-    const filters = Object.assign({}, this.state.filters, newFilters);
-    const filteredNodes = this.getFilteredNodes(filters);
-
-    this.setState({ filters, filteredNodes }, callback);
+    return CompositeState.getNodesList().filter(filters);
   }
 
   onNodeHealthStoreSuccess() {
@@ -58,11 +39,13 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   render() {
-    const { receivedNodeHealthResponse, filteredNodes } = this.state;
+    const { receivedNodeHealthResponse } = this.state;
+
+    const { hosts } = this.props;
 
     return (
       <NodesTable
-        hosts={filteredNodes}
+        hosts={hosts}
         receivedNodeHealthResponse={receivedNodeHealthResponse}
       />
     );

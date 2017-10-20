@@ -7,6 +7,8 @@ import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 import Icon from "#SRC/js/components/Icon";
@@ -17,29 +19,30 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
+import NodesHealthFilter from "#PLUGINS/nodes/src/js/filters/NodesHealthFilter";
+
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 
 const NODES_DISPLAY_LIMIT = 300;
+const SERVICE_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
 
 function getMesosHosts(state) {
+  const { filterExpression = new DSLExpression("") } = state;
   const states = MesosSummaryStore.get("states");
   const lastState = states.lastSuccessful();
   const nodes = CompositeState.getNodesList();
 
-  const { byServiceFilter, healthFilter, searchString } = state;
-  const filteredNodes = nodes
-    .filter({
-      service: byServiceFilter,
-      name: searchString,
-      health: healthFilter
-    })
-    .getItems();
-  const nodeIDs = filteredNodes.map(function(node) {
+  let filteredNodes = nodes;
+  if (filterExpression && filterExpression.defined) {
+    filteredNodes = filterExpression.filter(SERVICE_FILTERS, filteredNodes);
+  }
+  const nodeIDs = filteredNodes.getItems().map(function(node) {
     return node.id;
   });
 
   return {
+    filterExpression,
     nodes: filteredNodes,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
@@ -50,9 +53,7 @@ function getMesosHosts(state) {
 }
 
 var DEFAULT_FILTER_OPTIONS = {
-  byServiceFilter: null,
-  healthFilter: "all",
-  searchString: ""
+  filterExpression: new DSLExpression("")
 };
 
 var NodesOverview = React.createClass({
@@ -145,7 +146,7 @@ var NodesOverview = React.createClass({
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
 
-    this.resetQueryParams(["searchString", "filterService", "filterHealth"]);
+    this.resetQueryParams(["searchString", "filterExpression"]);
   },
 
   handleSearchStringChange(searchString = "") {
@@ -172,10 +173,10 @@ var NodesOverview = React.createClass({
     this.setQueryParam("filterService", byServiceFilter);
   },
 
-  handleHealthFilterChange(healthFilter) {
-    this.internalStorage_update(getMesosHosts({ healthFilter }));
-    this.setState({ healthFilter });
-    this.setQueryParam("filterHealth", healthFilter);
+  handleHealthFilterChange(filterExpression) {
+    this.internalStorage_update(getMesosHosts({ filterExpression }));
+    this.setState({ filterExpression });
+    this.setQueryParam("filterExpression", filterExpression.value);
   },
 
   onResourceSelectionChange(selectedResource) {
@@ -242,22 +243,15 @@ var NodesOverview = React.createClass({
   },
 
   getHostsPageContent() {
-    const {
-      byServiceFilter,
-      healthFilter,
-      searchString,
-      selectedResource
-    } = this.state;
+    const { filterExpression, byServiceFilter, selectedResource } = this.state;
     var data = this.internalStorage_get();
-    const nodes = data.nodes || [];
-    const nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
+    const nodesList = data.nodes || [];
     const nodesHealth = CompositeState.getNodesList()
       .getItems()
       .map(function(node) {
         return node.getHealth();
       });
-    const isFiltering =
-      byServiceFilter !== null || healthFilter !== "all" || searchString !== "";
+    const isFiltering = filterExpression && filterExpression.defined;
 
     return (
       <Page>
@@ -267,16 +261,19 @@ var NodesOverview = React.createClass({
           filterButtonContent={this.getButtonContent}
           filterInputText={this.getFilterInputText()}
           filterItemList={nodesHealth}
-          filteredNodeCount={nodesList.length}
+          filteredNodeCount={Math.min(
+            nodesList.getItems().length,
+            NODES_DISPLAY_LIMIT
+          )}
           handleFilterChange={this.handleByServiceFilterChange}
           hosts={nodesList}
           isFiltering={isFiltering}
-          nodeCount={data.nodes.length}
+          nodeCount={data.nodes.getItems().length}
           onFilterChange={this.handleHealthFilterChange}
           onResetFilter={this.resetFilter}
           onResourceSelectionChange={this.onResourceSelectionChange}
           refreshRate={data.refreshRate}
-          selectedFilter={healthFilter}
+          selectedFilter={"all"}
           selectedResource={selectedResource}
           services={data.services}
           totalHostsResources={data.totalHostsResources}

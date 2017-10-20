@@ -4,6 +4,7 @@ import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
+import NodesList from "#SRC/js/structs/NodesList";
 import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import NodesTableHeaderLabels from "#SRC/js/constants/NodesTableHeaderLabels";
@@ -24,12 +25,12 @@ var NodesTable = React.createClass({
   mixins: [PureRender],
 
   propTypes: {
-    hosts: React.PropTypes.array.isRequired
+    hosts: React.PropTypes.object.isRequired
   },
 
   getDefaultProps() {
     return {
-      hosts: []
+      hosts: new NodesList([])
     };
   },
 
@@ -239,6 +240,8 @@ var NodesTable = React.createClass({
   },
 
   render() {
+    const { hosts } = this.props;
+
     return (
       <Table
         buildRowOptions={this.getRowAttributes}
@@ -246,7 +249,7 @@ var NodesTable = React.createClass({
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
         containerSelector=".gm-scroll-view"
-        data={this.props.hosts.slice()}
+        data={hosts.getItems().slice()}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: "health", order: "asc" }}
       />
