@@ -118,7 +118,7 @@ const TaskUtil = {
   getRegionName(task) {
     const node = this.getNode(task);
     if (!node) {
-      return null;
+      return "(Local)";
     }
 
     const masterNode = CompositeState.getNodeMaster();
@@ -142,7 +142,7 @@ const TaskUtil = {
   getZoneName(task) {
     const node = this.getNode(task);
     if (!node) {
-      return null;
+      return "(Local)";
     }
 
     const masterNode = CompositeState.getNodeMaster();
