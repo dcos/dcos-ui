@@ -40,7 +40,7 @@ const ErrorsAlert = function(props) {
   return (
     <Alert>
       <h4>There is an error with your configuration</h4>
-      <ul className="flush-bottom">
+      <ul>
         {errorItems}
       </ul>
     </Alert>
