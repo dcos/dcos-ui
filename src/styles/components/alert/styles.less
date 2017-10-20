@@ -19,5 +19,10 @@
     > :first-child {
       margin-top: 0;
     }
+
+    // Remove bottom margin from the last child so we're not reliant on flush-bottom
+    > :last-child {
+      margin-bottom: 0;
+    }
   }
 }
