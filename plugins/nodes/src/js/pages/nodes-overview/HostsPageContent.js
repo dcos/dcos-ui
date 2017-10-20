@@ -13,10 +13,12 @@ import FilterByService
   from "../../../../../services/src/js/components/FilterByService";
 
 import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
+import NodesRegionDSLFilter from "../../components/dsl/NodesRegionDSLFilter";
+import NodesZoneDSLFilter from "../../components/dsl/NodesZoneDSLFilter";
 
 import NodesHealthFilter from "../../filters/NodesHealthFilter";
-
-const NODES_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
+import NodesRegionFilter from "../../filters/NodesRegionFilter";
+import NodesZoneFilter from "../../filters/NodesZoneFilter";
 
 const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 
@@ -27,12 +29,22 @@ class HostsPageContent extends React.Component {
 
     this.state = {
       expression: "",
-      filterExpression: new DSLExpression("")
+      filterExpression: new DSLExpression(""),
+      filters: new DSLFilterList([new NodesHealthFilter()]),
+      defaultFilterData: { regions: [], zones: [] }
     };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentWillMount() {
+    this.propsToState(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.propsToState(nextProps);
   }
 
   onResetFilter() {
@@ -44,24 +56,95 @@ class HostsPageContent extends React.Component {
   }
 
   onFilterChangeHandler(event) {
-    this.props.onFilterChange(event);
+    this.props.onFilterChange(
+      new DSLExpression(event.value),
+      this.state.filters
+    );
     this.setState({
       expression: event.value,
       filterExpression: new DSLExpression(event.value)
     });
   }
 
+  propsToState(props) {
+    const { allHosts } = props;
+    const {
+      defaultFilterData: { regions },
+      defaultFilterData: { zones }
+    } = this.state;
+
+    let query = props.location.query["filterExpression"];
+
+    if (query === undefined) {
+      query = "";
+    } else {
+      query = decodeURIComponent(query);
+    }
+
+    const newZones = Array.from(
+      new Set(
+        allHosts.getItems().reduce(function(prev, host) {
+          if (host.getZoneName() === "N/A") {
+            return prev;
+          }
+          prev.push(host.getZoneName());
+
+          return prev;
+        }, [])
+      )
+    );
+
+    const newRegions = Array.from(
+      new Set(
+        allHosts.getItems().reduce(function(prev, host) {
+          if (host.getRegionName() === "N/A") {
+            return prev;
+          }
+          prev.push(host.getRegionName());
+
+          return prev;
+        }, [])
+      )
+    );
+
+    // If no region/ zones added from props return
+    if (
+      newRegions.length === regions.length &&
+      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newZones.length === zones.length &&
+      newZones.every(zone => zones.indexOf(zone) !== -1)
+    ) {
+      return;
+    }
+
+    const filters = new DSLFilterList([
+      new NodesHealthFilter(),
+      new NodesRegionFilter(newRegions),
+      new NodesZoneFilter(newZones)
+    ]);
+
+    this.setState({
+      filterExpression: new DSLExpression(query),
+      filters,
+      defaultFilterData: { regions: newRegions, zones: newZones }
+    });
+  }
+
   getFilterBar() {
-    const filters = NODES_FILTERS;
-    const filterExpression = this.state.filterExpression;
+    const { filterExpression, filters, defaultFilterData } = this.state;
 
     return (
       <div className="column-12">
         <DSLFilterField
           filters={filters}
-          formSections={[NodesHealthDSLSection]}
+          formSections={[
+            NodesHealthDSLSection,
+            NodesRegionDSLFilter,
+            NodesZoneDSLFilter
+          ]}
           expression={filterExpression}
           onChange={this.onFilterChangeHandler}
+          defaultData={defaultFilterData}
         />
       </div>
     );
