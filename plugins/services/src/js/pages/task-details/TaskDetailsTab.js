@@ -46,7 +46,6 @@ class TaskDetailsTab extends React.Component {
 
     const services = CompositeState.getServiceList();
     const service = services.filter({ ids: [mesosTask.framework_id] }).last();
-    const masterNode = CompositeState.getNodeMaster();
     const node = CompositeState.getNodesList()
       .filter({ ids: [mesosTask.slave_id] })
       .last();
@@ -146,7 +145,7 @@ class TaskDetailsTab extends React.Component {
             Zone
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {TaskUtil.getZoneName(node, masterNode)}
+            {TaskUtil.getZoneName(mesosTask)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
@@ -154,7 +153,7 @@ class TaskDetailsTab extends React.Component {
             Region
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {TaskUtil.getRegionName(node, masterNode)}
+            {TaskUtil.getRegionName(mesosTask)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>

@@ -1,8 +1,6 @@
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import CompositeState from "#SRC/js/structs/CompositeState";
 
 import TaskHealthStates from "../constants/TaskHealthStates";
-import TaskUtil from "./TaskUtil";
 
 function getTaskHealthFromMesos(task) {
   if (task.statuses == null) {
@@ -83,33 +81,12 @@ function mergeVersion(task) {
   return task;
 }
 
-function mergeLocation(task) {
-  const nodeList = CompositeState.getNodesList();
-  const masterNode = CompositeState.getNodeMaster();
-
-  const node = nodeList
-    .filter({
-      ids: [task.slave_id]
-    })
-    .last();
-
-  if (node) {
-    task.hostname = node.hostname;
-    task.zoneName = TaskUtil.getZoneName(node, masterNode);
-    task.regionName = TaskUtil.getRegionName(node, masterNode);
-  }
-
-  return task;
-}
-
 module.exports = {
   mergeData(task) {
     // Merge version from Marathon
     task = mergeVersion(task);
     // Get Health from Mesos first, and fallback on Marathon
     task = mergeHealth(task);
-    // Merge hostname/ zone/ region if we can find it
-    task = mergeLocation(task);
 
     return task;
   }

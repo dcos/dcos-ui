@@ -302,7 +302,9 @@ class TaskTable extends React.Component {
   }
 
   renderHost(prop, task) {
-    if (!task.hostname) {
+    const taskHostName = TaskUtil.getHostName(task);
+
+    if (!taskHostName) {
       return "N/A";
     }
 
@@ -310,23 +312,25 @@ class TaskTable extends React.Component {
       <Link
         className="table-cell-link-secondary text-overflow"
         to={`/nodes/${task.slave_id}`}
-        title={task.hostname}
+        title={taskHostName}
       >
-        {task.hostname}
+        {taskHostName}
       </Link>
     );
   }
 
   renderRegion(prop, task) {
+    const taskRegionName = TaskUtil.getRegionName(task);
+
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-value flex-box flex-box-col">
           <Link
             className="table-cell-link-secondary text-overflow"
             to={`/nodes/${task.slave_id}`}
-            title={task.regionName}
+            title={taskRegionName}
           >
-            {task.regionName}
+            {taskRegionName}
           </Link>
         </div>
       </div>
@@ -334,15 +338,17 @@ class TaskTable extends React.Component {
   }
 
   renderZone(prop, task) {
+    const taskZoneName = TaskUtil.getZoneName(task);
+
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-value flex-box flex-box-col">
           <Link
             className="table-cell-link-secondary text-overflow"
             to={`/nodes/${task.slave_id}`}
-            title={task.zoneName}
+            title={taskZoneName}
           >
-            {task.zoneName}
+            {taskZoneName}
           </Link>
         </div>
       </div>
@@ -409,10 +415,8 @@ class TaskTable extends React.Component {
     });
 
     return (
-      <div className="flex-box flex-box-align-vertical-center
-        table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
-        <div className="table-cell-icon table-cell-task-dot
-          task-status-indicator">
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
+        <div className="table-cell-icon table-cell-task-dot task-status-indicator">
           <Tooltip anchor="center" content={tooltipContent}>
             <span className={statusClass} />
           </Tooltip>

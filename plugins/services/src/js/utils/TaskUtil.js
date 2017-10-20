@@ -4,6 +4,7 @@ import React from "react";
 
 import Node from "#SRC/js/structs/Node";
 import Util from "#SRC/js/utils/Util";
+import CompositeState from "#SRC/js/structs/CompositeState";
 
 const TaskUtil = {
   /**
@@ -114,7 +115,13 @@ const TaskUtil = {
     });
   },
 
-  getRegionName(node, masterNode) {
+  getRegionName(task) {
+    const node = this.getNode(task);
+    if (!node) {
+      return null;
+    }
+
+    const masterNode = CompositeState.getNodeMaster();
     const nodeRegionName = node.getRegionName();
     const regionNameParts = [];
 
@@ -132,7 +139,13 @@ const TaskUtil = {
     return regionNameParts.join(" ");
   },
 
-  getZoneName(node, masterNode) {
+  getZoneName(task) {
+    const node = this.getNode(task);
+    if (!node) {
+      return null;
+    }
+
+    const masterNode = CompositeState.getNodeMaster();
     const nodeZoneName = node.getZoneName();
     const zoneNameParts = [];
 
@@ -148,6 +161,23 @@ const TaskUtil = {
     }
 
     return zoneNameParts.join(" ");
+  },
+
+  getHostName(task) {
+    const node = this.getNode(task);
+
+    return node ? node.hostname : "";
+  },
+
+  getNode(task) {
+    const nodesList = CompositeState.getNodesList();
+    const node = nodesList
+      .filter({
+        ids: [task.slave_id]
+      })
+      .last();
+
+    return node;
   }
 };
 
