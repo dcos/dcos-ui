@@ -32,9 +32,7 @@ describe("Service Table", function() {
         url: /marathon\/v2\/apps\/\/sleep/,
         response: []
       });
-      cy
-        .get(".modal-small .flush-bottom .button-danger")
-        .should("have.class", "disabled");
+      cy.get(".modal-small .button-danger").should("have.class", "disabled");
     });
   });
 

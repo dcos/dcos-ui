@@ -116,7 +116,7 @@ class ServiceRestartModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         rightButtonText={`Restart ${serviceLabel}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={() =>

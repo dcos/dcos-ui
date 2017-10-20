@@ -196,7 +196,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="text-align-center">
+      <div>
         <p>
           {`Repository (${repositoryLabel}) will be ${UserActions.DELETED} from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
         </p>
@@ -209,7 +209,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     const { props, state } = this;
     const heading = (
       <ModalHeading>
-        Are you sure?
+        Delete Repository
       </ModalHeading>
     );
 
@@ -229,7 +229,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}
-          leftButtonClassName="button button-primary-link"
+          leftButtonClassName="button button-primary-link flush-left"
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
           rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}

@@ -101,7 +101,7 @@ class ActionsModal extends mixin(StoreMixin) {
     const { requestErrors, validationError } = this.state;
 
     return (
-      <div className="text-align-center">
+      <div>
         {this.getActionsModalContentsText()}
         {this.getDropdown(itemType)}
         {this.getErrorMessage(validationError)}
@@ -250,7 +250,7 @@ class ActionsModal extends mixin(StoreMixin) {
         open={!!action}
         onClose={this.handleButtonCancel}
         leftButtonCallback={this.handleButtonCancel}
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         rightButtonCallback={this.handleButtonConfirm}
         rightButtonText={StringUtil.capitalize(action)}
         showHeader={true}

@@ -191,8 +191,8 @@ describe("Universe", function() {
       .click();
 
     // Confirm the deletion
-    cy.get(".modal.confirm-modal input").type(serviceName);
-    cy.get(".modal.confirm-modal").contains("Delete").click();
+    cy.get(".modal.modal-small input").type(serviceName);
+    cy.get(".modal.modal-small").contains("Delete").click();
 
     cy
       .get(".page-body-content table")

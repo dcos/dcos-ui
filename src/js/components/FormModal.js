@@ -94,7 +94,7 @@ class FormModal extends React.Component {
 
   getFooter() {
     return (
-      <div className="button-collection text-align-center flush">
+      <div className="flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-medium">
         {this.getButtons()}
         {this.props.extraFooterContent}
       </div>
@@ -130,13 +130,12 @@ class FormModal extends React.Component {
     return (
       <Modal
         closeByBackdropClick={!this.props.disabled}
-        modalClass="modal form-modal"
+        modalClass="modal modal-small"
         onClose={this.props.onClose}
         open={this.props.open}
         showHeader={false}
         showFooter={true}
         footer={this.getFooter()}
-        titleClass="text-align-center flush"
         {...this.props.modalProps}
       >
         {this.getContent()}
@@ -149,7 +148,7 @@ FormModal.defaultProps = {
   buttonDefinition: [
     {
       text: "Cancel",
-      className: "button button-primary-link",
+      className: "button button-primary-link flush-left",
       isClose: true
     },
     {

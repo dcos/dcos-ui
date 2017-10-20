@@ -115,7 +115,7 @@ class ServiceResumeModal extends React.Component {
           This service is currently stopped. Do you want to resume this service? You can change the number of instances to resume by using the field below.
         </p>
         <FormRow>
-          <FormGroup className="column-12 column-small-6 column-small-offset-3 flush-bottom">
+          <FormGroup className="form-row-element column-12 form-row-input">
             <FieldInput
               name="instances"
               onChange={this.handleInstancesFieldChange}
@@ -148,7 +148,7 @@ class ServiceResumeModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         rightButtonText="Resume Service"
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.handleConfirmation}

@@ -144,7 +144,7 @@ class ServiceDestroyModal extends React.Component {
     const serviceLabel = this.getServiceLabel();
 
     return (
-      <div className="modal-service-delete-center">
+      <div>
         <p>
           This action
           {" "}
@@ -157,20 +157,19 @@ class ServiceDestroyModal extends React.Component {
           {serviceLabel.toLowerCase()}
           .
         </p>
-        <p>
-          Type ("
-          <strong>{serviceName}</strong>
-          ") below to confirm you want to delete the
-          {" "}
-          {serviceLabel.toLowerCase()}.
-        </p>
-        <input
-          className="form-control filter-input-text"
-          onChange={this.handleChangeInputFieldDestroy}
-          type="text"
-          value={this.state.serviceNameConfirmationValue}
-          autoFocus
-        />
+        <div className="form-group flush-bottom">
+          <label for="">
+            Type "{serviceName}
+            " to confirm
+          </label>
+          <input
+            className="form-control filter-input-text"
+            onChange={this.handleChangeInputFieldDestroy}
+            type="text"
+            value={this.state.serviceNameConfirmationValue}
+            autoFocus
+          />
+        </div>
       </div>
     );
   }
@@ -187,7 +186,7 @@ class ServiceDestroyModal extends React.Component {
         open={open}
         onClose={this.handleModalClose}
         leftButtonText="Cancel"
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={this.handleModalClose}
         rightButtonText={itemText}
         rightButtonClassName="button button-danger"
