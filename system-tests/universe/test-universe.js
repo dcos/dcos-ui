@@ -60,7 +60,7 @@ describe("Universe", function() {
 
     // Should give error that package already installed
     cy
-      .get(".alert-danger")
+      .get(".message-danger")
       .contains("Package is already installed")
       .should("exist");
   });
