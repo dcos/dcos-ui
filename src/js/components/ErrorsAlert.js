@@ -31,7 +31,7 @@ const ErrorsAlert = function(props) {
 
   const errorItems = errorMessages.map((message, index) => {
     return (
-      <li key={index} className="short">
+      <li key={index}>
         {message}
       </li>
     );
@@ -39,12 +39,10 @@ const ErrorsAlert = function(props) {
 
   return (
     <Alert>
-      <strong>There is an error with your configuration</strong>
-      <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-        <ul className="short flush-bottom">
-          {errorItems}
-        </ul>
-      </div>
+      <h4>There is an error with your configuration</h4>
+      <ul className="flush-bottom">
+        {errorItems}
+      </ul>
     </Alert>
   );
 };
