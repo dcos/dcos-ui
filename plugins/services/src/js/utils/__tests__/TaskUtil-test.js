@@ -122,4 +122,92 @@ describe("TaskUtil", function() {
       expect(this.instance).toEqual(["foo", "bar", "baz"]);
     });
   });
+
+  describe("#getRegionName", function() {
+    it("returns (Local) when no region name exists", function() {
+      const node = {
+        getRegionName() {
+          return "";
+        }
+      };
+      const masterNode = {
+        getRegionName() {
+          return "";
+        }
+      };
+      expect(TaskUtil.getRegionName(node, masterNode)).toEqual("(Local)");
+    });
+    it("adds (Local) when no slave/ master in the same region", function() {
+      const node = {
+        getRegionName() {
+          return "us-west-2";
+        }
+      };
+      const masterNode = {
+        getRegionName() {
+          return "us-west-2";
+        }
+      };
+      expect(TaskUtil.getRegionName(node, masterNode)).toEqual(
+        "us-west-2 (Local)"
+      );
+    });
+    it("returns region when slave/ master in different region", function() {
+      const node = {
+        getRegionName() {
+          return "us-west-2";
+        }
+      };
+      const masterNode = {
+        getRegionName() {
+          return "us-west-3";
+        }
+      };
+      expect(TaskUtil.getRegionName(node, masterNode)).toEqual("us-west-2");
+    });
+  });
+
+  describe("#getZoneName", function() {
+    it("returns (Local) when no zone name exists", function() {
+      const node = {
+        getZoneName() {
+          return "";
+        }
+      };
+      const masterNode = {
+        getZoneName() {
+          return "";
+        }
+      };
+      expect(TaskUtil.getZoneName(node, masterNode)).toEqual("(Local)");
+    });
+    it("adds (Local) when no slave/ master in the same zone", function() {
+      const node = {
+        getZoneName() {
+          return "us-west-2";
+        }
+      };
+      const masterNode = {
+        getZoneName() {
+          return "us-west-2";
+        }
+      };
+      expect(TaskUtil.getZoneName(node, masterNode)).toEqual(
+        "us-west-2 (Local)"
+      );
+    });
+    it("returns zone when slave/ master in different zone", function() {
+      const node = {
+        getZoneName() {
+          return "us-west-2";
+        }
+      };
+      const masterNode = {
+        getZoneName() {
+          return "us-west-3";
+        }
+      };
+      expect(TaskUtil.getZoneName(node, masterNode)).toEqual("us-west-2");
+    });
+  });
 });

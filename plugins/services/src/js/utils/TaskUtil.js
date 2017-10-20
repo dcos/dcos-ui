@@ -114,7 +114,7 @@ const TaskUtil = {
     });
   },
 
-  getRegionName(task, node, masterNode) {
+  getRegionName(node, masterNode) {
     const nodeRegionName = node.getRegionName();
     const regionNameParts = [];
 
@@ -129,7 +129,7 @@ const TaskUtil = {
     return regionNameParts.join(" ");
   },
 
-  getZoneName(task, node, masterNode) {
+  getZoneName(node, masterNode) {
     const nodeZoneName = node.getZoneName();
     const zoneNameParts = [];
 

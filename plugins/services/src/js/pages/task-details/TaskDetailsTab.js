@@ -146,7 +146,7 @@ class TaskDetailsTab extends React.Component {
             Zone
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {TaskUtil.getZoneName(mesosTask, node, masterNode)}
+            {TaskUtil.getZoneName(node, masterNode)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
@@ -154,7 +154,7 @@ class TaskDetailsTab extends React.Component {
             Region
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {TaskUtil.getRegionName(mesosTask, node, masterNode)}
+            {TaskUtil.getRegionName(node, masterNode)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>

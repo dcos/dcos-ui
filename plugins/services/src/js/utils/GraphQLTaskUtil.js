@@ -113,7 +113,7 @@ function mergeRegion(task) {
     return task;
   }
 
-  task.regionName = TaskUtil.getRegionName(task, node, masterNode);
+  task.regionName = TaskUtil.getRegionName(node, masterNode);
 
   return task;
 }
@@ -132,7 +132,7 @@ function mergeZone(task) {
     return task;
   }
 
-  task.zoneName = TaskUtil.getZoneName(task, node, masterNode);
+  task.zoneName = TaskUtil.getZoneName(node, masterNode);
 
   return task;
 }
