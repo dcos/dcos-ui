@@ -2,6 +2,7 @@ import classNames from "classnames/dedupe";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import { MountService } from "foundation-ui";
 import BasePageHeader from "../components/PageHeader";
 import FluidGeminiScrollbar from "./FluidGeminiScrollbar";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
@@ -192,6 +193,7 @@ var Page = React.createClass({
 
     return (
       <div className={classSet}>
+        <MountService.Mount type="Page:TopBanner" />
         {this.getPageHeader(title, navigation)}
         {this.getContent()}
       </div>
