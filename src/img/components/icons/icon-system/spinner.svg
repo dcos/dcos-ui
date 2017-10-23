@@ -1,0 +1,30 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    .spinner-svg {
+      -ms-animation: 4000ms linear infinite spin;
+      animation: 4000ms linear infinite spin;
+    }
+
+    @-ms-keyframes spin {
+      from {
+        -ms-transform: rotate(0deg);
+      }
+      to {
+        -ms-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <defs>
+      <path d="M5.879 5.879a1 1 0 0 1-1.415 0L3.05 4.464A1 1 0 0 1 4.464 3.05L5.88 4.464a1 1 0 0 1 0 1.415zM5 8a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1zm.879 2.121a1 1 0 0 1 0 1.415L4.464 12.95a1 1 0 1 1-1.414-1.414l1.414-1.415a1 1 0 0 1 1.415 0zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm4.95 1.95a1 1 0 0 1-1.414 0l-1.415-1.414a1 1 0 0 1 1.415-1.415l1.414 1.415a1 1 0 0 1 0 1.414zM15 8a1 1 0 0 1-1 1h-2a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1zm-2.05-4.95a1 1 0 0 1 0 1.414L11.536 5.88a1 1 0 0 1-1.415-1.415l1.415-1.414a1 1 0 0 1 1.414 0zM8 1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1z" id="a"/>
+  </defs>
+  <use xlink:href="#a" fill-rule="evenodd"/>
+</svg>

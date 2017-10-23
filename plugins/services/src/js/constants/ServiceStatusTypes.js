@@ -1,6 +1,6 @@
 var ServiceStatusTypes = {
   NA: 0,
-  SUSPENDED: 1,
+  STOPPED: 1,
   RUNNING: 2,
   DEPLOYING: 3,
   WAITING: 4,
