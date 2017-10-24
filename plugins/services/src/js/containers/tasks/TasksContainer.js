@@ -1,13 +1,26 @@
 import React, { PropTypes } from "react";
+import { routerShape } from "react-router";
 
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+import Tree from "#SRC/js/structs/Tree";
+
+import TasksStatusFilter
+  from "#PLUGINS/services/src/js/filters/TasksStatusFilter";
+import TasksZoneFilter from "#PLUGINS/services/src/js/filters/TasksZoneFilter";
+import TasksRegionFilter
+  from "#PLUGINS/services/src/js/filters/TasksRegionFilter";
+import TaskNameTextFilter
+  from "#PLUGINS/services/src/js/filters/TaskNameTextFilter";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
 import ServiceActionItem from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
 import TasksView from "./TasksView";
+import TaskUtil from "../../utils/TaskUtil";
 
 import {
   REQUEST_MARATHON_TASK_KILL_ERROR,
@@ -17,6 +30,7 @@ import {
 const METHODS_TO_BIND = [
   "handleServerAction",
   "handleModalClose",
+  "handleExpressionChange",
   "clearActionError",
   "killTasks"
 ];
@@ -27,7 +41,10 @@ class TasksContainer extends React.Component {
 
     this.state = {
       actionErrors: {},
-      pendingActions: {}
+      pendingActions: {},
+      filterExpression: new DSLExpression(""),
+      filters: new DSLFilterList([]),
+      defaultFilterData: { zones: [], regions: [] }
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -35,10 +52,18 @@ class TasksContainer extends React.Component {
     });
   }
 
+  componentWillMount() {
+    this.propsToState(this.props);
+  }
+
   componentDidMount() {
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.propsToState(nextProps);
   }
 
   componentWillUnmount() {
@@ -75,6 +100,73 @@ class TasksContainer extends React.Component {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
+  }
+
+  handleExpressionChange(filterExpression) {
+    const { router } = this.context;
+    const { location: { pathname } } = this.props;
+    router.push({ pathname, query: { q: filterExpression.value } });
+
+    this.setState({ filterExpression });
+  }
+
+  propsToState(props) {
+    let query = props.location.query["q"];
+    if (query === undefined) {
+      query = "is:active";
+    }
+
+    const filterQuery = query || "";
+
+    const {
+      defaultFilterData: { regions },
+      defaultFilterData: { zones },
+      filterExpression
+    } = this.state;
+
+    const newZones = Array.from(
+      new Set(
+        props.tasks.map(task => {
+          const node = TaskUtil.getNode(task);
+
+          return node.getZoneName();
+        })
+      )
+    );
+
+    const newRegions = Array.from(
+      new Set(
+        props.tasks.map(task => {
+          const node = TaskUtil.getNode(task);
+
+          return node.getRegionName();
+        })
+      )
+    );
+
+    // If filter is the same return
+    if (
+      newRegions.length === regions.length &&
+      regions.every((v, i) => v === newRegions[i]) &&
+      (newZones.length === zones.length &&
+        zones.every((v, i) => v === newZones[i])) &&
+      filterExpression.value === filterQuery
+    ) {
+      return;
+    }
+
+    const filters = new DSLFilterList([
+      new TasksStatusFilter(),
+      new TasksZoneFilter(newZones),
+      new TasksRegionFilter(newRegions),
+      new TaskNameTextFilter()
+    ]);
+
+    this.setState({
+      filterExpression: new DSLExpression(filterQuery),
+      filters,
+      defaultFilterData: { regions: newRegions, zones: newZones }
+    });
   }
 
   fetchData() {
@@ -178,9 +270,29 @@ class TasksContainer extends React.Component {
   }
 
   render() {
+    const { tasks } = this.props;
+    const { filterExpression, filters, defaultFilterData } = this.state;
+
+    let filteredTasks = new Tree({ items: tasks });
+
+    if (filterExpression.defined) {
+      filteredTasks = filterExpression.filter(
+        filters,
+        filteredTasks.flattenItems()
+      );
+    }
+
     return (
       <div>
-        <TasksView params={this.props.params} tasks={this.props.tasks} />
+        <TasksView
+          params={this.props.params}
+          tasks={filteredTasks.getItems()}
+          totalTasks={tasks.length}
+          handleExpressionChange={this.handleExpressionChange}
+          filters={filters}
+          filterExpression={filterExpression}
+          defaultFilterData={defaultFilterData}
+        />
         {this.getModals()}
       </div>
     );
@@ -193,6 +305,10 @@ TasksContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     killTasks: PropTypes.func
   })
+};
+
+TasksContainer.contextTypes = {
+  router: routerShape
 };
 
 TasksContainer.propTypes = {

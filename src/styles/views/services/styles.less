@@ -79,6 +79,37 @@
   }
 }
 
+.filter-tasks-bar {
+
+  .filter-bar,
+  .filter-bar-left,
+  .filter-bar-item {
+    width: 100%;
+  }
+
+  .filter-input-text {
+    height: calc(100% - 2px);
+  }
+}
+
+@media (min-width: @layout-screen-medium-min-width) {
+
+  .filter-tasks-bar {
+
+    .filter-bar {
+      height: 70px;
+      position: relative;
+    }
+
+    .filter-bar-left {
+      left: 0;
+      padding-right: 200px;
+      position: absolute;
+      top: 0;
+    }
+  }
+}
+
 & when (@services-view-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {

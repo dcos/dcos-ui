@@ -1,43 +1,38 @@
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Tooltip } from "reactjs-components";
-import React from "react";
+import React, { PropTypes } from "react";
+import { routerShape } from "react-router";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import DSLFilterField from "#SRC/js/components/DSLFilterField";
+
 import FilterBar from "#SRC/js/components/FilterBar";
-import FilterButtons from "#SRC/js/components/FilterButtons";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import FilterInputText from "#SRC/js/components/FilterInputText";
 import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
+import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
+import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
+import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
+import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
+
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
 import GraphQLTaskUtil from "../../utils/GraphQLTaskUtil";
-import TaskStates from "../../constants/TaskStates";
+
 import TaskTable from "./TaskTable";
 
-const METHODS_TO_BIND = [
-  "handleItemCheck",
-  "handleSearchStringChange",
-  "handleStatusFilterChange",
-  "resetFilter"
-];
-
-const STATUS_FILTER_BUTTONS = ["all", "active", "completed"];
+const METHODS_TO_BIND = ["handleItemCheck"];
 
 class TasksView extends mixin(SaveStateMixin) {
   constructor() {
     super();
 
     this.state = {
-      checkedItems: {},
-      searchString: "",
-      filterByStatus: "active"
+      checkedItems: {}
     };
-
-    this.saveState_properties = ["filterByStatus"];
 
     METHODS_TO_BIND.forEach(function(method) {
       this[method] = this[method].bind(this);
@@ -84,31 +79,6 @@ class TasksView extends mixin(SaveStateMixin) {
     });
   }
 
-  handleSearchStringChange(searchString = "") {
-    this.setState({ searchString });
-  }
-
-  handleStatusFilterChange(filterByStatus) {
-    this.setState({ filterByStatus });
-  }
-
-  getFilteredTasks() {
-    let { tasks } = this.props;
-    const { filterByStatus, searchString } = this.state;
-
-    if (searchString !== "") {
-      tasks = StringUtil.filterByString(tasks, "id", searchString);
-    }
-
-    if (filterByStatus !== "all") {
-      tasks = tasks.filter(function(task) {
-        return TaskStates[task.state].stateTypes.includes(filterByStatus);
-      });
-    }
-
-    return tasks;
-  }
-
   getTaskTable(tasks, checkedItems) {
     const { inverseStyle, params } = this.props;
 
@@ -127,13 +97,6 @@ class TasksView extends mixin(SaveStateMixin) {
         tasks={tasks}
       />
     );
-  }
-
-  resetFilter() {
-    this.setState({
-      searchString: "",
-      filterByStatus: "all"
-    });
   }
 
   getButtonContent(filterName, count) {
@@ -225,19 +188,46 @@ class TasksView extends mixin(SaveStateMixin) {
     );
   }
 
-  render() {
-    const { inverseStyle, tasks } = this.props;
-    const { checkedItems, filterByStatus, searchString } = this.state;
-    let filteredTasks = this.getFilteredTasks();
+  getFilterBar() {
+    const {
+      filters,
+      filterExpression,
+      handleExpressionChange,
+      defaultFilterData
+    } = this.props;
 
-    // Get task states based on TaskStates types
-    const taskStates = tasks.map(function(task) {
-      const { stateTypes } = TaskStates[task.state];
-
-      return stateTypes.find(function(state) {
-        return state === "active" || state === "completed";
-      });
+    const hostClasses = classNames({
+      "column-medium-5": !filterExpression.value,
+      "column-medium-12": filterExpression.value
     });
+
+    return (
+      <div className={hostClasses}>
+        <DSLFilterField
+          filters={filters}
+          formSections={[
+            TaskStatusDSLSection,
+            TaskZoneDSLSection,
+            TaskRegionDSLSection,
+            FuzzyTextDSLSection
+          ]}
+          defaultData={defaultFilterData}
+          expression={filterExpression}
+          onChange={handleExpressionChange}
+        />
+      </div>
+    );
+  }
+
+  render() {
+    const {
+      inverseStyle,
+      tasks,
+      totalTasks,
+      handleExpressionChange
+    } = this.props;
+
+    const { checkedItems } = this.state;
 
     let rightAlignLastNChildren = 0;
     const hasCheckedTasks = Object.keys(checkedItems).length !== 0;
@@ -246,36 +236,26 @@ class TasksView extends mixin(SaveStateMixin) {
       rightAlignLastNChildren = 1;
     }
 
-    filteredTasks = filteredTasks.map(GraphQLTaskUtil.mergeData);
+    const mergedTasks = tasks.map(GraphQLTaskUtil.mergeData);
 
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
-          currentLength={filteredTasks.length}
+          currentLength={mergedTasks.length}
           inverseStyle={inverseStyle}
-          isFiltering={filterByStatus !== "all" || searchString !== ""}
-          onReset={this.resetFilter}
           name={"task"}
-          totalLength={tasks.length}
+          totalLength={totalTasks}
+          onReset={() => {
+            handleExpressionChange({ value: "" });
+          }}
         />
-        <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
-          <FilterInputText
-            className="flush-bottom"
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={inverseStyle}
-          />
-          <FilterButtons
-            renderButtonContent={this.getButtonContent}
-            filters={STATUS_FILTER_BUTTONS}
-            onFilterChange={this.handleStatusFilterChange}
-            inverseStyle={inverseStyle}
-            itemList={taskStates}
-            selectedFilter={filterByStatus}
-          />
-          {this.getStopButtons()}
-        </FilterBar>
-        {this.getTaskTable(filteredTasks, checkedItems)}
+        <div className="filter-tasks-bar">
+          <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
+            {this.getFilterBar()}
+            {this.getStopButtons()}
+          </FilterBar>
+        </div>
+        {this.getTaskTable(mergedTasks, checkedItems)}
       </div>
     );
   }
@@ -298,6 +278,13 @@ TasksView.propTypes = {
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
   tasks: React.PropTypes.array
+};
+
+TasksView.contextTypes = {
+  modalHandlers: PropTypes.shape({
+    createGroup: PropTypes.func
+  }).isRequired,
+  router: routerShape
 };
 
 module.exports = TasksView;

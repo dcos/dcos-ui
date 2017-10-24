@@ -11,7 +11,7 @@ class DSLForm extends React.Component {
    * @override
    */
   render() {
-    const { expression, onApply, onChange, sections } = this.props;
+    const { expression, onApply, onChange, sections, defaultData } = this.props;
 
     // Render each group component wrapped with a dedicated form that receives
     // the updates targeting each dedicated component.
@@ -22,6 +22,7 @@ class DSLForm extends React.Component {
           key={key}
           onApply={onApply}
           onChange={onChange}
+          defaultData={defaultData}
         />
       );
     });
