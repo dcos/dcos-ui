@@ -6,9 +6,9 @@ import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
 
-import HealthBar from "../../components/HealthBar";
+import ServiceStatusProgressBar
+  from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
-import ServiceStatus from "../../constants/ServiceStatus";
 import StatusMapping from "../../constants/StatusMapping";
 import PodActionItem from "../../constants/PodActionItem";
 
@@ -104,7 +104,6 @@ class PodHeader extends React.Component {
     const serviceStatusClassSet =
       StatusMapping[serviceStatus.displayName] || "";
     const runningTasksCount = tasksSummary.tasksRunning;
-    const instancesCount = pod.getInstancesCount();
     const runningTasksSubHeader = StringUtil.pluralize(
       "Instance",
       runningTasksCount
@@ -121,13 +120,7 @@ class PodHeader extends React.Component {
         shouldShow: runningTasksCount != null && runningTasksSubHeader != null
       },
       {
-        label: (
-          <HealthBar
-            tasksSummary={tasksSummary}
-            isDeploying={serviceStatus === ServiceStatus.DEPLOYING}
-            instancesCount={instancesCount}
-          />
-        ),
+        label: <ServiceStatusProgressBar service={pod} />,
         shouldShow: true
       }
     ].map(function(item, index) {

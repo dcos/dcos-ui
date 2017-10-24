@@ -5,7 +5,7 @@ const ReactDOM = require("react-dom");
 const ReactTestUtils = require("react-addons-test-utils");
 const Tooltip = require("reactjs-components").Tooltip;
 
-const HealthBar = require("../HealthBar");
+const ServiceStatusProgressBar = require("../ServiceStatusProgressBar");
 const ProgressBar = require("#SRC/js/components/ProgressBar");
 
 const testData = {
@@ -17,11 +17,14 @@ const testData = {
 };
 
 const testInstanceCount = 4;
-describe("#HealthBar", function() {
+describe("#ServiceStatusProgressBar", function() {
   beforeEach(function() {
     this.container = global.document.createElement("div");
     this.instance = ReactDOM.render(
-      <HealthBar tasksSummary={testData} instancesCount={testInstanceCount} />,
+      <ServiceStatusProgressBar
+        tasksSummary={testData}
+        instancesCount={testInstanceCount}
+      />,
       this.container
     );
   });
@@ -33,7 +36,10 @@ describe("#HealthBar", function() {
   describe("PropTypes", function() {
     it("should throw an error if no tasks prop is provided", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(<HealthBar />, this.container);
+      this.instance = ReactDOM.render(
+        <ServiceStatusProgressBar />,
+        this.container
+      );
       expect(console.error).toHaveBeenCalled();
     });
   });
@@ -57,7 +63,7 @@ describe("#HealthBar", function() {
   describe("Empty tooltip", function() {
     it("should have an empty tooltip", function() {
       this.instance = ReactDOM.render(
-        <HealthBar tasksSummary={{}} />,
+        <ServiceStatusProgressBar tasksSummary={{}} />,
         this.container
       );
 

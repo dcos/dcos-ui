@@ -53,9 +53,9 @@ class ProgressBar extends React.Component {
     let max = data.reduce(function(sum, item) {
       return sum + item.value;
     }, 0);
-    const unassignedValue = this.props.scale - max;
+    const unassignedValue = this.props.total - max;
 
-    max = Math.max(this.props.scale, max);
+    max = Math.max(this.props.total, max);
 
     if (max === 0) {
       return null;
@@ -79,14 +79,14 @@ class ProgressBar extends React.Component {
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
     return data.map(function(status, index) {
-      let { className, style = {} } = status;
+      let { state, style = {} } = status;
       const scale = barSizes[index];
 
-      if (className == null) {
-        className = `element-${index}`;
+      if (state == null) {
+        state = `element-${index}`;
       }
 
-      className = classNames("bar", className);
+      state = classNames("bar", state);
 
       if (scale === 0) {
         return null;
@@ -94,7 +94,7 @@ class ProgressBar extends React.Component {
 
       style.width = `${scale}%`;
 
-      return <span style={style} key={index} className={className} />;
+      return <span style={style} key={index} className={state} />;
     });
   }
 
@@ -112,7 +112,7 @@ class ProgressBar extends React.Component {
 }
 
 ProgressBar.defaultProps = {
-  scale: 0
+  total: 0
 };
 
 ProgressBar.propTypes = {
@@ -121,7 +121,7 @@ ProgressBar.propTypes = {
     React.PropTypes.object,
     React.PropTypes.string
   ]),
-  scale: React.PropTypes.number,
+  total: React.PropTypes.number,
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       className: React.PropTypes.string,
