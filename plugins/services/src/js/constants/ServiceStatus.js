@@ -10,9 +10,9 @@ var SERVICE_STATUS = {
     key: ServiceStatusTypes.DEPLOYING,
     displayName: ServiceStatusLabels.DEPLOYING
   },
-  SUSPENDED: {
-    key: ServiceStatusTypes.SUSPENDED,
-    displayName: ServiceStatusLabels.SUSPENDED
+  STOPPED: {
+    key: ServiceStatusTypes.STOPPED,
+    displayName: ServiceStatusLabels.STOPPED
   },
   NA: {
     key: ServiceStatusTypes.NA,
@@ -27,7 +27,12 @@ var SERVICE_STATUS = {
     displayName: ServiceStatusLabels.WAITING
   },
   DELETING: {
+    key: ServiceStatusTypes.DELETING,
     displayName: ServiceStatusLabels.DELETING
+  },
+  RECOVERING: {
+    key: ServiceStatusTypes.RECOVERING,
+    displayName: ServiceStatusLabels.RECOVERING
   }
 };
 
