@@ -319,24 +319,20 @@ class TaskTable extends React.Component {
   }
 
   renderRegion(prop, task) {
-    const taskRegionName = TaskUtil.getRegionName(task);
-
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-value flex-box flex-box-col">
-          {taskRegionName}
+          {TaskUtil.getRegionName(task)}
         </div>
       </div>
     );
   }
 
   renderZone(prop, task) {
-    const taskZoneName = TaskUtil.getZoneName(task);
-
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-value flex-box flex-box-col">
-          {taskZoneName}
+          {TaskUtil.getZoneName(task)}
         </div>
       </div>
     );
