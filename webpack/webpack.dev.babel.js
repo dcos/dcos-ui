@@ -89,7 +89,12 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js", Infinity),
 
-    new SVGCompilerPlugin({ baseDir: "src/img/components/icons" })
+    new SVGCompilerPlugin({ baseDir: "src/img/components/icons" }),
+
+    // Polyfill to make InversifyJS working
+    new webpack.ProvidePlugin({
+      Reflect: "reflect-metadata"
+    })
   ],
   module: {
     preLoaders: webpackConfig.module.preLoaders,

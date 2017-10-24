@@ -4804,6 +4804,11 @@
       "from": "invariant@>=2.2.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/invariant/-/invariant-2.2.1.tgz"
     },
+    "inversify": {
+      "version": "4.3.0",
+      "from": "inversify@latest",
+      "resolved": "https://registry.npmjs.org/inversify/-/inversify-4.3.0.tgz"
+    },
     "invert-kv": {
       "version": "1.0.0",
       "from": "invert-kv@>=1.0.0 <2.0.0",
@@ -8271,6 +8276,11 @@
       "version": "3.3.1",
       "from": "redux@3.3.1",
       "resolved": "https://registry.npmjs.org/redux/-/redux-3.3.1.tgz"
+    },
+    "reflect-metadata": {
+      "version": "0.1.10",
+      "from": "reflect-metadata@latest",
+      "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.10.tgz"
     },
     "regenerate": {
       "version": "1.3.2",

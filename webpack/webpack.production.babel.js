@@ -83,6 +83,11 @@ module.exports = Object.assign({}, webpackConfig, {
       algorithm: "gzip",
       test: /\.js$|\.css|\.html$/,
       minRatio: 0.9
+    }),
+
+    // Polyfill to make InversifyJS working
+    new webpack.ProvidePlugin({
+      Reflect: "reflect-metadata"
     })
   ],
   module: {
