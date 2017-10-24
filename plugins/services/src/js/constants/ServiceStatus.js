@@ -27,9 +27,11 @@ var SERVICE_STATUS = {
     displayName: ServiceStatusLabels.WAITING
   },
   DELETING: {
+    key: ServiceStatusTypes.DELETING,
     displayName: ServiceStatusLabels.DELETING
   },
   RECOVERING: {
+    key: ServiceStatusTypes.RECOVERING,
     displayName: ServiceStatusLabels.RECOVERING
   }
 };

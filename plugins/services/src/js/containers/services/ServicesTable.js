@@ -12,6 +12,8 @@ import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import ServiceStatusProgressBar
+  from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionDisabledModal
@@ -360,6 +362,7 @@ class ServicesTable extends React.Component {
         <div className={`${serviceStatusClassSet} column-small-5 flush-left`}>
           {serviceStatusText}
         </div>
+        <ServiceStatusProgressBar service={service} />
       </div>
     );
   }
