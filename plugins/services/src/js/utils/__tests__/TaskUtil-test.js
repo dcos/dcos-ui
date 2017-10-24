@@ -137,7 +137,7 @@ describe("TaskUtil", function() {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
-      CompositeState.getNodeMaster = () => {
+      CompositeState.getMasterNode = () => {
         return new Node(MasterNodeLocal);
       };
     });
@@ -150,7 +150,7 @@ describe("TaskUtil", function() {
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2 (Local)");
     });
     it("returns region when slave/ master in different region", function() {
-      CompositeState.getNodeMaster = () => {
+      CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2");
@@ -162,7 +162,7 @@ describe("TaskUtil", function() {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
-      CompositeState.getNodeMaster = () => {
+      CompositeState.getMasterNode = () => {
         return new Node(MasterNodeLocal);
       };
     });
@@ -175,7 +175,7 @@ describe("TaskUtil", function() {
       expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a (Local)");
     });
     it("returns zone when slave/ master in different zone", function() {
-      CompositeState.getNodeMaster = () => {
+      CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };
       expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a");

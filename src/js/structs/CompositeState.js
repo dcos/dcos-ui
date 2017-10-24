@@ -105,7 +105,7 @@ class CompositeState {
     return new NodesList({ items: this.data.slaves });
   }
 
-  getNodeMaster() {
+  getMasterNode() {
     return new Node(this.data.leader_info);
   }
 }

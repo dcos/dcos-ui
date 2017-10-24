@@ -121,7 +121,7 @@ const TaskUtil = {
       return "(Local)";
     }
 
-    const masterNode = CompositeState.getNodeMaster();
+    const masterNode = CompositeState.getMasterNode();
     const nodeRegionName = node.getRegionName();
     const regionNameParts = [];
 
@@ -145,7 +145,7 @@ const TaskUtil = {
       return "(Local)";
     }
 
-    const masterNode = CompositeState.getNodeMaster();
+    const masterNode = CompositeState.getMasterNode();
     const nodeZoneName = node.getZoneName();
     const zoneNameParts = [];
 

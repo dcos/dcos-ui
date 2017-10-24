@@ -67,7 +67,7 @@ class NodeDetailTab extends React.Component {
                 Region
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {node.getRegionName() || "(Local)"}
+                {node.getRegionName()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
@@ -75,7 +75,7 @@ class NodeDetailTab extends React.Component {
                 Zone
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {node.getZoneName() || "(Local)"}
+                {node.getZoneName()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>

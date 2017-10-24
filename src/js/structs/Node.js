@@ -21,17 +21,21 @@ class Node extends Item {
   }
 
   getRegionName() {
-    return findNestedPropertyInObject(
+    const nodeRegionName = findNestedPropertyInObject(
       this.getDomain(),
       "fault_domain.region.name"
     );
+
+    return nodeRegionName || "(Local)";
   }
 
   getZoneName() {
-    return findNestedPropertyInObject(
+    const nodeZoneName = findNestedPropertyInObject(
       this.getDomain(),
       "fault_domain.zone.name"
     );
+
+    return nodeZoneName || "(Local)";
   }
 
   getUsageStats(resource) {
