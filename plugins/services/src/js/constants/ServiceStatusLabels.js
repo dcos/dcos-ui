@@ -1,11 +1,12 @@
 var ServiceStatusLabels = {
   RUNNING: "Running",
   DEPLOYING: "Deploying",
-  SUSPENDED: "Suspended",
+  STOPPED: "Stopped",
   NA: "N/A",
   DELAYED: "Delayed",
   WAITING: "Waiting",
-  DELETING: "Deleting"
+  DELETING: "Deleting",
+  RECOVERING: "Recovering"
 };
 
 module.exports = ServiceStatusLabels;

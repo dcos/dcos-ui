@@ -136,15 +136,15 @@ module.exports = class Application extends Service {
     const instances = this.getInstancesCount();
 
     if (instances === 0 && tasksRunning === 0) {
-      return ServiceStatus.SUSPENDED;
+      return ServiceStatus.STOPPED;
+    }
+
+    if (queue != null && (deployments == null || deployments.length < 1)) {
+      return ServiceStatus.RECOVERING;
     }
 
     if (queue != null && queue.delay) {
-      if (queue.delay.overdue) {
-        return ServiceStatus.WAITING;
-      }
-
-      return ServiceStatus.DELAYED;
+      return ServiceStatus.DEPLOYING;
     }
 
     if (deployments != null && deployments.length > 0) {
