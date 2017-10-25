@@ -1,30 +1,33 @@
-<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <style>
-    .spinner-svg {
-      -ms-animation: 4000ms linear infinite spin;
-      animation: 4000ms linear infinite spin;
-    }
-
-    @-ms-keyframes spin {
-      from {
-        -ms-transform: rotate(0deg);
-      }
-      to {
-        -ms-transform: rotate(360deg);
-      }
-    }
-
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
-  <defs>
-      <path d="M5.879 5.879a1 1 0 0 1-1.415 0L3.05 4.464A1 1 0 0 1 4.464 3.05L5.88 4.464a1 1 0 0 1 0 1.415zM5 8a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1zm.879 2.121a1 1 0 0 1 0 1.415L4.464 12.95a1 1 0 1 1-1.414-1.414l1.414-1.415a1 1 0 0 1 1.415 0zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm4.95 1.95a1 1 0 0 1-1.414 0l-1.415-1.414a1 1 0 0 1 1.415-1.415l1.414 1.415a1 1 0 0 1 0 1.414zM15 8a1 1 0 0 1-1 1h-2a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1zm-2.05-4.95a1 1 0 0 1 0 1.414L11.536 5.88a1 1 0 0 1-1.415-1.415l1.415-1.414a1 1 0 0 1 1.414 0zM8 1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1z" id="a"/>
-  </defs>
-  <use xlink:href="#a" fill-rule="evenodd"/>
-</svg>
+<svg class="lds-spinner" width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="background: none;"><g transform="rotate(0 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.875s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(45 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.75s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(90 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.625s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(135 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.5s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(180 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.375s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(225 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.25s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(270 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.125s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(315 50 50)">
+  <rect x="45" y="2.5" rx="90" ry="5" width="10" height="25" fill="#babdc3">
+    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animate>
+  </rect>
+</g></svg>
