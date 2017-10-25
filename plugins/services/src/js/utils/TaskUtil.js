@@ -4,6 +4,7 @@ import React from "react";
 
 import Node from "#SRC/js/structs/Node";
 import Util from "#SRC/js/utils/Util";
+import CompositeState from "#SRC/js/structs/CompositeState";
 
 const TaskUtil = {
   /**
@@ -112,6 +113,71 @@ const TaskUtil = {
     return ipAddresses.map(function(item) {
       return item.ip_address;
     });
+  },
+
+  getRegionName(task) {
+    const node = this.getNode(task);
+    if (!node) {
+      return "(Local)";
+    }
+
+    const masterNode = CompositeState.getMasterNode();
+    const nodeRegionName = node.getRegionName();
+    const regionNameParts = [];
+
+    if (nodeRegionName) {
+      regionNameParts.push(nodeRegionName);
+    }
+
+    if (
+      !nodeRegionName ||
+      (masterNode && nodeRegionName === masterNode.getRegionName())
+    ) {
+      regionNameParts.push("(Local)");
+    }
+
+    return regionNameParts.join(" ");
+  },
+
+  getZoneName(task) {
+    const node = this.getNode(task);
+    if (!node) {
+      return "(Local)";
+    }
+
+    const masterNode = CompositeState.getMasterNode();
+    const nodeZoneName = node.getZoneName();
+    const zoneNameParts = [];
+
+    if (nodeZoneName) {
+      zoneNameParts.push(nodeZoneName);
+    }
+
+    if (
+      !nodeZoneName ||
+      (masterNode && nodeZoneName === masterNode.getZoneName())
+    ) {
+      zoneNameParts.push("(Local)");
+    }
+
+    return zoneNameParts.join(" ");
+  },
+
+  getHostName(task) {
+    const node = this.getNode(task);
+
+    return node ? node.hostname : "";
+  },
+
+  getNode(task) {
+    const nodesList = CompositeState.getNodesList();
+    const node = nodesList
+      .filter({
+        ids: [task.slave_id]
+      })
+      .last();
+
+    return node;
   }
 };
 

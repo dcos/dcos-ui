@@ -58,11 +58,11 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows status", function() {
-        cy.get("@tds").eq(4).contains("Running");
+        cy.get("@tds").eq(6).contains("Running");
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(5).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").triggerHover();
         cy.get(".tooltip").contains("No health checks available");
       });
     });
@@ -78,11 +78,11 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows status", function() {
-        cy.get("@tds").eq(4).contains("Running");
+        cy.get("@tds").eq(6).contains("Running");
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(5).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").triggerHover();
         cy.get(".tooltip").contains("Healthy");
       });
     });
@@ -138,6 +138,19 @@ describe("Tasks Table", function() {
         expect($checkbox[0].checked).to.equal(true);
       });
       assertActionButtons();
+    });
+  });
+
+  context("Service tasks region", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-service-with-executor-task"
+      });
+    });
+
+    it.only("Shows the correct region", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
+      cy.get("td.task-table-column-zone-address").eq(1).contains("(Local)");
     });
   });
 });

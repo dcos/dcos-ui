@@ -1,0 +1,9 @@
+{
+  "isStartedByMarathon": false,
+  "id": "node-0-server__bb36c60d-3896-49bf-b4f4-4f63bcbd624b",
+  "name": "node-0-server",
+  "framework_id": "9fbe915f-c14a-452a-96cd-4e600bf7478a-0002",
+  "executor_id": "node__3163486e-80c4-4ab9-85e4-0d411bb034a6",
+  "slave_id": "1",
+  "state": "TASK_RUNNING"
+}

@@ -1,5 +1,14 @@
-const TaskUtil = require("../TaskUtil");
+jest.mock("#SRC/js/structs/CompositeState");
+
 const Node = require("#SRC/js/structs/Node");
+const NodesList = require("#SRC/js/structs/NodesList");
+const CompositeState = require("#SRC/js/structs/CompositeState");
+
+const TaskUtil = require("../TaskUtil");
+const MasterNodeLocal = require("./fixtures/MasterNodeLocal.json");
+const MasterNodeOffsite = require("./fixtures/MasterNodeOffsite.json");
+const SlaveNodes = require("./fixtures/SlaveNodes.json");
+const NodeTask = require("./fixtures/NodeTask.json");
 
 describe("TaskUtil", function() {
   describe("#getHostAndPortList", function() {
@@ -120,6 +129,56 @@ describe("TaskUtil", function() {
 
     it("should provide port_mappings when available", function() {
       expect(this.instance).toEqual(["foo", "bar", "baz"]);
+    });
+  });
+
+  describe("#getRegionName", function() {
+    beforeEach(function() {
+      CompositeState.getNodesList = () => {
+        return new NodesList({ items: SlaveNodes });
+      };
+      CompositeState.getMasterNode = () => {
+        return new Node(MasterNodeLocal);
+      };
+    });
+    it("returns (Local) when no region name exists", function() {
+      const task = Object.assign({}, NodeTask);
+      task.slave_id = "2";
+      expect(TaskUtil.getRegionName(task)).toEqual("(Local)");
+    });
+    it("adds (Local) when no slave/ master in the same region", function() {
+      expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2 (Local)");
+    });
+    it("returns region when slave/ master in different region", function() {
+      CompositeState.getMasterNode = () => {
+        return new Node(MasterNodeOffsite);
+      };
+      expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2");
+    });
+  });
+
+  describe("#getZoneName", function() {
+    beforeEach(function() {
+      CompositeState.getNodesList = () => {
+        return new NodesList({ items: SlaveNodes });
+      };
+      CompositeState.getMasterNode = () => {
+        return new Node(MasterNodeLocal);
+      };
+    });
+    it("returns (Local) when no zone name exists", function() {
+      const task = Object.assign({}, NodeTask);
+      task.slave_id = "2";
+      expect(TaskUtil.getZoneName(task)).toEqual("(Local)");
+    });
+    it("adds (Local) when no slave/ master in the same zone", function() {
+      expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a (Local)");
+    });
+    it("returns zone when slave/ master in different zone", function() {
+      CompositeState.getMasterNode = () => {
+        return new Node(MasterNodeOffsite);
+      };
+      expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a");
     });
   });
 });

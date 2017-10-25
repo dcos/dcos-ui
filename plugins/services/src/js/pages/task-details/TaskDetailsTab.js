@@ -17,6 +17,7 @@ import Units from "#SRC/js/utils/Units";
 import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskEndpointsList from "../../components/TaskEndpointsList";
+import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
   getContainerInfo(task) {
@@ -139,6 +140,22 @@ class TaskDetailsTab extends React.Component {
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         {resourceRows}
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Zone
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {TaskUtil.getZoneName(mesosTask)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <ConfigurationMapLabel>
+            Region
+          </ConfigurationMapLabel>
+          <ConfigurationMapValue>
+            {TaskUtil.getRegionName(mesosTask)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
       </ConfigurationMapSection>
     );
   }

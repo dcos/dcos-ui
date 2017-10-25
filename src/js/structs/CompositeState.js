@@ -1,4 +1,5 @@
 import NodesList from "./NodesList";
+import Node from "./Node";
 import ServicesList
   from "../../../plugins/services/src/js/structs/ServicesList";
 
@@ -102,6 +103,10 @@ class CompositeState {
 
   getNodesList() {
     return new NodesList({ items: this.data.slaves });
+  }
+
+  getMasterNode() {
+    return new Node(this.data.leader_info);
   }
 }
 

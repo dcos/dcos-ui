@@ -1,5 +1,4 @@
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import CompositeState from "#SRC/js/structs/CompositeState";
 
 import TaskHealthStates from "../constants/TaskHealthStates";
 
@@ -82,28 +81,12 @@ function mergeVersion(task) {
   return task;
 }
 
-function mergeHostname(task) {
-  const node = CompositeState.getNodesList()
-    .filter({
-      ids: [task.slave_id]
-    })
-    .last();
-
-  if (node) {
-    task.hostname = node.hostname;
-  }
-
-  return task;
-}
-
 module.exports = {
   mergeData(task) {
     // Merge version from Marathon
     task = mergeVersion(task);
     // Get Health from Mesos first, and fallback on Marathon
     task = mergeHealth(task);
-    // Merge hostname if we can find it
-    task = mergeHostname(task);
 
     return task;
   }
