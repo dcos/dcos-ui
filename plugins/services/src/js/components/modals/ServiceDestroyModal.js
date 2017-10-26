@@ -20,7 +20,6 @@ const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
   "handleRightButtonClick",
-  "handleChangeInputGroupDestroy",
   "handleFormSubmit"
 ];
 
@@ -30,8 +29,7 @@ class ServiceDestroyModal extends React.Component {
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: "",
-      forceDeleteGroupWithServices: false
+      serviceNameConfirmationValue: ""
     };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
@@ -82,14 +80,7 @@ class ServiceDestroyModal extends React.Component {
   }
 
   shouldForceUpdate() {
-    return (
-      (this.state.errorMsg && /force=true/.test(this.state.errorMsg)) ||
-      this.state.forceDeleteGroupWithServices
-    );
-  }
-
-  isGroupWithServices(service) {
-    return service instanceof ServiceTree && service.getItems().length > 0;
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
   handleModalClose() {
@@ -113,12 +104,6 @@ class ServiceDestroyModal extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
     this.handleRightButtonClick();
-  }
-
-  handleChangeInputGroupDestroy(event) {
-    this.setState({
-      forceDeleteGroupWithServices: event.target.checked
-    });
   }
 
   getIsRightButtonDisabled() {
@@ -153,56 +138,10 @@ class ServiceDestroyModal extends React.Component {
     }, REDIRECT_DELAY);
   }
 
-  getCloseButton() {
-    return (
-      <div className="row text-align-center">
-        <button
-          className="button button-primary button-medium"
-          onClick={this.handleModalClose}
-        >
-          Close
-        </button>
-      </div>
-    );
-  }
-
-  getGroupHeader() {
-    const { service } = this.props;
-
-    if (!this.isGroupWithServices(service)) {
-      return null;
-    }
-
-    return (
-      <div className="modal-service-delete-center">
-        <p>
-          This group needs to be empty to delete it. Please delete any services in the group first.
-        </p>
-        <p>
-          <label className="modal-service-delete-force">
-            <input
-              type="checkbox"
-              checked={this.state.forceDeleteGroupWithServices}
-              onChange={this.handleChangeInputGroupDestroy}
-            />
-            <b>FORCE DELETE SERVICES IN GROUP</b>
-          </label>
-        </p>
-      </div>
-    );
-  }
-
   getServiceDeleteForm() {
     const { service } = this.props;
     const serviceName = service.getName();
     const serviceLabel = this.getServiceLabel();
-
-    if (
-      this.isGroupWithServices(service) &&
-      !this.state.forceDeleteGroupWithServices
-    ) {
-      return null;
-    }
 
     return (
       <div className="modal-service-delete-center">
@@ -216,8 +155,6 @@ class ServiceDestroyModal extends React.Component {
           <strong>{serviceName}</strong>
           {" "}
           {serviceLabel.toLowerCase()}
-          {this.state.forceDeleteGroupWithServices &&
-            <span>and any services in the group</span>}
           .
         </p>
         <p>
@@ -257,7 +194,6 @@ class ServiceDestroyModal extends React.Component {
         showHeader={true}
       >
         <form onSubmit={this.handleFormSubmit}>
-          {this.getGroupHeader()}
           {this.getServiceDeleteForm()}
           {this.getErrorMessage()}
         </form>
