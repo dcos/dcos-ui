@@ -18,11 +18,9 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 
 # Install required components & prepare environment
 RUN set -x \
-
   # Install node 4.4.7 & npm 3.9
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
-
   # Install cypress dependencies & JRE (required by Jenkins)
   && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
   && apt-get update \
@@ -30,24 +28,18 @@ RUN set -x \
   && apt-get install -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-
   # Post-install java certificates
   /var/lib/dpkg/info/ca-certificates-java.postinst configure \
-
   # Install npm dependencies
   && cd /dcos-ui \
   && npm install -g cypress-cli git://github.com/johntron/http-server.git#proxy-secure-flag \
-
   # Install cypress
   && cypress install --cypress-version ${CYPRESS_VERSION} \
-
   # Install dcos-launch
   && curl 'https://downloads.dcos.io/dcos-test-utils/bin/linux/dcos-launch' > /usr/local/bin/dcos-launch \
   && chmod +x /usr/local/bin/dcos-launch \
-
   # Ensure entrypoint is executable
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \
-
   # Make sure bash is the default shell
   && rm /bin/sh \
   && ln -sf /bin/bash /bin/sh
