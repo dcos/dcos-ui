@@ -38,7 +38,7 @@ const Util = {
    * @return {Anything}           Value in last position of Array
    */
   last(array) {
-    if (array.length === 0) {
+    if (!Array.isArray(array) || array.length === 0) {
       return null;
     }
 
