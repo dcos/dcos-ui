@@ -7,6 +7,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { FormattedMessage } from "react-intl";
 import moment from "moment";
+import { request } from "@dcos/mesos-client";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -24,7 +25,6 @@ import Loader from "../../components/Loader";
 import MarathonStore
   from "../../../../plugins/services/src/js/stores/MarathonStore";
 import MetadataStore from "../../stores/MetadataStore";
-import MesosStateStore from "../../stores/MesosStateStore";
 import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
 import { isEmpty } from "../../utils/ValidatorUtil";
@@ -51,7 +51,12 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
-      isClusterBuildInfoOpen: false
+      isClusterBuildInfoOpen: false,
+      masterInfo: undefined,
+      cluster: undefined,
+      version: undefined,
+      buildTime: undefined,
+      startTime: undefined
     };
 
     this.store_listeners = [
@@ -66,13 +71,38 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       {
         name: "metadata",
         events: ["dcosBuildInfoChange", "dcosSuccess", "success"]
-      },
-      {
-        name: "state",
-        events: ["success"],
-        listenAlways: false
       }
     ];
+
+    request({ type: "GET_FLAGS" }).subscribe(message => {
+      const cluster = message.get_flags.flags.find(
+        flag => flag.name === "cluster"
+      );
+
+      if (cluster) {
+        this.setState({ cluster: cluster.value });
+      }
+    });
+
+    request({ type: "GET_VERSION" }).subscribe(message => {
+      const info = message.get_version.version_info;
+
+      if (info) {
+        this.setState({
+          version: info.version,
+          buildTime: info.build_time,
+          startTime: info.start_time
+        });
+      }
+    });
+
+    request({ type: "GET_MASTER" }).subscribe(message => {
+      const masterInfo = message.get_master.master_info;
+
+      if (masterInfo) {
+        this.setState({ masterInfo });
+      }
+    });
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -224,14 +254,29 @@ class OverviewDetailTab extends mixin(StoreMixin) {
    * @memberOf OverviewDetailTab
    */
   getMesosDetails() {
-    const mesosConfig = MesosStateStore.get("lastMesosState");
-    const mesosCluster = mesosConfig.cluster || this.getLoading();
-    const mesosLeaderInfo = mesosConfig.leader_info || this.getLoading();
-    const mesosVersion = mesosConfig.version || this.getLoading();
-    const mesosBuilt = mesosConfig.build_time || this.getLoading();
-    const mesosStarted = mesosConfig.start_time || this.getLoading();
-    const mesosElected = mesosConfig.elected_time || this.getLoading();
-    const mesosBuildUser = mesosConfig.build_user;
+    const {
+      masterInfo,
+      cluster,
+      version,
+      buildTime,
+      startTime,
+      electedTime,
+      buildUser
+    } = this.state;
+
+    const mesosMasterInfo = masterInfo || this.getLoading();
+    const mesosCluster = cluster || this.getLoading();
+    const mesosVersion = version || this.getLoading();
+    const mesosBuilt = buildTime
+      ? moment(buildTime * 1000).fromNow()
+      : this.getLoading();
+    const mesosStarted = startTime
+      ? moment(startTime * 1000).fromNow()
+      : this.getLoading();
+    const mesosElected = electedTime
+      ? moment(electedTime * 1000).fromNow()
+      : this.getLoading();
+    const mesosBuildUser = buildUser;
 
     return (
       <ConfigurationMapSection>
@@ -248,7 +293,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.LEADER" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {mesosLeaderInfo.hostname}:{mesosLeaderInfo.port}
+            {mesosMasterInfo.hostname}:{mesosMasterInfo.port}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="version">
@@ -264,7 +309,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.BUILT" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(mesosBuilt * 1000).fromNow()}
+            {mesosBuilt}
             {" "}
             {this.getMesosBuildUser(mesosBuildUser)}
           </ConfigurationMapValue>
@@ -274,7 +319,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.STARTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(mesosStarted * 1000).fromNow()}
+            {mesosStarted}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="elected">
@@ -282,7 +327,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             <FormattedMessage id="COMMON.ELECTED" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {moment(mesosElected * 1000).fromNow()}
+            {mesosElected}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
