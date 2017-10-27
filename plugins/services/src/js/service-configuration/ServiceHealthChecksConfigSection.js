@@ -13,8 +13,7 @@ import {
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapDurationValue
   from "../components/ConfigurationMapDurationValue";
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   COMMAND,
@@ -152,10 +151,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="healthChecks"
-                    />
+                    <ConfigurationMapAction
+                      onClick={onEditClick.bind(this, "healthChecks")}
+                      isHover={true}
+                    >
+                      Edit
+                    </ConfigurationMapAction>
                   );
                 }
               });
@@ -256,10 +257,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="environment"
-                    />
+                    <ConfigurationMapAction
+                      onClick={onEditClick.bind(this, "environment")}
+                      isHover={true}
+                    >
+                      Edit
+                    </ConfigurationMapAction>
                   );
                 }
               });

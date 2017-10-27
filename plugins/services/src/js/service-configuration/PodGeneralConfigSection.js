@@ -10,8 +10,7 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Units from "#SRC/js/utils/Units";
 
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ConfigurationMapValueWithDefault
   from "../components/ConfigurationMapValueWithDefault";
 import DurationValue from "../components/ConfigurationMapDurationValue";
@@ -101,76 +100,92 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Service ID</ConfigurationMapLabel>
           <ConfigurationMapValue value={appConfig.id} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
           <ConfigurationMapValueWithDefault value={fields.instances} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("cpus", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("mem", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("disk", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("gpu", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          <ConfigurationMapAction
+            onClick={onEditClick.bind(this, "services")}
+            isHover={true}
+          >
+            Edit
+          </ConfigurationMapAction>
         </ConfigurationMapRow>
         {Boolean(fields.backoff) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
             <DurationValue units="sec" value={fields.backoff} />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="services"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "services")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>}
         {Boolean(fields.backoffFactor) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.backoffFactor} />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="services"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "services")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>}
         {Boolean(fields.maxLaunchDelay) &&
           <ConfigurationMapRow>
@@ -178,10 +193,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Backoff Max Launch Delay
             </ConfigurationMapLabel>
             <DurationValue units="sec" value={fields.maxLaunchDelay} />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="services"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "services")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>}
         {Boolean(fields.minimumHealthCapacity) &&
           <ConfigurationMapRow>
@@ -189,10 +206,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Upgrade Min Health Capacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.minimumHealthCapacity} />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="services"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "services")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>}
         {Boolean(fields.maximumOverCapacity) &&
           <ConfigurationMapRow>
@@ -200,10 +219,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Upgrade Max Overcapacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.maximumOverCapacity} />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="services"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "services")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>}
       </ConfigurationMapSection>
     </div>

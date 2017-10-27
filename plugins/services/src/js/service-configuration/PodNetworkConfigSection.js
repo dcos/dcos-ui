@@ -7,8 +7,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
@@ -102,10 +101,12 @@ class PodNetworkConfigSection extends React.Component {
             <ConfigurationMapValueWithDefault
               value={getNetworkTypes(appConfig.networks)}
             />
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID="networking"
-            />
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, "networking")}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
           </ConfigurationMapRow>
 
           {/* Service endpoints */}

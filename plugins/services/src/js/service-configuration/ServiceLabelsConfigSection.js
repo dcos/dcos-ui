@@ -1,8 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
 
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
@@ -64,10 +63,12 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="environment"
-                    />
+                    <ConfigurationMapAction
+                      onClick={onEditClick.bind(this, "environment")}
+                      isHover={true}
+                    >
+                      Edit
+                    </ConfigurationMapAction>
                   );
                 }
               });

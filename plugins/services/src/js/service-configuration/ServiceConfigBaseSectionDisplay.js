@@ -10,8 +10,7 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 
 class ServiceConfigBaseSectionDisplay extends React.Component {
   shouldExcludeItem() {
@@ -61,6 +60,18 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
           );
         }
 
+        let action;
+        if (onEditClick) {
+          action = (
+            <ConfigurationMapAction
+              onClick={onEditClick.bind(this, tabViewID)}
+              isHover={true}
+            >
+              Edit
+            </ConfigurationMapAction>
+          );
+        }
+
         // Otherwise we treat the row as "label:value" type display.
         return (
           <ConfigurationMapRow key={reactKey}>
@@ -70,10 +81,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
             <ConfigurationMapValue>
               {this.getDisplayValue(row.type, value)}
             </ConfigurationMapValue>
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID={tabViewID}
-            />
+            {action}
           </ConfigurationMapRow>
         );
       });

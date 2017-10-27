@@ -9,8 +9,7 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
+import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
@@ -157,10 +156,12 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="volumes"
-                    />
+                    <ConfigurationMapAction
+                      onClick={onEditClick.bind(this, "volumes")}
+                      isHover={true}
+                    >
+                      Edit
+                    </ConfigurationMapAction>
                   );
                 }
               });
