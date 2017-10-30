@@ -139,7 +139,7 @@ class ServiceBreadcrumbs extends React.Component {
           <span className="muted">
             {serviceStatus} {taskCountDetails}
           </span>
-          <ServiceStatusWarningWithDebugInformation item={service} />
+          <ServiceStatusWarningWithDebugInformation service={service} />
         </BreadcrumbSupplementalContent>
         <BreadcrumbSupplementalContent hasProgressBar={true}>
           <ServiceStatusProgressBar key="status-bar" service={service} />

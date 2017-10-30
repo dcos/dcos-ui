@@ -356,11 +356,9 @@ class ServicesTable extends React.Component {
 
     return (
       <div className="row">
-        <div className="column-small-2">
+        <div className={`${serviceStatusClassSet} column-small-5`}>
           <ServiceStatusIcon service={service} />
-        </div>
-        <div className={`${serviceStatusClassSet} column-small-4 flush-left`}>
-          {serviceStatusText}
+          <span className="status-bar-text">{serviceStatusText}</span>
         </div>
         <ServiceStatusProgressBar service={service} />
       </div>

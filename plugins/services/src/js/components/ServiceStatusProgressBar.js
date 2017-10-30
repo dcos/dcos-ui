@@ -23,16 +23,27 @@ class ServiceStatusProgressBar extends React.Component {
     );
   }
 
-  getProgressBar(data) {
+  render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
+    const serviceStatus = service.getStatus();
     const tasksRunning = service.getTaskCount();
 
-    if (tasksRunning === instancesCount) {
+    if (
+      serviceStatus === ServiceStatus.RUNNING.displayName ||
+      serviceStatus === ServiceStatus.STOPPED.displayName
+    ) {
+      return null;
+    } else if (serviceStatus === ServiceStatus.DELETING.displayName) {
       return (
         <ProgressBar
           className="status-bar--large"
-          data={data}
+          data={[
+            {
+              state: "staged",
+              value: instancesCount
+            }
+          ]}
           total={instancesCount}
         />
       );
@@ -42,38 +53,20 @@ class ServiceStatusProgressBar extends React.Component {
       <Tooltip interactive={true} content={this.getTooltipContent()}>
         <ProgressBar
           className="status-bar--large"
-          data={data}
+          data={[
+            {
+              state: "success",
+              value: tasksRunning
+            },
+            {
+              state: "staged",
+              value: instancesCount
+            }
+          ]}
           total={instancesCount}
         />
       </Tooltip>
     );
-  }
-
-  render() {
-    const { service } = this.props;
-    const instancesCount = service.getInstancesCount();
-    const serviceStatus = service.getStatus();
-    const tasksRunning = service.getTaskCount();
-
-    if (instancesCount !== tasksRunning) {
-      return this.getProgressBar([
-        {
-          state: "success",
-          value: tasksRunning
-        }
-      ]);
-    }
-
-    if (serviceStatus === ServiceStatus.DELETING.displayName) {
-      return this.getProgressBar([
-        {
-          state: "",
-          value: 1
-        }
-      ]);
-    }
-
-    return null;
   }
 }
 

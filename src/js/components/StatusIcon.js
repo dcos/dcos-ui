@@ -13,7 +13,7 @@ const ICONS_STATE = {
   },
   STOPPED: {
     id: "circle-minus",
-    color: "grey"
+    color: "light-grey"
   },
   WARNING: {
     id: "yield",
@@ -31,7 +31,7 @@ const ICONS_STATE = {
  */
 class StatusIcon extends Component {
   render() {
-    const state = this.props.state.toUpperCase();
+    const state = this.props.state;
     const iconState = ICONS_STATE[state];
 
     if (iconState == null) {
@@ -50,7 +50,7 @@ class StatusIcon extends Component {
 }
 
 StatusIcon.propTypes = {
-  label: PropTypes.string.isRequired
+  state: PropTypes.oneOfType(["RUNNING", "TRANSITION", "STOPPED", "WARNING"])
 };
 
 export default StatusIcon;
