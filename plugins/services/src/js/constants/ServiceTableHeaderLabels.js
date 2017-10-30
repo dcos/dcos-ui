@@ -3,7 +3,7 @@ var ServiceTableHeaderLabels = {
   disk: "Disk",
   mem: "Mem",
   name: "Name",
-  status: "Status"
+  status: "Status",
   instances: "Instances"
 };
 
