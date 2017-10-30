@@ -144,6 +144,10 @@ class OverviewDetailTab extends mixin(StoreMixin) {
             {publicIP}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
+        <MountService.Mount
+          type="OverviewDetailTab:AdditionalGeneralDetails"
+          limit={2}
+        />
       </ConfigurationMapSection>
     );
   }
