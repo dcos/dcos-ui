@@ -69,25 +69,53 @@ describe("Util", function() {
   });
 
   describe("#last", function() {
-    it("should return the last element in an array", function() {
-      var array = [0, 1, 2, 3];
-      var last = Util.last(array);
+    describe("with incorrect input", function() {
+      it("returns null for objects", function() {
+        var last = Util.last({});
 
-      expect(last).toEqual(3);
+        expect(last).toEqual(null);
+      });
+
+      it("returns null for strings", function() {
+        var last = Util.last("bla");
+
+        expect(last).toEqual(null);
+      });
+
+      it("returns null for Numbers", function() {
+        var last = Util.last(NaN);
+
+        expect(last).toEqual(null);
+      });
+
+      it("returns null for undefined", function() {
+        var last = Util.last(undefined);
+
+        expect(last).toEqual(null);
+      });
     });
 
-    it("should return the last element for an array of size 1", function() {
-      var array = [0];
-      var last = Util.last(array);
+    describe("with correct input", function() {
+      it("should return the last element in an array", function() {
+        var array = [0, 1, 2, 3];
+        var last = Util.last(array);
 
-      expect(last).toEqual(0);
-    });
+        expect(last).toEqual(3);
+      });
 
-    it("should return null when given empty array", function() {
-      var array = [];
-      var last = Util.last(array);
+      it("should return the last element for an array of size 1", function() {
+        var array = [0];
+        var last = Util.last(array);
 
-      expect(last).toEqual(null);
+        expect(last).toEqual(0);
+      });
+
+      it("should return null when given empty array", function() {
+        var array = [];
+        var last = Util.last(array);
+
+        expect(last).toEqual(null);
+      });
     });
   });
 
