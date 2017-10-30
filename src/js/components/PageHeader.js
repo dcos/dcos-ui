@@ -66,12 +66,13 @@ class PageHeader extends React.Component {
               {breadcrumbs}
             </div>
             <div className={pageHeaderActionsPrimaryClasses}>
-            <PageHeaderActions
-              actions={actions}
-              addButton={addButton}
-              supplementalContent={supplementalContent}
-              disabledActions={disabledActions}
-            />
+              <PageHeaderActions
+                actions={actions}
+                addButton={addButton}
+                supplementalContent={supplementalContent}
+                disabledActions={disabledActions}
+              />
+            </div>
           </div>
           <div className={pageHeaderSectionSecondaryClasses}>
             <PageHeaderTabs tabs={tabs} />
