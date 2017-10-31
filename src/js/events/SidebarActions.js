@@ -4,6 +4,7 @@ import {
   REQUEST_SIDEBAR_DOCK,
   REQUEST_SIDEBAR_UNDOCK,
   REQUEST_CLI_INSTRUCTIONS,
+  REQUEST_CLUSTER_LINKING,
   REQUEST_SIDEBAR_WIDTH_CHANGE
 } from "../constants/ActionTypes";
 
@@ -41,6 +42,13 @@ module.exports = {
   openCliInstructions() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_CLI_INSTRUCTIONS,
+      data: false
+    });
+  },
+
+  openClusterLinkingModal() {
+    AppDispatcher.handleSidebarAction({
+      type: REQUEST_CLUSTER_LINKING,
       data: false
     });
   },

@@ -3,6 +3,7 @@ import { MountService } from "foundation-ui";
 import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Hooks } from "PluginSDK";
 
 import ClipboardTrigger from "./ClipboardTrigger";
 import MetadataStore from "../stores/MetadataStore";
@@ -139,6 +140,17 @@ class SidebarHeader extends mixin(StoreMixin) {
         }
       }
     ];
+
+    if (Hooks.applyFilter("isClusterLinkingEnabled", false)) {
+      menuItems.splice(2, 0, {
+        id: "cluster-linking",
+        html: <span>Cluster Linking</span>,
+        onClick() {
+          SidebarActions.close();
+          SidebarActions.openClusterLinkingModal();
+        }
+      });
+    }
 
     return (
       <header className="header flex-item-shrink-0">

@@ -2,6 +2,7 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_CLI_INSTRUCTIONS,
+  REQUEST_CLUSTER_LINKING,
   REQUEST_SIDEBAR_CLOSE,
   REQUEST_SIDEBAR_OPEN,
   REQUEST_SIDEBAR_DOCK,
@@ -13,6 +14,7 @@ import {
 } from "../constants/ActionTypes";
 import {
   SHOW_CLI_INSTRUCTIONS,
+  SHOW_CLUSTER_LINKING,
   SHOW_VERSIONS_ERROR,
   SHOW_VERSIONS_SUCCESS,
   SIDEBAR_CHANGE,
@@ -81,6 +83,9 @@ class SidebarStore extends GetSetBaseStore {
           break;
         case REQUEST_CLI_INSTRUCTIONS:
           this.emitChange(SHOW_CLI_INSTRUCTIONS);
+          break;
+        case REQUEST_CLUSTER_LINKING:
+          this.emitChange(SHOW_CLUSTER_LINKING);
           break;
         case REQUEST_VERSIONS_SUCCESS:
           this.set({ versions: action.data });
