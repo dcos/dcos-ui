@@ -29,6 +29,7 @@
     "externalplugins": ""
   },
   "dependencies": {
+    "@dcos/mesos-client": "0.1.2",
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
@@ -65,7 +66,6 @@
     "reactjs-mixin": "0.0.2",
     "redux": "3.3.1",
     "reflect-metadata": "0.1.10",
-    "rxjs": "5.4.3",
     "tv4": "1.2.7"
   },
   "devDependencies": {
@@ -104,7 +104,6 @@
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.16.0",
     "image-webpack-loader": "1.7.0",
-    "immutable": "3.8.1",
     "jasmine-reporters": "2.1.1",
     "jest-cli": "16.0.2",
     "jest-webpack-alias": "3.3.0",
@@ -163,4 +162,3 @@
     "configFile": "./webpack/webpack.test.js"
   }
 }
-
