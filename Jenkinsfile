@@ -83,7 +83,7 @@ pipeline {
           'export PATH=`pwd`/node_modules/.bin:$PATH',
           'http-server -p 4200 dist&',
           'SERVER_PID=$!',
-          'cypress run --reporter junit --reporter-options \'mochaFile=cypress/results.xml\'',
+          'npm run cypress -- --reporter junit --reporter-options \'mochaFile=cypress/results.xml\'',
           'RET=$?',
           'echo "cypress exit status: ${RET}"',
           'sleep 10',

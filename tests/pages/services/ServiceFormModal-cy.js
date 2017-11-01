@@ -43,7 +43,7 @@ describe("Service Form Modal", function() {
       it("Should Autofocus on the Service ID input field", function() {
         openServiceModal();
         openServiceForm();
-        cy.focused().should("have.attr", "name").and("eq", "id");
+        cy.get("input[name=id]:focus");
       });
 
       it("contains the right group id in the form modal", function() {
@@ -334,7 +334,7 @@ describe("Service Form Modal", function() {
       cy.get(".panel-grid h5").should(function(items) {
         const texts = items
           .map(function(i, el) {
-            return cy.$(el).text();
+            return Cypress.$(el).text();
           })
           .get();
 
@@ -673,7 +673,7 @@ describe("Service Form Modal", function() {
         });
 
         it("Should Autofocus on the first input element of the Artifact", function() {
-          cy.focused().should("have.attr", "name").and("eq", "fetch.0.uri");
+          cy.get('[name="fetch.0.uri"]:focus');
         });
 
         it("Should remove row when remove button clicked", function() {
@@ -936,10 +936,7 @@ describe("Service Form Modal", function() {
         });
 
         it("Should Autofocus on the service endpoint name", function() {
-          cy
-            .focused()
-            .should("have.attr", "name")
-            .and("eq", "portDefinitions.0.name");
+          cy.get('[name="portDefinitions.0.name"]:focus');
         });
 
         it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {
@@ -970,8 +967,7 @@ describe("Service Form Modal", function() {
             it('should disable "Host Port" text field when "Assign Host Ports Automatically" is checked', function() {
               cy
                 .get("@tabView")
-                .find('.form-control[name="portsAutoAssign"]')
-                .check();
+                .find('.form-control[name="portsAutoAssign"]:checked');
 
               cy
                 .get("@tabView")
@@ -1225,10 +1221,9 @@ describe("Service Form Modal", function() {
           cy.get("a.button").click();
         });
 
-        cy.should(
-          "not.contain",
-          '.form-control[name="healthChecks.0.protocol"]'
-        );
+        cy
+          .get('.form-control[name="healthChecks.0.protocol"]')
+          .should("not.exist");
       });
 
       it('Should display textarea when selected Protocol is "Command"', function() {
@@ -1374,7 +1369,7 @@ describe("Service Form Modal", function() {
 
         it('Should add new set of form fields when "Add Environment Variable" link clicked', function() {
           // Key focused
-          cy.focused().should("have.attr", "name").and("eq", "env.0.key");
+          cy.get('.form-control[name="env.0.key"]:focus');
           // Key
           cy
             .get("@tabView")
@@ -1394,7 +1389,7 @@ describe("Service Form Modal", function() {
             cy.get("a.button").click();
           });
 
-          cy.should("not.contain", '.form-control[name="env.0.key"]');
+          cy.get('.form-control[name="env.0.key"]').should("not.exist");
         });
       });
 
@@ -1408,7 +1403,7 @@ describe("Service Form Modal", function() {
 
         it('Should add new set of form fields when "Add Label" link clicked', function() {
           // Key focused
-          cy.focused().should("have.attr", "name").and("eq", "labels.0.key");
+          cy.get('.form-control[name="labels.0.key"]:focus');
           // Key
           cy
             .get("@tabView")
@@ -1428,7 +1423,7 @@ describe("Service Form Modal", function() {
             cy.get("a.button").click();
           });
 
-          cy.should("not.contain", '.form-control[name="labels.0.key"]');
+          cy.get('.form-control[name="labels.0.key"]').should("not.exist");
         });
       });
     });

@@ -196,29 +196,6 @@ Cypress.addChildCommand("asJson", function(contents) {
 });
 
 /**
- * Trigger mouse over event on the selected elements
- *
- * @param {jQuery.Element} elements - The DOM elements to trigger the event into
- */
-Cypress.addChildCommand("triggerHover", function(elements) {
-  elements.each(function(index, element) {
-    fireEvent(element, "mouseover");
-  });
-
-  function fireEvent(element, event) {
-    if (element.fireEvent) {
-      element.fireEvent("on" + event);
-    } else {
-      var evObj = document.createEvent("Events");
-
-      evObj.initEvent(event, true, false);
-
-      element.dispatchEvent(evObj);
-    }
-  }
-});
-
-/**
  * Checks that a service id abides by format: /<test-UUID>/service-name
  *
  * @param {String} id - serviceId to validate

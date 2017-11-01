@@ -29,7 +29,7 @@ describe("Job Details", function() {
     });
 
     it("does not show table children when row is not expanded", function() {
-      cy.get(".page table tbody tr").should(function() {
+      cy.get(".page table tbody tr").then(function() {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get(".page table tbody tr:nth-child(2)").as("tableRow");
 

@@ -62,7 +62,7 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(7).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
         cy.get(".tooltip").contains("No health checks available");
       });
     });
@@ -82,7 +82,7 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(7).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
         cy.get(".tooltip").contains("Healthy");
       });
     });
