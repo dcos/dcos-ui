@@ -1,13 +1,14 @@
 import classNames from "classnames";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
-import { Link } from "react-router";
+import { Link, routerShape } from "react-router";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Dropdown, Tooltip } from "reactjs-components";
+import { Dropdown, Tooltip, Modal } from "reactjs-components";
 
+import Icon from "#SRC/js/components/Icon";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
@@ -15,7 +16,6 @@ import defaultServiceImage
   from "../../../../plugins/services/src/img/icon-service-default-large@2x.png";
 import Image from "../../components/Image";
 import ImageViewer from "../../components/ImageViewer";
-import InstallPackageModal from "../../components/modals/InstallPackageModal";
 import Loader from "../../components/Loader";
 import MetadataStore from "../../stores/MetadataStore";
 import Page from "../../components/Page";
@@ -45,10 +45,9 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
 };
 
 const METHODS_TO_BIND = [
-  "handleInstallModalClose",
-  "handleConfigureInstallModalOpen",
-  "handleInstallModalOpen",
-  "handlePackageVersionChange"
+  "handlePackageVersionChange",
+  "handleReviewAndRunClick",
+  "onInstalledSuccessModalClose"
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -57,8 +56,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     this.state = {
       hasError: 0,
-      openInstallModal: false,
-      isLoading: true,
       isLoadingSelectedVersion: false,
       isLoadingVersions: false
     };
@@ -128,7 +125,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   onCosmosPackagesStorePackageDescriptionSuccess() {
     this.setState({
       hasError: false,
-      isLoading: false,
       isLoadingSelectedVersion: false
     });
   }
@@ -137,16 +133,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.setState({ isLoadingVersions: false });
   }
 
-  handleInstallModalClose() {
-    this.setState({ openInstallModal: false });
-  }
+  handleReviewAndRunClick() {
+    const { router } = this.context;
+    const { params, location } = this.props;
 
-  handleInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: false });
-  }
-
-  handleConfigureInstallModalOpen() {
-    this.setState({ openInstallModal: true, advancedConfig: true });
+    router.push(
+      `/catalog/packages/${encodeURIComponent(params.packageName)}/deploy?${location.query.version}`
+    );
   }
 
   handlePackageVersionChange(selection) {
@@ -306,25 +299,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
         >
           <button
             disabled={isLoadingSelectedVersion}
-            className="button button-outline"
-            onClick={this.handleConfigureInstallModalOpen}
-          >
-            Configure
-          </button>
-        </Tooltip>
-        <Tooltip
-          wrapperClassName="button-group"
-          wrapText={true}
-          content={tooltipContent}
-          suppress={!isLoadingSelectedVersion}
-          width={200}
-        >
-          <button
-            disabled={isLoadingSelectedVersion}
             className="button button-primary"
-            onClick={this.handleInstallModalOpen}
+            onClick={this.handleReviewAndRunClick}
           >
-            Deploy
+            Review & Run
           </button>
         </Tooltip>
       </div>
@@ -385,6 +363,51 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
+  onInstalledSuccessModalClose() {
+    const query = Object.assign({}, this.props.location.query);
+    delete query.appId;
+
+    global.location.replace(
+      `#${this.props.location.pathname}?${qs.stringify(query)}`
+    );
+  }
+
+  getInstalledSuccessModal(name) {
+    const { location } = this.props;
+
+    return (
+      <Modal
+        modalClass={"modal modal-small"}
+        open={!!location.query.appId}
+        onClose={this.onInstalledSuccessModalClose}
+      >
+        <div className="modal-install-package-tab-form-wrapper">
+          <div className="modal-body">
+            <div className="horizontal-center">
+              <span className="text-success">
+                <Icon id="circle-check" size="large" color="green" />
+              </span>
+              <h2 className="short-top short-bottom">Success!</h2>
+              <div className="install-package-modal-package-notes text-overflow-break-word">
+                {`${StringUtil.capitalize(name)} is being installed.`}
+              </div>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <div className="button-collection button-collection-stacked horizontal-center">
+              <a
+                className="button button-success button-block"
+                href={`#/services/detail/${encodeURIComponent(location.query.appId)}`}
+              >
+                Open Service
+              </a>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
   render() {
     const { props, state } = this;
 
@@ -393,13 +416,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    if (state.isLoading || !cosmosPackage) {
+    if (!cosmosPackage) {
       return this.getLoadingScreen();
     }
 
     const name = cosmosPackage.getName();
     const description = cosmosPackage.getDescription();
     const preInstallNotes = cosmosPackage.getPreInstallNotes();
+
+    let preInstallNotesParsed = null;
+    if (preInstallNotes) {
+      preInstallNotesParsed = StringUtil.parseMarkdown(preInstallNotes);
+      preInstallNotesParsed.__html =
+        "<strong>Preinstall Notes: </strong>" + preInstallNotesParsed.__html;
+    }
 
     const definition = [
       {
@@ -410,10 +440,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
           />
       },
       {
-        label: "Pre-Install Notes",
+        label: " ",
         value: preInstallNotes &&
           <div
-            dangerouslySetInnerHTML={StringUtil.parseMarkdown(preInstallNotes)}
+            className="pre-install-notes flush-bottom message message-warning"
+            dangerouslySetInnerHTML={preInstallNotesParsed}
           />
       },
       {
@@ -479,15 +510,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
             ? this.getLoadingScreen()
             : this.getPackageDescription(definition, cosmosPackage)}
         </div>
-        <InstallPackageModal
-          open={state.openInstallModal}
-          cosmosPackage={cosmosPackage}
-          advancedConfig={state.advancedConfig}
-          onClose={this.handleInstallModalClose}
-        />
+        {this.getInstalledSuccessModal(name)}
       </Page>
     );
   }
 }
+
+PackageDetailTab.contextTypes = {
+  router: routerShape
+};
 
 module.exports = PackageDetailTab;
