@@ -2,8 +2,8 @@ FROM mesosphere/dcos-system-test-driver:latest
 
 # Specify the component versions to use
 ENV CYPRESS_VERSION="0.19.1" \
-    NODE_VERSION="4.4.7" \
-    NPM_VERSION="3.9" \
+    NODE_VERSION="8.8.1" \
+    NPM_VERSION="5.4.2" \
     JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Expose the 4200 port

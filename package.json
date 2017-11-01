@@ -17,13 +17,10 @@
   },
   "license": "Apache-2.0",
   "engines": {
-    "node": "4.4.x",
-    "npm": "3.9.x"
+    "node": "8.8.x",
+    "npm": "5.4.x"
   },
-  "browserslist": [
-    "last 2 versions",
-    "ie 11"
-  ],
+  "browserslist": ["last 2 versions", "ie 11"],
   "config": {
     "port": 4200,
     "externalplugins": ""
@@ -141,7 +138,6 @@
     "clean": "rm -rf dist",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
-    "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
     "build": "npm run lint && npm test && npm run build-assets && npm run validate-build",
     "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
@@ -151,11 +147,9 @@
     "conventional-changelog-lint": "conventional-changelog-lint",
     "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
     "prebuild": "./scripts/validate-tests",
-    "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
-    "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./scripts/scaffold",
     "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
-    "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
+    "test": "LANG=en.UTF-8; node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "validate-build": "scripts/validate-build dist/*.js"
