@@ -412,11 +412,18 @@ class ServicesTable extends React.Component {
       : ` ${tasksRunning}/${instancesCount}`;
 
     const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
+    const tooltipContent = (
+      <span>
+        {`${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`}
+      </span>
+    );
 
     return (
-      <span>
-        {content}
-      </span>
+      <Tooltip content={tooltipContent}>
+        <span>
+          {content}
+        </span>
+      </Tooltip>
     );
   }
 
