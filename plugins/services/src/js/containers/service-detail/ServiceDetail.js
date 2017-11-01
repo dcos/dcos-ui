@@ -95,6 +95,7 @@ class ServiceDetail extends mixin(TabsMixin) {
     }
 
     if (
+      actionID !== EDIT &&
       actionID !== DELETE &&
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
