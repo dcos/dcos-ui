@@ -5,7 +5,8 @@ var NodesTableHeaderLabels = {
   hostname: "HOSTNAME",
   mem: "MEM",
   region: "REGION",
-  TASK_RUNNING: "TOTAL TASKS"
+  zone: "ZONE",
+  TASK_RUNNING: "TASKS"
 };
 
 module.exports = NodesTableHeaderLabels;
