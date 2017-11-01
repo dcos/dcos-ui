@@ -252,7 +252,7 @@ describe("Application", function() {
       expect(service.getStatus()).toEqual(ServiceStatus.RUNNING.displayName);
     });
 
-    it("returns correct status for suspended app", function() {
+    it("returns correct status for stopped app", function() {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -262,7 +262,7 @@ describe("Application", function() {
         deployments: []
       });
 
-      expect(service.getStatus()).toEqual(ServiceStatus.SUSPENDED.displayName);
+      expect(service.getStatus()).toEqual(ServiceStatus.STOPPED.displayName);
     });
 
     it("returns correct status for deploying app", function() {
@@ -306,7 +306,7 @@ describe("Application", function() {
       expect(service.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it("returns correct status for suspended app", function() {
+    it("returns correct status for stopped app", function() {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -316,7 +316,7 @@ describe("Application", function() {
         deployments: []
       });
 
-      expect(service.getServiceStatus()).toEqual(ServiceStatus.SUSPENDED);
+      expect(service.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
     });
 
     it("returns correct status for deploying app", function() {

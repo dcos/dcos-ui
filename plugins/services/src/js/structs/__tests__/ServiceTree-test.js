@@ -652,7 +652,7 @@ describe("ServiceTree", function() {
       );
 
       expect(this.instance.getStatus()).toEqual(
-        ServiceStatus.SUSPENDED.displayName
+        ServiceStatus.STOPPED.displayName
       );
     });
 
@@ -706,7 +706,7 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.SUSPENDED);
+      expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
     });
 
     it("returns correct status object for deploying tree", function() {

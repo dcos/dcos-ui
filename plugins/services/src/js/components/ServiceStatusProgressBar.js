@@ -17,7 +17,7 @@ class ServiceStatusProgressBar extends React.Component {
     return (
       <div className="tooltip-line-item">
         <span>
-          {`${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesTotal} `}
+          {`${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesTotal}`}
         </span>
       </div>
     );
@@ -75,7 +75,7 @@ ServiceStatusProgressBar.propTypes = {
     PropTypes.instanceOf(Service),
     PropTypes.instanceOf(ServiceTree),
     PropTypes.instanceOf(Pod)
-  ])
+  ]).isRequired
 };
 
 module.exports = ServiceStatusProgressBar;

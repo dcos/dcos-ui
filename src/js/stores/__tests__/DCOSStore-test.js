@@ -325,7 +325,7 @@ describe("DCOSStore", function() {
 
     it("should update the service tree", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
-        "Waiting"
+        "Recovering"
       );
 
       DCOSStore.onMarathonQueueChange([
@@ -341,17 +341,17 @@ describe("DCOSStore", function() {
       ]);
 
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
-        "Delayed"
+        "Recovering"
       );
     });
 
     it("should correctly convert running apps from waiting state", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
-        "Waiting"
+        "Recovering"
       );
       DCOSStore.onMarathonQueueChange([]);
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).not.toEqual(
-        "Waiting"
+        "Recovering"
       );
     });
 
