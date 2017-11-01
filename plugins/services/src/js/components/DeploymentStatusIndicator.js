@@ -6,7 +6,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import Loader from "#SRC/js/components/Loader";
+import Icon from "#SRC/js/components/Icon";
 
 import DeploymentsModal from "./DeploymentsModal";
 
@@ -63,13 +63,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
         className="button button-link button-primary button--deployments"
         onClick={this.handleDeploymentsButtonClick}
       >
-        <Loader
-          className="button--deployments__loader icon icon-mini"
-          flip="horizontal"
-          size="mini"
-          type="lineSpinFadeLoader"
-          suppressHorizontalCenter={true}
-        />
+        <Icon color="grey" id="spinner" size="mini" />
         <div className="button--deployments__copy">
           <FormattedMessage
             id="SERVICES.DEPLOYMENT_COUNT"
