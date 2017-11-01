@@ -173,6 +173,19 @@ const RouterUtil = {
     }
 
     return "";
+  },
+
+  /**
+   * Trigger a download of a resource for IE
+   *
+   * @param {String} filename The filename of the file to download
+   * @param {String} data The data included in the file
+   */
+  triggerIEDownload(filename, data) {
+    if (global.navigator.msSaveOrOpenBlob) {
+      const blob = new Blob([data], { type: "application/json" });
+      global.navigator.msSaveOrOpenBlob(blob, filename);
+    }
   }
 };
 
