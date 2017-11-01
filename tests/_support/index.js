@@ -243,6 +243,18 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       })
       .route({
         method: "POST",
+        url: /service\/describe/,
+        status: 200,
+        response: "fx:cosmos/service-describe"
+      })
+      .route({
+        method: "POST",
+        url: /service\/update/,
+        status: 200,
+        response: "fx:cosmos/service-update"
+      })
+      .route({
+        method: "POST",
         url: /package\/list/,
         status: 200,
         response: "fx:cosmos/packages-list"
@@ -258,6 +270,12 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
         url: /package\/search/,
         status: 200,
         response: "fx:cosmos/packages-search"
+      })
+      .route({
+        method: "POST",
+        url: /package\/install/,
+        status: 200,
+        response: "fx:cosmos/package-install"
       })
       // Repositories
       .route({

@@ -1,0 +1,495 @@
+{
+  "package": {
+    "packagingVersion": "4.0",
+    "name": "elastic",
+    "version": "2.0.1-5.5.1",
+    "releaseVersion": 7,
+    "maintainer": "support@mesosphere.io",
+    "description": "Elasticsearch 5, and optionally X-Pack",
+    "tags": [
+      "elastic",
+      "elasticsearch",
+      "kibana",
+      "x-pack"
+    ],
+    "selected": true,
+    "framework": true,
+    "preInstallNotes": "This DC/OS Service is currently a beta candidate undergoing testing as part of a formal beta test program.\n\nThere may be bugs, incomplete features, incorrect documentation, or other discrepancies.\n\nDefault configuration requires 3 agent nodes each with: CPU: 4.5 | Memory: 11264MB | Disk: 15500MB\n\nMore specifically, each instance type requires:\n\nMaster node: 3 instances | 1.0 CPU | 2048 MB MEM | 1 2000 MB Disk\n\nData node: 2 instances | 1.0 CPU | 4096 MB MEM | 1 10000 MB Disk\n\nIngest node: 1 instance | 0.5 CPU | 2048 MB MEM | 1 2000 MB Disk\n\nCoordinator node: 1 instance | 1.0 CPU | 2048 MB MEM | 1 1000 MB Disk\n\nContact Mesosphere before deploying this beta candidate service. Product support is available to approved participants in the beta test program.",
+    "postInstallNotes": "DC/OS elastic service is being installed!\n\n\tDocumentation: https://docs.mesosphere.com/service-docs/elastic/\n\tIssues: https://docs.mesosphere.com/support/",
+    "postUninstallNotes": "DC/OS elastic service is being uninstalled.",
+    "minDcosReleaseVersion": "1.9",
+    "marathon": {
+      "v2AppMustacheTemplate": "ewogICJpZCI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAiY3B1cyI6IDAuNSwKICAibWVtIjogMjA0OCwKICAiaW5zdGFuY2VzIjogMSwKICAidXNlciI6Int7c2VydmljZS51c2VyfX0iLAogICJjbWQiOiAiZXhwb3J0IExEX0xJQlJBUllfUEFUSD0kTUVTT1NfU0FOREJPWC9saWJtZXNvcy1idW5kbGUvbGliOiRMRF9MSUJSQVJZX1BBVEg7IGV4cG9ydCBNRVNPU19OQVRJVkVfSkFWQV9MSUJSQVJZPSQobHMgJE1FU09TX1NBTkRCT1gvbGlibWVzb3MtYnVuZGxlL2xpYi9saWJtZXNvcy0qLnNvKTsgZXhwb3J0IEpBVkFfSE9NRT0kKGxzIC1kICRNRVNPU19TQU5EQk9YL2pyZSovKTsgZXhwb3J0IEpBVkFfSE9NRT0ke0pBVkFfSE9NRSUvfTsgZXhwb3J0IFBBVEg9JChscyAtZCAkSkFWQV9IT01FL2Jpbik6JFBBVEggJiYgIGV4cG9ydCBKQVZBX09QVFM9XCItWG1zMjU2TSAtWG14MTAyNE0gLVhYOi1IZWFwRHVtcE9uT3V0T2ZNZW1vcnlFcnJvclwiICYmICAuL2VsYXN0aWMtc2NoZWR1bGVyL2Jpbi9lbGFzdGljIC4vZWxhc3RpYy1zY2hlZHVsZXIvc3ZjLnltbCIsCiAgImxhYmVscyI6IHsKICAgICJEQ09TX0NPTU1PTlNfQVBJX1ZFUlNJT04iOiAidjEiLAogICAgIkRDT1NfQ09NTU9OU19VTklOU1RBTEwiOiAidHJ1ZSIsCiAgICAiRENPU19QQUNLQUdFX0ZSQU1FV09SS19OQU1FIjogInt7c2VydmljZS5uYW1lfX0iLAogICAgIk1BUkFUSE9OX1NJTkdMRV9JTlNUQU5DRV9BUFAiOiAidHJ1ZSIsCiAgICAiRENPU19TRVJWSUNFX05BTUUiOiAie3tzZXJ2aWNlLm5hbWV9fSIsCiAgICAiRENPU19TRVJWSUNFX1BPUlRfSU5ERVgiOiAiMCIsCiAgICAiRENPU19TRVJWSUNFX1NDSEVNRSI6ICJodHRwIgogIH0sCiAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAic2VjcmV0cyI6IHsKICAgICJzZXJ2aWNlQ3JlZGVudGlhbCI6IHsKICAgICAgInNvdXJjZSI6ICJ7e3NlcnZpY2Uuc2VydmljZV9hY2NvdW50X3NlY3JldH19IgogICAgfQogIH0sCiAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAiZW52IjogewogICAgIkVMQVNUSUNfVkVSU0lPTiI6ICI1LjUuMSIsCiAgICAiU1RBVFNEX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLnN0YXRzZC1wbHVnaW4temlwfX0iLAogICAgIkVMQVNUSUNTRUFSQ0hfVVJJIiA6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmVsYXN0aWNzZWFyY2gtdGFyLWd6fX0iLAogICAgIkVMQVNUSUNTRUFSQ0hfSkFWQV9VUkkiIDogInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMuZWxhc3RpY3NlYXJjaC1qcmUtdGFyLWd6fX0iLAogICAgIlhQQUNLX1VSSSIgOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy54cGFjay16aXB9fSIsCiAgICAiRElBR05PU1RJQ1NfVVJJIiA6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmRpYWdub3N0aWNzLXppcH19IiwKICAgICJFWEVDVVRPUl9VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5leGVjdXRvci16aXB9fSIsCiAgICAiU0NIRURVTEVSX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLnNjaGVkdWxlci16aXB9fSIsCiAgICAiQk9PVFNUUkFQX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmJvb3RzdHJhcC16aXB9fSIsCiAgICAiSkFWQV9VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5qcmUtdGFyLWd6fX0iLAogICAgIkxJQk1FU09TX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmxpYm1lc29zLWJ1bmRsZS10YXItZ3p9fSIsCiAgICAiRlJBTUVXT1JLX05BTUUiOiAie3tzZXJ2aWNlLm5hbWV9fSIsCiAgICAiRlJBTUVXT1JLX1VTRVIiOiAie3tzZXJ2aWNlLnVzZXJ9fSIsCiAgICAiRlJBTUVXT1JLX1BSSU5DSVBBTCI6ICJ7e3NlcnZpY2Uuc2VydmljZV9hY2NvdW50fX0iLAogICAgIkZSQU1FV09SS19MT0dfTEVWRUwiOiAie3tzZXJ2aWNlLmxvZ19sZXZlbH19IiwKCiAgICB7eyNzZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fQogICAgIkRDT1NfU0VSVklDRV9BQ0NPVU5UX0NSRURFTlRJQUwiOiB7ICJzZWNyZXQiOiAic2VydmljZUNyZWRlbnRpYWwiIH0sCiAgICAiTUVTT1NfTU9EVUxFUyI6ICJ7XCJsaWJyYXJpZXNcIjogW3tcImZpbGVcIjogXCJsaWJkY29zX3NlY3VyaXR5LnNvXCIsIFwibW9kdWxlc1wiOiBbe1wibmFtZVwiOiBcImNvbV9tZXNvc3BoZXJlX2Rjb3NfQ2xhc3NpY1JQQ0F1dGhlbnRpY2F0ZWVcIn1dfV19IiwKICAgICJNRVNPU19BVVRIRU5USUNBVEVFIjogImNvbV9tZXNvc3BoZXJlX2Rjb3NfQ2xhc3NpY1JQQ0F1dGhlbnRpY2F0ZWUiLAogICAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KCiAgICB7eyNzZXJ2aWNlLnZpcnR1YWxfbmV0d29ya19lbmFibGVkfX0KICAgICJFTkFCTEVfVklSVFVBTF9ORVRXT1JLIjogInllcyIsCiAgICAiVklSVFVBTF9ORVRXT1JLX05BTUUiOiAie3tzZXJ2aWNlLnZpcnR1YWxfbmV0d29ya19uYW1lfX0iLAogICAgIlZJUlRVQUxfTkVUV09SS19QTFVHSU5fTEFCRUxTIjogInt7c2VydmljZS52aXJ0dWFsX25ldHdvcmtfcGx1Z2luX2xhYmVsc319IiwKICAgIHt7L3NlcnZpY2UudmlydHVhbF9uZXR3b3JrX2VuYWJsZWR9fQoKICAgICJERVBMT1lfU1RSQVRFR1kiOiAie3tzZXJ2aWNlLmRlcGxveV9zdHJhdGVneX19IiwKICAgICJUQVNLQ0ZHX0FMTF9YUEFDS19FTkFCTEVEIjogInt7ZWxhc3RpY3NlYXJjaC54cGFja19lbmFibGVkfX0iLAogICAgIkVMQVNUSUNTRUFSQ0hfSEVBTFRIX1VTRVIiOiAie3tlbGFzdGljc2VhcmNoLmhlYWx0aF91c2VyfX0iLAogICAgIkVMQVNUSUNTRUFSQ0hfSEVBTFRIX1VTRVJfUEFTU1dPUkQiOiAie3tlbGFzdGljc2VhcmNoLmhlYWx0aF91c2VyX3Bhc3N3b3JkfX0iLAogICAgIlRBU0tDRkdfQUxMX0VMQVNUSUNTRUFSQ0hfUExVR0lOUyI6ICJ7e2VsYXN0aWNzZWFyY2gucGx1Z2luc319IiwKICAgICJNQVNURVJfTk9ERV9DUFVTIjogInt7bWFzdGVyX25vZGVzLmNwdXN9fSIsCiAgICAiTUFTVEVSX05PREVfTUVNIjogInt7bWFzdGVyX25vZGVzLm1lbX19IiwKICAgICJNQVNURVJfTk9ERV9QTEFDRU1FTlQiOiAie3ttYXN0ZXJfbm9kZXMucGxhY2VtZW50fX0iLAogICAgIk1BU1RFUl9OT0RFX0hFQVBfTUIiOiAie3ttYXN0ZXJfbm9kZXMuaGVhcC5zaXplfX0iLAogICAgIk1BU1RFUl9OT0RFX0RJU0siOiAie3ttYXN0ZXJfbm9kZXMuZGlza319IiwKICAgICJNQVNURVJfTk9ERV9ESVNLX1RZUEUiOiAie3ttYXN0ZXJfbm9kZXMuZGlza190eXBlfX0iLAogICAgIk1BU1RFUl9OT0RFX1RSQU5TUE9SVF9QT1JUIjogInt7bWFzdGVyX25vZGVzLnRyYW5zcG9ydF9wb3J0fX0iLAogICAgIkRBVEFfTk9ERV9DT1VOVCI6ICJ7e2RhdGFfbm9kZXMuY291bnR9fSIsCiAgICAiREFUQV9OT0RFX0NQVVMiOiAie3tkYXRhX25vZGVzLmNwdXN9fSIsCiAgICAiREFUQV9OT0RFX01FTSI6ICJ7e2RhdGFfbm9kZXMubWVtfX0iLAogICAgIkRBVEFfTk9ERV9QTEFDRU1FTlQiOiAie3tkYXRhX25vZGVzLnBsYWNlbWVudH19IiwKICAgICJEQVRBX05PREVfSEVBUF9NQiI6ICJ7e2RhdGFfbm9kZXMuaGVhcC5zaXplfX0iLAogICAgIkRBVEFfTk9ERV9ESVNLIjogInt7ZGF0YV9ub2Rlcy5kaXNrfX0iLAogICAgIkRBVEFfTk9ERV9ESVNLX1RZUEUiOiAie3tkYXRhX25vZGVzLmRpc2tfdHlwZX19IiwKICAgICJJTkdFU1RfTk9ERV9DT1VOVCI6ICJ7e2luZ2VzdF9ub2Rlcy5jb3VudH19IiwKICAgICJJTkdFU1RfTk9ERV9DUFVTIjogInt7aW5nZXN0X25vZGVzLmNwdXN9fSIsCiAgICAiSU5HRVNUX05PREVfTUVNIjogInt7aW5nZXN0X25vZGVzLm1lbX19IiwKICAgICJJTkdFU1RfTk9ERV9QTEFDRU1FTlQiOiAie3tpbmdlc3Rfbm9kZXMucGxhY2VtZW50fX0iLAogICAgIklOR0VTVF9OT0RFX0hFQVBfTUIiOiAie3tpbmdlc3Rfbm9kZXMuaGVhcC5zaXplfX0iLAogICAgIklOR0VTVF9OT0RFX0RJU0siOiAie3tpbmdlc3Rfbm9kZXMuZGlza319IiwKICAgICJJTkdFU1RfTk9ERV9ESVNLX1RZUEUiOiAie3tpbmdlc3Rfbm9kZXMuZGlza190eXBlfX0iLAogICAgIkNPT1JESU5BVE9SX05PREVfQ09VTlQiOiAie3tjb29yZGluYXRvcl9ub2Rlcy5jb3VudH19IiwKICAgICJDT09SRElOQVRPUl9OT0RFX0NQVVMiOiAie3tjb29yZGluYXRvcl9ub2Rlcy5jcHVzfX0iLAogICAgIkNPT1JESU5BVE9SX05PREVfTUVNIjogInt7Y29vcmRpbmF0b3Jfbm9kZXMubWVtfX0iLAogICAgIkNPT1JESU5BVE9SX05PREVfUExBQ0VNRU5UIjogInt7Y29vcmRpbmF0b3Jfbm9kZXMucGxhY2VtZW50fX0iLAogICAgIkNPT1JESU5BVE9SX05PREVfSEVBUF9NQiI6ICJ7e2Nvb3JkaW5hdG9yX25vZGVzLmhlYXAuc2l6ZX19IiwKICAgICJDT09SRElOQVRPUl9OT0RFX0RJU0siOiAie3tjb29yZGluYXRvcl9ub2Rlcy5kaXNrfX0iLAogICAgIkNPT1JESU5BVE9SX05PREVfRElTS19UWVBFIjogInt7Y29vcmRpbmF0b3Jfbm9kZXMuZGlza190eXBlfX0iLAogICAgIkNPTkZJR19URU1QTEFURV9QQVRIIjogImVsYXN0aWMtc2NoZWR1bGVyIgogIH0sCiAgInVyaXMiOiBbCiAgICAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5qcmUtdGFyLWd6fX0iLAogICAgInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMuc2NoZWR1bGVyLXppcH19IiwKICAgICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmxpYm1lc29zLWJ1bmRsZS10YXItZ3p9fSIKICBdLAogICJ1cGdyYWRlU3RyYXRlZ3kiOnsKICAgICJtaW5pbXVtSGVhbHRoQ2FwYWNpdHkiOiAwLAogICAgIm1heGltdW1PdmVyQ2FwYWNpdHkiOiAwCiAgfSwKICAiaGVhbHRoQ2hlY2tzIjogWwogICAgewogICAgICAicHJvdG9jb2wiOiAiSFRUUCIsCiAgICAgICJwYXRoIjogIi92MS9wbGFucy9kZXBsb3kiLAogICAgICAiZ3JhY2VQZXJpb2RTZWNvbmRzIjogOTAwLAogICAgICAiaW50ZXJ2YWxTZWNvbmRzIjogMzAsCiAgICAgICJwb3J0SW5kZXgiOiAwLAogICAgICAidGltZW91dFNlY29uZHMiOiAzMCwKICAgICAgIm1heENvbnNlY3V0aXZlRmFpbHVyZXMiOiAwCiAgICB9LAogICAgewogICAgICAicHJvdG9jb2wiOiAiSFRUUCIsCiAgICAgICJwYXRoIjogIi92MS9wbGFucy9yZWNvdmVyeSIsCiAgICAgICJncmFjZVBlcmlvZFNlY29uZHMiOiA5MDAsCiAgICAgICJpbnRlcnZhbFNlY29uZHMiOiAzMCwKICAgICAgInBvcnRJbmRleCI6IDAsCiAgICAgICJ0aW1lb3V0U2Vjb25kcyI6IDMwLAogICAgICAibWF4Q29uc2VjdXRpdmVGYWlsdXJlcyI6IDAKICAgIH0KICBdLAogICJwb3J0RGVmaW5pdGlvbnMiOiBbCiAgICB7CiAgICAgICJwb3J0IjogMCwKICAgICAgInByb3RvY29sIjogInRjcCIsCiAgICAgICJuYW1lIjogImFwaSIsCiAgICAgICJsYWJlbHMiOiB7ICJWSVBfMCI6ICIvYXBpLnt7c2VydmljZS5uYW1lfX06ODAiIH0KICAgIH0KICBdCn0K"
+    },
+    "resource": {
+      "assets": {
+        "uris": {
+          "scheduler-zip": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/elastic-scheduler.zip",
+          "statsd-plugin-zip": "https://github.com/mesosphere/elasticsearch-statsd-plugin/releases/download/5.5.1.0/elasticsearch-statsd-5.5.1.0.zip",
+          "diagnostics-zip": "https://github.com/elastic/elasticsearch-support-diagnostics/releases/download/5.12/support-diagnostics-5.12-dist.zip",
+          "libmesos-bundle-tar-gz": "https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.10-1.4-63e0814.tar.gz",
+          "executor-zip": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/executor.zip",
+          "elasticsearch-tar-gz": "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.1.tar.gz",
+          "bootstrap-zip": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/bootstrap.zip",
+          "elasticsearch-jre-tar-gz": "https://downloads.mesosphere.com/java/jre-8u131-linux-x64.tar.gz",
+          "xpack-zip": "https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-5.5.1.zip",
+          "jre-tar-gz": "https://downloads.mesosphere.com/java/jre-8u131-linux-x64.tar.gz"
+        }
+      },
+      "images": {
+        "icon-small": "https://downloads.mesosphere.com/universe/assets/elasticsearch-small.png",
+        "icon-medium": "https://downloads.mesosphere.com/universe/assets/elasticsearch-medium.png",
+        "icon-large": "https://downloads.mesosphere.com/universe/assets/elasticsearch-large.png"
+      },
+      "cli": {
+        "binaries": {
+          "windows": {
+            "x86-64": {
+              "kind": "executable",
+              "url": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/dcos-elastic.exe",
+              "contentHash": [
+                {
+                  "algo": "sha256",
+                  "value": "01cd2c5498a592514a03d3beaea9c11c448124bcaa1065fe2927b22b25e5d974"
+                }
+              ]
+            }
+          },
+          "linux": {
+            "x86-64": {
+              "kind": "executable",
+              "url": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/dcos-elastic-linux",
+              "contentHash": [
+                {
+                  "algo": "sha256",
+                  "value": "3c17f7fd95f22de399313946cbcaf984cdbe266dc698049c3ba40fb4bf4e626e"
+                }
+              ]
+            }
+          },
+          "darwin": {
+            "x86-64": {
+              "kind": "executable",
+              "url": "https://downloads.mesosphere.com/elastic/assets/2.0.1-5.5.1/dcos-elastic-darwin",
+              "contentHash": [
+                {
+                  "algo": "sha256",
+                  "value": "5ea56bbd87ce4ae0afbefa59de53b18cc9dd9074cf90404db1cc15ccac76eaa5"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "object",
+          "description": "DC/OS service configuration properties",
+          "properties": {
+            "name": {
+              "description": "The name of the Elasticsearch service instance",
+              "type": "string",
+              "default": "elastic"
+            },
+            "service_account_secret": {
+              "description": "Name of the Secret Store credentials to use for DC/OS service authentication. This should be left empty unless service authentication is needed.",
+              "type": "string",
+              "default": ""
+            },
+            "user": {
+              "description": "The user that runs the Elasticsearch services and owns the Mesos sandbox.",
+              "type": "string",
+              "default": "nobody"
+            },
+            "service_account": {
+              "description": "The service account for DC/OS service authentication. This is typically left empty to use the default unless service authentication is needed. The value given here is passed as the principal of Mesos framework.",
+              "type": "string",
+              "default": ""
+            },
+            "virtual_network_enabled": {
+              "description": "Enable virtual networking",
+              "type": "boolean",
+              "default": false
+            },
+            "virtual_network_name": {
+              "description": "The name of the virtual network to join",
+              "type": "string",
+              "default": "dcos"
+            },
+            "virtual_network_plugin_labels": {
+              "description": "Labels to pass to the virtual network plugin. Comma-separated key:value pairs. For example: k_0:v_0,k_1:v_1,...,k_n:v_n",
+              "type": "string",
+              "default": ""
+            },
+            "deploy_strategy": {
+              "description": "Elasticsearch deploy strategy. [parallel, serial]",
+              "type": "string",
+              "default": "parallel",
+              "enum": [
+                "parallel",
+                "serial"
+              ]
+            },
+            "mesos_api_version": {
+              "description": "Configures the Mesos API version to use. Possible values: V0 (non-HTTP), V1 (HTTP)",
+              "type": "string",
+              "default": "V0"
+            },
+            "log_level": {
+              "description": "The log level for the DC/OS service.",
+              "type": "string",
+              "enum": [
+                "OFF",
+                "FATAL",
+                "ERROR",
+                "WARN",
+                "INFO",
+                "DEBUG",
+                "TRACE",
+                "ALL"
+              ],
+              "default": "INFO"
+            }
+          },
+          "required": [
+            "name",
+            "user",
+            "deploy_strategy"
+          ]
+        },
+        "elasticsearch": {
+          "description": "Elasticsearch service configuration properties",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "xpack_enabled": {
+              "description": "Whether or not to enable the commercial X-Pack plugin from Elastic",
+              "type": "boolean",
+              "default": false
+            },
+            "plugins": {
+              "description": "Comma-separated list of plugins to install",
+              "type": "string",
+              "default": ""
+            },
+            "health_user": {
+              "description": "Elastic username to use for X-Pack authentication, if enabled",
+              "type": "string",
+              "default": "elastic"
+            },
+            "health_user_password": {
+              "description": "Password to use with health_user for X-Pack authentication, if enabled. Note that you are not setting the password here. You are telling the framework the credentials to use when sending in health check requests.",
+              "type": "string",
+              "default": "changeme"
+            }
+          }
+        },
+        "master_nodes": {
+          "description": "Configuration properties for the three (3) Elasticsearch master nodes",
+          "type": "object",
+          "properties": {
+            "cpus": {
+              "description": "Node cpu requirements",
+              "type": "number",
+              "default": 1
+            },
+            "mem": {
+              "description": "Node mem requirements",
+              "type": "integer",
+              "default": 2048
+            },
+            "heap": {
+              "description": "The Elasticsearch process JVM heap configuration object",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "integer",
+                  "description": "The amount of JVM heap, in MB, allocated to the Elasticsearch node process.",
+                  "default": 1024
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "size"
+              ]
+            },
+            "disk": {
+              "description": "Node disk requirements (only respected with persistent volumes)",
+              "type": "integer",
+              "default": 2000
+            },
+            "disk_type": {
+              "type": "string",
+              "description": "Disk type to be used for storing data. [ROOT, MOUNT]",
+              "default": "ROOT"
+            },
+            "transport_port": {
+              "description": "Transport port for master nodes to listen on.",
+              "type": "integer",
+              "default": 9300
+            },
+            "placement": {
+              "description": "Marathon-style placement constraints",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cpus",
+            "mem",
+            "disk",
+            "transport_port"
+          ]
+        },
+        "data_nodes": {
+          "description": "Elasticsearch data node configuration properties",
+          "type": "object",
+          "properties": {
+            "count": {
+              "description": "Number of data nodes to run",
+              "type": "integer",
+              "default": 2,
+              "minimum": 1
+            },
+            "cpus": {
+              "description": "Node cpu requirements",
+              "type": "number",
+              "default": 1
+            },
+            "mem": {
+              "description": "Node mem requirements",
+              "type": "integer",
+              "default": 4096
+            },
+            "heap": {
+              "description": "The Elasticsearch process JVM heap configuration object",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "integer",
+                  "description": "The amount of JVM heap, in MB, allocated to the Elasticsearch node process.",
+                  "default": 2048
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "size"
+              ]
+            },
+            "disk": {
+              "description": "Node disk requirements (only respected with persistent volumes)",
+              "type": "integer",
+              "default": 10000
+            },
+            "disk_type": {
+              "type": "string",
+              "description": "Disk type to be used for storing data. [ROOT, MOUNT]",
+              "default": "ROOT"
+            },
+            "placement": {
+              "description": "Marathon-style placement constraints",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cpus",
+            "mem",
+            "disk",
+            "count"
+          ]
+        },
+        "ingest_nodes": {
+          "description": "Elasticsearch ingest node configuration properties",
+          "type": "object",
+          "properties": {
+            "count": {
+              "description": "Number of ingest nodes to run",
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "cpus": {
+              "description": "Node cpu requirements",
+              "type": "number",
+              "default": 0.5
+            },
+            "mem": {
+              "description": "Node mem requirements",
+              "type": "integer",
+              "default": 2048
+            },
+            "heap": {
+              "description": "The Elasticsearch process JVM heap configuration object",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "integer",
+                  "description": "The amount of JVM heap, in MB, allocated to the Elasticsearch node process.",
+                  "default": 512
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "size"
+              ]
+            },
+            "disk": {
+              "description": "Node disk requirements (only respected with persistent volumes)",
+              "type": "integer",
+              "default": 2000
+            },
+            "disk_type": {
+              "type": "string",
+              "description": "Disk type to be used for storing data. [ROOT, MOUNT]",
+              "default": "ROOT"
+            },
+            "placement": {
+              "description": "Marathon-style placement constraints",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cpus",
+            "mem",
+            "disk",
+            "count"
+          ]
+        },
+        "coordinator_nodes": {
+          "description": "Elasticsearch coordinator node configuration properties",
+          "type": "object",
+          "properties": {
+            "count": {
+              "description": "Number of coordinator nodes to run",
+              "type": "integer",
+              "default": 1,
+              "minimum": 0
+            },
+            "cpus": {
+              "description": "Node cpu requirements",
+              "type": "number",
+              "default": 1
+            },
+            "mem": {
+              "description": "Node mem requirements",
+              "type": "integer",
+              "default": 2048
+            },
+            "heap": {
+              "description": "The Elasticsearch process JVM heap configuration object",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "integer",
+                  "description": "The amount of JVM heap, in MB, allocated to the Elasticsearch node process.",
+                  "default": 1024
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "size"
+              ]
+            },
+            "disk": {
+              "description": "Node disk requirements (only respected with persistent volumes)",
+              "type": "integer",
+              "default": 1000
+            },
+            "disk_type": {
+              "type": "string",
+              "description": "Disk type to be used for storing data. [ROOT, MOUNT]",
+              "default": "ROOT"
+            },
+            "placement": {
+              "description": "Marathon-style placement constraints",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cpus",
+            "mem",
+            "disk",
+            "count"
+          ]
+        }
+      }
+    },
+    "upgradesFrom": [
+      "2.0.0-5.5.1"
+    ],
+    "downgradesTo": [
+      "2.0.0-5.5.1"
+    ]
+  },
+  "upgradesTo": [
+    
+  ],
+  "downgradesTo": [
+    "2.0.0-5.5.1"
+  ],
+  "resolvedOptions": {
+    "data_nodes": {
+      "count": 2,
+      "disk": 10000,
+      "disk_type": "ROOT",
+      "mem": 4096,
+      "cpus": 1,
+      "heap": {
+        "size": 2048
+      }
+    },
+    "elasticsearch": {
+      "health_user_password": "changeme",
+      "health_user": "elastic",
+      "plugins": "",
+      "xpack_enabled": false
+    },
+    "master_nodes": {
+      "disk": 2000,
+      "disk_type": "ROOT",
+      "mem": 2048,
+      "cpus": 1,
+      "heap": {
+        "size": 1024
+      },
+      "transport_port": 9300
+    },
+    "service": {
+      "name": "elastic",
+      "virtual_network_plugin_labels": "",
+      "service_account_secret": "",
+      "log_level": "INFO",
+      "virtual_network_name": "dcos",
+      "virtual_network_enabled": false,
+      "deploy_strategy": "parallel",
+      "service_account": "",
+      "mesos_api_version": "V0",
+      "user": "nobody"
+    },
+    "ingest_nodes": {
+      "count": 0,
+      "disk": 2000,
+      "disk_type": "ROOT",
+      "mem": 2048,
+      "cpus": 0.5,
+      "heap": {
+        "size": 512
+      }
+    },
+    "coordinator_nodes": {
+      "count": 1,
+      "disk": 1000,
+      "disk_type": "ROOT",
+      "mem": 2048,
+      "cpus": 1,
+      "heap": {
+        "size": 1024
+      }
+    }
+  },
+  "userProvidedOptions": {
+    
+  }
+}
