@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+source ${SCRIPT_PATH}/utils/template
+
+copy "./src/js/config/Config.template.js" "./src/js/config/Config.dev.js"
+copy "./webpack/proxy.template.js" "./webpack/proxy.dev.js"

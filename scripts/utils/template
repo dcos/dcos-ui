@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source ${SCRIPT_PATH}/utils/message
+
+# Copy template
+# Example: copy source/path destination/path
+#          copy source/path overwrite/destination/path true
+copy(){
+ if [ -f ${2} ] && [ ! "${3}" = true ]
+    then
+       warning "The file ${2} already exists."
+
+       return
+    fi
+
+  cat ${1} > ${2};
+}
+
