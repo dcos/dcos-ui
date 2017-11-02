@@ -14,6 +14,23 @@ import ServiceTree from "../structs/ServiceTree";
 
 const UNABLE_TO_LAUNCH_TIMEOUT = 1000 * 60 * 30; // 30 minutes
 
+const getTooltipContent = (service, content) => {
+  const servicePath = encodeURIComponent(service.getId());
+
+  return (
+    <span>
+      {content}
+      {" "}
+      <a
+        href={`#/services/detail/${servicePath}/debug`}
+        title="debug information"
+      >
+        Debug information
+      </a>
+    </span>
+  );
+};
+
 class ServiceStatusIcon extends Component {
   getDeclinedOffersWarning(service) {
     if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)) {
@@ -59,11 +76,14 @@ class ServiceStatusIcon extends Component {
 
     if (service instanceof Service) {
       const servicePath = encodeURIComponent(service.getId());
+      content = getTooltipContent(service, content);
+      console.log(content);
       icon = <Link to={`/services/detail/${servicePath}/debug`}>{icon}</Link>;
     }
 
     return (
       <Tooltip
+        interactive={true}
         content={content}
         width={250}
         wrapText={true}

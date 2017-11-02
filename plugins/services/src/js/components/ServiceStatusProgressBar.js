@@ -52,15 +52,11 @@ class ServiceStatusProgressBar extends React.Component {
     return (
       <Tooltip interactive={true} content={this.getTooltipContent()}>
         <ProgressBar
-          className="status-bar--large"
+          className="status-bar--large staged"
           data={[
             {
               state: "success",
               value: tasksRunning
-            },
-            {
-              state: "staged",
-              value: instancesCount
             }
           ]}
           total={instancesCount}
