@@ -80,6 +80,10 @@
   .user-account-dropdown-menu {
     margin-left: @pod-margin-left * @pod-narrow-margin-left-scale;
 
+    li:empty {
+      display: none;
+    }
+
     &-public-ip {
 
       li& {
