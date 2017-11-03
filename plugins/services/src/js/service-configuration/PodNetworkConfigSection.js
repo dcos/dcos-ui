@@ -7,7 +7,6 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
@@ -101,12 +100,12 @@ class PodNetworkConfigSection extends React.Component {
             <ConfigurationMapValueWithDefault
               value={getNetworkTypes(appConfig.networks)}
             />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "networking")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "networking")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>
 
           {/* Service endpoints */}

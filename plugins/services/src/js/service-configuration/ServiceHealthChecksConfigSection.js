@@ -13,7 +13,6 @@ import {
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapDurationValue
   from "../components/ConfigurationMapDurationValue";
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   COMMAND,
@@ -151,12 +150,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapAction
-                      onClick={onEditClick.bind(this, "healthChecks")}
-                      isHover={true}
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "healthChecks")}
                     >
                       Edit
-                    </ConfigurationMapAction>
+                    </a>
                   );
                 }
               });
@@ -257,12 +256,12 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapAction
-                      onClick={onEditClick.bind(this, "environment")}
-                      isHover={true}
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "environment")}
                     >
                       Edit
-                    </ConfigurationMapAction>
+                    </a>
                   );
                 }
               });

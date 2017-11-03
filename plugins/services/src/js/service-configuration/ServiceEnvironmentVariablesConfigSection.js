@@ -1,7 +1,6 @@
 import React from "react";
 import { Table } from "reactjs-components";
 
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 
@@ -73,12 +72,12 @@ class ServiceEnvironmentVariablesConfigSection
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapAction
-                      onClick={onEditClick.bind(this, "environment")}
-                      isHover={true}
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "environment")}
                     >
                       Edit
-                    </ConfigurationMapAction>
+                    </a>
                   );
                 }
               });

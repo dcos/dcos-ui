@@ -9,7 +9,6 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
@@ -156,12 +155,12 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapAction
-                      onClick={onEditClick.bind(this, "volumes")}
-                      isHover={true}
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "volumes")}
                     >
                       Edit
-                    </ConfigurationMapAction>
+                    </a>
                   );
                 }
               });

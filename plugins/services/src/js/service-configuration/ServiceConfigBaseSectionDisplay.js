@@ -10,7 +10,6 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 
 class ServiceConfigBaseSectionDisplay extends React.Component {
   shouldExcludeItem() {
@@ -63,12 +62,12 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
         let action;
         if (onEditClick) {
           action = (
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, tabViewID)}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, { tabViewID })}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           );
         }
 

@@ -10,7 +10,6 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Units from "#SRC/js/utils/Units";
 
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ConfigurationMapValueWithDefault
   from "../components/ConfigurationMapValueWithDefault";
 import DurationValue from "../components/ConfigurationMapDurationValue";
@@ -100,92 +99,92 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Service ID</ConfigurationMapLabel>
           <ConfigurationMapValue value={appConfig.id} />
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
           <ConfigurationMapValueWithDefault value={fields.instances} />
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("cpus", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("mem", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("disk", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {getContainerResourceSummary("gpu", appConfig)}
           </ConfigurationMapValue>
-          <ConfigurationMapAction
-            onClick={onEditClick.bind(this, "services")}
-            isHover={true}
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, "services")}
           >
             Edit
-          </ConfigurationMapAction>
+          </a>
         </ConfigurationMapRow>
         {Boolean(fields.backoff) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
             <DurationValue units="sec" value={fields.backoff} />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "services")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "services")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>}
         {Boolean(fields.backoffFactor) &&
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.backoffFactor} />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "services")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "services")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>}
         {Boolean(fields.maxLaunchDelay) &&
           <ConfigurationMapRow>
@@ -193,12 +192,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Backoff Max Launch Delay
             </ConfigurationMapLabel>
             <DurationValue units="sec" value={fields.maxLaunchDelay} />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "services")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "services")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>}
         {Boolean(fields.minimumHealthCapacity) &&
           <ConfigurationMapRow>
@@ -206,12 +205,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Upgrade Min Health Capacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.minimumHealthCapacity} />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "services")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "services")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>}
         {Boolean(fields.maximumOverCapacity) &&
           <ConfigurationMapRow>
@@ -219,12 +218,12 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
               Upgrade Max Overcapacity
             </ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.maximumOverCapacity} />
-            <ConfigurationMapAction
-              onClick={onEditClick.bind(this, "services")}
-              isHover={true}
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, "services")}
             >
               Edit
-            </ConfigurationMapAction>
+            </a>
           </ConfigurationMapRow>}
       </ConfigurationMapSection>
     </div>

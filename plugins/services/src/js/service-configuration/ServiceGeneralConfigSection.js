@@ -4,7 +4,6 @@ import { Table } from "reactjs-components";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { formatResource } from "#SRC/js/utils/Units";
 
-import ConfigurationMapAction from "../components/ConfigurationMapAction";
 import ContainerConstants from "../constants/ContainerConstants";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
@@ -261,12 +260,12 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapAction
-                      onClick={onEditClick.bind(this, "services")}
-                      isHover={true}
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "services")}
                     >
                       Edit
-                    </ConfigurationMapAction>
+                    </a>
                   );
                 }
               });
