@@ -132,13 +132,15 @@ describe("Package Detail Tab", function() {
         .should("to.have.length", 1);
     });
 
-    it("closes the framework config when cancel button clicked", function() {
-      cy.get(".modal .modal-header button").contains("Cancel").click();
+    it("goes to form when back button is clicked", function() {
+      cy.get(".modal .modal-header button").contains("Back").click();
 
-      cy.get(".page-body-content h1").should("contain", "marathon");
+      cy
+        .get('.modal .menu-tabbed-container input[name="group"]')
+        .type(`{selectall}group-1`);
     });
 
-    it("changes cancel button to back when form edited", function() {
+    it("changes cancel button to back when on review screen", function() {
       cy.get(".modal button").contains("Edit Config").click();
 
       cy
