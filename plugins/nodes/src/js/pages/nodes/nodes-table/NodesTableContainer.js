@@ -27,8 +27,29 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     ];
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { location: { query }, hosts } = nextProps;
+    const filters = {
+      health: query.filterHealth || "all",
+      name: query.searchString || "",
+      service: query.filterService || null
+    };
+    this.setFilters(hosts, filters);
+  }
+
   getFilteredNodes(filters = this.state.filters) {
     return CompositeState.getNodesList().filter(filters);
+  }
+
+  // TODO: remove set Filters and only filter at the top level;
+  setFilters(nodes, newFilters, callback) {
+    if (newFilters.service === "") {
+      newFilters.service = null;
+    }
+    const filters = Object.assign({}, this.state.filters, newFilters);
+    const filteredNodes = nodes.filter(filters); // this.getFilteredNodes(filters);
+
+    this.setState({ filters, filteredNodes }, callback);
   }
 
   onNodeHealthStoreSuccess() {
@@ -39,13 +60,11 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   render() {
-    const { receivedNodeHealthResponse } = this.state;
-
-    const { hosts } = this.props;
+    const { receivedNodeHealthResponse, filteredNodes } = this.state;
 
     return (
       <NodesTable
-        hosts={hosts}
+        hosts={filteredNodes}
         receivedNodeHealthResponse={receivedNodeHealthResponse}
       />
     );
