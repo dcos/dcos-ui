@@ -42,6 +42,14 @@ var NodesTable = React.createClass({
     );
   },
 
+  renderZone(_prop, node) {
+    return (
+      <span>
+        {node.getZoneName()}
+      </span>
+    );
+  },
+
   renderHeadline(prop, node) {
     let headline = node.get(prop);
     if (!node.isActive()) {
@@ -83,12 +91,21 @@ var NodesTable = React.createClass({
     );
   },
 
+  renderTask(prop, node) {
+    return (
+      <span>
+        {node[prop]}
+      </span>
+    );
+  },
+
   renderStats(prop, node) {
     var value = node.getUsageStats(prop).percentage;
 
     return (
       <span className="status-bar-with-label-wrapper">
         <ProgressBar
+          className="hidden-medium-down"
           data={[{ value, className: COLOR_CLASSNAMES[prop] }]}
           scale={100}
         />
@@ -116,6 +133,9 @@ var NodesTable = React.createClass({
       if (prop === "region") {
         return node.getRegionName();
       }
+      if (prop === "zone") {
+        return node.getZoneName();
+      }
 
       return node.get(prop);
     });
@@ -142,6 +162,15 @@ var NodesTable = React.createClass({
       {
         className,
         headerClassName: className,
+        prop: "zone",
+        render: this.renderZone,
+        sortable: true,
+        sortFunction,
+        heading
+      },
+      {
+        className,
+        headerClassName: className,
         prop: "health",
         render: this.renderHealth,
         sortable: true,
@@ -152,7 +181,7 @@ var NodesTable = React.createClass({
         className,
         headerClassName: className,
         prop: "TASK_RUNNING",
-        render: ResourceTableUtil.renderTask,
+        render: this.renderTask,
         sortable: true,
         sortFunction,
         heading
@@ -192,11 +221,12 @@ var NodesTable = React.createClass({
       <colgroup>
         <col />
         <col />
-        <col style={{ width: "100px" }} />
-        <col style={{ width: "125px" }} />
-        <col className="hidden-small-down" style={{ width: "135px" }} />
-        <col className="hidden-small-down" style={{ width: "135px" }} />
-        <col className="hidden-small-down" style={{ width: "135px" }} />
+        <col />
+        <col style={{ width: "150px" }} />
+        <col style={{ width: "90px" }} />
+        <col className="hidden-small-down" />
+        <col className="hidden-small-down" />
+        <col className="hidden-small-down" />
       </colgroup>
     );
   },
