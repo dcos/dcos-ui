@@ -18,11 +18,11 @@
 
       &-mem,
       &-disk {
-        width: 85px;
+        width: 70px;
       }
 
       &-name {
-        width: auto;
+        width: 180px;
       }
 
       &-status {
@@ -47,14 +47,9 @@
       }
     }
 
-    // We don't want the status bar to increase the height of the table row
-    // when it wraps to two lines.
-    .status-bar-wrapper {
-      line-height: 1;
-    }
-
-    .status-bar-indicator {
-      margin-right: @base-spacing-unit * 1/2;
+    .service-status-icon-wrapper {
+      margin-right: 30px;
+      width: 110px;
     }
 
     .status-bar-text {
@@ -81,13 +76,13 @@
       &-column {
 
         &-instances {
-          width: 110px;
+          width: 83px;
         }
 
         &-cpus,
         &-mem,
         &-disk {
-          width: 66px;
+          width: 53px;
         }
 
         &-status {
@@ -109,6 +104,10 @@
     .service-table {
 
       &-column {
+
+        &-name {
+          width: 100px;
+        }
 
         &-cpus,
         &-mem,
@@ -148,18 +147,22 @@
 
       &-column {
 
-        &-instances {
+        &-name {
           width: 115px;
+        }
+
+        &-instances {
+          width: 85px;
         }
 
         &-cpus,
         &-mem,
         &-disk {
-          width: 85px;
+          width: 60px;
         }
 
         &-status {
-          width: 264px;
+          width: 100px;
         }
       }
     }
@@ -179,7 +182,7 @@
       &-column {
 
         &-status {
-          width: 350px;
+          width: 200px;
         }
       }
     }

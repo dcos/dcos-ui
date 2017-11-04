@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 
+import Icon from "#SRC/js/components/Icon";
 import DateUtil from "#SRC/js/utils/DateUtil";
-import StatusIcon from "#SRC/js/components/StatusIcon";
+import StatusIcon from "#SRC/js/constants/StatusIcon";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
-import ServiceStatusLabels from "../constants/ServiceStatusLabels";
+import ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -19,8 +20,7 @@ const getTooltipContent = (service, content) => {
 
   return (
     <span>
-      {content}
-      {" "}
+      {`${content} `}
       <a
         href={`#/services/detail/${servicePath}/debug`}
         title="debug information"
@@ -33,7 +33,7 @@ const getTooltipContent = (service, content) => {
 
 class ServiceStatusIcon extends Component {
   getDeclinedOffersWarning(service) {
-    if (DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service)) {
+    if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
       const timeWaiting =
         Date.now() -
         DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(service.getQueue()));
@@ -51,8 +51,8 @@ class ServiceStatusIcon extends Component {
       .filterItems(item => {
         if (!(item instanceof ServiceTree)) {
           return (
-            DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(item) ||
-            this.shouldShowUnableToLaunchWarning(item)
+            DeclinedOffersUtil.displayDeclinedOffersWarning(item) ||
+            this.isUnableToLaunch(item)
           );
         }
 
@@ -72,12 +72,11 @@ class ServiceStatusIcon extends Component {
 
   getTooltip(content) {
     const { service } = this.props;
-    let icon = <StatusIcon state="WARNING" />;
+    let icon = <Icon {...StatusIcon.WARNING} size="mini" />;
 
     if (service instanceof Service) {
       const servicePath = encodeURIComponent(service.getId());
       content = getTooltipContent(service, content);
-      console.log(content);
       icon = <Link to={`/services/detail/${servicePath}/debug`}>{icon}</Link>;
     }
 
@@ -95,7 +94,7 @@ class ServiceStatusIcon extends Component {
   }
 
   getUnableToLaunchWarning(service) {
-    if (this.shouldShowUnableToLaunchWarning(service)) {
+    if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
         `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(Date.now() - DateUtil.strToMs(service.getQueue().since), null)}.`
       );
@@ -104,7 +103,7 @@ class ServiceStatusIcon extends Component {
     return null;
   }
 
-  shouldShowUnableToLaunchWarning(service) {
+  isUnableToLaunch(service) {
     const queue = service.getQueue();
 
     if (queue == null) {
@@ -118,32 +117,48 @@ class ServiceStatusIcon extends Component {
 
   render() {
     const { service } = this.props;
-    const displayName = service.getServiceStatus().displayName;
-    let iconState = displayName;
+    const serviceStatus = service.getServiceStatus();
+    let iconState;
 
-    if (
-      displayName === ServiceStatusLabels.DEPLOYING ||
-      displayName === ServiceStatusLabels.RECOVERING ||
-      displayName === ServiceStatusLabels.DELETING
-    ) {
-      iconState = "TRANSITION";
+    switch (serviceStatus) {
+      case ServiceStatus.RUNNING:
+        iconState = StatusIcon.SUCCESS;
+        break;
+      case ServiceStatus.DEPLOYING:
+        iconState = StatusIcon.LOADING;
+        break;
+      case ServiceStatus.RECOVERING:
+        iconState = StatusIcon.LOADING;
+        break;
+      case ServiceStatus.DELETING:
+        iconState = StatusIcon.LOADING;
+        break;
+      case ServiceStatus.WARNING:
+        iconState = StatusIcon.WARNING;
+        break;
+      case ServiceStatus.STOPPED:
+        iconState = StatusIcon.STOPPED;
+        break;
     }
-
-    iconState = iconState.toUpperCase();
 
     if (service instanceof ServiceTree) {
       return (
-        this.getServiceTreeWarning(service) || <StatusIcon state={iconState} />
+        this.getServiceTreeWarning(service) ||
+        <Icon {...iconState} size="mini" />
       );
     }
 
-    // Display the declined offers warning if that's causing a delay. If not,
-    // we try to display an unable to launch warning, then default to nothing.
-    return (
-      this.getDeclinedOffersWarning(service) ||
-      this.getUnableToLaunchWarning(service) ||
-      <StatusIcon state={iconState} />
-    );
+    // Display the declined offers warning if that's causing a delay.
+    if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
+      return this.getDeclinedOffersWarning(service);
+    }
+
+    // If not, we try to display an unable to launch warning, then default to nothing.
+    if (this.isUnableToLaunch(service)) {
+      return this.getUnableToLaunchWarning(service);
+    }
+
+    return <Icon {...iconState} size="mini" />;
   }
 }
 

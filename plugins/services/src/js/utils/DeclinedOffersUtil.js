@@ -240,7 +240,7 @@ const DeclinedOffersUtil = {
     );
   },
 
-  shouldDisplayDeclinedOffersWarning(item) {
+  displayDeclinedOffersWarning(item) {
     const queue = item.getQueue();
     const lastUsedOffer = DateUtil.strToMs(
       Util.findNestedPropertyInObject(

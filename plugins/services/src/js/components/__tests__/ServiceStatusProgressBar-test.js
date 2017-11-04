@@ -55,7 +55,21 @@ describe("#ServiceStatusProgressBar", function() {
   describe("Tooltip", function() {
     it("display Tooltip", function() {
       this.instance = ReactDOM.render(
-        <ServiceStatusProgressBar service={new Application({})} />,
+        <ServiceStatusProgressBar
+          service={
+            new Application({
+              deployments: [
+                {
+                  id: "some-id"
+                }
+              ],
+              queue: {
+                delay: true
+              },
+              instances: 10
+            })
+          }
+        />,
         this.container
       );
 

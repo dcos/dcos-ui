@@ -79,14 +79,14 @@ class ProgressBar extends React.Component {
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
     return data.map(function(status, index) {
-      let { state, style = {} } = status;
+      let { className, style = {} } = status;
       const scale = barSizes[index];
 
-      if (state == null) {
-        state = `element-${index}`;
+      if (className == null) {
+        className = `element-${index}`;
       }
 
-      state = classNames("bar", state);
+      className = classNames("bar", className);
 
       if (scale === 0) {
         return null;
@@ -94,7 +94,7 @@ class ProgressBar extends React.Component {
 
       style.width = `${scale}%`;
 
-      return <span style={style} key={index} className={state} />;
+      return <span style={style} key={index} className={className} />;
     });
   }
 

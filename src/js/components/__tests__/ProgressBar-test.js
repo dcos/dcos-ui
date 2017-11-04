@@ -9,12 +9,12 @@ const testData = [
   {
     key: "#FFF",
     value: 40,
-    state: "status"
+    className: "status"
   },
   {
     key: "#000",
     value: 60,
-    state: "failed"
+    className: "failed"
   }
 ];
 

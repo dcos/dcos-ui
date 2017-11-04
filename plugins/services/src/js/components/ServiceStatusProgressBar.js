@@ -26,21 +26,24 @@ class ServiceStatusProgressBar extends React.Component {
   render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
-    const serviceStatus = service.getStatus();
+    const serviceStatus = service.getServiceStatus();
     const tasksRunning = service.getTaskCount();
 
     if (
-      serviceStatus === ServiceStatus.RUNNING.displayName ||
-      serviceStatus === ServiceStatus.STOPPED.displayName
+      serviceStatus === ServiceStatus.RUNNING ||
+      serviceStatus === ServiceStatus.STOPPED ||
+      serviceStatus === ServiceStatus.NA
     ) {
       return null;
-    } else if (serviceStatus === ServiceStatus.DELETING.displayName) {
+    }
+
+    if (serviceStatus === ServiceStatus.DELETING) {
       return (
         <ProgressBar
           className="status-bar--large"
           data={[
             {
-              state: "staged",
+              className: "staged",
               value: instancesCount
             }
           ]}
@@ -55,7 +58,7 @@ class ServiceStatusProgressBar extends React.Component {
           className="status-bar--large staged"
           data={[
             {
-              state: "success",
+              className: "success",
               value: tasksRunning
             }
           ]}

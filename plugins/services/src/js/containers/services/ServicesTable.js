@@ -355,12 +355,12 @@ class ServicesTable extends React.Component {
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
 
     return (
-      <div className="row">
-        <div className={`${serviceStatusClassSet} column-jumbo-5`}>
+      <div className="flex">
+        <div className={`${serviceStatusClassSet} service-status-icon-wrapper`}>
           <ServiceStatusIcon service={service} />
           <span className="status-bar-text">{serviceStatusText}</span>
         </div>
-        <div className="column-jumbo-5">
+        <div className="service-status-progressbar-wrapper">
           <ServiceStatusProgressBar service={service} />
         </div>
       </div>
