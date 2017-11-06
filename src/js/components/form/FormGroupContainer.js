@@ -1,5 +1,6 @@
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import classNames from "classnames";
 
 import Icon from "../Icon";
 import StringUtil from "../../utils/StringUtil";
@@ -23,11 +24,12 @@ const FormGroupContainer = props => {
     );
   }
 
+  const classes = classNames("panel pod-short", {
+    "panel-interactive clickable": props.onClick
+  });
+
   return (
-    <div
-      className="panel panel-interactive pod-short clickable"
-      onClick={props.onClick}
-    >
+    <div className={classes} onClick={props.onClick}>
       <div className="pod-narrow pod-short">
         {removeButton}
         {props.children}
