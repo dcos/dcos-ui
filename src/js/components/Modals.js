@@ -169,7 +169,7 @@ var Modals = React.createClass({
 
     return (
       <MountService.Mount
-        type={"ClusterLinking:Modal"}
+        type={"Modals:SwitchingModal"}
         open={showModal}
         onClose={onClose}
       />

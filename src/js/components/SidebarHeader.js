@@ -117,7 +117,9 @@ class SidebarHeader extends mixin(StoreMixin) {
         }
       },
       {
-        html: <MountService.Mount type={"ClusterLinking:ModalTrigger"} />,
+        html: (
+          <MountService.Mount type={"SidebarHeader:SwitchingModalTrigger"} />
+        ),
         id: "cluster-linking",
         onClick: () => {
           SidebarActions.close();
