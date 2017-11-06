@@ -145,8 +145,12 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <MountService.Mount
-          type="OverviewDetailTab:AdditionalGeneralDetails"
-          limit={2}
+          type="OverviewDetailTab:AdditionalGeneralDetails:Nodes"
+          limit={1}
+        />
+        <MountService.Mount
+          type="OverviewDetailTab:AdditionalGeneralDetails:Date"
+          limit={1}
         />
       </ConfigurationMapSection>
     );
