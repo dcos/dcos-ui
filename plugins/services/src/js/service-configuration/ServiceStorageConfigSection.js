@@ -9,8 +9,6 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
@@ -157,10 +155,12 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="volumes"
-                    />
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "volumes")}
+                    >
+                      Edit
+                    </a>
                   );
                 }
               });

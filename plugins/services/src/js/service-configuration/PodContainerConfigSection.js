@@ -9,8 +9,6 @@ import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
 import ConfigurationMapBooleanValue
   from "../components/ConfigurationMapBooleanValue";
 import ConfigurationMapMultilineValue
@@ -65,20 +63,24 @@ const PodContainerConfigSection = ({
         <ConfigurationMapValueWithDefault
           value={findNestedPropertyInObject(containerConfig, "image.id")}
         />
-        <ConfigurationMapEditAction
-          onEditClick={onEditClick}
-          tabViewID={tabViewID}
-        />
+        <a
+          className="button button-link flush table-display-on-row-hover"
+          onClick={onEditClick.bind(null, { tabViewID })}
+        >
+          Edit
+        </a>
       </ConfigurationMapRow>
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
         <ConfigurationMapBooleanValue
           value={findNestedPropertyInObject(containerConfig, "image.forcePull")}
         />
-        <ConfigurationMapEditAction
-          onEditClick={onEditClick}
-          tabViewID={tabViewID}
-        />
+        <a
+          className="button button-link flush table-display-on-row-hover"
+          onClick={onEditClick.bind(null, { tabViewID })}
+        >
+          Edit
+        </a>
       </ConfigurationMapRow>
 
       {/* Resources */}
@@ -86,37 +88,45 @@ const PodContainerConfigSection = ({
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.cpus} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
       {Boolean(fields.resources.mem) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.mem} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
       {Boolean(fields.resources.disk) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.disk} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
       {Boolean(fields.resources.gpus) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.gpus} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
 
       {/* Global Properties */}
@@ -124,19 +134,23 @@ const PodContainerConfigSection = ({
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.user} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
       {Boolean(fields.command) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Command</ConfigurationMapLabel>
           <ConfigurationMapMultilineValue value={fields.command} />
-          <ConfigurationMapEditAction
-            onEditClick={onEditClick}
-            tabViewID={tabViewID}
-          />
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            Edit
+          </a>
         </ConfigurationMapRow>}
 
       {/* Container artifacts */}

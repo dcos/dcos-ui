@@ -3,7 +3,6 @@ import { Table } from "reactjs-components";
 
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
 
-import ConfigurationMapEditAction from "./ConfigurationMapEditAction";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 /**
  * Optimized method to check if all row props are empty for a given column
@@ -136,10 +135,12 @@ class ConfigurationMapTable extends React.Component {
         prop: "edit",
         render() {
           return (
-            <ConfigurationMapEditAction
-              onEditClick={onEditClick}
-              tabViewID={tabViewID}
-            />
+            <a
+              className="button button-link flush table-display-on-row-hover"
+              onClick={onEditClick.bind(null, { tabViewID })}
+            >
+              Edit
+            </a>
           );
         }
       });

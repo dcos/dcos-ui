@@ -7,8 +7,6 @@ import Networking from "#SRC/js/constants/Networking";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
-import ConfigurationMapEditAction
-  from "../components/ConfigurationMapEditAction";
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
@@ -194,10 +192,12 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: "edit",
                 render() {
                   return (
-                    <ConfigurationMapEditAction
-                      onEditClick={onEditClick}
-                      tabViewID="networking"
-                    />
+                    <a
+                      className="button button-link flush table-display-on-row-hover"
+                      onClick={onEditClick.bind(null, "networking")}
+                    >
+                      Edit
+                    </a>
                   );
                 }
               });
