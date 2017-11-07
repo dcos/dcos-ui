@@ -198,23 +198,6 @@ class ServiceActionDisabledModal extends React.Component {
           </a> for complete instructions.{" "}
         </p>
         {this.getClipboardTrigger(command)}
-        <p>
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_SERVICE_DELETE_PART_3"
-          })}
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/uninstall/#framework-cleaner"
-            )}
-            target="_blank"
-          >
-            {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
-            })}
-          </a>
-          .
-        </p>
       </div>
     );
   }
@@ -408,22 +391,6 @@ class ServiceActionDisabledModal extends React.Component {
           </a>
         </p>
         {this.getClipboardTrigger(packageCommand)}
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_2" })}
-          {" "}
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/uninstall/#framework-cleaner"
-            )}
-            target="_blank"
-          >
-            {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_SERVICE_CLEARNER_SCRIPT"
-            })}
-          </a>
-          {" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_3" })}.
-        </p>
         <p>
           {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_DELETE_4" })}
           {", "}
