@@ -1,4 +1,5 @@
 import React from "react";
+import { routerShape } from "react-router";
 
 import Loader from "#SRC/js/components/Loader";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -17,24 +18,29 @@ import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
 import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
-import { EDIT } from "../../constants/ServiceActionItem";
-import ServiceActionDisabledModal
-  from "../../components/modals/ServiceActionDisabledModal";
+
+const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
 class SDKServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      actionDisabledModalOpen: false,
       servicePreviousState: ""
     };
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
   }
 
-  handleOpenEditConfigurationModal(actionDisabledModalOpen) {
-    this.setState({
-      actionDisabledModalOpen
-    });
+  handleOpenEditConfigurationModal() {
+    const { service } = this.props;
+    const { router } = this.context;
+
+    router.push(
+      `/services/detail/${encodeURIComponent(service.getId())}/edit/`
+    );
   }
 
   componentDidMount() {
@@ -174,19 +180,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
   }
 
   render() {
-    const { actionDisabledModalOpen } = this.state;
     const { service } = this.props;
-
-    if (actionDisabledModalOpen) {
-      return (
-        <ServiceActionDisabledModal
-          actionID={EDIT}
-          open={actionDisabledModalOpen}
-          onClose={this.handleOpenEditConfigurationModal.bind(this, false)}
-          service={service}
-        />
-      );
-    }
 
     const sdkServiceEndpoints = SDKEndpointStore.getServiceEndpoints(
       service.getId()
@@ -212,7 +206,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       return (
         <ServiceNoEndpointsPanel
           serviceId={service.getId()}
-          onClick={this.handleOpenEditConfigurationModal.bind(this, true)}
+          onClick={this.handleOpenEditConfigurationModal}
         />
       );
     }
@@ -227,6 +221,10 @@ class SDKServiceConnectionEndpointList extends React.Component {
     );
   }
 }
+
+SDKServiceConnectionEndpointList.contextTypes = {
+  router: routerShape
+};
 
 SDKServiceConnectionEndpointList.propTypes = {
   service: React.PropTypes.instanceOf(Service)
