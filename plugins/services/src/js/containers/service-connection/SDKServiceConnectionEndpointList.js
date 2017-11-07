@@ -19,6 +19,8 @@ import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
 
+const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
+
 class SDKServiceConnectionEndpointList extends React.Component {
   constructor() {
     super(...arguments);
@@ -26,6 +28,10 @@ class SDKServiceConnectionEndpointList extends React.Component {
     this.state = {
       servicePreviousState: ""
     };
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   handleOpenEditConfigurationModal() {
@@ -200,7 +206,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       return (
         <ServiceNoEndpointsPanel
           serviceId={service.getId()}
-          onClick={this.handleOpenEditConfigurationModal.bind(this, true)}
+          onClick={this.handleOpenEditConfigurationModal}
         />
       );
     }
