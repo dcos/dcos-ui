@@ -49,6 +49,18 @@ const PodContainerConfigSection = ({
     tabViewID = `container${index}`;
   }
 
+  let action;
+  if (onEditClick) {
+    action = (
+      <a
+        className="button button-link flush table-display-on-row-hover"
+        onClick={onEditClick.bind(null, { tabViewID })}
+      >
+        Edit
+      </a>
+    );
+  }
+
   return (
     <ConfigurationMapSection key="pod-general-section">
 
@@ -63,24 +75,14 @@ const PodContainerConfigSection = ({
         <ConfigurationMapValueWithDefault
           value={findNestedPropertyInObject(containerConfig, "image.id")}
         />
-        <a
-          className="button button-link flush table-display-on-row-hover"
-          onClick={onEditClick.bind(null, { tabViewID })}
-        >
-          Edit
-        </a>
+        {action}
       </ConfigurationMapRow>
       <ConfigurationMapRow>
         <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
         <ConfigurationMapBooleanValue
           value={findNestedPropertyInObject(containerConfig, "image.forcePull")}
         />
-        <a
-          className="button button-link flush table-display-on-row-hover"
-          onClick={onEditClick.bind(null, { tabViewID })}
-        >
-          Edit
-        </a>
+        {action}
       </ConfigurationMapRow>
 
       {/* Resources */}
@@ -88,45 +90,25 @@ const PodContainerConfigSection = ({
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.cpus} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
       {Boolean(fields.resources.mem) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.mem} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
       {Boolean(fields.resources.disk) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
           <ConfigurationMapSizeValue value={fields.resources.disk} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
       {Boolean(fields.resources.gpus) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.resources.gpus} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
 
       {/* Global Properties */}
@@ -134,23 +116,13 @@ const PodContainerConfigSection = ({
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
           <ConfigurationMapValue value={fields.user} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
       {Boolean(fields.command) &&
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Command</ConfigurationMapLabel>
           <ConfigurationMapMultilineValue value={fields.command} />
-          <a
-            className="button button-link flush table-display-on-row-hover"
-            onClick={onEditClick.bind(null, { tabViewID })}
-          >
-            Edit
-          </a>
+          {action}
         </ConfigurationMapRow>}
 
       {/* Container artifacts */}

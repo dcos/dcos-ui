@@ -89,6 +89,18 @@ class PodNetworkConfigSection extends React.Component {
       return <noscript />;
     }
 
+    let action;
+    if (onEditClick) {
+      action = (
+        <a
+          className="button button-link flush table-display-on-row-hover"
+          onClick={onEditClick.bind(null, "networking")}
+        >
+          Edit
+        </a>
+      );
+    }
+
     return (
       <div>
         <ConfigurationMapHeading level={1}>Network</ConfigurationMapHeading>
@@ -100,12 +112,7 @@ class PodNetworkConfigSection extends React.Component {
             <ConfigurationMapValueWithDefault
               value={getNetworkTypes(appConfig.networks)}
             />
-            <a
-              className="button button-link flush table-display-on-row-hover"
-              onClick={onEditClick.bind(null, "networking")}
-            >
-              Edit
-            </a>
+            {action}
           </ConfigurationMapRow>
 
           {/* Service endpoints */}
