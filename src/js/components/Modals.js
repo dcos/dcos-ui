@@ -1,5 +1,6 @@
 import React from "react";
 import { Hooks } from "PluginSDK";
+import { MountService } from "foundation-ui";
 
 import CliInstallModal from "./modals/CliInstallModal";
 import Config from "../config/Config";
@@ -32,6 +33,7 @@ var Modals = React.createClass({
     return {
       modalErrorMsg: props.modalErrorMsg,
       showingCliModal: false,
+      showingClusterLinkingModal: false,
       showingVersionsModal: false,
       showErrorModal: props.showErrorModal
     };
@@ -51,6 +53,11 @@ var Modals = React.createClass({
     );
 
     SidebarStore.addChangeListener(
+      EventTypes.SHOW_CLUSTER_LINKING,
+      this.handleShowClusterLinking
+    );
+
+    SidebarStore.addChangeListener(
       EventTypes.SHOW_VERSIONS_SUCCESS,
       this.handleShowVersionsSuccess
     );
@@ -65,6 +72,11 @@ var Modals = React.createClass({
     SidebarStore.removeChangeListener(
       EventTypes.SHOW_CLI_INSTRUCTIONS,
       this.handleShowCli
+    );
+
+    SidebarStore.removeChangeListener(
+      EventTypes.SHOW_CLUSTER_LINKING,
+      this.handleShowClusterLinking
     );
 
     SidebarStore.removeChangeListener(
@@ -95,6 +107,10 @@ var Modals = React.createClass({
         </p>
       )
     });
+  },
+
+  handleShowClusterLinking() {
+    this.setState({ showingClusterLinkingModal: true });
   },
 
   handleShowCli() {
@@ -146,6 +162,20 @@ var Modals = React.createClass({
     return <CliInstallModal open={showModal} {...options} />;
   },
 
+  getClusterLinkingModal(showModal) {
+    var onClose = function() {
+      this.setState({ showingClusterLinkingModal: false });
+    }.bind(this);
+
+    return (
+      <MountService.Mount
+        type={"Modals:SwitchingModal"}
+        open={showModal}
+        onClose={onClose}
+      />
+    );
+  },
+
   getVersionsModal(showModal) {
     var onClose = function() {
       this.setState({ showingVersionsModal: false });
@@ -176,13 +206,19 @@ var Modals = React.createClass({
   },
 
   render() {
-    var showCliModal = this.state.showingCliModal;
+    var {
+      showingCliModal,
+      showingClusterLinkingModal,
+      showingVersionsModal,
+      showErrorModal
+    } = this.state;
 
     return (
       <div>
-        {this.getCliInstallModal(showCliModal)}
-        {this.getVersionsModal(this.state.showingVersionsModal)}
-        {this.getErrorModal(this.state.showErrorModal)}
+        {this.getClusterLinkingModal(showingClusterLinkingModal)}
+        {this.getCliInstallModal(showingCliModal)}
+        {this.getVersionsModal(showingVersionsModal)}
+        {this.getErrorModal(showErrorModal)}
       </div>
     );
   }

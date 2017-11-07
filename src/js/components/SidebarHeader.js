@@ -117,6 +117,16 @@ class SidebarHeader extends mixin(StoreMixin) {
         }
       },
       {
+        html: (
+          <MountService.Mount type={"SidebarHeader:SwitchingModalTrigger"} />
+        ),
+        id: "cluster-linking",
+        onClick: () => {
+          SidebarActions.close();
+          SidebarActions.openClusterLinkingModal();
+        }
+      },
+      {
         className: "dropdown-menu-section-header",
         html: <label>Support</label>,
         id: "header-support",
