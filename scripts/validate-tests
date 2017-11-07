@@ -7,7 +7,7 @@ source ${SCRIPT_PATH}/utils/git
 
 header "Validating tests..."
 
-! egrep --quiet -R "fdescribe\\(|fit\(" ./src && \
-! egrep --quiet -R "context\.only\(|it\.only\(" ./tests
+! egrep -R "fdescribe\\(|fit\(" ./src || exit 1 && \
+! egrep -R "context\.only\(|it\.only\(" ./tests || exit 1
 
 exit 0
