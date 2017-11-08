@@ -7,7 +7,7 @@ const JestUtil = require("#SRC/js/utils/JestUtil");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 describe("ConfigurationMapTable", function() {
-  it("should render a simple 1-row, 2-column dataset", function() {
+  it("render a simple 1-row, 2-column dataset", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -37,7 +37,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", "2"]);
   });
 
-  it("should accept custom `render` functions", function() {
+  it("accept custom `render` functions", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -73,7 +73,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["X", "Y"]);
   });
 
-  it("should remove columns with `hideIfEmpty=true` column property", function() {
+  it("remove columns with `hideIfEmpty=true` column property", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -104,7 +104,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1"]);
   });
 
-  it("should keep columns with `hideIfEmpty=false` column property", function() {
+  it("keep columns with `hideIfEmpty=false` column property", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -135,7 +135,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", "Not Configured"]);
   });
 
-  it("should respect `placeholder` column property", function() {
+  it("respect `placeholder` column property", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -166,7 +166,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", "(none)"]);
   });
 
-  it("should properly handle defaults", function() {
+  it("properly handle defaults", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         columns={[
@@ -199,7 +199,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["A", "B", "1", "2"]);
   });
 
-  it("should add edit link column if onEditClick is provided", function() {
+  it("add edit link column if onEditClick is provided", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapTable
         onEditClick={function() {}}

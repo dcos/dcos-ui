@@ -73,7 +73,7 @@ describe("PodInstancesContainer", function() {
         TestUtils.Simulate.change(searchInput);
       });
 
-      it("should properly return matching instances", function() {
+      it("properly return matching instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -108,7 +108,7 @@ describe("PodInstancesContainer", function() {
         TestUtils.Simulate.change(searchInput);
       });
 
-      it("should properly return matching instances and containers", function() {
+      it("properly return matching instances and containers", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -133,7 +133,7 @@ describe("PodInstancesContainer", function() {
         ]);
       });
 
-      it("should always show instance total resources", function() {
+      it("always show instance total resources", function() {
         var mem = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-mem"
@@ -165,7 +165,7 @@ describe("PodInstancesContainer", function() {
         TestUtils.Simulate.click(buttons[0]);
       });
 
-      it("should properly show all instances", function() {
+      it("properly show all instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -201,7 +201,7 @@ describe("PodInstancesContainer", function() {
         TestUtils.Simulate.click(buttons[2]);
       });
 
-      it("should properly show no instances", function() {
+      it("properly show no instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
