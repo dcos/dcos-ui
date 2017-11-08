@@ -3,11 +3,27 @@
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # Import utils
-source ${SCRIPT_PATH}/utils/git
+source ${SCRIPT_PATH}/utils/message
+source ${SCRIPT_PATH}/utils/test
 
-header "Validating tests..."
+title "Validating tests..."
 
-! egrep -R "fdescribe\\(|fit\(" ./src || exit 1 && \
-! egrep -R "context\.only\(|it\.only\(" ./tests || exit 1
+debug_directives=$(
+ find_debug_directives ./src ./plugins ./packages ./tests ./system-tests
+)
+
+
+if [ -n "${debug_directives}" ]
+then
+  warning "Debug directives found"
+
+  echo -e "Please remove all found debug directives" \
+   "to ensure that all test run properly. \n"
+   "${debug_directives}"
+
+  exit 1
+fi
+
+info "Tests look good."
 
 exit 0
