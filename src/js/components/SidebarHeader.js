@@ -151,32 +151,13 @@ class SidebarHeader extends mixin(StoreMixin) {
     ];
 
     return (
-      <header className="header">
-        <a className="header-dropdown">
-          <div className="header-content">
-            <div className="header-image-wrapper">
-              <div className="header-image" />
-            </div>
-            <div className="header-details">
-              <span className="header-title">
-                <span>
-                  {this.getClusterName()}
-                </span>
-              </span>
-              <span className="header-subtitle">
-                Firstname Lastname
-              </span>
-            </div>
-          </div>
-        </a>
-        <MountService.Mount
-          type="Sidebar:UserAccountDropdown"
-          clusterName={this.getClusterName()}
-          limit={1}
-          menuItems={menuItems}
-          onUpdate={this.props.onUpdate}
-        />
-      </header>
+      <MountService.Mount
+        type="Sidebar:UserAccountDropdown"
+        clusterName={this.getClusterName()}
+        limit={1}
+        menuItems={menuItems}
+        onUpdate={this.props.onUpdate}
+      />
     );
   }
 }

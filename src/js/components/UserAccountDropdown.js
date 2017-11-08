@@ -26,14 +26,13 @@ class UserAccountDropdown extends React.Component {
   render() {
     return (
       <Dropdown
-        buttonClassName="user-account-dropdown-button text-no-transform"
+        triggerTag="div"
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}
         onItemSelection={this.handleItemSelection}
         persistentID="dropdown-trigger"
         transition={true}
-        wrapperClassName="user-account-dropdown dropdown header flex-item-shrink-0"
       />
     );
   }
