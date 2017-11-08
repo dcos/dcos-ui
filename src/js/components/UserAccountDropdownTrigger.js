@@ -2,8 +2,6 @@ import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import Icon from "./Icon";
-
 class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -40,15 +38,25 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="cluster-header">
-        <div className="cluster-header-primary-wrapper">
-          <h5 className="cluster-header-primary inverse text-overflow flush">
-            {primaryContent}
-          </h5>
-          <Icon family="tiny" id="triangle-down" key="caret" size="tiny" />
-        </div>
-        {secondaryContent}
-      </div>
+      <header className="header">
+        <a className="header-dropdown">
+          <div className="header-content">
+            <div className="header-image-wrapper">
+              <div className="header-image" />
+            </div>
+            <div className="header-details">
+              <span className="header-title">
+                <span>
+                  {primaryContent}
+                </span>
+              </span>
+              <span className="header-subtitle">
+                {secondaryContent}
+              </span>
+            </div>
+          </div>
+        </a>
+      </header>
     );
   }
 }
