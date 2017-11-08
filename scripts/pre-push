@@ -5,12 +5,30 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 # Import utils
 source ${SCRIPT_PATH}/utils/git
 source ${SCRIPT_PATH}/utils/message
+source ${SCRIPT_PATH}/utils/test
 
-${SCRIPT_PATH}/validate-tests
-
-title "Lint commit messages..."
+title "Run pre-push hook..."
 
 fork_point=$(get_fork_point)
+
+header "Validate staged JavaScript tests..."
+debug_directives=$(
+  find_debug_directives $(git diff --name-only ${fork_point} HEAD  -- "*.js")
+)
+
+if [ -n "${debug_directives}" ]
+then
+  warning "Debug directives found"
+
+  echo -e "Please remove all found debug directives" \
+   "before committing your changes. \n" \
+   "${debug_directives}"
+
+  exit 1
+fi
+info "Staged JavaScript tests looks good"
+
+header "Lint commit messages..."
 linting_errors="$(
   npm run conventional-changelog-lint --silent -- -f ${fork_point} -t HEAD;
   echo x$?
