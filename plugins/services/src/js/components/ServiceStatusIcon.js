@@ -120,25 +120,29 @@ class ServiceStatusIcon extends Component {
     const serviceStatus = service.getServiceStatus();
     let iconState;
 
-    switch (serviceStatus) {
-      case ServiceStatus.RUNNING:
-        iconState = StatusIcon.SUCCESS;
-        break;
-      case ServiceStatus.DEPLOYING:
-        iconState = StatusIcon.LOADING;
-        break;
-      case ServiceStatus.RECOVERING:
-        iconState = StatusIcon.LOADING;
-        break;
-      case ServiceStatus.DELETING:
-        iconState = StatusIcon.LOADING;
-        break;
-      case ServiceStatus.WARNING:
-        iconState = StatusIcon.WARNING;
-        break;
-      case ServiceStatus.STOPPED:
-        iconState = StatusIcon.STOPPED;
-        break;
+    if (serviceStatus === ServiceStatus.RUNNING) {
+      iconState = StatusIcon.SUCCESS;
+    }
+
+    if (
+      serviceStatus === ServiceStatus.DEPLOYING ||
+      serviceStatus === ServiceStatus.RECOVERING ||
+      serviceStatus === ServiceStatus.DELETING
+    ) {
+      iconState = StatusIcon.LOADING;
+    }
+
+    if (serviceStatus === ServiceStatus.WARNING) {
+      iconState = StatusIcon.WARNING;
+    }
+
+    if (serviceStatus === ServiceStatus.STOPPED) {
+      iconState = StatusIcon.STOPPED;
+    }
+
+    // Catch other cases instead throwing a warning/error
+    if (iconState == null) {
+      return null;
     }
 
     if (service instanceof ServiceTree) {

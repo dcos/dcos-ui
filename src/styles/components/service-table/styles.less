@@ -1,5 +1,12 @@
 & when (@service-table-enabled) {
 
+  .table {
+
+    .service-table-column-actions {
+      text-align: right;
+    }
+  }
+
   .service-table {
     table-layout: fixed;
 
@@ -48,8 +55,11 @@
     }
 
     .service-status-icon-wrapper {
-      margin-right: 30px;
       width: 110px;
+    }
+
+    .service-status-progressbar-wrapper {
+      margin-left: 30px;
     }
 
     .status-bar-text {
@@ -75,18 +85,29 @@
 
       &-column {
 
-        &-instances {
-          width: 83px;
+        &-name {
+          width: 73px;
         }
 
-        &-cpus,
+        &-instances {
+          width: 93px;
+        }
+
+        &-cpus {
+          width: 43px;
+        }
+
         &-mem,
         &-disk {
           width: 53px;
         }
 
         &-status {
-          width: 115px;
+          width: 100px;
+        }
+
+        &-actions {
+          width: 30px;
         }
       }
     }
@@ -98,16 +119,19 @@
 }
 
 & when (@service-table-enabled) and (@layout-screen-medium-enabled) {
+  // Media introduced so we can use the space the most and only hide at a very specific width
+  @media (max-width: @layout-screen-medium-max-width) {
+
+    .service-status-progressbar-wrapper {
+      display: none;
+    }
+  }
 
   @media (min-width: @layout-screen-medium-min-width) {
 
     .service-table {
 
       &-column {
-
-        &-name {
-          width: 100px;
-        }
 
         &-cpus,
         &-mem,
@@ -120,7 +144,11 @@
         }
 
         &-status {
-          width: 115px;
+          width: 70px;
+        }
+
+        &-actions {
+          width: 20px;
         }
       }
 
@@ -148,22 +176,30 @@
       &-column {
 
         &-name {
-          width: 115px;
+          max-width: 55px;
         }
 
         &-instances {
-          width: 85px;
+          width: 45px;
         }
 
         &-cpus,
         &-mem,
         &-disk {
-          width: 60px;
+          width: 30px;
         }
 
         &-status {
-          width: 100px;
+          width: 78px;
         }
+
+        &-actions {
+          width: 30px;
+        }
+      }
+
+      .service-status-progressbar-wrapper {
+        margin-left: 5px;
       }
     }
 
@@ -181,9 +217,21 @@
 
       &-column {
 
-        &-status {
-          width: 200px;
+        &-name {
+          width: 180px;
         }
+
+        &-status {
+          width: 115px;
+        }
+
+        &-instances {
+          width: 60px;
+        }
+      }
+
+      .service-status-progressbar-wrapper {
+        display: inline-block;
       }
     }
 

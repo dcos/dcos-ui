@@ -5,6 +5,7 @@ import { Link, routerShape } from "react-router";
 import React, { PropTypes } from "react";
 import { Hooks } from "PluginSDK";
 
+import StringUtil from "#SRC/js/utils/StringUtil";
 import Icon from "#SRC/js/components/Icon";
 import Links from "#SRC/js/constants/Links";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
