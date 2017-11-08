@@ -24,7 +24,7 @@ describe("Mount", function() {
     MountService.unregisterComponent(SecondTestComponent, "mount-test");
   });
 
-  it("should render the children by default", function() {
+  it("renders the children by default", function() {
     const result = TestUtils.renderIntoDocument(
       <Mount type="children-test">
         <span>foo</span>
@@ -36,14 +36,14 @@ describe("Mount", function() {
     ).toBeDefined();
   });
 
-  it("should render null if no component is registered and no children defined", function() {
+  it("renders null if no component is registered and no children defined", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(<Mount type="children-test" />);
 
     expect(renderer.getRenderOutput()).toBe(null);
   });
 
-  it("should not wrap a single child", function() {
+  it("does not wrap a single child", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo">
@@ -56,7 +56,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should always wrap elements if configured", function() {
+  it("always wrap elements if configured", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo" alwaysWrap={true}>
@@ -69,7 +69,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should wrap elements with provided wrapper", function() {
+  it("wrap elements with provided wrapper", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo" wrapper="p" alwaysWrap={true}>
@@ -82,7 +82,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should render registered components", function() {
+  it("renders registered components", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span>foo</span>
@@ -97,7 +97,7 @@ describe("Mount", function() {
     expect(result.length).toBe(1);
   });
 
-  it("should replace children with registered components", function() {
+  it("replace children with registered components", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -109,7 +109,7 @@ describe("Mount", function() {
     expect(result.length).toBe(0);
   });
 
-  it("should update if new component was registered", function() {
+  it("update if new component was registered", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -126,7 +126,7 @@ describe("Mount", function() {
     expect(result.length).toBe(2);
   });
 
-  it("should update if new component was unregistered", function() {
+  it("update if new component was unregistered", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -140,7 +140,7 @@ describe("Mount", function() {
     expect(result.length).toBe(1);
   });
 
-  it("should pass down properties", function() {
+  it("pass down properties", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="mount-test" message="hello world">

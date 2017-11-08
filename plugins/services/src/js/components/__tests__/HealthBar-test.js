@@ -31,7 +31,7 @@ describe("#HealthBar", function() {
   });
 
   describe("PropTypes", function() {
-    it("should throw an error if no tasks prop is provided", function() {
+    it("throw an error if no tasks prop is provided", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(<HealthBar />, this.container);
       expect(console.error).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe("#HealthBar", function() {
   });
 
   describe("ProgressBar", function() {
-    it("should contain ProgressBar Component", function() {
+    it("contain ProgressBar Component", function() {
       expect(
         ReactTestUtils.findRenderedComponentWithType(this.instance, ProgressBar)
       ).toBeTruthy();
@@ -47,7 +47,7 @@ describe("#HealthBar", function() {
   });
 
   describe("Tooltip", function() {
-    it("should contain Tooltip Component", function() {
+    it("contain Tooltip Component", function() {
       expect(
         ReactTestUtils.findRenderedComponentWithType(this.instance, Tooltip)
       ).toBeTruthy();
@@ -55,7 +55,7 @@ describe("#HealthBar", function() {
   });
 
   describe("Empty tooltip", function() {
-    it("should have an empty tooltip", function() {
+    it("have an empty tooltip", function() {
       this.instance = ReactDOM.render(
         <HealthBar tasksSummary={{}} />,
         this.container
@@ -69,7 +69,7 @@ describe("#HealthBar", function() {
   });
 
   describe("GetMappedTasksSummary", function() {
-    it("should return a Mapped Array with all tasks", function() {
+    it("return a Mapped Array with all tasks", function() {
       const expectedOutput = [
         { className: "healthy", value: 1 },
         { className: "unhealthy", value: 1 },
@@ -81,7 +81,7 @@ describe("#HealthBar", function() {
       );
     });
 
-    it("should return a Mapped Array all values but some are 0", function() {
+    it("return a Mapped Array all values but some are 0", function() {
       const input = {
         tasksRunning: 4,
         tasksHealthy: 3,
@@ -101,7 +101,7 @@ describe("#HealthBar", function() {
       );
     });
 
-    it("should return a mapped array containing 0 values", function() {
+    it("return a mapped array containing 0 values", function() {
       const input = {
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -123,11 +123,11 @@ describe("#HealthBar", function() {
   });
 
   describe("GetTaskList", function() {
-    it("should return an array with 4 items", function() {
+    it("return an array with 4 items", function() {
       expect(this.instance.getTaskList(testData).length).toEqual(4);
     });
 
-    it("should return an array containing 2 items", function() {
+    it("return an array containing 2 items", function() {
       const input = {
         tasksRunning: 4,
         tasksHealthy: 3,
@@ -139,7 +139,7 @@ describe("#HealthBar", function() {
       expect(this.instance.getTaskList(input).length).toEqual(2);
     });
 
-    it("should return an empty array", function() {
+    it("return an empty array", function() {
       const input = {
         tasksRunning: 0,
         tasksHealthy: 0,

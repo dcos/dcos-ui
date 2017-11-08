@@ -49,13 +49,13 @@ describe("MesosLogContainer", function() {
   });
 
   describe("#componentDidMount", function() {
-    it("should call startTailing when component mounts", function() {
+    it("call startTailing when component mounts", function() {
       expect(MesosLogStore.startTailing).toHaveBeenCalled();
     });
   });
 
   describe("#componentWillReceiveProps", function() {
-    it("should call startTailing when new path is provided", function() {
+    it("call startTailing when new path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -63,7 +63,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.startTailing.calls.count()).toEqual(2);
     });
 
-    it("should call stopTailing when new path is provided", function() {
+    it("call stopTailing when new path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -89,7 +89,7 @@ describe("MesosLogContainer", function() {
   });
 
   describe("#componentWillUnmount", function() {
-    it("should call stopTailing when component unmounts", function() {
+    it("call stopTailing when component unmounts", function() {
       this.instance.componentWillUnmount();
       expect(MesosLogStore.stopTailing).toHaveBeenCalled();
     });
@@ -100,7 +100,7 @@ describe("MesosLogContainer", function() {
       this.instance.setState = jasmine.createSpy("setState");
     });
 
-    it("should setState when path matches", function() {
+    it("setState when path matches", function() {
       this.instance.onMesosLogStoreError("/some/file/path");
       expect(this.instance.setState).toHaveBeenCalled();
     });
@@ -116,7 +116,7 @@ describe("MesosLogContainer", function() {
       this.instance.setState = jasmine.createSpy("setState");
     });
 
-    it("should setState when path matches", function() {
+    it("setState when path matches", function() {
       this.instance.onMesosLogStoreSuccess("/some/file/path", APPEND);
       expect(this.instance.setState).toHaveBeenCalled();
     });
@@ -128,7 +128,7 @@ describe("MesosLogContainer", function() {
   });
 
   describe("#render", function() {
-    it("should call getErrorScreen when error occurred", function() {
+    it("call getErrorScreen when error occurred", function() {
       this.instance.state.hasLoadingError = 3;
       this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
