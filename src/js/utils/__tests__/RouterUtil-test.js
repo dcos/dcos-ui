@@ -225,4 +225,28 @@ describe("RouterUtil", function() {
       expect(path).toEqual("");
     });
   });
+
+  describe("#hasSameHost", function() {
+    it("returns false for different hosts", function() {
+      const hasSameHost = RouterUtil.hasSameHost(
+        "http://cluster-a.com",
+        "http://cluster-b.com"
+      );
+      expect(hasSameHost).toEqual(false);
+    });
+    it("returns true for same hosts", function() {
+      const hasSameHost = RouterUtil.hasSameHost(
+        "https://cluster-a.com/test/test2/test3",
+        "https://cluster-a.com"
+      );
+      expect(hasSameHost).toEqual(true);
+    });
+    it("returns false if wrong value types entered", function() {
+      const hasSameHost = RouterUtil.hasSameHost(
+        [1, 2, 3],
+        "https://cluster-a.com"
+      );
+      expect(hasSameHost).toEqual(false);
+    });
+  });
 });
