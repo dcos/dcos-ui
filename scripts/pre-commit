@@ -5,12 +5,33 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 # Import utils
 source ${SCRIPT_PATH}/utils/git
 source ${SCRIPT_PATH}/utils/message
+source ${SCRIPT_PATH}/utils/test
 
 title "Run pre-commit hook..."
 
 # Get a list of staged JavaScript and Less files
 staged_javascript_files=$(get_staged_files_with_name '*.js');
 staged_less_files=$(get_staged_files_with_name '*.less');
+
+# Validate staged tests
+if [ -n "${staged_javascript_files}" ]
+then
+  header "Validate staged JavaScript tests..."
+  debug_directives=$(find_debug_directives ${staged_javascript_files})
+
+  if [ -n "${debug_directives}" ]
+  then
+    warning "Debug directives found"
+
+    echo -e "Please remove all found debug directives" \
+     "before committing your changes. \n" \
+     "${debug_directives}"
+
+    exit 1
+  fi
+
+  info "Staged JavaScript tests looks good"
+fi
 
 # Lint staged JavaScript and Less files
 if [ -n "${staged_javascript_files}" ]
@@ -19,6 +40,7 @@ then
   npm run eslint --silent -- ${staged_javascript_files} || exit $?
   info "Staged JavaScript looks good"
 fi
+
 if [ -n "${staged_less_files}" ]
 then
   header "Lint staged Less files..."
