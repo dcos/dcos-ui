@@ -3,6 +3,8 @@ import deepEqual from "deep-equal";
 import { Tooltip } from "reactjs-components";
 import DefaultSchemaField
   from "react-jsonschema-form/lib/components/fields/SchemaField";
+import AceEditor from "react-ace";
+import "brace/mode/yaml";
 
 import Icon from "#SRC/js/components/Icon";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -231,6 +233,42 @@ class SchemaField extends Component {
     );
   }
 
+  renderYamlEditor(errorMessage, props) {
+    const { required, name, schema, formData, onChange } = props;
+
+    let decodedValue;
+    try {
+      decodedValue = atob(formData);
+    } catch (error) {
+      if (error instanceof DOMException) {
+        decodedValue = "Invalid base64 encoding detected.";
+      }
+    }
+
+    return (
+      <div>
+        <FieldLabel>
+          {this.getFieldHeading(required, name, schema.description)}
+        </FieldLabel>
+        <div>
+          <AceEditor
+            mode="yaml"
+            value={decodedValue}
+            height="300"
+            width=""
+            className="framework-form-yaml-editor"
+            highlightActiveLine={false}
+            fontSize={14}
+            showPrintMargin={false}
+            tabSize={2}
+            onChange={value => onChange(btoa(value))}
+          />
+        </div>
+        <FieldError>{errorMessage}</FieldError>
+      </div>
+    );
+  }
+
   getFieldHeading(required, name = "", description) {
     let requiredSymbol = null;
     if (required) {
@@ -269,6 +307,10 @@ class SchemaField extends Component {
       case "boolean":
         return this.renderCheckbox(errorMessage, this.props);
       case "string":
+        if (schema.media && schema.media.type === "application/x-yaml") {
+          return this.renderYamlEditor(errorMessage, this.props);
+        }
+
         if (schema.enum && schema.enum.length <= RADIO_SELECT_THRESHOLD) {
           return this.renderRadioButtons(errorMessage, this.props);
         }
