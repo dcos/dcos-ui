@@ -226,7 +226,46 @@ describe("RouterUtil", function() {
     });
   });
 
+  describe("#getFullPath", function() {
+    beforeEach(function() {
+      const localhost = "http://localhost:4200";
+
+      // Overwrite jsdom global/window location mock
+      Object.defineProperty(global.location, "origin", {
+        writable: true,
+        value: localhost
+      });
+    });
+
+    it("attaches the local path for relative path", function() {
+      const fullPath = RouterUtil.getFullPath("/some/stuff");
+      expect(fullPath).toEqual("http://localhost:4200/some/stuff");
+    });
+
+    it("attaches the local path for relative path without leading slash", function() {
+      const fullPath = RouterUtil.getFullPath("some/stuff");
+      expect(fullPath).toEqual("http://localhost:4200/some/stuff");
+    });
+
+    it("leaves a full path in tact", function() {
+      const fullPath = RouterUtil.getFullPath(
+        "https://cluster-1.com/some/stuff"
+      );
+      expect(fullPath).toEqual("https://cluster-1.com/some/stuff");
+    });
+  });
+
   describe("#hasSameHost", function() {
+    beforeEach(function() {
+      const localhost = "http://localhost:4200";
+
+      // Overwrite jsdom global/window location mock
+      Object.defineProperty(global.location, "origin", {
+        writable: true,
+        value: localhost
+      });
+    });
+
     it("returns false for different hosts", function() {
       const hasSameHost = RouterUtil.hasSameHost(
         "http://cluster-a.com",
@@ -234,6 +273,7 @@ describe("RouterUtil", function() {
       );
       expect(hasSameHost).toEqual(false);
     });
+
     it("returns true for same hosts", function() {
       const hasSameHost = RouterUtil.hasSameHost(
         "https://cluster-a.com/test/test2/test3",
@@ -241,10 +281,37 @@ describe("RouterUtil", function() {
       );
       expect(hasSameHost).toEqual(true);
     });
+
     it("returns false if wrong value types entered", function() {
+      const hasSameHost = RouterUtil.hasSameHost([1, 2, 3], { host: "/" });
+      expect(hasSameHost).toEqual(false);
+    });
+
+    it("returns true for same relative paths", function() {
+      const hasSameHost = RouterUtil.hasSameHost("/some/path", "/some/path");
+      expect(hasSameHost).toEqual(true);
+    });
+
+    it("returns true for different relative paths", function() {
       const hasSameHost = RouterUtil.hasSameHost(
-        [1, 2, 3],
-        "https://cluster-a.com"
+        "/some/path",
+        "some/other/path"
+      );
+      expect(hasSameHost).toEqual(true);
+    });
+
+    it("returns true for same relative and local host path", function() {
+      const hasSameHost = RouterUtil.hasSameHost(
+        "http://localhost:4200/some/path",
+        "/some/path"
+      );
+      expect(hasSameHost).toEqual(true);
+    });
+
+    it("returns false for different relative and different host path", function() {
+      const hasSameHost = RouterUtil.hasSameHost(
+        "http://cluster-a.com/some/path",
+        "/some/other/path"
       );
       expect(hasSameHost).toEqual(false);
     });

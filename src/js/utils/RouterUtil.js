@@ -189,15 +189,34 @@ const RouterUtil = {
   },
 
   /**
-   * Compair two urls if they have the same host name
+   * Get URL full path. If it is a full path url return, if not attach
+   * the current local origin.
+   *
+   * @param {String} url The url
+   * @returns {String} - The url with the full path
+   */
+  getFullPath(url) {
+    if (!/http:\/\/|https:\/\//.test(url)) {
+      url = `${global.location.origin}${url.replace(/^(\/|)/g, "/")}`;
+    }
+
+    return url;
+  },
+
+  /**
+   * Compares two urls if they have the same host name
    *
    * @param {String} urlA The first url
    * @param {String} urlB The second url
    * @returns {Boolean} - True if they have the same host, false if they don't
    */
   hasSameHost(urlA, urlB) {
-    const parsedUrlA = Util.parseUrl(urlA);
-    const parsedUrlB = Util.parseUrl(urlB);
+    if (typeof urlA !== "string" || typeof urlB !== "string") {
+      return false;
+    }
+
+    const parsedUrlA = Util.parseUrl(this.getFullPath(urlA));
+    const parsedUrlB = Util.parseUrl(this.getFullPath(urlB));
 
     if (!parsedUrlA || !parsedUrlB) {
       return false;
