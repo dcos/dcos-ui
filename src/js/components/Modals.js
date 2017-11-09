@@ -6,14 +6,11 @@ import CliInstallModal from "./modals/CliInstallModal";
 import Config from "../config/Config";
 import ErrorModal from "./modals/ErrorModal";
 import EventTypes from "../constants/EventTypes";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import SidebarStore from "../stores/SidebarStore";
 import VersionsModal from "./modals/VersionsModal";
 
 var Modals = React.createClass({
   displayName: "Modals",
-
-  mixins: [InternalStorageMixin],
 
   propTypes: {
     showErrorModal: React.PropTypes.bool,
