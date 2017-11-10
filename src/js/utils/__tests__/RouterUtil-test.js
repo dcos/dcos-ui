@@ -226,35 +226,6 @@ describe("RouterUtil", function() {
     });
   });
 
-  describe("#getFullPath", function() {
-    beforeEach(function() {
-      const localhost = "http://localhost:4200";
-
-      // Overwrite jsdom global/window location mock
-      Object.defineProperty(global.location, "origin", {
-        writable: true,
-        value: localhost
-      });
-    });
-
-    it("attaches the local path for relative path", function() {
-      const fullPath = RouterUtil.getFullPath("/some/stuff");
-      expect(fullPath).toEqual("http://localhost:4200/some/stuff");
-    });
-
-    it("attaches the local path for relative path without leading slash", function() {
-      const fullPath = RouterUtil.getFullPath("some/stuff");
-      expect(fullPath).toEqual("http://localhost:4200/some/stuff");
-    });
-
-    it("leaves a full path in tact", function() {
-      const fullPath = RouterUtil.getFullPath(
-        "https://cluster-1.com/some/stuff"
-      );
-      expect(fullPath).toEqual("https://cluster-1.com/some/stuff");
-    });
-  });
-
   describe("#hasSameHost", function() {
     beforeEach(function() {
       const localhost = "http://localhost:4200";
@@ -296,14 +267,6 @@ describe("RouterUtil", function() {
       const hasSameHost = RouterUtil.hasSameHost(
         "/some/path",
         "some/other/path"
-      );
-      expect(hasSameHost).toEqual(true);
-    });
-
-    it("returns true for same relative and local host path", function() {
-      const hasSameHost = RouterUtil.hasSameHost(
-        "http://localhost:4200/some/path",
-        "/some/path"
       );
       expect(hasSameHost).toEqual(true);
     });
