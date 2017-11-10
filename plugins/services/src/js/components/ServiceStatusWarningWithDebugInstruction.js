@@ -1,7 +1,7 @@
 import DateUtil from "#SRC/js/utils/DateUtil";
-import ServiceStatusWarning from "./ServiceStatusWarning";
+import ServiceStatusIcon from "./ServiceStatusIcon";
 
-class ServiceStatusWarningWithDebugInstruction extends ServiceStatusWarning {
+class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
   getTooltipContent(timeWaiting) {
     const additionalCopy = " See more information in the debug tab.";
 

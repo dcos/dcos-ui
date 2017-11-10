@@ -10,7 +10,7 @@ import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import Util from "#SRC/js/utils/Util";
 
-import HealthBar from "./HealthBar";
+import ServiceStatusProgressBar from "./ServiceStatusProgressBar";
 import ServiceStatusWarningWithDebugInformation
   from "./ServiceStatusWarningWithDebugInstruction";
 import ServiceTree from "../structs/ServiceTree";
@@ -120,10 +120,8 @@ class ServiceBreadcrumbs extends React.Component {
     }
 
     const serviceStatus = service.getStatus();
-    const tasksSummary = service.getTasksSummary();
     const runningTasksCount = service.getTaskCount();
     const instancesCount = service.getInstancesCount();
-    const isDeploying = serviceStatus === "Deploying";
 
     if (instancesCount === 0) {
       return null;
@@ -141,15 +139,10 @@ class ServiceBreadcrumbs extends React.Component {
           <span className="muted">
             {serviceStatus} {taskCountDetails}
           </span>
-          <ServiceStatusWarningWithDebugInformation item={service} />
+          <ServiceStatusWarningWithDebugInformation service={service} />
         </BreadcrumbSupplementalContent>
         <BreadcrumbSupplementalContent hasProgressBar={true}>
-          <HealthBar
-            key="status-bar"
-            instancesCount={instancesCount}
-            isDeploying={isDeploying}
-            tasksSummary={tasksSummary}
-          />
+          <ServiceStatusProgressBar key="status-bar" service={service} />
         </BreadcrumbSupplementalContent>
       </BreadcrumbSupplementalContent>
     );

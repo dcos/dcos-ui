@@ -5,16 +5,16 @@ import { Link, routerShape } from "react-router";
 import React, { PropTypes } from "react";
 import { Hooks } from "PluginSDK";
 
+import StringUtil from "#SRC/js/utils/StringUtil";
 import Icon from "#SRC/js/components/Icon";
 import Links from "#SRC/js/constants/Links";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-
-import HealthBar from "../../components/HealthBar";
+import ServiceStatusProgressBar
+  from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionDisabledModal
@@ -31,11 +31,10 @@ import {
 } from "../../constants/ServiceActionItem";
 import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
-import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
-import ServiceStatusWarning from "../../components/ServiceStatusWarning";
 import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
 import ServiceTableUtil from "../../utils/ServiceTableUtil";
 import ServiceTree from "../../structs/ServiceTree";
+import ServiceStatusIcon from "../../components/ServiceStatusIcon";
 
 const StatusMapping = {
   Running: "running-state"
@@ -353,43 +352,18 @@ class ServicesTable extends React.Component {
   }
 
   renderStatus(prop, service) {
-    const instancesCount = service.getInstancesCount();
-    const serviceId = service.getId();
     const serviceStatusText = service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
-    const { key: serviceStatusKey } = service.getServiceStatus();
-    const tasksSummary = service.getTasksSummary();
-    const tasksRunning = service.getTaskCount();
-    const isDeploying =
-      serviceStatusKey === ServiceStatusTypes.WAITING ||
-      serviceStatusKey === ServiceStatusTypes.DEPLOYING;
-
-    const conciseOverview = tasksRunning === instancesCount
-      ? ` (${tasksRunning})`
-      : ` (${tasksRunning}/${instancesCount})`;
-
-    const verboseOverview = tasksRunning === instancesCount
-      ? ` (${tasksRunning} ${StringUtil.pluralize("Instance", tasksRunning)})`
-      : ` (${tasksRunning} of ${instancesCount} Instances)`;
 
     return (
-      <div className="status-bar-wrapper">
-        <span className="status-bar-indicator">
-          <HealthBar
-            isDeploying={isDeploying}
-            key={serviceId}
-            tasksSummary={tasksSummary}
-            instancesCount={instancesCount}
-          />
-        </span>
-        <span className="status-bar-text">
-          <span className={serviceStatusClassSet}>
-            {serviceStatusText}
-          </span>
-          <span className="hidden-large-down">{verboseOverview}</span>
-          <span className="hidden-jumbo-up">{conciseOverview}</span>
-          <ServiceStatusWarning item={service} />
-        </span>
+      <div className="flex">
+        <div className={`${serviceStatusClassSet} service-status-icon-wrapper`}>
+          <ServiceStatusIcon service={service} />
+          <span className="status-bar-text">{serviceStatusText}</span>
+        </div>
+        <div className="service-status-progressbar-wrapper">
+          <ServiceStatusProgressBar service={service} />
+        </div>
       </div>
     );
   }

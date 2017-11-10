@@ -9,7 +9,7 @@ const LABEL_TO_INSTANCE = {
   deploying: ServiceStatus.DEPLOYING,
   na: ServiceStatus.NA,
   running: ServiceStatus.RUNNING,
-  suspended: ServiceStatus.SUSPENDED,
+  stopped: ServiceStatus.STOPPED,
   waiting: ServiceStatus.WAITING
 };
 
