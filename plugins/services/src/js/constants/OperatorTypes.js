@@ -14,6 +14,11 @@ const OperatorTypes = {
     requiresEmptyValue: false,
     stringNumberValue: true
   },
+  IS: {
+    requiresValue: true,
+    requiresEmptyValue: false,
+    stringNumberValue: false
+  },
   LIKE: {
     requiresValue: true,
     requiresEmptyValue: false,
