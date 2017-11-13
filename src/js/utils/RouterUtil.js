@@ -186,6 +186,28 @@ const RouterUtil = {
       const blob = new Blob([data], { type: "application/json" });
       global.navigator.msSaveOrOpenBlob(blob, filename);
     }
+  },
+
+  /**
+   * Compares two urls if they have the same host name
+   *
+   * @param {String} urlA The first url
+   * @param {String} urlB The second url
+   * @returns {Boolean} - True if they have the same host, false if they don't
+   */
+  hasSameHost(urlA, urlB) {
+    if (typeof urlA !== "string" || typeof urlB !== "string") {
+      return false;
+    }
+
+    const parsedUrlA = Util.parseUrl(urlA);
+    const parsedUrlB = Util.parseUrl(urlB);
+
+    if (!parsedUrlA || !parsedUrlB) {
+      return false;
+    }
+
+    return parsedUrlA.host === parsedUrlB.host;
   }
 };
 
